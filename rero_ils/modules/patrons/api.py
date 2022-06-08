@@ -271,7 +271,7 @@ class Patron(IlsRecord):
     def get_patrons_roles(self, exclude_self=False):
         """Get the list of roles for all accounts of the related user."""
         patrons = self.get_patrons_by_user(self.user)
-        roles = set(self.get('roles')) if not exclude_self else set()
+        roles = set() if exclude_self else set(self.get('roles'))
         for patron in patrons:
             # already there
             if patron == self:
@@ -343,8 +343,7 @@ class Patron(IlsRecord):
     @classmethod
     def get_patron_by_email(cls, email):
         """Get patron by email."""
-        pid_value = cls.get_pid_by_email(email)
-        if pid_value:
+        if pid_value := cls.get_pid_by_email(email):
             return cls.get_record_by_pid(pid_value)
 
     @classmethod
@@ -453,8 +452,7 @@ class Patron(IlsRecord):
     @property
     def expiration_date(self):
         """Shortcut to find the patron expiration date."""
-        date_string = self.patron.get('expiration_date')
-        if date_string:
+        if date_string := self.patron.get('expiration_date'):
             return datetime.strptime(date_string, '%Y-%m-%d')
 
     @property
@@ -465,7 +463,7 @@ class Patron(IlsRecord):
 
     @property
     def formatted_name(self):
-        """Return the best possible human readable patron name."""
+        """Return the best possible human-readable patron name."""
         profile = self.user.profile
         name_parts = [
             profile.last_name.strip(),
@@ -602,8 +600,7 @@ class Patron(IlsRecord):
         if self.library_pid:
             library = Library.get_record_by_pid(self.library_pid)
             return library.organisation_pid
-        patron_type_pid = self.patron_type_pid
-        if patron_type_pid:
+        if patron_type_pid := self.patron_type_pid:
             from ..patron_types.api import PatronType
             patron_type = PatronType.get_record_by_pid(patron_type_pid)
             return patron_type.organisation_pid
@@ -768,6 +765,7 @@ class Patron(IlsRecord):
                 self.reindex()
                 PatronsSearch.flush_and_refresh()
 
+    @staticmethod
     def get_current_patron(record):
         """Return the patron account belongs to record's organisation.
 

@@ -20,6 +20,32 @@
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 
+class PatronPropertiesDumper(InvenioRecordsDumper):
+    """Patron dumper class adding `formatted_name`."""
+
+    def __init__(self, properties=None):
+        """Init method.
+
+        :param properties: all property names to add into the dump.
+        """
+        self._properties = properties or []
+
+    def dump(self, record, data, **kwargs):
+        """Dump a patron instance adding requested properties.
+
+        :param record: The record to dump.
+        :param data: The initial dump data passed in by ``record.dumps()``.
+        :return a dict with dumped data.
+        """
+        data = record.dumps()  # use the default dumps() to get basic data.
+        for property_name in self._properties:
+            try:
+                data[property_name] = getattr(record, property_name)
+            except AttributeError:
+                pass
+        return {k: v for k, v in data.items() if v}
+
+
 class PatronNotificationDumper(InvenioRecordsDumper):
     """Patron dumper class for notification."""
 

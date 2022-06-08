@@ -253,6 +253,7 @@ def test_loans_serializers(
     response = client.get(list_url, headers=rero_json_header)
     assert response.status_code == 200
     data = get_json(response)
+
     records = data.get('hits', {}).get('hits', [])
     for record in records:
         data = record.get('metadata', {})
