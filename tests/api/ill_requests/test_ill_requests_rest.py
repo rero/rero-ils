@@ -44,6 +44,19 @@ def test_ill_requests_permissions(client, ill_request_martigny, json_header):
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_ill_requests_facets(client, ill_request_martigny, rero_json_header):
+    """Test record retrieval."""
+    url = url_for('invenio_records_rest.illr_list', view='org1')
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    facets = ['library']
+    assert all(facet_name in data['aggregations'] for facet_name in facets)
+    aggr_library = data['aggregations']['library']
+    assert all('name' in term for term in aggr_library['buckets'])
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_ill_requests_get(client, ill_request_martigny):
     """Test record retrieval."""
     ill_request = ill_request_martigny

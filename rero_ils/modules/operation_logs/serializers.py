@@ -16,77 +16,42 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Operation Logs serialization."""
-
 from invenio_records_rest.serializers.response import search_responsify
 
-from rero_ils.modules.locations.api import Location
-from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.libraries.api import LibrariesSearch
+from rero_ils.modules.locations.api import LocationsSearch
+from rero_ils.modules.serializers import CachedDataSerializerMixin, \
+    JSONSerializer, RecordSchemaJSONV1
 
-from ..libraries.api import Library
 
+class OperationLogsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
+    """Serializer for RERO-ILS `OperationLog` records as JSON."""
 
-class OperationLogsJSONSerializer(JSONSerializer):
-    """Mixin serializing records as JSON."""
+    def _postprocess_search_hit(self, hit: dict) -> None:
+        """Post-process each hit of a search result."""
+        if 'loan' in (metadata := hit.get('metadata', {})):
+            # enrich `transaction_location` and `pickup_location` fields with
+            # related library information
+            trans_loc_field = metadata['loan'].get('transaction_location', {})
+            self._enrich_with_library_info(trans_loc_field)
+            pickup_loc_field = metadata['loan'].get('pickup_location', {})
+            self._enrich_with_library_info(pickup_loc_field)
+        super()._postprocess_search_hit(hit)
 
-    # Cache for locations and libraries
-    _cache = {}
+    def _enrich_with_library_info(self, field):
+        """Enrich a location field with related library information.
 
-    def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results."""
-        records = results.get('hits', {}).get('hits', [])
-        for record in records:
-            metadata = record.get('metadata', {})
-            if 'loan' in metadata:
-                transaction_location = metadata.get('loan', {})\
-                    .get('transaction_location', {})
-                transaction_location_pid = transaction_location.get('pid')
-                if transaction_location_pid:
-                    transaction_library = self._get_library_by_location(
-                        transaction_location_pid)
-                    if transaction_library:
-                        transaction_location['library'] = transaction_library
-                pickup_location = metadata.get('loan', {})\
-                    .get('pickup_location', {})
-                pickup_location_pid = pickup_location.get('pid')
-                if pickup_location_pid:
-                    pickup_library = self._get_library_by_location(
-                        pickup_location_pid)
-                    if pickup_library:
-                        pickup_location['library'] = pickup_library
-
-        return super(OperationLogsJSONSerializer, self)\
-            .post_process_serialize_search(results, pid_fetcher)
-
-    def _get_library_by_location(self, location_pid):
-        """Get library by location pid.
-
-        :param: str location_pid: Location Pid
-        :returns: Library informations
+        :param field: the dictionary field to enrich. This dictionary should
+                      contain the location pid.
         """
-        # --- Location
-        location_key = f"location-{location_pid}"
-        if location_key not in self._cache:
-            location = Location.get_record_by_pid(location_pid)
-            self._cache.setdefault(location_key, location)
-        else:
-            location = self._cache.get(location_key)
-        # --- Library
-        library_pid = location.library_pid
-        library_key = f"library-{library_pid}"
-        if library_key not in self._cache:
-            library = Library.get_record_by_pid(library_pid)
-            self._cache.setdefault(library_key, library)
-        else:
-            library = self._cache.get(library_key)
-        if library:
-            return {
-                'name': library['name'],
-                'pid': library['pid']
-            }
+        if location := self.get_resource(LocationsSearch(), field.get('pid')):
+            lib_pid = location.get('library', {}).get('pid')
+            if library := self.get_resource(LibrariesSearch(), lib_pid):
+                field['library'] = {
+                    'pid': library['pid'],
+                    'name': library['name']
+                }
 
 
-json_operation_logs = OperationLogsJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-json_operation_logs_search = search_responsify(
-    json_operation_logs, 'application/rero+json')
+_json = OperationLogsJSONSerializer(RecordSchemaJSONV1)
+json_oplogs_search = search_responsify(_json, 'application/rero+json')

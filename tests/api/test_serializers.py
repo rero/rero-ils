@@ -24,6 +24,7 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_csv, \
 
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_operation_logs_serializers(
@@ -67,7 +68,8 @@ def test_patrons_serializers(
     client,
     json_header,
     librarian_martigny,
-    librarian2_martigny
+    librarian2_martigny,
+    rero_json_header
 ):
     """Test serializers for patrons."""
     login_user(client, librarian_martigny)
@@ -83,16 +85,30 @@ def test_patrons_serializers(
         assert key in hit
         assert hit[key]
 
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    ptty_aggr = data.get('aggregations', {}).get('patron_type', {})
+    assert all('name' in term for term in ptty_aggr.get('buckets', []))
 
-def test_holdings_serializers(
+
+def test_document_and_holdings_serializers(
     client,
     rero_json_header,
+    document,
     librarian_martigny,
     lib_martigny,
     holding_lib_martigny
 ):
     """Test serializers for holdings."""
     login_user(client, librarian_martigny)
+
+    doc_url = url_for('invenio_records_rest.doc_list')
+    response = client.get(doc_url, headers=rero_json_header)
+    assert response.status_code == 200
+    doc_url = url_for('invenio_records_rest.doc_item', pid_value=document.pid)
+    response = client.get(doc_url, headers=rero_json_header)
+    assert response.status_code == 200
 
     holding_url = url_for('invenio_records_rest.hold_list')
     response = client.get(holding_url, headers=rero_json_header)
@@ -114,10 +130,17 @@ def test_items_serializers(
     patron_martigny,
     librarian_martigny,
     librarian_sion,
-    loan_pending_martigny
+    loan_pending_martigny,
+    coll_martigny_1,
+    loc_public_martigny
 ):
     """Test record retrieval."""
     login_user(client, librarian_martigny)
+
+    item = item_lib_martigny
+    loc_ref = get_ref_for_pid('locations', loc_public_martigny.pid)
+    item.setdefault('temporary_location', {})['$ref'] = loc_ref
+    item.update(item, dbcommit=True, reindex=True)
 
     item_url = url_for(
         'invenio_records_rest.item_item', pid_value=item_lib_fully.pid)
@@ -319,3 +342,12 @@ def test_acq_receipts_serializers(
     data = get_json(response)
     for hit in data['hits']['hits']:
         assert 'document' in hit['metadata']
+
+    acor = acq_order_fiction_martigny
+    url = url_for('invenio_records_rest.acor_list', q=f'pid:{acor.pid}')
+    response = client.get(url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    receipt_data_aggr = data.get('aggregations', {}).get('receipt_date', {})
+    assert len(receipt_data_aggr.get('buckets', []))
+    assert receipt_data_aggr.get('config', {})

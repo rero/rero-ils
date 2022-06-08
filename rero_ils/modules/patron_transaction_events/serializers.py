@@ -19,31 +19,23 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
-from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
-
-from ..libraries.api import Library
-
-
-class PatronTransactionEventsJSONSerializer(JSONSerializer):
-    """Mixin serializing records as JSON."""
-
-    def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results."""
-        records = results.get('hits', {}).get('hits', {})
-        for record in records:
-            metadata = record.get('metadata', {})
-            # Library
-            library_pid = metadata.get('library', {}).get('pid')
-            if library_pid:
-                library = Library.get_record_by_pid(library_pid)
-                metadata['library']['name'] = library.get('name')
-        return super(PatronTransactionEventsJSONSerializer, self)\
-            .post_process_serialize_search(results, pid_fetcher)
+from rero_ils.modules.libraries.api import LibrariesSearch
+from rero_ils.modules.serializers import CachedDataSerializerMixin, \
+    JSONSerializer, RecordSchemaJSONV1
 
 
-json_patron_transaction_events = \
-    PatronTransactionEventsJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
+class PatronTransactionEventsJSONSerializer(JSONSerializer,
+                                            CachedDataSerializerMixin):
+    """Serializer for RERO-ILS `PatronTransactionEvent` records as JSON."""
 
-json_patron_transaction_events_search = search_responsify(
-    json_patron_transaction_events, 'application/rero+json')
+    def _postprocess_search_hit(self, hit: dict) -> None:
+        """Post-process each hit of a search result."""
+        metadata = hit.get('metadata', {})
+        lib_pid = metadata.get('library', {}).get('pid')
+        if lib := self.get_resource(LibrariesSearch(), lib_pid):
+            metadata['library']['name'] = lib.get('name')
+        super()._postprocess_search_hit(hit)
+
+
+_json = PatronTransactionEventsJSONSerializer(RecordSchemaJSONV1)
+json_ptre_search = search_responsify(_json, 'application/rero+json')
