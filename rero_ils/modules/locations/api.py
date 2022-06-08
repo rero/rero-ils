@@ -175,8 +175,10 @@ class Location(IlsRecord):
     @property
     def restrict_pickup_to(self):
         """Get restriction pickup location pid of location."""
-        return [extracted_data_from_ref(restrict_pickup_to)
-                for restrict_pickup_to in self.get('restrict_pickup_to', [])]
+        return [
+            extracted_data_from_ref(restrict_pickup_to)
+            for restrict_pickup_to in self.get('restrict_pickup_to', [])
+        ]
 
     @classmethod
     def can_request(cls, record, **kwargs):

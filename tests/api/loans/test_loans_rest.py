@@ -39,26 +39,72 @@ from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import number_of_notifications_sent
 
 
+def test_loans_search(
+    client, loan_pending_martigny, rero_json_header, librarian_martigny,
+    yesterday
+):
+    """Test record retrieval."""
+    login_user_via_session(client, librarian_martigny.user)
+    loan = loan_pending_martigny
+    original_loan = deepcopy(loan)
+
+    # STEP#1 :: CHECK FACETS ARE PRESENT INTO SEARCH RESULT
+    url = url_for('invenio_records_rest.loanid_list',
+                  exclude_status=LoanState.ITEM_RETURNED)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    facet_keys = ['end_date', 'misc_status', 'owner_library', 'patron_type',
+                  'pickup_library', 'request_expire_date', 'status',
+                  'transaction_library']
+    assert all(key in data['aggregations'] for key in facet_keys)
+    assert data['hits']['total']['value'] == 1
+
+    # STEP#2 :: REQUEST EXPIRED
+    #   Update the loan to simulate that this request is now expired.
+    params = {'misc_status': 'expired_request'}
+    url = url_for('invenio_records_rest.loanid_list', **params)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 0
+
+    loan['request_expire_date'] = yesterday.isoformat()
+    loan.update(loan, dbcommit=True, reindex=True)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 1
+
+    # STEP#3 :: LOAN IS OVERDUE
+    #   Update the loan to be overdue and test the API search.
+    params = {'misc_status': 'overdue'}
+    url = url_for('invenio_records_rest.loanid_list', **params)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 0
+
+    loan['end_date'] = yesterday.isoformat()
+    loan.update(loan, dbcommit=True, reindex=True)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 1
+
+    # RESET THE LOAN (for next tests)
+    loan.update(original_loan, dbcommit=True, reindex=True)
+
+
 def test_loans_permissions(client, loan_pending_martigny, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
 
     res = client.get(item_url)
     assert res.status_code == 401
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.loanid_list',
-        {}
-    )
+    res, _ = postdata(client, 'invenio_records_rest.loanid_list', {})
     assert res.status_code == 401
 
-    res = client.put(
+    client.put(
         url_for('invenio_records_rest.loanid_item', pid_value='1'),
         data={},
         headers=json_header
     )
-
     res = client.delete(item_url)
     assert res.status_code == 401
 
@@ -73,23 +119,16 @@ def test_loans_logged_permissions(client, loan_pending_martigny,
 
     res = client.get(item_url)
     assert res.status_code == 200
-
     res = client.get(item_list)
     assert res.status_code == 200
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.loanid_list',
-        {}
-    )
+    res, _ = postdata(client, 'invenio_records_rest.loanid_list', {})
     assert res.status_code == 403
 
-    res = client.put(
+    client.put(
         url_for('invenio_records_rest.loanid_item', pid_value='1'),
         data={},
         headers=json_header
     )
-
     res = client.delete(item_url)
     assert res.status_code == 403
 
