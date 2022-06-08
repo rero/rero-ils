@@ -20,11 +20,12 @@
 from flask import current_app
 from invenio_circulation.proxies import current_circulation
 
-from .models import LoanAction
-from ..items.api import Item
-from ..loans.logs.api import LoanOperationLog
-from ..patron_transactions.utils import \
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.loans.logs.api import LoanOperationLog
+from rero_ils.modules.patron_transactions.utils import \
     create_patron_transaction_from_overdue_loan
+
+from .models import LoanAction, LoanState
 
 
 def enrich_loan_data(sender, json=None, record=None, index=None,
@@ -36,14 +37,28 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index.split('-')[0] == current_circulation.loan_search_cls.Meta.index:
-        item_pid = record.get('item_pid', {}).get('value')
-        item = Item.get_record_by_pid(item_pid)
-        if item:
-            json['library_pid'] = item.holding_library_pid
-        else:
-            current_app.logger.warning(
-                f'No item found: {item_pid} for loan: {record.get("pid")}')
+    if index.split('-')[0] != current_circulation.loan_search_cls.Meta.index:
+        return
+
+    # Update the patron type related to this loan only for "alive" loan to
+    # try preserving performance during circulation process.
+    alive_states = LoanState.REQUEST_STATES + [LoanState.ITEM_ON_LOAN]
+    if record.state in alive_states \
+       and (patron_type_pid := record.patron.patron_type_pid):
+        json['patron_type_pid'] = patron_type_pid
+
+    if record.transaction_location_pid:
+        json['transaction_library_pid'] = record.transaction_library_pid
+    if record.pickup_location_pid:
+        json['pickup_library_pid'] = record.pickup_library.pid
+
+    item_pid = record.get('item_pid', {}).get('value')
+    if item := Item.get_record_by_pid(item_pid):
+        json['library_pid'] = item.holding_library_pid
+        json['location_pid'] = item.holding_location_pid
+    else:
+        msg = f'No item found: {item_pid} for loan: {record.get("pid")}'
+        current_app.logger.warning(msg)
 
 
 def listener_loan_state_changed(

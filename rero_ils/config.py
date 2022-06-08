@@ -81,6 +81,7 @@ from .modules.libraries.permissions import LibraryPermission
 from .modules.loans.api import Loan
 from .modules.loans.models import LoanState
 from .modules.loans.permissions import LoanPermission
+from .modules.loans.query import misc_status_filter
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
@@ -123,7 +124,7 @@ from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory, librarian_update_permission_factory, \
     wiki_edit_ui_permission, wiki_edit_view_permission
 from .query import and_i18n_term_filter, and_term_filter, \
-    or_terms_filter_by_criteria
+    exclude_terms_filter, or_terms_filter_by_criteria
 from .utils import get_current_language
 
 
@@ -1926,23 +1927,99 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('document_type'): and_term_filter(
-                'document.document_type.main_type'),
-            _('document_subtype'): and_term_filter(
-                'document.document_type.subtype'),
+            _('document_type'): and_term_filter('document.document_type.main_type'),
+            _('document_subtype'): and_term_filter('document.document_type.subtype'),
             _('library'): and_term_filter('library.pid'),
             _('location'): and_term_filter('location.pid'),
             _('item_type'): and_term_filter('item_type.pid'),
-            _('temporary_item_type'):
-                and_term_filter('temporary_item_type.pid'),
-            _('temporary_location'):
-                and_term_filter('temporary_location.pid'),
+            _('temporary_item_type'): and_term_filter('temporary_item_type.pid'),
+            _('temporary_location'): and_term_filter('temporary_location.pid'),
             _('status'): and_term_filter('status'),
             _('issue_status'): and_term_filter('issue.status'),
             _('vendor'): and_term_filter('vendor.pid'),
             # to allow multiple filters support, in this case to filter by
             # "late or claimed"
             'or_issue_status': terms_filter('issue.status')
+        }
+    ),
+    loans=dict(
+        aggs=dict(
+            owner_library=dict(
+                terms=dict(field='library_pid', size=DOCUMENTS_AGGREGATION_SIZE),
+                aggs=dict(
+                    owner_location=dict(
+                        terms=dict(field='location_pid', size=DOCUMENTS_AGGREGATION_SIZE)
+                    )
+                )
+            ),
+            pickup_library=dict(
+                terms=dict(field='pickup_library_pid', size=DOCUMENTS_AGGREGATION_SIZE),
+                aggs=dict(
+                    pickup_location=dict(
+                        terms=dict(field='pickup_location_pid', size=DOCUMENTS_AGGREGATION_SIZE)
+                    )
+                )
+            ),
+            transaction_library=dict(
+                terms=dict(field='transaction_library_pid', size=DOCUMENTS_AGGREGATION_SIZE),
+                aggs=dict(
+                    transaction_location=dict(
+                        terms=dict(field='transaction_location_pid', size=DOCUMENTS_AGGREGATION_SIZE)
+                    )
+                )
+            ),
+            patron_type=dict(
+                terms=dict(field='patron_type_pid', size=DOCUMENTS_AGGREGATION_SIZE)
+            ),
+            status=dict(
+                terms=dict(field='state', size=DOCUMENTS_AGGREGATION_SIZE)
+            ),
+            misc_status=dict(
+                filters=dict(
+                    filters=dict(
+                        overdue=dict(range=dict(end_date=dict(lt='now/d'))),
+                        expired_request=dict(range=dict(request_expire_date=dict(lt='now/d')))
+                    )
+                )
+            ),
+            request_expire_date=dict(
+                date_histogram=dict(
+                    field='request_expire_date',
+                    calendar_interval='1d',
+                    format='yyyy-MM-dd'
+                )
+            ),
+            end_date=dict(
+                date_histogram=dict(
+                    field='end_date',
+                    calendar_interval='1d',
+                    format='yyyy-MM-dd'
+                )
+            )
+        ),
+        filters={
+            _('owner_library'): and_term_filter('library_pid'),
+            _('owner_location'): and_term_filter('location_pid'),
+            _('pickup_library'): and_term_filter('pickup_library_pid'),
+            _('pickup_location'): and_term_filter('pickup_location_pid'),
+            _('transaction_library'): and_term_filter('transaction_library_pid'),
+            _('transaction_library'): and_term_filter('transaction_location_pid'),
+            _('status'): and_term_filter('state'),
+            _('misc_status'): misc_status_filter(),
+            _('patron_type'): and_term_filter('patron_type_pid'),
+            _('request_expire_date'): range_filter(
+                'request_expire_date',
+                format='epoch_millis',
+                start_date_math='/d',
+                end_date_math='/d'
+            ),
+            _('end_date'): range_filter(
+                'end_date',
+                format='epoch_millis',
+                start_date_math='/d',
+                end_date_math='/d'
+            ),
+            _('exclude_status'): exclude_terms_filter('state')
         }
     ),
     patrons=dict(
@@ -2825,21 +2902,22 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_minter=CIRCULATION_LOAN_MINTER,
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=LoansSearch,
+        indexer_class='rero_ils.modules.loans.api:LoansIndexer',
         search_type=None,
         record_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_response'),
+            'application/json': 'invenio_records_rest.serializers:json_v1_response',
         },
         record_serializers_aliases={
             'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         search_serializers={
-            'application/json': ('invenio_records_rest.serializers'
-                                 ':json_v1_search'),
-            'application/rero+json': (
-                'rero_ils.modules.loans.serializers:'
-                'json_loan_search'
-            )
+            'application/json': 'invenio_records_rest.serializers:json_v1_search',
+            'application/rero+json': 'rero_ils.modules.loans.serializers:json_loan_search'
+        },
+        search_serializers_aliases={
+            'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         record_loaders={
             'application/json': lambda: Loan(request.get_json()),

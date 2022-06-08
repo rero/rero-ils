@@ -168,6 +168,21 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
                 if attr in data[term['key']]:
                     term[attr] = data[term['key']].get(attr)
 
+    @staticmethod
+    def add_date_range_configuration(aggregation, step=86400000):
+        """Add a configuration block for date buckets.
+
+        :param aggregation: the aggregation to process.
+        :param step: the number of millis for each step. By default : 1 day.
+        """
+        if values := [term['key'] for term in aggregation.get('buckets', [])]:
+            aggregation['type'] = 'date-range'
+            aggregation['config'] = {
+                'min': min(values),
+                'max': max(values),
+                'step': step  # 1 day in millis
+            }
+
 
 class CachedDataSerializerMixin:
     """Class to load and cached resources for serialization process."""

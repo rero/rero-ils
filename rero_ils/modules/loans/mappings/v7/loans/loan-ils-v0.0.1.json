@@ -36,7 +36,13 @@
       "patron_pid": {
         "type": "keyword"
       },
+      "patron_type_pid": {
+        "type": "keyword"
+      },
       "library_pid": {
+        "type": "keyword"
+      },
+      "location_pid": {
         "type": "keyword"
       },
       "document_pid": {
@@ -77,7 +83,13 @@
       "request_start_date": {
         "type": "date"
       },
+      "pickup_library_pid": {
+        "type": "keyword"
+      },
       "pickup_location_pid": {
+        "type": "keyword"
+      },
+      "transaction_library_pid": {
         "type": "keyword"
       },
       "transaction_location_pid": {
