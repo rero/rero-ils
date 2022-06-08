@@ -135,11 +135,11 @@ class IlsRecord(Record):
     @classmethod
     def get_indexer_class(cls):
         """Get the indexer from config."""
+        endpoints = current_app.config['RECORDS_REST_ENDPOINTS']
+        endpoints.update(current_app.config['CIRCULATION_REST_ENDPOINTS'])
         try:
             indexer = obj_or_import_string(
-                current_app.config['RECORDS_REST_ENDPOINTS'][
-                    cls.provider.pid_type
-                ]['indexer_class']
+                endpoints[cls.provider.pid_type]['indexer_class']
             )
         except Exception:
             # provide default indexer if no indexer is defined in config.
