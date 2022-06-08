@@ -28,11 +28,13 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
+from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemNoteTypes, ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_extension_params
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_items_permissions(client, item_lib_martigny,
@@ -869,11 +871,32 @@ def test_items_notes(client, librarian_martigny, item_lib_martigny,
 def test_requested_loans_to_validate(
         client, librarian_martigny, loc_public_martigny,
         item_type_standard_martigny, item2_lib_martigny, json_header,
-        patron_sion, circulation_policies):
+        item_type_missing_martigny, patron_sion, circulation_policies):
     """Test requested loans to validate."""
     login_user_via_session(client, librarian_martigny.user)
-    library_pid = librarian_martigny\
-        .replace_refs()['libraries'][0]['pid']
+
+    holding_pid = item2_lib_martigny.holding_pid
+    holding = Holding.get_record_by_pid(holding_pid)
+    original_item = deepcopy(item2_lib_martigny)
+    original_holding = deepcopy(holding)
+
+    # switch `call_number` between item and holding, and add a
+    # 'temporary_item_type' to item to increase the code coverage. Don't
+    # forget to reset data before leaving method.
+    holding_pid = item2_lib_martigny.holding_pid
+    holding = Holding.get_record_by_pid(holding_pid)
+    holding['call_number'] = item2_lib_martigny.pop('call_number', None)
+    item2_lib_martigny['item_type'] = {
+        '$ref': get_ref_for_pid('itty', item_type_missing_martigny.pid)
+    }
+    item2_lib_martigny['temporary_item_type'] = {
+        '$ref': get_ref_for_pid('itty', item_type_standard_martigny.pid)
+    }
+
+    holding.update(holding, dbcommit=True, reindex=True)
+    item2_lib_martigny.update(item2_lib_martigny, dbcommit=True, reindex=True)
+
+    library_pid = librarian_martigny.replace_refs()['libraries'][0]['pid']
 
     res, _ = postdata(
         client,
@@ -898,6 +921,11 @@ def test_requested_loans_to_validate(
         requested_loan['loan']['item_pid']['value']
     assert LoanState.PENDING == requested_loan['loan']['state']
     assert patron_sion.pid == requested_loan['loan']['patron_pid']
+
+    # RESET - the item
+    del item2_lib_martigny['temporary_item_type']
+    holding.update(original_holding, dbcommit=True, reindex=True)
+    item2_lib_martigny.update(original_item, dbcommit=True, reindex=True)
 
 
 def test_patron_request(client, patron_martigny, loc_public_martigny,
