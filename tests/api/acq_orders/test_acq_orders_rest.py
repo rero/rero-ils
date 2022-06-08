@@ -35,14 +35,11 @@ def test_acq_orders_library_facets(
     client, org_martigny, acq_order_fiction_martigny, rero_json_header
 ):
     """Test record retrieval."""
-    list_url = url_for('invenio_records_rest.acor_list', view='org1')
-
-    res = client.get(list_url, headers=rero_json_header)
+    url = url_for('invenio_records_rest.acor_list', view='org1')
+    res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    aggs = data['aggregations']
     facets = ['library', 'vendor', 'type', 'status', 'account', 'order_date']
-    for facet_name in facets:
-        assert facet_name in aggs
+    assert all(facet_name in data['aggregations'] for facet_name in facets)
 
 
 def test_acq_orders_permissions(client, acq_order_fiction_martigny,

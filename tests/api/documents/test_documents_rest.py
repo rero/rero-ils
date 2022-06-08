@@ -166,113 +166,61 @@ def test_documents_facets(
     item_lib_martigny, rero_json_header
 ):
     """Test record retrieval."""
-    list_url = url_for('invenio_records_rest.doc_list', view='global')
-
-    res = client.get(list_url, headers=rero_json_header)
+    # STEP#1 :: CHECK FACETS ARE PRESENT INTO SEARCH RESULT
+    url = url_for('invenio_records_rest.doc_list', view='global')
+    res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    aggs = data['aggregations']
+    facet_keys = ['document_type', 'author', 'language', 'subject', 'status']
+    assert all(key in data['aggregations'] for key in facet_keys)
 
-    # check all facets are present
-    for facet in [
-        'document_type', 'author', 'language', 'subject', 'status'
-    ]:
-        assert aggs[facet]
-
-    list_url = url_for(
-        'invenio_records_rest.doc_list', view='global', facets='')
-    res = client.get(list_url, headers=rero_json_header)
+    params = {'view': 'global', 'facets': ''}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    aggs = data['aggregations']
-    assert not aggs
+    assert not data['aggregations']
 
-    list_url = url_for(
-        'invenio_records_rest.doc_list', view='global', facets='document_type')
-    res = client.get(list_url, headers=rero_json_header)
+    params = {'view': 'global', 'facets': 'document_type'}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    aggs = data['aggregations']
-    assert list(aggs.keys()) == ['document_type']
+    assert list(data['aggregations'].keys()) == ['document_type']
 
-    list_url = url_for(
-        'invenio_records_rest.doc_list', view='global', facets='document_type')
-    res = client.get(list_url, headers=rero_json_header)
+    params = {'view': 'org1', 'facets': 'document_type'}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    aggs = data['aggregations']
-    assert list(aggs.keys()) == ['document_type']
-
-    list_url = url_for(
-        'invenio_records_rest.doc_list', view='org1', facets='document_type')
-    res = client.get(list_url, headers=rero_json_header)
-    data = get_json(res)
-    aggs = data['aggregations']
-    assert list(aggs.keys()) == ['document_type']
+    assert list(data['aggregations'].keys()) == ['document_type']
 
     # test the patch that the library facet is computed by the serializer
-    list_url = url_for(
-        'invenio_records_rest.doc_list', view='org1',
-        facets='document_type,library,author')
-    res = client.get(list_url, headers=rero_json_header)
+    params = {'view': 'org1', 'facets': 'document_type,library,author'}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url, headers=rero_json_header)
     data = get_json(res)
     aggs = data['aggregations']
-    assert set(aggs.keys()) == set(['document_type', 'library', 'author'])
+    assert set(aggs.keys()) == {'document_type', 'library', 'author'}
 
-    # FILTERS
-    # contribution
-    list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author='Peter James')
-    res = client.get(list_url, headers=rero_json_header)
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 2
-
-    # organisation contribution
-    list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author='Great Edition')
-    res = client.get(list_url, headers=rero_json_header)
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 1
-
-    # an other contribution
-    list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author='J.K. Rowling')
-    res = client.get(list_url, headers=rero_json_header)
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 1
-
-    # two contributions in the same document
-    list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author=['Great Edition', 'Peter James'])
-    res = client.get(list_url, headers=rero_json_header)
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 1
-
-    # two contributions each in a separate document
-    list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author=['J.K. Rowling', 'Peter James'])
-    res = client.get(list_url, headers=rero_json_header)
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 0
-
-    # Test i18n facet author
-    # 1. with the defalut language
-    list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author='Nebehay, Christian Michael')
-    res = client.get(list_url, headers=rero_json_header)
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 2
-
-    # 2. test deutsch language
-    list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author='Nebehay, Christian Michael, 1909-2003',
-                       lang='de')
-    res = client.get(list_url, headers=rero_json_header)
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 1
-
-    # 3. test unsupported language (tlh for klingon)
-    list_url = url_for('invenio_records_rest.doc_list', view='global',
-                       author='Nebehay, Christian Michael', lang='thl')
-    res = client.get(list_url, headers=rero_json_header)
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 2
+    # TEST FILTERS
+    #   Each filter checks is a tuple. First tuple element is argument used to
+    #   call the API, second tuple argument is the number of document that
+    #   should be return by the API call.
+    checks = [
+        ({'view': 'global', 'author': 'Peter James'}, 2),
+        ({'view': 'global', 'author': 'Great Edition'}, 1),
+        ({'view': 'global', 'author': 'J.K. Rowling'}, 1),
+        ({'view': 'global', 'author': ['Great Edition', 'Peter James']}, 1),
+        ({'view': 'global', 'author': ['J.K. Rowling', 'Peter James']}, 0),
+        # i18n facets
+        ({'view': 'global', 'author': 'Nebehay, Christian Michael'}, 2),
+        ({'view': 'global',
+          'author': 'Nebehay, Christian Michael, 1909-2003', 'lang': 'de'}, 1),
+        ({'view': 'global',
+          'author': 'Nebehay, Christian Michael', 'lang': 'thl'}, 2),
+    ]
+    for params, value in checks:
+        url = url_for('invenio_records_rest.doc_list', **params)
+        res = client.get(url, headers=rero_json_header)
+        data = get_json(res)
+        assert data['hits']['total']['value'] == value
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

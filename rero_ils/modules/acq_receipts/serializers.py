@@ -20,12 +20,12 @@
 
 from invenio_records_rest.serializers.response import record_responsify
 
-from ..acq_receipt_lines.dumpers import AcqReceiptLineESDumper
-from ..serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.acq_receipt_lines.dumpers import AcqReceiptLineESDumper
+from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 
 
 class AcqReceiptReroJSONSerializer(JSONSerializer):
-    """Mixin serializing records as JSON."""
+    """Serializer for RERO-ILS `AcqReceipt` records as JSON."""
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
         """Prepare a record and persistent identifier for serialization."""
@@ -42,6 +42,5 @@ class AcqReceiptReroJSONSerializer(JSONSerializer):
             pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)
 
 
-json_acre = AcqReceiptReroJSONSerializer(RecordSchemaJSONV1)
-
-json_acre_record = record_responsify(json_acre, 'application/rero+json')
+_json = AcqReceiptReroJSONSerializer(RecordSchemaJSONV1)
+json_acre_record = record_responsify(_json, 'application/rero+json')

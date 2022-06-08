@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""MARCXML Document serialization."""
+"""RERO Document JSON MARCXML serialization."""
 
 import re
 
@@ -25,6 +25,7 @@ from dojson.utils import GroupableOrderedDict
 from flask import current_app, request
 from lxml import etree
 from lxml.builder import ElementMaker
+from werkzeug.local import LocalProxy
 
 from rero_ils.modules.contributions.api import ContributionsSearch
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
@@ -32,7 +33,8 @@ from rero_ils.modules.documents.dojson.contrib.jsontomarc21.model import \
     replace_contribution_sources
 from rero_ils.modules.serializers import JSONSerializer
 
-DEFAULT_LANGUAGE = 'en'
+DEFAULT_LANGUAGE = LocalProxy(
+    lambda: current_app.config.get('BABEL_DEFAULT_LANGUAGE'))
 
 
 class DocumentMARCXMLSerializer(JSONSerializer):
@@ -72,7 +74,6 @@ class DocumentMARCXMLSerializer(JSONSerializer):
                              library_pids=None, location_pids=None,
                              links_factory=None, **kwargs):
         """Transform search result hit into an intermediate representation."""
-        language = language or current_app.config['BABEL_DEFAULT_LANGUAGE']
         return to_marc21.do(
             record_hit,
             language=language,
@@ -93,18 +94,17 @@ class DocumentMARCXMLSerializer(JSONSerializer):
     #         which are added to the response.
     #     :returns: The object serialized.
     #     """
-    #     language = request.args.get('ln')
+    #     language = request.args.get('ln', DEFAULT_LANGUAGE)
     #     return dumps(
     #         self.transform_record(pid, record, language, links_factory),
     #         **self.dumps_kwargs
     #     )
 
-    def transform_records(self, hits, pid_fetcher, language=None,
+    def transform_records(self, hits, pid_fetcher, language,
                           with_holdings_items=True, organisation_pids=None,
                           library_pids=None, location_pids=None,
                           item_links_factory=None):
         """Transform records into an intermediate representation."""
-        language = language or current_app.config['BABEL_DEFAULT_LANGUAGE']
         # get all linked contributions
         contribution_pids = []
         for hit in hits:
@@ -161,10 +161,11 @@ class DocumentMARCXMLSerializer(JSONSerializer):
     #         (Default: ``None``)
     #     :returns: The objects serialized.
     #     """
+    #     language = request.args.get('ln', DEFAULT_LANGUAGE)
     #     records = self.transform_records(
     #         hits=search_result['hits']['hits'],
     #         pid_fetcher=pid_fetcher,
-    #         language=request.args.get('ln'),
+    #         language=language,
     #         item_links_factory=item_links_factory
     #     )
     #     return dumps(records, **self.dumps_kwargs)
@@ -203,8 +204,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             rec_data.attrib['xmlns'] = self.MARC21_NS
             rec_data.attrib['type'] = "Bibliographic"
 
-            leader = record.get('leader')
-            if leader:
+            if leader := record.get('leader'):
                 rec_data.append(element.leader(leader))
 
             if isinstance(record, GroupableOrderedDict):
@@ -217,12 +217,12 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                 if len(df) == 3:
                     if isinstance(subfields, string_types):
                         controlfield = element.controlfield(subfields)
-                        controlfield.attrib['tag'] = df[0:3]
+                        controlfield.attrib['tag'] = df[:3]
                         rec_data.append(controlfield)
                     elif isinstance(subfields, (list, tuple, set)):
                         for subfield in subfields:
                             controlfield = element.controlfield(subfield)
-                            controlfield.attrib['tag'] = df[0:3]
+                            controlfield.attrib['tag'] = df[:3]
                             rec_data.append(controlfield)
                 else:
                     # Skip leader.
@@ -239,7 +239,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
 
                         for s in subfield:
                             datafield = element.datafield()
-                            datafield.attrib['tag'] = df[0:3]
+                            datafield.attrib['tag'] = df[:3]
                             datafield.attrib['ind1'] = df[3]
                             datafield.attrib['ind2'] = df[4]
 
@@ -254,15 +254,13 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                                 items = tuple()
 
                             for code, value in items:
-                                if not isinstance(value, string_types):
-                                    if value:
-                                        for v in value:
-                                            datafield.append(
-                                                element.subfield(v, code=code))
-                                else:
+                                if isinstance(value, string_types):
                                     datafield.append(element.subfield(
                                         value, code=code))
-
+                                else:
+                                    for v in value:
+                                        datafield.append(
+                                            element.subfield(v, code=code))
                             rec_data.append(datafield)
                 rec_record_data.append(rec_data)
                 rec.append(rec_record_data)
@@ -338,6 +336,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             (Default: ``None``)
         :returns: The objects serialized.
         """
+        language = request.args.get('ln', DEFAULT_LANGUAGE)
         with_holdings_items = not request.args.get('without_items', False)
         sru = search_result['hits'].get('sru', {})
         query_es = sru.get('query_es', '')
@@ -353,7 +352,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         records = self.transform_records(
             hits=search_result['hits']['hits'],
             pid_fetcher=pid_fetcher,
-            language=request.args.get('ln'),
+            language=language,
             with_holdings_items=with_holdings_items,
             organisation_pids=organisation_pids,
             library_pids=library_pids,

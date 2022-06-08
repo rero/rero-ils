@@ -36,19 +36,14 @@ def test_holdings_permissions(client, holding_lib_martigny, json_header):
     res = client.get(item_url)
     assert res.status_code == 200
 
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.hold_list',
-        {}
-    )
+    res, _ = postdata(client, 'invenio_records_rest.hold_list', {})
     assert res.status_code == 401
 
-    res = client.put(
+    client.put(
         item_url,
         data={},
         headers=json_header
     )
-
     res = client.delete(item_url)
     assert res.status_code == 401
 
@@ -71,30 +66,20 @@ def test_holding_can_delete_and_utils(client, holding_lib_martigny, document,
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_holdings_get(client, item_lib_martigny, item_lib_martigny_masked):
+def test_holdings_get(
+    client, item_lib_martigny, item_lib_martigny_masked, rero_json_header
+):
     """Test record retrieval."""
     holding = Holding.get_record_by_pid(item_lib_martigny.holding_pid)
-    item_url = url_for('invenio_records_rest.hold_item', pid_value=holding.pid)
-    list_url = url_for(
-        'invenio_records_rest.hold_list', q='pid:' + holding.pid)
-    item_url_with_resolve = url_for(
-        'invenio_records_rest.hold_item',
-        pid_value=holding.pid,
-        resolve=1,
-        sources=1
-    )
+    url = url_for('invenio_records_rest.hold_item', pid_value=holding.pid)
 
-    res = client.get(item_url)
+    # Check REST API for a single holdings
+    res = client.get(url)
     assert res.status_code == 200
-
-    assert res.headers['ETag'] == '"{}"'.format(holding.revision_id)
-
+    assert res.headers['ETag'] == f'"{holding.revision_id}"'
     data = get_json(res)
+    assert all(k in data for k in ['created', 'updated', 'metadata', 'links'])
     assert holding.dumps() == data['metadata']
-
-    # Check metadata
-    for k in ['created', 'updated', 'metadata', 'links']:
-        assert k in data
 
     # Check self links
     res = client.get(to_relative_url(data['links']['self']))
@@ -102,19 +87,30 @@ def test_holdings_get(client, item_lib_martigny, item_lib_martigny_masked):
     assert data == get_json(res)
     assert holding.dumps() == data['metadata']
 
-    # check resolve
-    res = client.get(item_url_with_resolve)
+    # Check REST API for a single holdings with reference resolver
+    url = url_for('invenio_records_rest.hold_item', pid_value=holding.pid,
+                  resolve=1, sources=1)
+    res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)
     assert holding.replace_refs().dumps() == data['metadata']
 
-    res = client.get(list_url)
+    # Check REST API for holdings query
+    url = url_for('invenio_records_rest.hold_list', q=f'pid:{holding.pid}')
+    res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)
-    result = data['hits']['hits'][0]['metadata']
-    assert result.pop('public_items_count') == 1
-    assert result.pop('items_count') == 2
-    assert result == holding.replace_refs()
+    hit = data['hits']['hits'][0]['metadata']
+    assert hit.pop('public_items_count') == 1
+    assert hit.pop('items_count') == 2
+    assert hit == holding.replace_refs()
+
+    # Check REST API for holdings query for `rero+json` header
+    res = client.get(url, headers=rero_json_header)
+    assert res.status_code == 200
+    data = get_json(res)
+    hit = data['hits']['hits'][0]['metadata']
+    assert hit['available']
 
 
 def test_filtered_holdings_get(
