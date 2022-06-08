@@ -18,7 +18,6 @@
 """Loans logs API."""
 
 import hashlib
-from datetime import date
 
 from invenio_search import RecordsSearch
 
@@ -190,22 +189,11 @@ class LoanOperationLog(OperationLog):
             patron_type = PatronType.get_record_by_pid(
                 extracted_data_from_ref(patron['patron']['type']['$ref']))
 
-        def get_age(birth_date):
-            """Calculate age from a birthdate.
-
-            :param Date birth_date: Date of birth.
-            :returns: Age
-            :rtype: int
-            """
-            today = date.today()
-            return today.year - birth_date.year - (
-                (today.month, today.day) < (birth_date.month, birth_date.day))
-
         hashed_pid = hashlib.md5(patron.pid.encode()).hexdigest()
         data = {
             'name': patron.formatted_name,
             'type': patron_type['name'] if patron_type else None,
-            'age': get_age(patron.user.profile.birth_date),
+            'age': patron.age,
             'postal_code': patron.user.profile.postal_code,
             'gender': patron.user.profile.gender or 'other',
             'pid': patron.pid,

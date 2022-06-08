@@ -24,6 +24,7 @@ from invenio_jsonschemas import current_jsonschemas
 from utils import flush_index, login_user_for_view
 
 from rero_ils.modules.loans.logs.api import LoanOperationLog
+from rero_ils.modules.patrons.api import Patron
 
 
 def test_loan_operation_log(client, operation_log_data,
@@ -37,6 +38,7 @@ def test_loan_operation_log(client, operation_log_data,
         LoanOperationLog._schema)
     operation_log.validate()
     log_data = LoanOperationLog.get_record(operation_log.id)
+    patron = Patron.get_record_by_pid(log_data['loan']['patron']['pid'])
     assert log_data['operation'] == 'create'
     assert log_data['user_name'] == 'Pedronni, Marie'
     assert log_data['date'] == loan_validated_martigny['transaction_date']
@@ -52,7 +54,7 @@ def test_loan_operation_log(client, operation_log_data,
         'hashed_pid': 'e11ff43bff5be4cf70350e2d15149e29',
         'name': 'Roduit, Louis',
         'type': 'children',
-        'age': 74,
+        'age': patron.age,
         'postal_code': '1920',
         'gender': 'other',
         'local_codes': ['code1']

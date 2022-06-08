@@ -18,7 +18,7 @@
 
 """API for manipulating patrons."""
 from copy import deepcopy
-from datetime import datetime
+from datetime import date, datetime
 from functools import partial
 
 from elasticsearch_dsl import Q
@@ -823,6 +823,18 @@ class Patron(IlsRecord):
             indexer = PatronsIndexer()
             indexer.bulk_index(ids)
             process_bulk_queue.apply_async()
+
+    @property
+    def age(self):
+        """Calculate age from birthdate.
+
+        :returns: Age
+        :rtype: int
+        """
+        birth_date = self.user.profile.birth_date
+        today = date.today()
+        return today.year - birth_date.year - (
+            (today.month, today.day) < (birth_date.month, birth_date.day))
 
 
 class PatronsIndexer(IlsRecordsIndexer):
