@@ -45,16 +45,9 @@ class AcqOrderJSONSerializer(ACQJSONSerializer):
         )
         # Add configuration for order_date and receipt_date buckets
         for aggr_name in ['order_date', 'receipt_date']:
-            aggr = aggregations.get(aggr_name)
-            if not aggr:
-                continue
-            if values := [term['key'] for term in aggr.get('buckets', [])]:
-                aggregations[aggr_name]['type'] = 'date-range'
-                aggregations[aggr_name]['config'] = {
-                    'min': min(values),
-                    'max': max(values),
-                    'step': 86400000  # 1 day in millis
-                }
+            aggr = aggregations.get(aggr_name, {})
+            JSONSerializer.add_date_range_configuration(aggr)
+
         super()._postprocess_search_aggregations(aggregations)
 
 

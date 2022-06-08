@@ -19,7 +19,7 @@
 """Define relation between records and buckets."""
 
 
-class LoanState(object):
+class LoanState:
     """Class to handle different loan states."""
 
     CREATED = 'CREATED'
@@ -33,9 +33,10 @@ class LoanState(object):
 
     CONCLUDED = [CANCELLED, ITEM_RETURNED]
     ITEM_IN_TRANSIT = [ITEM_IN_TRANSIT_TO_HOUSE, ITEM_IN_TRANSIT_FOR_PICKUP]
+    REQUEST_STATES = [PENDING, ITEM_AT_DESK, ITEM_IN_TRANSIT_FOR_PICKUP]
 
 
-class LoanAction(object):
+class LoanAction:
     """Class holding all available circulation loan actions."""
 
     REQUEST = 'request'

@@ -50,6 +50,17 @@ def and_term_filter(field):
     return inner
 
 
+def exclude_terms_filter(field):
+    """Exclude a term filter.
+
+    :param field: Field name.
+    :returns: Function that returns the Terms query.
+    """
+    def inner(values):
+        return ~Q('terms', **{field: values})
+    return inner
+
+
 def and_i18n_term_filter(field):
     """Create a i18n term filter.
 

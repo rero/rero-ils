@@ -532,5 +532,11 @@ def test_request_expire_date(
     body = mailbox[-1].body
     assert request_expire_date.strftime('%d/%m/%Y') in body
 
+    # ADDITIONAL TESTS ::
+    #   A) test exception from loan indexer listener (this is more for code
+    #      coverage than a real test).
+    loan['item_pid']['value'] = 'dummy_pid'
+    loan.update(loan, dbcommit=True, reindex=True)
+
     # RESET THE CIPO
     cipo.update(original_cipo, dbcommit=True, reindex=True)

@@ -34,6 +34,7 @@ from invenio_circulation.proxies import current_circulation
 from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_circulation.utils import str2datetime
 from invenio_jsonschemas import current_jsonschemas
+from werkzeug.utils import cached_property
 
 from rero_ils.modules.api import IlsRecord, IlsRecordError, \
     IlsRecordsIndexer, IlsRecordsSearch
@@ -118,8 +119,8 @@ class Loan(IlsRecord):
             return False, [_('The loan cannot be extended')]
         # The parameters for the renewal is calculated based on the transaction
         # library and not the owning library.
-        transaction_library_pid = Location\
-            .get_record_by_pid(loan['transaction_location_pid'])\
+        transaction_library_pid = Location \
+            .get_record_by_pid(loan['transaction_location_pid']) \
             .get_library().get('pid')
 
         patron = Patron.get_record_by_pid(loan.get('patron_pid'))
@@ -321,8 +322,7 @@ class Loan(IlsRecord):
                     .filter('term', pid=pid)\
                     .source(includes=fields)\
                     .execute()
-                hit = next(iter(results or []), None)
-                if hit:
+                if hit := next(iter(results or []), None):
                     known_patrons[pid] = hit.to_dict()
             return known_patrons.get(pid, {})
 
@@ -339,8 +339,7 @@ class Loan(IlsRecord):
                     .filter('term', pid=pid)\
                     .source(includes=fields)\
                     .execute()
-                hit = next(iter(results or []), None)
-                if hit:
+                if hit := next(iter(results or []), None):
                     data = hit.to_dict()
                     known_locations[pid] = {k: v for k, v in data.items() if v}
             return known_locations.get(pid, {})
@@ -357,8 +356,7 @@ class Loan(IlsRecord):
                     .filter('term', pid=pid)\
                     .source(includes='name')\
                     .execute()
-                hit = next(iter(results or []), None)
-                if hit:
+                if hit := next(iter(results or []), None):
                     known_libraries[pid] = hit.name
             return known_libraries.get(pid, {})
 
@@ -375,8 +373,7 @@ class Loan(IlsRecord):
                     .filter('term', pid=pid)\
                     .source(includes='call_number')\
                     .execute()
-                hit = next(iter(results or []), None)
-                if hit:
+                if hit := next(iter(results or []), None):
                     known_holdings[pid] = hit.to_dict()
             return known_holdings.get(pid, {})
 
@@ -581,6 +578,11 @@ class Loan(IlsRecord):
         return self.get('patron_pid')
 
     @property
+    def patron(self):
+        """Shortcut to get related patron."""
+        return Patron.get_record_by_pid(self.patron_pid)
+
+    @property
     def document_pid(self):
         """Shortcut for document pid."""
         return self.get('document_pid')
@@ -595,8 +597,7 @@ class Loan(IlsRecord):
     def organisation_pid(self):
         """Get organisation pid for loan."""
         from ..items.api import Item
-        item_pid = self.item_pid
-        if item_pid:
+        if item_pid := self.item_pid:
             item = Item.get_record_by_pid(item_pid)
             return item.organisation_pid
         # return None
@@ -637,8 +638,7 @@ class Loan(IlsRecord):
     @property
     def pickup_library(self):
         """Get the library pid related to the pickup location."""
-        location_pid = self.pickup_location_pid
-        if location_pid:
+        if location_pid := self.pickup_location_pid:
             return Location.get_record_by_pid(location_pid).get_library()
 
     @property
@@ -650,6 +650,14 @@ class Loan(IlsRecord):
     def transaction_location_pid(self):
         """Get loan transaction_location PID."""
         return self.get('transaction_location_pid')
+
+    @cached_property
+    def transaction_library_pid(self):
+        """Get loan transaction_library PID."""
+        return Location \
+            .get_record_by_pid(self.transaction_location_pid) \
+            .get_library() \
+            .get('pid')
 
     @property
     def get_overdue_fees(self):
@@ -808,8 +816,10 @@ class Loan(IlsRecord):
         #   an AVAILABILITY and AT_DESK notifications. AVAILABILITY is sent to
         #   the patron, AT_DESK is sent to transaction library.
         if self.state == LoanState.ITEM_AT_DESK:
-            candidates.append((self, NotificationType.AT_DESK))
-            candidates.append((self, NotificationType.AVAILABILITY))
+            candidates.extend((
+                (self, NotificationType.AT_DESK),
+                (self, NotificationType.AVAILABILITY)
+            ))
 
         # REQUEST & RECALL NOTIFICATION
         #   When a request is created on a item, the system create a 'pending'
