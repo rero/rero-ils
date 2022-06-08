@@ -16,7 +16,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API tests for indexer utilities."""
+import pytest
+from elasticsearch import NotFoundError
 
+from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.indexer_utils import record_to_index
 
 
@@ -44,3 +47,16 @@ def test_record_to_index(app):
         '$schema': 'https://bib.rero.ch/schemas/'
         'organisations/organisation-v0.0.1.json'
     }) == ('organisations-organisation-v0.0.1', '_doc')
+
+
+def test_get_resource_from_ES(document):
+    """Test get_resource from ElasticSearch engine."""
+    metadata = DocumentsSearch().get_record_by_pid('doc1')
+    assert metadata
+    fields = ['pid', 'title']
+    metadata = DocumentsSearch().get_record_by_pid('doc1', fields=fields)
+    assert all(term in metadata for term in fields)
+    assert 'statement' not in metadata
+
+    with pytest.raises(NotFoundError):
+        DocumentsSearch().get_record_by_pid('dummy_pid')

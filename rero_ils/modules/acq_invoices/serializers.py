@@ -19,28 +19,21 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
-from ..libraries.api import Library
-from ..serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.libraries.api import LibrariesSearch
+from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 
 
 class AcquisitionInvoiceJSONSerializer(JSONSerializer):
-    """Mixin serializing records as JSON."""
+    """Serializer for RERO-ILS `AcqInvoice` records as JSON."""
 
-    def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results."""
-        # Add library name
-        for lib_term in results.get('aggregations', {}).get(
-                'library', {}).get('buckets', []):
-            pid = lib_term.get('key')
-            name = Library.get_record_by_pid(pid).get('name')
-            lib_term['key'] = pid
-            lib_term['name'] = name
-
-        return super().post_process_serialize_search(results, pid_fetcher)
+    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
+        """Post-process aggregations from a search result."""
+        JSONSerializer.enrich_bucket_with_data(
+            aggregations.get('library', {}).get('buckets', []),
+            LibrariesSearch, 'name'
+        )
+        super()._postprocess_search_aggregations(aggregations)
 
 
-json_acquisition_invoice = AcquisitionInvoiceJSONSerializer(RecordSchemaJSONV1)
-"""JSON v1 serializer."""
-
-json_acquisition_invoice_search = search_responsify(
-    json_acquisition_invoice, 'application/rero+json')
+_json = AcquisitionInvoiceJSONSerializer(RecordSchemaJSONV1)
+json_acq_invoice_search = search_responsify(_json, 'application/rero+json')

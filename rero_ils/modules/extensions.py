@@ -29,7 +29,7 @@ class UniqueFieldsExtension(RecordExtension):
 
     CONCEPT:
         For some resources, we would to ensure that some values are unique.
-        By example, two libraries can't have the same name into the same
+        For example, two libraries can't have the same name into the same
         organisation.
 
         To allow to check, we will check into an ElasticSearch index based
@@ -157,7 +157,6 @@ class DecimalAmountExtension(RecordExtension):
         regexp = re.compile(regexp)
 
         for value in values_to_check:
-            print(f"Checking {value} :: ", regexp.match(str(value)))
             if not regexp.match(str(value)):
                 decimal_string = 1 / pow(10, self.decimals)
                 msg = f'`{value}` must be multiple of {decimal_string}'

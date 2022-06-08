@@ -26,6 +26,14 @@ from utils import get_json
 def test_library_closed_date_api(client, lib_martigny, librarian_martigny):
     """Test closed date api."""
     login_user_via_session(client, librarian_martigny.user)
+    # CHECK#0 :: unknown library
+    url = url_for(
+        'api_library.list_closed_dates',
+        library_pid='dummy_pid'
+    )
+    res = client.get(url)
+    assert res.status_code == 404
+
     # CHECK#1 :: no specified dates
     url = url_for(
         'api_library.list_closed_dates',

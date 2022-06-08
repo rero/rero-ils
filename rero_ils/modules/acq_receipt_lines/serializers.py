@@ -20,26 +20,26 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
-from ..documents.api import Document
-from ..documents.dumpers import DocumentAcquisitionDumper
-from ..serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.documents.api import Document
+from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper
+from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
 
 
-class AcqReceiptLineReroJSONSerializer(JSONSerializer):
-    """Mixin serializing records as JSON."""
+class AcqReceiptLineJSONSerializer(JSONSerializer):
+    """Serializer for RERO-ILS `AcqReceiptLine` records as JSON."""
 
-    def post_process_serialize_search(self, results, pid_fetcher):
-        """Post process the search results."""
-        records = results.get('hits', {}).get('hits', {})
-        doc_dumper = DocumentAcquisitionDumper()
-        for record in records:
-            metadata = record.get('metadata', {})
-            doc_pid = metadata.get('document', {}).get('pid')
-            if doc_pid:
-                document = Document.get_record_by_pid(doc_pid)
-                metadata['document'] = document.dumps(dumper=doc_dumper)
-        return results
+    def _postprocess_search_hit(self, hit: dict) -> None:
+        """Post-process a specific search hit.
+
+        :param hit: the dictionary representing an ElasticSearch search hit.
+        """
+        metadata = hit.get('metadata', {})
+        if doc_pid := metadata.get('document', {}).get('pid'):
+            document = Document.get_record_by_pid(doc_pid)
+            metadata['document'] = document.dumps(
+                dumper=DocumentAcquisitionDumper())
+        super()._postprocess_search_hit(hit)
 
 
-json_acrl = AcqReceiptLineReroJSONSerializer(RecordSchemaJSONV1)
-json_acrl_search = search_responsify(json_acrl, 'application/rero+json')
+_json = AcqReceiptLineJSONSerializer(RecordSchemaJSONV1)
+json_acrl_search = search_responsify(_json, 'application/rero+json')
