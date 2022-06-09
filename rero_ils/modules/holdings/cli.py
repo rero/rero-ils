@@ -31,7 +31,7 @@ from ..holdings.api import Holding, create_holding
 from ..item_types.api import ItemTypesSearch
 from ..items.api import Item
 from ..items.models import ItemIssueStatus
-from ..items.tasks import process_late_claimed_issues
+from ..items.tasks import process_late_issues
 from ..locations.api import LocationsSearch
 from ..organisations.api import Organisation
 from ..utils import read_json_record
@@ -196,12 +196,10 @@ def create_patterns(infile, verbose, debug, lazy):
             )
         record_index = record_index + 1
     # create some late issues.
-    process_late_claimed_issues(dbcommit=True, reindex=True)
+    process_late_issues(dbcommit=True, reindex=True)
     # make late issues ready for a claim
     for item in Item.get_issues_by_status(issue_status=ItemIssueStatus.LATE):
         holding = Holding.get_record_by_pid(item.holding_pid)
         item['issue']['status_date'] = \
             (datetime.now(timezone.utc) - timedelta(days=8)).isoformat()
         item.update(item, dbcommit=True, reindex=True)
-    # create claims
-    process_late_claimed_issues(dbcommit=True, reindex=True)

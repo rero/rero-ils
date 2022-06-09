@@ -63,40 +63,26 @@ def delete_provisional_items(verbose=True):
 
 
 @shared_task
-def process_late_claimed_issues(
-    expected_issues_to_late=True, create_first_claim=True,
-        create_next_claim=True, dbcommit=True, reindex=True):
-    """Job to manage serials claims.
+def process_late_issues(
+        expected_issues_to_late=True, dbcommit=True, reindex=True):
+    """Job to manage late issues.
 
     Receives the next late expected issue for all holdings.
-    Creates the first and next claims for a late or claimed issues
 
     :param expected_issues_to_late: by default creates late issues.
-    :param create_first_claim: by default creates first claims.
-    :param create_next_claim: by default creates next claims.
     :param reindex: reindex the records.
     :param dbcommit: commit record to database.
 
     :return a count of modified and created issues.
     """
     expected_issues_to_late_count = 0
-    create_first_claim_count = 0
-    create_next_claim_count = 0
 
     if expected_issues_to_late:
         expected_issues_to_late_count = Item.receive_next_late_expected_issues(
             dbcommit=dbcommit, reindex=reindex)
-    if create_first_claim:
-        create_first_claim_count = Item.create_first_and_next_claims(
-            claim_type='first', dbcommit=dbcommit, reindex=reindex)
-    if create_next_claim:
-        create_next_claim_count = Item.create_first_and_next_claims(
-            claim_type='next', dbcommit=dbcommit, reindex=reindex)
 
-    msg = f'expected_issues_to_late: {expected_issues_to_late_count} '\
-        f'create_first_claim: {create_first_claim_count} '\
-        f'create_next_claim: {create_next_claim_count} '
-    set_timestamp('claims-creation', msg=msg)
+    msg = f'expected_issues_to_late: {expected_issues_to_late_count} '
+    set_timestamp('late-issues-creation', msg=msg)
     return msg
 
 
