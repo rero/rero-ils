@@ -357,7 +357,7 @@ CELERY_BEAT_SCHEDULE = {
         'enabled': False,
     },
     'claims-creation': {
-        'task': 'rero_ils.modules.items.tasks.process_late_claimed_issues',
+        'task': 'rero_ils.modules.items.tasks.process_late_issues',
         'schedule': crontab(minute=0, hour=6),  # Every day at 06:00 UTC,
         'enabled': False
     },
