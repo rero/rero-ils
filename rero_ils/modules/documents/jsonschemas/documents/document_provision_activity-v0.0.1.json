@@ -226,7 +226,7 @@
           "description": "Normalised date used for sorting and filtering options (MARC 008). A free text date (transcripted) can be added in the field \"Statements\".",
           "type": "integer",
           "minimum": -9999,
-          "maximum": 2050,
+          "maximum": 9999,
           "form": {
             "expressionProperties": {
               "templateOptions.required": "model.type === 'bf:Publication'"
@@ -241,7 +241,7 @@
           "description": "Normalised end date if the provision activity covers more than one year, and used for sorting and filtering options (MARC 008). A free text date (transcripted) can be added in the field \"Statements\"",
           "type": "integer",
           "minimum": -9999,
-          "maximum": 2050,
+          "maximum": 9999,
           "form": {
             "hide": true,
             "templateOptions": {
