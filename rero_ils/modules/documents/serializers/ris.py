@@ -68,11 +68,11 @@ class RISSerializer:
         :param links: Dictionary of links to add to response.
         :param item_links_factory: Factory function for record links.
         """
-        records = [
-            RISFormatter(record=hit['_source']).format()
-            for hit in search_result['hits']['hits']
-        ]
-        return stream_with_context(records)
+        def generate_export():
+            for hit in search_result['hits']['hits']:
+                yield RISFormatter(record=hit['_source']).format()
+
+        return stream_with_context(generate_export())
 
 
 class RISFormatter(BaseDocumentFormatterMixin):
