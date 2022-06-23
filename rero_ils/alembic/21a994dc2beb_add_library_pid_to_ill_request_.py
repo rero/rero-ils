@@ -18,6 +18,7 @@
 """Add library_pid to ill_request operation logs."""
 from logging import getLogger
 
+from elasticsearch_dsl import Q
 from invenio_search.api import RecordsSearch
 
 from rero_ils.modules.ill_requests.api import ILLRequest
@@ -36,11 +37,13 @@ LOGGER = getLogger('alembic')
 def upgrade():
     """Upgrade ill request operation logs records.
 
-    For all ON_LOAN records, we will add a new `checkout_location_pid` field
-    used to calculate fees based on checkout library.
+    For all ill request operation logs, we will add a library pid.
     """
-    query = RecordsSearch(index=LoanOperationLog.index_name)\
-        .filter('term', record__type='illr')
+    query = RecordsSearch(index=LoanOperationLog.index_name) \
+        .filter('term', record__type='illr') \
+        .filter('bool', must_not=[
+            Q('exists', field='ill_request.library_pid')
+        ])
     pids = [hit.pid for hit in query.source('pid').scan()]
     LOGGER.info(f'Upgrade operation logs illr :: {len(pids)}')
     errors = 0
@@ -48,9 +51,9 @@ def upgrade():
         record = LoanOperationLog.get_record(pid)
         ill_request_pid = record['record']['value']
         if ill_request := ILLRequest.get_record_by_pid(ill_request_pid):
-            record[
-                'ill_request']['library_pid'] = ill_request.get_library().pid
             try:
+                record['ill_request']['library_pid'] = \
+                    ill_request.get_library().pid
                 LoanOperationLog.update(pid, record['date'], record)
             except Exception as err:
                 LOGGER.error(f'{idx:<10} {pid} {err}')
@@ -64,11 +67,7 @@ def upgrade():
 
 
 def downgrade():
-    """Upgrade ill request operation logs records.
-
-    For all ON_LOAN records, we will add a new `checkout_location_pid` field
-    used to calculate fees based on checkout library.
-    """
+    """Downgrade ill request operation logs records."""
     query = RecordsSearch(index=LoanOperationLog.index_name)\
         .filter('term', record__type='illr')
     pids = [hit.pid for hit in query.source('pid').scan()]
