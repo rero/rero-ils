@@ -16,17 +16,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2022-05-16 08:15+0200\n"
+"POT-Creation-Date: 2022-06-23 16:19+0200\n"
 "PO-Revision-Date: 2022-05-17 06:07+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/de/>\n"
 "Language: de\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/de/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13-dev\n"
 "Generated-By: Babel 2.10.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -65,124 +64,124 @@ msgstr "Zurücksetzung des RERO ID Passworts"
 msgid "Your RERO ID password has been reset"
 msgstr "Ihr RERO ID-Passwort wurde zurückgesetzt"
 
-#: rero_ils/config.py:1874
+#: rero_ils/config.py:1875
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 msgid "Global catalog"
 msgstr "Globaler Katalog"
 
-#: rero_ils/config.py:1953
+#: rero_ils/config.py:1954
 msgid "author"
 msgstr "Autor"
 
-#: rero_ils/config.py:1954 rero_ils/config.py:2022
+#: rero_ils/config.py:1955 rero_ils/config.py:2023
 msgid "document_type"
 msgstr "Dokumenttyp"
 
-#: rero_ils/config.py:1955 rero_ils/config.py:2024
+#: rero_ils/config.py:1956 rero_ils/config.py:2025
 msgid "document_subtype"
 msgstr "Dokument-Untertyp"
 
-#: rero_ils/config.py:1956
+#: rero_ils/config.py:1957
 msgid "language"
 msgstr "Sprache"
 
-#: rero_ils/config.py:1957
+#: rero_ils/config.py:1958
 msgid "organisation"
 msgstr "Organisation"
 
-#: rero_ils/config.py:1960 rero_ils/config.py:2026 rero_ils/config.py:2095
-#: rero_ils/config.py:2117 rero_ils/config.py:2174 rero_ils/config.py:2286
-#: rero_ils/config.py:2326
+#: rero_ils/config.py:1961 rero_ils/config.py:2027 rero_ils/config.py:2096
+#: rero_ils/config.py:2118 rero_ils/config.py:2175 rero_ils/config.py:2287
+#: rero_ils/config.py:2327
 msgid "library"
 msgstr "Bibliothek"
 
-#: rero_ils/config.py:1961 rero_ils/config.py:2027
+#: rero_ils/config.py:1962 rero_ils/config.py:2028
 msgid "location"
 msgstr "Standort"
 
-#: rero_ils/config.py:1962 rero_ils/config.py:2287
+#: rero_ils/config.py:1963 rero_ils/config.py:2288
 msgid "subject"
 msgstr "Thema"
 
-#: rero_ils/config.py:1963 rero_ils/config.py:2033 rero_ils/config.py:2118
-#: rero_ils/config.py:2177 rero_ils/config.py:2323
+#: rero_ils/config.py:1964 rero_ils/config.py:2034 rero_ils/config.py:2119
+#: rero_ils/config.py:2178 rero_ils/config.py:2324
 msgid "status"
 msgstr "Status"
 
-#: rero_ils/config.py:1964
+#: rero_ils/config.py:1965
 msgid "new_acquisition"
 msgstr "new_acquisition"
 
-#: rero_ils/config.py:2028
+#: rero_ils/config.py:2029
 msgid "item_type"
 msgstr "Exemplartyp"
 
-#: rero_ils/config.py:2029
+#: rero_ils/config.py:2030
 msgid "temporary_item_type"
 msgstr "Temporäre Ausleihkategorie"
 
-#: rero_ils/config.py:2031
+#: rero_ils/config.py:2032
 msgid "temporary_location"
 msgstr "Temporärer Standort"
 
-#: rero_ils/config.py:2034
+#: rero_ils/config.py:2035
 msgid "issue_status"
 msgstr "Status der Lieferung"
 
-#: rero_ils/config.py:2035 rero_ils/config.py:2175
+#: rero_ils/config.py:2036 rero_ils/config.py:2176
 msgid "vendor"
 msgstr "Lieferant"
 
-#: rero_ils/config.py:2072
+#: rero_ils/config.py:2073
 msgid "roles"
 msgstr "Rollen"
 
-#: rero_ils/config.py:2073
+#: rero_ils/config.py:2074
 msgid "city"
 msgstr "Stadt"
 
-#: rero_ils/config.py:2074
+#: rero_ils/config.py:2075
 msgid "patron_type"
 msgstr "Kundentyp"
 
-#: rero_ils/config.py:2096
+#: rero_ils/config.py:2097
 msgid "budget"
 msgstr "Budget"
 
-#: rero_ils/config.py:2176 rero_ils/config.py:2216 rero_ils/config.py:2241
-#: rero_ils/config.py:2285
+#: rero_ils/config.py:2177 rero_ils/config.py:2217 rero_ils/config.py:2242
+#: rero_ils/config.py:2286
 msgid "type"
 msgstr "Typ"
 
-#: rero_ils/config.py:2178
+#: rero_ils/config.py:2179
 msgid "account"
 msgstr "Konto"
 
-#: rero_ils/config.py:2179
+#: rero_ils/config.py:2180
 msgid "order_date"
 msgstr "Bestellungsdatum"
 
-#: rero_ils/config.py:2185
+#: rero_ils/config.py:2186
 msgid "receipt_date"
 msgstr "Empfangsdatum"
 
-#: rero_ils/config.py:2215
+#: rero_ils/config.py:2216
 msgid "sources"
 msgstr "Quellen"
 
-#: rero_ils/config.py:2242
+#: rero_ils/config.py:2243
 msgid "visibility"
 msgstr "Sichtbarkeit"
 
-#: rero_ils/config.py:2288
+#: rero_ils/config.py:2289
 msgid "teacher"
 msgstr "Dozent"
 
-#: rero_ils/config.py:2324
+#: rero_ils/config.py:2325
 msgid "loan_status"
 msgstr "Ausleihstatus"
 
-#: rero_ils/config.py:2325
+#: rero_ils/config.py:2326
 msgid "requester"
 msgstr "Besteller"
 
@@ -368,6 +367,16 @@ msgstr "Passwort ändern"
 #: rero_ils/theme/templates/rero_ils/reset_password.html:47
 msgid "Sign Up"
 msgstr "Registrieren"
+
+#: rero_ils/manual_translations.txt:70
+#, fuzzy
+msgid "This is a TEST VERSION."
+msgstr "Test-Server"
+
+#: rero_ils/manual_translations.txt:71
+#, fuzzy
+msgid "Go to the production site."
+msgstr "Standortcode."
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -8498,8 +8507,8 @@ msgstr "Unterteilung nach Form"
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:460
 msgid "Subject subdivision for a specific kind or genre of material (MARC 6XX$v)"
 msgstr ""
-"Themenunterteilung für eine bestimmte Gattung oder Form von Material (MARC "
-"6XX$v)"
+"Themenunterteilung für eine bestimmte Gattung oder Form von Material "
+"(MARC 6XX$v)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:464
 msgid "Example: Periodicals"
@@ -10556,11 +10565,11 @@ msgstr ""
 "Der Name der expliziten Aktion, die den Wechsel zum aktuellen Zustand "
 "ausgelöst hat"
 
-#: rero_ils/modules/local_fields/api.py:80
+#: rero_ils/modules/local_fields/api.py:81
 msgid "Local fields already exist for this document."
 msgstr "Lokale Felder existieren bereits für dieses Dokument."
 
-#: rero_ils/modules/local_fields/api.py:84
+#: rero_ils/modules/local_fields/api.py:85
 msgid "Missing fields."
 msgstr "Fehlende Felder."
 
@@ -11077,6 +11086,16 @@ msgstr "Paypal"
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:231
 msgid "dispute"
 msgstr "Streit"
+
+#: rero_ils/modules/patron_transactions/utils.py:126
+#, fuzzy
+msgid "note"
+msgstr "Anmerkung"
+
+#: rero_ils/modules/patron_transactions/utils.py:126
+#, fuzzy
+msgid "incremental overdue fees"
+msgstr "Verspätungsgebühren"
 
 #: rero_ils/modules/patron_transactions/utils.py:206
 msgid "Subscription for '{name}' from {start} to {end}"
@@ -13604,3 +13623,4 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Available collection"
 #~ msgstr "Verfügbare Sammlung"
+

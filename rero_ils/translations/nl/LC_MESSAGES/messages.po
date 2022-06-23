@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
-"POT-Creation-Date: 2022-05-16 08:15+0200\n"
+"POT-Creation-Date: 2022-06-23 16:19+0200\n"
 "PO-Revision-Date: 2022-03-10 17:56+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: nl\n"
@@ -59,137 +59,137 @@ msgstr "RERO ID wachtwoord opnieuw instellen"
 msgid "Your RERO ID password has been reset"
 msgstr "Uw RERO ID-wachtwoord is opnieuw ingesteld"
 
-#: rero_ils/config.py:1874
+#: rero_ils/config.py:1875
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 msgid "Global catalog"
 msgstr ""
 
-#: rero_ils/config.py:1953
+#: rero_ils/config.py:1954
 msgid "author"
 msgstr "auteur"
 
-#: rero_ils/config.py:1954 rero_ils/config.py:2022
+#: rero_ils/config.py:1955 rero_ils/config.py:2023
 msgid "document_type"
 msgstr "type van document"
 
-#: rero_ils/config.py:1955 rero_ils/config.py:2024
+#: rero_ils/config.py:1956 rero_ils/config.py:2025
 msgid "document_subtype"
 msgstr "Subtype van document"
 
-#: rero_ils/config.py:1956
+#: rero_ils/config.py:1957
 msgid "language"
 msgstr "taal"
 
-#: rero_ils/config.py:1957
+#: rero_ils/config.py:1958
 msgid "organisation"
 msgstr "organisatie"
 
-#: rero_ils/config.py:1960 rero_ils/config.py:2026 rero_ils/config.py:2095
-#: rero_ils/config.py:2117 rero_ils/config.py:2174 rero_ils/config.py:2286
-#: rero_ils/config.py:2326
+#: rero_ils/config.py:1961 rero_ils/config.py:2027 rero_ils/config.py:2096
+#: rero_ils/config.py:2118 rero_ils/config.py:2175 rero_ils/config.py:2287
+#: rero_ils/config.py:2327
 msgid "library"
 msgstr "bibliotheek"
 
-#: rero_ils/config.py:1961 rero_ils/config.py:2027
+#: rero_ils/config.py:1962 rero_ils/config.py:2028
 #, fuzzy
 msgid "location"
 msgstr "Locatie"
 
-#: rero_ils/config.py:1962 rero_ils/config.py:2287
+#: rero_ils/config.py:1963 rero_ils/config.py:2288
 msgid "subject"
 msgstr "onderwerp"
 
-#: rero_ils/config.py:1963 rero_ils/config.py:2033 rero_ils/config.py:2118
-#: rero_ils/config.py:2177 rero_ils/config.py:2323
+#: rero_ils/config.py:1964 rero_ils/config.py:2034 rero_ils/config.py:2119
+#: rero_ils/config.py:2178 rero_ils/config.py:2324
 msgid "status"
 msgstr "status"
 
-#: rero_ils/config.py:1964
+#: rero_ils/config.py:1965
 #, fuzzy
 msgid "new_acquisition"
 msgstr "Aankoopvoorwaarden"
 
-#: rero_ils/config.py:2028
+#: rero_ils/config.py:2029
 #, fuzzy
 msgid "item_type"
 msgstr "Type van exemplaar"
 
-#: rero_ils/config.py:2029
+#: rero_ils/config.py:2030
 #, fuzzy
 msgid "temporary_item_type"
 msgstr "Type van exemplaar"
 
-#: rero_ils/config.py:2031
+#: rero_ils/config.py:2032
 #, fuzzy
 msgid "temporary_location"
 msgstr "bibliothecaris"
 
-#: rero_ils/config.py:2034
+#: rero_ils/config.py:2035
 #, fuzzy
 msgid "issue_status"
 msgstr "Nummer status"
 
-#: rero_ils/config.py:2035 rero_ils/config.py:2175
+#: rero_ils/config.py:2036 rero_ils/config.py:2176
 #, fuzzy
 msgid "vendor"
 msgstr "Verkoper"
 
-#: rero_ils/config.py:2072
+#: rero_ils/config.py:2073
 msgid "roles"
 msgstr "rollen"
 
-#: rero_ils/config.py:2073
+#: rero_ils/config.py:2074
 #, fuzzy
 msgid "city"
 msgstr "Stad"
 
-#: rero_ils/config.py:2074
+#: rero_ils/config.py:2075
 #, fuzzy
 msgid "patron_type"
 msgstr "Lezerstype"
 
-#: rero_ils/config.py:2096
+#: rero_ils/config.py:2097
 msgid "budget"
 msgstr "begroting"
 
-#: rero_ils/config.py:2176 rero_ils/config.py:2216 rero_ils/config.py:2241
-#: rero_ils/config.py:2285
+#: rero_ils/config.py:2177 rero_ils/config.py:2217 rero_ils/config.py:2242
+#: rero_ils/config.py:2286
 #, fuzzy
 msgid "type"
 msgstr "Type"
 
-#: rero_ils/config.py:2178
+#: rero_ils/config.py:2179
 msgid "account"
 msgstr ""
 
-#: rero_ils/config.py:2179
+#: rero_ils/config.py:2180
 msgid "order_date"
 msgstr ""
 
-#: rero_ils/config.py:2185
+#: rero_ils/config.py:2186
 msgid "receipt_date"
 msgstr ""
 
-#: rero_ils/config.py:2215
+#: rero_ils/config.py:2216
 msgid "sources"
 msgstr "bron"
 
-#: rero_ils/config.py:2242
+#: rero_ils/config.py:2243
 #, fuzzy
 msgid "visibility"
 msgstr "beschikbaarheid"
 
-#: rero_ils/config.py:2288
+#: rero_ils/config.py:2289
 #, fuzzy
 msgid "teacher"
 msgstr "Andere"
 
-#: rero_ils/config.py:2324
+#: rero_ils/config.py:2325
 #, fuzzy
 msgid "loan_status"
 msgstr "Tataars"
 
-#: rero_ils/config.py:2325
+#: rero_ils/config.py:2326
 #, fuzzy
 msgid "requester"
 msgstr "Opgevraagd"
@@ -380,6 +380,16 @@ msgstr "Wachtwoord vergeten?"
 #: rero_ils/theme/templates/rero_ils/reset_password.html:47
 msgid "Sign Up"
 msgstr "Aanmelden"
+
+#: rero_ils/manual_translations.txt:70
+#, fuzzy
+msgid "This is a TEST VERSION."
+msgstr "Testversie"
+
+#: rero_ils/manual_translations.txt:71
+#, fuzzy
+msgid "Go to the production site."
+msgstr "Code van de lokatie."
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -10699,11 +10709,11 @@ msgstr ""
 "De naam van de actie die de overgang naar de huidige toestand in gang "
 "heeft gezet."
 
-#: rero_ils/modules/local_fields/api.py:80
+#: rero_ils/modules/local_fields/api.py:81
 msgid "Local fields already exist for this document."
 msgstr ""
 
-#: rero_ils/modules/local_fields/api.py:84
+#: rero_ils/modules/local_fields/api.py:85
 #, fuzzy
 msgid "Missing fields."
 msgstr "vermist"
@@ -11236,6 +11246,16 @@ msgstr ""
 #, fuzzy
 msgid "dispute"
 msgstr "Lening datum"
+
+#: rero_ils/modules/patron_transactions/utils.py:126
+#, fuzzy
+msgid "note"
+msgstr "Nota"
+
+#: rero_ils/modules/patron_transactions/utils.py:126
+#, fuzzy
+msgid "incremental overdue fees"
+msgstr "achterstallig"
 
 #: rero_ils/modules/patron_transactions/utils.py:206
 msgid "Subscription for '{name}' from {start} to {end}"
