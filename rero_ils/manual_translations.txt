@@ -65,3 +65,7 @@ _('Logout')
 _('Edit my profile')
 _('Change password')
 _('Sign Up')
+
+# Test alert message
+_('This is a TEST VERSION.')
+_('Go to the production site.')
