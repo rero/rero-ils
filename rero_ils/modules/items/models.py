@@ -105,5 +105,10 @@ class ItemNoteTypes:
         GENERAL,
         STAFF,
         CHECKIN,
-        CHECKOUT
+        CHECKOUT,
+        ACQUISITION,
+        BINDING,
+        CONDITION,
+        PATRIMONIAL,
+        PROVENANCE
     ]
