@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,23 +16,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Loans serialization."""
-
-from invenio_records_rest.serializers.response import search_responsify
-
+"""RERO-ILS Loan resource serializers for JSON format."""
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.dumpers import ItemCirculationDumper
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
+from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.patron_types.api import PatronTypesSearch
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.dumpers import PatronPropertiesDumper
 from rero_ils.modules.serializers import CachedDataSerializerMixin, \
-    JSONSerializer, RecordSchemaJSONV1
+    JSONSerializer
 
-from .api import Loan
-from .models import LoanState
+from ..api import Loan
 
 
 class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
@@ -49,7 +47,8 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                 'rank': 0
             })
             if metadata['state'] not in LoanState.ITEM_AT_DESK:
-                patron = self.get_resource(Patron, metadata.get('patron_pid'))
+                patron_pid = metadata.get('patron', {}).get('pid')
+                patron = self.get_resource(Patron, patron_pid)
                 metadata['rank'] = item.patron_request_rank(patron)
 
         def _post_process_search_concluded_hit(metadata, loan):
@@ -162,7 +161,3 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                 for term, hit in misc_aggr.items()
                 if hit.get('doc_count')
             ]
-
-
-_json = LoanJSONSerializer(RecordSchemaJSONV1)
-json_loan_search = search_responsify(_json, 'application/rero+json')

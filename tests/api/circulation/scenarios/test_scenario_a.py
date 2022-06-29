@@ -19,9 +19,11 @@
 
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import flush_index, get_json, postdata
 
 from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
 
 
 def test_circ_scenario_a(
@@ -51,10 +53,15 @@ def test_circ_scenario_a(
     res, data = postdata(
         client, 'api_item.validate_request', dict(circ_params))
     assert res.status_code == 200
+    loan = Loan(get_json(res)['action_applied']['validate'])
+    assert loan.checkout_date is None
     # CHECKOUT_2.1
     res, data = postdata(
         client, 'api_item.checkout', dict(circ_params))
     assert res.status_code == 200
+    loan = Loan(get_json(res)['action_applied']['checkout'])
+    flush_index(OperationLogsSearch.Meta.index)
+    assert loan.checkout_date
     # CHECKIN_3.1.1
     res, data = postdata(
         client, 'api_item.checkin', dict(circ_params))
