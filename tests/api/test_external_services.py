@@ -22,6 +22,7 @@
 
 import mock
 from flask import url_for
+from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
     to_relative_url
 
@@ -94,9 +95,18 @@ def test_documents_get(client, document):
     assert data['hits']['total']['value'] == 1
 
 
+def test_imports_get_config(client, librarian_martigny):
+    """Get the configuration for the external import services."""
+    login_user_via_session(client, librarian_martigny.user)
+    res = client.get(url_for('api_import.get_config'))
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data
+    assert all('weight' in source for source in data)
+
+
 @mock.patch('requests.get')
-@mock.patch('rero_ils.permissions.login_and_librarian',
-            mock.MagicMock())
+@mock.patch('rero_ils.permissions.login_and_librarian', mock.MagicMock())
 def test_documents_import_bnf_ean(mock_get, client, bnf_ean_any_123,
                                   bnf_ean_any_9782070541270,
                                   bnf_ean_any_9782072862014,

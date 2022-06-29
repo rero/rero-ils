@@ -23,7 +23,21 @@ from flask import abort, jsonify, redirect
 from flask_login import current_user
 from werkzeug.exceptions import HTTPException
 
-from rero_ils.permissions import login_and_librarian, login_and_patron
+from rero_ils.permissions import librarian_permission, login_and_librarian, \
+    login_and_patron
+
+
+def check_authentication(fn):
+    """Decorator to check authentication for permissions HTTP API."""
+    @wraps(fn)
+    def decorated_view(*args, **kwargs):
+        if not current_user.is_authenticated:
+            return jsonify({'status': 'error: Unauthorized'}), 401
+        if not librarian_permission.require().can():
+            return jsonify({'status': 'error: Forbidden'}), 403
+        return fn(*args, **kwargs)
+
+    return decorated_view
 
 
 def check_logged_as_librarian(fn):

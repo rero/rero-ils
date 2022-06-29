@@ -20,36 +20,21 @@
 from __future__ import absolute_import, print_function
 
 import os
-from functools import wraps
 
 import polib
 from flask import Blueprint, abort, current_app, jsonify
 from flask_babelex import get_domain
-from flask_login import current_user
 
 from rero_ils.modules.utils import cached
 
+from .decorators import check_authentication
 from .permissions import record_permissions
-from ..permissions import librarian_permission
 
 api_blueprint = Blueprint(
     'api_blueprint',
     __name__,
     url_prefix=''
 )
-
-
-def check_authentication(func):
-    """Decorator to check authentication for permissions HTTP API."""
-    @wraps(func)
-    def decorated_view(*args, **kwargs):
-        if not current_user.is_authenticated:
-            return jsonify({'status': 'error: Unauthorized'}), 401
-        if not librarian_permission.require().can():
-            return jsonify({'status': 'error: Forbidden'}), 403
-        return func(*args, **kwargs)
-
-    return decorated_view
 
 
 @api_blueprint.route('/permissions/<route_name>', methods=['GET'])
