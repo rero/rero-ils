@@ -21,16 +21,21 @@
 from invenio_records_rest.serializers.response import record_responsify, \
     search_responsify
 
-from .base import CachedDataSerializerMixin, JSONSerializer
+from .base import JSONSerializer
+from .mixins import CachedDataSerializerMixin, StreamSerializerMixin
+from .response import record_responsify_file, search_responsify_file
 from .schema import RecordSchemaJSONV1
 
 __all__ = [
     'CachedDataSerializerMixin',
+    'StreamSerializerMixin',
     'JSONSerializer',
     'RecordSchemaJSONV1',
     'json_v1',
     'json_v1_search',
-    'json_v1_response'
+    'json_v1_response',
+    'search_responsify_file',
+    'record_responsify_file'
 ]
 
 

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,79 +17,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO ILS record serialization."""
-import inspect
-from abc import ABC
 
-from flask import json, request, url_for
+from flask import json, request
 from invenio_records_rest.serializers.json import \
     JSONSerializer as _JSONSerializer
 
-from rero_ils.modules.documents.utils import filter_document_type_buckets
-
-
-class PostprocessorMixinInterface(ABC):
-    """Mixin postprocessing records during serialization."""
-
-    def postprocess_serialize_search(self, results, pid_fetcher):
-        """Post-process the search results.
-
-        :param results: Search result.
-        :param pid_fetcher: Persistent identifier fetcher.
-        """
-        raise NotImplementedError()
-
-
-class PostprocessorMixin(PostprocessorMixinInterface):
-    """Base class for post-processing record serializers."""
-
-    def postprocess_serialize_search(self, results, pid_fetcher):
-        """Post-process the search results.
-
-        Post-processing a search result is a three steps process :
-          1) allow modification on each search hit
-          2) allow modification on aggregation buckets
-          3) allow modification about links part
-
-        :param results: Search result.
-        :param pid_fetcher: Persistent identifier fetcher.
-        """
-        for hit in results.get('hits', {}).get('hits', []):
-            self._postprocess_search_hit(hit)
-        if aggregations := results.get('aggregations'):
-            self._postprocess_search_aggregations(aggregations)
-        self._postprocess_search_links(results, pid_fetcher)
-        return results
-
-    def _postprocess_search_links(self, search_results, pid_fetcher) -> None:
-        """Post-process search links.
-
-        :param search_results: Elasticsearch search result.
-        :param pid_fetcher: Persistent identifier fetcher related to records
-                            into the search result.
-        """
-        # add REST API to create a record related to the search result.
-        pid_type = pid_fetcher(None, {'pid': '1'}).pid_type
-        url = url_for(f'invenio_records_rest.{pid_type}_list', _external=True)
-        search_results['links'].update({'create': url})
-
-    def _postprocess_search_hit(self, hit: dict) -> None:
-        """Post-process a specific search hit.
-
-        :param hit: the dictionary representing an ElasticSearch search hit.
-        """
-        # DEV NOTES :
-        #   Override this method in subclass to operate specific
-        #   modification/enrichment on a search hit.
-
-    def _postprocess_search_aggregations(self, aggregations: dict) -> None:
-        """Post-process aggregations from a search result.
-
-        :param aggregations: the dictionary representing ElasticSearch
-                             aggregations section.
-        """
-        if 'document_type' in aggregations:
-            aggr = aggregations['document_type'].get('buckets')
-            filter_document_type_buckets(aggr)
+from .mixins import PostprocessorMixin
 
 
 class JSONSerializer(_JSONSerializer, PostprocessorMixin):
@@ -182,26 +116,3 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
                 'max': max(values),
                 'step': step  # 1 day in millis
             }
-
-
-class CachedDataSerializerMixin:
-    """Class to load and cached resources for serialization process."""
-
-    _resources = {}
-
-    def get_resource(self, loader, pid):
-        """Get a resource and store it into the cache if necessary.
-
-        :param loader: Class use to retrieve the resource record.
-        :param pid: the resource pid.
-        :return: the requested resource.
-        """
-        cls_key = loader if inspect.isclass(loader) else loader.__class__
-        convert_to_dict = not inspect.isclass(loader)  # AttrDict conversion
-        if cls_key not in self._resources \
-           or pid not in self._resources[cls_key]:
-            resource = loader.get_record_by_pid(pid)
-            if convert_to_dict:
-                resource = resource.to_dict()
-            self._resources.setdefault(cls_key, {})[pid] = resource
-        return self._resources[cls_key][pid]

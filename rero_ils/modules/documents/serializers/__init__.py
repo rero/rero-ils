@@ -27,9 +27,8 @@ from rero_ils.modules.documents.serializers.json import \
 from rero_ils.modules.documents.serializers.marc import \
     DocumentMARCXMLSerializer, DocumentMARCXMLSRUSerializer
 from rero_ils.modules.documents.serializers.ris import RISSerializer
-from rero_ils.modules.response import record_responsify_file, \
-    search_responsify_file
-from rero_ils.modules.serializers import RecordSchemaJSONV1
+from rero_ils.modules.serializers import RecordSchemaJSONV1, \
+    record_responsify_file, search_responsify_file
 
 # Serializers
 # ===========
@@ -44,15 +43,27 @@ _ris = RISSerializer()
 # ========================
 json_doc_search = search_responsify(_json, 'application/rero+json')
 json_doc_response = record_responsify(_json, 'application/rero+json')
-json_export_doc_search = \
-    search_responsify_file(_json_export, 'application/export+json', 'json')
-json_export_doc_response = \
-    record_responsify_file(_json_export, 'application/export+json', 'json')
+json_export_doc_search = search_responsify_file(
+    _json_export, 'application/export+json',
+    file_extension='json',
+    file_prefix='export'
+)
+json_export_doc_response = record_responsify_file(
+    _json_export, 'application/export+json',
+    file_extension='json',
+    file_prefix='export'
+)
 
-ris_doc_search = \
-    search_responsify_file(_ris, 'application/x-research-info-systems', 'ris')
-ris_doc_response = \
-    record_responsify_file(_ris, 'application/x-research-info-systems', 'ris')
+ris_doc_search = search_responsify_file(
+    _ris, 'application/x-research-info-systems',
+    file_extension='ris',
+    file_prefix='export'
+)
+ris_doc_response = record_responsify_file(
+    _ris, 'application/x-research-info-systems',
+    file_extension='ris',
+    file_prefix='export'
+)
 
 xml_dc_search = search_responsify(_xml_dc, 'application/xml')
 xml_dc_response = record_responsify(_xml_dc, 'application/xml')

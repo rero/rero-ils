@@ -24,12 +24,13 @@ from flask import Blueprint, current_app, jsonify
 from flask import request as flask_request
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_rest import ContentNegotiatedMethodView
-from invenio_rest.errors import RESTException
 
+from rero_ils.modules.decorators import check_logged_as_librarian
+
+from .exceptions import ResultNotFoundOnTheRemoteServer
 from .serializers import json_record_serializer_factory, \
     json_v1_import_record_marc, json_v1_import_search, \
     json_v1_import_uisearch
-from ..decorators import check_logged_as_librarian
 
 api_blueprint = Blueprint(
     'api_import',
@@ -42,18 +43,11 @@ api_blueprint = Blueprint(
 @check_logged_as_librarian
 def get_config():
     """Get configuration from config.py."""
-    sources = current_app.config.get('RERO_IMPORT_REST_ENDPOINTS', [])
+    sources = current_app.config.get('RERO_IMPORT_REST_ENDPOINTS', {}).values()
     for source in sources:
         source.pop('import_class', None)
         source.pop('import_size', None)
     return jsonify(sorted(sources, key=lambda s: s.get('weight', 100)))
-
-
-class ResultNotFoundOnTheRemoteServer(RESTException):
-    """Non existent remote record."""
-
-    code = 404
-    description = 'Record not found on the remote server.'
 
 
 class ImportsListResource(ContentNegotiatedMethodView):

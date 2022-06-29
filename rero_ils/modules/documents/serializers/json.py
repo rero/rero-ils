@@ -39,7 +39,7 @@ class DocumentJSONSerializer(JSONSerializer):
     """Serializer for RERO-ILS `Document` records as JSON."""
 
     @staticmethod
-    def _get_view_information() -> tuple[str, str]:
+    def _get_view_information():
         """Get the `view_id` and `view_code` to use to build response."""
         view_id = None
         view_code = request.args.get('view', GLOBAL_VIEW_CODE)
@@ -121,6 +121,14 @@ class DocumentJSONSerializer(JSONSerializer):
 
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""
+        def _get_library_pids(org_pid):
+            query = LibrariesSearch().filter('term', organisation__pid=org_pid)
+            return [hit.pid for hit in query.scan()]
+
+        def _get_location_pids(lib_pid):
+            query = LocationsSearch().filter('term', library__pid=lib_pid)
+            return [hit.pid for hit in query.scan()]
+
         view_id, view_code = DocumentJSONSerializer._get_view_information()
         if aggr_org := aggregations.get('organisation', {}).get('buckets', []):
             # For a "local view", we only need the facet on the location
@@ -137,14 +145,37 @@ class DocumentJSONSerializer(JSONSerializer):
                 OrganisationsSearch, 'name'
             )
             for term in aggr_org:
+                # Filter the library buckets to keep only libraries for the
+                # current read organisation
+                lib_pids = _get_library_pids(term.get('key'))
                 aggr_lib = term.get('library', {}).get('buckets', [])
+                aggr_lib = list(
+                    filter(
+                        lambda term: term.get('key') in lib_pids,
+                        aggr_lib
+                    )
+                )
+                # update the current read organisation buckets
+                term.setdefault('library', {})['buckets'] = aggr_lib
                 JSONSerializer.enrich_bucket_with_data(
                     aggr_lib,
                     LibrariesSearch, 'name'
                 )
                 for lib_term in aggr_lib:
+                    # Filter the location buckets to keep only locations for
+                    # the current read library.
+                    loc_pids = _get_location_pids(lib_term.get('key'))
+                    aggr_loc = lib_term.get('location', {}).get('buckets', [])
+                    aggr_loc = list(
+                        filter(
+                            lambda term: term.get('key') in loc_pids,
+                            aggr_loc
+                        )
+                    )
+                    # update the current read library buckets
+                    lib_term.setdefault('location', {})['buckets'] = aggr_loc
                     JSONSerializer.enrich_bucket_with_data(
-                        lib_term.get('location', {}).get('buckets', []),
+                        aggr_loc,
                         LocationsSearch, 'name'
                     )
             # For a "local view", we replace the organisation aggregation by

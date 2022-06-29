@@ -79,7 +79,7 @@ class REROILSAPP(object):
         if app:
             self.init_app(app)
             # force to load ils template before others
-            # it is require for Flask-Security see:
+            # it is required for Flask-Security see:
             # https://pythonhosted.org/Flask-Security/customizing.html#emails
             ils_loader = jinja2.ChoiceLoader([
                 jinja2.PackageLoader('rero_ils', 'theme/templates'),
@@ -108,51 +108,57 @@ class REROILSAPP(object):
         NormalizerStopWords(app)
         self.init_config(app)
         app.extensions['rero-ils'] = self
-        self.register_import_api_blueprint(app)
-        self.register_users_api_blueprint(app)
-        self.register_sru_api_blueprint(app)
+        REROILSAPP.register_import_api_blueprint(app)
+        REROILSAPP.register_users_api_blueprint(app)
+        REROILSAPP.register_sru_api_blueprint(app)
         # import logging
         # logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 
-    def register_import_api_blueprint(self, app):
-        """Imports bluprint initialization."""
-        api_blueprint = Blueprint(
-            'api_imports',
-            __name__
-        )
+    @staticmethod
+    def register_import_api_blueprint(app):
+        """Imports blueprints initialization."""
+
+        def handle_bad_request(e):
+            return 'not found', 404
+
+        api_blueprint = Blueprint('api_imports', __name__)
         endpoints = app.config.get('RERO_IMPORT_REST_ENDPOINTS', {})
-        for endpoint in endpoints:
-            imports_search = ImportsListResource.as_view(
-                f'import_{endpoint.get("key")}',
-                import_class=endpoint.get('import_class'),
-                import_size=endpoint.get('import_size')
+        for key, config in endpoints.items():
+            # search view
+            search_view_name = f'import_{key}'
+            search_path = f'/import_{key}/'
+            search_view = ImportsListResource.as_view(
+                search_view_name,
+                import_class=config.get('import_class'),
+                import_size=config.get('import_size')
             )
-            api_blueprint.add_url_rule(
-                f'/import_{endpoint.get("key")}/',
-                view_func=imports_search
-            )
-            imports_record = ImportsResource.as_view(
-                f'import_{endpoint.get("key")}_record',
-                import_class=endpoint.get('import_class')
-            )
-            api_blueprint.add_url_rule(
-                f'/import_{endpoint.get("key")}/<id>',
-                view_func=imports_record
-            )
+            api_blueprint.add_url_rule(search_path, view_func=search_view)
 
-            def handle_bad_request(e):
-                return 'not found', 404
+            # record view
+            record_view_name = f'import_{key}_record'
+            record_path = f'/import_{key}/<id>'
+            record_view = ImportsResource.as_view(
+                record_view_name,
+                import_class=config.get('import_class')
+            )
+            api_blueprint.add_url_rule(record_path, view_func=record_view)
 
-            api_blueprint.register_error_handler(
-                ResultNotFoundOnTheRemoteServer, handle_bad_request)
-            app.register_blueprint(api_blueprint)
-
-    def register_users_api_blueprint(self, app):
-        """User bluprint initialization."""
-        api_blueprint = Blueprint(
-            'api_users',
-            __name__
+        api_blueprint.register_error_handler(
+            ResultNotFoundOnTheRemoteServer,
+            handle_bad_request
         )
+        app.register_blueprint(api_blueprint)
+
+    @staticmethod
+    def register_users_api_blueprint(app):
+        """User blueprints initialization."""
+        api_blueprint = Blueprint('api_users', __name__)
+
+        @api_blueprint.errorhandler(ValidationError)
+        def validation_error(error):
+            """Catch validation errors."""
+            return JSONSchemaValidationError(error=error).get_response()
+
         api_blueprint.add_url_rule(
             '/users/<id>',
             view_func=UsersResource.as_view('users_item')
@@ -161,23 +167,13 @@ class REROILSAPP(object):
             '/users/',
             view_func=UsersCreateResource.as_view('users_list')
         )
-
-        @api_blueprint.errorhandler(ValidationError)
-        def validation_error(error):
-            """Catch validation errors."""
-            return JSONSchemaValidationError(error=error).get_response()
-
         app.register_blueprint(api_blueprint)
 
-    def register_sru_api_blueprint(self, app):
-        """Imports bluprint initialization."""
-        api_blueprint = Blueprint(
-            'api_sru',
-            __name__
-        )
-        sru_documents_search = SRUDocumentsSearch.as_view(
-            f'documents',
-        )
+    @staticmethod
+    def register_sru_api_blueprint(app):
+        """SRU blueprints initialization."""
+        api_blueprint = Blueprint('api_sru', __name__)
+        sru_documents_search = SRUDocumentsSearch.as_view(f'documents')
         api_blueprint.add_url_rule(
             '/sru/documents',
             view_func=sru_documents_search
