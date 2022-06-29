@@ -2003,7 +2003,7 @@ RECORDS_REST_FACETS = dict(
             _('pickup_library'): and_term_filter('pickup_library_pid'),
             _('pickup_location'): and_term_filter('pickup_location_pid'),
             _('transaction_library'): and_term_filter('transaction_library_pid'),
-            _('transaction_library'): and_term_filter('transaction_location_pid'),
+            _('transaction_location'): and_term_filter('transaction_location_pid'),
             _('status'): and_term_filter('state'),
             _('misc_status'): misc_status_filter(),
             _('patron_type'): and_term_filter('patron_type_pid'),
@@ -3121,50 +3121,60 @@ WIKI_MARKDOWN_EXTENSIONS = set((
 #                interface. Default value is 100. Lower is the weight, higher
 #                is the priority.
 
-RERO_IMPORT_REST_ENDPOINTS = [
-    dict(
+RERO_IMPORT_REST_ENDPOINTS = dict(
+    loc=dict(
         key='loc',
         import_class='rero_ils.modules.imports.api:LoCImport',
         import_size=50,
         label='Library of Congress',
         weight=70
     ),
-    dict(
-        key='bnf',
+    bnf=dict(
         import_class='rero_ils.modules.imports.api:BnfImport',
         import_size=50,
         label='BNF',
         weight=20
     ),
-    dict(
-        key='dnb',
+    dnb=dict(
         import_class='rero_ils.modules.imports.api:DNBImport',
         import_size=50,
         label='DNB',
         weight=20
     ),
-    dict(
-        key='slsp',
+    slsp=dict(
         import_class='rero_ils.modules.imports.api:SLSPImport',
         import_size=50,
         label='SLSP',
         weight=15
     ),
-    dict(
-        key='ugent',
+    ugent=dict(
         import_class='rero_ils.modules.imports.api:UGentImport',
         import_size=50,
         label='UGent',
         weight=30
     ),
-    dict(
-        key='kul',
+    kul=dict(
         import_class='rero_ils.modules.imports.api:KULImport',
         import_size=50,
         label='KULeuven',
         weight=30
     )
-]
+)
+
+# STREAMED EXPORT RECORDS
+# =============================================================================
+RERO_EXPORT_REST_ENDPOINTS = dict(
+    loan=dict(
+        resource=CIRCULATION_REST_ENDPOINTS.get('loanid'),
+        default_media_type='text/csv',
+        search_serializers={
+            'text/csv': 'rero_ils.modules.loans.serializers:csv_stream_search',
+        },
+        search_serializers_aliases={
+            'csv': 'text/csv'
+        }
+    )
+)
 
 # SRU
 # ====

@@ -39,7 +39,7 @@ class DocumentJSONSerializer(JSONSerializer):
     """Serializer for RERO-ILS `Document` records as JSON."""
 
     @staticmethod
-    def _get_view_information() -> tuple[str, str]:
+    def _get_view_information():
         """Get the `view_id` and `view_code` to use to build response."""
         view_id = None
         view_code = request.args.get('view', GLOBAL_VIEW_CODE)
@@ -122,6 +122,14 @@ class DocumentJSONSerializer(JSONSerializer):
 
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""
+        def _get_library_pids(org_pid):
+            query = LibrariesSearch().filter('term', organisation__pid=org_pid)
+            return [hit.pid for hit in query.scan()]
+
+        def _get_location_pids(lib_pid):
+            query = LocationsSearch().filter('term', library__pid=lib_pid)
+            return [hit.pid for hit in query.scan()]
+
         view_id, view_code = DocumentJSONSerializer._get_view_information()
 
         # to display the results of nested aggregations

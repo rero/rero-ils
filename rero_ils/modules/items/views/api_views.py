@@ -31,16 +31,17 @@ from invenio_circulation.errors import CirculationException, \
 from werkzeug.exceptions import NotFound
 
 from rero_ils.modules.circ_policies.api import CircPolicy
+from rero_ils.modules.decorators import check_authentication
 from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.errors import NoCirculationActionIsPermitted
-from rero_ils.modules.items.api import Item
-from rero_ils.modules.items.models import ItemCirculationAction
-from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.patrons.api import Patron, current_librarian
-from rero_ils.modules.views import check_authentication
 from rero_ils.permissions import request_item_permission
+
+from ..api import Item
+from ..models import ItemCirculationAction
+from ..utils import item_pid_to_object
 
 api_blueprint = Blueprint(
     'api_item',

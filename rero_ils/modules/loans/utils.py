@@ -22,13 +22,15 @@ from datetime import datetime, timedelta, timezone
 import ciso8601
 from flask import current_app
 
+from rero_ils.modules.circ_policies.api import CircPolicy
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.utils import get_ref_for_pid
+
 from .api import get_any_loans_by_item_pid_by_patron_pid
-from ..circ_policies.api import CircPolicy
-from ..items.api import Item
-from ..libraries.api import Library
-from ..locations.api import Location
-from ..patrons.api import Patron
-from ..utils import get_ref_for_pid
+from .models import LoanAction
 
 
 def get_circ_policy(loan, checkout_location=False):
@@ -261,3 +263,18 @@ def sum_for_fees(fee_steps):
         return round(math.fsum([fee[0] for fee in fee_steps]), 2)
     else:
         return 0
+
+
+def get_loan_checkout_date(loan_pid):
+    """Get the date when the loan has been checked out.
+
+    :param loan_pid: the loan pid.
+    :return the checkout date (if exists) as ``datetime.data``.
+    """
+    from rero_ils.modules.operation_logs.api import OperationLogsSearch
+    query = OperationLogsSearch() \
+        .filter('term', loan__pid=loan_pid) \
+        .filter('term', loan__trigger=LoanAction.CHECKOUT) \
+        .source('date')
+    if hit := next(query.scan(), None):
+        return ciso8601.parse_datetime(hit.date)
