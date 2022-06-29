@@ -1349,7 +1349,7 @@ class ItemCirculation(ItemRecord):
             for rank, request in enumerate(requests, start=1):
                 if request['patron_pid'] == patron.pid:
                     return rank
-        return False
+        return 0
 
     def is_requested_by_patron(self, patron_barcode):
         """Check if the item is requested by a given patron."""

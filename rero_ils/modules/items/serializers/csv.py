@@ -18,7 +18,6 @@
 
 """Item serializers."""
 
-
 import csv
 
 from flask import current_app, request, stream_with_context
@@ -28,7 +27,7 @@ from invenio_records_rest.serializers.csv import CSVSerializer, Line
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.locations.api import Location
-from rero_ils.modules.serializers.base import CachedDataSerializerMixin
+from rero_ils.modules.serializers import CachedDataSerializerMixin
 from rero_ils.utils import get_i18n_supported_languages
 
 from .collector import Collecter
@@ -46,6 +45,10 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
         :param links: Dictionary of links to add to response.
         :param item_links_factory: Factory function for record links.
         """
+        # language
+        language = request.args.get("lang", current_i18n.language)
+        if not language or language not in get_i18n_supported_languages():
+            language = current_app.config.get('BABEL_DEFAULT_LANGUAGE', 'en')
 
         def generate_csv():
             """Generate CSV records."""
@@ -73,11 +76,6 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
                     Location, csv_data.pop('item_location_pid')).get('name')
 
             headers = dict.fromkeys(self.csv_included_fields)
-
-            language = request.args.get("lang", current_i18n.language)
-            if not language or language not in get_i18n_supported_languages():
-                language = current_app.config.get(
-                    'BABEL_DEFAULT_LANGUAGE', 'en')
 
             # write the CSV output in memory
             line = Line()

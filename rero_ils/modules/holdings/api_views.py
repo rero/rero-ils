@@ -31,9 +31,10 @@ from invenio_db import db
 from jinja2.exceptions import TemplateSyntaxError, UndefinedError
 from werkzeug.exceptions import NotFound, Unauthorized
 
+from rero_ils.modules.decorators import check_authentication
 from rero_ils.modules.documents.views import record_library_pickup_locations
-from rero_ils.modules.errors import NoCirculationActionIsPermitted
-from rero_ils.modules.holdings.models import HoldingCirculationAction
+from rero_ils.modules.errors import NoCirculationActionIsPermitted, \
+    RegularReceiveNotAllowed
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.items.views.api_views import \
@@ -41,11 +42,10 @@ from rero_ils.modules.items.views.api_views import \
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_ref_for_pid
-from rero_ils.modules.views import check_authentication
+from rero_ils.permissions import can_receive_regular_issue
 
 from .api import Holding
-from ..errors import RegularReceiveNotAllowed
-from ...permissions import can_receive_regular_issue
+from .models import HoldingCirculationAction
 
 api_blueprint = Blueprint(
     'api_holding',

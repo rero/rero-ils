@@ -16,8 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Utils."""
-
-
+import csv
 import json
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -34,6 +33,7 @@ from invenio_oauth2server.models import Client, Token
 from invenio_search import current_search
 from mock import Mock
 from pkg_resources import resource_string
+from six import StringIO
 from six.moves.urllib.parse import parse_qs, urlparse
 
 from rero_ils.modules.circ_policies.api import CircPolicy
@@ -89,6 +89,12 @@ def get_xml_dict(response, ordered=False):
 def get_csv(response):
     """Get CSV from response."""
     return response.get_data(as_text=True)
+
+
+def parse_csv(raw_data):
+    """Parse CSV raw data into a iterable raw file."""
+    content = StringIO(raw_data)
+    return csv.reader(content)
 
 
 def postdata(
