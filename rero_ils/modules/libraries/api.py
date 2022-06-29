@@ -59,13 +59,6 @@ class LibrariesSearch(IlsRecordsSearch):
 
         default_filter = None
 
-    def get_libraries_by_organisation_pid(self, org_pid, fields=None):
-        """Search libraries by organisation pid."""
-        query = self.filter('term', organisation__pid=org_pid)
-        if fields:
-            query = query.source(includes=fields)
-        yield from query.scan()
-
 
 class Library(IlsRecord):
     """Library class."""

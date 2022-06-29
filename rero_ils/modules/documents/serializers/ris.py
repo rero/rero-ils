@@ -20,17 +20,18 @@
 
 from flask import current_app, request, stream_with_context
 from invenio_i18n.ext import current_i18n
+from invenio_records_rest.serializers.base import SerializerMixinInterface
 
 from rero_ils.modules.commons.identifiers import IdentifierFactory, \
     IdentifierType
-from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.serializers.base import \
-    BaseDocumentFormatterMixin
-from rero_ils.modules.documents.utils import create_contributions
 from rero_ils.utils import get_i18n_supported_languages
 
+from .base import BaseDocumentFormatterMixin
+from ..api import Document
+from ..utils import create_contributions
 
-class RISSerializer:
+
+class RISSerializer(SerializerMixinInterface):
     """BibTeX serializer for records."""
 
     def serialize(self, pid, record, links_factory=None, **kwargs):

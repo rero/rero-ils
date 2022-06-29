@@ -619,6 +619,12 @@ class Loan(IlsRecord):
         if checkout_location:
             return checkout_location.library_pid
 
+    @cached_property
+    def checkout_date(self):
+        """Get the checkout date for this loan."""
+        from .utils import get_loan_checkout_date
+        return get_loan_checkout_date(self.pid)
+
     @property
     def location_pid(self):
         """Get loan transaction_location PID or item owning location."""
