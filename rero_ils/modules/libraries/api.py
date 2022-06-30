@@ -345,7 +345,7 @@ class Library(IlsRecord):
             .filter('term', library__pid=self.pid)
         patron_query = PatronsSearch() \
             .filter('term', libraries__pid=self.pid) \
-            .filter('term', roles='librarian')
+            .filter('terms', roles=UserRole.PROFESSIONAL_ROLES)
         receipt_query = AcqReceiptsSearch() \
             .filter('term', library__pid=self.pid)
         if get_pids:

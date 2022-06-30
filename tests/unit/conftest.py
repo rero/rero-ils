@@ -204,7 +204,7 @@ def patron_schema(monkeypatch):
 @pytest.fixture(scope="function")
 def patron_martigny_data_tmp_with_id(patron_martigny_data_tmp):
     """Load Martigny patron data scope function with a mocked user_id."""
-    patron = Patron.removeUserData(deepcopy(patron_martigny_data_tmp))
+    patron = Patron.remove_user_data(deepcopy(patron_martigny_data_tmp))
     # mock the user_id which is add by the Patron API.
     patron['user_id'] = 100
     return patron

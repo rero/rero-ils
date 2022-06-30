@@ -59,7 +59,7 @@ class LibraryPermission(RecordPermission):
         :return: True is action can be done.
         """
         # only sys_lib user can create library
-        if not current_librarian or not current_librarian.is_system_librarian:
+        if not current_librarian or not current_librarian.has_full_permissions:
             return False
         # sys_lib can only create library for its own organisation
         if record and \
@@ -81,7 +81,7 @@ class LibraryPermission(RecordPermission):
             return False
         if current_librarian.organisation_pid == record.organisation_pid:
             # 'sys_lib' can update all libraries
-            if current_librarian.is_system_librarian:
+            if current_librarian.has_full_permissions:
                 return True
             # 'lib' can only update library linked to its own library
             else:
