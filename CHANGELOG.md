@@ -1,5 +1,67 @@
 # Changelog
 
+## [v1.12.0](https://github.com/rero/rero-ils/tree/v1.12.0) (2022-07-08)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.11.0...v1.12.0)
+
+**New features:**
+* Expose RIS record metadata for user exports [\#2780](https://github.com/rero/rero-ils/issues/2780) (by @lauren-d)
+
+**Enhancements:**
+* contributions: get also deleted MEF records [\#2959](https://github.com/rero/rero-ils/pull/2959) (by @rerowep)
+* Move test server alert to app header [\#2966](https://github.com/rero/rero-ils/pull/2966) (by @PascalRepond)
+* Convert 4 last fields: abbreviated title, scale (maps), work access point, temporal coverage (RERO+ specific) [\#2878](https://github.com/rero/rero-ils/issues/2878) (by @rerowep)
+* Cantook e-books are affiliated to libraries [\#2902](https://github.com/rero/rero-ils/issues/2902) (by @rerowep)
+* Better size for document icons and thumbnails in the mobile version [\#2733](https://github.com/rero/rero-ils/issues/2733)
+* Add identifiers fields for Document in relation (when label) and Series statement [\#2275](https://github.com/rero/rero-ils/issues/2275) (by @Garfield-fr)
+* display of idref contributors in RERO ILS and MEF [\#2559](https://github.com/rero/rero-ils/issues/2559) (by @rerowep)
+* Search on ISBN should be possible with or without hypens(-) in it [\#2446](https://github.com/rero/rero-ils/issues/2446)
+* Requests: add a filter/Facet by location and pickup location [\#2923](https://github.com/rero/rero-ils/issues/2923) (by @zannkukai)
+* E-mail validation must be stricter [\#2838](https://github.com/rero/rero-ils/issues/2838) (by @zannkukai)
+* Items (UI) : rtsp procole is flagged as "unsafe" by Angular [\#2893](https://github.com/rero/rero-ils/issues/2893) (by @zannkukai)
+* Billing statistics: completion, correction [\#2847](https://github.com/rero/rero-ils/issues/2847) (by @rerowep)
+* Circulation interface: display due date [\#2637](https://github.com/rero/rero-ils/issues/2637) (by @vgranata)
+
+**Fixes:**
+* dojson: fix rero 260 [\#2944](https://github.com/rero/rero-ils/pull/2944) (by @rerowep)
+* global front page: fix link to new ill request [\#2963](https://github.com/rero/rero-ils/pull/2963) (by @PascalRepond)
+* Using the pager of the result page does not display the top of the page [\#2322](https://github.com/rero/rero-ils/issues/2322) (by @Garfield-fr)
+* editor: ProvisionActivity field: change limit for Date1 and date2  [\#2948](https://github.com/rero/rero-ils/issues/2948)
+* Document's editor : performance problem when adding/deleting a field [\#2882](https://github.com/rero/rero-ils/issues/2882)
+* Problem when adding a "Subordinate units" in a Corporate body [\#2649](https://github.com/rero/rero-ils/issues/2649)
+* Work access point is always set to "Link to work" in the editor [\#2340](https://github.com/rero/rero-ils/issues/2340)
+* The editor should work differently when we update or create a resource [\#2766](https://github.com/rero/rero-ils/issues/2766) (by @Garfield-fr, @jma)
+* Document editor problems with place of publication (`provisionActivity`) [\#2659](https://github.com/rero/rero-ils/issues/2659)
+* Document editor: subfield "identifier" missing in Work access point field [\#2388](https://github.com/rero/rero-ils/issues/2388) (by @Garfield-fr)
+* ContentMediaCarrier : value to remove and placeholder to add [\#1924](https://github.com/rero/rero-ils/issues/1924) (by @zannkukai)
+* Claimed status should not be automatically set if the issue has not been claimed [\#2890](https://github.com/rero/rero-ils/issues/2890) (by @BadrAly)
+* Error "400 Bad request" sometimes when opening or editing an item [\#2705](https://github.com/rero/rero-ils/issues/2705) (by @Garfield-fr)
+* Editor : the ISBN check for duplicates doesn't convert ISBN 10 into 13 [\#1893](https://github.com/rero/rero-ils/issues/1893) (by @Garfield-fr, @zannkukai)
+* Missing and wrong formated information in the orders sent [\#2647](https://github.com/rero/rero-ils/issues/2647) (by @zannkukai)
+* ISSN search should not be case sensitive [\#2783](https://github.com/rero/rero-ils/issues/2783)
+* At_desk notification: incorrect patron info [\#2938](https://github.com/rero/rero-ils/issues/2938) (by @zannkukai)
+* Renew button sometimes appears for items that are not renewable [\#2872](https://github.com/rero/rero-ils/issues/2872) (by @BadrAly)
+* Add user form validations [\#2765](https://github.com/rero/rero-ils/issues/2765) (by @zannkukai)
+* ilsdev and bib.test should not be indexed by search engines [\#2762](https://github.com/rero/rero-ils/issues/2762) (by @rerowep)
+* Import from the web: improve mapping [\#2565](https://github.com/rero/rero-ils/issues/2565) (by @benerken)
+* Subjects from MEF are not displayed correctly in facet / document detailed view [\#2609](https://github.com/rero/rero-ils/issues/2609) (by @zannkukai)
+
+**Other changes:**
+* documents: fix the thumbnail size on different devices [\#2988](https://github.com/rero/rero-ils/pull/2988) (by @Garfield-fr)
+* translations: fix unitest [\#2983](https://github.com/rero/rero-ils/pull/2983) (by @zannkukai)
+* documents: fix streaming download of RIS file [\#2968](https://github.com/rero/rero-ils/pull/2968) (by @lauren-d)
+* editor: fix subject field performance [\#2969](https://github.com/rero/rero-ils/pull/2969) (by @PascalRepond)
+* fix: ill link on the frontpage [\#2976](https://github.com/rero/rero-ils/pull/2976) (by @PascalRepond)
+* alembic: more robust ill request operation log [\#2967](https://github.com/rero/rero-ils/pull/2967) (by @rerowep)
+* scheduler: improvments [\#2937](https://github.com/rero/rero-ils/pull/2937) (by @rerowep)
+* tests: fix github actions [\#2941](https://github.com/rero/rero-ils/pull/2941) (by @rerowep)
+* tests: fix test_loan_operation_log [\#2945](https://github.com/rero/rero-ils/pull/2945) (by @rerowep)
+* dependencies: update the dependencies lock file [\#2935](https://github.com/rero/rero-ils/pull/2935) (by @rerowep)
+* document: fix subject subdivisions min items [\#2936](https://github.com/rero/rero-ils/pull/2936) (by @zannkukai)
+* help: fix easy-mde CDN [\#2933](https://github.com/rero/rero-ils/pull/2933) (by @PascalRepond)
+* documents: fix alembic bf:Organization [\#2927](https://github.com/rero/rero-ils/pull/2927) (by @rerowep)
+* holdings: fix items updates [\#2942](https://github.com/rero/rero-ils/pull/2942) (by @BadrAly)
+
 ## [v1.11.0](https://github.com/rero/rero-ils/tree/v1.11.0) (2022-05-18)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.10.0...v1.11.0)
