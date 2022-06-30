@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-06-28 10:14+0200\n"
-"PO-Revision-Date: 2022-06-28 14:28+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2022-06-29 09:01+0000\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -4039,7 +4039,7 @@ msgstr "Solde restant trop bas"
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:204
 #: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:98
 msgid "Acquisition account"
-msgstr "Compte"
+msgstr "Compte d'acquisition"
 
 #: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:5
 msgid "JSON schema for an account"
