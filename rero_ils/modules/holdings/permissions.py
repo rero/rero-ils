@@ -79,7 +79,7 @@ class HoldingPermission(RecordPermission):
             return False
         if current_librarian.organisation_pid == record.organisation_pid:
             # 'sys_lib' can update all items
-            if current_librarian.is_system_librarian:
+            if current_librarian.has_full_permissions:
                 return True
             # 'lib' can only update items linked to its own library
             return current_librarian.library_pids and \

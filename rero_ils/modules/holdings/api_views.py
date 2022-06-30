@@ -269,7 +269,7 @@ def can_request(holding_pid):
     patron_barcode = flask_request.args.get('patron_barcode')
     if patron_barcode:
         kwargs['patron'] = Patron.get_patron_by_barcode(
-            patron_barcode, holding.organisation_pid)
+            barcode=patron_barcode, org_pid=holding.organisation_pid)
         if not kwargs['patron']:
             abort(404, 'Patron not found')
 

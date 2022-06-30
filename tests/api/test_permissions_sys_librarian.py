@@ -25,6 +25,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 from rero_ils.modules.patrons.models import CommunicationChannel
+from rero_ils.modules.users.models import UserRole
 from rero_ils.utils import create_user_from_data
 
 
@@ -61,13 +62,12 @@ def test_system_librarian_permissions(
     res = client.get(role_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert 'system_librarian' in data['allowed_roles']
+    assert UserRole.FULL_PERMISSIONS in data['allowed_roles']
 
     # can create all type of users.
     system_librarian = deepcopy(record)
     librarian = deepcopy(record)
     patron = deepcopy(record)
-    counter = 1
     records = [{
         'user': patron,
         'patch': {
@@ -85,29 +85,24 @@ def test_system_librarian_permissions(
     }, {
         'user': librarian,
         'patch': {
-            'roles': ['librarian'],
+            'roles': UserRole.LIBRARIAN_ROLES,
             'libraries': [{'$ref': 'https://bib.rero.ch/api/libraries/lib1'}]
         }
     }, {
         'user': system_librarian,
         'patch': {
-            'roles': ['librarian', 'system_librarian'],
+            'roles': UserRole.PROFESSIONAL_ROLES,
             'libraries': [{
                 '$ref': 'https://bib.rero.ch/api/libraries/lib1'
             }]
         }
     }]
-    for record in records:
-        counter += 1
+    for counter, record in enumerate(records, start=2):
         data = record['user']
         data.update(record['patch'])
         if data.get('patron'):
-            data['patron']['barcode'] = ['barcode' + str(counter)]
-        res, _ = postdata(
-            client,
-            'invenio_records_rest.ptrn_list',
-            data
-        )
+            data['patron']['barcode'] = [f'barcode{counter}']
+        res, _ = postdata(client, 'invenio_records_rest.ptrn_list', data)
         assert res.status_code == 201
         user = get_json(res)['metadata']
         user_pid = user.get('pid')
