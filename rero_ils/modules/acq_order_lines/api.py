@@ -25,14 +25,17 @@ from functools import partial
 from flask_babelex import gettext as _
 from werkzeug.utils import cached_property
 
+from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLinesSearch
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, \
+    sorted_pids
+
 from .extensions import AcqOrderLineValidationExtension
 from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata, \
     AcqOrderLineStatus
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 # provider
 AcqOrderLineProvider = type(
@@ -278,6 +281,30 @@ class AcqOrderLine(IlsRecord):
             if note.get('type') == note_type
         ]
         return next(iter(note), None)
+
+    def get_links_to_me(self, get_pids=False):
+        """Record links.
+
+        :param get_pids: if True list of linked pids
+                         if False count of linked records
+        """
+        links = {}
+        query = AcqReceiptLinesSearch()\
+            .filter('term', acq_order_line__pid=self.pid)
+
+        receipt_lines = sorted_pids(query) if get_pids else query.count()
+
+        if receipt_lines:
+            links['acq_receipt_lines'] = receipt_lines
+
+        return links
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        if links := self.get_links_to_me():
+            cannot_delete['links'] = links
+        return cannot_delete
 
 
 class AcqOrderLinesIndexer(IlsRecordsIndexer):
