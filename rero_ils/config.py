@@ -2833,7 +2833,13 @@ RERO_ILS_CONTRIBUTIONS_LABEL_ORDER = {
 }
 
 #: Admin roles
-RERO_ILS_LIBRARIAN_ROLES = ['librarian', 'system_librarian']
+RERO_ILS_LIBRARIAN_ROLES = [
+    'pro_full_permissions',
+    'pro_read_only',
+    'pro_catalog_manager',
+    'pro_circulation_manager',
+    'pro_user_manager'
+]
 
 
 # JSONSchemas
