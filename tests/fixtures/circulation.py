@@ -43,8 +43,13 @@ def roles(base_app, database):
     """Create user roles."""
     ds = base_app.extensions['invenio-accounts'].datastore
     ds.create_role(name='patron')
-    ds.create_role(name='librarian')
-    ds.create_role(name='system_librarian')
+    ds.create_role(name='pro_full_permissions')
+    ds.create_role(name='pro_read_only')
+    ds.create_role(name='pro_catalog_manager')
+    ds.create_role(name='pro_circulation_manager')
+    ds.create_role(name='pro_user_manager')
+    ds.create_role(name='pro_acquisition_manager')
+    ds.create_role(name='pro_library_administrator')
     ds.commit()
 
 
@@ -394,7 +399,13 @@ def patron_sion_multiple(
     data = deepcopy(patron2_martigny_data)
     data['pid'] = 'ptrn13'
     data['patron']['barcode'] = ['42421313123']
-    data['roles'] = ['patron', 'librarian']
+    data['roles'] = [
+        'patron',
+        'pro_read_only',
+        'pro_catalog_manager',
+        'pro_circulation_manager',
+        'pro_user_manager'
+    ]
     pid = lib_sion.pid
     data['libraries'] = [{'$ref':  f'https://bib.rero.ch/api/libraries/{pid}'}]
     pid = patron_type_grown_sion.pid

@@ -76,7 +76,7 @@ class LocationPermission(RecordPermission):
             return False
         if current_librarian.organisation_pid == record.organisation_pid:
             # 'sys_lib' can update all locations
-            if current_librarian.is_system_librarian:
+            if current_librarian.has_full_permissions:
                 return True
             # 'lib' can only update location linked to its own library
             else:

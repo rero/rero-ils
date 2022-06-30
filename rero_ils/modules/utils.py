@@ -347,20 +347,6 @@ def add_years(initial_date, years):
                                date(initial_date.year, 1, 1))
 
 
-def trim_patron_barcode_for_record(data=None):
-    """Trim the barcode for a patron or an item record.
-
-    :param data: the patron or item record
-    :return: data with trimmed barcode
-    """
-    if data and data.get('barcode'):
-        data['barcode'] = [d.strip() for d in data.get('barcode')]
-    if data and data.get('patron', {}).get('barcode'):
-        data['patron']['barcode'] = [
-            d.strip() for d in data['patron']['barcode']]
-    return data
-
-
 def trim_item_barcode_for_record(data=None):
     """Trim the barcode for a patron or an item record.
 

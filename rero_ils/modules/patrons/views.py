@@ -154,7 +154,7 @@ def logged_user():
         patron.pop('$schema', None)
         patron.pop('user_id', None)
         patron.pop('notes', None)
-        patron['organisation'] = patron.get_organisation().dumps(
+        patron['organisation'] = patron.organisation.dumps(
             dumper=OrganisationLoggedUserDumper())
         patron['libraries'] = [
             {'pid': extracted_data_from_ref(library)}
@@ -232,7 +232,7 @@ def get_messages(patron_pid):
     """Get messages for the current user."""
     patron = Patron.get_record_by_pid(patron_pid)
     messages = patron.get_circulation_messages(True)
-    if patron.get_pending_subscriptions():
+    if patron.pending_subscriptions:
         messages.append({
             'type': 'warning',
             'content': _('You have a pending subscription fee.')
@@ -342,7 +342,7 @@ def info():
     # Process for all patrons
     patrons = copy.deepcopy(current_patrons)
     for patron in patrons:
-        patron['institution'] = patron.get_organisation()
+        patron['institution'] = patron.organisation
         patron['patron']['type'] = PatronType.get_record_by_pid(
             extracted_data_from_ref(patron['patron']['type']['$ref']))
 

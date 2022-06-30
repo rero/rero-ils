@@ -30,6 +30,7 @@ from jsonschema.exceptions import ValidationError
 from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
 from rero_ils.modules.patrons.models import CommunicationChannel
+from rero_ils.modules.users.models import UserRole
 from rero_ils.utils import create_user_from_data
 
 
@@ -57,12 +58,13 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
 
     wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
     wrong_librarian_martigny_data_tmp.pop('libraries')
-    with pytest.raises(ValidationError):
-        ptrn = Patron.create(
+    with pytest.raises(ValidationError) as err:
+        Patron.create(
             wrong_librarian_martigny_data_tmp,
             dbcommit=True,
             delete_pid=True
         )
+    assert str(err.value) == 'Missing libraries'
 
     wrong_librarian_martigny_data_tmp = deepcopy(librarian_martigny_data_tmp)
     wrong_librarian_martigny_data_tmp.setdefault('patron', {
@@ -100,7 +102,6 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
         delete_pid=False
     )
     user = User.query.filter_by(id=ptrn.get('user_id')).first()
-    user_id = ptrn.get('user_id')
     assert user
     assert user.active
     for field in [
@@ -136,13 +137,12 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     assert fetched_pid.pid_type == 'ptrn'
 
     # set librarian
-    roles = ['librarian']
+    roles = UserRole.LIBRARIAN_ROLES
     ptrn.update({'roles': roles}, dbcommit=True)
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(roles)
-    roles = Patron.available_roles
     data = {
-        'roles': Patron.available_roles,
+        'roles': UserRole.ALL_ROLES,
         'patron': {
             'expiration_date': '2023-10-07',
             'barcode': ['2050124311'],
@@ -155,7 +155,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     }
     ptrn.update(data, dbcommit=True)
     user_roles = [r.name for r in user.roles]
-    assert set(user_roles) == set(Patron.available_roles)
+    assert set(user_roles) == set(UserRole.ALL_ROLES)
 
     # remove patron
     ptrn.delete(False, True, True)
@@ -329,24 +329,26 @@ def test_get_patron_for_organisation(patron_martigny,
     """Test get patron_pid for organisation."""
 
     pids = Patron.get_all_pids_for_organisation(org_martigny.pid)
-    assert len(list(pids)) > 0
+    assert list(pids)
     pids = Patron.get_all_pids_for_organisation(org_sion.pid)
-    assert len(list(pids)) > 0
+    assert list(pids)
 
 
 def test_patron_multiple(patron_sion_multiple, patron2_martigny, lib_martigny):
     """Test changing roles for multiple patron accounts."""
     assert patron2_martigny.user == patron_sion_multiple.user
     data = dict(patron_sion_multiple)
-    assert set(patron2_martigny.user.roles) == set(['librarian', 'patron'])
-    data['roles'] = ['patron']
+    patron2_roles = {r.name for r in patron2_martigny.user.roles}
+    patron_and_librarian_roles = UserRole.LIBRARIAN_ROLES + [UserRole.PATRON]
+    assert all(r in patron_and_librarian_roles for r in patron2_roles)
+    data['roles'] = [UserRole.PATRON]
     del data['libraries']
     patron_sion_multiple.update(data, dbcommit=True, reindex=True)
     assert patron2_martigny.user.roles == ['patron']
     assert Patron.get_record_by_pid(patron_sion_multiple.pid).get('roles') == \
-        ['patron']
+        [UserRole.PATRON]
     assert Patron.get_record_by_pid(patron2_martigny.pid).get('roles') == \
-        ['patron']
+        [UserRole.PATRON]
 
 
 def test_patron_profile_url(org_martigny, patron2_martigny):

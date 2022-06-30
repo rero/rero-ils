@@ -111,8 +111,8 @@ def test_patron_has_valid_subscriptions(
     end = datetime.now() + timedelta(days=10)
     patron_sion.add_subscription(patron_type_grown_sion, start, end)
     assert patron_sion.has_valid_subscription
-    assert len(patron_sion.get_valid_subscriptions()) == 1
-    subscription = patron_sion.get_valid_subscriptions()[0]
+    assert len(patron_sion.valid_subscriptions) == 1
+    subscription = patron_sion.valid_subscriptions[0]
     assert subscription.get('start_date') == start.strftime('%Y-%m-%d')
 
     # Create a old subscription for this patron and check validity
@@ -120,7 +120,7 @@ def test_patron_has_valid_subscriptions(
     end = start + timedelta(days=10)
     patron_sion.add_subscription(patron_type_grown_sion, start, end)
     assert len(patron_sion.get('patron', {}).get('subscriptions', [])) == 2
-    assert len(patron_sion.get_valid_subscriptions()) == 1
+    assert len(patron_sion.valid_subscriptions) == 1
 
     # remove old subscriptions. Create an old one and check the patron doesn't
     # have any valid subscription
@@ -173,7 +173,7 @@ def test_patron_pending_subscription(client, patron_type_grown_sion,
     """Test get pending subscription for patron."""
     # At the beginning, `patron_sion` should have one pending
     # subscription.
-    pending_subscription = patron_sion.get_pending_subscriptions()
+    pending_subscription = patron_sion.pending_subscriptions
     assert len(pending_subscription) == 1
 
     # Pay this subscription.
@@ -205,7 +205,7 @@ def test_patron_pending_subscription(client, patron_type_grown_sion,
     # reload the patron and check the pending subscription. As we paid the
     # previous subscription, there will be none pending subscription
     patron_sion = Patron.get_record_by_pid(patron_sion.pid)
-    pending_subscription = patron_sion.get_pending_subscriptions()
+    pending_subscription = patron_sion.pending_subscriptions
     assert len(pending_subscription) == 0
 
 
