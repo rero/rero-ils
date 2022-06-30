@@ -20,8 +20,9 @@
 from flask import request
 
 from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.users.models import UserRole
 
-from .api import Patron, current_librarian
+from .api import current_librarian
 
 
 class PatronPermission(RecordPermission):
@@ -78,12 +79,13 @@ class PatronPermission(RecordPermission):
                 return True
             if current_librarian.organisation_pid == record.organisation_pid:
                 # sys_lib can manage all kind of patron
-                if current_librarian.is_system_librarian:
+                if current_librarian.has_full_permissions:
                     return True
                 # librarian user has some restrictions...
                 # a librarian cannot manage a system_librarian patron
-                if 'system_librarian' in incoming_record.get('roles', [])\
-                        or 'system_librarian' in record.get('roles', []):
+                if UserRole.FULL_PERMISSIONS in \
+                   incoming_record.get('roles', []) \
+                   or UserRole.FULL_PERMISSIONS in record.get('roles', []):
                     return False
                 # a librarian can only manage other librarian from its own
                 # library
@@ -129,8 +131,7 @@ def get_allowed_roles_management():
     """
     allowed_roles = []
     if current_librarian:
-        allowed_roles.append(Patron.ROLE_PATRON)
-        allowed_roles.append(Patron.ROLE_LIBRARIAN)
-        if current_librarian.is_system_librarian:
-            allowed_roles.append(Patron.ROLE_SYSTEM_LIBRARIAN)
+        allowed_roles += [UserRole.PATRON] + UserRole.LIBRARIAN_ROLES
+        if current_librarian.has_full_permissions:
+            allowed_roles += [UserRole.FULL_PERMISSIONS]
     return allowed_roles

@@ -77,7 +77,7 @@ def validate_patron_account(barcode=None, **kwargs):
     :return: ``True`` if patron exists or ``False``.
     """
     patron = Patron.get_patron_by_barcode(
-        barcode, filter_by_org_pid=kwargs.get('institution_id'))
+        barcode=barcode, org_pid=kwargs.get('institution_id'))
     return patron and patron.is_patron
 
 
@@ -90,7 +90,7 @@ def authorize_patron(barcode, password, **kwargs):
     :return: ``True`` if patron is authorized or ``False``.
     """
     patron = Patron.get_patron_by_barcode(
-        barcode, filter_by_org_pid=kwargs.get('institution_id'))
+        barcode=barcode, org_pid=kwargs.get('institution_id'))
     if patron and patron.is_patron:
         return authorize_selfckeck_patron(patron.user.email, password)
     return False
@@ -123,7 +123,7 @@ def enable_patron(barcode, **kwargs):
         from invenio_sip2.models import SelfcheckEnablePatron
         institution_id = kwargs.get('institution_id')
         patron = Patron.get_patron_by_barcode(
-            barcode, filter_by_org_pid=institution_id)
+            barcode=barcode, org_pid=institution_id)
         if patron:
             return SelfcheckEnablePatron(
                 patron_status=get_patron_status(patron),
@@ -152,7 +152,7 @@ def patron_status(barcode, **kwargs):
         from invenio_sip2.models import SelfcheckPatronStatus
         institution_id = kwargs.get('institution_id')
         patron = Patron.get_patron_by_barcode(
-            barcode, filter_by_org_pid=institution_id)
+            barcode=barcode, org_pid=institution_id)
         if patron:
             patron_status_response = SelfcheckPatronStatus(
                 patron_status=get_patron_status(patron),
@@ -160,8 +160,7 @@ def patron_status(barcode, **kwargs):
                 patron_id=barcode,
                 patron_name=patron.formatted_name,
                 institution_id=patron.organisation_pid,
-                currency_type=patron.get_organisation().get(
-                    'default_currency'),
+                currency_type=patron.organisation.get('default_currency'),
                 valid_patron=patron.is_patron
             )
 
@@ -189,7 +188,7 @@ def patron_information(barcode, **kwargs):
         from invenio_sip2.models import SelfcheckPatronInformation
         institution_id = kwargs.get('institution_id')
         patron = Patron.get_patron_by_barcode(
-            barcode, filter_by_org_pid=institution_id)
+            barcode=barcode, org_pid=institution_id)
         if patron:
             patron_dumps = patron.dumps()
             patron_account_information = SelfcheckPatronInformation(
@@ -204,8 +203,7 @@ def patron_information(barcode, **kwargs):
                         patron_dumps.get('email')),
                 home_phone=patron_dumps.get('home_phone'),
                 home_address=format_patron_address(patron),
-                currency_type=patron.get_organisation().get(
-                    'default_currency'),
+                currency_type=patron.organisation.get('default_currency'),
                 valid_patron=patron.is_patron
             )
 
@@ -363,10 +361,10 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                 )
 
                 staffer = Patron.get_record_by_pid(transaction_user_pid)
-                if staffer.is_librarian:
+                if staffer.is_professional_user:
                     patron = Patron.get_patron_by_barcode(
-                        patron_barcode,
-                        filter_by_org_pid=terminal.organisation_pid)
+                        barcode=patron_barcode,
+                        org_pid=terminal.organisation_pid)
 
                     # do checkout
                     result, data = item.checkout(
@@ -463,7 +461,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                     document.get('title')
                 )
                 staffer = Patron.get_record_by_pid(transaction_user_pid)
-                if staffer.is_librarian:
+                if staffer.is_professional_user:
                     # do checkin
                     result, data = item.checkin(
                         transaction_user_pid=staffer.pid,
@@ -534,7 +532,7 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                 )
 
                 staffer = Patron.get_record_by_pid(transaction_user_pid)
-                if staffer.is_librarian:
+                if staffer.is_professional_user:
                     # do extend loan
                     result, data = item.extend_loan(
                         transaction_user_pid=staffer.pid,

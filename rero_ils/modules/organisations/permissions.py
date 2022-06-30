@@ -73,7 +73,7 @@ class OrganisationPermission(RecordPermission):
         if not current_librarian:
             return False
         # only 'system_librarian' user allowed to update their own organisation
-        if not current_librarian.is_system_librarian:
+        if not current_librarian.has_full_permissions:
             return False
         return current_librarian.organisation_pid == record['pid']
 

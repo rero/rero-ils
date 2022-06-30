@@ -48,7 +48,7 @@ class AcqAccountPermission(RecordPermission):
         if not current_librarian:
             return False
         # 'lib' can only update account linked to its own library
-        if current_librarian.is_system_librarian:
+        if current_librarian.has_full_permissions:
             return current_librarian.organisation_pid == \
                 record.organisation_pid
         else:
@@ -85,7 +85,7 @@ class AcqAccountPermission(RecordPermission):
         if not current_librarian or not record:
             return False
         # 'sys_lib' can update all account
-        if current_librarian.is_system_librarian:
+        if current_librarian.has_full_permissions:
             return current_librarian.organisation_pid == \
                 record.organisation_pid
         # 'lib' can only update account linked to its own library
