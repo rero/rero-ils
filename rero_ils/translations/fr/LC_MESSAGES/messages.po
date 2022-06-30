@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-06-28 10:14+0200\n"
-"PO-Revision-Date: 2022-05-17 06:04+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2022-06-28 14:28+0000\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.13.1-dev\n"
 "Generated-By: Babel 2.10.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -113,7 +114,6 @@ msgid "new_acquisition"
 msgstr "Nouvelle acquisition"
 
 #: rero_ils/config.py:1990
-#, fuzzy
 msgid "identifiers"
 msgstr "Identifiants"
 
@@ -191,14 +191,12 @@ msgid "requester"
 msgstr "demandeur"
 
 #: rero_ils/config.py:2831 rero_ils/manual_translations.txt:70
-#, fuzzy
 msgid "This is a TEST VERSION."
-msgstr "Serveur de test"
+msgstr "Ceci est une VERSION DE TEST."
 
 #: rero_ils/config.py:2832 rero_ils/manual_translations.txt:71
-#, fuzzy
 msgid "Go to the production site."
-msgstr "Code de la localisation."
+msgstr "Aller au site de production."
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:440
@@ -223,7 +221,7 @@ msgstr "en transit"
 #: rero_ils/manual_translations.txt:20
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:452
 msgid "at_desk"
-msgstr "au bureau de prêt"
+msgstr "Au bureau de prêt"
 
 #: rero_ils/manual_translations.txt:22
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:136
@@ -9151,7 +9149,7 @@ msgstr "Retour"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:32
 msgid "Export as ..."
-msgstr ""
+msgstr "Exporter comme..."
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:209
 msgid "Show more"
@@ -10469,24 +10467,23 @@ msgstr "Informations sur la facturation"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:484
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:56
-#, fuzzy
 msgid "Online harvested sources"
-msgstr "Source moissonnée en ligne"
+msgstr "Sources pour moissonnage en ligne"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:485
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:57
-#, fuzzy
 msgid "Online harvested sources as configured in ebooks server."
-msgstr "Source moissonnée en ligne, comme configuré dans le serveur d'ebooks."
+msgstr ""
+"Sources pour le moissonnage en ligne, tel que configuré dans le serveur "
+"d'ebooks."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:498
-#, fuzzy
 msgid "Name of online source."
-msgstr "Date du congrès"
+msgstr "Nom de la source en ligne."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:504
 msgid "URL to online source."
-msgstr ""
+msgstr "URL de la source en ligne."
 
 #: rero_ils/modules/loans/api.py:116
 msgid "The loan cannot be extended"
@@ -10557,7 +10554,7 @@ msgstr "Date de fin de la transaction"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:118
 msgid "Last end date of loan"
-msgstr ""
+msgstr "Dernière date d'échéance du prêt"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:123
 msgid "Due Soon Date"
@@ -11111,14 +11108,12 @@ msgid "dispute"
 msgstr "litige"
 
 #: rero_ils/modules/patron_transactions/utils.py:126
-#, fuzzy
 msgid "note"
 msgstr "Note"
 
 #: rero_ils/modules/patron_transactions/utils.py:126
-#, fuzzy
 msgid "incremental overdue fees"
-msgstr "Frais de retard"
+msgstr "Frais de retard incrémentaux"
 
 #: rero_ils/modules/patron_transactions/utils.py:206
 msgid "Subscription for '{name}' from {start} to {end}"
@@ -11732,9 +11727,8 @@ msgid "User Personal Informations"
 msgstr "Informations personnelles de l'utilisateur"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:41
-#, fuzzy
 msgid "User ID"
-msgstr "utilisateur"
+msgstr "ID de l'utilisateur"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:45
 msgid "First name"
@@ -13689,4 +13683,3 @@ msgstr "Votre mot de passe a été réinitialisé avec succès."
 
 #~ msgid "The email is not valid."
 #~ msgstr "L'e-mail n'est pas correct."
-
