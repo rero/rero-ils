@@ -7,8 +7,7 @@
     "username": "test",
     "first_name": "Astrid",
     "roles": [
-      "system_librarian",
-      "librarian"
+      "pro_full_permissions"
     ],
     "last_name": "M\u00fcller",
     "libraries": [
@@ -34,7 +33,10 @@
     "username": "jean",
     "first_name": "Jean",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Dupont",
     "libraries": [
@@ -57,7 +59,10 @@
     "username": "elena",
     "first_name": "Elena",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Rodriguez",
     "libraries": [
@@ -147,7 +152,10 @@
     "first_name": "Virgile",
     "last_name": "Charbonnet",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "libraries": [
       {
@@ -327,8 +335,7 @@
     "username": "irma",
     "first_name": "Irma",
     "roles": [
-      "system_librarian",
-      "librarian"
+      "pro_full_permissions"
     ],
     "last_name": "Pince",
     "libraries": [
@@ -400,8 +407,7 @@
     "username": "imagination",
     "first_name": "Imagination",
     "roles": [
-      "system_librarian",
-      "librarian"
+      "pro_full_permissions"
     ],
     "last_name": "Fictive",
     "libraries": [
@@ -421,7 +427,10 @@
     "username": "jocasta",
     "first_name": "Jocasta",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Nu",
     "libraries": [
@@ -441,7 +450,10 @@
     "username": "urrigon",
     "first_name": "Urrigon",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Hightower",
     "libraries": [
@@ -461,7 +473,10 @@
     "username": "thebeast",
     "first_name": "The",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Beast",
     "libraries": [
@@ -481,7 +496,11 @@
     "username": "dream",
     "first_name": "No first name",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager",
+      "pro_library_administrator"
     ],
     "last_name": "Dream",
     "libraries": [
@@ -501,7 +520,10 @@
     "username": "felman",
     "first_name": "Felman",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Lux",
     "libraries": [
@@ -521,7 +543,10 @@
     "username": "irmapince",
     "first_name": "Irma",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Pince",
     "libraries": [
@@ -541,7 +566,10 @@
     "username": "jorge",
     "first_name": "Jorge Luis",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Borges",
     "libraries": [
@@ -561,7 +589,10 @@
     "username": "malachie",
     "first_name": "Malachie",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "de Hildesheim",
     "libraries": [
@@ -581,7 +612,10 @@
     "username": "lorren",
     "first_name": "Master",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Lorren",
     "libraries": [
@@ -601,7 +635,10 @@
     "username": "fermin",
     "first_name": "Fermin Romero",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "de Torres",
     "libraries": [
@@ -621,7 +658,10 @@
     "username": "winston",
     "first_name": "Winston",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Smith",
     "libraries": [
@@ -641,7 +681,10 @@
     "username": "elrond",
     "first_name": "Elrond",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Half-elven",
     "libraries": [
@@ -661,7 +704,10 @@
     "username": "phelps",
     "first_name": "Mrs.",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Phelps",
     "libraries": [
@@ -681,7 +727,10 @@
     "username": "thelibrarian",
     "first_name": "The",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Librarian",
     "libraries": [
@@ -701,7 +750,10 @@
     "username": "wan",
     "first_name": "Wan",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Shi Tong",
     "libraries": [
@@ -721,7 +773,10 @@
     "username": "rupert",
     "first_name": "Rupert",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Giles",
     "libraries": [
@@ -1199,8 +1254,7 @@
     "username": "leonard",
     "first_name": "Leonard",
     "roles": [
-      "system_librarian",
-      "librarian"
+      "pro_full_permissions"
     ],
     "last_name": "McCoy",
     "libraries": [
@@ -1220,7 +1274,10 @@
     "username": "spock",
     "first_name": "Spock",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "last_name": "Grayson",
     "libraries": [

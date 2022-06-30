@@ -43,6 +43,7 @@ from ..patron_transaction_events.api import PatronTransactionEvent
 from ..patron_transactions.api import PatronTransaction
 from ..patron_types.api import PatronType
 from ..patrons.api import Patron, PatronsSearch
+from ..users.models import UserRole
 from ..utils import JsonWriter, extracted_data_from_ref, get_ref_for_pid, \
     get_schema_for_resource, read_json_record
 
@@ -218,11 +219,11 @@ def create_loans(infile, verbose, debug):
             click.echo(f'Patron: {barcode}')
             loans = patron_data.get('loans', {})
             requests = patron_data.get('requests', {})
-            blocked = patron_data.get('blocked', False)
-            if blocked:
+            if patron_data.get('blocked', False):
                 to_block.append(patron_data)
-            patron_type_pid = Patron.get_patron_by_barcode(
-                barcode).patron_type_pid
+            patron_type_pid = Patron\
+                .get_patron_by_barcode(barcode=barcode)\
+                .patron_type_pid
             loanable_items = get_loanable_items(patron_type_pid)
             if verbose:
                 loanable_items_count = len(
@@ -231,79 +232,24 @@ def create_loans(infile, verbose, debug):
                 msg = f'\t{patron_data} loanable_items: {loanable_items_count}'
                 click.echo(msg)
 
-            for transaction in range(loans.get('active', 0)):
-                item_barcode = create_loan(
-                    barcode, 'active',
-                    loanable_items,
-                    verbose,
-                    debug
-                )
-                errors_count = print_message(item_barcode, 'active',
-                                             errors_count)
+            loan_types = ['active', 'overdue_active', 'overdue_paid',
+                          'extended', 'requested_by_others']
+            for loan_type in loan_types:
+                for _ in range(loans.get(loan_type, 0)):
+                    item_barcode = create_loan(barcode, loan_type,
+                                               loanable_items, verbose, debug)
+                    print_message(item_barcode, loan_type, errors_count)
+            for request_type in ['requests', 'rank_1', 'rank_2']:
+                for _ in range(requests.get(request_type, 0)):
+                    item_barcode = create_loan(barcode, request_type,
+                                               loanable_items, verbose, debug)
+                    print_message(item_barcode, request_type, errors_count)
 
-            for transaction in range(loans.get('overdue_active', 0)):
-                item_barcode = create_loan(
-                    barcode, 'overdue_active',
-                    loanable_items,
-                    verbose,
-                    debug
-                )
-                errors_count = print_message(item_barcode, 'overdue_active',
-                                             errors_count)
-
-            for transaction in range(loans.get('overdue_paid', 0)):
-                item_barcode = create_loan(
-                    barcode, 'overdue_paid',
-                    loanable_items,
-                    verbose,
-                    debug
-                )
-                errors_count = print_message(item_barcode, 'overdue_paid',
-                                             errors_count)
-
-            for transaction in range(loans.get('extended', 0)):
-                item_barcode = create_loan(
-                    barcode, 'extended',
-                    loanable_items,
-                    verbose,
-                    debug
-                )
-                errors_count = print_message(item_barcode, 'extended',
-                                             errors_count)
-
-            for transaction in range(loans.get('requested_by_others', 0)):
-                item_barcode = create_loan(
-                    barcode, 'requested_by_others',
-                    loanable_items,
-                    verbose,
-                    debug
-                )
-                errors_count = print_message(item_barcode,
-                                             'requested_by_others',
-                                             errors_count)
-
-            for transaction in range(requests.get('requests', 0)):
-                item_barcode = create_request(barcode, 'requests',
-                                              loanable_items, verbose, debug)
-                errors_count = print_message(item_barcode, 'requests',
-                                             errors_count)
-
-            for transaction in range(requests.get('rank_1', 0)):
-                item_barcode = create_request(barcode, 'rank_1',
-                                              loanable_items, verbose, debug)
-                errors_count = print_message(item_barcode, 'rank_1',
-                                             errors_count)
-
-            for transaction in range(requests.get('rank_2', 0)):
-                item_barcode = create_request(barcode, 'rank_2',
-                                              loanable_items, verbose, debug)
-                errors_count = print_message(item_barcode, 'rank_2',
-                                             errors_count)
     # create due soon notifications, overdue notifications are auto created.
     # block given patron
     for patron_data in to_block:
         barcode = patron_data.get('barcode')
-        patron = Patron.get_patron_by_barcode(barcode)
+        patron = Patron.get_patron_by_barcode(barcode=barcode)
         patron['patron']['blocked'] = True
         patron['patron']['blocked_note'] = patron_data.get('blocked', "")
         patron.update(
@@ -331,7 +277,6 @@ def print_message(item_barcode, transaction_type, errors_count):
         click.secho(f'\tcreation error: {transaction_type}', fg='red')
         errors_count.setdefault(transaction_type, 0)
         errors_count[transaction_type] += 1
-    return errors_count
 
 
 def create_loan(barcode, transaction_type, loanable_items, verbose=False,
@@ -365,9 +310,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             )
             notifications = loan.create_notification(
                 _type=NotificationType.DUE_SOON)
-            for notif in notifications:
-                notification_pids.append(notif['pid'])
-
+            notification_pids.extend(notif['pid'] for notif in notifications)
             end_date = datetime.now(timezone.utc) - timedelta(days=70)
             loan['end_date'] = end_date.isoformat()
             loan.update(
@@ -377,9 +320,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             )
             notifications = loan.create_notification(
                 _type=NotificationType.OVERDUE)
-            for notif in notifications:
-                notification_pids.append(notif['pid'])
-
+            notification_pids.extend(notif['pid'] for notif in notifications)
         elif transaction_type == 'overdue_paid':
             end_date = datetime.now(timezone.utc) - timedelta(days=2)
             loan['end_date'] = end_date.isoformat()
@@ -451,8 +392,8 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 )
                 notifications = loan.create_notification(
                     _type=NotificationType.RECALL)
-                for notif in notifications:
-                    notification_pids.append(notif['pid'])
+                notification_pids.extend(
+                    notif['pid'] for notif in notifications)
         Dispatcher.dispatch_notifications(notification_pids, verbose=verbose)
         return item['barcode']
     except Exception as err:
@@ -469,7 +410,7 @@ def create_request(barcode, transaction_type, loanable_items, verbose=False,
     try:
         item = next(loanable_items)
         rank_1_patron = get_random_patron(barcode)
-        patron = Patron.get_patron_by_barcode(barcode)
+        patron = Patron.get_patron_by_barcode(barcode=barcode)
         if transaction_type == 'rank_2':
             transaction_date = \
                 (datetime.now(timezone.utc) - timedelta(2)).isoformat()
@@ -523,8 +464,7 @@ def get_loanable_items(patron_type_pid):
         .filter('term', organisation__pid=org_pid)\
         .filter('term', status=ItemStatus.ON_SHELF).source(['pid']).scan()
     for loanable_item in loanable_items:
-        item = Item.get_record_by_pid(loanable_item.pid)
-        if item:
+        if item := Item.get_record_by_pid(loanable_item.pid):
             circ_policy = CircPolicy.provide_circ_policy(
                 item.organisation_pid,
                 item.holding_library_pid,
@@ -555,7 +495,8 @@ def get_random_pickup_location(patron_pid, item):
 
 def get_random_patron(exclude_this_barcode):
     """Find a qualified patron other than exclude_this_barcode."""
-    ptrn_to_exclude = Patron.get_patron_by_barcode(exclude_this_barcode)
+    ptrn_to_exclude = Patron.get_patron_by_barcode(
+        barcode=exclude_this_barcode)
     ptty_pid = extracted_data_from_ref(
         ptrn_to_exclude.get('patron').get('type')
     )
@@ -563,7 +504,7 @@ def get_random_patron(exclude_this_barcode):
         PatronType.get_record_by_pid(ptty_pid).get('organisation')
     )
     patrons = PatronsSearch()\
-        .filter('term', roles='patron')\
+        .filter('term', roles=UserRole.PATRON)\
         .filter('term', organisation__pid=org_pid)\
         .source(['patron']).scan()
     for patron in patrons:
@@ -579,7 +520,7 @@ def get_random_librarian(patron):
         PatronType.get_record_by_pid(ptty_pid).get('organisation')
     )
     patrons = PatronsSearch()\
-        .filter('term', roles='librarian')\
+        .filter('terms', roles=UserRole.PROFESSIONAL_ROLES)\
         .filter('term', organisation__pid=org_pid)\
         .source(['pid']).scan()
     for patron in patrons:

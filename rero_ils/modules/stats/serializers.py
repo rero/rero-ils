@@ -22,8 +22,6 @@ from flask import current_app
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 from invenio_records_rest.serializers.response import add_link_header
 
-from ..patrons.api import Patron
-
 
 class StatCSVSerializer(CSVSerializer):
     """Process data to write in csv file."""
@@ -50,7 +48,7 @@ class StatCSVSerializer(CSVSerializer):
         assert len(records) == 1
         record = records[0]
 
-        if record['metadata'].get('type') == Patron.ROLE_LIBRARIAN:
+        if record['metadata'].get('type') == 'librarian':
             # statistics of type librarian
             headers = [key.capitalize().replace('_', ' ')
                        for key in self.ordered_keys]

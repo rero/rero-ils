@@ -27,6 +27,7 @@ from flask_login import current_user
 from invenio_rest import ContentNegotiatedMethodView
 
 from .api import User
+from .models import UserRole
 from ...modules.patrons.api import Patron, current_librarian
 from ...permissions import login_and_librarian
 
@@ -133,8 +134,8 @@ class UsersResource(ContentNegotiatedMethodView):
         user = user.update(request.get_json())
         editing_own_public_profile = str(current_user.id) == id and \
             not (
-                current_user.has_role('system_librarian') and
-                current_user.has_role('librarian')
+                current_user.has_role(UserRole.FULL_PERMISSIONS) and
+                current_user.has_role(UserRole.USER_MANAGER)
         )
         if editing_own_public_profile:
             Patron.set_communication_channel(user)
@@ -204,8 +205,8 @@ class UsersCreateResource(ContentNegotiatedMethodView):
         user = User.create(request.get_json())
         editing_own_public_profile = str(current_user.id) == user.id and \
             not (
-                current_user.has_role('system_librarian') and
-                current_user.has_role('librarian')
+                current_user.has_role(UserRole.FULL_PERMISSIONS) and
+                current_user.has_role(UserRole.USER_MANAGER)
         )
         if editing_own_public_profile:
             Patron.set_communication_channel(user)
