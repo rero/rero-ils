@@ -59,7 +59,7 @@ class BudgetPermission(RecordPermission):
         :return: True is action can be done.
         """
         # only system_librarian can create vendors ...
-        if not current_librarian or not current_librarian.is_system_librarian:
+        if not current_librarian or not current_librarian.has_full_permissions:
             return False
         # ... only for its own organisation
         if record:

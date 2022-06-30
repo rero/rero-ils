@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,36 +30,40 @@ from invenio_db import db
 from jsonschema.exceptions import ValidationError
 from werkzeug.local import LocalProxy
 
-from rero_ils.modules.patrons.models import CommunicationChannel
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.loans.models import LoanState
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.patron_transactions.api import PatronTransaction
+from rero_ils.modules.patron_transactions.utils import \
+    create_subscription_for_patron, get_transactions_count_for_patron, \
+    get_transactions_pids_for_patron
+from rero_ils.modules.providers import Provider
 from rero_ils.modules.tasks import process_bulk_queue
+from rero_ils.modules.templates.api import TemplatesSearch
+from rero_ils.modules.users.api import User
+from rero_ils.modules.users.models import UserRole
+from rero_ils.modules.utils import extracted_data_from_ref, \
+    get_patron_from_arguments, get_ref_for_pid, sorted_pids
+from rero_ils.utils import create_user_from_data
 
 from .extensions import UserDataExtension
-from .models import PatronIdentifier, PatronMetadata
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..libraries.api import Library
-from ..loans.models import LoanState
-from ..minters import id_minter
-from ..organisations.api import Organisation
-from ..patron_transactions.api import PatronTransaction
-from ..patron_transactions.utils import create_subscription_for_patron, \
-    get_transactions_count_for_patron, get_transactions_pids_for_patron
-from ..providers import Provider
-from ..templates.api import TemplatesSearch
-from ..users.api import User
-from ..utils import extracted_data_from_ref, get_patron_from_arguments, \
-    get_ref_for_pid, sorted_pids, trim_patron_barcode_for_record
-from ...utils import create_user_from_data
+from .models import CommunicationChannel, PatronIdentifier, PatronMetadata
+from .utils import get_patron_pid_by_email
 
 _datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 
-# current logged professionnal
+# current logged professional
 current_librarian = LocalProxy(
     lambda: Patron.get_librarian_by_user(current_user))
-# all patron role accounts releated to the current user
-current_patrons = LocalProxy(
-    lambda: [ptrn for ptrn in Patron.get_patrons_by_user(
-        current_user) if 'patron' in ptrn.get('roles', [])])
+# all patron role accounts related to the current user
+current_patrons = LocalProxy(lambda: [
+    patron
+    for patron in Patron.get_patrons_by_user(current_user)
+    if UserRole.PATRON in patron.get('roles', [])
+])
 
 
 def create_patron_from_data(data, delete_pid=False, dbcommit=False,
@@ -108,27 +112,51 @@ class PatronsSearch(IlsRecordsSearch):
 class Patron(IlsRecord):
     """Define API for patrons mixing."""
 
-    ROLE_PATRON = 'patron'
-    ROLE_LIBRARIAN = 'librarian'
-    ROLE_SYSTEM_LIBRARIAN = 'system_librarian'
-
-    ROLES_HIERARCHY = {
-        ROLE_PATRON: [],
-        ROLE_LIBRARIAN: [],
-        ROLE_SYSTEM_LIBRARIAN: [ROLE_LIBRARIAN]
-    }
-
     minter = patron_id_minter
     fetcher = patron_id_fetcher
     provider = PatronProvider
     model_cls = PatronMetadata
 
-    available_roles = [ROLE_SYSTEM_LIBRARIAN, ROLE_LIBRARIAN, ROLE_PATRON]
-
     _extensions = [
         UserDataExtension()
     ]
 
+    # =========================================================================
+    # CRUD METHODS
+    # =========================================================================
+    @classmethod
+    def create(cls, data, id_=None, delete_pid=False,
+               dbcommit=False, reindex=False,
+               **kwargs):
+        """Patron record creation.
+
+        :param cls - class object
+        :param data - dictionary representing a library user
+        :param id_ - UUID, it would be generated if it is not given
+        :param delete_pid - remove the pid present in the data if True
+        :param dbcommit - commit the changes in the db after the creation
+        :param reindex - index the record after the creation
+        """
+        record = super().create(cls._clean_data(data),
+                                id_, delete_pid, dbcommit, reindex, **kwargs)
+        record._update_roles()
+        return record
+
+    def update(self, data, commit=True, dbcommit=False, reindex=False):
+        """Update data for record."""
+        super().update(Patron._clean_data(data), commit, dbcommit, reindex)
+        self._update_roles()
+        return self
+
+    def delete(self, force=False, dbcommit=False, delindex=False):
+        """Delete record and persistent identifier."""
+        self._remove_roles()
+        super().delete(force, dbcommit, delindex)
+        return self
+
+    # =========================================================================
+    # PRIVATE METHODS
+    # =========================================================================
     def _validate(self, **kwargs):
         """Validate record against schema.
 
@@ -148,10 +176,10 @@ class Patron(IlsRecord):
                     required={'ptty': 'type'},
                     not_required={}
                 ) or True
-            if self.is_librarian:
+            if self.is_professional_user:
                 libraries = self.get('libraries')
                 if not libraries:
-                    validation_message = 'Missing libraries'
+                    validation_message = ['Missing libraries']
                 for library_pid in self.library_pids:
                     library = Library.get_record_by_pid(library_pid)
                     if library is None:
@@ -193,55 +221,18 @@ class Patron(IlsRecord):
                                   'for an email communication channel.')
 
     @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False,
-               **kwargs):
-        """Patron record creation.
+    def _clean_data(cls, data):
+        """Clean the patron data : trimming patron barcode, ...
 
-        :param cls - class object
-        :param data - dictionary representing a library user
-        :param id_ - UUID, it would be generated if it is not given
-        :param delete_pid - remove the pid present in the data if True
-        :param dbcommit - commit the changes in the db after the creation
-        :param reindex - index the record after the creation
-        :param email_notification - send a reset password link to the user
+        :param data: the patron data to clean as a ``dict``.
+        :return: the cleaned data.
         """
-        # remove spaces
-        data = trim_patron_barcode_for_record(data=data)
-        record = super().create(
-                data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        record._update_roles()
-        return record
-
-    def update(self, data,  commit=True, dbcommit=False, reindex=False):
-        """Update data for record."""
-        # remove spaces
-        data = trim_patron_barcode_for_record(data=data)
-        super().update(data, commit, dbcommit, reindex)
-        self._update_roles()
-        return self
-
-    def delete(self, force=False, dbcommit=False, delindex=False):
-        """Delete record and persistent identifier."""
-        self._remove_roles()
-        super().delete(force, dbcommit, delindex)
-        return self
-
-    @classmethod
-    def load(cls, data):
-        """Load the data and remove the user data."""
-        return cls(cls.removeUserData(data))
-
-    @classmethod
-    def removeUserData(cls, data):
-        """Remove the user data."""
-        data = deepcopy(data)
-        profile_fields = User.profile_fields + ['username', 'email']
-        for field in profile_fields:
-            try:
-                del data[field]
-            except KeyError:
-                pass
+        if data:
+            if barcodes := data.get('barcode'):
+                data['barcode'] = [b.strip() for b in barcodes]
+            if barcodes := data.get('patron', {}).get('barcode'):
+                data.setdefault('patron', {})['barcode'] = [
+                    b.strip() for b in barcodes]
         return data
 
     @classmethod
@@ -254,37 +245,12 @@ class Patron(IlsRecord):
         """
         return _datastore.find_user(id=user_id)
 
-    # TODO: use cached property one we found how to invalidate the cache when
-    #       the user change
-    @property
-    def user(self):
-        """Invenio user of a patron."""
-        return self._get_user_by_user_id(self.get('user_id'))
-
-    @property
-    def profile_url(self):
-        """Get the link to the RERO_ILS patron profile URL."""
-        view_code = self.get_organisation().get('code')
-        base_url = current_app.config.get('RERO_ILS_APP_URL')
-        return f'{base_url}/{view_code}/patrons/profile'
-
-    def get_patrons_roles(self, exclude_self=False):
-        """Get the list of roles for all accounts of the related user."""
-        patrons = self.get_patrons_by_user(self.user)
-        roles = set(self.get('roles')) if not exclude_self else set()
-        for patron in patrons:
-            # already there
-            if patron == self:
-                continue
-            roles.update(patron.get('roles', []))
-        return list(roles)
-
     def _update_roles(self):
         """Update user roles."""
         db_roles = self.user.roles
         # all the roles of all patron accounts related to the current user
         patron_roles = self.get_patrons_roles()
-        for role in self.available_roles:
+        for role in UserRole.ALL_ROLES:
             in_db = role in db_roles
             in_record = role in patron_roles
             if in_record and not in_db:
@@ -302,189 +268,53 @@ class Patron(IlsRecord):
         # current user
         external_patron_roles = self.get_patrons_roles(exclude_self=True)
         # roles only on the current patron account
-        for role in [r for r in self.get('roles')
-                     if r not in external_patron_roles]:
-            if role in db_roles:
-                self.remove_role(role)
+        filtered_roles = filter(
+            lambda r: r not in external_patron_roles,
+            self.get('roles')
+        )
+        for role in [r for r in filtered_roles if r in db_roles]:
+            self.remove_role(role)
 
-    @classmethod
-    def get_all_pids_for_organisation(cls, organisation_pid):
-        """Get all patron pids for a specific organisation."""
-        query = PatronsSearch()\
-            .filter('term', organisation__pid=organisation_pid)\
-            .source(includes='pid')\
-            .scan()
-        for hit in query:
-            yield hit['pid']
+    # =========================================================================
+    # PUBLIC METHODS
+    # =========================================================================
+    def get_patrons_roles(self, exclude_self=False):
+        """Get the list of roles for all accounts of the related user.
 
-    @classmethod
-    def get_librarian_by_user(cls, user):
-        """Get patron with a role librarian or system_librarian by user."""
-        patrons = cls.get_patrons_by_user(user)
-        librarians = list(filter(lambda ptrn: ptrn.is_librarian, patrons))
-        if len(librarians) > 1:
-            raise Exception(f'more than one librarian account for {user}')
-        if not librarians:
-            return None
-        return librarians[0]
-
-    @classmethod
-    def get_patrons_by_user(cls, user):
-        """Get all patrons by user."""
-        patrons = []
-        if hasattr(user, 'id'):
-            result = PatronsSearch()\
-                .filter('term', user_id=user.id)\
-                .source(includes='pid')\
-                .scan()
-            patrons = [cls.get_record_by_pid(hit.pid) for hit in result]
-        return patrons
-
-    @classmethod
-    def get_patron_by_email(cls, email):
-        """Get patron by email."""
-        pid_value = cls.get_pid_by_email(email)
-        if pid_value:
-            return cls.get_record_by_pid(pid_value)
-
-    @classmethod
-    def get_pid_by_email(cls, email):
-        """Get uuid pid by email."""
-        result = PatronsSearch()\
-            .filter('term', email=email)\
-            .source(includes='pid').scan()
-        try:
-            return next(result).pid
-        except StopIteration:
-            return None
-
-    @classmethod
-    def get_patron_by_barcode(cls, barcode=None, filter_by_org_pid=None):
-        """Get patron by barcode."""
-        if not barcode:
-            return None
-        search = PatronsSearch()\
-            .filter('term', patron__barcode=barcode)
-        if filter_by_org_pid is not None:
-            search = search.filter('term', organisation__pid=filter_by_org_pid)
-        result = search.source(includes='pid').scan()
-        try:
-            patron_pid = next(result).pid
-            return super().get_record_by_pid(patron_pid)
-        except StopIteration:
-            return None
-
-    @classmethod
-    def can_request(cls, item, **kwargs):
-        """Check if a paton can request an item.
-
-        :param item : the item to check
-        :param kwargs : To be relevant, additional arguments should contains
-                        'patron' argument.
-        :return a tuple with True|False and reasons to disallow if False.
+        :param exclude_self: exclude self role from response.
+        :return: the list of roles related to this patron.
         """
-        patron = get_patron_from_arguments(**kwargs)
-        if not patron:
-            # 'patron' argument are present into kwargs. This check can't
-            # be relevant --> return True by default
-            return True, []
-
-        messages = []
-        # 1) a blocked patron can't request any item
-        # 2) a patron with obsolete expiration_date can't request any item
-        if patron.is_blocked:
-            messages.append(patron.get_blocked_message())
-        if patron.is_expired:
-            messages.append(_('Patron rights expired.'))
-
-        return len(messages) == 0, messages
-
-    @classmethod
-    def can_checkout(cls, item, **kwargs):
-        """Check if a patron can checkout an item."""
-        # Same logic than can_request :: a blocked patron can't do a checkout
-        return cls.can_request(item, **kwargs)
-
-    @classmethod
-    def can_extend(cls, item, **kwargs):
-        """Check if a patron can extend a loan."""
-        # Same logic than can_request :: a blocked patron can't extend a loan
-        return cls.can_request(item, **kwargs)
-
-    @classmethod
-    def patrons_with_obsolete_subscription_pids(cls, end_date=None):
-        """Search about patrons with obsolete subscription."""
-        if end_date is None:
-            end_date = datetime.now()
-        end_date = end_date.strftime('%Y-%m-%d')
-        results = PatronsSearch()\
-            .filter('range', patron__subscriptions__end_date={'lt': end_date})\
-            .source('pid')\
-            .scan()
-        for result in results:
-            yield Patron.get_record_by_pid(result.pid)
-
-    @classmethod
-    def get_patrons_without_subscription(cls, patron_type_pid):
-        """Get patrons linked to patron_type that haven't any subscription."""
-        query = PatronsSearch() \
-            .filter('term', patron__type__pid=patron_type_pid) \
-            .exclude('exists', field='patron.subscriptions')
-        for res in query.source('pid').scan():
-            yield Patron.get_record_by_pid(res.pid)
+        patrons = self.get_patrons_by_user(self.user)
+        roles = set() if exclude_self else set(self.get('roles'))
+        for patron in patrons:
+            if patron != self:
+                roles.update(patron.get('roles', []))
+        return list(roles)
 
     def add_role(self, role_name):
-        """Add a given role to a user."""
+        """Add a given role to a user.
+
+        :param role_name: the role name to add to this patron.
+        """
         role = _datastore.find_role(role_name)
         _datastore.add_role_to_user(self.user, role)
         _datastore.commit()
 
     def remove_role(self, role_name):
-        """Remove a given role from a user."""
+        """Remove a given role from a user.
+
+        :patron role_name: the role name to remove from this patron.
+        """
         role = _datastore.find_role(role_name)
         _datastore.remove_role_from_user(self.user, role)
         _datastore.commit()
 
-    @property
-    def patron(self):
-        """Patron property shortcut."""
-        return self.get('patron', {})
-
-    @property
-    def expiration_date(self):
-        """Shortcut to find the patron expiration date."""
-        date_string = self.patron.get('expiration_date')
-        if date_string:
-            return datetime.strptime(date_string, '%Y-%m-%d')
-
-    @property
-    def is_expired(self):
-        """Check if patron expiration date is obsolete."""
-        expiration_date = self.expiration_date
-        return expiration_date and datetime.now() > expiration_date
-
-    @property
-    def formatted_name(self):
-        """Return the best possible human readable patron name."""
-        profile = self.user.profile
-        name_parts = [
-            profile.last_name.strip(),
-            profile.first_name.strip()
-        ]
-        name_parts = [part for part in name_parts if part]  # remove empty part
-        return ', '.join(name_parts)
-
-    @property
-    def patron_type_pid(self):
-        """Shortcut for patron type pid."""
-        if self.get('patron', {}).get('type'):
-            return extracted_data_from_ref(self.get('patron').get('type'))
-
     def get_links_to_me(self, get_pids=False):
         """Record links.
 
-        :param get_pids: if True list of linked pids
-                         if False count of linked records
+        :param get_pids: boolean value to return list of linked pids (if True),
+            count of linked records (if False).
+        :return: a dictionary containing records linked to this patron.
         """
         if not self.pid:
             return
@@ -525,8 +355,8 @@ class Patron(IlsRecord):
         others = {}
         if (
             current_librarian
-            and not current_librarian.is_system_librarian
-            and self.is_system_librarian
+            and not current_librarian.has_full_permissions
+            and self.has_full_permissions
         ):
             others['permission denied'] = True
         return others
@@ -542,46 +372,6 @@ class Patron(IlsRecord):
             cannot_delete['links'] = links
         return cannot_delete
 
-    def get_organisation(self):
-        """Return organisation."""
-        return Organisation.get_record_by_pid(self.organisation_pid)
-
-    @property
-    def library_pid(self):
-        """Shortcut for patron library pid."""
-        if self.library_pids:
-            return self.library_pids[0]
-
-    @property
-    def library_pids(self):
-        """Shortcut for patron libraries pid."""
-        if self.is_librarian:
-            return [
-                extracted_data_from_ref(library)
-                for library in self.get('libraries', [])
-            ]
-
-    @property
-    def is_system_librarian(self):
-        """Shortcut to check if user has system_librarian role."""
-        return Patron.ROLE_SYSTEM_LIBRARIAN in self.get('roles', [])
-
-    @property
-    def is_librarian(self):
-        """Shortcut to check if user has librarian role."""
-        librarian_roles = [Patron.ROLE_SYSTEM_LIBRARIAN, Patron.ROLE_LIBRARIAN]
-        return any(role in librarian_roles for role in self.get('roles', []))
-
-    @property
-    def is_patron(self):
-        """Shortcut to check if user has patron role."""
-        return Patron.ROLE_PATRON in self.get('roles', [])
-
-    @property
-    def is_blocked(self):
-        """Shortcut to know if user is blocked."""
-        return self.patron.get('blocked', False)
-
     def get_blocked_message(self, public=False):
         """Get the message in case of patron is blocked.
 
@@ -595,55 +385,6 @@ class Patron(IlsRecord):
                 reason_str=_('Reason'),
                 reason=self.patron.get('blocked_note')
             )
-
-    @property
-    def organisation_pid(self):
-        """Get organisation pid for patron with first library."""
-        if self.library_pid:
-            library = Library.get_record_by_pid(self.library_pid)
-            return library.organisation_pid
-        patron_type_pid = self.patron_type_pid
-        if patron_type_pid:
-            from ..patron_types.api import PatronType
-            patron_type = PatronType.get_record_by_pid(patron_type_pid)
-            return patron_type.organisation_pid
-        return None
-
-    @property
-    def has_valid_subscription(self):
-        """Check if the patron has a valid subscription at current time.
-
-        To know if the user has a valid subscription, we need to check the
-        patron_type linked to it. If the patron type request a subscription,
-        then we need to check the patron subscription attributes to find a
-        subscription in a valid interval of time.
-        """
-        from ..patron_types.api import PatronType
-        if self.patron_type_pid:
-            patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
-            if patron_type.is_subscription_required:
-                for sub in self.get('patron', {}).get('subscriptions', []):
-                    # not need to check if the subscription is for the
-                    # current patron.patron_type. If patron.patron_type
-                    # change while a subscription is still pending, this
-                    # subscription is still valid
-                    start = datetime.strptime(sub['start_date'], '%Y-%m-%d')
-                    end = datetime.strptime(sub['end_date'], '%Y-%m-%d')
-                    if start < datetime.now() < end:
-                        return True
-                return False
-        return True
-
-    def get_valid_subscriptions(self):
-        """Get valid subscriptions for a patron."""
-        def is_subscription_valid(subscription):
-            start = datetime.strptime(subscription['start_date'], '%Y-%m-%d')
-            end = datetime.strptime(subscription['end_date'], '%Y-%m-%d')
-            return start < datetime.now() < end
-        subs = filter(
-            is_subscription_valid,
-            self.get('patron', {}).get('subscriptions', []))
-        return list(subs)
 
     def add_subscription(self, patron_type, start_date, end_date,
                          dbcommit=True, reindex=True, delete_pids=False):
@@ -670,20 +411,6 @@ class Patron(IlsRecord):
             })
             self['patron']['subscriptions'] = subscriptions
             self.update(self, dbcommit=dbcommit, reindex=reindex)
-
-    def get_pending_subscriptions(self):
-        """Get the pending subscriptions for a patron."""
-        # Not need to use a generator to get pending subscriptions.
-        # In a normal process, the maximum number of subscriptions for a patron
-        # is two : current subscription and possibly next one.
-        pending_subs = []
-        for sub in self.get('patron', {}).get('subscriptions', []):
-            trans_pid = extracted_data_from_ref(
-                sub['patron_transaction'], data='pid')
-            transaction = PatronTransaction.get_record_by_pid(trans_pid)
-            if transaction.status == 'open':
-                pending_subs.append(sub)
-        return pending_subs
 
     def transaction_user_validator(self, user_pid):
         """Validate that the given transaction user PID is valid.
@@ -768,40 +495,162 @@ class Patron(IlsRecord):
                 self.reindex()
                 PatronsSearch.flush_and_refresh()
 
-    def get_current_patron(record):
-        """Return the patron account belongs to record's organisation.
-
-        :param record - a valid rero_ils resource/object.
-        :returns: The patron record linked to the organisation.
-        """
-        for ptrn in current_patrons:
-            if ptrn.organisation_pid == record.organisation_pid:
-                return ptrn
+    # =========================================================================
+    # CLASS METHODS
+    # =========================================================================
+    @classmethod
+    def load(cls, data):
+        """Load the data and remove the user data."""
+        return cls(cls.remove_user_data(data))
 
     @classmethod
-    def set_communication_channel(
-            cls, user=None, dbcommit=True, reindex=True):
+    def remove_user_data(cls, data):
+        """Remove the user data."""
+        data = deepcopy(data)
+        profile_fields = User.profile_fields + ['username', 'email']
+        for field in profile_fields:
+            data.pop(field, None)
+        return data
+
+    @classmethod
+    def get_all_pids_for_organisation(cls, organisation_pid):
+        """Get all patron pids for a specific organisation."""
+        query = PatronsSearch() \
+            .filter('term', organisation__pid=organisation_pid) \
+            .source(includes='pid') \
+            .scan()
+        for hit in query:
+            yield hit['pid']
+
+    @classmethod
+    def get_librarian_by_user(cls, user):
+        """Get patron with a role librarian or system_librarian by user."""
+        patrons = cls.get_patrons_by_user(user)
+        librarians = list(filter(lambda p: p.is_professional_user, patrons))
+        if len(librarians) > 1:
+            raise Exception(f'more than one librarian account for {user}')
+        if not librarians:
+            return None
+        return librarians[0]
+
+    @classmethod
+    def get_patrons_by_user(cls, user):
+        """Get all patrons by user."""
+        patrons = []
+        if hasattr(user, 'id'):
+            result = PatronsSearch() \
+                .filter('term', user_id=user.id) \
+                .source(includes='pid') \
+                .scan()
+            patrons = [cls.get_record_by_pid(hit.pid) for hit in result]
+        return patrons
+
+    @classmethod
+    def get_patron_by_email(cls, email):
+        """Get patron by email."""
+        if pid := get_patron_pid_by_email(email):
+            return cls.get_record_by_pid(pid)
+
+    @classmethod
+    def get_patron_by_barcode(cls, barcode=None, org_pid=None):
+        """Get patron by barcode.
+
+        :param barcode: the patron barcode.
+        :param org_pid: filter patron belongs to this organisation pid.
+        :return: The patron corresponding to this barcode.
+        """
+        if not barcode:
+            return None
+        filters = Q('term', patron__barcode=barcode)
+        if org_pid:
+            filters &= Q('term', organisation__pid=org_pid)
+        query = PatronsSearch().filter('bool', must=[filters]).source(['pid'])
+        if hit := next(query.scan(), None):
+            return cls.get_record_by_pid(hit.pid)
+
+    @classmethod
+    def can_request(cls, item, **kwargs):
+        """Check if a paton can request an item.
+
+        :param item : the item to check
+        :param kwargs : To be relevant, additional arguments should contains
+                        'patron' argument.
+        :return a tuple with True|False and reasons to disallow if False.
+        """
+        patron = get_patron_from_arguments(**kwargs)
+        if not patron:
+            # 'patron' argument are present into kwargs. This check can't
+            # be relevant --> return True by default
+            return True, []
+
+        messages = []
+        # 1) a blocked patron can't request any item
+        # 2) a patron with obsolete expiration_date can't request any item
+        if patron.is_blocked:
+            messages.append(patron.get_blocked_message())
+        if patron.is_expired:
+            messages.append(_('Patron rights expired.'))
+
+        return not messages, messages
+
+    @classmethod
+    def can_checkout(cls, item, **kwargs):
+        """Check if a patron can checkout an item."""
+        # Same logic than can_request :: a blocked patron can't do a checkout
+        return cls.can_request(item, **kwargs)
+
+    @classmethod
+    def can_extend(cls, item, **kwargs):
+        """Check if a patron can extend a loan."""
+        # Same logic than can_request :: a blocked patron can't extend a loan
+        return cls.can_request(item, **kwargs)
+
+    @classmethod
+    def patrons_with_obsolete_subscription_pids(cls, end_date=None):
+        """Search about patrons with obsolete subscription."""
+        if end_date is None:
+            end_date = datetime.now()
+        end_date = end_date.strftime('%Y-%m-%d')
+        results = PatronsSearch() \
+            .filter('range', patron__subscriptions__end_date={'lt': end_date})\
+            .source('pid') \
+            .scan()
+        for result in results:
+            yield Patron.get_record_by_pid(result.pid)
+
+    @classmethod
+    def get_patrons_without_subscription(cls, patron_type_pid):
+        """Get patrons linked to patron_type that haven't any subscription."""
+        query = PatronsSearch() \
+            .filter('term', patron__type__pid=patron_type_pid) \
+            .exclude('exists', field='patron.subscriptions')
+        for res in query.source('pid').scan():
+            yield Patron.get_record_by_pid(res.pid)
+
+    @classmethod
+    def set_communication_channel(cls, user=None, dbcommit=True, reindex=True):
         """Set communication_channel for patrons according to patrons data.
 
         :param user - user record
         :param dbcommit - commit the changes
         :param reindex - index the changes
         """
+
         def basic_query(channel):
             """Returns basic ES query."""
-            return PatronsSearch()\
-                .filter('term', user_id=user.id)\
-                .filter('term', patron__communication_channel=channel)\
+            return PatronsSearch() \
+                .filter('term', user_id=user.id) \
+                .filter('term', patron__communication_channel=channel) \
                 .source(includes='pid')
 
-        mail_query = basic_query(CommunicationChannel.EMAIL)\
+        mail_query = basic_query(CommunicationChannel.EMAIL) \
             .filter('bool', must_not=[
                 Q('exists', field='patron.additional_communication_email'),
                 Q('exists', field='email')
             ])
         to_mail_pids = [[hit['pid'], CommunicationChannel.MAIL, hit.meta.id]
                         for hit in mail_query.scan()]
-        email_query = basic_query(CommunicationChannel.MAIL)\
+        email_query = basic_query(CommunicationChannel.MAIL) \
             .filter('bool', should=[
                 Q('exists', field='patron.additional_communication_email'),
                 Q('exists', field='email')
@@ -824,12 +673,179 @@ class Patron(IlsRecord):
             indexer.bulk_index(ids)
             process_bulk_queue.apply_async()
 
+    @classmethod
+    def get_current_patron(cls, record):
+        """Return the patron account belongs to record's organisation.
+
+        :param record - a valid rero_ils resource/object.
+        :returns: The patron record linked to the organisation.
+        """
+        for ptrn in current_patrons:
+            if ptrn.organisation_pid == record.organisation_pid:
+                return ptrn
+
+    # =========================================================================
+    # PROPERTY METHODS
+    # =========================================================================
+    # TODO: use cached property one we found how to invalidate the cache when
+    #       the user change
+    @property
+    def user(self):
+        """Invenio user of a patron."""
+        return self._get_user_by_user_id(self.get('user_id'))
+
+    @property
+    def profile_url(self):
+        """Get the link to the RERO_ILS patron profile URL."""
+        view_code = self.organisation.get('code')
+        base_url = current_app.config.get('RERO_ILS_APP_URL')
+        return f'{base_url}/{view_code}/patrons/profile'
+
+    @property
+    def patron(self):
+        """Patron property shortcut."""
+        return self.get('patron', {})
+
+    @property
+    def expiration_date(self):
+        """Shortcut to find the patron expiration date."""
+        if date_string := self.patron.get('expiration_date'):
+            return datetime.strptime(date_string, '%Y-%m-%d')
+
+    @property
+    def is_expired(self):
+        """Check if patron expiration date is obsolete."""
+        expiration_date = self.expiration_date
+        return expiration_date and datetime.now() > expiration_date
+
+    @property
+    def formatted_name(self):
+        """Return the best possible human-readable patron name."""
+        profile = self.user.profile
+        name_parts = [
+            profile.last_name.strip(),
+            profile.first_name.strip()
+        ]
+        return ', '.join(filter(None, name_parts))
+
+    @property
+    def patron_type_pid(self):
+        """Shortcut for patron type pid."""
+        if patron_type := self.get('patron', {}).get('type'):
+            return extracted_data_from_ref(patron_type)
+
+    @property
+    def is_patron(self):
+        """Shortcut to check if user has patron role."""
+        return UserRole.PATRON in self.get('roles', [])
+
+    @property
+    def is_professional_user(self):
+        """Shortcut to check if user has librarian role."""
+        return any(
+            role in UserRole.PROFESSIONAL_ROLES
+            for role in self.get('roles', [])
+        )
+
+    @property
+    def has_full_permissions(self):
+        """Shortcut to check if user has system_librarian role."""
+        return UserRole.FULL_PERMISSIONS in self.get('roles', [])
+
+    @property
+    def is_blocked(self):
+        """Shortcut to know if user is blocked."""
+        return self.patron.get('blocked', False)
+
+    @property
+    def organisation_pid(self):
+        """Get organisation pid for patron with first library."""
+        if self.library_pid:
+            library = Library.get_record_by_pid(self.library_pid)
+            return library.organisation_pid
+        if patron_type_pid := self.patron_type_pid:
+            from ..patron_types.api import PatronType
+            patron_type = PatronType.get_record_by_pid(patron_type_pid)
+            return patron_type.organisation_pid
+        return None
+
+    @property
+    def organisation(self):
+        """Return organisation."""
+        return Organisation.get_record_by_pid(self.organisation_pid)
+
+    @property
+    def library_pid(self):
+        """Shortcut for patron library pid."""
+        if self.library_pids:
+            return self.library_pids[0]
+
+    @property
+    def library_pids(self):
+        """Shortcut for patron libraries pid."""
+        if self.is_professional_user:
+            return [
+                extracted_data_from_ref(library)
+                for library in self.get('libraries', [])
+            ]
+
+    @property
+    def has_valid_subscription(self):
+        """Check if the patron has a valid subscription at current time.
+
+        To know if the user has a valid subscription, we need to check the
+        patron_type linked to it. If the patron type request a subscription,
+        then we need to check the patron subscription attributes to find a
+        subscription in a valid interval of time.
+        """
+        from ..patron_types.api import PatronType
+        if self.patron_type_pid:
+            patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
+            if patron_type.is_subscription_required:
+                for sub in self.get('patron', {}).get('subscriptions', []):
+                    # not need to check if the subscription is for the
+                    # current patron.patron_type. If patron.patron_type
+                    # change while a subscription is still pending, this
+                    # subscription is still valid
+                    start = datetime.strptime(sub['start_date'], '%Y-%m-%d')
+                    end = datetime.strptime(sub['end_date'], '%Y-%m-%d')
+                    if start < datetime.now() < end:
+                        return True
+                return False
+        return True
+
+    @property
+    def valid_subscriptions(self):
+        """Get valid subscriptions for a patron."""
+        def is_subscription_valid(subscription):
+            start = datetime.strptime(subscription['start_date'], '%Y-%m-%d')
+            end = datetime.strptime(subscription['end_date'], '%Y-%m-%d')
+            return start < datetime.now() < end
+        subs = filter(
+            is_subscription_valid,
+            self.get('patron', {}).get('subscriptions', []))
+        return list(subs)
+
+    @property
+    def pending_subscriptions(self):
+        """Get the pending subscriptions for a patron."""
+        # Not need to use a generator to get pending subscriptions.
+        # In a normal process, the maximum number of subscriptions for a patron
+        # is two : current subscription and possibly next one.
+        pending_subs = []
+        for sub in self.get('patron', {}).get('subscriptions', []):
+            trans_pid = extracted_data_from_ref(
+                sub['patron_transaction'], data='pid')
+            transaction = PatronTransaction.get_record_by_pid(trans_pid)
+            if transaction.status == 'open':
+                pending_subs.append(sub)
+        return pending_subs
+
     @property
     def age(self):
         """Calculate age from birthdate.
 
-        :returns: Age
-        :rtype: int
+        :returns: Age of the patron as ``int``
         """
         birth_date = self.user.profile.birth_date
         today = date.today()
