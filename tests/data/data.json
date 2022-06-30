@@ -3822,7 +3822,7 @@
     "username": "simonetta",
     "home_phone": "+41324993585",
     "roles": [
-      "system_librarian"
+      "pro_full_permissions"
     ],
     "password": "Pw123456"
   },
@@ -3844,7 +3844,10 @@
     "email": "mpedronni@gmail.com",
     "home_phone": "+41324993578",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "password": "Pw123456"
   },
@@ -3866,7 +3869,10 @@
     "email": "msaudan@gmail.com",
     "home_phone": "+41324993541",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "password": "Pw123456"
   },
@@ -3888,7 +3894,10 @@
     "email": "elena_rodriguez@gmail.com",
     "home_phone": "+41324993515",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "password": "Pw123456"
   },
@@ -3910,7 +3919,10 @@
     "email": "virgile_charbonnet@gmail.com",
     "home_phone": "+41324111515",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "password": "Pw123456"
   },
@@ -4009,8 +4021,11 @@
       }
     ],
     "roles": [
-      "system_librarian",
-      "librarian"
+      "pro_full_permissions",
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "password": "Pw123456"
   },
@@ -4031,7 +4046,10 @@
       }
     ],
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "password": "Pw123456"
   },
@@ -4147,7 +4165,10 @@
     "email": "mbonvin@gmail.com",
     "home_phone": "+41324993599",
     "roles": [
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "password": "Pw123456"
   },
@@ -4170,7 +4191,10 @@
     "keep_history": true,
     "roles": [
       "patron",
-      "librarian"
+      "pro_read_only",
+      "pro_catalog_manager",
+      "pro_circulation_manager",
+      "pro_user_manager"
     ],
     "patron": {
       "expiration_date": "2023-12-31",

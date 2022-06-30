@@ -39,7 +39,7 @@ def test_patron_can_delete(client, librarian_martigny,
 
     data = deepcopy(patron_martigny)
     del data['patron']['type']
-    assert not data.get_organisation()
+    assert not data.organisation
 
     # request
     res, data = postdata(

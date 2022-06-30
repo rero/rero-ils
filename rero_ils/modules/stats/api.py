@@ -37,9 +37,9 @@ from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.loans.logs.api import LoanOperationLog
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.minters import id_minter
-from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
-    current_librarian
+from rero_ils.modules.patrons.api import PatronsSearch, current_librarian
 from rero_ils.modules.providers import Provider
+from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import extracted_data_from_ref
 
 from .models import StatIdentifier, StatMetadata
@@ -189,10 +189,7 @@ class StatsForPricing:
         :rtype: integer
         """
         return PatronsSearch()\
-            .filter(
-                'terms',
-                roles=[Patron.ROLE_LIBRARIAN, Patron.ROLE_SYSTEM_LIBRARIAN]
-            )\
+            .filter('terms', roles=UserRole.PROFESSIONAL_ROLES)\
             .filter('term', libraries__pid=library_pid)\
             .count()
 
@@ -329,7 +326,11 @@ class StatsForPricing:
 
 
 class StatsForLibrarian(StatsForPricing):
-    """Statistics for librarian."""
+    """Statistics for librarian.
+
+    TODO: the type of the statistic should be changed from
+          librarian to library.
+    """
 
     def __init__(self, to_date=None):
         """Constructor.
@@ -348,13 +349,14 @@ class StatsForLibrarian(StatsForPricing):
 
         Note: for system_librarian includes libraries of organisation.
         """
-        if Patron.ROLE_LIBRARIAN in current_librarian["roles"]:
+        if list(set(current_librarian['roles'])
+           .intersection(UserRole.LIBRARIAN_ROLES)):
             library_pids = {
                 extracted_data_from_ref(lib) for lib in
                 current_librarian.get('libraries', [])}
 
         # case system_librarian: add libraries of organisation
-        if Patron.ROLE_SYSTEM_LIBRARIAN in current_librarian["roles"]:
+        if UserRole.FULL_PERMISSIONS in current_librarian["roles"]:
             patron_organisation = current_librarian.get_organisation()
             libraries_search = LibrariesSearch()\
                 .filter('term', organisation__pid=patron_organisation.pid)\

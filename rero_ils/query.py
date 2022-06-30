@@ -301,7 +301,7 @@ def templates_search_factory(self, search, query_parser=None):
     """
     search, urlkwargs = search_factory(self, search)
     if current_librarian:
-        if current_librarian.is_system_librarian:
+        if current_librarian.has_full_permissions:
             search = search.filter(
                 'term', organisation__pid=current_librarian.organisation_pid)
         else:
