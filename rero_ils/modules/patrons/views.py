@@ -150,7 +150,7 @@ def logged_user():
     user['id'] = current_user.id
     data = {**data, **user, 'patrons': []}
     for patron in Patron.get_patrons_by_user(current_user):
-        organisation = patron.get_organisation()
+        organisation = patron.organisation
         # TODO: need to be fixed this causes errors in production only
         # patron = patron.replace_refs()
         del patron['$schema']
@@ -243,7 +243,7 @@ def get_messages(patron_pid):
     """Get messages for the current user."""
     patron = Patron.get_record_by_pid(patron_pid)
     messages = patron.get_circulation_messages(True)
-    if patron.get_pending_subscriptions():
+    if patron.pending_subscriptions:
         messages.append({
             'type': 'warning',
             'content': _('You have a pending subscription fee.')
@@ -353,7 +353,7 @@ def info():
     # Process for all patrons
     patrons = copy.deepcopy(current_patrons)
     for patron in patrons:
-        patron['institution'] = patron.get_organisation()
+        patron['institution'] = patron.organisation
         patron['patron']['type'] = PatronType.get_record_by_pid(
             extracted_data_from_ref(patron['patron']['type']['$ref']))
 

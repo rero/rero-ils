@@ -387,7 +387,7 @@
     },
     "libraries": {
       "title": "libraries",
-      "description": "Library affiliations for the librarian.",
+      "description": "Library affiliations for the professional users.",
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,
@@ -413,9 +413,9 @@
         }
       },
       "form": {
-        "hideExpression": "field?.parent?.model && !field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))",
+        "hideExpression": "field?.parent?.model && !field.parent.model.roles.some(v => (v !== 'patron'))",
         "expressionProperties": {
-          "templateOptions.required": "field?.parent?.model && field.parent.model.roles.some(v => (v === 'librarian' || v === 'system_librarian'))"
+          "templateOptions.required": "field?.parent?.model && field.parent.model.roles.some(v => (v !== 'patron'))"
         }
       }
     },
@@ -425,7 +425,6 @@
       "type": "array",
       "uniqueItems": true,
       "minItems": 1,
-      "maxItems": 3,
       "default": [
         "patron"
       ],
@@ -433,9 +432,13 @@
         "type": "string",
         "enum": [
           "patron",
-          "librarian",
-          "acquisition_librarian",
-          "system_librarian"
+          "pro_full_permissions",
+          "pro_read_only",
+          "pro_catalog_manager",
+          "pro_circulation_manager",
+          "pro_user_manager",
+          "pro_acquisition_manager",
+          "pro_library_administrator"
         ],
         "form": {
           "type": "selectWithSort",
@@ -445,16 +448,32 @@
               "value": "patron"
             },
             {
-              "label": "librarian",
-              "value": "librarian"
+              "label": "pro_full_permissions",
+              "value": "pro_full_permissions"
             },
             {
-              "label": "acquisition_librarian",
-              "value": "acquisition_librarian"
+              "label": "pro_read_only",
+              "value": "pro_read_only"
             },
             {
-              "label": "system_librarian",
-              "value": "system_librarian"
+              "label": "pro_catalog_manager",
+              "value": "pro_catalog_manager"
+            },
+            {
+              "label": "pro_circulation_manager",
+              "value": "pro_circulation_manager"
+            },
+            {
+              "label": "pro_user_manager",
+              "value": "pro_user_manager"
+            },
+            {
+              "label": "pro_acquisition_manager",
+              "value": "pro_acquisition_manager"
+            },
+            {
+              "label": "pro_library_administrator",
+              "value": "pro_library_administrator"
             }
           ]
         }

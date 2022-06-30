@@ -61,7 +61,7 @@ class CirculationPolicyPermission(RecordPermission):
         :return: True is action can be done.
         """
         # only system_librarian can create circulation policy ...
-        if not current_librarian or not current_librarian.is_system_librarian:
+        if not current_librarian or not current_librarian.has_full_permissions:
             return False
         # ... only for its own organisation
         if record:
@@ -88,7 +88,7 @@ class CirculationPolicyPermission(RecordPermission):
         #     --> cipo is defined at the library level
         #     --> current user library is into the cipo libraries list
         if current_librarian.organisation_pid == record.organisation_pid:
-            if current_librarian.is_system_librarian:
+            if current_librarian.has_full_permissions:
                 return True
             # librarian
             elif record.get('policy_library_level', False):

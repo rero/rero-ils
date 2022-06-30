@@ -52,7 +52,7 @@ class TemplatePermission(RecordPermission):
         # only librarian or system_librarian can read templates of own org
         if current_librarian.organisation_pid == record.organisation_pid:
             #   - 'sys_librarian' could always read any record
-            if current_librarian.is_system_librarian:
+            if current_librarian.has_full_permissions:
                 return True
             #   - 'librarian' could only read his public and his own records.
             else:
@@ -90,7 +90,7 @@ class TemplatePermission(RecordPermission):
         # User can only update record of its own organisation
         if current_librarian.organisation_pid == record.organisation_pid:
             #   - 'sys_librarian' can update public and his own private records
-            if current_librarian.is_system_librarian:
+            if current_librarian.has_full_permissions:
                 if record.is_private and \
                         record.creator_pid != current_librarian.pid:
                     return False

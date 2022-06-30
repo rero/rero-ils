@@ -37,11 +37,8 @@ def enrich_patron_data(sender, json=None, record=None, index=None,
         patron = record
         if not isinstance(record, Patron):
             patron = Patron.get_record_by_pid(record.get('pid'))
-        org_pid = patron.get_organisation()['pid']
-        if org_pid:
-            json['organisation'] = {
-                'pid': org_pid
-            }
+        if org_pid := patron.organisation['pid']:
+            json['organisation'] = {'pid': org_pid}
 
 
 def create_subscription_patron_transaction(sender, record=None, **kwargs):

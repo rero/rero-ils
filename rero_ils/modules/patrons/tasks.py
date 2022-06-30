@@ -52,11 +52,11 @@ def clean_obsolete_subscriptions():
         else:
             patron['patron']['subscriptions'] = subscriptions
 
-        # NOTE : this update will trigger the listener
-        #        `create_subscription_patron_transaction`. This listener will
-        #        create a new subscription if needed
+        # DEV NOTE : this update will trigger the listener
+        #     `create_subscription_patron_transaction`. This listener will
+        #     create a new subscription if needed
         patron.update(
-            Patron.removeUserData(patron.dumps()),
+            Patron.remove_user_data(patron.dumps()),
             dbcommit=True,
             reindex=True
         )

@@ -32,6 +32,7 @@ from ..fetchers import id_fetcher
 from ..locations.api import LocationsSearch
 from ..minters import id_minter
 from ..providers import Provider
+from ..users.models import UserRole
 from ..utils import date_string_to_utc, sorted_pids, strtotime
 
 # provider
@@ -350,7 +351,7 @@ class Library(IlsRecord):
             .filter('term', library__pid=self.pid)
         patron_query = PatronsSearch() \
             .filter('term', libraries__pid=self.pid) \
-            .filter('term', roles='librarian')
+            .filter('terms', roles=UserRole.PROFESSIONAL_ROLES)
         receipt_query = AcqReceiptsSearch() \
             .filter('term', library__pid=self.pid)
         if get_pids:

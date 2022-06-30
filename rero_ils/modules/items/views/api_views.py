@@ -420,14 +420,12 @@ def can_request(item_pid):
     item = Item.get_record_by_pid(item_pid)
     if not item:
         abort(404, 'Item not found')
-    patron_barcode = flask_request.args.get('patron_barcode')
-    if patron_barcode:
+    if patron_barcode := flask_request.args.get('patron_barcode'):
         kwargs['patron'] = Patron.get_patron_by_barcode(
-            patron_barcode, item.organisation_pid)
+            barcode=patron_barcode, org_pid=item.organisation_pid)
         if not kwargs['patron']:
             abort(404, 'Patron not found')
-    library_pid = flask_request.args.get('library_pid')
-    if library_pid:
+    if library_pid := flask_request.args.get('library_pid'):
         kwargs['library'] = Library.get_record_by_pid(library_pid)
         if not kwargs['library']:
             abort(404, 'Library not found')
