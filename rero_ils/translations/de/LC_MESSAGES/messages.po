@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-06-28 10:14+0200\n"
-"PO-Revision-Date: 2022-06-29 09:01+0000\n"
+"PO-Revision-Date: 2022-06-30 06:10+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
@@ -5697,11 +5697,11 @@ msgstr "Farbinhalt"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:18
 msgid "rdacc:1002"
-msgstr "monochrom"
+msgstr "schwarz-weiss"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:22
 msgid "rdacc:1003"
-msgstr "polychrom"
+msgstr "farbig"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:3
 msgid "Content, media, carrier types"
