@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-06-28 10:14+0200\n"
 "PO-Revision-Date: 2022-06-28 14:28+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -5712,9 +5712,8 @@ msgid "Content, media, carrier type"
 msgstr "Type de contenu, de média, de support matériel"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:11
-#, fuzzy
 msgid "unknown media"
-msgstr "non connu"
+msgstr "média inconnu"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:26
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:42
