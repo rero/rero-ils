@@ -1370,7 +1370,7 @@ class ItemCirculation(ItemRecord):
     def is_requested_by_patron(self, patron_barcode):
         """Check if the item is requested by a given patron."""
         patron = Patron.get_patron_by_barcode(
-            patron_barcode, filter_by_org_pid=self.organisation_pid)
+            barcode=patron_barcode, org_pid=self.organisation_pid)
         if patron:
             request = get_request_by_item_pid_by_patron_pid(
                 item_pid=self.pid, patron_pid=patron.pid

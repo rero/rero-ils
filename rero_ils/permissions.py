@@ -29,7 +29,12 @@ from .modules.patrons.api import current_librarian, current_patrons
 
 request_item_permission = Permission(RoleNeed('patron'))
 librarian_permission = Permission(
-    RoleNeed('librarian'), RoleNeed('system_librarian'))
+    RoleNeed('pro_read_only'),
+    RoleNeed('pro_catalog_manager'),
+    RoleNeed('pro_circulation_manager'),
+    RoleNeed('pro_user_manager'),
+    RoleNeed('pro_full_permissions')
+)
 admin_permission = Permission(RoleNeed('admin'))
 editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))
 monitoring_permission = Permission(RoleNeed('monitoring'))
@@ -147,7 +152,7 @@ def can_receive_regular_issue(holding):
     if not current_librarian:
         return False
     if current_librarian.organisation_pid == holding.organisation_pid:
-        if current_librarian.is_system_librarian:
+        if current_librarian.has_full_permissions:
             return True
         if holding.library_pid not in current_librarian.library_pids:
             return False

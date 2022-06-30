@@ -25,6 +25,7 @@ from invenio_access import Permission
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
+from rero_ils.modules.users.models import UserRole
 from rero_ils.permissions import librarian_delete_permission_factory
 from rero_ils.utils import create_user_from_data
 
@@ -80,8 +81,8 @@ def test_librarian_permissions(
     res = client.get(role_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert 'librarian' in data['allowed_roles']
-    assert 'system_librarian' not in data['allowed_roles']
+    assert all(r in data['allowed_roles'] for r in UserRole.LIBRARIAN_ROLES)
+    assert UserRole.FULL_PERMISSIONS not in data['allowed_roles']
 
     # can create all type of users except system_librarians
     post_entrypoint = 'invenio_records_rest.ptrn_list'
@@ -95,21 +96,14 @@ def test_librarian_permissions(
     patron = deepcopy(record)
     patron['libraries'] = \
         [{"$ref": "https://bib.rero.ch/api/libraries/lib3"}]
-    counter = 1
-    for record in [
-        {'data': patron, 'role': 'patron'},
-        {'data': librarian, 'role': 'librarian'},
-    ]:
-        counter += 1
+    for counter, record in enumerate([
+        {'data': patron, 'role': [UserRole.PATRON]},
+        {'data': librarian, 'role': UserRole.LIBRARIAN_ROLES},
+    ]):
         data = record['data']
-        data['roles'] = [record['role']]
-        data['patron']['barcode'] = ['barcode' + str(counter)]
-
-        res, _ = postdata(
-            client,
-            post_entrypoint,
-            data
-        )
+        data['roles'] = record['role']
+        data['patron']['barcode'] = [f'barcode{str(counter)}']
+        res, _ = postdata(client, post_entrypoint, data)
         assert res.status_code == 201
         user = get_json(res)['metadata']
         user_pid = user.get('pid')
@@ -120,7 +114,7 @@ def test_librarian_permissions(
         user = get_json(res)['metadata']
 
         # can update all type of user records except system_librarian.
-        user['first_name'] = 'New Name' + str(counter)
+        user['first_name'] = f'New Name{str(counter)}'
         res = client.put(
             record_url,
             data=json.dumps(user),
@@ -128,8 +122,8 @@ def test_librarian_permissions(
         )
         assert res.status_code == 200
 
-        # can not add the role system_librarian to user
-        user['roles'] = ['system_librarian']
+        # can not add the role FULL_PERMISSIONS to user
+        user['roles'] = [UserRole.FULL_PERMISSIONS]
         res = client.put(
             record_url,
             data=json.dumps(user),
@@ -145,22 +139,14 @@ def test_librarian_permissions(
         assert res.status_code == 204
 
     # can not create librarians of same libray.
-    counter = 1
-    for record in [
-        {'data': librarian_saxon, 'role': 'librarian'},
-    ]:
-        counter += 1
-        data = record['data']
-        data['roles'] = [record['role']]
-        data['patron']['barcode'] = ['barcode' + str(counter)]
-        res, _ = postdata(
-            client,
-            post_entrypoint,
-            data
-        )
-        assert res.status_code == 403
 
-    system_librarian['roles'] = ['system_librarian']
+    data = librarian_saxon
+    data['roles'] = UserRole.LIBRARIAN_ROLES
+    data['patron']['barcode'] = ['barcode#1']
+    res, _ = postdata(client, post_entrypoint, data)
+    assert res.status_code == 403
+
+    system_librarian['roles'] = [UserRole.FULL_PERMISSIONS]
     system_librarian['patron']['barcode'] = ['barcode']
 
     res, _ = postdata(
