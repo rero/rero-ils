@@ -381,7 +381,7 @@ def test_physical_description_to_marc21(app, marc21_record):
         '300__': {
             '__order__': ('a', 'b'),
             'a': '1 DVD-vidéo (1h42)',
-            'b': 'blueline process ; illustrations ; monocrome'
+            'b': 'blueline process ; illustrations ; black and white'
         }
     })
     assert result == record
