@@ -287,6 +287,8 @@
             viewcode="{{ viewcode }}"
           ></public-search-holdings>
         {% endif %}
+        <!-- ILL REQUEST ON GLOBAL VIEW-->
+        {% include('rero_ils/_ill_request_button.html') %}
       </section>
       {% endif %}
       <section class="tab-pane container" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">

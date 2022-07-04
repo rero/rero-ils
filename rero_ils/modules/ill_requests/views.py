@@ -19,13 +19,19 @@
 
 from __future__ import absolute_import, print_function
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, current_app, flash, redirect, render_template, \
+    request, url_for
 from flask_babelex import gettext as _
+
+from rero_ils.modules.documents.api import Document
+from rero_ils.modules.documents.views import create_title_text
 
 from .api import ILLRequest
 from .forms import ILLRequestForm
 from .models import ILLRequestStatus
-from .utils import get_pickup_location_options
+from .utils import get_document_identifiers, get_pickup_location_options, \
+    get_production_activity, get_production_activity_statement
+from ..commons.identifiers import IdentifierType
 from ..decorators import check_logged_as_patron
 from ..locations.api import Location
 from ..patrons.api import current_patrons
@@ -51,6 +57,14 @@ def ill_request_form(viewcode):
     # can't be "calculated" on the form creation (context free).
     form.pickup_location.choices = [
         *form.pickup_location.choices, *list(get_pickup_location_options())]
+
+    # Populate data only if we are on the global view
+    # and that the function is allowed in the configuration
+    if request.method == 'GET' and 'record_pid' in request.args \
+        and current_app.config.get('RERO_ILS_ILL_REQUEST_ON_GLOBAL_VIEW') \
+            and viewcode == current_app.config.get(
+                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
+        _populate_document_data_form(request.args['record_pid'], form)
 
     if request.method == 'POST' and form.validate_on_submit():
         ill_request_data = form.get_data()
@@ -78,3 +92,54 @@ def ill_request_form(viewcode):
 
     return render_template('rero_ils/ill_request_form.html',
                            form=form, viewcode=viewcode)
+
+
+def _populate_document_data_form(doc_pid, form):
+    """Populate document data in the form.
+
+    :param: doc_pid: Document PID.
+    :param: form: The ill form.
+    """
+    doc = Document.get_record_by_pid(doc_pid)
+    if not doc:
+        return
+    # Document title
+    form.document.title.data = create_title_text(doc.get('title'))
+    # Document authors (only first three)
+    statements = doc.get('responsibilityStatement', [])
+    authors = []
+    for statement in statements:
+        authors.extend(author.get('value') for author in statement)
+    if authors:
+        form.document.authors.data = '; '.join(authors[:3])
+    # Document publisher and year
+    types = ['bf:Publication']
+    if production_activity := next(get_production_activity(doc, types), None):
+        # Document date
+        if date := production_activity.get('startDate'):
+            form.document.year.data = date
+            statement_types = ['bf:Agent']
+        # Document publisher
+        if statement := next(get_production_activity_statement(
+            production_activity,
+            statement_types
+        ), None):
+            if label := statement.get('label'):
+                form.document.publisher.data = label[0].get('value')
+    # Document identifier
+    types = [
+        IdentifierType.ISBN, IdentifierType.EAN, IdentifierType.ISSN,
+        IdentifierType.L_ISSN]
+    if identifier := next(get_document_identifiers(doc, types), None):
+        type = _(identifier.get('type'))
+        value = identifier.get('value')
+        form.document.identifier.data = f'{value} ({type})'
+    # Document source
+    form.source.origin.data = current_app.config.get(
+        'RERO_ILS_ILL_DEFAULT_SOURCE')
+    form.source.url.data = url_for(
+        'invenio_records_ui.doc',
+        viewcode=current_app.config.get(
+            'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
+        pid_value=doc_pid,
+        _external=True)
