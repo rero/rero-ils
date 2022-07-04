@@ -179,7 +179,8 @@
                 "docsubtype_manuscript",
                 "docsubtype_thesis",
                 "docsubtype_e-book",
-                "docsubtype_microform"
+                "docsubtype_microform",
+                "docsubtype_pictorial_book"
               ],
               "form": {
                 "options": [
@@ -210,6 +211,10 @@
                   {
                     "label": "docsubtype_microform",
                     "value": "docsubtype_microform"
+                  },
+                  {
+                    "label": "docsubtype_pictorial_book",
+                    "value": "docsubtype_pictorial_book"
                   }
                 ],
                 "templateOptions": {
@@ -469,7 +474,8 @@
                 "docsubtype_photography",
                 "docsubtype_print_engraving",
                 "docsubtype_calendar",
-                "docsubtype_other_image"
+                "docsubtype_other_image",
+                "docsubtype_projected_image"
               ],
               "form": {
                 "options": [
@@ -496,6 +502,10 @@
                   {
                     "label": "docsubtype_other_image",
                     "value": "docsubtype_other_image"
+                  },
+                  {
+                    "label": "docsubtype_projected_image",
+                    "value": "docsubtype_projected_image"
                   }
                 ],
                 "templateOptions": {
