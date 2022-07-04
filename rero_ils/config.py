@@ -136,6 +136,10 @@ RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW = False
 RERO_ILS_HOMEPAGE_GENERAL_BLOCK = 'rero_ils/_frontpage_block_test.html'
 RERO_ILS_HOMEPAGE_GENERAL_SLOGAN = 'rero_ils/_frontpage_slogan_test.html'
 
+# ILL Request config
+RERO_ILS_ILL_REQUEST_ON_GLOBAL_VIEW = True
+RERO_ILS_ILL_DEFAULT_SOURCE = 'RERO +'
+
 # Rate limiting
 # =============
 #: Storage for ratelimiter.

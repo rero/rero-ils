@@ -62,3 +62,41 @@ def test_ill_request_create_request_form(client, app,
     form_data['pages'] = '12-13'
     res = client.post(request_form_url, data=form_data)
     assert res.status_code == 302
+
+
+def test_ill_request_with_document(client, app, document, patron_martigny):
+    """Test ills request form with document data."""
+    app.config['RERO_ILS_ILL_REQUEST_ON_GLOBAL_VIEW'] = True
+    app.config['RERO_ILS_ILL_DEFAULT_SOURCE'] = 'RERO +'
+
+    request_form_url = url_for(
+        'ill_requests.ill_request_form',
+        viewcode='global',
+        record_pid=document.pid)
+
+    # logged as user
+    login_user_for_view(client, patron_martigny)
+    res = client.get(request_form_url)
+    assert res.status_code == 200
+
+    # Check title
+    assert b'titre en chinois' in res.data
+    # Check author
+    assert b'Zeng Lingliang zhu bian' in res.data
+    # Check publisher
+    assert b'H. Mignot' in res.data
+    # Check year
+    assert b'1971' in res.data
+    # Check identifier
+    assert b'9782844267788 (ISBN)' in res.data
+    # Check source
+    assert b'RERO +' in res.data
+    # Check url
+    assert b'http://localhost/global/documents/doc1' in res.data
+
+    # Check if the request with document is disabled
+    app.config['RERO_ILS_ILL_REQUEST_ON_GLOBAL_VIEW'] = False
+
+    res = client.get(request_form_url)
+
+    assert b'H. Mignot' not in res.data
