@@ -17,17 +17,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: igor.milhit@rero.ch\n"
 "POT-Creation-Date: 2022-06-30 11:02+0200\n"
-"PO-Revision-Date: 2022-06-30 06:10+0000\n"
+"PO-Revision-Date: 2022-07-06 12:16+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13.1-dev\n"
 "Generated-By: Babel 2.10.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -9140,7 +9141,7 @@ msgstr "Ritorno"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:32
 msgid "Export as ..."
-msgstr "Esportare come ..."
+msgstr "Esportare in..."
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:209
 msgid "Show more"
@@ -12132,4 +12133,3 @@ msgstr "La tua biblioteca"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "La tua parola d'ordine è stata reimposta con successo."
-
