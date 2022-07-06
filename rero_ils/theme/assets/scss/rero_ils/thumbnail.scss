@@ -28,3 +28,22 @@ figure#thumbnail .thumb {
 figure#thumbnail .figure-caption {
   line-height: 1.2em;
 }
+
+// Tablets
+@include media-breakpoint-between(sm, md) {
+  figure#thumbnail .thumb {
+    max-width: 100px;
+    figcaption {
+      overflow-wrap: anywhere;
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  figure#thumbnail .thumb {
+    max-width: 70px;
+    figcaption {
+      overflow-wrap: anywhere;
+    }
+  }
+}
