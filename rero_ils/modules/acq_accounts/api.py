@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,19 +23,21 @@ from functools import partial
 from elasticsearch_dsl import Q
 from flask_babelex import gettext as _
 
+from rero_ils.modules.acq_invoices.api import AcquisitionInvoicesSearch
+from rero_ils.modules.acq_order_lines.api import AcqOrderLinesSearch
+from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
+from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLinesSearch
+from rero_ils.modules.acq_receipts.api import AcqReceiptsSearch
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref, get_objects, \
+    sorted_pids
+
 from .extensions import ParentAccountDistributionCheck
 from .models import AcqAccountExceedanceType, AcqAccountIdentifier, \
     AcqAccountMetadata
-from ..acq_invoices.api import AcquisitionInvoicesSearch
-from ..acq_order_lines.api import AcqOrderLinesSearch
-from ..acq_order_lines.models import AcqOrderLineStatus
-from ..acq_receipt_lines.api import AcqReceiptLinesSearch
-from ..acq_receipts.api import AcqReceiptsSearch
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import extracted_data_from_ref, sorted_pids
 
 AcqAccountProvider = type(
     'AcqAccountProvider',
@@ -149,10 +151,10 @@ class AcqAccount(IlsRecord):
 
     @property
     def is_active(self):
-        """Get if the account should be considerate as active.
+        """Check if the account should be considered as active.
 
-        To know if an account is active, we need to check the related budget.
-        This budget has a 'is_active' field.
+        To know if an account is is_active, we need to check the related
+        budget. This budget has an 'is_active' field.
         """
         from ..budgets.api import BudgetsSearch
         budget_id = extracted_data_from_ref(self.get('budget'))
@@ -396,7 +398,7 @@ class AcqAccount(IlsRecord):
         query = AcqAccountsSearch().filter('term', parent__pid=self.pid)
         if output == 'count':
             return query.count()
-        return self._list_object_by_pid(AcqAccount, query)
+        return get_objects(AcqAccount, query)
 
     def get_links_to_me(self, get_pids=False):
         """Record links.
@@ -444,8 +446,11 @@ class AcqAccount(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
-        links = self.get_links_to_me()
-        if links:
+        # Note: not possible to delete records attached to rolled_over budget.
+        if not self.is_active:
+            cannot_delete['links'] = {'rolled_over': True}
+            return cannot_delete
+        if links := self.get_links_to_me():
             cannot_delete['links'] = links
         return cannot_delete
 

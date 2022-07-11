@@ -210,5 +210,32 @@
       "$ref": "https://bib.rero.ch/api/libraries/1"
     },
     "is_cancelled": false
+  },
+  {
+    "pid": "10",
+    "priority": 0,
+    "quantity": 3,
+    "amount": 25,
+    "exchange_rate": 1,
+    "notes": [
+      {
+        "type": "staff_note",
+        "content": "see patron_request: 1"
+      }
+    ],
+    "acq_account": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/72"
+    },
+    "acq_order": {
+      "$ref": "https://bib.rero.ch/api/acq_orders/7"
+    },
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/15"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "is_cancelled": false,
+    "order_date": "2021-07-20"
   }
 ]

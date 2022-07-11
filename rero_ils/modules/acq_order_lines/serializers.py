@@ -2,7 +2,6 @@
 #
 # RERO ILS
 # Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,24 +15,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Permissions for Acquisition receipt line."""
+"""Acquisition order line serialization."""
 
-from rero_ils.modules.permissions import AcquisitionPermission
+from invenio_records_rest.serializers.response import record_responsify
 
-from .api import AcqReceiptLine
+from rero_ils.modules.serializers import ACQJSONSerializer, RecordSchemaJSONV1
 
-
-class AcqReceiptLinePermission(AcquisitionPermission):
-    """Acquisition receipt line permissions."""
-
-    @classmethod
-    def _rolled_over(cls, record):
-        """Check if record attached to rolled over budget.
-
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # ensure class type for sent record
-        if not isinstance(record, AcqReceiptLine):
-            record = AcqReceiptLine(record)
-        return record.is_active
+_json = ACQJSONSerializer(RecordSchemaJSONV1)
+json_acol_record = record_responsify(_json, 'application/rero+json')

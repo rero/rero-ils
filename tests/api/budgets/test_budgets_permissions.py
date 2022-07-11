@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -85,9 +85,9 @@ def test_budget_permissions_api(client, org_sion, patron_martigny,
     data = get_json(res)
     assert data['read']['can']
     assert data['list']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
+    assert not data['create']['can']
+    assert not data['update']['can']
+    assert not data['delete']['can']
 
     res = client.get(budget_sion_permission_url)
     assert res.status_code == 200
@@ -141,9 +141,9 @@ def test_budget_permissions(patron_martigny,
     ):
         assert BudgetPermission.list(None, budget_2018_martigny)
         assert BudgetPermission.read(None, budget_2018_martigny)
-        assert BudgetPermission.create(None, budget_2018_martigny)
-        assert BudgetPermission.update(None, budget_2018_martigny)
-        assert BudgetPermission.delete(None, budget_2018_martigny)
+        assert not BudgetPermission.create(None, budget_2018_martigny)
+        assert not BudgetPermission.update(None, budget_2018_martigny)
+        assert not BudgetPermission.delete(None, budget_2018_martigny)
 
         assert not BudgetPermission.read(None, budget_2020_sion)
         assert not BudgetPermission.create(None, budget_2020_sion)

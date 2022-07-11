@@ -492,6 +492,24 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
 fi
 eval ${PREFIX} invenio reroils index run --raise-on-error
 
+# create acquisition receipts
+info_msg "Acquisition receipts: ${DATA_PATH}/acq_receipts.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type acre ${DATA_PATH}/acq_receipts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t acre --yes-i-know
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index run --raise-on-error
+
+# create acquisition receipt lines
+info_msg "Acquisition receipt lines: ${DATA_PATH}/acq_receipt_lines.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type acrl ${DATA_PATH}/acq_receipt_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t acrl --yes-i-know
+if [ ${INDEX_PARALLEL} -gt 0 ]; then
+    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
+fi
+eval ${PREFIX} invenio reroils index run --raise-on-error
+
 # create resource templates
 info_msg "Resource templates:"
 eval ${PREFIX} invenio reroils fixtures create --pid_type tmpl ${DATA_PATH}/templates.json --append  ${CREATE_LAZY} ${DONT_STOP}
@@ -508,24 +526,6 @@ fi
 
 if ${LOADEXTRAFILES}
   then
-      # create acquisition receipts
-      info_msg "Acquisition receipts: ${DATA_PATH}/acq_receipts.json ${CREATE_LAZY} ${DONT_STOP}"
-      eval ${PREFIX} invenio reroils fixtures create --pid_type acre ${DATA_PATH}/acq_receipts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-      eval ${PREFIX} invenio reroils index reindex -t acre --yes-i-know
-      if [ ${INDEX_PARALLEL} -gt 0 ]; then
-          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-      fi
-      eval ${PREFIX} invenio reroils index run --raise-on-error
-
-      # create acquisition receipt lines
-      info_msg "Acquisition receipt lines: ${DATA_PATH}/acq_receipt_lines.json ${CREATE_LAZY} ${DONT_STOP}"
-      eval ${PREFIX} invenio reroils fixtures create --pid_type acrl ${DATA_PATH}/acq_receipt_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-      eval ${PREFIX} invenio reroils index reindex -t acrl --yes-i-know
-      if [ ${INDEX_PARALLEL} -gt 0 ]; then
-          eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-      fi
-      eval ${PREFIX} invenio reroils index run --raise-on-error
-
       # create acquisition invoices
       info_msg "Acquisition invoices: ${DATA_PATH}/acq_invoices.json ${CREATE_LAZY} ${DONT_STOP}"
       eval ${PREFIX} invenio reroils fixtures create --pid_type acin ${DATA_PATH}/acq_invoices.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,88 +18,23 @@
 
 """Permissions for Acquisition account."""
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AcquisitionPermission
+
+from .api import AcqAccount
 
 
-class AcqAccountPermission(RecordPermission):
+class AcqAccountPermission(AcquisitionPermission):
     """Acquisition account permissions."""
 
     @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    def _rolled_over(cls, record):
+        """Check if record attached to rolled over budget.
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # List organisation allowed only for staff members (lib, sys_lib)
-        return bool(current_librarian)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # user should be authenticated
-        if not current_librarian:
-            return False
-        # 'lib' can only update account linked to its own library
-        if current_librarian.is_system_librarian:
-            return current_librarian.organisation_pid == \
-                record.organisation_pid
-        else:
-            return current_librarian.library_pids and \
-                record.library_pid in current_librarian.library_pids
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # user should be authenticated
-        if not current_librarian:
-            return False
-        if not record:
-            return True
-        else:
-            # Same as update
-            return cls.update(user, record)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) can update acq_account
-        # record cannot be null
-        if not current_librarian or not record:
-            return False
-        # 'sys_lib' can update all account
-        if current_librarian.is_system_librarian:
-            return current_librarian.organisation_pid == \
-                record.organisation_pid
-        # 'lib' can only update account linked to its own library
-        return current_librarian.library_pids and \
-            record.library_pid in current_librarian.library_pids
-        return False
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
         :param record: Record to check.
         :return: True if action can be done.
         """
-        # Same as update
-        return cls.update(user, record)
+        # ensure class type for sent record
+        if not isinstance(record, AcqAccount):
+            record = AcqAccount(record)
+        # no updates is possible for accounts related to rolled over budgets.
+        return record.is_active

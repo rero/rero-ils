@@ -190,3 +190,14 @@ class CachedDataSerializerMixin:
                 resource = resource.to_dict()
             self._resources.setdefault(cls_key, {})[pid] = resource
         return self._resources[cls_key][pid]
+
+
+class ACQJSONSerializer(JSONSerializer, PostprocessorMixin):
+    """Serializer for RERO-ILS acquisition records as JSON."""
+
+    def preprocess_record(self, pid, record, links_factory=None, **kwargs):
+        """Prepare a record and persistent identifier for serialization."""
+        # add some dynamic key related to the record.
+        record['is_current_budget'] = record.is_active
+        return super().preprocess_record(
+            pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)

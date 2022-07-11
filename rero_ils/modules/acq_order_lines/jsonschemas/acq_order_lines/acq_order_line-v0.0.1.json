@@ -292,7 +292,7 @@
     },
     "is_cancelled": {
       "title": "Cancelled",
-      "description": "If checked this order line should be considerate as cancelled.",
+      "description": "If checked this order line should be considered as cancelled.",
       "type": "boolean",
       "default": false
     }

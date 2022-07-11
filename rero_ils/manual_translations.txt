@@ -69,3 +69,19 @@ _('Sign Up')
 # Test alert message
 _('This is a TEST VERSION.')
 _('Go to the production site.')
+
+# Acquisitions status
+_('approved')
+_('cancelled')
+_('ordered')
+_('partially_received')
+_('pending')
+_('received')
+
+# Acquisitions type
+_('monograph')
+_('serial')
+_('standing_order')
+_('monographic_set')
+_('planned_order')
+_('multi_volume')

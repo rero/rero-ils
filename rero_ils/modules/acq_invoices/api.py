@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -20,13 +20,14 @@
 
 from functools import partial
 
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref, get_base_url
+
 from .models import AcquisitionInvoiceIdentifier, AcquisitionInvoiceMetadata
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..libraries.api import Library
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_base_url
 
 # provider
 AcquisitionInvoiceProvider = type(
@@ -145,9 +146,15 @@ class AcquisitionInvoice(IlsRecord):
         """Shortcut for acquisition order vendor pid."""
         return extracted_data_from_ref(self.get('vendor'))
 
+    @property
+    def is_active(self):
+        """Check if the invoice should be considered as active."""
+        # TODO: implement this when introducing the invoicing module
+        return True
+
 
 class AcquisitionInvoicesIndexer(IlsRecordsIndexer):
-    """Indexing documents in Elasticsearch."""
+    """Indexing invoices in Elasticsearch."""
 
     record_cls = AcquisitionInvoice
 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -35,24 +35,26 @@ from invenio_circulation.search.api import search_by_patron_item_or_document
 from invenio_circulation.utils import str2datetime
 from invenio_jsonschemas import current_jsonschemas
 
+from rero_ils.modules.api import IlsRecord, IlsRecordError, \
+    IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
     OVERDUE_REMINDER_TYPE, CircPolicy
+from rero_ils.modules.errors import NoCirculationActionIsPermitted
+from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.items.utils import item_pid_to_object
+from rero_ils.modules.libraries.api import LibrariesSearch, Library
+from rero_ils.modules.locations.api import Location, LocationsSearch
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch
+from rero_ils.modules.notifications.dispatcher import \
+    Dispatcher as NotificationDispatcher
+from rero_ils.modules.notifications.models import NotificationType
+from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
+from rero_ils.modules.patrons.api import Patron, PatronsSearch
+from rero_ils.modules.utils import date_string_to_utc, get_ref_for_pid
 
 from .extensions import CheckoutLocationExtension, CirculationDatesExtension
 from .models import LoanAction, LoanState
-from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
-    IlsRecordsSearch
-from ..errors import NoCirculationActionIsPermitted
-from ..items.models import ItemStatus
-from ..items.utils import item_pid_to_object
-from ..libraries.api import LibrariesSearch, Library
-from ..locations.api import Location, LocationsSearch
-from ..notifications.api import Notification, NotificationsSearch
-from ..notifications.dispatcher import Dispatcher as NotificationDispatcher
-from ..notifications.models import NotificationType
-from ..patron_transactions.api import PatronTransactionsSearch
-from ..patrons.api import Patron, PatronsSearch
-from ..utils import date_string_to_utc, get_ref_for_pid
 
 
 class LoansSearch(IlsRecordsSearch):
@@ -555,7 +557,7 @@ class Loan(IlsRecord):
 
     @property
     def overdue_date(self):
-        """Get the date when the loan should be considerate as 'overdue'."""
+        """Get the date when the loan should be considered as 'overdue'."""
         if self.end_date:
             d_after = date_string_to_utc(self.end_date) + timedelta(days=1)
             return datetime(

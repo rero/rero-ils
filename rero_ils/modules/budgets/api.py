@@ -68,6 +68,14 @@ class Budget(IlsRecord):
         }
     }
 
+    @property
+    def is_active(self):
+        """Check if the budget should be considered as active.
+
+        To know if an budget is is_active, we need to check 'is_active' field.
+        """
+        return self.get('is_active')
+
     def get_links_to_me(self, get_pids=False):
         """Record links.
 
@@ -87,11 +95,13 @@ class Budget(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
-        others = self.reasons_to_keep()
-        if others:
+        # Note: not possible to delete records attached to rolled_over budget.
+        if not self.is_active:
+            cannot_delete['links'] = {'rolled_over': True}
+            return cannot_delete
+        if others := self.reasons_to_keep():
             cannot_delete['others'] = others
-        links = self.get_links_to_me()
-        if links:
+        if links := self.get_links_to_me():
             cannot_delete['links'] = links
         return cannot_delete
 

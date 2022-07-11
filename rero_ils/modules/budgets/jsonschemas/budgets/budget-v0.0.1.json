@@ -78,7 +78,7 @@
     },
     "is_active": {
       "type": "boolean",
-      "title": "Active",
+      "title": "True if not rolled over yet",
       "default": false
     },
     "organisation": {

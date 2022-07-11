@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -236,7 +236,7 @@ def test_budget_secure_api_create(client, json_header,
         post_entrypoint,
         budget_2020_martigny
     )
-    assert res.status_code == 201
+    assert res.status_code == 403
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
@@ -269,7 +269,7 @@ def test_budget_secure_api_update(client,
         data=json.dumps(data),
         headers=json_header
     )
-    assert res.status_code == 200
+    assert res.status_code == 403
 
     # Sion
     login_user_via_session(client, system_librarian_sion.user)
@@ -305,4 +305,4 @@ def test_budget_secure_api_delete(client,
 
     login_user_via_session(client, system_librarian_martigny.user)
     res = client.delete(record_url)
-    assert res.status_code == 204
+    assert res.status_code == 403

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
-# Copyright (C) 2021 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,59 +18,22 @@
 
 """Permissions for Acquisition receipt."""
 
-from ..acq_orders.permissions import AcqOrderPermission
-from ..permissions import RecordPermission
+from rero_ils.modules.permissions import AcquisitionPermission
+
+from .api import AcqReceipt
 
 
-class AcqReceiptPermission(RecordPermission):
+class AcqReceiptPermission(AcquisitionPermission):
     """Acquisition receipt permissions."""
 
     @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    def _rolled_over(cls, record):
+        """Check if record attached to rolled over budget.
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return AcqOrderPermission.list(user, record)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return AcqOrderPermission.read(user, record)
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return AcqOrderPermission.create(user, record)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return AcqOrderPermission.update(user, record)
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
         :param record: Record to check.
         :return: True if action can be done.
         """
-        return AcqOrderPermission.delete(user, record)
+        # ensure class type for sent record
+        if not isinstance(record, AcqReceipt):
+            record = AcqReceipt(record)
+        return record.is_active

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,13 +24,14 @@ from datetime import datetime, timezone
 from celery import shared_task
 from flask import current_app
 
+from rero_ils.modules.circ_policies.api import OVERDUE_REMINDER_TYPE
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.loans.api import get_due_soon_loans, get_overdue_loans
+from rero_ils.modules.utils import set_timestamp
+
 from .dispatcher import Dispatcher
 from .models import NotificationType
 from .utils import get_notifications
-from ..circ_policies.api import OVERDUE_REMINDER_TYPE
-from ..libraries.api import Library
-from ..loans.api import get_due_soon_loans, get_overdue_loans
-from ..utils import set_timestamp
 
 
 @shared_task()
@@ -70,7 +71,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
         logger.debug("DUE_SOON_NOTIFICATION_CREATION -------------")
         for loan in get_due_soon_loans(tstamp=tstamp):
             try:
-                logger.debug(f"* Loan#{loan.pid} is considerate as 'due_soon'")
+                logger.debug(f"* Loan#{loan.pid} is considered as 'due_soon'")
                 loan.create_notification(_type=NotificationType.DUE_SOON)
                 notification_counter[NotificationType.DUE_SOON] += 1
             except Exception as error:
@@ -84,7 +85,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
         logger.debug("OVERDUE_NOTIFICATION_CREATION --------------")
         notification_counter[NotificationType.OVERDUE] = 0
         for loan in get_overdue_loans(tstamp=tstamp):
-            logger.debug(f"* Loan#{loan.pid} is considerate as 'overdue'")
+            logger.debug(f"* Loan#{loan.pid} is considered as 'overdue'")
             # For each overdue loan, we need to get the 'overdue' reminders
             # to should be sent from the due_date and the current used date.
             loan_library = Library.get_record_by_pid(loan.library_pid)

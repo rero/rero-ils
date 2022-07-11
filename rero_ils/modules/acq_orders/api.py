@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,22 +23,24 @@ from functools import partial
 from flask_babelex import gettext as _
 from invenio_records_rest.utils import obj_or_import_string
 
+from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
+    AcqOrderLinesSearch
+from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
+from rero_ils.modules.acq_receipts.api import AcqReceipt, AcqReceiptsSearch
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.notifications.api import Notification
+from rero_ils.modules.notifications.dispatcher import Dispatcher
+from rero_ils.modules.notifications.models import NotificationType
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref, \
+    get_endpoint_configuration, get_objects, get_ref_for_pid, sorted_pids
+from rero_ils.modules.vendors.api import Vendor
+
 from .extensions import AcquisitionOrderCompleteDataExtension, \
     AcquisitionOrderExtension
 from .models import AcqOrderIdentifier, AcqOrderMetadata, AcqOrderStatus
-from ..acq_order_lines.api import AcqOrderLine, AcqOrderLinesSearch
-from ..acq_order_lines.models import AcqOrderLineStatus
-from ..acq_receipts.api import AcqReceipt, AcqReceiptsSearch
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..minters import id_minter
-from ..notifications.api import Notification
-from ..notifications.dispatcher import Dispatcher
-from ..notifications.models import NotificationType
-from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_endpoint_configuration, \
-    get_ref_for_pid, sorted_pids
-from ..vendors.api import Vendor
 
 # provider
 AcqOrderProvider = type(
@@ -238,7 +240,7 @@ class AcqOrder(IlsRecord):
         elif output == 'query':
             return query
         else:
-            return self._list_object_by_id(AcqReceipt, query)
+            return get_objects(AcqReceipt, query)
 
     def get_related_notes(self, resource_filters=None):
         """Get all notes from resource relates to this `AcqOrder`.
@@ -288,7 +290,25 @@ class AcqOrder(IlsRecord):
         elif output == 'query':
             return query
         else:
-            return self._list_object_by_id(AcqOrderLine, query)
+            return get_objects(AcqOrderLine, query)
+
+    @property
+    def is_active(self):
+        """Check if the order should be considered as active.
+
+        To know if an order is active, we need to check the related
+        budget of the its lines. This budget has an 'is_active' field.
+        """
+        # When trying to create a record the pid field is empty, this is why
+        # we check if self.pid is there or not. In this case and when no order
+        # has no lines we return True.
+        if self.pid:
+            order_lines = self.get_order_lines()
+            # There is no need to check all the lines, we will not mix lines
+            # from different budgets in same order.
+            if order_line := next(order_lines, None):
+                return order_line.is_active
+        return True
 
     def get_order_provisional_total_amount(self):
         """Get provisional total amount of this order."""
@@ -354,6 +374,10 @@ class AcqOrder(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
+        # Note: not possible to delete records attached to rolled_over budget.
+        if not self.is_active:
+            cannot_delete['links'] = {'rolled_over': True}
+            return cannot_delete
         links = self.get_links_to_me()
         # The link with AcqOrderLine resources isn't a reason to not delete
         # an AcqOrder. Indeed, when we delete an AcqOrder, we also delete all

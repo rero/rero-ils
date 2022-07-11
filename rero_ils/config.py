@@ -1411,10 +1411,12 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         indexer_class='rero_ils.modules.budgets.api:BudgetsIndexer',
         record_serializers={
-            'application/json': 'rero_ils.modules.serializers:json_v1_response'
+            'application/json': 'rero_ils.modules.serializers:json_v1_response',
+            'application/rero+json': 'rero_ils.modules.budgets.serializers:json_budg_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
+            'rero': 'application/rero+json',
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search'
@@ -1449,10 +1451,12 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         indexer_class='rero_ils.modules.acq_orders.api:AcqOrdersIndexer',
         record_serializers={
-            'application/json': 'rero_ils.modules.serializers:json_v1_response'
+            'application/json': 'rero_ils.modules.serializers:json_v1_response',
+            'application/rero+json': 'rero_ils.modules.acq_orders.serializers:json_acor_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
+            'rero': 'application/rero+json',
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
@@ -1490,10 +1494,12 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class=('rero_ils.modules.acq_order_lines.api:'
                        'AcqOrderLinesIndexer'),
         record_serializers={
-            'application/json': 'rero_ils.modules.serializers:json_v1_response'
+            'application/json': 'rero_ils.modules.serializers:json_v1_response',
+            'application/rero+json': 'rero_ils.modules.acq_order_lines.serializers:json_acol_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
+            'rero': 'application/rero+json',
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search'
@@ -1570,7 +1576,8 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         indexer_class='rero_ils.modules.acq_receipt_lines.api:AcqReceiptLinesIndexer',
         record_serializers={
-            'application/json': 'rero_ils.modules.serializers:json_v1_response'
+            'application/json': 'rero_ils.modules.serializers:json_v1_response',
+            'application/rero+json': 'rero_ils.modules.acq_receipt_lines.serializers:json_acrl_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
@@ -1614,7 +1621,8 @@ RECORDS_REST_ENDPOINTS = dict(
         search_type=None,
         indexer_class='rero_ils.modules.acq_invoices.api:AcquisitionInvoicesIndexer',
         record_serializers={
-            'application/json': 'rero_ils.modules.serializers:json_v1_response'
+            'application/json': 'rero_ils.modules.serializers:json_v1_response',
+            'application/rero+json': 'rero_ils.modules.acq_invoices.serializers:json_acq_invoice_record'
         },
         record_serializers_aliases={
             'json': 'application/json',

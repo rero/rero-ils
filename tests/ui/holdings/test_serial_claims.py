@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -71,7 +71,7 @@ def test_late_expected(
     assert count_issues(sion) == 1
 
     # change the acq_status of Martigny holding.
-    # as Martigny holding isn't yet considerate as alive, no new issue should
+    # as Martigny holding isn't yet considered as alive, no new issue should
     # be generated. The late issue count still the same (=2)
     martigny = Holding.get_record_by_pid(martigny.pid)
     martigny_data = deepcopy(martigny)

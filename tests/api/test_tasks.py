@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -75,7 +75,7 @@ def test_notifications_task(
 
     # test due_soon notification
     #   update the loan end_date to reflect the due_soon date. So when we run
-    #   the task to create notification this loan should be considerate as
+    #   the task to create notification this loan should be considered as
     #   due_soon and a notification should be created.
     end_date = datetime.now(timezone.utc) + timedelta(days=5)
     loan['end_date'] = end_date.isoformat()

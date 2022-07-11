@@ -320,19 +320,70 @@ def test_ill_requests_serializers(
 # ACQUISITIONS MODULES ========================================================
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_budgets_serializers(
+    client, rero_json_header, lib_martigny, budget_2020_martigny
+):
+    """Test serializers for budgets requests."""
+    budget = budget_2020_martigny
+    item_url = url_for('invenio_records_rest.budg_item', pid_value=budget.pid)
+    response = client.get(item_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    for key in ['is_current_budget']:
+        assert key in data['metadata']
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_acq_accounts_serializers(
     client, rero_json_header, lib_martigny, budget_2020_martigny,
     acq_account_fiction_martigny
 ):
-    """Test serializers for acq_account requests."""
+    """Test serializers for acq_accounts requests."""
     account = acq_account_fiction_martigny
     item_url = url_for('invenio_records_rest.acac_item', pid_value=account.pid)
     response = client.get(item_url, headers=rero_json_header)
     assert response.status_code == 200
     data = get_json(response)
     for key in ['depth', 'distribution', 'is_active', 'encumbrance_amount',
-                'expenditure_amount', 'remaining_balance']:
+                'expenditure_amount', 'remaining_balance',
+                'is_current_budget']:
         assert key in data['metadata']
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_acq_orders_serializers(
+    client,
+    rero_json_header,
+    acq_order_fiction_martigny,
+    acq_account_fiction_martigny,
+    acq_order_line_fiction_martigny,
+    lib_martigny
+):
+    """Test serializers for acq_orders/acq_order_lines requests."""
+    order = acq_order_fiction_martigny
+    item_url = url_for('invenio_records_rest.acor_item', pid_value=order.pid)
+    response = client.get(item_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    for attr in ['is_current_budget']:
+        assert attr in data['metadata']
+
+    url = url_for(
+        'invenio_records_rest.acol_list',
+        q=f'acq_order.pid:{order.pid}'
+    )
+    response = client.get(url)
+    assert response.status_code == 200
+    data = get_json(response)
+    acol_pid = data['hits']['hits'][0]['metadata']['pid']
+    item_url = url_for('invenio_records_rest.acol_item', pid_value=acol_pid)
+    response = client.get(item_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    for attr in ['is_current_budget']:
+        assert attr in data['metadata']
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -345,13 +396,14 @@ def test_acq_receipts_serializers(
     acq_receipt_line_1_fiction_martigny, acq_receipt_line_2_fiction_martigny,
     lib_martigny
 ):
-    """Test serializers for acq_receipt/acq_receipt_lines requests."""
+    """Test serializers for acq_receipts/acq_receipt_lines requests."""
     acre = acq_receipt_fiction_martigny
     item_url = url_for('invenio_records_rest.acre_item', pid_value=acre.pid)
     response = client.get(item_url, headers=rero_json_header)
     assert response.status_code == 200
     data = get_json(response)
-    for attr in ['currency', 'quantity', 'total_amount', 'receipt_lines']:
+    for attr in ['currency', 'quantity', 'total_amount', 'receipt_lines',
+                 'is_current_budget']:
         assert attr in data['metadata']
 
     list_url = url_for(
@@ -363,6 +415,14 @@ def test_acq_receipts_serializers(
     data = get_json(response)
     for hit in data['hits']['hits']:
         assert 'document' in hit['metadata']
+
+    acrl_pid = data['hits']['hits'][0]['metadata']['pid']
+    item_url = url_for('invenio_records_rest.acrl_item', pid_value=acrl_pid)
+    response = client.get(item_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    for attr in ['is_current_budget']:
+        assert attr in data['metadata']
 
     acor = acq_order_fiction_martigny
     url = url_for('invenio_records_rest.acor_list', q=f'pid:{acor.pid}')

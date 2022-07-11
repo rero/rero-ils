@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -287,7 +287,7 @@ def test_due_soon_loans(client, librarian_martigny,
     )
     assert res.status_code == 200
     loan_pid = data.get('action_applied')[LoanAction.CHECKOUT].get('pid')
-    # To be considerate as 'due_soon', we need to update the loan start date
+    # To be considered as 'due_soon', we need to update the loan start date
     # to figure than start_date occurs before due_date.
     loan = Loan.get_record_by_pid(loan_pid)
     start_date = ciso8601.parse_datetime(loan.get('start_date'))

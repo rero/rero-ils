@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -119,7 +119,7 @@ class ItemIssue(ItemRecord):
 
         The holdings is considered late if :
           * it is of type serial
-          * it is considerate as alive (acq_status='currently_received')
+          * it is considered as alive (acq_status='currently_received')
           * next expected date has passed (greater than current datetime).
 
         :return a generator of holdings pid.

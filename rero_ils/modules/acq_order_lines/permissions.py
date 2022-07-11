@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,59 +18,22 @@
 
 """Permissions for Acquisition order line."""
 
-from ..acq_accounts.permissions import AcqAccountPermission
-from ..permissions import RecordPermission
+from rero_ils.modules.permissions import AcquisitionPermission
+
+from .api import AcqOrderLine
 
 
-class AcqOrderLinePermission(RecordPermission):
+class AcqOrderLinePermission(AcquisitionPermission):
     """Acquisition order line permissions."""
 
     @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    def _rolled_over(cls, record):
+        """Check if record attached to rolled over budget.
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return AcqAccountPermission.list(user, record)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return AcqAccountPermission.read(user, record)
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return AcqAccountPermission.create(user, record)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return AcqAccountPermission.update(user, record)
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
         :param record: Record to check.
         :return: True if action can be done.
         """
-        return AcqAccountPermission.delete(user, record)
+        # ensure class type for sent record
+        if not isinstance(record, AcqOrderLine):
+            record = AcqOrderLine(record)
+        return record.is_active
