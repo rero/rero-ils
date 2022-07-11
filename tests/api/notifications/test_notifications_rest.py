@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -1166,7 +1166,7 @@ def test_reminder_notifications_after_extend(
     """Test any reminder notification could be resend after loan extension."""
 
     # STEP 1 - CREATE BASIC RESOURCES FOR THE TEST
-    #   * Create a loan and update it to be considerate as "due soon".
+    #   * Create a loan and update it to be considered as "due soon".
     #   * Run the `notification-creation` task to create a DUE_SOON
     #     notification
     params = {

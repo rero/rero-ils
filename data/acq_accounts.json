@@ -971,5 +971,163 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/23"
     }
+  },
+  {
+    "pid": "71",
+    "name": "AOSTE-CANT1-2021-Collections",
+    "number": "AOSTE-CANT1.2021.Col.01.000",
+    "allocated_amount": 50000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    }
+  },
+  {
+    "pid": "72",
+    "name": "AOSTE-CANT1-2021-Religions",
+    "number": "AOSTE-CANT1.2021.Col.01.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/71"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    }
+  },
+  {
+    "pid": "73",
+    "name": "AOSTE-CANT2-2021-Collections",
+    "number": "AOSTE-CANT2.2021.Col.01.000",
+    "allocated_amount": 50000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/2"
+    }
+  },
+  {
+    "pid": "74",
+    "name": "AOSTE-CANT2-Religions",
+    "number": "AOSTE-CANT2.2021.Col.01.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/73"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/2"
+    }
+  },
+  {
+    "pid": "75",
+    "name": "AOSTE-AVISE-2021-Collections",
+    "number": "AOSTE-AVISE.2021.Col.01.000",
+    "allocated_amount": 50000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "pid": "76",
+    "name": "AOSTE-AVISE-2021-Religions",
+    "number": "AOSTE-AVISE.2021.Col.01.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/75"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/3"
+    }
+  },
+  {
+    "pid": "77",
+    "name": "AOSTE-LYCEE-2021-Collections",
+    "number": "AOSTE-LYCEE.2021.Col.01.000",
+    "allocated_amount": 50000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    }
+  },
+  {
+    "pid": "78",
+    "name": "AOSTE-LYCEE-2021-Religions",
+    "number": "AOSTE-LYCEE.2021.Col.01.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/77"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    }
+  },
+  {
+    "pid": "79",
+    "name": "AOSTE-LYCEE-2021-Newspapers",
+    "number": "AOSTE-LYCEE.2021.Per.02.001",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/22"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    }
+  },
+  {
+    "pid": "80",
+    "name": "AOSTE-LYCEE-2021-Online references",
+    "number": "AOSTE-LYCEE.2021.Per.02.002",
+    "allocated_amount": 20000,
+    "encumbrance_exceedance": 5,
+    "expenditure_exceedance": 5,
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/acq_accounts/79"
+    },
+    "budget": {
+      "$ref": "https://bib.rero.ch/api/budgets/5"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/4"
+    }
   }
 ]

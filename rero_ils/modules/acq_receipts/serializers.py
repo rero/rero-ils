@@ -21,10 +21,10 @@
 from invenio_records_rest.serializers.response import record_responsify
 
 from rero_ils.modules.acq_receipt_lines.dumpers import AcqReceiptLineESDumper
-from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.serializers import ACQJSONSerializer, RecordSchemaJSONV1
 
 
-class AcqReceiptReroJSONSerializer(JSONSerializer):
+class AcqReceiptReroJSONSerializer(ACQJSONSerializer):
     """Serializer for RERO-ILS `AcqReceipt` records as JSON."""
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
@@ -38,6 +38,7 @@ class AcqReceiptReroJSONSerializer(JSONSerializer):
         ]
         # add currency to avoid to load related order_line->order to get it
         record['currency'] = record.order.get('currency')
+
         return super().preprocess_record(
             pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)
 

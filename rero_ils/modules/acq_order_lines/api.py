@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,13 +25,11 @@ from functools import partial
 from flask_babelex import gettext as _
 from werkzeug.utils import cached_property
 
-from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLinesSearch
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
-from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, \
-    sorted_pids
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 
 from .extensions import AcqOrderLineValidationExtension
 from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata, \
@@ -184,6 +182,15 @@ class AcqOrderLine(IlsRecord):
         return extracted_data_from_ref(self.get('acq_account'), data='record')
 
     @property
+    def is_active(self):
+        """Check if the order line should be considered as active.
+
+        To know if an order line is active, we need to check the related
+        budget. This budget has an 'is_active' field.
+        """
+        return self.account.is_active
+
+    @property
     def document_pid(self):
         """Shortcut to the document pid related to this order line."""
         return extracted_data_from_ref(self.get('document'))
@@ -288,6 +295,8 @@ class AcqOrderLine(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
+        from rero_ils.modules.acq_receipt_lines.api import \
+            AcqReceiptLinesSearch
         links = {}
         query = AcqReceiptLinesSearch()\
             .filter('term', acq_order_line__pid=self.pid)
@@ -302,6 +311,10 @@ class AcqOrderLine(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
+        # Note: not possible to delete records attached to rolled_over budget.
+        if not self.is_active:
+            cannot_delete['links'] = {'rolled_over': True}
+            return cannot_delete
         if links := self.get_links_to_me():
             cannot_delete['links'] = links
         return cannot_delete

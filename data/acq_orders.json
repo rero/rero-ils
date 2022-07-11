@@ -118,5 +118,26 @@
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
     }
+  },
+  {
+    "pid": "7",
+    "reference": "AOSTE-CANT1-POL-2021-1",
+    "type": "monograph",
+    "currency": "EUR",
+    "notes": [
+      {
+        "type": "vendor_note",
+        "content": "ISBN 2021 9782915741800"
+      }
+    ],
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/1"
+    },
+    "vendor": {
+      "$ref": "https://bib.rero.ch/api/vendors/7"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/1"
+    }
   }
 ]

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -1082,3 +1082,14 @@ def sorted_pids(query):
     except Exception as err:
         current_app.logger.info(f'Can not sort pids from query: {err}')
     return pids
+
+
+def get_objects(record_class, query):
+    """Get record object from search query by record id.
+
+    :param query: search query
+    :param record_class: record_class
+    :return generator of records object.
+    """
+    for hit in query.source().scan():
+        yield record_class.get_record_by_id(hit.meta.id)

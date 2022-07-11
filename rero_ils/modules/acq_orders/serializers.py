@@ -17,28 +17,29 @@
 
 """Acquisition order serialization."""
 
-from invenio_records_rest.serializers.response import search_responsify
+from invenio_records_rest.serializers.response import record_responsify, \
+    search_responsify
 
 from rero_ils.modules.acq_accounts.api import AcqAccountsSearch
 from rero_ils.modules.libraries.api import LibrariesSearch
-from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.serializers import ACQJSONSerializer, RecordSchemaJSONV1
 from rero_ils.modules.vendors.api import VendorsSearch
 
 
-class AcqOrderJSONSerializer(JSONSerializer):
+class AcqOrderJSONSerializer(ACQJSONSerializer):
     """Mixin serializing records as JSON."""
 
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""
-        JSONSerializer.enrich_bucket_with_data(
+        self.enrich_bucket_with_data(
             aggregations.get('library', {}).get('buckets', []),
             LibrariesSearch, 'name'
         )
-        JSONSerializer.enrich_bucket_with_data(
+        self.enrich_bucket_with_data(
             aggregations.get('vendor', {}).get('buckets', []),
             VendorsSearch, 'name'
         )
-        JSONSerializer.enrich_bucket_with_data(
+        self.enrich_bucket_with_data(
             aggregations.get('account', {}).get('buckets', []),
             AcqAccountsSearch, 'name'
         )
@@ -59,3 +60,4 @@ class AcqOrderJSONSerializer(JSONSerializer):
 
 _json = AcqOrderJSONSerializer(RecordSchemaJSONV1)
 json_acor_search = search_responsify(_json, 'application/rero+json')
+json_acor_record = record_responsify(_json, 'application/rero+json')

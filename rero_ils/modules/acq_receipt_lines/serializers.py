@@ -18,14 +18,15 @@
 
 """Acquisition receipt line serialization."""
 
-from invenio_records_rest.serializers.response import search_responsify
+from invenio_records_rest.serializers.response import record_responsify, \
+    search_responsify
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper
-from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.serializers import ACQJSONSerializer, RecordSchemaJSONV1
 
 
-class AcqReceiptLineJSONSerializer(JSONSerializer):
+class AcqReceiptLineJSONSerializer(ACQJSONSerializer):
     """Serializer for RERO-ILS `AcqReceiptLine` records as JSON."""
 
     def _postprocess_search_hit(self, hit: dict) -> None:
@@ -43,3 +44,4 @@ class AcqReceiptLineJSONSerializer(JSONSerializer):
 
 _json = AcqReceiptLineJSONSerializer(RecordSchemaJSONV1)
 json_acrl_search = search_responsify(_json, 'application/rero+json')
+json_acrl_record = record_responsify(_json, 'application/rero+json')

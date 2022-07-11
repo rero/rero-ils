@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -58,14 +58,8 @@ class BudgetPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        # only system_librarian can create vendors ...
-        if not current_librarian or not current_librarian.is_system_librarian:
-            return False
-        # ... only for its own organisation
-        if record:
-            return current_librarian.organisation_pid == \
-                record.organisation_pid
-        return True
+        # creation of budget records is managed by the Rollover process
+        return cls.update(user, record)
 
     @classmethod
     def update(cls, user, record):
@@ -75,10 +69,8 @@ class BudgetPermission(RecordPermission):
         :param record: Record to check.
         :return: True is action can be done.
         """
-        if not record:
-            return False
-            # same as create
-        return cls.create(user, record)
+        # updates of budget records is managed by the Rollover process
+        return False
 
     @classmethod
     def delete(cls, user, record):
@@ -88,7 +80,5 @@ class BudgetPermission(RecordPermission):
         :param record: Record to check.
         :return: True if action can be done.
         """
-        if not record:
-            return False
-            # same as create
-        return cls.create(user, record)
+        # deletion of budget records is managed by the Rollover process
+        return cls.update(user, record)

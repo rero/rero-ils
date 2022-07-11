@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
-# Copyright (C) 2021 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,14 +23,15 @@ from functools import partial
 
 from werkzeug.utils import cached_property
 
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
+
 from .extensions import AcqReceiptLineValidationExtension, \
     AcquisitionReceiptLineCompleteDataExtension
 from .models import AcqReceiptLineIdentifier, AcqReceiptLineMetadata
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 # provider
 AcqReceiptLineProvider = type(
@@ -135,6 +136,15 @@ class AcqReceiptLine(IlsRecord):
         )
 
     @property
+    def is_active(self):
+        """Check if the receipt line should be considered as active.
+
+        To know if an receipt line is active, we need to check the related
+        budget. This budget has an 'is_active' field.
+        """
+        return self.order_line.is_active
+
+    @property
     def acq_account_pid(self):
         """Shortcut for related acquisition account pid."""
         return self.order_line.account
@@ -180,6 +190,14 @@ class AcqReceiptLine(IlsRecord):
             if note.get('type') == note_type
         ]
         return next(iter(note), None)
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        # Note: not possible to delete records attached to rolled_over budget.
+        if not self.is_active:
+            cannot_delete['links'] = {'rolled_over': True}
+        return cannot_delete
 
 
 class AcqReceiptLinesIndexer(IlsRecordsIndexer):

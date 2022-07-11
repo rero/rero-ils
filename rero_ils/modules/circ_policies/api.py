@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,14 +25,16 @@ from functools import partial
 
 from elasticsearch_dsl import Q
 
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref, \
+    get_patron_from_arguments
+
 from .extensions import CircPolicyFieldsExtension
 from .models import CircPolicyIdentifier, CircPolicyMetadata
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..libraries.api import Library
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_patron_from_arguments
 
 DUE_SOON_REMINDER_TYPE = 'due_soon'
 OVERDUE_REMINDER_TYPE = 'overdue'
@@ -316,14 +318,14 @@ class CircPolicy(IlsRecord):
 
     @property
     def due_soon_interval_days(self):
-        """Get number of days to check if loan is considerate as due_soon."""
+        """Get number of days to check if loan is considered as due_soon."""
         reminder = [r for r in self.get('reminders', [])
                     if r.get('type') == DUE_SOON_REMINDER_TYPE]
         return reminder[0].get('days_delay') if reminder else 1
 
     @property
     def initial_overdue_days(self):
-        """Get number of days after which loan is considerate as overdue.
+        """Get number of days after which loan is considered as overdue.
 
         To complete this request, we need to find the minimum day where a
         notification OR an incremental fees is placed.

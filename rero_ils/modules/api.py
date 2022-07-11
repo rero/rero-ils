@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -339,26 +339,6 @@ class IlsRecord(Record):
             # faster, more memory
             for identifier in query:
                 yield identifier.object_uuid
-
-    @classmethod
-    def _list_object_by_id(cls, record_class, query):
-        """Get record object from search query by record id.
-
-        :param query: search query
-        :return record object.
-        """
-        for hit in query.source().scan():
-            yield record_class.get_record_by_id(hit.meta.id)
-
-    @classmethod
-    def _list_object_by_pid(cls, record_class, query):
-        """Get record object from search query by record pid.
-
-        :param query: search query
-        :return record object.
-        """
-        for hit in query.source(['pid']).scan():
-            yield record_class.get_record_by_pid(hit.pid)
 
     @classmethod
     def count(cls, with_deleted=False):

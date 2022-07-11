@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
-# Copyright (C) 2021 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -144,7 +144,7 @@ def test_receipt_lines_permissions(client, org_martigny, vendor2_martigny,
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_librarian',
+        'rero_ils.modules.permissions.current_librarian',
         librarian_martigny
     ):
         assert AcqReceiptLinePermission.list(None, receipt_line_1_martigny)
@@ -165,7 +165,7 @@ def test_receipt_lines_permissions(client, org_martigny, vendor2_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.acq_accounts.permissions.current_librarian',
+        'rero_ils.modules.permissions.current_librarian',
         system_librarian_martigny
     ):
         assert AcqReceiptLinePermission.list(None, receipt_line_saxon)
