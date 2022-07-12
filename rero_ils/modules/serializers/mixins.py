@@ -21,6 +21,7 @@ import inspect
 from abc import ABC
 
 from flask import url_for
+from invenio_search import RecordsSearch
 
 from rero_ils.modules.documents.utils import filter_document_type_buckets
 
@@ -95,6 +96,49 @@ class CachedDataSerializerMixin:
 
     _resources = {}
 
+    @staticmethod
+    def _get_class_key(loader):
+        """Get the key where store the resource.
+
+        :param loader: Class use to retrieve the resource records.
+        :return: The key where store the resource into the cache.
+        """
+        return loader if inspect.isclass(loader) else loader.__class__
+
+    def load_all(self, *args):
+        """Load all resources and store them into the cache.
+
+        :param args: Classes use to retrieve the resource records. Each class
+            should be a ``invenio_search.api.RecordsSearch`` subclass to get
+            records from the ElasticSearch index.
+        """
+        for loader in args:
+            assert issubclass(loader.__class__, RecordsSearch)
+            cls_key = CachedDataSerializerMixin._get_class_key(loader)
+            for hit in loader.scan():
+                hit = hit.to_dict()
+                self._resources.setdefault(cls_key, {})[hit.get('pid')] = hit
+
+    def load_resources(self, loader, pids):
+        """Load a set of resource and store them into the cache.
+
+        :param loader: Class use to retrieve the resource records.
+        :param pids: List of pids to load.
+        """
+        assert type(pids) is list
+        # Filter the pid list to keep only pids not already present into cache.
+        cls_key = CachedDataSerializerMixin._get_class_key(loader)
+        if cls_key in self._resources:
+            pids = [pid for pid in pids if pid not in self._resources[cls_key]]
+        if not pids:
+            return
+        # Load resources & store them into cache
+        for resource in loader.get_records_by_pids(pids):
+            if not inspect.isclass(loader):  # AttrDict conversion
+                resource = resource.to_dict()
+            if pid := resource.get('pid'):
+                self._resources.setdefault(cls_key, {})[pid] = resource
+
     def get_resource(self, loader, pid):
         """Get a resource and store it into the cache if necessary.
 
@@ -102,14 +146,8 @@ class CachedDataSerializerMixin:
         :param pid: the resource pid.
         :return: the requested resource.
         """
-        cls_key = loader if inspect.isclass(loader) else loader.__class__
-        convert_to_dict = not inspect.isclass(loader)  # AttrDict conversion
-        if cls_key not in self._resources \
-           or pid not in self._resources[cls_key]:
-            resource = loader.get_record_by_pid(pid)
-            if convert_to_dict:
-                resource = resource.to_dict()
-            self._resources.setdefault(cls_key, {})[pid] = resource
+        self.load_resources(loader, [pid])
+        cls_key = CachedDataSerializerMixin._get_class_key(loader)
         return self._resources[cls_key][pid]
 
 
