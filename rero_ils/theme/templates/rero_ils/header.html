@@ -95,9 +95,9 @@
     <!-- Info message (not in production) -->
     {% if not config.RERO_ILS_STATE_PRODUCTION %}
       <h5 class="text-center bg-danger text-white py-2 mb-0">
-        {{ config.RERO_ILS_STATE_MESSAGE }}
+        {{ _('This is a TEST VERSION.') }}
         {% if config.RERO_ILS_STATE_LINK_MESSAGE %}
-          <a href={{ config.RERO_ILS_STATE_LINK}} class="rero-ils-external-link text-white">{{config.RERO_ILS_STATE_LINK_MESSAGE }}</a>
+          <a href={{ config.RERO_ILS_STATE_LINK}} class="rero-ils-external-link text-white">{{ _('Go to the production site.') }}</a>
         {% endif %}
       </h5>
     {% endif %}
