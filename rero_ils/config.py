@@ -193,6 +193,8 @@ RERO_ILS_SEARCH_TEMPLATE = 'rero_ils/search.html'
 THEME_LOGO = 'images/logo-rero-plus.svg'
 #: Site name
 THEME_SITENAME = _('rero-ils')
+#: Link to privacy and data protection policy for the instance
+THEME_PRIVACY_POLICY_URL = 'https://www.rero.ch/en/legal/privacy/declaration_protection_donnees_RERO-ILS.pdf'
 #: Use default frontpage.
 THEME_FRONTPAGE = False
 #: Frontpage title.

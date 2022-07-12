@@ -24,6 +24,9 @@
       {{ _('using') }}
       <a href="https://github.com/rero/rero-ils" target="_blank">RERO ILS v{{ version }}</a> &amp;
       <a href="https://inveniosoftware.org" target="_blank">Invenio</a>
+      {% if config.THEME_PRIVACY_POLICY_URL %} |
+      <a href="{{ config.THEME_PRIVACY_POLICY_URL }}">{{ _('Privacy policy') }}</a>
+      {% endif %}
     </p>
   </div>
 </footer>
