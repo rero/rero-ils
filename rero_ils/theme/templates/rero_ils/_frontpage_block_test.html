@@ -33,17 +33,7 @@
   <h3>Il progetto</h3>
   <p>Il progetto RERO ILS è il Sistema di Biblioteca Integrato RERO+, utilizzando componenti del framework <a href="https://inveniosoftware.org" class="rero-ils-external-link">Invenio</a>. Questo sito fornisce una dimostrazione permanente e pubblica del software, con integrazione quotidiana di nuove funzionalità.</p>
   {% endif  %}
-  <a href="http://www.rero21.ch" class="rero-ils-external-link">rero21.ch</a>
   <section class="mt-4">
-      <section class="d-flex flex-row mb-2">
-        <a href="https://tree.taiga.io/project/rero21-reroils/backlog" class="align-self-center" title="{{ _('Link to the RERO ILS backlog on Taiga') }}">
-          <img class="card-img-top rero-ils-list-logo" src="{{ url_for('static', filename='images/logo-taiga-color.png') }}" alt="Taiga logo, star made of different greens">
-        </a>
-        <p class="card-text pl-2 align-self-center">
-          {{_('Scrum process')}}
-          <a href="https://tree.taiga.io/project/rero21-reroils/backlog" class="rero-ils-external-link" title="{{ _('Link to the RERO ILS backlog on Taiga') }}">{{_('on Taiga')}}</a>
-        </p>
-      </section>
       <section class="d-flex flex-row">
         <a href="https://github.com/rero/rero-ils" class="align-self-center" title="{{ _('Link to the RERO ILS code source on GitHub') }}">
           <i class="fa fa-2x fa-github card-img-top text-dark"></i>
@@ -80,7 +70,7 @@
     <h4>{{ _('Help') }}</h4>
     <p>
       {{ _('More test logins and documentation is available on the') }}
-      <a href="{{ url_for('wiki.page', url='home') }}">{{ _('help page') }}</a>
+      <a href="{{ url_for('wiki.page', url='demo') }}">{{ _('help page') }}</a>
     </p>
 </section>
 <section class="col-md-4 order-3 order-md-3 px-4 pt-4">
