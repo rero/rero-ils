@@ -113,8 +113,15 @@ class LoanStreamedCSVSerializer(CSVSerializer, StreamSerializerMixin,
             yield line.read()
 
             for pids, records in self.get_chunks(search_result):
-                # TODO :: Load here all docs from 'record' using a single ES
-                #         query
+                # load in cache (with one single call) all items and documents
+                # from this chunks
+                item_pids, document_pids = [], []
+                for record in records:
+                    document_pids.append(record['document_pid'])
+                    item_pids.append(record['item_pid']['value'])
+                self.load_resources(DocumentsSearch(), document_pids)
+                self.load_resources(ItemsSearch(), item_pids)
+
                 for record in records:
                     row_data = self.process_dict(self.transform_search_hit(
                         record.pid,
@@ -123,4 +130,5 @@ class LoanStreamedCSVSerializer(CSVSerializer, StreamSerializerMixin,
                     writer.writerow(row_data)
                     yield line.read()
 
+        self.load_all(LibrariesSearch(), PatronTypesSearch())
         return stream_with_context(generate_csv())

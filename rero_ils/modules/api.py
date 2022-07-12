@@ -110,14 +110,32 @@ class IlsRecordsSearch(RecordsSearch):
         current_search.flush_and_refresh(cls.Meta.index)
 
     def get_record_by_pid(self, pid, fields=None):
-        """Search by pid."""
-        query = self.filter('term', pid=pid).extra(size=1)
+        """Get ElasticSearch hit by pid.
+
+        :param pid: the record PID to retrieve.
+        :param fields: a list of field to return. If ``None`` all fields will
+            be returned.
+        :returns: An ``AttrDict`` representing the ElasticSearch hit found.
+        :raise NotFoundError: If the record cannot be found into ElasticSearch
+        """
+        if hit := next(self.get_records_by_pids([pid], fields), None):
+            return hit
+        raise NotFoundError(f'Record not found pid: {pid}')
+
+    def get_records_by_pids(self, pids, fields=None):
+        """Get ES hits by pids.
+
+        :param pids: the list of record pids to retrieve.
+        :param fields: a list of field to return. If ``None`` all fields will
+            be returned.
+        :returns: A generator of ``AttrDict`` representing ElasticSearch hits
+            found.
+        """
+        assert type(pids) is list
+        query = self.filter('terms', pid=pids)
         if fields:
             query = query.source(includes=fields)
-        response = query.execute()
-        if response.hits.total.value != 1:
-            raise NotFoundError(f'Record not found pid: {pid}')
-        return response.hits.hits[0]._source
+        return query.scan()
 
 
 class IlsRecord(Record):
@@ -225,7 +243,7 @@ class IlsRecord(Record):
 
     @classmethod
     def get_record_by_pid(cls, pid, with_deleted=False, verbose=False):
-        """Get ils record by pid value."""
+        """Get ILS record by pid value."""
         if verbose:
             click.echo(f'\t\tget_record_by_pid: {cls.__name__} {pid}')
         if pid:
@@ -242,6 +260,17 @@ class IlsRecord(Record):
             # TODO: is it better to raise a error or to return None?
             except (NoResultFound, PIDDoesNotExistError):
                 return None
+
+    @classmethod
+    def get_records_by_pids(cls, pids):
+        """Get ILS records by pid values.
+
+        :param pids: Object pid list to retrieve.
+        :return: Generator of ILS resource.
+        """
+        assert type(pids) is list
+        for pid in pids:
+            yield cls.get_record_by_pid(pid)
 
     @classmethod
     def record_pid_exists(cls, pid):
