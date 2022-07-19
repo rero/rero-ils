@@ -503,7 +503,8 @@
         },
         {
           "label": "country_be",
-          "value": "be"
+          "value": "be",
+          "preferred": true
         },
         {
           "label": "country_bf",
@@ -779,7 +780,8 @@
         },
         {
           "label": "country_fr",
-          "value": "fr"
+          "value": "fr",
+          "preferred": true
         },
         {
           "label": "country_fs",
@@ -863,7 +865,8 @@
         },
         {
           "label": "country_gw",
-          "value": "gw"
+          "value": "gw",
+          "preferred": true
         },
         {
           "label": "country_gy",
@@ -947,7 +950,8 @@
         },
         {
           "label": "country_it",
-          "value": "it"
+          "value": "it",
+          "preferred": true
         },
         {
           "label": "country_iu",
@@ -1559,7 +1563,8 @@
         },
         {
           "label": "country_sz",
-          "value": "sz"
+          "value": "sz",
+          "preferred": true
         },
         {
           "label": "country_ta",
@@ -1887,7 +1892,8 @@
         },
         {
           "label": "country_xxk",
-          "value": "xxk"
+          "value": "xxk",
+          "preferred": true
         },
         {
           "label": "country_xxr",
@@ -1895,7 +1901,8 @@
         },
         {
           "label": "country_xxu",
-          "value": "xxu"
+          "value": "xxu",
+          "preferred": true
         },
         {
           "label": "country_ye",

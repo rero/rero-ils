@@ -958,7 +958,8 @@
         },
         {
           "label": "lang_dut",
-          "value": "dut"
+          "value": "dut",
+          "preferred": true
         },
         {
           "label": "lang_dyu",
@@ -986,7 +987,8 @@
         },
         {
           "label": "lang_eng",
-          "value": "eng"
+          "value": "eng",
+          "preferred": true
         },
         {
           "label": "lang_enm",
@@ -1042,7 +1044,8 @@
         },
         {
           "label": "lang_fre",
-          "value": "fre"
+          "value": "fre",
+          "preferred": true
         },
         {
           "label": "lang_frm",
@@ -1094,7 +1097,8 @@
         },
         {
           "label": "lang_ger",
-          "value": "ger"
+          "value": "ger",
+          "preferred": true
         },
         {
           "label": "lang_gez",
@@ -1302,7 +1306,8 @@
         },
         {
           "label": "lang_ita",
-          "value": "ita"
+          "value": "ita",
+          "preferred": true
         },
         {
           "label": "lang_jav",
