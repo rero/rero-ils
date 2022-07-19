@@ -165,39 +165,48 @@
     "options": [
       {
         "value": "aut",
-        "label": "aut"
+        "label": "aut",
+        "preferred": true
       },
       {
         "value": "cmp",
-        "label": "cmp"
+        "label": "cmp",
+        "preferred": true
       },
       {
         "value": "ctb",
-        "label": "ctb"
+        "label": "ctb",
+        "preferred": true
       },
       {
         "value": "edt",
-        "label": "edt"
+        "label": "edt",
+        "preferred": true
       },
       {
         "value": "hnr",
-        "label": "hnr"
+        "label": "hnr",
+        "preferred": true
       },
       {
         "value": "ill",
-        "label": "ill"
+        "label": "ill",
+        "preferred": true
       },
       {
         "value": "pht",
-        "label": "pht"
+        "label": "pht",
+        "preferred": true
       },
       {
         "value": "prf",
-        "label": "prf"
+        "label": "prf",
+        "preferred": true
       },
       {
         "value": "trl",
-        "label": "trl"
+        "label": "trl",
+        "preferred": true
       },
       {
         "value": "abr",
