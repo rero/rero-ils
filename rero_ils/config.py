@@ -106,7 +106,7 @@ from .modules.patron_transactions.api import PatronTransaction
 from .modules.patron_transactions.permissions import \
     PatronTransactionPermission
 from .modules.patron_types.api import PatronType
-from .modules.patron_types.permissions import PatronTypePermission
+from .modules.patron_types.permissions import PatronTypePermissionPolicy
 from .modules.patrons.api import Patron
 from .modules.patrons.models import CommunicationChannel
 from .modules.patrons.permissions import PatronPermission
@@ -1078,16 +1078,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=PatronTypePermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=PatronTypePermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=PatronTypePermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=PatronTypePermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=PatronTypePermission)
+        list_permission_factory_imp=lambda record: PatronTypePermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: PatronTypePermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: PatronTypePermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: PatronTypePermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: PatronTypePermissionPolicy('delete', record=record)
     ),
     org=dict(
         pid_type='org',
