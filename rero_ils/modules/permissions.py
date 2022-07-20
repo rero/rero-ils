@@ -19,7 +19,15 @@
 
 from flask import current_app, jsonify
 from flask_login import current_user
+from invenio_access import current_access
+from invenio_access.permissions import any_user
+from invenio_records_permissions import \
+    RecordPermissionPolicy as _RecordPermissionPolicy
+from invenio_records_permissions.generators import Disable, Generator
 
+from rero_ils.modules.patrons.api import current_librarian
+
+from .patrons.api import current_librarian
 from .utils import get_record_class_and_permissions_from_route
 
 # Basics access without permission check
@@ -230,3 +238,57 @@ class RecordPermission:
         if user.is_anonymous:
             return False
         return has_superuser_access()
+
+
+class RecordPermissionPolicy(_RecordPermissionPolicy):
+    """The record base permission policy.
+
+    All permissions are deny by default. This should be compatible with
+    invenio-records-rest and invenio-records-resources.
+    """
+
+    can_search = [Disable()]
+    can_read = [Disable()]
+    can_create = [Disable()]
+    can_update = [Disable()]
+    can_delete = [Disable()]
+
+    # Associated files permissions (which are really bucket permissions)
+    can_read_files = [Disable()]
+    can_update_files = [Disable()]
+
+
+class AllowedByAction(Generator):
+    """Allows if the logged user can perform the given action."""
+
+    def __init__(self, action):
+        """Constructor.
+
+        :param action: string - the action name to allows.
+        """
+        self.action = action
+
+    def needs(self, **kwargs):
+        """Allows the given action.
+
+        :param kwargs: extra arguments
+        :returns: a list of action permission.
+        """
+        return [current_access.actions.get(self.action)]
+
+
+class LibrarianWithTheSameOrganisation(AllowedByAction):
+    """Allow if the user and the recrod have the same organisation."""
+
+    def excludes(self, record=None, **kwargs):
+        """Excludes if the record and the user has different organisation.
+
+        :param record: Record instance - the given record.
+        :returns: a list of permissions, empty if allows.
+        """
+        if record and (
+            not current_librarian
+            or current_librarian.organisation_pid != record.organisation_pid
+        ):
+            return [any_user]
+        return []
