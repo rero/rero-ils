@@ -16,12 +16,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
+from flask import current_app, url_for
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security.utils import login_user
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json
 
-from rero_ils.modules.patron_types.permissions import PatronTypePermission
+from rero_ils.modules.patron_types.permissions import \
+    PatronTypePermissionPolicy
 
 
 def test_patron_types_permissions_api(client, librarian_martigny,
@@ -52,15 +54,15 @@ def test_patron_types_permissions_api(client, librarian_martigny,
     #   * lib can 'list' patron_type
     #   * lib can 'read' patron_type from its own organisation
     #   * lib can't never 'create', 'delete', 'update' patron_type
+
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(ptty_adult_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['list']['can']
-    assert data['read']['can']
-    assert not data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
+    for action in ['list', 'read']:
+        assert data[action]['can']
+    for action in ['create', 'update', 'delete']:
+        assert not data[action]['can']
     res = client.get(ptty_youngsters_sion_permissions_url)
     data = get_json(res)
     assert not data['read']['can']
@@ -72,57 +74,71 @@ def test_patron_types_permissions_api(client, librarian_martigny,
     res = client.get(ptty_adult_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['list']['can']
-    assert data['read']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
+    for action in ['list', 'read', 'create', 'update', 'delete']:
+        assert data[action]['can']
     res = client.get(ptty_youngsters_sion_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert not data['update']['can']
-    assert not data['delete']['can']
+    for action in ['update', 'delete']:
+        assert not data[action]['can']
 
 
 def test_patron_types_permissions(patron_martigny,
                                   librarian_martigny,
                                   system_librarian_martigny,
-                                  patron_type_adults_martigny, org_martigny):
+                                  patron_type_adults_martigny,
+                                  patron_type_youngsters_sion):
     """Test patron types permissions class."""
 
     # Anonymous user
-    assert not PatronTypePermission.list(None, {})
-    assert not PatronTypePermission.read(None, {})
-    assert not PatronTypePermission.create(None, {})
-    assert not PatronTypePermission.update(None, {})
-    assert not PatronTypePermission.delete(None, {})
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    assert not PatronTypePermissionPolicy('list', record=None).can()
+    assert not PatronTypePermissionPolicy(
+        'create', record={}).can()
+    for action in ['read', 'create', 'update', 'delete']:
+        assert not PatronTypePermissionPolicy(
+            action, record=patron_type_adults_martigny).can()
 
-    # As non Librarian
-    ptty = patron_type_adults_martigny
-    assert not PatronTypePermission.list(None, ptty)
-    assert not PatronTypePermission.read(None, ptty)
-    assert not PatronTypePermission.create(None, ptty)
-    assert not PatronTypePermission.update(None, ptty)
-    assert not PatronTypePermission.delete(None, ptty)
+    # Patron
+    login_user(patron_martigny.user)
+    assert not PatronTypePermissionPolicy(
+        'search', record=None).can()
+    assert not PatronTypePermissionPolicy(
+        'create', record={}).can()
+    for action in ['read', 'create', 'update', 'delete']:
+        assert not PatronTypePermissionPolicy(
+            action, record=patron_type_adults_martigny).can()
 
     # As Librarian
-    with mock.patch(
-        'rero_ils.modules.patron_types.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert PatronTypePermission.list(None, ptty)
-        assert PatronTypePermission.read(None, ptty)
-        assert not PatronTypePermission.create(None, ptty)
-        assert not PatronTypePermission.update(None, ptty)
-        assert not PatronTypePermission.delete(None, ptty)
+    login_user(librarian_martigny.user)
+    assert PatronTypePermissionPolicy(
+        'search', record=None).can()
+    assert not PatronTypePermissionPolicy(
+        'create', record={}).can()
+    assert PatronTypePermissionPolicy(
+        'read', record=patron_type_adults_martigny).can()
+
+    for action in ['create', 'update', 'delete']:
+        assert not PatronTypePermissionPolicy(
+            action, record=patron_type_adults_martigny).can()
+
+    for action in ['read', 'create', 'update', 'delete']:
+        assert not PatronTypePermissionPolicy(
+            action, record=patron_type_youngsters_sion).can()
 
     # As SystemLibrarian
-    with mock.patch(
-        'rero_ils.modules.patron_types.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert PatronTypePermission.list(None, ptty)
-        assert PatronTypePermission.read(None, ptty)
-        assert PatronTypePermission.create(None, ptty)
-        assert PatronTypePermission.update(None, ptty)
-        assert PatronTypePermission.delete(None, ptty)
+    login_user(system_librarian_martigny.user)
+    assert PatronTypePermissionPolicy(
+        'search', record=None).can()
+    assert PatronTypePermissionPolicy(
+        'create', record={}).can()
+
+    for action in ['read', 'create', 'update', 'delete']:
+        assert PatronTypePermissionPolicy(
+            action, record=patron_type_adults_martigny).can()
+
+    for action in ['read', 'create', 'update', 'delete']:
+        assert not PatronTypePermissionPolicy(
+            action, record=patron_type_youngsters_sion).can()

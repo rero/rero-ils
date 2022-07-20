@@ -79,6 +79,13 @@ def data():
 
 
 @pytest.fixture(scope="module")
+def role_policies_data():
+    """Load fixture role policies data file."""
+    with open(join(dirname(__file__), 'data/role_policies.json')) as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="module")
 def acquisition():
     """Load fixture acquisition file."""
     with open(join(dirname(__file__), 'data/acquisition.json')) as f:
