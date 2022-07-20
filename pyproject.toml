@@ -99,6 +99,7 @@ rero-invenio-base = "^0.1.0"
 jsonref = "<1.0.0"
 dojson = "^1.4.0"
 jsonresolver = "<0.3.2"
+invenio-records-permissions = "^0.13.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
@@ -403,6 +404,10 @@ patrons = "rero_ils.modules.patrons.mappings"
 stats = "rero_ils.modules.stats.mappings"
 templates = "rero_ils.modules.templates.mappings"
 vendors = "rero_ils.modules.vendors.mappings"
+
+[tool.poetry.plugins."invenio_access.actions"]
+ptty_read = "rero_ils.modules.patron_types.permissions:ptty_read"
+ptty_write = "rero_ils.modules.patron_types.permissions:ptty_write"
 
 [tool.poetry.plugins."invenio_search.templates"]
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
