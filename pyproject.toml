@@ -95,6 +95,7 @@ flask-wiki = {git = "https://github.com/rero/flask-wiki.git", rev = "v0.2.1"}
 pytest-invenio = ">=1.4.0,<1.4.12"
 # to avoid conflict for urllib3
 sentry-sdk = "<1.6.1"
+invenio-records-permissions = "^0.13.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
@@ -399,6 +400,10 @@ patrons = "rero_ils.modules.patrons.mappings"
 stats = "rero_ils.modules.stats.mappings"
 templates = "rero_ils.modules.templates.mappings"
 vendors = "rero_ils.modules.vendors.mappings"
+
+[tool.poetry.plugins."invenio_access.actions"]
+ptty_read = "rero_ils.modules.patron_types.permissions:ptty_read"
+ptty_write = "rero_ils.modules.patron_types.permissions:ptty_write"
 
 [tool.poetry.plugins."invenio_search.templates"]
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"

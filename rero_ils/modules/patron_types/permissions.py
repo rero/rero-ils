@@ -18,78 +18,23 @@
 
 """Permissions for patron types."""
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from invenio_access import action_factory
+
+from rero_ils.modules.permissions import AllowedByAction, \
+    LibrarianWithTheSameOrganisation, RecordPermissionPolicy
+
+ptty_read = action_factory('ptty-read')
+ptty_write = action_factory('ptty-write')
 
 
-class PatronTypePermission(RecordPermission):
-    """Patron types permissions."""
+class PatronTypePermissionPolicy(RecordPermissionPolicy):
+    """Patron Type Permission Policy.
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    Used by the CRUD operations.
+    """
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # Operation allowed only for staff members (lib, sys_lib)
-        return bool(current_librarian)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # Check the user is authenticated and a record exists as param.
-        if not record or not current_librarian:
-            return False
-        # Check if record correspond to user owning organisation and that user
-        # is (at least) a librarian
-        return current_librarian.organisation_pid == record.organisation_pid
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only system_librarian can create patron types ...
-        if not current_librarian or not current_librarian.has_full_permissions:
-            return False
-        # ... only for its own organisation
-        if record:
-            return current_librarian.organisation_pid == \
-                record.organisation_pid
-        return True
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        if not record:
-            return False
-        # same as create
-        return cls.create(user, record)
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        if not record:
-            return False
-        # same as create
-        return cls.create(user, record)
+    can_search = [AllowedByAction('ptty-read')]
+    can_read = [LibrarianWithTheSameOrganisation('ptty-read')]
+    can_create = [LibrarianWithTheSameOrganisation('ptty-write')]
+    can_update = [LibrarianWithTheSameOrganisation('ptty-write')]
+    can_delete = [LibrarianWithTheSameOrganisation('ptty-write')]

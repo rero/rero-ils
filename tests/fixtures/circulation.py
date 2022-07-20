@@ -22,9 +22,11 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 from invenio_circulation.search.api import LoansSearch
+from invenio_db import db
 from utils import create_patron, flush_index, \
     item_record_to_a_specific_loan_state
 
+from rero_ils.modules.cli.fixtures import load_role_policies
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from rero_ils.modules.items.api import ItemsSearch
 from rero_ils.modules.loans.api import Loan
@@ -35,22 +37,22 @@ from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 from rero_ils.modules.patrons.models import CommunicationChannel
+from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
 @pytest.fixture(scope="module")
-def roles(base_app, database):
+def roles(base_app, database, role_policies_data):
     """Create user roles."""
     ds = base_app.extensions['invenio-accounts'].datastore
-    ds.create_role(name='patron')
-    ds.create_role(name='pro_full_permissions')
-    ds.create_role(name='pro_read_only')
-    ds.create_role(name='pro_catalog_manager')
-    ds.create_role(name='pro_circulation_manager')
-    ds.create_role(name='pro_user_manager')
-    ds.create_role(name='pro_acquisition_manager')
-    ds.create_role(name='pro_library_administrator')
+    for role_name in UserRole.ALL_ROLES:
+        ds.create_role(name=role_name)
     ds.commit()
+
+    # set the action role policies
+    load_role_policies(role_policies_data)
+
+    db.session.commit()
 
 
 # ------------ Org: Martigny, Lib: Martigny, System Librarian ----------
