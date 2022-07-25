@@ -66,9 +66,17 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
     assert len(list(Holding.get_holdings_pid_by_document_pid(doc2.pid))) == 1
 
     # test update
+    # cretae a double holding
+    hold_pid = next(Holding.get_holdings_pid_by_document_pid(doc1.pid))
+    hold = Holding.get_record_by_pid(hold_pid)
+    Holding.create(data=hold, dbcommit=True, reindex=True, delete_pid=True)
+    # create a holding without valid source uri
+    hold['electronic_location'][0]['uri'] = 'https://invalid.uri/XXXXXX'
+    Holding.create(data=hold, dbcommit=True, reindex=True, delete_pid=True)
+    HoldingsSearch.flush_and_refresh()
     publish_harvested_records(sender=None, records=records)
-    flush_index(DocumentsSearch.Meta.index)
-    flush_index(HoldingsSearch.Meta.index)
+    DocumentsSearch.flush_and_refresh()
+    HoldingsSearch.flush_and_refresh()
     assert len(list(Holding.get_holdings_pid_by_document_pid(doc1.pid))) == 1
     assert len(list(Holding.get_holdings_pid_by_document_pid(doc2.pid))) == 1
 
@@ -84,8 +92,8 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
     records.append(doc2)
 
     create_records(records=records)
-    flush_index(DocumentsSearch.Meta.index)
-    flush_index(HoldingsSearch.Meta.index)
+    DocumentsSearch.flush_and_refresh()
+    HoldingsSearch.flush_and_refresh()
     assert not list(Holding.get_holdings_pid_by_document_pid(doc1.pid))
     assert not list(Holding.get_holdings_pid_by_document_pid(doc2.pid))
 

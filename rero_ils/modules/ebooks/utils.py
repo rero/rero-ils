@@ -125,19 +125,26 @@ def update_document_holding(record, pid):
         dbcommit=True,
         reindex=True
     )
+    # Save all source uris to find holdings we can delete later
+    source_uris = []
     for harvested_source in harvested_sources:
         if org := Organisation.get_record_by_online_harvested_source(
                 source=harvested_source['source']):
+            # add the organisation source uri
+            source_uris.append(harvested_source['uri'])
             item_type_pid = org.online_circulation_category()
-            location_pids = org.get_online_locations()
-            for location_pid in location_pids:
+            for location_pid in org.get_online_locations():
                 location = Location.get_record_by_pid(location_pid)
                 library = location.get_library()
+                # replace "https://some.uri" from ebooks with library uri
                 if url := library.get_online_harvested_source_url(
                         source=harvested_source['source']):
                     uri_split = harvested_source['uri'].split('/')[3:]
                     uri_split.insert(0, url.rstrip('/'))
-                    harvested_source['uri'] = '/'.join(uri_split)
+                    new_uri = '/'.join(uri_split)
+                    harvested_source['uri'] = new_uri
+                    # add the library source uri
+                    source_uris.append(new_uri)
                 if not get_holding_pid_by_doc_location_item_type(
                     new_record.pid, location_pid, item_type_pid, 'electronic'
                 ):
@@ -149,14 +156,22 @@ def update_document_holding(record, pid):
                         holdings_type='electronic'
                     )
 
-    source_uris = [harvested_source.get('uri')
-                   for harvested_source in harvested_sources
-                   if 'source' in harvested_source]
-
+    # delete all double holdings and holdings without valid source uri
+    seen_uris = []
     for holding_pid in Holding.get_holdings_pid_by_document_pid(pid):
         holding = Holding.get_record_by_pid(holding_pid)
+        to_delete = True
         for electronic_location in holding.get('electronic_location', []):
-            if electronic_location.get('source') and \
-                    electronic_location.get('uri') not in source_uris:
-                holding.delete(force=False, dbcommit=True, delindex=True)
+            uri = electronic_location.get('uri')
+            if electronic_location.get('source') and uri not in seen_uris:
+                seen_uris.append(uri)
+                if uri in source_uris:
+                    to_delete = False
+        if to_delete:
+            current_app.logger.info(
+                'Delete harvested holding | '
+                f'document: {pid} '
+                f'holding: {holding.pid} {holding.get("electronic_location")}'
+            )
+            holding.delete(force=False, dbcommit=True, delindex=True)
     return new_record
