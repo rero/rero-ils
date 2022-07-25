@@ -660,23 +660,6 @@ Flask-SQLAlchemy = "*"
 SQLAlchemy = "*"
 
 [[package]]
-name = "flask-babel"
-version = "2.0.0"
-description = "Adds i18n/l10n support to Flask applications"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-Babel = ">=2.3"
-Flask = "*"
-Jinja2 = ">=2.5"
-pytz = "*"
-
-[package.extras]
-dev = ["pytest", "pytest-mock", "bumpversion", "ghp-import", "sphinx", "pallets-sphinx-themes"]
-
-[[package]]
 name = "flask-babelex"
 version = "0.9.4"
 description = "Adds i18n/l10n support to Flask applications"
@@ -950,27 +933,31 @@ docs = ["Sphinx (>=1.5.1,<3)", "sphinx-click (>=1.4.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.21)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)"]
 
 [[package]]
-name = "Flask-Wiki"
-version = "0.0.1"
-description = ""
+name = "flask-wiki"
+version = "0.2.1"
+description = "Simple file-based wiki for Flask"
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6.2"
 develop = false
 
 [package.dependencies]
-Bootstrap-Flask = "*"
-Flask = "*"
-Flask-Babel = "*"
-Flask-WTF = "*"
-Markdown = "*"
-WTForms = "*"
+babel = ">=2.9.1"
+bootstrap-flask = "*"
+flask = "<2.0.0"
+flask-babelex = "*"
+flask-wtf = "*"
+jinja2 = ">=2.11.3"
+markdown = "*"
+pygments = ">=2.7.4"
+werkzeug = ">=0.15,<2.0"
+wtforms = "<3.0.0"
 
 [package.source]
 type = "git"
 url = "https://github.com/rero/flask-wiki.git"
-reference = "v0.1.0"
-resolved_reference = "ba1dc7138058163356a170d84181401bf0e08c95"
+reference = "v0.2.1"
+resolved_reference = "ed84982bc9f589a5adde894963b1730cdd2c808a"
 
 [[package]]
 name = "flask-wtf"
@@ -1140,8 +1127,8 @@ elasticsearch6 = ["invenio-search[elasticsearch6] (>=1.4.1,<1.5.0)"]
 elasticsearch7 = ["invenio-search[elasticsearch7] (>=1.4.1,<1.5.0)"]
 files = ["invenio-files-rest (>=1.2.0,<1.3.0)", "invenio-iiif (>=1.1.0,<1.2.0)", "invenio-previewer (>=1.3.2,<1.4.0)", "invenio-records-files (>=1.2.1,<1.3.0)"]
 metadata = ["invenio-indexer (>=1.2.0,<1.3.0)", "invenio-jsonschemas (>=1.1.1,<1.2.0)", "invenio-oaiserver (>=1.2.0,<1.3.0)", "invenio-pidstore (>=1.2.1,<1.3.0)", "invenio-records-rest (>=1.8.0,<1.9.0)", "invenio-records-ui (>=1.2.0,<1.3.0)", "invenio-records (>=1.4.0,<1.6.0)", "invenio-search-ui (>=2.0.0,<2.1.0)"]
-mysql = ["invenio-db[versioning,mysql] (>=1.0.8,<1.1.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.8,<1.1.0)"]
+mysql = ["invenio-db[mysql,versioning] (>=1.0.8,<1.1.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.8,<1.1.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.8,<1.1.0)"]
 tests = ["pytest-invenio (>=1.4.0,<1.5.0)"]
 
@@ -1162,8 +1149,8 @@ invenio-i18n = ">=1.2.0"
 [package.extras]
 all = ["Sphinx (>=3)", "cachelib (>=0.1)", "pytest-invenio (>=1.4.1)", "redis (>=2.10.5)"]
 docs = ["Sphinx (>=3)"]
-mysql = ["invenio-db[versioning,mysql] (>=1.0.8)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.8)"]
+mysql = ["invenio-db[mysql,versioning] (>=1.0.8)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.8)"]
 sqlite = ["invenio-db[versioning,sqlite] (>=1.0.8)"]
 tests = ["cachelib (>=0.1)", "pytest-invenio (>=1.4.1)", "redis (>=2.10.5)"]
 
@@ -1201,8 +1188,8 @@ ua-parser = ">=0.7.3"
 admin = ["invenio-admin (>=1.2.1)"]
 all = ["invenio-admin (>=1.2.1)", "Sphinx (==4.2.0)", "pytest-invenio (>=1.4.2)"]
 docs = ["Sphinx (==4.2.0)"]
-mysql = ["invenio-db[versioning,mysql] (>=1.0.9)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.9)"]
+mysql = ["invenio-db[mysql,versioning] (>=1.0.9)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.9)"]
 sqlite = ["invenio-db[versioning] (>=1.0.9)"]
 tests = ["pytest-invenio (>=1.4.2)"]
 
@@ -1347,8 +1334,8 @@ all = ["Sphinx (>=4.2.0)", "mock (>=2.0.0)", "pytest-invenio (>=1.4.1,<1.5.0)", 
 docs = ["Sphinx (>=4.2.0)"]
 elasticsearch6 = ["invenio-search[elasticsearch6] (>=1.3.1,<1.4.0)"]
 elasticsearch7 = ["invenio-search[elasticsearch7] (>=1.3.1,<1.4.0)", "elasticsearch (>=7.0.0,<7.14)"]
-mysql = ["invenio-db[versioning,mysql] (>=1.0.9,<1.1.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.9,<1.1.0)"]
+mysql = ["invenio-db[mysql,versioning] (>=1.0.9,<1.1.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.9,<1.1.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.9,<1.1.0)"]
 tests = ["mock (>=2.0.0)", "pytest-invenio (>=1.4.1,<1.5.0)", "pytest-mock (>=1.6.0)", "celery[pytest] (>=4.4.0,<5.1)", "invenio-app (>=1.3.1)", "invenio-jsonschemas (>=1.0.1)", "Flask (>=1.1.0,<2.0.0)"]
 
@@ -1601,8 +1588,8 @@ WTForms-Alchemy = ">=0.15.0"
 admin = ["invenio-admin (>=1.2.1)"]
 all = ["invenio-admin (>=1.2.1)", "Sphinx (>=4.2.0)", "redis (>=2.10.5)", "pytest-invenio (>=1.4.0)"]
 docs = ["Sphinx (>=4.2.0)"]
-mysql = ["invenio-db[versioning,mysql] (>=1.0.9,<2.0.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.9,<2.0.0)"]
+mysql = ["invenio-db[mysql,versioning] (>=1.0.9,<2.0.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.9,<2.0.0)"]
 redis = ["redis (>=2.10.5)"]
 sqlite = ["invenio-db[versioning] (>=1.0.9,<2.0.0)"]
 tests = ["pytest-invenio (>=1.4.0)"]
@@ -1685,8 +1672,8 @@ jsonschema = ">=3.0.0,<5.0.0"
 admin = ["invenio-admin (>=1.2.1)"]
 all = ["Sphinx (==4.2.0)", "invenio-admin (>=1.2.1)", "pytest-invenio (>=1.4.1)"]
 docs = ["Sphinx (==4.2.0)"]
-mysql = ["invenio-db[versioning,mysql] (>=1.0.9,<1.1.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.9,<1.1.0)"]
+mysql = ["invenio-db[mysql,versioning] (>=1.0.9,<1.1.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.9,<1.1.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.9,<1.1.0)"]
 tests = ["pytest-invenio (>=1.4.1)"]
 
@@ -1735,9 +1722,9 @@ invenio-pidstore = ">=1.2.0"
 invenio-records = ">=1.0.0"
 
 [package.extras]
-all = ["Sphinx (>=1.5.1)", "invenio-access (>=1.0.0)", "invenio-accounts (>=1.3.0)", "invenio-db[postgresql,versioning,mysql] (>=1.0.0)", "pytest-invenio (>=1.4.0)"]
+all = ["Sphinx (>=1.5.1)", "invenio-access (>=1.0.0)", "invenio-accounts (>=1.3.0)", "invenio-db[mysql,versioning,postgresql] (>=1.0.0)", "pytest-invenio (>=1.4.0)"]
 docs = ["Sphinx (>=1.5.1)"]
-tests = ["invenio-access (>=1.0.0)", "invenio-accounts (>=1.3.0)", "invenio-db[postgresql,versioning,mysql] (>=1.0.0)", "pytest-invenio (>=1.4.0)"]
+tests = ["invenio-access (>=1.0.0)", "invenio-accounts (>=1.3.0)", "invenio-db[mysql,versioning,postgresql] (>=1.0.0)", "pytest-invenio (>=1.4.0)"]
 
 [[package]]
 name = "invenio-rest"
@@ -1812,8 +1799,8 @@ all = ["Sphinx (>=3)", "mock (>=2.0.0)", "pytest-mock (>=1.6.0)", "invenio-app (
 docs = ["Sphinx (>=3)"]
 elasticsearch6 = ["invenio-search[elasticsearch6] (>=1.4.1,<2.0.0)"]
 elasticsearch7 = ["invenio-search[elasticsearch7] (>=1.4.1,<2.0.0)"]
-mysql = ["invenio-db[versioning,mysql] (>=1.0.9,<2.0.0)"]
-postgresql = ["invenio-db[postgresql,versioning] (>=1.0.9,<2.0.0)"]
+mysql = ["invenio-db[mysql,versioning] (>=1.0.9,<2.0.0)"]
+postgresql = ["invenio-db[versioning,postgresql] (>=1.0.9,<2.0.0)"]
 sqlite = ["invenio-db[versioning] (>=1.0.9,<2.0.0)"]
 tests = ["mock (>=2.0.0)", "pytest-mock (>=1.6.0)", "invenio-app (>=1.2.3)", "invenio-db (>=1.0.9)", "autoflake (>=1.3.1)", "isort (>=5.1.0)", "pydocstyle (>=5.0.0)", "pytest-invenio (>=1.4.0,<1.4.1)"]
 
@@ -2862,7 +2849,7 @@ urllib3 = "*"
 
 [[package]]
 name = "sentry-sdk"
-version = "1.5.12"
+version = "1.8.0"
 description = "Python client for Sentry (https://sentry.io)"
 category = "main"
 optional = false
@@ -2882,6 +2869,7 @@ celery = ["celery (>=3)"]
 chalice = ["chalice (>=1.16.0)"]
 django = ["django (>=1.8)"]
 falcon = ["falcon (>=1.4)"]
+fastapi = ["fastapi (>=0.79.0)"]
 flask = ["flask (>=0.11)", "blinker (>=1.1)"]
 httpx = ["httpx (>=0.16.0)"]
 pure_eval = ["pure-eval", "executing", "asttokens"]
@@ -2890,6 +2878,7 @@ quart = ["quart (>=0.16.1)", "blinker (>=1.1)"]
 rq = ["rq (>=0.6)"]
 sanic = ["sanic (>=0.8)"]
 sqlalchemy = ["sqlalchemy (>=1.2)"]
+starlette = ["starlette (>=0.19.1)"]
 tornado = ["tornado (>=5)"]
 
 [[package]]
@@ -3129,7 +3118,7 @@ executing = "*"
 pure-eval = "*"
 
 [package.extras]
-tests = ["pytest", "typeguard", "pygments", "littleutils", "cython"]
+tests = ["cython", "littleutils", "pygments", "typeguard", "pytest"]
 
 [[package]]
 name = "toml"
@@ -3400,7 +3389,7 @@ sip2 = ["invenio-sip2"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">= 3.9, <3.10"
-content-hash = "09aa78a8aa494c4e7ea76525d7261d862f2a269c118e0913c0748946a8ba0899"
+content-hash = "b84e61c593335f3fea71503b413110f81deffe1cb265a606fa4a5de3e519512c"
 
 [metadata.files]
 alabaster = [
@@ -3481,10 +3470,7 @@ celery = [
     {file = "celery-5.1.2-py3-none-any.whl", hash = "sha256:9dab2170b4038f7bf10ef2861dbf486ddf1d20592290a1040f7b7a1259705d42"},
     {file = "celery-5.1.2.tar.gz", hash = "sha256:8d9a3de9162965e97f8e8cc584c67aad83b3f7a267584fa47701ed11c3e0d4b0"},
 ]
-certifi = [
-    {file = "certifi-2022.5.18.1-py3-none-any.whl", hash = "sha256:f1d53542ee8cbedbe2118b5686372fb33c297fcd6379b050cca0ef13a597382a"},
-    {file = "certifi-2022.5.18.1.tar.gz", hash = "sha256:9c5705e395cd70084351dd8ad5c41e65655e08ce46f2ec9cf6c2c08390f71eb7"},
-]
+certifi = []
 cffi = [
     {file = "cffi-1.15.0-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:c2502a1a03b6312837279c8c1bd3ebedf6c12c4228ddbad40912d671ccc8a962"},
     {file = "cffi-1.15.0-cp27-cp27m-manylinux1_i686.whl", hash = "sha256:23cfe892bd5dd8941608f93348c0737e369e51c100d03718f108bf1add7bd6d0"},
@@ -3716,10 +3702,6 @@ flask-alembic = [
     {file = "Flask-Alembic-2.0.1.tar.gz", hash = "sha256:05a1e6f4148dbfcc9280a393373bfbd250af6f9f4f0ca9f744ef8f7376a3deec"},
     {file = "Flask_Alembic-2.0.1-py2.py3-none-any.whl", hash = "sha256:7e67740b0b08d58dcae0c701d56b56e60f5fa4af907bb82b4cb0469229ba94ff"},
 ]
-flask-babel = [
-    {file = "Flask-Babel-2.0.0.tar.gz", hash = "sha256:f9faf45cdb2e1a32ea2ec14403587d4295108f35017a7821a2b1acb8cfd9257d"},
-    {file = "Flask_Babel-2.0.0-py3-none-any.whl", hash = "sha256:e6820a052a8d344e178cdd36dd4bb8aea09b4bda3d5f9fa9f008df2c7f2f5468"},
-]
 flask-babelex = [
     {file = "Flask-BabelEx-0.9.4.tar.gz", hash = "sha256:39a59ccee9386a9d52d80b9101224402036aedc2c7873b11deef6e4e21cace27"},
     {file = "Flask_BabelEx-0.9.4-py3-none-any.whl", hash = "sha256:f744d0557cb04cafed733cfa96e7373b46263d4cf79a2c5988c65085f360d873"},
@@ -3793,7 +3775,7 @@ flask-webpackext = [
     {file = "flask-webpackext-1.0.2.tar.gz", hash = "sha256:36e4b2d19f3e12e0bb370248094e1631a0cf8e607e76ca8c437718395b90c7ad"},
     {file = "flask_webpackext-1.0.2-py2.py3-none-any.whl", hash = "sha256:6313903d5aad5f330cb14ce97e7fec22541da413d5fe71b33b1f1a2eb69e426f"},
 ]
-Flask-Wiki = []
+flask-wiki = []
 flask-wtf = [
     {file = "Flask-WTF-0.15.1.tar.gz", hash = "sha256:ff177185f891302dc253437fe63081e7a46a4e99aca61dfe086fb23e54fff2dc"},
     {file = "Flask_WTF-0.15.1-py2.py3-none-any.whl", hash = "sha256:6ff7af73458f182180906a37a783e290bdc8a3817fe4ad17227563137ca285bf"},
@@ -3943,10 +3925,7 @@ invenio-search = [
     {file = "invenio_search-1.4.2-py2.py3-none-any.whl", hash = "sha256:50bfbd4f7bc56f05504084305de205e5b93498ccee83741ca0dd4a0fdcc5334a"},
 ]
 invenio-sip2 = []
-invenio-theme = [
-    {file = "invenio-theme-1.3.24.tar.gz", hash = "sha256:3ce004268b274995a80d8239ac3a7a6129eb130fa2e5824235fcffa71d9c4990"},
-    {file = "invenio_theme-1.3.24-py2.py3-none-any.whl", hash = "sha256:98dd9ff1cedb8a756edd79590f602968aa70b791fb31d82c621853005c8a0833"},
-]
+invenio-theme = []
 invenio-userprofiles = []
 ipython = [
     {file = "ipython-8.4.0-py3-none-any.whl", hash = "sha256:7ca74052a38fa25fe9bedf52da0be7d3fdd2fb027c3b778ea78dfe8c212937d1"},
@@ -4623,10 +4602,7 @@ selenium = [
     {file = "selenium-3.141.0-py2.py3-none-any.whl", hash = "sha256:2d7131d7bc5a5b99a2d9b04aaf2612c411b03b8ca1b1ee8d3de5845a9be2cb3c"},
     {file = "selenium-3.141.0.tar.gz", hash = "sha256:deaf32b60ad91a4611b98d8002757f29e6f2c2d5fcaf202e1c9ad06d6772300d"},
 ]
-sentry-sdk = [
-    {file = "sentry-sdk-1.5.12.tar.gz", hash = "sha256:259535ba66933eacf85ab46524188c84dcb4c39f40348455ce15e2c0aca68863"},
-    {file = "sentry_sdk-1.5.12-py2.py3-none-any.whl", hash = "sha256:778b53f0a6c83b1ee43d3b7886318ba86d975e686cb2c7906ccc35b334360be1"},
-]
+sentry-sdk = []
 sickle = [
     {file = "Sickle-0.7.0-py3-none-any.whl", hash = "sha256:6ace7b1d1fc76571fe0dbfefc2c49e5e6c026e2d0dcaae521f4da21e98d4bc85"},
     {file = "Sickle-0.7.0.tar.gz", hash = "sha256:8944bcda3db0109a361248ef71fef476dd1f11109cdd1a41135527b7992b958b"},
@@ -4781,10 +4757,7 @@ sqlalchemy-continuum = [
 sqlalchemy-utils = [
     {file = "SQLAlchemy-Utils-0.35.0.tar.gz", hash = "sha256:01f0f0ebed696386bc7bf9231cd6894087baba374dd60f40eb1b07512d6b1a5e"},
 ]
-stack-data = [
-    {file = "stack_data-0.2.0-py3-none-any.whl", hash = "sha256:999762f9c3132308789affa03e9271bbbe947bf78311851f4d485d8402ed858e"},
-    {file = "stack_data-0.2.0.tar.gz", hash = "sha256:45692d41bd633a9503a5195552df22b583caf16f0b27c4e58c98d88c8b648e12"},
-]
+stack-data = []
 toml = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
     {file = "toml-0.10.2.tar.gz", hash = "sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f"},
