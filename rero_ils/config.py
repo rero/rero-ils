@@ -135,6 +135,8 @@ RERO_ILS_PERSONALIZED_CSS_BY_VIEW = True
 RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW = False
 RERO_ILS_HOMEPAGE_GENERAL_BLOCK = 'rero_ils/_frontpage_block_test.html'
 RERO_ILS_HOMEPAGE_GENERAL_SLOGAN = 'rero_ils/_frontpage_slogan_test.html'
+#: Link to privacy and data protection policy for the instance
+RERO_ILS_PRIVACY_POLICY_URL = 'https://www.rero.ch/legal/privacy/declaration_protection_donnees_RERO-ILS.pdf'
 
 # ILL Request config
 RERO_ILS_ILL_REQUEST_ON_GLOBAL_VIEW = True
@@ -197,8 +199,6 @@ RERO_ILS_SEARCH_TEMPLATE = 'rero_ils/search.html'
 THEME_LOGO = 'images/logo-rero-plus.svg'
 #: Site name
 THEME_SITENAME = _('rero-ils')
-#: Link to privacy and data protection policy for the instance
-THEME_PRIVACY_POLICY_URL = 'https://www.rero.ch/en/legal/privacy/declaration_protection_donnees_RERO-ILS.pdf'
 #: Use default frontpage.
 THEME_FRONTPAGE = False
 #: Frontpage title.
