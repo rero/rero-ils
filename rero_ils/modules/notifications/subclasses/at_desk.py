@@ -66,7 +66,11 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
         msg = None
         if not request_loan:
             msg = 'No previous request found, none AT_DESK should be sent.'
-        elif request_loan.get('state') is not LoanState.ITEM_AT_DESK:
+        # we need to use `!=` comparator because strings was built differently
+        # The `!=` operator compares the value or equality of two objects,
+        # `is not` operator checks whether two variables point to the same
+        # object in memory : `id(str_a) is not `id(str_b)`.
+        elif request_loan.get('state') != LoanState.ITEM_AT_DESK:
             msg = "The first found request isn\'t AT_DESK"
         # we don't find any reasons to cancel this notification
         return msg is not None, msg
