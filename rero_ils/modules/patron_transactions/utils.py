@@ -123,7 +123,7 @@ def create_patron_transaction_from_overdue_loan(
             },
             'type': 'overdue',
             'status': 'open',
-            _('note'): _('incremental overdue fees'),
+            'note': _('incremental overdue fees'),
             'total_amount': total_amount,
             'creation_date': datetime.now(timezone.utc).isoformat(),
         }
