@@ -37,7 +37,6 @@
             "properties": {
               "value": {
                 "type": "text",
-                "copy_to": "autocomplete_title",
                 "index": false
               },
               "language": {
@@ -100,6 +99,7 @@
           "_text": {
             "type": "text",
             "index": false,
+            "copy_to": "autocomplete_title",
             "fields": {
               "eng": {
                 "type": "text",
@@ -116,6 +116,9 @@
               "ita": {
                 "type": "text",
                 "analyzer": "italian"
+              },
+              "text": {
+                "type": "text"
               }
             }
           },
@@ -138,6 +141,9 @@
               "ita": {
                 "type": "text",
                 "analyzer": "italian"
+              },
+              "text": {
+                "type": "text"
               }
             }
           }
@@ -472,6 +478,9 @@
               "ita": {
                 "type": "text",
                 "analyzer": "italian"
+              },
+              "text": {
+                "type": "text"
               }
             }
           },
@@ -553,6 +562,9 @@
               "ita": {
                 "type": "text",
                 "analyzer": "italian"
+              },
+              "text": {
+                "type": "text"
               }
             }
           }
@@ -674,6 +686,9 @@
               "ita": {
                 "type": "text",
                 "analyzer": "italian"
+              },
+              "text": {
+                "type": "text"
               }
             }
           },
@@ -771,6 +786,9 @@
               "ita": {
                 "type": "text",
                 "analyzer": "italian"
+              },
+              "text": {
+                "type": "text"
               }
             }
           },

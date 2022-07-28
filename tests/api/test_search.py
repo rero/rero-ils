@@ -296,6 +296,15 @@ def test_document_search(
     hits = get_json(res)['hits']
     assert hits['total']['value'] == 0
 
+    # wildcard
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='histoire*',
+        simple='1'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
 
 def test_patrons_search(
         client,

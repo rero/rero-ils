@@ -108,6 +108,9 @@
               "ita": {
                 "type": "text",
                 "analyzer": "italian"
+              },
+              "text": {
+                "type": "text"
               }
             }
           },
@@ -214,6 +217,9 @@
               "ita": {
                 "type": "text",
                 "analyzer": "italian"
+              },
+              "text": {
+                "type": "text"
               }
             }
           },
@@ -320,6 +326,9 @@
               "ita": {
                 "type": "text",
                 "analyzer": "italian"
+              },
+              "text": {
+                "type": "text"
               }
             }
           },

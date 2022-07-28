@@ -76,7 +76,7 @@ def doc_title_travailleurs(app):
             'mainTitle': [{
                 'value': 'Les travailleurs assidus sont de retours'
             }],
-            'subtitle': [{'value': 'les jeunes arrivent bientôt ?'}]
+            'subtitle': [{'value': 'les jeunes arrivent bientôt ? Quelle histoire!'}]
         }],
         "provisionActivity": [
           {
