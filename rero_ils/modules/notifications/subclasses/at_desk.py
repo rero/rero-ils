@@ -88,7 +88,11 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
     @classmethod
     def get_notification_context(cls, notifications=None):
         """Get the context to render the notification template."""
-        context = {}
+        # Use a delay to be sure the notification is sent AFTER the loan has
+        # been indexed (avoid problem due to server load).
+        context = {
+            'delay': 30
+        }
         notifications = notifications or []
         if not notifications:
             return context
