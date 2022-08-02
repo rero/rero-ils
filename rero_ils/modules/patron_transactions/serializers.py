@@ -38,7 +38,7 @@ class PatronTransactionsJSONSerializer(JSONSerializer,
         metadata = hit.get('metadata', {})
         # Serialize document (if exists)
         document_pid = metadata.get('document', {}).get('pid')
-        if document := self.get_resource(DocumentsSearch, document_pid):
+        if document := self.get_resource(DocumentsSearch(), document_pid):
             metadata['document'] = document
         # Serialize loan & item
         loan_pid = metadata.get('loan', {}).get('pid')

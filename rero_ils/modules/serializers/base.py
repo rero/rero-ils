@@ -26,6 +26,35 @@ from invenio_records_rest.serializers.json import \
 from rero_ils.modules.documents.utils import filter_document_type_buckets
 
 
+class CachedDataSerializerMixin:
+    """Class to load and cached resources for serialization process."""
+
+    def __init__(self):
+        """Constructor."""
+        self.clear_cache()
+
+    def clear_cache(self):
+        """Clear the resources cache."""
+        self._resources = {}
+
+    def get_resource(self, loader, pid):
+        """Get a resource and store it into the cache if necessary.
+
+        :param loader: Class use to retrieve the resource record.
+        :param pid: the resource pid.
+        :return: the requested resource.
+        """
+        cls_key = loader if inspect.isclass(loader) else loader.__class__
+        convert_to_dict = not inspect.isclass(loader)  # AttrDict conversion
+        if cls_key not in self._resources \
+           or pid not in self._resources[cls_key]:
+            resource = loader.get_record_by_pid(pid)
+            if convert_to_dict:
+                resource = resource.to_dict()
+            self._resources.setdefault(cls_key, {})[pid] = resource
+        return self._resources[cls_key][pid]
+
+
 class PostprocessorMixinInterface(ABC):
     """Mixin postprocessing records during serialization."""
 
@@ -91,7 +120,8 @@ class PostprocessorMixin(PostprocessorMixinInterface):
             filter_document_type_buckets(aggr)
 
 
-class JSONSerializer(_JSONSerializer, PostprocessorMixin):
+class JSONSerializer(_JSONSerializer, PostprocessorMixin,
+                     CachedDataSerializerMixin):
     """Serializer for RERO-ILS records as JSON."""
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
@@ -128,6 +158,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
         :param links: Dictionary of links to add to response.
         :param item_links_factory: Factory function for record links.
         """
+        self.clear_cache()
         results = dict(
             hits=dict(
                 hits=[
@@ -167,26 +198,3 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
             for attr in attributes_name:
                 if attr in data[term['key']]:
                     term[attr] = data[term['key']].get(attr)
-
-
-class CachedDataSerializerMixin:
-    """Class to load and cached resources for serialization process."""
-
-    _resources = {}
-
-    def get_resource(self, loader, pid):
-        """Get a resource and store it into the cache if necessary.
-
-        :param loader: Class use to retrieve the resource record.
-        :param pid: the resource pid.
-        :return: the requested resource.
-        """
-        cls_key = loader if inspect.isclass(loader) else loader.__class__
-        convert_to_dict = not inspect.isclass(loader)  # AttrDict conversion
-        if cls_key not in self._resources \
-           or pid not in self._resources[cls_key]:
-            resource = loader.get_record_by_pid(pid)
-            if convert_to_dict:
-                resource = resource.to_dict()
-            self._resources.setdefault(cls_key, {})[pid] = resource
-        return self._resources[cls_key][pid]

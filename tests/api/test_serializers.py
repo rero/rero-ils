@@ -22,6 +22,7 @@ from flask import url_for
 from utils import VerifyRecordPermissionPatch, flush_index, get_csv, \
     get_json, item_record_to_a_specific_loan_state, login_user
 
+from rero_ils.modules.items.api.api import ItemsSearch
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
@@ -140,7 +141,8 @@ def test_items_serializers(
     item = item_lib_martigny
     loc_ref = get_ref_for_pid('locations', loc_public_martigny.pid)
     item.setdefault('temporary_location', {})['$ref'] = loc_ref
-    item.update(item, dbcommit=True, reindex=True)
+    item = item.update(item, dbcommit=True, reindex=True)
+    flush_index(ItemsSearch.Meta.index)
 
     item_url = url_for(
         'invenio_records_rest.item_item', pid_value=item_lib_fully.pid)
