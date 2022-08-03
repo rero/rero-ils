@@ -829,9 +829,11 @@
           "essential": true
         },
         "type": "datepicker",
-        "wrappers": [
-          "form-field"
-        ],
+        "templateOptions": {
+          "wrappers": [
+            "form-field"
+          ]
+        },
         "validation": {
           "messages": {
             "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
