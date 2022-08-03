@@ -101,8 +101,8 @@ def test_patron_transaction_events_get(
     assert res.status_code == 200
     data = get_json(res)
     result = data['hits']['hits'][0]['metadata']
-    del(result['organisation'])
-    del(result['patron'])
+    del result['organisation']
+    del result['patron']
     assert result == patron_event.replace_refs()
 
 

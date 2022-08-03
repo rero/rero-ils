@@ -259,7 +259,7 @@ def test_holding_pattern_preview_api(
     assert len(issues) == 15
 
     # test invalid patterns
-    del(patterns['values'])
+    del patterns['values']
     res, data = postdata(
         client,
         'api_holding.pattern_preview',

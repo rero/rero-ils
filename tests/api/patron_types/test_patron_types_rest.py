@@ -329,7 +329,7 @@ def test_patron_types_subscription(
     patron_type_youngsters_sion['subscription_amount'] = 0
     assert not patron_type_youngsters_sion.is_subscription_required
 
-    del(patron_type_youngsters_sion['subscription_amount'])
+    del patron_type_youngsters_sion['subscription_amount']
     assert not patron_type_youngsters_sion.is_subscription_required
 
     # Test the 'get_yearly_subscription_patron_types' function.

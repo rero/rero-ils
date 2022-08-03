@@ -1250,7 +1250,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                 sublist = dependency.get('sublist', [])
                 for sub in sublist:
                     datas = self.record.get(dependency['name'], [])
-                    if not(datas or dependency.get('optional')):
+                    if not (datas or dependency.get('optional')):
                         click.secho(
                             f'{self.name}: sublist not found: '
                             f'{dependency["name"]}',
