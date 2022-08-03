@@ -94,7 +94,7 @@ def test_holding_extended_validation(client,
 
     # 1.1. test next expected date for regular frequencies
     expected_date = holding_tmp['patterns']['next_expected_date']
-    del(holding_tmp['patterns']['next_expected_date'])
+    del holding_tmp['patterns']['next_expected_date']
     with pytest.raises(ValidationError):
         holding_tmp.validate()
 

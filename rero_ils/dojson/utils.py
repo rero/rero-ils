@@ -1310,7 +1310,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         if (self.date_type_from_008 == 'q' or self.date_type_from_008 == 'n'):
             self.date['note'] = 'Date(s) uncertain or unknown'
         start_date = make_year(self.date1_from_008)
-        if not(start_date and start_date >= -9999 and start_date <= 2050):
+        if not (start_date and start_date >= -9999 and start_date <= 2050):
             start_date = None
         if not start_date:
             fields_264 = self.get_fields('264')

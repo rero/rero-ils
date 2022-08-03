@@ -257,7 +257,7 @@ def test_notifications_get(
 
     result = data['hits']['hits'][0]['metadata']
     # organisation has been added during the indexing
-    del(result['organisation'])
+    del result['organisation']
     assert result == record.replace_refs()
 
     record.delete(dbcommit=True, delindex=True)
@@ -773,7 +773,7 @@ def test_request_notifications_temp_item_type(
     assert res.status_code == 200
     mailbox.clear()
 
-    del(item_lib_martigny['temporary_item_type'])
+    del item_lib_martigny['temporary_item_type']
     item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
 
 

@@ -271,7 +271,7 @@ def test_patrons_get(client, librarian_martigny):
     data = get_json(res)
     result = data['hits']['hits'][0]['metadata']
     # organisation has been added during the indexing
-    del(result['organisation'])
+    del result['organisation']
     assert result == patron.replace_refs().dumps()
 
 

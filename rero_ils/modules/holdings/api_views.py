@@ -64,20 +64,15 @@ def jsonify_error(func):
         try:
             return func(*args, **kwargs)
         except (Unauthorized, NotFound) as error:
-            raise(error)
-        except TemplateSyntaxError as error:
-            return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 400
-        except UndefinedError as error:
-            return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 400
+            raise error
+        except (TemplateSyntaxError, UndefinedError) as error:
+            return jsonify(
+                {'status': 'error: {error}'.format(error=error)}), 400
         except Exception as error:
-            # uncomment for debug:
-            # raise(errqor)
             current_app.logger.error(str(error))
             db.session.rollback()
-            return jsonify({'status': 'error: {error}'.format(
-                error=error)}), 500
+            return jsonify(
+                {'status': 'error: {error}'.format(error=error)}), 500
     return decorated_view
 
 

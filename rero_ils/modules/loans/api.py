@@ -220,7 +220,7 @@ class Loan(IlsRecord):
             current_app.config['CIRCULATION_LOAN_INITIAL_STATE']
         )
         if delete_pid and data.get(cls.pid_field):
-            del(data[cls.pid_field])
+            del data[cls.pid_field]
         cls._loan_build_org_ref(data)
         # set the field to_anonymize
         data['to_anonymize'] = \
