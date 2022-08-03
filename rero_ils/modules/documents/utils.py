@@ -246,8 +246,30 @@ def title_format_text_head(titles, responsabilities=None, with_subtitle=True):
             if len(title_texts) == 1:
                 head_titles.append(title_texts[0].get('value'))
             else:
+                languages = [title.get('language') for title in title_texts]
+
+                def filter_list(value):
+                    """Check if a value should be removed from the languages.
+
+                    :returns: True if the language type is latin and a
+                              vernacular from exits
+                    """
+                    # keep simple language such as `default`
+                    if '-' not in value:
+                        return True
+                    lang, charset = value.split('-')
+                    # remove the latin form if a vernacular form exists
+                    if value.endswith('-latn') and sum(
+                            v.startswith(f'{lang}-') for v in languages) > 1:
+                        return False
+                    return True
+                # list of selected language
+                filtered_languages = list(filter(filter_list, languages))
+
                 for title_text in title_texts:
                     language = title_text.get('language')
+                    if language not in filtered_languages:
+                        continue
                     if display_alternate_graphic_first(language):
                         head_titles.append(title_text.get('value'))
                 # If I don't have a title available,
@@ -387,23 +409,24 @@ def title_format_text(title, with_subtitle=True):
 
     # build part strings per language
     part_output = {}
-    parts = [
-        part_value
-        for part in title.get('part', [])
-        for part_type, part_values in part.items()
-        for part_value in part_values
-        if part_type in ['partNumber', 'partName']
-    ]
-    for part in parts:
-        language = part.get('language', 'default')
-        value = part.get('value')
-        if value:
-            part_output.setdefault(language, []).append(value)
+    for part in title.get('part', []):
+        data = {}
+        # part number first
+        for part_type in ['partNumber', 'partName']:
+            part_type_values = part.get(part_type, {})
+            # again repeatable
+            for part_type_value in part_type_values:
+                language = part_type_value.get('language', 'default')
+                if value := part_type_value.get('value'):
+                    data.setdefault(language, []).append(value)
+        # each part number and part name are separate by a comma
+        for key, value in data.items():
+            part_output.setdefault(key, []).append(', '.join(value))
+    # each part are separate by a point
     part_output = {
-        key: ', '.join(values)
+        key: '. '.join(values)
         for key, values in part_output.items()
     }
-
     # build title text strings lists,
     # if a vernacular title exists it will be place on top of the title list
     title_text = []

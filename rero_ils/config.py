@@ -1824,7 +1824,7 @@ RECORDS_REST_FACETS = dict(
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             genreForm=dict(
-                terms=dict(field='genreForm.term',
+                terms=dict(field='facet_genre_form',
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             intendedAudience=dict(
@@ -2248,7 +2248,7 @@ RECORDS_REST_FACETS = dict(
 RERO_ILS_QUERY_BOOSTING = {
     'documents': {
         'autocomplete_title': 3,
-        'title._text.*': 3,
+        'title\.*': 3,
         'contribution.name': 2,
         'contribution.name_*': 2,
         'publicationYearText': 2,

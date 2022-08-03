@@ -64,7 +64,7 @@ def test_document_search_mapping(app, document_records):
     assert count == 1
 
     query = MultiMatch(query='Chamber of Secrets',
-                       fields=['title._text.*'])
+                       fields=['title.mainTitle.value'])
     count = search.query(query).count()
     assert count == 1
 

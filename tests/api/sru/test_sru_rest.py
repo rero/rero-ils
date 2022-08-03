@@ -89,7 +89,7 @@ def test_sru_documents_items(client, document_sion_items):
     assert 'searchRetrieveResponse' in xml_dict
     ech_srr = xml_dict['searchRetrieveResponse']['echoedSearchRetrieveRequest']
     assert ech_srr['query'] == 'dc.title="La reine Berthe et son fils"'
-    assert ech_srr['query_es'] == 'title._text.\\*:' \
+    assert ech_srr['query_es'] == 'title.\\*:' \
                                   '"La reine Berthe et son fils"'
 
 
