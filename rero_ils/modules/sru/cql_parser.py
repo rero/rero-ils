@@ -77,7 +77,7 @@ ES_INDEX_MAPPINGS = {
     'authorized_access_point',
     'dc.date': 'provisionActivity.type:"bf:Publication" '
                'AND provisionActivity.startDate',
-    'dc.title': 'title._text.\\*',
+    'dc.title': 'title.\\*',
     # TOTO: description search also in: note.label, dissertation.label and
     # supplementaryContent.discription
     'dc.description': 'summary.label',

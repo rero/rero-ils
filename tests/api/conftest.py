@@ -76,7 +76,8 @@ def doc_title_travailleurs(app):
             'mainTitle': [{
                 'value': 'Les travailleurs assidus sont de retours'
             }],
-            'subtitle': [{'value': 'les jeunes arrivent bientôt ?'}]
+            'subtitle': [
+                {'value': 'les jeunes arrivent bientôt ? Quelle histoire!'}]
         }],
         "provisionActivity": [
           {
@@ -90,7 +91,14 @@ def doc_title_travailleurs(app):
         },
         'adminMetadata': {
             'encodingLevel': 'Minimal level'
-        }
+        },
+        "seriesStatement": [{
+            "seriesTitle": [
+                {
+                    "value": "Boy & Girl"
+                }
+            ]
+        }],
     }
     doc = Document.create(
         data=data,

@@ -37,12 +37,27 @@
             "properties": {
               "value": {
                 "type": "text",
-                "copy_to": "autocomplete_title",
-                "index": false
+                "fields": {
+                  "eng": {
+                    "type": "text",
+                    "analyzer": "english"
+                  },
+                  "fre": {
+                    "type": "text",
+                    "analyzer": "french"
+                  },
+                  "ger": {
+                    "type": "text",
+                    "analyzer": "german"
+                  },
+                  "ita": {
+                    "type": "text",
+                    "analyzer": "italian"
+                  }
+                }
               },
               "language": {
-                "type": "keyword",
-                "index": false
+                "type": "keyword"
               }
             }
           },
@@ -51,12 +66,27 @@
             "properties": {
               "value": {
                 "type": "text",
-                "index": false,
-                "copy_to": "title._search"
+                "fields": {
+                  "eng": {
+                    "type": "text",
+                    "analyzer": "english"
+                  },
+                  "fre": {
+                    "type": "text",
+                    "analyzer": "french"
+                  },
+                  "ger": {
+                    "type": "text",
+                    "analyzer": "german"
+                  },
+                  "ita": {
+                    "type": "text",
+                    "analyzer": "italian"
+                  }
+                }
               },
               "language": {
-                "type": "keyword",
-                "index": false
+                "type": "keyword"
               }
             }
           },
@@ -65,11 +95,27 @@
             "properties": {
               "value": {
                 "type": "text",
-                "index": false
+                "fields": {
+                  "eng": {
+                    "type": "text",
+                    "analyzer": "english"
+                  },
+                  "fre": {
+                    "type": "text",
+                    "analyzer": "french"
+                  },
+                  "ger": {
+                    "type": "text",
+                    "analyzer": "german"
+                  },
+                  "ita": {
+                    "type": "text",
+                    "analyzer": "italian"
+                  }
+                }
               },
               "language": {
-                "type": "keyword",
-                "index": false
+                "type": "keyword"
               }
             }
           },
@@ -81,7 +127,27 @@
                 "properties": {
                   "value": {
                     "type": "text",
-                    "index": false
+                    "fields": {
+                      "eng": {
+                        "type": "text",
+                        "analyzer": "english"
+                      },
+                      "fre": {
+                        "type": "text",
+                        "analyzer": "french"
+                      },
+                      "ger": {
+                        "type": "text",
+                        "analyzer": "german"
+                      },
+                      "ita": {
+                        "type": "text",
+                        "analyzer": "italian"
+                      }
+                    }
+                  },
+                  "language": {
+                    "type": "keyword"
                   }
                 }
               },
@@ -90,8 +156,27 @@
                 "properties": {
                   "value": {
                     "type": "text",
-                    "index": false,
-                    "copy_to": "title._search"
+                    "fields": {
+                      "eng": {
+                        "type": "text",
+                        "analyzer": "english"
+                      },
+                      "fre": {
+                        "type": "text",
+                        "analyzer": "french"
+                      },
+                      "ger": {
+                        "type": "text",
+                        "analyzer": "german"
+                      },
+                      "ita": {
+                        "type": "text",
+                        "analyzer": "italian"
+                      }
+                    }
+                  },
+                  "language": {
+                    "type": "keyword"
                   }
                 }
               }
@@ -99,47 +184,7 @@
           },
           "_text": {
             "type": "text",
-            "index": false,
-            "fields": {
-              "eng": {
-                "type": "text",
-                "analyzer": "english"
-              },
-              "fre": {
-                "type": "text",
-                "analyzer": "french"
-              },
-              "ger": {
-                "type": "text",
-                "analyzer": "german"
-              },
-              "ita": {
-                "type": "text",
-                "analyzer": "italian"
-              }
-            }
-          },
-          "_search": {
-            "type": "text",
-            "index": false,
-            "fields": {
-              "eng": {
-                "type": "text",
-                "analyzer": "english"
-              },
-              "fre": {
-                "type": "text",
-                "analyzer": "french"
-              },
-              "ger": {
-                "type": "text",
-                "analyzer": "german"
-              },
-              "ita": {
-                "type": "text",
-                "analyzer": "italian"
-              }
-            }
+            "copy_to": "autocomplete_title"
           }
         }
       },
@@ -337,26 +382,32 @@
       "editionStatement": {
         "type": "object",
         "properties": {
-          "_text": {
-            "properties": {
-              "value": {
-                "type": "text"
-              },
-              "language": {
-                "type": "keyword"
-              }
-            }
-          },
           "editionDesignation": {
             "type": "object",
             "properties": {
               "value": {
                 "type": "text",
-                "index": false
+                "fields": {
+                  "eng": {
+                    "type": "text",
+                    "analyzer": "english"
+                  },
+                  "fre": {
+                    "type": "text",
+                    "analyzer": "french"
+                  },
+                  "ger": {
+                    "type": "text",
+                    "analyzer": "german"
+                  },
+                  "ita": {
+                    "type": "text",
+                    "analyzer": "italian"
+                  }
+                }
               },
               "language": {
-                "type": "keyword",
-                "index": false
+                "type": "keyword"
               }
             }
           },
@@ -365,11 +416,38 @@
             "properties": {
               "value": {
                 "type": "text",
-                "index": false
+                "fields": {
+                  "eng": {
+                    "type": "text",
+                    "analyzer": "english"
+                  },
+                  "fre": {
+                    "type": "text",
+                    "analyzer": "french"
+                  },
+                  "ger": {
+                    "type": "text",
+                    "analyzer": "german"
+                  },
+                  "ita": {
+                    "type": "text",
+                    "analyzer": "italian"
+                  }
+                }
               },
               "language": {
-                "type": "keyword",
-                "index": false
+                "type": "keyword"
+              }
+            }
+          },
+          "_text": {
+            "type": "object",
+            "properties": {
+              "language": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "text"
               }
             }
           }
@@ -404,16 +482,13 @@
             "type": "object",
             "properties": {
               "type": {
-                "type": "text",
-                "index": false
+                "type": "text"
               },
               "canton": {
-                "type": "text",
-                "index": false
+                "type": "text"
               },
               "country": {
-                "type": "text",
-                "index": false
+                "type": "text"
               },
               "identifiedBy": {
                 "type": "object",
@@ -438,24 +513,20 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "type": "text",
-                    "index": false
+                    "type": "text"
                   },
                   "language": {
-                    "type": "keyword",
-                    "index": false
+                    "type": "keyword"
                   }
                 }
               },
               "type": {
-                "type": "text",
-                "index": false
+                "type": "text"
               }
             }
           },
           "note": {
             "type": "text",
-            "index": false,
             "fields": {
               "eng": {
                 "type": "text",
@@ -479,24 +550,22 @@
             "type": "integer"
           },
           "endDate": {
-            "type": "integer",
-            "index": false
+            "type": "integer"
           },
           "original_date": {
-            "type": "integer",
-            "index": false
+            "type": "integer"
           },
           "type": {
-            "type": "text",
-            "index": false
+            "type": "text"
           },
           "_text": {
+            "type": "object",
             "properties": {
-              "value": {
-                "type": "text"
-              },
               "language": {
                 "type": "keyword"
+              },
+              "value": {
+                "type": "text"
               }
             }
           }
@@ -523,40 +592,6 @@
       "duration": {
         "type": "text"
       },
-      "series": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "text",
-            "index": false
-          },
-          "number": {
-            "type": "keyword",
-            "index": false
-          },
-          "_text": {
-            "type": "text",
-            "fields": {
-              "eng": {
-                "type": "text",
-                "analyzer": "english"
-              },
-              "fre": {
-                "type": "text",
-                "analyzer": "french"
-              },
-              "ger": {
-                "type": "text",
-                "analyzer": "german"
-              },
-              "ita": {
-                "type": "text",
-                "analyzer": "italian"
-              }
-            }
-          }
-        }
-      },
       "seriesStatement": {
         "type": "object",
         "properties": {
@@ -564,11 +599,28 @@
             "type": "object",
             "properties": {
               "value": {
-                "type": "keyword"
+                "type": "text",
+                "fields": {
+                  "eng": {
+                    "type": "text",
+                    "analyzer": "english"
+                  },
+                  "fre": {
+                    "type": "text",
+                    "analyzer": "french"
+                  },
+                  "ger": {
+                    "type": "text",
+                    "analyzer": "german"
+                  },
+                  "ita": {
+                    "type": "text",
+                    "analyzer": "italian"
+                  }
+                }
               },
               "language": {
-                "type": "keyword",
-                "index": false
+                "type": "keyword"
               }
             }
           },
@@ -576,12 +628,10 @@
             "type": "object",
             "properties": {
               "value": {
-                "type": "text",
-                "index": false
+                "type": "text"
               },
               "language": {
-                "type": "keyword",
-                "index": false
+                "type": "keyword"
               }
             }
           },
@@ -593,11 +643,27 @@
                 "properties": {
                   "value": {
                     "type": "text",
-                    "index": false
+                    "fields": {
+                      "eng": {
+                        "type": "text",
+                        "analyzer": "english"
+                      },
+                      "fre": {
+                        "type": "text",
+                        "analyzer": "french"
+                      },
+                      "ger": {
+                        "type": "text",
+                        "analyzer": "german"
+                      },
+                      "ita": {
+                        "type": "text",
+                        "analyzer": "italian"
+                      }
+                    }
                   },
                   "language": {
-                    "type": "keyword",
-                    "index": false
+                    "type": "keyword"
                   }
                 }
               },
@@ -605,12 +671,10 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "type": "text",
-                    "index": false
+                    "type": "text"
                   },
                   "language": {
-                    "type": "keyword",
-                    "index": false
+                    "type": "keyword"
                   }
                 }
               },
@@ -640,12 +704,13 @@
             }
           },
           "_text": {
+            "type": "object",
             "properties": {
-              "value": {
-                "type": "text"
-              },
               "language": {
                 "type": "keyword"
+              },
+              "value": {
+                "type": "text"
               }
             }
           }
@@ -900,7 +965,7 @@
             }
           },
           "holdings_type": {
-            "type": "text"
+            "type": "keyword"
           },
           "local_fields": {
             "properties": {
@@ -1552,7 +1617,7 @@
             "type": "keyword"
           },
           "term": {
-            "type": "keyword",
+            "type": "text",
             "copy_to": "facet_genre_form"
           },
           "identifiedBy": {

@@ -27,6 +27,7 @@ def test_document_search(
         doc_title_travailleuses
 ):
     """Test document search queries."""
+
     # phrase search
     list_url = url_for(
         'invenio_records_rest.doc_list',
@@ -295,6 +296,26 @@ def test_document_search(
     res = client.get(list_url)
     hits = get_json(res)['hits']
     assert hits['total']['value'] == 0
+
+    # wildcard
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='histoire*',
+        simple='1'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
+
+    # & char query
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q='Boy & Girl',
+        simple='1'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
 
 
 def test_patrons_search(

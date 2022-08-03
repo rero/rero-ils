@@ -88,6 +88,7 @@ def test_documents_get(client, document):
 
     list_url = url_for('invenio_records_rest.doc_list', q="Vincent Berthe")
     res = client.get(list_url)
+    print(res.json)
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total']['value'] == 1

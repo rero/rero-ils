@@ -70,10 +70,43 @@ def test_title_format_text_head():
             'value': 'subtitle_text'
         }],
         'part': [
-            {'partName': [{'value': 'part1'}, {'value': 'part1.1'}]},
-            {'partName': [{'value': 'part2'}]}
+            {
+                'partName': [{'value': 'part1'}, {'value': 'part1.1'}],
+                'partNumber': [{'value': 'number1'}, {'value': 'number1.1'}],
+            },
+            {
+                'partNumber': [{'value': 'number2'}, {'value': 'number2.2'}],
+                'partName': [{'value': 'part2'}]
+            }
         ],
         'type': 'bf:Title'
     }]
-    assert 'main_title_text : subtitle_text. part1, part1.1, part2' == \
+    assert 'main_title_text : subtitle_text. '\
+        'number1, number1.1, part1, part1.1. number2, number2.2, part2' == \
            title_format_text_head(data)
+
+    data = [{
+        "mainTitle": [
+            {
+                "language": "rus-latn",
+                "value": "Frant︠s︡uzsko-russkiĭ slovarʹ"
+            },
+            {
+                "language": "rus-cyrl",
+                "value": "Французско-русский словарь"
+            }
+        ],
+        "subtitle": [
+            {
+                "language": "rus-latn",
+                "value": "okolo 25 000 slov"
+            },
+            {
+                "language": "rus-cyrl",
+                "value": "около 25 000 слов"
+            }
+        ],
+        "type": "bf:Title"
+    }]
+    assert 'Французско-русский словарь : около 25 000 слов' == \
+        title_format_text_head(data)
