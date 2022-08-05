@@ -301,21 +301,22 @@ class Document(IlsRecord):
     def replace_refs(self):
         """Replace $ref with real data."""
         from ..contributions.api import Contribution
-        contributions = self.get('contribution', [])
-        for contribution in contributions:
+        for contribution in self.get('contribution', []):
             if ref := contribution['agent'].get('$ref'):
                 agent, _ = Contribution.get_record_by_ref(ref)
                 if agent:
                     contribution['agent'] = agent
-        subjects = self.get('subjects', [])
-        for subject in subjects:
-            subject_ref = subject.get('$ref')
-            subject_type = subject.get('type')
-            if subject_ref and subject_type in \
-               [DocumentSubjectType.PERSON, DocumentSubjectType.ORGANISATION]:
-                data, _ = Contribution.get_record_by_ref(subject_ref)
-                del subject['$ref']
-                subject.update(data)
+        for subjects in ['subjects', 'subjects_imported']:
+            for subject in self.get(subjects, []):
+                subject_ref = subject.get('$ref')
+                subject_type = subject.get('type')
+                if subject_ref and subject_type in [
+                    DocumentSubjectType.PERSON,
+                    DocumentSubjectType.ORGANISATION
+                ]:
+                    data, _ = Contribution.get_record_by_ref(subject_ref)
+                    del subject['$ref']
+                    subject.update(data)
 
         return super().replace_refs()
 

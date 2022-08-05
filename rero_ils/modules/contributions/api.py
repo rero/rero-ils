@@ -75,22 +75,17 @@ class Contribution(IlsRecord):
     @classmethod
     def get_contribution(cls, ref_type, ref_pid):
         """Get contribution."""
-        contribution = None
         if ref_type == 'mef':
-            contribution = cls.get_record_by_pid(ref_pid)
+            return cls.get_record_by_pid(ref_pid)
+        if ref_type == 'viaf':
+            query = ContributionsSearch() \
+                .filter('term', viaf_pid=ref_pid)
         else:
-            if ref_type == 'viaf':
-                result = ContributionsSearch().filter(
-                    'term', viaf_pid=ref_pid
-                ).source('pid').scan()
-            else:
-                result = ContributionsSearch().filter(
-                    {'term': {f'{ref_type}.pid': ref_pid}}
-                ).source('pid').scan()
-            with contextlib.suppress(StopIteration):
-                pid = next(result).pid
-                contribution = cls.get_record_by_pid(pid)
-        return contribution
+            query = ContributionsSearch() \
+                .filter({'term': {f'{ref_type}.pid': ref_pid}})
+        with contextlib.suppress(StopIteration):
+            pid = next(query.source('pid').scan()).pid
+            return cls.get_record_by_pid(pid)
 
     @classmethod
     def get_record_by_ref(cls, ref):
