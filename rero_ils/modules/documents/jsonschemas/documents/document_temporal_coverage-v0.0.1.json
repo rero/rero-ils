@@ -40,7 +40,7 @@
               "title": "Date",
               "description": "Enter a date in the format (+/-)yyyy. You can add the month, day or time as follows: (+/-)yyyy-mm-ddTHH-MM-SS.",
               "type": "string",
-              "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2}T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
+              "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2})?(T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
               "form": {
                 "placeholder": "Example: +1945-05-08"
               }
@@ -83,7 +83,7 @@
               "title": "Start date",
               "description": "Enter a date in the format (+/-)yyyy. You can add the month, day or time as follows: (+/-)yyyy-mm-ddTHH-MM-SS.",
               "type": "string",
-              "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2}T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
+              "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2})?(T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
               "form": {
                 "placeholder": "Example: +1945-05-08"
               }
@@ -92,7 +92,7 @@
               "title": "End date",
               "description": "Enter a date in the format (+/-)yyyy. You can add the month, day or time as follows: (+/-)yyyy-mm-ddTHH-MM-SS.",
               "type": "string",
-              "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2}T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
+              "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2})?(T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
               "form": {
                 "placeholder": "Example: +1945-05-08"
               }

@@ -631,7 +631,8 @@ class ReroIlsOverdo(Overdo):
         )
         if not result.get('provisionActivity'):
             self.default_provision_activity(result)
-            error_print('ERROR PROVISION ACTIVITY:', self.bib_id, self.rero_id)
+            error_print(
+                'WARNING PROVISION ACTIVITY:', self.bib_id, self.rero_id)
 
         return result
 

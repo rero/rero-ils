@@ -2759,7 +2759,7 @@ def test_marc21_to_provision_activity_exceptions(capsys):
                            'WARNING NOT A COUNTRY:\t???\t???\t\t\n'
                            'WARNING START DATE 264:\t???\t???\tNone\t\n'
                            'WARNING START DATE 008:\t???\t???\tNone\t\n'
-                           'ERROR PROVISION ACTIVITY:\t???\t???')
+                           'WARNING PROVISION ACTIVITY:\t???\t???')
 
 
 # 300 [$a repetitive]: extent, duration:
@@ -5739,7 +5739,7 @@ def test_scale_and_cartographic(app, marc21_record):
         'projection': 'projection conforme cylindrique'
     }, {
         'coordinates': {
-            'latitude': '', 'longitude': 'E0033800 E0080300'
+            'longitude': 'E0033800 E0080300'
         }
     }]
 
@@ -5790,7 +5790,7 @@ def test_temporal_coverage(app, marc21_record):
         'type': 'period'
     }, {
         'date': '-0044-03-15',
-        'period_code': ['d9'],
+        'period_code': ['d9d9'],
         'type': 'time'
     }, {
         'date': '+1767',
@@ -5802,11 +5802,11 @@ def test_temporal_coverage(app, marc21_record):
         'type': 'time'
     }, {
         'date': None,
-        'period_code': ['w1'],
+        'period_code': ['w1w1'],
         'type': 'time'
     }, {
         'date': None,
-        'period_code': ['x1'],
+        'period_code': ['x1x1'],
         'type': 'time'
     }, {
         'period_code': ['x6x6'],
