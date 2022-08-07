@@ -831,7 +831,7 @@ class Marc21toJson():
             self.pids = {
                 data['bib_id']: data['document_pid'] for data in datas}
             click.echo(f'  Found pids: {len(self.pids)}')
-        self.ctx = multiprocessing.get_context("spawn")
+        self.ctx = multiprocessing.get_context('spawn')
         manager = self.ctx.Manager()
         self.results = manager.list()
         self.active_buffer = 0

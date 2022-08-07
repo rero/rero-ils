@@ -228,6 +228,11 @@ _INTENDED_AUDIENCE_TYPE_REGEXP = {
     'filmage_ch': re.compile(r'^from the age of')
 }
 
+_LONGITUDE = re.compile(r'^[EW0-9.+-]+(\\s[EW0-9.+-]+)?')
+_LATITUDE = re.compile(r'^[NS0-9.+-]+(\\s[NS0-9.+-]+)?')
+
+_PERIOD_CODE = re.compile(r'^([a-z][0-9-]){2}$')
+
 _SCALE_TYPE = {
     'a': 'Linear scale',
     'b': 'Angular scale',
@@ -678,10 +683,7 @@ def do_copyright_date(data, value):
     copyright_dates = data.get('copyrightDate', [])
     for copyright_date in utils.force_list(value.get('c', [])):
         if match := re.search(r'^([©℗])+\s*(\d{4}.*)', copyright_date):
-            copyright_date = ' '.join((
-                match.group(1),
-                match.group(2)
-            ))
+            copyright_date = ' '.join((match[1], match[2]))
             copyright_dates.append(copyright_date)
             # else:
             #     raise ValueError('Bad format of copyright date')
@@ -1778,13 +1780,14 @@ def do_scale_and_cartographic(data, marc21, key, value):
         scale = {
             'label': remove_trailing_punctuation(value.get('a'))
         }
-        if fields_034 and len(fields_034) >= index:
+        if fields_034 and len(fields_034) > index:
             subfields_034_a = marc21.get_subfields(fields_034[index], 'a')
             subfields_034_b = marc21.get_subfields(fields_034[index], 'b')
             subfields_034_c = marc21.get_subfields(fields_034[index], 'c')
 
             if subfields_034_a:
-                scale['type'] = _SCALE_TYPE.get(subfields_034_a[0].strip())
+                scale['type'] = _SCALE_TYPE.get(
+                    subfields_034_a[0].strip(), _SCALE_TYPE['z'])
             if subfields_034_b:
                 ratio_linear_horizontal = subfields_034_b[0]
                 try:
@@ -1809,7 +1812,6 @@ def do_scale_and_cartographic(data, marc21, key, value):
         scales.append(scale)
         data['scale'] = scales
 
-    cartographic_attributes = data.get('cartographicAttributes', [])
     subfield_b = value.get('b')
     subfield_c = value.get('c')
     cartographic_attribute = {}
@@ -1817,7 +1819,7 @@ def do_scale_and_cartographic(data, marc21, key, value):
         cartographic_attribute['projection'] = subfield_b
     coordinates = {'label': subfield_c} if subfield_c else {}
 
-    if fields_034 and len(fields_034) >= index:
+    if fields_034 and len(fields_034) > index:
         """
         * "longitude": "034$d 034$e" - concaténer les valeurs et les séparer
           si nécessaire d'un espace
@@ -1839,12 +1841,16 @@ def do_scale_and_cartographic(data, marc21, key, value):
             latitude_parts.append(subfields_034_f[0])
         if subfields_034_g:
             latitude_parts.append(subfields_034_g[0])
-        if longitude_parts:
-            coordinates['longitude'] = ' '.join(longitude_parts)
-            coordinates['latitude'] = ' '.join(latitude_parts)
+        longitude = ' '.join(longitude_parts)
+        latitude = ' '.join(latitude_parts)
+        if _LONGITUDE.match(longitude):
+            coordinates['longitude'] = longitude
+        if _LATITUDE.match(latitude):
+            coordinates['latitude'] = latitude
     if coordinates:
         cartographic_attribute['coordinates'] = coordinates
     if cartographic_attribute:
+        cartographic_attributes = data.get('cartographicAttributes', [])
         cartographic_attributes.append(cartographic_attribute)
         data['cartographicAttributes'] = cartographic_attributes
 
@@ -1889,6 +1895,7 @@ def do_temporal_coverage(marc21, key, value):
         return False
 
     def format_date_b(date):
+        date = date.replace(' ', '')
         if date[0] == 'c':
             date = f'-{date[1:]}'
         elif date[0] == 'd':
@@ -1899,19 +1906,19 @@ def do_temporal_coverage(marc21, key, value):
         year = date[1:5]
         if test_min_max(year, 0, 9999):
             date_str = f'{date_str}{year}'
-            month = date[5:7]
+            month = date[5:7].zfill(2)
             if test_min_max(month, 1, 12):
                 date_str = f'{date_str}-{month}'
-                day = date[7:9]
-                if test_min_max(day, 1, 31):
-                    date_str = f'{date_str}-{day}'
-                    hour = date[9:11]
-                    if test_min_max(hour, 0, 23):
-                        minute = date[11:13] if \
-                            test_min_max(date[11:13], 0, 59) else '00'
-                        second = date[13:15] if \
-                            test_min_max(date[13:15], 0, 59) else '00'
-                        date_str = f'{date_str}T{hour}:{minute}:{second}'
+                day = date[7:9].zfill(2) if test_min_max(
+                    date[7:9], 1, 31) else '01'
+                date_str = f'{date_str}-{day}'
+                hour = date[9:11]
+                if test_min_max(hour, 0, 23):
+                    minute = date[11:13] if \
+                        test_min_max(date[11:13], 0, 59) else '00'
+                    second = date[13:15] if \
+                        test_min_max(date[13:15], 0, 59) else '00'
+                    date_str = f'{date_str}T{hour}:{minute}:{second}'
         if len(date_str) > 1:
             return date_str
 
@@ -1923,7 +1930,19 @@ def do_temporal_coverage(marc21, key, value):
     coverage_type = 'time' if ind1 in ['0', '1'] else 'period'
     temporal_coverage = {}
     if subfields_a := utils.force_list(value.get('a')):
-        temporal_coverage['period_code'] = list(subfields_a)
+        correct_subfields_a = []
+        for subfield_a in subfields_a:
+            subfield_a = subfield_a.lower()
+            # duplicate periode_code for the type time
+            if coverage_type == 'time' and len(subfield_a) == 2:
+                subfield_a = f'{subfield_a}{subfield_a}'
+            if _PERIOD_CODE.match(subfield_a):
+                correct_subfields_a.append(subfield_a)
+            else:
+                error_print('WARNING PERIOD CODE:', marc21.bib_id,
+                            marc21.rero_id, subfield_a)
+        if correct_subfields_a:
+            temporal_coverage['period_code'] = correct_subfields_a
     if coverage_type == 'time':
         if subfield_b := not_repetitive(marc21.bib_id, marc21.bib_id, key,
                                         value, 'b'):

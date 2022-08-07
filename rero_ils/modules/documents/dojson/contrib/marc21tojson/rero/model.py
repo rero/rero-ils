@@ -45,6 +45,8 @@ from ..utils import _CONTRIBUTION_ROLE, do_abbreviated_title, \
 
 marc21 = ReroIlsMarc21Overdo()
 
+_CONTAINS_FACTUM_REGEXP = re.compile(r'factum')
+
 
 @marc21.over('issuance', 'leader')
 @utils.ignore_value
@@ -709,7 +711,8 @@ def marc21_to_classification(self, key, value):
     }
 
     def get_classif_type_and_subdivision_codes_from_980_2(subfield_2):
-
+        if not subfield_2:
+            return None, None
         classification_type_per_tag_980_2 = {
             'brp': 'classification_brunetparguez',
             'dr-sys': 'classification_droit',
@@ -744,9 +747,7 @@ def marc21_to_classification(self, key, value):
         classification = {}
         classification['classificationPortion'] = subfield_a
         if tag == '980':
-            contains_factum_regexp = re.compile(r'factum')
-            match = contains_factum_regexp.search(subfield_2)
-            if match:
+            if subfield_2 and _CONTAINS_FACTUM_REGEXP.search(subfield_2):
                 subject = {
                     'type': 'bf:Person',
                     'preferred_name': subfield_a,
