@@ -1,0 +1,32 @@
+name: Pull Request Stats
+# Github action to print relevant stats about Pull Request reviewers.
+# The objective of this action is to:
+#    Reduce the time taken to review the pull requests.
+#    Encourage quality on reviews.
+#    Help deciding which people to assign as reviewers.
+
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  stats:
+    permissions:
+      pull-requests: read/write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run pull request stats
+        uses: flowwer-dev/pull-request-stats@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          organization: 'rero'
+          # Tracks stats for last 30 days
+          period: 30
+          # Show visual stats
+          charts: true
+          # Disables link to personal stats
+          disable-links: true
+          sort-by: 'COMMENTS'
+          # Adds stats at the end of the PR description
+          publish-as: 'DESCRIPTION'
