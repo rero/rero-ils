@@ -21,9 +21,11 @@
 
 from functools import partial
 
+from elasticsearch.exceptions import NotFoundError
 from elasticsearch_dsl import Q
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
+from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
 
 from .models import DocumentIdentifier, DocumentMetadata, DocumentSubjectType
@@ -388,10 +390,44 @@ class DocumentsIndexer(IlsRecordsIndexer):
 
     record_cls = Document
 
+    @classmethod
+    def _es_document(cls, record):
+        """Get the document from the corresponding index.
+
+        :param record: an item object
+        :returns: the elasticsearch document or {}
+        """
+        try:
+            es_item = current_search_client.get(
+                DocumentsSearch.Meta.index, record.id)
+            return es_item['_source']
+        except NotFoundError:
+            return {}
+
     def index(self, record):
         """Index an document."""
+        # get previous indexed version
+        es_document = self._es_document(record)
+
+        # call the parent index method
         return_value = super().index(record)
+
+        # index contributions
+        # TODO: reindex contributions only if it has been touched
         record.index_contributions(bulk=True)
+
+        # index document of the host document only if the title
+        # has been changed
+        # the comparison should be done on the dumps as _text is
+        # added for indexing
+        if not es_document \
+           or (record.dumps().get('title') != es_document.get('title')):
+            search = DocumentsSearch().filter(
+                'term', partOf__document__pid=record.pid)
+            ids = [doc.meta.id for doc in search.source().scan()]
+            if ids:
+                # reindex in background as the list can be huge
+                self.bulk_index(ids)
         return return_value
 
     def bulk_index(self, record_id_iterator):
