@@ -17,11 +17,11 @@
 
 """Acquisition account serialization."""
 
-from invenio_records_rest.serializers.response import record_responsify, \
-    search_responsify
+from invenio_records_rest.serializers.response import record_responsify
 
 from rero_ils.modules.libraries.api import LibrariesSearch
-from rero_ils.modules.serializers import ACQJSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.serializers import ACQJSONSerializer, JSONSerializer, \
+    RecordSchemaJSONV1, search_responsify
 
 from .api import AcqAccountsSearch
 
@@ -31,6 +31,7 @@ class AcqAccountJSONSerializer(ACQJSONSerializer):
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
         """Prepare a record and persistent identifier for serialization."""
+        # Add some ES stored keys into response
         query = AcqAccountsSearch().filter('term', pid=record.pid).source()
         if hit := next(query.scan(), None):
             hit_metadata = hit.to_dict()
@@ -47,11 +48,12 @@ class AcqAccountJSONSerializer(ACQJSONSerializer):
             pid=pid,
             record=record,
             links_factory=links_factory,
-            kwargs=kwargs)
+            kwargs=kwargs
+        )
 
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""
-        self.enrich_bucket_with_data(
+        JSONSerializer.enrich_bucket_with_data(
             aggregations.get('library', {}).get('buckets', []),
             LibrariesSearch, 'name'
         )

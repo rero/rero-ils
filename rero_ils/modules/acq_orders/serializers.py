@@ -17,12 +17,12 @@
 
 """Acquisition order serialization."""
 
-from invenio_records_rest.serializers.response import record_responsify, \
-    search_responsify
+from invenio_records_rest.serializers.response import record_responsify
 
 from rero_ils.modules.acq_accounts.api import AcqAccountsSearch
 from rero_ils.modules.libraries.api import LibrariesSearch
-from rero_ils.modules.serializers import ACQJSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.serializers import ACQJSONSerializer, JSONSerializer, \
+    RecordSchemaJSONV1, search_responsify
 from rero_ils.modules.vendors.api import VendorsSearch
 
 
@@ -31,15 +31,15 @@ class AcqOrderJSONSerializer(ACQJSONSerializer):
 
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""
-        self.enrich_bucket_with_data(
+        JSONSerializer.enrich_bucket_with_data(
             aggregations.get('library', {}).get('buckets', []),
             LibrariesSearch, 'name'
         )
-        self.enrich_bucket_with_data(
+        JSONSerializer.enrich_bucket_with_data(
             aggregations.get('vendor', {}).get('buckets', []),
             VendorsSearch, 'name'
         )
-        self.enrich_bucket_with_data(
+        JSONSerializer.enrich_bucket_with_data(
             aggregations.get('account', {}).get('buckets', []),
             AcqAccountsSearch, 'name'
         )

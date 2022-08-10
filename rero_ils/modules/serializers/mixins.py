@@ -94,16 +94,43 @@ class PostprocessorMixin(PostprocessorMixinInterface):
 class CachedDataSerializerMixin:
     """Class to load and cached resources for serialization process."""
 
-    _resources = {}
+    def __init__(self, limit=2000):
+        """Init.
+
+        :param limit: the maximum number of element to keep in cache.
+        :raises AssertionError: limit is lower or equal to 0.
+        """
+        # TODO :: Use variable from config but this will conflict all tests
+        #    because appcontext is missing
+        assert limit > 0
+        self._resources = {}
+        self._limit = limit
+
+    def append(self, key, resource):
+        """Append a resource into the cache.
+
+        If the cache reached the limit, then the first older element of the
+        cache will be removed to free space to this resource.
+
+        :param key: the resource key.
+        :param resource: the resource to add to the cache.
+        """
+        if len(self._resources) >= self._limit:
+            # remove the first element from dict. Not sure that this is the
+            # order element of the dictionary, but it should.
+            (k := next(iter(self._resources)), self._resources.pop(k))
+        self._resources[key] = resource
 
     @staticmethod
-    def _get_class_key(loader):
+    def _get_key(loader, pid):
         """Get the key where store the resource.
 
         :param loader: Class use to retrieve the resource records.
         :return: The key where store the resource into the cache.
         """
-        return loader if inspect.isclass(loader) else loader.__class__
+        if not inspect.isclass(loader):
+            loader = loader.__class__
+        return hash(loader.__name__ + pid)
 
     def load_all(self, *args):
         """Load all resources and store them into the cache.
@@ -111,13 +138,15 @@ class CachedDataSerializerMixin:
         :param args: Classes use to retrieve the resource records. Each class
             should be a ``invenio_search.api.RecordsSearch`` subclass to get
             records from the ElasticSearch index.
+        :raises AssertionError if a loader class isn't
+            ``invenio_search.api.RecordsSearch`` subclass.
         """
         for loader in args:
             assert issubclass(loader.__class__, RecordsSearch)
-            cls_key = CachedDataSerializerMixin._get_class_key(loader)
             for hit in loader.scan():
-                hit = hit.to_dict()
-                self._resources.setdefault(cls_key, {})[hit.get('pid')] = hit
+                pid = hit['pid']
+                key = CachedDataSerializerMixin._get_key(loader, pid)
+                self.append(key, hit.to_dict())
 
     def load_resources(self, loader, pids):
         """Load a set of resource and store them into the cache.
@@ -126,18 +155,15 @@ class CachedDataSerializerMixin:
         :param pids: List of pids to load.
         """
         assert type(pids) is list
-        # Filter the pid list to keep only pids not already present into cache.
-        cls_key = CachedDataSerializerMixin._get_class_key(loader)
-        if cls_key in self._resources:
-            pids = [pid for pid in pids if pid not in self._resources[cls_key]]
-        if not pids:
-            return
-        # Load resources & store them into cache
+        resources = []
         for resource in loader.get_records_by_pids(pids):
             if not inspect.isclass(loader):  # AttrDict conversion
                 resource = resource.to_dict()
             if pid := resource.get('pid'):
-                self._resources.setdefault(cls_key, {})[pid] = resource
+                key = CachedDataSerializerMixin._get_key(loader, pid)
+                self.append(key, resource)
+                resources.append(resource)
+        return resources
 
     def get_resource(self, loader, pid):
         """Get a resource and store it into the cache if necessary.
@@ -146,9 +172,10 @@ class CachedDataSerializerMixin:
         :param pid: the resource pid.
         :return: the requested resource.
         """
-        self.load_resources(loader, [pid])
-        cls_key = CachedDataSerializerMixin._get_class_key(loader)
-        return self._resources[cls_key][pid]
+        resource_key = CachedDataSerializerMixin._get_key(loader, pid)
+        if resource_key in self._resources:
+            return self._resources[resource_key]
+        return next(iter(self.load_resources(loader, [pid])), None)
 
 
 class StreamSerializerMixin:
