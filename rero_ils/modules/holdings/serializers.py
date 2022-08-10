@@ -17,13 +17,11 @@
 
 """Holdings serialization."""
 
-from invenio_records_rest.serializers.response import search_responsify
-
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.serializers import CachedDataSerializerMixin, \
-    JSONSerializer, RecordSchemaJSONV1
+    JSONSerializer, RecordSchemaJSONV1, search_responsify
 
 from .api import Holding
 

@@ -719,7 +719,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class='rero_ils.modules.items.api:ItemsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
-            'application/rero+json': 'rero_ils.modules.items.serializers:json_item_search'
+            'application/rero+json': 'rero_ils.modules.items.serializers:json_item_response'
         },
         search_serializers_aliases={
             'json': 'application/json',

@@ -17,10 +17,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO-ILS Loan resource serializers."""
-from invenio_records_rest.serializers import search_responsify
-
 from rero_ils.modules.serializers import RecordSchemaJSONV1, \
-    search_responsify_file
+    search_responsify, search_responsify_file
 
 from .csv import LoanStreamedCSVSerializer
 from .json import LoanJSONSerializer
