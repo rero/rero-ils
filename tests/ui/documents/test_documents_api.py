@@ -20,10 +20,13 @@
 from __future__ import absolute_import, print_function
 
 import pytest
+from utils import flush_index
 
 from rero_ils.modules.api import IlsRecordError
-from rero_ils.modules.documents.api import Document, document_id_fetcher
+from rero_ils.modules.documents.api import Document, DocumentsSearch, \
+    document_id_fetcher
 from rero_ils.modules.ebooks.tasks import create_records
+from rero_ils.modules.tasks import process_bulk_queue
 
 
 def test_document_create(db, document_data_tmp):
@@ -177,3 +180,44 @@ def test_document_get_links_to_me(document, export_document):
             'partOf': [export_document.pid]
         }
     }
+
+
+def test_document_indexing(document, export_document):
+    """Test document indexing."""
+
+    # get the export_document from the es index
+    s = DocumentsSearch().filter('term', pid=export_document.pid)
+    assert s.count() == 1
+    # get the partOf field
+    record = next(s.source('partOf').scan())
+    # get the titles from the host document
+    parent_titles = [
+        v['_text'] for v in document.dumps().get('title')
+        if v.get('_text') and v.get('type') == 'bf:Title'
+    ]
+    assert record.partOf[0].document.title == parent_titles.pop()
+
+    # change the title of the host document
+    orig_title = document['title'][0]['mainTitle'][1]['value']
+    document['title'][0]['mainTitle'][1]['value'] = 'New title'
+    document.update(document, dbcommit=True, reindex=True)
+
+    # process the bulked indexed documents
+    process_bulk_queue()
+    flush_index(DocumentsSearch.Meta.index)
+
+    # get the export_document from the es index
+    s = DocumentsSearch().filter('term', pid=export_document.pid)
+    # get the partOf field
+    record = next(s.source('partOf').scan())
+    # get the titles from the host document
+    parent_titles = [
+        v['_text'] for v in document.dumps().get('title')
+        if v.get('_text') and v.get('type') == 'bf:Title'
+    ]
+    assert record.partOf[0].document.title == parent_titles.pop()
+
+    # restore initial data
+    document['title'].pop(-1)
+    document['title'][0]['mainTitle'][1]['value'] = orig_title
+    document.update(document, dbcommit=True, reindex=True)

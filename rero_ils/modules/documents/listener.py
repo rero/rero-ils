@@ -26,7 +26,6 @@ from ..holdings.api import HoldingsSearch
 from ..items.api import ItemsSearch
 from ..items.models import ItemNoteTypes
 from ..local_fields.api import LocalField
-from ..utils import extracted_data_from_ref
 from ...utils import language_mapping
 
 
@@ -131,19 +130,16 @@ def enrich_document_data(sender, json=None, record=None, index=None,
     # TODO: compare record with those in DB to check which authors have
     # to be deleted from index
     # Index host document title in child document (part of)
-    if 'partOf' in record:
-        title = {'type': 'partOf'}
-        for part_of in record['partOf']:
-            doc_pid = extracted_data_from_ref(
-                part_of.get('document')
-            )
-            document = Document.get_record_by_pid(doc_pid)
-            for part_of_title in document.get('title', []):
-                if 'mainTitle' in part_of_title:
-                    title['partOfTitle'] = part_of_title.get(
-                        'mainTitle'
-                    )
-        json['title'].append(title)
+    if 'partOf' in json:
+        for part_of in json['partOf']:
+            doc_pid = part_of.get('document', {}).get('pid')
+            document = Document.get_record_by_pid(doc_pid).dumps()
+            titles = [
+                v['_text'] for v in document.get('title', {})
+                if v.get('_text') and v.get('type') == 'bf:Title'
+            ]
+            if titles:
+                part_of['document']['title'] = titles.pop()
 
     # sort title
     sort_title = title_format_text_head(

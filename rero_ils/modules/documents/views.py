@@ -321,13 +321,13 @@ def part_of_format(part_of):
     else:
         output['label'] = _('Published in')
     # Set title
-    bf_titles = list(filter(
-        lambda t: t['type'] == 'bf:Title', document.get('title')
-    ))
-    for title in bf_titles:
-        for main_title in title.get('mainTitle', []):
-            if not main_title.get('language'):
-                output['title'] = main_title.get('value')
+    bf_titles = list(
+        filter(
+            lambda t: t['type'] == 'bf:Title', document.get('title')
+        )
+    )
+    output['title'] = title_format_text_head(bf_titles)
+
     # Format and set numbering (example: 2020, vol. 2, nr. 3, p. 302)
     if nums is not None:
         for num in nums:
