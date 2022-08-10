@@ -18,12 +18,12 @@
 
 """Acquisition receipt line serialization."""
 
-from invenio_records_rest.serializers.response import record_responsify, \
-    search_responsify
+from invenio_records_rest.serializers.response import record_responsify
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper
-from rero_ils.modules.serializers import ACQJSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.serializers import ACQJSONSerializer, \
+    RecordSchemaJSONV1, search_responsify
 
 
 class AcqReceiptLineJSONSerializer(ACQJSONSerializer):

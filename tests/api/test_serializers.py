@@ -23,6 +23,7 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_csv, \
     get_json, item_record_to_a_specific_loan_state, login_user
 
 from rero_ils.modules.loans.models import LoanState
+from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -433,3 +434,43 @@ def test_acq_receipts_serializers(
     receipt_data_aggr = data.get('aggregations', {}).get('receipt_date', {})
     assert len(receipt_data_aggr.get('buckets', []))
     assert receipt_data_aggr.get('config', {})
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_cached_serializers(client, rero_json_header, item_lib_martigny,
+                            loc_public_martigny, loc_public_martigny_data):
+    """Test cached serializers."""
+
+    # Ensure than cache used in some serializer is reset each time we request
+    # a new search result serialization.
+    #
+    # To check this effect, we will request a first serialization about items
+    # (items search serializer inherit from ``CachedDataSerializerMixin``).
+    # After this first call, we will update a cached resource (item location).
+    # Last step is to request again the items search and check if the location
+    # return is affected by changed.
+
+    # STEP#1 : first items search serialization
+    list_url = url_for('invenio_records_rest.item_list')
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+
+    # STEP#2 : update item location name
+    location = loc_public_martigny
+    location['name'] = 'new location name'
+    location = location.update(location, dbcommit=True, reindex=True)
+    flush_index(LocationsSearch.Meta.index)
+    from rero_ils.modules.locations.api import Location
+    assert Location.get_record_by_pid(location.pid).get('name') == \
+           location.get('name')
+
+    # STEP#3 : second items search serialization
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    hit_metadata = data['hits']['hits'][0]['metadata']
+    assert hit_metadata['location']['name'] == location.get('name')
+
+    # reset location to initial values
+    location.update(loc_public_martigny_data, dbcommit=True, reindex=True)

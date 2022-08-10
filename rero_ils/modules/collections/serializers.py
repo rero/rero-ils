@@ -17,10 +17,9 @@
 
 """Collection serialization."""
 
-from invenio_records_rest.serializers.response import search_responsify
-
 from rero_ils.modules.libraries.api import LibrariesSearch
-from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1
+from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1, \
+    search_responsify
 
 
 class CollectionJSONSerializer(JSONSerializer):
