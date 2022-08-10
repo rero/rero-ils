@@ -18,8 +18,7 @@
 
 """RERO Document serialization."""
 
-from invenio_records_rest.serializers.response import record_responsify, \
-    search_responsify
+from invenio_records_rest.serializers.response import record_responsify
 
 from rero_ils.modules.documents.serializers.dc import DublinCoreSerializer
 from rero_ils.modules.documents.serializers.json import \
@@ -28,7 +27,7 @@ from rero_ils.modules.documents.serializers.marc import \
     DocumentMARCXMLSerializer, DocumentMARCXMLSRUSerializer
 from rero_ils.modules.documents.serializers.ris import RISSerializer
 from rero_ils.modules.serializers import RecordSchemaJSONV1, \
-    record_responsify_file, search_responsify_file
+    record_responsify_file, search_responsify, search_responsify_file
 
 # Serializers
 # ===========

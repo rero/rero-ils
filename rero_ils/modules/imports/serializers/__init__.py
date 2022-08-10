@@ -18,7 +18,7 @@
 
 """Import serialization."""
 
-from invenio_records_rest.serializers.response import search_responsify
+from rero_ils.modules.serializers import search_responsify
 
 from .response import record_responsify
 from .serializers import ImportSchemaJSONV1, ImportsMarcSearchSerializer, \

@@ -17,13 +17,12 @@
 
 """ILL Request serialization."""
 
-from invenio_records_rest.serializers.response import record_responsify, \
-    search_responsify
+from invenio_records_rest.serializers.response import record_responsify
 
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.serializers import CachedDataSerializerMixin, \
-    JSONSerializer, RecordSchemaJSONV1
+    JSONSerializer, RecordSchemaJSONV1, search_responsify
 
 
 class ILLRequestJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
