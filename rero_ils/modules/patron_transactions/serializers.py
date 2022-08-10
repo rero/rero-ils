@@ -17,13 +17,11 @@
 
 """Patron transactions serialization."""
 
-from invenio_records_rest.serializers.response import search_responsify
-
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.items.api.api import Item
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.serializers import CachedDataSerializerMixin, \
-    JSONSerializer, RecordSchemaJSONV1
+    JSONSerializer, RecordSchemaJSONV1, search_responsify
 
 
 class PatronTransactionsJSONSerializer(JSONSerializer,
@@ -38,7 +36,7 @@ class PatronTransactionsJSONSerializer(JSONSerializer,
         metadata = hit.get('metadata', {})
         # Serialize document (if exists)
         document_pid = metadata.get('document', {}).get('pid')
-        if document := self.get_resource(DocumentsSearch, document_pid):
+        if document := self.get_resource(DocumentsSearch(), document_pid):
             metadata['document'] = document
         # Serialize loan & item
         loan_pid = metadata.get('loan', {}).get('pid')

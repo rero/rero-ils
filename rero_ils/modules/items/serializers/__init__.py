@@ -16,11 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Items serializers."""
-from invenio_records_rest.serializers.response import record_responsify, \
-    search_responsify
+
+from invenio_records_rest.serializers.response import record_responsify
 
 from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1, \
-    search_responsify_file
+    search_responsify, search_responsify_file
 
 from .csv import ItemCSVSerializer
 from .json import ItemsJSONSerializer

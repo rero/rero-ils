@@ -63,7 +63,7 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
            and 'pid' in temp_loc:
             temp_loc_pid = temp_loc['pid']
             temp_loc['name'] = self\
-                .get_resource(LocationsSearch, temp_loc_pid).get('name')
+                .get_resource(LocationsSearch(), temp_loc_pid).get('name')
 
         # Organisation
         org_pid = metadata['organisation']['pid']
