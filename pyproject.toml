@@ -402,8 +402,16 @@ templates = "rero_ils.modules.templates.mappings"
 vendors = "rero_ils.modules.vendors.mappings"
 
 [tool.poetry.plugins."invenio_access.actions"]
-ptty_read = "rero_ils.modules.patron_types.permissions:ptty_read"
-ptty_write = "rero_ils.modules.patron_types.permissions:ptty_write"
+ptty_search = "rero_ils.modules.patron_types.permissions:search_action"
+ptty_read = "rero_ils.modules.patron_types.permissions:read_action"
+ptty_create = "rero_ils.modules.patron_types.permissions:create_action"
+ptty_update = "rero_ils.modules.patron_types.permissions:update_action"
+ptty_delete = "rero_ils.modules.patron_types.permissions:delete_action"
+org_search = "rero_ils.modules.organisations.permissions:search_action"
+org_read = "rero_ils.modules.organisations.permissions:read_action"
+org_create = "rero_ils.modules.organisations.permissions:create_action"
+org_update = "rero_ils.modules.organisations.permissions:update_action"
+org_delete = "rero_ils.modules.organisations.permissions:delete_action"
 
 [tool.poetry.plugins."invenio_search.templates"]
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
