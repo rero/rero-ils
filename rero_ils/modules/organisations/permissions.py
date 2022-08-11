@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,74 +17,24 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for organisations."""
+from invenio_access import action_factory
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
+
+# Actions to control Organisation policies
+search_action = action_factory('org-search')
+read_action = action_factory('org-read')
+create_action = action_factory('org-create')
+update_action = action_factory('org-update')
+delete_action = action_factory('org-delete')
 
 
-class OrganisationPermission(RecordPermission):
-    """Organisations permissions."""
+class OrganisationPermissionPolicy(RecordPermissionPolicy):
+    """Organisation Permission Policy used by the CRUD operations."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # List organisation allowed only for staff members (lib, sys_lib)
-        return bool(current_librarian)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) are allowed to read an organisation
-        if not current_librarian:
-            return False
-        # For staff users, they can read only their own organisation.
-        return current_librarian.organisation_pid == record['pid']
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # Nobody can create an organisation. To create a new organisation, use
-        # the CLI interface
-        return False
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # user should be authenticated
-        if not current_librarian:
-            return False
-        # only 'system_librarian' user allowed to update their own organisation
-        if not current_librarian.has_full_permissions:
-            return False
-        return current_librarian.organisation_pid == record['pid']
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # Nobody can remove an organisation
-        return False
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByOrganisation(read_action)]
+    can_create = [AllowedByAction(create_action)]
+    can_update = [AllowedByActionRestrictByOrganisation(update_action)]
+    can_delete = [AllowedByAction(delete_action)]
