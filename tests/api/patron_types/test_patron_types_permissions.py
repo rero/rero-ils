@@ -90,55 +90,77 @@ def test_patron_types_permissions(patron_martigny,
                                   patron_type_youngsters_sion):
     """Test patron types permissions class."""
 
+    permission_policy = PatronTypePermissionPolicy
+
+    def check_permission(actions, record):
+        for action_name, action_result in actions.items():
+            result = permission_policy(action_name, record=record).can()
+            assert \
+                result == action_result, \
+                f'{action_name} :: return {result} but should {action_result}'
+
     # Anonymous user
+    #    An anonymous user can't operate any operation about PatronType
     identity_changed.send(
         current_app._get_current_object(), identity=AnonymousIdentity()
     )
-    assert not PatronTypePermissionPolicy('list', record=None).can()
-    assert not PatronTypePermissionPolicy(
-        'create', record={}).can()
-    for action in ['read', 'create', 'update', 'delete']:
-        assert not PatronTypePermissionPolicy(
-            action, record=patron_type_adults_martigny).can()
+    check_permission({'search': False}, None)
+    check_permission({'create': False}, {})
+    check_permission({
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, patron_type_adults_martigny)
 
     # Patron
+    #    A simple patron can't operate any operation about PatronType
     login_user(patron_martigny.user)
-    assert not PatronTypePermissionPolicy(
-        'search', record=None).can()
-    assert not PatronTypePermissionPolicy(
-        'create', record={}).can()
-    for action in ['read', 'create', 'update', 'delete']:
-        assert not PatronTypePermissionPolicy(
-            action, record=patron_type_adults_martigny).can()
+    check_permission({'search': False}, None)
+    check_permission({'create': False}, {})
+    check_permission({
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, patron_type_adults_martigny)
 
-    # As Librarian
+    # Librarian
+    #     - search : any PatronType despite organisation owner
+    #     - read : only PatronType for its own organisation
+    #     - create/update/delete: disallowed
     login_user(librarian_martigny.user)
-    assert PatronTypePermissionPolicy(
-        'search', record=None).can()
-    assert not PatronTypePermissionPolicy(
-        'create', record={}).can()
-    assert PatronTypePermissionPolicy(
-        'read', record=patron_type_adults_martigny).can()
+    check_permission({'search': True}, None)
+    check_permission({'create': False}, {})
+    check_permission({
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, patron_type_adults_martigny)
+    check_permission({
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, patron_type_youngsters_sion)
 
-    for action in ['create', 'update', 'delete']:
-        assert not PatronTypePermissionPolicy(
-            action, record=patron_type_adults_martigny).can()
-
-    for action in ['read', 'create', 'update', 'delete']:
-        assert not PatronTypePermissionPolicy(
-            action, record=patron_type_youngsters_sion).can()
-
-    # As SystemLibrarian
+    # SystemLibrarian
+    #     - search : any PatronType despite organisation owner
+    #     - read/create/update/delete : only PatronType for its own
+    #       organisation
     login_user(system_librarian_martigny.user)
-    assert PatronTypePermissionPolicy(
-        'search', record=None).can()
-    assert PatronTypePermissionPolicy(
-        'create', record={}).can()
-
-    for action in ['read', 'create', 'update', 'delete']:
-        assert PatronTypePermissionPolicy(
-            action, record=patron_type_adults_martigny).can()
-
-    for action in ['read', 'create', 'update', 'delete']:
-        assert not PatronTypePermissionPolicy(
-            action, record=patron_type_youngsters_sion).can()
+    check_permission({'search': True}, None)
+    check_permission({'create': True}, {})
+    check_permission({
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, patron_type_adults_martigny)
+    check_permission({
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, patron_type_youngsters_sion)

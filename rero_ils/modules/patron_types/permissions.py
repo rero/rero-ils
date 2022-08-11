@@ -17,24 +17,23 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for patron types."""
-
 from invenio_access import action_factory
 
 from rero_ils.modules.permissions import AllowedByAction, \
-    LibrarianWithTheSameOrganisation, RecordPermissionPolicy
+    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
 
-ptty_read = action_factory('ptty-read')
-ptty_write = action_factory('ptty-write')
+search_action = action_factory('ptty-search')
+read_action = action_factory('ptty-read')
+create_action = action_factory('ptty-create')
+update_action = action_factory('ptty-update')
+delete_action = action_factory('ptty-delete')
 
 
 class PatronTypePermissionPolicy(RecordPermissionPolicy):
-    """Patron Type Permission Policy.
+    """Patron Type Permission Policy used by the CRUD operations."""
 
-    Used by the CRUD operations.
-    """
-
-    can_search = [AllowedByAction('ptty-read')]
-    can_read = [LibrarianWithTheSameOrganisation('ptty-read')]
-    can_create = [LibrarianWithTheSameOrganisation('ptty-write')]
-    can_update = [LibrarianWithTheSameOrganisation('ptty-write')]
-    can_delete = [LibrarianWithTheSameOrganisation('ptty-write')]
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByOrganisation(read_action)]
+    can_create = [AllowedByActionRestrictByOrganisation(create_action)]
+    can_update = [AllowedByActionRestrictByOrganisation(update_action)]
+    can_delete = [AllowedByActionRestrictByOrganisation(delete_action)]
