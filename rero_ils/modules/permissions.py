@@ -16,24 +16,25 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for all modules."""
-
 from abc import ABC
+from functools import partial
 
-from flask import current_app, jsonify
+from flask import current_app, g, jsonify
 from flask_login import current_user
-from invenio_access import current_access
-from invenio_access.permissions import any_user
+from flask_principal import Need
 from invenio_records_permissions import \
     RecordPermissionPolicy as _RecordPermissionPolicy
 from invenio_records_permissions.generators import Disable, Generator
 
 from rero_ils.modules.patrons.api import current_librarian
-
-from .utils import get_record_class_and_permissions_from_route
+from rero_ils.modules.utils import get_record_class_and_permissions_from_route
 
 # Basics access without permission check
 allow_access = type('Allow', (), {'can': lambda self: True})()
 deny_access = type('Deny', (), {'can': lambda self: False})()
+
+
+OrganisationNeed = partial(Need, "organisation")
 
 
 def record_permissions(record_pid=None, route_name=None):
@@ -316,7 +317,7 @@ class AcquisitionPermission(RecordPermission, ABC):
         if not cls._rolled_over(record):
             return False
         # 'sys_lib' can update all account
-        if current_librarian.is_system_librarian:
+        if current_librarian.has_full_permissions:
             return current_librarian.organisation_pid == \
                 record.organisation_pid
         # 'lib' can only update account linked to its own library
@@ -359,31 +360,34 @@ class AllowedByAction(Generator):
     def __init__(self, action):
         """Constructor.
 
-        :param action: string - the action name to allows.
+        :param action: Need - the ``ActionNeed`` to allow.
         """
         self.action = action
 
-    def needs(self, **kwargs):
+    def needs(self, *args, **kwargs):
         """Allows the given action.
 
-        :param kwargs: extra arguments
+        :param args: extra arguments.
+        :param kwargs: extra named arguments.
         :returns: a list of action permission.
         """
-        return [current_access.actions.get(self.action)]
+        return [self.action]
 
 
-class LibrarianWithTheSameOrganisation(AllowedByAction):
-    """Allow if the user and the recrod have the same organisation."""
+class AllowedByActionRestrictByOrganisation(AllowedByAction):
+    """Allow if the user and the record have the same organisation."""
 
-    def excludes(self, record=None, **kwargs):
-        """Excludes if the record and the user has different organisation.
+    def needs(self, record=None, *args, **kwargs):
+        """Allows the given action.
 
-        :param record: Record instance - the given record.
-        :returns: a list of permissions, empty if allows.
+        :param record: the record to check.
+        :param args: extra arguments.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to validate access.
         """
-        if record and (
-            not current_librarian
-            or current_librarian.organisation_pid != record.organisation_pid
-        ):
-            return [any_user]
-        return []
+        if record:
+            # Check if the record organisation match an ``OrganisationNeed``
+            required_need = OrganisationNeed(record.organisation_pid)
+            if required_need not in g.identity.provides:
+                return []
+        return super().needs(record, **kwargs)
