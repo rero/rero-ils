@@ -26,6 +26,7 @@ from flask import Blueprint
 from flask_bootstrap import Bootstrap4
 from flask_login.signals import user_loaded_from_cookie, user_logged_in, \
     user_logged_out
+from flask_principal import identity_loaded
 from flask_wiki import Wiki
 from invenio_base.signals import app_loaded
 from invenio_circulation.signals import loan_state_changed
@@ -72,9 +73,11 @@ from rero_ils.modules.patron_transaction_events.listener import \
     enrich_patron_transaction_event_data
 from rero_ils.modules.patron_transactions.listener import \
     enrich_patron_transaction_data
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.patrons.listener import \
     create_subscription_patron_transaction, enrich_patron_data, \
     update_from_profile
+from rero_ils.modules.permissions import OrganisationNeed
 from rero_ils.modules.sru.views import SRUDocumentsSearch
 from rero_ils.modules.templates.listener import prepare_template_data
 from rero_ils.modules.users.listener import user_register_forms, \
@@ -82,6 +85,26 @@ from rero_ils.modules.users.listener import user_register_forms, \
 from rero_ils.modules.users.views import UsersCreateResource, UsersResource
 from rero_ils.modules.utils import remove_user_name, set_user_name
 from rero_ils.version import __version__
+
+
+@identity_loaded.connect
+def on_identity_loaded(sender, identity):
+    """Add ``Needs`` to manage RERO-ILS permissions.
+
+    Add custom RERO-ILS ``Needs`` that will be used to manage policies on
+    application resources.
+    Assuming that ``RoleNeed`` and ``UserNeed`` are already populated by
+    flask modules.
+
+    @param sender: the sender application.
+    @param identity: the identity to enrich.
+    """
+    if current_librarian:
+        identity.provides.add(
+            OrganisationNeed(current_librarian.organisation_pid))
+    elif current_patrons:
+        for patron in current_patrons:
+            identity.provides.add(OrganisationNeed(patron.organisation_pid))
 
 
 class REROILSAPP(object):

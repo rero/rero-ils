@@ -1,15 +1,50 @@
 {
+  "ptty-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
   "ptty-read": [
     "pro_full_permissions",
     "pro_read_only",
     "pro_catalog_manager",
     "pro_circulation_manager",
-    "pro_ill_manager",
     "pro_user_manager",
     "pro_acquisition_manager",
     "pro_library_administrator"
   ],
-  "ptty-write": [
+  "ptty-create": [
+    "pro_full_permissions"
+  ],
+  "ptty-update": [
+    "pro_full_permissions"
+  ],
+  "ptty-delete": [
+    "pro_full_permissions"
+  ],
+  "org-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "org-read": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "org-update": [
     "pro_full_permissions"
   ]
 }

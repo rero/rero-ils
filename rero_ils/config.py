@@ -105,7 +105,7 @@ from .modules.notifications.permissions import NotificationPermission
 from .modules.operation_logs.api import OperationLog
 from .modules.operation_logs.permissions import OperationLogPermission
 from .modules.organisations.api import Organisation
-from .modules.organisations.permissions import OrganisationPermission
+from .modules.organisations.permissions import OrganisationPermissionPolicy
 from .modules.patron_transaction_events.api import PatronTransactionEvent
 from .modules.patron_transaction_events.permissions import \
     PatronTransactionEventPermission
@@ -1136,16 +1136,11 @@ RECORDS_REST_ENDPOINTS = dict(
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp=('rero_ils.query:'
                             'organisation_organisation_search_factory'),
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=OrganisationPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=OrganisationPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=OrganisationPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=OrganisationPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=OrganisationPermission)
+        list_permission_factory_imp=lambda record: OrganisationPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: OrganisationPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: OrganisationPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: OrganisationPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: OrganisationPermissionPolicy('delete', record=record)
     ),
     lib=dict(
         pid_type='lib',
