@@ -452,7 +452,9 @@ def test_cached_serializers(client, rero_json_header, item_lib_martigny,
     # return is affected by changed.
 
     # STEP#1 : first items search serialization
-    list_url = url_for('invenio_records_rest.item_list')
+    item = item_lib_martigny
+    list_url = url_for('invenio_records_rest.item_list', q=item.pid)
+    print("DEBUG LIST #1...")
     response = client.get(list_url, headers=rero_json_header)
     assert response.status_code == 200
 
@@ -461,10 +463,15 @@ def test_cached_serializers(client, rero_json_header, item_lib_martigny,
     location['name'] = 'new location name'
     location = location.update(location, dbcommit=True, reindex=True)
     flush_index(LocationsSearch.Meta.index)
+    print("testing DB...")
     assert Location.get_record_by_pid(location.pid).get('name') == \
+           location.get('name')
+    print("testing ES...")
+    assert LocationsSearch().get_record_by_pid(location.pid)['name'] == \
            location.get('name')
 
     # STEP#3 : second items search serialization
+    print("DEBUG LIST #2...")
     response = client.get(list_url, headers=rero_json_header)
     assert response.status_code == 200
     data = get_json(response)

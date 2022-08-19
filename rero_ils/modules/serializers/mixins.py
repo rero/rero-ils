@@ -109,6 +109,7 @@ class CachedDataSerializerMixin:
     def reset(self):
         """Resetting the cache."""
         self._resources.clear()
+        print("Clearing cache :: ", len(self._resources))
 
     def append(self, key, resource):
         """Append a resource into the cache.
@@ -119,6 +120,7 @@ class CachedDataSerializerMixin:
         :param key: the resource key.
         :param resource: the resource to add to the cache.
         """
+        print(f'    * Adding {key} into cache')
         if len(self._resources) >= self._limit:
             # remove the first element from dict. Not sure that this is the
             # order element of the dictionary, but it should.
@@ -160,10 +162,13 @@ class CachedDataSerializerMixin:
         """
         assert type(pids) is list
         resources = []
+        print(f"     * Try to load {pids} with {loader}...")
         for resource in loader.get_records_by_pids(pids):
+            print("    --> resource loaded")
             if not inspect.isclass(loader):  # AttrDict conversion
                 resource = resource.to_dict()
             if pid := resource.get('pid'):
+                print(f"    --> pid is {pid}")
                 key = CachedDataSerializerMixin._get_key(loader, pid)
                 self.append(key, resource)
                 resources.append(resource)
@@ -178,6 +183,7 @@ class CachedDataSerializerMixin:
         """
         resource_key = CachedDataSerializerMixin._get_key(loader, pid)
         if resource_key in self._resources:
+            print(f"     * Resource {resource_key} already exists into cache")
             return self._resources[resource_key]
         return next(iter(self.load_resources(loader, [pid])), None)
 

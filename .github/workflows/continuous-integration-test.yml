@@ -55,7 +55,7 @@ jobs:
 
     - name: Run Test
       run: |
-        poetry run poe run_tests
+        poetry run pytest -vvs --no-cov tests/api/test_serializers.py
 
     # NOT WORKING BECAUSE OF THIS PROBLEM:
     # https://github.community/t/github-actions-are-severely-limited-on-prs/18179#M9249
