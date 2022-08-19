@@ -77,7 +77,7 @@ from .modules.items.permissions import ItemPermission
 from .modules.items.utils import item_location_retriever, \
     same_location_validator
 from .modules.libraries.api import Library
-from .modules.libraries.permissions import LibraryPermission
+from .modules.libraries.permissions import LibraryPermissionPolicy
 from .modules.loans.api import Loan
 from .modules.loans.models import LoanState
 from .modules.loans.permissions import LoanPermission
@@ -1108,13 +1108,10 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Organisation(request.get_json()),
         },
         record_class='rero_ils.modules.organisations.api:Organisation',
-        item_route=('/organisations/<pid(org, record_class='
-                    '"rero_ils.modules.organisations.api:'
-                    'Organisation"):pid_value>'),
+        item_route='/organisations/<pid(org, record_class="rero_ils.modules.organisations.api:Organisation"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp=('rero_ils.query:'
-                            'organisation_organisation_search_factory'),
+        search_factory_imp='rero_ils.query:organisation_organisation_search_factory',
         list_permission_factory_imp=lambda record: OrganisationPermissionPolicy('search', record=record),
         read_permission_factory_imp=lambda record: OrganisationPermissionPolicy('read', record=record),
         create_permission_factory_imp=lambda record: OrganisationPermissionPolicy('create', record=record),
@@ -1143,21 +1140,15 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Library(request.get_json()),
         },
         record_class='rero_ils.modules.libraries.api:Library',
-        item_route=('/libraries/<pid(lib, record_class='
-                    '"rero_ils.modules.libraries.api:Library"):pid_value>'),
+        item_route='/libraries/<pid(lib, record_class="rero_ils.modules.libraries.api:Library"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=LibraryPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=LibraryPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=LibraryPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=LibraryPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=LibraryPermission)
+        list_permission_factory_imp=lambda record: LibraryPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: LibraryPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: LibraryPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: LibraryPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: LibraryPermissionPolicy('delete', record=record)
     ),
     loc=dict(
         pid_type='loc',
