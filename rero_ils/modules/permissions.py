@@ -35,6 +35,7 @@ deny_access = type('Deny', (), {'can': lambda self: False})()
 
 
 OrganisationNeed = partial(Need, "organisation")
+LibraryNeed = partial(Need, "library")
 
 
 def record_permissions(record_pid=None, route_name=None):
@@ -388,6 +389,35 @@ class AllowedByActionRestrictByOrganisation(AllowedByAction):
         if record:
             # Check if the record organisation match an ``OrganisationNeed``
             required_need = OrganisationNeed(record.organisation_pid)
+            if required_need not in g.identity.provides:
+                return []
+        return super().needs(record, **kwargs)
+
+
+class AllowedByActionRestrictByManageableLibrary(AllowedByAction):
+    """Allow if the user and the record have the same organisation."""
+
+    def __init__(self, action, callback=None):
+        """Constructor.
+
+        :param action: Need - the ``ActionNeed`` to allow.
+        :param callback: the function used to retrieve the library pid related
+            to the record that we need to check. By default, the
+            ``library_pid`` record attribute will be used.
+        """
+        self.callback = callback or (lambda r: getattr(r, 'library_pid', None))
+        super().__init__(action)
+
+    def needs(self, record=None, *args, **kwargs):
+        """Allows the given action.
+
+        :param record: the record to check.
+        :param kwargs: extra arguments.
+        :returns: a list of Needs to validate access.
+        """
+        if record and (library_pid := self.callback(record)):
+            # Check if the record library match an ``LibraryNeed``
+            required_need = LibraryNeed(library_pid)
             if required_need not in g.identity.provides:
                 return []
         return super().needs(record, **kwargs)
