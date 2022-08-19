@@ -1,4 +1,34 @@
 {
+  "lib-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "lib-read": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "lib-create": [
+    "pro_full_permissions",
+    "pro_library_administrator"
+  ],
+  "lib-update": [
+    "pro_full_permissions",
+    "pro_library_administrator"
+  ],
+  "lib-delete": [
+    "pro_full_permissions",
+    "pro_library_administrator"
+  ],
   "ptty-search": [
     "pro_full_permissions",
     "pro_read_only",

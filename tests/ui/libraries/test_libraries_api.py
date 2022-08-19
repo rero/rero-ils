@@ -24,7 +24,7 @@ from datetime import datetime, timedelta
 import pytz
 from dateutil import parser
 
-from rero_ils.modules.libraries.api import LibrariesSearch, Library
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.libraries.api import library_id_fetcher as fetcher
 from rero_ils.modules.libraries.models import LibraryAddressType
 from rero_ils.modules.notifications.models import NotificationType
@@ -35,16 +35,6 @@ def test_classes_api_methods(org_martigny, lib_martigny):
     """Test some specific methods related to `Library` resources."""
     org = org_martigny
     lib = lib_martigny
-
-    # TEST : LibrariesSearch::get_libraries_by_organisation_pid
-    fields = ['name']
-    hits = list(
-        LibrariesSearch()
-        .get_libraries_by_organisation_pid(org.pid, fields=fields)
-    )
-    assert len(hits) == 1
-    assert 'name' in hits[0]
-    assert 'code' not in hits[0]
 
     # TEST :: Library.get_organisation
     assert lib.get_organisation() == org
