@@ -3826,7 +3826,8 @@
       "pro_catalog_manager",
       "pro_circulation_manager",
       "pro_user_manager",
-      "pro_acquisition_manager"
+      "pro_acquisition_manager",
+      "pro_library_administrator"
     ]
   },
   "ptrn3": {
