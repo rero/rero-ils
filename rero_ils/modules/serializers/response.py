@@ -22,7 +22,6 @@ Responsible for creating an HTTP response given the output of a serializer.
 """
 from __future__ import absolute_import, print_function
 
-from copy import deepcopy
 from datetime import datetime
 
 from flask import current_app
@@ -51,9 +50,12 @@ def search_responsify(serializer, mimetype):
     """
     def view(pid_fetcher, search_result, code=200, headers=None, links=None,
              item_links_factory=None):
-        copy_serializer = deepcopy(serializer)
+        # Check if the serializer implement a 'reset' function. If yes, then
+        # call this function before perform serialization.
+        if (reset := getattr(serializer, 'reset', None)) and callable(reset):
+            reset()
         response = current_app.response_class(
-            copy_serializer.serialize_search(
+            serializer.serialize_search(
                 pid_fetcher, search_result,
                 links=links, item_links_factory=item_links_factory),
             mimetype=mimetype)
