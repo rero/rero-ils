@@ -106,6 +106,10 @@ class CachedDataSerializerMixin:
         self._resources = {}
         self._limit = limit
 
+    def reset(self):
+        """Resetting the cache."""
+        self._resources.clear()
+
     def append(self, key, resource):
         """Append a resource into the cache.
 
