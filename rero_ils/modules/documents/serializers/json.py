@@ -162,46 +162,32 @@ class DocumentJSONSerializer(JSONSerializer):
 
             for org in aggr_org:
                 # filter libraries by organisation
-                records = LibrariesSearch() \
-                            .get_libraries_by_organisation_pid(
-                                org['key'], ['pid', 'name'])
-                org_library = [{record.pid: record.name}
-                               for record in records]
-                org_library_pids = list(set().union(*(lib.keys()
-                                                    for lib in org_library)))
-
-                org['library']['buckets'] = [library for library
-                                             in org['library']['buckets']
-                                             if library['key'] in
-                                             org_library_pids]
-
-                for library in org['library']['buckets']:
-                    for lib in org_library:
-                        if library['key'] in lib:
-                            library['name'] = lib[library['key']]
-                            break
+                #   Keep only libraries for the current selected organisation.
+                query = LibrariesSearch() \
+                    .filter('term', organisation__pid=org['key'])\
+                    .source(['pid', 'name'])
+                org_libraries = {hit.pid: hit.name for hit in query.scan()}
+                org['library']['buckets'] = list(filter(
+                    lambda l: l['key'] in org_libraries,
+                    org['library']['buckets']
+                ))
+                for term in org['library']['buckets']:
+                    if term['key'] in org_libraries:
+                        term['name'] = org_libraries[term['key']]
 
                 # filter locations by library
                 for library in org['library']['buckets']:
-                    locations = LocationsSearch() \
+                    query = LocationsSearch() \
                         .filter('term', library__pid=library['key'])\
-                        .source(['pid', 'name']).scan()
-                    library_location = [{location.pid: location.name}
-                                        for location in locations]
-                    library_location_pids = \
-                        list(set()
-                             .union(*(loc.keys()
-                                      for loc in library_location)))
-                    library['location']['buckets'] = \
-                        [location for location
-                         in library['location']['buckets']
-                         if location['key'] in library_location_pids]
-
-                    for location in library['location']['buckets']:
-                        for loc in library_location:
-                            if location['key'] in loc:
-                                location['name'] = loc[location['key']]
-                                break
+                        .source(['pid', 'name'])
+                    lib_locations = {hit.pid: hit.name for hit in query.scan()}
+                    library['location']['buckets'] = list(filter(
+                        lambda l: l['key'] in lib_locations,
+                        library['location']['buckets']
+                    ))
+                    for term in library['location']['buckets']:
+                        if term['key'] in lib_locations:
+                            term['name'] = lib_locations[term['key']]
 
             # Complete Organisation aggregation information
             # with corresponding resource name

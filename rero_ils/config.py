@@ -950,12 +950,10 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='pttr',
         pid_minter='patron_transaction_id',
         pid_fetcher='patron_transaction_id',
-        search_class=('rero_ils.modules.patron_transactions.api:'
-                      'PatronTransactionsSearch'),
+        search_class='rero_ils.modules.patron_transactions.api:PatronTransactionsSearch',
         search_index='patron_transactions',
         search_type=None,
-        indexer_class=('rero_ils.modules.patron_transactions.api:'
-                       'PatronTransactionsIndexer'),
+        indexer_class='rero_ils.modules.patron_transactions.api:PatronTransactionsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -965,6 +963,10 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
             'application/rero+json': 'rero_ils.modules.patron_transactions.serializers:json_pttr_search'
+        },
+        search_serializers_aliases={
+            'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         record_loaders={
             'application/json': lambda: PatronTransaction(request.get_json()),

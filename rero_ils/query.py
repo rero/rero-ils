@@ -427,9 +427,7 @@ def search_factory(self, search, query_parser=None):
         raise InvalidQueryRESTError()
 
     search, urlkwargs = default_facets_factory(search, search_index)
-
     search, sortkwargs = default_sorter_factory(search, search_index)
-
     for key, value in sortkwargs.items():
         urlkwargs.add(key, value)
     urlkwargs.add('q', query_string)
