@@ -17,87 +17,28 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for libraries."""
+from invenio_access import action_factory
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByManageableLibrary, \
+    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
+
+# Actions to control Organisation policies
+search_action = action_factory('lib-search')
+read_action = action_factory('lib-read')
+create_action = action_factory('lib-create')
+update_action = action_factory('lib-update')
+delete_action = action_factory('lib-delete')
 
 
-class LibraryPermission(RecordPermission):
-    """Library permissions."""
+class LibraryPermissionPolicy(RecordPermissionPolicy):
+    """Library Permission Policy used by the CRUD operations."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # List libraries allowed only for staff members (lib, sys_lib)
-        return bool(current_librarian)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) are allowed to read an library
-        if not current_librarian:
-            return False
-        # For staff users, they can read only own organisation libraries
-        return current_librarian.organisation_pid == record.organisation_pid
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only sys_lib user can create library
-        if not current_librarian or not current_librarian.has_full_permissions:
-            return False
-        # sys_lib can only create library for its own organisation
-        if record and \
-                current_librarian.organisation_pid != record.organisation_pid:
-            return False
-        return True
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) can update library
-        # record cannot be null
-        if not current_librarian or not record:
-            return False
-        if current_librarian.organisation_pid == record.organisation_pid:
-            # 'sys_lib' can update all libraries
-            if current_librarian.has_full_permissions:
-                return True
-            # 'lib' can only update library linked to its own library
-            else:
-                return current_librarian.library_pids and \
-                       record['pid'] in current_librarian.library_pids
-        return False
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        if not record:
-            return False
-        # same as create
-        return cls.create(user, record)
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByOrganisation(read_action)]
+    can_create = [AllowedByActionRestrictByManageableLibrary(
+        create_action, lambda record: record.get('pid'))]
+    can_update = [AllowedByActionRestrictByManageableLibrary(
+        create_action, lambda record: record.get('pid'))]
+    can_delete = [AllowedByActionRestrictByManageableLibrary(
+        create_action, lambda record: record.get('pid'))]
