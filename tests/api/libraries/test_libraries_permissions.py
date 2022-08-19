@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,98 +16,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from flask import current_app
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security import login_user
+from utils import check_permission, flush_index
 
-from rero_ils.modules.libraries.permissions import LibraryPermission
-
-
-def test_library_permissions_api(client, patron_martigny,
-                                 lib_martigny, lib_sion, lib_saxon,
-                                 librarian_martigny,
-                                 system_librarian_martigny):
-    """Test libraries permissions api."""
-    lib_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='libraries'
-    )
-    lib_martigny_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='libraries',
-        record_pid=lib_martigny.pid
-    )
-    lib_saxon_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='libraries',
-        record_pid=lib_saxon.pid
-    )
-    lib_sion_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='libraries',
-        record_pid=lib_sion.pid
-    )
-
-    # Not logged
-    res = client.get(lib_permissions_url)
-    assert res.status_code == 401
-
-    # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
-    res = client.get(lib_permissions_url)
-    assert res.status_code == 403
-
-    # Logged as librarian
-    #   * lib can 'list' and 'read' libraries of its own organisation
-    #   * lib can 'create', 'update', delete only for its library
-    #   * lib can't 'read' acq_account of others organisation.
-    #   * lib can't 'create', 'update', 'delete' acq_account for other org/lib
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.get(lib_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['create']['can']
-    assert data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(lib_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(lib_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    # Logged as system librarian
-    #   * sys_lib can 'list' organisations
-    #   * sys_lib can never 'create' and 'delete' any organisation
-    #   * sys_lib can 'read' and 'update' only their own organisation
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(lib_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(lib_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data['read']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
+from rero_ils.modules.libraries.permissions import LibraryPermissionPolicy
+from rero_ils.modules.patrons.api import PatronsSearch
 
 
 def test_library_permissions(patron_martigny,
@@ -117,47 +32,101 @@ def test_library_permissions(patron_martigny,
     """Test library permissions class."""
 
     # Anonymous user
-    assert not LibraryPermission.list(None, {})
-    assert not LibraryPermission.read(None, {})
-    assert not LibraryPermission.create(None, {})
-    assert not LibraryPermission.update(None, {})
-    assert not LibraryPermission.delete(None, {})
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(LibraryPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, {})
 
-    # As non Librarian
-    assert not LibraryPermission.list(None, lib_martigny)
-    assert not LibraryPermission.read(None, lib_martigny)
-    assert not LibraryPermission.create(None, lib_martigny)
-    assert not LibraryPermission.update(None, lib_martigny)
-    assert not LibraryPermission.delete(None, lib_martigny)
+    # Patron
+    #    A simple patron can't operate any operation about Library
+    login_user(patron_martigny.user)
+    check_permission(LibraryPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, lib_martigny)
 
-    # As Librarian
-    with mock.patch(
-        'rero_ils.modules.libraries.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert LibraryPermission.list(None, lib_martigny)
-        assert LibraryPermission.read(None, lib_martigny)
-        assert not LibraryPermission.create(None, lib_martigny)
-        assert LibraryPermission.update(None, lib_martigny)
-        assert not LibraryPermission.delete(None, lib_martigny)
+    # Librarian without 'pro_library_administrator' role
+    #     - search : any Library despite organisation owner
+    #     - read : only Library for its own organisation
+    #     - create/update/delete : disallowed
+    librarian_martigny['roles'].remove('pro_library_administrator')
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-        assert LibraryPermission.list(None, lib_saxon)
-        assert LibraryPermission.read(None, lib_saxon)
-        assert not LibraryPermission.create(None, lib_saxon)
-        assert not LibraryPermission.update(None, lib_saxon)
-        assert not LibraryPermission.delete(None, lib_saxon)
+    login_user(librarian_martigny.user)
+    check_permission(LibraryPermissionPolicy, {'search': True}, None)
+    check_permission(LibraryPermissionPolicy, {'create': False}, {})
+    check_permission(LibraryPermissionPolicy, {
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, lib_martigny)
+    check_permission(LibraryPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, lib_sion)
 
-    # As SystemLibrarian
-    with mock.patch(
-        'rero_ils.modules.libraries.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert LibraryPermission.list(None, lib_saxon)
-        assert LibraryPermission.read(None, lib_saxon)
-        assert LibraryPermission.create(None, lib_saxon)
-        assert LibraryPermission.update(None, lib_saxon)
-        assert LibraryPermission.delete(None, lib_saxon)
+    # reset the librarian.
+    librarian_martigny['roles'].append('pro_library_administrator')
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-        assert not LibraryPermission.create(None, lib_sion)
-        assert not LibraryPermission.update(None, lib_sion)
-        assert not LibraryPermission.delete(None, lib_sion)
+    # Librarian with 'pro_library_administrator' role
+    #    - search/read : same as common librarian
+    #    - create/update/delete : if patron is manager for this library
+
+    login_user(librarian_martigny.user)
+    check_permission(LibraryPermissionPolicy, {
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, lib_martigny)
+    check_permission(LibraryPermissionPolicy, {
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, lib_saxon)
+    check_permission(LibraryPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, lib_sion)
+
+    # SystemLibrarian
+    #     - search : any Library despite organisation owner
+    #     - read : only Library for its own organisation
+    #     - create/update/delete : only Library for its own organisation
+    login_user(system_librarian_martigny.user)
+    check_permission(LibraryPermissionPolicy, {
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, lib_martigny)
+    check_permission(LibraryPermissionPolicy, {
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, lib_saxon)
+    check_permission(LibraryPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, lib_sion)

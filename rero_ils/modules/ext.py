@@ -77,7 +77,7 @@ from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.patrons.listener import \
     create_subscription_patron_transaction, enrich_patron_data, \
     update_from_profile
-from rero_ils.modules.permissions import OrganisationNeed
+from rero_ils.modules.permissions import LibraryNeed, OrganisationNeed
 from rero_ils.modules.sru.views import SRUDocumentsSearch
 from rero_ils.modules.templates.listener import prepare_template_data
 from rero_ils.modules.users.listener import user_register_forms, \
@@ -102,6 +102,15 @@ def on_identity_loaded(sender, identity):
     if current_librarian:
         identity.provides.add(
             OrganisationNeed(current_librarian.organisation_pid))
+        # for a `full_permission` user, the manageable libraries are all
+        # libraries from the organisation ; otherwise, this is the libraries
+        # referenced into the ``Patron`` profile.
+        library_pids = current_librarian.library_pids
+        if current_librarian.has_full_permissions:
+            library_pids = current_librarian.organisation.get_libraries_pids()
+        for library_pid in library_pids:
+            identity.provides.add(LibraryNeed(library_pid))
+    # patrons
     elif current_patrons:
         for patron in current_patrons:
             identity.provides.add(OrganisationNeed(patron.organisation_pid))
