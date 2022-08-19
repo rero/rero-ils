@@ -20,9 +20,8 @@ from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security.utils import login_user
 from invenio_accounts.testutils import login_user_via_session
-from utils import check_permission, flush_index, get_json
+from utils import check_permission, get_json
 
-from rero_ils.modules.patrons.api import PatronsSearch
 from rero_ils.modules.vendors.permissions import VendorPermissionPolicy
 
 
@@ -72,20 +71,18 @@ def test_vendor_permissions_api(client, org_sion, patron_martigny,
 
 
 def test_vendor_permissions(patron_martigny,
-                            librarian_martigny,
+                            librarian_martigny, librarian2_martigny,
                             system_librarian_martigny,
                             org_martigny, org_sion,
                             vendor_martigny, vendor_sion):
-    """Test organisation permissions class."""
-
-    permission_policy = VendorPermissionPolicy
+    """Test vendor permissions class."""
 
     # Anonymous user
     #   - all actions is denied
     identity_changed.send(
         current_app._get_current_object(), identity=AnonymousIdentity()
     )
-    check_permission(permission_policy, {
+    check_permission(VendorPermissionPolicy, {
         'search': False,
         'read': False,
         'create': False,
@@ -95,7 +92,7 @@ def test_vendor_permissions(patron_martigny,
     # Patron user
     #   - all actions is denied
     login_user(patron_martigny.user)
-    check_permission(permission_policy, {
+    check_permission(VendorPermissionPolicy, {
         'search': False,
         'read': False,
         'create': False,
@@ -105,7 +102,7 @@ def test_vendor_permissions(patron_martigny,
     # Full permission user
     #     - Allow all action on any vendor despite organisation owner
     login_user(system_librarian_martigny.user)
-    check_permission(permission_policy, {
+    check_permission(VendorPermissionPolicy, {
         'search': True,
         'read': True,
         'create': True,
@@ -113,7 +110,7 @@ def test_vendor_permissions(patron_martigny,
         'delete': True
     }, org_martigny)
     # check permissions on other organisation
-    check_permission(permission_policy, {
+    check_permission(VendorPermissionPolicy, {
         'read': False,
         'create': False,
         'update': False,
@@ -122,7 +119,7 @@ def test_vendor_permissions(patron_martigny,
     # Librarian with acquisition manager role
     #   - Allow all action on any vendor despite organisation owner
     login_user(librarian_martigny.user)
-    check_permission(permission_policy, {
+    check_permission(VendorPermissionPolicy, {
         'search': True,
         'read': True,
         'create': True,
@@ -130,7 +127,7 @@ def test_vendor_permissions(patron_martigny,
         'delete': True
     }, org_martigny)
     # check permissions on other organisation
-    check_permission(permission_policy, {
+    check_permission(VendorPermissionPolicy, {
         'read': False,
         'create': False,
         'update': False,
@@ -138,18 +135,11 @@ def test_vendor_permissions(patron_martigny,
     }, org_sion)
     # Librarian without acquisition manager role
     # - can read vendors
-    librarian_martigny['roles'].remove('pro_acquisition_manager')
-    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    login_user(librarian_martigny.user)
-    check_permission(permission_policy, {
+    login_user(librarian2_martigny.user)
+    check_permission(VendorPermissionPolicy, {
         'search': True,
         'read': True,
         'create': False,
         'update': False,
         'delete': False
     }, org_martigny)
-    # reset the librarian.
-    librarian_martigny['roles'].append('pro_acquisition_manager')
-    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
-    flush_index(PatronsSearch.Meta.index)
