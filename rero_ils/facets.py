@@ -105,27 +105,28 @@ def default_facets_factory(search, index):
                     # create facet_filter from post_filters
                     # and inject the facet_filter into the
                     # aggregation facet query
-                    if 'terms' in facet_body:
-                        facet_field = facet_body.get('terms')['field']
-                    elif 'date_histogram' in facet_body:
-                        facet_field = facet_body.get('date_histogram')['field']
+                    facet_field = None
+                    for key in ['terms', 'date_histogram']:
+                        if key in facet_body:
+                            facet_field = facet_body.get(key)['field']
+                            break
+                    if facet_field:
+                        # get DSL expression of post_filters,
+                        # both single post filters and group of post filters
+                        filters, filters_group, urlkwargs = \
+                            _create_filter_dsl(urlkwargs,
+                                               facets.get('post_filters', {}))
 
-                    # get DSL expression of post_filters,
-                    # both single post filters and group of post filters
-                    filters, filters_group, urlkwargs = \
-                        _create_filter_dsl(urlkwargs,
-                                           facets.get('post_filters', {}))
+                        # create the filter to inject in the facet
+                        facet_filter = _facet_filter(
+                                        index, filters, filters_group,
+                                        facet_name, facet_field)
 
-                    # create the filter to inject in the facet
-                    facet_filter = _facet_filter(
-                                    index, filters, filters_group,
-                                    facet_name, facet_field)
-
-                    # add a nested aggs_facet in the facet aggs
-                    # and add the facet_filter to the aggregation
-                    if facet_filter:
-                        facet_body = dict(aggs=dict(aggs_facet=facet_body))
-                        facet_body['filter'] = facet_filter
+                        # add a nested aggs_facet in the facet aggs
+                        # and add the facet_filter to the aggregation
+                        if facet_filter:
+                            facet_body = dict(aggs=dict(aggs_facet=facet_body))
+                            facet_body['filter'] = facet_filter
 
                     aggs.update({facet_name: facet_body})
             search = _aggregations(search, aggs)
