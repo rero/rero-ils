@@ -77,7 +77,8 @@ from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.patrons.listener import \
     create_subscription_patron_transaction, enrich_patron_data, \
     update_from_profile
-from rero_ils.modules.permissions import LibraryNeed, OrganisationNeed
+from rero_ils.modules.permissions import LibraryNeed, OrganisationNeed, \
+    OwnerNeed
 from rero_ils.modules.sru.views import SRUDocumentsSearch
 from rero_ils.modules.templates.listener import prepare_template_data
 from rero_ils.modules.users.listener import user_register_forms, \
@@ -100,8 +101,10 @@ def on_identity_loaded(sender, identity):
     @param identity: the identity to enrich.
     """
     if current_librarian:
-        identity.provides.add(
-            OrganisationNeed(current_librarian.organisation_pid))
+        identity.provides.update([
+            OwnerNeed(current_librarian.pid),
+            OrganisationNeed(current_librarian.organisation_pid)
+        ])
         # for a `full_permission` user, the manageable libraries are all
         # libraries from the organisation ; otherwise, this is the libraries
         # referenced into the ``Patron`` profile.
@@ -113,7 +116,10 @@ def on_identity_loaded(sender, identity):
     # patrons
     elif current_patrons:
         for patron in current_patrons:
-            identity.provides.add(OrganisationNeed(patron.organisation_pid))
+            identity.provides.update([
+                OwnerNeed(patron.pid),
+                OrganisationNeed(patron.organisation_pid)
+            ])
 
 
 class REROILSAPP(object):
