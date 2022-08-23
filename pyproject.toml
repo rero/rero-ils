@@ -402,6 +402,11 @@ templates = "rero_ils.modules.templates.mappings"
 vendors = "rero_ils.modules.vendors.mappings"
 
 [tool.poetry.plugins."invenio_access.actions"]
+illr_search = "rero_ils.modules.ill_requests.permissions:search_action"
+illr_read = "rero_ils.modules.ill_requests.permissions:read_action"
+illr_create = "rero_ils.modules.ill_requests.permissions:create_action"
+illr_update = "rero_ils.modules.ill_requests.permissions:update_action"
+illr_delete = "rero_ils.modules.ill_requests.permissions:delete_action"
 lib_search = "rero_ils.modules.libraries.permissions:search_action"
 lib_read = "rero_ils.modules.libraries.permissions:read_action"
 lib_create = "rero_ils.modules.libraries.permissions:create_action"
