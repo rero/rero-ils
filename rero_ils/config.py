@@ -68,7 +68,7 @@ from .modules.holdings.api import Holding
 from .modules.holdings.models import HoldingCirculationAction
 from .modules.holdings.permissions import HoldingPermission
 from .modules.ill_requests.api import ILLRequest
-from .modules.ill_requests.permissions import ILLRequestPermission
+from .modules.ill_requests.permissions import ILLRequestPermissionPolicy
 from .modules.item_types.api import ItemType
 from .modules.item_types.permissions import ItemTypePermissionPolicy
 from .modules.items.api import Item
@@ -704,16 +704,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:ill_request_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=ILLRequestPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=ILLRequestPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=ILLRequestPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=ILLRequestPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=ILLRequestPermission)
+        list_permission_factory_imp=lambda record: ILLRequestPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: ILLRequestPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: ILLRequestPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: ILLRequestPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: ILLRequestPermissionPolicy('delete', record=record)
     ),
     item=dict(
         pid_type='item',
