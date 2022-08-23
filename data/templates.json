@@ -260,23 +260,16 @@
     "visibility": "public",
     "template_type": "patrons",
     "data": {
-      "barcode": "",
-      "birth_date": "",
-      "city": "",
-      "communication_channel": "email",
-      "communication_language": "fre",
-      "email": "",
-      "first_name": "",
-      "last_name": "",
-      "patron_type": {
-        "$ref": "https://bib.rero.ch/api/patron_types/1"
+      "patron": {
+        "communication_channel": "email",
+        "communication_language": "fre",
+        "type": {
+          "$ref": "https://bib.rero.ch/api/patron_types/1"
+        }
       },
-      "home_phone": "",
-      "postal_code": "",
       "roles": [
         "patron"
-      ],
-      "street": ""
+      ]
     }
   },
   {
