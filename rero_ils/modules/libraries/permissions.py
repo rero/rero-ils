@@ -23,7 +23,7 @@ from rero_ils.modules.permissions import AllowedByAction, \
     AllowedByActionRestrictByManageableLibrary, \
     AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
 
-# Actions to control Organisation policies
+# Actions to control library policy
 search_action = action_factory('lib-search')
 read_action = action_factory('lib-read')
 create_action = action_factory('lib-create')
