@@ -26,7 +26,7 @@ from invenio_records_permissions import \
     RecordPermissionPolicy as _RecordPermissionPolicy
 from invenio_records_permissions.generators import Disable, Generator
 
-from rero_ils.modules.patrons.api import current_librarian
+from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.utils import get_record_class_and_permissions_from_route
 
 # Basics access without permission check
@@ -34,8 +34,9 @@ allow_access = type('Allow', (), {'can': lambda self: True})()
 deny_access = type('Deny', (), {'can': lambda self: False})()
 
 
-OrganisationNeed = partial(Need, "organisation")
 LibraryNeed = partial(Need, "library")
+OrganisationNeed = partial(Need, "organisation")
+OwnerNeed = partial(Need, "owner")
 
 
 def record_permissions(record_pid=None, route_name=None):
@@ -420,4 +421,31 @@ class AllowedByActionRestrictByManageableLibrary(AllowedByAction):
             required_need = LibraryNeed(library_pid)
             if required_need not in g.identity.provides:
                 return []
+        return super().needs(record, **kwargs)
+
+
+class AllowedByActionRestrictByOwnerOrOrganisation(AllowedByAction):
+    """Allow if user and record are same or belong the same organisation.
+
+    If the current user is a `patron` then, we allow only their own record.
+    If the current user is a `staff_member` then, we allow record for the same
+    organisation.
+    """
+
+    def needs(self, record=None, *args, **kwargs):
+        """Allows the given action.
+
+        :param record: the record to check.
+        :param kwargs: extra arguments.
+        :returns: a list of Needs to validate access.
+        """
+        if record:
+            required_need = None
+            if current_patrons:
+                required_need = OwnerNeed(record.patron_pid)
+            elif current_librarian:
+                required_need = OrganisationNeed(record.organisation_pid)
+            if required_need and required_need not in g.identity.provides:
+                return []
+
         return super().needs(record, **kwargs)
