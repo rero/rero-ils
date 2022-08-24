@@ -118,7 +118,7 @@ from .modules.templates.permissions import TemplatePermission
 from .modules.users.api import get_profile_countries, \
     get_readonly_profile_fields
 from .modules.vendors.api import Vendor
-from .modules.vendors.permissions import VendorPermission
+from .modules.vendors.permissions import VendorPermissionPolicy
 from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory, librarian_update_permission_factory, \
     wiki_edit_ui_permission, wiki_edit_view_permission
@@ -1339,16 +1339,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=VendorPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=VendorPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=VendorPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=VendorPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=VendorPermission)
+        list_permission_factory_imp=lambda record: VendorPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: VendorPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: VendorPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: VendorPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: VendorPermissionPolicy('delete', record=record)
     ),
     acac=dict(
         pid_type='acac',
