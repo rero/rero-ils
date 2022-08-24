@@ -46,5 +46,38 @@
   ],
   "org-update": [
     "pro_full_permissions"
+  ],
+  "vndr-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "vndr-read": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "vndr-update": [
+    "pro_full_permissions",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "vndr-create": [
+    "pro_full_permissions",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "vndr-delete": [
+    "pro_full_permissions",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
   ]
 }
