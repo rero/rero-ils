@@ -60,6 +60,20 @@ class VerifyRecordPermissionPatch(object):
     status_code = 200
 
 
+def check_permission(permission_policy, actions, record):
+    """Check permission.
+
+    :param permission_policy: Permission policy used to do check.
+    :param actions: dictionnary contains actions to check.
+    :param record: Record against which to check permission.
+    """
+    for action_name, action_result in actions.items():
+        result = permission_policy(action_name, record=record).can()
+        assert \
+            result == action_result, \
+            f'{action_name} :: return {result} but should {action_result}'
+
+
 def login_user(client, user):
     """Sign in user."""
     login_user_via_session(client, user=user.user)
