@@ -97,6 +97,7 @@ pytest-invenio = ">=1.4.0,<1.4.12"
 sentry-sdk = "<1.6.1"
 dparse = ">=0.5.2"
 Mako = ">=1.2.2"
+rero-invenio-base = "^0.1.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
@@ -148,7 +149,6 @@ reroils_theme = "rero_ils.theme.webpack:theme"
 [tool.poetry.plugins."invenio_base.api_apps"]
 invenio_i18n = "invenio_i18n:InvenioI18N"
 rero-ils = "rero_ils.modules.ext:REROILSAPP"
-rero-ils-export = "rero_ils.modules.exports.ext:ReroIlsExportApp"
 
 [tool.poetry.plugins."invenio_base.api_blueprints"]
 acq_accounts = "rero_ils.modules.acq_accounts.views:api_blueprint"
@@ -170,7 +170,6 @@ patron_types = "rero_ils.modules.patron_types.views:blueprint"
 patrons = "rero_ils.modules.patrons.views:api_blueprint"
 permissions ="rero_ils.modules.views:api_blueprint"
 rero_ils = "rero_ils.modules.views:api_blueprint"
-rero_ils_exports = "rero_ils.modules.exports.views:create_blueprint_from_app"
 
 [tool.poetry.plugins."invenio_base.apps"]
 rero-ils = "rero_ils.modules.ext:REROILSAPP"

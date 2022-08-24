@@ -3165,7 +3165,7 @@ RERO_IMPORT_REST_ENDPOINTS = dict(
 
 # STREAMED EXPORT RECORDS
 # =============================================================================
-RERO_EXPORT_REST_ENDPOINTS = dict(
+RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
     loan=dict(
         resource=CIRCULATION_REST_ENDPOINTS.get('loanid'),
         default_media_type='text/csv',
