@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,12 +16,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
+from flask import current_app, url_for
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security.utils import login_user
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import check_permission, flush_index, get_json
 
-from rero_ils.modules.vendors.permissions import VendorPermission
+from rero_ils.modules.patrons.api import PatronsSearch
+from rero_ils.modules.vendors.permissions import VendorPermissionPolicy
 
 
 def test_vendor_permissions_api(client, org_sion, patron_martigny,
@@ -59,51 +61,95 @@ def test_vendor_permissions_api(client, org_sion, patron_martigny,
     res = client.get(vendor_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
+    for action in ['list', 'read', 'create', 'update', 'delete']:
+        assert data[action]['can']
 
     res = client.get(vendor_sion_permission_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert not data['read']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
+    for action in ['read', 'update', 'delete']:
+        assert not data[action]['can']
 
 
 def test_vendor_permissions(patron_martigny,
                             librarian_martigny,
+                            system_librarian_martigny,
                             org_martigny, org_sion,
                             vendor_martigny, vendor_sion):
     """Test organisation permissions class."""
 
+    permission_policy = VendorPermissionPolicy
+
     # Anonymous user
-    assert not VendorPermission.list(None, {})
-    assert not VendorPermission.read(None, {})
-    assert not VendorPermission.create(None, {})
-    assert not VendorPermission.update(None, {})
-    assert not VendorPermission.delete(None, {})
-
-    # As non Librarian
-    assert not VendorPermission.list(None, vendor_martigny)
-    assert not VendorPermission.read(None, vendor_martigny)
-    assert not VendorPermission.create(None, vendor_martigny)
-    assert not VendorPermission.update(None, vendor_martigny)
-    assert not VendorPermission.delete(None, vendor_martigny)
-
-    # As Librarian
-    with mock.patch(
-        'rero_ils.modules.vendors.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert VendorPermission.list(None, vendor_martigny)
-        assert VendorPermission.read(None, vendor_martigny)
-        assert VendorPermission.create(None, vendor_martigny)
-        assert VendorPermission.update(None, vendor_martigny)
-        assert VendorPermission.delete(None, vendor_martigny)
-
-        assert not VendorPermission.create(None, vendor_sion)
-        assert not VendorPermission.update(None, vendor_sion)
-        assert not VendorPermission.delete(None, vendor_sion)
+    #   - all actions is denied
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(permission_policy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, {})
+    # Patron user
+    #   - all actions is denied
+    login_user(patron_martigny.user)
+    check_permission(permission_policy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, org_martigny)
+    # Full permission user
+    #     - Allow all action on any vendor despite organisation owner
+    login_user(system_librarian_martigny.user)
+    check_permission(permission_policy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, org_martigny)
+    # check permissions on other organisation
+    check_permission(permission_policy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, org_sion)
+    # Librarian with acquisition manager role
+    #   - Allow all action on any vendor despite organisation owner
+    login_user(librarian_martigny.user)
+    check_permission(permission_policy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, org_martigny)
+    # check permissions on other organisation
+    check_permission(permission_policy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, org_sion)
+    # Librarian without acquisition manager role
+    # - can read vendors
+    librarian_martigny['roles'].remove('pro_acquisition_manager')
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+    login_user(librarian_martigny.user)
+    check_permission(permission_policy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, org_martigny)
+    # reset the librarian.
+    librarian_martigny['roles'].append('pro_acquisition_manager')
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
