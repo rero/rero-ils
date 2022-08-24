@@ -421,6 +421,11 @@ org_read = "rero_ils.modules.organisations.permissions:read_action"
 org_create = "rero_ils.modules.organisations.permissions:create_action"
 org_update = "rero_ils.modules.organisations.permissions:update_action"
 org_delete = "rero_ils.modules.organisations.permissions:delete_action"
+vndr_search = "rero_ils.modules.vendors.permissions:search_action"
+vndr_read = "rero_ils.modules.vendors.permissions:read_action"
+vndr_create = "rero_ils.modules.vendors.permissions:create_action"
+vndr_update = "rero_ils.modules.vendors.permissions:update_action"
+vndr_delete = "rero_ils.modules.vendors.permissions:delete_action"
 
 [tool.poetry.plugins."invenio_search.templates"]
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
