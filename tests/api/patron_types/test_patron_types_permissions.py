@@ -20,7 +20,7 @@ from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security.utils import login_user
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import check_permission, get_json
 
 from rero_ils.modules.patron_types.permissions import \
     PatronTypePermissionPolicy
@@ -92,21 +92,14 @@ def test_patron_types_permissions(patron_martigny,
 
     permission_policy = PatronTypePermissionPolicy
 
-    def check_permission(actions, record):
-        for action_name, action_result in actions.items():
-            result = permission_policy(action_name, record=record).can()
-            assert \
-                result == action_result, \
-                f'{action_name} :: return {result} but should {action_result}'
-
     # Anonymous user
     #    An anonymous user can't operate any operation about PatronType
     identity_changed.send(
         current_app._get_current_object(), identity=AnonymousIdentity()
     )
-    check_permission({'search': False}, None)
-    check_permission({'create': False}, {})
-    check_permission({
+    check_permission(permission_policy, {'search': False}, None)
+    check_permission(permission_policy, {'create': False}, {})
+    check_permission(permission_policy, {
         'read': False,
         'create': False,
         'update': False,
@@ -116,9 +109,9 @@ def test_patron_types_permissions(patron_martigny,
     # Patron
     #    A simple patron can't operate any operation about PatronType
     login_user(patron_martigny.user)
-    check_permission({'search': False}, None)
-    check_permission({'create': False}, {})
-    check_permission({
+    check_permission(permission_policy, {'search': False}, None)
+    check_permission(permission_policy, {'create': False}, {})
+    check_permission(permission_policy, {
         'read': False,
         'create': False,
         'update': False,
@@ -130,15 +123,15 @@ def test_patron_types_permissions(patron_martigny,
     #     - read : only PatronType for its own organisation
     #     - create/update/delete: disallowed
     login_user(librarian_martigny.user)
-    check_permission({'search': True}, None)
-    check_permission({'create': False}, {})
-    check_permission({
+    check_permission(permission_policy, {'search': True}, None)
+    check_permission(permission_policy, {'create': False}, {})
+    check_permission(permission_policy, {
         'read': True,
         'create': False,
         'update': False,
         'delete': False
     }, patron_type_adults_martigny)
-    check_permission({
+    check_permission(permission_policy, {
         'read': False,
         'create': False,
         'update': False,
@@ -150,15 +143,15 @@ def test_patron_types_permissions(patron_martigny,
     #     - read/create/update/delete : only PatronType for its own
     #       organisation
     login_user(system_librarian_martigny.user)
-    check_permission({'search': True}, None)
-    check_permission({'create': True}, {})
-    check_permission({
+    check_permission(permission_policy, {'search': True}, None)
+    check_permission(permission_policy, {'create': True}, {})
+    check_permission(permission_policy, {
         'read': True,
         'create': True,
         'update': True,
         'delete': True
     }, patron_type_adults_martigny)
-    check_permission({
+    check_permission(permission_policy, {
         'read': False,
         'create': False,
         'update': False,
