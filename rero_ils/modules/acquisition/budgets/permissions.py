@@ -17,68 +17,24 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for Budgets."""
+from invenio_access import action_factory
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
+
+# Actions to control budget resource policies
+search_action = action_factory('budg-search')
+read_action = action_factory('budg-read')
+create_action = action_factory('budg-create')
+update_action = action_factory('budg-update')
+delete_action = action_factory('budg-delete')
 
 
-class BudgetPermission(RecordPermission):
-    """Budget permissions."""
+class BudgetPermissionPolicy(RecordPermissionPolicy):
+    """Budget Permission Policy used by the CRUD operations."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # List organisation allowed only for staff members (lib, sys_lib)
-        return bool(current_librarian)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) are allowed to read an organisation
-        if not current_librarian:
-            return False
-        # For staff users, they can read only their own organisation.
-        return current_librarian.organisation_pid == record.organisation_pid
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # creation of budget records is managed by the Rollover process
-        return cls.update(user, record)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # updates of budget records is managed by the Rollover process
-        return False
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # deletion of budget records is managed by the Rollover process
-        return cls.update(user, record)
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByOrganisation(read_action)]
+    can_create = [AllowedByActionRestrictByOrganisation(create_action)]
+    can_update = [AllowedByActionRestrictByOrganisation(update_action)]
+    can_delete = [AllowedByActionRestrictByOrganisation(delete_action)]

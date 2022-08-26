@@ -17,24 +17,36 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for Acquisition account."""
+from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AcquisitionPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByManageableLibrary, DisallowedIfRollovered, \
+    RecordPermissionPolicy
 
 from .api import AcqAccount
 
+# Actions to control acquisition accounts resource policies
+search_action = action_factory('acac-search')
+read_action = action_factory('acac-read')
+create_action = action_factory('acac-create')
+update_action = action_factory('acac-update')
+delete_action = action_factory('acac-delete')
 
-class AcqAccountPermission(AcquisitionPermission):
-    """Acquisition account permissions."""
 
-    @classmethod
-    def _rolled_over(cls, record):
-        """Check if record attached to rolled over budget.
+class AcqAccountPermissionPolicy(RecordPermissionPolicy):
+    """Acquisition account Permission Policy used by the CRUD operations."""
 
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # ensure class type for sent record
-        if not isinstance(record, AcqAccount):
-            record = AcqAccount(record)
-        # no updates is possible for accounts related to rolled over budgets.
-        return record.is_active
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByManageableLibrary(read_action)]
+    can_create = [
+        AllowedByActionRestrictByManageableLibrary(create_action),
+        DisallowedIfRollovered(AcqAccount)
+    ]
+    can_update = [
+        AllowedByActionRestrictByManageableLibrary(update_action),
+        DisallowedIfRollovered(AcqAccount)
+    ]
+    can_delete = [
+        AllowedByActionRestrictByManageableLibrary(delete_action),
+        DisallowedIfRollovered(AcqAccount)
+    ]
