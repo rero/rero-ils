@@ -29,31 +29,6 @@ from rero_ils.modules.acquisition.acq_order_lines.models import \
     AcqOrderLineNoteType
 
 
-def test_acq_orders_lines_permissions(
-        client, document, acq_order_line_fiction_martigny, json_header):
-    """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.acol_item', pid_value='acol1')
-
-    res = client.get(item_url)
-    assert res.status_code == 401
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.acol_list',
-        {}
-    )
-    assert res.status_code == 401
-
-    res = client.put(
-        url_for('invenio_records_rest.acol_item', pid_value='acol1'),
-        data={},
-        headers=json_header
-    )
-
-    res = client.delete(item_url)
-    assert res.status_code == 401
-
-
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_acq_order_lines_get(client, acq_order_line_fiction_martigny):
@@ -169,79 +144,6 @@ def test_acq_order_lines_document_can_delete(
     assert reasons['links']['acq_order_lines']
 
 
-def test_acq_order_line_secure_api(client, json_header,
-                                   acq_order_line_fiction_martigny,
-                                   librarian_martigny,
-                                   librarian_sion):
-    """Test acq order line secure api access."""
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for('invenio_records_rest.acol_item',
-                         pid_value=acq_order_line_fiction_martigny.pid)
-
-    res = client.get(record_url)
-    assert res.status_code == 200
-
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-    record_url = url_for('invenio_records_rest.acol_item',
-                         pid_value=acq_order_line_fiction_martigny.pid)
-
-    res = client.get(record_url)
-    assert res.status_code == 403
-
-
-def test_acq_order_secure_api_create(client, json_header,
-                                     org_martigny,
-                                     vendor_martigny, vendor2_martigny,
-                                     acq_order_line_fiction_martigny,
-                                     librarian_martigny,
-                                     librarian_sion,
-                                     acq_order_line_fiction_saxon,
-                                     system_librarian_martigny):
-    """Test acq order line secure api create."""
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-    post_entrypoint = 'invenio_records_rest.acol_list'
-
-    data = acq_order_line_fiction_saxon
-    del data['pid']
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        data
-    )
-    assert res.status_code == 403
-
-    data = acq_order_line_fiction_martigny
-    del data['pid']
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        data
-    )
-    assert res.status_code == 201
-
-    login_user_via_session(client, system_librarian_martigny.user)
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        data
-    )
-    assert res.status_code == 201
-
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-
-    data = acq_order_line_fiction_saxon
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        data
-    )
-    assert res.status_code == 403
-
-
 def test_acq_order_line_secure_api_update(client,
                                           org_sion,
                                           vendor_sion,
@@ -266,13 +168,3 @@ def test_acq_order_line_secure_api_update(client,
         headers=json_header
     )
     assert res.status_code == 200
-
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-
-    res = client.put(
-        record_url,
-        data=json.dumps(data),
-        headers=json_header
-    )
-    assert res.status_code == 403
