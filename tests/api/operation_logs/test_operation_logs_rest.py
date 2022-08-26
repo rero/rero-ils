@@ -19,9 +19,10 @@
 from copy import deepcopy
 from datetime import datetime
 
+import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import flush_index, get_json, postdata
+from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -29,35 +30,13 @@ from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.operation_logs.models import OperationLogOperation
 
 
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_operation_logs_permissions(client, operation_log,
                                     librarian_martigny, patron_martigny,
                                     librarian_patron_martigny, json_header):
     """Test operation logs permissions."""
-    item_url = url_for('invenio_records_rest.oplg_item', pid_value='1')
     item_list = url_for('invenio_records_rest.oplg_list')
-
-    res = client.get(item_url)
-    assert res.status_code == 404
-
-    res = client.get(item_list)
-    assert res.status_code == 401
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.oplg_list',
-        {}
-    )
-    assert res.status_code == 401
-
-    res = client.put(
-        url_for('invenio_records_rest.oplg_item', pid_value='1'),
-        data={},
-        headers=json_header
-    )
-    assert res.status_code == 404
-
-    res = client.delete(item_url)
-    assert res.status_code == 404
 
     # Check access for librarian role
     login_user_via_session(client, librarian_martigny.user)
@@ -201,7 +180,7 @@ def test_operation_log_on_ill_request(client, ill_request_martigny,
     """Test operation log on ILL request."""
     # Using the ``ill_request_martigny`` fixtures, an operation log is created
     # for 'create' operation. Check this operation log to check if special
-    # additional informations are include into this OpLog.
+    # additional informations are included into this OpLog.
     login_user_via_session(client, librarian_martigny.user)
 
     fake_data = {'date': datetime.now().isoformat()}

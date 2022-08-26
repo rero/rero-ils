@@ -447,6 +447,10 @@
     "pro_full_permissions",
     "pro_library_administrator"
   ],
+  "oplg-read": [
+    "pro_full_permissions",
+    "pro_read_only"
+  ],
   "org-search": [
     "pro_full_permissions",
     "pro_read_only",
