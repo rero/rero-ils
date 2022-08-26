@@ -79,5 +79,32 @@
     "pro_full_permissions",
     "pro_acquisition_manager",
     "pro_library_administrator"
+  ],
+  "itty-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "itty-read": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "itty-create": [
+    "pro_full_permissions"
+  ],
+  "itty-update": [
+    "pro_full_permissions"
+  ],
+  "itty-delete": [
+    "pro_full_permissions"
   ]
 }
