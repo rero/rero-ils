@@ -77,7 +77,7 @@ from .modules.holdings.permissions import HoldingPermission
 from .modules.ill_requests.api import ILLRequest
 from .modules.ill_requests.permissions import ILLRequestPermission
 from .modules.item_types.api import ItemType
-from .modules.item_types.permissions import ItemTypePermission
+from .modules.item_types.permissions import ItemTypePermissionPolicy
 from .modules.items.api import Item
 from .modules.items.models import ItemCirculationAction, ItemIssueStatus
 from .modules.items.permissions import ItemPermission
@@ -787,16 +787,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=ItemTypePermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=ItemTypePermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=ItemTypePermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=ItemTypePermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=ItemTypePermission)
+        list_permission_factory_imp=lambda record: ItemTypePermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: ItemTypePermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: ItemTypePermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: ItemTypePermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: ItemTypePermissionPolicy('delete', record=record)
     ),
     stat=dict(
         pid_type='stat',
