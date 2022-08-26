@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,59 +17,17 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for contributions."""
+from invenio_records_permissions.generators import AnyUser
 
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import RecordPermissionPolicy
 
 
-class ContributionPermission(RecordPermission):
-    """Contributions permissions."""
+class ContributionPermissionPolicy(RecordPermissionPolicy):
+    """Contribution Permission Policy used by the CRUD operations.
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    Only search and read is allowed for all users. Other operations is denied
+    far all.
+    """
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return True
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return True
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return False
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return False
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        return False
+    can_search = [AnyUser()]
+    can_read = [AnyUser()]

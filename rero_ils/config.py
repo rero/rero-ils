@@ -59,7 +59,7 @@ from .modules.circ_policies.permissions import CirculationPolicyPermission
 from .modules.collections.api import Collection
 from .modules.collections.permissions import CollectionPermission
 from .modules.contributions.api import Contribution
-from .modules.contributions.permissions import ContributionPermission
+from .modules.contributions.permissions import ContributionPermissionPolicy
 from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermission
 from .modules.documents.query import acquisition_filter, \
@@ -1210,16 +1210,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:contribution_view_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=ContributionPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=ContributionPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=ContributionPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=ContributionPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=ContributionPermission)
+        list_permission_factory_imp=lambda record: ContributionPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: ContributionPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: ContributionPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: ContributionPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: ContributionPermissionPolicy('delete', record=record)
     ),
     cipo=dict(
         pid_type='cipo',
