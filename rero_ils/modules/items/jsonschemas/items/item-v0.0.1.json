@@ -627,6 +627,9 @@
             "label": "New acquisition",
             "description": "If this option is enabled, this item is going to appear in the new acquisition list of the library."
           }
+        },
+        "navigation": {
+          "essential": true
         }
       }
     },
