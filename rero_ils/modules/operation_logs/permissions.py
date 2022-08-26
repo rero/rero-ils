@@ -16,63 +16,18 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions of Operation log."""
+from invenio_access import action_factory
 
-from rero_ils.modules.patrons.api import current_librarian, current_patrons
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    RecordPermissionPolicy
+
+# Actions to control operation logs policies for CRUD operations
+search_action = action_factory('oplg-search')
+read_action = action_factory('oplg-read')
 
 
-class OperationLogPermission(RecordPermission):
-    """Operation logs permissions."""
+class OperationLogPermissionPolicy(RecordPermissionPolicy):
+    """Operation log Permission Policy used by the CRUD operations."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: "True" if action can be done.
-        """
-        return bool(current_librarian) or len(current_patrons)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: "True" if action can be done.
-        """
-        return False
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: "True" if action can be done.
-        """
-        # operation log records are created by the system only.
-        return False
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: "True" if action can be done.
-        """
-        # no updates possible for operation log records.
-        return False
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: "True" if action can be done.
-        """
-        # no deletes possible for operation log records.
-        return False
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByAction(read_action)]
