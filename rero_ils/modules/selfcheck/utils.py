@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,12 +27,10 @@ from flask import current_app
 from flask_security.utils import verify_password
 from invenio_db import db
 from invenio_oauth2server.provider import get_token
-from werkzeug.local import LocalProxy
 
-from ..items.models import ItemStatus
-from ..patron_types.api import PatronType
-
-_security = LocalProxy(lambda: current_app.extensions['security'])
+from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.patron_types.api import PatronType
+from rero_ils.modules.users.api import User
 
 
 def check_sip2_module():
@@ -62,16 +60,16 @@ def authorize_selfckeck_terminal(terminal, access_token, **kwargs):
             return token.user
 
 
-def authorize_selfckeck_patron(email, password, **kwargs):
+def authorize_selfckeck_user(login, password, **kwargs):
     """Get user for sip2 client password.
 
     Grant 'password' for user.
-    :param email: User email.
+    :param login: User login such as username or email.
     :param password: Password.
     :return: The user instance or ``None``.
     """
-    user = _security.datastore.find_user(email=email)
-    if user and verify_password(password, user.password):
+    user = User.get_by_username_or_email(login)
+    if user and verify_password(password, user.user.password):
         return user
 
 

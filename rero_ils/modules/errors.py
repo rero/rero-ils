@@ -52,3 +52,7 @@ class NoCirculationActionIsPermitted(RecordsError):
 
 class ItemBarcodeNotFound(RecordsError):
     """Exception raised when an item barcode is not found."""
+
+
+class PatronBarcodeNotFound(RecordsError):
+    """Exception raised when an patron barcode is not found."""
