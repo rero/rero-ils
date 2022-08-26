@@ -105,7 +105,7 @@ from .modules.notifications.dispatcher import \
 from .modules.notifications.models import NotificationType
 from .modules.notifications.permissions import NotificationPermissionPolicy
 from .modules.operation_logs.api import OperationLog
-from .modules.operation_logs.permissions import OperationLogPermission
+from .modules.operation_logs.permissions import OperationLogPermissionPolicy
 from .modules.organisations.api import Organisation
 from .modules.organisations.permissions import OrganisationPermissionPolicy
 from .modules.patron_transaction_events.api import PatronTransactionEvent
@@ -1639,16 +1639,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:operation_logs_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=OperationLogPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=OperationLogPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=OperationLogPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=OperationLogPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=OperationLogPermission)
+        list_permission_factory_imp=lambda record: OperationLogPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: OperationLogPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: OperationLogPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: OperationLogPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: OperationLogPermissionPolicy('delete', record=record)
     )
 )
 
