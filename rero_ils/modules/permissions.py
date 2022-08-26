@@ -16,12 +16,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for all modules."""
-from abc import ABC
 from functools import partial
 
 from flask import current_app, g, jsonify
 from flask_login import current_user
 from flask_principal import Need
+from invenio_access import any_user
 from invenio_records_permissions import \
     RecordPermissionPolicy as _RecordPermissionPolicy
 from invenio_records_permissions.generators import Disable, Generator
@@ -244,100 +244,6 @@ class RecordPermission:
         return has_superuser_access()
 
 
-class AcquisitionPermission(RecordPermission, ABC):
-    """Record permissions for acquisition records."""
-
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # List organisation allowed only for staff members (lib, sys_lib)
-        return bool(current_librarian)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # user should be authenticated
-        if not current_librarian:
-            return False
-        # 'lib' can only update account linked to its own library
-        if current_librarian.has_full_permissions:
-            return current_librarian.organisation_pid == \
-                record.organisation_pid
-        else:
-            return current_librarian.library_pids and \
-                record.library_pid in current_librarian.library_pids
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # user should be authenticated
-        if not current_librarian:
-            return False
-        if not record:
-            return True
-        else:
-            # Same as update
-            return cls.update(user, record)
-
-    @classmethod
-    def _rolled_over(cls, record):
-        """Check if record attached to a rolled over budget.
-
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        raise NotImplementedError()
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) can update acq_account
-        # record cannot be null
-        if not current_librarian or not record:
-            return False
-        # no updates is possible for accounts related to rolled over budgets.
-        if not cls._rolled_over(record):
-            return False
-        # 'sys_lib' can update all account
-        if current_librarian.has_full_permissions:
-            return current_librarian.organisation_pid == \
-                record.organisation_pid
-        # 'lib' can only update account linked to its own library
-        return current_librarian.library_pids and \
-            record.library_pid in current_librarian.library_pids
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # Same as update
-        return cls.update(user, record)
-
-
 class RecordPermissionPolicy(_RecordPermissionPolicy):
     """The record base permission policy.
 
@@ -449,3 +355,35 @@ class AllowedByActionRestrictByOwnerOrOrganisation(AllowedByAction):
                 return []
 
         return super().needs(record, **kwargs)
+
+
+class DisallowedIfRollovered(Generator):
+    """Disallow if the record is considerate roll-overed."""
+
+    def __init__(self, record_cls, callback=None):
+        """Constructor.
+
+        :param record_cls: the record class to build a resource if record is
+            received is only dict/data.
+        :param callback: the function to use to know if the resource is
+            rollovered. This function should return a boolean value. By default
+            the ``is_active`` record property will be returned if exists ;
+            otherwise True.
+        """
+        self.record_cls = record_cls
+        self.is_rollovered = callback \
+            or (lambda record: not getattr(record, 'is_active', True))
+
+    def excludes(self, record=None, **kwargs):
+        """Disallow operation check.
+
+        :param record; the record to check.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to disable access.
+        """
+        if record:
+            if not isinstance(record, self.record_cls):
+                record = self.record_cls(record)
+            if self.is_rollovered(record):
+                return [any_user]
+        return []
