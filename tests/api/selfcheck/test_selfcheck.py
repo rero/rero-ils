@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -34,11 +34,13 @@ from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import number_of_notifications_sent
+from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.selfcheck.api import authorize_patron, enable_patron, \
     item_information, patron_information, patron_status, selfcheck_checkin, \
     selfcheck_checkout, selfcheck_login, selfcheck_renew, system_status, \
     validate_patron_account
 from rero_ils.modules.selfcheck.utils import check_sip2_module
+from rero_ils.modules.users.api import User
 
 # skip tests if invenio-sip2 module is not installed
 pytestmark = pytest.mark.skipif(not check_sip2_module(),
@@ -81,11 +83,29 @@ def test_authorize_patron(selfcheck_patron_martigny):
     response = authorize_patron('invalid_barcode', 'invalid_password')
     assert not response
 
-    # authorize success
+    # authorize patron with email
     response = authorize_patron(
         selfcheck_patron_martigny.get('patron', {}).get('barcode')[0],
         selfcheck_patron_martigny.dumps().get('birth_date'))
     assert response
+
+    # authorize patron without email (using username for authentication)
+    user = User.get_by_id(selfcheck_patron_martigny.user.id)
+    user_metadata = user.dumps_metadata()
+    email = user_metadata.pop('email', None)
+    user.update(user_metadata)
+    selfcheck_patron_martigny = Patron.get_record_by_pid(
+        selfcheck_patron_martigny.pid)
+    response = authorize_patron(
+        selfcheck_patron_martigny.get('patron', {}).get('barcode')[0],
+        selfcheck_patron_martigny.dumps().get('birth_date'))
+    assert response
+
+    # reset user data
+    user = User.get_by_id(selfcheck_patron_martigny.user.id)
+    user_metadata = user.dumps_metadata()
+    user_metadata['email'] = email
+    user.update(user_metadata)
 
 
 def test_validate_patron(selfcheck_patron_martigny):

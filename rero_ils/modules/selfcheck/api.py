@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,24 +25,26 @@ from flask_babelex import gettext as _
 from invenio_circulation.errors import CirculationException, \
     ItemNotAvailableError
 
+from rero_ils.modules.documents.api import Document
+from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.errors import ItemBarcodeNotFound, NoCirculationAction, \
+    PatronBarcodeNotFound
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemNoteTypes
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.loans.api import Loan, \
+    get_loans_by_item_pid_by_patron_pid, get_loans_by_patron_pid
+from rero_ils.modules.loans.models import LoanAction, LoanState
+from rero_ils.modules.patron_transactions.api import PatronTransaction
+from rero_ils.modules.patron_transactions.utils import \
+    get_last_transaction_by_loan_pid, get_transactions_pids_for_patron, \
+    get_transactions_total_amount_for_patron
+from rero_ils.modules.patrons.api import Patron
+
 from .models import SelfcheckTerminal
-from .utils import authorize_selfckeck_patron, authorize_selfckeck_terminal, \
+from .utils import authorize_selfckeck_terminal, authorize_selfckeck_user, \
     check_sip2_module, format_patron_address, get_patron_status, \
     map_item_circulation_status, map_media_type
-from ..documents.api import Document
-from ..documents.utils import title_format_text_head
-from ..errors import ItemBarcodeNotFound, NoCirculationAction
-from ..items.api import Item
-from ..items.models import ItemNoteTypes
-from ..libraries.api import Library
-from ..loans.api import Loan, get_loans_by_item_pid_by_patron_pid, \
-    get_loans_by_patron_pid
-from ..loans.models import LoanAction, LoanState
-from ..patron_transactions.api import PatronTransaction
-from ..patron_transactions.utils import get_last_transaction_by_loan_pid, \
-    get_transactions_pids_for_patron, \
-    get_transactions_total_amount_for_patron
-from ..patrons.api import Patron
 
 
 def selfcheck_login(name, access_token, **kwargs):
@@ -92,7 +94,10 @@ def authorize_patron(barcode, password, **kwargs):
     patron = Patron.get_patron_by_barcode(
         barcode, filter_by_org_pid=kwargs.get('institution_id'))
     if patron and patron.is_patron:
-        return authorize_selfckeck_patron(patron.user.email, password)
+        # User email is an optional field. When User hasn't email address,
+        # we take his username as login.
+        user_login = patron.user.email or patron.user.profile.username
+        return authorize_selfckeck_user(user_login, password)
     return False
 
 
@@ -367,7 +372,8 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                     patron = Patron.get_patron_by_barcode(
                         patron_barcode,
                         filter_by_org_pid=terminal.organisation_pid)
-
+                    if not patron:
+                        raise PatronBarcodeNotFound
                     # do checkout
                     result, data = item.checkout(
                         patron_pid=patron.pid,
@@ -415,6 +421,15 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                     checkout.get('screen_messages', []).append(
                         _('Item is already checked-out or '
                           'requested by patron.'))
+            except PatronBarcodeNotFound:
+                checkout = SelfcheckCheckout(
+                    title_id='',
+                    due_date=datetime.now(timezone.utc)
+                )
+                checkout.get('screen_messages', []).append(
+                    _('Error encountered: patron not found'))
+                checkout.get('screen_messages', []).append(
+                    _('Error encountered: please contact a librarian'))
             except NoCirculationAction:
                 checkout.get('screen_messages', []).append(
                     _('No circulation action is possible'))
