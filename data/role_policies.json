@@ -450,6 +450,10 @@
   "ptty-delete": [
     "pro_full_permissions"
   ],
+  "oplg-read": [
+    "pro_full_permissions",
+    "pro_read_only"
+  ],
   "org-search": [
     "pro_full_permissions",
     "pro_read_only",
