@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,11 +16,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from flask import url_for
+from flask import current_app, url_for
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security.utils import login_user
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import check_permission, get_json
 
-from rero_ils.modules.contributions.permissions import ContributionPermission
+from rero_ils.modules.contributions.permissions import \
+    ContributionPermissionPolicy
 
 
 def test_contribution_permissions_api(client, patron_martigny,
@@ -58,11 +61,44 @@ def test_contribution_permissions_api(client, patron_martigny,
     assert not data['delete']['can']
 
 
-def test_contribution_permissions():
+def test_contribution_permissions(patron_martigny,
+                                  librarian_martigny,
+                                  system_librarian_martigny):
     """Test contribution permissions class."""
+    permission_policy = ContributionPermissionPolicy
 
-    assert ContributionPermission.list(None, {})
-    assert ContributionPermission.read(None, {})
-    assert not ContributionPermission.create(None, {})
-    assert not ContributionPermission.update(None, {})
-    assert not ContributionPermission.delete(None, {})
+    # Anonymous user
+    #   - Allow search/read actions on any contribution
+    #   - Deny create/update/delete actions on any contribution
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(permission_policy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, {})
+    # Patron user
+    #   - Allow search/read actions on any contribution
+    #   - Deny create/update/delete actions on any contribution
+    login_user(patron_martigny.user)
+    check_permission(permission_policy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, {})
+    # Full permission user
+    #   - Allow search/read actions on any contribution
+    #   - Deny create/update/delete actions on any contribution
+    login_user(system_librarian_martigny.user)
+    check_permission(permission_policy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, {})
