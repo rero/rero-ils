@@ -17,23 +17,36 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for Acquisition order."""
+from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AcquisitionPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByManageableLibrary, DisallowedIfRollovered, \
+    RecordPermissionPolicy
 
 from .api import AcqOrder
 
+# Actions to control acquisition orders resource policies
+search_action = action_factory('acor-search')
+read_action = action_factory('acor-read')
+create_action = action_factory('acor-create')
+update_action = action_factory('acor-update')
+delete_action = action_factory('acor-delete')
 
-class AcqOrderPermission(AcquisitionPermission):
-    """Acquisition order permissions."""
 
-    @classmethod
-    def _rolled_over(cls, record):
-        """Check if record attached to rolled over budget.
+class AcqOrderPermissionPolicy(RecordPermissionPolicy):
+    """Acquisition order Permission Policy used by the CRUD operations."""
 
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # ensure class type for sent record
-        if not isinstance(record, AcqOrder):
-            record = AcqOrder(record)
-        return record.is_active
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByManageableLibrary(read_action)]
+    can_create = [
+        AllowedByActionRestrictByManageableLibrary(create_action),
+        DisallowedIfRollovered(AcqOrder)
+    ]
+    can_update = [
+        AllowedByActionRestrictByManageableLibrary(update_action),
+        DisallowedIfRollovered(AcqOrder)
+    ]
+    can_delete = [
+        AllowedByActionRestrictByManageableLibrary(delete_action),
+        DisallowedIfRollovered(AcqOrder)
+    ]

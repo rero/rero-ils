@@ -16,136 +16,56 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from flask import current_app
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security import login_user
+from utils import check_permission
 
-from rero_ils.modules.acquisition.budgets.permissions import BudgetPermission
-
-
-def test_budget_permissions_api(client, org_sion, patron_martigny,
-                                system_librarian_martigny,
-                                librarian_martigny,
-                                budget_2017_martigny, budget_2020_sion):
-    """Test budget permissions api."""
-    budget_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='budgets'
-    )
-    budget_martigny_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='budgets',
-        record_pid=budget_2017_martigny.pid
-    )
-    budget_sion_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='budgets',
-        record_pid=budget_2020_sion.pid
-    )
-
-    # Not logged
-    res = client.get(budget_permissions_url)
-    assert res.status_code == 401
-
-    # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
-    res = client.get(budget_permissions_url)
-    assert res.status_code == 403
-
-    # Logged as librarian
-    #   * lib can 'list' and 'read' budget of its own organisation
-    #   * lib can't 'create', 'update', delete any budgets
-    #   * lib can't 'list' and 'read' budget of others organisation.
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.get(budget_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(budget_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data['read']['can']
-    assert data['list']['can']
-    assert not data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    # Logged as system librarian
-    #   * sys_lib can do everything about budgets of its own organisation
-    #   * sys_lib can't do anything about budgets of other organisation
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(budget_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(budget_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data['read']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
+from rero_ils.modules.acquisition.budgets.permissions import \
+    BudgetPermissionPolicy
 
 
-def test_budget_permissions(patron_martigny,
-                            librarian_martigny,
-                            system_librarian_martigny,
-                            org_martigny, org_sion,
-                            budget_2018_martigny, budget_2020_sion):
+def test_budget_permissions(
+    patron_martigny, librarian_martigny,
+    budget_2018_martigny, budget_2020_sion
+):
     """Test budget permissions class."""
 
     # Anonymous user
-    assert not BudgetPermission.list(None, {})
-    assert not BudgetPermission.read(None, {})
-    assert not BudgetPermission.create(None, {})
-    assert not BudgetPermission.update(None, {})
-    assert not BudgetPermission.delete(None, {})
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(BudgetPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, {})
 
-    # As non Librarian
-    assert not BudgetPermission.list(None, budget_2018_martigny)
-    assert not BudgetPermission.read(None, budget_2018_martigny)
-    assert not BudgetPermission.create(None, budget_2018_martigny)
-    assert not BudgetPermission.update(None, budget_2018_martigny)
-    assert not BudgetPermission.delete(None, budget_2018_martigny)
+    # Patron :: can't operate any operation about Budget
+    login_user(patron_martigny.user)
+    check_permission(BudgetPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, budget_2018_martigny)
 
-    # As Librarian
-    with mock.patch(
-        'rero_ils.modules.acquisition.budgets.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert BudgetPermission.list(None, budget_2018_martigny)
-        assert BudgetPermission.read(None, budget_2018_martigny)
-        assert not BudgetPermission.create(None, budget_2018_martigny)
-        assert not BudgetPermission.update(None, budget_2018_martigny)
-        assert not BudgetPermission.delete(None, budget_2018_martigny)
-
-        assert not BudgetPermission.read(None, budget_2020_sion)
-        assert not BudgetPermission.create(None, budget_2020_sion)
-        assert not BudgetPermission.update(None, budget_2020_sion)
-        assert not BudgetPermission.delete(None, budget_2020_sion)
-
-    # As System-librarian
-    with mock.patch(
-        'rero_ils.modules.acquisition.budgets.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert BudgetPermission.list(None, budget_2018_martigny)
-        assert BudgetPermission.read(None, budget_2018_martigny)
-        assert not BudgetPermission.create(None, budget_2018_martigny)
-        assert not BudgetPermission.update(None, budget_2018_martigny)
-        assert not BudgetPermission.delete(None, budget_2018_martigny)
-
-        assert not BudgetPermission.read(None, budget_2020_sion)
-        assert not BudgetPermission.create(None, budget_2020_sion)
-        assert not BudgetPermission.update(None, budget_2020_sion)
-        assert not BudgetPermission.delete(None, budget_2020_sion)
+    # Staff members :: can only search and read (only org record)
+    login_user(librarian_martigny.user)
+    check_permission(BudgetPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, budget_2018_martigny)
+    check_permission(BudgetPermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, budget_2020_sion)

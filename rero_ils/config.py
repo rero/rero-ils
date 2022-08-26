@@ -43,22 +43,22 @@ from invenio_records_rest.facets import range_filter, terms_filter
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount
 from rero_ils.modules.acquisition.acq_accounts.permissions import \
-    AcqAccountPermission
+    AcqAccountPermissionPolicy
 from rero_ils.modules.acquisition.acq_invoices.api import AcquisitionInvoice
 from rero_ils.modules.acquisition.acq_invoices.permissions import \
-    AcqInvoicePermission
+    AcqInvoicePermissionPolicy
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
 from rero_ils.modules.acquisition.acq_order_lines.permissions import \
-    AcqOrderLinePermission
+    AcqOrderLinePermissionPolicy
 from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
 from rero_ils.modules.acquisition.acq_orders.permissions import \
-    AcqOrderPermission
+    AcqOrderPermissionPolicy
 from rero_ils.modules.acquisition.acq_receipt_lines.api import AcqReceiptLine
 from rero_ils.modules.acquisition.acq_receipt_lines.permissions import \
-    AcqReceiptLinePermission
+    AcqReceiptLinePermissionPolicy
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt
 from rero_ils.modules.acquisition.acq_receipts.permissions import \
-    AcqReceiptPermission
+    AcqReceiptPermissionPolicy
 from rero_ils.modules.acquisition.budgets.api import Budget
 from rero_ils.modules.acquisition.budgets.permissions import BudgetPermission
 
@@ -1346,16 +1346,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:acq_accounts_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=AcqAccountPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=AcqAccountPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=AcqAccountPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=AcqAccountPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=AcqAccountPermission)
+        list_permission_factory_imp=lambda record: AcqAccountPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: AcqAccountPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: AcqAccountPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: AcqAccountPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: AcqAccountPermissionPolicy('delete', record=record)
     ),
     budg=dict(
         pid_type='budg',
@@ -1386,16 +1381,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=BudgetPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=BudgetPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=BudgetPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=BudgetPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=BudgetPermission)
+        list_permission_factory_imp=lambda record: BudgetPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: BudgetPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: BudgetPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: BudgetPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: BudgetPermissionPolicy('delete', record=record)
     ),
     acor=dict(
         pid_type='acor',
@@ -1431,23 +1421,17 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=AcqOrderPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=AcqOrderPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=AcqOrderPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=AcqOrderPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=AcqOrderPermission)
+        list_permission_factory_imp=lambda record: AcqOrderPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: AcqOrderPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: AcqOrderPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: AcqOrderPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: AcqOrderPermissionPolicy('delete', record=record)
     ),
     acol=dict(
         pid_type='acol',
         pid_minter='acq_order_line_id',
         pid_fetcher='acq_order_line_id',
-        search_class=('rero_ils.modules.acquisition.acq_order_lines.api:'
-                      'AcqOrderLinesSearch'),
+        search_class='rero_ils.modules.acquisition.acq_order_lines.api:AcqOrderLinesSearch',
         search_index='acq_order_lines',
         search_type=None,
         indexer_class=('rero_ils.modules.acquisition.acq_order_lines.api:'
@@ -1474,16 +1458,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=AcqOrderLinePermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=AcqOrderLinePermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=AcqOrderLinePermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=AcqOrderLinePermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=AcqOrderLinePermission)
+        list_permission_factory_imp=lambda record: AcqOrderLinePermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: AcqOrderLinePermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: AcqOrderLinePermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: AcqOrderLinePermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: AcqOrderLinePermissionPolicy('delete', record=record)
     ),
     acre=dict(
         pid_type='acre',
@@ -1515,16 +1494,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=AcqReceiptPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=AcqReceiptPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=AcqReceiptPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=AcqReceiptPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=AcqReceiptPermission)
+        list_permission_factory_imp=lambda record: AcqReceiptPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: AcqReceiptPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: AcqReceiptPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: AcqReceiptPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: AcqReceiptPermissionPolicy('delete', record=record)
     ),
     acrl=dict(
         pid_type='acrl',
@@ -1560,16 +1534,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=AcqReceiptLinePermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=AcqReceiptLinePermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=AcqReceiptLinePermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=AcqReceiptLinePermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=AcqReceiptLinePermission)
+        list_permission_factory_imp=lambda record: AcqReceiptLinePermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: AcqReceiptLinePermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: AcqReceiptLinePermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: AcqReceiptLinePermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: AcqReceiptLinePermissionPolicy('delete', record=record)
     ),
     acin=dict(
         pid_type='acin',
@@ -1601,16 +1570,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=AcqInvoicePermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=AcqInvoicePermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=AcqInvoicePermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=AcqInvoicePermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=AcqInvoicePermission)
+        list_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy('delete', record=record)
     ),
     tmpl=dict(
         pid_type='tmpl',

@@ -39,31 +39,6 @@ def test_acquisition_invoices_library_facets(
     assert 'library' in aggs
 
 
-def test_acquisition_invoices_permissions(
-        client, acq_invoice_fiction_martigny, json_header):
-    """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.acin_item', pid_value='acin1')
-
-    res = client.get(item_url)
-    assert res.status_code == 401
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.acin_list',
-        {}
-    )
-    assert res.status_code == 401
-
-    res = client.put(
-        url_for('invenio_records_rest.acin_item', pid_value='acin1'),
-        data={},
-        headers=json_header
-    )
-
-    res = client.delete(item_url)
-    assert res.status_code == 401
-
-
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_acquisition_invoice_total_amount(
@@ -87,7 +62,7 @@ def test_acquisition_invoice_get(client, acq_invoice_fiction_martigny):
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(acq_invoice.revision_id)
+    assert res.headers['ETag'] == f'"{acq_invoice.revision_id}"'
 
     data = get_json(res)
     assert acq_invoice.dumps() == data['metadata']
@@ -204,102 +179,6 @@ def test_filtered_acquisition_invoices_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total']['value'] == 1
-
-
-def test_acquisition_invoice_secure_api(
-        client, json_header, acq_invoice_fiction_martigny,
-        librarian_martigny, librarian_sion):
-    """Test acquisition invoice secure api access."""
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for('invenio_records_rest.acin_item',
-                         pid_value=acq_invoice_fiction_martigny.pid)
-
-    res = client.get(record_url)
-    assert res.status_code == 200
-
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-    record_url = url_for('invenio_records_rest.acin_item',
-                         pid_value=acq_invoice_fiction_martigny.pid)
-
-    res = client.get(record_url)
-    assert res.status_code == 403
-
-
-def test_acquisition_invoice_secure_api_create(
-        client, json_header, org_martigny, vendor_martigny, vendor2_martigny,
-        acq_invoice_fiction_martigny, librarian_martigny,
-        librarian_sion, acq_invoice_fiction_saxon,
-        system_librarian_martigny):
-    """Test acquisition invoice secure api create."""
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-    post_entrypoint = 'invenio_records_rest.acin_list'
-
-    data = acq_invoice_fiction_saxon
-    del acq_invoice_fiction_saxon['pid']
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        data
-    )
-    assert res.status_code == 403
-
-    data = acq_invoice_fiction_martigny
-    del data['pid']
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        data
-    )
-    assert res.status_code == 201
-
-    login_user_via_session(client, system_librarian_martigny.user)
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        data
-    )
-    assert res.status_code == 201
-
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        acq_invoice_fiction_saxon
-    )
-    assert res.status_code == 403
-
-
-def test_acquisition_invoice_secure_api_update(
-        client, org_sion, vendor_sion, acq_invoice_fiction_sion,
-        librarian_martigny, librarian_sion, json_header):
-    """Test acquisition invoice secure api update."""
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-    record_url = url_for('invenio_records_rest.acin_item',
-                         pid_value=acq_invoice_fiction_sion.pid)
-    data = acq_invoice_fiction_sion
-    data['invoice_number'] = 'IN-TEST-3'
-    res = client.put(
-        record_url,
-        data=json.dumps(data),
-        headers=json_header
-    )
-    assert res.status_code == 200
-
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-
-    res = client.put(
-        record_url,
-        data=json.dumps(data),
-        headers=json_header
-    )
-    assert res.status_code == 403
 
 
 def test_acquisition_invoice_properties(

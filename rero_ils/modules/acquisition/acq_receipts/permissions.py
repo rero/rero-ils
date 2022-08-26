@@ -17,23 +17,36 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for Acquisition receipt."""
+from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AcquisitionPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByManageableLibrary, DisallowedIfRollovered, \
+    RecordPermissionPolicy
 
 from .api import AcqReceipt
 
+# Actions to control acquisition receipts resource policies
+search_action = action_factory('acre-search')
+read_action = action_factory('acre-read')
+create_action = action_factory('acre-create')
+update_action = action_factory('acre-update')
+delete_action = action_factory('acre-delete')
 
-class AcqReceiptPermission(AcquisitionPermission):
-    """Acquisition receipt permissions."""
 
-    @classmethod
-    def _rolled_over(cls, record):
-        """Check if record attached to rolled over budget.
+class AcqReceiptPermissionPolicy(RecordPermissionPolicy):
+    """Acquisition receipt Permission Policy used by the CRUD operations."""
 
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # ensure class type for sent record
-        if not isinstance(record, AcqReceipt):
-            record = AcqReceipt(record)
-        return record.is_active
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByManageableLibrary(read_action)]
+    can_create = [
+        AllowedByActionRestrictByManageableLibrary(create_action),
+        DisallowedIfRollovered(AcqReceipt)
+    ]
+    can_update = [
+        AllowedByActionRestrictByManageableLibrary(update_action),
+        DisallowedIfRollovered(AcqReceipt)
+    ]
+    can_delete = [
+        AllowedByActionRestrictByManageableLibrary(delete_action),
+        DisallowedIfRollovered(AcqReceipt)
+    ]
