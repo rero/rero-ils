@@ -504,11 +504,11 @@ def create_contributions(contributions):
     from ..contributions.api import Contribution
     calculated_contributions = []
     for contribution in contributions:
-        cont_pid = contribution['agent'].get('pid')
-        if cont_pid:
-            contrib = Contribution.get_record_by_pid(cont_pid)
-            if contrib:
+        if cont_pid := contribution['agent'].get('pid'):
+            if contrib := Contribution.get_record_by_pid(cont_pid):
+                source = contribution['agent']['id_source']
                 contribution['agent'] = contrib.dumps_for_document()
+                contribution['agent']['id_source'] = source
         else:
             # transform local data for indexing
             agent = {

@@ -87,7 +87,7 @@ class ReferenceSubject(Subject):
         :param language: preferred language for the subject.
         :return the string representation of this subject.
         """
-        sub, _ = Contribution.get_record_by_ref(self.reference)
+        sub, _, _ = Contribution.get_record_by_ref(self.reference)
         return sub.get_authorized_access_point(language=language)
 
 

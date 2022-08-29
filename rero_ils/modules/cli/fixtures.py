@@ -281,8 +281,8 @@ def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile_name):
         elif enqueue:
             msg = create_mef_record_online.delay(ref)
         else:
-            pid, online = create_mef_record_online(ref)
-            msg = f'contribution pid: {pid} {online}'
+            pid, source, online = create_mef_record_online(ref)
+            msg = f'contribution pid: {pid} {source} {online}'
         if verbose:
             click.echo(f"{count:<10}ref: {ref}\t{msg}")
 

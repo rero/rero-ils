@@ -69,9 +69,9 @@ def test_get_all_mef_records(mock_contributions_mef_get, app, script_info,
 
     assert result.output.strip().split('\n')[1:] == [
         '1         ref: https://mef.rero.ch/api/agents/idref/223977268\t'
-        'contribution pid: cont_pers True',
+        'contribution pid: cont_pers idref True',
         '1         ref: https://mef.rero.ch/api/agents/rero/A017671081\t'
-        'contribution pid: cont_pers False',
+        'contribution pid: cont_pers rero False',
         'Count refs: 2',
     ]
 

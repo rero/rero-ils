@@ -72,16 +72,18 @@ def test_contribution_mef_create(mock_contributions_mef_get, app,
     mock_contributions_mef_get.return_value = mock_response(
         json_data=contribution_person_response_data
     )
-    pers_mef, online = Contribution.get_record_by_ref(
+    pers_mef, source, online = Contribution.get_record_by_ref(
         'https://mef.rero.ch/api/agents/rero/A017671081')
     flush_index(ContributionsSearch.Meta.index)
     assert pers_mef == contribution_person_data_tmp
+    assert source == 'rero'
     assert online
     assert Contribution.count() == count + 1
     pers_mef.pop('idref')
     pers_mef['sources'] = ['gnd']
     pers_mef.replace(pers_mef, dbcommit=True)
-    pers_db, online = Contribution.get_record_by_ref(
+    pers_db, source, online = Contribution.get_record_by_ref(
         'https://mef.rero.ch/api/agents/gnd/13343771X')
     assert pers_db['sources'] == ['gnd']
+    assert source == 'gnd'
     assert not online

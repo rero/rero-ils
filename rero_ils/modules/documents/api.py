@@ -305,8 +305,9 @@ class Document(IlsRecord):
         from ..contributions.api import Contribution
         for contribution in self.get('contribution', []):
             if ref := contribution['agent'].get('$ref'):
-                agent, _ = Contribution.get_record_by_ref(ref)
+                agent, source, _ = Contribution.get_record_by_ref(ref)
                 if agent:
+                    agent['id_source'] = source
                     contribution['agent'] = agent
         for subjects in ['subjects', 'subjects_imported']:
             for subject in self.get(subjects, []):
@@ -316,8 +317,10 @@ class Document(IlsRecord):
                     DocumentSubjectType.PERSON,
                     DocumentSubjectType.ORGANISATION
                 ]:
-                    data, _ = Contribution.get_record_by_ref(subject_ref)
+                    data, source, _ = Contribution.get_record_by_ref(
+                        subject_ref)
                     del subject['$ref']
+                    data['id_source'] = source
                     subject.update(data)
 
         return super().replace_refs()

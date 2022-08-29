@@ -258,7 +258,7 @@ class ToMarc21Overdo(Underdo):
         for contribution in contributions:
             ref = contribution['agent'].get('$ref')
             if ref:
-                agent, _ = Contribution.get_record_by_ref(ref)
+                agent, _, _ = Contribution.get_record_by_ref(ref)
                 if agent:
                     contribution['agent'] = agent
                     replace_contribution_sources(

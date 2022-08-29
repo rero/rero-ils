@@ -121,7 +121,7 @@ class Contribution(IlsRecord):
                 # import traceback
                 # traceback.print_exc()
         db.session.commit()
-        return contribution, online
+        return contribution, ref_type, online
 
     @classmethod
     def _get_mef_data_by_type(cls, pid, pid_type, verbose=False,

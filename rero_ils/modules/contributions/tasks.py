@@ -79,9 +79,9 @@ def create_mef_record_online(ref):
     :param ref: referer to contribution record on MEF
     :return: contribution pid, online = True if contribution was loaded
     """
-    contribution, online = Contribution.get_record_by_ref(ref)
+    contribution, source, online = Contribution.get_record_by_ref(ref)
     pid = contribution.get('pid') if contribution else None
-    return pid, online
+    return pid, source, online
 
 
 @shared_task(ignore_result=True)
