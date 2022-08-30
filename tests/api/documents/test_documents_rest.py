@@ -32,30 +32,6 @@ from rero_ils.modules.documents.views import can_request, \
 from rero_ils.modules.utils import get_ref_for_pid
 
 
-def test_documents_permissions(client, document, json_header):
-    """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
-
-    res = client.get(item_url)
-    assert res.status_code == 200
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.doc_list',
-        {}
-    )
-    assert res.status_code == 401
-
-    res = client.put(
-        url_for('invenio_records_rest.doc_item', pid_value='doc1'),
-        data={},
-        headers=json_header
-    )
-
-    res = client.delete(item_url)
-    assert res.status_code == 401
-
-
 def test_documents_newacq_filters(app, client,
                                   system_librarian_martigny,
                                   rero_json_header, document,
