@@ -16,154 +16,121 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from flask import current_app
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security import login_user
+from utils import check_permission, flush_index
 
-from rero_ils.modules.items.permissions import ItemPermission
-
-
-def test_items_permissions_api(client, patron_martigny,
-                               system_librarian_martigny,
-                               librarian_martigny,
-                               item_lib_martigny, item_lib_saxon,
-                               item_lib_sion):
-    """Test items permissions api."""
-    item_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='items'
-    )
-    item_martigny_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='items',
-        record_pid=item_lib_martigny.pid
-    )
-    item_saxon_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='items',
-        record_pid=item_lib_saxon.pid
-    )
-    item_sion_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='items',
-        record_pid=item_lib_sion.pid
-    )
-
-    # Not logged
-    res = client.get(item_permissions_url)
-    assert res.status_code == 401
-
-    # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
-    res = client.get(item_permissions_url)
-    assert res.status_code == 403
-
-    # Logged as librarian
-    #   * lib can 'list' and 'read' item of its own organisation
-    #   * lib can 'create', 'update', delete only for its library
-    #   * lib can't 'read' item of others organisation.
-    #   * lib can't 'create', 'update', 'delete' item for other org/lib
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.get(item_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(item_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(item_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    # Logged as system librarian
-    #   * sys_lib can do everything about patron of its own organisation
-    #   * sys_lib can't do anything about patron of other organisation
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(item_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(item_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
+from rero_ils.modules.items.permissions import ItemPermissionPolicy
+from rero_ils.modules.patrons.api import PatronsSearch
 
 
-def test_items_permissions(patron_martigny, org_martigny,
-                           librarian_martigny,
-                           system_librarian_martigny,
-                           item_lib_sion, item_lib_saxon, item_lib_martigny):
+def test_items_permissions(
+    patron_martigny, org_martigny, librarian_martigny,
+    system_librarian_martigny, item_lib_sion, item_lib_saxon,
+    item_lib_martigny
+):
     """Test item permissions class."""
 
-    # Anonymous user
-    assert ItemPermission.list(None, {})
-    assert ItemPermission.read(None, {})
-    assert not ItemPermission.create(None, {})
-    assert not ItemPermission.update(None, {})
-    assert not ItemPermission.delete(None, {})
+    # Anonymous user & Patron user
+    #  - search/read any items are allowed.
+    #  - create/update/delete operations are disallowed.
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(ItemPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, None)
+    check_permission(ItemPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, item_lib_martigny)
+    login_user(patron_martigny.user)
+    check_permission(ItemPermissionPolicy, {'create': False}, {})
+    check_permission(ItemPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, item_lib_sion)
 
-    # As non Librarian
-    assert ItemPermission.list(None, item_lib_martigny)
-    assert ItemPermission.read(None, item_lib_martigny)
-    assert not ItemPermission.create(None, item_lib_martigny)
-    assert not ItemPermission.update(None, item_lib_martigny)
-    assert not ItemPermission.delete(None, item_lib_martigny)
+    # Librarian with specific role
+    #     - search/read: any items
+    #     - create/update/delete: allowed for items of its own library
+    login_user(librarian_martigny.user)
+    check_permission(ItemPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, item_lib_martigny)
+    check_permission(ItemPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, item_lib_saxon)
+    check_permission(ItemPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, item_lib_sion)
 
-    # As Librarian
-    with mock.patch(
-        'rero_ils.modules.items.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert ItemPermission.list(None, item_lib_martigny)
-        assert ItemPermission.read(None, item_lib_martigny)
-        assert ItemPermission.create(None, item_lib_martigny)
-        assert ItemPermission.update(None, item_lib_martigny)
-        assert ItemPermission.delete(None, item_lib_martigny)
+    # Librarian without specific role
+    #   - search/read: any items
+    #   - create/update/delete: disallowed for any items except for
+    #     "pro_circulation_manager" as create/update are allowed.
+    original_roles = librarian_martigny.get('roles', [])
+    librarian_martigny['roles'] = ['pro_circulation_manager']
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-        assert ItemPermission.read(None, item_lib_saxon)
-        assert not ItemPermission.create(None, item_lib_saxon)
-        assert not ItemPermission.update(None, item_lib_saxon)
-        assert not ItemPermission.delete(None, item_lib_saxon)
+    login_user(librarian_martigny.user)  # to refresh identity !
+    check_permission(ItemPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': False
+    }, item_lib_martigny)
 
-        assert ItemPermission.read(None, item_lib_sion)
-        assert not ItemPermission.create(None, item_lib_sion)
-        assert not ItemPermission.update(None, item_lib_sion)
-        assert not ItemPermission.delete(None, item_lib_sion)
+    librarian_martigny['roles'] = ['pro_user_manager']
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-    # As System-librarian
-    with mock.patch(
-        'rero_ils.modules.items.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert ItemPermission.list(None, item_lib_saxon)
-        assert ItemPermission.read(None, item_lib_saxon)
-        assert ItemPermission.create(None, item_lib_saxon)
-        assert ItemPermission.update(None, item_lib_saxon)
-        assert ItemPermission.delete(None, item_lib_saxon)
+    login_user(librarian_martigny.user)  # to refresh identity !
+    check_permission(ItemPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, item_lib_martigny)
 
-        assert ItemPermission.read(None, item_lib_sion)
-        assert not ItemPermission.create(None, item_lib_sion)
-        assert not ItemPermission.update(None, item_lib_sion)
-        assert not ItemPermission.delete(None, item_lib_sion)
+    # reset the librarian
+    librarian_martigny['roles'] = original_roles
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+
+    # System librarian (aka. full-permissions)
+    #   - create/update/delete: allow for serial holding if its own org
+    login_user(system_librarian_martigny.user)
+    check_permission(ItemPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, item_lib_saxon)

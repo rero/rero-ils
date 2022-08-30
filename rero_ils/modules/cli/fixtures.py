@@ -31,7 +31,7 @@ import click
 from flask import current_app
 from flask.cli import with_appcontext
 from invenio_access import current_access
-from invenio_access.models import ActionRoles, Role
+from invenio_access.models import ActionRoles, ActionSystemRoles, Role
 from invenio_db import db
 from invenio_jsonschemas.proxies import current_jsonschemas
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
@@ -93,6 +93,20 @@ def load_role_policies(data):
     return True
 
 
+def load_system_role_policies(data):
+    """Set the action system_role policies.
+
+    :param data: dictionary configuration
+    :return: True if success.
+    """
+    for action_name, system_roles in data.items():
+        action = current_access.actions.get(action_name)
+        for name in system_roles:
+            db.session.add(ActionSystemRoles.allow(action, role_name=name))
+    db.session.commit()
+    return True
+
+
 @fixtures.command('import_role_policies')
 @with_appcontext
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
@@ -102,6 +116,18 @@ def import_role_policies(infile):
     :param infile: Json file
     """
     if load_role_policies(json.load(infile)):
+        click.secho('Success', fg='green')
+
+
+@fixtures.command('import_system_role_policies')
+@with_appcontext
+@click.argument('infile', type=click.File('r'), default=sys.stdin)
+def import_system_role_policies(infile):
+    """Import the action system roles policies.
+
+    :param infile: Json file
+    """
+    if load_system_role_policies(json.load(infile)):
         click.secho('Success', fg='green')
 
 

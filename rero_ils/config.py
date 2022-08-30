@@ -70,19 +70,19 @@ from .modules.collections.permissions import CollectionPermission
 from .modules.contributions.api import Contribution
 from .modules.contributions.permissions import ContributionPermissionPolicy
 from .modules.documents.api import Document
-from .modules.documents.permissions import DocumentPermission
+from .modules.documents.permissions import DocumentPermissionPolicy
 from .modules.documents.query import acquisition_filter, \
     nested_identified_filter
 from .modules.holdings.api import Holding
 from .modules.holdings.models import HoldingCirculationAction
-from .modules.holdings.permissions import HoldingPermission
+from .modules.holdings.permissions import HoldingsPermissionPolicy
 from .modules.ill_requests.api import ILLRequest
 from .modules.ill_requests.permissions import ILLRequestPermissionPolicy
 from .modules.item_types.api import ItemType
 from .modules.item_types.permissions import ItemTypePermissionPolicy
 from .modules.items.api import Item
 from .modules.items.models import ItemCirculationAction, ItemIssueStatus
-from .modules.items.permissions import ItemPermission
+from .modules.items.permissions import ItemPermissionPolicy
 from .modules.items.utils import item_location_retriever, \
     same_location_validator
 from .modules.libraries.api import Library
@@ -667,16 +667,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:documents_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=DocumentPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=DocumentPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=DocumentPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=DocumentPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=DocumentPermission)
+        list_permission_factory_imp=lambda record: DocumentPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: DocumentPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: DocumentPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: DocumentPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: DocumentPermissionPolicy('delete', record=record)
     ),
     illr=dict(
         pid_type='illr',
@@ -741,21 +736,15 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Item(request.get_json()),
         },
         record_class='rero_ils.modules.items.api:Item',
-        item_route=('/items/<pid(item, record_class='
-                    '"rero_ils.modules.items.api:Item"):pid_value>'),
+        item_route='/items/<pid(item, record_class="rero_ils.modules.items.api:Item"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:items_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=ItemPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=ItemPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=ItemPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=ItemPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=ItemPermission)
+        list_permission_factory_imp=lambda record: ItemPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: ItemPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: ItemPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: ItemPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: ItemPermissionPolicy('delete', record=record)
     ),
     itty=dict(
         pid_type='itty',
@@ -852,21 +841,15 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Holding(request.get_json()),
         },
         record_class='rero_ils.modules.holdings.api:Holding',
-        item_route=('/holdings/<pid(hold, record_class='
-                    '"rero_ils.modules.holdings.api:Holding"):pid_value>'),
+        item_route='/holdings/<pid(hold, record_class="rero_ils.modules.holdings.api:Holding"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:holdings_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=HoldingPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=HoldingPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=HoldingPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=HoldingPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=HoldingPermission)
+        list_permission_factory_imp=lambda record: HoldingsPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: HoldingsPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: HoldingsPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: HoldingsPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: HoldingsPermissionPolicy('delete', record=record)
     ),
     lofi=dict(
         pid_type='lofi',

@@ -250,6 +250,7 @@ eval ${PREFIX} "invenio roles create -d 'Documentation Editor' editor"
 eval ${PREFIX} "invenio roles create -d 'Document Importing' document_importer"
 
 info_msg "Create action roles policies"
+eval ${PREFIX} "invenio reroils fixtures import_system_role_policies data/system_role_policies.json"
 eval ${PREFIX} "invenio reroils fixtures import_role_policies data/role_policies.json"
 
 # create users

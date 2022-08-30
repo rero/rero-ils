@@ -244,8 +244,7 @@ def test_documents_import_bnf_ean(mock_get, client, bnf_ean_any_123,
 
 
 @mock.patch('requests.get')
-@mock.patch('rero_ils.permissions.login_and_librarian',
-            mock.MagicMock())
+@mock.patch('rero_ils.permissions.login_and_librarian', mock.MagicMock())
 def test_documents_import_loc_isbn(mock_get, client, loc_isbn_all_123,
                                    loc_isbn_all_9781604689808,
                                    loc_isbn_all_9780821417478,
@@ -374,8 +373,7 @@ def test_documents_import_loc_isbn(mock_get, client, loc_isbn_all_123,
 
 
 @mock.patch('requests.get')
-@mock.patch('rero_ils.permissions.login_and_librarian',
-            mock.MagicMock())
+@mock.patch('rero_ils.permissions.login_and_librarian', mock.MagicMock())
 def test_documents_import_dnb_isbn(mock_get, client, dnb_isbn_123,
                                    dnb_isbn_9783862729852,
                                    dnb_isbn_3858818526,
@@ -480,8 +478,7 @@ def test_documents_import_dnb_isbn(mock_get, client, dnb_isbn_123,
 
 
 @mock.patch('requests.get')
-@mock.patch('rero_ils.permissions.login_and_librarian',
-            mock.MagicMock())
+@mock.patch('rero_ils.permissions.login_and_librarian', mock.MagicMock())
 def test_documents_import_slsp_isbn(mock_get, client, slsp_anywhere_123,
                                     slsp_isbn_9782296076648,
                                     slsp_isbn_3908497272,
@@ -610,8 +607,7 @@ def test_documents_import_slsp_isbn(mock_get, client, slsp_anywhere_123,
 
 
 @mock.patch('requests.get')
-@mock.patch('rero_ils.permissions.login_and_librarian',
-            mock.MagicMock())
+@mock.patch('rero_ils.permissions.login_and_librarian', mock.MagicMock())
 def test_documents_import_ugent_isbn(mock_get, client, ugent_anywhere_123,
                                      ugent_isbn_9781108422925,
                                      ugent_book_without_26X,
@@ -716,8 +712,7 @@ def test_documents_import_ugent_isbn(mock_get, client, ugent_anywhere_123,
 
 
 @mock.patch('requests.get')
-@mock.patch('rero_ils.permissions.login_and_librarian',
-            mock.MagicMock())
+@mock.patch('rero_ils.permissions.login_and_librarian', mock.MagicMock())
 def test_documents_import_kul_isbn(mock_get, client, kul_anywhere_123,
                                    kul_isbn_9782265089419,
                                    kul_book_without_26X,

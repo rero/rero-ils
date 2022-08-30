@@ -18,74 +18,39 @@
 
 """Permissions for documents."""
 
-from flask_principal import RoleNeed
-from invenio_access.permissions import Permission
+from invenio_access import action_factory
+from invenio_access.permissions import any_user
+from invenio_records_permissions.generators import Generator
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    RecordPermissionPolicy
 
-document_importer_permission = Permission(RoleNeed('document_importer'))
+# Actions to control Documents policies for CRUD operations
+search_action = action_factory('doc-search')
+read_action = action_factory('doc-read')
+create_action = action_factory('doc-create')
+update_action = action_factory('doc-update')
+delete_action = action_factory('doc-delete')
 
 
-class DocumentPermission(RecordPermission):
-    """Document permissions."""
+class DisallowIfCannotEdit(Generator):
+    """Disallow if the record cannot be edited due on record data."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    def excludes(self, record=None, **kwargs):
+        """Disallow operation check.
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
+        :param record; the record to check.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to disable access.
         """
-        # everyone can list document
-        return True
+        return [any_user] if record and not record.can_edit else []
 
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # same as list permission
-        return cls.list(user, record)
+class DocumentPermissionPolicy(RecordPermissionPolicy):
+    """Document Permission Policy used by the CRUD operations."""
 
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # users with document_importer permission can add new records
-        if document_importer_permission:
-            return True
-        # only staff members (lib, sys_lib) are allowed to create any documents
-        return bool(current_librarian)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # basically same than create except if document cannot be edited
-        if record and record.can_edit:
-            return cls.create(user, record)
-        return False
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # same as update
-        return cls.update(user, record)
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByAction(read_action)]
+    can_create = [AllowedByAction(create_action)]
+    can_update = [AllowedByAction(update_action), DisallowIfCannotEdit()]
+    can_delete = [AllowedByAction(delete_action), DisallowIfCannotEdit()]
