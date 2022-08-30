@@ -437,6 +437,11 @@ itty_read = "rero_ils.modules.item_types.permissions:read_action"
 itty_create = "rero_ils.modules.item_types.permissions:create_action"
 itty_update = "rero_ils.modules.item_types.permissions:update_action"
 itty_delete = "rero_ils.modules.item_types.permissions:delete_action"
+cipo_search = "rero_ils.modules.circ_policies.permissions:search_action"
+cipo_read = "rero_ils.modules.circ_policies.permissions:read_action"
+cipo_create = "rero_ils.modules.circ_policies.permissions:create_action"
+cipo_update = "rero_ils.modules.circ_policies.permissions:update_action"
+cipo_delete = "rero_ils.modules.circ_policies.permissions:delete_action"
 
 [tool.poetry.plugins."invenio_search.templates"]
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
