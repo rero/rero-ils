@@ -17,11 +17,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Serializers."""
-
+import mock
 from flask import url_for
-from utils import get_json
+from utils import VerifyRecordPermissionPatch, get_json
 
 
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_json_export_serializers(client, export_json_header, document,
                                  export_document):
     """Test JSON export serializers for documents."""
@@ -45,6 +47,8 @@ def test_json_export_serializers(client, export_json_header, document,
         assert key not in data
 
 
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_ris_serializer(client, ris_header, document, export_document):
     """Test RIS formatter"""
     ris_tag = [

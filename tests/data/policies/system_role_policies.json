@@ -1,0 +1,20 @@
+{
+  "doc-search": [
+    "any_user"
+  ],
+  "doc-read": [
+    "any_user"
+  ],
+  "hold-search": [
+    "any_user"
+  ],
+  "hold-read": [
+    "any_user"
+  ],
+  "item-search": [
+    "any_user"
+  ],
+  "item-read": [
+    "any_user"
+  ]
+}

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,82 +17,47 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for holdings."""
+from invenio_access import action_factory, any_user
+from invenio_records_permissions.generators import Generator
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByManageableLibrary, RecordPermissionPolicy
+
+# Actions to control Holdings policies for CRUD operations
+search_action = action_factory('hold-search')
+read_action = action_factory('hold-read')
+create_action = action_factory('hold-create')
+update_action = action_factory('hold-update')
+delete_action = action_factory('hold-delete')
 
 
-class HoldingPermission(RecordPermission):
-    """Holdings permissions."""
+class DisallowIfNotSerialHolding(Generator):
+    """Disallow any operation if record isn't a serial record."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    def excludes(self, record=None, **kwargs):
+        """Disallow operation check.
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
+        :param record; the record to check.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to disable access.
         """
-        return True
+        return [any_user] if record and not record.is_serial else []
 
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        return True
+class HoldingsPermissionPolicy(RecordPermissionPolicy):
+    """Holdings Permission Policy used by the CRUD operations."""
 
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (sys_lib, lib) can create items
-        if not current_librarian:
-            return False
-        if not record:  # Used to to know if user may create some item
-            return True
-        else:
-            # same as update
-            return cls.update(user, record)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) can update item
-        # record cannot be null
-        if not current_librarian or not record:
-            return False
-        # Only 'serial' holding could be manually created
-        if not record.is_serial:
-            return False
-        if current_librarian.organisation_pid == record.organisation_pid:
-            # 'sys_lib' can update all items
-            if current_librarian.has_full_permissions:
-                return True
-            # 'lib' can only update items linked to its own library
-            return current_librarian.library_pids and \
-                record.library_pid in current_librarian.library_pids
-        return False
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # same as update
-        return cls.update(user, record)
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByAction(read_action)]
+    can_create = [
+        AllowedByActionRestrictByManageableLibrary(create_action),
+        DisallowIfNotSerialHolding()
+    ]
+    can_update = [
+        AllowedByActionRestrictByManageableLibrary(update_action),
+        DisallowIfNotSerialHolding()
+    ]
+    can_delete = [
+        AllowedByActionRestrictByManageableLibrary(delete_action),
+        DisallowIfNotSerialHolding()
+    ]
