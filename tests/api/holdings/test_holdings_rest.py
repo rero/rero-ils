@@ -29,25 +29,6 @@ from utils import VerifyRecordPermissionPatch, get_json, postdata, \
 from rero_ils.modules.holdings.api import Holding
 
 
-def test_holdings_permissions(client, holding_lib_martigny, json_header):
-    """Test record permissions."""
-    item_url = url_for('invenio_records_rest.hold_item', pid_value='holding1')
-
-    res = client.get(item_url)
-    assert res.status_code == 200
-
-    res, _ = postdata(client, 'invenio_records_rest.hold_list', {})
-    assert res.status_code == 401
-
-    client.put(
-        item_url,
-        data={},
-        headers=json_header
-    )
-    res = client.delete(item_url)
-    assert res.status_code == 401
-
-
 def test_holding_can_delete_and_utils(client, holding_lib_martigny, document,
                                       item_type_standard_martigny):
     """Test can delete a holding."""
@@ -134,107 +115,6 @@ def test_filtered_holdings_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total']['value'] == 1
-
-
-def test_holding_secure_api(client, json_header, holding_lib_martigny,
-                            librarian_martigny,
-                            librarian_sion):
-    """Test holding secure api access."""
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for('invenio_records_rest.hold_item',
-                         pid_value=holding_lib_martigny.pid)
-
-    res = client.get(record_url)
-    assert res.status_code == 200
-
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-    record_url = url_for('invenio_records_rest.hold_item',
-                         pid_value=holding_lib_martigny.pid)
-
-    res = client.get(record_url)
-    assert res.status_code == 200
-
-
-def test_holding_secure_api_create(client, json_header, holding_lib_martigny,
-                                   librarian_martigny,
-                                   librarian_sion,
-                                   holding_lib_martigny_data):
-    """Test holding secure api create."""
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-    post_entrypoint = 'invenio_records_rest.hold_list'
-
-    # we no longer allow manual creation of standard holdings records
-    del holding_lib_martigny_data['pid']
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        holding_lib_martigny_data
-    )
-    assert res.status_code == 403
-
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        holding_lib_martigny_data
-    )
-    assert res.status_code == 403
-
-
-def test_holding_secure_api_update(client, holding_lib_sion,
-                                   librarian_martigny,
-                                   librarian_sion,
-                                   holding_lib_sion_data,
-                                   json_header):
-    """Test holding secure api update."""
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for('invenio_records_rest.hold_item',
-                         pid_value=holding_lib_sion.pid)
-
-    data = holding_lib_sion_data
-    data['call_number'] = 'call_number'
-    res = client.put(
-        record_url,
-        data=json.dumps(data),
-        headers=json_header
-    )
-    assert res.status_code == 403
-
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-
-    # we no longer allow manual the update of standard holdings records
-    res = client.put(
-        record_url,
-        data=json.dumps(data),
-        headers=json_header
-    )
-    assert res.status_code == 403
-
-
-def test_holding_secure_api_delete(client, holding_lib_saxon,
-                                   librarian_martigny,
-                                   librarian_sion):
-    """Test holding secure api delete."""
-    login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for('invenio_records_rest.hold_item',
-                         pid_value=holding_lib_saxon.pid)
-    # Martigny
-    # we no longer allow manual the delete of standard holdings records
-    res = client.delete(record_url)
-    assert res.status_code == 403
-
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-
-    res = client.delete(record_url)
-    assert res.status_code == 403
 
 
 def test_holdings_items_filter(client, holding_lib_martigny, holding_lib_sion,

@@ -16,11 +16,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Search tests."""
-
+import mock
 from flask import url_for
-from utils import get_json, login_user_via_session
+from utils import VerifyRecordPermissionPatch, get_json, login_user_via_session
 
 
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_document_search(
         client,
         doc_title_travailleurs,
