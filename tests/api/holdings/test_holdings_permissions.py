@@ -16,189 +16,131 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from flask import current_app
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security import login_user
+from utils import check_permission, flush_index
 
-from rero_ils.modules.holdings.permissions import HoldingPermission
-
-
-def test_holdings_permissions_api(client, patron_martigny,
-                                  system_librarian_martigny,
-                                  librarian_martigny,
-                                  holding_lib_martigny, holding_lib_saxon,
-                                  holding_lib_sion,
-                                  holding_lib_martigny_w_patterns):
-    """Test holdings permissions api."""
-    holding_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='holdings'
-    )
-    holding_martigny_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='holdings',
-        record_pid=holding_lib_martigny.pid
-    )
-    holding_serial_martigny_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='holdings',
-        record_pid=holding_lib_martigny_w_patterns.pid
-    )
-    holding_saxon_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='holdings',
-        record_pid=holding_lib_saxon.pid
-    )
-    holding_sion_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='holdings',
-        record_pid=holding_lib_saxon.pid
-    )
-
-    # Not logged
-    res = client.get(holding_permissions_url)
-    assert res.status_code == 401
-
-    # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
-    res = client.get(holding_permissions_url)
-    assert res.status_code == 403
-
-    # Logged as librarian
-    #   * lib can 'list' and 'read' holding of its own organisation
-    #   * lib can 'create', 'update', 'delete' only for its own organisation
-    #   * lib can't 'create', 'update', 'delete' item for other organisation
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.get(holding_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(holding_serial_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(holding_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(holding_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    # Logged as system librarian
-    #   * sys_lib can do everything about patron of its own organisation
-    #   * sys_lib can't do anything about patron of other organisation
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(holding_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(holding_serial_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(holding_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
+from rero_ils.modules.holdings.permissions import HoldingsPermissionPolicy
+from rero_ils.modules.patrons.api import PatronsSearch
 
 
-def test_holdings_permissions(patron_martigny, org_martigny,
-                              librarian_martigny,
-                              system_librarian_martigny,
-                              holding_lib_sion, holding_lib_saxon,
-                              holding_lib_martigny,
-                              holding_lib_martigny_w_patterns,
-                              holding_lib_sion_w_patterns):
+def test_holdings_permissions(
+    patron_martigny, org_martigny, librarian_martigny,
+    system_librarian_martigny, holding_lib_sion, holding_lib_saxon,
+    holding_lib_martigny, holding_lib_martigny_w_patterns,
+    holding_lib_saxon_w_patterns, holding_lib_sion_w_patterns
+):
     """Test holdings permissions class."""
 
-    # Anonymous user
-    assert HoldingPermission.list(None, {})
-    assert HoldingPermission.read(None, {})
-    assert not HoldingPermission.create(None, {})
-    assert not HoldingPermission.update(None, {})
-    assert not HoldingPermission.delete(None, {})
+    # Anonymous user & Patron user
+    #  - search/read any document are allowed.
+    #  - create/update/delete operations are disallowed.
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, None)
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, holding_lib_martigny)
+    login_user(patron_martigny.user)
+    check_permission(HoldingsPermissionPolicy, {'create': False}, {})
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, holding_lib_sion)
 
-    # As non Librarian
-    holding_serial_martigny = holding_lib_martigny_w_patterns
-    holding_serial_sion = holding_lib_sion_w_patterns
-    assert HoldingPermission.list(None, holding_lib_martigny)
-    assert HoldingPermission.read(None, holding_lib_martigny)
-    assert not HoldingPermission.create(None, holding_lib_martigny)
-    assert not HoldingPermission.update(None, holding_lib_martigny)
-    assert not HoldingPermission.delete(None, holding_lib_martigny)
+    # Librarian with specific role
+    #     - search/read: any document
+    #     - create/update/delete:
+    #        -- allowed for serial holdings of its own library
+    #        -- disallowed for standard holdings despite its own library
+    login_user(librarian_martigny.user)
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, holding_lib_martigny)
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, holding_lib_saxon)
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, holding_lib_sion)
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, holding_lib_martigny_w_patterns)
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, holding_lib_saxon_w_patterns)
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, holding_lib_sion_w_patterns)
 
-    # As Librarian
-    with mock.patch(
-        'rero_ils.modules.holdings.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert HoldingPermission.list(None, holding_lib_martigny)
-        assert HoldingPermission.read(None, holding_lib_martigny)
-        assert not HoldingPermission.create(None, holding_lib_martigny)
-        assert not HoldingPermission.update(None, holding_lib_martigny)
-        assert not HoldingPermission.delete(None, holding_lib_martigny)
+    # Librarian without specific role
+    #   - search/read: any document
+    #   - create/update/delete: disallowed for any holdings !!
+    original_roles = librarian_martigny.get('roles', [])
+    librarian_martigny['roles'] = ['pro_circulation_manager']
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-        assert HoldingPermission.create(None, holding_serial_martigny)
-        assert HoldingPermission.update(None, holding_serial_martigny)
-        assert HoldingPermission.delete(None, holding_serial_martigny)
+    login_user(librarian_martigny.user)  # to refresh identity !
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, holding_lib_martigny_w_patterns)
 
-        assert HoldingPermission.read(None, holding_lib_saxon)
-        assert not HoldingPermission.create(None, holding_lib_saxon)
-        assert not HoldingPermission.update(None, holding_lib_saxon)
-        assert not HoldingPermission.delete(None, holding_lib_saxon)
+    # reset the librarian
+    librarian_martigny['roles'] = original_roles
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-        assert HoldingPermission.read(None, holding_lib_sion)
-        assert not HoldingPermission.create(None, holding_lib_sion)
-        assert not HoldingPermission.update(None, holding_lib_sion)
-        assert not HoldingPermission.delete(None, holding_lib_sion)
-
-        assert not HoldingPermission.update(None, holding_serial_sion)
-        assert not HoldingPermission.delete(None, holding_serial_sion)
-
-    # As System-librarian
-    with mock.patch(
-        'rero_ils.modules.holdings.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert HoldingPermission.list(None, HoldingPermission)
-        assert HoldingPermission.read(None, HoldingPermission)
-        assert HoldingPermission.create(None, holding_serial_martigny)
-        assert HoldingPermission.update(None, holding_serial_martigny)
-        assert HoldingPermission.delete(None, holding_serial_martigny)
-
-        assert HoldingPermission.read(None, holding_lib_sion)
-        assert not HoldingPermission.create(None, holding_lib_sion)
-        assert not HoldingPermission.update(None, holding_lib_sion)
-        assert not HoldingPermission.delete(None, holding_lib_sion)
+    # System librarian (aka. full-permissions)
+    #   - create/update/delete: allow for serial holding if its own org
+    login_user(system_librarian_martigny.user)
+    check_permission(HoldingsPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, holding_lib_saxon_w_patterns)

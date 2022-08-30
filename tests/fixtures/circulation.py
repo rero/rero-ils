@@ -26,7 +26,8 @@ from invenio_db import db
 from utils import create_patron, flush_index, \
     item_record_to_a_specific_loan_state
 
-from rero_ils.modules.cli.fixtures import load_role_policies
+from rero_ils.modules.cli.fixtures import load_role_policies, \
+    load_system_role_policies
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from rero_ils.modules.items.api import ItemsSearch
 from rero_ils.modules.loans.api import Loan
@@ -42,7 +43,7 @@ from rero_ils.modules.utils import extracted_data_from_ref
 
 
 @pytest.fixture(scope="module")
-def roles(base_app, database, role_policies_data):
+def roles(base_app, database, role_policies_data, system_role_policies_data):
     """Create user roles."""
     ds = base_app.extensions['invenio-accounts'].datastore
     for role_name in UserRole.ALL_ROLES:
@@ -51,6 +52,7 @@ def roles(base_app, database, role_policies_data):
 
     # set the action role policies
     load_role_policies(role_policies_data)
+    load_system_role_policies(system_role_policies_data)
 
     db.session.commit()
 
