@@ -167,5 +167,32 @@
   ],
   "itty-delete": [
     "pro_full_permissions"
+  ],
+  "cipo-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "cipo-read": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "cipo-create": [
+    "pro_full_permissions"
+  ],
+  "cipo-update": [
+    "pro_full_permissions"
+  ],
+  "cipo-delete": [
+    "pro_full_permissions"
   ]
 }

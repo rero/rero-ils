@@ -16,19 +16,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
+from flask import current_app, url_for
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security.utils import login_user
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import check_permission, get_json
 
 from rero_ils.modules.circ_policies.permissions import \
-    CirculationPolicyPermission
+    CirculationPolicyPermissionPolicy as CiPoPermissionPolicy
 
 
 def test_circ_policies_permissions_api(client, librarian_martigny,
                                        system_librarian_martigny,
                                        circ_policy_short_martigny,
-                                       circ_policy_temp_martigny,
                                        circ_policy_default_sion):
     """Test circulation policies permissions api."""
     cipo_permissions_url = url_for(
@@ -39,11 +39,6 @@ def test_circ_policies_permissions_api(client, librarian_martigny,
         'api_blueprint.permissions',
         route_name='circ_policies',
         record_pid=circ_policy_short_martigny.pid
-    )
-    cipo_tmp_martigny_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='circ_policies',
-        record_pid=circ_policy_temp_martigny.pid
     )
     cipo_sion_permissions_url = url_for(
         'api_blueprint.permissions',
@@ -64,15 +59,10 @@ def test_circ_policies_permissions_api(client, librarian_martigny,
     res = client.get(cipo_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['list']['can']
-    assert data['read']['can']
-    assert not data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-    res = client.get(cipo_tmp_martigny_permissions_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['update']['can']
+    for action in ['list', 'read']:
+        assert data[action]['can']
+    for action in ['create', 'update', 'delete']:
+        assert not data[action]['can']
     res = client.get(cipo_sion_permissions_url)
     data = get_json(res)
     assert not data['read']['can']
@@ -84,61 +74,84 @@ def test_circ_policies_permissions_api(client, librarian_martigny,
     res = client.get(cipo_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['list']['can']
-    assert data['read']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
+    for action in ['list', 'read', 'create', 'update', 'delete']:
+        assert data[action]['can']
     res = client.get(cipo_sion_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert not data['update']['can']
-    assert not data['delete']['can']
+    for action in ['update', 'delete']:
+        assert not data[action]['can']
 
 
 def test_circ_policies_permissions(patron_martigny,
                                    librarian_martigny,
                                    system_librarian_martigny,
                                    circ_policy_short_martigny,
-                                   circ_policy_temp_martigny, org_martigny):
+                                   circ_policy_default_sion):
     """Test circulation policies permission class."""
-
     # Anonymous user
-    assert not CirculationPolicyPermission.list(None, {})
-    assert not CirculationPolicyPermission.read(None, {})
-    assert not CirculationPolicyPermission.create(None, {})
-    assert not CirculationPolicyPermission.update(None, {})
-    assert not CirculationPolicyPermission.delete(None, {})
+    #    An anonymous user can't operate any operation about circulation
+    #    policies
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(CiPoPermissionPolicy, {'search': False}, None)
+    check_permission(CiPoPermissionPolicy, {'create': False}, {})
+    check_permission(CiPoPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, circ_policy_short_martigny)
 
-    # As non Librarian
-    cipo = circ_policy_short_martigny
-    cipo_tmp = circ_policy_temp_martigny
+    # Patron
+    #    A simple patron can't operate any operation about circulation policies
+    login_user(patron_martigny.user)
+    check_permission(CiPoPermissionPolicy, {'search': False}, None)
+    check_permission(CiPoPermissionPolicy, {'create': False}, {})
+    check_permission(CiPoPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, circ_policy_short_martigny)
 
-    assert not CirculationPolicyPermission.list(None, cipo)
-    assert not CirculationPolicyPermission.read(None, cipo)
-    assert not CirculationPolicyPermission.create(None, cipo)
-    assert not CirculationPolicyPermission.update(None, cipo)
-    assert not CirculationPolicyPermission.delete(None, cipo)
+    # Librarian
+    #     - search : any circulation policies despite organisation owner
+    #     - read : only circulation policies for its own organisation
+    #     - create/update/delete: disallowed
+    login_user(librarian_martigny.user)
+    check_permission(CiPoPermissionPolicy, {'search': True}, None)
+    check_permission(CiPoPermissionPolicy, {'create': False}, {})
+    check_permission(CiPoPermissionPolicy, {
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, circ_policy_short_martigny)
+    check_permission(CiPoPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, circ_policy_default_sion)
 
-    # As Librarian
-    with mock.patch(
-        'rero_ils.modules.circ_policies.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert CirculationPolicyPermission.list(None, cipo)
-        assert CirculationPolicyPermission.read(None, cipo)
-        assert not CirculationPolicyPermission.create(None, cipo)
-        assert not CirculationPolicyPermission.update(None, cipo)
-        assert not CirculationPolicyPermission.delete(None, cipo)
-        assert CirculationPolicyPermission.update(None, cipo_tmp)
-
-    # As SystemLibrarian
-    with mock.patch(
-        'rero_ils.modules.circ_policies.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert CirculationPolicyPermission.list(None, cipo)
-        assert CirculationPolicyPermission.read(None, cipo)
-        assert CirculationPolicyPermission.create(None, cipo)
-        assert CirculationPolicyPermission.update(None, cipo)
-        assert CirculationPolicyPermission.delete(None, cipo)
+    # SystemLibrarian
+    #     - search : any circulation policies despite organisation owner
+    #     - read/create/update/delete : only circulation policies for its own
+    #       organisation
+    login_user(system_librarian_martigny.user)
+    check_permission(CiPoPermissionPolicy, {'search': True}, None)
+    check_permission(CiPoPermissionPolicy, {'create': True}, {})
+    check_permission(CiPoPermissionPolicy, {
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, circ_policy_short_martigny)
+    check_permission(CiPoPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, circ_policy_default_sion)
