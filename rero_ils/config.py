@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -55,7 +56,8 @@ from .modules.acq_receipts.permissions import AcqReceiptPermission
 from .modules.budgets.api import Budget
 from .modules.budgets.permissions import BudgetPermission
 from .modules.circ_policies.api import CircPolicy
-from .modules.circ_policies.permissions import CirculationPolicyPermission
+from .modules.circ_policies.permissions import \
+    CirculationPolicyPermissionPolicy
 from .modules.collections.api import Collection
 from .modules.collections.permissions import CollectionPermission
 from .modules.contributions.api import Contribution
@@ -1239,16 +1241,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=CirculationPolicyPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=CirculationPolicyPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=CirculationPolicyPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=CirculationPolicyPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=CirculationPolicyPermission)
+        list_permission_factory_imp=lambda record: CirculationPolicyPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: CirculationPolicyPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: CirculationPolicyPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: CirculationPolicyPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: CirculationPolicyPermissionPolicy('delete', record=record)
     ),
     notif=dict(
         pid_type='notif',
