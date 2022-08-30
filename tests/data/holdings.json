@@ -376,6 +376,85 @@
       }
     ]
   },
+  "holding8": {
+    "$schema": "https://bib.rero.ch/schemas/holdings/holding-v0.0.1.json",
+    "pid": "holding8",
+    "call_number": "h00008",
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/doc4"
+    },
+    "circulation_category": {
+      "$ref": "https://bib.rero.ch/api/item_types/itty1"
+    },
+    "location": {
+      "$ref": "https://bib.rero.ch/api/locations/loc3"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib2"
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "vendor": {
+      "$ref": "https://bib.rero.ch/api/vendors/vndr1"
+    },
+    "holdings_type": "serial",
+    "enumerationAndChronology": "enumerationAndChronology",
+    "supplementaryContent": "supplementaryContent",
+    "index": "index",
+    "issue_binding": "10",
+    "acquisition_status": "currently_received",
+    "acquisition_method": "purchase",
+    "acquisition_expected_end_date": "2025-12-31",
+    "general_retention_policy": "permanently_retained",
+    "completeness": "complete",
+    "composite_copy_report": "separate",
+    "missing_issues": "missing_issues",
+    "notes": [
+      {
+        "type": "general_note",
+        "content": "general_note..."
+      }
+    ],
+    "patterns": {
+      "template": "no {{first_enumeration.level_1}} {{first_chronology.level_2}} {{first_chronology.level_1}}",
+      "frequency": "rdafr:1010",
+      "next_expected_date": "2020-03-01",
+      "language": "eng",
+      "max_number_of_claims": 2,
+      "days_before_first_claim": 7,
+      "days_before_next_claim": 7,
+      "values": [
+        {
+          "name": "first_enumeration",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 61
+            }
+          ]
+        },
+        {
+          "name": "first_chronology",
+          "levels": [
+            {
+              "number_name": "level_1",
+              "starting_value": 2020
+            },
+            {
+              "list_name": "level_2",
+              "mapping_values": [
+                "mars",
+                "juin",
+                "sept.",
+                "d\u00e9c."
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
   "pattern1": {
     "template_name": "quarterly_one_level",
     "patterns": {

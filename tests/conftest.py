@@ -74,14 +74,22 @@ def es(appctx):
 def data():
     """Load fixture data file."""
     with open(join(dirname(__file__), 'data/data.json')) as f:
-        data = json.load(f)
-        return data
+        return json.load(f)
 
 
 @pytest.fixture(scope="module")
 def role_policies_data():
     """Load fixture role policies data file."""
-    with open(join(dirname(__file__), 'data/role_policies.json')) as f:
+    path = 'data/policies/role_policies.json'
+    with open(join(dirname(__file__), path)) as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="module")
+def system_role_policies_data():
+    """Load fixture role policies data file."""
+    path = 'data/policies/system_role_policies.json'
+    with open(join(dirname(__file__), path)) as f:
         return json.load(f)
 
 
@@ -89,24 +97,21 @@ def role_policies_data():
 def acquisition():
     """Load fixture acquisition file."""
     with open(join(dirname(__file__), 'data/acquisition.json')) as f:
-        data = json.load(f)
-        return data
+        return json.load(f)
 
 
 @pytest.fixture(scope="module")
 def holdings():
     """Load fixture holdings file."""
     with open(join(dirname(__file__), 'data/holdings.json')) as f:
-        data = json.load(f)
-        return data
+        return json.load(f)
 
 
 @pytest.fixture(scope="module")
 def local_fields():
     """Load local fields file."""
     with open(join(dirname(__file__), 'data/local_fields.json')) as f:
-        data = json.load(f)
-        return data
+        return json.load(f)
 
 
 @pytest.fixture(scope="session")

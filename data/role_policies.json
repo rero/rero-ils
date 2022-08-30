@@ -1,4 +1,81 @@
 {
+  "cipo-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "cipo-read": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "cipo-create": [
+    "pro_full_permissions"
+  ],
+  "cipo-update": [
+    "pro_full_permissions"
+  ],
+  "cipo-delete": [
+    "pro_full_permissions"
+  ],
+  "doc-create": [
+    "document_importer",
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "doc-update": [
+    "document_importer",
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "doc-delete": [
+    "document_importer",
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "hold-create": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "hold-update": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "hold-delete": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "item-create": [
+    "pro_full_permissions",
+    "pro_circulation_manager",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "item-update": [
+    "pro_full_permissions",
+    "pro_circulation_manager",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "item-delete": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
   "illr-search": [
     "patron",
     "pro_full_permissions",
@@ -29,6 +106,33 @@
     "pro_full_permissions",
     "pro_circulation_manager",
     "pro_library_administrator"
+  ],
+  "itty-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "itty-read": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "itty-create": [
+    "pro_full_permissions"
+  ],
+  "itty-update": [
+    "pro_full_permissions"
+  ],
+  "itty-delete": [
+    "pro_full_permissions"
   ],
   "lib-search": [
     "pro_full_permissions",
@@ -170,59 +274,5 @@
     "pro_full_permissions",
     "pro_acquisition_manager",
     "pro_library_administrator"
-  ],
-  "itty-search": [
-    "pro_full_permissions",
-    "pro_read_only",
-    "pro_catalog_manager",
-    "pro_circulation_manager",
-    "pro_user_manager",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
-  "itty-read": [
-    "pro_full_permissions",
-    "pro_read_only",
-    "pro_catalog_manager",
-    "pro_circulation_manager",
-    "pro_user_manager",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
-  "itty-create": [
-    "pro_full_permissions"
-  ],
-  "itty-update": [
-    "pro_full_permissions"
-  ],
-  "itty-delete": [
-    "pro_full_permissions"
-  ],
-  "cipo-search": [
-    "pro_full_permissions",
-    "pro_read_only",
-    "pro_catalog_manager",
-    "pro_circulation_manager",
-    "pro_user_manager",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
-  "cipo-read": [
-    "pro_full_permissions",
-    "pro_read_only",
-    "pro_catalog_manager",
-    "pro_circulation_manager",
-    "pro_user_manager",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
-  "cipo-create": [
-    "pro_full_permissions"
-  ],
-  "cipo-update": [
-    "pro_full_permissions"
-  ],
-  "cipo-delete": [
-    "pro_full_permissions"
   ]
 }
