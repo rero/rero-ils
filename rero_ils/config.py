@@ -66,7 +66,7 @@ from .modules.circ_policies.api import CircPolicy
 from .modules.circ_policies.permissions import \
     CirculationPolicyPermissionPolicy
 from .modules.collections.api import Collection
-from .modules.collections.permissions import CollectionPermission
+from .modules.collections.permissions import CollectionPermissionPolicy
 from .modules.contributions.api import Contribution
 from .modules.contributions.permissions import ContributionPermissionPolicy
 from .modules.documents.api import Document
@@ -125,7 +125,7 @@ from .modules.selfcheck.permissions import seflcheck_permission_factory
 from .modules.stats.api import Stat
 from .modules.stats.permissions import StatPermission
 from .modules.templates.api import Template
-from .modules.templates.permissions import TemplatePermission
+from .modules.templates.permissions import TemplatePermissionPolicy
 from .modules.users.api import get_profile_countries, \
     get_readonly_profile_fields
 from .modules.vendors.api import Vendor
@@ -613,16 +613,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:view_search_collection_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=CollectionPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=CollectionPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=CollectionPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=CollectionPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=CollectionPermission)
+        list_permission_factory_imp=lambda record: CollectionPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: CollectionPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: CollectionPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: CollectionPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: CollectionPermissionPolicy('delete', record=record)
     ),
     doc=dict(
         pid_type='doc',
@@ -1603,22 +1598,15 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         list_route='/templates/',
         record_class='rero_ils.modules.templates.api:Template',
-        item_route=('/templates/<pid(tmpl, record_class='
-                    '"rero_ils.modules.templates.api:'
-                    'Template"):pid_value>'),
+        item_route='/templates/<pid(tmpl, record_class="rero_ils.modules.templates.api:Template"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:templates_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=TemplatePermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=TemplatePermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=TemplatePermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=TemplatePermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=TemplatePermission)
+        list_permission_factory_imp=lambda record: TemplatePermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: TemplatePermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: TemplatePermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: TemplatePermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: TemplatePermissionPolicy('delete', record=record)
     ),
     oplg=dict(
         # TODO: useless, but required
