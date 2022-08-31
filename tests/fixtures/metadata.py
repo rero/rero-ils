@@ -1018,6 +1018,46 @@ def templ_doc_private_martigny(
 
 
 @pytest.fixture(scope="module")
+def templ_doc_private_saxon_data(data):
+    """Load template for a private document saxon data."""
+    return deepcopy(data.get('tmpl7'))
+
+
+@pytest.fixture(scope="module")
+def templ_doc_private_saxon(
+        app, org_martigny, templ_doc_private_saxon_data,
+        librarian_saxon):
+    """Create template for a private document saxon."""
+    template = Template.create(
+        data=templ_doc_private_saxon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
+
+
+@pytest.fixture(scope="module")
+def templ_doc_public_saxon_data(data):
+    """Load template for a public document saxon data."""
+    return deepcopy(data.get('tmpl8'))
+
+
+@pytest.fixture(scope="module")
+def templ_doc_public_saxon(
+        app, org_martigny, templ_doc_public_saxon_data,
+        librarian_saxon):
+    """Create template for a public document saxon."""
+    template = Template.create(
+        data=templ_doc_public_saxon_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
+
+
+@pytest.fixture(scope="module")
 def templ_doc_public_sion_data(data):
     """Load template for a public document sion data."""
     return deepcopy(data.get('tmpl3'))
@@ -1030,6 +1070,26 @@ def templ_doc_public_sion(
     """Create template for a public document sion."""
     template = Template.create(
         data=templ_doc_public_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(TemplatesSearch.Meta.index)
+    return template
+
+
+@pytest.fixture(scope="module")
+def templ_doc_private_sion_data(data):
+    """Load template for a private document sion data."""
+    return deepcopy(data.get('tmpl9'))
+
+
+@pytest.fixture(scope="module")
+def templ_doc_private_sion(
+        app, org_sion, templ_doc_private_sion_data,
+        system_librarian_sion):
+    """Create template for a private document sion."""
+    template = Template.create(
+        data=templ_doc_private_sion_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

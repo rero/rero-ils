@@ -26,21 +26,21 @@ class CleanDataDictExtension(RecordExtension):
     def post_init(self, record, data, model=None, **kwargs):
         """Called after a record is initialized.
 
-        Removes fields that can have a link to other records in the database.
+        Remove fields that can have a link to other records in the database.
 
+        :param record: the record to analyze
         :param data: The dict passed to the record's constructor
         :param model: The model class used for initialization.
         """
         fields = ['pid']
         if record.get('template_type') == 'items':
-            fields = fields + [
-                'barcode', 'status', 'document', 'holding', 'organisation',
-                'library']
+            fields += ['barcode', 'status', 'document', 'holding',
+                       'organisation', 'library']
+
         elif record.get('template_type') == 'holdings':
-            fields = fields + ['organisation', 'library', 'document']
+            fields += ['organisation', 'library', 'document']
         elif record.get('template_type') == 'patrons':
-            fields = fields + [
-                'user_id', 'patron.subscriptions', 'patron.barcode']
+            fields += ['user_id', 'patron.subscriptions', 'patron.barcode']
 
         for field in fields:
             if '.' in field:

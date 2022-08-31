@@ -18,106 +18,153 @@
 
 """Templates permissions."""
 
-from flask import request
+from flask import g, request
+from invenio_access import action_factory, any_user
+from invenio_records_permissions.generators import Generator
 
 from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, LibraryNeed, \
+    OrganisationNeed, OwnerNeed, RecordPermissionPolicy
+from rero_ils.modules.templates.api import Template
+from rero_ils.modules.users.models import UserRole
+
+# Actions to control Templates policies for CRUD operations
+search_action = action_factory('tmpl-search')
+read_action = action_factory('tmpl-read')
+create_action = action_factory('tmpl-create')
+update_action = action_factory('tmpl-update')
+delete_action = action_factory('tmpl-delete')
 
 
-class TemplatePermission(RecordPermission):
-    """Template permissions."""
+class AllowedByActionTemplateReadRestriction(AllowedByAction):
+    """Allows by action with special template specification for read."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    def needs(self, record=None, *args, **kwargs):
+        """Allows the given action.
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
+        :param record: the record to analyze
+        :param args: extra arguments.
+        :param kwargs: extra named arguments.
+        :returns: a list of action permission.
         """
-        # Operation allowed only for staff members (lib, sys_lib)
-        return bool(current_librarian)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # Check the user is authenticated and a record exists as param.
-        if not record or not current_librarian:
-            return False
-        # only librarian or system_librarian can read templates of own org
-        if current_librarian.organisation_pid == record.organisation_pid:
-            #   - 'sys_librarian' could always read any record
-            if current_librarian.has_full_permissions:
-                return True
-            #   - 'librarian' could only read his public and his own records.
-            else:
-                return record.is_public or \
-                    record.creator_pid == current_librarian.pid
-        return False
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # only librarian or system_librarian can create templates
-        if not current_librarian:
-            return False
+        required_needs = super().needs(record, **kwargs)
+        if record and not isinstance(record, Template):
+            record = Template(record)
+        # if record isn't a `Template` resource, we can't continue any other
+        # check, just return the already known `required_needs`
         if not record:
-            return True
-        # Same as update
-        return cls.update(user, record)
+            return required_needs
 
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
+        # if current logged user isn't a staff member then protect the template
+        # by only its owner. If permission matrix is correctly build, it should
+        # never happen.
+        owner_need = OwnerNeed(record.creator_pid)
+        if not current_librarian and owner_need not in g.identity.provides:
+            return []  # empty array == disable operation
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
+        # By default, users can only perform operations on template for its
+        # own organisation ; it could be more restrictive for private templates
+        # but this special case will be analyzed below
+        provided_needs = g.identity.provides
+        if OrganisationNeed(record.organisation_pid) not in provided_needs:
+            return []  # empty array == disable operation
+
+        # If template is private, restriction are more complex and depend on
+        # the user roles :
+        #   - full_permission : no additional restrictions.
+        #   - library_administration : only templates for user belonging to
+        #       its library
+        #   - other : only own templates.
+        if (roles := current_librarian.get('roles')) and record.is_private:
+            if UserRole.FULL_PERMISSIONS in roles:
+                pass
+            elif UserRole.LIBRARY_ADMINISTRATOR in roles:
+                if all(LibraryNeed(lib_pid) not in provided_needs
+                       for lib_pid in current_librarian.library_pids):
+                    return []  # empty array == disable operation
+            elif OwnerNeed(record.creator_pid) not in provided_needs:
+                return []  # empty array == disable operation
+
+        return required_needs
+
+
+class AllowedByActionTemplateWriteRestriction(AllowedByAction):
+    """Allows by action with special template specification for write."""
+
+    def needs(self, record, **kwargs):
+        """Allows the given action.
+
+        :param record: the record to analyze
+        :param kwargs: extra named arguments.
+        :returns: a list of action permission.
         """
-        # User must be authenticated and have (at least) librarian role
-        if not current_librarian:
-            return False
-        # User can only update record of its own organisation
-        if current_librarian.organisation_pid == record.organisation_pid:
-            #   - 'sys_librarian' can update public and his own private records
-            if current_librarian.has_full_permissions:
-                if record.is_private and \
-                        record.creator_pid != current_librarian.pid:
-                    return False
-                return True
-            #   - 'librarian' can only update his own private records
-            #     He cannot change the visibility
-            else:
-                incoming_record = request.get_json(silent=True) or {}
-                # a librarian cannot change visibility of a template
-                if incoming_record and incoming_record.get('visibility') \
-                   != record.get('visibility'):
-                    return False
-                # a librarian can update its own private record
-                elif record.is_private and \
-                        record.creator_pid == current_librarian.pid:
-                    return True
-        return False
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
+        required_needs = super().needs(record, **kwargs)
+        if record and not isinstance(record, Template):
+            record = Template(record)
+        # if record isn't a `Template` resource, we can't continue any other
+        # check, just return the already known `required_needs`
         if not record:
-            return False
-        # same as update
-        return cls.update(user, record)
+            return required_needs
+
+        # if current logged user isn't a staff member then protect the template
+        # by only its owner. If permission matrix is correctly build, it should
+        # never happen.
+        owner_need = OwnerNeed(record.creator_pid)
+        if not current_librarian and owner_need not in g.identity.provides:
+            return []  # empty array == disable operation
+
+        # * If template is public, only 'full_permission' user can perform
+        #   create/update/delete operations on such record for record of its
+        #   own organisation.
+        # * If template is private, only owner can perform create/update/delete
+        #   operations on such record.
+        user_roles = current_librarian.get('roles', [])
+        if record.is_public:
+            org_need = OrganisationNeed(record.organisation_pid)
+            if UserRole.FULL_PERMISSIONS not in user_roles or \
+               org_need not in g.identity.provides:
+                return []  # empty array == disable operation
+        elif record.is_private and owner_need not in g.identity.provides:
+            return []  # empty array == disable operation
+
+        return required_needs
+
+
+class DisableTemplateVisibilityChanges(Generator):
+    """Disable template visibility changes with conditions."""
+
+    allowed_roles = [UserRole.FULL_PERMISSIONS, UserRole.LIBRARY_ADMINISTRATOR]
+
+    def excludes(self, record=None, **kwargs):
+        """Disallow `visibility` field changes depending on user roles.
+
+        Any changes on the `visibility` can be operated only by a user
+        having 'full-permission' or 'librarian-administrator' role.
+
+        :param record; the record to check.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to disable access.
+        """
+        if record:
+            incoming_record = request.get_json(silent=True) or {}
+            if incoming_record and \
+               record.get('visibility') != incoming_record.get('visibility'):
+                if not current_librarian:
+                    return [any_user]
+                user_roles = set(current_librarian.get('roles'))
+                if not user_roles.intersection(self.allowed_roles):
+                    return [any_user]
+        return []
+
+
+class TemplatePermissionPolicy(RecordPermissionPolicy):
+    """Template Permission Policy used by the CRUD operations."""
+
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionTemplateReadRestriction(read_action)]
+    can_create = [AllowedByActionTemplateWriteRestriction(create_action)]
+    can_update = [
+        AllowedByActionTemplateWriteRestriction(update_action),
+        DisableTemplateVisibilityChanges()
+    ]
+    can_delete = [AllowedByActionTemplateWriteRestriction(delete_action)]

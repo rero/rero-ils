@@ -203,6 +203,23 @@
   "cipo-delete": [
     "pro_full_permissions"
   ],
+  "coll-create": [
+    "pro_full_permissions",
+    "pro_circulation_manager",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "coll-update": [
+    "pro_full_permissions",
+    "pro_circulation_manager",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "coll-delete": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
   "doc-create": [
     "pro_full_permissions",
     "pro_catalog_manager",
@@ -415,6 +432,48 @@
   ],
   "org-update": [
     "pro_full_permissions"
+  ],
+  "tmpl-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "tmpl-read": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "tmpl-update": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "tmpl-create": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "tmpl-delete": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
   ],
   "vndr-search": [
     "pro_full_permissions",

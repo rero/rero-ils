@@ -1,4 +1,10 @@
 {
+  "coll-search": [
+    "any_user"
+  ],
+  "coll-read": [
+    "any_user"
+  ],
   "doc-search": [
     "any_user"
   ],
