@@ -4446,6 +4446,51 @@
       }
     }
   },
+  "tmpl7": {
+    "$schema": "https://bib.rero.ch/schemas/templates/template-v0.0.1.json",
+    "pid": "tmpl7",
+    "name": "templ_doc_private_saxon",
+    "description": "Template for private documents created at saxon.",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "creator": {
+      "$ref": "https://bib.rero.ch/api/patrons/ptrn4"
+    },
+    "visibility": "private",
+    "template_type": "documents",
+    "data": {}
+  },
+  "tmpl8": {
+    "$schema": "https://bib.rero.ch/schemas/templates/template-v0.0.1.json",
+    "pid": "tmpl8",
+    "name": "templ_doc_public_saxon",
+    "description": "Template for public documents created at saxon.",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "creator": {
+      "$ref": "https://bib.rero.ch/api/patrons/ptrn4"
+    },
+    "visibility": "public",
+    "template_type": "documents",
+    "data": {}
+  },
+  "tmpl9": {
+    "$schema": "https://bib.rero.ch/schemas/templates/template-v0.0.1.json",
+    "pid": "tmpl9",
+    "name": "templ_doc_private_sion",
+    "description": "Template for private documents created at sion.",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org2"
+    },
+    "creator": {
+      "$ref": "https://bib.rero.ch/api/patrons/ptrn8"
+    },
+    "visibility": "private",
+    "template_type": "documents",
+    "data": {}
+  },
   "illr1": {
     "$schema": "https://bib.rero.ch/schemas/ill_requests/ill_request-v0.0.1.json",
     "pid": "illr1",

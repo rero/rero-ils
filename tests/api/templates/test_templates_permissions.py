@@ -16,145 +16,261 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from flask import current_app
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security import login_user
+from utils import check_permission, flush_index
 
-from rero_ils.modules.templates.permissions import TemplatePermission
-
-
-def test_templates_permissions_api(client, patron_martigny,
-                                   templ_doc_private_martigny,
-                                   templ_doc_public_martigny,
-                                   librarian_martigny,
-                                   templ_doc_public_sion,
-                                   system_librarian_martigny):
-    """Test templates permissions api."""
-    template_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='templates'
-    )
-    templ_doc_pub_martigny_url = url_for(
-        'api_blueprint.permissions',
-        route_name='templates',
-        record_pid=templ_doc_public_martigny.pid
-    )
-    templ_doc_private_martigny_url = url_for(
-        'api_blueprint.permissions',
-        route_name='templates',
-        record_pid=templ_doc_private_martigny.pid
-    )
-    templ_sion_pub_url = url_for(
-        'api_blueprint.permissions',
-        route_name='templates',
-        record_pid=templ_doc_public_sion.pid
-    )
-
-    # Not logged
-    res = client.get(template_permissions_url)
-    assert res.status_code == 401
-
-    # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
-    res = client.get(template_permissions_url)
-    assert res.status_code == 403
-
-    # Logged as librarian
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.get(templ_doc_pub_martigny_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(templ_doc_private_martigny_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(templ_sion_pub_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    # Logged as system librarian
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(templ_doc_private_martigny_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(templ_sion_pub_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data['read']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
+from rero_ils.modules.patrons.api import PatronsSearch
+from rero_ils.modules.templates.permissions import TemplatePermissionPolicy
 
 
 def test_template_permissions(
-        patron_martigny, librarian_martigny,
-        system_librarian_martigny, org_martigny,
-        templ_doc_public_martigny, templ_doc_private_martigny,
-        templ_doc_public_sion):
+    patron_martigny, librarian_martigny, system_librarian_martigny,
+    org_martigny, templ_doc_public_martigny, templ_doc_private_martigny,
+    templ_doc_public_sion, templ_doc_private_saxon, templ_doc_public_saxon,
+    templ_doc_private_sion
+):
     """Test template permissions class."""
 
-    # Anonymous user
-    assert not TemplatePermission.list(None, {})
-    assert not TemplatePermission.read(None, {})
-    assert not TemplatePermission.create(None, {})
-    assert not TemplatePermission.update(None, {})
-    assert not TemplatePermission.delete(None, {})
+    # Anonymous user & Patron user
+    #  - None operation are allowed
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(TemplatePermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, None)
+    check_permission(TemplatePermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_martigny)
+    login_user(patron_martigny.user)
+    check_permission(TemplatePermissionPolicy, {'create': False}, {})
+    check_permission(TemplatePermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_martigny)
+    check_permission(TemplatePermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_sion)
 
-    # As non Librarian
-    assert not TemplatePermission.list(None, {})
-    assert not TemplatePermission.read(None, {})
-    assert not TemplatePermission.create(None, {})
-    assert not TemplatePermission.update(None, {})
-    assert not TemplatePermission.delete(None, {})
+    # Librarian with only 'read_only' role
+    #     - search/read: templates for its own organisation
+    #     - create/update/delete: disallowed
+    original_roles = librarian_martigny.get('roles', [])
+    librarian_martigny['roles'] = ['pro_read_only']
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-    # As Librarian
-    with mock.patch(
-        'rero_ils.modules.templates.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert TemplatePermission.list(None, templ_doc_public_martigny)
-        assert TemplatePermission.read(None, templ_doc_public_martigny)
-        assert not TemplatePermission.create(None, templ_doc_public_martigny)
-        assert not TemplatePermission.update(None, templ_doc_public_martigny)
-        assert not TemplatePermission.delete(None, templ_doc_public_martigny)
+    login_user(librarian_martigny.user)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_martigny)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_saxon)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_private_saxon)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_sion)
 
-        assert TemplatePermission.list(None, templ_doc_public_sion)
-        assert not TemplatePermission.read(None, templ_doc_public_sion)
-        assert not TemplatePermission.create(None, templ_doc_public_sion)
-        assert not TemplatePermission.update(None, templ_doc_public_sion)
-        assert not TemplatePermission.delete(None, templ_doc_public_sion)
+    # Librarian with classic 'staff-member' role:
+    #   * public template :
+    #     - search/read: templates of its own organisation
+    #     - create/update/delete: disallowed operations
+    #   * private templates :
+    #     - all operations available only for its own templates.
+    librarian_martigny['roles'] = ['pro_circulation_manager']
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-    # As SystemLibrarian
-    with mock.patch(
-        'rero_ils.modules.templates.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert TemplatePermission.list(None, templ_doc_private_martigny)
-        assert TemplatePermission.read(None, templ_doc_private_martigny)
-        assert not TemplatePermission.create(None, templ_doc_private_martigny)
-        assert not TemplatePermission.update(None, templ_doc_private_martigny)
-        assert not TemplatePermission.delete(None, templ_doc_private_martigny)
+    login_user(librarian_martigny.user)  # to refresh identity !
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_martigny)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_saxon)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_sion)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, templ_doc_private_martigny)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_private_saxon)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_private_sion)
 
-        assert not TemplatePermission.read(None, templ_doc_public_sion)
-        assert not TemplatePermission.create(None, templ_doc_public_sion)
-        assert not TemplatePermission.update(None, templ_doc_public_sion)
-        assert not TemplatePermission.delete(None, templ_doc_public_sion)
+    # Librarian with classic 'library-administration' role:
+    #   * public template (same other staff-members):
+    #     - search/read: templates of its own organisation
+    #     - create/update/delete: disallowed operations
+    #   * private templates :
+    #     - read: all templates linked to its own library
+    #     - other operations available only for its own templates.
+    librarian_martigny['roles'] = ['pro_library_administrator']
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+
+    login_user(librarian_martigny.user)  # to refresh identity !
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_martigny)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_saxon)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_sion)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, templ_doc_private_martigny)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_private_saxon)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_private_sion)
+
+    # Librarian with classic 'full-permissions' role:
+    #   * public template:
+    #     - all operations about templates for its own organisation
+    #   * private templates :
+    #     - read: all templates linked to its own organisation
+    #     - other operations available only for its own templates.
+    librarian_martigny['roles'] = ['pro_full_permissions']
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+
+    login_user(librarian_martigny.user)  # to refresh identity !
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, templ_doc_public_martigny)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, templ_doc_public_saxon)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_public_sion)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, templ_doc_private_martigny)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_private_saxon)
+    check_permission(TemplatePermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, templ_doc_private_sion)
+
+    # reset librarian
+    librarian_martigny['roles'] = original_roles
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
