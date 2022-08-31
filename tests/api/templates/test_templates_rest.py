@@ -177,28 +177,6 @@ def test_templates_post_put_delete(client, org_martigny,
     assert res.status_code == 410
 
 
-def test_template_secure_api(client, json_header,
-                             templ_doc_public_martigny,
-                             librarian_martigny,
-                             librarian_sion):
-    """Test templates secure api access."""
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-    record_url = url_for('invenio_records_rest.tmpl_item',
-                         pid_value=templ_doc_public_martigny.pid)
-
-    res = client.get(record_url)
-    assert res.status_code == 200
-
-    # Sion
-    login_user_via_session(client, librarian_sion.user)
-    record_url = url_for('invenio_records_rest.tmpl_item',
-                         pid_value=templ_doc_public_martigny.pid)
-
-    res = client.get(record_url)
-    assert res.status_code == 403
-
-
 def test_template_secure_api_create(client, json_header,
                                     system_librarian_martigny,
                                     system_librarian_sion,
@@ -301,25 +279,12 @@ def test_template_secure_api_create(client, json_header,
         else:
             assert field not in json_data
 
-    # Sion
-    login_user_via_session(client, system_librarian_sion.user)
 
-    res, _ = postdata(
-        client,
-        post_entrypoint,
-        templ_doc_public_martigny_data
-    )
-    assert res.status_code == 403
-
-
-def test_template_secure_api_update(client,
-                                    templ_doc_private_martigny,
-                                    templ_doc_private_martigny_data,
-                                    system_librarian_martigny,
-                                    system_librarian_sion,
-                                    librarian_martigny,
-                                    librarian_saxon,
-                                    json_header):
+def test_template_secure_api_update(
+    client, templ_doc_private_martigny, templ_doc_private_martigny_data,
+    system_librarian_martigny, system_librarian_sion, librarian_martigny,
+    librarian_saxon, librarian2_martigny, json_header
+):
     """Test templates secure api update."""
     # Martigny
     login_user_via_session(client, system_librarian_martigny.user)
@@ -345,9 +310,10 @@ def test_template_secure_api_update(client,
         headers=json_header
     )
     assert res.status_code == 200
-    # ensure that pid is removed from recordds
+    # ensure that pid is removed from records
     assert 'pid' not in res.json['metadata']['data']
 
+    login_user_via_session(client, librarian2_martigny.user)
     data = templ_doc_private_martigny_data
     data['visibility'] = 'public'
     res = client.put(
@@ -385,43 +351,3 @@ def test_template_secure_api_update(client,
         headers=json_header
     )
     assert res.status_code == 403
-
-
-def test_template_secure_api_delete(client,
-                                    templ_doc_private_martigny,
-                                    system_librarian_martigny,
-                                    system_librarian_sion,
-                                    templ_doc_public_martigny,
-                                    librarian_saxon,
-                                    librarian_martigny,
-                                    json_header):
-    """Test templates secure api delete."""
-    record_url = url_for('invenio_records_rest.tmpl_item',
-                         pid_value=templ_doc_private_martigny.pid)
-
-    # Saxon
-    login_user_via_session(client, librarian_saxon.user)
-    res = client.delete(record_url)
-    assert res.status_code == 403
-
-    # Sion
-    login_user_via_session(client, system_librarian_sion.user)
-    res = client.delete(record_url)
-    assert res.status_code == 403
-
-    # Martigny
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.delete(record_url)
-    assert res.status_code == 403
-
-    record_url = url_for('invenio_records_rest.tmpl_item',
-                         pid_value=templ_doc_public_martigny.pid)
-
-    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.delete(record_url)
-    assert res.status_code == 403
-
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.delete(record_url)
-    assert res.status_code == 204

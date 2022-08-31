@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,68 +17,24 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Collection permissions."""
+from invenio_access import action_factory
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
+
+# Actions to control Items policies for CRUD operations
+search_action = action_factory('coll-search')
+read_action = action_factory('coll-read')
+create_action = action_factory('coll-create')
+update_action = action_factory('coll-update')
+delete_action = action_factory('coll-delete')
 
 
-class CollectionPermission(RecordPermission):
-    """Collection permissions."""
+class CollectionPermissionPolicy(RecordPermissionPolicy):
+    """Collection Permission Policy used by the CRUD operations."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # everyone can list document
-        return True
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # same as list permission
-        return cls.list(user, record)
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # only staff members (lib,sys_lib) are allowed to create any collection
-        return bool(current_librarian)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # only staff members (lib, sys_lib) can update collection
-        # record cannot be null
-        if not current_librarian:
-            return False
-        return current_librarian.organisation_pid == record.organisation_pid
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # same as update
-        return cls.update(user, record)
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByAction(read_action)]
+    can_create = [AllowedByActionRestrictByOrganisation(create_action)]
+    can_update = [AllowedByActionRestrictByOrganisation(update_action)]
+    can_delete = [AllowedByActionRestrictByOrganisation(delete_action)]
