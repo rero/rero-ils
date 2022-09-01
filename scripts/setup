@@ -619,9 +619,11 @@ eval ${PREFIX} invenio reroils oaiharvester initconfig ${DATA_PATH}/oaisources.y
 if ${DEPLOYMENT}
 then
     eval ${PREFIX} invenio reroils scheduler enable_tasks -a -v
+    # disable ebook harvesting
+    eval ${PREFIX} invenio reroils scheduler enable_tasks -n ebooks-harvester -d
     # start oai harvesting asynchrone: beats must be running
     info_msg "Start OAI harvesting asynchrone"
-    eval ${PREFIX} invenio reroils oaiharvester harvest -n ebooks -q -k
+    eval ${PREFIX} invenio reroils oaiharvester harvest -n -a max=150 ebooks -q -k
 else
     eval ${PREFIX} invenio reroils scheduler enable_tasks -n scheduler-timestamp -n bulk-indexer -n anonymize-loans -n claims-creation -n accounts -n clear_and_renew_subscriptions -n collect-stats-billing -n collect-stats-librarian -v
     eval ${PREFIX} invenio reroils scheduler enable_tasks -n notification-creation -n notification-dispatch-availability -n notification-dispatch-recall -v
