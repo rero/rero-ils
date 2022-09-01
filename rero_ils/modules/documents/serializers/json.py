@@ -22,7 +22,7 @@ from flask import current_app, json, request, stream_with_context
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.utils import create_contributions, \
+from rero_ils.modules.documents.utils import process_literal_contributions, \
     title_format_text_head
 from rero_ils.modules.documents.views import create_title_alternate_graphic, \
     create_title_responsibilites, create_title_variants, subject_format
@@ -84,15 +84,6 @@ class DocumentJSONSerializer(JSONSerializer):
         # build variant title data for display purpose
         if variant_titles:
             rec['ui_title_variants'] = variant_titles
-        if request and request.args.get('resolve') == '1':
-            # We really have to replace the refs for the MEF here!
-            rec_refs = record.replace_refs()
-            contributions = create_contributions(
-                rec_refs.get('contribution', [])
-            )
-            if contributions:
-                rec['contribution'] = contributions
-
         return super().preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
 
@@ -230,8 +221,8 @@ class DocumentExportJSONSerializer(JSONSerializer):
         """
         Document.post_process(record)
         record = record.replace_refs()
-        if contributions := create_contributions(record.get('contribution',
-                                                            [])):
+        if contributions := process_literal_contributions(
+                record.get('contribution', [])):
             record['contribution'] = contributions
         return json.dumps(record, **self._format_args())
 
