@@ -499,17 +499,11 @@ def create_authorized_access_point(agent):
     return authorized_access_point
 
 
-def create_contributions(contributions):
-    """Create contribution."""
-    from ..contributions.api import Contribution
+def process_literal_contributions(contributions):
+    """Normalize literal contributions."""
     calculated_contributions = []
     for contribution in contributions:
-        cont_pid = contribution['agent'].get('pid')
-        if cont_pid:
-            contrib = Contribution.get_record_by_pid(cont_pid)
-            if contrib:
-                contribution['agent'] = contrib.dumps_for_document()
-        else:
+        if not contribution['agent'].get('pid'):
             # transform local data for indexing
             agent = {
                 'type': contribution['agent']['type'],

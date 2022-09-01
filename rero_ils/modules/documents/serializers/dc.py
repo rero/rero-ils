@@ -28,7 +28,7 @@ from werkzeug.local import LocalProxy
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dojson.contrib.jsontodc import dublincore
-from rero_ils.modules.documents.utils import create_contributions
+from rero_ils.modules.documents.utils import process_literal_contributions
 
 DEFAULT_LANGUAGE = LocalProxy(
     lambda: current_app.config.get('BABEL_DEFAULT_LANGUAGE'))
@@ -60,7 +60,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
                          language=DEFAULT_LANGUAGE, **kwargs):
         """Transform record into an intermediate representation."""
         record = record.replace_refs()
-        contributions = create_contributions(
+        contributions = process_literal_contributions(
             record.get('contribution', [])
         )
         if contributions:
