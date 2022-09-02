@@ -338,6 +338,18 @@ class AllowedByActionRestrictByOwnerOrOrganisation(AllowedByAction):
     organisation.
     """
 
+    def __init__(self, action, patron_callback=None):
+        """Constructor.
+
+        :param action: Need - the ``ActionNeed`` to allow.
+        :param patron_callback: the function used to retrieve the patron pid
+            related to the record that we need to check. By default, the
+            ``patron_pid`` record attribute will be used.
+        """
+        self.patron_callback = patron_callback or \
+            (lambda r: getattr(r, 'patron_pid', None))
+        super().__init__(action)
+
     def needs(self, record=None, *args, **kwargs):
         """Allows the given action.
 
@@ -348,7 +360,7 @@ class AllowedByActionRestrictByOwnerOrOrganisation(AllowedByAction):
         if record:
             required_need = None
             if current_patrons:
-                required_need = OwnerNeed(getattr(record, 'patron_pid', None))
+                required_need = OwnerNeed(self.patron_callback(record))
             elif current_librarian:
                 required_need = OrganisationNeed(record.organisation_pid)
             if required_need and required_need not in g.identity.provides:
