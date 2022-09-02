@@ -459,6 +459,40 @@
   "org-update": [
     "pro_full_permissions"
   ],
+  "ptrn-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "ptrn-read": [
+    "patron",
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "ptrn-create": [
+    "pro_user_manager",
+    "pro_library_administrator",
+    "pro_full_permissions"
+  ],
+  "ptrn-update": [
+    "pro_user_manager",
+    "pro_library_administrator",
+    "pro_full_permissions"
+  ],
+  "ptrn-delete": [
+    "pro_user_manager",
+    "pro_library_administrator",
+    "pro_full_permissions"
+  ],
   "pttr-update": [
     "pro_full_permissions",
     "pro_library_administrator",

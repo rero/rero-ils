@@ -39,6 +39,6 @@ class LibraryPermissionPolicy(RecordPermissionPolicy):
     can_create = [AllowedByActionRestrictByManageableLibrary(
         create_action, lambda record: record.get('pid'))]
     can_update = [AllowedByActionRestrictByManageableLibrary(
-        create_action, lambda record: record.get('pid'))]
+        update_action, lambda record: record.get('pid'))]
     can_delete = [AllowedByActionRestrictByManageableLibrary(
-        create_action, lambda record: record.get('pid'))]
+        delete_action, lambda record: record.get('pid'))]
