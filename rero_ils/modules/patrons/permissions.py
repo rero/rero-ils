@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022 RERO
+# Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,111 +17,121 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for patrons."""
-from flask import request
+from flask import current_app, g
+from flask_login import current_user
+from invenio_access import action_factory, any_user
+from invenio_records_permissions.generators import Generator
 
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByOrganisation, \
+    AllowedByActionRestrictByOwnerOrOrganisation, LibraryNeed, \
+    RecordPermissionPolicy
 from rero_ils.modules.users.models import UserRole
 
-from .api import current_librarian
+from .api import Patron, current_librarian
+
+# Actions to control patron permission policy
+search_action = action_factory('ptrn-search')
+read_action = action_factory('ptrn-read')
+create_action = action_factory('ptrn-create')
+update_action = action_factory('ptrn-update')
+delete_action = action_factory('ptrn-delete')
 
 
-class PatronPermission(RecordPermission):
-    """Patrons permissions."""
+class AllowedByActionRestrictStaffByManageableLibrary(
+      AllowedByActionRestrictByOrganisation):
+    """Restrict action on staff users by staff users of the same library.
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    If the updated record represents a staff `Patron` user, then only staff
+    members related to the same library that this record could update it.
+    """
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
+    def needs(self, record=None, *args, **kwargs):
+        """Allows the given action depending on record.
+
+        :param record: the record to check.
+        :param args: extra arguments.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to validate access.
         """
-        # All staff members (lib, sys_lib) can list patrons
-        return bool(current_librarian)
+        if not isinstance(record, Patron):
+            record = Patron(record)
 
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
+        record_roles = record.get('roles', [])
+        # If updated user is a staff member, only user related to the same
+        # library (so only staff members because simple patron are not
+        # related to any library) can perform operation on this user.
+        if set(UserRole.PROFESSIONAL_ROLES).intersection(record_roles):
+            required_needs = [LibraryNeed(pid) for pid in record.library_pids]
+            if not g.identity.provides.intersection(required_needs):
+                return []
 
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
+        return super().needs(record, *args, **kwargs)
+
+
+class RestrictPatronRolesManagement(Generator):
+    """Restrict patron role management.
+
+    Depending on the current logged user profile, some roles' management
+    updates could be disallowed. Manageable roles are define into the
+    `RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS` configuration attribute.
+    """
+
+    def excludes(self, record=None, **kwargs):
+        """Disallow operation check.
+
+        :param record; the record to check.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to disable access.
         """
-        # For staff users, they can read only their own organisation.
-        return current_librarian and \
-            current_librarian.organisation_pid == record.organisation_pid
+        # first, determine the roles difference between original record and
+        # the record that is updated. If no changes are detected, no more
+        # check will be done
+        record = record or {}
+        record_pid = record.get('pid')
+        original_record = Patron.get_record_by_pid(record_pid) or {}
+        record_roles = set(record.get('roles', []))
+        original_roles = set(original_record.get('roles', []))
+        role_changes = original_roles.symmetric_difference(record_roles)
+        if not role_changes:
+            return []
 
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
+        # Depending on the current logged user roles, determine which roles
+        # this user can manage reading the configuration setting. If any role
+        # from `role_changes` are not present in manageable role, an error
+        # should be raised.
+        key_config = 'RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS'
+        config_roles = current_app.config.get(key_config, {})
+        manageable_roles = set()
+        for role in current_user.roles:
+            manageable_roles = manageable_roles.union(
+                config_roles.get(role.name, {}))
+        # If any difference are found between both sets, disallow the operation
+        if role_changes.difference(manageable_roles):
+            return [any_user]
+        return []
 
-        :param user: Logged user.
-        :param record: pre-existing Record to check.
-        :return: True is action can be done.
-        """
-        incoming_record = request.get_json(silent=True) or {}
-        return cls.can_create(user, record, incoming_record)
 
-    @classmethod
-    def can_create(cls, user, record, incoming_record):
-        """Create permission check.
+class PatronPermissionPolicy(RecordPermissionPolicy):
+    """Patron Permission Policy used by the CRUD operations."""
 
-        :param user: Logged user.
-        :param record: pre-existing Record to check.
-        :param record: new incoming Record data.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) can create patrons ...
-        # ... only for its own organisation
-        if current_librarian:
-            # can create a record
-            if not record:
-                return True
-            if current_librarian.organisation_pid == record.organisation_pid:
-                # sys_lib can manage all kind of patron
-                if current_librarian.has_full_permissions:
-                    return True
-                # librarian user has some restrictions...
-                # a librarian cannot manage a system_librarian patron
-                if UserRole.FULL_PERMISSIONS in \
-                   incoming_record.get('roles', []) \
-                   or UserRole.FULL_PERMISSIONS in record.get('roles', []):
-                    return False
-                # a librarian can only manage other librarian from its own
-                # library
-                if record.library_pid and \
-                        record.library_pid not in \
-                        current_librarian.library_pids:
-                    return False
-                return True
-        return False
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        if not record:
-            return False
-        return cls.create(user, record)
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        if not record:
-            return False
-        # It should be not possible to remove itself
-        if current_librarian and record.pid == current_librarian.pid:
-            return False
-        return cls.create(user, record)
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByOwnerOrOrganisation(
+        read_action,
+        patron_callback=lambda record: record.pid
+    )]
+    can_create = [
+        AllowedByActionRestrictStaffByManageableLibrary(create_action),
+        RestrictPatronRolesManagement()
+    ]
+    can_update = [
+        AllowedByActionRestrictStaffByManageableLibrary(update_action),
+        RestrictPatronRolesManagement()
+    ]
+    can_delete = [
+        AllowedByActionRestrictStaffByManageableLibrary(delete_action),
+        RestrictPatronRolesManagement()
+    ]
 
 
 def get_allowed_roles_management():
