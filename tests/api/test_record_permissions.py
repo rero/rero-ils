@@ -104,32 +104,29 @@ def test_patrons_permissions(
     # simple librarian -----------------------------------------------
     login_user(client, librarian_martigny)
     # 1) should update and delete a librarian of the same library
-    data = call_api_permissions(client, 'patrons',
-                                librarian2_martigny.pid)
+    data = call_api_permissions(client, 'patrons', librarian2_martigny.pid)
     assert data['delete']['can']
     assert data['update']['can']
     # 2) should not update and delete a librarian of an other library
-    data = call_api_permissions(client, 'patrons',
-                                librarian_saxon.pid)
+    data = call_api_permissions(client, 'patrons', librarian_saxon.pid)
     assert not data['delete']['can']
     assert not data['update']['can']
-    # 3) should not update and delete a system librarian
+    # 3) should not delete a system librarian
+    #    but can update it (except some roles management)
     data = call_api_permissions(client, 'patrons',
                                 system_librarian_martigny.pid)
     assert not data['delete']['can']
-    assert not data['update']['can']
+    assert data['update']['can']
 
     # system librarian ----------------------------------------------
     login_user(client, system_librarian_martigny)
     # should update and delete a librarian of the same library
-    data = call_api_permissions(client, 'patrons',
-                                librarian2_martigny.pid)
+    data = call_api_permissions(client, 'patrons', librarian2_martigny.pid)
     assert data['delete']['can']
     assert data['update']['can']
 
     # should update and delete a librarian of an other library
-    data = call_api_permissions(client, 'patrons',
-                                librarian_saxon.pid)
+    data = call_api_permissions(client, 'patrons', librarian_saxon.pid)
     assert data['delete']['can']
     assert data['update']['can']
 
@@ -140,9 +137,8 @@ def test_patrons_permissions(
     assert data['delete']['can']
     assert data['update']['can']
 
-    # should not update and delete a system librarian of an other organisation
-    data = call_api_permissions(client, 'patrons',
-                                system_librarian_sion.pid)
+    # should not update and delete a system librarian of another organisation
+    data = call_api_permissions(client, 'patrons', system_librarian_sion.pid)
     assert not data['delete']['can']
     assert not data['update']['can']
 

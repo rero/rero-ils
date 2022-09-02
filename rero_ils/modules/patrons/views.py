@@ -35,22 +35,25 @@ from flask_security import utils as security_utils
 from invenio_i18n.ext import current_i18n
 from invenio_oauth2server.decorators import require_api_auth
 
+from rero_ils.modules.decorators import check_logged_as_librarian, \
+    check_logged_as_patron, check_logged_user_authentication
+from rero_ils.modules.items.utils import item_pid_to_object
+from rero_ils.modules.loans.api import get_loans_stats_by_patron_pid, \
+    get_overdue_loans
+from rero_ils.modules.loans.utils import sum_for_fees
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.organisations.dumpers import OrganisationLoggedUserDumper
+from rero_ils.modules.patron_transactions.utils import \
+    get_transactions_total_amount_for_patron
+from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
+from rero_ils.modules.users.api import User
+from rero_ils.modules.users.models import UserRole
+from rero_ils.modules.utils import extracted_data_from_ref, get_base_url
+from rero_ils.utils import remove_empties_from_dict
+
 from .api import Patron, PatronsSearch, current_librarian, current_patrons
 from .permissions import get_allowed_roles_management
 from .utils import user_has_patron
-from ..decorators import check_logged_as_librarian, check_logged_as_patron, \
-    check_logged_user_authentication
-from ..items.utils import item_pid_to_object
-from ..loans.api import get_loans_stats_by_patron_pid, get_overdue_loans
-from ..loans.utils import sum_for_fees
-from ..locations.api import Location
-from ..organisations.dumpers import OrganisationLoggedUserDumper
-from ..patron_transactions.utils import \
-    get_transactions_total_amount_for_patron
-from ..patron_types.api import PatronType, PatronTypesSearch
-from ..users.api import User
-from ..utils import extracted_data_from_ref, get_base_url
-from ...utils import remove_empties_from_dict
 
 api_blueprint = Blueprint(
     'api_patrons',
@@ -133,9 +136,7 @@ def logged_user():
             'operationLogs': current_app.config.get(
                 'RERO_ILS_ENABLE_OPERATION_LOG', []
             ),
-            'librarianRoles': current_app.config.get(
-                'RERO_ILS_LIBRARIAN_ROLES', []
-            ),
+            'librarianRoles': UserRole.PROFESSIONAL_ROLES,
             'userProfile': {
                 'readOnly': current_app.config.get(
                     'RERO_PUBLIC_USERPROFILES_READONLY', False),

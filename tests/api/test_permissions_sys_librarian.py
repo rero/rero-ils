@@ -17,16 +17,11 @@
 
 """Tests REST API patrons."""
 
-import json
-from copy import deepcopy
-
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json
 
-from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.users.models import UserRole
-from rero_ils.utils import create_user_from_data
 
 
 def test_system_librarian_permissions(
@@ -37,92 +32,9 @@ def test_system_librarian_permissions(
     # Login as system_librarian
     login_user_via_session(client, system_librarian_martigny.user)
 
-    record = {
-        "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
-        "first_name": "first_name",
-        "last_name": "Last_name",
-        "username": "user",
-        "street": "Avenue Leopold-Robert, 132",
-        "postal_code": "1920",
-        "city": "Martigny",
-        "birth_date": "1967-06-07",
-        "home_phone": "+41324993111"
-    }
-
-    record = create_user_from_data(record)
-    # can retrieve all type of users.
-    list_url = url_for('invenio_records_rest.ptrn_list')
-    res = client.get(list_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 3
-
     # can manage all types of patron roles
     role_url = url_for('api_patrons.get_roles_management_permissions')
     res = client.get(role_url)
     assert res.status_code == 200
     data = get_json(res)
     assert UserRole.FULL_PERMISSIONS in data['allowed_roles']
-
-    # can create all type of users.
-    system_librarian = deepcopy(record)
-    librarian = deepcopy(record)
-    patron = deepcopy(record)
-    records = [{
-        'user': patron,
-        'patch': {
-            'roles': ['patron'],
-            'patron': {
-                'expiration_date': '2023-10-07',
-                'communication_channel': CommunicationChannel.EMAIL,
-                'communication_language': 'ita',
-                'additional_communication_email': 'test@test.com',
-                'type': {
-                    '$ref': 'https://bib.rero.ch/api/patron_types/ptty2'
-                }
-            }
-        }
-    }, {
-        'user': librarian,
-        'patch': {
-            'roles': UserRole.LIBRARIAN_ROLES,
-            'libraries': [{'$ref': 'https://bib.rero.ch/api/libraries/lib1'}]
-        }
-    }, {
-        'user': system_librarian,
-        'patch': {
-            'roles': UserRole.PROFESSIONAL_ROLES,
-            'libraries': [{
-                '$ref': 'https://bib.rero.ch/api/libraries/lib1'
-            }]
-        }
-    }]
-    for counter, record in enumerate(records, start=2):
-        data = record['user']
-        data.update(record['patch'])
-        if data.get('patron'):
-            data['patron']['barcode'] = [f'barcode{counter}']
-        res, _ = postdata(client, 'invenio_records_rest.ptrn_list', data)
-        assert res.status_code == 201
-        user = get_json(res)['metadata']
-        user_pid = user.get('pid')
-        record_url = url_for('invenio_records_rest.ptrn_item',
-                             pid_value=user_pid)
-        res = client.get(record_url)
-        assert res.status_code == 200
-        user = get_json(res)['metadata']
-
-        # can update all type of user records.
-        res = client.put(
-            record_url,
-            data=json.dumps(user),
-            headers=json_header
-        )
-        assert res.status_code == 200
-
-        # can delete all type of user records.
-        record_url = url_for('invenio_records_rest.ptrn_item',
-                             pid_value=user_pid)
-
-        res = client.delete(record_url)
-        assert res.status_code == 204

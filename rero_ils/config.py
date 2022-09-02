@@ -119,7 +119,7 @@ from .modules.patron_types.api import PatronType
 from .modules.patron_types.permissions import PatronTypePermissionPolicy
 from .modules.patrons.api import Patron
 from .modules.patrons.models import CommunicationChannel
-from .modules.patrons.permissions import PatronPermission
+from .modules.patrons.permissions import PatronPermissionPolicy
 from .modules.permissions import record_permission_factory
 from .modules.selfcheck.permissions import seflcheck_permission_factory
 from .modules.stats.api import Stat
@@ -128,6 +128,7 @@ from .modules.templates.api import Template
 from .modules.templates.permissions import TemplatePermissionPolicy
 from .modules.users.api import get_profile_countries, \
     get_readonly_profile_fields
+from .modules.users.models import UserRole
 from .modules.vendors.api import Vendor
 from .modules.vendors.permissions import VendorPermissionPolicy
 from .permissions import librarian_delete_permission_factory, \
@@ -912,21 +913,15 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Patron.load(request.get_json()),
         },
         record_class='rero_ils.modules.patrons.api:Patron',
-        item_route=('/patrons/<pid(ptrn, record_class='
-                    '"rero_ils.modules.patrons.api:Patron"):pid_value>'),
+        item_route='/patrons/<pid(ptrn, record_class="rero_ils.modules.patrons.api:Patron"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=PatronPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=PatronPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=PatronPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=PatronPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=PatronPermission)
+        list_permission_factory_imp=lambda record: PatronPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: PatronPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: PatronPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: PatronPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: PatronPermissionPolicy('delete', record=record)
     ),
     pttr=dict(
         pid_type='pttr',
@@ -2843,14 +2838,29 @@ RERO_ILS_CONTRIBUTIONS_LABEL_ORDER = {
     'de': ['gnd', 'idref', 'rero'],
 }
 
-#: Admin roles
-RERO_ILS_LIBRARIAN_ROLES = [
-    'pro_full_permissions',
-    'pro_read_only',
-    'pro_catalog_manager',
-    'pro_circulation_manager',
-    'pro_user_manager'
-]
+# =============================================================================
+# RERO_ILS PATRON ROLES MANAGEMENT
+# =============================================================================
+"""
+RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS ::
+   Determine roles than users can manage using REST API.
+   The dictionary key represent the role who can manage
+   The dictionary value represent a set of roles than this role can manage.
+"""
+RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS = {
+    UserRole.FULL_PERMISSIONS: set(UserRole.ALL_ROLES),
+    UserRole.LIBRARY_ADMINISTRATOR: {
+        UserRole.PATRON,
+        UserRole.PROFESSIONAL_READ_ONLY,
+        UserRole.CIRCULATION_MANAGER,
+        UserRole.CATALOG_MANAGER,
+        UserRole.USER_MANAGER,
+        UserRole.ACQUISITION_MANAGER
+    },
+    UserRole.USER_MANAGER: {UserRole.PATRON}
+}
+
+
 
 
 # JSONSchemas
