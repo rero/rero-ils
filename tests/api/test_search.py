@@ -18,7 +18,7 @@
 """Search tests."""
 import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json, login_user_via_session
+from utils import VerifyRecordPermissionPatch, get_json
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -313,34 +313,6 @@ def test_document_search(
     list_url = url_for(
         'invenio_records_rest.doc_list',
         q='Boy & Girl',
-        simple='1'
-    )
-    res = client.get(list_url)
-    hits = get_json(res)['hits']
-    assert hits['total']['value'] == 1
-
-
-def test_patrons_search(
-        client,
-        librarian_martigny
-):
-    """Test document boosting."""
-    login_user_via_session(client, librarian_martigny.user)
-    birthdate = librarian_martigny.dumps()['birth_date']
-    # complete birthdate
-    list_url = url_for(
-        'invenio_records_rest.ptrn_list',
-        q='{birthdate}'.format(birthdate=birthdate),
-        simple='1'
-    )
-    res = client.get(list_url)
-    hits = get_json(res)['hits']
-    assert hits['total']['value'] == 1
-
-    # birth year
-    list_url = url_for(
-        'invenio_records_rest.ptrn_list',
-        q='{birthdate}'.format(birthdate=birthdate.split('-')[0]),
         simple='1'
     )
     res = client.get(list_url)
