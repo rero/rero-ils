@@ -173,7 +173,10 @@
         "source": "ebibliomedia",
         "url": "https://la-chaux-de-fonds.ebibliomedia.ch"
       }
-    ]
+    ],
+    "rollover_settings": {
+      "account_transfer": "rollover_allocated_amount"
+    }
   },
   {
     "pid": "2",
@@ -340,7 +343,10 @@
         "source": "ebibliomedia",
         "url": "https://bv-lelocle.ebibliomedia.ch/"
       }
-    ]
+    ],
+    "rollover_settings": {
+      "account_transfer": "rollover_allocated_amount"
+    }
   },
   {
     "pid": "3",
@@ -505,7 +511,10 @@
         "source": "ebibliomedia",
         "url": "https://bpu-neuchatel.ebibliomedia.ch"
       }
-    ]
+    ],
+    "rollover_settings": {
+      "account_transfer": "rollover_allocated_amount"
+    }
   },
   {
     "pid": "4",
@@ -650,6 +659,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_allocated_amount"
     }
   },
   {
@@ -809,6 +821,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -942,6 +957,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -1076,6 +1094,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -1210,6 +1231,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -1344,6 +1368,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -1482,6 +1509,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -1615,6 +1645,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -1749,6 +1782,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -1883,6 +1919,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -2017,6 +2056,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -2155,6 +2197,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -2288,6 +2333,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -2422,6 +2470,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -2556,6 +2607,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -2690,6 +2744,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -2828,6 +2885,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -2958,6 +3018,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -3087,6 +3150,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   {
@@ -3225,6 +3291,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   }
 ]
