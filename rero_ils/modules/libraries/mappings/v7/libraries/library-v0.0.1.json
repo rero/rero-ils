@@ -206,6 +206,13 @@
           }
         }
       },
+      "rollover_settings": {
+        "properties": {
+          "account_transfer": {
+            "type": "keyword"
+          }
+        }
+      },
       "_created": {
         "type": "date"
       },
