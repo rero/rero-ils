@@ -10,7 +10,8 @@
     "pid",
     "name",
     "organisation",
-    "communication_language"
+    "communication_language",
+    "rollover_settings"
   ],
   "definitions": {
     "default_notification_setting": {
@@ -506,6 +507,38 @@
             "format": "uri",
             "pattern": "^(rtsp?|ftps?|https?|http?)://.*$",
             "minLength": 7
+          }
+        }
+      }
+    },
+    "rollover_settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "account_transfer"
+      ],
+      "properties": {
+        "account_transfer": {
+          "title": "Account transfer",
+          "description": "This defines if and how the accounts are transferred into the next fiscal year.",
+          "type": "string",
+          "default": "rollover_no_transfer",
+          "enum": [
+            "rollover_no_transfer",
+            "rollover_allocated_amount"
+          ],
+          "form": {
+            "type": "selectWithSort",
+            "options": [
+              {
+                "label": "rollover_no_transfer",
+                "value": "rollover_no_transfer"
+              },
+              {
+                "label": "rollover_allocated_amount",
+                "value": "rollover_allocated_amount"
+              }
+            ]
           }
         }
       }

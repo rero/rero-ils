@@ -200,7 +200,10 @@
         "source": "ebibliomedia",
         "url": "https://test.ebibliomedia.ch"
       }
-    ]
+    ],
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
+    }
   },
   "lib2": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -340,6 +343,9 @@
           "country": "sz"
         }
       }
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
     }
   },
   "lib3": {
@@ -468,7 +474,10 @@
         "email": "reroilstest+fully@gmail.com"
       }
     ],
-    "communication_language": "fre"
+    "communication_language": "fre",
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
+    }
   },
   "lib4": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -605,7 +614,10 @@
         "email": "reroilstest+sion@gmail.com"
       }
     ],
-    "communication_language": "fre"
+    "communication_language": "fre",
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
+    }
   },
   "lib5": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -733,7 +745,10 @@
         "email": "reroilstest+aproz@gmail.com"
       }
     ],
-    "communication_language": "fre"
+    "communication_language": "fre",
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
+    }
   },
   "lib6": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -861,7 +876,10 @@
         "email": "reroilstest+saillon@gmail.com"
       }
     ],
-    "communication_language": "fre"
+    "communication_language": "fre",
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
+    }
   },
   "lib7": {
     "$schema": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json",
@@ -908,7 +926,10 @@
         "email": "reroilstest+martignybourg@gmail.com"
       }
     ],
-    "communication_language": "fre"
+    "communication_language": "fre",
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
+    }
   },
   "loc1": {
     "$schema": "https://bib.rero.ch/schemas/locations/location-v0.0.1.json",
