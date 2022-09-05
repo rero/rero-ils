@@ -16,10 +16,10 @@
         "type": "integer"
       },
       "call_number": {
-        "type": "keyword"
+        "type": "text"
       },
       "second_call_number": {
-        "type": "keyword"
+        "type": "text"
       },
       "circulation_category": {
         "properties": {

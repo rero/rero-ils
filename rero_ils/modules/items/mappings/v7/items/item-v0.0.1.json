@@ -40,10 +40,10 @@
         "search_analyzer": "standard"
       },
       "call_number": {
-        "type": "keyword"
+        "type": "text"
       },
       "second_call_number": {
-        "type": "keyword"
+        "type": "text"
       },
       "enumerationAndChronology": {
         "type": "keyword"
@@ -188,7 +188,7 @@
             "type": "keyword"
           },
           "inherited_first_call_number": {
-            "type": "keyword"
+            "type": "text"
           },
           "status_date": {
             "type": "date"
