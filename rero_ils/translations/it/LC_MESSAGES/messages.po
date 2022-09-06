@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-09-06 08:30+0200\n"
-"PO-Revision-Date: 2022-08-31 15:22+0000\n"
+"PO-Revision-Date: 2022-09-06 08:39+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.14.1-dev\n"
 "Generated-By: Babel 2.10.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -73,23 +74,20 @@ msgid "online"
 msgstr "online"
 
 #: rero_ils/config.py:1854
-#, fuzzy
 msgid "not_online"
-msgstr "online"
+msgstr "non online"
 
 #: rero_ils/config.py:1857
 msgid "author"
 msgstr "autore"
 
 #: rero_ils/config.py:1858
-#, fuzzy
 msgid "subject_fiction"
-msgstr "abbonamento"
+msgstr "soggetto (narrativa)"
 
 #: rero_ils/config.py:1859
-#, fuzzy
 msgid "subject_no_fiction"
-msgstr "abbonamento"
+msgstr "soggetto (non fiction)"
 
 #: rero_ils/config.py:1860
 msgid "new_acquisition"
@@ -131,19 +129,16 @@ msgid "status"
 msgstr "statuto"
 
 #: rero_ils/config.py:1877
-#, fuzzy
 msgid "genreForm"
-msgstr "Genere, forma"
+msgstr "genere, forma"
 
 #: rero_ils/config.py:1878
-#, fuzzy
 msgid "intendedAudience"
-msgstr "Destinatari presunti"
+msgstr "destinatari presunti"
 
 #: rero_ils/config.py:1879
-#, fuzzy
 msgid "year"
-msgstr "Anno"
+msgstr "anno"
 
 #: rero_ils/config.py:1942
 msgid "item_type"
@@ -168,56 +163,48 @@ msgstr "fornitore"
 #: rero_ils/config.py:2009
 #, fuzzy
 msgid "owner_library"
-msgstr "La tua biblioteca"
+msgstr "owner_library"
 
 #: rero_ils/config.py:2010
 #, fuzzy
 msgid "owner_location"
-msgstr "Localizzazione"
+msgstr "owner_location"
 
 #: rero_ils/config.py:2011
-#, fuzzy
 msgid "pickup_library"
-msgstr "biblioteca"
+msgstr "biblioteca di ritiro"
 
 #: rero_ils/config.py:2012
-#, fuzzy
 msgid "pickup_location"
-msgstr "Punto di ritiro"
+msgstr "punto di ritiro"
 
 #: rero_ils/config.py:2013
-#, fuzzy
 msgid "transaction_library"
-msgstr "bibliotecario che fa acquisizioni"
+msgstr "biblioteca della transazione"
 
 #: rero_ils/config.py:2014
-#, fuzzy
 msgid "transaction_location"
-msgstr "Localizzazione della transazione"
+msgstr "localizzazione della transazione"
 
 #: rero_ils/config.py:2016
-#, fuzzy
 msgid "misc_status"
-msgstr "Statuto del fascicolo"
+msgstr "stato di ritardo"
 
 #: rero_ils/config.py:2017 rero_ils/config.py:2066
 msgid "patron_type"
 msgstr "Tipo di lettore"
 
 #: rero_ils/config.py:2018
-#, fuzzy
 msgid "request_expire_date"
-msgstr "Data di scadenza della richiesta"
+msgstr "data di scadenza della richiesta"
 
 #: rero_ils/config.py:2024
-#, fuzzy
 msgid "end_date"
-msgstr "Data di fine"
+msgstr "data di fine"
 
 #: rero_ils/config.py:2030
-#, fuzzy
 msgid "exclude_status"
-msgstr "Statuto del fascicolo"
+msgstr "escludere lo stato"
 
 #: rero_ils/config.py:2064
 msgid "roles"
@@ -471,19 +458,16 @@ msgid "approved"
 msgstr "convalidato"
 
 #: rero_ils/manual_translations.txt:75
-#, fuzzy
 msgid "cancelled"
-msgstr "Annullato"
+msgstr "annullato"
 
 #: rero_ils/manual_translations.txt:76
-#, fuzzy
 msgid "ordered"
-msgstr "nota per l'ordine"
+msgstr "ordinato"
 
 #: rero_ils/manual_translations.txt:77
-#, fuzzy
 msgid "partially_received"
-msgstr "attualmente ricevuto"
+msgstr "parzialmente ricevuto"
 
 #: rero_ils/manual_translations.txt:78
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:54
@@ -4814,7 +4798,6 @@ msgid "Cancelled"
 msgstr "Annullato"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:295
-#, fuzzy
 msgid "If checked this order line should be considered as cancelled."
 msgstr "Se abilitato, questa riga d'ordine è considerata come cancellata."
 
@@ -4974,8 +4957,9 @@ msgid "End date"
 msgstr "Data di fine"
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:81
+#, fuzzy
 msgid "True if not rolled over yet"
-msgstr ""
+msgstr "Vero, se non è stato ancora ribaltato"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:4
 msgid "Circulation policy"
@@ -8947,9 +8931,8 @@ msgid "docsubtype_microform"
 msgstr "microforme"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:216
-#, fuzzy
 msgid "docsubtype_pictorial_book"
-msgstr "libro in Braille"
+msgstr "libro illustrato"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:233
 msgid "docmaintype_children"
@@ -9028,9 +9011,8 @@ msgid "docsubtype_other_image"
 msgstr "immagine"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:507
-#, fuzzy
 msgid "docsubtype_projected_image"
-msgstr "immagine"
+msgstr "immagine proiettata"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:524
 msgid "docmaintype_language_method"
@@ -12106,11 +12088,11 @@ msgstr "Una ricchezza di conoscenze a portata di click"
 
 #: rero_ils/theme/templates/rero_ils/footer.html:22
 msgid "Powered by"
-msgstr ""
+msgstr "Alimentato da"
 
 #: rero_ils/theme/templates/rero_ils/footer.html:26
 msgid "Privacy policy"
-msgstr ""
+msgstr "Politica sulla riservatezza"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:28
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:42
@@ -12256,4 +12238,3 @@ msgstr "La tua parola d'ordine è stata reimposta con successo."
 
 #~ msgid "using"
 #~ msgstr "utilizzando"
-
