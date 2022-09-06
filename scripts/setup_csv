@@ -345,7 +345,7 @@ then
     eval ${PREFIX} invenio reroils scheduler enable_tasks -n ebooks-harvester -d
     # start oai harvesting asynchrone: beats must be running
     info_msg "Start OAI harvesting asynchrone"
-    eval ${PREFIX} invenio reroils oaiharvester harvest -n -a max=150 ebooks -q -k
+    eval ${PREFIX} invenio reroils oaiharvester harvest -n ebooks -a max=150 -q -k
 else
     eval ${PREFIX} invenio reroils scheduler enable_tasks -n scheduler-timestamp -n bulk-indexer -n anonymize-loans -n claims-creation -n notification-creation -n accounts -n clear_and_renew_subscriptions -v
     info_msg "For ebooks harvesting run:"
