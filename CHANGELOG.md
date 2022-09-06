@@ -1,5 +1,59 @@
 # Changelog
 
+## [v1.13.0](https://github.com/rero/rero-ils/tree/v1.13.0) (2022-09-06)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.12.0...v1.13.0)
+
+**New features:**
+* Improve facets [\#2763](https://github.com/rero/rero-ils/issues/2763) (by @vgranata)
+* Acquisition: export order lines and accounts information [\#2899](https://github.com/rero/rero-ils/issues/2899) (by @lauren-d)
+* Loans brief view + export [\#2903](https://github.com/rero/rero-ils/issues/2903) (by @zannkukai)
+* ILL request button on the global view for item of other organisations [\#2950](https://github.com/rero/rero-ils/issues/2950) (by @Garfield-fr)
+
+**Enhancements:**
+* Editor: add field `acquisition_date` in the quick access [\#3032](https://github.com/rero/rero-ils/issues/3032) (by @PascalRepond)
+* Holdings request: improve UX [\#2943](https://github.com/rero/rero-ils/issues/2943) (by @Garfield-fr)
+* Patron account (pro UI): display call numbers [\#3014](https://github.com/rero/rero-ils/issues/3014) (by @zannkukai)
+* Changing the fiscal year in the organisation should be directly effective for all users [\#2929](https://github.com/rero/rero-ils/issues/2929) (by @Garfield-fr)
+* Most used values of dropdown shown first [\#1419](https://github.com/rero/rero-ils/issues/1419) (by @PascalRepond)
+* Add subtypes "Projected image" and "Pictorial book" to the document [\#2884](https://github.com/rero/rero-ils/issues/2884) (by @Garfield-fr)
+* Add some fields to the Inventory list [\#2704](https://github.com/rero/rero-ils/issues/2704) (by @BadrAly)
+* update flask-wiki to 0.2.1 [\#3002](https://github.com/rero/rero-ils/pull/3002) (by @PascalRepond)
+
+**Fixes:**
+* import: fix configuration [\#3082](https://github.com/rero/rero-ils/pull/3082) (by @Garfield-fr)
+* patron transactions: fix incremental overdue fees [\#3019](https://github.com/rero/rero-ils/pull/3019) (by @lauren-d)
+* notifications: fix notification at desk [\#3021](https://github.com/rero/rero-ils/pull/3021) (by @lauren-d)
+* SIP2: user authentication should not base exclusively on the e-mail [\#2987](https://github.com/rero/rero-ils/issues/2987) (by @lauren-d)
+* Some sub-fields should be indexed so that expert searches can target them [\#3027](https://github.com/rero/rero-ils/issues/3027) (by @jma)
+* The title parts Number and Names should be displayed in the order of the editor [\#3050](https://github.com/rero/rero-ils/issues/3050) (by @jma)
+* Search containing character "&" not consistent [\#2972](https://github.com/rero/rero-ils/issues/2972) (by @jma)
+* Correct the handling of alternate graphics in Title proper fields (display and indexing) [\#2591](https://github.com/rero/rero-ils/issues/2591) (by @jma)
+* Host document is not displayed when the main title contains a language value [\#3048](https://github.com/rero/rero-ils/issues/3048) (by @jma)
+* Wrong display of the Variant Title's Part name [\#2906](https://github.com/rero/rero-ils/issues/2906) (by @jma)
+* Only one mainTitle is indexed in a partOf document field. [\#2730](https://github.com/rero/rero-ils/issues/2730) (by @jma)
+* User editor: cannot save a new user using a template [\#3053](https://github.com/rero/rero-ils/issues/3053) (by @PascalRepond)
+* Block modification of resources linked to a non current fiscal year [\#2930](https://github.com/rero/rero-ils/issues/2930) (by @Garfield-fr, @BadrAly)
+* Some MEF string should not have white spaces around parenthesis [\#3033](https://github.com/rero/rero-ils/issues/3033) (by @rerowep)
+* At desk notification gets cancelled if `loan` is not indexed fast enough [\#3005](https://github.com/rero/rero-ils/issues/3005) (by @lauren-d)
+* Removing an order line already sent creates errors [\#2688](https://github.com/rero/rero-ils/issues/2688) (by @lauren-d)
+* Inventory list export: some columns counts only use active loans [\#2793](https://github.com/rero/rero-ils/issues/2793) (by @BadrAly)
+
+**Other changes:**
+* setup: limit number of ebooks in test instances [\#3070](https://github.com/rero/rero-ils/pull/3070) (by @PascalRepond)
+* dependencies: fix vulnerabilities [\#3068](https://github.com/rero/rero-ils/pull/3068) (by @jma)
+* holdings: fix json schema [\#3029](https://github.com/rero/rero-ils/pull/3029) (by @Garfield-fr)
+* documentation: update contributing guide [\#3024](https://github.com/rero/rero-ils/pull/3024) (by @PascalRepond)
+* ebooks: better ebook harvesting [\#3020](https://github.com/rero/rero-ils/pull/3020) (by @rerowep)
+* documents: fix reindexing documents [\#3034](https://github.com/rero/rero-ils/pull/3034) (by @rerowep)
+* dojson: better code [\#3035](https://github.com/rero/rero-ils/pull/3035) (by @rerowep)
+* tests: fix pytest-invenio>1.4.11 [\#3036](https://github.com/rero/rero-ils/pull/3036) (by @jma)
+* templates: update footer info [\#3017](https://github.com/rero/rero-ils/pull/3017) (by @PascalRepond)
+* tests: fix tests for the new pydocstyle version [\#3028](https://github.com/rero/rero-ils/pull/3028) (by @jma)
+* ebooks: fix deletion of holdings [\#3015](https://github.com/rero/rero-ils/pull/3015) (by @rerowep)
+* update links: privacy policy and test instances [\#3001](https://github.com/rero/rero-ils/pull/3001) (by @PascalRepond)
+* test instances: allow message translation [\#3000](https://github.com/rero/rero-ils/pull/3000) (by @PascalRepond)
+
 ## [v1.12.0](https://github.com/rero/rero-ils/tree/v1.12.0) (2022-07-08)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.11.0...v1.12.0)
