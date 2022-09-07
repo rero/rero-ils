@@ -83,6 +83,15 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         query = query.filter('term', organisation__pid=organisation.pid)
     holdings_count = query.count()
 
+    # Counting linked documents
+    from .api import DocumentsSearch
+    query = DocumentsSearch()\
+        .filter('term', partOf__document__pid=pid.pid_value)
+    if organisation:
+        query = query.filter(
+            'term', holdings__organisation__organisation_pid=organisation.pid)
+    linked_documents_count = query.count()
+
     return render_template(
         template,
         pid=pid,
@@ -90,7 +99,8 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         holdings_count=holdings_count,
         viewcode=viewcode,
         recordType='documents',
-        current_patrons=current_patrons
+        current_patrons=current_patrons,
+        linked_documents_count=linked_documents_count
     )
 
 
