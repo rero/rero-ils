@@ -16,154 +16,109 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from flask import current_app
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security import login_user
+from utils import check_permission
 
-from rero_ils.modules.locations.permissions import LocationPermission
-
-
-def test_location_permissions_api(client, patron_martigny,
-                                  loc_public_martigny, loc_public_saxon,
-                                  loc_public_sion, librarian_martigny,
-                                  system_librarian_martigny):
-    """Test locations permissions api."""
-    loc_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='locations'
-    )
-    loc_martigny_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='locations',
-        record_pid=loc_public_martigny.pid
-    )
-    loc_saxon_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='locations',
-        record_pid=loc_public_saxon.pid
-    )
-    loc_sion_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='locations',
-        record_pid=loc_public_sion.pid
-    )
-
-    # Not logged
-    res = client.get(loc_permissions_url)
-    assert res.status_code == 401
-
-    # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
-    res = client.get(loc_permissions_url)
-    assert res.status_code == 403
-
-    # Logged as librarian
-    #   * lib can 'list' and 'read' libraries of its own organisation
-    #   * lib can 'create', 'update', delete only for its library
-    #   * lib can't 'read' acq_account of others organisation.
-    #   * lib can't 'create', 'update', 'delete' acq_account for other org/lib
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.get(loc_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(loc_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(loc_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    # Logged as system librarian
-    #   * sys_lib can 'list' organisations
-    #   * sys_lib can never 'create' and 'delete' any organisation
-    #   * sys_lib can 'read' and 'update' only their own organisation
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(loc_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(loc_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
+from rero_ils.modules.locations.permissions import LocationPermissionPolicy
 
 
 def test_location_permissions(patron_martigny,
                               librarian_martigny,
+                              librarian2_martigny,
                               system_librarian_martigny,
                               org_martigny, loc_public_martigny,
                               loc_public_saxon, loc_public_sion):
     """Test location permissions class."""
 
     # Anonymous user
-    assert not LocationPermission.list(None, {})
-    assert not LocationPermission.read(None, {})
-    assert not LocationPermission.create(None, {})
-    assert not LocationPermission.update(None, {})
-    assert not LocationPermission.delete(None, {})
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(LocationPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, {})
 
-    # As Patron
-    with mock.patch(
-        'rero_ils.modules.locations.permissions.current_patrons',
-        [patron_martigny]
-    ):
-        assert LocationPermission.list(None, loc_public_martigny)
-        assert LocationPermission.read(None, loc_public_martigny)
-        assert not LocationPermission.create(None, loc_public_martigny)
-        assert not LocationPermission.update(None, loc_public_martigny)
-        assert not LocationPermission.delete(None, loc_public_martigny)
+    # Patron
+    #    A simple patron can't operate any operation about Location
+    login_user(patron_martigny.user)
+    check_permission(LocationPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loc_public_martigny)
 
-    # As Librarian
-    with mock.patch(
-        'rero_ils.modules.locations.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert LocationPermission.list(None, loc_public_martigny)
-        assert LocationPermission.read(None, loc_public_martigny)
-        assert LocationPermission.create(None, loc_public_martigny)
-        assert LocationPermission.update(None, loc_public_martigny)
-        assert LocationPermission.delete(None, loc_public_martigny)
+    # Librarian without 'pro_library_administrator' role
+    #     - search : any Library despite organisation owner
+    #     - read : only Library for its own organisation
+    #     - create/update/delete : disallowed
+    login_user(librarian2_martigny.user)
+    check_permission(LocationPermissionPolicy, {'search': True}, None)
+    check_permission(LocationPermissionPolicy, {'create': False}, {})
+    check_permission(LocationPermissionPolicy, {
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loc_public_martigny)
+    check_permission(LocationPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loc_public_sion)
 
-        assert LocationPermission.list(None, loc_public_sion)
-        assert LocationPermission.read(None, loc_public_sion)
-        assert not LocationPermission.create(None, loc_public_sion)
-        assert not LocationPermission.update(None, loc_public_sion)
-        assert not LocationPermission.delete(None, loc_public_sion)
+    # Librarian with 'pro_library_administrator' role
+    #    - search/read : same as common librarian
+    #    - create/update/delete : if patron is manager for this library
 
-    # As SystemLibrarian
-    with mock.patch(
-        'rero_ils.modules.locations.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert LocationPermission.list(None, loc_public_saxon)
-        assert LocationPermission.read(None, loc_public_saxon)
-        assert LocationPermission.create(None, loc_public_saxon)
-        assert LocationPermission.update(None, loc_public_saxon)
-        assert LocationPermission.delete(None, loc_public_saxon)
+    login_user(librarian_martigny.user)
+    check_permission(LocationPermissionPolicy, {
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, loc_public_martigny)
+    check_permission(LocationPermissionPolicy, {
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loc_public_saxon)
+    check_permission(LocationPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loc_public_sion)
 
-        assert LocationPermission.read(None, loc_public_sion)
-        assert not LocationPermission.create(None, loc_public_sion)
-        assert not LocationPermission.update(None, loc_public_sion)
-        assert not LocationPermission.delete(None, loc_public_sion)
+    # SystemLibrarian
+    #     - search : any Library despite organisation owner
+    #     - read : only Library for its own organisation
+    #     - create/update/delete : only Library for its own organisation
+    login_user(system_librarian_martigny.user)
+    check_permission(LocationPermissionPolicy, {
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, loc_public_martigny)
+    check_permission(LocationPermissionPolicy, {
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, loc_public_saxon)
+    check_permission(LocationPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loc_public_sion)
