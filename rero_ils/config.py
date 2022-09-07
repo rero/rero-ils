@@ -98,7 +98,7 @@ from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
 from .modules.local_fields.api import LocalField
 from .modules.local_fields.permissions import LocalFieldPermission
 from .modules.locations.api import Location
-from .modules.locations.permissions import LocationPermission
+from .modules.locations.permissions import LocationPermissionPolicy
 from .modules.notifications.api import Notification
 from .modules.notifications.dispatcher import \
     Dispatcher as NotificationDispatcher
@@ -1190,16 +1190,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:viewcode_patron_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=LocationPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=LocationPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=LocationPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=LocationPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=LocationPermission)
+        list_permission_factory_imp=lambda record: LocationPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: LocationPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: LocationPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: LocationPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: LocationPermissionPolicy('delete', record=record)
     ),
     cont=dict(
         pid_type='cont',
