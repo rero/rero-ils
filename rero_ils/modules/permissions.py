@@ -396,7 +396,7 @@ class AllowedByActionRestrictByOrganisation(AllowedByAction):
 
 
 class AllowedByActionRestrictByManageableLibrary(AllowedByAction):
-    """Allow if the user and the record have the same organisation."""
+    """Allow if the user and the record have the same library."""
 
     def __init__(self, action, callback=None):
         """Constructor.
