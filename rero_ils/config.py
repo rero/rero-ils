@@ -3138,30 +3138,35 @@ RERO_IMPORT_REST_ENDPOINTS = dict(
         weight=70
     ),
     bnf=dict(
+        key='bnf',
         import_class='rero_ils.modules.imports.api:BnfImport',
         import_size=50,
         label='BNF',
         weight=20
     ),
     dnb=dict(
+        key='dnb',
         import_class='rero_ils.modules.imports.api:DNBImport',
         import_size=50,
         label='DNB',
         weight=20
     ),
     slsp=dict(
+        key='slsp',
         import_class='rero_ils.modules.imports.api:SLSPImport',
         import_size=50,
         label='SLSP',
         weight=15
     ),
     ugent=dict(
+        key='ugent',
         import_class='rero_ils.modules.imports.api:UGentImport',
         import_size=50,
         label='UGent',
         weight=30
     ),
     kul=dict(
+        key='kul',
         import_class='rero_ils.modules.imports.api:KULImport',
         import_size=50,
         label='KULeuven',
