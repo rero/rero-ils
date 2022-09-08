@@ -493,7 +493,7 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
             )
             continue
         # TODO: do we have to save loanid and how we can save it?
-        if p_type == 'loanid':
+        if p_type in ['loanid', 'oplg']:
             continue
         click.secho(
             f'Save {p_type} CSV files to directory: {output_directory}',
