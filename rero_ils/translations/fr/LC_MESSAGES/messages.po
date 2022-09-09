@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-09-06 08:30+0200\n"
-"PO-Revision-Date: 2022-09-06 08:39+0000\n"
+"PO-Revision-Date: 2022-09-09 08:21+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -10661,7 +10661,7 @@ msgstr "Date d'avis d'échéance"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:127
 msgid "Request expire datetime"
-msgstr "Date d'expiration de la demande"
+msgstr "Expiration de la demande"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:132
 msgid "Request start datetime"
