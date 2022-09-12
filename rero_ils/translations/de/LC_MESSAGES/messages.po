@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-09-06 08:30+0200\n"
-"PO-Revision-Date: 2022-09-06 08:39+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2022-09-12 13:39+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -159,14 +159,12 @@ msgid "vendor"
 msgstr "Lieferant"
 
 #: rero_ils/config.py:2009
-#, fuzzy
 msgid "owner_library"
-msgstr "owner_library"
+msgstr "Besitzende Bibliothek"
 
 #: rero_ils/config.py:2010
-#, fuzzy
 msgid "owner_location"
-msgstr "owner_location"
+msgstr "Standort"
 
 #: rero_ils/config.py:2011
 msgid "pickup_library"
@@ -185,9 +183,8 @@ msgid "transaction_location"
 msgstr "Standort der Transaktion"
 
 #: rero_ils/config.py:2016
-#, fuzzy
 msgid "misc_status"
-msgstr "Andere Status"
+msgstr "Verspätungsstatus"
 
 #: rero_ils/config.py:2017 rero_ils/config.py:2066
 msgid "patron_type"
@@ -4797,10 +4794,8 @@ msgid "Cancelled"
 msgstr "Storniert"
 
 #: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:295
-#, fuzzy
 msgid "If checked this order line should be considered as cancelled."
-msgstr ""
-"Falls angekreuzt ist diese Bestellungszeile als abgebrochen zu betrachten."
+msgstr "Falls angekreuzt ist diese Bestellzeile als abgebrochen zu betrachten."
 
 #: rero_ils/modules/acq_orders/api.py:389
 #, python-format
@@ -4958,9 +4953,8 @@ msgid "End date"
 msgstr "Enddatum"
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:81
-#, fuzzy
 msgid "True if not rolled over yet"
-msgstr "Richtig, wenn noch nicht umgedreht"
+msgstr "Richtig, wenn noch nicht abgeschlossen"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:4
 msgid "Circulation policy"
@@ -8946,7 +8940,6 @@ msgid "docsubtype_microform"
 msgstr "Mikroform"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:216
-#, fuzzy
 msgid "docsubtype_pictorial_book"
 msgstr "Bildband"
 

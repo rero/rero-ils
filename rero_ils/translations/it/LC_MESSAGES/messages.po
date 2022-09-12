@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-09-06 08:30+0200\n"
-"PO-Revision-Date: 2022-09-09 08:21+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2022-09-12 13:39+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
 "Language: it\n"
@@ -161,18 +161,16 @@ msgid "vendor"
 msgstr "fornitore"
 
 #: rero_ils/config.py:2009
-#, fuzzy
 msgid "owner_library"
-msgstr "owner_library"
+msgstr "biblioteca proprietaria"
 
 #: rero_ils/config.py:2010
-#, fuzzy
 msgid "owner_location"
-msgstr "owner_location"
+msgstr "localizzazione"
 
 #: rero_ils/config.py:2011
 msgid "pickup_library"
-msgstr "biblioteca di ritiro"
+msgstr "punto di ritiro"
 
 #: rero_ils/config.py:2012
 msgid "pickup_location"
@@ -4957,9 +4955,8 @@ msgid "End date"
 msgstr "Data di fine"
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:81
-#, fuzzy
 msgid "True if not rolled over yet"
-msgstr "Vero, se non è stato ancora ribaltato"
+msgstr "Vero se non è ancora chiuso"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:4
 msgid "Circulation policy"
