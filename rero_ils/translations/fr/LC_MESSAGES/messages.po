@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-09-06 08:30+0200\n"
-"PO-Revision-Date: 2022-09-09 08:21+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2022-09-12 13:39+0000\n"
+"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
 "Language: fr\n"
@@ -164,15 +164,15 @@ msgstr "Fournisseur"
 
 #: rero_ils/config.py:2009
 msgid "owner_library"
-msgstr "bibliothèque de provenance"
+msgstr "bibliothèque propriétaire"
 
 #: rero_ils/config.py:2010
 msgid "owner_location"
-msgstr "localisation de provenance"
+msgstr "localisation"
 
 #: rero_ils/config.py:2011
 msgid "pickup_library"
-msgstr "bibliothèque de retrait"
+msgstr "lieu de retrait"
 
 #: rero_ils/config.py:2012
 msgid "pickup_location"
@@ -4959,7 +4959,7 @@ msgstr "Date de fin"
 
 #: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:81
 msgid "True if not rolled over yet"
-msgstr "Vrai si le budget n'a pas encore été reconduit"
+msgstr "Vrai si le budget n'est pas encore clôturé"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:4
 msgid "Circulation policy"
@@ -8935,7 +8935,7 @@ msgstr "microforme"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:216
 msgid "docsubtype_pictorial_book"
-msgstr "livre illustré (beaux livres)"
+msgstr "livre illustré (beau-livre)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:233
 msgid "docmaintype_children"
