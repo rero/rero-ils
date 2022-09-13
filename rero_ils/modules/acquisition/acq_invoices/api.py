@@ -20,7 +20,8 @@
 
 from functools import partial
 
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.minters import id_minter
@@ -56,7 +57,7 @@ class AcquisitionInvoicesSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class AcquisitionInvoice(IlsRecord):
+class AcquisitionInvoice(AcquisitionIlsRecord):
     """AcquisitionInvoice class."""
 
     minter = acq_invoice_id_minter

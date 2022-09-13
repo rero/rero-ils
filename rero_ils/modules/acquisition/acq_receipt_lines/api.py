@@ -23,7 +23,8 @@ from functools import partial
 
 from werkzeug.utils import cached_property
 
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
@@ -61,7 +62,7 @@ class AcqReceiptLinesSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class AcqReceiptLine(IlsRecord):
+class AcqReceiptLine(AcquisitionIlsRecord):
     """AcqReceiptLine class."""
 
     minter = acq_receipt_line_id_minter

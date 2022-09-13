@@ -23,7 +23,8 @@ from functools import partial
 
 from rero_ils.modules.acquisition.acq_receipt_lines.api import \
     AcqReceiptLine, AcqReceiptLinesSearch
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.extensions import DecimalAmountExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
@@ -62,7 +63,7 @@ class AcqReceiptsSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class AcqReceipt(IlsRecord):
+class AcqReceipt(AcquisitionIlsRecord):
     """AcqReceipt class."""
 
     minter = acq_receipt_id_minter

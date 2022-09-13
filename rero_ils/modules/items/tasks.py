@@ -22,31 +22,30 @@ from __future__ import absolute_import, print_function
 from celery import shared_task
 from flask import current_app
 
+from rero_ils.modules.api import IlsRecordError
+from rero_ils.modules.holdings.api import Holding
+from rero_ils.modules.utils import extracted_data_from_ref, set_timestamp
+
 from .api import Item
 from .utils import get_provisional_items_pids_candidate_to_delete
-from ..api import IlsRecordError
-from ..holdings.api import Holding
-from ..utils import extracted_data_from_ref, set_timestamp
 
 
 @shared_task()
-def delete_provisional_items(verbose=True):
+def delete_provisional_items():
     """Delete checked-in provisional items.
 
     For the list of candidates item pids to delete, this method tries to delete
     each item. The item will not be deleted if the method `can_delete` is True.
     The reasons not to delete a provisional item are the same as other items:
-    1. no active loans
-    2. no fees
-
-    :param verbose: is the task should be verbose.
+      1) no active loans
+      2) no fees
     """
-    count_items, deleted_items = 0, 0
+    deleted_items = 0
     for count_items, item_pid in enumerate(
             get_provisional_items_pids_candidate_to_delete(), 1):
         try:
             item = Item.get_record_by_pid(item_pid)
-            item.delete(item, dbcommit=True, delindex=True)
+            item.delete(dbcommit=True, delindex=True)
             deleted_items += 1
         except IlsRecordError.NotDeleted:
             pass
@@ -58,7 +57,6 @@ def delete_provisional_items(verbose=True):
         'numner_of_deleted_items': deleted_items
     }
     set_timestamp('claims-creation', **msg_dict)
-
     return msg_dict
 
 

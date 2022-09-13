@@ -20,8 +20,16 @@
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_record_class_from_schema_or_pid_type, \
-    get_ref_for_pid, pids_exists_in_data
+    get_ref_for_pid, pids_exists_in_data, truncate_string
 from rero_ils.utils import get_current_language, remove_empties_from_dict
+
+
+def test_truncate_string():
+    """Test truncate string."""
+    assert truncate_string('this is a long string', 10, '…') \
+           == 'this is a…'
+    assert truncate_string('not truncated string', 100, '…') \
+           == 'not truncated string'
 
 
 def test_get_ref_for_pid(app):

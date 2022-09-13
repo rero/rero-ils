@@ -29,7 +29,8 @@ from rero_ils.modules.acquisition.acq_order_lines.models import \
     AcqOrderLineStatus
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, \
     AcqReceiptsSearch
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.notifications.api import Notification
@@ -70,7 +71,7 @@ class AcqOrdersSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class AcqOrder(IlsRecord):
+class AcqOrder(AcquisitionIlsRecord):
     """AcqOrder class."""
 
     _extensions = [
@@ -276,6 +277,20 @@ class AcqOrder(IlsRecord):
                 for note in hit.notes:
                     yield note, record_cls, hit.pid
 
+    def get_related_orders(self, output=None):
+        """Get orders related to this order.
+
+        :param output: output method : 'count', 'query' or None.
+        """
+        query = AcqOrdersSearch()\
+            .filter('term', previousVersion__pid=self.pid)
+        if output == 'count':
+            return query.count()
+        elif output == 'query':
+            return query
+        else:
+            return get_objects(AcqOrder, query)
+
     def get_order_lines(self, output=None, includes=None):
         """Get order lines related to this order.
 
@@ -362,15 +377,15 @@ class AcqOrder(IlsRecord):
         :param get_pids: if True list of related record pids, if False count
                          of related records.
         """
-        links = {}
-        if get_pids:
-            links['order_lines'] = sorted_pids(
-                self.get_order_lines(output='query'))
-            links['receipts'] = sorted_pids(self.get_receipts(output='query'))
-        else:
-            links['order_lines'] = self.get_order_lines(output='count')
-            links['receipts'] = self.get_receipts(output='count')
+        output = 'query' if get_pids else 'count'
+        links = {
+            'orders': self.get_related_orders(output=output),
+            'order_lines': self.get_order_lines(output=output),
+            'receipts': self.get_receipts(output=output),
+        }
         links = {k: v for k, v in links.items() if v}
+        if get_pids:
+            links = {k: sorted_pids(v) for k, v in links.items()}
         return links
 
     def reasons_not_to_delete(self):

@@ -235,12 +235,6 @@ THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
 THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
 
 # WEBPACKEXT_PROJECT = 'rero_ils.webpack.project'
-# Logings
-# =======
-#: Sentry level
-LOGGING_SENTRY_LEVEL = "ERROR"
-#: Sentry: use celery or not
-LOGGING_SENTRY_CELERY = True
 
 # Email configuration
 # ===================
@@ -2838,6 +2832,45 @@ RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION = False
 # ========================
 # Compute the stats with a timeframe given in monthes
 RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHES = 3
+
+
+# =============================================================================
+# LOGGING CONFIGURATION
+# =============================================================================
+#: Sentry level
+LOGGING_SENTRY_LEVEL = "ERROR"
+#: Sentry: use celery or not
+LOGGING_SENTRY_CELERY = True
+
+ROLLOVER_LOGGING_CONFIG = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s [%(levelname)s] :: %(message)s'
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+        'file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/rollover_log',
+            'backupCount': 10,
+            'formatter': 'standard'
+        }
+    },
+    'loggers': {
+        'rero_ils.modules.acquisition.rollover': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+            'propagate': False
+        }
+    }
+}
+
 
 # =============================================================================
 # NOTIFICATIONS MODULE SPECIFIC SETTINGS

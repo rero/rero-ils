@@ -17,13 +17,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utils for acquisitions."""
-
+import mock
 from flask import url_for
-from utils import postdata
+from utils import VerifyRecordPermissionPatch, postdata
 
 from rero_ils.modules.utils import get_record_class_from_schema_or_pid_type
 
 
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def _make_resource(client, pid_type, input_data):
     """Dynamic creation of resource using REST_API.
 
@@ -40,6 +42,8 @@ def _make_resource(client, pid_type, input_data):
         raise Exception(data['message'])
 
 
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def _del_resource(client, pid_type, pid):
     """Delete a resource using the REST API.
 

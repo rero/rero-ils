@@ -399,7 +399,7 @@ class IlsRecord(Record):
     def delete(self, force=False, dbcommit=False, delindex=False):
         """Delete record and persistent identifier."""
         can, _ = self.can_delete
-        if can:
+        if can or force:
             if delindex:
                 self.delete_from_index()
             persistent_identifier = self.get_persistent_identifier(self.id)
