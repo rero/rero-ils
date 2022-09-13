@@ -277,6 +277,16 @@ def extracted_data_from_ref(input, data='pid'):
         if len(parts) > abs(idx):
             return input_string.split('/')[idx]
 
+    def get_acronym():
+        """Get resource acronym for a $ref URI."""
+        resource_list = extracted_data_from_ref(input, data='resource')
+        endpoints = {
+            endpoint.get('search_index'): acronym
+            for acronym, endpoint
+            in current_app.config.get('RECORDS_REST_ENDPOINTS', {}).items()
+        }
+        return endpoints.get(resource_list)
+
     def get_record_class():
         """Search about a record_class name for a $ref URI."""
         resource_list = extracted_data_from_ref(input, data='resource')
@@ -313,6 +323,7 @@ def extracted_data_from_ref(input, data='pid'):
         'es_record': get_data_from_es,
         'pid': lambda: extract_part(input.get('$ref'), -1),
         'resource': lambda: extract_part(input.get('$ref'), -2),
+        'acronym': get_acronym,
         'record_class': get_record_class,
         'record': get_record
     }
@@ -1118,3 +1129,66 @@ def strip_chars(string, extra=u''):
     remove_re = re.compile(u'[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F%s]' % extra)
     new_string, _ = remove_re.subn('', string)
     return new_string
+
+
+def truncate_string(str_input, max_length, ellipsis='...'):
+    """Truncate a string if too long and add an ellipsis."""
+    if len(str_input) > max_length:
+        return str_input[:max_length - len(ellipsis)] + ellipsis
+    return str_input
+
+
+def draw_data_table(columns, rows=[], padding=''):
+    """Draw data as a table using ASCII characters.
+
+    :param columns: the column headers. Each column is a tuple that must
+        define column name, column max length and optionally data alignment
+        in this column.
+    :param rows: a list of tuple. Each tuple representing a data row and
+        must define at most as much data as the number of columns.
+    :param padding: the left padding to apply to each table line.
+    """
+
+    def table_header():
+        column_lengths = [column[1] for column in columns]
+
+        def draw_line(col_lengths, sep='┼'):
+            return sep.join(['─' * length for length in col_lengths])
+
+        def draw_column_name(cols, sep='│', pad=' '):
+            return sep.join([
+                f'{pad}{truncate_string(col[0], col[1] - len(pad * 2))}{pad}'
+                .ljust(col[1])
+                for col in cols
+            ])
+
+        return f"{padding}┌{draw_line(column_lengths, sep='┬')}┐\n" + \
+               f"{padding}│{draw_column_name(columns)}│\n" + \
+               f"{padding}├{draw_line(column_lengths)}┤\n"
+
+    def table_footer():
+        return f"{padding}└{'┴'.join(['─' * col[1] for col in columns])}┘\n"
+
+    def table_rows(sep='│'):
+        def draw_row_content(row, pad=' '):
+            parts = []
+            for idx, col_content in enumerate(row, 0):
+                column = columns[idx]
+                col_length = columns[idx][1]
+                align = column[2] if len(column) >= 3 else 'left'
+                data = truncate_string(col_content, col_length - len(pad * 2))
+                if align == 'right':
+                    data = f'{pad}{data}{pad}'.rjust(col_length)
+                elif align == 'center':
+                    data = f'{pad}{data}{pad}'.center(col_length)
+                else:
+                    data = f'{pad}{data}{pad}'.ljust(col_length)
+                parts.append(data)
+            return sep.join(parts)
+
+        return "\n".join([
+            f"{padding}{sep}{draw_row_content(row)}{sep}"
+            for row in rows
+        ])+"\n"
+
+    return table_header() + table_rows() + table_footer()

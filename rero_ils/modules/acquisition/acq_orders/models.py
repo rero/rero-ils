@@ -42,6 +42,17 @@ class AcqOrderMetadata(db.Model, RecordMetadataBase):
     __tablename__ = 'acq_order_metadata'
 
 
+class AcqOrderType:
+    """Type of acquisition order."""
+
+    MONOGRAPH = 'monograph'
+    MONOGRAPHIC_SET = 'monographic_set'
+    SERIAL = 'serial'
+    STANDING_ORDER = 'standing_order'
+    PLANNED_ORDER = 'planned_order'
+    MULTI_VOLUME = 'multi_volume'
+
+
 class AcqOrderStatus:
     """Available statuses for an acquisition order."""
 

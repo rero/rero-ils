@@ -41,9 +41,8 @@ class AcqAccountCSVSerializer(CSVSerializer):
 
             # write the CSV output in memory
             line = Line()
-            writer = csv.DictWriter(line,
-                                    quoting=csv.QUOTE_ALL,
-                                    fieldnames=headers)
+            writer = csv.DictWriter(
+                line, quoting=csv.QUOTE_ALL, fieldnames=headers)
             writer.writeheader()
             yield line.read()
 
@@ -51,17 +50,19 @@ class AcqAccountCSVSerializer(CSVSerializer):
                 account = result.to_dict()
                 csv_data = {
                     'account_pid': account['pid'],
-                    'account_name': account['name'],
-                    'account_number': account['number'],
-                    'account_allocated_amount': account['allocated_amount'],
+                    'account_name': account.get('name'),
+                    'account_number': account.get('number'),
+                    'account_allocated_amount':
+                        account.get('allocated_amount'),
                     'account_available_amount':
-                        account['allocated_amount'] - account['distribution'],
+                        account.get('allocated_amount', 0)
+                        - account.get('distribution', 0),
                     'account_current_encumbrance':
-                        account['encumbrance_amount']['self'],
+                        account.get('encumbrance_amount', {}).get('self'),
                     'account_current_expenditure':
-                        account['expenditure_amount']['self'],
+                        account.get('expenditure_amount', {}).get('self'),
                     'account_available_balance':
-                        account['remaining_balance']['self']
+                        account.get('remaining_balance').get('self')
                 }
                 # write csv data
                 data = self.process_dict(csv_data)

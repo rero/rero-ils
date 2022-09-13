@@ -241,7 +241,7 @@ def test_holding_requests(client, patron_martigny, loc_public_martigny,
     assert item_2.get('enumerationAndChronology') == description
     assert item_2.pid != item.pid
 
-    all_item_pids = [pid for pid in Item.get_all_pids()]
+    all_item_pids = list(Item.get_all_pids())
     assert all_item_pids
 
     # test delete provisional items with no active fees/loans
@@ -250,7 +250,7 @@ def test_holding_requests(client, patron_martigny, loc_public_martigny,
     assert report.get('number_of_candidate_items_to_delete')
     # assert that not deleted items are either having loans/fees or not
     # provisional items
-    left_item_pids = [pid for pid in Item.get_all_pids()]
+    left_item_pids = list(Item.get_all_pids())
     assert left_item_pids
     for pid in left_item_pids:
         record = Item.get_record_by_pid(pid)
