@@ -258,12 +258,25 @@ def test_title_variants():
             'type': 'bf:VariantTitle',
             'mainTitle': [{
                 'value': 'Variant title 1'
-            }]
+            }],
+            'part': [
+                {
+                    'partName': [{'value': 'part1'}],
+                    'partNumber': [{'value': 'number1'}],
+                },
+                {
+                    'partNumber': [{'value': 'number2'}],
+                    'partName': [{'value': 'part2'}]
+                }
+            ]
         },
         {
             'type': 'bf:VariantTitle',
             'mainTitle': [{
                 'value': 'Variant title 2'
+            }],
+            'subtitle': [{
+                'value': 'Variant 2 sub'
             }]
         },
         {
@@ -277,8 +290,12 @@ def test_title_variants():
         }
     ]
     result = {
-        'bf:VariantTitle': ['Variant title 1', 'Variant title 2'],
-        'bf:ParallelTitle': ['Parallel title: sub parallel']
+        'bf:VariantTitle':
+        [
+            'Variant title 1. number1, part1. number2, part2',
+            'Variant title 2 : Variant 2 sub'
+        ],
+        'bf:ParallelTitle': ['Parallel title : sub parallel']
     }
 
     assert result == title_variants(titles)
