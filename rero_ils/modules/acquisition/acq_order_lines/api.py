@@ -221,7 +221,7 @@ class AcqOrderLine(IlsRecord):
         The received quantity is number of quantity received for the resource
         acq_receipt_line and for the corresponding acq_line_order.
         """
-        from rero_ils.modules.acq_receipt_lines.api import \
+        from rero_ils.modules.acquisition.acq_receipt_lines.api import \
             AcqReceiptLinesSearch
         search = AcqReceiptLinesSearch()\
             .filter('term', acq_order_line__pid=self.pid)
@@ -237,7 +237,7 @@ class AcqOrderLine(IlsRecord):
     @cached_property
     def receipt_date(self):
         """Get the first reception date for one item of this order line."""
-        from rero_ils.modules.acq_receipt_lines.api import \
+        from rero_ils.modules.acquisition.acq_receipt_lines.api import \
             AcqReceiptLinesSearch
         search = AcqReceiptLinesSearch() \
             .filter('term', acq_order_line__pid=self.pid)
@@ -295,7 +295,7 @@ class AcqOrderLine(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        from rero_ils.modules.acq_receipt_lines.api import \
+        from rero_ils.modules.acquisition.acq_receipt_lines.api import \
             AcqReceiptLinesSearch
         links = {}
         query = AcqReceiptLinesSearch()\

@@ -27,7 +27,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
-from rero_ils.modules.acq_receipt_lines.models import AcqReceiptLineNoteType
+from rero_ils.modules.acquisition.acq_receipt_lines.models import \
+    AcqReceiptLineNoteType
 
 
 def test_acq_receipt_lines_permissions(client,

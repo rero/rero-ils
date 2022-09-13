@@ -21,8 +21,8 @@
 from copy import deepcopy
 from functools import partial
 
-from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLine, \
-    AcqReceiptLinesSearch
+from rero_ils.modules.acquisition.acq_receipt_lines.api import \
+    AcqReceiptLine, AcqReceiptLinesSearch
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.extensions import DecimalAmountExtension
 from rero_ils.modules.fetchers import id_fetcher

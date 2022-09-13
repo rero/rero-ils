@@ -21,7 +21,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json
 
-from rero_ils.modules.budgets.permissions import BudgetPermission
+from rero_ils.modules.acquisition.budgets.permissions import BudgetPermission
 
 
 def test_budget_permissions_api(client, org_sion, patron_martigny,
@@ -120,7 +120,7 @@ def test_budget_permissions(patron_martigny,
 
     # As Librarian
     with mock.patch(
-        'rero_ils.modules.budgets.permissions.current_librarian',
+        'rero_ils.modules.acquisition.budgets.permissions.current_librarian',
         librarian_martigny
     ):
         assert BudgetPermission.list(None, budget_2018_martigny)
@@ -136,7 +136,7 @@ def test_budget_permissions(patron_martigny,
 
     # As System-librarian
     with mock.patch(
-        'rero_ils.modules.budgets.permissions.current_librarian',
+        'rero_ils.modules.acquisition.budgets.permissions.current_librarian',
         system_librarian_martigny
     ):
         assert BudgetPermission.list(None, budget_2018_martigny)

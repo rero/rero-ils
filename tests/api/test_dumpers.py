@@ -17,7 +17,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests dumpers from RERO-ILS projects."""
-from rero_ils.modules.acq_orders.dumpers import AcqOrderNotificationDumper
+from rero_ils.modules.acquisition.acq_orders.dumpers import \
+    AcqOrderNotificationDumper
 from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper, \
     DocumentGenericDumper
 from rero_ils.modules.libraries.dumpers import \

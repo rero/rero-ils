@@ -79,7 +79,7 @@ def item_type_schema(monkeypatch):
 def acq_account_schema(monkeypatch):
     """Acq account Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.acq_accounts.jsonschemas',
+        'rero_ils.modules.acquisition.acq_accounts.jsonschemas',
         '/acq_accounts/acq_account-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
@@ -89,7 +89,7 @@ def acq_account_schema(monkeypatch):
 def acq_order_schema(monkeypatch):
     """Acq order Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.acq_orders.jsonschemas',
+        'rero_ils.modules.acquisition.acq_orders.jsonschemas',
         '/acq_orders/acq_order-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
@@ -99,7 +99,7 @@ def acq_order_schema(monkeypatch):
 def acq_order_line_schema(monkeypatch):
     """Acq order line Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.acq_order_lines.jsonschemas',
+        'rero_ils.modules.acquisition.acq_order_lines.jsonschemas',
         '/acq_order_lines/acq_order_line-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
@@ -109,7 +109,7 @@ def acq_order_line_schema(monkeypatch):
 def acq_receipt_line_schema(monkeypatch):
     """Acq receipt line Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.acq_receipt_lines.jsonschemas',
+        'rero_ils.modules.acquisition.acq_receipt_lines.jsonschemas',
         '/acq_receipt_lines/acq_receipt_line-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
@@ -119,7 +119,7 @@ def acq_receipt_line_schema(monkeypatch):
 def budget_schema(monkeypatch):
     """Budget Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.budgets.jsonschemas',
+        'rero_ils.modules.acquisition.budgets.jsonschemas',
         '/budgets/budget-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)

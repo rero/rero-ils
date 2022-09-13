@@ -18,10 +18,12 @@
 
 """Signals connector for acquisition order."""
 
+from rero_ils.modules.acquisition.acq_order_lines.dumpers import \
+    AcqOrderLineESDumper
+from rero_ils.modules.acquisition.acq_receipts.dumpers import \
+    AcqReceiptESDumper
 
 from .api import AcqOrdersSearch
-from ..acq_order_lines.dumpers import AcqOrderLineESDumper
-from ..acq_receipts.dumpers import AcqReceiptESDumper
 
 
 def enrich_acq_order_data(sender, json=None, record=None, index=None,

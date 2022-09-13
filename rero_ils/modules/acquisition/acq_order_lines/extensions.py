@@ -22,7 +22,8 @@ from flask_babelex import gettext as _
 from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
 
-from rero_ils.modules.acq_accounts.models import AcqAccountExceedanceType
+from rero_ils.modules.acquisition.acq_accounts.models import \
+    AcqAccountExceedanceType
 
 
 class AcqOrderLineValidationExtension(RecordExtension):

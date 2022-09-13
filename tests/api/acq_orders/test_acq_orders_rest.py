@@ -26,7 +26,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
-from rero_ils.modules.acq_orders.models import AcqOrderStatus
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

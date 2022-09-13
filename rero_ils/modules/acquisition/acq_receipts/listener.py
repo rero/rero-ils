@@ -18,9 +18,10 @@
 
 """Signals connector for acquisition receipt."""
 
+from rero_ils.modules.acquisition.acq_receipt_lines.dumpers import \
+    AcqReceiptLineESDumper
 
 from .api import AcqReceiptsSearch
-from ..acq_receipt_lines.dumpers import AcqReceiptLineESDumper
 
 
 def enrich_acq_receipt_data(sender, json=None, record=None, index=None,

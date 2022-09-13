@@ -17,7 +17,7 @@
 
 """Acquisition order serialization."""
 
-from rero_ils.modules.acq_accounts.api import AcqAccountsSearch
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.serializers import ACQJSONSerializer, JSONSerializer
 from rero_ils.modules.vendors.api import VendorsSearch

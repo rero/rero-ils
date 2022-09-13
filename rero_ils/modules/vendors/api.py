@@ -22,13 +22,15 @@ from functools import partial
 
 from flask_babelex import gettext as _
 
+from rero_ils.modules.acquisition.acq_invoices.api import \
+    AcquisitionInvoicesSearch
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import sorted_pids
+
 from .models import VendorIdentifier, VendorMetadata
-from ..acq_invoices.api import AcquisitionInvoicesSearch
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import sorted_pids
 
 # provider
 VendorProvider = type(
@@ -113,7 +115,7 @@ class Vendor(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        from rero_ils.modules.acq_orders.api import AcqOrdersSearch
+        from rero_ils.modules.acquisition.acq_orders.api import AcqOrdersSearch
         from rero_ils.modules.holdings.api import HoldingsSearch
 
         acq_orders_query = AcqOrdersSearch()\
@@ -142,8 +144,7 @@ class Vendor(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
-        links = self.get_links_to_me()
-        if links:
+        if links := self.get_links_to_me():
             cannot_delete['links'] = links
         return cannot_delete
 

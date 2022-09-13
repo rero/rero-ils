@@ -24,8 +24,9 @@ import pytest
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
-from rero_ils.modules.acq_order_lines.api import AcqOrderLine
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineNoteType
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
+from rero_ils.modules.acquisition.acq_order_lines.models import \
+    AcqOrderLineNoteType
 
 
 def test_notes(app, acq_order_line_schema,

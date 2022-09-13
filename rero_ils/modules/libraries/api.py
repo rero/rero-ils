@@ -336,8 +336,9 @@ class Library(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        from ..acq_receipts.api import AcqReceiptsSearch
-        from ..patrons.api import PatronsSearch
+        from rero_ils.modules.acquisition.acq_receipts.api import \
+            AcqReceiptsSearch
+        from rero_ils.modules.patrons.api import PatronsSearch
         links = {}
         location_query = LocationsSearch() \
             .filter('term', library__pid=self.pid)
