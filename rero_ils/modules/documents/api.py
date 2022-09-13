@@ -28,18 +28,22 @@ from invenio_circulation.search.api import search_by_pid
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
 
+from rero_ils.modules.acquisition.acq_order_lines.api import \
+    AcqOrderLinesSearch
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.commons.identifiers import IdentifierFactory, \
+    IdentifierType
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.operation_logs.extensions import \
+    OperationLogObserverExtension
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import sorted_pids
+
 from .models import DocumentIdentifier, DocumentMetadata, DocumentSubjectType
 from .utils import edition_format_text, publication_statement_text, \
     series_statement_format_text, title_format_text_head
-from ..acq_order_lines.api import AcqOrderLinesSearch
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..commons.identifiers import IdentifierFactory, IdentifierType
-from ..fetchers import id_fetcher
-from ..minters import id_minter
-from ..operation_logs.extensions import OperationLogObserverExtension
-from ..organisations.api import Organisation
-from ..providers import Provider
-from ..utils import sorted_pids
 
 # provider
 DocumentProvider = type(
@@ -125,8 +129,7 @@ class Document(IlsRecord):
         else:
             holding_pids = Holding.get_holdings_pid_by_document_pid(pid)
         for holding_pid in holding_pids:
-            holding = Holding.get_record_by_pid(holding_pid)
-            if holding:
+            if holding := Holding.get_record_by_pid(holding_pid):
                 if holding.available:
                     return True
             else:
@@ -189,8 +192,7 @@ class Document(IlsRecord):
             for relation, relation_es in relation_types.items():
                 doc_query = DocumentsSearch() \
                     .filter({'term': {relation_es: self.pid}})
-                pids = sorted_pids(doc_query)
-                if pids:
+                if pids := sorted_pids(doc_query):
                     documents[relation] = pids
         else:
             holdings = hold_query.count()
@@ -217,8 +219,7 @@ class Document(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
-        links = self.get_links_to_me()
-        if links:
+        if links := self.get_links_to_me():
             cannot_delete['links'] = links
         if self.harvested:
             cannot_delete['others'] = dict(harvested=True)
@@ -338,11 +339,11 @@ class Document(IlsRecord):
         :return an array of `Identifiers` object corresponding to filters.
         """
         filters = [] or filters
-        identifiers = set([
+        identifiers = {
             IdentifierFactory.create_identifier(data)
             for data in self.get('identifiedBy', [])
             if not filters or data.get('type') in filters
-        ])
+        }
         if with_alternatives:
             for identifier in list(identifiers):
                 identifiers.update(identifier.get_alternatives())
@@ -429,8 +430,7 @@ class DocumentsIndexer(IlsRecordsIndexer):
            or (record.dumps().get('title') != es_document.get('title')):
             search = DocumentsSearch().filter(
                 'term', partOf__document__pid=record.pid)
-            ids = [doc.meta.id for doc in search.source().scan()]
-            if ids:
+            if ids := [doc.meta.id for doc in search.source().scan()]:
                 # reindex in background as the list can be huge
                 self.bulk_index(ids)
         return return_value

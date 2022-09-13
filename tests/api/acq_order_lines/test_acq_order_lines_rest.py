@@ -25,7 +25,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineNoteType
+from rero_ils.modules.acquisition.acq_order_lines.models import \
+    AcqOrderLineNoteType
 
 
 def test_acq_orders_lines_permissions(
@@ -62,7 +63,7 @@ def test_acq_order_lines_get(client, acq_order_line_fiction_martigny):
     res = client.get(item_url)
     data = get_json(res)
     assert res.status_code == 200
-    assert res.headers['ETag'] == '"{}"'.format(acol.revision_id)
+    assert res.headers['ETag'] == f'"{acol.revision_id}"'
     assert acol.dumps() == data['metadata']
 
     # Check metadata

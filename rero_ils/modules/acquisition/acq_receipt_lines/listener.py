@@ -18,8 +18,8 @@
 
 """Signals connector for Acq receipt lines."""
 
-from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLine, \
-    AcqReceiptLinesSearch
+from rero_ils.modules.acquisition.acq_receipt_lines.api import \
+    AcqReceiptLine, AcqReceiptLinesSearch
 
 
 def enrich_acq_receipt_line_data(sender, json=None, record=None, index=None,

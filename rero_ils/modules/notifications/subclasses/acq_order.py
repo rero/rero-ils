@@ -24,8 +24,9 @@ from abc import ABC, abstractmethod
 
 from werkzeug.utils import cached_property
 
-from rero_ils.modules.acq_orders.api import AcqOrder
-from rero_ils.modules.acq_orders.dumpers import AcqOrderNotificationDumper
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
+from rero_ils.modules.acquisition.acq_orders.dumpers import \
+    AcqOrderNotificationDumper
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.models import NotificationChannel, \

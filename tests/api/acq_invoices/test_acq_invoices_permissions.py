@@ -21,7 +21,8 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json
 
-from rero_ils.modules.acq_invoices.permissions import AcqInvoicePermission
+from rero_ils.modules.acquisition.acq_invoices.permissions import \
+    AcqInvoicePermission
 
 
 def test_invoice_permissions_api(client, org_sion, patron_martigny,

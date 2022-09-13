@@ -20,7 +20,7 @@
 from flask import Blueprint, abort, jsonify
 from flask import request as flask_request
 
-from rero_ils.modules.acq_receipts.api import AcqReceipt
+from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt
 from rero_ils.modules.decorators import check_logged_as_librarian, \
     jsonify_error
 

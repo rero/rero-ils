@@ -40,20 +40,27 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     PendingToItemInTransitPickup, ToCancelled, ToItemOnLoan
 from invenio_records_rest.facets import range_filter, terms_filter
 
-from .modules.acq_accounts.api import AcqAccount
-from .modules.acq_accounts.permissions import AcqAccountPermission
-from .modules.acq_invoices.api import AcquisitionInvoice
-from .modules.acq_invoices.permissions import AcqInvoicePermission
-from .modules.acq_order_lines.api import AcqOrderLine
-from .modules.acq_order_lines.permissions import AcqOrderLinePermission
-from .modules.acq_orders.api import AcqOrder
-from .modules.acq_orders.permissions import AcqOrderPermission
-from .modules.acq_receipt_lines.api import AcqReceiptLine
-from .modules.acq_receipt_lines.permissions import AcqReceiptLinePermission
-from .modules.acq_receipts.api import AcqReceipt
-from .modules.acq_receipts.permissions import AcqReceiptPermission
-from .modules.budgets.api import Budget
-from .modules.budgets.permissions import BudgetPermission
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount
+from rero_ils.modules.acquisition.acq_accounts.permissions import \
+    AcqAccountPermission
+from rero_ils.modules.acquisition.acq_invoices.api import AcquisitionInvoice
+from rero_ils.modules.acquisition.acq_invoices.permissions import \
+    AcqInvoicePermission
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
+from rero_ils.modules.acquisition.acq_order_lines.permissions import \
+    AcqOrderLinePermission
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
+from rero_ils.modules.acquisition.acq_orders.permissions import \
+    AcqOrderPermission
+from rero_ils.modules.acquisition.acq_receipt_lines.api import AcqReceiptLine
+from rero_ils.modules.acquisition.acq_receipt_lines.permissions import \
+    AcqReceiptLinePermission
+from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt
+from rero_ils.modules.acquisition.acq_receipts.permissions import \
+    AcqReceiptPermission
+from rero_ils.modules.acquisition.budgets.api import Budget
+from rero_ils.modules.acquisition.budgets.permissions import BudgetPermission
+
 from .modules.circ_policies.api import CircPolicy
 from .modules.circ_policies.permissions import CirculationPolicyPermission
 from .modules.collections.api import Collection
@@ -1340,7 +1347,7 @@ RECORDS_REST_ENDPOINTS = dict(
         indexer_class='rero_ils.modules.vendors.api:VendorsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
-            'application/rero+json': 'rero_ils.modules.acq_accounts.serializers:json_acq_account_response'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_accounts.serializers:json_acq_account_response'
         },
         record_serializers_aliases={
             'json': 'application/json',
@@ -1374,13 +1381,13 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acac',
         pid_minter='acq_account_id',
         pid_fetcher='acq_account_id',
-        search_class='rero_ils.modules.acq_accounts.api:AcqAccountsSearch',
+        search_class='rero_ils.modules.acquisition.acq_accounts.api:AcqAccountsSearch',
         search_index='acq_accounts',
         search_type=None,
-        indexer_class='rero_ils.modules.acq_accounts.api:AcqAccountsIndexer',
+        indexer_class='rero_ils.modules.acquisition.acq_accounts.api:AcqAccountsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
-            'application/rero+json': 'rero_ils.modules.acq_accounts.serializers:json_acq_account_response'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_accounts.serializers:json_acq_account_response'
         },
         record_serializers_aliases={
             'json': 'application/json',
@@ -1388,7 +1395,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
-            'application/rero+json': 'rero_ils.modules.acq_accounts.serializers:json_acq_account_search'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_accounts.serializers:json_acq_account_search'
         },
         search_serializers_aliases={
             'json': 'application/json'
@@ -1396,10 +1403,10 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: AcqAccount(request.get_json()),
         },
-        record_class='rero_ils.modules.acq_accounts.api:AcqAccount',
+        record_class='rero_ils.modules.acquisition.acq_accounts.api:AcqAccount',
         list_route='/acq_accounts/',
         item_route=('/acq_accounts/<pid(acac, record_class='
-                    '"rero_ils.modules.acq_accounts.api:'
+                    '"rero_ils.modules.acquisition.acq_accounts.api:'
                     'AcqAccount"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
@@ -1419,13 +1426,13 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='budg',
         pid_minter='budget_id',
         pid_fetcher='budget_id',
-        search_class='rero_ils.modules.budgets.api:BudgetsSearch',
+        search_class='rero_ils.modules.acquisition.budgets.api:BudgetsSearch',
         search_index='budgets',
         search_type=None,
-        indexer_class='rero_ils.modules.budgets.api:BudgetsIndexer',
+        indexer_class='rero_ils.modules.acquisition.budgets.api:BudgetsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
-            'application/rero+json': 'rero_ils.modules.budgets.serializers:json_budg_record'
+            'application/rero+json': 'rero_ils.modules.acquisition.budgets.serializers:json_budg_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
@@ -1437,10 +1444,10 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: Budget(request.get_json()),
         },
-        record_class='rero_ils.modules.budgets.api:Budget',
+        record_class='rero_ils.modules.acquisition.budgets.api:Budget',
         list_route='/budgets/',
         item_route=('/budgets/<pid(budg, record_class='
-                    '"rero_ils.modules.budgets.api:Budget"):pid_value>'),
+                    '"rero_ils.modules.acquisition.budgets.api:Budget"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -1459,13 +1466,13 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acor',
         pid_minter='acq_order_id',
         pid_fetcher='acq_order_id',
-        search_class='rero_ils.modules.acq_orders.api:AcqOrdersSearch',
+        search_class='rero_ils.modules.acquisition.acq_orders.api:AcqOrdersSearch',
         search_index='acq_orders',
         search_type=None,
-        indexer_class='rero_ils.modules.acq_orders.api:AcqOrdersIndexer',
+        indexer_class='rero_ils.modules.acquisition.acq_orders.api:AcqOrdersIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
-            'application/rero+json': 'rero_ils.modules.acq_orders.serializers:json_acor_record'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_orders.serializers:json_acor_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
@@ -1473,7 +1480,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
-            'application/rero+json': 'rero_ils.modules.acq_orders.serializers:json_acor_search'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_orders.serializers:json_acor_search'
         },
         search_serializers_aliases={
             'json': 'application/json'
@@ -1481,10 +1488,10 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: AcqOrder(request.get_json()),
         },
-        record_class='rero_ils.modules.acq_orders.api:AcqOrder',
+        record_class='rero_ils.modules.acquisition.acq_orders.api:AcqOrder',
         list_route='/acq_orders/',
         item_route=('/acq_orders/<pid(acor, record_class='
-                    '"rero_ils.modules.acq_orders.api:AcqOrder"):pid_value>'),
+                    '"rero_ils.modules.acquisition.acq_orders.api:AcqOrder"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
@@ -1503,15 +1510,15 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acol',
         pid_minter='acq_order_line_id',
         pid_fetcher='acq_order_line_id',
-        search_class=('rero_ils.modules.acq_order_lines.api:'
+        search_class=('rero_ils.modules.acquisition.acq_order_lines.api:'
                       'AcqOrderLinesSearch'),
         search_index='acq_order_lines',
         search_type=None,
-        indexer_class=('rero_ils.modules.acq_order_lines.api:'
+        indexer_class=('rero_ils.modules.acquisition.acq_order_lines.api:'
                        'AcqOrderLinesIndexer'),
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
-            'application/rero+json': 'rero_ils.modules.acq_order_lines.serializers:json_acol_record'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_order_lines.serializers:json_acol_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
@@ -1523,10 +1530,10 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: AcqOrderLine(request.get_json()),
         },
-        record_class='rero_ils.modules.acq_order_lines.api:AcqOrderLine',
+        record_class='rero_ils.modules.acquisition.acq_order_lines.api:AcqOrderLine',
         list_route='/acq_order_lines/',
         item_route=('/acq_order_lines/<pid(acol, record_class='
-                    '"rero_ils.modules.acq_order_lines.api:'
+                    '"rero_ils.modules.acquisition.acq_order_lines.api:'
                     'AcqOrderLine"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
@@ -1546,13 +1553,13 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acre',
         pid_minter='acq_receipt_id',
         pid_fetcher='acq_receipt_id',
-        search_class='rero_ils.modules.acq_receipts.api:AcqReceiptsSearch',
+        search_class='rero_ils.modules.acquisition.acq_receipts.api:AcqReceiptsSearch',
         search_index='acq_receipts',
         search_type=None,
-        indexer_class='rero_ils.modules.acq_receipts.api:AcqReceiptsIndexer',
+        indexer_class='rero_ils.modules.acquisition.acq_receipts.api:AcqReceiptsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
-            'application/rero+json': 'rero_ils.modules.acq_receipts.serializers:json_acre_record'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_receipts.serializers:json_acre_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
@@ -1564,10 +1571,10 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: AcqReceipt(request.get_json()),
         },
-        record_class='rero_ils.modules.acq_receipts.api:AcqReceipt',
+        record_class='rero_ils.modules.acquisition.acq_receipts.api:AcqReceipt',
         list_route='/acq_receipts/',
         item_route=('/acq_receipts/<pid(acre, record_class='
-                    '"rero_ils.modules.acq_receipts.api:'
+                    '"rero_ils.modules.acquisition.acq_receipts.api:'
                     'AcqReceipt"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
@@ -1587,20 +1594,20 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acrl',
         pid_minter='acq_receipt_line_id',
         pid_fetcher='acq_receipt_line_id',
-        search_class='rero_ils.modules.acq_receipt_lines.api:AcqReceiptLinesSearch',
+        search_class='rero_ils.modules.acquisition.acq_receipt_lines.api:AcqReceiptLinesSearch',
         search_index='acq_receipt_lines',
         search_type=None,
-        indexer_class='rero_ils.modules.acq_receipt_lines.api:AcqReceiptLinesIndexer',
+        indexer_class='rero_ils.modules.acquisition.acq_receipt_lines.api:AcqReceiptLinesIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
-            'application/rero+json': 'rero_ils.modules.acq_receipt_lines.serializers:json_acrl_record'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_receipt_lines.serializers:json_acrl_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
-            'application/rero+json': 'rero_ils.modules.acq_receipt_lines.serializers:json_acrl_search'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_receipt_lines.serializers:json_acrl_search'
         },
         search_serializers_aliases={
             'json': 'application/json',
@@ -1609,10 +1616,10 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: AcqReceiptLine(request.get_json()),
         },
-        record_class='rero_ils.modules.acq_receipt_lines.api:AcqReceiptLine',
+        record_class='rero_ils.modules.acquisition.acq_receipt_lines.api:AcqReceiptLine',
         list_route='/acq_receipt_lines/',
         item_route=('/acq_receipt_lines/<pid(acrl, record_class='
-                    '"rero_ils.modules.acq_receipt_lines.api:'
+                    '"rero_ils.modules.acquisition.acq_receipt_lines.api:'
                     'AcqReceiptLine"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
@@ -1632,28 +1639,28 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='acin',
         pid_minter='acq_invoice_id',
         pid_fetcher='acq_invoice_id',
-        search_class='rero_ils.modules.acq_invoices.api:AcquisitionInvoicesSearch',
+        search_class='rero_ils.modules.acquisition.acq_invoices.api:AcquisitionInvoicesSearch',
         search_index='acq_invoices',
         search_type=None,
-        indexer_class='rero_ils.modules.acq_invoices.api:AcquisitionInvoicesIndexer',
+        indexer_class='rero_ils.modules.acquisition.acq_invoices.api:AcquisitionInvoicesIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
-            'application/rero+json': 'rero_ils.modules.acq_invoices.serializers:json_acq_invoice_record'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_invoices.serializers:json_acq_invoice_record'
         },
         record_serializers_aliases={
             'json': 'application/json',
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
-            'application/rero+json': 'rero_ils.modules.acq_invoices.serializers:json_acq_invoice_search'
+            'application/rero+json': 'rero_ils.modules.acquisition.acq_invoices.serializers:json_acq_invoice_search'
         },
         record_loaders={
             'application/json': lambda: AcquisitionInvoice(request.get_json()),
         },
-        record_class='rero_ils.modules.acq_invoices.api:AcquisitionInvoice',
+        record_class='rero_ils.modules.acquisition.acq_invoices.api:AcquisitionInvoice',
         list_route='/acq_invoices/',
         item_route=('/acq_invoices/<pid(acin, record_class='
-                    '"rero_ils.modules.acq_invoices.api:'
+                    '"rero_ils.modules.acquisition.acq_invoices.api:'
                     'AcquisitionInvoice"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
@@ -3229,7 +3236,7 @@ RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
         resource=RECORDS_REST_ENDPOINTS.get('acac'),
         default_media_type='text/csv',
         search_serializers={
-            'text/csv': 'rero_ils.modules.acq_accounts.serializers:csv_acq_account_search',
+            'text/csv': 'rero_ils.modules.acquisition.acq_accounts.serializers:csv_acq_account_search',
         },
         search_serializers_aliases={
             'csv': 'text/csv'
@@ -3239,7 +3246,7 @@ RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
         resource=RECORDS_REST_ENDPOINTS.get('acor'),
         default_media_type='text/csv',
         search_serializers={
-            'text/csv': 'rero_ils.modules.acq_orders.serializers:csv_acor_search',
+            'text/csv': 'rero_ils.modules.acquisition.acq_orders.serializers:csv_acor_search',
         },
         search_serializers_aliases={
             'csv': 'text/csv'

@@ -20,7 +20,8 @@
 
 from invenio_records_rest.serializers.response import record_responsify
 
-from rero_ils.modules.acq_receipt_lines.dumpers import AcqReceiptLineESDumper
+from rero_ils.modules.acquisition.acq_receipt_lines.dumpers import \
+    AcqReceiptLineESDumper
 from rero_ils.modules.serializers import ACQJSONSerializer, RecordSchemaJSONV1
 
 

@@ -23,10 +23,12 @@ from functools import partial
 from flask_babelex import gettext as _
 from invenio_records_rest.utils import obj_or_import_string
 
-from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine, \
     AcqOrderLinesSearch
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
-from rero_ils.modules.acq_receipts.api import AcqReceipt, AcqReceiptsSearch
+from rero_ils.modules.acquisition.acq_order_lines.models import \
+    AcqOrderLineStatus
+from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, \
+    AcqReceiptsSearch
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter

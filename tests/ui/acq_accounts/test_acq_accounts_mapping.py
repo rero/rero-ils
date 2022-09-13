@@ -18,7 +18,8 @@
 """Acquisition account Record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.acq_accounts.api import AcqAccount, AcqAccountsSearch
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, \
+    AcqAccountsSearch
 
 
 def test_acq_accounts_es_mapping(es, db, acq_account_fiction_martigny_data,

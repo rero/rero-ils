@@ -19,7 +19,8 @@
 """Acquisition receipt record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.acq_receipts.api import AcqReceipt, AcqReceiptsSearch
+from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, \
+    AcqReceiptsSearch
 
 
 def test_acq_receipts_es_mapping(es, db, lib_martigny, vendor_martigny,

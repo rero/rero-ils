@@ -20,8 +20,10 @@
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
-from rero_ils.modules.acq_accounts.dumpers import AcqAccountGenericDumper
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineNoteType
+from rero_ils.modules.acquisition.acq_accounts.dumpers import \
+    AcqAccountGenericDumper
+from rero_ils.modules.acquisition.acq_order_lines.models import \
+    AcqOrderLineNoteType
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper
 from rero_ils.modules.documents.utils import title_format_text_head

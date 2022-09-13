@@ -23,14 +23,17 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, postdata
 
-from rero_ils.modules.acq_order_lines.api import AcqOrderLine
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
-from rero_ils.modules.acq_orders.api import AcqOrder
-from rero_ils.modules.acq_orders.models import AcqOrderStatus
-from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLinesSearch
-from rero_ils.modules.acq_receipts.api import AcqReceipt, AcqReceiptLine, \
-    AcqReceiptsSearch
-from rero_ils.modules.acq_receipts.models import AcqReceiptLineCreationStatus
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
+from rero_ils.modules.acquisition.acq_order_lines.models import \
+    AcqOrderLineStatus
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
+from rero_ils.modules.acquisition.acq_receipt_lines.api import \
+    AcqReceiptLinesSearch
+from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, \
+    AcqReceiptLine, AcqReceiptsSearch
+from rero_ils.modules.acquisition.acq_receipts.models import \
+    AcqReceiptLineCreationStatus
 from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.models import NotificationChannel, \
     NotificationStatus, NotificationType, RecipientType
