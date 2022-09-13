@@ -25,14 +25,16 @@ import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.locations.api import LocationsSearch
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import date_string_to_utc, \
+    extracted_data_from_ref, sorted_pids, strtotime
+
 from .exceptions import LibraryNeverOpen
 from .models import LibraryAddressType, LibraryIdentifier, LibraryMetadata
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..locations.api import LocationsSearch
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import date_string_to_utc, sorted_pids, strtotime
 
 # provider
 LibraryProvider = type(
@@ -87,8 +89,7 @@ class Library(IlsRecord):
 
     def get_organisation(self):
         """Get Organisation."""
-        from ..organisations.api import Organisation
-        return Organisation.get_record_by_pid(self.organisation_pid)
+        return extracted_data_from_ref(self['organisation'], data='record')
 
     def get_address(self, address_type):
         """Get informations about an address type.

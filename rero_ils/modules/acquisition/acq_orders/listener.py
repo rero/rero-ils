@@ -76,6 +76,13 @@ def enrich_acq_order_data(sender, json=None, record=None, index=None,
             for receipt in record.get_receipts()
         ]
 
+        # RELATED BUDGET ------------------------------------------------------
+        if budget := record.budget:
+            json['budget'] = {
+                'pid': budget.pid,
+                'type': 'budg'
+            }
+
         # ADD OTHERS DYNAMIC KEYS ---------------------------------------------
         json.update({
             'status': record.status,

@@ -475,7 +475,7 @@ class AcqRollover:
         org['current_budget_pid'] = self.destination_budget.pid
         org = org.update(org, dbcommit=True, reindex=True)
         self.logger.info(f"\t  * Current organisation budget is now "
-                         f"{org['current_budget_pid']}")
+                         f"{org.get('current_budget_pid')}")
 
     # PRIVATE METHODS =========================================================
     #  These methods are used during the rollover process. They shouldn't be

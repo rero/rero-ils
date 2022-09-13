@@ -445,70 +445,43 @@ eval ${PREFIX} invenio reroils fixtures create_patterns ${DATA_PATH}/patterns.js
 info_msg "- Collections: ${DATA_PATH}/collections.json"
 eval ${PREFIX} invenio reroils fixtures create_collections -f ${DATA_PATH}/collections.json
 eval ${PREFIX} invenio reroils index reindex -t coll --yes-i-know
+eval ${PREFIX} invenio reroils index run --raise-on-error
 
 # # ACQUISITION
 # create library budgets
 info_msg "Library budgets: ${DATA_PATH}/budgets.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type budg ${DATA_PATH}/budgets.json --append  ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t budg --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
+eval ${PREFIX} invenio reroils index reindex -d -t budg --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index reindex_missing -t budg -v
 fi
 # create acquisition accounts
 info_msg "Acquisition accounts: ${DATA_PATH}/acq_accounts.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type acac ${DATA_PATH}/acq_accounts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t acac --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX}  invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX}  invenio reroils index run --raise-on-error
+eval ${PREFIX} invenio reroils index reindex -d -t acac --yes-i-know
 
 # create acquisition orders
 info_msg "Acquisition orders: ${DATA_PATH}/acq_orders.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type acor ${DATA_PATH}/acq_orders.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t acor --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
+eval ${PREFIX} invenio reroils index reindex -d -t acor --yes-i-know
 
 # create acquisition order lines
 info_msg "Acquisition order lines: ${DATA_PATH}/acq_order_lines.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type acol ${DATA_PATH}/acq_order_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t acol --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
+eval ${PREFIX} invenio reroils index reindex -d -t acol --yes-i-know
 
 # reindex acquisition orders to receive the correct status
-eval ${PREFIX} invenio reroils index reindex -t acor --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
+# eval ${PREFIX} invenio reroils index reindex -d -t acor --yes-i-know
 
 # create acquisition receipts
 info_msg "Acquisition receipts: ${DATA_PATH}/acq_receipts.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type acre ${DATA_PATH}/acq_receipts.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t acre --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
+eval ${PREFIX} invenio reroils index reindex -d -t acre --yes-i-know
 
 # create acquisition receipt lines
 info_msg "Acquisition receipt lines: ${DATA_PATH}/acq_receipt_lines.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type acrl ${DATA_PATH}/acq_receipt_lines.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
-eval ${PREFIX} invenio reroils index reindex -t acrl --yes-i-know
-if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
-fi
-eval ${PREFIX} invenio reroils index run --raise-on-error
+eval ${PREFIX} invenio reroils index reindex -d -t acrl --yes-i-know
 
 # create resource templates
 info_msg "Resource templates:"

@@ -1482,7 +1482,8 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/rero+json': 'rero_ils.modules.acquisition.acq_orders.serializers:json_acor_search'
         },
         search_serializers_aliases={
-            'json': 'application/json'
+            'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         record_loaders={
             'application/json': lambda: AcqOrder(request.get_json()),
@@ -1774,6 +1775,7 @@ RERO_ILS_AGGREGATION_SIZE = {
 
 DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('documents', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 PTRE_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('patron_transaction_events', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+ACQ_ORDER_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 RECORDS_REST_FACETS = dict(
     documents=dict(
         i18n_aggs=dict(
@@ -2151,34 +2153,12 @@ RECORDS_REST_FACETS = dict(
     ),
     acq_orders=dict(
         aggs=dict(
-            library=dict(
-                terms=dict(
-                    field='library.pid',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            vendor=dict(
-                terms=dict(
-                    field='vendor.pid',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            type=dict(
-                terms=dict(
-                    field='type',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            status=dict(
-                terms=dict(
-                    field='status',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
+            library=dict(terms=dict(field='library.pid', size=ACQ_ORDER_AGGREGATION_SIZE)),
+            vendor=dict(terms=dict(field='vendor.pid',size=ACQ_ORDER_AGGREGATION_SIZE)),
+            type=dict(terms=dict(field='type', size=ACQ_ORDER_AGGREGATION_SIZE)),
+            status=dict(terms=dict(field='status', size=ACQ_ORDER_AGGREGATION_SIZE)),
+            account=dict(terms=dict(field='order_lines.account.pid', size=ACQ_ORDER_AGGREGATION_SIZE)),
+            budget=dict(terms=dict(field='budget.pid', size=ACQ_ORDER_AGGREGATION_SIZE)),
             order_date=dict(
                 date_histogram=dict(
                     field='order_lines.order_date',
@@ -2192,13 +2172,6 @@ RECORDS_REST_FACETS = dict(
                     calendar_interval='1d',
                     format='yyyy-MM-dd'
                 )
-            ),
-            account=dict(
-                terms=dict(
-                    field='order_lines.account.pid',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
             )
         ),
         filters={
@@ -2207,6 +2180,7 @@ RECORDS_REST_FACETS = dict(
             _('type'): and_term_filter('type'),
             _('status'): and_term_filter('status'),
             _('account'): and_term_filter('order_lines.account.pid'),
+            _('budget'): and_term_filter('budget.pid'),
             _('order_date'): range_filter(
                 'order_lines.order_date',
                 format='epoch_millis',

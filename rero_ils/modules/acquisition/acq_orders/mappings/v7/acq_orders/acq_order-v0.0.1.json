@@ -19,6 +19,16 @@
           }
         }
       },
+      "budget": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
       "organisation": {
         "properties": {
           "pid": {

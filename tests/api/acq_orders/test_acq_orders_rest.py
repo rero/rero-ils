@@ -21,12 +21,14 @@ import json
 from copy import deepcopy
 
 import mock
+from api.acquisition.acq_utils import _del_resource, _make_resource
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -330,3 +332,61 @@ def test_acq_order_secure_api_update(client,
         headers=json_header
     )
     assert res.status_code == 403
+
+
+def test_acq_order_history_api(
+  client, vendor_martigny, lib_martigny, rero_json_header, librarian_martigny,
+  acq_account_fiction_martigny, document, budget_2020_martigny
+):
+    """Test acquisition order history API."""
+    login_user_via_session(client, librarian_martigny.user)
+    # STEP#0 :: create order related to each other.
+    data = {
+        'vendor': {'$ref': get_ref_for_pid('vndr', vendor_martigny.pid)},
+        'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)},
+        'type': 'monograph',
+    }
+    acor1 = _make_resource(client, 'acor', data)
+    data['previousVersion'] = {'$ref': get_ref_for_pid('acor', acor1.pid)}
+    acor2 = _make_resource(client, 'acor', data)
+    data['previousVersion'] = {'$ref': get_ref_for_pid('acor', acor2.pid)}
+    acor3 = _make_resource(client, 'acor', data)
+
+    # add an order line to any order. This will change the order history item
+    # label ; the label should be set to order line related budget name
+    acac = acq_account_fiction_martigny
+    data = {
+        'acq_account': {'$ref': get_ref_for_pid('acac', acac.pid)},
+        'acq_order': {'$ref': get_ref_for_pid('acor', acor2.pid)},
+        'document': {'$ref': get_ref_for_pid('doc', document.pid)},
+        'quantity': 2,
+        'amount': 50
+    }
+    acol1 = _make_resource(client, 'acol', data)
+
+    # STEP#1 :: Call API and analyze response
+    #  * with unknown acquisition order --> 404
+    #  * with valid acquisition order --> valid response
+    url = url_for('api_order.order_history', order_pid='dummy')
+    res = client.get(url, headers=rero_json_header)
+    assert res.status_code == 404
+
+    url = url_for('api_order.order_history', order_pid=acor2.pid)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+
+    assert len(data) == 3
+    assert data[0]['$ref'] == get_ref_for_pid('acor', acor1.pid)
+    assert data[1]['$ref'] == get_ref_for_pid('acor', acor2.pid)
+    assert data[1]['label'] == budget_2020_martigny.name
+    assert data[2]['$ref'] == get_ref_for_pid('acor', acor3.pid)
+
+    # STEP#2 :: Ensure a linked order cannot be deleted
+    reasons = acor2.reasons_not_to_delete()
+    assert reasons['links']['orders'] == 1
+
+    # STEP#X :: delete created resources
+    _del_resource(client, 'acol', acol1.pid)
+    _del_resource(client, 'acor', acor3.pid)
+    _del_resource(client, 'acor', acor2.pid)
+    _del_resource(client, 'acor', acor1.pid)

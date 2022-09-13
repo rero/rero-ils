@@ -30,6 +30,7 @@ from rero_ils.modules.acquisition.acq_order_lines.models import \
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, \
     AcqReceiptsSearch
 from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.acquisition.budgets.api import Budget
 from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
@@ -134,6 +135,11 @@ class AcqOrder(AcquisitionIlsRecord):
         return extracted_data_from_ref(self.get('library'))
 
     @property
+    def library(self):
+        """Shortcut for acquisition order library."""
+        return extracted_data_from_ref(self.get('library'), data='record')
+
+    @property
     def vendor_pid(self):
         """Shortcut for acquisition order vendor pid."""
         return extracted_data_from_ref(self.get('vendor'))
@@ -217,6 +223,54 @@ class AcqOrder(AcquisitionIlsRecord):
         search.aggs.metric('total_quantity', 'sum', field='received_quantity')
         results = search.execute()
         return results.aggregations.total_quantity.value
+
+    @property
+    def previous_order(self):
+        """Try to find the previous order in the order history."""
+        if prev_version := self.get('previousVersion'):
+            prev_pid = extracted_data_from_ref(prev_version)
+            return AcqOrder.get_record_by_pid(prev_pid)
+
+    @property
+    def next_order(self):
+        """Try to find an acquisition order representing next order."""
+        query = AcqOrdersSearch() \
+            .filter('term', previousVersion__pid=self.pid)\
+            .source('pid')
+        if hit := next(query.scan(), None):
+            return AcqOrder.get_record(hit.meta.id)
+
+    @property
+    def budget(self):
+        """Get the budget related to this order.
+
+        Acquisition order are not directly related to a budget. The relation
+        can be found by related order lines (related to account, related to
+        budget). But a newly created order doesn't have any order line. In this
+        case, the current active budget of the organisation will be used.
+        """
+        if self.pid and (line := next(self.get_order_lines(), None)):
+            return line.account.budget
+        org = self.library.get_organisation()
+        return Budget.get_record_by_pid(org.get('current_budget_pid'))
+
+    @property
+    def is_active(self):
+        """Check if the order should be considered as active.
+
+        To know if an order is active, we need to check the related
+        budget of its lines. This budget has an 'is_active' field.
+        """
+        # When trying to create a record the pid field is empty, this is why
+        # we check if self.pid is there or not. In this case and when no order
+        # has no lines we return True.
+        if self.pid:
+            order_lines = self.get_order_lines()
+            # There is no need to check all the lines, we will not mix lines
+            # from different budgets in same order.
+            if order_line := next(order_lines, None):
+                return order_line.is_active
+        return True
 
     def get_note(self, note_type):
         """Get a specific type of note.
@@ -308,24 +362,6 @@ class AcqOrder(AcquisitionIlsRecord):
             return query
         else:
             return get_objects(AcqOrderLine, query)
-
-    @property
-    def is_active(self):
-        """Check if the order should be considered as active.
-
-        To know if an order is active, we need to check the related
-        budget of the its lines. This budget has an 'is_active' field.
-        """
-        # When trying to create a record the pid field is empty, this is why
-        # we check if self.pid is there or not. In this case and when no order
-        # has no lines we return True.
-        if self.pid:
-            order_lines = self.get_order_lines()
-            # There is no need to check all the lines, we will not mix lines
-            # from different budgets in same order.
-            if order_line := next(order_lines, None):
-                return order_line.is_active
-        return True
 
     def get_order_provisional_total_amount(self):
         """Get provisional total amount of this order."""
