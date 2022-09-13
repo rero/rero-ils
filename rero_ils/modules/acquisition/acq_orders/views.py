@@ -23,7 +23,8 @@ from jinja2 import TemplateNotFound
 
 from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
 from rero_ils.modules.acquisition.acq_orders.dumpers import \
-    AcqOrderNotificationDumper
+    AcqOrderHistoryDumper, AcqOrderNotificationDumper
+from rero_ils.modules.acquisition.acq_orders.utils import get_history
 from rero_ils.modules.decorators import check_logged_as_librarian, \
     jsonify_error
 
@@ -33,6 +34,23 @@ api_blueprint = Blueprint(
     url_prefix='/acq_order',
     template_folder='templates'
 )
+
+
+@api_blueprint.route('/<order_pid>/history', methods=['GET'])
+@check_logged_as_librarian
+@jsonify_error
+def order_history(order_pid):
+    """Get the history of an acquisition order."""
+    order = AcqOrder.get_record_by_pid(order_pid)
+    if not order:
+        abort(404, "Acquisition order not found")
+
+    data = []
+    for idx, acq_order in enumerate(get_history(order), 1):
+        dump_data = acq_order.dumps(dumper=AcqOrderHistoryDumper())
+        dump_data['order'] = idx
+        data.append(dump_data)
+    return jsonify(data)
 
 
 @api_blueprint.route('/<order_pid>/acquisition_order/preview', methods=['GET'])

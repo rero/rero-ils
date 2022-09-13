@@ -18,6 +18,7 @@
 """Acquisition order serialization."""
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
+from rero_ils.modules.acquisition.budgets.api import BudgetsSearch
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.serializers import ACQJSONSerializer, JSONSerializer
 from rero_ils.modules.vendors.api import VendorsSearch
@@ -39,6 +40,10 @@ class AcqOrderJSONSerializer(ACQJSONSerializer):
         JSONSerializer.enrich_bucket_with_data(
             aggregations.get('account', {}).get('buckets', []),
             AcqAccountsSearch, 'name'
+        )
+        JSONSerializer.enrich_bucket_with_data(
+            aggregations.get('budget', {}).get('buckets', []),
+            BudgetsSearch, 'name'
         )
         # Add configuration for order_date and receipt_date buckets
         for aggr_name in ['order_date', 'receipt_date']:
