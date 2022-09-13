@@ -29,6 +29,19 @@
           }
         }
       },
+      "relations": {
+        "properties": {
+          "predicate": {
+            "type": "keyword"
+          },
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
       "library": {
         "properties": {
           "pid": {

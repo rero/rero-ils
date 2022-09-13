@@ -1093,3 +1093,10 @@ def get_objects(record_class, query):
     """
     for hit in query.source().scan():
         yield record_class.get_record_by_id(hit.meta.id)
+
+
+def truncate_string(str_input, max_length, ellipsis='...'):
+    """Truncate a string if too long and add an ellipsis."""
+    if len(str_input) > max_length:
+        return str_input[:max_length - len(ellipsis)] + ellipsis
+    return str_input

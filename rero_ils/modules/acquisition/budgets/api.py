@@ -21,7 +21,8 @@
 from functools import partial
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.organisations.api import Organisation
@@ -56,7 +57,7 @@ class BudgetsSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class Budget(IlsRecord):
+class Budget(AcquisitionIlsRecord):
     """Budget class."""
 
     minter = budget_id_minter
@@ -68,6 +69,11 @@ class Budget(IlsRecord):
             'org': 'organisation'
         }
     }
+
+    @property
+    def name(self):
+        """Shortcut for budget name."""
+        return self.get('name')
 
     @property
     def is_active(self):
@@ -85,10 +91,7 @@ class Budget(IlsRecord):
         """
         links = {}
         query = AcqAccountsSearch().filter('term', budget__pid=self.pid)
-        if get_pids:
-            acq_accounts = sorted_pids(query)
-        else:
-            acq_accounts = query.count()
+        acq_accounts = sorted_pids(query) if get_pids else query.count()
         if acq_accounts:
             links['acq_accounts'] = acq_accounts
         return links

@@ -29,7 +29,8 @@ from rero_ils.modules.acquisition.acq_order_lines.models import \
     AcqOrderLineStatus
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, \
     AcqReceiptsSearch
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.notifications.api import Notification
@@ -70,7 +71,7 @@ class AcqOrdersSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class AcqOrder(IlsRecord):
+class AcqOrder(AcquisitionIlsRecord):
     """AcqOrder class."""
 
     _extensions = [

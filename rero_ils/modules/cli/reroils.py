@@ -22,17 +22,19 @@ from __future__ import absolute_import, print_function
 
 import click
 
+from rero_ils.modules.acquisition.cli import acquisition
+from rero_ils.modules.apiharvester.cli import apiharvester
+from rero_ils.modules.contributions.cli import contribution
+from rero_ils.modules.ebooks.cli import oaiharvester
+from rero_ils.modules.monitoring.cli import monitoring
+from rero_ils.modules.notifications.cli import notifications
+from rero_ils.modules.stats.cli import stats
+from rero_ils.schedulers import scheduler
+
 from .fixtures import fixtures
 from .index import index
 from .users import users
 from .utils import utils
-from ..apiharvester.cli import apiharvester
-from ..contributions.cli import contribution
-from ..ebooks.cli import oaiharvester
-from ..monitoring.cli import monitoring
-from ..notifications.cli import notifications
-from ..stats.cli import stats
-from ...schedulers import scheduler
 
 
 @click.group()
@@ -40,6 +42,7 @@ def reroils():
     """Reroils management commands."""
 
 
+reroils.add_command(acquisition)
 reroils.add_command(apiharvester)
 reroils.add_command(contribution)
 reroils.add_command(fixtures)

@@ -48,3 +48,10 @@ class LibraryAddressType:
     MAIN_ADDRESS = 'main'
     SHIPPING_ADDRESS = 'shipping'
     BILLING_ADDRESS = 'billing'
+
+
+class AccountTransferOption:
+    """Allowed account transfer option for rollover setting."""
+
+    NO_TRANSFER = 'rollover_no_transfer'
+    ALLOCATED_AMOUNT = 'rollover_allocated_amount'

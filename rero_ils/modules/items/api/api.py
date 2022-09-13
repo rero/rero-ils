@@ -23,17 +23,19 @@ from functools import partial
 from elasticsearch.exceptions import NotFoundError
 from invenio_search import current_search_client
 
+from rero_ils.modules.api import IlsRecordError, IlsRecordsIndexer, \
+    IlsRecordsSearch
+from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.patrons.api import current_librarian
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref
+
 from .circulation import ItemCirculation
 from .issue import ItemIssue
 from ..models import ItemIdentifier, ItemMetadata
-from ...api import IlsRecordError, IlsRecordsIndexer, IlsRecordsSearch
-from ...documents.api import DocumentsSearch
-from ...fetchers import id_fetcher
-from ...minters import id_minter
-from ...organisations.api import Organisation
-from ...patrons.api import current_librarian
-from ...providers import Provider
-from ...utils import extracted_data_from_ref
 
 # provider
 ItemProvider = type(
@@ -283,11 +285,11 @@ class ItemsIndexer(IlsRecordsIndexer):
         return return_value
 
     def delete(self, record):
-        """Delete a record.
+        """Delete a record from index.
 
         :param record: Record instance.
         """
-        from ...holdings.api import Holding
+        from rero_ils.modules.holdings.api import Holding
 
         return_value = super().delete(record)
         holding_pid = extracted_data_from_ref(record.get('holding'))
@@ -296,10 +298,8 @@ class ItemsIndexer(IlsRecordsIndexer):
         deleted = False
         if not holding.is_serial:
             try:
-                # delete only if a standard item
-                if not holding.is_serial:
-                    holding.delete(force=False, dbcommit=True, delindex=True)
-                    deleted = True
+                holding.delete(force=False, dbcommit=True, delindex=True)
+                deleted = True
             except IlsRecordError.NotDeleted:
                 pass
         if not deleted:
