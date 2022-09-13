@@ -22,10 +22,11 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
-from rero_ils.modules.acq_order_lines.api import AcqOrderLine
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
-from rero_ils.modules.acq_orders.api import AcqOrder
-from rero_ils.modules.acq_orders.models import AcqOrderStatus
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
+from rero_ils.modules.acquisition.acq_order_lines.models import \
+    AcqOrderLineStatus
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.models import NotificationChannel, \
     NotificationStatus, NotificationType, RecipientType
@@ -54,7 +55,7 @@ def test_order_notification_preview(
     mocked_data['vendor']['language'] = 'dummy'
     magic_mock = mock.MagicMock(return_value=mocked_data)
     with mock.patch(
-        'rero_ils.modules.acq_orders.api.AcqOrder.dumps',
+        'rero_ils.modules.acquisition.acq_orders.api.AcqOrder.dumps',
         magic_mock
     ):
         res = client.get(url)

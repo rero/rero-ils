@@ -18,7 +18,7 @@
 """Acquisition budget record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.budgets.api import Budget, BudgetsSearch
+from rero_ils.modules.acquisition.budgets.api import Budget, BudgetsSearch
 
 
 def test_budgets_es_mapping(es, db, org_martigny, budget_2017_martigny_data):

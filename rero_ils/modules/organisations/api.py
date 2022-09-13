@@ -22,15 +22,16 @@ from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
 
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.item_types.api import ItemTypesSearch
+from rero_ils.modules.libraries.api import LibrariesSearch, Library
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import sorted_pids
+from rero_ils.modules.vendors.api import Vendor, VendorsSearch
+
 from .models import OrganisationIdentifier, OrganisationMetadata
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..item_types.api import ItemTypesSearch
-from ..libraries.api import LibrariesSearch, Library
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import sorted_pids
-from ..vendors.api import Vendor, VendorsSearch
 
 # provider
 OrganisationProvider = type(
@@ -171,7 +172,8 @@ class Organisation(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        from ..acq_receipts.api import AcqReceiptsSearch
+        from rero_ils.modules.acquisition.acq_receipts.api import \
+            AcqReceiptsSearch
         library_query = LibrariesSearch()\
             .filter('term', organisation__pid=self.pid)
         receipt_query = AcqReceiptsSearch() \
@@ -192,16 +194,13 @@ class Organisation(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
-        links = self.get_links_to_me()
-        if links:
+        if links := self.get_links_to_me():
             cannot_delete['links'] = links
         return cannot_delete
 
     def is_test_organisation(self):
         """Check if this is a test organisation."""
-        if self.get('code') == 'cypress':
-            return True
-        return False
+        return self.get('code') == 'cypress'
 
 
 class OrganisationsIndexer(IlsRecordsIndexer):

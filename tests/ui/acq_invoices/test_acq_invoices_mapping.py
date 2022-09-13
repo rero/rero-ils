@@ -18,7 +18,7 @@
 """Acquisition invoice record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.acq_invoices.api import AcquisitionInvoice, \
+from rero_ils.modules.acquisition.acq_invoices.api import AcquisitionInvoice, \
     AcquisitionInvoicesSearch
 
 
