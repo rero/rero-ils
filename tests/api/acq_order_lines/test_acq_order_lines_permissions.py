@@ -21,7 +21,8 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json
 
-from rero_ils.modules.acq_order_lines.permissions import AcqOrderLinePermission
+from rero_ils.modules.acquisition.acq_order_lines.permissions import \
+    AcqOrderLinePermission
 
 
 def test_order_lines_permissions_api(client, document, org_martigny,

@@ -19,7 +19,8 @@
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
-from rero_ils.modules.acq_receipts.models import AcqReceiptLineCreationStatus
+from rero_ils.modules.acquisition.acq_receipts.models import \
+    AcqReceiptLineCreationStatus
 
 
 def test_create_lines(app, client, librarian_martigny, lib_martigny,

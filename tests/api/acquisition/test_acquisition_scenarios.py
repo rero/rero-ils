@@ -24,10 +24,10 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json
 
-from rero_ils.modules.acq_accounts.api import AcqAccount
-from rero_ils.modules.acq_order_lines.api import AcqOrderLine
-from rero_ils.modules.acq_orders.api import AcqOrder
-from rero_ils.modules.acq_orders.models import AcqOrderStatus
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -90,7 +90,7 @@ def test_create_accounts(client, rero_json_header, org_martigny, lib_martigny,
 # DEV NOTES : This mock will prevent any translations problems to occurs
 #             When a translation is done, then the input string will be return
 #             without any changes.
-@mock.patch('rero_ils.modules.acq_accounts.api._',
+@mock.patch('rero_ils.modules.acquisition.acq_accounts.api._',
             mock.MagicMock(side_effect=lambda v: v))
 def test_transfer_funds_api(client, rero_json_header, org_martigny,
                             lib_martigny, budget_2020_martigny,

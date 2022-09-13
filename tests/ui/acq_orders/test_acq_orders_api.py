@@ -18,9 +18,10 @@
 
 """Acquisition orders API tests."""
 
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineNoteType, \
-    AcqOrderLineStatus
-from rero_ils.modules.acq_orders.models import AcqOrderNoteType, AcqOrderStatus
+from rero_ils.modules.acquisition.acq_order_lines.models import \
+    AcqOrderLineNoteType, AcqOrderLineStatus
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderNoteType, \
+    AcqOrderStatus
 
 
 def test_order_properties(

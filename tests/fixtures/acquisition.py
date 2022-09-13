@@ -23,16 +23,19 @@ from copy import deepcopy
 import pytest
 from utils import flush_index
 
-from rero_ils.modules.acq_accounts.api import AcqAccount, AcqAccountsSearch
-from rero_ils.modules.acq_invoices.api import AcquisitionInvoice, \
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, \
+    AcqAccountsSearch
+from rero_ils.modules.acquisition.acq_invoices.api import AcquisitionInvoice, \
     AcquisitionInvoicesSearch
-from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine, \
     AcqOrderLinesSearch
-from rero_ils.modules.acq_orders.api import AcqOrder, AcqOrdersSearch
-from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLine, \
-    AcqReceiptLinesSearch
-from rero_ils.modules.acq_receipts.api import AcqReceipt, AcqReceiptsSearch
-from rero_ils.modules.budgets.api import Budget, BudgetsSearch
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, \
+    AcqOrdersSearch
+from rero_ils.modules.acquisition.acq_receipt_lines.api import \
+    AcqReceiptLine, AcqReceiptLinesSearch
+from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, \
+    AcqReceiptsSearch
+from rero_ils.modules.acquisition.budgets.api import Budget, BudgetsSearch
 from rero_ils.modules.vendors.api import Vendor, VendorsSearch
 
 

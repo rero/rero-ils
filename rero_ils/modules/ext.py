@@ -34,41 +34,51 @@ from invenio_records_rest.errors import JSONSchemaValidationError
 from invenio_userprofiles.signals import after_profile_update
 from jsonschema.exceptions import ValidationError
 
-from .acq_accounts.listener import enrich_acq_account_data
-from .acq_order_lines.listener import enrich_acq_order_line_data
-from .acq_orders.listener import enrich_acq_order_data
-from .acq_receipt_lines.listener import enrich_acq_receipt_line_data
-from .acq_receipts.listener import enrich_acq_receipt_data
-from .apiharvester.signals import apiharvest_part
-from .budgets.listener import budget_is_active_changed
-from .collections.listener import enrich_collection_data
-from .contributions.listener import enrich_contributions_data
-from .contributions.receivers import publish_api_harvested_records
-from .documents.listener import enrich_document_data
-from .ebooks.receivers import publish_harvested_records
-from .holdings.listener import enrich_holding_data, \
-    update_items_locations_and_types
-from .ill_requests.listener import enrich_ill_request_data
-from .imports.views import ImportsListResource, ImportsResource, \
-    ResultNotFoundOnTheRemoteServer
-from .item_types.listener import negative_availability_changes
-from .items.listener import enrich_item_data
-from .loans.listener import enrich_loan_data, listener_loan_state_changed
-from .locations.listener import enrich_location_data
-from .normalizer_stop_words import NormalizerStopWords
-from .notifications.listener import enrich_notification_data
-from .patron_transaction_events.listener import \
-    enrich_patron_transaction_event_data
-from .patron_transactions.listener import enrich_patron_transaction_data
-from .patrons.listener import create_subscription_patron_transaction, \
-    enrich_patron_data, update_from_profile
-from .sru.views import SRUDocumentsSearch
-from .templates.listener import prepare_template_data
-from .users.views import UsersCreateResource, UsersResource
-from .utils import remove_user_name, set_user_name
-from ..filter import address_block, empty_data, format_date_filter, \
+from rero_ils.filter import address_block, empty_data, format_date_filter, \
     get_record_by_ref, jsondumps, node_assets, text_to_id, to_pretty_json
-from ..version import __version__
+from rero_ils.modules.acquisition.acq_accounts.listener import \
+    enrich_acq_account_data
+from rero_ils.modules.acquisition.acq_order_lines.listener import \
+    enrich_acq_order_line_data
+from rero_ils.modules.acquisition.acq_orders.listener import \
+    enrich_acq_order_data
+from rero_ils.modules.acquisition.acq_receipt_lines.listener import \
+    enrich_acq_receipt_line_data
+from rero_ils.modules.acquisition.acq_receipts.listener import \
+    enrich_acq_receipt_data
+from rero_ils.modules.acquisition.budgets.listener import \
+    budget_is_active_changed
+from rero_ils.modules.apiharvester.signals import apiharvest_part
+from rero_ils.modules.collections.listener import enrich_collection_data
+from rero_ils.modules.contributions.listener import enrich_contributions_data
+from rero_ils.modules.contributions.receivers import \
+    publish_api_harvested_records
+from rero_ils.modules.documents.listener import enrich_document_data
+from rero_ils.modules.ebooks.receivers import publish_harvested_records
+from rero_ils.modules.holdings.listener import enrich_holding_data, \
+    update_items_locations_and_types
+from rero_ils.modules.ill_requests.listener import enrich_ill_request_data
+from rero_ils.modules.imports.views import ImportsListResource, \
+    ImportsResource, ResultNotFoundOnTheRemoteServer
+from rero_ils.modules.item_types.listener import negative_availability_changes
+from rero_ils.modules.items.listener import enrich_item_data
+from rero_ils.modules.loans.listener import enrich_loan_data, \
+    listener_loan_state_changed
+from rero_ils.modules.locations.listener import enrich_location_data
+from rero_ils.modules.normalizer_stop_words import NormalizerStopWords
+from rero_ils.modules.notifications.listener import enrich_notification_data
+from rero_ils.modules.patron_transaction_events.listener import \
+    enrich_patron_transaction_event_data
+from rero_ils.modules.patron_transactions.listener import \
+    enrich_patron_transaction_data
+from rero_ils.modules.patrons.listener import \
+    create_subscription_patron_transaction, enrich_patron_data, \
+    update_from_profile
+from rero_ils.modules.sru.views import SRUDocumentsSearch
+from rero_ils.modules.templates.listener import prepare_template_data
+from rero_ils.modules.users.views import UsersCreateResource, UsersResource
+from rero_ils.modules.utils import remove_user_name, set_user_name
+from rero_ils.version import __version__
 
 
 class REROILSAPP(object):
@@ -173,7 +183,7 @@ class REROILSAPP(object):
     def register_sru_api_blueprint(app):
         """SRU blueprints initialization."""
         api_blueprint = Blueprint('api_sru', __name__)
-        sru_documents_search = SRUDocumentsSearch.as_view(f'documents')
+        sru_documents_search = SRUDocumentsSearch.as_view('documents')
         api_blueprint.add_url_rule(
             '/sru/documents',
             view_func=sru_documents_search
