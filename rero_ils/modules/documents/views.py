@@ -34,8 +34,8 @@ from .commons import SubjectFactory
 from .utils import create_authorized_access_point, \
     display_alternate_graphic_first, edition_format_text, get_remote_cover, \
     publication_statement_text, series_statement_format_text, \
-    title_format_text_alternate_graphic, title_format_text_head, \
-    title_variant_format_text
+    title_format_text, title_format_text_alternate_graphic, \
+    title_format_text_head, title_variant_format_text
 from ..collections.api import CollectionsSearch
 from ..contributions.api import Contribution
 from ..holdings.models import HoldingNoteTypes
@@ -195,12 +195,9 @@ def title_variants(titles):
     variants = {}
     bf_titles = list(filter(lambda t: t['type'] != 'bf:Title', titles))
     for title in bf_titles:
-        result = []
+        title_texts = title_format_text(title, with_subtitle=True)
         variants.setdefault(title['type'], [])
-        result.append(title['mainTitle'][0]['value'])
-        if 'subtitle' in title:
-            result.append(title['subtitle'][0]['value'])
-        variants[title['type']].append(': '.join(result))
+        variants[title['type']].append(title_texts[0].get("value"))
     return variants
 
 
