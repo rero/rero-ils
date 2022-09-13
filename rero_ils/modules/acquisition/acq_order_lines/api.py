@@ -25,11 +25,13 @@ from functools import partial
 from flask_babelex import gettext as _
 from werkzeug.utils import cached_property
 
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
-from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, \
+    sorted_pids
 
 from .extensions import AcqOrderLineValidationExtension
 from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata, \
@@ -61,7 +63,7 @@ class AcqOrderLinesSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class AcqOrderLine(IlsRecord):
+class AcqOrderLine(AcquisitionIlsRecord):
     """Acquisition Order Line class."""
 
     minter = acq_order_line_id_minter

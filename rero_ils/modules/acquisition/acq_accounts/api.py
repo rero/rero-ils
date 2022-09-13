@@ -32,7 +32,8 @@ from rero_ils.modules.acquisition.acq_order_lines.models import \
 from rero_ils.modules.acquisition.acq_receipt_lines.api import \
     AcqReceiptLinesSearch
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceiptsSearch
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
@@ -66,7 +67,7 @@ class AcqAccountsSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class AcqAccount(IlsRecord):
+class AcqAccount(AcquisitionIlsRecord):
     """AcqAccount class."""
 
     minter = acq_account_id_minter
@@ -107,6 +108,11 @@ class AcqAccount(IlsRecord):
         return hash(str(self.id))
 
     @property
+    def name(self):
+        """Shortcut for acquisition account name."""
+        return self.get('name')
+
+    @property
     def library_pid(self):
         """Shortcut for acquisition account library PID."""
         return extracted_data_from_ref(self.get('library'))
@@ -122,6 +128,12 @@ class AcqAccount(IlsRecord):
         return self.library.organisation_pid
 
     @property
+    def parent_pid(self):
+        """Shortcut to get the parent acquisition account pid."""
+        if parent := self.get('parent'):
+            return extracted_data_from_ref(parent)
+
+    @property
     def parent(self):
         """Shortcut to get the parent acquisition account."""
         # NOTE FOR DEVELOPERS : It's a bad choice to write such kind of test :
@@ -135,12 +147,15 @@ class AcqAccount(IlsRecord):
         # a temporary variable before testing and manipulate it.
         #
         #   > acc = AcqAccount.get_record_by_pid(1)
-        #   > parent = acc.parent
-        #   > if parent:
+        #   > if parent := acc.parent:
         #   >     return parent.any_method()
-        #
-        if self.get('parent'):
-            return extracted_data_from_ref(self.get('parent'), data='record')
+        if parent_pid := self.parent_pid:
+            return AcqAccount.get_record_by_pid(parent_pid)
+
+    @property
+    def is_root(self):
+        """Check if the account is a root account."""
+        return 'parent' not in self
 
     @property
     def depth(self):
@@ -160,12 +175,8 @@ class AcqAccount(IlsRecord):
         To know if an account is is_active, we need to check the related
         budget. This budget has an 'is_active' field.
         """
-        from rero_ils.modules.acquisition.budgets.api import BudgetsSearch
-        budget_id = extracted_data_from_ref(self.get('budget'))
-        es = BudgetsSearch() \
-            .filter('term', pid=budget_id) \
-            .source(['is_active']).scan()
-        return next(es).is_active or False
+        budget = extracted_data_from_ref(self.get('budget'), data='record')
+        return budget.is_active if budget else False
 
     @property
     def encumbrance_amount(self):
@@ -199,7 +210,7 @@ class AcqAccount(IlsRecord):
         results = query.execute()
         children_amount = results.aggregations.total.value
 
-        return self_amount, children_amount
+        return round(self_amount, 2), round(children_amount, 2)
 
     @property
     def expenditure_amount(self):
@@ -241,7 +252,7 @@ class AcqAccount(IlsRecord):
         query = AcqAccountsSearch().filter('term', parent__pid=self.pid)
         query.aggs.metric('total', 'sum', field='expenditure_amount.total')
         results = query.execute()
-        children_amount = results.aggregations.total.value
+        children_amount = round(results.aggregations.total.value, 2)
         return round(self_amount, 2), round(children_amount, 2)
 
     @property
@@ -269,7 +280,7 @@ class AcqAccount(IlsRecord):
             - sum(list(self.encumbrance_amount)) \
             - sum(list(self.expenditure_amount))
 
-        return self_balance, total_balance
+        return round(self_balance, 2), round(total_balance, 2)
 
     @property
     def distribution(self):
@@ -284,7 +295,7 @@ class AcqAccount(IlsRecord):
         query = AcqAccountsSearch().filter('term', parent__pid=self.pid)
         query.aggs.metric('total_amount', 'sum', field='allocated_amount')
         results = query.execute()
-        return results.aggregations.total_amount.value
+        return round(results.aggregations.total_amount.value, 2)
 
     def get_exceedance(self, exceed_type):
         """Compute the exceedance allowed for this account by type.
@@ -388,8 +399,7 @@ class AcqAccount(IlsRecord):
 
         :return a list of ancestor accounts.
         """
-        parent = self.parent
-        if parent:
+        if parent := self.parent:
             return [parent] + parent.get_ancestors()
         return []
 
@@ -467,8 +477,7 @@ class AcqAccountsIndexer(IlsRecordsIndexer):
     def index(self, record):
         """Indexing an acq account record (and parent if needed)."""
         return_value = super().index(record)
-        parent_account = record.parent
-        if parent_account:
+        if parent_account := record.parent:
             parent_account.reindex()
         return return_value
 

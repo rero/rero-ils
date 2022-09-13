@@ -20,8 +20,12 @@
 
 from functools import partial
 
-from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from elasticsearch import NotFoundError
+
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, \
+    AcqAccountsSearch
+from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.organisations.api import Organisation
@@ -56,7 +60,7 @@ class BudgetsSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class Budget(IlsRecord):
+class Budget(AcquisitionIlsRecord):
     """Budget class."""
 
     minter = budget_id_minter
@@ -70,12 +74,25 @@ class Budget(IlsRecord):
     }
 
     @property
-    def is_active(self):
-        """Check if the budget should be considered as active.
+    def name(self):
+        """Shortcut for budget name."""
+        return self.get('name')
 
-        To know if an budget is is_active, we need to check 'is_active' field.
+    @property
+    def is_active(self):
+        """Check if the budget should be considered as active."""
+        return self.get('is_active', False)
+
+    def get_related_accounts(self):
+        """Get account related to this budget.
+
+        :rtype: an `AcqAccount` generator
         """
-        return self.get('is_active')
+        query = AcqAccountsSearch() \
+            .filter('term', budget__pid=self.pid) \
+            .source(False)
+        for hit in query.scan():
+            yield AcqAccount.get_record(hit.meta.id)
 
     def get_links_to_me(self, get_pids=False):
         """Record links.
@@ -85,10 +102,7 @@ class Budget(IlsRecord):
         """
         links = {}
         query = AcqAccountsSearch().filter('term', budget__pid=self.pid)
-        if get_pids:
-            acq_accounts = sorted_pids(query)
-        else:
-            acq_accounts = query.count()
+        acq_accounts = sorted_pids(query) if get_pids else query.count()
         if acq_accounts:
             links['acq_accounts'] = acq_accounts
         return links
@@ -120,9 +134,31 @@ class BudgetsIndexer(IlsRecordsIndexer):
 
     record_cls = Budget
 
+    def index(self, record):
+        """Indexing an budget record."""
+        BudgetsIndexer._check_is_active_changed(record)
+        return super().index(record)
+
     def bulk_index(self, record_id_iterator):
         """Bulk index records.
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
         super().bulk_index(record_id_iterator, doc_type='budg')
+
+    @classmethod
+    def _check_is_active_changed(cls, record):
+        """Detect is `is_active` field changed.
+
+        In this case, we need to reindex related accounts to set them as
+        inactive into the AcqAccount ES index.
+
+        :param record: the record to index.
+        """
+        try:
+            original_record = BudgetsSearch().get_record_by_pid(record.pid)
+            if record.is_active != original_record['is_active']:
+                for account in record.get_related_accounts():
+                    account.reindex()
+        except NotFoundError:
+            pass

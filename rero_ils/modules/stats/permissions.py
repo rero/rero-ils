@@ -112,8 +112,10 @@ def filter_stat_by_librarian(record):
     :return: statistics filtered by libraries.
     """
     library_pids = StatsForLibrarian.get_librarian_library_pids()
-    record['values'] = list(filter(lambda lib: lib['library']['pid'] in
-                            library_pids, record['values']))
+    record['values'] = list(filter(
+        lambda lib: lib['library']['pid'] in library_pids,
+        record['values']
+    ))
     return record
 
 

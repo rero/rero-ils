@@ -33,19 +33,7 @@
     "reference": {
       "title": "Reference",
       "type": "string",
-      "minLength": 3,
-      "form": {
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "reference.raw"
-            }
-          },
-          "messages": {
-            "alreadyTakenMessage": "This reference number already exists."
-          }
-        }
-      }
+      "minLength": 3
     },
     "type": {
       "title": "Type",
@@ -218,6 +206,21 @@
           "title": "Organisation URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
+        }
+      }
+    },
+    "previousVersion": {
+      "title": "Previous version",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Acquisition order URI",
+          "type": "string",
+          "pattern": "^https://bib.rero.ch/api/acq_orders/.*?$"
         }
       }
     }

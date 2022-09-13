@@ -18,10 +18,14 @@
 
 """Acquisition orders API tests."""
 
+from utils import flush_index
+
 from rero_ils.modules.acquisition.acq_order_lines.models import \
     AcqOrderLineNoteType, AcqOrderLineStatus
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrdersSearch
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderNoteType, \
     AcqOrderStatus
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_order_properties(
@@ -88,3 +92,26 @@ def test_order_properties(
     # ORDER ITEM QUANTITY -----------------------------------------------------
     assert acor.item_quantity == 6
     assert acor.item_received_quantity == 0
+
+
+def test_get_related_orders(
+    acq_order_fiction_martigny,
+    acq_order_fiction_saxon
+):
+    """Test relations between acquisition order."""
+    acor_martigny = acq_order_fiction_martigny
+    acor_saxon = acq_order_fiction_saxon
+    acor_saxon['previousVersion'] = {
+        '$ref': get_ref_for_pid('acor', acor_martigny.pid)
+    }
+    # remove dynamic loaded key
+    acor_saxon.pop('account_statement', None)
+    acor_saxon.pop('status', None)
+    acor_saxon.pop('order_date', None)
+    acor_saxon = acor_saxon.update(acor_saxon, dbcommit=True, reindex=True)
+    flush_index(AcqOrdersSearch.Meta.index)
+
+    related_acors = list(acor_martigny.get_related_orders())
+    assert related_acors == [acor_saxon]
+    assert acor_martigny.get_related_orders(output='count') == 1
+    assert acor_martigny.get_links_to_me(True)['orders'] == [acor_saxon.pid]
