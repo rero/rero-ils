@@ -16,6 +16,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Elasticsearch mappings."""
+"""Utils functions about acquisition account."""
 
-from __future__ import absolute_import, print_function
+
+def get_history(order):
+    """Find the acquisition order history.
+
+    :param order: the source acquisition order.
+    :return a sorted list of order representing the order history.
+    """
+    history = [order]
+    current_order = order
+    while prev_order := current_order.previous_order:
+        history[:0] = [prev_order]
+        current_order = prev_order
+    current_order = order
+    while next_order := current_order.next_order:
+        history.append(next_order)
+        current_order = next_order
+    return history

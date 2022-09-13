@@ -45,7 +45,6 @@ def test_patrons_logged_user(client, librarian_martigny):
     assert data.get('last_name')
     assert data.get('patrons')
     assert data.get('settings')
-    assert 'organisation' in data.get('patrons')[0].get('libraries')[0]
     assert data.get('patrons')[0].get('organisation')
 
     class current_i18n:

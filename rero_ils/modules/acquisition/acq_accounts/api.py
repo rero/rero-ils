@@ -123,6 +123,11 @@ class AcqAccount(AcquisitionIlsRecord):
         return extracted_data_from_ref(self.get('library'), data='record')
 
     @property
+    def budget(self):
+        """Shortcut to get related budget."""
+        return extracted_data_from_ref(self.get('budget'), data='record')
+
+    @property
     def organisation_pid(self):
         """Shortcut for acquisition account organisation PID."""
         return self.library.organisation_pid

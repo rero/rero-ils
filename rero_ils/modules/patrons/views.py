@@ -44,6 +44,7 @@ from ..items.utils import item_pid_to_object
 from ..loans.api import get_loans_stats_by_patron_pid, get_overdue_loans
 from ..loans.utils import sum_for_fees
 from ..locations.api import Location
+from ..organisations.dumpers import OrganisationLoggedUserDumper
 from ..patron_transactions.utils import \
     get_transactions_total_amount_for_patron
 from ..patron_types.api import PatronType, PatronTypesSearch
@@ -150,27 +151,15 @@ def logged_user():
     user['id'] = current_user.id
     data = {**data, **user, 'patrons': []}
     for patron in Patron.get_patrons_by_user(current_user):
-        organisation = patron.get_organisation()
-        # TODO: need to be fixed this causes errors in production only
-        # patron = patron.replace_refs()
-        del patron['$schema']
-        del patron['user_id']
-        # The notes are loaded by another way
-        if 'notes' in patron:
-            del patron['notes']
-        patron['organisation'] = {
-            'pid': organisation.get('pid'),
-            'name': organisation.get('name'),
-            'code': organisation.get('code'),
-            'currency': organisation.get('default_currency')
-        }
-        for index, library in enumerate(patron.get('libraries', [])):
-            patron['libraries'][index] = {
-                'pid': extracted_data_from_ref(library),
-                'organisation': {
-                    'pid': organisation.get('pid')
-                }
-            }
+        patron.pop('$schema', None)
+        patron.pop('user_id', None)
+        patron.pop('notes', None)
+        patron['organisation'] = patron.get_organisation().dumps(
+            dumper=OrganisationLoggedUserDumper())
+        patron['libraries'] = [
+            {'pid': extracted_data_from_ref(library)}
+            for library in patron.get('libraries', [])
+        ]
         data['patrons'].append(patron)
 
     return jsonify(data)
