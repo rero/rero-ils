@@ -18,10 +18,10 @@
 
 """Signals connector for Budgets."""
 
-from rero_ils.modules.budgets.api import Budget
-
-from ..acq_accounts.api import AcqAccountsIndexer, AcqAccountsSearch
-from ..tasks import process_bulk_queue
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsIndexer, \
+    AcqAccountsSearch
+from rero_ils.modules.acquisition.budgets.api import Budget
+from rero_ils.modules.tasks import process_bulk_queue
 
 
 def budget_is_active_changed(sender, record=None, *args, **kwargs):

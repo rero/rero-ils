@@ -21,10 +21,11 @@ from datetime import date
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
-from rero_ils.modules.acq_order_lines.dumpers import \
+from rero_ils.modules.acquisition.acq_order_lines.dumpers import \
     AcqOrderLineNotificationDumper
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
-from rero_ils.modules.acq_orders.models import AcqOrderNoteType
+from rero_ils.modules.acquisition.acq_order_lines.models import \
+    AcqOrderLineStatus
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderNoteType
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.libraries.dumpers import \
     LibraryAcquisitionNotificationDumper

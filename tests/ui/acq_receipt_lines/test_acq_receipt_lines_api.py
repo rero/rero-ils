@@ -18,7 +18,8 @@
 
 """Acquisition receipts line API tests."""
 
-from rero_ils.modules.acq_receipt_lines.models import AcqReceiptLineNoteType
+from rero_ils.modules.acquisition.acq_receipt_lines.models import \
+    AcqReceiptLineNoteType
 
 
 def test_receipt_lines_properties(acq_receipt_fiction_martigny,

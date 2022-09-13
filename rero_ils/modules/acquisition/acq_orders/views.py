@@ -21,8 +21,9 @@ from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from jinja2 import TemplateNotFound
 
-from rero_ils.modules.acq_orders.api import AcqOrder
-from rero_ils.modules.acq_orders.dumpers import AcqOrderNotificationDumper
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
+from rero_ils.modules.acquisition.acq_orders.dumpers import \
+    AcqOrderNotificationDumper
 from rero_ils.modules.decorators import check_logged_as_librarian, \
     jsonify_error
 

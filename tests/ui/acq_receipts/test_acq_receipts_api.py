@@ -20,7 +20,7 @@
 import pytest
 from jsonschema.exceptions import ValidationError
 
-from rero_ils.modules.acq_receipts.models import AcqReceiptNoteType
+from rero_ils.modules.acquisition.acq_receipts.models import AcqReceiptNoteType
 from rero_ils.modules.utils import extracted_data_from_ref
 
 

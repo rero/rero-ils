@@ -18,7 +18,8 @@
 """Acquisition invoice record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.acq_orders.api import AcqOrder, AcqOrdersSearch
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, \
+    AcqOrdersSearch
 
 
 def test_acq_orders_es_mapping(es, db, lib_martigny, vendor_martigny,

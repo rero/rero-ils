@@ -18,7 +18,7 @@
 
 """Signals connector for Order lines."""
 
-from rero_ils.modules.acq_order_lines.api import AcqOrderLine, \
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine, \
     AcqOrderLinesSearch
 
 

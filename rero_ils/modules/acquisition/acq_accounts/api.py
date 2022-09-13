@@ -23,11 +23,15 @@ from functools import partial
 from elasticsearch_dsl import Q
 from flask_babelex import gettext as _
 
-from rero_ils.modules.acq_invoices.api import AcquisitionInvoicesSearch
-from rero_ils.modules.acq_order_lines.api import AcqOrderLinesSearch
-from rero_ils.modules.acq_order_lines.models import AcqOrderLineStatus
-from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLinesSearch
-from rero_ils.modules.acq_receipts.api import AcqReceiptsSearch
+from rero_ils.modules.acquisition.acq_invoices.api import \
+    AcquisitionInvoicesSearch
+from rero_ils.modules.acquisition.acq_order_lines.api import \
+    AcqOrderLinesSearch
+from rero_ils.modules.acquisition.acq_order_lines.models import \
+    AcqOrderLineStatus
+from rero_ils.modules.acquisition.acq_receipt_lines.api import \
+    AcqReceiptLinesSearch
+from rero_ils.modules.acquisition.acq_receipts.api import AcqReceiptsSearch
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
@@ -156,7 +160,7 @@ class AcqAccount(IlsRecord):
         To know if an account is is_active, we need to check the related
         budget. This budget has an 'is_active' field.
         """
-        from ..budgets.api import BudgetsSearch
+        from rero_ils.modules.acquisition.budgets.api import BudgetsSearch
         budget_id = extracted_data_from_ref(self.get('budget'))
         es = BudgetsSearch() \
             .filter('term', pid=budget_id) \

@@ -25,21 +25,24 @@ from dateutil.relativedelta import relativedelta
 from flask import current_app
 from invenio_search.api import RecordsSearch
 
+from rero_ils.modules.acquisition.acq_order_lines.api import \
+    AcqOrderLinesSearch
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.ill_requests.models import ILLRequestStatus
+from rero_ils.modules.items.api import ItemsSearch
+from rero_ils.modules.items.models import ItemCirculationAction
+from rero_ils.modules.libraries.api import LibrariesSearch
+from rero_ils.modules.loans.logs.api import LoanOperationLog
+from rero_ils.modules.locations.api import LocationsSearch
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
+    current_librarian
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref
+
 from .models import StatIdentifier, StatMetadata
-from ..acq_order_lines.api import AcqOrderLinesSearch
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..documents.api import DocumentsSearch
-from ..fetchers import id_fetcher
-from ..ill_requests.models import ILLRequestStatus
-from ..items.api import ItemsSearch
-from ..items.models import ItemCirculationAction
-from ..libraries.api import LibrariesSearch
-from ..loans.logs.api import LoanOperationLog
-from ..locations.api import LocationsSearch
-from ..minters import id_minter
-from ..patrons.api import Patron, PatronsSearch, current_librarian
-from ..providers import Provider
-from ..utils import extracted_data_from_ref
 
 # provider
 StatProvider = type(
@@ -609,7 +612,7 @@ class StatsForLibrarian(StatsForPricing):
         :return: the number of matched documents
         :rtype: dict
         """
-        search = ItemsSearch()[0:0]\
+        search = ItemsSearch()[:0]\
             .filter('range', _created=self.date_range)\
             .filter('term', library__pid=library_pid)\
             .source('location.pid')
@@ -631,7 +634,7 @@ class StatsForLibrarian(StatsForPricing):
         :return: the number of matched documents
         :rtype: dict
         """
-        search = ItemsSearch()[0:0]\
+        search = ItemsSearch()[:0]\
             .filter('range', _created={'lte': self.date_range['lte']})\
             .filter('term', library__pid=library_pid)\
             .source('document.document_type')
@@ -642,9 +645,10 @@ class StatsForLibrarian(StatsForPricing):
               .bucket('subtype', 'terms',
                       field='document.document_type.subtype', size=10000)
         res = search.execute()
-        stats = {}
-        for bucket in res.aggregations.main_type.buckets:
-            stats[bucket.key] = bucket.doc_count
+        stats = {
+            bucket.key: bucket.doc_count
+            for bucket in res.aggregations.main_type.buckets
+        }
         for bucket in res.aggregations.subtype.buckets:
             stats[bucket.key] = bucket.doc_count
         return stats

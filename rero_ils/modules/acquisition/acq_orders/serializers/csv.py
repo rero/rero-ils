@@ -24,10 +24,12 @@ from flask import current_app, request, stream_with_context
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 
-from rero_ils.modules.acq_accounts.api import AcqAccountsSearch
-from rero_ils.modules.acq_order_lines.api import AcqOrderLinesSearch
-from rero_ils.modules.acq_receipt_lines.api import AcqReceiptLinesSearch
-from rero_ils.modules.acq_receipts.api import AcqReceiptsSearch
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
+from rero_ils.modules.acquisition.acq_order_lines.api import \
+    AcqOrderLinesSearch
+from rero_ils.modules.acquisition.acq_receipt_lines.api import \
+    AcqReceiptLinesSearch
+from rero_ils.modules.acquisition.acq_receipts.api import AcqReceiptsSearch
 from rero_ils.modules.commons.identifiers import IdentifierStatus
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.serializers.base import DocumentFormatter
