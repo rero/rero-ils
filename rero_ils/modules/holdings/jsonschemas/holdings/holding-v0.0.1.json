@@ -663,7 +663,7 @@
           "content": {
             "type": "string",
             "title": "Content",
-            "maxLength": 2000,
+            "maxLength": 10000,
             "minLength": 1,
             "form": {
               "type": "textarea",
