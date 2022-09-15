@@ -83,7 +83,7 @@ from .modules.libraries.api import Library
 from .modules.libraries.permissions import LibraryPermissionPolicy
 from .modules.loans.api import Loan
 from .modules.loans.models import LoanState
-from .modules.loans.permissions import LoanPermission
+from .modules.loans.permissions import LoanPermissionPolicy
 from .modules.loans.query import misc_status_filter
 from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
@@ -2878,16 +2878,11 @@ CIRCULATION_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         error_handlers=dict(),
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=LoanPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=LoanPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=LoanPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=LoanPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=LoanPermission)
+        list_permission_factory_imp=lambda record: LoanPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: LoanPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: LoanPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: LoanPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: LoanPermissionPolicy('delete', record=record)
     )
 )
 """Disable Circulation REST API."""
