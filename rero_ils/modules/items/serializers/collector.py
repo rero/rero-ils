@@ -268,7 +268,7 @@ class Collecter():
                 'ERROR in csv serializer: '
                 '{message} on document: {pid}'.format(
                     message=str(err),
-                    pid=hit['document']['pid'])
+                    pid=csv_data.get('document_pid'))
             )
 
     @classmethod
@@ -297,81 +297,92 @@ class Collecter():
         _append_res_local_fields('doc', csv_data['document_pid'], csv_data)
 
     @staticmethod
-    def get_loans_by_item_pids(item_pids=None):
+    def get_loans_by_item_pids(item_pids=None, chunk_size=200):
         """Get loans for the given item pid list.
 
         :param item_pids: item pids.
-        :return dict of item_pids having the checkouts, renewals,
-                last_transaction_dates, last_checkouts data.
+        :return list of dicts of item statistics.
         """
-        def add_pid(loans, pid):
-            """Add pid to loans."""
-            if pid not in loans:
-                loans[pid] = {}
-
-        # initial es query to return all loans for the given item_pids
-        query = OperationLogsSearch()\
-            .filter('terms', loan__item__pid=item_pids)
-        # adds checkouts aggregation
-        checkout_agg = A(
-            'filter', term={'loan.trigger': ItemCirculationAction.CHECKOUT},
-            aggs=dict(
-                item_pid=A(
-                    'terms', field='loan.item.pid',
-                    aggs=dict(last_op=A('max', field='date')))))
-        query.aggs.bucket('checkout', checkout_agg)
-        # adds renewal aggregation
-        renewal_agg = A(
-            'filter', term={'loan.trigger': ItemCirculationAction.EXTEND},
-            aggs=dict(item_pid=A('terms', field='loan.item.pid')))
-        query.aggs.bucket('renewal', renewal_agg)
-        # adds last transaction aggregation for the fours triggers below.
-        triggers = [
-            ItemCirculationAction.CHECKOUT,
-            ItemCirculationAction.CHECKIN,
-            ItemCirculationAction.EXTEND
-        ]
-        loans_agg = A('filter', terms={'loan.trigger': triggers},
-                      aggs=dict(
-            item_pid=A('terms',
-                       field='loan.item.pid',
-                       aggs=dict(last_op=A('max', field='date')))))
-        query.aggs.bucket('loans', loans_agg)
-        # query execution
-        result = query.execute()
-        # dump output into a dict
-        # checkouts data
-        loans = {
-            term.key: {'checkout_count': term.doc_count,
-                       'last_checkout': ciso8601.parse_datetime(
+        def _get_loans_by_item_pids(pids):
+            # initial es query to return all loans for the given item_pids
+            query = OperationLogsSearch()\
+                .filter('terms', loan__item__pid=pids)
+            # adds checkouts aggregation
+            checkout_agg = A(
+                'filter',
+                term={'loan.trigger': ItemCirculationAction.CHECKOUT},
+                aggs=dict(
+                    item_pid=A(
+                        'terms', field='loan.item.pid',
+                        size=chunk_size,
+                        aggs=dict(last_op=A('max', field='date')))))
+            query.aggs.bucket('checkout', checkout_agg)
+            # adds renewal aggregation
+            renewal_agg = A(
+                'filter',
+                term={'loan.trigger': ItemCirculationAction.EXTEND},
+                aggs=dict(item_pid=A(
+                    'terms', size=chunk_size, field='loan.item.pid')))
+            query.aggs.bucket('renewal', renewal_agg)
+            # adds last transaction aggregation for the fours triggers below.
+            triggers = [
+                ItemCirculationAction.CHECKOUT,
+                ItemCirculationAction.CHECKIN,
+                ItemCirculationAction.EXTEND
+            ]
+            loans_agg = A(
+                'filter', terms={'loan.trigger': triggers}, aggs=dict(
+                    item_pid=A(
+                        'terms',
+                        field='loan.item.pid',
+                        size=chunk_size,
+                        aggs=dict(last_op=A('max', field='date')))))
+            query.aggs.bucket('loans', loans_agg)
+            # query execution
+            result = query[0:0].execute()
+            # dump output into a dict
+            # checkouts data
+            items_stats = {
+                term.key: {
+                    'checkout_count': term.doc_count,
+                    'last_checkout': ciso8601.parse_datetime(
                         term.last_op.value_as_string).date()}
-            for term in result.aggregations.checkout.item_pid}
-        # renewal data
-        for term in result.aggregations.renewal.item_pid:
-            if term.key not in loans:
-                add_pid(loans, term.key)
-            loans[term.key]['renewal_count'] = term.doc_count
-        # last_transaction data
-        for term in result.aggregations.loans.item_pid:
-            if term.key not in loans:
-                add_pid(loans, term.key)
-            loans[term.key]['last_transaction'] = \
-                ciso8601.parse_datetime(term.last_op.value_as_string).date()
-        return loans
+                for term in result.aggregations.checkout.item_pid
+            }
+            # renewal data
+            for term in result.aggregations.renewal.item_pid:
+                items_stats.setdefault(term.key, {})
+                items_stats[term.key]['renewal_count'] = term.doc_count
+            # last_transaction data
+            for term in result.aggregations.loans.item_pid:
+                items_stats.setdefault(term.key, {})
+                items_stats[term.key]['last_transaction'] = \
+                    ciso8601.parse_datetime(
+                        term.last_op.value_as_string).date()
+            return items_stats
+
+        chunk_pids = []
+        for pid in item_pids:
+            if len(chunk_pids) % chunk_size == 0:
+                stats = _get_loans_by_item_pids(chunk_pids)
+                for pid in chunk_pids:
+                    yield stats.get(pid, {})
+                chunk_pids = []
+            chunk_pids.append(pid)
+        stats = _get_loans_by_item_pids(chunk_pids)
+        for pid in chunk_pids:
+            yield stats.get(pid, {})
 
     @staticmethod
-    def append_loan_data(hit, csv_data, loans):
+    def append_loan_data(hit, csv_data, items_stats):
         """Append item loan.
 
         :param hit: item ES record.
         :param csv_data: dictionary of data.
         :param loans: loans data.
         """
-        csv_data['item_checkouts_count'] = loans.get(
-            hit.pid, {}).get('checkout_count', 0)
-        csv_data['item_renewals_count'] = loans.get(
-            hit.pid, {}).get('renewal_count', 0)
-        csv_data['last_transaction_date'] = loans.get(
-            hit.pid, {}).get('last_transaction')
-        csv_data['checkout_date'] = loans.get(
-            hit.pid,  {}).get('last_checkout')
+        stat = next(items_stats)
+        csv_data['item_checkouts_count'] = stat.get('checkout_count', 0)
+        csv_data['item_renewals_count'] = stat.get('renewal_count', 0)
+        csv_data['last_transaction_date'] = stat.get('last_transaction')
+        csv_data['last_checkout_date'] = stat.get('last_checkout')

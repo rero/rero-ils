@@ -96,7 +96,7 @@ _csv = ItemCSVSerializer(
         'item_checkouts_count',
         'item_renewals_count',
         'last_transaction_date',
-        'checkout_date'
+        'last_checkout_date'
     ]
 )
 
