@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2020-2022 RERO
+# Copyright (C) 2020-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,121 +16,76 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from flask import current_app
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security import login_user
+from utils import check_permission
 
-from rero_ils.modules.loans.permissions import LoanPermission
+from rero_ils.modules.loans.permissions import LoanPermissionPolicy
 
 
-def test_loans_permissions_api(client, patron_martigny,
-                               loan_overdue_martigny, loan_overdue_sion,
-                               loan_overdue_saxon,
-                               system_librarian_martigny):
+def test_loan_permissions(
+    patron_martigny, librarian_martigny,
+    loan_overdue_martigny, loan_overdue_sion
+):
     """Test loans permissions api."""
-    loan_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='loans'
-    )
-    loan_martigny_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='loans',
-        record_pid=loan_overdue_martigny.pid
-    )
-    loan_saxon_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='loans',
-        record_pid=loan_overdue_saxon.pid
-    )
-    loan_sion_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='loans',
-        record_pid=loan_overdue_sion.pid
-    )
-
-    # Not logged
-    res = client.get(loan_permissions_url)
-    assert res.status_code == 401
-
-    # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
-    res = client.get(loan_permissions_url)
-    assert res.status_code == 403
-
-    # Logged as system librarian
-    #   * sys_lib can 'list' and 'read' all loans
-    #   * sys_lib can't 'read' 'update', 'delete' loans
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(loan_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(loan_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert not data['create']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    res = client.get(loan_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-    assert not data['delete']['can']
-
-
-def test_loan_permissions(patron_martigny,
-                          librarian_martigny,
-                          system_librarian_martigny,
-                          loan_overdue_saxon, loan_overdue_martigny,
-                          loan_overdue_sion, org_martigny):
-    """Test library permissions class."""
-
     # Anonymous user
-    assert not LoanPermission.list(None, {})
-    assert not LoanPermission.read(None, {})
-    assert not LoanPermission.create(None, {})
-    assert not LoanPermission.update(None, {})
-    assert not LoanPermission.delete(None, {})
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(LoanPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, {})
 
-    loan_martigny = loan_overdue_martigny
-    loan_saxon = loan_overdue_saxon
-    loan_sion = loan_overdue_sion
-    # As Patron
-    with mock.patch(
-        'rero_ils.modules.loans.permissions.current_patrons',
-        [patron_martigny]
-    ):
-        assert LoanPermission.list(None, loan_martigny)
-        assert LoanPermission.read(None, loan_martigny)
-        assert not LoanPermission.create(None, loan_martigny)
-        assert not LoanPermission.update(None, loan_martigny)
-        assert not LoanPermission.delete(None, loan_martigny)
+    # Patron
+    #    * can : search, read (own record), create
+    #    * can't : update, delete
+    login_user(patron_martigny.user)
+    check_permission(LoanPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loan_overdue_martigny)
+    check_permission(LoanPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loan_overdue_sion)
 
-    # As SystemLibrarian
-    with mock.patch(
-        'rero_ils.modules.loans.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert LoanPermission.list(None, loan_saxon)
-        assert LoanPermission.read(None, loan_saxon)
-        assert not LoanPermission.create(None, loan_saxon)
-        assert not LoanPermission.update(None, loan_saxon)
-        assert not LoanPermission.delete(None, loan_saxon)
+    # Librarian without correct role
+    #     - can : search, read (own organisation), create
+    #     - update, delete : disallowed (missing ActionNeed)
+    login_user(librarian_martigny.user)
+    check_permission(LoanPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loan_overdue_martigny)
+    check_permission(LoanPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loan_overdue_sion)
 
-        assert LoanPermission.list(None, loan_sion)
-        assert not LoanPermission.read(None, loan_sion)
-        assert not LoanPermission.create(None, loan_sion)
-        assert not LoanPermission.update(None, loan_sion)
-        assert not LoanPermission.delete(None, loan_sion)
+    # Loan anonymized
+    loan_overdue_martigny['to_anonymize'] = True
+    login_user(librarian_martigny.user)
+    check_permission(LoanPermissionPolicy, {
+        'search': True,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, loan_overdue_martigny)
