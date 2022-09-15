@@ -91,7 +91,7 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
                 documents = Collecter.get_documents_by_item_pids(
                     item_pids=pids, language=language)
                 # get loans
-                loans = Collecter.get_loans_by_item_pids(item_pids=pids)
+                items_stats = Collecter.get_loans_by_item_pids(item_pids=pids)
                 for hit in batch_results:
                     csv_data = Collecter.get_item_data(hit)
                     # _process_item_types_libs_locs(self, csv_data)
@@ -99,7 +99,7 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
                     Collecter.append_document_data(csv_data, documents)
                     Collecter.append_local_fields(csv_data)
                     # update csv data with loan
-                    Collecter.append_loan_data(hit, csv_data, loans)
+                    Collecter.append_loan_data(hit, csv_data, items_stats)
                     Collecter.append_issue_data(hit, csv_data)
                     # write csv data
                     data = self.process_dict(dictionary=csv_data)

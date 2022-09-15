@@ -203,7 +203,7 @@ def test_items_serializers(
         'item_local_field_8', 'item_local_field_9', 'item_local_field_10',
         'issue_status', 'issue_status_date', 'issue_claims_count',
         'issue_expected_date', 'issue_regular', 'item_checkouts_count',
-        'item_renewals_count', 'last_transaction_date', 'checkout_date'
+        'item_renewals_count', 'last_transaction_date', 'last_checkout_date'
     ]
     for field in fields:
         assert field in data
