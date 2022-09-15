@@ -91,48 +91,6 @@ def test_loans_search(
     loan.update(original_loan, dbcommit=True, reindex=True)
 
 
-def test_loans_permissions(client, loan_pending_martigny, json_header):
-    """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
-
-    res = client.get(item_url)
-    assert res.status_code == 401
-    res, _ = postdata(client, 'invenio_records_rest.loanid_list', {})
-    assert res.status_code == 401
-
-    client.put(
-        url_for('invenio_records_rest.loanid_item', pid_value='1'),
-        data={},
-        headers=json_header
-    )
-    res = client.delete(item_url)
-    assert res.status_code == 401
-
-
-def test_loans_logged_permissions(client, loan_pending_martigny,
-                                  librarian_martigny,
-                                  json_header):
-    """Test record retrieval."""
-    login_user_via_session(client, librarian_martigny.user)
-    item_url = url_for('invenio_records_rest.loanid_item', pid_value='1')
-    item_list = url_for('invenio_records_rest.loanid_list')
-
-    res = client.get(item_url)
-    assert res.status_code == 200
-    res = client.get(item_list)
-    assert res.status_code == 200
-    res, _ = postdata(client, 'invenio_records_rest.loanid_list', {})
-    assert res.status_code == 403
-
-    client.put(
-        url_for('invenio_records_rest.loanid_item', pid_value='1'),
-        data={},
-        headers=json_header
-    )
-    res = client.delete(item_url)
-    assert res.status_code == 403
-
-
 def test_loan_access_permissions(client, librarian_martigny,
                                  loc_public_saxon,
                                  patron_martigny,
@@ -148,11 +106,6 @@ def test_loan_access_permissions(client, librarian_martigny,
                                  loc_public_sion
                                  ):
     """Test loans read permissions."""
-    # no access to loans for non authenticated users.
-    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
-    res = client.get(loan_list)
-    assert res.status_code == 401
-
     # ensure we have loans from the two configured organisation.
     login_user_via_session(client, librarian_sion.user)
     res, _ = postdata(
@@ -176,42 +129,6 @@ def test_loan_access_permissions(client, librarian_martigny,
     assert loan_pids
     assert loans_martigny
     assert loans_sion
-    # Test loan list API access.
-    login_user_via_session(client, librarian_martigny.user)
-    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
-    res = client.get(loan_list)
-    assert res.status_code == 200
-    login_user_via_session(client, patron_martigny.user)
-    loan_list = url_for('invenio_records_rest.loanid_list', q='pid:1')
-    res = client.get(loan_list)
-    assert res.status_code == 200
-
-    # librarian or system librarian have access all loans of its org
-    user = librarian_martigny
-    login_user_via_session(client, user.user)
-    for loan in loans:
-        record_url = url_for(
-            'invenio_records_rest.loanid_item', pid_value=loan.pid)
-        res = client.get(record_url)
-        if loan.organisation_pid == user.organisation_pid:
-            assert res.status_code == 200
-        if loan.organisation_pid != user.organisation_pid:
-            assert res.status_code == 403
-
-    # patron can access only its loans
-    user = patron_martigny
-    login_user_via_session(client, user.user)
-    for loan in loans:
-        record_url = url_for(
-            'invenio_records_rest.loanid_item', pid_value=loan.pid)
-        res = client.get(record_url)
-        if loan.organisation_pid == user.organisation_pid:
-            if loan.patron_pid == user.pid:
-                assert res.status_code == 200
-            else:
-                assert res.status_code == 403
-        if loan.organisation_pid != user.organisation_pid:
-            assert res.status_code == 403
 
     # test query filters with a user who is librarian and patron in org2 and
     # patron in org1
