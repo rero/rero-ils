@@ -94,17 +94,19 @@ class ItemIssue(ItemRecord):
             .filter('term', type='issue')
         if holdings_pid:
             query = query.filter('term', holding__pid=holdings_pid)
-        results = query\
+        query = query\
             .params(preserve_order=True) \
             .sort({'_created': {'order': 'asc'}}) \
-            .source(['pid']).scan()
-        for hit in results:
+            .source(['pid'])
+
+        for hit in [hit for hit in query.scan()]:
             yield hit.pid
 
     @classmethod
     def get_issues_by_status(cls, issue_status, holdings_pid=None):
         """Return all issues by status optionally filtered for a holdings pid.
 
+        :param issue_status: the status of the issue.
         :param holdings_pid: the holdings pid. If none, return all late issues.
         :return a generator of Item.
         """
@@ -127,14 +129,15 @@ class ItemIssue(ItemRecord):
         from ...holdings.api import HoldingsSearch
         yesterday = datetime.now(timezone.utc) - timedelta(days=1)
         yesterday = yesterday.strftime('%Y-%m-%d')
-        results = HoldingsSearch() \
+        query = HoldingsSearch() \
             .filter('term', holdings_type='serial') \
             .filter('term', acquisition_status='currently_received') \
             .filter('range', patterns__next_expected_date={'lte': yesterday}) \
             .params(preserve_order=True) \
             .sort({'_created': {'order': 'asc'}}) \
-            .source(['pid']).scan()
-        for hit in results:
+            .source(['pid'])
+
+        for hit in [hit for hit in query.scan()]:
             yield hit.pid
 
     @classmethod

@@ -132,7 +132,7 @@ class Document(IlsRecord):
             else:
                 msg = f'No holding: {holding_pid} in DB ' \
                       f'for document: {pid}'
-                current_app.error(msg)
+                current_app.logger.error(msg)
                 if raise_exception:
                     raise ValueError(msg)
         return False
