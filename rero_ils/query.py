@@ -38,15 +38,22 @@ from .utils import get_i18n_supported_languages
 _PUNCTUATION_REGEX = re.compile(r'[:,\?,\,,\.,;,!,=,-]+(\s+|$)')
 
 
-def and_term_filter(field):
+def and_term_filter(field, must=[], must_not=[]):
     """Create a term filter.
 
     :param field: Field name.
     :return: Function that returns a boolean AND query between term values.
     """
     def inner(values):
-        must = [Q('term', **{field: value}) for value in values]
-        return Q('bool', must=must)
+        _filter = Q(
+            'bool',
+            must=[Q('term', **{field: value}) for value in values]
+        )
+        for value in must:
+            _filter &= Q(**value)
+        for value in must_not:
+            _filter &= ~Q(**value)
+        return _filter
     return inner
 
 

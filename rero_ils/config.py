@@ -1818,15 +1818,32 @@ RECORDS_REST_FACETS = dict(
                     )
                 )
             ),
-            # The subject_fiction and subject_no_fiction facets filters
-            # are defined dynamically in facets.py
             subject_fiction=dict(
-                terms=dict(field='facet_subjects',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(
+                    field='facet_subjects',
+                    size=DOCUMENTS_AGGREGATION_SIZE,
+
+                ),
+                filter={
+                    'bool': {
+                        'must': [
+                            {'terms': {
+                                'genreForm.identifiedBy.value': [
+                                    'A027757308',
+                                    'A021097366'
+                                ]}}]}}
             ),
             subject_no_fiction=dict(
                 terms=dict(field='facet_subjects',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
+                           size=DOCUMENTS_AGGREGATION_SIZE),
+                filter={
+                    'bool': {
+                        'must_not': [
+                            {'terms': {
+                                'genreForm.identifiedBy.value': [
+                                    'A027757308',
+                                    'A021097366'
+                                ]}}]}}
             ),
             status=dict(
                 terms=dict(field='holdings.items.status',
@@ -1855,8 +1872,18 @@ RECORDS_REST_FACETS = dict(
                 'holdings.holdings_type': ['standard', 'serial']
             }),
             _('author'): and_i18n_term_filter('facet_contribution'),
-            _('subject_fiction'): and_term_filter('facet_subjects'),
-            _('subject_no_fiction'): and_term_filter('facet_subjects'),
+            _('subject_fiction'): and_term_filter('facet_subjects',
+                must=[{
+                    'name_or_query': 'terms',
+                    'genreForm__identifiedBy__value': ['A027757308', 'A021097366']
+                }]
+            ),
+            _('subject_no_fiction'): and_term_filter('facet_subjects',
+                must_not=[{
+                    'name_or_query': 'terms',
+                    'genreForm__identifiedBy__value': ['A027757308', 'A021097366']
+                }]
+            ),
             _('new_acquisition'): acquisition_filter(),
             _('identifiers'): nested_identified_filter()
         },
@@ -1874,7 +1901,7 @@ RECORDS_REST_FACETS = dict(
                 _('location'): terms_filter('holdings.location.pid')
             },
             _('status'): terms_filter('holdings.items.status'),
-            _('genreForm'): terms_filter('genreForm.term'),
+            _('genreForm'): terms_filter('facet_genre_form'),
             _('intendedAudience'): terms_filter('intendedAudience.value'),
             _('year'): range_filter('provisionActivity.startDate')
         }
