@@ -34,8 +34,8 @@ def delete_standard_holdings_having_no_items():
         .filter('term', items_count=0) \
         .source('pid')
     errors = 0
-    for hit in es_query.scan():
-        record = Holding.get_record_by_pid(hit.pid)
+    for hit in [hit for hit in es_query.scan()]:
+        record = Holding.get_record(hit.meta.id)
         try:
             record.delete(force=False, dbcommit=True, delindex=True)
         except Exception as err:

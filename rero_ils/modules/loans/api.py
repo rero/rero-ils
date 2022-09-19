@@ -967,9 +967,9 @@ class Loan(IlsRecord):
                 (Q('terms', patron_pid=anonym_patron_pids) &
                  Q('range', transaction_date={'lt': three_month_ago}))
             ]) \
-            .source(['pid'])
-        for hit in query.scan():
-            yield Loan.get_record_by_pid(hit.pid)
+            .source(False)
+        for hit in [hit for hit in query.scan()]:
+            yield Loan.get_record(hit.meta.id)
 
     @classmethod
     def concluded(cls, loan):
@@ -1141,10 +1141,10 @@ def get_loans_by_patron_pid(patron_pid, filter_states=None,
         filter_states=filter_states) \
         .params(preserve_order=True) \
         .sort({'_created': {'order': 'asc'}}) \
-        .source(['pid'])
+        .source(False)
     search = search.filter('term', to_anonymize=to_anonymize)
     for loan in search.scan():
-        yield Loan.get_record_by_pid(loan.pid)
+        yield Loan.get_record(loan.meta.id)
 
 
 def get_last_transaction_loc_for_item(item_pid):
@@ -1155,11 +1155,10 @@ def get_last_transaction_loc_for_item(item_pid):
         .exclude('terms', state=[
             LoanState.PENDING, LoanState.CREATED]) \
         .sort({'_created': {'order': 'desc'}}) \
-        .source(['pid']).scan()
+        .source(False).scan()
     try:
-        loan_pid = next(results).pid
-        return Loan.get_record_by_pid(
-            loan_pid).get('transaction_location_pid')
+        loan_uuid = next(results).meta.id
+        return Loan.get_record(loan_uuid).get('transaction_location_pid')
     except StopIteration:
         return None
 
@@ -1198,9 +1197,9 @@ def get_due_soon_loans(tstamp=None):
         .filter('range', due_soon_date={'lte': end_date}) \
         .params(preserve_order=True) \
         .sort({'_created': {'order': 'asc'}}) \
-        .source(['pid']).scan()
+        .source(False).scan()
     for hit in query:
-        yield Loan.get_record_by_pid(hit.pid)
+        yield Loan.get_record(hit.meta.id)
 
 
 def get_expired_request(tstamp=None):
@@ -1213,9 +1212,9 @@ def get_expired_request(tstamp=None):
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_AT_DESK) \
         .filter('range', request_expire_date={'lte': end_date}) \
-        .source(['pid']).scan()
+        .source(False).scan()
     for hit in query:
-        yield Loan.get_record_by_pid(hit.pid)
+        yield Loan.get_record(hit.meta.id)
 
 
 def get_overdue_loan_pids(patron_pid=None, tstamp=None):
@@ -1287,13 +1286,13 @@ def get_non_anonymized_loans(patron=None, org_pid=None):
     search = current_circulation.loan_search_cls() \
         .filter('term', to_anonymize=False) \
         .filter('terms', state=[LoanState.CANCELLED, LoanState.ITEM_RETURNED])\
-        .source(['pid'])
+        .source(False)
     if patron:
         search = search.filter('term', patron_pid=patron.pid)
     if org_pid:
         search = search.filter('term', organisation__pid=org_pid)
     for record in search.scan():
-        yield Loan.get_record_by_pid(record.pid)
+        yield Loan.get_record(record.meta.id)
 
 
 def anonymize_loans(patron=None, org_pid=None, dbcommit=False, reindex=False):
