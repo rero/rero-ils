@@ -20,7 +20,9 @@
 
 from __future__ import absolute_import, print_function
 
-from elasticsearch_dsl import Q, Search
+from copy import deepcopy
+
+from elasticsearch_dsl import Q
 from flask import current_app, request
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.facets import _aggregations, _query_filter
@@ -93,43 +95,45 @@ def default_facets_factory(search, index):
             )
             all_aggs[facet_name] = i18n_agg
 
-        # If no facets were requested, assume default behaviour - Take all.
-        if not selected_facets:
-            search = _aggregations(search, all_aggs)
-        # otherwise, check if there are facets to chose
-        elif selected_facets and all_aggs:
-            aggs = {}
-            # Go through all available facets and check if they were requested.
-            for facet_name, facet_body in all_aggs.items():
-                if facet_name in selected_facets:
-                    # create facet_filter from post_filters
-                    # and inject the facet_filter into the
-                    # aggregation facet query
-                    facet_field = None
-                    for key in ['terms', 'date_histogram']:
-                        if key in facet_body:
-                            facet_field = facet_body.get(key)['field']
-                            break
-                    if facet_field:
-                        # get DSL expression of post_filters,
-                        # both single post filters and group of post filters
-                        filters, filters_group, urlkwargs = \
-                            _create_filter_dsl(urlkwargs,
-                                               facets.get('post_filters', {}))
+        aggs = {}
+        # Go through all available facets and check if they were requested.
+        for facet_name, facet_body in all_aggs.items():
+            # be sure that the config still untouched
+            facet_body = deepcopy(facet_body)
+            if not selected_facets or facet_name in selected_facets:
+                # create facet_filter from post_filters
+                # and inject the facet_filter into the
+                # aggregation facet query
+                facet_field = None
+                for key in ['terms', 'date_histogram']:
+                    if key in facet_body:
+                        facet_field = facet_body.get(key)['field']
+                        break
+                if facet_field:
+                    # get DSL expression of post_filters,
+                    # both single post filters and group of post filters
+                    filters, filters_group, urlkwargs = \
+                        _create_filter_dsl(urlkwargs,
+                                           facets.get('post_filters', {}))
 
-                        # create the filter to inject in the facet
-                        facet_filter = _facet_filter(
-                                        index, filters, filters_group,
-                                        facet_name, facet_field)
-
-                        # add a nested aggs_facet in the facet aggs
-                        # and add the facet_filter to the aggregation
+                    # create the filter to inject in the facet
+                    facet_filter = _facet_filter(
+                                    index, filters, filters_group,
+                                    facet_name, facet_field)
+                    if 'filter' in facet_body:
+                        facet_filter_cfg = Q(facet_body.pop('filter'))
                         if facet_filter:
-                            facet_body = dict(aggs=dict(aggs_facet=facet_body))
-                            facet_body['filter'] = facet_filter
+                            facet_filter &= facet_filter_cfg
+                        else:
+                            facet_filter = facet_filter_cfg
+                    # add a nested aggs_facet in the facet aggs
+                    # and add the facet_filter to the aggregation
+                    if facet_filter:
+                        facet_body = dict(aggs=dict(aggs_facet=facet_body))
+                        facet_body['filter'] = facet_filter.to_dict()
 
-                    aggs.update({facet_name: facet_body})
-            search = _aggregations(search, aggs)
+                aggs.update({facet_name: facet_body})
+        search = _aggregations(search, aggs)
 
         # Query filter
         search, urlkwargs = _query_filter(
@@ -149,7 +153,7 @@ def _create_filter_dsl(urlkwargs, definitions):
     in file facets.py to the case of a dict of filters (group of
     filters).
 
-    :param urlkwargs: MultiDict of the url paramenters (facet_field,
+    :param urlkwargs: MultiDict of the url parameters (facet_field,
     facet_value)
     :param definitions: the filters dictionary
     :returns: DSL expression of the filters dictionary
@@ -183,6 +187,7 @@ def _create_filter_dsl(urlkwargs, definitions):
                 for v in values:
                     if v not in urlkwargs.getlist(name):
                         urlkwargs.add(name, v)
+
     return filters, filters_group, urlkwargs
 
 
@@ -204,7 +209,7 @@ def _post_filter(search, urlkwargs, definitions):
     for filter_ in filters:
         search = search.post_filter(filter_)
 
-    for name_group, filter_ in filters_group.items():
+    for _, filter_ in filters_group.items():
         q = Q('bool', should=filter_)
         search = search.post_filter(q)
 
@@ -225,37 +230,17 @@ def _facet_filter(index, filters, filters_group, facet_name, facet_field):
     :param filters_group: the DSL expression of a dict of filters defined
     in post_filters (in file config.py)
     :param face_name: the facet name
-    :parame facet_field: the facet field
+    :param facet_field: the facet field
     :returns: the filter to inject in the facet
     """
-    s = Search(index=index)
+    q = Q()
+    for _filter in filters:
+        for _, value in _filter.to_dict().items():
+            filter_field = list(value.keys())[0]
+            if filter_field != facet_field and _filter:
+                q &= _filter
 
-    for filter_ in filters:
-        for k, v in filter_.to_dict().items():
-            filter_field = list(v.keys())[0]
-            if filter_field != facet_field:
-                s = s.query(filter_)
-
-    for name_group, filter_ in filters_group.items():
-        if facet_name != name_group:
-            q = Q('bool', should=filter_)
-            s = s.query(q)
-
-    # Add filter for facets subject_fiction
-    # and subject_no_fiction
-    # TODO: if possible move these filters in config.py
-    if facet_name == 'subject_fiction':
-        q = Q("terms", **{'genreForm.identifiedBy.value': ['A027757308',
-                                                           'A021097366']})
-        s = s.query(q.to_dict())
-    elif facet_name == 'subject_no_fiction':
-        q = Q('bool',
-              must_not=[Q("term",
-                        **{'genreForm.identifiedBy.value': 'A027757308'}),
-                        Q("term",
-                        **{'genreForm.identifiedBy.value': 'A021097366'})])
-        s = s.query(q.to_dict())
-
-    s = s.to_dict()
-    return s.get('query') \
-        if s.get('query') != {'bool': {}} else None
+    for name_group, filters in filters_group.items():
+        if facet_name != name_group and filters:
+            q &= Q('bool', should=filters)
+    return q if q != Q() else None
