@@ -64,6 +64,7 @@ from ..documents.dojson.contrib.marc21tojson.rero import marc21
 from ..documents.views import get_cover_art
 from ..items.api import Item
 from ..libraries.api import Library
+from ..loans.tasks import delete_loans_created as task_delete_loans_created
 from ..patrons.cli import users_validate
 from ..selfcheck.cli import create_terminal, list_terminal, update_terminal
 from ..tasks import process_bulk_queue
@@ -1506,3 +1507,14 @@ def add_cover_urls(verbose):
         url = get_cover_art(record=record, save_cover_url=True)
         if verbose:
             click.echo(f'{idx}:\tdocument: {pid}\t{url}')
+
+
+@utils.command()
+@click.option('-v', '--verbose', is_flag=True, default=False,
+              help='Verbose print.')
+@click.option('-h', '--hours', default=1,
+              help='How many houres befor now not to delete default=1.')
+@with_appcontext
+def delete_loans_created(verbose, hours):
+    """Delete loans with state CREATED."""
+    return task_delete_loans_created(verbose=verbose, hours=hours)

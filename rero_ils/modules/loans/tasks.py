@@ -19,10 +19,13 @@
 
 from __future__ import absolute_import, print_function
 
+from datetime import datetime, timedelta, timezone
+
+import click
 from celery import shared_task
 
 from ..items.api import Item
-from ..loans.api import Loan, get_expired_request
+from ..loans.api import Loan, LoansSearch, get_expired_request
 from ..utils import set_timestamp
 
 
@@ -67,3 +70,26 @@ def cancel_expired_request_task(tstamp=None):
     set_timestamp('cancel-expired-request-task', total=total_loans_counter,
                   cancelled=total_cancelled_loans)
     return total_loans_counter, total_cancelled_loans
+
+
+@shared_task(ignore_result=True)
+def delete_loans_created(verbose=False, hours=1, dbcommit=True, delindex=True):
+    """Delete loans with state CREATED from time NOW - hours."""
+    now = datetime.now(timezone.utc)
+    if hours >= 0:
+        now -= timedelta(hours=hours)
+    count = LoansSearch().filter('term', state='CREATED').count()
+    query = LoansSearch() \
+        .filter('term', state='CREATED').filter('range', _created={'lt': now})
+    if verbose:
+        click.echo(
+            f'TOTAL: {count} DELETE: {query.count()} HOURS: {-query.count()}'
+        )
+    idx = 0
+    for idx, hit in enumerate(query.source('pid').scan(), 1):
+        loan = Loan.get_record_by_pid(hit.pid)
+        state = loan.get('state')
+        if verbose:
+            click.echo(f'{idx:<10} {loan.pid:<10} {state} DELETE')
+        loan.delete(dbcommit=dbcommit, delindex=delindex)
+    return idx
