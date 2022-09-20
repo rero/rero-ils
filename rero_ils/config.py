@@ -435,13 +435,19 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=0, hour=3),  # Every day at 03:00 UTC,
         'enabled': False,
     },
+    'delete-loans-created': {
+        'task': 'rero_ils.modules.loans.tasks.delete_loans_created',
+        'schedule': crontab(minute=0, hour=5), # Every day at 05:00 UTC,
+        'enabled': False,
+    },
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),
     #     'kwargs': {'name': 'mef', 'enabled': False),
+    #     'enabled': False,
     # },
-
 }
+
 CELERY_BROKER_HEARTBEAT = 0
 INDEXER_BULK_REQUEST_TIMEOUT = 60
 

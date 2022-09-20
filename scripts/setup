@@ -627,7 +627,7 @@ then
 else
     eval ${PREFIX} invenio reroils scheduler enable_tasks -n scheduler-timestamp -n bulk-indexer -n anonymize-loans -n claims-creation -n accounts -n clear_and_renew_subscriptions -n collect-stats-billing -n collect-stats-librarian -v
     eval ${PREFIX} invenio reroils scheduler enable_tasks -n notification-creation -n notification-dispatch-availability -n notification-dispatch-recall -v
-    eval ${PREFIX} invenio reroils scheduler enable_tasks -n cancel-expired-request -n delete-provisional-items -v
+    eval ${PREFIX} invenio reroils scheduler enable_tasks -n cancel-expired-request -n delete-provisional-items -n delete-loans-created -v
     info_msg "For ebooks harvesting run:"
     msg "\tinvenio reroils oaiharvester harvest -n ebooks -a max=100 -q"
 fi

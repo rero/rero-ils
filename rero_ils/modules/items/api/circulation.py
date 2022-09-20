@@ -401,6 +401,7 @@ class ItemCirculation(ItemRecord):
             dbcommit=True,
             reindex=True
         )
+        old_state = current_loan.get('state')
 
         # If 'end_date' is specified, we need to check if the selected date is
         # not a closed date. If it's a closed date, then we need to update the
@@ -423,6 +424,13 @@ class ItemCirculation(ItemRecord):
             current_loan,
             **dict(action_params, trigger='checkout')
         )
+        new_state = loan.get('state')
+        if old_state == new_state:
+            current_app.logger.error(
+                f'Loan state has not changed after CHECKOUT: {loan.pid} '
+                f'state: {old_state} '
+                f'kwargs: {kwargs}'
+            )
         actions.update({LoanAction.CHECKOUT: loan})
         return self, actions
 
@@ -578,9 +586,17 @@ class ItemCirculation(ItemRecord):
     @add_action_parameters_and_flush_indexes
     def request(self, current_loan, **kwargs):
         """Request item for the user and create notifications."""
+        old_state = current_loan.get('state')
         loan = current_circulation.circulation.trigger(
             current_loan, **dict(kwargs, trigger='request')
         )
+        new_state = loan.get('state')
+        if old_state == new_state:
+            current_app.logger.error(
+                f'Loan state has not changed after REQUEST: {loan.pid} '
+                f'state: {old_state} '
+                f'kwargs: {kwargs}'
+            )
         return self, {
             LoanAction.REQUEST: loan
         }
