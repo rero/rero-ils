@@ -22,7 +22,7 @@ from __future__ import absolute_import, print_function
 from celery import shared_task
 from flask import current_app
 
-from .api import Holding, HoldingsSearch
+from .api import Holding, HoldingsIndexer, HoldingsSearch
 from ..utils import set_timestamp
 
 
@@ -33,17 +33,28 @@ def delete_standard_holdings_having_no_items():
         .filter('term', holdings_type='standard') \
         .filter('term', items_count=0) \
         .source('pid')
-    errors = 0
-    for hit in [hit for hit in es_query.scan()]:
-        record = Holding.get_record(hit.meta.id)
-        try:
-            record.delete(force=False, dbcommit=True, delindex=True)
-        except Exception as err:
-            errors += 1
-            reasons = record.reasons_not_to_delete()
-            current_app.logger.error(
-                f'Can not delete standard holding: {hit.pid} {reasons} {err}')
 
-    counts = {'count': es_query.count(), 'errors': errors}
+    search_results = [hit for hit in es_query.scan()]
+    count = len(search_results)
+    deleted = 0
+    errors = 0
+    for hit in search_results:
+        if record := Holding.get_record(hit.meta.id):
+            try:
+                record.delete(force=False, dbcommit=True, delindex=True)
+                deleted += 1
+            except Exception as err:
+                errors += 1
+                reasons = record.reasons_not_to_delete()
+                current_app.logger.error(
+                    f'Can not delete standard holding: '
+                    f'{hit.pid} {reasons} {err}')
+        else:
+            # delete holding from index
+            HoldingsIndexer().client.delete(
+                id=hit.meta.id, index='holdings', doc_type='_doc')
+            deleted += 1
+
+    counts = {'count': count, 'deleted': deleted, 'errors': errors}
     set_timestamp('delete_standard_holdings_having_no_items', **counts)
     return counts
