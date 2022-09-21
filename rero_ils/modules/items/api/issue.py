@@ -133,6 +133,7 @@ class ItemIssue(ItemRecord):
             .filter('term', holdings_type='serial') \
             .filter('term', acquisition_status='currently_received') \
             .filter('range', patterns__next_expected_date={'lte': yesterday}) \
+            .exclude('term', patterns__frequency='rdafr:1016') \
             .params(preserve_order=True) \
             .sort({'_created': {'order': 'asc'}}) \
             .source(['pid'])
