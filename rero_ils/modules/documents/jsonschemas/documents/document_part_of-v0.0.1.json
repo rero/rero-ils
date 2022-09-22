@@ -33,7 +33,8 @@
               "pattern": "^https://bib.rero.ch/api/documents/.*?$",
               "form": {
                 "remoteTypeahead": {
-                  "type": "documents"
+                  "type": "documents",
+                  "filter": "NOT harvested:true"
                 },
                 "validation": {
                   "messages": {
