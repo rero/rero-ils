@@ -253,14 +253,13 @@ class IlsRecord(Record):
         cls.pid_check = pidcheck
         try:
             record = super().create(data=data, id_=id_, **kwargs)
-            if dbcommit:
+            if record and dbcommit:
                 record.dbcommit(reindex)
+        # TODO: remove validation error once the angular editor
+        #       validation is complete
         except Exception as err:
-            # delete the created persistent identifier
-            db.session.delete(persistent_identifier)
-            db.session.commit()
             current_app.logger.error(
-                f'{cls.__name__} data:{data} err:{err}')
+                f'{cls.__name__} err:{err} data:{data}')
             raise
         return record
 
