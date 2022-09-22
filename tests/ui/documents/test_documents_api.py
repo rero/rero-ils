@@ -19,12 +19,15 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
+
 import pytest
 from utils import flush_index
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.documents.api import Document, DocumentsSearch, \
     document_id_fetcher
+from rero_ils.modules.documents.models import DocumentIdentifier
 from rero_ils.modules.ebooks.tasks import create_records
 from rero_ils.modules.tasks import process_bulk_queue
 
@@ -170,6 +173,23 @@ def test_document_contribution_resolve_exception(es_clear, db,
             dbcommit=True,
             reindex=True
         )
+
+
+def test_document_create_invalid_data(es_clear, db, document_data):
+    """Test document contribution resolve."""
+    data = deepcopy(document_data)
+    n_pids = DocumentIdentifier.query.count()
+    data.pop('type')
+    data.pop('pid')
+    with pytest.raises(Exception):
+        Document.create(
+            data=data,
+            delete_pid=True,
+            dbcommit=True,
+            reindex=True
+        )
+    db.session.rollback()
+    assert DocumentIdentifier.query.count() == n_pids
 
 
 def test_document_get_links_to_me(document, export_document):
