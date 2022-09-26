@@ -1,5 +1,18 @@
 # Changelog
 
+## [v1.13.1](https://github.com/rero/rero-ils/tree/v1.13.1) (2022-09-26)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.13.0...v1.13.1)
+
+**Fixes:**
+* loans: warns for loans not changing status [/3102](https://github.com/rero/rero-ils/pull/3102) (by @rerowep)
+* Irregular holdings generate interruption of the job creating the late issues [\#3103](https://github.com/rero/rero-ils/issues/3103) (by @rerowep)
+* fixtures: fix bulk_save [\#3087](https://github.com/rero/rero-ils/pull/3087) (by @rerowep)
+* inventory list: fix items stats incorrect values [\#3097](https://github.com/rero/rero-ils/pull/3097) (by @jma)
+* documents: fix facets subject and genre form [\#3099](https://github.com/rero/rero-ils/pull/3099) (by @jma, @vgranata)
+* documents: fix flask attribute error [\#3098](https://github.com/rero/rero-ils/pull/3098) (by @lauren-d)
+* document: fix detailed view variant titles [\#3093](https://github.com/rero/rero-ils/pull/3093) (by @PascalRepond)
+
 ## [v1.13.0](https://github.com/rero/rero-ils/tree/v1.13.0) (2022-09-06)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.12.0...v1.13.0)

@@ -196,7 +196,7 @@ msgstr "Type de lecteur"
 
 #: rero_ils/config.py:2018
 msgid "request_expire_date"
-msgstr "date d'expiration de la demande"
+msgstr "expiration de la demande"
 
 #: rero_ils/config.py:2024
 msgid "end_date"
