@@ -35,3 +35,15 @@ def tests_document_item_filter_detailed_view(
     res = client.get(url_for(
         'invenio_records_ui.doc', viewcode='org1', pid_value='doc1'))
     assert res.status_code == 200
+
+
+def tests_document_export_formats(client, document):
+    """Test document export view format."""
+    for format in ['raw', 'ris']:
+        url = url_for(
+            'invenio_records_ui.doc_export',
+            viewcode='global',
+            pid_value=document.pid,
+            format=format)
+        res = client.get(url)
+        assert res.status_code == 200

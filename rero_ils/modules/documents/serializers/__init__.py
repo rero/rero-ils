@@ -36,7 +36,7 @@ _json_export = DocumentExportJSONSerializer()
 _xml_dc = DublinCoreSerializer(RecordSchemaJSONV1)
 _xml_marcxml = DocumentMARCXMLSerializer()
 _xml_marcxmlsru = DocumentMARCXMLSRUSerializer()
-_ris = RISSerializer()
+ris_serializer = RISSerializer()
 
 # Records-REST serializers
 # ========================
@@ -54,12 +54,12 @@ json_export_doc_response = record_responsify_file(
 )
 
 ris_doc_search = search_responsify_file(
-    _ris, 'application/x-research-info-systems',
+    ris_serializer, 'application/x-research-info-systems',
     file_extension='ris',
     file_prefix='export'
 )
 ris_doc_response = record_responsify_file(
-    _ris, 'application/x-research-info-systems',
+    ris_serializer, 'application/x-research-info-systems',
     file_extension='ris',
     file_prefix='export'
 )

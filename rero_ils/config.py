@@ -2710,7 +2710,7 @@ RECORDS_UI_EXPORT_FORMATS = {
         ),
         'ris': dict(
             title='RIS (Endnote, Zotero, ...)',
-            serializer='rero_ils.modules.documents.serializers:ris_v1',
+            serializer='rero_ils.modules.documents.serializers:ris_serializer',
             order=2,
         ),
     }
