@@ -202,7 +202,7 @@
       }
     ],
     "rollover_settings": {
-      "account_transfer": "rollover_no_transfer"
+      "account_transfer": "rollover_allocated_amount"
     }
   },
   "lib2": {

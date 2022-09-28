@@ -108,7 +108,8 @@ class AcqRollover:
     """
 
     def __init__(self, original_budget, destination_budget=None,
-                 logging_config=None, is_interactive=True, **kwargs):
+                 logging_config=None, is_interactive=True,
+                 propagate_errors=False, **kwargs):
         """Initialization.
 
         :param original_budget: the `Budget` resource related to resources to
@@ -120,12 +121,15 @@ class AcqRollover:
             the configuration comes from `ROLLOVER_LOGGING_CONFIG` setting.
         :param is_interactive: boolean to determine if user confirmation is
             required. True by default.
+        :param propagate_errors: Boolean to determine if error will be
+            propagated to caller. Default is false
         :param **kwargs: all others named argument useful for rollover process.
         :raises InactiveBudgetException: if ....
         """
         self.cache = {}
         self.stack = []
         self.mapping_table = {}
+        self.propagate_errors = propagate_errors
 
         # Set special logging configuration for rollover process
         logging.config.dictConfig(logging_config or ROLLOVER_LOGGING_CONFIG)
@@ -146,6 +150,8 @@ class AcqRollover:
             self._validate()
         except Exception as e:
             self._abort_rollover(str(e))
+            if self.propagate_errors:
+                raise e
 
     def run(self):
         """Run the rollover process."""
@@ -275,12 +281,14 @@ class AcqRollover:
             if self.is_interactive:
                 if not self._confirm('Are you agree ?', default="no"):
                     raise RolloverError("User doesn\'t agree")
-            self._update_budgets()
+            self._update_budgets(False, True)
             log.info("Rollover complete.... it's time for 🍺🍺🍺🍹 party !")
             # raise RolloverError("Everything works as excepted")
 
         except RolloverError as re:
             self._abort_rollover(str(re))
+            if self.propagate_errors:
+                raise re
 
     # RESOURCE MIGRATION METHODS ==============================================
 
@@ -406,12 +414,14 @@ class AcqRollover:
         orig_data = deepcopy(self.original_budget)
         orig_data['is_active'] = orig_state
         self.original_budget.update(orig_data, dbcommit=True, reindex=True)
-        self.logger.info("\t  * Original budget is not deactivated")
+        state_str = 'activated' if orig_state else 'deactivated'
+        self.logger.info(f"\t* Original budget is now {state_str}")
 
         dest_data = deepcopy(self.destination_budget)
         dest_data['is_active'] = dest_state
         self.destination_budget.update(dest_data, dbcommit=True, reindex=True)
-        self.logger.info("\t  * Destination budget is not activated")
+        state_str = 'activated' if dest_state else 'deactivated'
+        self.logger.info(f"\t* Destination budget is now {state_str}")
 
     # PRIVATE METHODS =========================================================
     #  These methods are used during the rollover process. They shouldn't be
@@ -422,6 +432,8 @@ class AcqRollover:
 
         This will delete all acquisition resources created on the destination
         `Budget` resource in the reverse order of their creation.
+
+        :param message: the message to log.
         """
         if message:
             self.logger.warning(message)
@@ -477,7 +489,7 @@ class AcqRollover:
             'is_active': False
         }
         for required_param in ['name', 'start_date', 'end_date']:
-            assert required_param in kwargs
+            assert required_param in kwargs, f'{required_param} param required'
             data[required_param] = kwargs[required_param]
         if budget := Budget.create(data, dbcommit=True, reindex=True):
             self.stack.append(budget)

@@ -21,6 +21,7 @@
 from copy import deepcopy
 
 import pytest
+from api.acquisition.acq_utils import _make_resource
 from utils import flush_index
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, \
@@ -36,6 +37,7 @@ from rero_ils.modules.acquisition.acq_receipt_lines.api import \
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, \
     AcqReceiptsSearch
 from rero_ils.modules.acquisition.budgets.api import Budget, BudgetsSearch
+from rero_ils.modules.utils import get_ref_for_pid as get_ref
 from rero_ils.modules.vendors.api import Vendor, VendorsSearch
 
 
@@ -744,3 +746,141 @@ def acq_invoice_fiction_sion(
         reindex=True)
     flush_index(AcquisitionInvoicesSearch.Meta.index)
     return acin
+
+
+@pytest.fixture(scope="function")
+def acq_full_structure_a(client, lib_martigny, vendor_martigny, document,
+                         org_martigny):
+    """Create a full acquisition structure.
+
+    Budget_A
+      +--> Account_1
+      |    +--> Order_10
+      |         +--> OrderLine_10_1
+      |         +--> OrderLine_10_2
+      |         +--> Reception_10_1
+      |              +--> ReceptionLine_10_1_1 (ref to OrderLine_10_1)
+      +--> Account_2
+      |    +--> Order_20
+      +--> Account_3
+           +--> Account_3.1
+                +--> Order_30
+                     +--> OrderLine_30_1
+                     +--> Reception_30_1
+                          + ReceptionLine_30_1_1 (ref to OrderLine_30_1)
+    """
+    org_ref = get_ref('org', org_martigny.pid)
+    lib_ref = get_ref('lib', lib_martigny.pid)
+    vendor_ref = get_ref('vndr', vendor_martigny.pid)
+    # Budget ==============================================
+    budget = _make_resource(client, 'budg', {
+        'name': 'Budget A',
+        'start_date': '2022-01-01',
+        'end_date': '2022-12-31',
+        'is_active': True,
+        'organisation': {'$ref': org_ref}
+    })
+    budget_ref = get_ref('budg', budget.pid)
+    # Accounts ============================================
+    acac1 = _make_resource(client, 'acac', {
+        'name': 'account_1',
+        'number': '000.0000.01',
+        'allocated_amount': 1000,
+        'budget': {'$ref': budget_ref},
+        'library': {'$ref': lib_ref}
+    })
+    acac2 = _make_resource(client, 'acac', {
+        'name': 'account_2',
+        'number': '000.0000.02',
+        'allocated_amount': 2000,
+        'budget': {'$ref': budget_ref},
+        'library': {'$ref': lib_ref}
+    })
+    acac3 = _make_resource(client, 'acac', {
+        'name': 'account_3',
+        'number': '000.0000.03',
+        'allocated_amount': 3000,
+        'budget': {'$ref': budget_ref},
+        'library': {'$ref': lib_ref}
+    })
+    acac31 = _make_resource(client, 'acac', {
+        'name': 'account_3.1',
+        'number': '000.0000.03',
+        'allocated_amount': 300,
+        'budget': {'$ref': budget_ref},
+        'library': {'$ref': lib_ref},
+        'parent': {'$ref': get_ref('acac', acac3.pid)},
+    })
+    # Orders ==============================================
+    order_10 = _make_resource(client, 'acor', {
+        'vendor': {'$ref': vendor_ref},
+        'library': {'$ref': lib_ref},
+        'type': 'monograph',
+    })
+    order_20 = _make_resource(client, 'acor', {
+        'vendor': {'$ref': vendor_ref},
+        'library': {'$ref': lib_ref},
+        'type': 'monograph',
+    })
+    order_30 = _make_resource(client, 'acor', {
+        'vendor': {'$ref': vendor_ref},
+        'library': {'$ref': lib_ref},
+        'type': 'monograph',
+    })
+    # OrderLines ==========================================
+    orderline_10_1 = _make_resource(client, 'acol', {
+        'acq_account': {'$ref': get_ref('acac', acac1.pid)},
+        'acq_order': {'$ref': get_ref('acor', order_10.pid)},
+        'document': {'$ref': get_ref('doc', document.pid)},
+        'quantity': 4,
+        'amount': 25
+    })
+    orderline_10_2 = _make_resource(client, 'acol', {
+        'acq_account': {'$ref': get_ref('acac', acac1.pid)},
+        'acq_order': {'$ref': get_ref('acor', order_10.pid)},
+        'document': {'$ref': get_ref('doc', document.pid)},
+        'quantity': 2,
+        'amount': 15
+    })
+    orderline_30_1 = _make_resource(client, 'acol', {
+        'acq_account': {'$ref': get_ref('acac', acac31.pid)},
+        'acq_order': {'$ref': get_ref('acor', order_30.pid)},
+        'document': {'$ref': get_ref('doc', document.pid)},
+        'quantity': 3,
+        'amount': 33
+    })
+    # Reception ===========================================
+    reception_10_1 = _make_resource(client, 'acre', {
+        'acq_order': {'$ref': get_ref('acor', order_10.pid)},
+        'exchange_rate': 1,
+        'amount_adjustments': [{
+            'label': 'handling fees',
+            'amount': 2.0,
+            'acq_account': {'$ref':  get_ref('acac', acac1.pid)}
+        }],
+        'library': {'$ref': lib_ref}
+    })
+    reception_30_1 = _make_resource(client, 'acre', {
+        'acq_order': {'$ref': get_ref('acor', order_30.pid)},
+        'exchange_rate': 1,
+        'library': {'$ref': lib_ref}
+    })
+    # ReceptionLine =======================================
+    receptionLine_10_1_1 = _make_resource(client, 'acrl', {
+        'acq_receipt': {'$ref': get_ref('acre', reception_10_1.pid)},
+        'acq_order_line': {'$ref': get_ref('acol', orderline_10_1.pid)},
+        'quantity': 2,
+        'amount': 25,
+        'receipt_date': '2022-06-01',
+        'library': {'$ref': lib_ref}
+    })
+    receptionLine_30_1_1 = _make_resource(client, 'acrl', {
+        'acq_receipt': {'$ref': get_ref('acre', reception_30_1.pid)},
+        'acq_order_line': {'$ref': get_ref('acol', orderline_30_1.pid)},
+        'quantity': 1,
+        'amount': 30,
+        'receipt_date': '2022-07-01',
+        'library': {'$ref': lib_ref}
+    })
+
+    return budget

@@ -36,7 +36,7 @@ def acquisition():
 @click.option('-d', '--destination', 'dest_budget_pid',
               required=True, type=str, help='Destination budget pid')
 @click.option('-i', '--interactive', 'interactive', is_flag=True,
-              show_default=True, default=False, help='interactive mode')
+              default=False, help='interactive mode')
 @with_appcontext
 def rollover(origin_budget_pid, dest_budget_pid, interactive):
     """CLI to run rollover process between two acquisition budgets."""
