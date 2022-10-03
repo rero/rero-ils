@@ -221,3 +221,36 @@ def test_document_indexing(document, export_document):
     document['title'].pop(-1)
     document['title'][0]['mainTitle'][1]['value'] = orig_title
     document.update(document, dbcommit=True, reindex=True)
+
+
+def test_document_replace_refs(document):
+    """Test document replace refs."""
+    data = document.replace_refs()
+    assert len(data.get('contribution')) == 1
+
+    # add wrong referenced contribution agent
+    contributions = document.get('contribution', [])
+    contributions.append({
+        'agent': {
+          'type': 'bf:Person',
+          '$ref': 'https://mef.rero.ch/api/agents/iderf/WRONGIDREF'
+        },
+        'role': [
+          'aut'
+        ]
+      })
+    data = document.replace_refs()
+    assert len(data.get('contribution')) == 1
+
+    # add MEF contribution agent
+    contributions.append({
+        'agent': {
+            'type': 'bf:Person',
+            '$ref': 'https://mef.rero.ch/api/agents/rero/A017671081'
+        },
+        'role': [
+            'aut'
+        ]
+    })
+    data = document.replace_refs()
+    assert len(data.get('contribution')) == 2
