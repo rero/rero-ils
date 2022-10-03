@@ -303,11 +303,16 @@ class Document(IlsRecord):
     def replace_refs(self):
         """Replace $ref with real data."""
         from ..contributions.api import Contribution
-        for contribution in self.get('contribution', []):
+        contributions = self.get('contribution', [])
+        # we need to iterate over a copy of the list if we want to remove an
+        # element on the original list
+        for contribution in list(contributions):
             if ref := contribution['agent'].get('$ref'):
                 agent, _ = Contribution.get_record_by_ref(ref)
                 if agent:
                     contribution['agent'] = agent
+                else:
+                    contributions.remove(contribution)
         for subjects in ['subjects', 'subjects_imported']:
             for subject in self.get(subjects, []):
                 subject_ref = subject.get('$ref')
