@@ -96,7 +96,7 @@ from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
     validate_item_pickup_transaction_locations, validate_loan_duration
 from .modules.local_fields.api import LocalField
-from .modules.local_fields.permissions import LocalFieldPermission
+from .modules.local_fields.permissions import LocalFieldPermissionPolicy
 from .modules.locations.api import Location
 from .modules.locations.permissions import LocationPermissionPolicy
 from .modules.notifications.api import Notification
@@ -868,21 +868,15 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.local_fields.api:LocalField',
         list_route='/local_fields/',
-        item_route='/local_fields/<pid(lofi, record_class='
-        '"rero_ils.modules.local_fields.api:LocalField"):pid_value>',
+        item_route='/local_fields/<pid(lofi, record_class="rero_ils.modules.local_fields.api:LocalField"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=LocalFieldPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=LocalFieldPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=LocalFieldPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=LocalFieldPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=LocalFieldPermission)
+        list_permission_factory_imp=lambda record: LocalFieldPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: LocalFieldPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: LocalFieldPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: LocalFieldPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: LocalFieldPermissionPolicy('delete', record=record)
     ),
     ptrn=dict(
         pid_type='ptrn',
