@@ -80,8 +80,9 @@ function pretests () {
   # | celery                     | 5.1.2     | <5.2.0                   | 42498    |
   # | celery                     | 5.1.2     | <5.2.2                   | 43738    |
   # | click                      | 7.1.2     | <8.0.0                   | 47833    |
+  # | cryptography               | 38.0.1    | <39.0.0                  | 51159    |
   # +==============================================================================+
-  safety check -i 42852 -i 42194 -i 45183 -i 44501 -i 40459 -i 47833 -i 42498 -i 43738
+  safety check -i 42852 -i 42194 -i 45183 -i 44501 -i 40459 -i 47833 -i 42498 -i 43738 -i 51159
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
