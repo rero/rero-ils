@@ -405,6 +405,23 @@
     "pro_full_permissions",
     "pro_library_administrator"
   ],
+  "lofi-create": [
+    "pro_full_permissions",
+    "pro_circulation_manager",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "lofi-update": [
+    "pro_full_permissions",
+    "pro_circulation_manager",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "lofi-delete": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
   "ptty-search": [
     "pro_full_permissions",
     "pro_read_only",

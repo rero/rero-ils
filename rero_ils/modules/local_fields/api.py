@@ -68,14 +68,14 @@ class LocalField(IlsRecord):
     def extended_validation(self, **kwargs):
         """Extended validation."""
         # check if a local_fields resource exists for this document
-        type = extracted_data_from_ref(self.get('parent'), data='resource')
-        document_pid = extracted_data_from_ref(self.get('parent'))
+        p_type = extracted_data_from_ref(self.get('parent'), data='acronym')
+        p_pid = extracted_data_from_ref(self.get('parent'))
         organisation_pid = extracted_data_from_ref(self.get('organisation'))
         count = LocalFieldsSearch()\
-            .filter('term', parent__type=type)\
-            .filter('term', parent__pid=document_pid)\
+            .filter('term', parent__type=p_type)\
+            .filter('term', parent__pid=p_pid)\
             .filter('term', organisation__pid=organisation_pid)\
-            .filter('bool', must_not=[Q('term', pid=self['pid'])])\
+            .exclude('term', pid=self['pid'])\
             .count()
         if count > 0:
             return _('Local fields already exist for this document.')

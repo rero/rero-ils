@@ -275,6 +275,16 @@ def extracted_data_from_ref(input, data='pid'):
         if len(parts) > abs(idx):
             return input_string.split('/')[idx]
 
+    def get_acronym():
+        """Get resource acronym for a $ref URI."""
+        resource_list = extracted_data_from_ref(input, data='resource')
+        endpoints = {
+            endpoint.get('search_index'): acronym
+            for acronym, endpoint
+            in current_app.config.get('RECORDS_REST_ENDPOINTS', {}).items()
+        }
+        return endpoints.get(resource_list)
+
     def get_record_class():
         """Search about a record_class name for a $ref URI."""
         resource_list = extracted_data_from_ref(input, data='resource')
@@ -311,6 +321,7 @@ def extracted_data_from_ref(input, data='pid'):
         'es_record': get_data_from_es,
         'pid': lambda: extract_part(input.get('$ref'), -1),
         'resource': lambda: extract_part(input.get('$ref'), -2),
+        'acronym': get_acronym,
         'record_class': get_record_class,
         'record': get_record
     }
