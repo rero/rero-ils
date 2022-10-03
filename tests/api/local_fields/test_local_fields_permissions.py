@@ -15,41 +15,80 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from flask import current_app
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security import login_user
+from utils import check_permission, flush_index
+
+from rero_ils.modules.local_fields.permissions import \
+    LocalFieldPermissionPolicy
+from rero_ils.modules.patrons.api import PatronsSearch
 
 
-def test_local_fields_permissions_api(
-        client, org_martigny, document, local_field_martigny,
-        patron_sion, librarian_martigny):
-    """Test local fields permissions api."""
-    local_field_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='local_fields'
+def test_local_fields_permissions(
+    local_field_martigny, librarian_martigny, local_field_sion
+):
+    """Test item permissions class."""
+
+    # Anonymous user & Patron user
+    #  - search/read any local fields are allowed.
+    #  - create/update/delete operations are disallowed.
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
     )
-    local_field_martigny_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='local_fields',
-        record_pid=local_field_martigny.pid
-    )
+    check_permission(LocalFieldPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, None)
+    check_permission(LocalFieldPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, local_field_martigny)
 
-    # Not logged
-    res = client.get(local_field_permissions_url)
-    assert res.status_code == 401
+    # Librarian with specific role
+    #     - search/read: any items
+    #     - create/update/delete: allowed for items of its own library
+    login_user(librarian_martigny.user)
+    check_permission(LocalFieldPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, local_field_martigny)
+    check_permission(LocalFieldPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, local_field_sion)
 
-    # Logged as patron
-    login_user_via_session(client, patron_sion.user)
-    res = client.get(local_field_permissions_url)
-    assert res.status_code == 403
+    # Librarian without specific role
+    #   - search/read: any items
+    #   - create/update/delete: disallowed for any items except for
+    #     "pro_circulation_manager" as create/update are allowed.
+    original_roles = librarian_martigny.get('roles', [])
+    librarian_martigny['roles'] = ['pro_user_manager']
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-    # Logged as
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.get(local_field_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['create']['can']
-    assert data['delete']['can']
-    assert data['list']['can']
-    assert data['read']['can']
-    assert data['update']['can']
+    login_user(librarian_martigny.user)  # to refresh identity !
+    check_permission(LocalFieldPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, local_field_martigny)
+
+    # reset the librarian
+    librarian_martigny['roles'] = original_roles
+    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
