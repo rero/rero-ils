@@ -1204,7 +1204,7 @@ def local_field_sion_data(local_fields):
 
 
 @pytest.fixture(scope="module")
-def local_field_sion(app, org_martigny, document, local_field_sion_data):
+def local_field_sion(app, org_sion, document, local_field_sion_data):
     """Load local field."""
     local_field = LocalField.create(
         data=local_field_sion_data,
