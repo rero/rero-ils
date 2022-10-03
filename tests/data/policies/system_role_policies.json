@@ -23,6 +23,12 @@
   "item-read": [
     "any_user"
   ],
+  "lofi-search": [
+    "any_user"
+  ],
+  "lofi-read": [
+    "any_user"
+  ],
   "oplg-search": [
     "authenticated_user"
   ]
