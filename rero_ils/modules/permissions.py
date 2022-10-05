@@ -348,7 +348,7 @@ class AllowedByActionRestrictByOwnerOrOrganisation(AllowedByAction):
         if record:
             required_need = None
             if current_patrons:
-                required_need = OwnerNeed(record.patron_pid)
+                required_need = OwnerNeed(getattr(record, 'patron_pid', None))
             elif current_librarian:
                 required_need = OrganisationNeed(record.organisation_pid)
             if required_need and required_need not in g.identity.provides:
