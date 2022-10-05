@@ -17,77 +17,40 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for notifications."""
+from invenio_access import action_factory
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByManageableLibrary, \
+    AllowedByActionRestrictByOwnerOrOrganisation, RecordPermissionPolicy
+
+# Actions to control Items policies for CRUD operations
+search_action = action_factory('notif-search')
+read_action = action_factory('notif-read')
+create_action = action_factory('notif-create')
+update_action = action_factory('notif-update')
+delete_action = action_factory('notif-delete')
 
 
-class NotificationPermission(RecordPermission):
-    """Patron notification permissions."""
+class NotificationPermissionPolicy(RecordPermissionPolicy):
+    """Notification Permission Policy used by the CRUD operations."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
+    # Some notifications subclasses have a library_pid, some have not.
+    # in the second case, if we return `None` the permission may be
+    # allowed if user has required ActionNeed, but we won't ; so return
+    # a "dummy" value to always disallow the operation if a notification
+    # don't have the `library_pid` property.
 
-        :param user: Logged user.
-        :param record: Record to check
-        :return: True is action can be done.
-        """
-        # user should be a staff members (sys_ib, lib)
-        return bool(current_librarian)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # user should be authenticated
-        # user should be a staff member (sys_lib, lib)
-        if not current_librarian:
-            return False
-        return current_librarian.organisation_pid == record.organisation_pid
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # user should be authenticated
-        if not current_librarian:
-            return False
-        if not record:
-            return True
-        else:
-            # Same as update
-            return cls.update(user, record)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) can update notifcations
-        # record cannot be null
-        if not current_librarian or not record:
-            return False
-        return current_librarian.organisation_pid == record.organisation_pid
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # Same as update
-        return cls.update(user, record)
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByOwnerOrOrganisation(read_action)]
+    can_create = [AllowedByActionRestrictByManageableLibrary(
+        create_action,
+        callback=lambda rec: getattr(rec, 'library_pid', 'unavailable_data')
+    )]
+    can_update = [AllowedByActionRestrictByManageableLibrary(
+        update_action,
+        callback=lambda rec: getattr(rec, 'library_pid', 'unavailable_data')
+    )]
+    can_delete = [AllowedByActionRestrictByManageableLibrary(
+        delete_action,
+        callback=lambda rec: getattr(rec, 'library_pid', 'unavailable_data')
+    )]

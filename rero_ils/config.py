@@ -97,7 +97,7 @@ from .modules.notifications.api import Notification
 from .modules.notifications.dispatcher import \
     Dispatcher as NotificationDispatcher
 from .modules.notifications.models import NotificationType
-from .modules.notifications.permissions import NotificationPermission
+from .modules.notifications.permissions import NotificationPermissionPolicy
 from .modules.operation_logs.api import OperationLog
 from .modules.operation_logs.permissions import OperationLogPermission
 from .modules.organisations.api import Organisation
@@ -1261,16 +1261,11 @@ RECORDS_REST_ENDPOINTS = dict(
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:organisation_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=NotificationPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=NotificationPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=NotificationPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=NotificationPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=NotificationPermission)
+        list_permission_factory_imp=lambda record: NotificationPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: NotificationPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: NotificationPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: NotificationPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: NotificationPermissionPolicy('delete', record=record)
     ),
     vndr=dict(
         pid_type='vndr',
