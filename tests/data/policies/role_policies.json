@@ -415,6 +415,38 @@
   "ptty-delete": [
     "pro_full_permissions"
   ],
+  "notif-search": [
+    "patron",
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "notif-read": [
+    "patron",
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
+  "notif-update": [
+    "pro_full_permissions",
+    "pro_library_administrator"
+  ],
+  "notif-create": [
+    "pro_full_permissions",
+    "pro_library_administrator"
+  ],
+  "notif-delete": [
+    "pro_full_permissions",
+    "pro_library_administrator"
+  ],
   "org-search": [
     "pro_full_permissions",
     "pro_read_only",
