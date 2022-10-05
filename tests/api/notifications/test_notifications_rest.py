@@ -80,34 +80,6 @@ def test_delayed_notifications(
     mailbox.clear()
 
 
-def test_notifications_permissions(
-        client, notification_availability_martigny, json_header):
-    """Test notification permissions."""
-
-    notif = notification_availability_martigny
-    pid = notif.get('pid')
-    item_url = url_for('invenio_records_rest.notif_item', pid_value=pid)
-
-    res = client.get(item_url)
-    assert res.status_code == 401
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.notif_list',
-        {}
-    )
-    assert res.status_code == 401
-
-    res = client.put(
-        item_url,
-        data={},
-        headers=json_header
-    )
-
-    res = client.delete(item_url)
-    assert res.status_code == 401
-
-
 def test_filtered_notifications_get(
         client, notification_availability_martigny,
         librarian_martigny,
