@@ -16,161 +16,132 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
-from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from flask import current_app
+from flask_principal import AnonymousIdentity, identity_changed
+from flask_security import login_user
+from utils import check_permission, flush_index
 
-from rero_ils.modules.notifications.permissions import NotificationPermission
-
-
-def test_notifications_permissions_api(client, patron_martigny,
-                                       system_librarian_martigny,
-                                       librarian_martigny,
-                                       notification_late_martigny,
-                                       notification_late_saxon,
-                                       notification_late_sion):
-    """Test notification permissions api."""
-    notif_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='notifications'
-    )
-    notif_martigny_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='notifications',
-        record_pid=notification_late_martigny.pid
-    )
-    notif_saxon_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='notifications',
-        record_pid=notification_late_saxon.pid
-    )
-    notif_sion_permission_url = url_for(
-        'api_blueprint.permissions',
-        route_name='notifications',
-        record_pid=notification_late_sion.pid
-    )
-
-    # Not logged
-    res = client.get(notif_permissions_url)
-    assert res.status_code == 401
-
-    # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
-    res = client.get(notif_permissions_url)
-    assert res.status_code == 403
-
-    # Logged as librarian
-    #   * lib can 'list' and 'read' notification of its own organisation
-    #   * lib can 'create', 'update', 'delete' only for its library
-    #   * lib can't 'read' notification of others organisation.
-    #   * lib can't 'create', 'update', 'delete' notification for other org/lib
-    login_user_via_session(client, librarian_martigny.user)
-    res = client.get(notif_martigny_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(notif_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(notif_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data['read']['can']
-    assert data['list']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
-
-    # Logged as system librarian
-    #   * sys_lib can do everything about notification of its own organisation
-    #   * sys_lib can't do anything about notification of other organisation
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(notif_saxon_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['read']['can']
-    assert data['list']['can']
-    assert data['create']['can']
-    assert data['update']['can']
-    assert data['delete']['can']
-
-    res = client.get(notif_sion_permission_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert not data['read']['can']
-    assert not data['update']['can']
-    assert not data['delete']['can']
+from rero_ils.modules.notifications.permissions import \
+    NotificationPermissionPolicy
+from rero_ils.modules.patrons.api import PatronsSearch
 
 
-def test_notifcations_permissions(patron_martigny,
-                                  librarian_martigny,
-                                  system_librarian_martigny,
-                                  org_martigny,
-                                  notification_late_sion,
-                                  notification_late_martigny,
-                                  notification_late_saxon):
+def test_notifcations_permissions(
+    patron_martigny, librarian2_martigny, system_librarian_martigny,
+    org_martigny, notification_late_sion, notification_late_martigny,
+    notification_late_saxon
+):
     """Test notifications permissions class."""
+    # Anonymous user & Patron user
+    #  - search/read any items are allowed.
+    #  - create/update/delete operations are disallowed.
+    identity_changed.send(
+        current_app._get_current_object(), identity=AnonymousIdentity()
+    )
+    check_permission(NotificationPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, None)
+    check_permission(NotificationPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, notification_late_martigny)
+    login_user(patron_martigny.user)
+    check_permission(NotificationPermissionPolicy, {'create': False}, {})
+    check_permission(NotificationPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, notification_late_martigny)
 
-    # Anonymous user
-    assert not NotificationPermission.list(None, {})
-    assert not NotificationPermission.read(None, {})
-    assert not NotificationPermission.create(None, {})
-    assert not NotificationPermission.update(None, {})
-    assert not NotificationPermission.delete(None, {})
+    # Librarian without specific role
+    #   - search/read: any notifications
+    #   - create/update/delete: disallowed for any notifications
+    login_user(librarian2_martigny.user)
+    check_permission(NotificationPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, notification_late_martigny)
+    check_permission(NotificationPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, notification_late_saxon)
+    check_permission(NotificationPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, notification_late_sion)
 
-    # As non Librarian
-    notif_martigny = notification_late_martigny
-    notif_saxon = notification_late_saxon
-    notif_sion = notification_late_sion
-    assert not NotificationPermission.list(None, notif_martigny)
-    assert not NotificationPermission.read(None, notif_martigny)
-    assert not NotificationPermission.create(None, notif_martigny)
-    assert not NotificationPermission.update(None, notif_martigny)
-    assert not NotificationPermission.delete(None, notif_martigny)
+    # Librarian administrator
+    original_roles = librarian2_martigny.get('roles', [])
+    librarian2_martigny['roles'] = ['pro_library_administrator']
+    librarian2_martigny.update(librarian2_martigny,
+                               dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-    # As Librarian
-    with mock.patch(
-        'rero_ils.modules.notifications.permissions.current_librarian',
-        librarian_martigny
-    ):
-        assert NotificationPermission.list(None, notif_martigny)
-        assert NotificationPermission.read(None, notif_martigny)
-        assert NotificationPermission.create(None, notif_martigny)
-        assert NotificationPermission.update(None, notif_martigny)
-        assert NotificationPermission.delete(None, notif_martigny)
+    login_user(librarian2_martigny.user)
+    check_permission(NotificationPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, notification_late_martigny)
+    check_permission(NotificationPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, notification_late_saxon)
+    check_permission(NotificationPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, notification_late_sion)
 
-        assert NotificationPermission.read(None, notif_saxon)
-        assert NotificationPermission.create(None, notif_saxon)
-        assert NotificationPermission.update(None, notif_saxon)
-        assert NotificationPermission.delete(None, notif_saxon)
+    # reset the librarian
+    librarian2_martigny['roles'] = original_roles
+    librarian2_martigny.update(librarian2_martigny,
+                               dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
 
-        assert not NotificationPermission.read(None, notif_sion)
-        assert not NotificationPermission.create(None, notif_sion)
-        assert not NotificationPermission.update(None, notif_sion)
-        assert not NotificationPermission.delete(None, notif_sion)
-
-    # As System-librarian
-    with mock.patch(
-        'rero_ils.modules.notifications.permissions.current_librarian',
-        system_librarian_martigny
-    ):
-        assert NotificationPermission.list(None, notif_saxon)
-        assert NotificationPermission.read(None, notif_saxon)
-        assert NotificationPermission.create(None, notif_saxon)
-        assert NotificationPermission.update(None, notif_saxon)
-        assert NotificationPermission.delete(None, notif_saxon)
-
-        assert not NotificationPermission.read(None, notif_sion)
-        assert not NotificationPermission.create(None, notif_sion)
-        assert not NotificationPermission.update(None, notif_sion)
-        assert not NotificationPermission.delete(None, notif_sion)
+    # System librarian (aka. full-permissions)
+    #   - create/update/delete: allow for notification if its own org
+    login_user(system_librarian_martigny.user)
+    check_permission(NotificationPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, notification_late_martigny)
+    check_permission(NotificationPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, notification_late_saxon)
+    check_permission(NotificationPermissionPolicy, {
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, notification_late_sion)
