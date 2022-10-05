@@ -39,7 +39,7 @@ def tests_document_item_filter_detailed_view(
 
 def tests_document_export_formats(client, document):
     """Test document export view format."""
-    for format in ['raw', 'ris']:
+    for format in ['json', 'ris']:
         url = url_for(
             'invenio_records_ui.doc_export',
             viewcode='global',
