@@ -2703,7 +2703,7 @@ RECORDS_UI_ENDPOINTS = {
 
 RECORDS_UI_EXPORT_FORMATS = {
     'doc': {
-        'raw': dict(
+        'json': dict(
             title='JSON',
             serializer='invenio_records_rest.serializers:json_v1',
             order=1,
