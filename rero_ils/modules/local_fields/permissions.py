@@ -27,6 +27,7 @@ read_action = action_factory('lofi-read')
 create_action = action_factory('lofi-create')
 update_action = action_factory('lofi-update')
 delete_action = action_factory('lofi-delete')
+access_action = action_factory('lofi-access')
 
 
 class LocalFieldPermissionPolicy(RecordPermissionPolicy):

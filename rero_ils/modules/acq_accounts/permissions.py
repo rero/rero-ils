@@ -31,6 +31,7 @@ read_action = action_factory('acac-read')
 create_action = action_factory('acac-create')
 update_action = action_factory('acac-update')
 delete_action = action_factory('acac-delete')
+access_action = action_factory('acac-access')
 
 
 class AcqAccountPermissionPolicy(RecordPermissionPolicy):

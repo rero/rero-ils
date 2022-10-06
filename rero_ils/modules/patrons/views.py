@@ -45,14 +45,14 @@ from rero_ils.modules.locations.api import Location
 from rero_ils.modules.patron_transactions.utils import \
     get_transactions_total_amount_for_patron
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
+from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
+    current_librarian, current_patrons
+from rero_ils.modules.patrons.permissions import get_allowed_roles_management
+from rero_ils.modules.patrons.utils import user_has_patron
+from rero_ils.modules.permissions import expose_actions_need_for_user
 from rero_ils.modules.users.api import User
-from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import extracted_data_from_ref, get_base_url
 from rero_ils.utils import remove_empties_from_dict
-
-from .api import Patron, PatronsSearch, current_librarian, current_patrons
-from .permissions import get_allowed_roles_management
-from .utils import user_has_patron
 
 api_blueprint = Blueprint(
     'api_patrons',
@@ -118,28 +118,25 @@ blueprint = Blueprint(
 
 @blueprint.route('/patrons/logged_user', methods=['GET'])
 def logged_user():
-    """Current logged user informations in JSON."""
+    """Current logged user information in JSON."""
+    config = current_app.config
     data = {
+        'permissions': expose_actions_need_for_user(),
         'settings': {
             'language': current_i18n.locale.language,
-            'globalView': current_app.config.get(
-                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
+            'globalView': config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
             'baseUrl': get_base_url(),
-            'contributionAgentTypes': current_app.config.get(
+            'contributionAgentTypes': config.get(
                 'RERO_ILS_CONTRIBUTIONS_AGENT_TYPES', {}),
-            'contributionsLabelOrder': current_app.config.get(
+            'contributionsLabelOrder': config.get(
                 'RERO_ILS_CONTRIBUTIONS_LABEL_ORDER', {}),
-            'contributionSources': current_app.config.get(
-                'RERO_ILS_CONTRIBUTIONS_SOURCES', []
-            ),
-            'operationLogs': current_app.config.get(
-                'RERO_ILS_ENABLE_OPERATION_LOG', []
-            ),
-            'librarianRoles': UserRole.PROFESSIONAL_ROLES,
+            'contributionSources': config.get(
+                'RERO_ILS_CONTRIBUTIONS_SOURCES', []),
+            'operationLogs': config.get('RERO_ILS_ENABLE_OPERATION_LOG', []),
             'userProfile': {
-                'readOnly': current_app.config.get(
+                'readOnly': config.get(
                     'RERO_PUBLIC_USERPROFILES_READONLY', False),
-                'readOnlyFields': current_app.config.get(
+                'readOnlyFields': config.get(
                     'RERO_PUBLIC_USERPROFILES_READONLY_FIELDS', []),
             }
         }
@@ -152,26 +149,23 @@ def logged_user():
     data = {**data, **user, 'patrons': []}
     for patron in Patron.get_patrons_by_user(current_user):
         organisation = patron.organisation
+        org_pid = organisation.get('pid')
         # TODO: need to be fixed this causes errors in production only
         # patron = patron.replace_refs()
         del patron['$schema']
         del patron['user_id']
-        # The notes are loaded by another way
-        if 'notes' in patron:
-            del patron['notes']
+        patron.pop('notes', None)  # The notes are loaded by another way
         patron['organisation'] = {
-            'pid': organisation.get('pid'),
+            'pid': org_pid,
             'name': organisation.get('name'),
             'code': organisation.get('code'),
             'currency': organisation.get('default_currency')
         }
-        for index, library in enumerate(patron.get('libraries', [])):
-            patron['libraries'][index] = {
-                'pid': extracted_data_from_ref(library),
-                'organisation': {
-                    'pid': organisation.get('pid')
-                }
-            }
+        if library_pids := patron.manageable_library_pids:
+            patron['libraries'] = [
+                {'pid': library_pid, 'organisation': {'pid': org_pid}}
+                for library_pid in library_pids
+            ]
         data['patrons'].append(patron)
 
     return jsonify(data)

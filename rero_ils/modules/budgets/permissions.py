@@ -28,6 +28,7 @@ read_action = action_factory('budg-read')
 create_action = action_factory('budg-create')
 update_action = action_factory('budg-update')
 delete_action = action_factory('budg-delete')
+access_action = action_factory('budg-access')
 
 
 class BudgetPermissionPolicy(RecordPermissionPolicy):

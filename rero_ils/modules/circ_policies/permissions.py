@@ -27,6 +27,7 @@ read_action = action_factory('cipo-read')
 create_action = action_factory('cipo-create')
 update_action = action_factory('cipo-update')
 delete_action = action_factory('cipo-delete')
+access_action = action_factory('cipo-access')
 
 
 class CirculationPolicyPermissionPolicy(RecordPermissionPolicy):

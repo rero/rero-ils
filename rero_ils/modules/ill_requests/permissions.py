@@ -29,6 +29,7 @@ read_action = action_factory('illr-read')
 create_action = action_factory('illr-create')
 update_action = action_factory('illr-update')
 delete_action = action_factory('illr-delete')
+access_action = action_factory('illr-access')
 
 
 class ILLRequestPermissionPolicy(RecordPermissionPolicy):

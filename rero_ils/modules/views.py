@@ -22,13 +22,18 @@ from __future__ import absolute_import, print_function
 import os
 
 import polib
-from flask import Blueprint, abort, current_app, jsonify
+from flask import Blueprint, abort, current_app, jsonify, request
 from flask_babelex import get_domain
 
 from rero_ils.modules.utils import cached
 
-from .decorators import check_authentication
+from .decorators import check_authentication, check_permission, \
+    parse_permission_payload
+from .permissions import PermissionContext, expose_action_needs_by_role, \
+    manage_role_permissions
+from .permissions import permission_management as permission_management_action
 from .permissions import record_permissions
+from .users.models import UserRole
 
 api_blueprint = Blueprint(
     'api_blueprint',
@@ -36,6 +41,8 @@ api_blueprint = Blueprint(
     url_prefix=''
 )
 
+
+# PERMISSIONS APIS' ===========================================================
 
 @api_blueprint.route('/permissions/<route_name>', methods=['GET'])
 @api_blueprint.route('/permissions/<route_name>/<record_pid>', methods=['GET'])
@@ -51,6 +58,61 @@ def permissions(route_name, record_pid=None):
     """
     return record_permissions(record_pid=record_pid, route_name=route_name)
 
+
+@api_blueprint.route('/permission/management', methods=['POST', 'DELETE'])
+@check_permission([permission_management_action])
+@parse_permission_payload
+def permission_management(context, permission, method='allow', **kwargs):
+    """Manage permissions.
+
+    This API allows to manage RERO-ILS permission to allow/disallow any action
+    for a user, a role or a system_role.
+
+    :param context: the permission context request (role, system_role, user)
+    :param permission: the name of the permission to manage.
+    :param method: 'allow' or 'deny' this permission.
+    :param kwargs: additional argument depending on the context
+      for "role" :: `role_name`: the role name allowed/disallowed.
+    :return: 200+json :: if the permission has been allowed.
+             204+json :: if the permission has been disallowed.
+             400 :: Missing or bad arguments
+    """
+    # TODO :: implements other SYSTEM_ROLE and USER context
+    if context != PermissionContext.BY_ROLE:
+        abort(501, 'This permission context management isn\'t yet implemented')
+
+    try:
+        if context == PermissionContext.BY_ROLE:
+            role_name = kwargs.get('role_name')
+            manage_role_permissions(method, permission, role_name)
+    except NameError as ne:
+        abort(400, str(ne))
+    except Exception as e:
+        abort(500, str(e))
+
+    return jsonify({
+        'context': context,
+        'permission': permission,
+        'method': method
+    } | kwargs), 204 if method == 'deny' else 200
+
+
+@api_blueprint.route('/permissions/by_role', methods=['GET'])
+@check_permission([permission_management_action])
+def permissions_by_role():
+    """."""
+    # By default, we will filter permissions only for roles assignable to
+    # patrons. User can filter roles using "role" query string repeatable
+    # argument. If "all" is present into this argument, all RERO-ILS roles will
+    # be exposed.
+    filtered_roles = UserRole.ALL_ROLES
+    if roles := request.args.getlist('role'):
+        filtered_roles = None if 'all' in roles else roles
+
+    return jsonify(expose_action_needs_by_role(filtered_roles))
+
+
+# TRANSLATIONS APIS' ==========================================================
 
 @api_blueprint.route('/translations/<ln>.json')
 def translations(ln):

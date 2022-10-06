@@ -26,6 +26,7 @@ from rero_ils.modules.permissions import \
 # Actions to control Loan policy
 search_action = action_factory('loan-search')
 read_action = action_factory('loan-read')
+access_action = action_factory('loan-access')
 
 
 class DisallowedIfAnonymized(Generator):

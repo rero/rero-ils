@@ -29,6 +29,7 @@ read_action = action_factory('lib-read')
 create_action = action_factory('lib-create')
 update_action = action_factory('lib-update')
 delete_action = action_factory('lib-delete')
+access_action = action_factory('lib-access')
 
 
 class LibraryPermissionPolicy(RecordPermissionPolicy):

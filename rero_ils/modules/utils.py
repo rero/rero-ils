@@ -36,7 +36,7 @@ import sqlalchemy
 from dateutil import parser
 from flask import current_app, session
 from flask_login import current_user
-from invenio_cache.proxies import current_cache
+from invenio_cache import current_cache
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_rest.utils import obj_or_import_string
 from lazyreader import lazyread

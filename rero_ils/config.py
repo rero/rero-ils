@@ -135,6 +135,7 @@ def _(x):
     """Identity function used to trigger string extraction."""
     return x
 
+
 # Personalized homepage
 RERO_ILS_PERSONALIZED_CSS_BY_VIEW = True
 RERO_ILS_PERSONALIZED_HOMEPAGE_BY_VIEW = False
@@ -310,7 +311,6 @@ SECURITY_LOGIN_URL = '/signin/'
 SECURITY_LOGOUT_URL = '/signout/'
 """URL endpoint for logout."""
 
-
 # Celery configuration
 # ====================
 
@@ -440,7 +440,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     'delete-loans-created': {
         'task': 'rero_ils.modules.loans.tasks.delete_loans_created',
-        'schedule': crontab(minute=0, hour=5), # Every day at 05:00 UTC,
+        'schedule': crontab(minute=0, hour=5),  # Every day at 05:00 UTC,
         'enabled': False,
     },
     # 'mef-harvester': {
@@ -597,8 +597,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.collections.api:Collection',
         list_route='/collections/',
-        item_route='/collections/<pid(coll, record_class='
-        '"rero_ils.modules.collections.api:Collection"):pid_value>',
+        item_route='/collections/<pid(coll, record_class="rero_ils.modules.collections.api:Collection"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:view_search_collection_factory',
@@ -641,8 +640,7 @@ RECORDS_REST_ENDPOINTS = dict(
             'ris': 'application/x-research-info-systems'
         },
         record_loaders={
-            'application/marcxml+xml':
-            'rero_ils.modules.documents.loaders:marcxml_loader',
+            'application/marcxml+xml': 'rero_ils.modules.documents.loaders:marcxml_loader',
             'application/json': lambda: Document(request.get_json()),
         },
         list_route='/documents/',
@@ -692,8 +690,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_class='rero_ils.modules.ill_requests.api:ILLRequest',
         list_route='/ill_requests/',
-        item_route='/ill_requests/<pid(illr, record_class='
-        '"rero_ils.modules.ill_requests.api:ILLRequest"):pid_value>',
+        item_route='/ill_requests/<pid(illr, record_class="rero_ils.modules.ill_requests.api:ILLRequest"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:ill_request_search_factory',
@@ -1568,7 +1565,7 @@ RECORDS_REST_ENDPOINTS = dict(
         list_route='/operation_logs/',
         # TODO: create a converter for es id, not used for the moment.
         item_route='/operation_logs/<pid(oplg, record_class='
-        '"rero_ils.modules.operation_logs.api:OperationLog"):pid_value>',
+                   '"rero_ils.modules.operation_logs.api:OperationLog"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:operation_logs_search_factory',
@@ -1579,7 +1576,6 @@ RECORDS_REST_ENDPOINTS = dict(
         delete_permission_factory_imp=lambda record: OperationLogPermissionPolicy('delete', record=record)
     )
 )
-
 
 # Default view code for all organisations view
 # TODO: Should be taken into angular
@@ -1648,7 +1644,7 @@ RECORDS_REST_FACETS = dict(
                         aggs=dict(
                             location=dict(
                                 terms=dict(field='holdings.location.pid',
-                                       size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0)
+                                           size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0)
                             )
                         )
                     )
@@ -1694,9 +1690,9 @@ RECORDS_REST_FACETS = dict(
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             year=dict(date_histogram=dict(
-                           field='provisionActivity.startDate',
-                           interval='year',
-                           format='yyyy')
+                field='provisionActivity.startDate',
+                interval='year',
+                format='yyyy')
             )
         ),
         filters={
@@ -2496,6 +2492,192 @@ RECORDS_REST_SORT_OPTIONS['vendors']['name'] = dict(
 RECORDS_REST_DEFAULT_SORT['vendors'] = dict(
     query='bestmatch', noquery='name')
 
+# =============================================================================
+# RERO_ILS PERMISSIONS CONFIGURATION
+# =============================================================================
+"""
+    This parameter will define how the application needs should be filtered to
+    be exposed ; some needs required a record to be relevant, we need to skip
+    them.
+
+    regexp: a regular expression use on the need keys to know if we need to
+            evaluate the need. Keys are the name use to define the need into
+            `invenio_access.actions`.
+"""
+ACCESS_CACHE = 'invenio_cache:current_cache'
+
+RERO_ILS_EXPOSED_NEED_FILTER = dict(
+    regexp=r'.*-((?!read|update|delete).)*$'
+)
+
+RERO_ILS_PERMISSIONS_ACTIONS = [
+    # resource basic permissions --------------------------
+    'rero_ils.modules.acq_accounts.permissions:access_action',
+    'rero_ils.modules.acq_accounts.permissions:search_action',
+    'rero_ils.modules.acq_accounts.permissions:read_action',
+    'rero_ils.modules.acq_accounts.permissions:create_action',
+    'rero_ils.modules.acq_accounts.permissions:update_action',
+    'rero_ils.modules.acq_accounts.permissions:delete_action',
+    'rero_ils.modules.acq_invoices.permissions:access_action',
+    'rero_ils.modules.acq_invoices.permissions:search_action',
+    'rero_ils.modules.acq_invoices.permissions:read_action',
+    'rero_ils.modules.acq_invoices.permissions:create_action',
+    'rero_ils.modules.acq_invoices.permissions:update_action',
+    'rero_ils.modules.acq_invoices.permissions:delete_action',
+    'rero_ils.modules.acq_order_lines.permissions:access_action',
+    'rero_ils.modules.acq_order_lines.permissions:search_action',
+    'rero_ils.modules.acq_order_lines.permissions:read_action',
+    'rero_ils.modules.acq_order_lines.permissions:create_action',
+    'rero_ils.modules.acq_order_lines.permissions:update_action',
+    'rero_ils.modules.acq_order_lines.permissions:delete_action',
+    'rero_ils.modules.acq_orders.permissions:access_action',
+    'rero_ils.modules.acq_orders.permissions:search_action',
+    'rero_ils.modules.acq_orders.permissions:read_action',
+    'rero_ils.modules.acq_orders.permissions:create_action',
+    'rero_ils.modules.acq_orders.permissions:update_action',
+    'rero_ils.modules.acq_orders.permissions:delete_action',
+    'rero_ils.modules.acq_receipts.permissions:access_action',
+    'rero_ils.modules.acq_receipts.permissions:search_action',
+    'rero_ils.modules.acq_receipts.permissions:read_action',
+    'rero_ils.modules.acq_receipts.permissions:create_action',
+    'rero_ils.modules.acq_receipts.permissions:update_action',
+    'rero_ils.modules.acq_receipts.permissions:delete_action',
+    'rero_ils.modules.acq_receipt_lines.permissions:access_action',
+    'rero_ils.modules.acq_receipt_lines.permissions:search_action',
+    'rero_ils.modules.acq_receipt_lines.permissions:read_action',
+    'rero_ils.modules.acq_receipt_lines.permissions:create_action',
+    'rero_ils.modules.acq_receipt_lines.permissions:update_action',
+    'rero_ils.modules.acq_receipt_lines.permissions:delete_action',
+    'rero_ils.modules.budgets.permissions:access_action',
+    'rero_ils.modules.budgets.permissions:search_action',
+    'rero_ils.modules.budgets.permissions:read_action',
+    'rero_ils.modules.budgets.permissions:create_action',
+    'rero_ils.modules.budgets.permissions:update_action',
+    'rero_ils.modules.budgets.permissions:delete_action',
+    'rero_ils.modules.circ_policies.permissions:access_action',
+    'rero_ils.modules.circ_policies.permissions:search_action',
+    'rero_ils.modules.circ_policies.permissions:read_action',
+    'rero_ils.modules.circ_policies.permissions:create_action',
+    'rero_ils.modules.circ_policies.permissions:update_action',
+    'rero_ils.modules.circ_policies.permissions:delete_action',
+    'rero_ils.modules.collections.permissions:access_action',
+    'rero_ils.modules.collections.permissions:search_action',
+    'rero_ils.modules.collections.permissions:read_action',
+    'rero_ils.modules.collections.permissions:create_action',
+    'rero_ils.modules.collections.permissions:update_action',
+    'rero_ils.modules.collections.permissions:delete_action',
+    'rero_ils.modules.documents.permissions:access_action',
+    'rero_ils.modules.documents.permissions:search_action',
+    'rero_ils.modules.documents.permissions:read_action',
+    'rero_ils.modules.documents.permissions:create_action',
+    'rero_ils.modules.documents.permissions:update_action',
+    'rero_ils.modules.documents.permissions:delete_action',
+    'rero_ils.modules.holdings.permissions:access_action',
+    'rero_ils.modules.holdings.permissions:search_action',
+    'rero_ils.modules.holdings.permissions:read_action',
+    'rero_ils.modules.holdings.permissions:create_action',
+    'rero_ils.modules.holdings.permissions:update_action',
+    'rero_ils.modules.holdings.permissions:delete_action',
+    'rero_ils.modules.items.permissions:access_action',
+    'rero_ils.modules.items.permissions:search_action',
+    'rero_ils.modules.items.permissions:read_action',
+    'rero_ils.modules.items.permissions:create_action',
+    'rero_ils.modules.items.permissions:update_action',
+    'rero_ils.modules.items.permissions:delete_action',
+    'rero_ils.modules.ill_requests.permissions:access_action',
+    'rero_ils.modules.ill_requests.permissions:search_action',
+    'rero_ils.modules.ill_requests.permissions:read_action',
+    'rero_ils.modules.ill_requests.permissions:create_action',
+    'rero_ils.modules.ill_requests.permissions:update_action',
+    'rero_ils.modules.ill_requests.permissions:delete_action',
+    'rero_ils.modules.item_types.permissions:access_action',
+    'rero_ils.modules.item_types.permissions:search_action',
+    'rero_ils.modules.item_types.permissions:read_action',
+    'rero_ils.modules.item_types.permissions:create_action',
+    'rero_ils.modules.item_types.permissions:update_action',
+    'rero_ils.modules.item_types.permissions:delete_action',
+    'rero_ils.modules.libraries.permissions:access_action',
+    'rero_ils.modules.libraries.permissions:search_action',
+    'rero_ils.modules.libraries.permissions:read_action',
+    'rero_ils.modules.libraries.permissions:create_action',
+    'rero_ils.modules.libraries.permissions:update_action',
+    'rero_ils.modules.libraries.permissions:delete_action',
+    'rero_ils.modules.loans.permissions:access_action',
+    'rero_ils.modules.loans.permissions:search_action',
+    'rero_ils.modules.loans.permissions:read_action',
+    'rero_ils.modules.locations.permissions:access_action',
+    'rero_ils.modules.locations.permissions:search_action',
+    'rero_ils.modules.locations.permissions:read_action',
+    'rero_ils.modules.locations.permissions:create_action',
+    'rero_ils.modules.locations.permissions:update_action',
+    'rero_ils.modules.locations.permissions:delete_action',
+    'rero_ils.modules.local_fields.permissions:access_action',
+    'rero_ils.modules.local_fields.permissions:search_action',
+    'rero_ils.modules.local_fields.permissions:read_action',
+    'rero_ils.modules.local_fields.permissions:create_action',
+    'rero_ils.modules.local_fields.permissions:update_action',
+    'rero_ils.modules.local_fields.permissions:delete_action',
+    'rero_ils.modules.notifications.permissions:access_action',
+    'rero_ils.modules.notifications.permissions:search_action',
+    'rero_ils.modules.notifications.permissions:read_action',
+    'rero_ils.modules.notifications.permissions:create_action',
+    'rero_ils.modules.notifications.permissions:update_action',
+    'rero_ils.modules.notifications.permissions:delete_action',
+    'rero_ils.modules.operation_logs.permissions:access_action',
+    'rero_ils.modules.operation_logs.permissions:search_action',
+    'rero_ils.modules.operation_logs.permissions:read_action',
+    'rero_ils.modules.organisations.permissions:access_action',
+    'rero_ils.modules.organisations.permissions:search_action',
+    'rero_ils.modules.organisations.permissions:read_action',
+    'rero_ils.modules.organisations.permissions:create_action',
+    'rero_ils.modules.organisations.permissions:update_action',
+    'rero_ils.modules.organisations.permissions:delete_action',
+    'rero_ils.modules.patrons.permissions:access_action',
+    'rero_ils.modules.patrons.permissions:search_action',
+    'rero_ils.modules.patrons.permissions:read_action',
+    'rero_ils.modules.patrons.permissions:create_action',
+    'rero_ils.modules.patrons.permissions:update_action',
+    'rero_ils.modules.patrons.permissions:delete_action',
+    'rero_ils.modules.patron_transactions.permissions:access_action',
+    'rero_ils.modules.patron_transactions.permissions:search_action',
+    'rero_ils.modules.patron_transactions.permissions:read_action',
+    'rero_ils.modules.patron_transactions.permissions:create_action',
+    'rero_ils.modules.patron_transactions.permissions:update_action',
+    'rero_ils.modules.patron_transactions.permissions:delete_action',
+    'rero_ils.modules.patron_transaction_events.permissions:access_action',
+    'rero_ils.modules.patron_transaction_events.permissions:search_action',
+    'rero_ils.modules.patron_transaction_events.permissions:read_action',
+    'rero_ils.modules.patron_transaction_events.permissions:create_action',
+    'rero_ils.modules.patron_transaction_events.permissions:update_action',
+    'rero_ils.modules.patron_transaction_events.permissions:delete_action',
+    'rero_ils.modules.patron_types.permissions:access_action',
+    'rero_ils.modules.patron_types.permissions:search_action',
+    'rero_ils.modules.patron_types.permissions:read_action',
+    'rero_ils.modules.patron_types.permissions:create_action',
+    'rero_ils.modules.patron_types.permissions:update_action',
+    'rero_ils.modules.patron_types.permissions:delete_action',
+    'rero_ils.modules.stats.permissions:access_action',
+    'rero_ils.modules.stats.permissions:search_action',
+    'rero_ils.modules.stats.permissions:read_action',
+    'rero_ils.modules.templates.permissions:access_action',
+    'rero_ils.modules.templates.permissions:search_action',
+    'rero_ils.modules.templates.permissions:read_action',
+    'rero_ils.modules.templates.permissions:create_action',
+    'rero_ils.modules.templates.permissions:update_action',
+    'rero_ils.modules.templates.permissions:delete_action',
+    'rero_ils.modules.vendors.permissions:access_action',
+    'rero_ils.modules.vendors.permissions:search_action',
+    'rero_ils.modules.vendors.permissions:read_action',
+    'rero_ils.modules.vendors.permissions:create_action',
+    'rero_ils.modules.vendors.permissions:update_action',
+    'rero_ils.modules.vendors.permissions:delete_action',
+    # additional permissions ------------------------------
+    'rero_ils.modules.permissions:permission_management',
+    'rero_ils.modules.permissions:access_ui_admin',
+    'rero_ils.modules.permissions:access_circulation',
+    'rero_ils.modules.permissions:can_use_debug_mode',
+    'rero_ils.modules.items.permissions:late_issue_management'
+]
 
 # Detailed View Configuration
 # ===========================
@@ -2611,7 +2793,7 @@ RERO_ILS_NOTIFICATIONS_ALLOWED_TEMPLATE_FILES = [
 # the communication channel, value is the function to call. The used functions
 # should accept one positional argument.
 RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS = {
-    CommunicationChannel.EMAIL : NotificationDispatcher.send_notification_by_email,
+    CommunicationChannel.EMAIL: NotificationDispatcher.send_notification_by_email,
     CommunicationChannel.MAIL: NotificationDispatcher.send_mail_for_printing,
     #  'sms': not_yet_implemented
     #  'telepathy': self.madness_mind
@@ -2657,9 +2839,9 @@ RERO_ILS_PERMALINK_RERO_URL = 'http://data.rero.ch/01-{identifier}'
 # Flag to determine the state of ILS
 # Show or hide message on red
 RERO_ILS_STATE_PRODUCTION = False
-RERO_ILS_STATE_MESSAGE=_('This is a TEST VERSION.')
-RERO_ILS_STATE_LINK_MESSAGE=_('Go to the production site.')
-RERO_ILS_STATE_LINK=RERO_ILS_APP_URL
+RERO_ILS_STATE_MESSAGE = _('This is a TEST VERSION.')
+RERO_ILS_STATE_LINK_MESSAGE = _('Go to the production site.')
+RERO_ILS_STATE_LINK = RERO_ILS_APP_URL
 
 # robots.txt response
 RERO_ILS_ROBOTS = 'User-Agent: *\nDisallow: /\n'
@@ -2717,9 +2899,6 @@ RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS = {
     UserRole.USER_MANAGER: {UserRole.PATRON}
 }
 
-
-
-
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
@@ -2746,12 +2925,11 @@ RERO_ILS_DEFAULT_PICKUP_HOLD_DURATION = 10
 
 # Specify the delay (in days) under which no loan can't be anonymized anyway (
 # for circulation management process).
-RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT = 3*365/12
+RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT = 3 * 365 / 12
 
 # Specify the delay (in days) when a loan should be anonymized anyway after it
 # concluded.
-RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT = 6*365/12
-
+RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT = 6 * 365 / 12
 
 #: Invenio circulation configuration.
 CIRCULATION_ITEM_EXISTS = Item.item_exists
@@ -2929,7 +3107,6 @@ CIRCULATION_LOAN_TRANSITIONS = {
     'ITEM_RETURNED': [],
     'CANCELLED': [],
 }
-
 
 CIRCULATION_POLICIES = dict(
     checkout=dict(
@@ -3169,7 +3346,7 @@ RERO_ILS_STOP_WORDS = {
     'ger': [
         "das", "dem", "den", "der", "des", "die",
         "ein", "eine", "einem", "einen", "einer", "eines"],
-    'hun': [ "a", "az", "egy"],
+    'hun': ["a", "az", "egy"],
     'ita': [
         "gli", "i", "il", "l'", "la", "le", "li", "lo",
         "un", "un'", "una", "uno"],

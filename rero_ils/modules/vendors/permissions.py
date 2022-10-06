@@ -27,6 +27,7 @@ read_action = action_factory('vndr-read')
 create_action = action_factory('vndr-create')
 update_action = action_factory('vndr-update')
 delete_action = action_factory('vndr-delete')
+access_action = action_factory('vndr-access')
 
 
 class VendorPermissionPolicy(RecordPermissionPolicy):
