@@ -5,16 +5,25 @@
   "coll-read": [
     "any_user"
   ],
+  "doc-access": [
+    "any_user"
+  ],
   "doc-search": [
     "any_user"
   ],
   "doc-read": [
     "any_user"
   ],
+  "hold-access": [
+    "any_user"
+  ],
   "hold-search": [
     "any_user"
   ],
   "hold-read": [
+    "any_user"
+  ],
+  "item-access": [
     "any_user"
   ],
   "item-search": [

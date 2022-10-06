@@ -29,6 +29,7 @@ read_action = action_factory('notif-read')
 create_action = action_factory('notif-create')
 update_action = action_factory('notif-update')
 delete_action = action_factory('notif-delete')
+access_action = action_factory('notif-access')
 
 
 class NotificationPermissionPolicy(RecordPermissionPolicy):

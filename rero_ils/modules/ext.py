@@ -29,6 +29,7 @@ from flask_login.signals import user_loaded_from_cookie, user_logged_in, \
 from flask_principal import identity_loaded
 from flask_wiki import Wiki
 from invenio_base.signals import app_loaded
+from invenio_base.utils import obj_or_import_string
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
@@ -120,6 +121,32 @@ def on_identity_loaded(sender, identity):
                 OwnerNeed(patron.pid),
                 OrganisationNeed(patron.organisation_pid)
             ])
+
+
+@app_loaded.connect
+def load_actions(sender, app):
+    """Register actions use to control permissions on the applications.
+
+    Why doing this here and not into pyproject.toml ::
+        Official `invenio-access` documentation describe how to automatically
+        register actions using the  `invenio-access.actions` entrypoint.
+        see : https://invenio-access.readthedocs.io/en/latest/
+              usage.html#registering-actions
+
+        But, using this approach all actions will also be loaded for any CLI
+        application. As this task is time-consuming (100 actions ~= 15 seconds)
+        we choose to load these actions only when the application is fully
+        loaded (so we ensure than invenio-access module is available).
+
+    :param sender: the application factory function.
+    :param app: the Flask application instance.
+    """
+    # We can't use the `current_access` proxy from `invenio-access` because
+    # we need the application context to use it. At this time, the context
+    # isn't define ; get the invenio-access extension directly from app.
+    access_ext = app.extensions['invenio-access']
+    for action in app.config.get('RERO_ILS_PERMISSIONS_ACTIONS', []):
+        access_ext.register_action(obj_or_import_string(action))
 
 
 class REROILSAPP(object):

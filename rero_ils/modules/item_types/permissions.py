@@ -27,6 +27,7 @@ read_action = action_factory('itty-read')
 create_action = action_factory('itty-create')
 update_action = action_factory('itty-update')
 delete_action = action_factory('itty-delete')
+access_action = action_factory('itty-access')
 
 
 class ItemTypePermissionPolicy(RecordPermissionPolicy):

@@ -31,6 +31,7 @@ read_action = action_factory('acol-read')
 create_action = action_factory('acol-create')
 update_action = action_factory('acol-update')
 delete_action = action_factory('acol-delete')
+access_action = action_factory('acol-access')
 
 
 class AcqOrderLinePermissionPolicy(RecordPermissionPolicy):

@@ -29,6 +29,7 @@ read_action = action_factory('hold-read')
 create_action = action_factory('hold-create')
 update_action = action_factory('hold-update')
 delete_action = action_factory('hold-delete')
+access_action = action_factory('hold-access')
 
 
 class DisallowIfNotSerialHolding(Generator):
