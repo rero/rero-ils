@@ -36,6 +36,7 @@ read_action = action_factory('ptrn-read')
 create_action = action_factory('ptrn-create')
 update_action = action_factory('ptrn-update')
 delete_action = action_factory('ptrn-delete')
+access_action = action_factory('ptrn-access')
 
 
 class AllowedByActionRestrictStaffByManageableLibrary(

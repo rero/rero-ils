@@ -24,6 +24,7 @@ from rero_ils.modules.permissions import AllowedByAction, \
 # Actions to control operation logs policies for CRUD operations
 search_action = action_factory('oplg-search')
 read_action = action_factory('oplg-read')
+access_action = action_factory('oplg-access')
 
 
 class OperationLogPermissionPolicy(RecordPermissionPolicy):

@@ -16,17 +16,37 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for all modules."""
+import re
+from copy import deepcopy
 from functools import partial
 
 from flask import current_app, g, jsonify
-from flask_principal import Need
-from invenio_access import any_user
+from flask_principal import ActionNeed, Need
+from invenio_access import ActionRoles, Permission, action_factory, any_user, \
+    current_access
+from invenio_accounts.models import Role
+from invenio_db import db
 from invenio_records_permissions import \
     RecordPermissionPolicy as _RecordPermissionPolicy
 from invenio_records_permissions.generators import Disable, Generator
 
 from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.utils import get_record_class_and_permissions_from_route
+
+# SPECIFIC ACTIONS ============================================================
+#    Some actions are not related to a specific resource. For this case, we
+#    can create a specific action in this root permission module.
+
+# Is the user can manage permissions
+permission_management = ActionNeed('permission-management')
+# Is the user can access to the professional interface
+access_ui_admin = action_factory('admin-ui-access')
+# Is the user can access to circulation module. This is use for granting access
+# to the `checkin/checkout` component
+access_circulation = action_factory('access-circulation')
+# Is the user can view the debug button into the admin interface
+can_use_debug_mode = action_factory('can-use-debug-mode')
+
 
 # Basics access without permission check
 allow_access = type('Allow', (), {'can': lambda self: True})()
@@ -36,6 +56,39 @@ deny_access = type('Deny', (), {'can': lambda self: False})()
 LibraryNeed = partial(Need, "library")
 OrganisationNeed = partial(Need, "organisation")
 OwnerNeed = partial(Need, "owner")
+
+
+class PermissionContext:
+    """List of permission context."""
+
+    BY_ROLE = 'role'
+    BY_SYSTEM_ROLE = 'system_role'
+    BY_USER = 'user'
+
+
+def manage_role_permissions(method, action_name, role_name):
+    """Allow to manage a permission by role.
+
+    :param method: 'allow' or 'deny'.
+    :param action_name: the action name corresponding to the permission.
+    :param role_name: the role name to allow/deny.
+    """
+    role = Role.query.filter(Role.name == role_name).first()
+    action = current_access.actions.get(action_name)
+    if not role:
+        raise NameError(f'{role_name} not found')
+    if not action:
+        raise NameError(f'{action_name} not found')
+
+    current_access.delete_action_cache(Permission._cache_key(action))
+    with db.session.begin_nested():
+        ActionRoles\
+            .query_by_action(action)\
+            .filter(ActionRoles.role == role)\
+            .delete(synchronize_session=False)
+        if method == 'allow':
+            db.session.add(ActionRoles.allow(action, role=role))
+    db.session.commit()
 
 
 def record_permissions(record_pid=None, route_name=None):
@@ -116,6 +169,60 @@ def has_superuser_access():
     return deny_access.can()
 
 
+# =============================================================================
+#   EXPOSE NEEDS
+# =============================================================================
+def expose_actions_need_for_user():
+    """Expose basics permissions for the current logged user.
+
+    This method will list all action_needs defined in the current application,
+    and expose if the current logged user provides necessary condition to
+    validate them.
+    Some action_needs are not-relevant without checking them with a record (
+    read, update, delete) ; so these needs will be removed from result.
+    """
+    actions = current_access.actions
+    # filter needs for keep only relevant
+    config = current_app.config.get('RERO_ILS_EXPOSED_NEED_FILTER')
+    if regexp := config.get('regexp'):
+        regexp = re.compile(regexp)
+        actions = {
+            key: need for key, need in actions.items()
+            if regexp.match(key)
+        }
+    # check each needs regarding current logged user profile.
+    actions = [key for key, need in actions.items() if Permission(need).can()]
+    return actions
+
+
+def expose_action_needs_by_role(roles=None):
+    """Expose RERO-ILS actions (permissions) by role.
+
+    :param roles: a list of roles to expose. If None, all roles will be exposed
+    :return: the permission matrix corresponding to role.
+    """
+    roles_query = Role.query
+    if roles:
+        roles_query = roles_query.filter(Role.name.in_(roles))
+    role_ids = [r.id for r in roles_query.all()]
+
+    initial_action_list = {action: None for action in current_access.actions}
+
+    permission_matrix = {}
+    action_roles_query = ActionRoles.query\
+        .filter(ActionRoles.role_id.in_(role_ids))\
+        .all()
+    for row in action_roles_query:
+        permission_matrix\
+            .setdefault(
+                row.role.name, deepcopy(initial_action_list)
+            )[row.action] = not row.exclude
+    return permission_matrix
+
+
+# =============================================================================
+#   RECORD PERMISSION POLICIES
+# =============================================================================
 class RecordPermissionPolicy(_RecordPermissionPolicy):
     """The record base permission policy.
 

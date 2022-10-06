@@ -29,6 +29,7 @@ read_action = action_factory('loc-read')
 create_action = action_factory('loc-create')
 update_action = action_factory('loc-update')
 delete_action = action_factory('loc-delete')
+access_action = action_factory('loc-access')
 
 
 class LocationPermissionPolicy(RecordPermissionPolicy):

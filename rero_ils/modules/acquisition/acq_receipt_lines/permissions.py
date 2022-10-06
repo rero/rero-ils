@@ -31,6 +31,7 @@ read_action = action_factory('acrl-read')
 create_action = action_factory('acrl-create')
 update_action = action_factory('acrl-update')
 delete_action = action_factory('acrl-delete')
+access_action = action_factory('acrl-access')
 
 
 class AcqReceiptLinePermissionPolicy(RecordPermissionPolicy):

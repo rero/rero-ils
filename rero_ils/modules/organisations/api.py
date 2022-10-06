@@ -94,10 +94,9 @@ class Organisation(IlsRecord):
     @classmethod
     def get_record_by_viewcode(cls, viewcode):
         """Get record by view code."""
-        result = OrganisationsSearch().filter(
-            'term',
-            code=viewcode
-        ).execute()
+        result = OrganisationsSearch()\
+            .filter('term', code=viewcode)\
+            .execute()
         if result['hits']['total']['value'] != 1:
             raise Exception(
                 'Organisation (get_record_by_viewcode): Result not found.')
@@ -120,7 +119,7 @@ class Organisation(IlsRecord):
 
     @property
     def organisation_pid(self):
-        """Get organisation pid ."""
+        """Get organisation pid."""
         return self.pid
 
     def online_circulation_category(self):
@@ -135,35 +134,34 @@ class Organisation(IlsRecord):
 
     def get_online_locations(self):
         """Get list of online locations."""
-        return [library.online_location
-                for library in self.get_libraries() if library.online_location]
+        return [
+            library.online_location
+            for library in self.get_libraries()
+            if library.online_location
+        ]
 
     def get_libraries_pids(self):
         """Get all libraries pids related to the organisation."""
-        results = LibrariesSearch().source(['pid'])\
+        query = LibrariesSearch().source(['pid'])\
             .filter('term', organisation__pid=self.pid)\
-            .scan()
-        for result in results:
-            yield result.pid
+            .source('pid')
+        return [hit.pid for hit in query.scan()]
 
     def get_libraries(self):
         """Get all libraries related to the organisation."""
-        pids = self.get_libraries_pids()
-        for pid in pids:
+        for pid in self.get_libraries_pids():
             yield Library.get_record_by_pid(pid)
 
     def get_vendor_pids(self):
         """Get all vendor pids related to the organisation."""
-        results = VendorsSearch().source(['pid'])\
+        query = VendorsSearch().source(['pid'])\
             .filter('term', organisation__pid=self.pid)\
-            .scan()
-        for result in results:
-            yield result.pid
+            .source('pid')
+        return [hit.pid for hit in query.scan()]
 
     def get_vendors(self):
         """Get all vendors related to the organisation."""
-        pids = self.get_vendor_pids()
-        for pid in pids:
+        for pid in self.get_vendor_pids():
             yield Vendor.get_record_by_pid(pid)
 
     def get_links_to_me(self, get_pids=False):
