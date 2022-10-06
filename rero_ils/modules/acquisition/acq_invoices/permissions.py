@@ -18,19 +18,21 @@
 
 """Permissions for Acquisition invoice."""
 
-# Actions to control acquisition invoices resource policies
 from invenio_access import action_factory
 
-from rero_ils.modules.acq_invoices.api import AcquisitionInvoice
 from rero_ils.modules.permissions import AllowedByAction, \
     AllowedByActionRestrictByManageableLibrary, DisallowedIfRollovered, \
     RecordPermissionPolicy
 
+from .api import AcquisitionInvoice
+
+# Actions to control acquisition invoices resource policies
 search_action = action_factory('acin-search')
 read_action = action_factory('acin-read')
 create_action = action_factory('acin-create')
 update_action = action_factory('acin-update')
 delete_action = action_factory('acin-delete')
+access_action = action_factory('acin-access')
 
 
 class AcqInvoicePermissionPolicy(RecordPermissionPolicy):

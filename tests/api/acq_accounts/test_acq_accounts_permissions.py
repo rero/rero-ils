@@ -110,7 +110,7 @@ def test_acq_accounts_permissions(patron_martigny,
     # Special case !!! An acquisition account linked to a closed budget
     # should be considerate as roll-overed and can't be updated.
     with mock.patch(
-        'rero_ils.modules.acq_accounts.api.AcqAccount.is_active',
+        'rero_ils.modules.acquisition.acq_accounts.api.AcqAccount.is_active',
         False
     ):
         check_permission(AcqAccountPermissionPolicy, {

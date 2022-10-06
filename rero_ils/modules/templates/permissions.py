@@ -34,6 +34,7 @@ read_action = action_factory('tmpl-read')
 create_action = action_factory('tmpl-create')
 update_action = action_factory('tmpl-update')
 delete_action = action_factory('tmpl-delete')
+access_action = action_factory('tmpl-access')
 
 
 class AllowedByActionTemplateReadRestriction(AllowedByAction):

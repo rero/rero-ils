@@ -116,7 +116,7 @@ def test_orders_permissions(
     # Special case !!! An acquisition order linked to a closed budget
     # should be considerate as roll-overed and can't be updated.
     with mock.patch(
-        'rero_ils.modules.acq_orders.api.AcqOrder.is_active',
+        'rero_ils.modules.acquisition.acq_orders.api.AcqOrder.is_active',
         False
     ):
         check_permission(AcqOrderPermissionPolicy, {

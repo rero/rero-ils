@@ -20,7 +20,6 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
-from datetime import datetime
 
 import pytest
 from invenio_accounts.models import User
@@ -85,7 +84,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
         },
     }]
     with pytest.raises(ValidationError):
-        ptrn = Patron.create(
+        Patron.create(
             wrong_librarian_martigny_data_tmp,
             dbcommit=True,
             delete_pid=True
@@ -102,16 +101,12 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
         delete_pid=False
     )
     user = User.query.filter_by(id=ptrn.get('user_id')).first()
-    assert user
-    assert user.active
-    for field in [
-        'first_name', 'last_name', 'street', 'postal_code', 'city', 'username',
-        'home_phone'
-    ]:
-        assert getattr(user.profile, field) == l_martigny_data_tmp.get(
-            field)
-    user.profile.birth_date == datetime.strptime(
-        l_martigny_data_tmp.get('birth_date'), '%Y-%m-%d')
+    assert user and user.active
+    for field in ['first_name', 'last_name', 'street', 'postal_code', 'city',
+                  'username', 'home_phone']:
+        assert getattr(user.profile, field) == l_martigny_data_tmp.get(field)
+    assert user.profile.birth_date.strftime('%Y-%m-%d') == \
+           l_martigny_data_tmp.get('birth_date')
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(ptrn.get('roles'))
     # TODO: make these checks during the librarian POST creation
@@ -162,7 +157,7 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     # user still exist in the invenio db
     user = ds.find_user(email=email)
     assert user
-    # all roles has been removed
+    # all roles have been removed
     assert not user.roles
     # assert len(mailbox) == 1
     # patron does not exists anymore
@@ -190,10 +185,10 @@ def test_patron_create_without_email(app, roles, patron_type_children_martigny,
     patron_martigny_data_tmp = \
         create_user_from_data(patron_martigny_data_tmp)
 
-    # comminication channel require at least one email
+    # communication channel require at least one email
     patron_martigny_data_tmp['patron']['communication_channel'] = 'email'
     with pytest.raises(ValidationError):
-        ptrn = Patron.create(
+        Patron.create(
             patron_martigny_data_tmp,
             dbcommit=True,
             delete_pid=True
@@ -270,16 +265,33 @@ def test_patron_create_without_email(app, roles, patron_type_children_martigny,
     ds.delete_user(user)
 
 
-def test_patron_organisation_pid(org_martigny, patron_martigny,
-                                 librarian_martigny):
-    """Test organisation pid has been added during the indexing."""
+def test_patron_properties(
+    org_martigny, patron_martigny, librarian_martigny, patron2_martigny,
+    lib_martigny, system_librarian_martigny
+):
+    """Test patron properties methods."""
+
+    # TEST `organisation.pid`
     search = PatronsSearch()
-    librarian = next(search.filter('term',
-                                   pid=librarian_martigny.pid).scan())
-    patron = next(search.filter('term',
-                                pid=patron_martigny.pid).scan())
+    librarian = next(search.filter('term', pid=librarian_martigny.pid).scan())
+    patron = next(search.filter('term', pid=patron_martigny.pid).scan())
     assert patron.organisation.pid == org_martigny.pid
     assert librarian.organisation.pid == org_martigny.pid
+
+    # TEST `manageable_library_pids`
+    assert librarian_martigny.manageable_library_pids == [lib_martigny.pid]
+    assert system_librarian_martigny.manageable_library_pids == \
+           org_martigny.get_libraries_pids()
+
+    # TEST `blocked`
+    patron = Patron.get_patron_by_email(patron_martigny.dumps().get('email'))
+    assert patron.patron.get('blocked') is False
+    # TEST `blocked` is absent
+    patron = Patron.get_patron_by_email(patron2_martigny.dumps().get('email'))
+    assert 'blocked' not in patron
+
+    # TEST `profile_url`
+    assert org_martigny.get('code') in patron2_martigny.profile_url
 
 
 def test_get_patron(patron_martigny):
@@ -307,25 +319,12 @@ def test_get_patrons_by_user(patron_martigny):
 def test_user_librarian_can_delete(librarian_martigny):
     """Test can delete a librarian."""
     can, reasons = librarian_martigny.can_delete
-    assert can
-    assert reasons == {}
+    assert can and reasons == {}
 
 
-def test_get_patron_blocked_field(patron_martigny):
-    """Test patron blocked field retrieval."""
-    patron = Patron.get_patron_by_email(patron_martigny.dumps().get('email'))
-    assert patron.patron.get('blocked') is False
-
-
-def test_get_patron_blocked_field_absent(patron2_martigny):
-    """Test patron blocked field retrieval."""
-    patron = Patron.get_patron_by_email(patron2_martigny.dumps().get('email'))
-    assert 'blocked' not in patron
-
-
-def test_get_patron_for_organisation(patron_martigny,
-                                     patron_sion,
-                                     org_martigny, org_sion):
+def test_get_patron_for_organisation(
+    patron_martigny, patron_sion, org_martigny, org_sion
+):
     """Test get patron_pid for organisation."""
 
     pids = Patron.get_all_pids_for_organisation(org_martigny.pid)
@@ -349,8 +348,3 @@ def test_patron_multiple(patron_sion_multiple, patron2_martigny, lib_martigny):
         [UserRole.PATRON]
     assert Patron.get_record_by_pid(patron2_martigny.pid).get('roles') == \
         [UserRole.PATRON]
-
-
-def test_patron_profile_url(org_martigny, patron2_martigny):
-    """Test patron profile url."""
-    assert org_martigny.get('code') in patron2_martigny.profile_url

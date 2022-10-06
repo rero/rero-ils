@@ -31,6 +31,7 @@ read_action = action_factory('doc-read')
 create_action = action_factory('doc-create')
 update_action = action_factory('doc-update')
 delete_action = action_factory('doc-delete')
+access_action = action_factory('doc-access')
 
 
 class DisallowIfCannotEdit(Generator):

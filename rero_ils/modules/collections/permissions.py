@@ -28,6 +28,7 @@ read_action = action_factory('coll-read')
 create_action = action_factory('coll-create')
 update_action = action_factory('coll-update')
 delete_action = action_factory('coll-delete')
+access_action = action_factory('coll-access')
 
 
 class CollectionPermissionPolicy(RecordPermissionPolicy):

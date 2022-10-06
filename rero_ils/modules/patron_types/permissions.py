@@ -27,6 +27,7 @@ read_action = action_factory('ptty-read')
 create_action = action_factory('ptty-create')
 update_action = action_factory('ptty-update')
 delete_action = action_factory('ptty-delete')
+access_action = action_factory('ptty-access')
 
 
 class PatronTypePermissionPolicy(RecordPermissionPolicy):
