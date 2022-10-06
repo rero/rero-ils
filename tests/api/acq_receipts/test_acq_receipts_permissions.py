@@ -116,7 +116,7 @@ def test_receipts_permissions(
     # Special case !!! An acquisition receipt linked to a closed budget
     # should be considerate as roll-overed and can't be updated.
     with mock.patch(
-        'rero_ils.modules.acq_receipts.api.AcqReceipt.is_active',
+        'rero_ils.modules.acquisition.acq_receipts.api.AcqReceipt.is_active',
         False
     ):
         check_permission(AcqReceiptPermissionPolicy, {

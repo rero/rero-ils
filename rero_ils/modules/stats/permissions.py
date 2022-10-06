@@ -35,6 +35,7 @@ from .models import StatType
 # Actions to control statistics policies for CRUD operations
 search_action = action_factory('stat-search')
 read_action = action_factory('stat-read')
+access_action = action_factory('stat-access')
 
 
 class RestrictStatisticsForLibrarian(Generator):

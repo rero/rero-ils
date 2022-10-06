@@ -29,6 +29,7 @@ read_action = action_factory('ptre-read')
 create_action = action_factory('ptre-create')
 update_action = action_factory('ptre-update')
 delete_action = action_factory('ptre-delete')
+access_action = action_factory('ptre-access')
 
 
 class PatronTransactionEventPermissionPolicy(RecordPermissionPolicy):

@@ -31,6 +31,7 @@ read_action = action_factory('acre-read')
 create_action = action_factory('acre-create')
 update_action = action_factory('acre-update')
 delete_action = action_factory('acre-delete')
+access_action = action_factory('acre-access')
 
 
 class AcqReceiptPermissionPolicy(RecordPermissionPolicy):

@@ -760,14 +760,13 @@ class Patron(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid for patron with first library."""
-        if self.library_pid:
-            library = Library.get_record_by_pid(self.library_pid)
+        if library_pid := self.library_pid:
+            library = Library.get_record_by_pid(library_pid)
             return library.organisation_pid
         if patron_type_pid := self.patron_type_pid:
             from ..patron_types.api import PatronType
             patron_type = PatronType.get_record_by_pid(patron_type_pid)
             return patron_type.organisation_pid
-        return None
 
     @property
     def organisation(self):
@@ -788,6 +787,13 @@ class Patron(IlsRecord):
                 extracted_data_from_ref(library)
                 for library in self.get('libraries', [])
             ]
+
+    @property
+    def manageable_library_pids(self):
+        """Get list of manageable library pids for this patron."""
+        if UserRole.FULL_PERMISSIONS in self.get('roles', []):
+            return self.organisation.get_libraries_pids()
+        return self.library_pids or []
 
     @property
     def has_valid_subscription(self):

@@ -46,14 +46,14 @@ from rero_ils.modules.organisations.dumpers import OrganisationLoggedUserDumper
 from rero_ils.modules.patron_transactions.utils import \
     get_transactions_total_amount_for_patron
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
+from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
+    current_librarian, current_patrons
+from rero_ils.modules.patrons.permissions import get_allowed_roles_management
+from rero_ils.modules.patrons.utils import user_has_patron
+from rero_ils.modules.permissions import expose_actions_need_for_user
 from rero_ils.modules.users.api import User
-from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import extracted_data_from_ref, get_base_url
 from rero_ils.utils import remove_empties_from_dict
-
-from .api import Patron, PatronsSearch, current_librarian, current_patrons
-from .permissions import get_allowed_roles_management
-from .utils import user_has_patron
 
 api_blueprint = Blueprint(
     'api_patrons',
@@ -119,28 +119,25 @@ blueprint = Blueprint(
 
 @blueprint.route('/patrons/logged_user', methods=['GET'])
 def logged_user():
-    """Current logged user informations in JSON."""
+    """Current logged user information in JSON."""
+    config = current_app.config
     data = {
+        'permissions': expose_actions_need_for_user(),
         'settings': {
             'language': current_i18n.locale.language,
-            'globalView': current_app.config.get(
-                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
+            'globalView': config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
             'baseUrl': get_base_url(),
-            'contributionAgentTypes': current_app.config.get(
+            'contributionAgentTypes': config.get(
                 'RERO_ILS_CONTRIBUTIONS_AGENT_TYPES', {}),
-            'contributionsLabelOrder': current_app.config.get(
+            'contributionsLabelOrder': config.get(
                 'RERO_ILS_CONTRIBUTIONS_LABEL_ORDER', {}),
-            'contributionSources': current_app.config.get(
-                'RERO_ILS_CONTRIBUTIONS_SOURCES', []
-            ),
-            'operationLogs': current_app.config.get(
-                'RERO_ILS_ENABLE_OPERATION_LOG', []
-            ),
-            'librarianRoles': UserRole.PROFESSIONAL_ROLES,
+            'contributionSources': config.get(
+                'RERO_ILS_CONTRIBUTIONS_SOURCES', []),
+            'operationLogs': config.get('RERO_ILS_ENABLE_OPERATION_LOG', []),
             'userProfile': {
-                'readOnly': current_app.config.get(
+                'readOnly': config.get(
                     'RERO_PUBLIC_USERPROFILES_READONLY', False),
-                'readOnlyFields': current_app.config.get(
+                'readOnlyFields': config.get(
                     'RERO_PUBLIC_USERPROFILES_READONLY_FIELDS', []),
             }
         }

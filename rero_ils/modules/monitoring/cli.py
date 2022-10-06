@@ -20,7 +20,7 @@
 import click
 from flask import current_app
 from flask.cli import with_appcontext
-from invenio_cache.proxies import current_cache
+from invenio_cache import current_cache
 from invenio_db import db
 from invenio_search import current_search_client
 from redis import Redis

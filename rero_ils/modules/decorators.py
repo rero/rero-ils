@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,12 +20,15 @@
 
 from functools import wraps
 
-from flask import abort, jsonify, redirect
+from flask import abort, jsonify, redirect, request
 from flask_login import current_user
+from invenio_access import Permission
 from werkzeug.exceptions import HTTPException
 
 from rero_ils.permissions import librarian_permission, login_and_librarian, \
     login_and_patron
+
+from .permissions import PermissionContext
 
 
 def check_authentication(fn):
@@ -80,6 +84,51 @@ def check_logged_user_authentication(func):
         return func(*args, **kwargs)
 
     return decorated_view
+
+
+def check_permission(actions):
+    """Decorator to check if current connected user has access to an action.
+
+    :param actions: List of `ActionNeed` to test. If one permission failed
+        then the access should be unauthorized.
+    """
+    def inner(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            for action in actions:
+                permission = Permission(action)
+                if not permission.can():
+                    return jsonify({'status': 'error: Unauthorized'}), 401
+            return func(*args, **kwargs)
+        return wrapper
+    return inner
+
+
+def parse_permission_payload(func):
+    """Decorator parsing payload from permission management request.
+
+    Analyze the JSON data from request payload to extract all required
+    parameters depending on the permission management context. Extracted
+    parameters will be added to keyword arguments from decorated function.
+
+    :raises KeyError - If a required parameter isn't available.
+    """
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        data = request.get_json() or {}
+        kwargs['method'] = 'deny' if request.method == 'DELETE' else 'allow'
+        # define required parameters depending on request context.
+        required_arguments = ['context', 'permission']
+        if data.get('context') == PermissionContext.BY_ROLE:
+            required_arguments.extend(['role_name'])
+        # check parameter exists and fill the keyword argument with them.
+        for param_name in required_arguments:
+            try:
+                kwargs[param_name] = data[param_name]
+            except KeyError:
+                abort(400, f"'{param_name}' argument required")
+        return func(*args, **kwargs)
+    return wrapper
 
 
 def jsonify_error(func):

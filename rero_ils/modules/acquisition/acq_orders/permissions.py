@@ -31,6 +31,7 @@ read_action = action_factory('acor-read')
 create_action = action_factory('acor-create')
 update_action = action_factory('acor-update')
 delete_action = action_factory('acor-delete')
+access_action = action_factory('acor-access')
 
 
 class AcqOrderPermissionPolicy(RecordPermissionPolicy):
