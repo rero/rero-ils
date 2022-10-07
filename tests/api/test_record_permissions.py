@@ -20,9 +20,6 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, login_user
 
-from rero_ils.modules.permissions import RecordPermission, \
-    record_permission_factory
-
 
 def test_document_permissions(
         client, document, librarian_martigny,
@@ -181,33 +178,3 @@ def call_api_permissions(client, route_name, pid):
     )
     assert response.status_code == 200
     return get_json(response)
-
-
-def test_record_permission_factory(app, client, librarian_martigny):
-    """Test record permission factory."""
-
-    # disabled all permission, all operation on all resources are available
-    app.config['RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'] = True
-    permission = record_permission_factory()
-    assert permission.can()
-
-    app.config['RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'] = False
-    actions = ['list', 'read', 'create', 'update', 'delete']
-    # test default RecordPermission for not logged user
-    for action in actions:
-        permission = record_permission_factory(record={}, action=action)
-        assert not permission.can()
-
-    # test default RecordPermission for super_user
-    login_user_via_session(client, librarian_martigny.user)
-    for action in actions:
-        permission = record_permission_factory(record={}, action=action)
-        assert not permission.can()
-        permission = RecordPermission.create_permission(
-            {}, action, user=librarian_martigny.user
-        )
-        assert not permission.can()
-
-    # test dummy action
-    permission = record_permission_factory(record={}, action='dummy')
-    assert not permission.can()

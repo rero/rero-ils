@@ -15,37 +15,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Tests REST API item types."""
-
+"""Tests statistics REST API."""
 
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_csv, get_json, postdata, \
+from utils import VerifyRecordPermissionPatch, get_csv, get_json, \
     to_relative_url
-
-
-def test_stats_permissions(client, stats):
-    """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.stat_item', pid_value=stats.pid)
-    res = client.get(item_url)
-    assert res.status_code == 401
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.stat_list',
-        {}
-    )
-    assert res.status_code == 401
-
-    res = client.put(
-        url_for('invenio_records_rest.stat_item', pid_value=stats.pid),
-        data={}
-    )
-    assert res.status_code == 401
-
-    res = client.delete(item_url)
-    assert res.status_code == 401
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -55,12 +31,8 @@ def test_stats_get(client, stats, csv_header):
     item_url = url_for('invenio_records_rest.stat_item', pid_value=stats.pid)
     res = client.get(item_url)
     assert res.status_code == 200
-
     assert res.headers['ETag']
-
     data = get_json(res)
-
-    # Check metadata
     for k in ['created', 'updated', 'metadata', 'links']:
         assert k in data
 
@@ -69,11 +41,10 @@ def test_stats_get(client, stats, csv_header):
     assert res.status_code == 200
 
     # CSV format
-    item_url = url_for(
-        'invenio_records_rest.stat_item', pid_value=stats.pid, format='csv')
+    params = {'pid_value': stats.pid, 'format': 'csv'}
+    item_url = url_for('invenio_records_rest.stat_item', **params)
     res = client.get(item_url, headers=csv_header)
     assert res.status_code == 200
-
     data = get_csv(res)
     assert data == (
         'library id,library name,number_of_active_patrons,'
@@ -96,130 +67,39 @@ def test_stats_get(client, stats, csv_header):
     assert data['hits']['hits']
 
 
-def test_stats_get_post_put_delete(client, librarian_martigny):
-    """Test CRUD operations."""
-    # Create record / POST
-    item_url = url_for('invenio_records_rest.stat_item', pid_value='1')
-    list_url = url_for('invenio_records_rest.stat_list', q='pid:1')
+def test_stats_librarian_data(
+    client, stats_librarian, librarian_martigny, system_librarian_martigny
+):
+    """Test librarian statistics."""
+    params = dict(pid_value=stats_librarian.pid)
+    item_url = url_for('invenio_records_rest.stat_item', **params)
 
     login_user_via_session(client, librarian_martigny.user)
-
-    # GET is not allowed for a librarian or system librarian
-    res = client.get(item_url)
-    assert res.status_code == 403
-
-    res, data = postdata(
-        client,
-        'invenio_records_rest.stat_list',
-        {}
-    )
-    assert res.status_code == 403
-
-    # Update record/PUT
-    res = client.put(
-        item_url,
-        data={}
-    )
-    assert res.status_code == 403
-
-    # Delete record/DELETE
-    res = client.delete(item_url)
-    assert res.status_code == 403
-
-
-def test_stats_librarian_permissions(client, stats_librarian):
-    """Test record retrieval for statistics librarian."""
-    item_url = url_for('invenio_records_rest.stat_item',
-                       pid_value=stats_librarian.pid)
-    res = client.get(item_url)
-    assert res.status_code == 401
-
-    res, _ = postdata(
-        client,
-        'invenio_records_rest.stat_list',
-        {}
-    )
-    assert res.status_code == 401
-
-    res = client.put(
-        url_for('invenio_records_rest.stat_item',
-                pid_value=stats_librarian.pid),
-        data={}
-    )
-    assert res.status_code == 401
-
-    res = client.delete(item_url)
-    assert res.status_code == 401
-
-
-def test_stats_librarian_get_post_put_delete(client, stats_librarian,
-                                             librarian_martigny,
-                                             librarian_sion,
-                                             patron_martigny):
-    """Test CRUD operations for statistics librarian."""
-    # patron: role librarian
-    login_user_via_session(client, librarian_martigny.user)
-    item_url = url_for('invenio_records_rest.stat_item',
-                       pid_value=stats_librarian.pid)
-
-    # GET is allowed for a librarian or system librarian
-    res = client.get(item_url)
-    assert res.status_code == 200
-
-    # POST / Create record
-    res, data = postdata(
-        client,
-        'invenio_records_rest.stat_list',
-        {}
-    )
-    assert res.status_code == 403
-
-    # PUT / Update record
-    res = client.put(
-        item_url,
-        data={}
-    )
-    assert res.status_code == 403
-
-    # DELETE / Delete record
-    res = client.delete(item_url)
-    assert res.status_code == 403
-
-    # patron: role patron
-    login_user_via_session(client, patron_martigny.user)
-
-    # GET is not allowed for a patron
-    res = client.get(item_url)
-    assert res.status_code == 403
-
-    # POST / Create record
-    res, data = postdata(
-        client,
-        'invenio_records_rest.stat_list',
-        {}
-    )
-    assert res.status_code == 403
-
-    # PUT / Update record
-    res = client.put(
-        item_url,
-        data={}
-    )
-    assert res.status_code == 403
-
-    # DELETE / Delete record
-    res = client.delete(item_url)
-    assert res.status_code == 403
-
-
-def test_stats_librarian_data(client, stats_librarian, librarian_martigny):
-    """Check data include date_range and type librarian."""
-    login_user_via_session(client, librarian_martigny.user)
-
-    item_url = url_for('invenio_records_rest.stat_item',
-                       pid_value=stats_librarian.pid)
     res = client.get(item_url)
     data = res.get_json()
 
+    # Check response contains 'date_range' and 'librarian'
     assert data['metadata']['date_range']
     assert data['metadata']['type'] == 'librarian'
+
+    # Check that response contains only stats for the manageable libraries.
+    # This filter is applied by the 'pre_dump' resource extension
+    manageable_libs = set(librarian_martigny.library_pids)
+    initial_stat_libs = {
+        value['library']['pid'] for value in stats_librarian['values']
+    }
+    filtered_stat_libs = {
+        value['library']['pid'] for value in data['metadata']['values']
+    }
+    assert initial_stat_libs.difference(manageable_libs)
+    assert not filtered_stat_libs.difference(manageable_libs)
+
+    # system librarian could view all libraries stats for its own organisation
+    login_user_via_session(client, system_librarian_martigny.user)
+    res = client.get(item_url)
+    data = res.get_json()
+    filtered_stat_libs = {
+        value['library']['pid'] for value in data['metadata']['values']
+    }
+    manageable_libs = set(librarian_martigny.organisation.get_libraries_pids())
+    assert not filtered_stat_libs.difference(manageable_libs)
