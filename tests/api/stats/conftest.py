@@ -34,12 +34,14 @@ def stats(item_lib_martigny, item_lib_fully, item_lib_sion,
 
 @pytest.fixture(scope='module')
 def stats_librarian(item_lib_martigny, item_lib_fully, item_lib_sion):
-    """Stats fixture."""
+    """Stats fixture for librarian."""
     stats_librarian = StatsForLibrarian()
-    date_range = {'from': stats_librarian.date_range['gte'],
-                  'to': stats_librarian.date_range['lte']}
+    date_range = {
+        'from': stats_librarian.date_range['gte'],
+        'to': stats_librarian.date_range['lte']
+    }
     stats_values = stats_librarian.collect()
     yield Stat.create(
-        dict(type='librarian', date_range=date_range,
-             values=stats_values),
-        dbcommit=True, reindex=True)
+        dict(type='librarian', date_range=date_range,  values=stats_values),
+        dbcommit=True, reindex=True
+    )
