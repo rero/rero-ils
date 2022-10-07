@@ -526,6 +526,8 @@ ptre_read = "rero_ils.modules.patron_transaction_events.permissions:read_action"
 ptre_create = "rero_ils.modules.patron_transaction_events.permissions:create_action"
 ptre_update = "rero_ils.modules.patron_transaction_events.permissions:update_action"
 ptre_delete = "rero_ils.modules.patron_transaction_events.permissions:delete_action"
+stat_search = "rero_ils.modules.stats.permissions:search_action"
+stat_read = "rero_ils.modules.stats.permissions:read_action"
 tmpl_search = "rero_ils.modules.templates.permissions:search_action"
 tmpl_read = "rero_ils.modules.templates.permissions:read_action"
 tmpl_create = "rero_ils.modules.templates.permissions:create_action"
@@ -536,8 +538,6 @@ vndr_read = "rero_ils.modules.vendors.permissions:read_action"
 vndr_create = "rero_ils.modules.vendors.permissions:create_action"
 vndr_update = "rero_ils.modules.vendors.permissions:update_action"
 vndr_delete = "rero_ils.modules.vendors.permissions:delete_action"
-
-
 
 [tool.poetry.plugins."invenio_search.templates"]
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"

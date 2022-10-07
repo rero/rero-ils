@@ -120,10 +120,9 @@ from .modules.patron_types.permissions import PatronTypePermissionPolicy
 from .modules.patrons.api import Patron
 from .modules.patrons.models import CommunicationChannel
 from .modules.patrons.permissions import PatronPermissionPolicy
-from .modules.permissions import record_permission_factory
 from .modules.selfcheck.permissions import seflcheck_permission_factory
 from .modules.stats.api import Stat
-from .modules.stats.permissions import StatPermission
+from .modules.stats.permissions import StatisticsPermissionPolicy
 from .modules.templates.api import Template
 from .modules.templates.permissions import TemplatePermissionPolicy
 from .modules.users.api import get_profile_countries, \
@@ -799,20 +798,14 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': lambda: Stat(request.get_json()),
         },
         record_class='rero_ils.modules.stats.api:Stat',
-        item_route=('/stats/<pid(stat, record_class='
-                    '"rero_ils.modules.stats.api:Stat"):pid_value>'),
+        item_route='/stats/<pid(stat, record_class="rero_ils.modules.stats.api:Stat"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=StatPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=StatPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=StatPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=StatPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=StatPermission)
+        list_permission_factory_imp=lambda record: StatisticsPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: StatisticsPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: StatisticsPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: StatisticsPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: StatisticsPermissionPolicy('delete', record=record)
     ),
     hold=dict(
         pid_type='hold',
