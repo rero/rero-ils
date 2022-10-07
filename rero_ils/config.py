@@ -110,11 +110,11 @@ from .modules.organisations.api import Organisation
 from .modules.organisations.permissions import OrganisationPermissionPolicy
 from .modules.patron_transaction_events.api import PatronTransactionEvent
 from .modules.patron_transaction_events.permissions import \
-    PatronTransactionEventPermission
+    PatronTransactionEventPermissionPolicy
 from .modules.patron_transaction_events.utils import total_facet_filter_builder
 from .modules.patron_transactions.api import PatronTransaction
 from .modules.patron_transactions.permissions import \
-    PatronTransactionPermission
+    PatronTransactionPermissionPolicy
 from .modules.patron_types.api import PatronType
 from .modules.patron_types.permissions import PatronTypePermissionPolicy
 from .modules.patrons.api import Patron
@@ -953,25 +953,18 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: PatronTransaction(request.get_json()),
         },
-        record_class=('rero_ils.modules.patron_transactions.api:'
-                      'PatronTransaction'),
+        record_class='rero_ils.modules.patron_transactions.api:PatronTransaction',
         list_route='/patron_transactions/',
-        item_route=('/patron_transactions/<pid(pttr, record_class='
-                    '"rero_ils.modules.patron_transactions.api:'
-                    'PatronTransaction"):pid_value>'),
+        item_route=('/patron_transactions/<pid(pttr, record_class="'
+                    'rero_ils.modules.patron_transactions.api:PatronTransaction"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:patron_transactions_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list', record=record, cls=PatronTransactionPermission),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read', record=record, cls=PatronTransactionPermission),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create', record=record, cls=PatronTransactionPermission),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update', record=record, cls=PatronTransactionPermission),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete', record=record, cls=PatronTransactionPermission)
+        list_permission_factory_imp=lambda record: PatronTransactionPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: PatronTransactionPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: PatronTransactionPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: PatronTransactionPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: PatronTransactionPermissionPolicy('delete', record=record)
     ),
     ptre=dict(
         pid_type='ptre',
@@ -981,8 +974,7 @@ RECORDS_REST_ENDPOINTS = dict(
                       'PatronTransactionEventsSearch'),
         search_index='patron_transaction_events',
         search_type=None,
-        indexer_class=('rero_ils.modules.patron_transaction_events.api:'
-                       'PatronTransactionEventsIndexer'),
+        indexer_class='rero_ils.modules.patron_transaction_events.api:PatronTransactionEventsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -998,43 +990,20 @@ RECORDS_REST_ENDPOINTS = dict(
             'rero': 'application/rero+json'
         },
         record_loaders={
-            'application/json': lambda: PatronTransactionEvent(
-                request.get_json()),
+            'application/json': lambda: PatronTransactionEvent(request.get_json()),
         },
-        record_class=('rero_ils.modules.patron_transaction_events.api:'
-                      'PatronTransactionEvent'),
+        record_class='rero_ils.modules.patron_transaction_events.api:PatronTransactionEvent',
         list_route='/patron_transaction_events/',
         item_route=('/patron_transaction_events/<pid(ptre, record_class='
-                    '"rero_ils.modules.patron_transaction_events.api:'
-                    'PatronTransactionEvent"):pid_value>'),
+                    '"rero_ils.modules.patron_transaction_events.api:PatronTransactionEvent"):pid_value>'),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:patron_transactions_search_factory',
-        list_permission_factory_imp=lambda record: record_permission_factory(
-            action='list',
-            record=record,
-            cls=PatronTransactionEventPermission
-        ),
-        read_permission_factory_imp=lambda record: record_permission_factory(
-            action='read',
-            record=record,
-            cls=PatronTransactionEventPermission
-        ),
-        create_permission_factory_imp=lambda record: record_permission_factory(
-            action='create',
-            record=record,
-            cls=PatronTransactionEventPermission
-        ),
-        update_permission_factory_imp=lambda record: record_permission_factory(
-            action='update',
-            record=record,
-            cls=PatronTransactionEventPermission
-        ),
-        delete_permission_factory_imp=lambda record: record_permission_factory(
-            action='delete',
-            record=record,
-            cls=PatronTransactionEventPermission
-        )
+        list_permission_factory_imp=lambda record: PatronTransactionEventPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: PatronTransactionEventPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: PatronTransactionEventPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: PatronTransactionEventPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: PatronTransactionEventPermissionPolicy('delete', record=record)
     ),
     ptty=dict(
         pid_type='ptty',
