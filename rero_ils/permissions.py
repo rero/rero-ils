@@ -93,10 +93,9 @@ def can_access_professional_view(func):
     def decorated_view(*args, **kwargs):
         if not current_user.is_authenticated:
             return current_app.login_manager.unauthorized()
-        else:
-            if not current_librarian:
-                abort(403)
-            return func(*args, **kwargs)
+        if not current_librarian:
+            abort(403)
+        return func(*args, **kwargs)
     return decorated_view
 
 
@@ -104,7 +103,7 @@ def check_user_is_authenticated(redirect_to=None, code=302):
     """Check if user is authenticated.
 
     If user isn't authenticated :
-      - either it is redirect to a page if 'redirect_to' is defined.
+      - either it is redirected to a page if 'redirect_to' is defined.
       - either request is aborted (HTTP 403).
     :param redirect_to: the URL to redirect the user if it's not authenticated.
     :param code: the HTTP code to use for redirect (default=302)

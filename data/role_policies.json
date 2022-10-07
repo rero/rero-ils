@@ -559,6 +559,18 @@
     "pro_user_manager",
     "pro_circulation_manager"
   ],
+  "stat-search": [
+    "admin",
+    "monitoring",
+    "pro_read_only",
+    "pro_full_permissions"
+  ],
+  "stat-read": [
+    "admin",
+    "monitoring",
+    "pro_read_only",
+    "pro_full_permissions"
+  ],
   "tmpl-search": [
     "pro_full_permissions",
     "pro_read_only",

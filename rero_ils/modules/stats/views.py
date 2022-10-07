@@ -28,11 +28,9 @@ import jinja2
 import pytz
 from elasticsearch_dsl import Q
 from flask import Blueprint, abort, make_response, render_template, request
-from flask_login import current_user
 
 from .api import Stat, StatsForPricing, StatsSearch
-from .permissions import StatPermission, check_logged_as_admin, \
-    check_logged_as_librarian
+from .permissions import check_logged_as_admin, check_logged_as_librarian
 from .serializers import StatCSVSerializer
 
 blueprint = Blueprint(
@@ -99,11 +97,13 @@ def stats_librarian_queries(record_pid):
     record = Stat.get_record_by_pid(record_pid)
     if not record:
         abort(404)
-    StatPermission.read(current_user, record)
+    # Filter the record to keep only values about connected user
+    # note : This is done by the `pre_dump` extension from `Stats` record,
+    record = record.dumps()
 
-    date_range = '{}_{}'.format(record['date_range']['from'].split('T')[0],
-                                record['date_range']['to'].split('T')[0])
-    filename = f'{query_id}_{date_range}.csv'
+    _from = record['date_range']['from'].split('T')[0]
+    _to = record['date_range']['to'].split('T')[0]
+    filename = f'{query_id}_{_from}_{_to}.csv'
 
     data = StringIO()
     w = csv.writer(data)
@@ -113,9 +113,9 @@ def stats_librarian_queries(record_pid):
                       'Item location', 'Checkins', 'Checkouts']
         w.writerow(fieldnames)
         for result in record['values']:
-            transaction_library = '{}: {}'\
-                      .format(result['library']['pid'],
-                              result['library']['name'])
+            transaction_library = \
+                f"{result['library']['pid']}: {result['library']['name']}"
+
             if not result[query_id]:
                 w.writerow((transaction_library, '-', '-', 0, 0))
             else:
@@ -137,6 +137,8 @@ def stats_librarian_queries(record_pid):
     return output
 
 
+# JINJA FILTERS ===============================================================
+
 @jinja2.contextfilter
 @blueprint.app_template_filter()
 def yearmonthfilter(context, value, format="%Y-%m-%dT%H:%M:%S"):
@@ -145,13 +147,12 @@ def yearmonthfilter(context, value, format="%Y-%m-%dT%H:%M:%S"):
     value: datetime
     returns: year and month of datetime
     """
-    tz = pytz.timezone('Europe/Zurich')
     utc = pytz.timezone('UTC')
     value = datetime.datetime.strptime(value, format)
     value = utc.localize(value, is_dst=None).astimezone(pytz.utc)
     datetime_object = datetime.datetime.strptime(str(value.month), "%m")
     month_name = datetime_object.strftime("%b")
-    return "{} {}".format(month_name, value.year)
+    return f"{month_name} {value.year}"
 
 
 @jinja2.contextfilter
@@ -162,8 +163,7 @@ def stringtodatetime(context, value, format="%Y-%m-%dT%H:%M:%S"):
     value: string
     returns: datetime object
     """
-    datetime_object = datetime.datetime.strptime(value, format)
-    return datetime_object
+    return datetime.datetime.strptime(value, format)
 
 
 @jinja2.contextfilter
