@@ -29,7 +29,25 @@
   "lofi-read": [
     "any_user"
   ],
+  "notif-search": [
+    "authenticated_user"
+  ],
+  "notif-read": [
+    "authenticated_user"
+  ],
   "oplg-search": [
+    "authenticated_user"
+  ],
+  "pttr-search": [
+    "authenticated_user"
+  ],
+  "pttr-read": [
+    "authenticated_user"
+  ],
+  "ptre-search": [
+    "authenticated_user"
+  ],
+  "ptre-read": [
     "authenticated_user"
   ]
 }

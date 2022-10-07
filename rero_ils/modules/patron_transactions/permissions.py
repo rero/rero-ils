@@ -17,81 +17,25 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for Patron transaction."""
+from invenio_access import action_factory
 
-from rero_ils.modules.patrons.api import current_librarian, current_patrons
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByOrganisation, \
+    AllowedByActionRestrictByOwnerOrOrganisation, RecordPermissionPolicy
+
+# Actions to control patron transaction policies for CRUD operations
+search_action = action_factory('pttr-search')
+read_action = action_factory('pttr-read')
+create_action = action_factory('pttr-create')
+update_action = action_factory('pttr-update')
+delete_action = action_factory('pttr-delete')
 
 
-class PatronTransactionPermission(RecordPermission):
-    """Patron transaction permissions."""
+class PatronTransactionPermissionPolicy(RecordPermissionPolicy):
+    """PatronTransaction permission policy used by the CRUD operations."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
-
-        :param user: Logged user.
-        :param record: Record to check
-        :return: True is action can be done.
-        """
-        # user should be authenticated
-        return bool(current_patrons or current_librarian)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        #  For staff users (lib, sys_lib), they can read only their own
-        #  organisation.
-        if current_librarian and \
-                current_librarian.organisation_pid == record.organisation_pid:
-            return True
-        # For other people (patron), they can read only their own transaction
-        return record and \
-            record.patron_pid in [ptrn.pid for ptrn in current_patrons]
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # user should be authenticated
-        if not current_librarian:
-            return False
-        if not record:
-            return True
-        else:
-            # Same as update
-            return cls.update(user, record)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # only staff members (lib, sys_lib) can update acq_account
-        # record cannot be null
-        if not record:
-            return False
-        return current_librarian and \
-            current_librarian.organisation_pid == record.organisation_pid
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # Same as update
-        return cls.update(user, record)
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByOwnerOrOrganisation(read_action)]
+    can_create = [AllowedByActionRestrictByOrganisation(create_action)]
+    can_update = [AllowedByActionRestrictByOrganisation(update_action)]
+    can_delete = [AllowedByActionRestrictByOrganisation(delete_action)]

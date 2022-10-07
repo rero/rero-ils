@@ -16,67 +16,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Permissions for Patron event transaction."""
+"""Permissions for Patron transaction event."""
+from invenio_access import action_factory
 
-from rero_ils.modules.patron_transactions.permissions import \
-    PatronTransactionPermission
-from rero_ils.modules.permissions import RecordPermission
+from rero_ils.modules.permissions import AllowedByAction, \
+    AllowedByActionRestrictByOrganisation, \
+    AllowedByActionRestrictByOwnerOrOrganisation, RecordPermissionPolicy
+
+# Actions to control patron transaction event policies for CRUD operations
+search_action = action_factory('ptre-search')
+read_action = action_factory('ptre-read')
+create_action = action_factory('ptre-create')
+update_action = action_factory('ptre-update')
+delete_action = action_factory('ptre-delete')
 
 
-class PatronTransactionEventPermission(RecordPermission):
-    """Patron transaction event permissions."""
+class PatronTransactionEventPermissionPolicy(RecordPermissionPolicy):
+    """PatronTransactionEvent permission policy used by the CRUD operations."""
 
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
-
-        :param user: Logged user.
-        :param record: Record to check
-        :return: True is action can be done.
-        """
-        # same as PatronTransaction
-        return PatronTransactionPermission.list(user, record)
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # same as PatronTransaction
-        return PatronTransactionPermission.read(user, record)
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # same as PatronTransaction
-        return PatronTransactionPermission.create(user, record)
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        # same as PatronTransaction
-        return PatronTransactionPermission.update(user, record)
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True if action can be done.
-        """
-        # same as PatronTransaction
-        return PatronTransactionPermission.delete(user, record)
+    can_search = [AllowedByAction(search_action)]
+    can_read = [AllowedByActionRestrictByOwnerOrOrganisation(read_action)]
+    can_create = [AllowedByActionRestrictByOrganisation(create_action)]
+    can_update = [AllowedByActionRestrictByOrganisation(update_action)]
+    can_delete = [AllowedByActionRestrictByOrganisation(delete_action)]
