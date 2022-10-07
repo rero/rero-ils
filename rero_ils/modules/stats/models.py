@@ -39,3 +39,10 @@ class StatMetadata(db.Model, RecordMetadataBase):
     """Stat record metadata."""
 
     __tablename__ = 'stat_metadata'
+
+
+class StatType:
+    """Type of statistics record."""
+
+    BILLING = 'billing'
+    LIBRARIAN = 'librarian'
