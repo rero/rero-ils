@@ -36,11 +36,11 @@ from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.loans.logs.api import LoanOperationLog
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.minters import id_minter
-from rero_ils.modules.patrons.api import PatronsSearch, current_librarian
+from rero_ils.modules.patrons.api import PatronsSearch
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.users.models import UserRole
-from rero_ils.modules.utils import extracted_data_from_ref
 
+from .extensions import StatisticsDumperExtension
 from .models import StatIdentifier, StatMetadata
 
 # provider
@@ -67,6 +67,24 @@ class StatsSearch(IlsRecordsSearch):
         facets = {}
 
         default_filter = None
+
+
+class Stat(IlsRecord):
+    """ItemType class."""
+
+    minter = stat_id_minter
+    fetcher = stat_id_fetcher
+    provider = StatProvider
+    model_cls = StatMetadata
+
+    _extensions = [
+        StatisticsDumperExtension()
+    ]
+
+    def update(self, data, commit=True, dbcommit=False, reindex=False):
+        """Update data for record."""
+        super().update(data, commit, dbcommit, reindex)
+        return self
 
 
 class StatsForPricing:
@@ -341,28 +359,6 @@ class StatsForLibrarian(StatsForPricing):
         _from = f'{self.to_date.year}-{self.to_date.month:02d}-01T00:00:00'
         _to = self.to_date.format(fmt='YYYY-MM-DDT23:59:59')
         self.date_range = {'gte': _from, 'lte': _to}
-
-    @classmethod
-    def get_librarian_library_pids(cls):
-        """Get libraries pids of librarian.
-
-        Note: for system_librarian includes libraries of organisation.
-        """
-        if list(set(current_librarian['roles'])
-           .intersection(UserRole.LIBRARIAN_ROLES)):
-            library_pids = {
-                extracted_data_from_ref(lib) for lib in
-                current_librarian.get('libraries', [])}
-
-        # case system_librarian: add libraries of organisation
-        if UserRole.FULL_PERMISSIONS in current_librarian["roles"]:
-            patron_organisation = current_librarian.get_organisation()
-            libraries_search = LibrariesSearch()\
-                .filter('term', organisation__pid=patron_organisation.pid)\
-                .source(['pid']).scan()
-            library_pids = library_pids.union(
-                {s.pid for s in libraries_search})
-        return list(library_pids)
 
     def collect(self):
         """Compute statistics for librarian."""
@@ -687,20 +683,6 @@ class StatsForLibrarian(StatsForPricing):
                 ItemCirculationAction.CHECKOUT: 0})
             stats[key][s.loan.trigger] += 1
         return stats
-
-
-class Stat(IlsRecord):
-    """ItemType class."""
-
-    minter = stat_id_minter
-    fetcher = stat_id_fetcher
-    provider = StatProvider
-    model_cls = StatMetadata
-
-    def update(self, data, commit=True, dbcommit=False, reindex=False):
-        """Update data for record."""
-        super().update(data, commit, dbcommit, reindex)
-        return self
 
 
 class StatsIndexer(IlsRecordsIndexer):

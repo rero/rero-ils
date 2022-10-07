@@ -19,7 +19,6 @@
 from functools import partial
 
 from flask import current_app, g, jsonify
-from flask_login import current_user
 from flask_principal import Need
 from invenio_access import any_user
 from invenio_records_permissions import \
@@ -104,23 +103,6 @@ def record_permissions(record_pid=None, route_name=None):
         return jsonify({'status': 'error: Bad request'}), 400
 
 
-def record_permission_factory(record=None, action=None, cls=None):
-    """Record permission factory.
-
-    :param record: Record against which to check permission.
-    :param action: Action to check.
-    :param cls: Class of the permission.
-    :return: Permission object.
-    """
-    # Permission is allowed for all actions.
-    if current_app.config.get('RERO_ILS_APP_DISABLE_PERMISSION_CHECKS'):
-        return allow_access
-    # No specific class, the base record permission class is taken.
-    if not cls:
-        cls = RecordPermission
-    return cls.create_permission(record, action)
-
-
 def has_superuser_access():
     """Check if current user has access to super admin panel.
 
@@ -132,116 +114,6 @@ def has_superuser_access():
     #   ... superuser_access_permission = Permission(ActionNeed('superuser'))
     #   ... return superuser_access.can()
     return deny_access.can()
-
-
-class RecordPermission:
-    """Record permissions for CRUD operations."""
-
-    list_actions = ['list']
-    create_actions = ['create']
-    read_actions = ['read']
-    update_actions = ['update']
-    delete_actions = ['delete']
-
-    def __init__(self, record, func, user):
-        """Initialize a file permission object.
-
-        :param record: Record to check.
-        :param func: method of the class to call.
-        :param user: Object representing current logged user.
-        """
-        self.record = record
-        self.func = func
-        self.user = user or current_user
-
-    def can(self):
-        """Return the permission object determining if the action can be done.
-
-        :return: Permission object.
-        """
-        return self.func(self.user, self.record)
-
-    @classmethod
-    def create_permission(cls, record, action, user=None):
-        """Create a record permission.
-
-        :param record: The record to check.
-        :param action: Action to check.
-        :param user: Logged user.
-        :return: Permission object.
-        """
-        if action in cls.list_actions:
-            return cls(record, cls.list, user)
-        if action in cls.create_actions:
-            return cls(record, cls.create, user)
-        if action in cls.read_actions:
-            return cls(record, cls.read, user)
-        if action in cls.update_actions:
-            return cls(record, cls.update, user)
-        if action in cls.delete_actions:
-            return cls(record, cls.delete, user)
-        # Deny access by default
-        return deny_access
-
-    @classmethod
-    def list(cls, user, record=None):
-        """List permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        if user.is_anonymous:
-            return False
-        return has_superuser_access()
-
-    @classmethod
-    def create(cls, user, record=None):
-        """Create permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        if user.is_anonymous:
-            return False
-        return has_superuser_access()
-
-    @classmethod
-    def read(cls, user, record):
-        """Read permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        if user.is_anonymous:
-            return False
-        return has_superuser_access()
-
-    @classmethod
-    def update(cls, user, record):
-        """Update permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        if user.is_anonymous:
-            return False
-        return has_superuser_access()
-
-    @classmethod
-    def delete(cls, user, record):
-        """Delete permission check.
-
-        :param user: Logged user.
-        :param record: Record to check.
-        :return: True is action can be done.
-        """
-        if user.is_anonymous:
-            return False
-        return has_superuser_access()
 
 
 class RecordPermissionPolicy(_RecordPermissionPolicy):
