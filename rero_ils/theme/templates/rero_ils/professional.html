@@ -30,8 +30,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 <body>
     <admin-root></admin-root>
-    {{ node_assets('@rero/rero-ils-ui/dist/admin', patterns=['runtime-es5.*.js','polyfills-es5.*.js', 'main-es5.*.js'], tags='nomodule defer') }}
-    {{ node_assets('@rero/rero-ils-ui/dist/admin', patterns=['runtime-es2015.*.js', 'polyfills-es2015.*.js', 'main-es2015.*.js'], tags='type="module"') }}
+    {{ node_assets('@rero/rero-ils-ui/dist/admin', tags='type="module"') }}
 </body>
 
 </html>
