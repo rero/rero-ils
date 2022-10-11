@@ -1172,6 +1172,8 @@ class ItemCirculation(ItemRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
+        # avoid circular import
+        from ...collections.api import CollectionsSearch
         links = {}
         query_loans = search_by_pid(
             item_pid=item_pid_to_object(self.pid),
@@ -1185,16 +1187,23 @@ class ItemCirculation(ItemRecord):
             .filter('term', item__pid=self.pid)\
             .filter('term', status='open')\
             .filter('range', total_amount={'gt': 0})
+        query_collections = CollectionsSearch()\
+            .filter('term', items__pid=self.pid)
+
         if get_pids:
             loans = sorted_pids(query_loans)
             fees = sorted_pids(query_fees)
+            collections = sorted_pids(query_collections)
         else:
             loans = query_loans.count()
             fees = query_fees.count()
+            collections = query_collections.count()
         if loans:
             links['loans'] = loans
         if fees:
             links['fees'] = fees
+        if collections:
+            links['collections'] = collections
         return links
 
     def get_requests(self, sort_by=None, output=None):
