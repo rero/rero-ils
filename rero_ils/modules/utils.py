@@ -20,6 +20,7 @@
 import cProfile
 import os
 import pstats
+import re
 import unicodedata
 from datetime import date, datetime, time
 from functools import wraps
@@ -1093,3 +1094,10 @@ def get_objects(record_class, query):
     """
     for hit in query.source().scan():
         yield record_class.get_record_by_id(hit.meta.id)
+
+
+def strip_chars(string, extra=u''):
+    """Remove control characters from string."""
+    remove_re = re.compile(u'[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F%s]' % extra)
+    new_string, _ = remove_re.subn('', string)
+    return new_string

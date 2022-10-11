@@ -32,6 +32,7 @@ from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21.model import \
     replace_contribution_sources
 from rero_ils.modules.serializers import JSONSerializer
+from rero_ils.modules.utils import strip_chars
 
 DEFAULT_LANGUAGE = LocalProxy(
     lambda: current_app.config.get('BABEL_DEFAULT_LANGUAGE'))
@@ -256,11 +257,14 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                             for code, value in items:
                                 if isinstance(value, string_types):
                                     datafield.append(element.subfield(
-                                        value, code=code))
+                                        strip_chars(value), code=code)
+                                    )
                                 else:
                                     for v in value:
                                         datafield.append(
-                                            element.subfield(v, code=code))
+                                            element.subfield(
+                                                strip_chars(v), code=code)
+                                        )
                             rec_data.append(datafield)
                 rec_record_data.append(rec_data)
                 rec.append(rec_record_data)
