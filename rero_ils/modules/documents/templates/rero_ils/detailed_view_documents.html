@@ -228,7 +228,7 @@
     {% endif %}
 
     <!-- LINKED DOCUMENTS -->
-    {% if linked_documents_count > 0 %}
+    {% if linked_documents_count and linked_documents_count > 0 %}
       <a
         class="btn btn-sm btn-outline-primary mt-3"
         href="{{ url_for('rero_ils.search', viewcode=viewcode, recordType='documents', q='partOf.document.pid:' ~ record.pid, simple=0) }}"
