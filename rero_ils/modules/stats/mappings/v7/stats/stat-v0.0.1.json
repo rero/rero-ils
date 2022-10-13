@@ -7,10 +7,71 @@
         "type": "keyword"
       },
       "type": {
-        "type": "text"
+        "type": "keyword"
       },
       "date_range": {
         "type": "object"
+      },
+      "config": {
+        "type": "object",
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "text",
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            }
+          },
+          "description": {
+            "type": "text"
+          },
+          "frequency": {
+            "type": "keyword"
+          },
+          "is_active": {
+            "type": "boolean"
+          },
+          "organisation": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              }
+            }
+          },
+          "category": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "indicator": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "distributions": {
+                    "type": "keyword"
+                  },
+                  "period": {
+                    "type": "keyword"
+                  },
+                  "filter": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "pid": {
         "type": "keyword"
