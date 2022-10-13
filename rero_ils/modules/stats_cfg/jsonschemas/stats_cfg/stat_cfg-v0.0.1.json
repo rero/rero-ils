@@ -1,0 +1,178 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Statistics report configuration",
+  "description": "JSON schema for statistics report configuration.",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "name",
+    "description",
+    "category",
+    "indicator",
+    "frequency",
+    "period",
+    "dist1",
+    "dist2",
+    "filter",
+    "status"
+  ],
+  "required": [
+    "$schema",
+    "pid",
+    "indicator",
+    "organisation",
+    "category",
+    "frequency",
+    "description",
+    "name",
+    "status"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate statistics configuration records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Configuration ID",
+      "type": "string",
+      "minLength": 1
+    },
+    "indicator": {
+      "title": "Indicator",
+      "description": "Configuration indicator.",
+      "type": "string",
+      "enum": [
+        "number_of_documents",
+        "number_of_serial_holdings",
+        "number_of_items",
+        "number_of_patrons",
+        "number_of_active_patrons",
+        "number_of_ill_requests",
+        "number_of_deleted_items",
+        "number_of_checkins",
+        "number_of_checkouts",
+        "number_of_renewals",
+        "number_of_requests"
+      ]
+    },
+    "dist1": {
+      "title": "Distribution 1",
+      "description": "Configuration distribution 1.",
+      "type": "string",
+      "enum": [
+        "time_range_month",
+        "time_range_year",
+        "library",
+        "item_owning_library",
+        "imported",
+        "location",
+        "type",
+        "gender",
+        "role",
+        "patron_postal_code",
+        "status",
+        "item_location",
+        "patron_type",
+        "document_type",
+        "transaction_channel"
+      ]
+    },
+    "dist2": {
+      "title": "Distribution 2",
+      "description": "Configuration distribution 2.",
+      "type": "string",
+      "enum": [
+        "time_range_month",
+        "time_range_year",
+        "library",
+        "item_owning_library",
+        "imported",
+        "location",
+        "type",
+        "gender",
+        "role",
+        "patron_postal_code",
+        "status",
+        "item_location",
+        "patron_type",
+        "document_type",
+        "transaction_channel"
+      ]
+    },
+    "organisation": {
+      "title": "Organisation",
+      "description": "The system librarian's organisation.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
+        }
+      }
+    },
+    "category": {
+      "title": "Category",
+      "description": "Category of the configuration.",
+      "type": "string",
+      "enum": [
+        "catalogue",
+        "circulation",
+        "user_management"
+      ]
+    },
+    "period": {
+      "title": "Period",
+      "description": "Time range of data used to calculate the statistics report.",
+      "type": "string",
+      "enum": [
+        "month",
+        "year"
+      ]
+    },
+    "frequency": {
+      "title": "Frequency",
+      "description": "Frequency at which the statistics reports are created.",
+      "type": "string",
+      "enum": [
+        "month",
+        "year"
+      ]
+    },
+    "description": {
+      "title": "Description",
+      "description": "Description of the configuration.",
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "title": "Name",
+      "description": "Name of the configuration.",
+      "type": "string",
+      "minLength": 1
+    },
+    "filter": {
+      "title": "Filter",
+      "description": "Filter of the configuration.",
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "title": "Status",
+      "description": "Status of the configuration.",
+      "type": "string",
+      "enum": [
+        "enabled",
+        "disabled"
+      ]
+    }
+  }
+}
+  

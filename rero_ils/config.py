@@ -124,6 +124,9 @@ from .modules.patrons.permissions import PatronPermissionPolicy
 from .modules.selfcheck.permissions import seflcheck_permission_factory
 from .modules.stats.api import Stat
 from .modules.stats.permissions import StatisticsPermissionPolicy
+from .modules.stats_cfg.api import StatConfiguration
+from .modules.stats_cfg.permissions import \
+    StatisticsConfigurationPermissionPolicy
 from .modules.templates.permissions import TemplatePermissionPolicy
 from .modules.users.api import get_profile_countries, \
     get_readonly_profile_fields
@@ -812,6 +815,43 @@ RECORDS_REST_ENDPOINTS = dict(
         create_permission_factory_imp=lambda record: StatisticsPermissionPolicy('create', record=record),
         update_permission_factory_imp=lambda record: StatisticsPermissionPolicy('update', record=record),
         delete_permission_factory_imp=lambda record: StatisticsPermissionPolicy('delete', record=record)
+    ),
+    stacfg=dict(
+        pid_type='stacfg',
+        pid_minter='stat_cfg_id',
+        pid_fetcher='stat_cfg_id',
+        search_class='rero_ils.modules.stats_cfg.api:StatsConfigurationSearch',
+        search_index='stats_cfg',
+        indexer_class=\
+            'rero_ils.modules.stats_cfg.api:StatsConfigurationIndexer',
+        search_type=None,
+        record_serializers={
+            'application/json': 'rero_ils.modules.serializers:json_v1_response'
+        },
+        record_serializers_aliases={
+            'json': 'application/json'
+        },
+        search_serializers_aliases={
+            'json': 'application/json'
+        },
+        search_serializers={
+            'application/json': 'rero_ils.modules.serializers:json_v1_search'
+        },
+        list_route='/stats_cfg/',
+        record_loaders={
+            'application/json': lambda: StatConfiguration(request.get_json()),
+        },
+        record_class='rero_ils.modules.stats_cfg.api:StatConfiguration',
+        item_route=('/stats_cfg/<pid(stacfg, record_class='
+                    '"rero_ils.modules.stats_cfg.api:StatConfiguration"):pid_value>'),
+        default_media_type='application/json',
+        max_result_window=MAX_RESULT_WINDOW,
+        search_factory_imp='rero_ils.query:organisation_search_factory',
+        list_permission_factory_imp=lambda record: StatisticsConfigurationPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: StatisticsConfigurationPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: StatisticsConfigurationPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: StatisticsConfigurationPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: StatisticsConfigurationPermissionPolicy('delete', record=record)
     ),
     hold=dict(
         pid_type='hold',
@@ -2745,6 +2785,9 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     'rero_ils.modules.stats.permissions:access_action',
     'rero_ils.modules.stats.permissions:search_action',
     'rero_ils.modules.stats.permissions:read_action',
+    'rero_ils.modules.stats_cfg.permissions:access_action',
+    'rero_ils.modules.stats_cfg.permissions:search_action',
+    'rero_ils.modules.stats_cfg.permissions:read_action',
     'rero_ils.modules.templates.permissions:access_action',
     'rero_ils.modules.templates.permissions:search_action',
     'rero_ils.modules.templates.permissions:read_action',
@@ -2841,6 +2884,7 @@ RERO_ILS_DEFAULT_JSON_SCHEMA = {
     'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json',
     'ptrn': '/patrons/patron-v0.0.1.json',
     'stat': '/stats/stat-v0.0.1.json',
+    'stacfg': '/stats_cfg/stat_cfg-v0.0.1.json',
     'tmpl': '/templates/template-v0.0.1.json',
     'oplg': '/operation_logs/operation_log-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',
