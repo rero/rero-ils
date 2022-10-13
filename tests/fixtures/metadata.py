@@ -1282,6 +1282,51 @@ def stats_cfg_martigny(
 
 
 @pytest.fixture(scope="module")
+def stats_cfg_martigny_not_active_data(data):
+    """Load not active statistics configuration of martigny organisation."""
+    return deepcopy(data.get('stats_cfg11'))
+
+
+@pytest.fixture(scope="module")
+def stats_cfg_martigny_not_active(
+        app,
+        stats_cfg_martigny_not_active_data,
+        system_librarian_martigny):
+    """Create stats_cfg of martigny organisation."""
+    stats_cfg = StatConfiguration.create(
+        data=stats_cfg_martigny_not_active_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(StatsConfigurationSearch.Meta.index)
+    yield stats_cfg
+
+
+@pytest.fixture(scope="module")
+def stats_cfg_martigny_yearly_data(data):
+    """Load statistics configuration of martigny organisation.
+
+    Frequency of report: yearly
+    """
+    return deepcopy(data.get('stats_cfg12'))
+
+
+@pytest.fixture(scope="module")
+def stats_cfg_martigny_yearly(
+        app,
+        stats_cfg_martigny_yearly_data,
+        system_librarian_martigny):
+    """Create stats_cfg of martigny organisation."""
+    stats_cfg = StatConfiguration.create(
+        data=stats_cfg_martigny_yearly_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(StatsConfigurationSearch.Meta.index)
+    yield stats_cfg
+
+
+@pytest.fixture(scope="module")
 def stats_cfg_sion_data(data):
     """Load statistics configuration of sion organisation."""
     return deepcopy(data.get('stats_cfg2'))

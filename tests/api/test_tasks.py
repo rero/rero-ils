@@ -46,6 +46,8 @@ from rero_ils.modules.patrons.tasks import \
     check_patron_types_and_add_subscriptions
 from rero_ils.modules.patrons.tasks import clean_obsolete_subscriptions, \
     task_clear_and_renew_subscriptions
+from rero_ils.modules.stats.api import Stat
+from rero_ils.modules.stats.tasks import collect_stats_report
 from rero_ils.modules.utils import add_years, get_ref_for_pid
 
 
@@ -342,3 +344,33 @@ def test_expired_request_task(
     loan2 = Loan.get_record_by_pid(loan2.pid)
     assert loan['state'] == LoanState.CANCELLED
     assert loan2['state'] == LoanState.ITEM_AT_DESK
+
+
+def test_stats_report_task(stats_cfg_martigny,
+                           stats_cfg_martigny_not_active,
+                           stats_cfg_sion,
+                           stats_cfg_martigny_yearly):
+    """Test the task to create statistics reports."""
+    task_result = collect_stats_report()
+    if datetime.today().day == 1:
+        # montly report
+        if datetime.today().month != 1:
+            assert task_result == \
+                'New statistics of type report has been created'\
+                ' with pids: 1, 2.'
+            stat_report1 = Stat.get_record_by_pid('1')
+            stat_report2 = Stat.get_record_by_pid('2')
+            assert stat_report1.get('type') == 'report'
+            assert stat_report1['config'].get('pid') == 'stats_cfg1'
+            assert stat_report2.get('type') == 'report'
+            assert stat_report2['config'].get('pid') == 'stats_cfg2'
+        # yearly report
+        else:
+            assert task_result == \
+                'New statistics of type report has been created'\
+                ' with pids: 1, 2, 3.'
+            stat_report3 = Stat.get_record_by_pid('3')
+            assert stat_report3.get('type') == 'report'
+            assert stat_report3['config'].get('pid') == 'stats_cfg12'
+    else:
+        assert not task_result

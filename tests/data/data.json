@@ -4896,5 +4896,45 @@
         ]
       }
     }
+  },
+  "stats_cfg11": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg11",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "month",
+    "is_active": false,
+    "category": {
+      "type": "circulation",
+      "indicator": {
+        "type": "number_of_ill_requests",
+        "distributions": [
+          "library"
+        ]
+      }
+    }
+  },
+  "stats_cfg12": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg12",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "year",
+    "is_active": true,
+    "category": {
+      "type": "circulation",
+      "indicator": {
+        "type": "number_of_ill_requests",
+        "distributions": [
+          "library"
+        ]
+      }
+    }
   }
 }

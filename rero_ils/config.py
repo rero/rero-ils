@@ -414,6 +414,11 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=30, hour=1, day_of_month='1'),  # First day of the month at 01:30 UTC,
         'enabled': False
     },
+    'collect-stats-report': {
+        'task': ('rero_ils.modules.stats.tasks.collect_stats_report'),
+        'schedule': crontab(minute=0, hour=2, day_of_month='1'),  # First day of the month at 02:00 UTC,
+        'enabled': False
+    },
     'replace-idby-contribution': {
         'task': ('rero_ils.modules.documents.tasks.replace_idby_contribution'),
         'schedule': crontab(minute=5, hour=2, day_of_week=6),

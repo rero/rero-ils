@@ -17,7 +17,6 @@
 
 """Click command-line interface for operation logs."""
 
-
 from pprint import pprint
 
 import arrow
@@ -26,7 +25,8 @@ from dateutil.relativedelta import relativedelta
 from flask import current_app
 from flask.cli import with_appcontext
 
-from rero_ils.modules.stats.api import Stat, StatsForLibrarian, StatsForPricing
+from rero_ils.modules.stats.api import Stat, StatsForLibrarian, \
+    StatsForPricing, StatsReport
 
 
 @click.group()
@@ -184,3 +184,18 @@ def collect_year(year, timespan, n_months, force):
                             New pid: {stat.pid}', fg='green')
 
         return
+
+
+@stats.command('report')
+@click.argument('pid', type=str)
+@with_appcontext
+def report_from_config(pid):
+    """Create statistics report for a configuration.
+
+    :param pid: statistics configuration pid
+    """
+    with current_app.app_context():
+        stat = StatsReport().create(pid, dbcommit=True, reindex=True)
+        click.secho(
+            f'Statistics report has been created for configuration pid {pid}. '
+            f'New report pid: {stat.pid}.', fg='green')

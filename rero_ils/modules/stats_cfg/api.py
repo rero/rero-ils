@@ -50,6 +50,13 @@ class StatsConfigurationSearch(IlsRecordsSearch):
 
         default_filter = None
 
+    def get_active_stats_configurations():
+        """Get active statistics configurations.
+
+        :returns: active statistics configurations
+        """
+        return StatsConfigurationSearch().filter('term', is_active=True).scan()
+
 
 class StatConfiguration(IlsRecord):
     """Statistics configuration class."""
