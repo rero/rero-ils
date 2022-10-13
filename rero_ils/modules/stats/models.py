@@ -46,3 +46,40 @@ class StatType:
 
     BILLING = 'billing'
     LIBRARIAN = 'librarian'
+    REPORT = 'report'
+
+
+class StatIndicators:
+    """Indicators of statistics reports."""
+
+    NUMBER_OF_DOCUMENTS = 'number_of_documents'
+    NUMBER_OF_SERIAL_HOLDINGS = 'number_of_serial_holdings'
+    NUMBER_OF_ITEMS = 'number_of_items'
+    NUMBER_OF_PATRONS = 'number_of_patrons'
+    NUMBER_OF_ACTIVE_PATRONS = 'number_of_active_patrons'
+    NUMBER_OF_ILL_REQUESTS = 'number_of_ill_requests'
+    NUMBER_OF_DELETED_ITEMS = 'number_of_deleted_items'
+    NUMBER_OF_CHECKINS = 'number_of_checkins'
+    NUMBER_OF_CHECKOUTS = 'number_of_checkouts'
+    NUMBER_OF_RENEWALS = 'number_of_renewals'
+    NUMBER_OF_REQUESTS = 'number_of_requests'
+
+
+class StatDistributions:
+    """Distributions of statistics reports."""
+
+    DOCUMENT_TYPE = 'document_type'
+    GENDER = 'gender'
+    IMPORTED = 'imported'
+    ITEM_LOCATION = 'item_location'
+    ITEM_OWNING_LIBRARY = 'item_owning_library'
+    LIBRARY = 'library'
+    LOCATION = 'location'
+    PATRON_POSTAL_CODE = 'patron_postal_code'
+    PATRON_TYPE = 'patron_type'
+    ROLE = 'role'
+    STATUS = 'status'
+    TIME_RANGE_MONTH = 'time_range_month'
+    TIME_RANGE_YEAR = 'time_range_year'
+    TYPE = 'type'
+    TRANSACTION_CHANNEL = 'transaction_channel'

@@ -87,6 +87,12 @@ class Location(IlsRecord):
         return True
 
     @classmethod
+    def get_all(cls):
+        """Get all locations."""
+        for id_ in cls.get_all_ids():
+            yield cls.get_record(id_)
+
+    @classmethod
     def get_pickup_location_pids(cls, patron_pid=None, item_pid=None):
         """Return pickup locations."""
         from ..items.api import Item

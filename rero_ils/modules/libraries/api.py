@@ -132,6 +132,12 @@ class Library(IlsRecord):
             .source(['pid']) \
             .scan()
 
+    @classmethod
+    def get_all(cls):
+        """Get all libraries."""
+        for id_ in cls.get_all_ids():
+            yield cls.get_record(id_)
+
     def get_pickup_locations_pids(self):
         """Returns libraries all pickup locations pids."""
         for location in self._pickup_location_query():

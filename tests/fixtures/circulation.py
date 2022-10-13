@@ -1606,6 +1606,25 @@ def ill_request_sion(app, loc_public_sion, patron_sion,
     return illr
 
 
+@pytest.fixture(scope="module")
+def ill_request_martigny3_data(data):
+    """Load ill request for Martigny location."""
+    return deepcopy(data.get('illr4'))
+
+
+@pytest.fixture(scope="module")
+def ill_request_martigny3(app, loc_public_martigny, patron_martigny,
+                          ill_request_martigny3_data):
+    """Create ill request for Martigny location."""
+    illr = ILLRequest.create(
+        data=ill_request_martigny3_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(ILLRequestsSearch.Meta.index)
+    return illr
+
+
 # ------------ users  ----------
 @pytest.fixture(scope="module")
 def user_data_tmp(data):

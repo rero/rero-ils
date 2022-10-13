@@ -4548,6 +4548,22 @@
       "$ref": "https://bib.rero.ch/api/locations/loc1"
     }
   },
+  "illr4": {
+    "$schema": "https://bib.rero.ch/schemas/ill_requests/ill_request-v0.0.1.json",
+    "pid": "illr4",
+    "status": "pending",
+    "copy": true,
+    "document": {
+      "title": "Python3.9"
+    },
+    "pages": "1-120",
+    "patron": {
+      "$ref": "https://bib.rero.ch/api/patrons/ptrn6"
+    },
+    "pickup_location": {
+      "$ref": "https://bib.rero.ch/api/locations/loc1"
+    }
+  },
   "coll_martigny_1": {
     "pid": "coll_martigny_1",
     "collection_id": "CRS 1",
@@ -4717,6 +4733,165 @@
         "type": "number_of_documents",
         "distributions": [
           "time_range_month",
+          "library"
+        ]
+      }
+    }
+  },
+  "stats_cfg3": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg3",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "month",
+    "is_active": true,
+    "category": {
+      "type": "catalogue",
+      "indicator": {
+        "type": "number_of_documents"
+      }
+    }
+  },
+  "stats_cfg4": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg4",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "month",
+    "is_active": true,
+    "category": {
+      "type": "catalogue",
+      "indicator": {
+        "type": "number_of_documents",
+        "distributions": [
+          "library"
+        ]
+      }
+    }
+  },
+  "stats_cfg5": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg5",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "month",
+    "is_active": true,
+    "category": {
+      "type": "catalogue",
+      "indicator": {
+        "type": "number_of_items",
+        "distributions": [
+          "library",
+          "location"
+        ]
+      }
+    }
+  },
+  "stats_cfg6": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg6",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "month",
+    "is_active": true,
+    "category": {
+      "type": "catalogue",
+      "indicator": {
+        "type": "number_of_items",
+        "distributions": [
+          "time_range_month",
+          "time_range_year"
+        ]
+      }
+    }
+  },
+  "stats_cfg7": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg7",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "month",
+    "is_active": true,
+    "category": {
+      "type": "user_management",
+      "indicator": {
+        "type": "number_of_patrons",
+        "distributions": [
+          "role"
+        ]
+      }
+    }
+  },
+  "stats_cfg8": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg8",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "month",
+    "is_active": true,
+    "category": {
+      "type": "circulation",
+      "indicator": {
+        "type": "number_of_checkins",
+        "distributions": [
+          "library"
+        ]
+      }
+    }
+  },
+  "stats_cfg9": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg9",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "month",
+    "is_active": true,
+    "category": {
+      "type": "catalogue",
+      "indicator": {
+        "type": "number_of_serial_holdings",
+        "distributions": [
+          "library"
+        ]
+      }
+    }
+  },
+  "stats_cfg10": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json",
+    "pid": "stats_cfg10",
+    "name": "Statistics configuration for organisation 1",
+    "description": "test",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "frequency": "month",
+    "is_active": true,
+    "category": {
+      "type": "circulation",
+      "indicator": {
+        "type": "number_of_ill_requests",
+        "distributions": [
           "library"
         ]
       }
