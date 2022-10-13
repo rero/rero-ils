@@ -37,7 +37,8 @@ librarian_permission = Permission(
     RoleNeed(UserRole.USER_MANAGER),
     RoleNeed(UserRole.LIBRARY_ADMINISTRATOR),
     RoleNeed(UserRole.ACQUISITION_MANAGER),
-    RoleNeed(UserRole.FULL_PERMISSIONS)
+    RoleNeed(UserRole.FULL_PERMISSIONS),
+    RoleNeed(UserRole.STATISTICS_MANAGER)
 )
 admin_permission = Permission(RoleNeed('admin'))
 editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))

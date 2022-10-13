@@ -4705,5 +4705,35 @@
     "city": "Washington, D.C.",
     "home_phone": "+012024561414",
     "keep_history": true
+  },
+  "stats_cfg1": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json",
+    "pid": "stats_cfg1",
+    "dist1": "time_range_month",
+    "dist2": "library",
+    "frequency": "month",
+    "indicator": "number_of_documents",
+    "description": "test",
+    "name": "Statistics configuration for organisation 1",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "category": "catalogue",
+    "status": "enabled"
+  },
+  "stats_cfg2": {
+    "$schema": "https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json",
+    "pid": "stats_cfg2",
+    "dist1": "time_range_month",
+    "dist2": "library",
+    "frequency": "month",
+    "indicator": "number_of_documents",
+    "description": "test",
+    "name": "Statistics configuration for organisation 2",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org2"
+    },
+    "category": "catalogue",
+    "status": "enabled"
   }
 }

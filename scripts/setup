@@ -248,6 +248,7 @@ eval ${PREFIX} "invenio roles create -d 'Professional: Library administrator' pr
 eval ${PREFIX} "invenio roles create -d 'Professional: User manager' pro_user_manager"
 eval ${PREFIX} "invenio roles create -d 'Documentation Editor' editor"
 eval ${PREFIX} "invenio roles create -d 'Document Importing' document_importer"
+eval ${PREFIX} "invenio roles create -d 'Professional: Statistics manager' pro_statistics_manager"
 
 info_msg "Create action roles policies"
 eval ${PREFIX} "invenio reroils fixtures import_system_role_policies data/system_role_policies.json"
@@ -327,6 +328,10 @@ eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v 
 info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
 eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
 eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
+
+info_msg "- Statistics configurations: ${DATA_PATH}/stats_cfg.json"
+eval ${PREFIX} invenio reroils fixtures create --pid_type stacfg ${DATA_PATH}/stats_cfg.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t stacfg --yes-i-know
 
 #: - xml to json transformation for rero marcxml --------------------------------
 #: don't forget to recreat the documents json schema files:
