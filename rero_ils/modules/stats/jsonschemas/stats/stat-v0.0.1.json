@@ -22,12 +22,18 @@
       "type": "string",
       "enum": [
         "billing",
-        "librarian"
+        "librarian",
+        "report"
       ]
     },
     "date_range": {
       "title": "Statistics date range",
       "type": "object"
+    },
+    "config_pid": {
+      "title": "Report configuration pid.",
+      "type": "string",
+      "minLength": 1
     },
     "pid": {
       "title": "Stat ID.",

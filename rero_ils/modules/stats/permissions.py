@@ -19,14 +19,15 @@
 
 from functools import wraps
 
+from elasticsearch_dsl.query import Q
 from flask import abort
 from flask_login import current_user
 
-from rero_ils.modules.permissions import RecordPermission
-
-from .api import StatsForLibrarian
-from ..permissions import record_permission_factory
-from ...permissions import admin_permission, librarian_permission, \
+from rero_ils.modules.patrons.api import current_librarian
+from rero_ils.modules.permissions import RecordPermission, \
+    record_permission_factory
+from rero_ils.modules.stats_cfg.api import StatsCfgSearch
+from rero_ils.permissions import admin_permission, librarian_permission, \
     monitoring_permission
 
 
@@ -60,9 +61,17 @@ class StatPermission(RecordPermission):
         if not (admin_permission.require().can() or
                 monitoring_permission.require().can()):
             if librarian_permission.require().can():
-                if 'type' not in record or record['type'] != 'librarian':
+                if 'type' not in record or record['type'] == 'billing':
                     return False
-                record = filter_stat_by_librarian(record)
+                elif record['type'] == 'librarian':
+                    record = filter_stat_by_librarian(record)
+                else:
+                    if not current_librarian.is_system_librarian:
+                        return False
+                    org_pid = current_librarian.organisation_pid
+                    if record['values']:
+                        if not record['values'][0]['org_pid'] == org_pid:
+                            return False
 
         return admin_permission.require().can() \
             or monitoring_permission.require().can() \
@@ -111,6 +120,8 @@ def filter_stat_by_librarian(record):
     :param record: statistics to check.
     :return: statistics filtered by libraries.
     """
+    from rero_ils.modules.stats.api import StatsForLibrarian
+
     library_pids = StatsForLibrarian.get_librarian_library_pids()
     record['values'] = list(filter(lambda lib: lib['library']['pid'] in
                             library_pids, record['values']))
@@ -147,3 +158,25 @@ def check_logged_as_librarian(fn):
             abort(403)
         return fn(*args, **kwargs)
     return wrapper
+
+
+def permission_filter():
+    """Permission filter.
+
+    Display only stats reports for the current system librarian organisation
+    or stats type librarian.
+    """
+    if current_librarian:
+        if current_librarian.is_system_librarian:
+            org_pid = current_librarian.organisation_pid
+            search = StatsCfgSearch()\
+                .filter('term', org_pid=org_pid)\
+                .source(['pid'])\
+                .scan()
+            config_pids = [s['pid'] for s in search]
+            return [Q('terms', config_pid=config_pids)
+                    | Q('term', type='librarian')]
+        else:
+            return [Q('term', type='librarian')]
+
+    return None

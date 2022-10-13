@@ -7,10 +7,13 @@
         "type": "keyword"
       },
       "type": {
-        "type": "text"
+        "type": "keyword"
       },
       "date_range": {
         "type": "object"
+      },
+      "config_pid": {
+        "type": "keyword"
       },
       "pid": {
         "type": "keyword"

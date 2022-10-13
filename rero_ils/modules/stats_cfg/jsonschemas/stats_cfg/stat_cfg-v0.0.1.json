@@ -1,0 +1,149 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Statistics report configuration",
+  "description": "JSON schema for statistics report configuration.",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "indicator",
+    "dist1",
+    "dist2",
+    "librarian_pid",
+    "org_pid",
+    "category",
+    "period",
+    "frequency",
+    "description",
+    "name",
+    "status"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate stats cfg records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Stat ID.",
+      "type": "string",
+      "minLength": 1
+    },
+    "indicator": {
+      "title": "Statistics indicator",
+      "type": "string",
+      "enum": [
+        "number_of_checkouts",
+        "number_of_checkins",
+        "number_of_renewals",
+        "number_of_requests",
+        "number_of_documents",
+        "number_of_created_documents",
+        "number_of_items",
+        "number_of_created_items",
+        "number_of_deleted_items",
+        "number_of_holdings",
+        "number_of_created_holdings",
+        "number_of_patrons",
+        "number_of_active_patrons",
+        "number_of_ill_requests",
+        "number_of_notifications"
+      ]
+    },
+    "dist1": {
+      "title": "Statistics distribution 1",
+      "type": "string",
+      "enum": [
+        "time_range",
+        "library",
+        "location",
+        "type",
+        "patron_type",
+        "document_type",
+        "transaction_channel",
+        "pickup_location",
+        "holding_type",
+        "status",
+        "loan_status",
+        "local_code",
+        "role"
+      ]
+    },
+    "dist2": {
+      "title": "Statistics distribution 2",
+      "type": "string",
+      "enum": [
+        "time_range",
+        "library",
+        "location",
+        "type",
+        "patron_type",
+        "document_type",
+        "transaction_channel",
+        "pickup_location",
+        "holding_type",
+        "status",
+        "loan_status",
+        "local_code",
+        "role"
+      ]
+    },
+    "librarian_pid": {
+      "title": "System librarian pid, the creator of the configuration.",
+      "type": "string",
+      "minLength": 1
+    },
+    "org_pid": {
+      "title": "Organisation pid of the system librarian.",
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "title": "Category of the statistics report configuration.",
+      "type": "string",
+      "minLength": 1
+    },
+    "period": {
+      "title": "Time interval for the statistics report.",
+      "type": "string",
+      "enum": [
+        "month",
+        "year"
+      ]
+    },
+    "frequency": {
+      "title": "Frequency at which is created the statistics report.",
+      "type": "string",
+      "enum": [
+        "month",
+        "year"
+      ]
+    },
+    "description": {
+      "title": "Description of the statistics report configuration.",
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "title": "Name of the statistics report configuration.",
+      "type": "string",
+      "minLength": 1
+    },
+    "filters": {
+      "title": "Fiters of the statistics report.",
+      "type": "object"
+    },
+    "status": {
+      "title": "Status of the configuration.",
+      "type": "string",
+      "enum": [
+        "active",
+        "disabled"
+      ]
+    }
+  }
+}
+  

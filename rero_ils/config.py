@@ -115,6 +115,8 @@ from .modules.permissions import record_permission_factory
 from .modules.selfcheck.permissions import seflcheck_permission_factory
 from .modules.stats.api import Stat
 from .modules.stats.permissions import StatPermission
+from .modules.stats_cfg.api import Stat_cfg
+from .modules.stats_cfg.permissions import StatCfgPermission
 from .modules.templates.api import Template
 from .modules.templates.permissions import TemplatePermission
 from .modules.users.api import get_profile_countries, \
@@ -408,6 +410,11 @@ CELERY_BEAT_SCHEDULE = {
     'collect-stats-librarian': {
         'task': ('rero_ils.modules.stats.tasks.collect_stats_librarian'),
         'schedule': crontab(minute=30, hour=1, day_of_month='1'),  # First day of the month at 01:30 UTC,
+        'enabled': False
+    },
+    'collect-stats-report': {
+        'task': ('rero_ils.modules.stats.tasks.collect_stats_report'),
+        'schedule': crontab(minute=00, hour=4, day_of_month='1'),  # First day of the month at 04:00 UTC,
         'enabled': False
     },
     'replace-idby-contribution': {
@@ -835,6 +842,43 @@ RECORDS_REST_ENDPOINTS = dict(
             action='update', record=record, cls=StatPermission),
         delete_permission_factory_imp=lambda record: record_permission_factory(
             action='delete', record=record, cls=StatPermission)
+    ),
+    stacfg=dict(
+        pid_type='stacfg',
+        pid_minter='stat_cfg_id',
+        pid_fetcher='stat_cfg_id',
+        search_class='rero_ils.modules.stats_cfg.api:StatsCfgSearch',
+        search_index='stats_cfg',
+        indexer_class='rero_ils.modules.stats_cfg.api:StatsCfgIndexer',
+        search_type=None,
+        record_serializers={
+            'application/json': 'rero_ils.modules.serializers:json_v1_response'
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
+        search_serializers={
+            'application/json': 'rero_ils.modules.serializers:json_v1_search'
+        },
+        list_route='/stats_cfg/',
+        record_loaders={
+            'application/json': lambda: Stat_cfg(request.get_json()),
+        },
+        record_class='rero_ils.modules.stats_cfg.api:Stat_cfg',
+        item_route=('/stats_cfg/<pid(stacfg, record_class='
+                    '"rero_ils.modules.stats_cfg.api:Stat_cfg"):pid_value>'),
+        default_media_type='application/json',
+        max_result_window=MAX_RESULT_WINDOW,
+        list_permission_factory_imp=lambda record: record_permission_factory(
+            action='list', record=record, cls=StatCfgPermission),
+        read_permission_factory_imp=lambda record: record_permission_factory(
+            action='read', record=record, cls=StatCfgPermission),
+        create_permission_factory_imp=lambda record: record_permission_factory(
+            action='create', record=record, cls=StatCfgPermission),
+        update_permission_factory_imp=lambda record: record_permission_factory(
+            action='update', record=record, cls=StatCfgPermission),
+        delete_permission_factory_imp=lambda record: record_permission_factory(
+            action='delete', record=record, cls=StatCfgPermission)
     ),
     hold=dict(
         pid_type='hold',
@@ -2811,6 +2855,7 @@ RERO_ILS_DEFAULT_JSON_SCHEMA = {
     'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json',
     'ptrn': '/patrons/patron-v0.0.1.json',
     'stat': '/stats/stat-v0.0.1.json',
+    'stacfg': '/stats_cfg/stat_cfg-v0.0.1.json',
     'tmpl': '/templates/template-v0.0.1.json',
     'oplg': '/operation_logs/operation_log-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',

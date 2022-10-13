@@ -83,8 +83,7 @@
         }
       },
       "holdings_type": {
-        "type": "text",
-        "analyzer": "custom_keyword"
+        "type": "keyword"
       },
       "patterns": {
         "properties": {

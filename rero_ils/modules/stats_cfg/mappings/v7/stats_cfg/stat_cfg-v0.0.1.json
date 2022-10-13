@@ -1,0 +1,57 @@
+{
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "indicator": {
+        "type": "keyword"
+      },
+      "dist1": {
+        "type": "keyword"
+      },
+      "dist2": {
+        "type": "keyword"
+      },
+      "librarian_pid": {
+        "type": "keyword"
+      },
+      "org_pid": {
+        "type": "keyword"
+      },
+      "category": {
+        "type": "keyword"
+      },
+      "period": {
+        "type": "keyword"
+      },
+      "frequency": {
+        "type": "keyword"
+      },
+      "description": {
+        "type": "text"
+      },
+      "name": {
+        "type": "text"
+      },
+      "filters": {
+        "type": "object",
+        "enabled": false
+      },
+      "status": {
+        "type": "keyword"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}
