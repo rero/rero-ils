@@ -51,6 +51,7 @@ from rero_ils.modules.stats.exceptions import NotActiveStatConfigException, \
 from rero_ils.modules.stats.extensions import StatisticsDumperExtension
 from rero_ils.modules.stats.models import StatDistributions, StatIdentifier, \
     StatIndicators, StatMetadata
+from rero_ils.modules.stats.utils import swap_distributions_required
 from rero_ils.modules.stats_cfg.api import StatConfiguration
 from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import extracted_data_from_ref
@@ -985,20 +986,6 @@ class StatsReport:
 
         return results
 
-    def _swap_distributions(self, dist1, dist2):
-        """Re-arrange dist1 and dist2.
-
-        :param dist1: distribution1
-        :param dist2: distribution2
-        """
-        if dist1 in [StatDistributions.TIME_RANGE_MONTH,
-                     StatDistributions.TIME_RANGE_YEAR] and dist2:
-            self.config['dist1'] = dist2
-            self.config['dist2'] = dist1
-        elif dist2 == 'library':
-            self.config['dist1'] = dist2
-            self.config['dist2'] = dist1
-
     def _query_aggs(self, query, fields):
         """Create aggregations and execute query.
 
@@ -1014,9 +1001,11 @@ class StatsReport:
         library_pids = self.config['library_pids']
         org_pid = self.config['org_pid']
 
-        self._swap_distributions(dist1, dist2)
-        dist1 = self.config['dist1']
-        dist2 = self.config['dist2']
+        dists = [dist1, dist2]
+        if swap_distributions_required(dists):
+            self.config['dist2'], self.config['dist1'] = dists
+            dist1 = self.config['dist1']
+            dist2 = self.config['dist2']
 
         if dist1:
             field1 = fields[dist1]
