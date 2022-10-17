@@ -98,6 +98,7 @@ sentry-sdk = "<1.6.1"
 dparse = ">=0.5.2"
 Mako = ">=1.2.2"
 rero-invenio-base = "^0.1.0"
+jsonref = "0.3.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)

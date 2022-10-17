@@ -3407,7 +3407,7 @@ sip2 = ["invenio-sip2"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">= 3.9, <3.10"
-content-hash = "eb5012544e99839f6c32a27c2aa70a67d4aef9fcad4da5883e849082efcd38bf"
+content-hash = "e944e3a3658c9cb5fa720234c30e172dfc1d2af9e13adfb5afcc49e7db98aaec"
 
 [metadata.files]
 alabaster = [
@@ -3776,7 +3776,6 @@ flask-kvsession-invenio = [
 flask-limiter = [
     {file = "Flask-Limiter-1.1.0.tar.gz", hash = "sha256:905c35cd87bf60c92fd87922ae23fe27aa5fb31980bab31fc00807adee9f5a55"},
     {file = "Flask_Limiter-1.1.0-py2-none-any.whl", hash = "sha256:9087984ae7eeb862f93bf5b18477a5e5b1e0c907647ae74fba1c7e3f1de63d6f"},
-    {file = "Flask_Limiter-1.1.0-py2.7.egg", hash = "sha256:5831d6b5b9ef6a83dca4b89f216880a7aa204b5ce8b710b5bc02786bf21e11fd"},
 ]
 flask-login = [
     {file = "Flask-Login-0.4.1.tar.gz", hash = "sha256:c815c1ac7b3e35e2081685e389a665f2c74d7e077cb93cecabaea352da4752ec"},
@@ -4681,7 +4680,6 @@ requests = [
 requests-oauthlib = [
     {file = "requests-oauthlib-1.1.0.tar.gz", hash = "sha256:eabd8eb700ebed81ba080c6ead96d39d6bdc39996094bd23000204f6965786b0"},
     {file = "requests_oauthlib-1.1.0-py2.py3-none-any.whl", hash = "sha256:be76f2bb72ca5525998e81d47913e09b1ca8b7957ae89b46f787a79e68ad5e61"},
-    {file = "requests_oauthlib-1.1.0-py3.7.egg", hash = "sha256:490229d14a98e1b69612dcc1a22887ec14f5487dc1b8c6d7ba7f77a42ce7347b"},
 ]
 rero-invenio-base = [
     {file = "rero-invenio-base-0.1.0.tar.gz", hash = "sha256:f4cb70dd0268c61d036da05a3b2f4fdbc4c8ebb00e6d7a72751f9fdd81279ed4"},
