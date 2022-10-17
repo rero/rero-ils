@@ -124,6 +124,7 @@ def test_document_and_holdings_serializers(
 def test_items_serializers(
     client,
     item_lib_martigny,  # on shelf
+    document,
     item_lib_fully,  # on loan
     csv_header,
     json_header,
@@ -207,6 +208,19 @@ def test_items_serializers(
     ]
     for field in fields:
         assert field in data
+
+    # test provisionActivity without type bf:Publication
+    document['provisionActivity'][0]['type'] = 'bf:Manufacture'
+    document.update(document, True, True, True)
+
+    list_url = url_for('api_item.inventory_search')
+    response = client.get(list_url, headers=csv_header)
+    assert response.status_code == 200
+    data = get_csv(response)
+    assert data
+
+    document['provisionActivity'][0]['type'] = 'bf:Publication'
+    document.update(document, True, True, True)
 
 
 def test_loans_serializers(

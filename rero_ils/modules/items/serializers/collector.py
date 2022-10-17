@@ -143,22 +143,25 @@ class Collecter():
                 for edition in edition_statement.get('_text', [])
             )
             # process provision activity
-            provision_activity = next(
-                filter(lambda x: x.get('type')
-                       == 'bf:Publication', data.get('provisionActivity'))
-            )
-            start_date = provision_activity.get('startDate', '')
-            end_date = provision_activity.get('endDate')
-            document_data['document_publication_year'] = \
-                f'{start_date} - {end_date}' \
-                if end_date else start_date
 
-            document_data['document_publisher'] = cls.separator.join(
-                data['value']
-                for stmt in provision_activity.get('statement', [])
-                for data in stmt.get('label', [])
-                if stmt['type'] == 'bf:Agent'
-            )
+            # we only use the first provision activity of type
+            # bf:publication
+            if any(
+                (provision_activity := prov).get('type' == 'bf:Publication')
+                for prov in data.get('provisionActivity', [])
+            ):
+                start_date = provision_activity.get('startDate', '')
+                end_date = provision_activity.get('endDate')
+                document_data['document_publication_year'] = \
+                    f'{start_date} - {end_date}' \
+                    if end_date else start_date
+
+                document_data['document_publisher'] = cls.separator.join(
+                    data['value']
+                    for stmt in provision_activity.get('statement', [])
+                    for data in stmt.get('label', [])
+                    if stmt['type'] == 'bf:Agent'
+                )
             return document_data
 
         doc_search = DocumentsSearch() \
