@@ -4164,7 +4164,7 @@ def test_marc21_to_part_of_without_link():
     ]
     assert data.get('work_access_point') == [{
         'agent': {
-            'preferred_name': 'Jacq, Christian.',
+            'preferred_name': 'Jacq, Christian',
             'type': 'bf:Person'
         },
         'title': 'Ramsès'
@@ -4326,13 +4326,13 @@ def test_marc21_to_part_of_with_multiple_800():
     ]
     assert data.get('work_access_point') == [{
         'agent': {
-            'preferred_name': 'Mirallés, Ana.',
+            'preferred_name': 'Mirallés, Ana',
             'type': 'bf:Person'
         },
         'title': 'A la recherche de la Licorne'
     }, {
         'agent': {
-            'preferred_name': 'Ruiz, Emilio.',
+            'preferred_name': 'Ruiz, Emilio',
             'type': 'bf:Person'
         },
         'title': 'A la recherche de la Licorne'
