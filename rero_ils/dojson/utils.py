@@ -1766,11 +1766,20 @@ class TitlePartList(object):
         :param subfield_data: part number or name depending of `subfield_code`
         :type subfield_data: str
         """
+        def remove_last_dot(value):
+            """Removes last dot from value if there are no other dots."""
+            if value.count('.') == 1:
+                value = value.rstrip('.')
+            return value
+
+        value_data = remove_last_dot(value_data)
         if self.part_number_waiting_name:
             if subfield_code == self.part_name_code:
                 self.part_list.append(
-                    dict(partNumber=self.part_number_waiting_name,
-                         partName=value_data)
+                    dict(
+                        partNumber=self.part_number_waiting_name,
+                        partName=value_data
+                        )
                 )
                 self.part_number_waiting_name = {}
             else:

@@ -123,11 +123,12 @@ def test_marc21_to_contribution(mock_get):
         'language': 'fre',
         'title': 'No morirás'
     }, {
+        'miscellaneous_information': 'language: Coréen',
         'part': [{
-            'partName': 'A.T. et N.T. :',
-            'partNumber': '000.'
+            'partName': 'A.T. et N.T.',
+            'partNumber': '000'
         }],
-        'title': 'Bible.'
+        'title': 'Bible'
     }]
 
     marc21xml = """

@@ -519,16 +519,14 @@ def build_agent(marc21, key, value):
     if value.get('a'):
         name = not_repetitive(
             marc21.bib_id, marc21.bib_id, key, value, 'a')
-        agent_data['preferred_name'] = remove_trailing_punctuation(
-            name)
+        agent_data['preferred_name'] = remove_trailing_punctuation(name)
     # 100|700|240 Person
     if key[:3] in ['100', '700']:
         agent_data['type'] = 'bf:Person'
         if value.get('a'):
             name = not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'a')
-            agent_data['preferred_name'] = remove_trailing_punctuation(
-                name)  # name.rstrip('.')
+            agent_data['preferred_name'] = remove_trailing_punctuation(name)
         if value.get('b'):
             numeration = not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'b')
@@ -564,10 +562,9 @@ def build_agent(marc21, key, value):
         agent_data['conference'] = key[:3] == '711'
         if value.get('b'):
             subordinate_units = [
-                subordinate_unit.rstrip('.')
+                remove_trailing_punctuation(subordinate_unit, ',.')
                 for subordinate_unit in utils.force_list(value.get('b'))
             ]
-
             agent_data['subordinate_unit'] = subordinate_units
         if value.get('n'):
             numbering = not_repetitive(
@@ -1635,55 +1632,83 @@ def do_work_access_point(marc21, key, value):
         title_tag = 't'
         agent['type'] = 'bf:Person'
         if value.get('a'):
-            agent['preferred_name'] = remove_trailing_punctuation(
-                not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'a'))
+            preferred_name = not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'a')
+            preferred_name = remove_trailing_punctuation(not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'a',
+                ',.'
+            )).rstrip('.')
+            agent['preferred_name'] = preferred_name
         if value.get('b'):
             agent['numeration'] = remove_trailing_punctuation(
                 not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'b'))
         if dates := not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'd'):
             split_dates = dates.split('-')
-            if date_of_birth := split_dates[0].strip():
+            if date_of_birth := split_dates[0].strip().rstrip('.'):
                 agent['date_of_birth'] = date_of_birth
             with contextlib.suppress(Exception):
-                if date_of_death := split_dates[1].strip():
+                if date_of_death := split_dates[1].strip().rstrip('.'):
                     agent['date_of_death'] = date_of_death
         if value.get('c'):
             agent['qualifier'] = remove_trailing_punctuation(
-                not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'c'))
+                not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'c')
+            ).rstrip('.')
     elif tag == '710':
         title_tag = 't'
         agent['type'] = 'bf:Organisation'
         agent['conference'] = False
         if value.get('a'):
-            agent['preferred_name'] = not_repetitive(
+            preferred_name = not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'a')
+            preferred_name = remove_trailing_punctuation(not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'a',
+                ',.'
+            )).rstrip('.')
+            agent['preferred_name'] = preferred_name
         if value.get('b'):
-            agent['subordinate_unit'] = list(utils.force_list(value.get('b')))
+            for subordinate_unit in list(utils.force_list(value.get('b'))):
+                subordinate_unit = remove_trailing_punctuation(
+                    subordinate_unit).rstrip('.')
+                agent.setdefault('subordinate_unit', [])
+                agent['subordinate_unit'].append(subordinate_unit)
+
     if agent:
         work_access_point['agent'] = agent
     if value.get(title_tag):
-        work_access_point['title'] = not_repetitive(
+        title = not_repetitive(
             marc21.bib_id, marc21.bib_id, key, value, title_tag)
+        work_access_point['title'] = remove_trailing_punctuation(
+            title, ',.').replace('\u009c', '')
     if value.get('f'):
         work_access_point['date_of_work'] = not_repetitive(
             marc21.bib_id, marc21.bib_id, key, value, 'f')
     if value.get('g'):
-        work_access_point['miscellaneous_information'] = not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, 'g')
+        work_access_point['miscellaneous_information'] = \
+            remove_trailing_punctuation(not_repetitive(
+                marc21.bib_id, marc21.bib_id, key, value, 'g'), ',.')
     if value.get('l'):
         language = not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, 'l')
+            marc21.bib_id, marc21.bib_id, key, value, 'l'
+        ).lstrip('(').rstrip('.').rstrip(')')
         lang = language
-        if lang not in _LANGUAGES:
-            # try to get alpha3 language:
-            if iso_language := find(language):
+        if language not in _LANGUAGES:
+            if len(language.split('-')) > 1 or language == 'mehrsprachig':
+                lang = 'mul'
+            elif iso_language := find(language):
                 lang = iso_language.get('iso639_2_b')
         if lang in _LANGUAGES:
             work_access_point['language'] = lang
-        else:
+        if lang == 'mul' or lang not in _LANGUAGES:
             error_print('WARNING WORK ACCESS POINT LANGUAGE:', marc21.bib_id,
                         marc21.rero_id, language)
+            if miscellaneous_information := work_access_point.get(
+                    'miscellaneous_information'):
+                work_access_point['miscellaneous_information'] = \
+                    f'{miscellaneous_information} | language: {language}'
+            else:
+                work_access_point['miscellaneous_information'] = \
+                    f'language: {language}'
     part_list = TitlePartList(part_number_code='n', part_name_code='p')
     items = get_field_items(value)
     index = 1
@@ -1693,10 +1718,15 @@ def do_work_access_point(marc21, key, value):
         if blob_key != '__order__':
             index += 1
     if the_part_list := part_list.get_part_list():
+        for part in the_part_list:
+            if part_name := part.get('partName'):
+                part['partName'] = remove_trailing_punctuation(part_name)
         work_access_point['part'] = the_part_list
     if value.get('k'):
-        work_access_point['form_subdivision'] = list(
-            utils.force_list(value.get('k')))
+        for form_subdivision in list(utils.force_list(value.get('k'))):
+            work_access_point.setdefault('form_subdivision', [])
+            work_access_point['form_subdivision'].append(
+                remove_trailing_punctuation(form_subdivision, ',.'))
     if value.get('m'):
         work_access_point['medium_of_performance_for_music'] = list(
             utils.force_list(value.get('m')))
@@ -1704,8 +1734,10 @@ def do_work_access_point(marc21, key, value):
         work_access_point['arranged_statement_for_music'] = not_repetitive(
             marc21.bib_id, marc21.bib_id, key, value, 'o')
     if value.get('r'):
-        work_access_point['key_for_music'] = not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, 'r')
+        work_access_point['key_for_music'] = remove_trailing_punctuation(
+            not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'r'),
+            ',.'
+        )
     if identifier := build_identifier(value):
         agent['identifiedBy'] = identifier
 
@@ -1729,7 +1761,9 @@ def do_work_access_point_240(marc21, key, value):
     part_selection = {'n', 'p'}
     for blob_key, blob_value in get_field_items(value):
         if blob_key in {'a'}:
-            work_access_points['title'] = blob_value
+            title = remove_trailing_punctuation(
+                blob_value.replace('\u009c', ''))
+            work_access_points['title'] = title
 
         if blob_key in part_selection:
             part_list.update_part(blob_value, blob_key, blob_value)
@@ -1901,7 +1935,7 @@ def do_temporal_coverage(marc21, key, value):
         elif date[0] == 'd':
             date = f'+{date[1:]}'
         else:
-            date = f'-{date}'
+            date = f'+{date}'
         date_str = date[0]
         year = date[1:5]
         if test_min_max(year, 0, 9999):
