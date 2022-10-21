@@ -201,8 +201,7 @@ def test_documents_facets(
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
     aggs = data['aggregations']
-    assert set(aggs.keys()) == {'document_type',
-                                'library', 'author'}
+    assert set(aggs.keys()) == {'document_type', 'library', 'author'}
 
     # TEST FILTERS
     #   Each filter checks is a tuple. First tuple element is argument used to

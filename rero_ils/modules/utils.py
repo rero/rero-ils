@@ -248,7 +248,8 @@ def get_endpoint_configuration(module):
     if not isinstance(module, str):
         # Get the pid_type for the class
         module = module.provider.pid_type
-    endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS', {})
+    endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS', {}) | \
+        current_app.config.get('CIRCULATION_REST_ENDPOINTS', {})
     for idx, endpoint in endpoints.items():
         search_index = endpoint.get('search_index')
         if search_index == module or idx == module:

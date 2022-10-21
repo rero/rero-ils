@@ -35,6 +35,9 @@
           }
         }
       },
+      "category": {
+        "type": "keyword"
+      },
       "type": {
         "type": "keyword"
       },
@@ -43,6 +46,26 @@
       },
       "note": {
         "type": "text"
+      },
+      "owning_library": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "owning_location": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
       },
       "library": {
         "properties": {
@@ -55,6 +78,16 @@
         }
       },
       "patron": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "patron_type": {
         "properties": {
           "pid": {
             "type": "keyword"

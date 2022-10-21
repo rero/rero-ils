@@ -573,6 +573,13 @@ class Loan(IlsRecord):
         return self.get('item_pid', {})
 
     @property
+    def item(self):
+        """Return the `Item` related to this loan."""
+        from rero_ils.modules.items.api import Item
+        if pid := self.item_pid:
+            return Item.get_record_by_pid(pid)
+
+    @property
     def patron_pid(self):
         """Shortcut for patron pid."""
         return self.get('patron_pid')
@@ -596,11 +603,8 @@ class Loan(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid for loan."""
-        from ..items.api import Item
-        if item_pid := self.item_pid:
-            item = Item.get_record_by_pid(item_pid)
+        if item := self.item:
             return item.organisation_pid
-        # return None
         raise IlsRecordError.PidDoesNotExist(
             self.provider.pid_type,
             'organisation_pid:item_pid'
@@ -628,12 +632,9 @@ class Loan(IlsRecord):
     @property
     def location_pid(self):
         """Get loan transaction_location PID or item owning location."""
-        from ..items.api import Item
         location_pid = self.get('transaction_location_pid')
-        item_pid = self.item_pid
-
-        if not location_pid and item_pid:
-            return Item.get_record_by_pid(item_pid).holding_location_pid
+        if not location_pid and (item := self.item):
+            return item.holding_location_pid
         elif location_pid:
             return location_pid
         return IlsRecordError.PidDoesNotExist(
@@ -748,7 +749,6 @@ class Loan(IlsRecord):
 
     def dumps_for_circulation(self):
         """Dumps for circulation."""
-        from ..items.api import Item
         loan = self.replace_refs()
         data = loan.dumps()
         data['creation_date'] = self.created
@@ -767,9 +767,9 @@ class Loan(IlsRecord):
                 'library_name': location.get_library().get('name')
             }
 
-        # Always add item destination readable informations if item state is
-        # 'in transit' ; much more easier to know these informations for UI !
-        item = Item.get_record_by_pid(self.item_pid)
+        # Always add item destination readable information if item state is
+        # 'in transit' ; much easier to know these informations for UI !
+        item = self.item
         data['rank'] = item.patron_request_rank(patron)
         if item.status == ItemStatus.IN_TRANSIT:
             destination_loc_pid = item.location_pid
@@ -808,9 +808,9 @@ class Loan(IlsRecord):
                 Each tuple is composed by 2 elements : the loan object, and the
                 related notification type.
         """
-        from ..items.api import Item
+        from rero_ils.modules.items.api import Item
         candidates = []
-        item = Item.get_record_by_pid(self.item_pid)
+        item = self.item
         # Get the list of requests pids for the related item and exclude myself
         # from the result list.
         requests = item.get_requests(output='pids')

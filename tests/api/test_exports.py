@@ -22,6 +22,8 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_csv, parse_csv
 
+from rero_ils.modules.utils import get_ref_for_pid
+
 
 def test_loans_exports(app, client, librarian_martigny,
                        loan_pending_martigny, loan2_validated_martigny):
@@ -39,7 +41,7 @@ def test_loans_exports(app, client, librarian_martigny,
     assert res.status_code == 200
     data = list(parse_csv(get_csv(res)))
 
-    header = data[0]
+    header = data.pop(0)
     header_columns = [
         'pid', 'document_title', 'item_barcode', 'item_call_numbers',
         'patron_name', 'patron_barcode', 'patron_email', 'patron_type',
@@ -47,4 +49,41 @@ def test_loans_exports(app, client, librarian_martigny,
         'state', 'end_date', 'request_expire_date'
     ]
     assert all(field in header for field in header_columns)
-    assert len(data) == 3
+    assert len(data) == 2
+
+
+def test_patron_transaction_events_exports(
+    app, client, librarian_martigny,
+    patron_transaction_overdue_event_martigny,
+
+):
+    """Test patron transaction events expotation."""
+    ptre = patron_transaction_overdue_event_martigny
+    # STEP#1 :: CHECK EXPORT PERMISSION
+    #   Only authenticated user could export loans.
+    url = url_for('api_exports.patron_transaction_events_export')
+    res = client.get(url)
+    assert res.status_code == 401
+
+    # STEP#2 :: CHECK EXPORT RESOURCES
+    #   Logged as librarian and test the export endpoint.
+    #   DEV NOTE :: update `operator` to max the code coverage
+    ptre['operator'] = {
+        '$ref': get_ref_for_pid('ptrn', librarian_martigny.pid)
+    }
+    ptre.update(ptre, dbcommit=True, reindex=True)
+
+    login_user_via_session(client, librarian_martigny.user)
+    res = client.get(url)
+    assert res.status_code == 200
+    data = list(parse_csv(get_csv(res)))
+
+    header = data.pop(0)
+    header_columns = [
+        'category', 'type', 'subtype', 'transaction_date', 'amount',
+        'patron_name', 'patron_barcode', 'patron_email', 'patron_type',
+        'document_pid', 'document_title', 'item_barcode',
+        'item_owning_library', 'transaction_library', 'operator_name'
+    ]
+    assert all(field in header for field in header_columns)
+    assert len(data) == 1

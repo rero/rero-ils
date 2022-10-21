@@ -28,6 +28,18 @@ from rero_ils.modules.patron_transactions.api import \
     patron_transaction_id_fetcher as fetcher
 
 
+def test_patron_transaction_properties(
+    patron_transaction_overdue_martigny,
+    patron_transaction_overdue_event_martigny,
+    lib_martigny
+):
+    """Test patron transaction properties."""
+    pttr = patron_transaction_overdue_martigny
+    assert pttr.notification_pid
+    assert pttr.notification_transaction_library_pid == lib_martigny.pid
+    assert pttr.get_number_of_patron_transaction_events() == 1
+
+
 def test_patron_transaction_create(
         db, es_clear, patron_transaction_overdue_martigny, org_martigny):
     """Test patron transaction creation."""

@@ -64,8 +64,7 @@ def test_patron_transaction_events_get(
     patron_event = patron_transaction_overdue_event_martigny
     pid = patron_event.pid
     item_url = url_for('invenio_records_rest.ptre_item', pid_value=pid)
-    list_url = url_for(
-        'invenio_records_rest.ptre_list', q='pid:' + pid)
+    list_url = url_for('invenio_records_rest.ptre_list', q=f'pid:{pid}')
     item_url_with_resolve = url_for(
         'invenio_records_rest.ptre_item',
         pid_value=pid,
@@ -76,7 +75,7 @@ def test_patron_transaction_events_get(
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(patron_event.revision_id)
+    assert res.headers['ETag'] == f'"{patron_event.revision_id}"'
 
     data = get_json(res)
     assert patron_event.dumps() == data['metadata']
@@ -101,8 +100,14 @@ def test_patron_transaction_events_get(
     assert res.status_code == 200
     data = get_json(res)
     result = data['hits']['hits'][0]['metadata']
+    # delete dynamically added keys (listener)
     del result['organisation']
     del result['patron']
+    del result['category']
+    del result['owning_library']
+    del result['owning_location']
+    del result['patron_type']
+
     assert result == patron_event.replace_refs()
 
 
@@ -141,7 +146,7 @@ def test_patron_transaction_events_post_put_delete(
         headers=json_header
     )
     assert res.status_code == 200
-    assert res.headers['ETag'] != '"{}"'.format(event_data.revision_id)
+    assert res.headers['ETag'] != f'"{event_data.revision_id}"'
 
     # Check that the returned record matches the given data
     data = get_json(res)
@@ -270,7 +275,7 @@ def test_patron_transaction_event_secure_api_create(
         librarian_sion, patron_transaction_overdue_event_martigny,
         system_librarian_martigny,
         system_librarian_sion):
-    """Test patron transction event secure api create."""
+    """Test patron transaction event secure api create."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
     post_entrypoint = 'invenio_records_rest.ptre_list'

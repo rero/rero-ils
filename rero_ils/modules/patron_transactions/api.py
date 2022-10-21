@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,15 +22,16 @@ from functools import partial
 
 from werkzeug.utils import cached_property
 
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.patron_transaction_events.api import \
+    PatronTransactionEvent, PatronTransactionEventsSearch
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref, sorted_pids
+
 from .models import PatronTransactionIdentifier, PatronTransactionMetadata
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..minters import id_minter
-from ..organisations.api import Organisation
-from ..patron_transaction_events.api import PatronTransactionEvent, \
-    PatronTransactionEventsSearch
-from ..providers import Provider
-from ..utils import extracted_data_from_ref, sorted_pids
 
 # provider
 PatronTransactionProvider = type(
@@ -40,10 +41,14 @@ PatronTransactionProvider = type(
 )
 # minter
 patron_transaction_id_minter = partial(
-    id_minter, provider=PatronTransactionProvider)
+    id_minter,
+    provider=PatronTransactionProvider
+)
 # fetcher
 patron_transaction_id_fetcher = partial(
-    id_fetcher, provider=PatronTransactionProvider)
+    id_fetcher,
+    provider=PatronTransactionProvider
+)
 
 
 class PatronTransactionsSearch(IlsRecordsSearch):
@@ -104,7 +109,11 @@ class PatronTransaction(IlsRecord):
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update data for record."""
         return super().update(
-            data=data, commit=commit, dbcommit=dbcommit, reindex=reindex)
+            data=data,
+            commit=commit,
+            dbcommit=dbcommit,
+            reindex=reindex
+        )
 
     # GETTER & SETTER =========================================================
     #   * Define some properties as shortcut to quickly access object attrs.
@@ -119,29 +128,30 @@ class PatronTransaction(IlsRecord):
     @cached_property
     def loan(self):
         """Get the `Loan` record related to this transaction."""
-        from ..loans.api import Loan
-        pid = self.loan_pid
-        if pid:
-            return Loan.get_record_by_pid(pid)
+        if self.get('loan'):
+            return extracted_data_from_ref(self['loan'], data='record')
 
     @property
     def document_pid(self):
         """Get the `Document` pid related to this transaction."""
-        loan = self.loan
-        if loan:
+        if loan := self.loan:
             return loan.document_pid
 
     @property
     def library_pid(self):
         """Get the `Library` pid related to this transaction."""
-        loan = self.loan
-        if loan:
+        if loan := self.loan:
             return loan.library_pid
 
     @property
     def patron_pid(self):
         """Get the `Patron` pid related to this transaction."""
         return extracted_data_from_ref(self.get('patron'))
+
+    @property
+    def patron(self):
+        """Get the `Patron` pid related to this transaction."""
+        return extracted_data_from_ref(self.get('patron'), data='record')
 
     @property
     def total_amount(self):
@@ -157,25 +167,21 @@ class PatronTransaction(IlsRecord):
     @cached_property
     def notification(self):
         """Get the `Notification` record related to this transaction."""
-        from ..notifications.api import Notification
-        pid = self.notification_pid
-        if pid:
-            return Notification.get_record_by_pid(pid)
+        if self.get('notification'):
+            return extracted_data_from_ref(
+                self.get('notification'), data='record')
 
     @property
     def notification_transaction_library_pid(self):
         """Return the transaction library of the notification."""
-        notif = self.notification
-        if notif:
-            location = notif.transaction_location
-            if location:
+        if notif := self.notification:
+            if location := notif.transaction_location:
                 return location.library_pid
 
     @property
     def notification_transaction_user_pid(self):
         """Return the transaction user pid of the notification."""
-        notif = self.notification
-        if notif:
+        if notif := self.notification:
             return notif.transaction_user_pid
 
     @property
@@ -186,18 +192,18 @@ class PatronTransaction(IlsRecord):
     @property
     def currency(self):
         """Return patron transaction currency."""
-        organisation_pid = self.organisation_pid
-        return Organisation.get_record_by_pid(organisation_pid).get(
-            'default_currency')
+        return Organisation\
+            .get_record_by_pid(self.organisation_pid)\
+            .get('default_currency')
 
     @property
     def events(self):
         """Shortcut for events of the patron transaction."""
         query = PatronTransactionEventsSearch()\
             .filter('term', parent__pid=self.pid)\
-            .source('pid')
-        for result in query.scan():
-            yield PatronTransactionEvent.get_record_by_pid(result.pid)
+            .source(False)
+        for hit in query.scan():
+            yield PatronTransactionEvent.get_record(hit.meta.id)
 
     def get_number_of_patron_transaction_events(self):
         """Get number of patron transaction events."""
@@ -222,8 +228,7 @@ class PatronTransaction(IlsRecord):
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         reasons = {}
-        links = self.get_links_to_me()
-        if links:
+        if links := self.get_links_to_me():
             reasons['links'] = links
         return reasons
 
