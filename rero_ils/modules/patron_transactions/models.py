@@ -40,3 +40,22 @@ class PatronTransactionMetadata(db.Model, RecordMetadataBase):
     """PatronTransaction record metadata."""
 
     __tablename__ = 'patron_transaction_metadata'
+
+
+class PatronTransactionStatus:
+    """PatronTransaction status."""
+
+    OPEN = 'open'
+    CLOSED = 'closed'
+
+
+class PatronTransactionType:
+    """PatronTransaction type."""
+
+    DAMAGED = 'damaged'
+    ILL = 'interlibrary_loan'
+    LOST = 'lost'
+    OTHER = 'other'
+    OVERDUE = 'overdue'
+    PHOTOCOPY = 'photocopy'
+    SUBSCRIPTION = 'subscription'

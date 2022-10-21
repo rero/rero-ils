@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,18 +19,11 @@
 """PatronTransactionEvent resolver."""
 
 import jsonresolver
-from flask import current_app
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from rero_ils.modules.jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route('/api/patron_transaction_events/<pid>', host='bib.rero.ch')
 def patron_transaction_event_resolver(pid):
     """Resolver for patron_transaction_event record."""
-    persistent_id = PersistentIdentifier.get('ptre', pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
-    current_app.logger.error(
-        f'Doc resolver error: /api/patron_transaction_events/{pid} \
-        {persistent_id}'
-    )
-    raise Exception('unable to resolve')
+    return resolve_json_refs('ptre', pid)

@@ -102,6 +102,7 @@ from .modules.organisations.permissions import OrganisationPermission
 from .modules.patron_transaction_events.api import PatronTransactionEvent
 from .modules.patron_transaction_events.permissions import \
     PatronTransactionEventPermission
+from .modules.patron_transaction_events.utils import total_facet_filter_builder
 from .modules.patron_transactions.api import PatronTransaction
 from .modules.patron_transactions.permissions import \
     PatronTransactionPermission
@@ -1011,11 +1012,15 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
         record_serializers_aliases={
-            'json': 'application/json',
+            'json': 'application/json'
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
             'application/rero+json': 'rero_ils.modules.patron_transaction_events.serializers:json_ptre_search'
+        },
+        search_serializers_aliases={
+            'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         record_loaders={
             'application/json': lambda: PatronTransactionEvent(
@@ -1766,8 +1771,8 @@ RERO_ILS_AGGREGATION_SIZE = {
     'collections': 20
 }
 
-DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get(
-    'documents', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('documents', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+PTRE_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('patron_transaction_events', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 RECORDS_REST_FACETS = dict(
     documents=dict(
         i18n_aggs=dict(
@@ -2359,6 +2364,60 @@ RECORDS_REST_FACETS = dict(
                 )
             )
         )
+    ),
+    patron_transaction_events=dict(
+        aggs=dict(
+            category=dict(terms=dict(field='category', size=PTRE_AGGREGATION_SIZE)),
+            owning_library=dict(
+                terms=dict(field='owning_library.pid', size=PTRE_AGGREGATION_SIZE),
+                aggs=dict(owning_location=dict(terms=dict(field='owning_location.pid', size=PTRE_AGGREGATION_SIZE)))
+            ),
+            patron_type=dict(terms=dict(field='patron_type.pid', size=PTRE_AGGREGATION_SIZE)),
+            total=dict(
+                filter=total_facet_filter_builder,
+                aggs=dict(
+                    payment=dict(sum=dict(field='amount', script=dict(source='Math.round(_value*100)/100.00'))),
+                    subtype=dict(
+                        terms=dict(field='subtype', size=PTRE_AGGREGATION_SIZE),
+                        aggs=dict(subtotal=dict(sum=dict(
+                            field='amount',
+                            script=dict(source='Math.round(_value*100)/100.00')
+                        )))
+                    )
+                )
+            ),
+            transaction_date=dict(
+                date_histogram=dict(field='creation_date', calendar_interval='1d', format='yyyy-MM-dd')
+            ),
+            transaction_library=dict(terms=dict(field='library.pid', size=PTRE_AGGREGATION_SIZE)),
+            type=dict(
+                terms=dict(field='type', size=PTRE_AGGREGATION_SIZE),
+                aggs=dict(subtype=dict(terms=dict(field='subtype', size=PTRE_AGGREGATION_SIZE)))
+            )
+        ),
+        filters={
+            'patron_type': and_term_filter('patron_type.pid'),
+            'transaction_library': and_term_filter('library.pid'),
+            'transaction_date': range_filter(
+                'creation_date',
+                format='epoch_millis',
+                start_date_math='/d',
+                end_date_math='/d'
+            ),
+
+        },
+        post_filters={
+            'owning_library': {
+                'owning_library': terms_filter('owning_library.pid'),
+                'owning_location': terms_filter('owning_location.pid')
+            },
+            'category': terms_filter('category'),
+            'type': {
+                'type': terms_filter('type'),
+                'subtype': terms_filter('subtype')
+            }
+        }
+
     )
 )
 
@@ -2666,6 +2725,16 @@ RECORDS_REST_SORT_OPTIONS['vendors']['name'] = dict(
 RECORDS_REST_DEFAULT_SORT['vendors'] = dict(
     query='bestmatch', noquery='name')
 
+# ------ PATRON TRANSACTION SORT
+RECORDS_REST_SORT_OPTIONS['patron_transaction_events']['created'] = dict(
+    fields=['_created'], title='Transaction date', default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['patron_transaction_events']['amount'] = dict(
+    fields=['amount'], title='Amount date', default_order='desc'
+)
+RECORDS_REST_DEFAULT_SORT['acq_accounts'] = dict(query='bestmatch', noquery='created')
+
+
 
 # Detailed View Configuration
 # ===========================
@@ -2943,6 +3012,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         pid_minter=CIRCULATION_LOAN_MINTER,
         pid_fetcher=CIRCULATION_LOAN_FETCHER,
         search_class=LoansSearch,
+        search_index='loans',
         indexer_class='rero_ils.modules.loans.api:LoansIndexer',
         search_type=None,
         record_serializers={
@@ -3215,16 +3285,6 @@ RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE = 'subjects_imported'
 # STREAMED EXPORT RECORDS
 # =============================================================================
 RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
-    loan=dict(
-        resource=CIRCULATION_REST_ENDPOINTS.get('loanid'),
-        default_media_type='text/csv',
-        search_serializers={
-            'text/csv': 'rero_ils.modules.loans.serializers:csv_stream_search',
-        },
-        search_serializers_aliases={
-            'csv': 'text/csv'
-        }
-    ),
     acq_account=dict(
         resource=RECORDS_REST_ENDPOINTS.get('acac'),
         default_media_type='text/csv',
@@ -3240,6 +3300,26 @@ RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(
         default_media_type='text/csv',
         search_serializers={
             'text/csv': 'rero_ils.modules.acq_orders.serializers:csv_acor_search',
+        },
+        search_serializers_aliases={
+            'csv': 'text/csv'
+        }
+    ),
+    loan=dict(
+        resource=CIRCULATION_REST_ENDPOINTS.get('loanid'),
+        default_media_type='text/csv',
+        search_serializers={
+            'text/csv': 'rero_ils.modules.loans.serializers:csv_stream_search',
+        },
+        search_serializers_aliases={
+            'csv': 'text/csv'
+        }
+    ),
+    patron_transaction_events=dict(
+        resource=RECORDS_REST_ENDPOINTS.get('ptre'),
+        default_media_type='text/csv',
+        search_serializers={
+            'text/csv': 'rero_ils.modules.patron_transaction_events.serializers:csv_ptre_search',
         },
         search_serializers_aliases={
             'csv': 'text/csv'

@@ -30,6 +30,20 @@ from rero_ils.modules.patron_transactions.api import \
     patron_transaction_id_fetcher as fetcher
 
 
+def test_patron_transaction_event_properties(
+    patron_transaction_overdue_event_martigny,
+    patron_transaction_overdue_martigny
+):
+    """Test patron transaction event properties."""
+    pttr = patron_transaction_overdue_martigny
+    ptre = patron_transaction_overdue_event_martigny
+    events = PatronTransactionEvent.get_events_by_transaction_id(pttr.pid)
+    assert ptre.pid in [hit.pid for hit in events]
+    assert ptre.parent_pid == pttr.pid
+    assert PatronTransactionEvent\
+        .get_initial_amount_transaction_event(pttr.pid) == pttr.total_amount
+
+
 def test_patron_transaction_event_create(
         db, es_clear, patron_transaction_overdue_event_martigny):
     """Test patron transaction event creation."""

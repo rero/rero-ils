@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,15 +23,17 @@ from functools import partial
 
 from flask_babelex import gettext as _
 
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.extensions import DecimalAmountExtension
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.patron_transactions.models import \
+    PatronTransactionStatus, PatronTransactionType
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 
 from .models import PatronTransactionEventIdentifier, \
     PatronTransactionEventMetadata, PatronTransactionEventType
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..fetchers import id_fetcher
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import extracted_data_from_ref, get_ref_for_pid
 
 # provider
 PatronTransactionEventProvider = type(
@@ -41,10 +43,14 @@ PatronTransactionEventProvider = type(
 )
 # minter
 patron_transaction_event_id_minter = partial(
-    id_minter, provider=PatronTransactionEventProvider)
+    id_minter,
+    provider=PatronTransactionEventProvider
+)
 # fetcher
 patron_transaction_event_id_fetcher = partial(
-    id_fetcher, provider=PatronTransactionEventProvider)
+    id_fetcher,
+    provider=PatronTransactionEventProvider
+)
 
 
 class PatronTransactionEventsSearch(IlsRecordsSearch):
@@ -100,7 +106,11 @@ class PatronTransactionEvent(IlsRecord):
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update data for record."""
         return super().update(
-            data=data, commit=commit, dbcommit=dbcommit, reindex=reindex)
+            data=data,
+            commit=commit,
+            dbcommit=dbcommit,
+            reindex=reindex
+        )
 
     @classmethod
     def create_event_from_patron_transaction(
@@ -110,27 +120,21 @@ class PatronTransactionEvent(IlsRecord):
         parent = patron_transaction
         data = {
             'creation_date': parent.get('creation_date'),
-            'type': 'fee',
+            'type': PatronTransactionEventType.FEE,
             'subtype': 'other',
             'amount': parent.get('total_amount'),
-            'parent': {
-                '$ref': get_ref_for_pid('pttr', parent.pid)
-            },
+            'parent': {'$ref': get_ref_for_pid('pttr', parent.pid)},
             'note': _('Initial charge')
         }
         if steps:
             data['steps'] = steps
         # overdue transaction event
-        if parent.get('type') == 'overdue':
+        if parent.get('type') == PatronTransactionType.OVERDUE:
             data['subtype'] = 'overdue'
-            if parent.loan_pid:
-                library_pid = parent.loan.library_pid
-            else:
-                library_pid = parent.notification_transaction_library_pid
+            library_pid = parent.loan.library_pid if parent.loan_pid else \
+                parent.notification_transaction_library_pid
             if library_pid:
-                data['library'] = {
-                    '$ref': get_ref_for_pid('lib', library_pid)
-                }
+                data['library'] = {'$ref': get_ref_for_pid('lib', library_pid)}
 
         return cls.create(
             data,
@@ -152,26 +156,21 @@ class PatronTransactionEvent(IlsRecord):
         #   digits, we can multiply amounts by 100, cast result as integer,
         #   do operation with these values, and (at the end) divide the result
         #   by 100.
-        if not self.amount:
+        if not self.amount or \
+           self.event_type == PatronTransactionEventType.DISPUTE:
             return
+
         pttr = self.patron_transaction
         total_amount = int(pttr.get('total_amount') * 100)
         amount = int(self.amount * 100)
         if self.event_type == PatronTransactionEventType.FEE:
             total_amount += amount
-        elif self.event_type in [PatronTransactionEventType.PAYMENT,
-                                 PatronTransactionEventType.CANCEL]:
+        else:
             total_amount -= amount
         pttr['total_amount'] = total_amount / 100
         if total_amount == 0:
-            pttr['status'] = 'closed'
+            pttr['status'] = PatronTransactionStatus.CLOSED
         pttr.update(pttr, dbcommit=True, reindex=True)
-
-    @property
-    def patron_transaction(self):
-        """Return the parent patron transaction of the event."""
-        from ..patron_transactions.api import PatronTransaction
-        return PatronTransaction.get_record_by_pid(self.parent_pid)
 
     @classmethod
     def get_events_by_transaction_id(cls, transaction_pid):
@@ -207,6 +206,11 @@ class PatronTransactionEvent(IlsRecord):
         return extracted_data_from_ref(self.get('parent'))
 
     @property
+    def patron_transaction(self):
+        """Return the parent patron transaction of the event."""
+        return extracted_data_from_ref(self.get('parent'), data='record')
+
+    @property
     def event_type(self):
         """Return the type of the patron transaction event."""
         return self.get('type')
@@ -219,18 +223,14 @@ class PatronTransactionEvent(IlsRecord):
     @property
     def patron_pid(self):
         """Return the patron pid of the patron transaction event."""
-        from ..patron_transactions.api import PatronTransaction
-        patron_transaction = PatronTransaction.get_record_by_pid(
-            self.parent_pid)
-        return patron_transaction.patron_pid
+        if parent := self.patron_transaction:
+            return parent.patron_pid
 
     @property
     def organisation_pid(self):
         """Return the organisation pid of the patron transaction event."""
-        from ..patron_transactions.api import PatronTransaction
-        patron_transaction = PatronTransaction.get_record_by_pid(
-            self.parent_pid)
-        return patron_transaction.organisation_pid
+        if parent := self.patron_transaction:
+            return parent.organisation_pid
 
 
 class PatronTransactionEventsIndexer(IlsRecordsIndexer):

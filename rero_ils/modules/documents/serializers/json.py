@@ -122,23 +122,7 @@ class DocumentJSONSerializer(JSONSerializer):
 
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""
-        def _get_library_pids(org_pid):
-            query = LibrariesSearch().filter('term', organisation__pid=org_pid)
-            return [hit.pid for hit in query.scan()]
-
-        def _get_location_pids(lib_pid):
-            query = LocationsSearch().filter('term', library__pid=lib_pid)
-            return [hit.pid for hit in query.scan()]
-
         view_id, view_code = DocumentJSONSerializer._get_view_information()
-
-        # to display the results of nested aggregations
-        # (nested aggregations are created to apply facet filters),
-        # put the value of the nested 'aggs_facet' aggregation
-        # one level up.
-        for key, agg in aggregations.items():
-            if agg and ('aggs_facet' in agg):
-                aggregations[key] = aggregations[key]['aggs_facet']
 
         # format the results of the facet 'year' to be displayed
         # as range

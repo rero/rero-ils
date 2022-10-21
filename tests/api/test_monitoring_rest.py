@@ -54,7 +54,7 @@ def test_monitoring_es_db_counts(client):
             'item': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'items'},
             'itty': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'item_types'},
             'lib': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'libraries'},
-            'loanid': {'db': 0},
+            'loanid': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'loans'},
             'loc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'locations'},
             'lofi': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'local_fields'},
             'notif': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'notifications'},

@@ -24,6 +24,7 @@ from copy import deepcopy
 
 from elasticsearch_dsl import Q
 from flask import current_app, request
+from invenio_base.utils import obj_or_import_string
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.facets import _aggregations, _query_filter
 from invenio_records_rest.utils import make_comma_list_a_list
@@ -66,84 +67,99 @@ def default_facets_factory(search, index):
 
     It's possible to select facets which should be added to query
     by passing their name in `facets` parameter.
+
     :param search: Basic search object.
     :param index: Index name.
     :returns: A tuple containing the new search object and a dictionary with
         all fields and values used.
     """
     urlkwargs = MultiDict()
+    # Check if facets configuration are defined for this index. If not, then we
+    # can't build any facets for this index, just return the current search.
+    if index not in current_app.config.get('RECORDS_REST_FACETS', {}):
+        return search, urlkwargs
 
     facets = current_app.config['RECORDS_REST_FACETS'].get(index)
+    all_aggs, aggs = facets.get('aggs', {}), {}
 
-    if facets is not None:
-        # Aggregations.
-        # First get requested facets, also split by ',' to get facets names
-        # if they were provided as list separated by comma.
-        selected_facets = make_comma_list_a_list(
-            request.args.getlist('facets', None)
+    # i18n aggregations.
+    #   some aggregations' configuration are different depending on language
+    #   use for the search. Load the correct configuration for these
+    #   aggregations.
+    interface_language = request.args.get('lang', current_i18n.language)
+    default_language = current_app.config.get('BABEL_DEFAULT_LANGUAGE')
+    for facet_name, facet_body in facets.get("i18n_aggs", {}).items():
+        aggr = facet_body.get(interface_language,
+                              facet_body.get(default_language))
+        all_aggs[facet_name] = aggr
+
+    # Get selected facets
+    #   We need to know which facets are needed to be build. User can use the
+    #   'facets' query string argument to determine which facets it wants to be
+    #   built. If this argument isn't defined, all facets defined into the
+    #   configuration will be built.
+    selected_facets = request.args.getlist('facets') or all_aggs.keys()
+    selected_facets = make_comma_list_a_list(selected_facets)
+
+    # Filter to keep only configuration about selected facets.
+    all_aggs = {k: v for k, v in all_aggs.items() if k in selected_facets}
+
+    # Go through all available facets and check if they were requested.
+    for facet_name, facet_body in all_aggs.items():
+        # be sure that the config still untouched
+        facet_body = deepcopy(facet_body)
+        # get facet key depending on the aggregation configuration.
+        # If no facet field are found, skip this aggregation, because we can't
+        # determine which field used to filter the query
+        facet_field = next(
+            (facet_body.get(k)['field']
+             for k in ['terms', 'date_histogram']
+             if k in facet_body),
+            None
         )
-
-        all_aggs = facets.get("aggs", {})
-
-        # Add 'author' to all_aggs
-        i18n_aggs = facets.get("i18n_aggs", {})
-        for facet_name, facet_body in i18n_aggs.items():
-            i18n_agg = facet_body.get(
-                request.args.get("lang", current_i18n.language),
-                facet_body.get(current_app.config.
-                               get('BABEL_DEFAULT_LANGUAGE'))
+        facet_filter = None
+        if facet_field:
+            # get DSL expression of post_filters,
+            # both single post filters and group of post filters
+            filters, filters_group, urlkwargs = _create_filter_dsl(
+                urlkwargs,
+                facets.get('post_filters', {})
             )
-            all_aggs[facet_name] = i18n_agg
+            # create the filter to inject in the facet
+            facet_filter = _facet_filter(
+                index, filters, filters_group, facet_name, facet_field
+            )
 
-        aggs = {}
-        # Go through all available facets and check if they were requested.
-        for facet_name, facet_body in all_aggs.items():
-            # be sure that the config still untouched
-            facet_body = deepcopy(facet_body)
-            if not selected_facets or facet_name in selected_facets:
-                # create facet_filter from post_filters
-                # and inject the facet_filter into the
-                # aggregation facet query
-                facet_field = None
-                for key in ['terms', 'date_histogram']:
-                    if key in facet_body:
-                        facet_field = facet_body.get(key)['field']
-                        break
-                if facet_field:
-                    # get DSL expression of post_filters,
-                    # both single post filters and group of post filters
-                    filters, filters_group, urlkwargs = \
-                        _create_filter_dsl(urlkwargs,
-                                           facets.get('post_filters', {}))
+        # Check if 'filter' is defined into the facet configuration. If yes,
+        # then add this filter to the facet filter previously created.
+        if 'filter' in facet_body:
+            agg_filter = obj_or_import_string(facet_body.pop('filter'))
+            if callable(agg_filter):
+                agg_filter = agg_filter(search, urlkwargs)
+            if facet_filter:
+                facet_filter &= Q(agg_filter)
+            else:
+                facet_filter = Q(agg_filter)
+        # If we build a filter for this facet, we need to add it to the
+        # aggregation.
+        if facet_filter:
+            # If we find a `facet_field` on which apply this aggregation,
+            # add a nested aggs_facet in the facet aggs (OK search)
+            if facet_field:
+                facet_body = dict(aggs=dict(aggs_facet=facet_body))
+            facet_body['filter'] = facet_filter.to_dict()
 
-                    # create the filter to inject in the facet
-                    facet_filter = _facet_filter(
-                                    index, filters, filters_group,
-                                    facet_name, facet_field)
-                    if 'filter' in facet_body:
-                        facet_filter_cfg = Q(facet_body.pop('filter'))
-                        if facet_filter:
-                            facet_filter &= facet_filter_cfg
-                        else:
-                            facet_filter = facet_filter_cfg
-                    # add a nested aggs_facet in the facet aggs
-                    # and add the facet_filter to the aggregation
-                    if facet_filter:
-                        facet_body = dict(aggs=dict(aggs_facet=facet_body))
-                        facet_body['filter'] = facet_filter.to_dict()
+        aggs[facet_name] = facet_body
 
-                aggs.update({facet_name: facet_body})
-        search = _aggregations(search, aggs)
+    search = _aggregations(search, aggs)
+    # Query filter
+    search, urlkwargs = _query_filter(
+        search, urlkwargs, facets.get("filters", {}))
+    # Post filter
+    search, urlkwargs = _post_filter(
+        search, urlkwargs, facets.get("post_filters", {}))
 
-        # Query filter
-        search, urlkwargs = _query_filter(
-            search, urlkwargs, facets.get("filters", {}))
-
-        # Post filter
-        search, urlkwargs = _post_filter(
-            search, urlkwargs, facets.get("post_filters", {}))
-
-    return (search, urlkwargs)
+    return search, urlkwargs
 
 
 def _create_filter_dsl(urlkwargs, definitions):
@@ -229,7 +245,7 @@ def _facet_filter(index, filters, filters_group, facet_name, facet_field):
     in post_filters (in file config.py)
     :param filters_group: the DSL expression of a dict of filters defined
     in post_filters (in file config.py)
-    :param face_name: the facet name
+    :param facet_name: the facet name
     :param facet_field: the facet field
     :returns: the filter to inject in the facet
     """

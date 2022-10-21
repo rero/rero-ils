@@ -55,6 +55,14 @@ class PostprocessorMixin(PostprocessorMixinInterface):
         for hit in results.get('hits', {}).get('hits', []):
             self._postprocess_search_hit(hit)
         if aggregations := results.get('aggregations'):
+            # special process for nested aggregations
+            #   to display the results of nested aggregations
+            #   (nested aggregations are created to apply facet filters),
+            #   put the value of the nested 'aggs_facet' aggregation
+            #   one level up.
+            for key, agg in aggregations.items():
+                if agg and ('aggs_facet' in agg):
+                    aggregations[key] = aggregations[key]['aggs_facet']
             self._postprocess_search_aggregations(aggregations)
         self._postprocess_search_links(results, pid_fetcher)
         return results

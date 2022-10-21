@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -28,7 +29,7 @@ class PatronTransactionsJSONSerializer(JSONSerializer,
                                        CachedDataSerializerMixin):
     """Serializer for RERO-ILS `PatronTransaction` records as JSON."""
 
-    def _postprocess_search_hit(self, hit: dict) -> None:
+    def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result.
 
         :param hit: the dictionary representing an ElasticSearch search hit.

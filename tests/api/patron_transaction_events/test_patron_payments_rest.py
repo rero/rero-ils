@@ -19,8 +19,10 @@
 
 from copy import deepcopy
 
+import mock
+from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import VerifyRecordPermissionPatch, get_json, postdata
 
 from rero_ils.modules.patron_transaction_events.models import \
     PatronTransactionEventType
@@ -98,3 +100,82 @@ def test_patron_payment(
     transaction = PatronTransaction.get_record_by_pid(transaction.pid)
     assert transaction.total_amount == 0
     assert transaction.status == 'closed'
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_patron_transaction_events_facets(
+    client, patron_transaction_overdue_event_martigny,
+    rero_json_header
+):
+    """Test record retrieval."""
+
+    def _find_bucket(buckets, bucket_key):
+        for bucket in buckets['buckets']:
+            if bucket['key'] == bucket_key:
+                return bucket
+
+    # STEP#1 :: CHECK FACETS ARE PRESENT INTO SEARCH RESULT
+    url = url_for('invenio_records_rest.ptre_list')
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    facet_keys = [
+        'category', 'owning_library', 'patron_type', 'total',
+        'transaction_date', 'transaction_library', 'type'
+    ]
+    assert all(key in data['aggregations'] for key in facet_keys)
+
+    params = {'facets': ''}
+    url = url_for('invenio_records_rest.ptre_list', **params)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    assert not data['aggregations']
+
+    params = {'facets': 'type'}
+    url = url_for('invenio_records_rest.ptre_list', **params)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    assert list(data['aggregations'].keys()) == ['type']
+
+    # CHECK NESTED FACETS :: TYPE & SUBTYPE + OR SEARCH
+    #    This test must be executed after `test_patron_payment` to retrieve
+    #    some payments.
+    params = {'facets': 'total'}
+    url = url_for('invenio_records_rest.ptre_list', **params)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+
+    total_bucket = data['aggregations']['total']
+    assert total_bucket['doc_count'] == 2
+    cash_subtype_aggr = _find_bucket(total_bucket['subtype'], 'cash')
+    assert cash_subtype_aggr['doc_count'] == 2
+    assert cash_subtype_aggr['subtotal']['value'] == 2.0
+
+    #  filter with dummy subtypes :: no payment must be found
+    params = {
+        'facets': 'total',
+        'type': PatronTransactionEventType.PAYMENT,
+        'subtype': ['foo', 'bar']
+    }
+    url = url_for('invenio_records_rest.ptre_list', **params)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    total_bucket = data['aggregations']['total']
+    assert total_bucket['doc_count'] == 0
+    assert not _find_bucket(total_bucket['subtype'], 'cash')
+
+    #  filter with an available subtype (cash) and an absent subtype
+    #  (credit_card) :: payments must be found but only 'cash' subtype must
+    #  exist
+    params = {
+        'facets': 'total',
+        'type': PatronTransactionEventType.PAYMENT,
+        'subtype': ['cash', 'credit_card']
+    }
+    url = url_for('invenio_records_rest.ptre_list', **params)
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    total_bucket = data['aggregations']['total']
+    assert total_bucket['doc_count'] == 2
+    assert _find_bucket(total_bucket['subtype'], 'cash')
+    assert not _find_bucket(total_bucket['subtype'], 'credit_card')
