@@ -24,7 +24,7 @@
   <div class="alert alert-warning my-4" role="alert">
     <h4 class="alert-heading">{{ _('Caution!') }}</h4>
     <hr>
-    <p class="mb-0">{{ _('A well detailed request is more likely to be satisfied') }}</p>
+    <p class="mb-0">{{ _('Please make sure that the requested document does not exist in your library network.') }}</p>
   </div>
 
   <form id="ill-public-form" action="{{ url_for('ill_requests.ill_request_form', viewcode=viewcode) }}" method="POST" class="form" role="form" novalidate>
@@ -71,13 +71,17 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{ _('Confirmation') }}</h5>
+          <h5 class="modal-title">{{ _('Interlibrary loan confirmation') }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <p>{{ _('Costs may apply. By confirming, you agree to the interlibrary loan conditions of the pick-up library.') }}</p>
+          <p>{{ _('You are about to request an interlibrary loan. By confirming you agree that:') }}</p>
+          <ul>
+            <li>{{ _('The requested document does not exist in your library network.') }}</li>
+            <li>{{ _('Costs may apply.') }}</li>
+          </ul>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" data-dismiss="modal">{{ _('Cancel') }}</button>
