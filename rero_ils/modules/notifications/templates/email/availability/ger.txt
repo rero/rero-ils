@@ -5,7 +5,11 @@ Sehr geehrte Kundin, sehr geehrter Kunde,
 Das von Ihnen bestellte Dokument ist nun verfügbar und kann an der Ausleihtheke der nachstehend genannten Bibliothek abgeholt werden.
 {%- for loan in loans %}
 
-Titel : {{ loan.document.title_text }}
+Titel: {{ loan.document.title_text }}
+Strichcode: {{ loan.document.barcode }}
+{%- if loan.document.call_numbers %}
+Signatur: {{ loan.document.call_numbers | join(' / ') }}
+{%- endif %}
 Abholort: {{ loan.pickup_name }}
 {%- if loan.pickup_until %}
 Abholen bis: {{ loan.pickup_until.strftime('%d.%m.%Y') }}
