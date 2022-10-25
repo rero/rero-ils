@@ -6,6 +6,10 @@ Il documento che Lei ha domandato è ora disponibile. Lei può ritirarlo al serv
 {%- for loan in loans %}
 
 Titolo: {{ loan.document.title_text }}
+Codice a barre: {{ loan.document.barcode }}
+{%- if loan.document.call_numbers %}
+Segnatura: {{ loan.document.call_numbers | join(' / ') }}
+{%- endif %}
 Punto di ritiro: {{ loan.pickup_name }}
 {%- if loan.pickup_until %}
 Ritirare entro: {{ loan.pickup_until.strftime('%d/%m/%Y') }}

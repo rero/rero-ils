@@ -21,6 +21,8 @@ from __future__ import absolute_import, print_function
 
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
+from rero_ils.modules.notifications.subclasses.availability import \
+    AvailabilityCirculationNotification
 
 
 def test_notification_organisation_pid(
@@ -61,6 +63,22 @@ def test_notification_email_availability(notification_availability_sion,
     """Test availability notification.
         Patron communication channel is email.
     """
+    # test availability context fields
+    context = AvailabilityCirculationNotification.get_notification_context(
+        notifications=[notification_availability_sion]
+    )
+    for key in ['delay', 'library', 'loans', 'patron']:
+        assert key in context
+
+    loan_ctx = context['loans'][0]
+    for key in ['document', 'pickup_name', 'pickup_until']:
+        assert key in loan_ctx
+    for key in ['barcode', 'call_numbers', 'library_name', 'location_name',
+                'title_text']:
+        assert key in loan_ctx['document']
+    for key in ['address', 'barcode', 'first_name', 'last_name']:
+        assert key in context['patron']
+
     mailbox.clear()
     Dispatcher.dispatch_notifications(notification_availability_sion['pid'])
     assert mailbox[0].recipients == [patron_sion.dumps()['email']]
