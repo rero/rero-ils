@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2019-2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -232,7 +232,7 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                        f'{self._query_filter().count()}')
         for hit in list(self._query_filter().source('pid').scan()):
             with contextlib.suppress(NoResultFound):
-                doc = Document.get_record_by_id(hit.meta.id)
+                doc = Document.get_record(hit.meta.id)
                 changed = False
                 for contribution in doc.get('contribution', []):
                     ref_type = contribution['agent'].get(
@@ -300,7 +300,7 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
         hits = list(self._query_filter().source('pid').scan())
         for hit in list(self._query_filter().source('pid').scan()):
             with contextlib.suppress(NoResultFound):
-                doc = Document.get_record_by_id(hit.meta.id)
+                doc = Document.get_record(hit.meta.id)
                 changed = False
                 for subject in doc.get(self.name, []):
                     ref_type = subject.get(

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -198,6 +198,14 @@ class IlsRecord(Record):
             return self
 
         json = super()._validate(**kwargs)
+
+        # Check if some record extensions has a validation method.
+        # DEV NOTES :: Could be part of `invenio-record.extensions`
+        for extension in self._extensions:
+            validate_method = getattr(extension, 'validate', None)
+            if callable(validate_method):
+                extension.validate(self, **kwargs)
+
         validation_message = self.extended_validation(**kwargs)
         # We only like to run pids_exist_check if validation_message is True
         # and not a string with error from extended_validation
@@ -249,7 +257,7 @@ class IlsRecord(Record):
                 )
         if not id_:
             id_ = uuid4()
-        persistent_identifier = cls.minter(id_, data)
+        cls.minter(id_, data)
         cls.pid_check = pidcheck
         try:
             record = super().create(data=data, id_=id_, **kwargs)
@@ -331,11 +339,6 @@ class IlsRecord(Record):
             return persistent_identifier.object_uuid
         except Exception:
             return None
-
-    @classmethod
-    def get_record_by_id(cls, id, with_deleted=False):
-        """Get ils record by uuid."""
-        return super().get_record(id, with_deleted=with_deleted)
 
     @classmethod
     def get_persistent_identifier(cls, id):
@@ -430,35 +433,31 @@ class IlsRecord(Record):
 
         :param data: a dict data to update the record.
         :param commit: if True push the db transaction.
-        :param dbcommit: if True call dbcommit, make the change effective
-                         in db.
-        :param redindex: reindex the record.
+        :param dbcommit: make the change effective in db.
+        :param reindex: reindex the record.
         :returns: the modified record
         """
         if pid := data.get('pid'):
-            db_record = self.get_record_by_id(self.id)
+            db_record = self.get_record(self.id)
             if pid != db_record.pid:
                 raise IlsRecordError.PidChange(
                     f'{self.__class__.__name__} changed pid from '
                     f'{db_record.pid} to {pid}')
         record = self
 
-        # TODO: find a way to make extended validations.
         # Add schema if missing.
-        schema = data.get('$schema')
-        if not schema:
+        if not data.get('$schema'):
             pid_type = self.provider.pid_type
-            schemas = current_app.config.get('RERO_ILS_DEFAULT_JSON_SCHEMA')
-            if pid_type in schemas:
-                from .utils import get_schema_for_resource
-                data['$schema'] = get_schema_for_resource(pid_type)
+            from .utils import get_schema_for_resource
+            if schema := get_schema_for_resource(pid_type):
+                data['$schema'] = schema
 
         super().update(data)
         if commit or dbcommit:
             self.commit()
         if dbcommit:
-            record = self.dbcommit(reindex)
-            record = self.get_record_by_id(self.id)
+            self.dbcommit(reindex)
+            record = self.get_record(self.id)
         return record
 
     def replace(self, data, commit=True, dbcommit=False, reindex=False):
@@ -530,10 +529,10 @@ class IlsRecord(Record):
         return self.get_persistent_identifier(self.id)
 
     def get_links_to_me(self, get_pids=False):
-        """Record links.
+        """Get related resources linked to the record.
 
-        :param get_pids: if True list of linked pids
-                         if False count of linked records
+        :param get_pids: if `True` list of linked pids, otherwise count of
+                         linked records.
         """
         return {}
 

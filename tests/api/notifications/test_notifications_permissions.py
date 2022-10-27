@@ -16,6 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
@@ -23,9 +24,10 @@ from utils import check_permission, flush_index
 
 from rero_ils.modules.notifications.permissions import \
     NotificationPermissionPolicy
-from rero_ils.modules.patrons.api import PatronsSearch
+from rero_ils.modules.patrons.api import Patron, PatronsSearch
 
 
+@mock.patch.object(Patron, '_extensions', [])
 def test_notifcations_permissions(
     patron_martigny, librarian2_martigny, system_librarian_martigny,
     org_martigny, notification_late_sion, notification_late_martigny,

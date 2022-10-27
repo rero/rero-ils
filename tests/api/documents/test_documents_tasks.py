@@ -71,7 +71,7 @@ def test_replace_idby_contribution(mock_contributions_mef_get, app,
     # clean up
     doc.delete(dbcommit=True, delindex=True, force=True)
     for id in Contribution.get_all_ids():
-        cont = Contribution.get_record_by_id(id)
+        cont = Contribution.get_record(id)
         cont.delete(dbcommit=True, delindex=True, force=True)
 
 
@@ -111,5 +111,5 @@ def test_replace_idby_subjects(mock_contributions_mef_get, app,
     # clean up
     doc.delete(dbcommit=True, delindex=True, force=True)
     for id in Contribution.get_all_ids():
-        cont = Contribution.get_record_by_id(id)
+        cont = Contribution.get_record(id)
         cont.delete(dbcommit=True, delindex=True, force=True)

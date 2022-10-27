@@ -20,13 +20,13 @@
 
 from flask import url_for
 from flask_principal import Identity, RoleNeed
-from invenio_access import Permission
+from invenio_access import ActionUsers, Permission
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 from rero_ils.modules.acquisition.budgets.permissions import \
     search_action as budget_search_action
-from rero_ils.modules.permissions import PermissionContext
+from rero_ils.modules.permissions import PermissionContext, can_use_debug_mode
 from rero_ils.modules.users.models import UserRole
 from rero_ils.permissions import librarian_delete_permission_factory
 
@@ -58,11 +58,11 @@ def test_system_librarian_permissions(
     assert UserRole.FULL_PERMISSIONS in data['allowed_roles']
 
 
-def test_permission_exposition(client, system_librarian_martigny):
+def test_permission_exposition(app, db, client, system_librarian_martigny):
     """Test permission exposition."""
     login_user_via_session(client, system_librarian_martigny.user)
 
-    # test exposition by role
+    # test exposition by role =================================================
     res = client.get(url_for(
         'api_blueprint.permissions_by_role',
         role='dummy-role'
@@ -86,6 +86,39 @@ def test_permission_exposition(client, system_librarian_martigny):
     data = get_json(res)
     assert res.status_code == 200
     assert all(role in data for role in UserRole.PROFESSIONAL_ROLES)
+
+    # test exposition by patron ===============================================
+    res = client.get(url_for(
+        'api_blueprint.permissions_by_patron',
+        patron_pid=system_librarian_martigny.pid
+    ))
+    data = get_json(res)
+    assert res.status_code == 200
+    assert len(data) == len(app.extensions['invenio-access'].actions)
+
+    # system librarian should access to 'can-use-debug-mode'
+    perm = [p for p in data if p['name'] == can_use_debug_mode.value][0]
+    assert perm['can']
+    # add a restriction specific for this user
+    db.session.add(ActionUsers.deny(
+        can_use_debug_mode,
+        user_id=system_librarian_martigny.user.id
+    ))
+    db.session.commit()
+    res = client.get(url_for(
+        'api_blueprint.permissions_by_patron',
+        patron_pid=system_librarian_martigny.pid
+    ))
+    data = get_json(res)
+    assert res.status_code == 200
+    perm = [p for p in data if p['name'] == can_use_debug_mode.value][0]
+    assert not perm['can']
+    # reset DB
+    ActionUsers\
+        .query_by_action(can_use_debug_mode)\
+        .filter(ActionUsers.user_id == system_librarian_martigny.user.id)\
+        .delete(synchronize_session=False)
+    db.session.commit()
 
 
 def test_permission_management(client, system_librarian_martigny):

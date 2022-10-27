@@ -18,6 +18,7 @@
 """Tests REST API for templates."""
 
 import json
+from copy import deepcopy
 
 import mock
 from flask import url_for
@@ -25,6 +26,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
+from rero_ils.modules.templates.api import Template
+from rero_ils.modules.templates.models import TemplateVisibility
 from rero_ils.modules.utils import get_ref_for_pid
 
 
@@ -351,3 +354,81 @@ def test_template_secure_api_update(
         headers=json_header
     )
     assert res.status_code == 403
+
+
+def test_template_update_visibility(
+    client, templ_doc_private_martigny, templ_doc_private_martigny_data,
+    librarian2_martigny, system_librarian_martigny, json_header
+):
+    """Test template visibility attribute update thought API."""
+    tmpl = templ_doc_private_martigny
+    record_url = url_for('invenio_records_rest.tmpl_item', pid_value=tmpl.pid)
+    post_entrypoint = 'invenio_records_rest.tmpl_list'
+
+    # STEP#1 :: Update a template without connected user.
+    #    Without connected user, visibility changes cannot be checked - any
+    #    changes are accepted.
+    magic_mock = mock.MagicMock(return_value=None)
+    with mock.patch('flask_login.utils._get_user', magic_mock):
+        tmpl['visibility'] = TemplateVisibility.PUBLIC
+        tmpl['creator']['$ref'] = \
+            get_ref_for_pid('ptrn', librarian2_martigny.pid)
+        tmpl = tmpl.update(tmpl, dbcommit=True)
+        assert tmpl.is_public
+        # reset to 'private'
+        tmpl['visibility'] = TemplateVisibility.PRIVATE
+        tmpl = tmpl.update(tmpl, dbcommit=True)
+        assert tmpl.is_private
+
+    # STEP#1 :: Connected as the owner of the template
+    #   Owner of the template can update template attributes but can't change
+    #   the template visibility.
+    login_user_via_session(client, librarian2_martigny.user)
+    description_content = 'my custom description'
+    tmpl['description'] = description_content
+    res = client.put(
+        record_url,
+        data=json.dumps(tmpl),
+        headers=json_header
+    )
+    assert res.status_code == 200
+    tmpl = Template.get_record(tmpl.id)
+    assert tmpl.is_private and tmpl.get('description') == description_content
+
+    tmpl['visibility'] = TemplateVisibility.PUBLIC
+    res = client.put(
+        record_url,
+        data=json.dumps(tmpl),
+        headers=json_header
+    )
+    assert res.status_code == 400
+
+    # STEP#2 :: System librarian
+    #   As system librarian, I can clone the template and update it to change
+    #   visibility attribute as 'public'. After all test, delete this new
+    #   template
+    login_user_via_session(client, system_librarian_martigny.user)
+    tmpl_data = deepcopy(templ_doc_private_martigny_data)
+    del tmpl_data['pid']
+    tmpl_data['creator']['$ref'] = \
+        get_ref_for_pid('ptrn', system_librarian_martigny.pid)
+
+    res, res_data = postdata(
+        client,
+        post_entrypoint,
+        tmpl_data
+    )
+    assert res.status_code == 201
+
+    tmpl = Template(res_data['metadata'])
+    record_url = url_for('invenio_records_rest.tmpl_item', pid_value=tmpl.pid)
+    tmpl['visibility'] = TemplateVisibility.PUBLIC
+    res = client.put(
+        record_url,
+        data=json.dumps(tmpl),
+        headers=json_header
+    )
+    assert res.status_code == 200
+
+    res = client.delete(record_url)
+    assert res.status_code == 204

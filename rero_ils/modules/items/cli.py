@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -64,7 +64,7 @@ def reindex_items():
     """Reindexing of item."""
     with click.progressbar(Item.get_all_ids(), length=Item.count()) as bar:
         for uuid in bar:
-            item = Item.get_record_by_id(uuid)
+            item = Item.get_record(uuid)
             item.reindex()
 
 
@@ -333,6 +333,6 @@ def get_patrons_barcodes():
     patrons_ids = Patron.get_all_ids()
     barcodes = []
     for uuid in patrons_ids:
-        patron = Patron.get_record_by_id(uuid)
+        patron = Patron.get_record(uuid)
         barcodes = barcodes + patron.patron.get('barcode', [])
     return barcodes

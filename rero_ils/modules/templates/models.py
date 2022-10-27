@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,3 +40,10 @@ class TemplateMetadata(db.Model, RecordMetadataBase):
     """Template record metadata."""
 
     __tablename__ = 'template_metadata'
+
+
+class TemplateVisibility:
+    """Class to handle different template visibilities."""
+
+    PUBLIC = 'public'
+    PRIVATE = 'private'

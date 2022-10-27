@@ -21,18 +21,24 @@ from __future__ import absolute_import, print_function
 
 from copy import deepcopy
 
+import mock
 import pytest
 from invenio_accounts.models import User
 from invenio_userprofiles import UserProfile
 from jsonschema.exceptions import ValidationError
+from utils import role_managment_validate_mock
 
 from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
+from rero_ils.modules.patrons.extensions import \
+    PatronRoleManagementValidatorExtension
 from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.users.models import UserRole
 from rero_ils.utils import create_user_from_data
 
 
+@mock.patch.object(PatronRoleManagementValidatorExtension,
+                   'validate', role_managment_validate_mock)
 def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
                        patron_type_adults_martigny, mailbox):
     """Test Patron creation."""
@@ -333,6 +339,8 @@ def test_get_patron_for_organisation(
     assert list(pids)
 
 
+@mock.patch.object(PatronRoleManagementValidatorExtension,
+                   'validate', role_managment_validate_mock)
 def test_patron_multiple(patron_sion_multiple, patron2_martigny, lib_martigny):
     """Test changing roles for multiple patron accounts."""
     assert patron2_martigny.user == patron_sion_multiple.user
@@ -343,7 +351,7 @@ def test_patron_multiple(patron_sion_multiple, patron2_martigny, lib_martigny):
     data['roles'] = [UserRole.PATRON]
     del data['libraries']
     patron_sion_multiple.update(data, dbcommit=True, reindex=True)
-    assert patron2_martigny.user.roles == ['patron']
+    assert patron2_martigny.user.roles == [UserRole.PATRON]
     assert Patron.get_record_by_pid(patron_sion_multiple.pid).get('roles') == \
         [UserRole.PATRON]
     assert Patron.get_record_by_pid(patron2_martigny.pid).get('roles') == \

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -183,7 +183,7 @@ def reindex(pid_types, from_date, until_date, direct, index, queue):
                     for idx, id in enumerate((x[0] for x in query), 1):
                         msg = f'{idx}\t{id}\t'
                         try:
-                            rec = record_cls.get_record_by_id(id)
+                            rec = record_cls.get_record(id)
                             msg += f'{rec.pid}'
                             rec.reindex()
                         except Exception as err:

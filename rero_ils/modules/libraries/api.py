@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,6 +30,7 @@ from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
+from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import date_string_to_utc, \
     extracted_data_from_ref, sorted_pids, strtotime
 
