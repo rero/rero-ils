@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -479,7 +479,7 @@ class AcqOrder(AcquisitionIlsRecord):
                 order_line['order_date'] = order_date
                 order_line.update(order_line, dbcommit=True, reindex=True)
             self.reindex()
-            notif = Notification.get_record_by_id(notif.id)
+            notif = Notification.get_record(notif.id)
 
         return notif
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,15 +25,19 @@ from flask_principal import RoleNeed
 from flask_security import login_required, roles_required
 from invenio_access.permissions import Permission
 
+from rero_ils.modules.users.models import UserRole
+
 from .modules.patrons.api import current_librarian, current_patrons
 
-request_item_permission = Permission(RoleNeed('patron'))
+request_item_permission = Permission(RoleNeed(UserRole.PATRON))
 librarian_permission = Permission(
-    RoleNeed('pro_read_only'),
-    RoleNeed('pro_catalog_manager'),
-    RoleNeed('pro_circulation_manager'),
-    RoleNeed('pro_user_manager'),
-    RoleNeed('pro_full_permissions')
+    RoleNeed(UserRole.PROFESSIONAL_READ_ONLY),
+    RoleNeed(UserRole.CATALOG_MANAGER),
+    RoleNeed(UserRole.CIRCULATION_MANAGER),
+    RoleNeed(UserRole.USER_MANAGER),
+    RoleNeed(UserRole.LIBRARY_ADMINISTRATOR),
+    RoleNeed(UserRole.ACQUISITION_MANAGER),
+    RoleNeed(UserRole.FULL_PERMISSIONS)
 )
 admin_permission = Permission(RoleNeed('admin'))
 editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))

@@ -1,4 +1,9 @@
 {
+  "acac-transfer": [
+    "pro_full_permissions",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
   "acac-search": [
     "pro_full_permissions",
     "pro_read_only",

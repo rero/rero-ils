@@ -23,9 +23,10 @@ from flask_security import login_user
 from utils import check_permission, flush_index
 
 from rero_ils.modules.documents.permissions import DocumentPermissionPolicy
-from rero_ils.modules.patrons.api import PatronsSearch
+from rero_ils.modules.patrons.api import Patron, PatronsSearch
 
 
+@mock.patch.object(Patron, '_extensions', [])
 def test_documents_permissions(
     patron_martigny, librarian_martigny, document
 ):

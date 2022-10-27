@@ -4,6 +4,11 @@
     "pro_acquisition_manager",
     "pro_library_administrator"
   ],
+  "acac-transfer": [
+    "pro_full_permissions",
+    "pro_acquisition_manager",
+    "pro_library_administrator"
+  ],
   "acac-search": [
     "pro_full_permissions",
     "pro_read_only",
@@ -18,14 +23,17 @@
   ],
   "acac-create": [
     "pro_full_permissions",
+    "pro_acquisition_manager",
     "pro_library_administrator"
   ],
   "acac-update": [
     "pro_full_permissions",
+    "pro_acquisition_manager",
     "pro_library_administrator"
   ],
   "acac-delete": [
     "pro_full_permissions",
+    "pro_acquisition_manager",
     "pro_library_administrator"
   ],
   "acin-access": [
@@ -212,6 +220,7 @@
     "pro_library_administrator"
   ],
   "cipo-access": [
+    "pro_library_administrator",
     "pro_full_permissions"
   ],
   "cipo-search": [
@@ -243,6 +252,7 @@
   ],
   "coll-access": [
     "pro_full_permissions",
+    "pro_circulation_manager",
     "pro_library_administrator",
     "pro_catalog_manager"
   ],
@@ -350,6 +360,7 @@
     "pro_library_administrator"
   ],
   "itty-access": [
+    "pro_library_administrator",
     "pro_full_permissions"
   ],
   "itty-search": [
@@ -491,11 +502,21 @@
   ],
   "lofi-delete": [
     "pro_full_permissions",
+    "pro_circulation_manager",
     "pro_catalog_manager",
     "pro_library_administrator"
   ],
   "notif-access": [
     "pro_full_permissions",
+    "pro_library_administrator"
+  ],
+  "notif-search": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
     "pro_library_administrator"
   ],
   "notif-update": [
@@ -604,6 +625,7 @@
     "pro_full_permissions"
   ],
   "ptty-access": [
+    "pro_library_administrator",
     "pro_full_permissions"
   ],
   "ptty-search": [
@@ -675,48 +697,37 @@
   "tmpl-access": [
     "pro_full_permissions",
     "pro_library_administrator",
+    "pro_user_manager",
     "pro_catalog_manager"
   ],
   "tmpl-search": [
     "pro_full_permissions",
-    "pro_read_only",
     "pro_catalog_manager",
-    "pro_circulation_manager",
     "pro_user_manager",
-    "pro_acquisition_manager",
     "pro_library_administrator"
   ],
   "tmpl-read": [
     "pro_full_permissions",
-    "pro_read_only",
     "pro_catalog_manager",
-    "pro_circulation_manager",
     "pro_user_manager",
-    "pro_acquisition_manager",
     "pro_library_administrator"
   ],
   "tmpl-update": [
     "pro_full_permissions",
     "pro_catalog_manager",
-    "pro_circulation_manager",
     "pro_user_manager",
-    "pro_acquisition_manager",
     "pro_library_administrator"
   ],
   "tmpl-create": [
     "pro_full_permissions",
     "pro_catalog_manager",
-    "pro_circulation_manager",
     "pro_user_manager",
-    "pro_acquisition_manager",
     "pro_library_administrator"
   ],
   "tmpl-delete": [
     "pro_full_permissions",
     "pro_catalog_manager",
-    "pro_circulation_manager",
     "pro_user_manager",
-    "pro_acquisition_manager",
     "pro_library_administrator"
   ],
   "vndr-access": [
@@ -760,7 +771,8 @@
   ],
   "late-issue-management": [
     "pro_full_permissions",
-    "pro_catalog_manager"
+    "pro_catalog_manager",
+    "pro_library_administrator"
   ],
   "admin-ui-access": [
     "pro_full_permissions",
@@ -773,6 +785,7 @@
   ],
   "access-circulation": [
     "pro_circulation_manager",
+    "pro_library_administrator",
     "pro_full_permissions"
   ],
   "can-use-debug-mode": [
