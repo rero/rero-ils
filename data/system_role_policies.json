@@ -38,9 +38,6 @@
   "lofi-read": [
     "any_user"
   ],
-  "notif-search": [
-    "authenticated_user"
-  ],
   "notif-read": [
     "authenticated_user"
   ],

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -49,7 +49,8 @@ from rero_ils.modules.utils import extracted_data_from_ref, \
     get_patron_from_arguments, get_ref_for_pid, sorted_pids
 from rero_ils.utils import create_user_from_data
 
-from .extensions import UserDataExtension
+from .extensions import PatronRoleManagementValidatorExtension, \
+    UserDataExtension
 from .models import CommunicationChannel, PatronIdentifier, PatronMetadata
 from .utils import get_patron_pid_by_email
 
@@ -118,7 +119,8 @@ class Patron(IlsRecord):
     model_cls = PatronMetadata
 
     _extensions = [
-        UserDataExtension()
+        UserDataExtension(),
+        PatronRoleManagementValidatorExtension()
     ]
 
     # =========================================================================

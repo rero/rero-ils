@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
+# Copyright (C) 2019-2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,14 +16,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for all modules."""
+import contextlib
 import re
 from copy import deepcopy
 from functools import partial
 
 from flask import current_app, g, jsonify
 from flask_principal import ActionNeed, Need
-from invenio_access import ActionRoles, Permission, action_factory, any_user, \
-    current_access
+from invenio_access import ActionRoles, ActionSystemRoles, ActionUsers, \
+    Permission, action_factory, any_user, current_access
 from invenio_accounts.models import Role
 from invenio_db import db
 from invenio_records_permissions import \
@@ -198,26 +199,114 @@ def expose_actions_need_for_user():
 def expose_action_needs_by_role(roles=None):
     """Expose RERO-ILS actions (permissions) by role.
 
-    :param roles: a list of roles to expose. If None, all roles will be exposed
-    :return: the permission matrix corresponding to role.
+    :param roles: a list of roles to expose. Each entry is a tuple containing
+                  two values: the role name and the role type.
+    :return: the permission matrix corresponding to roles.
     """
-    roles_query = Role.query
-    if roles:
-        roles_query = roles_query.filter(Role.name.in_(roles))
+
+    def _perform_system_role(role_names):
+        if not role_names:
+            return
+        query = ActionSystemRoles.query \
+            .filter(ActionSystemRoles.role_name.in_(role_names)) \
+            .all()
+        for row in query:
+            matrix.setdefault(row.role_name, {
+                'type': 'system_role',
+                'actions': deepcopy(actions_list)
+            })['actions'][row.action] = not row.exclude
+
+    def _perform_account_roles(role_names):
+        if not role_names:
+            return
+        roles_query = Role.query.filter(Role.name.in_(role_names))
+        role_ids = [r.id for r in roles_query.all()]
+        query = ActionRoles.query \
+            .filter(ActionRoles.role_id.in_(role_ids)) \
+            .all()
+        for row in query:
+            matrix.setdefault(row.role.name, {
+                'type': 'role',
+                'actions': deepcopy(actions_list)
+            })['actions'][row.action] = not row.exclude
+
+    actions_list = {action: None for action in current_access.actions}
+    matrix = {}
+    roles_types = {}
+    for role in roles:
+        roles_types.setdefault(role[1], []).append(role[0])
+    _perform_system_role(roles_types.get('system_role'))
+    _perform_account_roles(roles_types.get('role'))
+    return matrix
+
+
+def expose_action_needs_by_patron(patron):
+    """Expose RERO-ILS actions (permissions) for a specific patron.
+
+    :param patron: the patron to expose.
+    :return: the permission matrix corresponding to patron.
+    """
+    # Init reasons dictionary used to explain why a permission is allowed or
+    # denied. This dictionary has entry for :
+    #   - each user role
+    #   - 'any_user' and 'authenticated_user' roles (system_role)
+    #   - special entry for specific user permissions.
+    base_reasons = {role: None for role in patron.get('roles', [])}
+    base_reasons.update({
+        'user': None,
+        'any_user': None,
+        'authenticated_user': None
+    })
+
+    permissions_matrix = {
+        action: {
+            'name': action,
+            'can': False,
+            'reasons': deepcopy(base_reasons)
+        }
+        for action in current_access.actions
+    }
+
+    # Load specific ActionRoles permissions from Invenio-access and store them
+    # into the permission_matrix.
+    roles_query = Role.query.filter(Role.name.in_(patron.get('roles', [])))
     role_ids = [r.id for r in roles_query.all()]
+    query = ActionRoles.query \
+        .filter(ActionRoles.role_id.in_(role_ids))
+    for row in query.all():
+        with contextlib.suppress(KeyError):
+            permissions_matrix[row.action]['reasons'][row.role.name] = \
+                not row.exclude
 
-    initial_action_list = {action: None for action in current_access.actions}
+    # Load specific ActionUsers permission from Invenio-access and store them
+    # into the permission_matrix.
+    query = ActionUsers.query \
+        .filter(ActionUsers.user_id == patron.user.id)
+    for row in query.all():
+        permissions_matrix[row.action]['reasons']['user'] = not row.exclude
 
-    permission_matrix = {}
-    action_roles_query = ActionRoles.query\
-        .filter(ActionRoles.role_id.in_(role_ids))\
-        .all()
-    for row in action_roles_query:
-        permission_matrix\
-            .setdefault(
-                row.role.name, deepcopy(initial_action_list)
-            )[row.action] = not row.exclude
-    return permission_matrix
+    # Load specific ActionSystemRoles permissions form Invenio-access and store
+    # them into the permission_matrix.
+    system_roles_to_check = ['any_user', 'authenticated_user']
+    query = ActionSystemRoles.query\
+        .filter(ActionSystemRoles.role_name.in_(system_roles_to_check))
+    for row in query.all():
+        with contextlib.suppress(KeyError):
+            permissions_matrix[row.action]['reasons'][row.role_name] = \
+                not row.exclude
+
+    # Compute general permissions
+    #   Now we load each permission data, search into the reasons list to
+    #   determine the global access permission flag.
+    #   1) If one `False` reason (aka. exclude) is defined --> global is FALSE
+    #   2) Else if one `True` reason is defined --> global is TRUE
+    #   3) Otherwise (all is null - no roles give specific access) --> global
+    #      is false (this is already the default value of 'can')
+    for permission in permissions_matrix.values():
+        values = set(permission['reasons'].values())
+        permission['can'] = True in values and False not in values
+
+    return [v for k, v in permissions_matrix.items()]
 
 
 # =============================================================================
@@ -317,16 +406,18 @@ class AllowedByActionRestrictByOwnerOrOrganisation(AllowedByAction):
     organisation.
     """
 
-    def __init__(self, action, patron_callback=None):
+    def __init__(self, action, patron_callback=None, record_mapper=None):
         """Constructor.
 
         :param action: Need - the ``ActionNeed`` to allow.
         :param patron_callback: the function used to retrieve the patron pid
             related to the record that we need to check. By default, the
             ``patron_pid`` record attribute will be used.
+        :param record_mapper: A function used to transform the record.
         """
         self.patron_callback = patron_callback or \
             (lambda r: getattr(r, 'patron_pid', None))
+        self.record_mapper = record_mapper
         super().__init__(action)
 
     def needs(self, record=None, *args, **kwargs):
@@ -337,6 +428,8 @@ class AllowedByActionRestrictByOwnerOrOrganisation(AllowedByAction):
         :returns: a list of Needs to validate access.
         """
         if record:
+            if self.record_mapper:
+                record = self.record_mapper(record)
             required_need = None
             if current_patrons:
                 required_need = OwnerNeed(self.patron_callback(record))

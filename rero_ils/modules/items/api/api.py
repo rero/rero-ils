@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -196,7 +196,7 @@ class Item(ItemCirculation, ItemIssue):
             'pid').scan()]
         hits = itty + locs
         for id, field_type in hits:
-            yield Item.get_record_by_id(id), field_type
+            yield Item.get_record(id), field_type
 
 
 class ItemsIndexer(IlsRecordsIndexer):

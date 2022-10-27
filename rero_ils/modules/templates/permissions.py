@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,9 +18,8 @@
 
 """Templates permissions."""
 
-from flask import g, request
-from invenio_access import action_factory, any_user
-from invenio_records_permissions.generators import Generator
+from flask import g
+from invenio_access import action_factory
 
 from rero_ils.modules.patrons.api import current_librarian
 from rero_ils.modules.permissions import AllowedByAction, LibraryNeed, \
@@ -131,41 +130,11 @@ class AllowedByActionTemplateWriteRestriction(AllowedByAction):
         return required_needs
 
 
-class DisableTemplateVisibilityChanges(Generator):
-    """Disable template visibility changes with conditions."""
-
-    allowed_roles = [UserRole.FULL_PERMISSIONS, UserRole.LIBRARY_ADMINISTRATOR]
-
-    def excludes(self, record=None, **kwargs):
-        """Disallow `visibility` field changes depending on user roles.
-
-        Any changes on the `visibility` can be operated only by a user
-        having 'full-permission' or 'librarian-administrator' role.
-
-        :param record; the record to check.
-        :param kwargs: extra named arguments.
-        :returns: a list of Needs to disable access.
-        """
-        if record:
-            incoming_record = request.get_json(silent=True) or {}
-            if incoming_record and \
-               record.get('visibility') != incoming_record.get('visibility'):
-                if not current_librarian:
-                    return [any_user]
-                user_roles = set(current_librarian.get('roles'))
-                if not user_roles.intersection(self.allowed_roles):
-                    return [any_user]
-        return []
-
-
 class TemplatePermissionPolicy(RecordPermissionPolicy):
     """Template Permission Policy used by the CRUD operations."""
 
     can_search = [AllowedByAction(search_action)]
     can_read = [AllowedByActionTemplateReadRestriction(read_action)]
     can_create = [AllowedByActionTemplateWriteRestriction(create_action)]
-    can_update = [
-        AllowedByActionTemplateWriteRestriction(update_action),
-        DisableTemplateVisibilityChanges()
-    ]
+    can_update = [AllowedByActionTemplateWriteRestriction(update_action)]
     can_delete = [AllowedByActionTemplateWriteRestriction(delete_action)]

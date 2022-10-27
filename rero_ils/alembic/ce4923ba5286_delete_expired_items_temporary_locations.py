@@ -38,7 +38,7 @@ def index_items_with_temporary_location():
     for idx, (id, pid) in enumerate(ids):
         LOGGER.info(f'{idx} * Reindex item: {pid}')
         try:
-            item = Item.get_record_by_id(id)
+            item = Item.get_record(id)
             item.reindex()
         except Exception as err:
             LOGGER.error(f'{idx} * Reindex item: {pid} {err}')

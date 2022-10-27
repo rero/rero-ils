@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,6 +32,7 @@ create_action = action_factory('acac-create')
 update_action = action_factory('acac-update')
 delete_action = action_factory('acac-delete')
 access_action = action_factory('acac-access')
+transfer_action = action_factory('acac-transfer')
 
 
 class AcqAccountPermissionPolicy(RecordPermissionPolicy):

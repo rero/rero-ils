@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020-2022 RERO
-# Copyright (C) 2020-2022 UCLouvain
+# Copyright (C) 2019-2022-2022 RERO
+# Copyright (C) 2019-2022-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -20,6 +20,7 @@
 from invenio_access import action_factory, any_user
 from invenio_records_permissions.generators import Generator
 
+from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.permissions import \
     AllowedByActionRestrictByOwnerOrOrganisation, RecordPermissionPolicy
 
@@ -46,9 +47,15 @@ class LoanPermissionPolicy(RecordPermissionPolicy):
     """Loan Permission Policy used by the CRUD operations."""
 
     can_search = [
-        AllowedByActionRestrictByOwnerOrOrganisation(search_action)
+        AllowedByActionRestrictByOwnerOrOrganisation(
+            search_action,
+            record_mapper=lambda r: Loan(r)
+        )
     ]
     can_read = [
         DisallowedIfAnonymized(),
-        AllowedByActionRestrictByOwnerOrOrganisation(read_action)
+        AllowedByActionRestrictByOwnerOrOrganisation(
+            read_action,
+            record_mapper=lambda r: Loan(r)
+        )
     ]

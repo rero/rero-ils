@@ -46,6 +46,6 @@ class StatisticsDumperExtension(RecordExtension):
             library_pids = current_librarian.organisation.get_libraries_pids()
 
         record['values'] = list(filter(
-            lambda l: l['library']['pid'] in library_pids,
+            lambda lib: lib['library']['pid'] in library_pids,
             record['values']
         ))

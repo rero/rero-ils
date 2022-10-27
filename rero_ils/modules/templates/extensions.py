@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2019-2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Template record extensions."""
-
+from flask_login import current_user
 from invenio_records.extensions import RecordExtension
+from jsonschema.exceptions import ValidationError
+
+from rero_ils.modules.users.models import UserRole
 
 
 class CleanDataDictExtension(RecordExtension):
@@ -48,3 +51,38 @@ class CleanDataDictExtension(RecordExtension):
                 record.get('data', {}).get(level_1, {}).pop(level_2, None)
             else:
                 record.get('data', {}).pop(field, None)
+
+
+class TemplateVisibilityChangesExtension(RecordExtension):
+    """Disable template visibility changes depending on connected user."""
+
+    def pre_commit(self, record):
+        """Called before a record is committed.
+
+        :param record: the record containing data to validate.
+        :raises ValidationError: If an error is detected during the validation
+            check. This error could be serialized to get the error message.
+        """
+        # First, determine if a user is connected. If not, no check must be
+        # done about any changes (probably it's a console script/user).
+        from rero_ils.modules.patrons.api import current_librarian
+        if not current_user:
+            return
+
+        # Check if visibility of the template changed. If not, we can stop
+        # the validation process.
+        original_record = record.db_record() or {}
+        if record.get('visibility') == original_record.get('visibility'):
+            return
+
+        # Only lib_admin and full_permission roles can change visibility field
+        error_message = "You are not allowed to change template visibility"
+        allowed_roles = [
+            UserRole.FULL_PERMISSIONS,
+            UserRole.LIBRARY_ADMINISTRATOR
+        ]
+        user_roles = set()
+        if current_librarian:
+            user_roles = set(current_librarian.get('roles'))
+        if not user_roles.intersection(allowed_roles):
+            raise ValidationError(error_message)

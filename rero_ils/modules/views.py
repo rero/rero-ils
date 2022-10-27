@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,15 +25,15 @@ import polib
 from flask import Blueprint, abort, current_app, jsonify, request
 from flask_babelex import get_domain
 
-from rero_ils.modules.utils import cached
+from rero_ils.modules.utils import cached, get_all_roles
 
 from .decorators import check_authentication, check_permission, \
     parse_permission_payload
-from .permissions import PermissionContext, expose_action_needs_by_role, \
-    manage_role_permissions
+from .patrons.api import Patron
+from .permissions import PermissionContext, expose_action_needs_by_patron, \
+    expose_action_needs_by_role, manage_role_permissions
 from .permissions import permission_management as permission_management_action
 from .permissions import record_permissions
-from .users.models import UserRole
 
 api_blueprint = Blueprint(
     'api_blueprint',
@@ -100,16 +100,36 @@ def permission_management(context, permission, method='allow', **kwargs):
 @api_blueprint.route('/permissions/by_role', methods=['GET'])
 @check_permission([permission_management_action])
 def permissions_by_role():
-    """."""
-    # By default, we will filter permissions only for roles assignable to
-    # patrons. User can filter roles using "role" query string repeatable
-    # argument. If "all" is present into this argument, all RERO-ILS roles will
-    # be exposed.
-    filtered_roles = UserRole.ALL_ROLES
-    if roles := request.args.getlist('role'):
-        filtered_roles = None if 'all' in roles else roles
+    """Expose permissions by roles.
+
+    You could choose to filter the result to some roles using the `role`
+    query string argument (repetitive).
+
+    ..USAGE :
+    `/api/permissions/by_role[?role=all]`
+        --> all permissions for roles allowed for `Patron` resource.
+    `/api/permissions/by_role?role=admin&role=pro_read_only`
+        --> all permissions for "admin" and "pro_read_only" roles.
+    """
+    filtered_roles = get_all_roles()
+    if role_names := request.args.getlist('role'):
+        if 'all' not in role_names:
+            filtered_roles = [r for r in filtered_roles if r[0] in role_names]
 
     return jsonify(expose_action_needs_by_role(filtered_roles))
+
+
+@api_blueprint.route('/permissions/by_patron/<patron_pid>', methods=['GET'])
+@check_permission([permission_management_action])
+def permissions_by_patron(patron_pid):
+    """Expose permissions for a specific user.
+
+    :param patron_pid: the patron pid to expose.
+    """
+    patron = Patron.get_record_by_pid(patron_pid)
+    if not patron:
+        abort(404, 'Patron not found')
+    return jsonify(expose_action_needs_by_patron(patron))
 
 
 # TRANSLATIONS APIS' ==========================================================
