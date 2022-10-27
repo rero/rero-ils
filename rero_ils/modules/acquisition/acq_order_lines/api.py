@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -117,7 +117,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Order Line record."""
         # TODO :: try to find a better way to load original record.
-        original_record = self.__class__.get_record_by_id(self.id)
+        original_record = self.__class__.get_record(self.id)
 
         new_data = deepcopy(dict(self))
         new_data.update(data)
@@ -323,7 +323,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
 
 
 class AcqOrderLinesIndexer(IlsRecordsIndexer):
-    """Indexing Acquisition Order Line in Elasticsearch."""
+    """Indexing AcqOrderLine in Elasticsearch."""
 
     record_cls = AcqOrderLine
 
@@ -333,13 +333,13 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
         record.account.reindex()
 
     def index(self, record):
-        """Index an Acquisition Order Line and update total amount of order."""
+        """Index an AcqOrderLine and update total amount of order."""
         return_value = super().index(record)
         AcqOrderLinesIndexer._reindex_related_resources(record)
         return return_value
 
     def delete(self, record):
-        """Delete a Acquisition Order Line and update total amount of order."""
+        """Delete an AcqOrderLine and update total amount of order."""
         return_value = super().delete(record)
         AcqOrderLinesIndexer._reindex_related_resources(record)
         return return_value

@@ -247,13 +247,13 @@ def test_patrons_get(client, librarian_martigny):
     assert result == patron.replace_refs().dumps()
 
 
-@mock.patch('invenio_records_rest.views.verify_record_permission',
-            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_patrons_post_put_delete(
-    app, client, lib_martigny, patron_type_children_martigny,
-    patron_martigny_data_tmp, json_header, roles, mailbox
+    app, client, lib_martigny, system_librarian_martigny,
+    patron_type_children_martigny, patron_martigny_data_tmp, json_header,
+    roles, mailbox
 ):
     """Test record retrieval."""
+    login_user_via_session(client, system_librarian_martigny.user)
     pid_value = 'ptrn_1'
     item_url = url_for('invenio_records_rest.ptrn_item', pid_value=pid_value)
     list_url = url_for('invenio_records_rest.ptrn_list', q=f'pid:{pid_value}')
@@ -330,13 +330,13 @@ def test_patrons_post_put_delete(
     ds.delete_user(ds.find_user(id=patron_data['user_id']))
 
 
-@mock.patch('invenio_records_rest.views.verify_record_permission',
-            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_patrons_post_without_email(
     app, client, lib_martigny, patron_type_children_martigny,
-    patron_martigny_data_tmp, json_header, roles, mailbox
+    patron_martigny_data_tmp, json_header, roles, mailbox,
+    system_librarian_martigny
 ):
     """Test record retrieval."""
+    login_user_via_session(client, system_librarian_martigny.user)
     patron_data = deepcopy(patron_martigny_data_tmp)
     patron_data['email'] = 'post_without_email@test.ch'
     patron_data['username'] = 'post_without_email'

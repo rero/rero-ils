@@ -17,16 +17,17 @@
 
 """Tests REST API for collections."""
 
-
+import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
 from utils import check_permission, flush_index
 
 from rero_ils.modules.collections.permissions import CollectionPermissionPolicy
-from rero_ils.modules.patrons.api import PatronsSearch
+from rero_ils.modules.patrons.api import Patron, PatronsSearch
 
 
+@mock.patch.object(Patron, '_extensions', [])
 def test_collections_permissions(
     patron_martigny, librarian_martigny, system_librarian_martigny,
     coll_martigny_1, coll_sion_1, coll_saxon_1, lib_martigny, org_martigny
