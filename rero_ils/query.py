@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2022 RERO
 # Copyright (C) 2020 UCLOUVAIN
 #
 # This program is free software: you can redistribute it and/or modify
@@ -32,7 +32,7 @@ from .facets import default_facets_factory
 from .modules.items.models import TypeOfItem
 from .modules.organisations.api import Organisation
 from .modules.patrons.api import current_librarian, current_patrons
-from .modules.templates.api import TemplateVisibility
+from .modules.templates.models import TemplateVisibility
 from .utils import get_i18n_supported_languages
 
 _PUNCTUATION_REGEX = re.compile(r'[:,\?,\,,\.,;,!,=,-]+(\s+|$)')

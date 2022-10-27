@@ -16,7 +16,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API acquisition orders."""
-
 import json
 from copy import deepcopy
 
@@ -81,27 +80,25 @@ def test_acq_order_get(client, acq_order_fiction_martigny):
     del metadata['organisation']
     del metadata['order_lines']
     del metadata['receipts']
+    metadata.pop('budget', None)
     assert data['hits']['hits'][0]['metadata'] == acq_order.replace_refs()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
-                                    acq_order_fiction_saxon,
-                                    json_header):
+def test_acq_orders_post_put_delete(
+    client, org_martigny, vendor2_martigny, acq_order_fiction_saxon,
+    acq_order_fiction_saxon_data, json_header
+):
     """Test record retrieval."""
     # Create record / POST
-    item_url = url_for('invenio_records_rest.acor_item', pid_value='1')
-    list_url = url_for('invenio_records_rest.acor_list', q='pid:1')
-
-    acq_order_fiction_saxon['pid'] = '1'
+    acq_order_fiction_saxon_data.pop('pid', None)
     res, data = postdata(
         client,
         'invenio_records_rest.acor_list',
-        acq_order_fiction_saxon
+        acq_order_fiction_saxon_data
     )
     assert res.status_code == 201
-
     # Check that the returned record matches the given data
     assert data['metadata'].pop('account_statement') == {
         'provisional': {
@@ -113,9 +110,15 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
             'quantity': 0
         }
     }
+
     assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
     assert not data['metadata'].pop('order_date', None)
-    assert data['metadata'] == acq_order_fiction_saxon
+    acq_order_fiction_saxon_data['pid'] = data['metadata']['pid']
+    assert data['metadata'] == acq_order_fiction_saxon_data
+
+    pid = data['metadata']['pid']
+    item_url = url_for('invenio_records_rest.acor_item', pid_value=pid)
+    list_url = url_for('invenio_records_rest.acor_list', q=f'pid:{pid}')
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -132,14 +135,14 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
     }
     assert data['metadata'].pop('status') == AcqOrderStatus.PENDING
     assert not data['metadata'].pop('order_date', None)
-    assert acq_order_fiction_saxon == data['metadata']
+    assert acq_order_fiction_saxon_data == data['metadata']
 
     # Update record/PUT
-    data = acq_order_fiction_saxon
-    data['reference'] = 'Test reference'
+    api_data = acq_order_fiction_saxon_data
+    api_data['reference'] = 'Test reference'
     res = client.put(
         item_url,
-        data=json.dumps(data),
+        data=json.dumps(api_data),
         headers=json_header
     )
     assert res.status_code == 200
@@ -163,7 +166,6 @@ def test_acq_orders_post_put_delete(client, org_martigny, vendor2_martigny,
     # Delete record/DELETE
     res = client.delete(item_url)
     assert res.status_code == 204
-
     res = client.get(item_url)
     assert res.status_code == 410
 
@@ -203,6 +205,7 @@ def test_filtered_acq_orders_get(
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total']['value'] == 1
+
 
 def test_acq_order_history_api(
   client, vendor_martigny, lib_martigny, rero_json_header, librarian_martigny,

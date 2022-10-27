@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,6 +37,7 @@ import sqlalchemy
 from dateutil import parser
 from flask import current_app, session
 from flask_login import current_user
+from invenio_accounts.models import Role
 from invenio_cache import current_cache
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_rest.utils import obj_or_import_string
@@ -1107,7 +1109,7 @@ def get_objects(record_class, query):
     :return generator of records object.
     """
     for hit in query.source().scan():
-        yield record_class.get_record_by_id(hit.meta.id)
+        yield record_class.get_record(hit.meta.id)
 
 
 def strip_chars(string, extra=u''):
@@ -1178,3 +1180,21 @@ def draw_data_table(columns, rows=[], padding=''):
         ])+"\n"
 
     return table_header() + table_rows() + table_footer()
+
+
+def get_all_roles():
+    """Get a list of all possible roles allowable by the system for a user.
+
+    :returns: A list of tuple containing "role name" and "role type".
+    """
+    roles = []
+    # Load system roles registered into invenio-access
+    if access_ext := current_app.extensions['invenio-access']:
+        roles = [
+            (role_name, 'system_role')
+            for role_name in access_ext.system_roles.keys()
+            if role_name != 'system_process'
+        ]
+    # Complete with existing roles from `invenio-accounts`
+    roles.extend([(role.name, 'role') for role in Role.query.all()])
+    return roles

@@ -59,7 +59,7 @@ def upgrade_downgrade(action):
     for idx, (id, pid) in enumerate(ids):
         LOGGER.info(f'{idx} * Reindex holding: {pid}.')
         try:
-            hold = Holding.get_record_by_id(id)
+            hold = Holding.get_record(id)
             hold.reindex()
         except Exception as err:
             LOGGER.error(f'{idx} * Reindex holding: {pid} {err}')

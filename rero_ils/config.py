@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -2724,6 +2724,7 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     'rero_ils.modules.vendors.permissions:update_action',
     'rero_ils.modules.vendors.permissions:delete_action',
     # additional permissions ------------------------------
+    'rero_ils.modules.acquisition.acq_accounts.permissions:transfer_action',
     'rero_ils.modules.permissions:permission_management',
     'rero_ils.modules.permissions:access_ui_admin',
     'rero_ils.modules.permissions:access_circulation',
@@ -3093,8 +3094,7 @@ CIRCULATION_REST_ENDPOINTS = dict(
         record_class='rero_ils.modules.loans.api:Loan',
         search_factory_imp='rero_ils.query:circulation_search_factory',
         list_route='/loans/',
-        item_route='/loans/<{0}:pid_value>'.format(
-            _LOANID_CONVERTER),
+        item_route='/loans/<{0}:pid_value>'.format(_LOANID_CONVERTER),
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         error_handlers=dict(),

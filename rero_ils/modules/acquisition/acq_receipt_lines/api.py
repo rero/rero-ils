@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -88,7 +88,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Receipt Line record."""
         # TODO :: try to find a better way to load original record.
-        original_record = self.__class__.get_record_by_id(self.id)
+        original_record = self.__class__.get_record(self.id)
 
         new_data = deepcopy(dict(self))
         new_data.update(data)

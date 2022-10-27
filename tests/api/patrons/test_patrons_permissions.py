@@ -18,8 +18,7 @@
 
 """Tests Permission for REST API patrons."""
 
-from copy import deepcopy
-
+import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
@@ -28,9 +27,9 @@ from utils import check_permission, flush_index
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
 from rero_ils.modules.patrons.permissions import PatronPermissionPolicy
 from rero_ils.modules.users.models import UserRole
-from rero_ils.modules.utils import get_ref_for_pid
 
 
+@mock.patch.object(Patron, '_extensions', [])
 def test_patrons_permissions(
     patron_martigny, librarian_martigny, system_librarian_martigny,
     org_martigny, librarian_saxon, patron_sion, patron2_martigny,
@@ -137,66 +136,6 @@ def test_patrons_permissions(
         'update': False,
         'delete': False
     }, patron_sion)
-
-    # test roles' management ::
-    #   As specified into the configuration file, the only roles that a
-    #   'pro_user_manager' can update is `patron`, any other changes on roles'
-    #   management will be denied.
-    patron_data = deepcopy(librarian2_martigny_data)
-    patron_data['roles'].append(UserRole.PATRON)
-    check_permission(PatronPermissionPolicy, {
-        'create': True,
-        'update': True,
-        'delete': True
-    }, Patron(patron_data))
-    patron_data['roles'].remove(UserRole.USER_MANAGER)
-    check_permission(PatronPermissionPolicy, {
-        'create': False,
-        'update': False,
-        'delete': False
-    }, Patron(patron_data))
-
-    # Logges as a 'librarian-administrator'
-    #   As library-admin, more roles' management are available. According to
-    #   the configuration file, user can manage all roles except 'lib-admin'
-    #   and 'full-permissions'.
-    librarian_martigny['roles'] = [UserRole.LIBRARY_ADMINISTRATOR]
-    librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
-    flush_index(PatronsSearch.Meta.index)
-    login_user(librarian_martigny.user)
-
-    # Don't change any data from last test, now, it will be passed...
-    check_permission(PatronPermissionPolicy, {
-        'create': True,
-        'update': True,
-        'delete': True
-    }, Patron(patron_data))
-    # ... but I cannot manage 'pro_library_administrator' or 'full_permissions'
-    patron_data['roles'].append(UserRole.LIBRARY_ADMINISTRATOR)
-    check_permission(PatronPermissionPolicy, {
-        'create': False,
-        'update': False,
-        'delete': False
-    }, Patron(patron_data))
-    # ... But it will be OK only for user of its own library ...
-    patron_data['roles'].remove(UserRole.LIBRARY_ADMINISTRATOR)
-    patron_data['libraries'][0]['$ref'] = get_ref_for_pid('lib', lib_saxon.pid)
-    check_permission(PatronPermissionPolicy, {
-        'create': False,
-        'update': False,
-        'delete': False
-    }, Patron(patron_data))
-
-    # Logges as a 'full-permissions'
-    #   As 'full-permission' user, I can manage any roles in any library of my
-    #   organisation.
-    login_user(system_librarian_martigny.user)
-    patron_data['roles'].append(UserRole.FULL_PERMISSIONS)
-    check_permission(PatronPermissionPolicy, {
-        'create': True,
-        'update': True,
-        'delete': True
-    }, Patron(patron_data))
 
     # reset librarian
     # reset the librarian
