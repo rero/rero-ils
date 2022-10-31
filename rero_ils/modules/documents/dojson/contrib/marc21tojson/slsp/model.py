@@ -20,6 +20,7 @@
 import re
 
 from dojson import utils
+from flask import current_app
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
     build_string_from_subfields, get_contribution_link, \
@@ -372,6 +373,12 @@ def marc21_to_subjects_6XX(self, key, value):
     subfield_2 = subfields_2[0] if subfields_2 else None
     subfields_a = utils.force_list(value.get('a', []))
 
+    config_field_key = \
+        current_app.config.get(
+            'RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE',
+            'subjects_imported'
+        )
+
     if subfield_2 == 'rero':
         if tag_key in ['600', '610', '611'] and value.get('t'):
             tag_key += 't'
@@ -415,7 +422,7 @@ def marc21_to_subjects_6XX(self, key, value):
             subject['creator'] = remove_trailing_punctuation(
                 build_string_from_subfields(
                     value, subfield_code_per_tag[creator_tag_key]), '.', '.')
-        field_key = 'genreForm' if tag_key == '655' else 'subjects'
+        field_key = 'genreForm' if tag_key == '655' else config_field_key
         subfields_0 = utils.force_list(value.get('0'))
         if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
             ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
@@ -442,9 +449,7 @@ def marc21_to_subjects_6XX(self, key, value):
             perform_subdivisions(subject)
 
         if subject.get('$ref') or subject.get(field_data_per_tag[tag_key]):
-            subjects = self.get(field_key, [])
-            subjects.append(subject)
-            self[field_key] = subjects
+            self.setdefault(field_key, []).append(subject)
 
     elif subfield_2 == 'rerovoc' or indicator_2 in ['0', '2']:
         term_string = build_string_from_subfields(
@@ -452,19 +457,17 @@ def marc21_to_subjects_6XX(self, key, value):
         if term_string:
             source = 'rerovoc' if subfield_2 == 'rerovoc' \
                 else source_per_indicator_2[indicator_2]
-            subject_imported = {
+            data = {
                 'type': type_per_tag[tag_key],
                 'source': source,
                 field_data_per_tag[tag_key]: term_string
             }
-            perform_subdivisions(subject_imported)
+            perform_subdivisions(data)
 
             if tag_key in ['610', '611']:
-                subject_imported['conference'] = conference_per_tag[tag_key]
-            subjects_imported = self.get('subjects_imported', [])
-            if subject_imported:
-                subjects_imported.append(subject_imported)
-                self['subjects_imported'] = subjects_imported
+                data['conference'] = conference_per_tag[tag_key]
+            if data:
+                self.setdefault(config_field_key, []).append(data)
 
 
 @marc21.over('sequence_numbering', '^362..')

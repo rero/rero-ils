@@ -20,6 +20,7 @@
 import jsonref
 from dojson import utils
 from dojson.utils import GroupableOrderedDict
+from flask import current_app
 from pkg_resources import resource_string
 
 from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
@@ -1115,6 +1116,11 @@ def unimarc_subjects(self, key, value):
     subjects: 6xx [duplicates could exist between several vocabularies,
         if possible deduplicate]
     """
+    config_field_key = current_app.config.get(
+        'RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE',
+        'subjects_imported'
+    )
+
     to_return = ''
     if value.get('a'):
         to_return = value.get('a')
@@ -1126,13 +1132,16 @@ def unimarc_subjects(self, key, value):
         to_return += ', ' + ', '.join(utils.force_list(value.get('c')))
     if value.get('f'):
         to_return += ', ' + ', '.join(utils.force_list(value.get('f')))
+    if value.get('y'):
+        to_return += ' -- ' + ' -- '.join(utils.force_list(value.get('y')))
     if to_return:
         data = {
             'type': "bf:Topic",
-            'term': to_return,
-            'source': value.get('2', None)
+            'term': to_return
         }
-        return {k: v for k, v in data.items() if v}
+        if source := value.get('2', None):
+            data['source'] = source
+        self.setdefault(config_field_key, []).append(data)
 
 
 @unimarc.over('electronicLocator', '^8564.')

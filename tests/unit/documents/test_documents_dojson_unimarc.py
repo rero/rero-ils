@@ -1549,6 +1549,7 @@ def test_unimarc_subjects():
         <subfield code="c">Jr.</subfield>
         <subfield code="d">III</subfield>
         <subfield code="f">1700-1780</subfield>
+        <subfield code="y">France</subfield>
       </datafield>
     </record>
     """
@@ -1559,7 +1560,7 @@ def test_unimarc_subjects():
         'type': 'bf:Topic',
         'source': 'rameau'
     }, {
-        'term': 'Capet, Louis III, Jr., 1700-1780',
+        'term': 'Capet, Louis III, Jr., 1700-1780 -- France',
         'type': 'bf:Topic'
     }]
 
