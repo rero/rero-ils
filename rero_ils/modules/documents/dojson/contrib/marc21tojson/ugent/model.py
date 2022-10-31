@@ -19,6 +19,7 @@
 """rero-ils MARC21 model definition."""
 
 from dojson import utils
+from flask import current_app
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, \
     build_string_from_subfields
@@ -295,7 +296,7 @@ def marc21_to_supplementary_content(self, key, value):
 @marc21.over('subjects', '^(600|610|611|630|650|651|655)..')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_to_subjects_imported(self, key, value):
+def marc21_to_subjects_6XX(self, key, value):
     """Get subjects.
 
     - create an object :
@@ -356,24 +357,28 @@ def marc21_to_subjects_imported(self, key, value):
     subfields_2 = utils.force_list(value.get('2'))
     subfield_2 = subfields_2[0] if subfields_2 else None
 
+    config_field_key = \
+        current_app.config.get(
+            'RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE',
+            'subjects_imported'
+        )
+
     if subfield_2 == 'lcsh' or indicator_2 in ['0', '2', '7']:
         term_string = build_string_from_subfields(
             value, 'abcdefghijklmnopqrstuw', ' - ')
         if term_string:
             source = 'LCSH' if subfield_2 == 'lcsh' else \
                 source_per_indicator_2[indicator_2]
-            subject_imported = {
+            data = {
                 'type': type_per_tag[tag_key],
                 'source': source,
                 field_data_per_tag[tag_key]: term_string.rstrip('.')
             }
-            perform_subdivisions(subject_imported)
+            perform_subdivisions(data)
             if tag_key in ['610', '611']:
-                subject_imported['conference'] = conference_per_tag[tag_key]
-            subjects_imported = self.get('subjects_imported', [])
-            if subject_imported:
-                subjects_imported.append(subject_imported)
-                self['subjects_imported'] = subjects_imported
+                data['conference'] = conference_per_tag[tag_key]
+            if data:
+                self.setdefault(config_field_key, []).append(data)
 
 
 @marc21.over('sequence_numbering', '^362..')
