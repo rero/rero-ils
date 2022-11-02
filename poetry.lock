@@ -1529,38 +1529,6 @@ reference = "v1.0.0a4"
 resolved_reference = "fe55e095a8e78b36cfad875f752f2facc2908bae"
 
 [[package]]
-name = "invenio-oaiserver"
-version = "1.2.2"
-description = "Invenio module that implements OAI-PMH server."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-arrow = ">=0.17.0"
-click = ">=7.0,<8.0"
-dojson = ">=1.3.0"
-Flask = ">=1.0.4,<2.0"
-invenio-base = ">=1.2.4"
-invenio-i18n = ">=1.2.0"
-invenio-pidstore = ">=1.2.2"
-invenio-records = ">=1.4.0"
-invenio-rest = ">=1.2.1"
-lxml = ">=4.3.0"
-
-[package.extras]
-admin = ["invenio-admin (>=1.2.0)"]
-all = ["SQLAlchemy (>=1.2.18,<1.4.0)", "SQLAlchemy-Continuum (>=1.3.6)", "SQLAlchemy-Utils (>=0.33.1,<0.36)", "Sphinx (>=3.1.0,<3.4.2)", "invenio-admin (>=1.2.0)", "invenio-celery (>=1.2.2)", "invenio-indexer (>=1.1.0)", "invenio-jsonschemas (>=1.1.0)", "invenio-marc21 (>=1.0.0a9)", "mock (>=1.3.0)", "pytest-invenio (>=1.4.1)"]
-celery = ["invenio-celery (>=1.2.2)"]
-docs = ["Sphinx (>=3.1.0,<3.4.2)"]
-elasticsearch6 = ["invenio-search[elasticsearch6] (>=1.4.2,<2.0.0)"]
-elasticsearch7 = ["invenio-search[elasticsearch7] (>=1.4.2,<2.0.0)"]
-mysql = ["invenio-db[mysql] (>=1.0.9)"]
-postgresql = ["invenio-db[postgresql] (>=1.0.9)"]
-sqlite = ["invenio-db (>=1.0.9)"]
-tests = ["SQLAlchemy (>=1.2.18,<1.4.0)", "SQLAlchemy-Continuum (>=1.3.6)", "SQLAlchemy-Utils (>=0.33.1,<0.36)", "invenio-indexer (>=1.1.0)", "invenio-jsonschemas (>=1.1.0)", "invenio-marc21 (>=1.0.0a9)", "mock (>=1.3.0)", "pytest-invenio (>=1.4.1)"]
-
-[[package]]
 name = "invenio-oauth2server"
 version = "1.3.7"
 description = "\"Invenio module that implements OAuth 2 server.\""
@@ -1911,18 +1879,18 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "jedi"
-version = "0.17.2"
+version = "0.18.1"
 description = "An autocompletion tool for Python that can be used for text editors."
 category = "main"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+python-versions = ">=3.6"
 
 [package.dependencies]
-parso = ">=0.7.0,<0.8.0"
+parso = ">=0.8.0,<0.9.0"
 
 [package.extras]
-qa = ["flake8 (==3.7.9)"]
-testing = ["Django (<3.1)", "colorama", "docopt", "pytest (>=3.9.0,<5.0.0)"]
+qa = ["flake8 (==3.8.3)", "mypy (==0.782)"]
+testing = ["Django (<3.1)", "colorama", "docopt", "pytest (<7.0.0)"]
 
 [[package]]
 name = "jinja2"
@@ -2276,14 +2244,15 @@ pyparsing = ">=2.0.2,<3.0.5 || >3.0.5"
 
 [[package]]
 name = "parso"
-version = "0.7.1"
+version = "0.8.3"
 description = "A Python Parser"
 category = "main"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+python-versions = ">=3.6"
 
 [package.extras]
-testing = ["docopt", "pytest (>=3.0.7)"]
+qa = ["flake8 (==3.8.3)", "mypy (==0.782)"]
+testing = ["docopt", "pytest (<6.0.0)"]
 
 [[package]]
 name = "passlib"
@@ -3407,7 +3376,7 @@ sip2 = ["invenio-sip2"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">= 3.9, <3.10"
-content-hash = "e944e3a3658c9cb5fa720234c30e172dfc1d2af9e13adfb5afcc49e7db98aaec"
+content-hash = "db5129b8ee307e9c1af16f5a921743f43f8ee58a8f45311a2bfe9e8aa0a5661c"
 
 [metadata.files]
 alabaster = [
@@ -3776,6 +3745,7 @@ flask-kvsession-invenio = [
 flask-limiter = [
     {file = "Flask-Limiter-1.1.0.tar.gz", hash = "sha256:905c35cd87bf60c92fd87922ae23fe27aa5fb31980bab31fc00807adee9f5a55"},
     {file = "Flask_Limiter-1.1.0-py2-none-any.whl", hash = "sha256:9087984ae7eeb862f93bf5b18477a5e5b1e0c907647ae74fba1c7e3f1de63d6f"},
+    {file = "Flask_Limiter-1.1.0-py2.7.egg", hash = "sha256:5831d6b5b9ef6a83dca4b89f216880a7aa204b5ce8b710b5bc02786bf21e11fd"},
 ]
 flask-login = [
     {file = "Flask-Login-0.4.1.tar.gz", hash = "sha256:c815c1ac7b3e35e2081685e389a665f2c74d7e077cb93cecabaea352da4752ec"},
@@ -3930,10 +3900,6 @@ invenio-mail = [
     {file = "invenio_mail-1.0.2-py2.py3-none-any.whl", hash = "sha256:fcd9ec4a89e0e68d09a9b9a638ee625e260ef98d6bc9d7aa172ec3969a95933f"},
 ]
 invenio-oaiharvester = []
-invenio-oaiserver = [
-    {file = "invenio-oaiserver-1.2.2.tar.gz", hash = "sha256:1d55b76ce2ae4a5928c95ff4ab61b6e2be40bd9ce37527406a2566167c431fbf"},
-    {file = "invenio_oaiserver-1.2.2-py2.py3-none-any.whl", hash = "sha256:e00eeb2895d9ba39bf2c23539847415c2fad298e3c2af165b406448b48cfa1d3"},
-]
 invenio-oauth2server = [
     {file = "invenio-oauth2server-1.3.7.tar.gz", hash = "sha256:0def130c215d1c522a50fce034dd7ff6003ca7de0c5519c69e000ef45b6788c8"},
     {file = "invenio_oauth2server-1.3.7-py2.py3-none-any.whl", hash = "sha256:9840588e5125a7233d97848326d3af5697add771e36da98adbc8654a8db93fbb"},
@@ -3995,8 +3961,8 @@ itsdangerous = [
     {file = "itsdangerous-1.1.0.tar.gz", hash = "sha256:321b033d07f2a4136d3ec762eac9f16a10ccd60f53c0c91af90217ace7ba1f19"},
 ]
 jedi = [
-    {file = "jedi-0.17.2-py2.py3-none-any.whl", hash = "sha256:98cc583fa0f2f8304968199b01b6b4b94f469a1f4a74c1560506ca2a211378b5"},
-    {file = "jedi-0.17.2.tar.gz", hash = "sha256:86ed7d9b750603e4ba582ea8edc678657fb4007894a12bcf6f4bb97892f31d20"},
+    {file = "jedi-0.18.1-py2.py3-none-any.whl", hash = "sha256:637c9635fcf47945ceb91cd7f320234a7be540ded6f3e99a50cb6febdfd1ba8d"},
+    {file = "jedi-0.18.1.tar.gz", hash = "sha256:74137626a64a99c8eb6ae5832d99b3bdd7d29a3850fe2aa80a4126b2a7d949ab"},
 ]
 jinja2 = [
     {file = "Jinja2-2.11.3-py2.py3-none-any.whl", hash = "sha256:03e47ad063331dd6a3f04a43eddca8a966a26ba0c5b7207a9a9e4e08f1b29419"},
@@ -4290,8 +4256,8 @@ packaging = [
     {file = "packaging-21.3.tar.gz", hash = "sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb"},
 ]
 parso = [
-    {file = "parso-0.7.1-py2.py3-none-any.whl", hash = "sha256:97218d9159b2520ff45eb78028ba8b50d2bc61dcc062a9682666f2dc4bd331ea"},
-    {file = "parso-0.7.1.tar.gz", hash = "sha256:caba44724b994a8a5e086460bb212abc5a8bc46951bf4a9a1210745953622eb9"},
+    {file = "parso-0.8.3-py2.py3-none-any.whl", hash = "sha256:c001d4636cd3aecdaf33cbb40aebb59b094be2a74c556778ef5576c175e19e75"},
+    {file = "parso-0.8.3.tar.gz", hash = "sha256:8c07be290bb59f03588915921e29e8a50002acaf2cdc5fa0e0114f91709fafa0"},
 ]
 passlib = [
     {file = "passlib-1.7.4-py2.py3-none-any.whl", hash = "sha256:aa6bca462b8d8bda89c70b382f0c298a20b5560af6cbfa2dce410c0a2fb669f1"},
@@ -4680,6 +4646,7 @@ requests = [
 requests-oauthlib = [
     {file = "requests-oauthlib-1.1.0.tar.gz", hash = "sha256:eabd8eb700ebed81ba080c6ead96d39d6bdc39996094bd23000204f6965786b0"},
     {file = "requests_oauthlib-1.1.0-py2.py3-none-any.whl", hash = "sha256:be76f2bb72ca5525998e81d47913e09b1ca8b7957ae89b46f787a79e68ad5e61"},
+    {file = "requests_oauthlib-1.1.0-py3.7.egg", hash = "sha256:490229d14a98e1b69612dcc1a22887ec14f5487dc1b8c6d7ba7f77a42ce7347b"},
 ]
 rero-invenio-base = [
     {file = "rero-invenio-base-0.1.0.tar.gz", hash = "sha256:f4cb70dd0268c61d036da05a3b2f4fdbc4c8ebb00e6d7a72751f9fdd81279ed4"},
