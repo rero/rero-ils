@@ -1029,6 +1029,22 @@ class JsonWriter(object):
             self.file_handle.close()
             self.file_handle = None
 
+    def __enter__(self):
+        """Context manager enter."""
+        return self
+
+    def __exit__(self, exception_type, exception_value, exception_traceback):
+        """Context manager exit.
+
+        :params exception_type: indicates class of exception.
+        :params exception_value: indicates type of exception.
+            like divide_by_zero error, floating_point_error,
+            which are types of arithmetic exception.
+        :params exception_traceback: traceback is a report which has all
+            of the information needed to solve the exception.
+        """
+        self.__del__()
+
     def write(self, data):
         """Write data to file.
 
