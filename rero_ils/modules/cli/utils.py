@@ -59,20 +59,19 @@ from werkzeug.security import gen_salt
 from rero_ils.modules.locations.api import Location
 
 from ..contributions.api import Contribution
-from ..documents.api import Document, DocumentsIndexer, DocumentsSearch
+from ..documents.api import Document, DocumentsSearch
 from ..documents.dojson.contrib.marc21tojson.rero import marc21
 from ..documents.views import get_cover_art
 from ..items.api import Item
 from ..libraries.api import Library
 from ..loans.tasks import delete_loans_created as task_delete_loans_created
+from ..local_fields.api import LocalField
 from ..patrons.cli import users_validate
 from ..selfcheck.cli import create_terminal, list_terminal, update_terminal
-from ..tasks import process_bulk_queue
 from ..utils import JsonWriter, extracted_data_from_ref, \
     get_record_class_from_schema_or_pid_type, get_schema_for_resource, \
     read_json_record, read_xml_record
 
-_datastore = LocalProxy(lambda: current_app.extensions['security'].datastore)
 _records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
 
 
@@ -223,100 +222,159 @@ def schedules():
         click.echo(value)
 
 
-@utils.command('validate_documents_with_items')
+@utils.command()
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @with_appcontext
-def validate_documents_with_items(infile, verbose, debug):
+def validate_documents_with_items_lofis(infile, verbose, debug):
     """Validate REROILS records with items.
 
     :param infile: Json file
     :param verbose: verbose print
     :param debug: print traceback
     """
+    def print_error(err, record_type, debug):
+        """Print error."""
+        if debug:
+            trace = traceback.format_exc(1)
+        else:
+            trace = "\n".join(traceback.format_exc(1).split('\n')[:6])
+        click.secho(
+            f'Error {err.args[0]} in {record_type}:\n{trace}',
+            fg='red'
+        )
+
+    def validate_lofi(idx, local_field, lofi_schema, verbose, debug,
+                      local_field_errors):
+        """Validate local fields."""
+        if verbose:
+            click.echo(f'\t{idx:<4} local_field validate')
+        try:
+            if not local_field.get('pid'):
+                local_field['pid'] = f'dummy_{count}'
+            validate(local_field, lofi_schema)
+        except Exception as err:
+            local_field_errors += 1
+            print_error(err, 'local field', debug)
+        return local_field_errors
+
     def add_org_lib_doc(item):
         """Add organisation, library and document to item for validation."""
         item['pid'] = 'dummy'
-        location_pid = extracted_data_from_ref(item['location'])
+        if not item.get('location'):
+            raise ValueError('No "location" in item')
+        location_pid = extracted_data_from_ref(item.get('location'))
         location = Location.get_record_by_pid(location_pid)
+        if not location:
+            raise ValueError(f'Location not found: {location_pid}')
         library = Library.get_record_by_pid(location.library_pid)
+        if not library:
+            raise ValueError(f'Library not found: {location.library_pid}')
         item['organisation'] = library.get('organisation')
         item['library'] = location.get('library')
         item['document']['$ref'] = item[
-            'document']['$ref'].replace('{document_pid}', '1')
+            'document']['$ref'].replace('{document_pid}', 'dummy_1')
         return item
 
     click.secho(
-        f'Validate documents and items from {infile.name}.',
+        f'Validate documents items lofis from {infile.name}.',
         fg='green'
     )
+    # document schema
     schema_path = current_jsonschemas.url_to_path(
         get_schema_for_resource('doc'))
     schema = current_jsonschemas.get_schema(path=schema_path)
     doc_schema = _records_state.replace_refs(schema)
+    # item schema
     schema_path = current_jsonschemas.url_to_path(
         get_schema_for_resource('item'))
     schema = current_jsonschemas.get_schema(path=schema_path)
     item_schema = _records_state.replace_refs(schema)
+    # local field schema
+    schema_path = current_jsonschemas.url_to_path(
+        get_schema_for_resource('lofi'))
+    schema = current_jsonschemas.get_schema(path=schema_path)
+    lofi_schema = _records_state.replace_refs(schema)
     doc_pid = next(
         DocumentsSearch().filter('match_all').source('pid').scan()).pid
 
     document_errors = 0
     item_errors = 0
+    local_field_errors = 0
+    # Documents
     for count, record in enumerate(read_json_record(infile), 1):
-        pid = record.get('pid')
         items = record.pop('items', [])
-        if verbose:
-            click.echo(f'{count: <8} document validate {pid}')
-        try:
-            validate(record, doc_schema)
-        except ValidationError as err:
-            document_errors += 1
-            if debug:
-                trace = traceback.format_exc(1)
-            else:
-                trace = "\n".join(traceback.format_exc(1).split('\n')[:6])
-            click.secho(
-                f'Error validate in document: {count} {pid} {trace}',
-                fg='red'
-            )
-        for idx, item in enumerate(items, 1):
+        local_field_docs = record.pop('local_fields', [])
+        if pid := record.get('pid'):
             if verbose:
-                click.echo(f'{"": <12} item validate {idx}')
+                click.echo(f'{count: <8} document use {doc_pid}')
+        else:
+            record['pid'] = f'dummy_{count}'
+            pid = record.get('pid')
+            if verbose:
+                click.echo(f'{count: <7} document validate {pid}')
             try:
-                validate(add_org_lib_doc(item), item_schema)
-            except ValidationError:
-                item_errors += 1
-                if debug:
-                    trace = traceback.format_exc(1)
-                else:
-                    trace = "\n".join(traceback.format_exc(1).split('\n')[:6])
-                click.secho(
-                    f'Error validate in item: {count} {pid} {idx} {trace}',
-                    fg='red'
+                validate(record, doc_schema)
+            except ValidationError as err:
+                document_errors += 1
+                print_error(err, 'document', debug)
+        for idx, item in enumerate(items, 1):
+            local_field_items = item.pop('local_fields', [])
+            if item_pid := item.get('pid'):
+                if verbose:
+                    click.echo(f'\t{idx:<4} item use {item_pid}')
+            else:
+                if verbose:
+                    click.echo(f'\t{idx:<4} item validate')
+                try:
+                    validate(add_org_lib_doc(item), item_schema)
+                except Exception as err:
+                    item_errors += 1
+                    print_error(err, 'item', debug)
+            # Local fields for items
+            for idx, local_field in enumerate(local_field_items, 1):
+                local_field_errors = validate_lofi(
+                    idx=idx,
+                    local_field=local_field,
+                    lofi_schema=lofi_schema,
+                    verbose=verbose,
+                    debug=debug,
+                    local_field_errors=local_field_errors
                 )
+        # Local fields for documents
+        for idx, local_field in enumerate(local_field_docs, 1):
+            local_field_errors = validate_lofi(
+                idx=idx,
+                local_field=local_field,
+                lofi_schema=lofi_schema,
+                verbose=verbose,
+                debug=debug,
+                local_field_errors=local_field_errors
+            )
     color = 'green'
     if document_errors or item_errors:
         color = 'red'
     click.secho(
-        f'document errors: {document_errors} item errors: {item_errors}',
+        f'Errors documents: {document_errors} '
+        f'items: {item_errors} '
+        f'local fields: {local_field_errors}',
         fg=color
     )
 
 
-@utils.command('create_documents_with_items')
+@utils.command()
 @click.argument('infile', type=click.File('r'), default=sys.stdin)
-@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
 @click.option('-o', '--dont-stop', 'dont_stop_on_error',
               is_flag=True, default=False)
-@click.option('-e', '--save_errors', 'save_errors', type=click.File('w'))
-@click.option('-C', '--commit', 'commit', default=10000)
+@click.option('-e', '--save_errors', 'save_errors', is_flag=True,
+              default=False)
+@click.option('-c', '--commit', 'commit', is_flag=True, default=False)
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @click.option('-d', '--debug', 'debug', is_flag=True, default=False)
 @with_appcontext
-def create_documents_with_items(infile, lazy, dont_stop_on_error, save_errors,
-                                commit, verbose, debug):
+def create_documents_with_items_lofis(infile, dont_stop_on_error,
+                                      save_errors, commit, verbose, debug):
     """Load REROILS record with items.
 
     :param infile: Json file
@@ -327,111 +385,216 @@ def create_documents_with_items(infile, lazy, dont_stop_on_error, save_errors,
     :param verbose: verbose print
     :param debug: print traceback
     """
+
+    def create_lofi(count, local_field, parent_pid, file_lofi, commit, debug,
+                    save_errors, error_file_lofi, dont_stop_on_error, counts):
+        """Create local field."""
+        try:
+            # change the parent pid
+            # "parent": {
+            # "$ref":
+            #   "https://bib.rero.ch/api/documents/{parent_pid}"}
+            local_field['parent']['$ref'] = local_field['parent'][
+                '$ref'].format(parent_pid=parent_pid)
+            local_field_rec = LocalField.create(
+                data=local_field,
+                delete_pid=True,
+                dbcommit=commit,
+                reindex=commit
+            )
+            counts['created']['lofis'] += 1
+            file_lofi.write(local_field_rec)
+            if verbose:
+                parent = ' '.join(
+                    local_field['parent']['$ref'].split('/')[-2:])
+                click.echo(
+                    f'\t - {count: <8}'
+                    ' local field created '
+                    f' {local_field_rec.pid} : {local_field_rec.id}'
+                    f' parent: {parent}'
+                )
+        except Exception as err:
+            counts['errors']['lofis'] += 1
+            click.secho(
+                f'\t - {count_lofi: <8}'
+                f' local field create error {err.args[0]}',
+                fg='red'
+            )
+            if debug:
+                traceback.print_exc()
+            if save_errors:
+                error_file_lofi.write(record)
+            if not dont_stop_on_error:
+                sys.exit(1)
+        return counts
+
     click.secho(
-        f'Loading documents and items from {infile.name}.',
+        f'Loading documents items lofis from {infile.name}.',
         fg='green'
     )
     name, ext = os.path.splitext(infile.name)
-    document_file = JsonWriter(f'{name}_documents{ext}')
-    item_file = JsonWriter(f'{name}_items{ext}')
+    file_document = JsonWriter(f'{name}_documents{ext}')
+    file_item = JsonWriter(f'{name}_items{ext}')
+    file_lofi = JsonWriter(f'{name}_lofis{ext}')
     if save_errors:
-        err_file_name = f'{name}_errors{ext}'
-        error_file = JsonWriter(err_file_name)
+        error_file_doc = JsonWriter(f'{name}_documents_errors{ext}')
+        error_file_item = JsonWriter(f'{name}_items_errors{ext}')
+        error_file_lofi = JsonWriter(f'{name}_lofis_errors{ext}')
 
-    if lazy:
-        # try to lazy read json file (slower, better memory management)
-        records = read_json_record(infile)
-    else:
-        # load everything in memory (faster, bad memory management)
-        records = json.load(infile)
-
-    saved_items = []
-    document_ids = []
-    for count, record in enumerate(records, 1):
+    # Documents
+    # If we don't have a pid we will create the document
+    # No updated will be made if a pid exists
+    counts = {
+        'created': {
+            'docs': 0,
+            'items': 0,
+            'lofis': 0
+        },
+        'used': {
+            'docs': 0,
+            'items': 0
+        },
+        'errors': {
+            'docs': 0,
+            'items': 0,
+            'lofis': 0
+        }
+    }
+    for count, record in enumerate(read_json_record(infile), 1):
         try:
-            pid = record.get('pid')
             items = record.pop('items', [])
+            doc_local_fields = record.pop('local_fields', [])
+            if doc_pid := record.get('pid'):
+                if verbose:
+                    click.echo(f'{count: <8} document use {doc_pid}')
+                counts['used']['docs'] += 1
+            else:
+                # find existing document by ISBN
+                def filter_isbn(identified_by):
+                    """Filter identified_by for type bf:Isbn."""
+                    return identified_by.get('type') == 'bf:Isbn'
 
-            # find existing document by ISBN
-            def filter_isbn(identified_by):
-                """Filter identified_by for type bf:Isbn."""
-                return identified_by.get('type') == 'bf:Isbn'
+                filtered_identified_by = filter(
+                    filter_isbn,
+                    record.get('identifiedBy', [])
+                )
+                isbns = set()
+                for identified_by in filtered_identified_by:
+                    isbn = identified_by['value']
+                    isbns.add(isbn)
+                isbns = list(isbns)
 
-            filtered_identified_by = filter(
-                filter_isbn,
-                record.get('identifiedBy', [])
-            )
-            isbns = set()
-            for identified_by in filtered_identified_by:
-                isbn = identified_by['value']
-                isbns.add(isbn)
-            isbns = list(isbns)
+                search = DocumentsSearch().filter('terms', isbn=isbns)
+                exists = search.count()
 
-            search = DocumentsSearch().filter('terms', isbn=isbns)
-            exists = search.count()
-
-            rec = Document.create(data=record, delete_pid=True)
-            document_file.write(rec)
-            document_ids.append(rec.id)
-            if verbose:
-                click.echo(
-                    f'{count: <8} document created '
-                    f'{rec.pid}:{rec.id} {exists}')
-            for item in items:
-                # change the document pid
-                # "document": {
-                # "$ref":
-                #   "https://bib.rero.ch/api/documents/{document_pid}"}
-                item['document']['$ref'] = item[
-                    'document']['$ref'].replace('{document_pid}', rec.pid)
-                saved_items.append({
-                    'count': count,
-                    'pid': pid,
-                    'rero_ils_pid': rec.pid,
-                    'item': item
-                })
+                rec = Document.create(
+                    data=record,
+                    dbcommit=commit,
+                    reindex=commit,
+                    delete_pid=True
+                )
+                counts['created']['docs'] += 1
+                doc_pid = rec.pid
+                file_document.write(rec)
+                if verbose:
+                    click.echo(
+                        f'{count: <8} document created '
+                        f'{rec.pid} : {rec.id} {exists}')
+            item_pids = []
+            # Items
+            # If we don't have a pid we will create the item
+            # No updated will be made if a pid exists
+            for count_item, item in enumerate(items, 1):
+                try:
+                    if item_pid := item.get('pid'):
+                        if verbose:
+                            click.echo(
+                                f'\t - {count_item: <8} item use {item_pid}')
+                        counts['used']['items'] += 1
+                    else:
+                        # change the document pid
+                        # "document": {
+                        # "$ref":
+                        #   "https://bib.rero.ch/api/documents/{document_pid}"}
+                        item['document']['$ref'] = item['document'][
+                            '$ref'].format(document_pid=doc_pid)
+                        item_local_fields = item.pop('local_fields', [])
+                        item_rec = Item.create(
+                            data=item,
+                            delete_pid=True,
+                            dbcommit=commit,
+                            reindex=commit
+                        )
+                        counts['created']['items'] += 1
+                        item_pid = item_rec.pid
+                        item_pids.append(item_rec.pid)
+                        file_item.write(item_rec)
+                        if verbose:
+                            click.echo(
+                                f'\t - {count_item: <8}'
+                                ' item created'
+                                f' {item_rec.pid} : {item_rec.id}')
+                except Exception as err:
+                    counts['errors']['items'] += 1
+                    click.secho(
+                        f'\t - {count_item: <8}'
+                        f' item create error {err.args[0]}',
+                        fg='red'
+                    )
+                    if debug:
+                        traceback.print_exc()
+                    if save_errors:
+                        error_file_item.write(record)
+                    if not dont_stop_on_error:
+                        sys.exit(1)
+                # Local fields for items
+                for count_lofi, local_field in enumerate(item_local_fields, 1):
+                    counts = create_lofi(
+                        count=count_lofi,
+                        local_field=local_field,
+                        parent_pid=item_pid,
+                        file_lofi=file_lofi,
+                        commit=commit,
+                        debug=debug,
+                        save_errors=save_errors,
+                        error_file_lofi=error_file_lofi,
+                        dont_stop_on_error=dont_stop_on_error,
+                        counts=counts
+                    )
+            # Local fields for documents
+            for count_lofi, local_field in enumerate(doc_local_fields, 1):
+                counts = create_lofi(
+                    count=count_lofi,
+                    local_field=local_field,
+                    parent_pid=rec.pid,
+                    file_lofi=file_lofi,
+                    commit=commit,
+                    debug=debug,
+                    save_errors=save_errors,
+                    error_file_lofi=error_file_lofi,
+                    dont_stop_on_error=dont_stop_on_error,
+                    counts=counts
+                )
 
         except Exception as err:
+            counts['errors']['docs'] += 1
             click.secho(
-                f'{count: <8} create error {pid}'
-                f' {record.get("pid")}: {err}',
+                f'{count: <8} create error {doc_pid}'
+                f' {record.get("pid")}: {err.args[0]}',
                 fg='red'
             )
             if debug:
                 traceback.print_exc()
 
             if save_errors:
-                error_file.write(record)
+                error_file_doc.write(record)
             if not dont_stop_on_error:
                 sys.exit(1)
-
-        if count % commit == 0:
-            db.session.commit()
-            DocumentsIndexer().bulk_index(document_ids)
-            process_bulk_queue()
-            for item in saved_items:
-                item_rec = Item.create(data=item['item'], delete_pid=True,
-                                       dbcommit=True, reindex=True)
-                item_file.write(item_rec)
-                if verbose:
-                    click.echo(
-                        f'         - {item["count"]: <8}'
-                        f' doc:{item["rero_ils_pid"]}'
-                        f' item created {item_rec.pid}:{item_rec.id}')
-            saved_items = []
-            docuemnt_items = []
-    db.session.commit()
-    DocumentsIndexer().bulk_index(document_ids)
-    process_bulk_queue()
-    for item in saved_items:
-        item_rec = Item.create(data=item['item'], delete_pid=True,
-                               dbcommit=True, reindex=True)
-        item_file.write(item_rec)
-        if verbose:
-            click.echo(
-                f'         - {item["count"]: <8}'
-                f' doc:{item["rero_ils_pid"]}'
-                f' item created {item_rec.pid}:{item_rec.id}')
+    click.secho(f'Counts: {counts}', fg='green')
+    for count_type, infos in counts.items():
+        click.secho(f'\t {count_type}', fg='green')
+        for info, count in infos.items():
+            click.secho(f'\t\t {info:<5}: {count}', fg='green')
 
 
 @utils.command('check_license')
@@ -735,17 +898,27 @@ def do_worker(marc21records, results, pid_required, debug, dojson,
             if not record.get("$schema"):
                 # create dummy schema in data
                 record["$schema"] = 'dummy'
-            if not pid_required:
-                if not record.get("pid"):
-                    # create dummy pid in data
-                    record["pid"] = 'dummy'
+            if not pid_required and not record.get("pid"):
+                # create dummy pid in data
+                record["pid"] = 'dummy'
             if schema:
+                items = record.pop('items', None)
+                local_fields = record.pop('local_fields', None)
                 validate(record, schema)
+                if items:
+                    # TODO: items validation
+                    # for item in items:
+                    #     validate(item, _records_state.replace_refs(schema))
+                    record['items'] = items
+                if local_fields:
+                    #  TODO: local fields validation
+                    # for local_field in local_fields:
+                    #     validate(local_field, True)
+                    record['local_fields'] = local_fields
             if record["$schema"] == 'dummy':
                 del record["$schema"]
-            if not pid_required:
-                if record["pid"] == 'dummy':
-                    del record["pid"]
+            if not pid_required and record["pid"] == 'dummy':
+                del record["pid"]
             results.append({
                 'status': True,
                 'record': record
