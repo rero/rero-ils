@@ -178,7 +178,7 @@
         <ul class="list-unstyled mb-0">
         {% for resource in resources %}
           <li>
-            <a href="{{ resource.url }}">
+            <a target="_blank" href="{{ resource.url }}">
               <i class="fa fa-link"></i> {{ _(resource.type) }}
               {% if resource.content %}
                 : {{ resource.content }}
