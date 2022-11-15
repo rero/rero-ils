@@ -24,6 +24,7 @@ from celery import shared_task
 from flask import current_app
 
 from .api import Contribution
+from .sync import SyncAgent
 
 
 @shared_task(ignore_result=True)
@@ -46,3 +47,25 @@ def delete_records(records, verbose=False):
     if verbose:
         click.echo(f'records deleted: {len(records)}')
     return len(records)
+
+
+@shared_task(ignore_result=True)
+def sync_agents(from_last_date=True, verbose=0, dry_run=False):
+    """Synchonize the agents within the MEF server.
+
+    :param from_last_date: boolean - if True try to consider agent modified
+        after the last run date time
+    :param verbose: bool or integer - verbose level
+    :param dry_run: bool - if true the data are not modified
+    """
+    agent = SyncAgent(
+        from_last_date=from_last_date, verbose=verbose, dry_run=dry_run)
+    n_doc_updated, n_mef_updated, sync_mef_errors = agent.sync()
+    n_mef_removed, clean_mef_errors = agent.remove_unused()
+    return {
+        'n_doc_updated': n_doc_updated,
+        'n_mef_updated': n_mef_updated,
+        'clean_mef_errors': clean_mef_errors,
+        'sync_mef_errors': sync_mef_errors,
+        'n_mef_removed': n_mef_removed
+    }

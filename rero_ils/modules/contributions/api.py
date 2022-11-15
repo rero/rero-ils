@@ -77,12 +77,17 @@ class Contribution(IlsRecord):
         """Get contribution."""
         if ref_type == 'mef':
             return cls.get_record_by_pid(ref_pid)
+
+        es_filter = Q({'term': {f'{ref_type}.pid': ref_pid}})
         if ref_type == 'viaf':
-            query = ContributionsSearch() \
-                .filter('term', viaf_pid=ref_pid)
-        else:
-            query = ContributionsSearch() \
-                .filter({'term': {f'{ref_type}.pid': ref_pid}})
+            es_filter = Q('term', viaf_pid=ref_pid)
+
+        # in case of multiple results get the more recent
+        query = ContributionsSearch() \
+            .params(preserve_order=True) \
+            .sort({'_created': {'order': 'desc'}})\
+            .filter(es_filter)
+
         with contextlib.suppress(StopIteration):
             pid = next(query.source('pid').scan()).pid
             return cls.get_record_by_pid(pid)
@@ -135,6 +140,25 @@ class Contribution(IlsRecord):
         return contribution, online
 
     @classmethod
+    def remove_schema(cls, data):
+        """Removes in place the $schema values.
+
+        Removes the root and the sources $schema.
+
+        :param data - dict: the data representation of the current
+                            contribution.
+        :returns: the modified data.
+        :rtype: dict.
+        """
+        data.pop('$schema', None)
+        sources = current_app.config.get(
+            'RERO_ILS_CONTRIBUTIONS_SOURCES', [])
+        for source in sources:
+            if source in data:
+                data[source].pop('$schema', None)
+        return data
+
+    @classmethod
     def _get_mef_data_by_type(cls, pid, pid_type, verbose=False,
                               with_deleted=True, resolve=True, sources=True):
         """Request MEF REST API in JSON format.
@@ -162,13 +186,7 @@ class Contribution(IlsRecord):
         if status == requests_codes.ok:
             try:
                 data = request.json().get('hits', {}).get('hits', [None])[0]
-                metadata = data['metadata']
-                metadata.pop('$schema', None)
-                sources = current_app.config.get(
-                    'RERO_ILS_CONTRIBUTIONS_SOURCES', [])
-                for source in sources:
-                    if source in metadata:
-                        metadata[source].pop('$schema', None)
+                metadata = cls.remove_schema(data['metadata'])
                 return metadata
             except Exception:
                 msg = f'MEF resolver no metadata: {mef_url}'
@@ -285,7 +303,10 @@ class Contribution(IlsRecord):
         ).source('pid')
         return [hit.meta.id for hit in search.scan()]
 
-    def update_online(self, dbcommit=False, reindex=False, verbose=False):
+    def update_online(
+        self, dbcommit=False, reindex=False, verbose=False,
+        reindex_doc=True
+    ):
         """Update record online.
 
         :param reindex: reindex record by record
@@ -314,7 +335,7 @@ class Contribution(IlsRecord):
                 elif dict(self) != data:
                     action = ContributionUpdateAction.REPLACE
                     self.replace(data=data, dbcommit=dbcommit, reindex=reindex)
-                    if reindex:
+                    if reindex and reindex_doc:
                         indexer = DocumentsIndexer()
                         indexer.bulk_index(self.documents_ids())
                         indexer.process_bulk_queue()

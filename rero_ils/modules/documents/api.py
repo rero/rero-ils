@@ -312,26 +312,41 @@ class Document(IlsRecord):
         :returns: the modified contributions document data.
         :rtype: dict
         """
-        from ..contributions.api import Contribution
         new_contributions = []
         for contribution in data.get('contribution', []):
             if not contribution['agent'].get('$ref'):
                 new_contributions.append(contribution)
-            if mef_pid := contribution['agent'].get('pid'):
-                if agent := Contribution.get_record_by_pid(mef_pid):
-                    _type, _ = Contribution.get_type_and_pid_from_ref(
-                        contribution['agent']['$ref'])
-                    contribution['agent'] = agent.dumps_for_document()
-                    contribution['agent']['primary_source'] = _type
-                    new_contributions.append(contribution)
-            elif contribution['agent'].get('$ref'):
-                current_app.logger.error(
-                    f'Unable to resolve contribution $ref '
-                    f'{contribution["agent"].get("$ref")}'
-                    f' for document {data.get("pid")}')
+            else:
+                new_contributions.append({
+                    'agent': self._replace_refs_contribution(
+                        contribution['agent'])})
         if new_contributions:
             data['contribution'] = new_contributions
         return data
+
+    def _replace_refs_contribution(self, data, subject=False):
+        """Replace the $ref for contribution.
+
+        :param data: dict - data containing the $ref
+        :param subject: bool - True if the data comes from subject
+        :returns: the literal version of the contribution
+        :rtype: dict
+        """
+        from ..contributions.api import Contribution
+        if agent := Contribution.get_record_by_pid(data['pid']):
+            _type, _ = Contribution.get_type_and_pid_from_ref(
+                    data['$ref'])
+            if subject:
+                contribution = deepcopy(data)
+                contribution.update(dict(agent))
+                del contribution['$ref']
+            else:
+                contribution = agent.dumps_for_document()
+            contribution['primary_source'] = _type
+            contribution['pid'] = data['pid']
+            return contribution
+        else:
+            raise Exception(f'Contribution does not exists for {self.pid}')
 
     def _expand_subjects(self, data):
         """Replace the $ref for subjects.
@@ -340,19 +355,21 @@ class Document(IlsRecord):
         :returns: the modified subject document data.
         :rtype: dict
         """
-        from ..contributions.api import Contribution
         for subjects in ['subjects', 'subjects_imported']:
+            new_contributions = []
             for subject in data.get(subjects, []):
-                subject_ref = subject.get('$ref')
                 subject_type = subject.get('type')
-                mef_pid = subject.get('pid')
+                subject_ref = subject.get('$ref')
                 if subject_ref and subject_type in [
                     DocumentSubjectType.PERSON,
                     DocumentSubjectType.ORGANISATION
                 ]:
-                    contrib_data = Contribution.get_record_by_pid(mef_pid)
-                    del subject['$ref']
-                    subject.update(contrib_data)
+                    new_contributions.append(
+                        self._replace_refs_contribution(subject, subject=True))
+                else:
+                    new_contributions.append(subject)
+            if new_contributions:
+                data[subjects] = new_contributions
         return data
 
     def replace_refs(self):

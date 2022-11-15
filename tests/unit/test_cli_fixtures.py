@@ -66,7 +66,7 @@ def test_create(mock_contributions_mef_get, app, script_info,
         obj=script_info
     )
     # assert result.exit_code == 0
-    assert result.output.strip().split('\n')[1:] == [
+    assert result.output.strip().split('\n')[3:] == [
         'DB commit: 2',
         'Append fixtures new identifiers: 2',
         'DB commit append: 2'
@@ -81,7 +81,7 @@ def test_create(mock_contributions_mef_get, app, script_info,
         obj=script_info
     )
     # assert result.exit_code == 0
-    assert result.output.strip().split('\n')[1:] == [
+    assert result.output.strip().split('\n')[3:] == [
         'DB commit: 2',
         'Append fixtures new identifiers: 0',
         'DB commit append: 0'
