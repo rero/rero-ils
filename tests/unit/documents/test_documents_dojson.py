@@ -5378,7 +5378,9 @@ def test_marc21_to_identified_by_from_930():
 @mock.patch('requests.Session.get')
 def test_get_contribution_link(mock_get, capsys):
     """Test get mef contribution link"""
-    os.environ['RERO_ILS_MEF_HOST'] = 'mef.xxx.rero.ch'
+
+    os.environ[
+      'RERO_ILS_MEF_AGENTS_URL'] = 'https://mef.xxx.rero.ch/api/agents'
 
     mock_get.return_value = mock_response(json_data={
         'pid': 'test',
