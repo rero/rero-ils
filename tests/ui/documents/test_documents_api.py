@@ -321,20 +321,7 @@ def test_document_replace_refs(document):
     data = document.replace_refs()
     assert len(data.get('contribution')) == 1
 
-    # add wrong referenced contribution agent
     contributions = document.get('contribution', [])
-    contributions.append({
-        'agent': {
-          'type': 'bf:Person',
-          '$ref': 'https://mef.rero.ch/api/agents/idref/WRONGIDREF'
-        },
-        'role': [
-          'aut'
-        ]
-      })
-    document.update(document, True, True)
-    data = document.replace_refs()
-    assert len(data.get('contribution')) == 1
 
     # add MEF contribution agent
     contributions.append({

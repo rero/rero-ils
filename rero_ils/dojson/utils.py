@@ -422,8 +422,9 @@ def get_contribution_link(bibid, reroid, id, key):
     # In dojson we dont have app. mef_url should be the same as
     # RERO_ILS_MEF_AGENTS_URL in config.py
     # https://mef.test.rero.ch/api/agents/mef/?q=rero.rero_pid:A012327677
-    mef_host = os.environ.get('RERO_ILS_MEF_HOST', 'mef.rero.ch')
-    mef_url = f'https://{mef_host}/api/agents'
+    mef_url = os.environ.get(
+        'RERO_ILS_MEF_AGENTS_URL',
+        'https://mef.rero.ch/api/agents')
     if type(id) is str:
         match = re_identified.search(id)
     else:

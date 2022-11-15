@@ -50,6 +50,7 @@ jobs:
     - name: Bootstrap deploy
       if: ${{ matrix.dependencies == 'deploy' }}
       run: |
+        poetry run pip list
         poetry run ./scripts/bootstrap --ci --deploy E2E=yes
         poetry install --no-root --extras sip2
 

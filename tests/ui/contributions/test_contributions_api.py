@@ -19,11 +19,16 @@
 
 from __future__ import absolute_import, print_function
 
+import tempfile
+from copy import deepcopy
+
 import mock
 from utils import flush_index, mock_response
 
 from rero_ils.modules.contributions.api import Contribution, \
     ContributionsSearch, contribution_id_fetcher
+from rero_ils.modules.contributions.sync import SyncAgent
+from rero_ils.modules.documents.api import Document, DocumentsSearch
 
 
 def test_contribution_create(app, contribution_person_data_tmp, caplog):
@@ -85,3 +90,137 @@ def test_contribution_mef_create(mock_contributions_mef_get, app,
         'https://mef.rero.ch/api/agents/gnd/13343771X')
     assert pers_db['sources'] == ['gnd']
     assert not online
+    # remove created contribution
+    Contribution.get_record_by_pid(contribution_person_data_tmp['pid']).delete(
+        True, True, True)
+
+
+@mock.patch('rero_ils.modules.contributions.api.requests.get')
+def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
+                           document_data_ref):
+    """Test MEF agent synchronization."""
+
+    # === setup
+    log_path = tempfile.mkdtemp()
+    sync = SyncAgent(log_dir=log_path)
+    assert sync
+
+    pers = Contribution.create(
+        contribution_person_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    flush_index(ContributionsSearch.Meta.index)
+
+    idref_pid = pers['idref']['pid']
+    document_data_ref['contribution'][0]['agent']['$ref'] = \
+        f'https://mef.rero.ch/api/agents/idref/{idref_pid}'
+
+    doc = Document.create(
+        deepcopy(document_data_ref),
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    flush_index(DocumentsSearch.Meta.index)
+
+    # === nothing to update
+    sync._get_latest = mock.MagicMock(
+        return_value=contribution_person_data_tmp)
+    # nothing touched as it is up to date
+    assert (0, 0, set()) == sync.sync(f'{pers.pid}')
+    # nothing removed
+    assert (0, []) == sync.remove_unused(f'{pers.pid}')
+
+    # === MEF metadata has been changed
+    data = deepcopy(contribution_person_data_tmp)
+    data['idref']['authorized_access_point'] = 'foo'
+    sync._get_latest = mock.MagicMock(return_value=data)
+    mock_resp = dict(hits=dict(hits=[dict(
+        id=data['pid'],
+        metadata=data
+    )]))
+    mock_get.return_value = mock_response(json_data=mock_resp)
+    assert DocumentsSearch().query(
+        'term',
+        contribution__agent__authorized_access_point_fr='foo').count() == 0
+    # synchronization the same document has been updated 3 times, one MEF
+    # record has been updated, no errors
+    assert (1, 1, set()) == sync.sync(f'{pers.pid}')
+    flush_index(DocumentsSearch.Meta.index)
+
+    # contribution and document should be changed
+    assert Contribution.get_record_by_pid(
+        pers.pid)['idref']['authorized_access_point'] == 'foo'
+    assert DocumentsSearch().query(
+        'term', contribution__agent__authorized_access_point_fr='foo').count()
+    # nothing has been removed as only metadata has been changed
+    assert (0, []) == sync.remove_unused(f'{pers.pid}')
+
+    # === a new MEF exists with the same content
+    data = deepcopy(contribution_person_data_tmp)
+    # MEF pid has changed
+    data['pid'] = 'foo_mef'
+    # mock MEF services
+    sync._get_latest = mock.MagicMock(return_value=data)
+    mock_resp = dict(hits=dict(hits=[dict(
+        id=data['pid'],
+        metadata=data
+    )]))
+    mock_get.return_value = mock_response(json_data=mock_resp)
+
+    # synchronization the same document has been updated 3 times, one MEF
+    # record has been udpated, no errors
+    assert (1, 1, set()) == sync.sync(f'{pers.pid}')
+    flush_index(DocumentsSearch.Meta.index)
+    # new contribution has been created
+    assert Contribution.get_record_by_pid('foo_mef')
+    assert Contribution.get_record_by_ref(
+        f'https://mef.rero.ch/api/agents/idref/{idref_pid}')[0]
+    db_agent = Document.get_record_by_pid(
+        doc.pid).get('contribution')[0]['agent']
+    assert db_agent['pid'] == 'foo_mef'
+    # the old MEF has been removed
+    assert (1, []) == sync.remove_unused(f'{pers.pid}')
+    # should not exists anymore
+    assert not Contribution.get_record_by_pid(pers.pid)
+
+    # === Update the MEF links content
+    data = deepcopy(contribution_person_data_tmp)
+    # MEF pid has changed
+    data['pid'] = 'foo_mef'
+    # IDREF pid has changed
+    data['idref']['pid'] = 'foo_idref'
+    # mock MEF services
+    sync._get_latest = mock.MagicMock(return_value=data)
+    mock_resp = dict(hits=dict(hits=[dict(
+        id=data['pid'],
+        metadata=data
+    )]))
+    mock_get.return_value = mock_response(json_data=mock_resp)
+
+    # synchronization the same document has been updated 3 times, one MEF
+    # record has been udpated, no errors
+    assert (1, 1, set()) == sync.sync(f'{data["pid"]}')
+    flush_index(DocumentsSearch.Meta.index)
+    # new contribution has been created
+    assert Contribution.get_record_by_pid('foo_mef')
+    # document has been updated with the new MEF and IDREF pid
+    assert DocumentsSearch().query(
+        'term', contribution__agent__pid='foo_mef').count()
+    assert DocumentsSearch().query(
+        'term', contribution__agent__id_idref='foo_idref').count()
+    db_agent = Document.get_record_by_pid(
+        doc.pid).get('contribution')[0]['agent']
+    assert db_agent['$ref'] == 'https://mef.rero.ch/api/agents/idref/foo_idref'
+    assert db_agent['pid'] == 'foo_mef'
+
+    # remove the document
+    doc.delete(True, True, True)
+    flush_index(DocumentsSearch.Meta.index)
+
+    # the MEF record can be removed
+    assert (1, []) == sync.remove_unused()
+    # should not exists anymore
+    assert not Contribution.get_record_by_pid('foo_mef')

@@ -4053,23 +4053,25 @@ rsa = ["oauthlib[signedtoken] (>=2.1.0,<3.0.0)"]
 
 [[package]]
 name = "rero-invenio-base"
-version = "0.1.0"
+version = "0.2.0"
 description = "Generic backend libraries for RERO Invenio instances."
 category = "main"
 optional = false
-python-versions = ">3.7,<3.10"
+python-versions = ">=3.8,<3.10"
 files = [
-    {file = "rero-invenio-base-0.1.0.tar.gz", hash = "sha256:f4cb70dd0268c61d036da05a3b2f4fdbc4c8ebb00e6d7a72751f9fdd81279ed4"},
-    {file = "rero_invenio_base-0.1.0-py3-none-any.whl", hash = "sha256:3e9adeb1b7bb8f046c5b8cc487c6e8649d7dc5b447fe3b9dc165bac794d0c658"},
+    {file = "rero_invenio_base-0.2.0-py3-none-any.whl", hash = "sha256:4578fd71c207a9e2d0f6e4d94dfdff0f83ede070517e50f84737528497a3bd6a"},
+    {file = "rero_invenio_base-0.2.0.tar.gz", hash = "sha256:a62310c1f243f0a060f43aab3ba6a636860b4472cb8472e277976adba337fa49"},
 ]
 
 [package.dependencies]
 dparse = ">=0.5.2"
 invenio-db = ">=1.0.14,<2.0.0"
+invenio-indexer = "<2.0.0"
 invenio-records-rest = "*"
 invenio-search = {version = ">=1.4.2,<2.0.0", extras = ["elasticsearch7"]}
 jsonpatch = ">=1.32,<2.0"
 Mako = ">=1.2.2"
+pydocstyle = "<6.2.0"
 PyYAML = ">=6.0,<7.0"
 
 [[package]]
@@ -4976,4 +4978,4 @@ sip2 = ["invenio-sip2"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">= 3.9, <3.10"
-content-hash = "7043764679f67b1aeeea9c414405a53228484924927d338c5e34ac739b9316aa"
+content-hash = "8be2c3b6d3570be8935ccf65d8889ef2220f6d4b1734205942df4b6da752ba12"

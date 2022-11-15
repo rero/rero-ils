@@ -442,6 +442,11 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=0, hour=5), # Every day at 05:00 UTC,
         'enabled': False,
     },
+    'sync-agents': {
+        'task': 'rero_ils.modules.contributions.tasks.sync_agents',
+        'schedule': crontab(minute=0, hour=1), # Every day at 01:00 UTC,
+        'enabled': False,
+    },
     # 'mef-harvester': {
     #     'task': 'rero_ils.modules.apiharvester.tasks.harvest_records',
     #     'schedule': timedelta(minutes=60),
@@ -2951,6 +2956,10 @@ RERO_ILS_UI_GIT_HASH = None
 # TODO: to be changed with new MEF version
 RERO_ILS_MEF_AGENTS_URL = 'https://mef.rero.ch/api/agents'
 RERO_ILS_MEF_RESULT_SIZE = 100
+
+# The absolute path to put the agent synchronization logs, default is the
+# instance  path
+# RERO_ILS_MEF_SYNC_LOG_DIR = '/var/logs/reroils'
 
 RERO_ILS_APP_HELP_PAGE = (
     'https://github.com/rero/rero-ils/wiki/Public-demo-help'
