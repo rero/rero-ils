@@ -1420,15 +1420,9 @@ def test_marc21_to_contribution(mock_get):
     </record>
     """
     mock_get.return_value = mock_response(json_data={
-        'hits': {
-            'hits': [{
-                'metadata': {
-                    'type': 'bf:Person',
-                    'rero': {'pid': 'XXXXXXXX'}
-                }
-            }],
-            'total': 1
-        }
+        'pid': 'test',
+        'type': 'bf:Person',
+        'idref': {'pid': 'XXXXXXXX'}
     })
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
@@ -4763,15 +4757,9 @@ def test_marc21_to_subjects(mock_get):
     </record>
     """
     mock_get.return_value = mock_response(json_data={
-        'hits': {
-            'hits': [{
-                'metadata': {
-                    'type': 'bf:Person',
-                    'rero': {'pid': 'XXXXXXXX'}
-                }
-            }],
-            'total': 1
-        }
+        'pid': 'tets',
+        'type': 'bf:Person',
+        'idref': {'pid': 'XXXXXXXX'}
     })
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
@@ -5393,15 +5381,8 @@ def test_get_contribution_link(mock_get, capsys):
     os.environ['RERO_ILS_MEF_HOST'] = 'mef.xxx.rero.ch'
 
     mock_get.return_value = mock_response(json_data={
-        'hits': {
-            'hits': [{
-                'metadata': {
-                    'type': 'bf:Person',
-                    'idref': {'pid': '003945843'}
-                }
-            }],
-            'total': 1
-        }
+        'pid': 'test',
+        'idref': {'pid': '003945843'}
     })
     mef_url = get_contribution_link(
         bibid='1',
@@ -5422,8 +5403,8 @@ def test_get_contribution_link(mock_get, capsys):
     out, err = capsys.readouterr()
     assert out == (
         'WARNING GET MEF CONTRIBUTION:\t1\t1\t100..\t(IdRef)123456789\t'
-        'https://mef.xxx.rero.ch/api/agents/mef/'
-        '?q=idref.pid:"123456789"\t404\t0\t\n'
+        'https://mef.xxx.rero.ch/api/agents/mef/latest/'
+        'idref:123456789\t404\t0\t\n'
     )
 
     mock_get.return_value = mock_response(status=400)
