@@ -447,14 +447,17 @@ def get_contribution_link(bibid, reroid, id, key):
                             match_type = source
                             break
         if match_type in ['idref', 'gnd']:
-            url = f'{mef_url}/mef/?q={match_type}.pid:"{match_value}"'
+            url = f'{mef_url}/mef/latest/{match_type}:{match_value}'
             response = requests_retry_session().get(url)
             status_code = response.status_code
             total = 0
             if status_code == requests.codes.ok:
-                total = response.json().get('hits', {}).get('total', 0)
-                if total > 0:
-                    return f'{mef_url}/{match_type}/{match_value}'
+                if value := response.json().get(match_type, {}).get('pid'):
+                    if match_value != value:
+                        error_print('INFO GET MEF CONTRIBUTION:',
+                                    bibid, reroid, key, id, 'NEW',
+                                    f'({match_type.upper()}){value}')
+                    return f'{mef_url}/{match_type}/{value}'
             error_print('WARNING GET MEF CONTRIBUTION:',
                         bibid, reroid, key, id, url, status_code, total)
     else:
