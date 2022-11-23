@@ -439,9 +439,11 @@
           "pro_user_manager",
           "pro_acquisition_manager",
           "pro_library_administrator"
-        ],
-        "form": {
-          "type": "selectWithSort",
+        ]
+      },
+      "form": {
+        "type": "multicheckbox",
+        "templateOptions": {
           "options": [
             {
               "label": "patron",
@@ -475,17 +477,7 @@
               "label": "pro_library_administrator",
               "value": "pro_library_administrator"
             }
-          ]
-        }
-      },
-      "form": {
-        "validation": {
-          "messages": {
-            "roleMessage": "This user has already a professional role in another organisation. A user can be professional only in one organisation."
-          }
-        },
-        "fieldMap": "roles",
-        "templateOptions": {
+          ],
           "wrappers": [
             "card"
           ]

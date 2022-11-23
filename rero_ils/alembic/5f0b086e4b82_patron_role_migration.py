@@ -38,15 +38,18 @@ def upgrade():
 
     def get_new_roles(roles):
         if 'system_librarian' in roles:
-            return [UserRole.FULL_PERMISSIONS]
-        elif 'librarian' in roles:
-            return [
+            roles.remove('system_librarian')
+            roles.append(UserRole.FULL_PERMISSIONS)
+        if 'librarian' in roles:
+            roles.remove('librarian')
+            roles.extend([
                 UserRole.PROFESSIONAL_READ_ONLY,
                 UserRole.ACQUISITION_MANAGER,
                 UserRole.CATALOG_MANAGER,
                 UserRole.CIRCULATION_MANAGER,
                 UserRole.USER_MANAGER
-            ]
+            ])
+        return roles
 
     query = PatronsSearch()\
         .filter('terms', roles=['librarian', 'system_librarian'])\
