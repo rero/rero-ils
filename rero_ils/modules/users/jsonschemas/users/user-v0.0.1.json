@@ -253,8 +253,8 @@
       "minLength": 6,
       "maxLength": 255,
       "widget": {
-        "templateOptions": {
-          "type": "password"
+        "formlyConfig": {
+          "type": "passwordGenerator"
         }
       }
     }
