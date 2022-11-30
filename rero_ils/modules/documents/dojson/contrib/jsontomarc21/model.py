@@ -47,11 +47,10 @@ def replace_contribution_sources(contribution, source_order):
             old_data[key] = value
         return old_data
 
-    contribution.get('agent', {}).pop('sources', [])
     refs = []
     agent = contribution.get('agent')
     for source in source_order:
-        source_data = contribution.get('agent', {}).get(source, {})
+        source_data = agent.get(source, {})
         if source_data:
             refs.append({
                 'source': source,
@@ -256,8 +255,7 @@ class ToMarc21Overdo(Underdo):
         )
         contributions = blob.get('contribution', [])
         for contribution in contributions:
-            ref = contribution['agent'].get('$ref')
-            if ref:
+            if ref := contribution['agent'].get('$ref'):
                 agent, _ = Contribution.get_record_by_ref(ref)
                 if agent:
                     contribution['agent'] = agent

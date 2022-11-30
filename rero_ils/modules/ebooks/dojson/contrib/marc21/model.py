@@ -325,7 +325,7 @@ def marc21_to_copyright_date(self, key, value):
     return copyright_dates or None
 
 
-@marc21.over('provisionActivity', '^(260..|264.[ 0-3])')
+@marc21.over('provisionActivity', '^(260..|264.[_0-3])')
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_provision_activity(self, key, value):

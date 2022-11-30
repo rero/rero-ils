@@ -19,6 +19,7 @@
 """RERO Document JSON MARCXML serialization."""
 
 import re
+from copy import deepcopy
 
 from dojson._compat import iteritems, string_types
 from dojson.utils import GroupableOrderedDict
@@ -130,7 +131,8 @@ class DocumentMARCXMLSerializer(JSONSerializer):
             for contribution in contributions:
                 contribution_pid = contribution.get('agent', {}).get('pid')
                 if contribution_pid in es_contributions:
-                    contribution['agent'] = es_contributions[contribution_pid]
+                    contribution['agent'] = deepcopy(
+                        es_contributions[contribution_pid])
                     replace_contribution_sources(
                         contribution=contribution,
                         source_order=source_order
