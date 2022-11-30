@@ -275,7 +275,7 @@ def marc21_to_edition_statement(self, key, value):
     return edition_data or None
 
 
-@marc21.over('provisionActivity', '^(260..|264.[ 0-3])')
+@marc21.over('provisionActivity', '^(260..|264.[_0-3])')
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_provision_activity(self, key, value):
