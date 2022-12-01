@@ -168,7 +168,7 @@ class DocumentJSONSerializer(JSONSerializer):
                     .source(['pid', 'name'])
                 org_libraries = {hit.pid: hit.name for hit in query.scan()}
                 org['library']['buckets'] = list(filter(
-                    lambda l: l['key'] in org_libraries,
+                    lambda lib: lib['key'] in org_libraries,
                     org['library']['buckets']
                 ))
                 for term in org['library']['buckets']:
@@ -182,7 +182,7 @@ class DocumentJSONSerializer(JSONSerializer):
                         .source(['pid', 'name'])
                     lib_locations = {hit.pid: hit.name for hit in query.scan()}
                     library['location']['buckets'] = list(filter(
-                        lambda l: l['key'] in lib_locations,
+                        lambda lib: lib['key'] in lib_locations,
                         library['location']['buckets']
                     ))
                     for term in library['location']['buckets']:
