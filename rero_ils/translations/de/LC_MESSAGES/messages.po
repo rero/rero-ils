@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-09-06 08:30+0200\n"
-"PO-Revision-Date: 2022-09-12 13:39+0000\n"
+"PO-Revision-Date: 2022-09-26 15:09+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.14.1\n"
 "Generated-By: Babel 2.10.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -10840,7 +10840,7 @@ msgstr "Bestellungen erlauben"
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:124
 msgid "If enabled, it allows requests for items linked to this location."
 msgstr ""
-"Falls aktiviert, sind Anfragen für Exemplare erlaubt, die mit diesem "
+"Falls aktiviert, sind Bestellungen für Exemplare erlaubt, die mit diesem "
 "Standort verknüpft sind."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:128
