@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-09-06 08:30+0200\n"
-"PO-Revision-Date: 2022-09-12 13:39+0000\n"
+"PO-Revision-Date: 2022-11-25 13:48+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
+"X-Generator: Weblate 4.15-dev\n"
 "Generated-By: Babel 2.10.1\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -152,7 +152,7 @@ msgstr "Catégorie de prêt temporaire"
 
 #: rero_ils/config.py:1944
 msgid "temporary_location"
-msgstr "Localisation provisoire"
+msgstr "Localisation temporaire"
 
 #: rero_ils/config.py:1946
 msgid "issue_status"
@@ -10253,7 +10253,7 @@ msgstr ""
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:234
 msgid "Temporary location"
-msgstr "Localisation provisoire"
+msgstr "Localisation temporaire"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:315
 msgid "Issue status"
