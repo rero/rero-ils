@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2022-09-06 08:30+0200\n"
-"PO-Revision-Date: 2022-09-12 13:39+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"POT-Creation-Date: 2022-12-20 16:04+0100\n"
+"PO-Revision-Date: 2022-12-20 15:31+0000\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/en/>\n"
 "Language: en\n"
@@ -27,241 +27,242 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1-dev\n"
-"Generated-By: Babel 2.10.1\n"
+"X-Generator: Weblate 4.15.1-dev\n"
+"Generated-By: Babel 2.10.3\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
-msgid "USER_DOES_NOT_EXIST"
-msgstr "This user does not exists."
+#: rero_ils/config.py:2886 rero_ils/config.py:2887
+msgid "INVALID_USER_OR_PASSWORD"
+msgstr "Invalid user or password"
 
-#: rero_ils/config.py:162
+#: rero_ils/config.py:170
 msgid "French"
 msgstr "French"
 
-#: rero_ils/config.py:163
+#: rero_ils/config.py:171
 msgid "German"
 msgstr "German"
 
-#: rero_ils/config.py:164
+#: rero_ils/config.py:172
 msgid "Italian"
 msgstr "Italian"
 
-#: rero_ils/config.py:203 rero_ils/config.py:207
+#: rero_ils/config.py:211 rero_ils/config.py:215
 msgid "rero-ils"
 msgstr "RERO ILS"
 
-#: rero_ils/config.py:256
+#: rero_ils/config.py:258
 msgid "Welcome"
 msgstr "Welcome"
 
-#: rero_ils/config.py:258
+#: rero_ils/config.py:260
 msgid "RERO ID password reset"
 msgstr "RERO ID password reset"
 
-#: rero_ils/config.py:259
+#: rero_ils/config.py:261
 msgid "Your RERO ID password has been reset"
 msgstr "Your RERO ID password has been reset"
 
-#: rero_ils/config.py:1751
+#: rero_ils/config.py:1764
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 msgid "Global catalog"
 msgstr "Global catalog"
 
-#: rero_ils/config.py:1850
+#: rero_ils/config.py:1890
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:79
 msgid "online"
 msgstr "online"
 
-#: rero_ils/config.py:1854
+#: rero_ils/config.py:1894
 msgid "not_online"
 msgstr "not online"
 
-#: rero_ils/config.py:1857
+#: rero_ils/config.py:1897
 msgid "author"
 msgstr "author"
 
-#: rero_ils/config.py:1858
+#: rero_ils/config.py:1898
 msgid "subject_fiction"
 msgstr "subject (fiction)"
 
-#: rero_ils/config.py:1859
+#: rero_ils/config.py:1904
 msgid "subject_no_fiction"
 msgstr "subject (non-fiction)"
 
-#: rero_ils/config.py:1860
+#: rero_ils/config.py:1910
 msgid "new_acquisition"
 msgstr "new_acquisition"
 
-#: rero_ils/config.py:1861
+#: rero_ils/config.py:1911
 msgid "identifiers"
 msgstr "identifiers"
 
-#: rero_ils/config.py:1864 rero_ils/config.py:1865 rero_ils/config.py:1938
+#: rero_ils/config.py:1914 rero_ils/config.py:1915 rero_ils/config.py:1988
 msgid "document_type"
 msgstr "document type"
 
-#: rero_ils/config.py:1866 rero_ils/config.py:1939
+#: rero_ils/config.py:1916 rero_ils/config.py:1989
 msgid "document_subtype"
 msgstr "document subtype"
 
-#: rero_ils/config.py:1868
+#: rero_ils/config.py:1918
 msgid "language"
 msgstr "language"
 
-#: rero_ils/config.py:1869 rero_ils/config.py:1870
+#: rero_ils/config.py:1919 rero_ils/config.py:1920
 msgid "organisation"
 msgstr "organisation"
 
-#: rero_ils/config.py:1873 rero_ils/config.py:1940 rero_ils/config.py:2087
-#: rero_ils/config.py:2109 rero_ils/config.py:2166 rero_ils/config.py:2278
-#: rero_ils/config.py:2318
+#: rero_ils/config.py:1923 rero_ils/config.py:1990 rero_ils/config.py:2137
+#: rero_ils/config.py:2159 rero_ils/config.py:2187 rero_ils/config.py:2300
+#: rero_ils/config.py:2340
 msgid "library"
 msgstr "library"
 
-#: rero_ils/config.py:1874 rero_ils/config.py:1941
+#: rero_ils/config.py:1924 rero_ils/config.py:1991
 msgid "location"
 msgstr "Location"
 
-#: rero_ils/config.py:1876 rero_ils/config.py:1945 rero_ils/config.py:2015
-#: rero_ils/config.py:2110 rero_ils/config.py:2169 rero_ils/config.py:2315
+#: rero_ils/config.py:1926 rero_ils/config.py:1995 rero_ils/config.py:2065
+#: rero_ils/config.py:2160 rero_ils/config.py:2190 rero_ils/config.py:2337
 msgid "status"
 msgstr "status"
 
-#: rero_ils/config.py:1877
+#: rero_ils/config.py:1927
 msgid "genreForm"
 msgstr "genre, form"
 
-#: rero_ils/config.py:1878
+#: rero_ils/config.py:1928
 msgid "intendedAudience"
 msgstr "intended audience"
 
-#: rero_ils/config.py:1879
+#: rero_ils/config.py:1929
 msgid "year"
 msgstr "year"
 
-#: rero_ils/config.py:1942
+#: rero_ils/config.py:1992
 msgid "item_type"
 msgstr "Item type"
 
-#: rero_ils/config.py:1943
+#: rero_ils/config.py:1993
 msgid "temporary_item_type"
 msgstr "Temporary circulation category"
 
-#: rero_ils/config.py:1944
+#: rero_ils/config.py:1994
 msgid "temporary_location"
 msgstr "Temporary location"
 
-#: rero_ils/config.py:1946
+#: rero_ils/config.py:1996
 msgid "issue_status"
 msgstr "Issue status"
 
-#: rero_ils/config.py:1947 rero_ils/config.py:2167
+#: rero_ils/config.py:1997 rero_ils/config.py:2188
 msgid "vendor"
 msgstr "Vendor"
 
-#: rero_ils/config.py:2009
+#: rero_ils/config.py:2059
 msgid "owner_library"
 msgstr "owning library"
 
-#: rero_ils/config.py:2010
+#: rero_ils/config.py:2060
 msgid "owner_location"
 msgstr "location"
 
-#: rero_ils/config.py:2011
+#: rero_ils/config.py:2061
 msgid "pickup_library"
-msgstr "pick up location"
+msgstr "pickup location"
 
-#: rero_ils/config.py:2012
+#: rero_ils/config.py:2062
 msgid "pickup_location"
-msgstr "pick up location"
+msgstr "pickup location"
 
-#: rero_ils/config.py:2013
+#: rero_ils/config.py:2063
 msgid "transaction_library"
 msgstr "transaction library"
 
-#: rero_ils/config.py:2014
+#: rero_ils/config.py:2064
 msgid "transaction_location"
 msgstr "transaction location"
 
-#: rero_ils/config.py:2016
+#: rero_ils/config.py:2066
 msgid "misc_status"
 msgstr "late status"
 
-#: rero_ils/config.py:2017 rero_ils/config.py:2066
+#: rero_ils/config.py:2067 rero_ils/config.py:2116
 msgid "patron_type"
 msgstr "Patron type"
 
-#: rero_ils/config.py:2018
+#: rero_ils/config.py:2068
 msgid "request_expire_date"
 msgstr "request expiry date"
 
-#: rero_ils/config.py:2024
+#: rero_ils/config.py:2074
 msgid "end_date"
 msgstr "end date"
 
-#: rero_ils/config.py:2030
+#: rero_ils/config.py:2080
 msgid "exclude_status"
 msgstr "exclude status"
 
-#: rero_ils/config.py:2064
+#: rero_ils/config.py:2114
 msgid "roles"
 msgstr "roles"
 
-#: rero_ils/config.py:2065
+#: rero_ils/config.py:2115
 msgid "city"
 msgstr "city"
 
-#: rero_ils/config.py:2088
+#: rero_ils/config.py:2138 rero_ils/config.py:2192
 msgid "budget"
 msgstr "budget"
 
-#: rero_ils/config.py:2168 rero_ils/config.py:2208 rero_ils/config.py:2233
-#: rero_ils/config.py:2277
+#: rero_ils/config.py:2189 rero_ils/config.py:2230 rero_ils/config.py:2255
+#: rero_ils/config.py:2299
 msgid "type"
 msgstr "type"
 
-#: rero_ils/config.py:2170
+#: rero_ils/config.py:2191
 msgid "account"
 msgstr "account"
 
-#: rero_ils/config.py:2171
+#: rero_ils/config.py:2193
 msgid "order_date"
 msgstr "order date"
 
-#: rero_ils/config.py:2177
+#: rero_ils/config.py:2199
 msgid "receipt_date"
 msgstr "receipt date"
 
-#: rero_ils/config.py:2207
+#: rero_ils/config.py:2229
 msgid "sources"
 msgstr "sources"
 
-#: rero_ils/config.py:2234
+#: rero_ils/config.py:2256
 msgid "visibility"
 msgstr "visibility"
 
-#: rero_ils/config.py:2279
+#: rero_ils/config.py:2301
 msgid "subject"
 msgstr "subject"
 
-#: rero_ils/config.py:2280
+#: rero_ils/config.py:2302
 msgid "teacher"
 msgstr "teacher"
 
-#: rero_ils/config.py:2316
+#: rero_ils/config.py:2338
 msgid "loan_status"
 msgstr "loan status"
 
-#: rero_ils/config.py:2317
+#: rero_ils/config.py:2339
 msgid "requester"
 msgstr "requester"
 
-#: rero_ils/config.py:2797 rero_ils/manual_translations.txt:70
+#: rero_ils/config.py:2926 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:98
 msgid "This is a TEST VERSION."
 msgstr "This is a TEST VERSION."
 
-#: rero_ils/config.py:2798 rero_ils/manual_translations.txt:71
+#: rero_ils/config.py:2927 rero_ils/manual_translations.txt:71
 #: rero_ils/theme/templates/rero_ils/header.html:100
 msgid "Go to the production site."
 msgstr "Go to the production site."
@@ -450,7 +451,7 @@ msgid "Sign Up"
 msgstr "Sign up"
 
 #: rero_ils/manual_translations.txt:74
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:143
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:143
 msgid "approved"
 msgstr "validated"
 
@@ -477,32 +478,32 @@ msgid "received"
 msgstr "received"
 
 #: rero_ils/manual_translations.txt:82
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:67
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:55
 msgid "monograph"
 msgstr "monograph"
 
 #: rero_ils/manual_translations.txt:83
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:71
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:59
 msgid "serial"
 msgstr "serial"
 
 #: rero_ils/manual_translations.txt:84
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:75
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:63
 msgid "standing_order"
 msgstr "standing order"
 
 #: rero_ils/manual_translations.txt:85
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:79
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:67
 msgid "monographic_set"
 msgstr "monographic set"
 
 #: rero_ils/manual_translations.txt:86
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:83
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:71
 msgid "planned_order"
 msgstr "planned order"
 
 #: rero_ils/manual_translations.txt:87
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:87
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:75
 msgid "multi_volume"
 msgstr "multi-volume"
 
@@ -2650,7 +2651,7 @@ msgstr "Elamite"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:989
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:19
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:389
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:390
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:287
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:196
 msgid "lang_eng"
@@ -2710,7 +2711,7 @@ msgstr "Fon"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1046
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:15
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:385
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:386
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:283
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:192
 msgid "lang_fre"
@@ -2766,7 +2767,7 @@ msgstr "Georgian"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1099
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:23
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:393
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:394
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:291
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:204
 msgid "lang_ger"
@@ -2978,7 +2979,7 @@ msgstr "Iroquoian (Other)"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1308
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:27
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:397
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:398
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:295
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:200
 msgid "lang_ita"
@@ -4142,41 +4143,41 @@ msgstr "Values"
 msgid "Value"
 msgstr "Value"
 
-#: rero_ils/modules/acq_accounts/api.py:314
+#: rero_ils/modules/acquisition/acq_accounts/api.py:334
 msgid "Cannot transfer fund to myself."
 msgstr "Fund cannot be transferred to the same account."
 
-#: rero_ils/modules/acq_accounts/api.py:316
+#: rero_ils/modules/acquisition/acq_accounts/api.py:336
 msgid "Not enough available money from source account."
 msgstr "Not enough available money from the source account."
 
-#: rero_ils/modules/acq_accounts/extensions.py:42
-#: rero_ils/modules/acq_order_lines/extensions.py:55
+#: rero_ils/modules/acquisition/acq_accounts/extensions.py:42
+#: rero_ils/modules/acquisition/acq_order_lines/extensions.py:56
 msgid "Parent account available amount too low"
 msgstr "Parent account available amount too low"
 
-#: rero_ils/modules/acq_accounts/extensions.py:51
+#: rero_ils/modules/acquisition/acq_accounts/extensions.py:51
 msgid "Remaining balance too low"
 msgstr "Remaining balance too low"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:41
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:204
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:98
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:41
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:204
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:98
 msgid "Acquisition account"
 msgstr "Account"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:5
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:5
 msgid "JSON schema for an account"
 msgstr "JSON schema for an account"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:25
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:92
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:30
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:22
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:23
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:21
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:22
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:25
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:92
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:30
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:22
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:23
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:21
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:22
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:33
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:32
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:15
@@ -4185,7 +4186,7 @@ msgstr "JSON schema for an account"
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:30
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:25
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:39
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:106
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:107
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:14
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:17
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:28
@@ -4203,15 +4204,15 @@ msgstr "JSON schema for an account"
 msgid "Schema"
 msgstr "Schema"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:26
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:26
 msgid "Schema to validate account records against."
 msgstr "Schema to validate account records against."
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:32
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:32
 msgid "Account ID"
 msgstr "Account ID"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:36
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:36
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:44
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:99
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:129
@@ -4222,7 +4223,7 @@ msgstr "Account ID"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:385
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:436
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:37
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:137
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:138
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:54
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:307
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
@@ -4232,31 +4233,31 @@ msgstr "Account ID"
 msgid "Name"
 msgstr "Name"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:37
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:37
 msgid "Common name of the acquisition account."
 msgstr "Common name of the account."
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:45
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:45
 msgid "Account number"
 msgstr "Account number"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:46
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:46
 msgid "Reference account number in accounting system."
 msgstr "Reference account number in accounting system."
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:51
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:51
 msgid "Allocated amount"
 msgstr "Allocated amount"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:52
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:52
 msgid "The amount allocated for the acquisition account."
 msgstr "Allocated amount."
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:61
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:61
 msgid "Encumbrance exceedance"
 msgstr "Encumbrance exceeding"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:62
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:62
 msgid ""
 "The exceedance percentage of account amount that linked pending orders "
 "can reach."
@@ -4264,17 +4265,17 @@ msgstr ""
 "The exceeding percentage of the account amount authorised by pending "
 "orders."
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:70
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:85
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:100
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:70
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:85
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:100
 msgid "%"
 msgstr "%"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:76
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:76
 msgid "Expenditure exceedance"
 msgstr "Expenditure exceeding"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:77
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:77
 msgid ""
 "The exceedance percentage of account amount than linked paid invoices can"
 " reach."
@@ -4282,37 +4283,37 @@ msgstr ""
 "The exceeding percentage of the account amount authorised by paid "
 "invoices."
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:91
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:91
 msgid "Parent account"
 msgstr "Parent account"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:95
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:95
 msgid "Account URI"
 msgstr "Account URI"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:99
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:99
 msgid "Choose a parent account\\u2026"
 msgstr "Choose a parent account"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:109
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:4
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:109
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:4
 msgid "Budget"
 msgstr "Budget"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:111
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:111
 msgid "The acquisition account belongs to which budget."
 msgstr "The account belongs to which budget."
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:114
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:114
 msgid "Budget URI"
 msgstr "Budget URI"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:124
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:291
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:279
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:195
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:202
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:202
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:124
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:291
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:279
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:183
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:202
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:202
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:358
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:202
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:105
@@ -4325,12 +4326,12 @@ msgstr "Budget URI"
 msgid "Library"
 msgstr "Library"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:128
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:295
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:287
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:203
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:210
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:210
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:128
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:295
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:287
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:191
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:210
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:210
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:109
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:499
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:115
@@ -4340,19 +4341,19 @@ msgstr "Library"
 msgid "Library URI"
 msgstr "Library URI"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:135
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:302
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:264
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:210
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:217
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:217
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:85
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:135
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:302
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:264
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:198
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:217
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:217
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:85
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:259
 #: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:26
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:90
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:216
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:480
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:117
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:118
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:136
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:29
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:37
@@ -4364,19 +4365,19 @@ msgstr "Library URI"
 msgid "Organisation"
 msgstr "Organisation"
 
-#: rero_ils/modules/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:143
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:310
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:272
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:218
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:225
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:225
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:93
+#: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:143
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:310
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:272
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:206
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:225
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:225
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:93
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:69
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:267
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:98
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:224
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:488
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:125
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:126
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:144
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:139
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:72
@@ -4385,99 +4386,99 @@ msgstr "Organisation"
 msgid "Organisation URI"
 msgstr "Organisation URI"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:4
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:4
 msgid "Acquisition invoice"
 msgstr "Acquisition invoice"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:5
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:5
 msgid "JSON schema for Acquisition Invoice resource."
 msgstr "JSON schema for acquisition invoice resource."
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:30
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:4
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:30
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:4
 msgid "Acquisition order line"
 msgstr "Acquisition order line"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:34
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:34
 msgid "Acquisition order line URI"
 msgstr "Acquisition order line URI"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:45
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:211
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:105
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:45
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:211
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:105
 msgid "Acquisition account URI"
 msgstr "Account URI"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:52
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:237
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:52
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:237
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:143
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:41
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:401
 msgid "Document"
 msgstr "Document"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:56
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:244
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:56
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:244
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:147
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:45
 msgid "Document URI"
 msgstr "Document URI"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:63
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:63
 msgid "Order number"
 msgstr "Order number"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:68
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:68
 msgid "Number of units"
 msgstr "Number of units"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:73
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:73
 msgid "Price per unit"
 msgstr "Price per unit"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:78
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:249
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:78
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:249
 msgid "Discount amount"
 msgstr "Discount amount"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:83
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:83
 msgid "Total price"
 msgstr "Total price"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:93
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:93
 msgid "Schema to validate Acquisition Invoice records against."
 msgstr "Schema to validate acquisition invoice records against."
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:100
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:100
 msgid "Acquisition invoice ID"
 msgstr "Acquisition invoice ID"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:105
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:105
 msgid "Invoice number"
 msgstr "Invoice number"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:116
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:116
 msgid "The invoice number is already taken."
 msgstr "The invoice number is already taken."
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:122
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:122
 msgid "Invoice price"
 msgstr "Invoice price"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:126
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:126
 msgid "Invoice status"
 msgstr "Invoice status"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:139
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:139
 msgid "in_progress"
 msgstr "in progress"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:147
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:147
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:341
 msgid "deleted"
 msgstr "deleted"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:158
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:158
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:28
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:190
@@ -4485,20 +4486,20 @@ msgstr "deleted"
 msgid "Date"
 msgstr "Date"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:164
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:176
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:195
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:112
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:164
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:176
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:195
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:112
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:232
 msgid "Select a date"
 msgstr "Select a date"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:167
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:179
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:198
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:115
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:60
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:74
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:167
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:179
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:198
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:115
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:60
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:74
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:162
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:184
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:327
@@ -4511,11 +4512,11 @@ msgstr "Select a date"
 msgid "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
 msgstr "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:173
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:88
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:96
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:124
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:129
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:173
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:88
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:84
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:124
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:129
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:18
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:3
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:587
@@ -4526,31 +4527,31 @@ msgstr "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
 msgid "Notes"
 msgstr "Notes"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:182
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:182
 msgid "Taxes"
 msgstr "Taxes"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:190
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:190
 msgid "Type of taxe"
 msgstr "Type of taxe"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:202
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:202
 msgid "shipping_and_handling"
 msgstr "Shipping and handling"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:206
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:206
 msgid "state_taxes"
 msgstr "State taxes"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:210
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:210
 msgid "miscellaneous"
 msgstr "miscellaneous"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:221
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:245
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:62
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:76
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:94
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:221
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:245
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:62
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:76
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:94
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:177
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:279
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:44
@@ -4558,90 +4559,90 @@ msgstr "miscellaneous"
 msgid "Amount"
 msgstr "Amount"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:230
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:230
 msgid "Discount"
 msgstr "Discount"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:233
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:233
 msgid "Percentage"
 msgstr "Percentage"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:237
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:237
 msgid "Discount percentage."
 msgstr "Discount percentage."
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:262
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:262
 msgid "List of invoice lines"
 msgstr "List of invoice lines"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:267
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:170
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:267
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:158
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:499
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:4
 msgid "Vendor"
 msgstr "Vendor"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:274
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:178
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:274
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:166
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:506
 msgid "Vendor URI"
 msgstr "Vendor URI"
 
-#: rero_ils/modules/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:282
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:186
+#: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:282
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:174
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:513
 msgid "Choose a vendor"
 msgstr "Choose a vendor"
 
-#: rero_ils/modules/acq_order_lines/api.py:99
-#: rero_ils/modules/acq_orders/api.py:102 rero_ils/modules/holdings/api.py:178
-#: rero_ils/modules/ill_requests/api.py:80
-#: rero_ils/modules/items/api/record.py:86 rero_ils/modules/vendors/api.py:81
+#: rero_ils/modules/acquisition/acq_order_lines/api.py:101
+#: rero_ils/modules/acquisition/acq_orders/api.py:106
+#: rero_ils/modules/holdings/api.py:178 rero_ils/modules/ill_requests/api.py:80
+#: rero_ils/modules/items/api/record.py:86 rero_ils/modules/vendors/api.py:83
 msgid "Can not have multiple notes of the same type."
 msgstr "Can not have multiple notes of the same type."
 
-#: rero_ils/modules/acq_order_lines/extensions.py:63
+#: rero_ils/modules/acquisition/acq_order_lines/extensions.py:64
 msgid "Cannot link to an harvested document"
 msgstr "Cannot link to an harvested document"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:5
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:5
 msgid "JSON schema for acquisition order line."
 msgstr "JSON schema for an order line."
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:31
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:31
 msgid "Schema to validate acquisition order line records against."
 msgstr "Schema to validate order line records against."
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:37
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:37
 msgid "Acquisition order line ID"
 msgstr "Acquisition order line ID"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:42
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:42
 msgid "Priority"
 msgstr "Priority"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:43
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:43
 msgid "The higher the number, the higher the priority."
 msgstr "The higher the number, the higher the priority."
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:56
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:65
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:56
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:65
 msgid "Quantity"
 msgstr "Quantity"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:71
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:71
 msgid "Total amount"
 msgstr "Total amount"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:77
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:58
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:77
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:58
 msgid "Exchange rate"
 msgstr "Exchange rate"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:95
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:103
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:131
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:136
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:95
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:91
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:131
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:136
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:23
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:163
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:46
@@ -4656,11 +4657,11 @@ msgstr "Exchange rate"
 msgid "Note"
 msgstr "Note"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:107
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:51
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:115
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:143
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:148
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:107
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:39
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:103
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:143
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:148
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:144
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:55
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:37
@@ -4718,15 +4719,15 @@ msgstr "Note"
 msgid "Type"
 msgstr "Type"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:117
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:125
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:117
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:113
 msgid "vendor_note"
 msgstr "note to the vendor"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:121
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:129
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:153
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:157
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:121
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:117
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:153
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:157
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:624
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:325
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:571
@@ -4735,10 +4736,10 @@ msgstr "note to the vendor"
 msgid "staff_note"
 msgstr "Staff note"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:129
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:137
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:165
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:165
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:129
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:125
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:165
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:165
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:8
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:665
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:333
@@ -4748,10 +4749,10 @@ msgstr "Staff note"
 msgid "Content"
 msgstr "Content"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:160
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:164
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:196
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:196
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:160
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:152
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:196
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:196
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:691
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:360
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:608
@@ -4760,31 +4761,32 @@ msgstr "Content"
 msgid "Only one note per type is allowed"
 msgstr "Only one note per type is allowed"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:166
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:166
 msgid "Order date"
 msgstr "Order date"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:185
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:185
 msgid "Receipt date"
 msgstr "Receipt date"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:217
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:111
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:217
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:111
 msgid "Select an account"
 msgstr "Select an account"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:226
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:4
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:226
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:4
 msgid "Acquisition order"
 msgstr "Order"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:230
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:230
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:221
 msgid "Acquisition order URI"
 msgstr "Order URI"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:253
-#: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:233
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:40
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:253
+#: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:234
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:41
 msgid ""
 "Should be in the following format: "
 "https://bib.rero.ch/api/documents/<PID>."
@@ -4792,120 +4794,120 @@ msgstr ""
 "Should be in the following format: "
 "https://bib.rero.ch/api/documents/<PID>."
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:294
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:294
 msgid "Cancelled"
 msgstr "Cancelled"
 
-#: rero_ils/modules/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:295
+#: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:295
 msgid "If checked this order line should be considered as cancelled."
 msgstr "If checked, this order line is considered as cancelled."
 
-#: rero_ils/modules/acq_orders/api.py:389
+#: rero_ils/modules/acquisition/acq_orders/api.py:442
 #, python-format
 msgid "Order status is %s"
 msgstr "Order status is %s"
 
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
 msgid "JSON schema for Acquisition Order."
 msgstr "JSON schema for an order."
 
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:23
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:23
 msgid "Schema to validate Acquisition Order records against."
 msgstr "Schema to validate order records against."
 
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:29
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:29
 msgid "AcqOrder ID"
 msgstr "Order ID"
 
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:34
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:48
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:34
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:48
 msgid "Reference"
 msgstr "Reference"
 
-#: rero_ils/modules/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:45
-msgid "This reference number already exists."
-msgstr "This reference number already exists."
+#: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:213
+msgid "Previous version"
+msgstr "Previous version"
 
-#: rero_ils/modules/acq_receipt_lines/extensions.py:68
+#: rero_ils/modules/acquisition/acq_receipt_lines/extensions.py:68
 msgid "Received quantity is grower than ordered quantity"
 msgstr "The quantity received is greater than the quantity ordered"
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:4
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:4
 msgid "Acquisition receipt line"
 msgstr "Receipt line"
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:5
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:5
 msgid "JSON schema for Acquisition Receipt Line."
 msgstr "JSON schema for an acquisition receipt line."
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:24
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:24
 msgid "Schema to validate Acquisition Receipt Line records against."
 msgstr "Schema to validate acquisition receipt line records against."
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:30
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:30
 msgid "Acquisition receipt line ID"
 msgstr "Receipt line ID"
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:35
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:43
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:35
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:43
 msgid "Receipt"
 msgstr "Receipt"
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:50
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:58
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:50
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:58
 msgid "Order line"
 msgstr "Order line"
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:88
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:88
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:344
 msgid "VAT rate"
 msgstr "VAT rate"
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:90
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:90
 msgid "percentage of VAT rate to apply on this receipt line"
 msgstr "percentage of VAT rate to apply on this receipt line"
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:106
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:106
 msgid "Receipt line date"
 msgstr "Receipt line date"
 
-#: rero_ils/modules/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:157
+#: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:157
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:125
 msgid "receipt_note"
 msgstr "receipt note"
 
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:4
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:4
 msgid "Acquisition receipt"
 msgstr "Acquisition receipt"
 
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:5
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:5
 msgid "JSON schema for Acquisition Receipt."
 msgstr "JSON schema for Acquisition Receipt."
 
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:22
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:22
 msgid "Schema to validate Acquisition Receipt records against."
 msgstr "Schema to validate Acquisition Receipt records against."
 
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:28
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:28
 msgid "Acquisition receipt ID"
 msgstr "Acquisition receipt ID"
 
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:33
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:41
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:33
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:41
 msgid "Order"
 msgstr "Order"
 
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:70
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:70
 msgid "Additional fees, discount and credit"
 msgstr "Additional fees, discount and credit"
 
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:76
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:76
 msgid "Fee"
 msgstr "Fee"
 
-#: rero_ils/modules/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:89
+#: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:89
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:8
-#: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:242
+#: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:243
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:20
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:55
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:204
@@ -4919,43 +4921,43 @@ msgstr "Fee"
 msgid "Label"
 msgstr "Label"
 
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:5
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:5
 msgid "JSON schema for budget."
 msgstr "JSON schema for budget."
 
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:23
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:23
 msgid "Schema to validate budget records against."
 msgstr "Schema to validate budget records against."
 
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:28
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:28
 msgid "Budget ID"
 msgstr "Budget ID"
 
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:33
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:33
 msgid "Budget name"
 msgstr "Budget name"
 
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:34
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:34
 msgid "Name of the budget."
 msgstr "Name of the budget."
 
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:46
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:46
 msgid "The budget name is already taken."
 msgstr "The budget name is already taken."
 
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:54
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:54
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:156
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:83
 msgid "Start date"
 msgstr "Start date"
 
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:68
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:68
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:178
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:92
 msgid "End date"
 msgstr "End date"
 
-#: rero_ils/modules/budgets/jsonschemas/budgets/budget-v0.0.1.json:81
+#: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:81
 msgid "True if not rolled over yet"
 msgstr "True if not closed yet"
 
@@ -4974,10 +4976,10 @@ msgstr "Circulation policy ID"
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:52
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:143
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:38
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:241
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:243
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:270
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:272
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:257
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:259
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:286
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:288
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:56
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:53
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:42
@@ -5017,7 +5019,7 @@ msgstr "Allow patron requests"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:105
 msgid "Pickup hold duration in days"
-msgstr "Pick up deadline in days"
+msgstr "Pickup deadline in days"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:106
 msgid ""
@@ -5303,7 +5305,7 @@ msgid "JSON schema for a mef contribution"
 msgstr "JSON schema for a MEF contribution"
 
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:16
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:107
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:108
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:29
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:17
 msgid "Schema to validate organisation records against."
@@ -5311,7 +5313,7 @@ msgstr "Schema to validate organisation records against."
 
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:21
 #: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:25
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:113
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:114
 msgid "Library ID"
 msgstr "Library ID"
 
@@ -5446,29 +5448,29 @@ msgstr "By source"
 msgid "Documents"
 msgstr "Documents"
 
-#: rero_ils/modules/documents/views.py:318
+#: rero_ils/modules/documents/views.py:325
 msgid "Journal"
 msgstr "Journal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:9
-#: rero_ils/modules/documents/views.py:320
+#: rero_ils/modules/documents/views.py:327
 msgid "Series"
 msgstr "Series"
 
-#: rero_ils/modules/documents/views.py:322
+#: rero_ils/modules/documents/views.py:329
 #: rero_ils/modules/ill_requests/forms.py:100
 msgid "Published in"
 msgstr "Published in"
 
-#: rero_ils/modules/documents/views.py:338
+#: rero_ils/modules/documents/views.py:345
 msgid "vol"
 msgstr "vol"
 
-#: rero_ils/modules/documents/views.py:341
+#: rero_ils/modules/documents/views.py:348
 msgid "nr"
 msgstr "nr"
 
-#: rero_ils/modules/documents/views.py:344
+#: rero_ils/modules/documents/views.py:351
 msgid "p"
 msgstr "p"
 
@@ -5614,7 +5616,7 @@ msgstr "Not applicable"
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:173
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:205
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:265
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:497
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:498
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:36
 msgid "Source"
 msgstr "Source"
@@ -6292,6 +6294,11 @@ msgstr "Example: 1989"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:2
 msgid "Link to corporate body entity"
 msgstr "Link to corporate body entity"
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:43
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:43
+msgid "MEF ID"
+msgstr "MEF ID"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
 msgid "Example: 1955"
@@ -7138,7 +7145,7 @@ msgstr "A reproduction of a document (MARC 534)."
 msgid "Document link"
 msgstr "Document link"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:236
+#: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:237
 msgid "Example: https://bib.rero.ch/api/documents/66"
 msgstr "Example: https://bib.rero.ch/api/documents/66"
 
@@ -7203,7 +7210,7 @@ msgstr "Uniform Resource Locator"
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:22
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:275
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:638
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:503
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:504
 msgid "URL"
 msgstr "URL"
 
@@ -8092,11 +8099,11 @@ msgstr "Contained in"
 msgid "Host document"
 msgstr "Host document"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:48
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:49
 msgid "Numberings"
 msgstr "Numberings"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:49
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:50
 msgid ""
 "For series, record only the volume. For journals, record every available "
 "information."
@@ -8104,7 +8111,7 @@ msgstr ""
 "For series, record only the volume. For journals, record every available "
 "information."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:54
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:55
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:31
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:35
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:68
@@ -8113,38 +8120,38 @@ msgstr ""
 msgid "Numbering"
 msgstr "Numbering"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:64
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:65
 #: rero_ils/modules/ill_requests/forms.py:79
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:191
 msgid "Year"
 msgstr "Year"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:70
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:71
 msgid "Should be in the following format: AAAA (2020)."
 msgstr "Should be in the following format: AAAA (2020)."
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:79
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:80
 #: rero_ils/modules/ill_requests/forms.py:46
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:219
 msgid "Volume"
 msgstr "Volume"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:89
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:90
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:299
 msgid "Issue"
 msgstr "Issue"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:99
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:100
 #: rero_ils/modules/ill_requests/forms.py:145
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:243
 msgid "Pages"
 msgstr "Pages"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:103
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:104
 msgid "Ex: 135, 5-27, ..."
 msgstr "Ex: 135, 5-27…"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:106
+#: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:107
 msgid "Should be in the following format: 135 or 5-27."
 msgstr "Should be in the following format: 135 or 5-27."
 
@@ -9243,12 +9250,21 @@ msgstr "Export as ..."
 msgid "Show more"
 msgstr "Show more"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:262
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:264
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:239
+msgid "article/volume"
+msgstr "article/volume"
+
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:241
+#, fuzzy
+msgid " articles/volumes"
+msgstr " articles/volumes"
+
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:278
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:280
 msgid "Get"
 msgstr "Get"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:305
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:321
 msgid "Export Formats"
 msgstr "Export Formats"
 
@@ -9998,8 +10014,12 @@ msgid "Caution!"
 msgstr "Caution!"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:27
-msgid "A well detailed request is more likely to be satisfied"
-msgstr "A well detailed request is more likely to be satisfied"
+msgid ""
+"Please make sure that the requested document does not exist in your "
+"library network."
+msgstr ""
+"Please make sure that the requested document doesn't exist in your library "
+"network."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:34
 msgid "You have submitted an invalid CSRF token"
@@ -10014,22 +10034,29 @@ msgid "Submit"
 msgstr "Submit"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:74
-msgid "Confirmation"
-msgstr "Confirmation"
+msgid "Interlibrary loan confirmation"
+msgstr "Interlibrary loan confirmation"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:80
 msgid ""
-"Costs may apply. By confirming, you agree to the interlibrary loan "
-"conditions of the pick-up library."
+"You are about to request an interlibrary loan. By confirming you agree "
+"that:"
 msgstr ""
-"Costs may apply. By confirming, you agree to the interlibrary loan "
-"conditions of the pick-up library."
+"You are about to request an interlibrary loan. By confirming you agree that:"
+
+#: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:82
+msgid "The requested document does not exist in your library network."
+msgstr "The requested document doesn't exist in your library network."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:83
+msgid "Costs may apply."
+msgstr "Costs may apply."
+
+#: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:87
 msgid "Cancel"
 msgstr "Cancel"
 
-#: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:84
+#: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:88
 msgid "Confirm"
 msgstr "Confirm"
 
@@ -10118,15 +10145,15 @@ msgstr ""
 msgid "Information"
 msgstr "Information"
 
-#: rero_ils/modules/items/api/circulation.py:1012
+#: rero_ils/modules/items/api/circulation.py:1028
 msgid "Item status disallows the operation."
 msgstr "Item status disallows the operation."
 
-#: rero_ils/modules/items/api/circulation.py:1016
+#: rero_ils/modules/items/api/circulation.py:1032
 msgid "Item and patron are not in the same organisation."
 msgstr "Item and patron are not in the same organisation."
 
-#: rero_ils/modules/items/api/circulation.py:1021
+#: rero_ils/modules/items/api/circulation.py:1037
 #: rero_ils/modules/selfcheck/api.py:422
 msgid "Item is already checked-out or requested by patron."
 msgstr "Item is already checked-out or requested by patron."
@@ -10366,13 +10393,13 @@ msgstr ""
 msgid "JSON schema for a library"
 msgstr "JSON schema for a library"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:36
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:58
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:37
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:59
 msgid "E-mail"
 msgstr "E-mail"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:37
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:59
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:38
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:60
 msgid ""
 "The notifications for patrons without e-mail are sent to this address. No"
 " notification is sent if the field is empty."
@@ -10380,15 +10407,15 @@ msgstr ""
 "The notifications for patrons without e-mail are sent to this address. No"
 " notification is sent if the field is empty."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:64
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:65
 msgid "Delay in minutes"
 msgstr "Delay in minutes"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:65
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:66
 msgid "Sending how many minutes after the item is available."
 msgstr "Sending how many minutes after the item is available."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:83
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:84
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:78
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:122
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:236
@@ -10396,15 +10423,15 @@ msgstr "Sending how many minutes after the item is available."
 msgid "Street"
 msgstr "Street"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:84
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:85
 msgid "Street + number"
 msgstr "Street + number"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:89
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:90
 msgid "Zip code"
 msgstr "Zip code"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:94
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:95
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:101
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:141
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:253
@@ -10412,130 +10439,150 @@ msgstr "Zip code"
 msgid "City"
 msgstr "City"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:132
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:133
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:39
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:39
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:58
 msgid "Code"
 msgstr "Code"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:133
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:134
 msgid "Code of the library."
 msgstr "Code of the library."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:138
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:139
 msgid "Name of the library."
 msgstr "Name of the library."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:143
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:144
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:33
 msgid "Address"
 msgstr "Address"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:144
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:145
 msgid "Address of the library."
 msgstr "Address of the library."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:149
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:150
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:236
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:268
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:327
 msgid "Email"
 msgstr "Email"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:150
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:151
 msgid "Email of the library."
 msgstr "Email of the library."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:155
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:156
 msgid "Opening Hours"
 msgstr "Opening Hours"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:156
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:157
 msgid "Weekly opening hours"
 msgstr "Weekly opening hours"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:239
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:240
 msgid "Day"
 msgstr "Day"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:240
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:241
 msgid "Weekday."
 msgstr "Weekday."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:253
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:254
 msgid "Is open"
 msgstr "Is open"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:291
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:292
 msgid "Exception Hours"
 msgstr "Exception Hours"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:292
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:293
 msgid "Exception opening hours"
 msgstr "Exception opening hours"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:358
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:359
 msgid "Notification settings"
 msgstr "Notification settings"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:373
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:374
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:271
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:178
 msgid "Communication language"
 msgstr "Communication language"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:411
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:412
 msgid "Shipping informations"
 msgstr "Shipping information"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:421
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:456
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:422
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:457
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:230
 msgid "Contact person"
 msgstr "Contact person"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:426
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:461
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:427
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:462
 msgid "Contact email"
 msgstr "Contact email"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:431
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:466
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:432
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:467
 msgid "Contact phone"
 msgstr "Contact phone"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:439
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:474
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:440
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:475
 msgid "Extra information"
 msgstr "Extra information"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:440
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:475
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:441
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:476
 msgid "VAT number, note, ..."
 msgstr "VAT number, note, ..."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:447
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:448
 msgid "Billing informations"
 msgstr "Billing information"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:484
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:485
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:56
 msgid "Online harvested sources"
 msgstr "Online harvested sources"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:485
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:486
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:57
 msgid "Online harvested sources as configured in ebooks server."
 msgstr "Online harvested sources as configured in ebook server."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:498
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:499
 msgid "Name of online source."
 msgstr "Name of the online source."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:504
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:505
 msgid "URL to online source."
 msgstr "URL to online source."
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:522
+msgid "Account transfer"
+msgstr "Account transfer"
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:523
+msgid ""
+"This defines if and how the accounts are transferred into the next fiscal"
+" year."
+msgstr ""
+"This defines if and how the accounts are transferred (rolled over) into the "
+"next fiscal year."
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:534
+msgid "rollover_no_transfer"
+msgstr "no transfer"
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:538
+msgid "rollover_allocated_amount"
+msgstr "transfer with allocated amount"
 
 #: rero_ils/modules/loans/api.py:119
 msgid "The loan cannot be extended"
@@ -11074,7 +11121,7 @@ msgstr "The default currency of the organisation"
 msgid "Collection enabled on public view"
 msgstr "Collection enabled on public view"
 
-#: rero_ils/modules/patron_transaction_events/api.py:119
+#: rero_ils/modules/patron_transaction_events/api.py:127
 msgid "Initial charge"
 msgstr "Initial amount"
 
@@ -11416,11 +11463,11 @@ msgstr "Reason"
 msgid "Transactions denied: the maximal overdue fee amount is reached."
 msgstr "Transactions denied: the maximal overdue fee amount is reached."
 
-#: rero_ils/modules/patrons/views.py:190
+#: rero_ils/modules/patrons/views.py:179
 msgid "Patron Profile"
 msgstr "Patron profile"
 
-#: rero_ils/modules/patrons/views.py:249
+#: rero_ils/modules/patrons/views.py:238
 msgid "You have a pending subscription fee."
 msgstr "You have a pending subscription fee."
 
@@ -12167,3 +12214,24 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "using"
 #~ msgstr "using"
+
+#~ msgid "USER_DOES_NOT_EXIST"
+#~ msgstr "This user does not exists."
+
+#~ msgid "This reference number already exists."
+#~ msgstr "This reference number already exists."
+
+#~ msgid "A well detailed request is more likely to be satisfied"
+#~ msgstr "A well detailed request is more likely to be satisfied"
+
+#~ msgid "Confirmation"
+#~ msgstr "Confirmation"
+
+#~ msgid ""
+#~ "Costs may apply. By confirming, you "
+#~ "agree to the interlibrary loan "
+#~ "conditions of the pick-up library."
+#~ msgstr ""
+#~ "Costs may apply. By confirming, you "
+#~ "agree to the interlibrary loan "
+#~ "conditions of the pick-up library."
