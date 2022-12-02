@@ -77,13 +77,16 @@ class DocumentAcquisitionDumper(DocumentGenericDumper):
 
         # identifiers -------------------------------
         identifiers = record.get_identifiers(
-            filters=[IdentifierType.ISBN],
-            with_alternatives=False
+            filters=[IdentifierType.ISBN, IdentifierType.EAN],
+            with_alternatives=True
         )
+        # keep only EAN identifiers - only EAN identifiers should be included
+        # into acquisition notification.
         render_class = QualifierIdentifierRenderer()
         identifiers = [
             identifier.render(render_class=render_class)
             for identifier in identifiers
+            if identifier.type == IdentifierType.EAN
         ]
 
         data.update({
