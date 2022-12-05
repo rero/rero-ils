@@ -186,6 +186,12 @@ class REROILSAPP(object):
         for k in dir(app.config):
             if k.startswith('RERO_ILS_APP_'):
                 app.config.setdefault(k, getattr(app.config, k))
+        # add keep alive support for angular application
+        # NOTE: this will not work for werkzeug> 2.1.2
+        # https://werkzeug.palletsprojects.com/en/2.2.x/changes/#version-2-1-2
+        if app.config.get('DEBUG'):
+            from werkzeug.serving import WSGIRequestHandler
+            WSGIRequestHandler.protocol_version = "HTTP/1.1"
 
     def register_signals(self, app):
         """Register signals."""
