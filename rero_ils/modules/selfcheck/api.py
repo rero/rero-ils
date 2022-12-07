@@ -220,23 +220,18 @@ def patron_information(barcode, **kwargs):
                 LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
                 LoanState.ITEM_ON_LOAN
             ]
-            loans = get_loans_by_patron_pid(patron.pid, filter_states)
-            for loan in loans:
+            sip2_summary_fields = current_app.config.get('SIP2_SUMMARY_FIELDS')
+            for loan in get_loans_by_patron_pid(patron.pid, filter_states):
                 item = Item.get_record_by_pid(loan.item_pid)
-                if loan['state'] == LoanState.ITEM_ON_LOAN:
-                    patron_account_information.get('charged_items', []).append(
-                        item.get('barcode'))
-                    if loan.is_loan_overdue():
-                        patron_account_information.get('overdue_items', []) \
-                            .append(item.get('barcode'))
-                elif loan['state'] in [
-                    LoanState.PENDING,
-                    LoanState.ITEM_AT_DESK,
-                    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
-                ]:
-                    patron_account_information.get('hold_items', []).append(
+                if field := sip2_summary_fields.get(loan['state']):
+                    patron_account_information.setdefault(field, []).append(
                         item.get('barcode')
                     )
+                if loan['state'] == LoanState.ITEM_ON_LOAN \
+                        and loan.is_loan_overdue():
+                    patron_account_information\
+                        .setdefault('overdue_items', [])\
+                        .append(item.get('barcode'))
 
             fee_amount = get_transactions_total_amount_for_patron(
                     patron.pid, status='open', with_subscription=False)
@@ -254,7 +249,8 @@ def patron_information(barcode, **kwargs):
                     if transaction.loan_pid:
                         loan = Loan.get_record_by_pid(transaction.loan_pid)
                         item = Item.get_record_by_pid(loan.item_pid)
-                        patron_account_information.get('fine_items', []) \
+                        patron_account_information\
+                            .setdefault('fine_items', []) \
                             .append(item.get('barcode'))
             return patron_account_information
         else:

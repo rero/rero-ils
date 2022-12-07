@@ -3395,6 +3395,17 @@ SIP2_MEDIA_TYPES = dict(
     docmaintype_movie_series='VIDEO',
 )
 
+# SIP2 summary field mapper
+# Config to map a loan state to the corresponding summary field used in sip2
+# patron information message response.
+# see invenio_sip2.models.SelfcheckSummary for available summary fields
+SIP2_SUMMARY_FIELDS = {
+    LoanState.PENDING: 'unavailable_hold_items',
+    LoanState.ITEM_AT_DESK: 'hold_items',
+    LoanState.ITEM_IN_TRANSIT_FOR_PICKUP: 'unavailable_hold_items',
+    LoanState.ITEM_ON_LOAN: 'charged_items'
+}
+
 # OAuth base template
 OAUTH2SERVER_COVER_TEMPLATE = 'rero_ils/oauth/base.html'
 

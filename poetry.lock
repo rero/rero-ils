@@ -1731,18 +1731,18 @@ tests = ["invenio-db[versioning] (>=1.0.0)", "mock (>=1.3.0)", "pytest-invenio (
 
 [[package]]
 name = "invenio-sip2"
-version = "0.6.16"
+version = "0.6.19"
 description = "Invenio module that add a SIP2 communication for library self-check service"
 category = "main"
 optional = false
 python-versions = ">=3.7,<3.10"
 
 [package.dependencies]
-Flask = ">=1.1.4,<2.0.0"
+Flask = "<3.0.0"
 invenio-access = ">=1.3.1"
 invenio-base = ">=1.2.3"
 jsonpickle = ">=1.2"
-markupsafe = "<2.1.0"
+markupsafe = ">=1.1.0,<2.1.0"
 mock = ">=4.0.3,<5.0.0"
 psutil = ">=5.9.0,<6.0.0"
 pycountry = ">=19.7.15"
@@ -3933,8 +3933,8 @@ invenio-search = [
     {file = "invenio_search-1.4.2-py2.py3-none-any.whl", hash = "sha256:50bfbd4f7bc56f05504084305de205e5b93498ccee83741ca0dd4a0fdcc5334a"},
 ]
 invenio-sip2 = [
-    {file = "invenio-sip2-0.6.16.tar.gz", hash = "sha256:541a49a4e8178f2a4fece005c306dcd955567b0b2d5c5124aa5913ef591adbea"},
-    {file = "invenio_sip2-0.6.16-py3-none-any.whl", hash = "sha256:c34cc775dbff73f8fadfc88f1edf16ae1eec14502f16f6fbe8d79741b8d904b5"},
+    {file = "invenio_sip2-0.6.19-py3-none-any.whl", hash = "sha256:6bdb34ba23898bbc7523b6463b967c90d793ead365b4f40fae889861e28f4fd2"},
+    {file = "invenio_sip2-0.6.19.tar.gz", hash = "sha256:0a0965073f380be88af9689eb13eb670e5d37a8f954e85f586a8099fd2581b38"},
 ]
 invenio-theme = [
     {file = "invenio-theme-1.3.31.tar.gz", hash = "sha256:ad1ff15f2a32a063798d9ed96a3b34f6fcb2d0456d9c830d55abbe0b3632a4b3"},
