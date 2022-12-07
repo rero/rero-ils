@@ -25,7 +25,7 @@ from datetime import datetime, timedelta, timezone
 import pytest
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, postdata
+from utils import flush_index, get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan
@@ -142,7 +142,8 @@ def test_enable_patron(selfcheck_patron_martigny):
 def test_patron_information(client, librarian_martigny,
                             selfcheck_patron_martigny, loc_public_martigny,
                             item_lib_martigny, item2_lib_martigny,
-                            circulation_policies, lib_martigny):
+                            item3_lib_martigny, circulation_policies,
+                            lib_martigny):
     """Test patron information."""
     login_user_via_session(client, librarian_martigny.user)
     # checkout
@@ -177,7 +178,7 @@ def test_patron_information(client, librarian_martigny,
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     assert number_of_notifications_sent(loan) == 1
-    # create request
+    # create pending request
     res, data = postdata(
         client,
         'api_item.librarian_request',
@@ -189,11 +190,60 @@ def test_patron_information(client, librarian_martigny,
             transaction_user_pid=librarian_martigny.pid
         )
     )
+    pending_request_loan_pid = \
+        get_json(res)['action_applied']['request']['pid']
+    assert res.status_code == 200
+    # create validated request
+    circ_params = {
+        'item_pid': item3_lib_martigny.pid,
+        'patron_pid': selfcheck_patron_martigny.pid,
+        'pickup_location_pid': loc_public_martigny.pid,
+        'transaction_library_pid': lib_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid
+    }
+    res, data = postdata(
+        client,
+        'api_item.librarian_request',
+        dict(
+            item_pid=item3_lib_martigny.pid,
+            patron_pid=selfcheck_patron_martigny.pid,
+            pickup_location_pid=loc_public_martigny.pid,
+            transaction_library_pid=lib_martigny.pid,
+            transaction_user_pid=librarian_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    # validate the request
+    request_loan_pid = get_json(res)['action_applied']['request']['pid']
+    circ_params['pid'] = request_loan_pid
+    res, data = postdata(
+        client, 'api_item.validate_request', dict(circ_params))
     assert res.status_code == 200
     # get patron information
     response = patron_information(selfcheck_patron_martigny.get(
         'patron', {}).get('barcode')[0])
     assert response
+    # check required fields
+    required_fields = [
+        'patron_id',
+        'patron_name',
+        'patron_status',
+        'institution_id',
+        'language',
+        'valid_patron'
+    ]
+    for field in required_fields:
+        assert response.get(field)
+    # check summary fields
+    summary_fields = [
+        'charged_items',
+        'fine_items',
+        'hold_items',
+        'overdue_items',
+        'unavailable_hold_items'
+    ]
+    for field in summary_fields:
+        assert len(response.get(field)) > 0
 
     # get patron status
     response = patron_status(selfcheck_patron_martigny.get(
@@ -211,6 +261,16 @@ def test_patron_information(client, librarian_martigny,
             transaction_location_pid=loc_public_martigny.pid
         )
     )
+    assert res.status_code == 200
+
+    # cancel the first request
+    circ_params = {
+        'pid': pending_request_loan_pid,
+        'transaction_library_pid': lib_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid
+    }
+    res, data = postdata(
+        client, 'api_item.cancel_item_request', dict(circ_params))
     assert res.status_code == 200
 
     # test with wrong patron
