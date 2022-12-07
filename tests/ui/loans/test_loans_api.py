@@ -37,6 +37,7 @@ from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.tasks import loan_anonymizer
 from rero_ils.modules.loans.utils import get_circ_policy, \
     get_default_loan_duration, sum_for_fees
+from rero_ils.modules.locations.api import Location
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import create_notifications, \
@@ -56,6 +57,28 @@ def test_loan_es_mapping(es_clear, db):
 def test_loans_create(loan_pending_martigny):
     """Test loan creation."""
     assert loan_pending_martigny.get('state') == LoanState.PENDING
+
+
+def test_loans_indexing(loan_pending_martigny, loc_public_martigny):
+    """Test loan indexing."""
+    loan = loan_pending_martigny
+    assert loan.reindex()
+    state = loan['state']
+    loan['state'] = LoanState.CANCELLED
+    loan.update(loan, True, True, True)
+    flush_index(LoansSearch.Meta.index)
+    loc_data = dict(loc_public_martigny)
+
+    # indexing a terminated loan should work even if linked resources are
+    # removed
+    loc_public_martigny.delete(False, True, True)
+    assert loan.reindex()
+
+    # restore original data
+    loc_public_martigny.delete(True, True, True)
+    Location.create(loc_data, dbcommit=True, reindex=True)
+    loan['state'] = state
+    loan.update(loan, True, True, True)
 
 
 def test_item_loans_default_duration(

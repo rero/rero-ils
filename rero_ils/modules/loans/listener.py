@@ -25,7 +25,7 @@ from rero_ils.modules.loans.logs.api import LoanOperationLog
 from rero_ils.modules.patron_transactions.utils import \
     create_patron_transaction_from_overdue_loan
 
-from .models import LoanAction, LoanState
+from .models import LoanAction
 
 
 def enrich_loan_data(sender, json=None, record=None, index=None,
@@ -42,23 +42,21 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
 
     # Update the patron type related to this loan only for "alive" loan to
     # try preserving performance during circulation process.
-    alive_states = LoanState.REQUEST_STATES + [LoanState.ITEM_ON_LOAN]
-    if record.state in alive_states \
-       and (patron_type_pid := record.patron.patron_type_pid):
-        json['patron_type_pid'] = patron_type_pid
+    if not record.concluded(record):
+        if patron_type_pid := record.patron.patron_type_pid:
+            json['patron_type_pid'] = patron_type_pid
+        if record.transaction_location_pid:
+            json['transaction_library_pid'] = record.transaction_library_pid
+        if record.pickup_location_pid:
+            json['pickup_library_pid'] = record.pickup_library.pid
 
-    if record.transaction_location_pid:
-        json['transaction_library_pid'] = record.transaction_library_pid
-    if record.pickup_location_pid:
-        json['pickup_library_pid'] = record.pickup_library.pid
-
-    item_pid = record.get('item_pid', {}).get('value')
-    if item := Item.get_record_by_pid(item_pid):
-        json['library_pid'] = item.holding_library_pid
-        json['location_pid'] = item.holding_location_pid
-    else:
-        msg = f'No item found: {item_pid} for loan: {record.get("pid")}'
-        current_app.logger.warning(msg)
+        item_pid = record.get('item_pid', {}).get('value')
+        if item := Item.get_record_by_pid(item_pid):
+            json['library_pid'] = item.holding_library_pid
+            json['location_pid'] = item.holding_location_pid
+        else:
+            msg = f'No item found: {item_pid} for loan: {record.get("pid")}'
+            current_app.logger.warning(msg)
 
 
 def listener_loan_state_changed(
