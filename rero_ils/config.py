@@ -1833,31 +1833,40 @@ RECORDS_REST_FACETS = dict(
                 )
             ),
             subject_fiction=dict(
-                terms=dict(
-                    field='facet_subjects',
-                    size=DOCUMENTS_AGGREGATION_SIZE,
-
-                ),
-                filter={
-                    'bool': {
-                        'must': [
-                            {'terms': {
-                                'genreForm.identifiedBy.value': [
-                                    'A027757308',
-                                    'A021097366'
-                                ]}}]}}
+                terms=dict(field='facet_subjects',
+                           size=DOCUMENTS_AGGREGATION_SIZE),
+                filter=dict(
+                    bool=dict(
+                        must=[
+                            dict(
+                                terms=dict(
+                                    facet_genre_form=[
+                                        'Fictions',
+                                        'Films de fiction'
+                                    ]
+                                )
+                            )
+                        ]
+                    )
+                )
             ),
             subject_no_fiction=dict(
                 terms=dict(field='facet_subjects',
                            size=DOCUMENTS_AGGREGATION_SIZE),
-                filter={
-                    'bool': {
-                        'must_not': [
-                            {'terms': {
-                                'genreForm.identifiedBy.value': [
-                                    'A027757308',
-                                    'A021097366'
-                                ]}}]}}
+                filter=dict(
+                    bool=dict(
+                        must_not=[
+                            dict(
+                                terms=dict(
+                                    facet_genre_form=[
+                                        'Fictions',
+                                        'Films de fiction'
+                                    ]
+                                )
+                            )
+                        ]
+                    )
+                )
             ),
             status=dict(
                 terms=dict(field='holdings.items.status',
@@ -1872,9 +1881,9 @@ RECORDS_REST_FACETS = dict(
                            size=DOCUMENTS_AGGREGATION_SIZE)
             ),
             year=dict(date_histogram=dict(
-                           field='provisionActivity.startDate',
-                           interval='year',
-                           format='yyyy')
+                field='provisionActivity.startDate',
+                interval='year',
+                format='yyyy')
             )
         ),
         filters={
