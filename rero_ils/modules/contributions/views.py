@@ -23,7 +23,6 @@ import requests
 from flask import Blueprint, Response, abort, current_app, render_template, \
     request
 from flask_babelex import gettext as translate
-from invenio_pidstore.models import PersistentIdentifier
 from invenio_records_ui.signals import record_viewed
 
 from .api import Contribution
@@ -55,11 +54,10 @@ def contribution_proxy(viewcode, pid, contribution_type):
     :returns: contribution template
     """
     contribution = Contribution.get_record_by_pid(pid)
-    if contribution and contribution['type'] != contribution_type:
+    if not contribution or contribution.get('type') != contribution_type:
         abort(404, 'Record not found')
-    persistent_id = PersistentIdentifier.get('cont', pid)
     return contribution_view_method(
-        pid=persistent_id,
+        pid=contribution.persistent_identifier,
         record=contribution,
         template='rero_ils/detailed_view_contribution.html',
         viewcode=viewcode
