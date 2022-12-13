@@ -483,6 +483,7 @@ def loan_validated_martigny(
         document,
         item2_lib_martigny,
         loc_public_martigny,
+        lib_martigny,
         item_type_standard_martigny,
         librarian_martigny,
         patron_martigny,

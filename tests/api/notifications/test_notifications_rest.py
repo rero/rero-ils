@@ -32,7 +32,6 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
-from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_circ_policy
@@ -437,6 +436,14 @@ def test_recall_notification(client, patron_sion, lib_sion,
     assert not request_loan.is_notified(
         notification_type=NotificationType.REQUEST)
     assert len(mailbox) == 0
+    params = {
+        'transaction_location_pid': loc_public_sion.pid,
+        'transaction_user_pid': librarian_sion.pid
+    }
+    item_lib_sion.checkin(**params)
+    mailbox.clear()
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
 
 
 def test_recall_notification_with_disabled_config(
@@ -500,7 +507,9 @@ def test_recall_notification_with_disabled_config(
         'transaction_location_pid': loc_public_martigny.pid,
         'transaction_user_pid': librarian_martigny.pid
     }
-    _, actions = item3_lib_martigny.checkin(**params)
+    item3_lib_martigny.checkin(**params)
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
 
 
 def test_recall_notification_without_email(
@@ -573,7 +582,9 @@ def test_recall_notification_without_email(
         )
     )
     assert res.status_code == 200
-    _, actions = item3_lib_martigny.checkin(**params)
+    item3_lib_martigny.checkin(**params)
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
 
 
 def test_recall_notification_with_patron_additional_email_only(
@@ -641,13 +652,9 @@ def test_recall_notification_with_patron_additional_email_only(
         )
     )
     assert res.status_code == 200
-    _, actions = item3_lib_martigny.checkin(**params)
-
-
-def test_transaction_library_pid(notification_late_martigny,
-                                 lib_martigny_data):
-    assert notification_late_martigny.transaction_library_pid == \
-           lib_martigny_data.get('pid')
+    item3_lib_martigny.checkin(**params)
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
 
 
 def test_notification_templates_list(client, librarian_martigny):
@@ -725,6 +732,8 @@ def test_multiple_notifications(client, patron_martigny, patron_sion,
         'pid': loan.pid
     }
     item_lib_martigny.receive(**params)
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
 
 
 def test_request_notifications_temp_item_type(
@@ -977,8 +986,8 @@ def test_multiple_request_booking_notifications(
     }
     # checkin at the request pickup of patron3
     _, actions = item_lib_martigny.checkin(**params)
-    assert actions.get(LoanAction.CHECKIN)
-    assert item_lib_martigny.status == ItemStatus.ON_SHELF
+    for notification_type in NotificationType.ALL_NOTIFICATIONS:
+        process_notifications(notification_type)
 
 
 @mock.patch('flask.current_app.logger.error',
@@ -1142,6 +1151,15 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
     # the patron information is the patron request
     assert patron_martigny['patron']['barcode'][0] in mailbox[0].body
     mailbox.clear()
+    params = {
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid,
+        'pid': loan.pid
+    }
+    item_lib_martigny.cancel_item_request(
+        request_loan_pid,
+        transaction_location_pid=loc_public_martigny.pid)
+    item_lib_martigny.receive(**params)
 
 
 def test_delete_pickup_location(
@@ -1259,3 +1277,10 @@ def test_reminder_notifications_after_extend(
     assert second_notification \
            and second_notification['status'] == NotificationStatus.DONE
     assert second_notification.pid != first_notification
+
+
+# should be at the end to avoid notifications in other tests
+def test_transaction_library_pid(notification_late_martigny,
+                                 lib_martigny_data):
+    assert notification_late_martigny.transaction_library_pid == \
+           lib_martigny_data.get('pid')
