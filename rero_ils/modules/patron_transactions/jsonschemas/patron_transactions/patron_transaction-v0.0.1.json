@@ -97,6 +97,10 @@
     "patron": {
       "title": "Patron",
       "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Patron URI",
@@ -105,9 +109,28 @@
         }
       }
     },
+    "library": {
+      "title": "Library",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Library URI",
+          "type": "string",
+          "pattern": "^https://bib.rero.ch/api/libraries/.*?$"
+        }
+      }
+    },
     "notification": {
       "title": "Notification",
       "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Notification URI",
@@ -119,6 +142,10 @@
     "loan": {
       "title": "Loan",
       "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Loan URI",

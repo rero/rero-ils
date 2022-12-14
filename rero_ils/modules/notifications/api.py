@@ -225,9 +225,9 @@ class Notification(IlsRecord, ABC):
         """Returns patron transactions attached of a notification."""
         results = PatronTransactionsSearch()\
             .filter('term', notification__pid=self.pid)\
-            .source(['pid']).scan()
+            .source(False).scan()
         for result in results:
-            yield PatronTransaction.get_record_by_pid(result.pid)
+            yield PatronTransaction.get_record_by_id(result.meta.id)
 
     # CLASS METHODS ===========================================================
     def update_process_date(self, sent=False, status=NotificationStatus.DONE):

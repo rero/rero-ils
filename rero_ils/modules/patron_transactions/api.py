@@ -31,6 +31,7 @@ from rero_ils.modules.patron_transaction_events.api import \
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref, sorted_pids
 
+from .extensions import PatronTransactionExtension
 from .models import PatronTransactionIdentifier, PatronTransactionMetadata
 
 # provider
@@ -68,6 +69,10 @@ class PatronTransactionsSearch(IlsRecordsSearch):
 class PatronTransaction(IlsRecord):
     """Patron Transaction class."""
 
+    _extensions = [
+        PatronTransactionExtension()
+    ]
+
     minter = patron_transaction_id_minter
     fetcher = patron_transaction_id_fetcher
     provider = PatronTransactionProvider
@@ -82,26 +87,14 @@ class PatronTransaction(IlsRecord):
         }
     }
 
+    def __init__(self, data, model=None, **kwargs):
+        """Initialize a patron transaction object."""
+        self.event_pids = []
+        super().__init__(data, model, **kwargs)
+
     # API METHODS =============================================================
     #   Overriding the `IlsRecord` default behavior for create and update
     #   Invenio API methods.
-
-    @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, steps=None, **kwargs):
-        """Create patron transaction record."""
-        # create the record
-        record = super().create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        PatronTransactionEvent.create_event_from_patron_transaction(
-            patron_transaction=record,
-            steps=steps,
-            dbcommit=dbcommit,
-            reindex=reindex,
-            delete_pid=delete_pid,
-            update_parent=False
-        )
-        return record
 
     # TODO: do we have to set dbcomit and reindex to True so the
     #       of the rest api for create and update works properly ?
@@ -237,6 +230,14 @@ class PatronTransactionsIndexer(IlsRecordsIndexer):
     """Holdings indexing class."""
 
     record_cls = PatronTransaction
+
+    def index(self, record):
+        """Indexing a record."""
+        # Indexing of events created in the extension
+        for pid in record.event_pids:
+            if event := PatronTransactionEvent.get_record_by_pid(pid):
+                event.reindex()
+        return super().index(record)
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.
