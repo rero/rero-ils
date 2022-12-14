@@ -21,16 +21,13 @@
 from datetime import datetime, timezone
 from functools import partial
 
-from flask_babelex import gettext as _
-
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.extensions import DecimalAmountExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
-from rero_ils.modules.patron_transactions.models import \
-    PatronTransactionStatus, PatronTransactionType
+from rero_ils.modules.patron_transactions.models import PatronTransactionStatus
 from rero_ils.modules.providers import Provider
-from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
+from rero_ils.modules.utils import extracted_data_from_ref
 
 from .models import PatronTransactionEventIdentifier, \
     PatronTransactionEventMetadata, PatronTransactionEventType
@@ -110,38 +107,6 @@ class PatronTransactionEvent(IlsRecord):
             commit=commit,
             dbcommit=dbcommit,
             reindex=reindex
-        )
-
-    @classmethod
-    def create_event_from_patron_transaction(
-            cls, patron_transaction=None, steps=None, dbcommit=None,
-            reindex=None, delete_pid=None, update_parent=True):
-        """Create a patron transaction event from patron transaction."""
-        parent = patron_transaction
-        data = {
-            'creation_date': parent.get('creation_date'),
-            'type': PatronTransactionEventType.FEE,
-            'subtype': 'other',
-            'amount': parent.get('total_amount'),
-            'parent': {'$ref': get_ref_for_pid('pttr', parent.pid)},
-            'note': _('Initial charge')
-        }
-        if steps:
-            data['steps'] = steps
-        # overdue transaction event
-        if parent.get('type') == PatronTransactionType.OVERDUE:
-            data['subtype'] = 'overdue'
-            library_pid = parent.loan.library_pid if parent.loan_pid else \
-                parent.notification_transaction_library_pid
-            if library_pid:
-                data['library'] = {'$ref': get_ref_for_pid('lib', library_pid)}
-
-        return cls.create(
-            data,
-            dbcommit=dbcommit,
-            reindex=reindex,
-            delete_pid=delete_pid,
-            update_parent=update_parent
         )
 
     def update_parent_patron_transaction(self):

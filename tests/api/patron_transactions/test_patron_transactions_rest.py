@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2022 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,20 +22,17 @@ from copy import deepcopy
 from datetime import datetime
 
 import mock
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
+from rero_ils.modules.api import IlsRecordError
+from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patron_transactions.utils import \
     create_subscription_for_patron, get_transactions_pids_for_patron
-from rero_ils.modules.utils import add_years
-
-
-def test_patron_transactions_user_pid(patron_transaction_overdue_martigny):
-    """Test patron_transactions.notification_user_pid property"""
-    ptre = patron_transaction_overdue_martigny
-    assert ptre.notification_transaction_user_pid == 'ptrn2'
+from rero_ils.modules.utils import add_years, get_ref_for_pid
 
 
 def test_patron_transactions_permissions(
@@ -142,11 +139,12 @@ def test_patron_transactions_post_put_delete(
         client, lib_martigny, patron_transaction_overdue_martigny,
         json_header):
     """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.pttr_item', pid_value='new_pttr')
+    pttr_pid = 'new_pttr'
+    item_url = url_for('invenio_records_rest.pttr_item', pid_value=pttr_pid)
     list_url = url_for('invenio_records_rest.pttr_list', q='pid:new_pttr')
     transaction_data = deepcopy(patron_transaction_overdue_martigny)
     # Create record / POST
-    transaction_data['pid'] = 'new_pttr'
+    transaction_data['pid'] = pttr_pid
     res, data = postdata(
         client,
         'invenio_records_rest.pttr_list',
@@ -169,7 +167,7 @@ def test_patron_transactions_post_put_delete(
         headers=json_header
     )
     assert res.status_code == 200
-    assert res.headers['ETag'] != '"{}"'.format(transaction_data.revision_id)
+    assert res.headers['ETag'] != f'"{transaction_data.revision_id}"'
 
     # Check that the returned record matches the given data
     data = get_json(res)
@@ -187,12 +185,14 @@ def test_patron_transactions_post_put_delete(
     data = get_json(res)['hits']['hits'][0]
     assert data['metadata']['note'] == 'Test Note'
 
-    # Delete record/DELETE
-    res = client.delete(item_url)
-    assert res.status_code == 204
+    # Delete record
+    # Deleting a transaction is not allowed,
+    # as it is necessary to keep the history
+    with pytest.raises(IlsRecordError.NotDeleted):
+        client.delete(item_url)
 
-    res = client.get(item_url)
-    assert res.status_code == 410
+    # Delete the record created above
+    clear_patron_transaction_data(pttr_pid)
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -213,8 +213,11 @@ def test_patron_transaction_photocopy_create(
     assert res.status_code == 201
     pid = data['metadata']['pid']
     item_url = url_for('invenio_records_rest.pttr_item', pid_value=pid)
-    res = client.delete(item_url)
-    assert res.status_code == 204
+    with pytest.raises(IlsRecordError.NotDeleted):
+        client.delete(item_url)
+
+    # Delete the record created above
+    clear_patron_transaction_data(pid)
 
 
 def test_patron_transaction_shortcuts_utils(
@@ -328,7 +331,7 @@ def test_patron_transaction_secure_api_create(
     post_entrypoint = 'invenio_records_rest.pttr_list'
     patron_transaction = deepcopy(patron_transaction_overdue_martigny)
     del patron_transaction['pid']
-    res, _ = postdata(
+    res, data = postdata(
         client,
         post_entrypoint,
         patron_transaction
@@ -336,10 +339,13 @@ def test_patron_transaction_secure_api_create(
     # librarian is authorized to create a patron transaction in its library.
     assert res.status_code == 201
 
+    # Delete the record created above
+    clear_patron_transaction_data(data['metadata']['pid'])
+
     patron_transaction_2 = deepcopy(patron_transaction_overdue_martigny)
 
     del patron_transaction_2['pid']
-    res, _ = postdata(
+    res, data_2 = postdata(
         client,
         post_entrypoint,
         patron_transaction_2
@@ -347,14 +353,20 @@ def test_patron_transaction_secure_api_create(
     # librarian is can create a patron transaction in other libraries.
     assert res.status_code == 201
 
+    # Delete the record created above
+    clear_patron_transaction_data(data_2['metadata']['pid'])
+
     login_user_via_session(client, system_librarian_martigny.user)
-    res, _ = postdata(
+    res, data_3 = postdata(
         client,
         post_entrypoint,
         patron_transaction_2
     )
     # sys_librarian is authorized to create any patron transaction in its org.
     assert res.status_code == 201
+
+    # Delete the record created above
+    clear_patron_transaction_data(data_3['metadata']['pid'])
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
@@ -421,7 +433,7 @@ def test_patron_transaction_secure_api_update(
     # sys_librarian is authorized to update any patron transaction of its org.
     assert res.status_code == 200
 
-#     # Sion
+    # Sion
     login_user_via_session(client, librarian_sion.user)
 
     res = client.put(
@@ -510,12 +522,67 @@ def test_patron_subscription_transaction(
     assert event.get('subtype') == 'other'
     assert event.get('amount') == subscription.get('total_amount')
 
+    # Delete the record created above
+    clear_patron_transaction_data(subscription.pid)
+
 
 def test_get_transactions_pids_for_patron(patron_sion):
     """Test function get_transactions_pids_for_patron."""
     assert len(list(get_transactions_pids_for_patron(
         patron_sion.pid, status='open'
-    ))) == 2
-    assert len(list(get_transactions_pids_for_patron(
-        patron_sion.pid, status='closed'
-    ))) == 0
+    ))) == 1
+    assert not list(get_transactions_pids_for_patron(
+        patron_sion.pid, status='closed'))
+
+
+def test_transactions_add_manual_fee(client, librarian_sion, org_sion,
+                                     patron_sion):
+    """Test for adding manual fees."""
+    # Sion
+    login_user_via_session(client, librarian_sion.user)
+
+    data = {
+        'type': 'photocopy',
+        'total_amount': 20,
+        'creation_date': datetime.now().isoformat(),
+        'patron': {
+            '$ref': get_ref_for_pid('ptrn', patron_sion.get('pid'))
+        },
+        'organisation': {
+            '$ref': get_ref_for_pid('org', org_sion.get('pid'))
+        },
+        'library': librarian_sion.get('libraries')[0],
+        'note': 'Thesis',
+        'status': 'open',
+        'event': {
+            'operator': {
+                '$ref': get_ref_for_pid('ptrn', librarian_sion.get('pid'))
+            },
+            'library': librarian_sion.get('libraries')[0]
+        }
+    }
+
+    post_entrypoint = 'invenio_records_rest.pttr_list'
+    res, data = postdata(
+        client,
+        post_entrypoint,
+        data
+    )
+    assert res.status_code == 201
+    metadata = data['metadata']
+    record = PatronTransaction.get_record_by_pid(metadata['pid'])
+    assert record.get('library') == librarian_sion.get('libraries')[0]
+    event = next(record.events)
+    event.get('operator') == librarian_sion.get('pid')
+    event.get('library') == librarian_sion.get('libraries')[0]
+
+    # Delete the record created above
+    clear_patron_transaction_data(metadata['pid'])
+
+
+def clear_patron_transaction_data(pid):
+    """Clear new data."""
+    if record := PatronTransaction.get_record_by_pid(pid):
+        for event in record.events:
+            event.delete(dbcommit=True, delindex=True)
+        record.delete(dbcommit=True, delindex=True)

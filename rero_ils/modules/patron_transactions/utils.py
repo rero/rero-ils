@@ -126,17 +126,16 @@ def create_patron_transaction_from_overdue_loan(
             'note': _('incremental overdue fees'),
             'total_amount': total_amount,
             'creation_date': datetime.now(timezone.utc).isoformat(),
+            'steps': [
+                {'timestamp': fee[1].isoformat(), 'amount': fee[0]}
+                for fee in fees
+            ]
         }
-        steps = [
-            {'timestamp': fee[1].isoformat(), 'amount': fee[0]}
-            for fee in fees
-        ]
         return PatronTransaction.create(
             data,
             dbcommit=dbcommit,
             reindex=reindex,
-            delete_pid=delete_pid,
-            steps=steps
+            delete_pid=delete_pid
         )
 
 

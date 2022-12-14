@@ -2685,6 +2685,15 @@ RECORDS_REST_SORT_OPTIONS['patrons']['full_name'] = dict(
 RECORDS_REST_DEFAULT_SORT['patrons'] = dict(
     query='bestmatch', noquery='full_name')
 
+# ------ PATRON TRANSACTIONS SORT
+RECORDS_REST_SORT_OPTIONS['patron_transactions']['creation_date'] = dict(
+    fields=['creation_date'], title='Patron transaction creation date',
+    default_order='asc'
+)
+
+RECORDS_REST_DEFAULT_SORT['patrons'] = dict(
+    query='mostrecent', noquery='creation_date')
+
 # ------ PATRON TYPES SORT
 RECORDS_REST_SORT_OPTIONS['patron_types']['name'] = dict(
     fields=['patron_type_name'], title='Patron type name',
