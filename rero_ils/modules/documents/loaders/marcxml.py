@@ -32,13 +32,13 @@ def marcxml_marshmallow_loader():
     """
     marcxml_records = split_stream(BytesIO(request.data))
     number_of_xml_records = 0
-    josn_record = {}
+    json_record = {}
     for marcxml_record in marcxml_records:
         marc21json_record = create_record(marcxml_record)
-        josn_record = marc21.do(marc21json_record)
+        json_record = marc21.do(marc21json_record)
         # converted records are considered as draft
-        josn_record['_draft'] = True
+        json_record['_draft'] = True
         if number_of_xml_records > 0:
             abort(400)
         number_of_xml_records += 1
-    return josn_record
+    return json_record
