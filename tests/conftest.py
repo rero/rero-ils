@@ -16,15 +16,21 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Common pytest fixtures and plugins."""
+
+
+import contextlib
 import json
 import os
 import shutil
 import sys
 import tempfile
 from os.path import dirname, join
+from unittest import mock
 
 import pytest
 from dotenv import load_dotenv
+from invenio_db import db
+from invenio_search import current_search_client
 
 pytest_plugins = (
     # 'celery.contrib.pytest',
@@ -511,3 +517,82 @@ def kul_book_without_26X():
         dirname(__file__), 'data/xml/kul/kul_book_without_26X.xml')
     with open(file_name, 'rb') as file:
         return file.read()
+
+
+def restore():
+    """Restore the snapshot data."""
+    # only if the snapshot exists
+    if current_search_client.snapshot.get('test', '_all')['snapshots']:
+        # get index candidates, restore all indices is too costly
+        indices = current_search_client.indices.stats(metric='docs')[
+            'indices'
+        ]
+        index = []
+        for i in indices.keys():
+            docs = indices[i]['primaries']['docs']
+            if docs['count'] or docs['deleted']:
+                index.append(i)
+        # non empty indices
+        if index:
+            index = ','.join(index)
+            # remove the index
+            current_search_client.indices.delete(index)
+            # restore the index
+            current_search_client.snapshot.restore(
+                'test', 'test', body=dict(
+                    indices=index, ignore_unavailable=True),
+                wait_for_completion=True)
+        # remove the snapshot
+        current_search_client.snapshot.delete('test', 'test')
+
+
+# ------------- global fixtures ------------------
+# See: pytest.ini
+
+# @pytest.fixture(scope='module')
+# def es_snap_repo(app):
+#     """Create an elasticsearch snapshot repository."""
+#     try:
+#         print('create repo')
+#         current_search_client.snapshot.create_repository(
+#             'test', body=dict(type='fs', settings=dict(location='snaps')))
+#         print('created')
+#         yield
+#         current_search_client.snapshot.remove_repository('test')
+#         print('removed')
+#     # out of flask context
+#     except RuntimeError:
+#         yield
+
+
+@pytest.hookimpl(tryfirst=True)
+def pytest_keyboard_interrupt(excinfo):
+    """Clean the snapshot during the test interruption."""
+    with contextlib.suppress(RuntimeError):
+        current_search_client.snapshot.delete('test', 'test')
+
+
+@pytest.fixture
+def es_snapshot():
+    """Create a snapshot before the test and restore after."""
+    try:
+        current_search_client.snapshot.create_repository(
+            'test', body=dict(type='fs', settings=dict(location='snaps')))
+        current_search_client.snapshot.create('test', 'test', body=dict(
+                include_global_state=False,
+            ),
+            wait_for_completion=True)
+        yield
+        restore()
+        # out of flask context
+    except RuntimeError:
+        yield
+
+
+@pytest.fixture
+def db_rollback():
+    """Avoid database modification during the tests."""
+    with contextlib.suppress(RuntimeError):
+        with mock.patch('invenio_db.db.session.commit') as mock_commit:
+            yield mock_commit
+        db.session.rollback()
