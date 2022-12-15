@@ -155,8 +155,8 @@ def logged_user():
         patron['organisation'] = patron.organisation.dumps(
             dumper=OrganisationLoggedUserDumper())
         patron['libraries'] = [
-            {'pid': extracted_data_from_ref(library)}
-            for library in patron.get('libraries', [])
+            {'pid': pid}
+            for pid in patron.manageable_library_pids
         ]
         data['patrons'].append(patron)
 

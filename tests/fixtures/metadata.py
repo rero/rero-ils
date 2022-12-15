@@ -1003,6 +1003,12 @@ def templ_doc_private_martigny_data(data):
     return deepcopy(data.get('tmpl2'))
 
 
+@pytest.fixture(scope="function")
+def templ_doc_private_martigny_data_tmp(data):
+    """Load template for a private document martigny data."""
+    return deepcopy(data.get('tmpl2'))
+
+
 @pytest.fixture(scope="module")
 def templ_doc_private_martigny(
         app, org_martigny, templ_doc_private_martigny_data,

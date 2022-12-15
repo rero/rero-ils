@@ -19,10 +19,17 @@
 """RERO ILS record serialization."""
 
 from flask import json, request
+from invenio_jsonschemas import current_jsonschemas
 from invenio_records_rest.serializers.json import \
     JSONSerializer as _JSONSerializer
 
 from .mixins import PostprocessorMixin
+
+
+def schema_from_context(_, context, data, schema):
+    """Get the record's schema from context."""
+    record = (context or {}).get('record', {})
+    return record.get('$schema', current_jsonschemas.path_to_url(schema))
 
 
 class JSONSerializer(_JSONSerializer, PostprocessorMixin):
