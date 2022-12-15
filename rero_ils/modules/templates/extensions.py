@@ -16,73 +16,77 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Template record extensions."""
-from flask_login import current_user
 from invenio_records.extensions import RecordExtension
-from jsonschema.exceptions import ValidationError
-
-from rero_ils.modules.users.models import UserRole
 
 
 class CleanDataDictExtension(RecordExtension):
     """Defines the methods needed by an extension."""
 
-    def post_init(self, record, data, model=None, **kwargs):
-        """Called after a record is initialized.
+    fields_to_clean = {
+        'documents': [
+            'pid'
+        ],
+        'items': [
+            'pid',
+            'barcode',
+            'status',
+            'document',
+            'holding',
+            'organisation',
+            'library'
+        ],
+        'holdings': [
+            'pid',
+            'organisation',
+            'library',
+            'document'
+        ],
+        'patrons': [
+            'pid',
+            'user_id',
+            'patron.subscriptions',
+            'patron.barcode'
+        ]
+    }
 
-        Remove fields that can have a link to other records in the database.
+    def _clean_record(self, record):
+        """Remove fields that can have a link to other records in the database.
+
+        When storing a `Template`, we don't want to store possible residual
+        links to other resource. Fields to clean depend on `Template` type.
 
         :param record: the record to analyze
-        :param data: The dict passed to the record's constructor
-        :param model: The model class used for initialization.
         """
-        fields = ['pid']
-        if record.get('template_type') == 'items':
-            fields += ['barcode', 'status', 'document', 'holding',
-                       'organisation', 'library']
 
-        elif record.get('template_type') == 'holdings':
-            fields += ['organisation', 'library', 'document']
-        elif record.get('template_type') == 'patrons':
-            fields += ['user_id', 'patron.subscriptions', 'patron.barcode']
+        def _clean(data, keys):
+            """Inner recursive function to clean data (allow dotted path).
 
-        for field in fields:
-            if '.' in field:
-                level_1, level_2 = field.split('.')
-                record.get('data', {}).get(level_1, {}).pop(level_2, None)
-            else:
-                record.get('data', {}).pop(field, None)
+            :param data: the dictionary to clean.
+            :param keys: the list of key to clean into the dictionary.
+            """
+            if not data:
+                return
+            for key in keys:
+                if '.' in key:
+                    root_path, child_path = key.split('.', 1)
+                    _clean(data.get(root_path, {}), [child_path])
+                else:
+                    data.pop(key, None)
 
-
-class TemplateVisibilityChangesExtension(RecordExtension):
-    """Disable template visibility changes depending on connected user."""
+        if not record.get('data'):
+            return
+        if fields := self.fields_to_clean.get(record.get('template_type')):
+            _clean(record['data'], fields)
 
     def pre_commit(self, record):
-        """Called before a record is committed.
+        """Called before a record is committed."""
+        self._clean_record(record)
 
-        :param record: the record containing data to validate.
-        :raises ValidationError: If an error is detected during the validation
-            check. This error could be serialized to get the error message.
-        """
-        # First, determine if a user is connected. If not, no check must be
-        # done about any changes (probably it's a console script/user).
-        from rero_ils.modules.patrons.api import current_librarian
-        if not current_user:
-            return
-
-        # Check if visibility of the template changed. If not, we can stop
-        # the validation process.
-        original_record = record.db_record() or {}
-        if record.get('visibility') == original_record.get('visibility'):
-            return
-
-        # Only lib_admin and full_permission roles can change visibility field
-        error_message = "You are not allowed to change template visibility"
-        allowed_roles = [
-            UserRole.FULL_PERMISSIONS,
-            UserRole.LIBRARY_ADMINISTRATOR
-        ]
-        user_roles = set()
-        if current_librarian:
-            user_roles = set(current_librarian.get('roles'))
-        if not user_roles.intersection(allowed_roles):
-            raise ValidationError(error_message)
+    def pre_create(self, record):
+        """Called before a record is created."""
+        self._clean_record(record)
+        # DEV NOTE :: we need to update the model to store record modification
+        # into the database ; otherwise this is the original data that will
+        # be stored into database.
+        if record.model:
+            record.model.data = record

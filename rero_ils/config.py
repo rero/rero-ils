@@ -124,7 +124,6 @@ from .modules.patrons.permissions import PatronPermissionPolicy
 from .modules.selfcheck.permissions import seflcheck_permission_factory
 from .modules.stats.api import Stat
 from .modules.stats.permissions import StatisticsPermissionPolicy
-from .modules.templates.api import Template
 from .modules.templates.permissions import TemplatePermissionPolicy
 from .modules.users.api import get_profile_countries, \
     get_readonly_profile_fields
@@ -1532,7 +1531,7 @@ RECORDS_REST_ENDPOINTS = dict(
             'application/json': 'rero_ils.modules.serializers:json_v1_search'
         },
         record_loaders={
-            'application/json': lambda: Template(request.get_json()),
+            'application/json': 'rero_ils.modules.templates.loaders:json_v1'
         },
         list_route='/templates/',
         record_class='rero_ils.modules.templates.api:Template',

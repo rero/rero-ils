@@ -316,7 +316,7 @@ patron_transaction_event_id = "rero_ils.modules.patron_transaction_events.api:pa
 patron_transaction_id = "rero_ils.modules.patron_transactions.api:patron_transaction_id_fetcher"
 patron_type_id = "rero_ils.modules.patron_types.api:patron_type_id_fetcher"
 stat_id = "rero_ils.modules.stats.api:stat_id_fetcher"
-template_id = "rero_ils.modules.templates.api:template_id_minter"
+template_id = "rero_ils.modules.templates.api:template_id_fetcher"
 vendor_id = "rero_ils.modules.vendors.api:vendor_id_fetcher"
 
 [tool.poetry.plugins."invenio_pidstore.minters"]

@@ -25,8 +25,7 @@ from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref
 
-from .extensions import CleanDataDictExtension, \
-    TemplateVisibilityChangesExtension
+from .extensions import CleanDataDictExtension
 from .models import TemplateIdentifier, TemplateMetadata, TemplateVisibility
 
 # provider
@@ -59,14 +58,14 @@ class Template(IlsRecord):
     """Templates class."""
 
     _extensions = [
-        CleanDataDictExtension(),
-        TemplateVisibilityChangesExtension()
+        CleanDataDictExtension()
     ]
 
     minter = template_id_minter
     fetcher = template_id_fetcher
     provider = TemplateProvider
     model_cls = TemplateMetadata
+    schema = 'templates/template-v0.0.1.json'
     pids_exist_check = {
         'required': {
             'org': 'organisation',
