@@ -17,21 +17,22 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-12-20 16:04+0100\n"
-"PO-Revision-Date: 2022-09-26 15:09+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2022-12-20 15:31+0000\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.15.1-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
 #: rero_ils/config.py:2886 rero_ils/config.py:2887
 msgid "INVALID_USER_OR_PASSWORD"
-msgstr ""
+msgstr "Ungültiger Benutzer oder Passwort"
 
 #: rero_ils/config.py:170
 msgid "French"
@@ -4821,9 +4822,8 @@ msgid "Reference"
 msgstr "Referenz"
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:213
-#, fuzzy
 msgid "Previous version"
-msgstr "Version"
+msgstr "Vorherige Version"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/extensions.py:68
 msgid "Received quantity is grower than ordered quantity"
@@ -6309,9 +6309,8 @@ msgstr "Link zu einer Körperschaft"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:43
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:43
-#, fuzzy
 msgid "MEF ID"
-msgstr "Channel"
+msgstr "MEF ID"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
 msgid "Example: 1955"
@@ -9281,14 +9280,12 @@ msgid "Show more"
 msgstr "Mehr anzeigen"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:239
-#, fuzzy
 msgid "article/volume"
-msgstr "Artikel"
+msgstr "Artikel/Band"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:241
-#, fuzzy
 msgid " articles/volumes"
-msgstr "Artikel"
+msgstr " Artikel/Bände"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:278
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:280
@@ -10059,6 +10056,8 @@ msgid ""
 "Please make sure that the requested document does not exist in your "
 "library network."
 msgstr ""
+"Bitte stellen Sie sicher, dass das gewünschte Dokument nicht in Ihrem "
+"Bibliotheksverbund vorhanden ist."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:34
 msgid "You have submitted an invalid CSRF token"
@@ -10073,23 +10072,26 @@ msgid "Submit"
 msgstr "Absenden"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:74
-#, fuzzy
 msgid "Interlibrary loan confirmation"
-msgstr "Fernleihbestellung"
+msgstr "Fernleihbestätigung"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:80
 msgid ""
 "You are about to request an interlibrary loan. By confirming you agree "
 "that:"
 msgstr ""
+"Sie sind im Begriff, eine Fernleihe zu bestellen. Mit der Bestätigung "
+"erklären Sie sich damit einverstanden:"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:82
+#, fuzzy
 msgid "The requested document does not exist in your library network."
 msgstr ""
+"Das angeforderte Dokument ist in Ihrem Bibliotheksverbund nicht vorhanden."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:83
 msgid "Costs may apply."
-msgstr ""
+msgstr "Es können Kosten anfallen."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:87
 msgid "Cancel"
@@ -10604,24 +10606,24 @@ msgid "URL to online source."
 msgstr "URL der Online-Quelle."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:522
-#, fuzzy
 msgid "Account transfer"
-msgstr "Kontonummer"
+msgstr "Kontoübertragung"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:523
 msgid ""
 "This defines if and how the accounts are transferred into the next fiscal"
 " year."
 msgstr ""
+"Dies definiert, ob und wie die Konten in das nächste Geschäftsjahr (rollover)"
+" übertragen werden."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:534
 msgid "rollover_no_transfer"
-msgstr ""
+msgstr "keine Übertragung"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:538
-#, fuzzy
 msgid "rollover_allocated_amount"
-msgstr "Zugewiesener Betrag"
+msgstr "Übertragung mit zugewiesenem Betrag"
 
 #: rero_ils/modules/loans/api.py:119
 msgid "The loan cannot be extended"
@@ -12316,4 +12318,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 #~ "Bestätigung erklären Sie sich mit den"
 #~ " Fernleihbedingungen der ausgewählten Bibliothek"
 #~ " einverstanden."
-
