@@ -28,7 +28,7 @@ from rero_ils.utils import get_i18n_supported_languages
 
 from .base import BaseDocumentFormatterMixin
 from ..api import Document
-from ..utils import process_literal_contributions
+from ..utils import create_contributions
 
 
 class RISSerializer(SerializerMixinInterface):
@@ -43,7 +43,7 @@ class RISSerializer(SerializerMixinInterface):
         """
         Document.post_process(record)
         record = record.replace_refs()
-        if contributions := process_literal_contributions(
+        if contributions := create_contributions(
                 record.get('contribution', [])):
             record['contribution'] = contributions
 

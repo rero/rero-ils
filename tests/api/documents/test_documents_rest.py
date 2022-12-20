@@ -203,10 +203,11 @@ def test_documents_facets(
     aggs = data['aggregations']
     assert set(aggs.keys()) == {'document_type',
                                 'library', 'author'}
+
     # TEST FILTERS
-    # Each filter checks is a tuple. First tuple element is argument used to
-    # call the API, second tuple argument is the number of document that
-    # should be return by the API call.
+    #   Each filter checks is a tuple. First tuple element is argument used to
+    #   call the API, second tuple argument is the number of document that
+    #   should be return by the API call.
     checks = [
         ({'view': 'global', 'author': 'Peter James'}, 2),
         ({'view': 'global', 'author': 'Great Edition'}, 1),
@@ -222,7 +223,7 @@ def test_documents_facets(
     ]
     for params, value in checks:
         url = url_for('invenio_records_rest.doc_list', **params)
-        res = client.get(url)
+        res = client.get(url, headers=rero_json_header)
         data = get_json(res)
         assert data['hits']['total']['value'] == value
 
@@ -521,7 +522,6 @@ def test_documents_resolve(
     assert res.json['metadata']['contribution'] == [{
         'agent': {
             '$ref': 'https://mef.rero.ch/api/agents/rero/A017671081',
-            'pid': 'cont_pers',
             'type': 'bf:Person'
             },
         'role': ['aut']
@@ -536,8 +536,9 @@ def test_documents_resolve(
         pid_value='doc2',
         resolve='1'
     ))
-    assert res.json['metadata'][
-        'contribution'][0]['agent']['authorized_access_point_fr']
+    assert res.json['metadata']['contribution'][0]['agent']['sources'] == [
+        'gnd', 'idref', 'rero'
+    ]
     assert res.status_code == 200
 
 

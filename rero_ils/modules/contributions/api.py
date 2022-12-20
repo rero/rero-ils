@@ -88,53 +88,39 @@ class Contribution(IlsRecord):
             return cls.get_record_by_pid(pid)
 
     @classmethod
-    def get_type_and_pid_from_ref(cls, ref):
-        """Extract agent type and pid form the MEF URL.
-
-        :params ref: MEF URL.
-        :returns: the ref type such as idref, and the pid value.
-        """
-        ref_split = ref.split('/')
-        ref_type = ref_split[-2]
-        ref_pid = ref_split[-1]
-        return ref_type, ref_pid
-
-    @classmethod
     def get_record_by_ref(cls, ref):
         """Get a record from DB.
 
         If the record dos not exist get it from MEF and create it.
         """
         online = False
-        ref_type, ref_pid = cls.get_type_and_pid_from_ref(ref)
+        ref_split = ref.split('/')
+        ref_type = ref_split[-2]
+        ref_pid = ref_split[-1]
+        db.session.begin_nested()
         contribution = cls.get_contribution(ref_type, ref_pid)
         if not contribution:
             # We dit not find the record in DB get it from MEF and create it.
-            nested = db.session.begin_nested()
             try:
                 data = cls._get_mef_data_by_type(
                     pid=ref_pid,
                     pid_type=ref_type,
                 )
-                # TODO: create or update
                 contribution = cls.create(
                     data=data,
-                    dbcommit=False,
-                    reindex=False
+                    dbcommit=True,
+                    reindex=True
                 )
                 online = True
-                nested.commit()
             except Exception as err:
-                nested.rollback()
+                db.session.rollback()
                 current_app.logger.error(
                     f'Get MEF record: {ref_type}:{ref_pid} >>{err}<<'
                 )
                 contribution = None
                 # import traceback
                 # traceback.print_exc()
-            if contribution:
-                contribution.reindex()
-
+        db.session.commit()
         return contribution, online
 
     @classmethod
@@ -145,6 +131,9 @@ class Contribution(IlsRecord):
         :param language: language for authorized access point.
         :returns: authorized access point in given language.
         """
+
+        def get_mef(url):
+            """Get data from MEF."""
         url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
         if pid_type == 'mef':
             mef_url = f'{url}/mef/?q=pid:"{pid}"'

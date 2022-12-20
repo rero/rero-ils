@@ -312,9 +312,6 @@
               "type": {
                 "type": "keyword"
               },
-              "primary_source": {
-                "type": "keyword"
-              },
               "pid": {
                 "type": "keyword"
               },

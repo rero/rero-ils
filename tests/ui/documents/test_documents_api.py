@@ -21,9 +21,8 @@ from __future__ import absolute_import, print_function
 
 from copy import deepcopy
 
-import mock
 import pytest
-from utils import flush_index, mock_response
+from utils import flush_index
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.documents.api import Document, DocumentsSearch, \
@@ -52,29 +51,6 @@ def test_document_create(db, document_data_tmp):
 
     with pytest.raises(IlsRecordError.PidAlreadyUsed):
         new_doc = Document.create(doc)
-
-
-@mock.patch('requests.get')
-def test_document_create_with_mef(
-        mock_contributions_mef_get, app, document_data_ref, document_data,
-        contribution_person_data, contribution_person_response_data):
-    """Load document with mef records reference."""
-    mock_contributions_mef_get.return_value = mock_response(
-        json_data=contribution_person_response_data
-    )
-    doc = Document.create(
-        data=deepcopy(document_data_ref),
-        delete_pid=True, dbcommit=True, reindex=True)
-    flush_index(DocumentsSearch.Meta.index)
-    doc = Document.get_record_by_pid(doc.get('pid'))
-    assert doc['contribution'][0]['agent']['pid'] == \
-        contribution_person_data['pid']
-    hit = DocumentsSearch().execute().to_dict()[
-        'hits']['hits'][0]
-    assert hit['_source']['contribution'][0]['agent'][
-        'pid'] == contribution_person_data['pid']
-    assert hit['_source']['contribution'][0]['agent'][
-        'primary_source'] == 'rero'
 
 
 def test_document_add_cover_url(db, document):
@@ -228,6 +204,7 @@ def test_document_get_links_to_me(document, export_document):
 
 def test_document_indexing(document, export_document):
     """Test document indexing."""
+
     # get the export_document from the es index
     s = DocumentsSearch().filter('term', pid=export_document.pid)
     assert s.count() == 1
@@ -268,7 +245,6 @@ def test_document_indexing(document, export_document):
 
 def test_document_replace_refs(document):
     """Test document replace refs."""
-    orig = deepcopy(document)
     data = document.replace_refs()
     assert len(data.get('contribution')) == 1
 
@@ -277,13 +253,12 @@ def test_document_replace_refs(document):
     contributions.append({
         'agent': {
           'type': 'bf:Person',
-          '$ref': 'https://mef.rero.ch/api/agents/idref/WRONGIDREF'
+          '$ref': 'https://mef.rero.ch/api/agents/iderf/WRONGIDREF'
         },
         'role': [
           'aut'
         ]
       })
-    document.update(document, True, True)
     data = document.replace_refs()
     assert len(data.get('contribution')) == 1
 
@@ -297,7 +272,5 @@ def test_document_replace_refs(document):
             'aut'
         ]
     })
-    document.update(document, True, True)
     data = document.replace_refs()
     assert len(data.get('contribution')) == 2
-    document.update(orig, True, True)

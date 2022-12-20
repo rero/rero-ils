@@ -38,11 +38,6 @@
           "itemCssClass": "col-lg-12"
         }
       }
-    },
-    "pid": {
-      "title": "MEF ID",
-      "type": "string",
-      "minLength": 1
     }
   },
   "form": {

@@ -19,18 +19,14 @@
 """API for manipulating documents."""
 
 
-from copy import deepcopy
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
 from elasticsearch_dsl import Q
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
-from invenio_records.api import _records_state
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
-
-from rero_ils.modules.documents.extensions import AddMEFPidExtension
 
 from .models import DocumentIdentifier, DocumentMetadata, DocumentSubjectType
 from .utils import edition_format_text, publication_statement_text, \
@@ -80,8 +76,7 @@ class Document(IlsRecord):
     model_cls = DocumentMetadata
 
     _extensions = [
-        OperationLogObserverExtension(),
-        AddMEFPidExtension()
+        OperationLogObserverExtension()
     ]
 
     def _validate(self, **kwargs):
@@ -305,66 +300,32 @@ class Document(IlsRecord):
         for es_document in es_documents:
             yield es_document.pid
 
-    def _expand_contributions(self, data):
-        """Replace the $ref for contributions.
-
-        :params data - dict: the contributions document data.
-        :returns: the modified contributions document data.
-        :rtype: dict
-        """
+    def replace_refs(self):
+        """Replace $ref with real data."""
         from ..contributions.api import Contribution
-        new_contributions = []
-        for contribution in data.get('contribution', []):
-            if not contribution['agent'].get('$ref'):
-                new_contributions.append(contribution)
-            if mef_pid := contribution['agent'].get('pid'):
-                if agent := Contribution.get_record_by_pid(mef_pid):
-                    _type, _ = Contribution.get_type_and_pid_from_ref(
-                        contribution['agent']['$ref'])
-                    contribution['agent'] = agent.dumps_for_document()
-                    contribution['agent']['primary_source'] = _type
-                    new_contributions.append(contribution)
-            elif contribution['agent'].get('$ref'):
-                current_app.logger.error(
-                    f'Unable to resolve contribution $ref '
-                    f'{contribution["agent"].get("$ref")}'
-                    f' for document {data.get("pid")}')
-        if new_contributions:
-            data['contribution'] = new_contributions
-        return data
-
-    def _expand_subjects(self, data):
-        """Replace the $ref for subjects.
-
-        :params data - dict: the subjects document data.
-        :returns: the modified subject document data.
-        :rtype: dict
-        """
-        from ..contributions.api import Contribution
+        contributions = self.get('contribution', [])
+        # we need to iterate over a copy of the list if we want to remove an
+        # element on the original list
+        for contribution in list(contributions):
+            if ref := contribution['agent'].get('$ref'):
+                agent, _ = Contribution.get_record_by_ref(ref)
+                if agent:
+                    contribution['agent'] = agent
+                else:
+                    contributions.remove(contribution)
         for subjects in ['subjects', 'subjects_imported']:
-            for subject in data.get(subjects, []):
+            for subject in self.get(subjects, []):
                 subject_ref = subject.get('$ref')
                 subject_type = subject.get('type')
                 if subject_ref and subject_type in [
                     DocumentSubjectType.PERSON,
                     DocumentSubjectType.ORGANISATION
                 ]:
-                    contrib_data, _ = Contribution.get_record_by_ref(
-                        subject_ref)
+                    data, _ = Contribution.get_record_by_ref(subject_ref)
                     del subject['$ref']
-                    subject.update(contrib_data)
-        return data
+                    subject.update(data)
 
-    def replace_refs(self):
-        """Replace $ref with real data."""
-        data = deepcopy(self)
-        data = self._expand_contributions(data)
-        data = self._expand_subjects(data)
-
-        if self.enable_jsonref:
-            return _records_state.replace_refs(data)
-        else:
-            self
+        return super().replace_refs()
 
     def get_identifiers(self, filters=None, with_alternatives=False):
         """Get the document identifier object filtered by identifier types.

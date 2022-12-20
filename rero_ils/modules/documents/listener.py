@@ -19,7 +19,7 @@
 
 from flask.globals import current_app
 
-from .utils import process_literal_contributions, title_format_text_head
+from .utils import create_contributions, title_format_text_head
 from ..commons.identifiers import IdentifierFactory, IdentifierType
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import HoldingsSearch
@@ -29,11 +29,21 @@ from ..local_fields.api import LocalField
 from ...utils import language_mapping
 
 
-def process_holdings(record, json):
-    """Add holding information to the indexed record."""
+def enrich_document_data(sender, json=None, record=None, index=None,
+                         doc_type=None, arguments=None, **dummy_kwargs):
+    """Signal sent before a record is indexed.
+
+    :param json: The dumped record dictionary which can be modified.
+    :param record: The record being indexed.
+    :param index: The index in which the record will be indexed.
+    :param doc_type: The doc_type for the record.
+    """
+    if index.split('-')[0] != DocumentsSearch.Meta.index:
+        return
     holdings = []
+    document_pid = record['pid']
     es_holdings = HoldingsSearch()\
-        .filter('term', document__pid=record['pid'])\
+        .filter('term', document__pid=document_pid)\
         .source().scan()
     for holding in es_holdings:
         holding = holding.to_dict()
@@ -113,10 +123,44 @@ def process_holdings(record, json):
     if holdings:
         json['holdings'] = holdings
 
+    # MEF contribution ES index update
+    contributions = create_contributions(json.get('contribution', []))
+    if contributions:
+        json.pop('contribution', None)
+        json['contribution'] = contributions
+    # TODO: compare record with those in DB to check which authors have
+    # to be deleted from index
+    # Index host document title in child document (part of)
+    if 'partOf' in json:
+        for part_of in json['partOf']:
+            doc_pid = part_of.get('document', {}).get('pid')
+            document = Document.get_record_by_pid(doc_pid).dumps()
+            titles = [
+                v['_text'] for v in document.get('title', {})
+                if v.get('_text') and v.get('type') == 'bf:Title'
+            ]
+            if titles:
+                part_of['document']['title'] = titles.pop()
 
-def process_identifiers(record, json):
-    """Add identifiers informations for indexing."""
-    #   Enrich document identifiers with possible alternative
+    # sort title
+    sort_title = title_format_text_head(
+        json.get('title', []),
+        with_subtitle=True
+    )
+    language = language_mapping(json.get('language')[0].get('value'))
+    if current_app.config.get('RERO_ILS_STOP_WORDS_ACTIVATE', False):
+        sort_title = current_app.\
+            extensions['reroils-normalizer-stop-words'].\
+            normalize(sort_title, language)
+    json['sort_title'] = sort_title
+    # Local fields in JSON
+    local_fields = LocalField.get_local_fields_by_resource(
+        'doc', document_pid)
+    if local_fields:
+        json['local_fields'] = local_fields
+
+    # DOCUMENT IDENTIFIERS MANAGEMENT
+    #   We want to enrich document identifiers with possible alternative
     #   identifiers. For example, if document data provides an ISBN-10
     #   identifier, the corresponding ISBN-13 identifiers must be
     #   searchable too.
@@ -156,63 +200,6 @@ def process_identifiers(record, json):
             if identifier.type in family_types
         ])):
             json[key] = filtered_identifiers
-
-
-def enrich_document_data(sender, json=None, record=None, index=None,
-                         doc_type=None, arguments=None, **dummy_kwargs):
-    """Signal sent before a record is indexed.
-
-    :param json: The dumped record dictionary which can be modified.
-    :param record: The record being indexed.
-    :param index: The index in which the record will be indexed.
-    :param doc_type: The doc_type for the record.
-    """
-    if index.split('-')[0] != DocumentsSearch.Meta.index:
-        return
-
-    process_holdings(record, json)
-
-    # # MEF contribution ES index update
-    # # TODO: subject and subject links
-    contributions = process_literal_contributions(json.get('contribution', []))
-    if contributions:
-        json.pop('contribution', None)
-        json['contribution'] = contributions
-
-    # TODO: compare record with those in DB to check which authors have
-    # to be deleted from index
-
-    # Index host document title in child document (part of)
-    if 'partOf' in json:
-        for part_of in json['partOf']:
-            doc_pid = part_of.get('document', {}).get('pid')
-            document = Document.get_record_by_pid(doc_pid).dumps()
-            titles = [
-                v['_text'] for v in document.get('title', {})
-                if v.get('_text') and v.get('type') == 'bf:Title'
-            ]
-            if titles:
-                part_of['document']['title'] = titles.pop()
-
-    # sort title
-    sort_title = title_format_text_head(
-        json.get('title', []),
-        with_subtitle=True
-    )
-    language = language_mapping(json.get('language')[0].get('value'))
-    if current_app.config.get('RERO_ILS_STOP_WORDS_ACTIVATE', False):
-        sort_title = current_app.\
-            extensions['reroils-normalizer-stop-words'].\
-            normalize(sort_title, language)
-    json['sort_title'] = sort_title
-
-    # Local fields in JSON
-    local_fields = LocalField.get_local_fields_by_resource(
-        'doc', record['pid'])
-    if local_fields:
-        json['local_fields'] = local_fields
-
-    process_identifiers(record, json)
 
     # Populate sort date new and old for use in sorting
     pub_provisions = [

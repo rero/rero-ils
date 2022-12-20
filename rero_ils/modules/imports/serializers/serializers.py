@@ -25,7 +25,7 @@ from marshmallow import fields
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
-from rero_ils.modules.documents.utils import process_literal_contributions, \
+from rero_ils.modules.documents.utils import create_contributions, \
     title_format_text_head
 
 
@@ -128,8 +128,7 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
                 agent['type'] = agent_type
             new_contributions.append({'agent': agent})
         if new_contributions:
-            metadata['contribution'] = \
-                process_literal_contributions(new_contributions)
+            metadata['contribution'] = create_contributions(new_contributions)
         return metadata
 
 
