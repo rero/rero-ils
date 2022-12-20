@@ -2882,6 +2882,10 @@ RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS = {
 
 # Login Configuration
 # ===================
+#: Supercharge flask_security invalid password or user message.
+SECURITY_MSG_INVALID_PASSWORD = (_('INVALID_USER_OR_PASSWORD'), 'error')
+SECURITY_MSG_USER_DOES_NOT_EXIST = (_('INVALID_USER_OR_PASSWORD'), 'error')
+
 #: Allow password change by users.
 SECURITY_CHANGEABLE = True
 

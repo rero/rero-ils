@@ -43,7 +43,7 @@ def user_exists(email):
     """Validate that a user exists."""
     user = User.get_by_username_or_email(email)
     if not user:
-        raise ValidationError(_('USER_DOES_NOT_EXIST'))
+        raise ValidationError(_('INVALID_USER_OR_PASSWORD'))
 
 
 class LoginView(CoreLoginView):
@@ -66,7 +66,7 @@ class LoginView(CoreLoginView):
         """Verify and login a user."""
         user = self.get_user(**kwargs)
         if not user:
-            _abort(_('USER_DOES_NOT_EXIST'))
+            _abort(_('INVALID_USER_OR_PASSWORD'))
         self.verify_login(user, **kwargs)
         self.login_user(user)
         return self.success_response(user)

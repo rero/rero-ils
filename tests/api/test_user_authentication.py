@@ -40,7 +40,7 @@ def test_login(client, patron_sion):
     assert res.status_code == 400
     data = get_json(res)
     assert data['errors'][0] == dict(
-        field='email', message=gettext('USER_DOES_NOT_EXIST'))
+        field='email', message=gettext('INVALID_USER_OR_PASSWORD'))
 
     # wrong password
     res, _ = postdata(
@@ -54,7 +54,7 @@ def test_login(client, patron_sion):
     assert res.status_code == 400
     data = get_json(res)
     assert data['errors'][0] == dict(
-        field='password', message='Invalid password')
+        field='password', message=gettext('INVALID_USER_OR_PASSWORD'))
 
     # login by email
     res, _ = postdata(
