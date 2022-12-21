@@ -95,13 +95,13 @@ def test_patron_utils(client, librarian_martigny,
 
 
 def test_patron_authenticate(client, patron_martigny, patron_martigny_data,
-                             system_librarian_martigny):
+                             system_librarian_martigny, default_user_password):
     """Test for patron authenticate."""
     # parameters
     token = 'Or7DTg1WT34cLKuSMcS7WzhdhxtKklpTizb1Hn2H0aaV5Vig6nden63VEqBE'
     token_url_data = {'access_token': token}
     username = patron_martigny_data['username']
-    password = patron_martigny_data['birth_date']
+    password = default_user_password
 
     create_personal(
         name='token_test',

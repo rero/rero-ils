@@ -20,10 +20,13 @@
 import cProfile
 import os
 import pstats
+import random
 import re
+import string
 import unicodedata
 from datetime import date, datetime, time
 from functools import wraps
+from gettext import ngettext
 from io import StringIO
 from json import JSONDecodeError, JSONDecoder, dumps
 from time import sleep
@@ -1192,3 +1195,59 @@ def draw_data_table(columns, rows=[], padding=''):
         ])+"\n"
 
     return table_header() + table_rows() + table_footer()
+
+
+class PasswordValidatorException(Exception):
+    """Error on validate password."""
+
+
+def password_validator(pw, length=8, special_char=False):
+    """Validate the password.
+
+    :param pw: The password to validate.
+    :param length: Minimum password size.
+    :param special_char: If it is true we add the special characters.
+    :return True or raise PasswordValidatorException
+    """
+    if len(pw) < length:
+        raise PasswordValidatorException(ngettext(
+            'Field must be at least %(min)d character long.',
+            'Field must be at least %(min)d characters long.',
+            length
+        ) % {"min": length})
+    if not set(string.ascii_lowercase).intersection(pw):
+        raise PasswordValidatorException('The password must contain a lower '
+                                         'case character.')
+    if not set(string.ascii_uppercase).intersection(pw):
+        raise PasswordValidatorException('The password must contain a upper '
+                                         'case character.')
+    if not set(string.digits).intersection(pw):
+        raise PasswordValidatorException('The password must contain a number.')
+    if special_char and not set(string.punctuation).intersection(pw):
+        raise PasswordValidatorException('The password must contain a special '
+                                         'character.')
+    return True
+
+
+def password_generator(length=8, special_char=False):
+    """Generate a password.
+
+    :param length: Minimum password size.
+    :param special_char: If True add punctuation string
+    :return the generated password.
+    """
+    min_length = 4 if special_char else 3
+    if length < min_length:
+        raise ValueError(f'Minimal size {min_length}')
+
+    password = [random.choice(string.ascii_lowercase)]
+    password.append(random.choice(string.ascii_uppercase))
+    password.append(random.choice(string.digits))
+    if special_char:
+        password.append(random.choice(string.punctuation))
+
+    while len(password) < length:
+        password.append(random.choice(string.ascii_letters + string.digits))
+
+    random.shuffle(password)
+    return ''.join(password)

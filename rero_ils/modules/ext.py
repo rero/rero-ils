@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,6 +27,7 @@ from flask_bootstrap import Bootstrap4
 from flask_login.signals import user_loaded_from_cookie, user_logged_in, \
     user_logged_out
 from flask_wiki import Wiki
+from invenio_base.signals import app_loaded
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
 from invenio_oaiharvester.signals import oaiharvest_finished
@@ -37,7 +38,8 @@ from invenio_userprofiles.signals import after_profile_update
 from jsonschema.exceptions import ValidationError
 
 from rero_ils.filter import address_block, empty_data, format_date_filter, \
-    get_record_by_ref, jsondumps, node_assets, text_to_id, to_pretty_json
+    get_record_by_ref, jsondumps, message_filter, node_assets, text_to_id, \
+    to_pretty_json
 from rero_ils.modules.acquisition.acq_accounts.listener import \
     enrich_acq_account_data
 from rero_ils.modules.acquisition.acq_order_lines.listener import \
@@ -75,6 +77,8 @@ from rero_ils.modules.patrons.listener import \
     update_from_profile
 from rero_ils.modules.sru.views import SRUDocumentsSearch
 from rero_ils.modules.templates.listener import prepare_template_data
+from rero_ils.modules.users.listener import user_register_forms, \
+    user_reset_password_forms
 from rero_ils.modules.users.views import UsersCreateResource, UsersResource
 from rero_ils.modules.utils import remove_user_name, set_user_name
 from rero_ils.version import __version__
@@ -106,6 +110,7 @@ class REROILSAPP(object):
             app.add_template_filter(jsondumps, name='jsondumps')
             app.add_template_filter(empty_data, name='empty_data')
             app.add_template_filter(address_block, name='address_block')
+            app.add_template_filter(message_filter, name='message')
             app.jinja_env.add_extension('jinja2.ext.do')
             app.jinja_env.globals['version'] = __version__
             self.register_signals(app)
@@ -251,3 +256,7 @@ class REROILSAPP(object):
         user_logged_in.connect(set_user_name)
         user_logged_out.connect(remove_user_name)
         user_loaded_from_cookie.connect(set_user_name)
+
+        # invenio-base signal: after application loaded
+        app_loaded.connect(user_register_forms, weak=False)
+        app_loaded.connect(user_reset_password_forms, weak=False)

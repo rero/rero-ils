@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,13 +27,15 @@ from invenio_search import current_search_client
 
 
 @pytest.fixture(scope='function')
-def user_with_profile(db):
+def user_with_profile(db, default_user_password):
     """Create a simple invenio user with a profile."""
     with db.session.begin_nested():
         user = User(
             email='user_with_profile@test.com',
-            password=hash_password('123456'),
-            profile=dict(), active=True)
+            password=hash_password(default_user_password),
+            profile={},
+            active=True,
+        )
         db.session.add(user)
         profile = user.profile
         profile.birth_date = datetime(1990, 1, 1)
@@ -43,17 +45,19 @@ def user_with_profile(db):
         profile.username = 'user_with_profile'
         db.session.merge(user)
     db.session.commit()
-    user.password_plaintext = '123456'
+    user.password_plaintext = default_user_password
     return user
 
 
 @pytest.fixture(scope='function')
-def user_without_email(db):
+def user_without_email(db, default_user_password):
     """Create a simple invenio user without email."""
     with db.session.begin_nested():
         user = User(
-            password=hash_password('123456'),
-            profile=dict(), active=True)
+            password=hash_password(default_user_password),
+            profile={},
+            active=True,
+        )
         db.session.add(user)
         profile = user.profile
         profile.birth_date = datetime(1990, 1, 1)
@@ -63,7 +67,7 @@ def user_without_email(db):
         profile.username = 'user_without_email'
         db.session.merge(user)
     db.session.commit()
-    user.password_plaintext = '123456'
+    user.password_plaintext = default_user_password
     return user
 
 

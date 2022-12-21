@@ -65,10 +65,10 @@ def login_user(client, user):
     login_user_via_session(client, user=user.user)
 
 
-def login_user_for_view(client, user):
+def login_user_for_view(client, user, default_user_password):
     """Sign in user for view."""
     invenio_user = user.user
-    invenio_user.password_plaintext = user.dumps().get('birth_date')
+    invenio_user.password_plaintext = default_user_password
     login_user_via_view(client, user=invenio_user)
 
 

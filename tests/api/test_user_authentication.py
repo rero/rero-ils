@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,7 +25,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
 
-def test_login(client, patron_sion):
+def test_login(client, patron_sion, default_user_password):
     """Test login with several scenarios."""
     patron_sion = patron_sion.dumps()
     # user does not exists
@@ -39,8 +39,7 @@ def test_login(client, patron_sion):
     )
     assert res.status_code == 400
     data = get_json(res)
-    assert data['errors'][0] == dict(
-        field='email', message=gettext('INVALID_USER_OR_PASSWORD'))
+    assert data['message'] == 'Invalid user or password'
 
     # wrong password
     res, _ = postdata(
@@ -53,8 +52,7 @@ def test_login(client, patron_sion):
     )
     assert res.status_code == 400
     data = get_json(res)
-    assert data['errors'][0] == dict(
-        field='password', message=gettext('INVALID_USER_OR_PASSWORD'))
+    assert data['message'] == gettext('INVALID_USER_OR_PASSWORD')
 
     # login by email
     res, _ = postdata(
@@ -62,7 +60,7 @@ def test_login(client, patron_sion):
         'invenio_accounts_rest_auth.login',
         {
             'email': patron_sion.get('email'),
-            'password': patron_sion.get('birth_date')
+            'password': default_user_password
         }
     )
     data = get_json(res)
@@ -77,7 +75,7 @@ def test_login(client, patron_sion):
         'invenio_accounts_rest_auth.login',
         {
             'email': patron_sion.get('username'),
-            'password': patron_sion.get('birth_date')
+            'password': default_user_password
         }
     )
     data = get_json(res)
@@ -87,7 +85,8 @@ def test_login(client, patron_sion):
     client.post(url_for('invenio_accounts_rest_auth.logout'))
 
 
-def test_login_without_email(client, patron_sion_without_email1):
+def test_login_without_email(client, patron_sion_without_email1,
+                             default_user_password):
     """Test login with several scenarios."""
     patron_sion_without_email1 = patron_sion_without_email1.dumps()
     # login by username without email
@@ -96,7 +95,7 @@ def test_login_without_email(client, patron_sion_without_email1):
         'invenio_accounts_rest_auth.login',
         {
             'email': patron_sion_without_email1.get('username'),
-            'password': patron_sion_without_email1.get('birth_date')
+            'password': default_user_password
         }
     )
     assert res.status_code == 200
@@ -106,23 +105,25 @@ def test_login_without_email(client, patron_sion_without_email1):
     client.post(url_for('invenio_accounts_rest_auth.logout'))
 
 
-def test_change_password(client, patron_martigny,
+def test_change_password(client, app, patron_martigny,
                          librarian_sion,
-                         librarian_martigny):
+                         librarian_martigny,
+                         default_user_password):
     """Test login with several scenarios."""
+    # Fix the size of password
+    app.config['RERO_ILS_PASSWORD_MIN_LENGTH'] = 8
     p_martigny = patron_martigny
     patron_martigny = patron_martigny.dumps()
     l_sion = librarian_sion
-    librarian_sion = librarian_sion.dumps()
     l_martigny = librarian_martigny
-    librarian_martigny = librarian_martigny.dumps()
     # try to change password with an anonymous user
     res, _ = postdata(
         client,
         'invenio_accounts_rest_auth.change_password',
         {
-            'password': patron_martigny.get('birth_date'),
-            'new_password': 'new'
+            'password': default_user_password,
+            'new_password': default_user_password,
+            'new_password_confirm': default_user_password
         }
     )
     data = get_json(res)
@@ -134,21 +135,40 @@ def test_change_password(client, patron_martigny,
         client,
         'invenio_accounts_rest_auth.change_password',
         {
-            'password': patron_martigny.get('birth_date'),
-            'new_password': 'new'
+            'password': default_user_password,
+            'new_password': '123456',
+            'new_password_confirm': '123456'
         }
     )
     data = get_json(res)
     assert res.status_code == 400
     assert data.get('message') == 'Validation error.'
+    assert data.get('errors')[0].get('message') == \
+        'Field must be at least 8 characters long.'
 
     # with a logged user
     res, _ = postdata(
         client,
         'invenio_accounts_rest_auth.change_password',
         {
-            'password': patron_martigny.get('birth_date'),
-            'new_password': 'new_passwd'
+            'password': default_user_password,
+            'new_password': 'Pw123458',
+            'new_password_confirm': 'Pw123455'
+        }
+    )
+    data = get_json(res)
+    assert res.status_code == 400
+    assert data.get('message') == 'Validation error.'
+    assert data.get('errors')[0].get('message') == \
+        'The 2 passwords are not identical.'
+
+    res, _ = postdata(
+        client,
+        'invenio_accounts_rest_auth.change_password',
+        {
+            'password': default_user_password,
+            'new_password': 'Pw123458',
+            'new_password_confirm': 'Pw123458'
         }
     )
     data = get_json(res)
@@ -162,7 +182,8 @@ def test_change_password(client, patron_martigny,
         'invenio_accounts_rest_auth.change_password',
         {
             'username': patron_martigny.get('username'),
-            'new_password': 'new_passwd2'
+            'new_password': 'Pw123458',
+            'new_password_confirm': 'Pw123458'
         }
     )
     data = get_json(res)
@@ -170,12 +191,29 @@ def test_change_password(client, patron_martigny,
 
     # with a librarian of the same organisation
     login_user_via_session(client, l_martigny.user)
+
     res, _ = postdata(
         client,
         'invenio_accounts_rest_auth.change_password',
         {
             'username': patron_martigny.get('username'),
-            'new_password': 'new_passwd2'
+            'new_password': 'Pw123458',
+            'new_password_confirm': 'Pw123455'
+        }
+    )
+    data = get_json(res)
+    assert res.status_code == 400
+    assert data.get('message') == 'Validation error.'
+    assert data.get('errors')[0].get('message') == \
+        'The 2 passwords are not identical.'
+
+    res, _ = postdata(
+        client,
+        'invenio_accounts_rest_auth.change_password',
+        {
+            'username': patron_martigny.get('username'),
+            'new_password': 'Pw123458',
+            'new_password_confirm': 'Pw123458'
         }
     )
     data = get_json(res)

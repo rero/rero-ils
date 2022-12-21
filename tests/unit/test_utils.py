@@ -20,10 +20,14 @@
 import os
 from datetime import datetime
 
+import pytest
+
 from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.patrons.api import Patron
-from rero_ils.modules.utils import add_years, extracted_data_from_ref, \
-    get_endpoint_configuration, get_schema_for_resource, read_json_record
+from rero_ils.modules.utils import PasswordValidatorException, add_years, \
+    extracted_data_from_ref, get_endpoint_configuration, \
+    get_schema_for_resource, password_generator, password_validator, \
+    read_json_record
 from rero_ils.utils import get_current_language, language_iso639_2to1, \
     language_mapping, unique_list
 
@@ -116,3 +120,28 @@ def test_language_mapping(app):
     """Test language mapping."""
     assert 'fre' == language_mapping('fre')
     assert 'dut' == language_mapping('dum')
+
+
+def test_password_validator():
+    """Test password validator."""
+    with pytest.raises(PasswordValidatorException):
+        password_validator('foo')
+        password_validator('foobarbar')
+        password_validator('1244567899')
+        password_validator('foobar123')
+        password_validator('FooBar123', length=12)
+
+    assert password_validator('FooBar12')
+    assert password_validator('FooBar123')
+    assert password_validator('Foo Bar 123')
+    assert password_validator('FooBar123$', special_char=True)
+
+
+def test_password_generator():
+    """Test password generator."""
+    assert len(password_generator()) == 8
+    assert len(password_generator(length=12)) == 12
+    assert password_validator(password_generator())
+    with pytest.raises(Exception):
+        password_generator(length=2)
+        password_generator(length=3, special_char=True)

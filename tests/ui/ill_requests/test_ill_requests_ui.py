@@ -27,7 +27,8 @@ from utils import login_user_for_view
 def test_ill_request_create_request_form(client, app,
                                          ill_request_martigny_data_tmp,
                                          loc_public_martigny,
-                                         patron_martigny):
+                                         patron_martigny,
+                                         default_user_password):
     """ test ill request create form."""
     request_form_url = url_for(
         'ill_requests.ill_request_form', viewcode='global')
@@ -38,7 +39,7 @@ def test_ill_request_create_request_form(client, app,
     assert res.status_code == 302
 
     # logged as user
-    login_user_for_view(client, patron_martigny)
+    login_user_for_view(client, patron_martigny, default_user_password)
     res = client.get(request_form_url)
     assert res.status_code == 200
 
@@ -64,7 +65,8 @@ def test_ill_request_create_request_form(client, app,
     assert res.status_code == 302
 
 
-def test_ill_request_with_document(client, app, document, patron_martigny):
+def test_ill_request_with_document(client, app, document, patron_martigny,
+                                   default_user_password):
     """Test ills request form with document data."""
     app.config['RERO_ILS_ILL_REQUEST_ON_GLOBAL_VIEW'] = True
     app.config['RERO_ILS_ILL_DEFAULT_SOURCE'] = 'RERO +'
@@ -75,7 +77,7 @@ def test_ill_request_with_document(client, app, document, patron_martigny):
         record_pid=document.pid)
 
     # logged as user
-    login_user_for_view(client, patron_martigny)
+    login_user_for_view(client, patron_martigny, default_user_password)
     res = client.get(request_form_url)
     assert res.status_code == 200
 

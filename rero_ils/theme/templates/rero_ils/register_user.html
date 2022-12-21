@@ -54,37 +54,3 @@
 </div>
 {%- endwith %}
 {% endblock panel %}
-{#
-{% block panel %}
-  <div class="card text-center mb-4">
-   {%- block form_header %}
-    <h3 class="card-title my-4">{{_('Log in to account') }}</h3>
-  {%- endblock form_header %}
-  {%- block form_outer %}
-    <div class="card-body">
-    {%- with form = login_user_form %}
-      <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
-        {{form.hidden_tag()}}
-        {{form_errors(form)}}
-        {{ render_field(form.email, icon="fa fa-user", autofocus=True, errormsg=False) }}
-        {{ render_field(form.password, icon="fa fa-lock", errormsg=False) }}
-      <button type="submit" class="btn btn-primary btn-lg btn-block mb-2"><i class="fa fa-sign-in"></i> {{_('Log In')}}</button>
-      </form>
-    {%- endwith %}
-    {%- endblock form_outer %}
- </div>
-  {%- block registerable %}
-  {%- if security.registerable %}
-  <div class="card-footer">
-      <h4 class="text-muted my-2">{% trans sitename=config.ACCOUNTS_SITENAME %}New to {{sitename}}?{% endtrans %} <a href="{{ url_for('security.register')}}">{{_('Sign Up')}}</a></h4>
-  </div>
-  {%- endif %}
-  {%- endblock registerable %}
-  </div>
-  {%- block recoverable %}
-  {%- if security.recoverable %}
-    <a href="{{url_for('security.forgot_password')}}" class="text-white">{{_('Forgot password?')}}</a>
-  {%- endif %}
-  {%- endblock recoverable %}
-{% endblock panel %}
- #}
