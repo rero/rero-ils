@@ -133,7 +133,7 @@ from .permissions import librarian_delete_permission_factory, \
     wiki_edit_ui_permission, wiki_edit_view_permission
 from .query import and_i18n_term_filter, and_term_filter, \
     exclude_terms_filter, or_terms_filter_by_criteria
-from .utils import get_current_language
+from .utils import TranslatedList, get_current_language
 
 
 def _(x):
@@ -2883,8 +2883,10 @@ RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS = {
 # Login Configuration
 # ===================
 #: Supercharge flask_security invalid password or user message.
-SECURITY_MSG_INVALID_PASSWORD = (_('INVALID_USER_OR_PASSWORD'), 'error')
-SECURITY_MSG_USER_DOES_NOT_EXIST = (_('INVALID_USER_OR_PASSWORD'), 'error')
+#: flask_security uses its own translation domain, so we need
+#: translate the message on demand with a custom list class.
+SECURITY_MSG_INVALID_PASSWORD = TranslatedList(('INVALID_USER_OR_PASSWORD', 'error'))
+SECURITY_MSG_USER_DOES_NOT_EXIST = TranslatedList(('INVALID_USER_OR_PASSWORD', 'error'))
 
 #: Allow password change by users.
 SECURITY_CHANGEABLE = True
