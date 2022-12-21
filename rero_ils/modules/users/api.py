@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2021-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -29,13 +29,15 @@ from invenio_accounts.models import User as BaseUser
 from invenio_db import db
 from invenio_jsonschemas import current_jsonschemas
 from invenio_records.validators import PartialDraft4Validator
+from invenio_records_rest.utils import obj_or_import_string
 from invenio_userprofiles.models import UserProfile
+from jsonschema.exceptions import ValidationError
 from sqlalchemy import func
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
 from ..api import ils_record_format_checker
-from ..utils import get_schema_for_resource
+from ..utils import PasswordValidatorException, get_schema_for_resource
 from ...utils import remove_empties_from_dict
 
 _records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
@@ -55,6 +57,27 @@ def get_readonly_profile_fields() -> list[str]:
     if current_user.has_role('patron'):
         return ['first_name', 'last_name', 'birth_date']
     return ['keep_history']
+
+
+def password_generator():
+    """Password generator."""
+    generator = obj_or_import_string(
+        current_app.config['RERO_ILS_PASSWORD_GENERATOR'])
+    return generator(
+        current_app.config['RERO_ILS_PASSWORD_MIN_LENGTH'],
+        current_app.config['RERO_ILS_PASSWORD_SPECIAL_CHAR']
+    )
+
+
+def password_validator(password):
+    """Password validator."""
+    validator = obj_or_import_string(
+        current_app.config['RERO_ILS_PASSWORD_VALIDATOR'])
+    return validator(
+        password,
+        current_app.config['RERO_ILS_PASSWORD_MIN_LENGTH'],
+        current_app.config['RERO_ILS_PASSWORD_SPECIAL_CHAR']
+    )
 
 
 class User(object):
@@ -85,11 +108,11 @@ class User(object):
         with db.session.begin_nested():
             email = data.pop('email', None)
             data.pop('roles', None)
+            # Generate password if not present
+            password = data.pop('password', None)
+            if not password:
+                password = password_generator()
             cls._validate(data=data)
-            password = data.pop(
-                'password',
-                data.get('birth_date', '123456')
-            )
             user = BaseUser(
                 password=hash_password(password),
                 profile=data, active=True)
@@ -120,6 +143,7 @@ class User(object):
         data.pop('roles', None)
         self._validate(data=data)
         email = data.pop('email', None)
+        password = data.pop('password', None)
         user = self.user
         with db.session.begin_nested():
             if user.profile is None:
@@ -132,9 +156,8 @@ class User(object):
                         datetime.strptime(data.get(field), '%Y-%m-%d'))
                 else:
                     setattr(profile, field, data.get(field, ''))
-            # change password
-            if data.get('password'):
-                user.password = hash_password(data['password'])
+            if password:
+                user.password = hash_password(password)
 
             if email and email != user.email:
                 user.email = email
@@ -150,6 +173,8 @@ class User(object):
     @classmethod
     def _validate(cls, data, **kwargs):
         """Validate user record against schema."""
+        if 'password' in data:
+            cls._validate_password(data['password'])
         default_user_schema = get_schema_for_resource('user')
         if schema := data.pop('$schema', default_user_schema):
             _records_state.validate(
@@ -159,6 +184,14 @@ class User(object):
                 cls=PartialDraft4Validator
             )
         return data
+
+    @classmethod
+    def _validate_password(cls, password):
+        """Validate password."""
+        try:
+            password_validator(password)
+        except PasswordValidatorException as e:
+            raise ValidationError(str(e)) from e
 
     @classmethod
     def get_by_id(cls, user_id):
