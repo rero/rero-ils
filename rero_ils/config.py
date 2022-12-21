@@ -3503,5 +3503,7 @@ RERO_ILS_EXPORT_MAPPER = {
 
 # PASSWORD GENERATOR & VALIDATOR
 # ==============================
+RERO_ILS_PASSWORD_MIN_LENGTH = 8
+RERO_ILS_PASSWORD_SPECIAL_CHAR = False
 RERO_ILS_PASSWORD_GENERATOR = 'rero_ils.modules.utils:password_generator'
 RERO_ILS_PASSWORD_VALIDATOR = 'rero_ils.modules.utils:password_validator'

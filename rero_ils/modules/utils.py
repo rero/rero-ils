@@ -1196,21 +1196,32 @@ def draw_data_table(columns, rows=[], padding=''):
     return table_header() + table_rows() + table_footer()
 
 
+class PasswordValidatorException(Exception):
+    """Error on validate password."""
+
+
 def password_validator(pw, length=8, special_char=False):
     """Validate the password.
 
     :param pw: The password to validate.
     :param length: Minimum password size.
-    :param special_char: If True add punctuation string
-    :return True if the password is valid.
+    :param special_char: If it is true we add the special characters.
+    :return True or raise PasswordValidatorException
     """
-    return bool(
-        len(pw) >= length
-        and len(set(string.ascii_lowercase).intersection(pw))
-        and len(set(string.ascii_uppercase).intersection(pw))
-        and len(set(string.digits).intersection(pw))
-        and (not special_char or len(set(string.punctuation).intersection(pw)))
-    )
+    if len(pw) < length:
+        raise PasswordValidatorException(f'Minimal size {length}')
+    if not set(string.ascii_lowercase).intersection(pw):
+        raise PasswordValidatorException('The password must contain a lower '
+                                         'case character.')
+    if not set(string.ascii_uppercase).intersection(pw):
+        raise PasswordValidatorException('The password must contain a upper '
+                                         'case character.')
+    if not set(string.digits).intersection(pw):
+        raise PasswordValidatorException('The password must contain a number.')
+    if special_char and not set(string.punctuation).intersection(pw):
+        raise PasswordValidatorException('The password must contain a special '
+                                         'character.')
+    return True
 
 
 def password_generator(length=8, special_char=False):
@@ -1222,7 +1233,7 @@ def password_generator(length=8, special_char=False):
     """
     min_length = 4 if special_char else 3
     if length < min_length:
-        raise Exception(f'Minimal size {min_length}')
+        raise ValueError(f'Minimal size {min_length}')
 
     password = [random.choice(string.ascii_lowercase)]
     password.append(random.choice(string.ascii_uppercase))
