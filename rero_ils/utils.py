@@ -22,6 +22,7 @@ from datetime import datetime
 
 import iso639
 from flask import current_app
+from flask_babelex import gettext
 from flask_security.confirmable import confirm_user
 from invenio_accounts.ext import hash_password
 from invenio_accounts.models import User as BaseUser
@@ -137,3 +138,11 @@ def language_mapping(lang):
     """
     return current_app.config.get('RERO_ILS_LANGUAGE_MAPPING', {})\
         .get(lang, lang)
+
+
+class TranslatedList(list):
+    """Translation on demand of elements in a list."""
+
+    def __getitem__(self, item):
+        """."""
+        return gettext(list.__getitem__(self, item))
