@@ -276,7 +276,7 @@ RERO_PUBLIC_USERPROFILES_READONLY_FIELDS = [
 ]
 
 #: USER PROFILES
-USERPROFILES_READ_ONLY = False;
+USERPROFILES_READ_ONLY = False
 
 # Disable User Profiles
 USERPROFILES = True
@@ -3500,3 +3500,8 @@ RERO_ILS_EXPORT_MAPPER = {
         ]
     }
 }
+
+# PASSWORD GENERATOR & VALIDATOR
+# ==============================
+RERO_ILS_PASSWORD_GENERATOR = 'rero_ils.modules.utils:password_generator'
+RERO_ILS_PASSWORD_VALIDATOR = 'rero_ils.modules.utils:password_validator'

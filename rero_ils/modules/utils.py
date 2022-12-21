@@ -20,7 +20,9 @@
 import cProfile
 import os
 import pstats
+import random
 import re
+import string
 import unicodedata
 from datetime import date, datetime, time
 from functools import wraps
@@ -1192,3 +1194,44 @@ def draw_data_table(columns, rows=[], padding=''):
         ])+"\n"
 
     return table_header() + table_rows() + table_footer()
+
+
+def password_validator(pw, length=8, special_char=False):
+    """Validate the password.
+
+    :param pw: The password to validate.
+    :param length: Minimum password size.
+    :param special_char: If True add punctuation string
+    :return True if the password is valid.
+    """
+    return bool(
+        len(pw) >= length
+        and len(set(string.ascii_lowercase).intersection(pw))
+        and len(set(string.ascii_uppercase).intersection(pw))
+        and len(set(string.digits).intersection(pw))
+        and (not special_char or len(set(string.punctuation).intersection(pw)))
+    )
+
+
+def password_generator(length=8, special_char=False):
+    """Generate a password.
+
+    :param length: Minimum password size.
+    :param special_char: If True add punctuation string
+    :return the generated password.
+    """
+    min_length = 4 if special_char else 3
+    if length < min_length:
+        raise Exception(f'Minimal size {min_length}')
+
+    password = [random.choice(string.ascii_lowercase)]
+    password.append(random.choice(string.ascii_uppercase))
+    password.append(random.choice(string.digits))
+    if special_char:
+        password.append(random.choice(string.punctuation))
+
+    while len(password) < length:
+        password.append(random.choice(string.ascii_letters + string.digits))
+
+    random.shuffle(password)
+    return ''.join(password)
