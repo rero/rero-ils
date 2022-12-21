@@ -236,7 +236,8 @@ class Patron(IlsRecord):
     def removeUserData(cls, data):
         """Remove the user data."""
         data = deepcopy(data)
-        profile_fields = User.profile_fields + ['username', 'email']
+        profile_fields = User.profile_fields + \
+            ['username', 'email', 'password']
         for field in profile_fields:
             try:
                 del data[field]

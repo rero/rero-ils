@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,20 +17,25 @@
 
 """Invenio Account custom views."""
 
-from flask import after_this_request, current_app
+from flask import abort, after_this_request, current_app
 from flask import request as flask_request
+from flask.views import MethodView
 from flask_babelex import gettext as _
+from flask_security.confirmable import requires_confirmation
+from flask_security.utils import get_message, verify_and_update_password
 from invenio_accounts.utils import change_user_password
 from invenio_accounts.views.rest import \
     ChangePasswordView as BaseChangePasswordView
 from invenio_accounts.views.rest import LoginView as CoreLoginView
 from invenio_accounts.views.rest import _abort, _commit, use_args, use_kwargs
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, validates, validates_schema
 from webargs import ValidationError, validate
 from werkzeug.local import LocalProxy
 
-from .modules.patrons.api import Patron, current_librarian
-from .modules.users.api import User
+from rero_ils.modules.patrons.api import Patron, current_librarian
+from rero_ils.modules.users.api import User
+from rero_ils.modules.utils import PasswordValidatorException, \
+    password_validator
 
 current_datastore = LocalProxy(
     lambda: current_app.extensions['security'].datastore)
@@ -39,26 +44,34 @@ current_datastore = LocalProxy(
 #
 # Field validators
 #
-def user_exists(email):
-    """Validate that a user exists."""
-    user = User.get_by_username_or_email(email)
-    if not user:
-        raise ValidationError(_('INVALID_USER_OR_PASSWORD'))
+def validate_password(password):
+    """Validate the password."""
+    length = current_app.config.get('RERO_ILS_PASSWORD_MIN_LENGTH', 8)
+    special_char = current_app.config.get('RERO_ILS_PASSWORD_SPECIAL_CHAR')
+    try:
+        password_validator(password, length=length, special_char=special_char)
+    except PasswordValidatorException as pve:
+        raise ValidationError(str(pve)) from pve
+
+
+def validate_passwords(password, confirm_password):
+    """Validate that the 2 passwords are identical."""
+    if password != confirm_password:
+        raise ValidationError(_('The 2 passwords are not identical.'))
 
 
 class LoginView(CoreLoginView):
     """invenio-accounts Login REST View."""
 
     post_args = {
-        'email': fields.String(required=True, validate=[user_exists]),
+        'email': fields.String(required=True),
         'password': fields.String(required=True)
     }
 
     @classmethod
     def get_user(cls, email=None, **kwargs):
         """Retrieve a user by the provided arguments."""
-        user = User.get_by_username_or_email(email)
-        if user:
+        if user := User.get_by_username_or_email(email):
             return user.user
 
     @use_kwargs(post_args)
@@ -71,23 +84,51 @@ class LoginView(CoreLoginView):
         self.login_user(user)
         return self.success_response(user)
 
+    def verify_login(self, user, password=None, **kwargs):
+        """Verify the login via password."""
+        if not user.password or not verify_and_update_password(password, user):
+            _abort(_('INVALID_USER_OR_PASSWORD'))
+        if requires_confirmation(user):
+            _abort(get_message('CONFIRMATION_REQUIRED')[0])
+        if not user.is_active:
+            _abort(get_message('DISABLED_ACCOUNT')[0])
+
 
 class PasswordPassword(Schema):
     """Args validation when a user want to change his password."""
 
-    password = fields.String(
-        validate=[validate.Length(min=6, max=128)])
-    new_password = fields.String(
-        required=True, validate=[validate.Length(min=6, max=128)])
+    password = fields.String(required=True)
+    new_password = fields.String(required=True)
+    new_password_confirm = fields.String(required=True)
+
+    @validates("new_password")
+    def validate_password(self, value):
+        """Validate password."""
+        validate_password(value)
+
+    @validates_schema
+    def validate_passwords(self, data, **kwargs):
+        """Validate that the 2 passwords are identical."""
+        validate_passwords(data['new_password'], data['new_password_confirm'])
 
 
 class UsernamePassword(Schema):
     """Args validation when a professional change a password for a user."""
 
-    username = fields.String(
-        validate=[validate.Length(min=1, max=128)])
-    new_password = fields.String(
-        required=True, validate=[validate.Length(min=6, max=128)])
+    username = fields.String(required=True,
+                             validate=[validate.Length(min=1, max=128)])
+    new_password = fields.String(required=True)
+    new_password_confirm = fields.String(required=True)
+
+    @validates("new_password")
+    def validate_password(self, value):
+        """Validate password."""
+        validate_password(value)
+
+    @validates_schema
+    def validate_passwords(self, data, **kwargs):
+        """Validate that the 2 passwords are identical."""
+        validate_passwords(data['new_password'], data['new_password_confirm'])
 
 
 def make_password_schema(request):
@@ -100,7 +141,6 @@ def make_password_schema(request):
     if request.json.get('username'):
         return UsernamePassword(only=only,
                                 partial=partial, context={"request": request})
-
     # Add current request to the schema's context
     return PasswordPassword(only=only,
                             partial=partial, context={"request": request})
@@ -139,3 +179,15 @@ class ChangePasswordView(BaseChangePasswordView):
             self.verify_password(**args)
             self.change_password(**args)
         return self.success_response()
+
+
+class DisabledAuthApiView(MethodView):
+    """Disabled Account rest auth api."""
+
+    def post(self, **kwargs):
+        """Post Data."""
+        abort(404)
+
+    def get(self, **kwargs):
+        """Get Data."""
+        abort(404)

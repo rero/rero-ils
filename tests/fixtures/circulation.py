@@ -1596,3 +1596,9 @@ def ill_request_sion(app, loc_public_sion, patron_sion,
 def user_data_tmp(data):
     """Load user data."""
     return deepcopy(data.get('user1'))
+
+
+@pytest.fixture(scope='function')
+def default_user_password():
+    """Default user password."""
+    return 'Pw123456'

@@ -32,13 +32,15 @@ from rero_ils.modules.items.api import Item, ItemsSearch
 
 
 @pytest.fixture(scope='function')
-def user_with_profile(db):
+def user_with_profile(db, default_user_password):
     """Create a simple invenio user with a profile."""
     with db.session.begin_nested():
         user = User(
             email='user_with_profile@test.com',
-            password=hash_password('123456'),
-            profile=dict(), active=True)
+            password=hash_password(default_user_password),
+            profile={},
+            active=True,
+        )
         db.session.add(user)
         profile = user.profile
         profile.birth_date = datetime(1990, 1, 1)

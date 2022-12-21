@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2021-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -27,7 +27,7 @@ from utils import get_json, postdata
 
 
 def test_users_post_put(client, user_data_tmp, librarian_martigny,
-                        json_header):
+                        json_header, default_user_password):
     """Test users REST api for retrieve, create and update."""
     first_name = user_data_tmp.get('first_name')
 
@@ -51,9 +51,20 @@ def test_users_post_put(client, user_data_tmp, librarian_martigny,
     )
     assert res.status_code == 400
 
+    # test with invalid password
     user_data_tmp.pop('toto')
     user_data_tmp['first_name'] = 1
-    user_data_tmp['password'] = '123456'
+    user_data_tmp['password'] = '12345'
+    res, data = postdata(
+        client,
+        'api_users.users_list',
+        user_data_tmp
+    )
+    assert res.status_code == 400
+
+    # test with invalid first_name
+    user_data_tmp['first_name'] = 1
+    user_data_tmp['password'] = default_user_password
     res, data = postdata(
         client,
         'api_users.users_list',
@@ -109,6 +120,29 @@ def test_users_post_put(client, user_data_tmp, librarian_martigny,
         headers=json_header
     )
     assert res.status_code == 400
+
+    # test invalid password
+    user_data_tmp['first_name'] = 'Johnny'
+    user_data_tmp['password'] = '1234'
+    res = client.put(
+        url_for(
+            'api_users.users_item',
+            id=2),
+        data=json.dumps(user_data_tmp),
+        headers=json_header
+    )
+    assert res.status_code == 400
+
+    # test valid password
+    user_data_tmp['password'] = 'Pw123456'
+    res = client.put(
+        url_for(
+            'api_users.users_item',
+            id=2),
+        data=json.dumps(user_data_tmp),
+        headers=json_header
+    )
+    assert res.status_code == 200
 
 
 def test_users_search_api(client, librarian_martigny, patron_martigny):

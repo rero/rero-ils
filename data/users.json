@@ -24,7 +24,8 @@
         "type": "staff_note",
         "content": "The first system librarian account."
       }
-    ]
+    ],
+    "password": "Pw123456"
   },
   {
     "pid": "2",
@@ -47,7 +48,8 @@
     ],
     "home_phone": "+41261234567",
     "postal_code": "1700",
-    "street": "Avenue de la Gare, 80"
+    "street": "Avenue de la Gare, 80",
+    "password": "Pw123456"
   },
   {
     "pid": "3",
@@ -67,7 +69,8 @@
     ],
     "home_phone": "+41911234567",
     "postal_code": "6900",
-    "street": "Viale Carlo Cattaneo, 52"
+    "street": "Viale Carlo Cattaneo, 52",
+    "password": "Pw123456"
   },
   {
     "pid": "4",
@@ -110,7 +113,8 @@
         "type": "staff_note",
         "content": "A kind person."
       }
-    ]
+    ],
+    "password": "Pw123456"
   },
   {
     "pid": "5",
@@ -136,7 +140,8 @@
       "communication_channel": "email",
       "communication_language": "ita",
       "additional_communication_email": "reroilstest+helder@gmail.com"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "6",
@@ -156,7 +161,8 @@
     ],
     "home_phone": "+39244857275",
     "postal_code": "11010",
-    "street": "Frazione Plan"
+    "street": "Frazione Plan",
+    "password": "Pw123456"
   },
   {
     "pid": "7",
@@ -182,7 +188,8 @@
       },
       "communication_channel": "email",
       "communication_language": "fre"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "8",
@@ -209,7 +216,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "9",
@@ -236,7 +244,8 @@
       },
       "communication_channel": "email",
       "communication_language": "fre"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "10",
@@ -263,7 +272,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ita"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "11",
@@ -290,7 +300,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "12",
@@ -317,7 +328,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ger"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "13",
@@ -338,7 +350,8 @@
     ],
     "home_phone": "+01411234567",
     "postal_code": "0000",
-    "street": "High Street"
+    "street": "High Street",
+    "password": "Pw123456"
   },
   {
     "pid": "14",
@@ -364,7 +377,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "15",
@@ -390,7 +404,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "16",
@@ -411,7 +426,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "7878",
-    "street": "Imagination Street 48"
+    "street": "Imagination Street 48",
+    "password": "Pw123456"
   },
   {
     "pid": "17",
@@ -431,7 +447,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "18",
@@ -451,7 +468,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "19",
@@ -471,7 +489,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "20",
@@ -491,7 +510,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "21",
@@ -511,7 +531,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "22",
@@ -531,7 +552,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "23",
@@ -551,7 +573,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "24",
@@ -571,7 +594,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "25",
@@ -591,7 +615,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "26",
@@ -611,7 +636,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "27",
@@ -631,7 +657,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "28",
@@ -651,7 +678,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "29",
@@ -671,7 +699,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "30",
@@ -691,7 +720,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "31",
@@ -711,7 +741,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "32",
@@ -731,7 +762,8 @@
     ],
     "home_phone": "+765554433",
     "postal_code": "no indication",
-    "street": "no indication"
+    "street": "no indication",
+    "password": "Pw123456"
   },
   {
     "pid": "33",
@@ -758,7 +790,8 @@
       },
       "communication_channel": "email",
       "communication_language": "fre"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "34",
@@ -785,7 +818,8 @@
       },
       "communication_channel": "email",
       "communication_language": "fre"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "35",
@@ -812,7 +846,8 @@
       },
       "communication_channel": "email",
       "communication_language": "fre"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "36",
@@ -839,7 +874,8 @@
       },
       "communication_channel": "email",
       "communication_language": "fre"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "37",
@@ -866,7 +902,8 @@
       },
       "communication_channel": "email",
       "communication_language": "fre"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "38",
@@ -893,7 +930,8 @@
       },
       "communication_channel": "email",
       "communication_language": "fre"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "39",
@@ -920,7 +958,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ger"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "40",
@@ -947,7 +986,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ger"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "41",
@@ -974,7 +1014,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ger"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "42",
@@ -1001,7 +1042,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ger"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "43",
@@ -1028,7 +1070,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ger"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "44",
@@ -1055,7 +1098,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ger"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "45",
@@ -1082,7 +1126,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ita"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "46",
@@ -1108,7 +1153,8 @@
       },
       "communication_channel": "mail",
       "communication_language": "ita"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "47",
@@ -1135,7 +1181,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ita"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "48",
@@ -1162,7 +1209,8 @@
       },
       "communication_channel": "email",
       "communication_language": "ita"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "49",
@@ -1189,7 +1237,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "50",
@@ -1210,7 +1259,8 @@
     ],
     "home_phone": "+39324993599",
     "postal_code": "11101",
-    "street": "Central Park"
+    "street": "Central Park",
+    "password": "Pw123456"
   },
   {
     "pid": "51",
@@ -1230,7 +1280,8 @@
     ],
     "home_phone": "+39324993596",
     "postal_code": "11102",
-    "street": "Illogical street, 44"
+    "street": "Illogical street, 44",
+    "password": "Pw123456"
   },
   {
     "pid": "52",
@@ -1257,7 +1308,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "53",
@@ -1284,7 +1336,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   {
     "pid": "54",
@@ -1323,6 +1376,7 @@
       "street": "Castel romano",
       "postal_code": "00128",
       "city": "Roma"
-    }
+    },
+    "password": "Pw123456"
   }
 ]
