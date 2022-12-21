@@ -31,7 +31,7 @@ from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from ..models import ItemCirculationAction, ItemNoteTypes
 
 
-class Collecter():
+class Collector():
     """collect data for csv."""
 
     # define chunk size

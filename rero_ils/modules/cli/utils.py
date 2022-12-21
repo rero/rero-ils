@@ -62,7 +62,8 @@ from ..contributions.api import Contribution
 from ..documents.api import Document, DocumentsSearch
 from ..documents.dojson.contrib.marc21tojson.rero import marc21
 from ..documents.views import get_cover_art
-from ..items.api import Item
+from ..items.api import Item, ItemsSearch
+from ..items.serializers import _csv_ext
 from ..libraries.api import Library
 from ..loans.tasks import delete_loans_created as task_delete_loans_created
 from ..local_fields.api import LocalField
@@ -1691,3 +1692,46 @@ def add_cover_urls(verbose):
 def delete_loans_created(verbose, hours):
     """Delete loans with state CREATED."""
     return task_delete_loans_created(verbose=verbose, hours=hours)
+
+
+@utils.command()
+@click.argument('outfile', type=click.File('w'))
+@click.option('-o', '--organisation', multiple=True)
+@click.option('-l', '--library', multiple=True)
+@click.option('-L', '--location', multiple=True)
+@with_appcontext
+def export_csv(outfile, organisation, library, location):
+    """Export extended inventory."""
+    query = ItemsSearch()
+    if organisation:
+        query = query.filter('terms', organisation__pid=organisation)
+    if library:
+        query = query.filter('terms', library__pid=library)
+    if location:
+        query = query.filter('terms', location__pid=location)
+    locations = ", ".join(location) if location else "ALL"
+    click.secho(
+        f'Export CSV found: {query.count()}',
+        fg='green'
+    )
+    if organisation:
+        click.secho(
+            f'    Organisations: {", ".join(organisation)}',
+            fg='green'
+        )
+    if library:
+        click.secho(
+            f'    Libraries: {", ".join(library)}',
+            fg='green'
+        )
+    if location:
+        click.secho(
+            f'    Locations: {", ".join(location)}',
+            fg='green'
+        )
+    with current_app.test_request_context():
+        serialize = _csv_ext.serialize_search(
+            pid_fetcher=None, search_result=query.scan())
+        with click.progressbar(serialize, length=query.count()) as bar:
+            for line in bar:
+                outfile.write(line)

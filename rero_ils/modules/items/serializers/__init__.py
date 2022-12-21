@@ -23,6 +23,7 @@ from rero_ils.modules.serializers import JSONSerializer, RecordSchemaJSONV1, \
     search_responsify, search_responsify_file
 
 from .csv import ItemCSVSerializer
+from .csv_ext import ItemExtCSVSerializer
 from .json import ItemsJSONSerializer
 
 _csv = ItemCSVSerializer(
@@ -100,12 +101,104 @@ _csv = ItemCSVSerializer(
     ]
 )
 
+_csv_ext = ItemExtCSVSerializer(
+    JSONSerializer,
+    csv_included_fields=[
+        'document_pid',
+        'document_title',
+        'document_contribution',
+        'document_main_type',
+        'document_sub_type',
+        'document_masked',
+        'document_isbn',
+        'document_issn',
+        'document_identifiedBy',
+        'document_series_statement',
+        'document_edition_statement',
+        'document_publication_year',
+        'document_publisher',
+        'document_provisionActivity',
+        'document_responsabilityStatement',
+        'document_extent',
+        'document_language',
+        'document_tableOfContents',
+        'document_notes',
+        'document_credits',
+        'document_language',
+        'document_work_access_point',
+        'document_contentMediaCarrier',
+        'document_local_field_1',
+        'document_local_field_2',
+        'document_local_field_3',
+        'document_local_field_4',
+        'document_local_field_5',
+        'document_local_field_6',
+        'document_local_field_7',
+        'document_local_field_8',
+        'document_local_field_9',
+        'document_local_field_10',
+        'item_acquisition_date',
+        'item_pid',
+        'item_create_date',
+        'item_barcode',
+        'item_call_number',
+        'item_second_call_number',
+        'item_legacy_checkout_count',
+        'item_type',
+        'item_library_name',
+        'item_location_name',
+        'item_pac_code',
+        'item_holding_pid',
+        'item_price',
+        'item_status',
+        'item_item_type',
+        'item_general_note',
+        'item_staff_note',
+        'item_checkin_note',
+        'item_checkout_note',
+        'item_acquisition_note',
+        'item_binding_note',
+        'item_condition_note',
+        'item_patrimonial_note',
+        'item_provenance_note',
+        'temporary_item_type',
+        'temporary_item_type_expiry_date',
+        'item_masked',
+        'item_enumerationAndChronology',
+        'item_local_field_1',
+        'item_local_field_2',
+        'item_local_field_3',
+        'item_local_field_4',
+        'item_local_field_5',
+        'item_local_field_6',
+        'item_local_field_7',
+        'item_local_field_8',
+        'item_local_field_9',
+        'item_local_field_10',
+        'issue_status',
+        'issue_status_date',
+        'issue_claims_count',
+        'issue_expected_date',
+        'issue_regular',
+        'item_checkouts_count',
+        'item_renewals_count',
+        'last_transaction_date',
+        'last_checkout_date'
+    ]
+)
+
 """CSV serializer."""
 csv_item_response = record_responsify(_csv, "text/csv")
 csv_item_search = search_responsify_file(
     _csv, 'text/csv',
     file_extension='csv',
     file_suffix='inventory'
+)
+csv_item_ext_response = record_responsify(_csv_ext, "text/csv+ext")
+csv_item_ext_search = search_responsify_file(
+    _csv_ext, 'text/csv+ext',
+    file_extension='csv',
+    file_suffix='export'
 )
 
 """JSON serializer."""

@@ -25,7 +25,8 @@ from functools import partial
 from invenio_rest import ContentNegotiatedMethodView
 
 from rero_ils.modules.items.api import ItemsSearch
-from rero_ils.modules.items.serializers import csv_item_search
+from rero_ils.modules.items.serializers import csv_item_ext_search, \
+    csv_item_search
 from rero_ils.query import items_search_factory
 
 
@@ -40,10 +41,12 @@ class InventoryListResource(ContentNegotiatedMethodView):
             method_serializers={
                 'GET': {
                     'text/csv': csv_item_search,
+                    'text/csv+ext': csv_item_ext_search,
                 }
             },
             serializers_query_aliases={
                 'csv': 'text/csv',
+                'csvext': 'text/csv+ext'
             },
             default_method_media_type={
                 'GET': 'text/csv'
