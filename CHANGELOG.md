@@ -1,5 +1,70 @@
 # Changelog
 
+## [v1.14.0](https://github.com/rero/rero-ils/tree/v1.14.0) (2022-12-22)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.13.1...v1.14.0)
+
+**New features:**
+* Acquisition : rollover process [\#2904](https://github.com/rero/rero-ils/issues/2904) (by @zannkukai & @Garfield-fr)
+* Add rollover settings in the library / fiscal year / organisation [\#2931](https://github.com/rero/rero-ils/issues/2931) (by @Garfield-fr)
+* Fees brief view [\#2851](https://github.com/rero/rero-ils/issues/2851) (by @zannkukai)
+* Concepts IdRef RAMEAU are integrated into MEF [\#2952](https://github.com/rero/rero-ils/issues/2952) (by @rerowep)
+* From a document detailed view, it is possible to view all linked documents [\#3006](https://github.com/rero/rero-ils/issues/3006) (by @Garfield-fr)
+
+**Enhancements:**
+* Anonymisation should work even if a location has been deleted [\#3148](https://github.com/rero/rero-ils/issues/3148) (by @jma)
+* Add the barcode and call number fields in the availability notification [\#2693](https://github.com/rero/rero-ils/issues/2693)
+* The subject import should be configurable between fields `subjects` and `subject_imported` [\#3079](https://github.com/rero/rero-ils/issues/3079) (by @benerken)
+* Order template: add the subfield 'qualification' next the ISBN [\#2880](https://github.com/rero/rero-ils/issues/2880) (by @zannkukai)
+* Two screens: "no results" and "no records in this section" [\#2576](https://github.com/rero/rero-ils/issues/2576) (by @Garfield-fr)
+* Circulation interface: the name of the patron that requested an item should be clickable [\#2997](https://github.com/rero/rero-ils/issues/2997) (by @Garfield-fr)
+* It should be possible to type more characters in fields displayed_status.label and circulation_information.label [\#2375](https://github.com/rero/rero-ils/issues/2375) (by @PascalRepond)
+* document: open electronicLocator in new tab [\#3157](https://github.com/rero/rero-ils/pull/3157) (by @PascalRepond)
+* ill requests: add warning to check organisation [\#3141](https://github.com/rero/rero-ils/pull/3141) (by @PascalRepond)
+* holdings: extend `note.content` max length [\#3095](https://github.com/rero/rero-ils/pull/3095) (by @PascalRepond)
+
+**Fixes:**
+* test: fix interval for fees after extend [\#3200](https://github.com/rero/rero-ils/pull/3200) (by @Garfield-fr)
+* contributions: fix contribution commit [\#3196](https://github.com/rero/rero-ils/pull/3196) (by @jma)
+* security: uniformize failed login message [\#3189](https://github.com/rero/rero-ils/pull/3189) (by @PascalRepond)
+* serializers: fix error when no `bf:Publication` [\#3139](https://github.com/rero/rero-ils/pull/3139) (by @PascalRepond)
+* selfcheck: patron requests should differentiate available and not available for sip2 [\#3173](https://github.com/rero/rero-ils/issues/3173) (by @lauren-d)
+* Vendor notification: display EAN in place of ISBN [\#3161](https://github.com/rero/rero-ils/issues/3161) (by @zannkukai)
+* SRU MARC21 export: $0 within fields 100/700/710 is provided only for the first record of the list [\#2999](https://github.com/rero/rero-ils/issues/2999) (by @rerowep)
+* acquisitions: common filters aren't cleared when switching from "orders" to "late issues" [\#2633](https://github.com/rero/rero-ils/issues/2633) (by @Garfield-fr)
+* Parameter `simple=1` should be hidden from the interface in the public view [\#3094](https://github.com/rero/rero-ils/issues/3094) (by @Garfield-fr)
+* Import duplicate check suggesting erroneous duplicates [\#3031](https://github.com/rero/rero-ils/issues/3031) (by @Garfield-fr)
+* Wrong contributor URL (route) on the patron profile [\#3092](https://github.com/rero/rero-ils/issues/3092) (by @Garfield-fr)
+* It should not be possible to link a document to a harvested document [\#3018](https://github.com/rero/rero-ils/issues/3018) (by @Garfield-fr)
+* Some holdings information is not displayed well in small screens [\#3013](https://github.com/rero/rero-ils/issues/3013) (by @Garfield-fr)
+* `call_number` search is inconsistent in item and holdings mapping [\#2908](https://github.com/rero/rero-ils/issues/2908) (by @PascalRepond)
+* tests: fix notifications [\#3183](https://github.com/rero/rero-ils/pull/3183) (by @jma)
+* contribution: fixes PIDDoesNotExistError [\#3182](https://github.com/rero/rero-ils/pull/3182) (by @rerowep)
+* document: fix contribution error [\#3119](https://github.com/rero/rero-ils/pull/3119) (by @lauren-d)
+* holdings: fix deletion of standard holdings [\#3105](https://github.com/rero/rero-ils/pull/3105) (by @lauren-d)
+* export: fix zotero plugin error [\#3125](https://github.com/rero/rero-ils/pull/3125) (by @lauren-d)
+* SRU: fix illegal characters [\#3134](https://github.com/rero/rero-ils/pull/3134) (by @rerowep)
+* item: avoid deletion when a collection use it [\#3133](https://github.com/rero/rero-ils/pull/3133) (by @jma)
+* database: fix orphan pids [\#3107](https://github.com/rero/rero-ils/pull/3107) (by @jma)
+* document: fix RIS export [\#3110](https://github.com/rero/rero-ils/pull/3110) (by @jma)
+
+**Other changes:**
+* documents: better facets fiction [\#3180](https://github.com/rero/rero-ils/pull/3180) (by @rerowep)
+* document: document with item and or local field [\#3155](https://github.com/rero/rero-ils/pull/3155) (by @rerowep)
+* PatronTransaction: facets & serialization [\#3160](https://github.com/rero/rero-ils/pull/3160) (by @zannkukai)
+* devel: add keep alive dev server support [\#3175](https://github.com/rero/rero-ils/pull/3175) (by @jma)
+* tests: fix tests due to too short variables [\#3172](https://github.com/rero/rero-ils/pull/3172) (by @jma)
+* dojson : remove punctuation for work_access_point [\#3144](https://github.com/rero/rero-ils/pull/3144) (by @rerowep)
+* dojson: use MEF latest api for contribution link [\#3163](https://github.com/rero/rero-ils/pull/3163) (by @rerowep)
+* ci: use node 14 [\#3162](https://github.com/rero/rero-ils/pull/3162) (by @rerowep)
+* utils: add context manager to JsonWriter [\#3152](https://github.com/rero/rero-ils/pull/3152) (by @rerowep)
+* dependencies: fix vulnerabilites [\#3151](https://github.com/rero/rero-ils/pull/3151) (by @jma)
+* dependency: fix `jsonref` python package version. [\#3150](https://github.com/rero/rero-ils/pull/3150) (by @zannkukai)
+* web asset: use angular 14 [\#3132](https://github.com/rero/rero-ils/pull/3132) (by @jma)
+* dependencies: update the dependencies lock file [\#3135](https://github.com/rero/rero-ils/pull/3135) (by @rerowep)
+* general: fix vulnerabilities [\#3115](https://github.com/rero/rero-ils/pull/3115) (by @zannkukai)
+* Upgrade to Angular 14 [\#3123](https://github.com/rero/rero-ils/issues/3123)
+
 ## [v1.13.1](https://github.com/rero/rero-ils/tree/v1.13.1) (2022-09-26)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.13.0...v1.13.1)
