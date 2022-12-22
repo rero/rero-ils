@@ -125,7 +125,7 @@ class ReplaceMefIdentifiedBy(ABC):
             for key in sorted(self.count_exists.keys()):
                 click.echo(f'  {key:<20} : {self.count_exists[key]}')
         if self.count_deleted:
-            click.echo('Delted:')
+            click.echo('Deleted:')
             for key in sorted(self.count_deleted.keys()):
                 info = self.preferred_names.get(key, {}).values()
                 click.echo(f'  {key:<20} : {self.count_deleted[key]:>4}'

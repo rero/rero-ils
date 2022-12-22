@@ -124,17 +124,14 @@ class Contribution(IlsRecord):
                 )
                 online = True
                 nested.commit()
+                # TODO: reindex in the document indexing
+                contribution.reindex()
             except Exception as err:
                 nested.rollback()
                 current_app.logger.error(
                     f'Get MEF record: {ref_type}:{ref_pid} >>{err}<<'
                 )
                 contribution = None
-                # import traceback
-                # traceback.print_exc()
-            if contribution:
-                contribution.reindex()
-
         return contribution, online
 
     @classmethod

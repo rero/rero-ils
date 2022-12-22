@@ -285,6 +285,7 @@ def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile_name):
             msg = f'contribution pid: {pid} {online}'
         if verbose:
             click.echo(f"{count:<10}ref: {ref}\t{msg}")
+        db.session.commit()
 
     click.secho(
         f'Get all contributions for {infile.name}.',
