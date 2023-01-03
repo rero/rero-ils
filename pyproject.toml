@@ -73,7 +73,7 @@ python-dotenv = ">=0.13.0"
 invenio-sip2 = ">=0.6.16"
 flask-cors = ">3.0.8"
 celery = ">=5.0.0"
-cryptography = ">3.3.1"
+cryptography = ">38.0.2,<39.0"
 freezegun = "^1.1.0"
 lazyreader = ">1.0.0"
 jinja2 = ">2.11.2"
@@ -99,6 +99,7 @@ rero-invenio-base = "^0.1.0"
 jsonref = "<1.0.0"
 dojson = "^1.4.0"
 jsonresolver = "<0.3.2"
+pydocstyle = ">=6.1.1,<6.2"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)

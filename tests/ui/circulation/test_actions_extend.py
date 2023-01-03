@@ -72,7 +72,8 @@ def test_fees_after_extend(
         checkout_cipo, dbcommit=True, reindex=True)
 
     # UPDATE LOAN TO BE OVERDUE
-    interval = 10
+    # LIBRARY FIXTURES EXCEPTION: Christmas Holidays is 15 days
+    interval = 15
     while not loan.is_loan_overdue():
         new_end_date = datetime.now(timezone.utc) - timedelta(days=interval)
         loan['end_date'] = new_end_date.isoformat()
