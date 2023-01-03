@@ -28,9 +28,10 @@ from rero_ils.modules.patrons.api import Patron
 
 
 def test_loan_operation_log(client, operation_log_data,
-                            loan_validated_martigny, librarian_martigny):
+                            loan_validated_martigny, librarian_martigny,
+                            default_user_password):
     """Test operation logs creation."""
-    login_user_for_view(client, librarian_martigny)
+    login_user_for_view(client, librarian_martigny, default_user_password)
 
     operation_log = LoanOperationLog.create(deepcopy(loan_validated_martigny),
                                             index_refresh='wait_for')

@@ -143,6 +143,21 @@ docs = ["Sphinx (>=1.4.2)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "pydocstyle (>=1.0)", "pytest (>=3.6.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest-runner (>=2.7.0)"]
 
 [[package]]
+name = "beautifulsoup4"
+version = "4.11.1"
+description = "Screen-scraping library"
+category = "dev"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.dependencies]
+soupsieve = ">1.2"
+
+[package.extras]
+html5lib = ["html5lib"]
+lxml = ["lxml"]
+
+[[package]]
 name = "billiard"
 version = "3.6.4.0"
 description = "Python multiprocessing fork with improvements and bugfixes"
@@ -2913,6 +2928,14 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "soupsieve"
+version = "2.3.2.post1"
+description = "A modern CSS selector implementation for Beautiful Soup."
+category = "dev"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "speaklater"
 version = "1.3"
 description = "implements a lazy string for python useful for use with gettext"
@@ -3376,7 +3399,7 @@ sip2 = ["invenio-sip2"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">= 3.9, <3.10"
-content-hash = "340e00f9589e0f1cd5d2c8ea66c52694b66e05ff84ce1b0d4056e0b2a01ccb07"
+content-hash = "6d0b9352763e12ce3582bb683c9cf9841aef2e1643b27e8c37a599b8e27b9f92"
 
 [metadata.files]
 alabaster = [
@@ -3429,6 +3452,10 @@ backcall = [
 base32-lib = [
     {file = "base32-lib-1.0.2.tar.gz", hash = "sha256:09663df621bbc454079a54c92fa25d3bc33ea4a191053a09dd1e05ea4c0fe47c"},
     {file = "base32_lib-1.0.2-py2.py3-none-any.whl", hash = "sha256:f3cbc1c4b3df7af844c9b7ffc1638a688423db2b1e51082b2c014b3959b756ae"},
+]
+beautifulsoup4 = [
+    {file = "beautifulsoup4-4.11.1-py3-none-any.whl", hash = "sha256:58d5c3d29f5a36ffeb94f02f0d786cd53014cf9b3b3951d42e0080d8a9498d30"},
+    {file = "beautifulsoup4-4.11.1.tar.gz", hash = "sha256:ad9aa55b65ef2808eb405f46cf74df7fcb7044d5cbc26487f96eb2ef2e436693"},
 ]
 billiard = [
     {file = "billiard-3.6.4.0-py3-none-any.whl", hash = "sha256:87103ea78fa6ab4d5c751c4909bcff74617d985de7fa8b672cf8618afd5a875b"},
@@ -4745,6 +4772,10 @@ six = [
 snowballstemmer = [
     {file = "snowballstemmer-2.2.0-py2.py3-none-any.whl", hash = "sha256:c8e1716e83cc398ae16824e5572ae04e0d9fc2c6b985fb0f900f5f0c96ecba1a"},
     {file = "snowballstemmer-2.2.0.tar.gz", hash = "sha256:09b16deb8547d3412ad7b590689584cd0fe25ec8db3be37788be3810cbf19cb1"},
+]
+soupsieve = [
+    {file = "soupsieve-2.3.2.post1-py3-none-any.whl", hash = "sha256:3b2503d3c7084a42b1ebd08116e5f81aadfaea95863628c80a3b774a11b7c759"},
+    {file = "soupsieve-2.3.2.post1.tar.gz", hash = "sha256:fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d"},
 ]
 speaklater = [
     {file = "speaklater-1.3.tar.gz", hash = "sha256:59fea336d0eed38c1f0bf3181ee1222d0ef45f3a9dd34ebe65e6bfffdd6a65a9"},

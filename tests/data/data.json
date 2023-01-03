@@ -3823,7 +3823,8 @@
     "home_phone": "+41324993585",
     "roles": [
       "system_librarian"
-    ]
+    ],
+    "password": "Pw123456"
   },
   "ptrn2": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -3844,7 +3845,8 @@
     "home_phone": "+41324993578",
     "roles": [
       "librarian"
-    ]
+    ],
+    "password": "Pw123456"
   },
   "ptrn3": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -3865,7 +3867,8 @@
     "home_phone": "+41324993541",
     "roles": [
       "librarian"
-    ]
+    ],
+    "password": "Pw123456"
   },
   "ptrn4": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -3886,7 +3889,8 @@
     "home_phone": "+41324993515",
     "roles": [
       "librarian"
-    ]
+    ],
+    "password": "Pw123456"
   },
   "ptrn5": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -3907,7 +3911,8 @@
     "home_phone": "+41324111515",
     "roles": [
       "librarian"
-    ]
+    ],
+    "password": "Pw123456"
   },
   "ptrn6": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -3956,7 +3961,8 @@
         "type": "staff_note",
         "content": "A kind person."
       }
-    ]
+    ],
+    "password": "Pw123456"
   },
   "ptrn7": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -3983,7 +3989,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   "ptrn8": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -4004,7 +4011,8 @@
     "roles": [
       "system_librarian",
       "librarian"
-    ]
+    ],
+    "password": "Pw123456"
   },
   "ptrn9": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -4024,7 +4032,8 @@
     ],
     "roles": [
       "librarian"
-    ]
+    ],
+    "password": "Pw123456"
   },
   "ptrn10": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -4051,7 +4060,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   "ptrn11": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -4088,7 +4098,8 @@
       },
       "communication_channel": "email",
       "communication_language": "eng"
-    }
+    },
+    "password": "Pw123456"
   },
   "ptrn12": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -4115,7 +4126,8 @@
       },
       "communication_channel": "email",
       "communication_language": "fre"
-    }
+    },
+    "password": "Pw123456"
   },
   "ptrn13": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -4136,7 +4148,8 @@
     "home_phone": "+41324993599",
     "roles": [
       "librarian"
-    ]
+    ],
+    "password": "Pw123456"
   },
   "ptrn14": {
     "$schema": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json",
@@ -4180,7 +4193,8 @@
       {
         "$ref": "https://bib.rero.ch/api/libraries/lib1"
       }
-    ]
+    ],
+    "password": "Pw123456"
   },
   "dummy_notif": {
     "$schema": "https://bib.rero.ch/schemas/notifications/notification-v0.0.1.json",

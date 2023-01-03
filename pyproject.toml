@@ -410,6 +410,10 @@ vendors = "rero_ils.modules.vendors.mappings"
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
 rero_ils = "rero_ils.es_templates:list_es_templates"
 
+
+[tool.poetry.group.dev.dependencies]
+beautifulsoup4 = "^4.11.1"
+
 [tool.poe.tasks]
 bootstrap = {cmd = "./scripts/bootstrap", help = "Runs bootstrap"}
 console = {cmd = "./scripts/console", help = "Opens invenio shell"}

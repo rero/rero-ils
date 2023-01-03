@@ -29,6 +29,8 @@ from invenio_accounts.models import User as BaseUser
 from invenio_db import db
 from invenio_i18n.ext import current_i18n
 
+from rero_ils.modules.utils import password_generator
+
 
 def unique_list(data):
     """Unicity of list."""
@@ -78,14 +80,22 @@ def create_user_from_data(data):
     profile_fields = [
         'first_name', 'last_name', 'street', 'postal_code', 'gender',
         'city', 'birth_date', 'username', 'home_phone', 'business_phone',
-        'mobile_phone', 'other_phone', 'keep_history', 'country', 'email'
+        'mobile_phone', 'other_phone', 'keep_history', 'country', 'email',
+        'password'
     ]
     user = User.get_by_username(data.get('username'))
     if not user:
         with db.session.begin_nested():
             # create the user
-            password = hash_password(
-                data.pop('password', data.get('birth_date', '123456')))
+            password = data.get('password')
+            if not password:
+                length = current_app.config.get(
+                    'RERO_ILS_PASSWORD_MIN_LENGTH', 8)
+                special_char = current_app.config.get(
+                    'RERO_ILS_PASSWORD_SPECIAL_CHAR')
+                password = password_generator(
+                    length=length, special_char=special_char)
+            password = hash_password(password)
             user = BaseUser(password=password, profile=dict(), active=True)
             db.session.add(user)
             # set the user fields

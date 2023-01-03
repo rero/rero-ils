@@ -40,7 +40,8 @@ def password_generate():
     special_char = current_app.config.get('RERO_ILS_PASSWORD_SPECIAL_CHAR')
     length = int(request.args.get('length', min_length))
     if length < min_length:
-        abort(400, f'Minimal length: {min_length}')
+        abort(400,
+              f'The password must be at least {min_length} characters long.')
     generator = obj_or_import_string(
         current_app.config.get('RERO_ILS_PASSWORD_GENERATOR'))
     try:

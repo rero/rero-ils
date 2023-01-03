@@ -287,17 +287,16 @@ USERPROFILES_READONLY_FIELDS = get_readonly_profile_fields
 # Custom login view
 ACCOUNTS_REST_AUTH_VIEWS = {
     "login": "rero_ils.accounts_views:LoginView",
-    "logout": "invenio_accounts.views.rest:LogoutView",
-    "user_info": "invenio_accounts.views.rest:UserInfoView",
-    "register": "invenio_accounts.views.rest:RegisterView",
-    "forgot_password": "invenio_accounts.views.rest:ForgotPasswordView",
-    "reset_password": "invenio_accounts.views.rest:ResetPasswordView",
+    "logout": "rero_ils.accounts_views:DisabledAuthApiView",
+    "user_info": "rero_ils.accounts_views:DisabledAuthApiView",
+    "register": "rero_ils.accounts_views:DisabledAuthApiView",
+    "forgot_password": "rero_ils.accounts_views:DisabledAuthApiView",
+    "reset_password": "rero_ils.accounts_views:DisabledAuthApiView",
     "change_password": "rero_ils.accounts_views:ChangePasswordView",
-    "send_confirmation":
-        "invenio_accounts.views.rest:SendConfirmationEmailView",
-    "confirm_email": "invenio_accounts.views.rest:ConfirmEmailView",
-    "sessions_list": "invenio_accounts.views.rest:SessionsListView",
-    "sessions_item": "invenio_accounts.views.rest:SessionsItemView"
+    "send_confirmation": "rero_ils.accounts_views:DisabledAuthApiView",
+    "confirm_email": "rero_ils.accounts_views:DisabledAuthApiView",
+    "sessions_list": "rero_ils.accounts_views:DisabledAuthApiView",
+    "sessions_item": "rero_ils.accounts_views:DisabledAuthApiView"
 }
 
 ACCOUNTS_REGISTER_BLUEPRINT = True

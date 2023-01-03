@@ -26,6 +26,7 @@ import string
 import unicodedata
 from datetime import date, datetime, time
 from functools import wraps
+from gettext import ngettext
 from io import StringIO
 from json import JSONDecodeError, JSONDecoder, dumps
 from time import sleep
@@ -1209,7 +1210,11 @@ def password_validator(pw, length=8, special_char=False):
     :return True or raise PasswordValidatorException
     """
     if len(pw) < length:
-        raise PasswordValidatorException(f'Minimal size {length}')
+        raise PasswordValidatorException(ngettext(
+            'Field must be at least %(min)d character long.',
+            'Field must be at least %(min)d characters long.',
+            length
+        ) % {"min": length})
     if not set(string.ascii_lowercase).intersection(pw):
         raise PasswordValidatorException('The password must contain a lower '
                                          'case character.')
