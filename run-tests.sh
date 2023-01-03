@@ -82,8 +82,11 @@ function pretests () {
   # | sqlalchemy                 | 1.3.24    | <2.0.0b1                 | 51668    |
   # | wheel                      | 0.37.1    | <0.38.0                  | 51499    |
   # | sqlalchemy-utils           | 0.35.0    | >=0.27.0                 | 42194    |
+  # | certifi                    | 2022.9.24 | <2022.12.07              | 52365    |
+  # | setuptools                 | 65.4.1    | <65.5.1                  | 52495    |
+  # | future                     | 0.18.2    | <=0.18.2                 | 52510    |
   # +==============================================================================+
-  safety check -i 47833 -i 42498 -i 43738 -i 45183 -i 44501 -i 42852 -i 51457 -i 51358 -i 51499 -i 42194 -i 51668
+  safety check -i 47833 -i 42498 -i 43738 -i 45183 -i 44501 -i 42852 -i 51457 -i 51358 -i 51499 -i 42194 -i 51668 -i 52365 -i 52495 -i 52510
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
