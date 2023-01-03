@@ -56,7 +56,7 @@ def test_loan_operation_log(client, operation_log_data,
         'type': 'children',
         'age': patron.age,
         'postal_code': '1920',
-        'gender': 'other',
+        'gender': 'no_information',
         'local_codes': ['code1']
     }
     assert log_data['loan']['item'] == {

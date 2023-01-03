@@ -195,7 +195,7 @@ class LoanOperationLog(OperationLog):
             'type': patron_type['name'] if patron_type else None,
             'age': patron.age,
             'postal_code': patron.user.profile.postal_code,
-            'gender': patron.user.profile.gender or 'other',
+            'gender': patron.user.profile.gender or 'no_information',
             'pid': patron.pid,
             'hashed_pid': hashed_pid
         }

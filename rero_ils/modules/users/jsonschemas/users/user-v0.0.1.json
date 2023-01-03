@@ -81,7 +81,8 @@
       "enum": [
         "male",
         "female",
-        "other"
+        "other",
+        "no_information"
       ],
       "form": {
         "options": [
@@ -96,6 +97,10 @@
           {
             "label": "other",
             "value": "other"
+          },
+          {
+            "label": "no_information",
+            "value": "no_information"
           }
         ]
       }
