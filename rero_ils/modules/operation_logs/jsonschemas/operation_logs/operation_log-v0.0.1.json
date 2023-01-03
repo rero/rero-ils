@@ -329,7 +329,8 @@
               "enum": [
                 "male",
                 "female",
-                "other"
+                "other",
+                "no_information"
               ]
             },
             "local_codes": {
