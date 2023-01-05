@@ -73,7 +73,7 @@ def test_fees_after_extend(
 
     # UPDATE LOAN TO BE OVERDUE
     # LIBRARY FIXTURES EXCEPTION: Christmas Holidays is 15 days
-    interval = 15
+    interval = 20
     while not loan.is_loan_overdue():
         new_end_date = datetime.now(timezone.utc) - timedelta(days=interval)
         loan['end_date'] = new_end_date.isoformat()
