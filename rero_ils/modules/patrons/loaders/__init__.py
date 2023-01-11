@@ -16,4 +16,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Templates schemas."""
+"""Loaders for `Patron` resources."""
+
+from invenio_records_rest.loaders.marshmallow import marshmallow_loader
+
+from ..schemas.json import PatronMetadataSchemaV1
+
+json_v1 = marshmallow_loader(PatronMetadataSchemaV1)
+
+__all__ = (
+    'json_v1',
+)

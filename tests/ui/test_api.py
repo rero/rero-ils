@@ -117,6 +117,8 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     )
     assert record_1.pid == 'ilsrecord_pid'
     assert record_1.id == RecordTest.get_id_by_pid(record_1.pid)
+    record_alias = record_1.db_record()
+    assert record_1.pid == record_alias.pid
 
     record_2 = RecordTest.create(
         data=ils_record_2,
@@ -143,6 +145,12 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     assert sorted(RecordTest.get_all_pids()) == [
         '1', 'ilsrecord_pid', 'ilsrecord_pid_2'
     ]
+    assert len(list(RecordTest.get_all_pids(limit=None))) == 3
+    assert len(list(RecordTest.get_all_ids(limit=None))) == 3
+
+    assert RecordTest.get_id_by_pid(record_created_pid.pid) == \
+        record_created_pid.id
+    assert not RecordTest.get_record_by_pid('dummy')
 
     """Test IlsRecord update."""
     record = RecordTest.get_record_by_pid('ilsrecord_pid')

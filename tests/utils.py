@@ -60,11 +60,6 @@ class VerifyRecordPermissionPatch(object):
     status_code = 200
 
 
-def role_managment_validate_mock(self, record, **kwargs):
-    """Mock method to validate Patron role management extensions."""
-    return None
-
-
 def check_permission(permission_policy, actions, record):
     """Check permission.
 

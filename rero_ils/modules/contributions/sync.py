@@ -389,14 +389,13 @@ class SyncAgent(object):
                         f'updated')
                     if not self.dry_run:
                         if old_mef_pid == new_mef_pid:
-                            Contribution.get_record_by_id(
-                                agent.id).replace(
-                                    new_mef_data, dbcommit=True, reindex=True)
+                            Contribution.get_record(agent.id).replace(
+                                new_mef_data, dbcommit=True, reindex=True)
                         else:
                             # as we have only the last mef but not the old one
                             # we need get it from the MEF server
-                            # this is important as it can still used by other
-                            # agents
+                            # this is important as it can still be used by
+                            # other agents
                             Contribution.get_record_by_pid(
                                 pid).update_online(dbcommit=True, reindex=True)
                     updated = True

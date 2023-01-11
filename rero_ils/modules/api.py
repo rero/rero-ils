@@ -198,14 +198,6 @@ class IlsRecord(Record):
             return self
 
         json = super()._validate(**kwargs)
-
-        # Check if some record extensions has a validation method.
-        # DEV NOTES :: Could be part of `invenio-record.extensions`
-        for extension in self._extensions:
-            validate_method = getattr(extension, 'validate', None)
-            if callable(validate_method):
-                extension.validate(self, **kwargs)
-
         validation_message = self.extended_validation(**kwargs)
         # We only like to run pids_exist_check if validation_message is True
         # and not a string with error from extended_validation

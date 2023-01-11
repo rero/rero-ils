@@ -124,13 +124,13 @@ class UsersResource(ContentNegotiatedMethodView):
     @check_user_permission
     def get(self, id):
         """Implement the GET."""
-        user = User.get_by_id(id)
+        user = User.get_record(id)
         return user.dumps()
 
     @check_user_permission
     def put(self, id):
         """Implement the PUT."""
-        user = User.get_by_id(id)
+        user = User.get_record(id)
         user = user.update(request.get_json())
         editing_own_public_profile = str(current_user.id) == id and \
             not (
