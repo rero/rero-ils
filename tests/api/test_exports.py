@@ -20,6 +20,7 @@
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
 from utils import get_csv, parse_csv
 
 from rero_ils.modules.utils import get_ref_for_pid
@@ -55,7 +56,10 @@ def test_loans_exports(app, client, librarian_martigny,
 def test_patron_transaction_events_exports(
     app, client, librarian_martigny,
     patron_transaction_overdue_event_martigny,
-
+    patron_martigny,
+    item4_lib_martigny,
+    patron_type_children_martigny,
+    document
 ):
     """Test patron transaction events expotation."""
     ptre = patron_transaction_overdue_event_martigny
@@ -68,12 +72,28 @@ def test_patron_transaction_events_exports(
     # STEP#2 :: CHECK EXPORT RESOURCES
     #   Logged as librarian and test the export endpoint.
     #   DEV NOTE :: update `operator` to max the code coverage
+    login_user_via_session(client, librarian_martigny.user)
     ptre['operator'] = {
         '$ref': get_ref_for_pid('ptrn', librarian_martigny.pid)
     }
-    ptre.update(ptre, dbcommit=True, reindex=True)
+    ptre.update(ptre, dbcommit=False, reindex=True)
 
-    login_user_via_session(client, librarian_martigny.user)
+    # If some missing related resources are missing, this will not cause any
+    # errors when consuming the stream : Ensure about that.
+    for resource, delindex in [
+        (patron_martigny, False),
+        (item4_lib_martigny, False),
+        (document, False),
+        (patron_type_children_martigny, True)
+    ]:
+        resource.delete(force=True, dbcommit=False, delindex=delindex)
+        res = client.get(url)
+        assert res.status_code == 200
+        # We need to consume the stream to produce a possible error.
+        list(parse_csv(get_csv(res)))
+        db.session.rollback()
+        resource.reindex()
+
     res = client.get(url)
     assert res.status_code == 200
     data = list(parse_csv(get_csv(res)))

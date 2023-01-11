@@ -18,6 +18,7 @@
 
 """Patron transaction event CSV serializer."""
 import csv
+from functools import wraps
 
 from babel.numbers import format_decimal
 from ciso8601 import parse_datetime
@@ -114,6 +115,15 @@ class PatronTransactionEventCSVSerializer(CSVSerializer,
         return stream_with_context(generate_csv())
 
 
+def _skip_if_no_record(func):
+    """Decorator used to skip extract function if record doesn't exist."""
+    @wraps(func)
+    def decorated_view(record, *args, **kwargs):
+        return func(record, *args, **kwargs) if record else {}
+    return decorated_view
+
+
+@_skip_if_no_record
 def _extract_patron_data(record):
     """Extract data from patron to include into the csv export file.
 
@@ -131,6 +141,7 @@ def _extract_patron_data(record):
     }
 
 
+@_skip_if_no_record
 def _extract_document_data(record):
     """Extract document from loan to include into the csv export file.
 
@@ -144,6 +155,7 @@ def _extract_document_data(record):
     }
 
 
+@_skip_if_no_record
 def _extract_item_data(record, collector):
     """Extract item from loan to include into the csv export file.
 
@@ -159,6 +171,7 @@ def _extract_item_data(record, collector):
     }
 
 
+@_skip_if_no_record
 def _extract_operator_data(record):
     """Extract data from operator to include into the csv export file.
 
@@ -170,6 +183,7 @@ def _extract_operator_data(record):
     }
 
 
+@_skip_if_no_record
 def _extract_patron_type_data(record):
     """Extract data from patron type to include into the csv export file.
 
@@ -181,6 +195,7 @@ def _extract_patron_type_data(record):
     }
 
 
+@_skip_if_no_record
 def _extract_transaction_library_data(record):
     """Extract data from library to include into the csv export file.
 

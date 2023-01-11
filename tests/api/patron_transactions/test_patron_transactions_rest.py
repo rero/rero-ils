@@ -65,13 +65,14 @@ def test_patron_transactions_permissions(
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_patron_transactions_get(client, patron_transaction_overdue_martigny):
+def test_patron_transactions_get(
+    client, patron_transaction_overdue_martigny, rero_json_header
+):
     """Test record retrieval."""
     transaction = patron_transaction_overdue_martigny
     pid = transaction.pid
     item_url = url_for('invenio_records_rest.pttr_item', pid_value=pid)
-    list_url = url_for(
-        'invenio_records_rest.pttr_list', q='pid:' + pid)
+    list_url = url_for('invenio_records_rest.pttr_list', q=f'pid:{pid}')
     item_url_with_resolve = url_for(
         'invenio_records_rest.pttr_item',
         pid_value=pid,
@@ -81,9 +82,7 @@ def test_patron_transactions_get(client, patron_transaction_overdue_martigny):
 
     res = client.get(item_url)
     assert res.status_code == 200
-
-    assert res.headers['ETag'] == '"{}"'.format(transaction.revision_id)
-
+    assert res.headers['ETag'] == f'"{transaction.revision_id}"'
     data = get_json(res)
     assert transaction.dumps() == data['metadata']
 
@@ -111,6 +110,30 @@ def test_patron_transactions_get(client, patron_transaction_overdue_martigny):
     del result['library']
     del result['item']
     assert result == transaction.replace_refs()
+
+    # Check for `rero+json` mime type response
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = get_json(response)
+    record = data.get('hits', {}).get('hits', [])[0]
+    assert record.get('metadata', {}).get('document')
+    assert record.get('metadata', {}).get('loan')
+    assert record.get('metadata', {}).get('loan', {}).get('item')
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_patron_transactions_get_delete_resources(
+    client,
+    patron_transaction_overdue_martigny,
+    item4_lib_martigny
+):
+    """Test patron transaction list if related resources are unavailable."""
+    list_url = url_for('invenio_records_rest.pttr_list', format='rero')
+    item4_lib_martigny.delete(force=True, dbcommit=False, delindex=False)
+    res = client.get(list_url)
+
+    assert res.status_code == 200
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',

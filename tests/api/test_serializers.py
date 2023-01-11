@@ -283,24 +283,6 @@ def test_loans_serializers(
             assert data.get('transaction_library_name')
 
 
-def test_patron_transactions_serializers(
-    client,
-    rero_json_header,
-    librarian_saxon,
-    patron_transaction_overdue_saxon
-):
-    """Test serializers for patron transactions."""
-    login_user(client, librarian_saxon)
-    list_url = url_for('invenio_records_rest.pttr_list')
-    response = client.get(list_url, headers=rero_json_header)
-    assert response.status_code == 200
-    data = get_json(response)
-    record = data.get('hits', {}).get('hits', [])[0]
-    assert record.get('metadata', {}).get('document')
-    assert record.get('metadata', {}).get('loan')
-    assert record.get('metadata', {}).get('loan', {}).get('item')
-
-
 def test_patron_transaction_events_serializers(
     client,
     rero_json_header,
