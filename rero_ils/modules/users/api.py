@@ -195,7 +195,7 @@ class User(object):
             raise ValidationError(str(e)) from e
 
     @classmethod
-    def get_by_id(cls, user_id):
+    def get_record(cls, user_id):
         """Get a user by a user_id.
 
         :param user_id - the user_id

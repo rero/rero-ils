@@ -16,4 +16,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Templates schemas."""
+"""Common models used into RERO-ILS project."""
+
+
+class NoteTypes:
+    """List of note type."""
+
+    PUBLIC_NOTE = 'public_note'
+    STAFF_NOTE = 'staff_note'

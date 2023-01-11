@@ -18,7 +18,9 @@
 
 """Permissions for patrons."""
 from flask import g
-from invenio_access import action_factory
+from flask_login import current_user
+from invenio_access import action_factory, any_user
+from invenio_records_permissions.generators import Generator
 
 from rero_ils.modules.permissions import AllowedByAction, \
     AllowedByActionRestrictByOrganisation, \
@@ -27,6 +29,7 @@ from rero_ils.modules.permissions import AllowedByAction, \
 from rero_ils.modules.users.models import UserRole
 
 from .api import Patron, current_librarian
+from .utils import validate_role_changes
 
 # Actions to control patron permission policy
 search_action = action_factory('ptrn-search')
@@ -67,6 +70,27 @@ class AllowedByActionRestrictStaffByManageableLibrary(
         return super().needs(record, *args, **kwargs)
 
 
+class RestrictDeleteDependOnPatronRolesManagement(Generator):
+    """Restrict deletion of patron depending on role management restrictions.
+
+    Depending on the current logged user profile, some roles' management
+    updates could be disallowed. Manageable roles are defined into the
+    `RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS` configuration attribute.
+    """
+
+    def excludes(self, record=None, **kwargs):
+        """Disallow operation check.
+
+        :param record; the record to check.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to disable access.
+        """
+        roles = set(record.get('roles', []))
+        if not validate_role_changes(current_user, roles, raise_exc=False):
+            return [any_user]
+        return []
+
+
 class PatronPermissionPolicy(RecordPermissionPolicy):
     """Patron Permission Policy used by the CRUD operations."""
 
@@ -82,7 +106,8 @@ class PatronPermissionPolicy(RecordPermissionPolicy):
         AllowedByActionRestrictStaffByManageableLibrary(update_action)
     ]
     can_delete = [
-        AllowedByActionRestrictStaffByManageableLibrary(delete_action)
+        AllowedByActionRestrictStaffByManageableLibrary(delete_action),
+        RestrictDeleteDependOnPatronRolesManagement()
     ]
 
 

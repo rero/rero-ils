@@ -227,7 +227,7 @@ class Notification(IlsRecord, ABC):
             .filter('term', notification__pid=self.pid)\
             .source(False).scan()
         for result in results:
-            yield PatronTransaction.get_record_by_id(result.meta.id)
+            yield PatronTransaction.get_record(result.meta.id)
 
     # CLASS METHODS ===========================================================
     def update_process_date(self, sent=False, status=NotificationStatus.DONE):
