@@ -292,7 +292,8 @@ class IlsRecord(Record):
         """
         assert type(pids) is list
         for pid in pids:
-            yield cls.get_record_by_pid(pid)
+            if resource := cls.get_record_by_pid(pid):
+                yield resource
 
     @classmethod
     def record_pid_exists(cls, pid):
