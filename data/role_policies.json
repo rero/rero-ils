@@ -701,12 +701,14 @@
     "pro_catalog_manager"
   ],
   "tmpl-search": [
+    "pro_read_only",
     "pro_full_permissions",
     "pro_catalog_manager",
     "pro_user_manager",
     "pro_library_administrator"
   ],
   "tmpl-read": [
+    "pro_read_only",
     "pro_full_permissions",
     "pro_catalog_manager",
     "pro_user_manager",

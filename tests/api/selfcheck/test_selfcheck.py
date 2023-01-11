@@ -90,7 +90,7 @@ def test_authorize_patron(selfcheck_patron_martigny, default_user_password):
     assert response
 
     # authorize patron without email (using username for authentication)
-    user = User.get_by_id(selfcheck_patron_martigny.user.id)
+    user = User.get_record(selfcheck_patron_martigny.user.id)
     user_metadata = user.dumps_metadata()
     email = user_metadata.pop('email', None)
     user.update(user_metadata)
@@ -102,7 +102,7 @@ def test_authorize_patron(selfcheck_patron_martigny, default_user_password):
     assert response
 
     # reset user data
-    user = User.get_by_id(selfcheck_patron_martigny.user.id)
+    user = User.get_record(selfcheck_patron_martigny.user.id)
     user_metadata = user.dumps_metadata()
     user_metadata['email'] = email
     user.update(user_metadata)

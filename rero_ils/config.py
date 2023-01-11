@@ -899,7 +899,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         list_route='/patrons/',
         record_loaders={
-            'application/json': lambda: Patron.load(request.get_json()),
+            'application/json': 'rero_ils.modules.patrons.loaders:json_v1'
         },
         record_class='rero_ils.modules.patrons.api:Patron',
         item_route='/patrons/<pid(ptrn, record_class="rero_ils.modules.patrons.api:Patron"):pid_value>',

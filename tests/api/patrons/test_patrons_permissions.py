@@ -122,7 +122,7 @@ def test_patrons_permissions(
         'read': True,
         'create': True,
         'update': True,
-        'delete': True
+        'delete': False  # simple librarian cannot delete other librarian
     }, librarian2_martigny)
     check_permission(PatronPermissionPolicy, {
         'read': True,

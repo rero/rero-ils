@@ -49,8 +49,7 @@ from rero_ils.modules.utils import extracted_data_from_ref, \
     get_patron_from_arguments, get_ref_for_pid, sorted_pids
 from rero_ils.utils import create_user_from_data
 
-from .extensions import PatronRoleManagementValidatorExtension, \
-    UserDataExtension
+from .extensions import UserDataExtension
 from .models import CommunicationChannel, PatronIdentifier, PatronMetadata
 from .utils import get_patron_pid_by_email
 
@@ -117,10 +116,10 @@ class Patron(IlsRecord):
     fetcher = patron_id_fetcher
     provider = PatronProvider
     model_cls = PatronMetadata
+    schema = 'patrons/patron-v0.0.1.json'
 
     _extensions = [
-        UserDataExtension(),
-        PatronRoleManagementValidatorExtension()
+        UserDataExtension()
     ]
 
     # =========================================================================
@@ -500,11 +499,6 @@ class Patron(IlsRecord):
     # =========================================================================
     # CLASS METHODS
     # =========================================================================
-    @classmethod
-    def load(cls, data):
-        """Load the data and remove the user data."""
-        return cls(cls.remove_user_data(data))
-
     @classmethod
     def remove_user_data(cls, data):
         """Remove the user data."""
