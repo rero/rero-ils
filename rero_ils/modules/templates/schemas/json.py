@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Schema for JSON representation of `Template` resources."""
+"""Marshmallow schema for JSON representation of `Template` resources."""
 from functools import partial
 
 from flask_babelex import gettext as _

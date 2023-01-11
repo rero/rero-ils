@@ -19,6 +19,11 @@
 {%- extends 'rero_ils/page.html' %}
 {% from 'rero_ils/macros/macro.html' import div, dict_values, div_list, dl, dl_row, dl_dict, dl_list, div_json %}
 
+{%- block css %}
+  {{ super() }}
+  {{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items', ['styles.*css'], 'css') }}
+{%- endblock css %}
+
 {%- block body %}
 <header class="row py-2">
     <a href="javascript:history.back()" class="col-12"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
