@@ -31,17 +31,23 @@ class AddMEFPidExtension(RecordExtension):
         :params record: a document record.
         """
         from rero_ils.modules.contributions.api import Contribution
-        for contribution in record.get('contribution', []):
-            if contrib_ref := contribution.get('agent', {}).get('$ref'):
+        agents = record.get('subjects', []) +\
+            record.get('subjects_imported', []) + \
+            [c['agent'] for c in
+                record.get('contribution', []) if c.get('agent')]
+        for agent in agents:
+            if contrib_ref := agent.get('$ref'):
                 cont, _ = Contribution.get_record_by_ref(
                     contrib_ref)
                 if cont:
                     # inject mef pid
-                    contribution['agent']['pid'] = cont['pid']
+                    agent['pid'] = cont['pid']
 
-    def post_init(self, record, data, model=None, **kwargs):
+    def pre_create(self, record):
         """Called after a record is initialized."""
         self.add_mef_pid(record)
+        if record.model:
+            record.model.data = record
 
     def pre_commit(self, record):
         """Called before a record is committed."""

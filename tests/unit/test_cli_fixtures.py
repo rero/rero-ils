@@ -23,8 +23,7 @@ import mock
 from click.testing import CliRunner
 from utils import mock_response
 
-from rero_ils.modules.cli.fixtures import count_cli, create, \
-    get_all_mef_records
+from rero_ils.modules.cli.fixtures import count_cli, create
 
 
 def test_count(app, script_info):
@@ -48,32 +47,6 @@ def test_count(app, script_info):
     )
     assert result.exit_code == 0
     assert result.output.strip().split('\n')[1] == 'Count: 2'
-
-
-@mock.patch('requests.get')
-def test_get_all_mef_records(mock_contributions_mef_get, app, script_info,
-                             contribution_person_response_data):
-    """Test get_all_mef_records cli."""
-    json_file_name = join(dirname(__file__), '../data/documents.json')
-    mock_contributions_mef_get.return_value = mock_response(
-        json_data=contribution_person_response_data
-    )
-
-    runner = CliRunner()
-    result = runner.invoke(
-        get_all_mef_records,
-        [json_file_name, '-v'],
-        obj=script_info
-    )
-    assert result.exit_code == 0
-
-    assert result.output.strip().split('\n')[1:] == [
-        '1         ref: https://mef.rero.ch/api/agents/idref/223977268\t'
-        'contribution pid: cont_pers True',
-        '1         ref: https://mef.rero.ch/api/agents/rero/A017671081\t'
-        'contribution pid: cont_pers False',
-        'Count refs: 2',
-    ]
 
 
 @mock.patch('requests.get')
