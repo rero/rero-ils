@@ -23,7 +23,6 @@ from __future__ import absolute_import, print_function
 import click
 from flask.cli import with_appcontext
 
-from .tasks import update_contributions as task_update_contributions
 from ..documents.tasks import \
     replace_idby_contribution as task_replace_idby_contribution
 from ..documents.tasks import \
@@ -33,32 +32,6 @@ from ..documents.tasks import \
 @click.group()
 def contribution():
     """Contribution management commands."""
-
-
-@contribution.command()
-@click.option('-p', '--pid', multiple=True)
-@click.option('-c', '--dbcommit', is_flag=True, default=False)
-@click.option('-r', '--reindex', is_flag=True, default=False)
-@click.option('-t', '--timestamp', is_flag=True, default=False)
-@click.option('-v', '--verbose', is_flag=True, default=False)
-@click.option('-d', '--debug', is_flag=True, default=False)
-@with_appcontext
-def update_contributions(pid, dbcommit, reindex, timestamp, verbose, debug):
-    """Update contributions.
-
-    :param pids: contribution pids to update, default ALL.
-    :param dbcommit: if True call dbcommit, make the change effective in db.
-    :param reindex: reindex the record.
-    :param verbose: verbose print.
-    :param timestamp: create timestamp.
-    """
-    click.secho('Update contributions', fg='green')
-    logs, _ = task_update_contributions(pids=pid, dbcommit=dbcommit,
-                                        reindex=reindex, timestamp=timestamp,
-                                        verbose=verbose, debug=debug)
-    if verbose:
-        for action, count in logs.items():
-            click.echo(f'{action}: {count}')
 
 
 def do_replace_idby(name, replace_class, verbose, debug, details, **kwargs):
