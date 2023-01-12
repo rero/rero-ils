@@ -48,11 +48,8 @@ from rero_ils.modules.acquisition.acq_receipts.listener import \
     enrich_acq_receipt_data
 from rero_ils.modules.acquisition.budgets.listener import \
     budget_is_active_changed
-from rero_ils.modules.apiharvester.signals import apiharvest_part
 from rero_ils.modules.collections.listener import enrich_collection_data
 from rero_ils.modules.contributions.listener import enrich_contributions_data
-from rero_ils.modules.contributions.receivers import \
-    publish_api_harvested_records
 from rero_ils.modules.documents.listener import enrich_document_data
 from rero_ils.modules.ebooks.receivers import publish_harvested_records
 from rero_ils.modules.holdings.listener import enrich_holding_data, \
@@ -239,8 +236,6 @@ class REROILSAPP(object):
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
 
         oaiharvest_finished.connect(publish_harvested_records, weak=False)
-
-        apiharvest_part.connect(publish_api_harvested_records, weak=False)
 
         # invenio-userprofiles signal
         after_profile_update.connect(update_from_profile)
