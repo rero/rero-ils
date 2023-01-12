@@ -147,5 +147,4 @@ def update_terminal(name, enable, disable, location_pid, access_token,
         if comments:
             terminal.comments = comments
         db.session.merge(terminal)
-        db.session.commit()
         click.secho(f'{name} updated', fg='green')

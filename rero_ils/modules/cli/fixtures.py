@@ -36,10 +36,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from jsonschema import validate
 from werkzeug.local import LocalProxy
 
-from .utils import wait_empty_tasks
 from ..collections.cli import create_collections
-from ..contributions.api import Contribution
-from ..contributions.tasks import create_mef_record_online
 from ..holdings.cli import create_patterns
 from ..ill_requests.cli import create_ill_requests
 from ..items.cli import create_items, reindex_items
@@ -243,78 +240,6 @@ def count_cli(infile, lazy):
     for record in records:
         count += 1
     click.echo(f'Count: {count}')
-
-
-@fixtures.command('get_all_mef_records')
-@click.argument('infile', type=click.File('r'), default=sys.stdin)
-@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False,
-              help="lazy reads file")
-@click.option('-k', '--enqueue', 'enqueue', is_flag=True, default=False,
-              help="Enqueue record creation.")
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False,
-              help='verbose')
-@click.option('-w', '--wait', 'wait', is_flag=True, default=False,
-              help="wait for enqueued tasks to finish")
-@click.option('-o', '--out_file', 'outfile_name', default=None)
-@with_appcontext
-def get_all_mef_records(infile, lazy, verbose, enqueue, wait, outfile_name):
-    """Get all contributions for given document file."""
-    def get_ref(ref, refs, outfile_name):
-        """Get the contribution."""
-        if not ref or refs.get(ref):
-            return
-        refs[ref] = 1
-        if outfile_name:
-            try:
-                ref_split = ref.split('/')
-                ref_type = ref_split[-2]
-                ref_pid = ref_split[-1]
-                data = Contribution._get_mef_data_by_type(
-                    pid=ref_pid,
-                    pid_type=ref_type
-                )
-                data['$schema'] = contribution_schema
-                outfile.write(data)
-                msg = 'ok'
-            except Exception as err:
-                msg = err
-        elif enqueue:
-            msg = create_mef_record_online.delay(ref)
-        else:
-            pid, online = create_mef_record_online(ref)
-            msg = f'contribution pid: {pid} {online}'
-        if verbose:
-            click.echo(f"{count:<10}ref: {ref}\t{msg}")
-        db.session.commit()
-
-    click.secho(
-        f'Get all contributions for {infile.name}.',
-        fg='green'
-    )
-    if outfile_name:
-        outfile = JsonWriter(outfile_name)
-        contribution_schema = get_schema_for_resource('cont')
-        click.secho(f'Write to: {outfile_name}.')
-    if lazy:
-        # try to lazy read json file (slower, better memory management)
-        records = read_json_record(infile)
-    else:
-        # load everything in memory (faster, bad memory management)
-        records = json.load(infile)
-    count = 0
-    refs = {}
-    for count, record in enumerate(records, 1):
-        for contribution in record.get('contribution', []):
-            ref = contribution['agent'].get('$ref')
-            get_ref(ref, refs, outfile_name)
-        for subject_type in ['subjects', 'subjects_imported']:
-            for subject in record.get(subject_type, []):
-                if subject.get('type') in ['bf:Person', 'bf:Organisation']:
-                    ref = subject.get('$ref')
-                    get_ref(ref, refs, outfile_name)
-    if enqueue and wait:
-        wait_empty_tasks(delay=3, verbose=True)
-    click.echo(f'Count refs: {count}')
 
 
 @fixtures.command('create_csv')

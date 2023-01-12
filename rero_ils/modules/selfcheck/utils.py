@@ -56,7 +56,6 @@ def authorize_selfckeck_terminal(terminal, access_token, **kwargs):
             terminal.last_login_at = datetime.utcnow()
             terminal.last_login_ip = kwargs.get('terminal_ip', None)
             db.session.merge(terminal)
-            db.session.commit()
             return token.user
 
 

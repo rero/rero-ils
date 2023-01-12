@@ -71,20 +71,6 @@ def delete_records(records, verbose=False):
 
 
 @shared_task(ignore_result=True)
-def create_mef_record_online(ref):
-    """Get a record from DB.
-
-    If the record dos not exist get it from MEF and create it.
-
-    :param ref: referer to contribution record on MEF
-    :return: contribution pid, online = True if contribution was loaded
-    """
-    contribution, online = Contribution.get_record_by_ref(ref)
-    pid = contribution.get('pid') if contribution else None
-    return pid, online
-
-
-@shared_task(ignore_result=True)
 def update_contributions(pids=None, dbcommit=True, reindex=True, verbose=False,
                          debug=False, timestamp=True):
     """Update contributions.

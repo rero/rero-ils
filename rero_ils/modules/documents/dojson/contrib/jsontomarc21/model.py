@@ -22,6 +22,7 @@ from dojson import utils
 from dojson.contrib.to_marc21.model import Underdo
 from flask import current_app
 from flask_babelex import gettext as translate
+from invenio_db import db
 
 from rero_ils.modules.contributions.api import Contribution
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
@@ -258,6 +259,7 @@ class ToMarc21Overdo(Underdo):
             if ref := contribution['agent'].get('$ref'):
                 agent, _ = Contribution.get_record_by_ref(ref)
                 if agent:
+                    db.session.commit()
                     contribution['agent'] = agent
                     replace_contribution_sources(
                         contribution=contribution,

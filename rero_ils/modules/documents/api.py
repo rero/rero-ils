@@ -345,12 +345,12 @@ class Document(IlsRecord):
             for subject in data.get(subjects, []):
                 subject_ref = subject.get('$ref')
                 subject_type = subject.get('type')
+                mef_pid = subject.get('pid')
                 if subject_ref and subject_type in [
                     DocumentSubjectType.PERSON,
                     DocumentSubjectType.ORGANISATION
                 ]:
-                    contrib_data, _ = Contribution.get_record_by_ref(
-                        subject_ref)
+                    contrib_data = Contribution.get_record_by_pid(mef_pid)
                     del subject['$ref']
                     subject.update(contrib_data)
         return data
