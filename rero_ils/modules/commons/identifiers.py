@@ -44,6 +44,7 @@ use the `QualifierIdentifierRenderer` ; the result will be
 
 """
 from abc import ABC, abstractmethod
+from copy import deepcopy
 from dataclasses import dataclass, field
 from typing import Optional, TypeVar
 
@@ -142,6 +143,12 @@ class Identifier:
         """Get simple string representation of the identifier."""
         return self.normalize()
 
+    def to_dict(self):
+        """Expose identifier as a dictionary."""
+        data = self.__dict__
+        data.pop('__type__', None)
+        return data
+
     def normalize(self) -> str:
         """Get the normalized value of the identifier."""
         return self.value
@@ -214,9 +221,15 @@ class ISBNIdentifier(Identifier):
         alternatives = []
         transform_func = to_isbn13 if is_isbn10(self.value) else to_isbn10
         if alternate_isbn := transform_func(self.value):
-            alternatives.append(ISBNIdentifier(value=alternate_isbn))
+            data = deepcopy(self)
+            data.value = alternate_isbn
+            data.type = IdentifierType.ISBN
+            alternatives.append(ISBNIdentifier(**data.to_dict()))
         if ean_value := ean13(self.value):
-            alternatives.append(EANIdentifier(value=ean_value))
+            data = deepcopy(self)
+            data.value = ean_value
+            data.type = IdentifierType.EAN
+            alternatives.append(EANIdentifier(**data.to_dict()))
         return alternatives
 
 
@@ -233,11 +246,14 @@ class EANIdentifier(Identifier):
 
     def get_alternatives(self) -> list[Identifier]:
         """Get a list of alternative for this identifiers."""
-        return [
-            ISBNIdentifier(value=isbn)
-            for isbn in (to_isbn10(self.value), to_isbn13(self.value))
-            if isbn
-        ]
+        alternatives = []
+        for identifier in (to_isbn10(self.value), to_isbn13(self.value)):
+            if identifier:
+                data = deepcopy(self)
+                data.value = identifier
+                data.type = IdentifierType.ISBN
+                alternatives.append(ISBNIdentifier(**data.to_dict()))
+        return alternatives
 
 
 # =============================================================================
