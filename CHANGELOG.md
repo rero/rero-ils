@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.14.1](https://github.com/rero/rero-ils/tree/v1.14.1) (2023-01-16)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.14.0...v1.14.1)
+
+**Fixes:**
+* Order template: add the subfield 'qualification' next the ISBN [\#2880](https://github.com/rero/rero-ils/issues/2880) (by @zannkukai)
+* documents: inject MEF pid in for subjects [\#3208](https://github.com/rero/rero-ils/pull/3208) (by @jma)
+* fix: reinforce search/export of patron transaction  [\#3206](https://github.com/rero/rero-ils/pull/3206) (by @zannkukai, @jma)
+
 ## [v1.14.0](https://github.com/rero/rero-ils/tree/v1.14.0) (2022-12-22)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.13.1...v1.14.0)
