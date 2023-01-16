@@ -29,3 +29,10 @@ def contribution_resolver(agency, pid):
     """MEF contribution resolver."""
     contribution = Contribution.get_contribution(agency, pid)
     return contribution
+
+
+@jsonresolver.route('/api/agents/<agency>/<pid>', host='mef.rero.ch')
+def contribution_agent_resolver(agency, pid):
+    """MEF contribution resolver."""
+    contribution = Contribution.get_contribution(agency, pid)
+    return contribution
