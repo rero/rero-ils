@@ -14,7 +14,7 @@ jobs:
         # Make issue/PR as stale after 6 months
         days-before-stale: 180
         # Do not close issue/PR marked as stale (will be changed later)
-        days-before-close: 0
+        days-before-close: -1
         stale-issue-message: 'This issue is stale because it has been open 6 months with no activity.'
         stale-pr-message: 'This PR is stale because it has been open 6 months with no activity.'
         # Set the label added to issue marked as stale (leave default value)
