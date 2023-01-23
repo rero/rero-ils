@@ -18,6 +18,7 @@
 
 """Import from extern resources."""
 
+
 from __future__ import absolute_import, print_function
 
 import pickle
@@ -350,6 +351,7 @@ class Import(object):
                                 tag='{http://www.loc.gov/zing/srw/}'
                                     'record'):
                             yield element
+
                     xml_records = _split_stream(BytesIO(response.content))
 
                     for xml_record in xml_records:
@@ -363,7 +365,7 @@ class Import(object):
                         record = self.to_json_processor(json_data)
 
                         id = self.get_id(json_data)
-                        if record:
+                        if record and id:
                             data = {
                                 'id': id,
                                 'links': {
@@ -375,11 +377,13 @@ class Import(object):
                             }
                             self.data.append(json_data)
                             self.results['hits']['hits'].append(data)
-                    self.results['hits']['remote_total'] = int(etree.parse(
-                            BytesIO(response.content))
-                            .find('{*}numberOfRecords').text)
-            self.results['hits']['total']['value'] = \
-                len(self.results['hits']['hits'])
+                            self.results['hits']['remote_total'] = int(
+                                etree.parse(BytesIO(response.content))
+                                .find('{*}numberOfRecords').text
+                            )
+
+            self.results['hits']['total']['value'] = len(
+                self.results['hits']['hits'])
             if self.results['hits']['total']['value'] == 0:
                 self.status_code = 404
                 self.results['errors'] = {
@@ -400,7 +404,6 @@ class Import(object):
                 self.create_aggregations(self.results)
                 self.status_code = 200
 
-        # other errors
         except Exception as error:
             current_app.logger.error(
                 '{title}: {detail}'.format(
@@ -484,7 +487,8 @@ class LoCImport(Import):
         :param id: json document
         :return: id of the record
         """
-        return json_data.get('010__').get('a').strip()
+        if json_data.get('010__'):
+            return json_data.get('010__').get('a').strip()
 
     def get_marc21_link(self, id):
         """Get direct link to marc21 record.

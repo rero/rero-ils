@@ -24,6 +24,7 @@ Author:  Rob Sanderson (azaroth@liv.ac.uk)
 Version: 2.0    (CQL 1.2)
 With thanks to Adam Dickmeiss and Mike Taylor for their valuable input.
 """
+from copy import deepcopy
 from io import StringIO
 from shlex import shlex
 
@@ -980,6 +981,7 @@ class CQLParser:
 
 def parse(query):
     """Return a searchClause/triple object from CQL string."""
+    query_orig = deepcopy(query)
     query_io_string = StringIO(query)
     lexer = CQLshlex(query_io_string, query)
     parser = CQLParser(lexer)
@@ -989,7 +991,7 @@ def parse(query):
         diag.code = 10
         current_token = repr(parser.current_token)
         diag.details = f'Unprocessed tokens remain: {current_token}'
-        diag.query = query
+        diag.query = query_orig
         raise diag
     del lexer
     del parser

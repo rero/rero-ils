@@ -27,6 +27,7 @@ from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
     to_relative_url
 
 from rero_ils.modules.documents.api import Document
+from rero_ils.modules.imports.api import LoCImport
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -371,6 +372,25 @@ def test_documents_import_loc_isbn(mock_get, client, loc_isbn_all_123,
     ))
     assert res.status_code == 200
     assert get_json(res).get('metadata', {}).get('ui_title_text')
+
+
+@mock.patch('requests.get')
+def test_documents_import_loc_missing_id(mock_get, client, loc_without_010):
+    """Test document import from LoC."""
+
+    mock_get.return_value = mock_response(
+        content=loc_without_010
+    )
+    results, status_code = LoCImport().search_records(
+        what='test',
+        relation='all',
+        where='anywhere',
+        max=100,
+        no_cache=True
+    )
+    assert status_code == 200
+    assert results['hits']['total']['value'] == 9
+    assert len(results['hits']['hits']) == 9
 
 
 @mock.patch('requests.get')

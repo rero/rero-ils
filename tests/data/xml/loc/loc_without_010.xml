@@ -1,0 +1,2159 @@
+<?xml version="1.0"?>
+<zs:searchRetrieveResponse xmlns:zs="http://www.loc.gov/zing/srw/"><zs:version>1.2</zs:version><zs:numberOfRecords>10</zs:numberOfRecords><zs:records><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>04609cam a2200697 a 4500</leader>
+  <controlfield tag="001">746542</controlfield>
+  <controlfield tag="005">20200926094434.0</controlfield>
+  <controlfield tag="008">820524m19339999fr       bd   000 0cfre  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">u</subfield>
+    <subfield code="e">ocip</subfield>
+    <subfield code="f">19</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="b">1 shelf copy</subfield>
+    <subfield code="x">policy default</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">oe09 11-03-00 v. 112 &amp; 113 to HLCD; lh04 (v. 112-113) to SL 11-16-00 ;</subfield>
+    <subfield code="c">lh04 2001-09-10 v. 114 to SL</subfield>
+    <subfield code="e">lh44 2001-09-19 v. 114 (2 copies) to BCCD</subfield>
+    <subfield code="a">oe05 07-18-03 v. 115 (2copies) to HLCD</subfield>
+    <subfield code="c">lh08 2005-05-31 (fasc. 115; 2 copies)</subfield>
+    <subfield code="a">lh36 2005-06-03 fasc. 115 (2 copies) to BCCD</subfield>
+    <subfield code="c">lf33 2008-02-06 fasc. 117 added (2 copies), bd16 2009-08-04 supplement  fasc. 1 (2 copies) ; bd16 2009-09-15 v. 20 (2 copies),</subfield>
+    <subfield code="a">bd00 2009-9-22</subfield>
+    <subfield code="e">CatRefProj he09 2009-12-03</subfield>
+    <subfield code="a">Barcode 00180227519 returned from bindery 2010-01-04</subfield>
+    <subfield code="a">Barcode 00180227507 returned from bindery 2010-01-04</subfield>
+    <subfield code="e">tc12 2011-01-31 t.20 (fasc.119, 120 2010) to BCCD</subfield>
+    <subfield code="a">Copy 3 no longer wanted in CatRef, all items removed and forwarded to MRR or GenColl, he09 2011-04-01</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">N.B.: Supplements (Dict. de biog. franc&#x327;. : supplement, published 2009- are covered by:   2009444285)</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="c">th05 2009-11-07 fasc. 118 (2 copies) added; to shelflister;</subfield>
+    <subfield code="e">bd19 2009-11-10 to BCCD</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">BD25 2010-11-16 fasc. 119 (2 copies) rec'd</subfield>
+    <subfield code="a">th05 2011-01-10 forwarded to T. Yee for processing</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">BD25 2011-05-11 fasc. 120 (2 copies) rec'd</subfield>
+    <subfield code="a">bd26 2011-05-17</subfield>
+    <subfield code="c">th05 2011-06-13 fasc. 120 (2 copies) added; to shelflister</subfield>
+    <subfield code="e">bd08 2011-06-22 to BCCD</subfield>
+    <subfield code="e">tc12 2011-06-27 t.19:fasc.112-t.19:fasc. 113 to BCCD</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">th73 2012-03-29, fasc. 121</subfield>
+    <subfield code="a">bd26 2012-04-11</subfield>
+    <subfield code="c">th05 2012-04-14 fasc. 121 added; to shelflister</subfield>
+    <subfield code="e">bd08 2012-04-25 to BCCD</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="c">th05 2013-09-09 fasc. 122 and 123 added</subfield>
+    <subfield code="a">BD25 2014-10-07 fasc. 124 rec'd;</subfield>
+    <subfield code="e">tc12 2015-06-08 to BCCD</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="b">bd22 2017-03-15 fasc. 125</subfield>
+    <subfield code="c">th05 2017-03-20 fasc. 125 added; to shelflister</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">BD25 2016-07-20 fasc. 126 rec'd</subfield>
+    <subfield code="c">th05 2016-07-25 fasc. 126 added; to shelflister</subfield>
+    <subfield code="e">bd08 2016-08-02 to bccd</subfield>
+    <subfield code="e">bd08 2017-03-28</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">BD25 2018-07-02 fasc. 127 rec'd</subfield>
+    <subfield code="c">th05 2018-07-07 fasc. 127 added</subfield>
+    <subfield code="e">th05 2018-07-07 to BCCD</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">BD25 2018-08-08 fasc. 128 rec'd</subfield>
+    <subfield code="c">th05 2018 -08-18 fasc. 128 added</subfield>
+    <subfield code="e">th05 2018-08-18 to BCCD</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">BD25 2019-06-26 fasc. 129 rec'd</subfield>
+    <subfield code="c">th05 2019-07-13 fasc. 129 added</subfield>
+    <subfield code="e">th05 2019-07-13 to BCCD</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">BD25 2020-07-09 fasc. 130 rec'd</subfield>
+    <subfield code="c">th05 2020-09-26 fasc. 130 added</subfield>
+    <subfield code="e">th05 2020-09-26 to BCCD</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706302824 (fasc. 121)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706302862 (fasc. 122)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706302886 (fasc. 123)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706302916 (fasc. 124)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706302947 (fasc. 125)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706302954 (fasc. 126)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706302961 (fasc. 127)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706302985 (fasc. 128)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706303029 (fasc. 129)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9782706303036 (fasc. 130)</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="043" ind1=" " ind2=" ">
+    <subfield code="a">e-fr---</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">CT143</subfield>
+    <subfield code="b">.D5</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="0">
+    <subfield code="a">920.044</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Dictionnaire de biographie franc&#x327;aise,</subfield>
+    <subfield code="c">sous la direction de J. Balteau ... M. Barroux ... M. Pre&#x301;vost ... avec le concours de nombreux collaborateurs ...</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">Paris :</subfield>
+    <subfield code="b">Letouzey et Ane&#x301;,</subfield>
+    <subfield code="c">1933-&lt;2020&gt;</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">v. &lt;1-13; fasc. 103-130&gt; ;</subfield>
+    <subfield code="c">29 cm.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Issued in fascicles; six fascicles per volume.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Vols. 4-8 "sous la direction de M. Pre&#x301;vost et Roman d'Amat."; v. &lt;9-13&gt; "sous la direction de Roman d'Amat."; v. 112-113 sous la direction de M. Prevost ... [et al.]; v. 17 "directeur du pre&#x301;sent fascicule, J.-P. Lobies."</subfield>
+  </datafield>
+  <datafield tag="504" ind1=" " ind2=" ">
+    <subfield code="a">Includes bibliographical references.</subfield>
+  </datafield>
+  <datafield tag="590" ind1=" " ind2=" ">
+    <subfield code="a">LC holdings: Unbound fascicles are recorded according to SCM: SL (ILS supplement) Workflow #16, until bound, and are located in the General Collection (Copy 1) and the Main Reading Room (Copy 2).</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="0">
+    <subfield code="a">France</subfield>
+    <subfield code="v">Biography</subfield>
+    <subfield code="v">Dictionaries.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Balteau, J.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Pre&#x301;vost, Michel,</subfield>
+    <subfield code="d">1880-</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Roman d'Amat,</subfield>
+    <subfield code="d">1887-</subfield>
+  </datafield>
+  <datafield tag="923" ind1=" " ind2=" ">
+    <subfield code="d">20101116</subfield>
+    <subfield code="n">B00035328</subfield>
+    <subfield code="s">93001875</subfield>
+    <subfield code="t">fasc. 119 ( 2 copies)</subfield>
+  </datafield>
+  <datafield tag="923" ind1=" " ind2=" ">
+    <subfield code="d">20110511</subfield>
+    <subfield code="n">C00036514</subfield>
+    <subfield code="s">93001875</subfield>
+  </datafield>
+  <datafield tag="923" ind1=" " ind2=" ">
+    <subfield code="d">20120314</subfield>
+    <subfield code="n">C00038638</subfield>
+    <subfield code="s">93001875</subfield>
+  </datafield>
+  <datafield tag="923" ind1=" " ind2=" ">
+    <subfield code="d">20140616</subfield>
+    <subfield code="n">C10003588</subfield>
+    <subfield code="s">93000601</subfield>
+    <subfield code="t">fasc. 124</subfield>
+  </datafield>
+  <datafield tag="923" ind1=" " ind2=" ">
+    <subfield code="d">20160606</subfield>
+    <subfield code="n">564097</subfield>
+    <subfield code="s">93000601</subfield>
+    <subfield code="t">v. 126</subfield>
+  </datafield>
+  <datafield tag="923" ind1=" " ind2=" ">
+    <subfield code="d">20171002</subfield>
+    <subfield code="n">591181</subfield>
+    <subfield code="s">FR-PaAMA</subfield>
+    <subfield code="t">v. 127</subfield>
+  </datafield>
+  <datafield tag="923" ind1=" " ind2=" ">
+    <subfield code="d">20190613</subfield>
+    <subfield code="n">627475</subfield>
+    <subfield code="s">AmaLivre</subfield>
+    <subfield code="t">v. 129</subfield>
+  </datafield>
+  <datafield tag="923" ind1=" " ind2=" ">
+    <subfield code="a">20200607</subfield>
+    <subfield code="n">644433</subfield>
+    <subfield code="s">AmaLivre</subfield>
+    <subfield code="t">v. 130</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Form AACR2; eb21 10-6-83.</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">c-GenColl</subfield>
+    <subfield code="h">CT143</subfield>
+    <subfield code="i">.D5</subfield>
+    <subfield code="t">Copy 1</subfield>
+    <subfield code="w">BOOKS</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">r-MRR</subfield>
+    <subfield code="h">CT143</subfield>
+    <subfield code="i">.D5</subfield>
+    <subfield code="t">Copy 2</subfield>
+    <subfield code="m">Biog</subfield>
+    <subfield code="w">GenBib bi 87-000941</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">r-CatRef</subfield>
+    <subfield code="h">CT143</subfield>
+    <subfield code="i">.D5</subfield>
+    <subfield code="t">Copy 3</subfield>
+    <subfield code="x">Withdrawn</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>1</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>01557cas a2200445 a 4500</leader>
+  <controlfield tag="001">15082705</controlfield>
+  <controlfield tag="005">20170819084456.0</controlfield>
+  <controlfield tag="008">940428u1993uuuuir mr p       0    0peroc</controlfield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2001222878</subfield>
+  </datafield>
+  <datafield tag="022" ind1=" " ind2=" ">
+    <subfield code="a">1023-2613</subfield>
+    <subfield code="l">1023-2613</subfield>
+    <subfield code="y">123--2613</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(OCoLC)ocm36088516 </subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">CUY</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="c">CUY</subfield>
+    <subfield code="d">OCL</subfield>
+    <subfield code="d">CLU</subfield>
+    <subfield code="d">DLC</subfield>
+    <subfield code="d">OCLCQ</subfield>
+    <subfield code="d">OCLCF</subfield>
+    <subfield code="d">OCLCO</subfield>
+    <subfield code="d">OCLCA</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="042" ind1=" " ind2=" ">
+    <subfield code="a">pcc</subfield>
+  </datafield>
+  <datafield tag="043" ind1=" " ind2=" ">
+    <subfield code="a">a-ir---</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">PN1993</subfield>
+    <subfield code="b">.D86</subfield>
+  </datafield>
+  <datafield tag="050" ind1="1" ind2="4">
+    <subfield code="a">PN1993</subfield>
+  </datafield>
+  <datafield tag="066" ind1=" " ind2=" ">
+    <subfield code="c">(3</subfield>
+  </datafield>
+  <datafield tag="222" ind1=" " ind2="0">
+    <subfield code="6">880-01</subfield>
+    <subfield code="a">Dunya-yi tasvir</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="6">880-02</subfield>
+    <subfield code="a">Dunya&#x304;-yi tas&#x323;vi&#x304;r.</subfield>
+  </datafield>
+  <datafield tag="246" ind1="1" ind2="5">
+    <subfield code="a">Donyaye tassvir</subfield>
+  </datafield>
+  <datafield tag="246" ind1="1" ind2="1">
+    <subfield code="a">Picture world</subfield>
+    <subfield code="f">Apr. 1993-</subfield>
+  </datafield>
+  <datafield tag="246" ind1="1" ind2="1">
+    <subfield code="a">Picture's world</subfield>
+    <subfield code="f">Feb. 1993</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="6">880-03</subfield>
+    <subfield code="a">Tihra&#x304;n :</subfield>
+    <subfield code="b">&#x2BB;Ali&#x304; Mu&#x2BB;allim,</subfield>
+    <subfield code="c">1993-</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">v. :</subfield>
+    <subfield code="b">ill. ;</subfield>
+    <subfield code="c">34 cm.</subfield>
+  </datafield>
+  <datafield tag="310" ind1=" " ind2=" ">
+    <subfield code="a">Monthly</subfield>
+  </datafield>
+  <datafield tag="362" ind1="0" ind2=" ">
+    <subfield code="a">1 (Feb. 1993)-</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">"Art magazine."</subfield>
+  </datafield>
+  <datafield tag="588" ind1=" " ind2=" ">
+    <subfield code="a">Latest issue consulted: Sa&#x304;l-i 13, shuma&#x304;rah-i 151 (A&#x304;zar 1384 [Oct. 2005]); title from cover.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Motion pictures</subfield>
+    <subfield code="v">Periodicals.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Motion pictures</subfield>
+    <subfield code="z">Iran</subfield>
+    <subfield code="v">Periodicals.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Motion pictures.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01027285</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="7">
+    <subfield code="a">Iran.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01204889</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Periodicals.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01411641</subfield>
+  </datafield>
+  <datafield tag="850" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+  </datafield>
+  <datafield tag="880" ind1=" " ind2="0">
+    <subfield code="6">222-01/(3/r</subfield>
+    <subfield code="a">&#x200F;&#x62F;&#x646;&#x64A;&#x627;&#x649; &#x62A;&#x635;&#x648;&#x64A;&#x631;</subfield>
+  </datafield>
+  <datafield tag="880" ind1="0" ind2="0">
+    <subfield code="6">245-02/(3/r</subfield>
+    <subfield code="a">&#x200F;&#x62F;&#x646;&#x64A;&#x627;&#x649; &#x62A;&#x635;&#x648;&#x64A;&#x631;.</subfield>
+  </datafield>
+  <datafield tag="880" ind1=" " ind2=" ">
+    <subfield code="6">260-03/(3/r</subfield>
+    <subfield code="a">&#x62A;&#x647;&#x631;&#x627;&#x646; :</subfield>
+    <subfield code="b">&#x639;&#x644;&#x649; &#x645;&#x639;&#x644;&#x645;&#x60C;</subfield>
+    <subfield code="c">1993</subfield>
+  </datafield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">sercoop</subfield>
+    <subfield code="d">3</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">n-oclcserc</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">Acquire</subfield>
+    <subfield code="b">1 shelf copy</subfield>
+    <subfield code="x">policy default 2017-08-17</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="i">ce04 2017-08-17 to AMED</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>2</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>02902cas a2200673 a 4500</leader>
+  <controlfield tag="001">17163256</controlfield>
+  <controlfield tag="005">20210827070415.0</controlfield>
+  <controlfield tag="008">011102c20009999ck fr p       0    0spa c</controlfield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2001235362</subfield>
+  </datafield>
+  <datafield tag="016" ind1="7" ind2=" ">
+    <subfield code="a">011796566</subfield>
+    <subfield code="2">Uk</subfield>
+  </datafield>
+  <datafield tag="022" ind1=" " ind2=" ">
+    <subfield code="a">2027-4688</subfield>
+    <subfield code="l">2027-4688</subfield>
+    <subfield code="y">0123-4676</subfield>
+    <subfield code="y">123--4676</subfield>
+    <subfield code="2">21</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(OCoLC)ocm48259604 </subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">HLS</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="c">HLS</subfield>
+    <subfield code="d">OCLCQ</subfield>
+    <subfield code="d">IUL</subfield>
+    <subfield code="d">IXA</subfield>
+    <subfield code="d">CGU</subfield>
+    <subfield code="d">IXA</subfield>
+    <subfield code="d">UKMGB</subfield>
+    <subfield code="d">DLC</subfield>
+    <subfield code="d">OCLCQ</subfield>
+    <subfield code="d">OCLCF</subfield>
+    <subfield code="d">HUL</subfield>
+    <subfield code="d">OCLCQ</subfield>
+    <subfield code="d">OCL</subfield>
+    <subfield code="d">OCLCO</subfield>
+    <subfield code="d">HUL</subfield>
+    <subfield code="d">XFH</subfield>
+    <subfield code="d">OCLCA</subfield>
+    <subfield code="d">HUL</subfield>
+    <subfield code="d">CUS</subfield>
+    <subfield code="d">OCL</subfield>
+    <subfield code="d">OCLCQ</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">spa</subfield>
+    <subfield code="b">eng</subfield>
+  </datafield>
+  <datafield tag="042" ind1=" " ind2=" ">
+    <subfield code="a">pcc</subfield>
+  </datafield>
+  <datafield tag="043" ind1=" " ind2=" ">
+    <subfield code="a">s-ck---</subfield>
+    <subfield code="a">cl-----</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">F2271</subfield>
+    <subfield code="b">.F76</subfield>
+  </datafield>
+  <datafield tag="210" ind1="1" ind2=" ">
+    <subfield code="a">Fronteras de la historia</subfield>
+  </datafield>
+  <datafield tag="222" ind1=" " ind2="0">
+    <subfield code="a">Fronteras de la historia</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Fronteras de la historia /</subfield>
+    <subfield code="c">Instituto Colombiano de Antropologi&#x301;a e Historia.</subfield>
+  </datafield>
+  <datafield tag="246" ind1="3" ind2="0">
+    <subfield code="a">Fronteras</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">Bogota&#x301;, Colombia :</subfield>
+    <subfield code="b">Instituto Colombiano de Antropologi&#x301;a e Historia,</subfield>
+    <subfield code="c">2000-</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">volumes :</subfield>
+    <subfield code="b">illustrations, maps ;</subfield>
+    <subfield code="c">24 cm</subfield>
+  </datafield>
+  <datafield tag="310" ind1=" " ind2=" ">
+    <subfield code="a">Semiannual,</subfield>
+    <subfield code="b">&lt;2009-&gt;</subfield>
+  </datafield>
+  <datafield tag="321" ind1=" " ind2=" ">
+    <subfield code="a">Annual,</subfield>
+    <subfield code="b">2000-</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">unmediated</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">volume</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="362" ind1="0" ind2=" ">
+    <subfield code="a">Vol. 5 (2000)-</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">"Revista de historia colonial latinoamericana," &lt;2002-&gt;</subfield>
+  </datafield>
+  <datafield tag="546" ind1=" " ind2=" ">
+    <subfield code="a">In Spanish; abstracts also in English.</subfield>
+  </datafield>
+  <datafield tag="588" ind1=" " ind2=" ">
+    <subfield code="a">Latest issue consulted: Vol. 14, 1 (enero/jun. 2009).</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="0">
+    <subfield code="a">Colombia</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="v">Periodicals.</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="0">
+    <subfield code="a">Colombia</subfield>
+    <subfield code="x">Historiography</subfield>
+    <subfield code="v">Periodicals.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Social sciences</subfield>
+    <subfield code="z">Colombia</subfield>
+    <subfield code="v">Periodicals.</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="0">
+    <subfield code="a">Latin America</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="y">To 1830</subfield>
+    <subfield code="v">Periodicals.</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="0">
+    <subfield code="a">Spain</subfield>
+    <subfield code="x">Colonies</subfield>
+    <subfield code="z">America</subfield>
+    <subfield code="x">Administration</subfield>
+    <subfield code="v">Periodicals.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Historiography.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst00958221</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Colonies</subfield>
+    <subfield code="x">Administration.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst00868457</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Social sciences.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01122877</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="7">
+    <subfield code="a">Spanish colonies.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01930866</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="7">
+    <subfield code="a">America.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01239786</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="7">
+    <subfield code="a">Colombia.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01205916</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="7">
+    <subfield code="a">Latin America.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01245945</subfield>
+  </datafield>
+  <datafield tag="648" ind1=" " ind2="7">
+    <subfield code="a">To 1830</subfield>
+    <subfield code="2">fast</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">History.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01411628</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Periodicals.</subfield>
+    <subfield code="2">fast</subfield>
+    <subfield code="0">(OCoLC)fst01411641</subfield>
+  </datafield>
+  <datafield tag="710" ind1="2" ind2=" ">
+    <subfield code="a">Instituto Colombiano de Antropologi&#x301;a e Historia.</subfield>
+  </datafield>
+  <datafield tag="776" ind1="0" ind2="8">
+    <subfield code="i">Online version:</subfield>
+    <subfield code="t">Fronteras de la historia</subfield>
+    <subfield code="x">2539-4711</subfield>
+    <subfield code="w">(DLC)  2008262282</subfield>
+    <subfield code="w">(OCoLC)213891222</subfield>
+  </datafield>
+  <datafield tag="780" ind1="0" ind2="0">
+    <subfield code="t">Fronteras (Bogota&#x301;, Colombia)</subfield>
+    <subfield code="x">0123-4676</subfield>
+    <subfield code="w">(DLC)sn 99026129</subfield>
+    <subfield code="w">(OCoLC)41601005</subfield>
+  </datafield>
+  <datafield tag="850" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="a">MH</subfield>
+  </datafield>
+  <datafield tag="859" ind1="4" ind2="1">
+    <subfield code="u">http://www.icanh.gov.co/?idcategoria=1252&amp;download=Y</subfield>
+  </datafield>
+  <datafield tag="859" ind1="4" ind2="1">
+    <subfield code="u">http://bibpurl.oclc.org/web/23347</subfield>
+    <subfield code="u">http://www.redalyc.org/revista.oa?id=833</subfield>
+    <subfield code="7">0</subfield>
+  </datafield>
+  <datafield tag="859" ind1="4" ind2="1">
+    <subfield code="u">http://bibpurl.oclc.org/web/92765</subfield>
+    <subfield code="u">https://revistas.icanh.gov.co/index.php/fh/index</subfield>
+    <subfield code="7">0</subfield>
+  </datafield>
+  <datafield tag="853" ind1="2" ind2="0">
+    <subfield code="8">1</subfield>
+    <subfield code="a">v.</subfield>
+    <subfield code="i">(year)</subfield>
+    <subfield code="w">a</subfield>
+  </datafield>
+  <datafield tag="863" ind1="4" ind2="1">
+    <subfield code="8">1.1</subfield>
+    <subfield code="a">5</subfield>
+    <subfield code="i">2000</subfield>
+  </datafield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">serials</subfield>
+    <subfield code="d">3</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">z-ilsserca</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="b">1 shelf copy</subfield>
+    <subfield code="x">GMD 2012-02-09</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="i">bg05 2012-02-14</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>3</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>00506cas a22001693  4500</leader>
+  <controlfield tag="001">10839346</controlfield>
+  <controlfield tag="005">20020514112423.0</controlfield>
+  <controlfield tag="008">891206u        xx  u         0  0 0und  </controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">(DLC)sv 89094366</subfield>
+  </datafield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">0</subfield>
+    <subfield code="b">bbc</subfield>
+    <subfield code="c">serlocs</subfield>
+    <subfield code="d">u</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">19</subfield>
+    <subfield code="g">ilsserca</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">sv 89094366 </subfield>
+    <subfield code="z">ca09-123</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Ladies' favorite magazine.</subfield>
+    <subfield code="h">[microfilm]</subfield>
+  </datafield>
+  <datafield tag="310" ind1=" " ind2=" ">
+    <subfield code="a">Unknown</subfield>
+  </datafield>
+  <datafield tag="590" ind1=" " ind2=" ">
+    <subfield code="a">See MICROFORM SERIAL RECORD. Positive and Negative.</subfield>
+  </datafield>
+  <datafield tag="920" ind1=" " ind2=" ">
+    <subfield code="a">Keep 1</subfield>
+  </datafield>
+  <datafield tag="984" ind1=" " ind2=" ">
+    <subfield code="a">srmf</subfield>
+    <subfield code="d">2002-05-14</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">c-MicRR</subfield>
+    <subfield code="c">MicRR</subfield>
+    <subfield code="h">38684</subfield>
+    <subfield code="w">SERLOC</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>4</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>11934cam a2201225 i 4500</leader>
+  <controlfield tag="001">18747524</controlfield>
+  <controlfield tag="005">20210811102028.0</controlfield>
+  <controlfield tag="008">150818m20119999waua          000 0 eng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">2</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="b">1 shelf copy</subfield>
+    <subfield code="x">policy default</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="b">re09 2015-08-18</subfield>
+    <subfield code="i">re09 2015-08-18</subfield>
+    <subfield code="w">re09 2015-08-18 to BCCD</subfield>
+    <subfield code="a">re09 2015-08-18 copy 2 of v.73-74, 78, 88, 90-91 to B03 discard truck</subfield>
+    <subfield code="c">re09 2016-10-13 v. 92, 101-102 added, copy 2 of 92 discarded</subfield>
+    <subfield code="c">re09 2017-02-01 vols. 93, 95-96, 98, 105 added, v. 105 copy 2 discarded</subfield>
+    <subfield code="c">re09 2018-05-10 vols. 94, 100, 108, 110-116, 121-122 added</subfield>
+    <subfield code="a">re09 2018-05-10 copy 2 of vols. 94, 100, 108, 114-116, 121 discarded</subfield>
+    <subfield code="c">re09 2018-05-14 v. 120 added, copy 2 discarded</subfield>
+    <subfield code="c">re09 2018-06-07 v. 124 added</subfield>
+    <subfield code="c">re09 2018-08-01 v. 123 added, copy 2 discarded</subfield>
+    <subfield code="c">re09 2018-09-10 v. 118 added</subfield>
+    <subfield code="c">re09 2018-09-20 v. 117 added</subfield>
+    <subfield code="c">re09 2018-11-07 added, copy 2 discarded</subfield>
+    <subfield code="c">re09 2018-11-14 v. 126 added</subfield>
+    <subfield code="c">re09 2019-01-09 v. 127 added</subfield>
+    <subfield code="c">re09 2019-06-10 vols. 133 &amp; 135 added</subfield>
+    <subfield code="a">re09 2019-10-23 v. 103 added, copy 2 discarded</subfield>
+    <subfield code="c">re09 2019-11-04 v. 125 added</subfield>
+    <subfield code="c">re09 2019-11-18 vols. 137-138 added</subfield>
+    <subfield code="c">re09 2020-01-22 vols. 119, 140-141, 147 added</subfield>
+    <subfield code="c">re09 2020-09-30 vols. 128, 131, 142 added</subfield>
+    <subfield code="c">re09 2020-11-05 vols. 143-145 added</subfield>
+    <subfield code="c">150 added re09 2021-08-11</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2015451847</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601253095 (v. 44)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601253101 (v. 45)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601253118 (v. 46)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601253125 (v. 47)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601253132 (v. 48)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254214 (v. 59)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254221 (v. 60)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254528 (v. 61)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254597 (v. 62)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254696 (v. 63)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254740 (v. 64)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254870 (v. 65)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254917 (v. 66)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254924 (v. 67)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254931 (v. 68)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254948 (v. 69)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254955 (v. 70)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254962 (v. 71)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601254979 (v. 72)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601255532 (v. 73)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601255686 (v. 74)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601255778 (v. 75)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601255853 (v. 76)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601255860 (v. 77)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601255877 (v. 78)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601255884 (v. 79)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257048 (v. 88)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257116 (v. 89)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257246 (v. 90)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257253 (v. 91)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257260 (v. 92)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257277 (v. 93)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257284 (v. 94)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257291 (v. 95)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257307 (v. 96)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257680 (v. 97)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257840 (v. 98)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601257956 (v. 100)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601258007 (v. 101)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601258083 (v. 102)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601258182 (v. 103)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601258274 (v. 105)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601258519 (v. 108)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601258922 (v. 110)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601258991 (v. 111)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259080 (v. 112)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259134 (v. 113)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259196 (v. 114)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259264 (v. 115)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259325 (v. 116)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259356 (v. 117)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259400 (v. 118)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259431 (v. 119)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259523 (v. 120)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259646 (v. 121)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259721 (v. 122)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259813 (v. 123)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259882 (v. 124)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781601259981 (v. 125)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640780095 (v. 126)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640780156 (v. 127)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640780255 (v. 128)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640780378 (v. 130)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640780453 (v. 131)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640780620 (v. 133)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640780798 (v. 135)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640780910 (v. 136)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640780989 (v. 137)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640781061 (v. 138)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640781191 (v. 140)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640781344 (v. 142)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640781405 (v. 143)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640781443 (v. 144)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640781733 (v. 145)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640781917 (v. 147)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9781640781955 (v. 150)</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="e">rda</subfield>
+    <subfield code="c">DLC</subfield>
+  </datafield>
+  <datafield tag="042" ind1=" " ind2=" ">
+    <subfield code="a">pcc</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">GV1469.62.P38</subfield>
+    <subfield code="b">P35</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="0">
+    <subfield code="a">793.93</subfield>
+    <subfield code="2">23</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Pathfinder adventure path.</subfield>
+  </datafield>
+  <datafield tag="246" ind1="1" ind2="8">
+    <subfield code="a">Pathfinder</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="1">
+    <subfield code="a">Redmond, WA :</subfield>
+    <subfield code="b">Paizo Publishing, LLC,</subfield>
+    <subfield code="c">[2011]-&lt;c2019&gt;</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">volumes :</subfield>
+    <subfield code="b">color illustrations ;</subfield>
+    <subfield code="c">28 cm</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">unmediated</subfield>
+    <subfield code="b">n</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">volume</subfield>
+    <subfield code="b">nc</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="505" ind1="1" ind2=" ">
+    <subfield code="a">volume 44. Carrion crown. Part 2 of 6. Trial of the beast / by Richard Pett -- volume 45. Carrion crown. Part 3 of 6. Broken moon / by Tim Hitchcock -- volume 46. Carrion crown. Part 4 of 6. Wake of the watcher / by Greg A. Vaughan -- volume 47. Carrion crown. Part 5 of 6. Ashes at dawn / by Neil Spicer -- volume 48. Carrion crown. Part 6 of 6. Shadows of Gallowspire / by Brandon Hodge -- volume 59. Skull &amp; shackles. Part 5 of 6. The price of infamy / by Tim Hitchcock -- volume 60. Skull &amp; shackles. Part 6 of 6. From Hell's heart / by Jason Nelson -- volume 61. Shattered star. Part 1 of 6. Shards of sin / by Greg A. Vaughan -- volume 62. Shattered star. Part 2 of 6. Curse of the lady's light / by Mike Shel -- volume 63. Shattered star. Part 3 of 6. The asylum stone / by James L. Sutter -- volume 64. Shattered star. Part 4 of 6. Beyond the doomsday door / by Tito Leati -- volume 65. Shattered star. Part 5 of 6. Into the nightmare rift / by Richard Pett -- volume 66. Shattered star. Part 6 of 6. The dead heart of Xin / by Brandon Hodge -- volume 67. Reign of winter. Part 1 of 6. The snows of summer / by Neil Spicer -- volume 68. Reign of winter. Part 2 of 6. The shackled hut / by Jim Groves -- volume 69. Reign of winter. Part 3 of 6. Maiden, mother, crone / by Tim Hitchcock -- volume 70. Reign of winter. Part 4 of 6. The frozen stars / by Matthew Goodall -- volume 71. Reign of winter. Part 5 of 6. Rasputin must die! / by Brandon Hodge -- volume 72. Reign of winter. Part 6 of 6. The witch queen's revenge / by Greg A. Vaughan  -- volume 73. Wrath of the righteous. Part 1 of 6. The worldwound incursion / by Amber E. Scott -- volume 74. Wrath of the righteous. Part 2 of 6. Sword of valor / by Neil Spicer -- volume 75. Wrath of the righteous. Part 3 of 6. Demon's heresy / by Jim Groves -- volume 76. Wrath of the righteous. Part 4 of 6. The midnight isles / by James Jacobs and Greg A. Vaughan -- volume 77. Wrath of the righteous. Part 5 of 6. Herald of the ivory labyrinth / by Wolfgang Baur -- volume 78. Wrath of the righteous. Part 6 of 6. City of locusts / by Richard Pett -- volume 79. Mummy's mask. Part 1 of 6. The half-dead city / by Jim Groves -- volume 88. Iron gods. Part 4 of 6. Valley of the brain collectors / by Mike Shel -- volume 89. Iron gods. Part 5 of 6. Palace of fallen stars / by Tim Hitchcock -- volume 90. Iron gods. Part 6 of 6. The divinity drive / by Crystal Frasier -- volume 91. Giantslayer. Part 1 of 6. Battle of Bloodmarch Hill / by Patrick Renie -- volume 92. Giantslayer. Part 2 of 6. The hill giant's pledge / by Larry Wilhelm -- volume 93. Giantslayer. Forge of the giant god. Adventure path part 3 of 6 / by Tim Hitchcock -- volume 94. Giantslayer. Part 4 of 6. Ice tomb of the giant queen / by Jim Groves -- volume 95. Giantslayer. Anvil of fire. Adventure path part 5 of 6 / by Sean K. Reynolds -- volume 96. Giantslayer. Shadow of the storm tyrant. Adventure path part 6 of 6 / by Tito Leati -- volume 97. Hell's rebels: in hell's bright shadow. Part 1 of 6 / by Crystal Frasier -- volume 98. Hell's rebels. Adventure path 2 of 6. Turn of the torrent  / by Mike Shel -- volume 100. Hell's rebels. A song of silver. Adventure path 4 of 6 / by James Jacobs -- volume 101. Hell's rebels. Adventure path 5 of 6. The Kintargo contract / by Jim Groves -- volume 102. Hell's rebels. Adventure path 6 of 6. Breaking the bones of Hell / by Amber E. Scott -- volume 103. Hell's vengeance. Adventure path  1 of 6. The hellfire compact / by F. Wesley Schneider -- volume 105. Hell's vengeance: The inferno gate. Adventure path part 3 of 6 / by Patrick Renie</subfield>
+  </datafield>
+  <datafield tag="505" ind1="1" ind2=" ">
+    <subfield code="a">volume 108. Hell's vengeance. Hell comes to town. Adventure path 6 of 6 / by Ron Lundeen -- volume 110. Strange aeons. The Thrushmoor terror. Adventure path 2 of 6 / by Tito Leati -- volume 111. Strange aeons. Dreams of the yellow king.  Adventure path 3 of 6 / by Ron Lundeen -- volume 112. Strange aeons. The whisper out of time. Adventure path 4 of 6 / by Richard Pett -- volume 113. Strange aeons. What grows within. Adventure path 5 of 6 / by John Compton -- volume 114. Strange aeons. Black stars beckon. Adventure path 6 of 6 / by Jim Groves -- volume. 115. Ironfang invasion. Trail of the hunted. Adventure path 1 of 6 / by Amber E. Scott -- volume 116. Ironfang invasion. Fangs of war. Adventure path 2 of 6 / by Ron Lundeen -- volume 117. Assault on Longshadow. Adventure path 3 of 6 / by Benjamin Bruck and Thurston Hillman -- volume 118. Siege of stone. Adventure path 4 of 6 / by Thurston Hillman -- volume 119. Ironfang invasion. Prisoners of the blight. Adventure path 5 of 6 / by Amanda Hamon Kunz -- volume 120. Ironfang invasion. Vault of the onyx citadel. Adventure path 6 of 6 / by Larry Wilhelm -- volume 121. Ruins of Azlant. The lost outpost. Adventure path 1 of 6 / by Jim Groves -- volume 122. Ruins of Azlant. Into shattered continent. Adventure path 2 of 6 / by Robert Brookes -- volume 123. Ruins of Azland. The flooded cathedral. Adventure path 3 of 6 / by Mikko Kallio -- volume 124. Ruins of Azlant. City in the deep. Adventure path 4 of 6 / by Amber E. Scott -- volume 125. Ruins of Azlant. Tower of the drowned dead. Adventure path 5 of 6 / by Ron Lundeen -- volume 126. Ruins of Azlant. Beyond the veiled path. Adventure path 6 of 6 / by Thurston Hillman -- volume 127. War for the crown. Crownfall. Adventure path 1 of 6 / by Thurston Hillman -- volume 128. War for the crown. Songbird, scion, saboteur. Adventure path 2 of 6 / by Crystal Frasier and Richard Pett -- volume 130. War for the crown. City in the lion's eye. Adventure path 4 of 6 / by Mikko Kallio -- volume 131. War for the crown. The reaper's right hand. Adventure path 5 of 6 / by John Compton -- volume 133. Return of the Runelords. Secrets of Roderic's Cove. Adventure path 1 of 6 / by Adam Daigle -- volume 135. Return of the Runelords. Runerplague. Adventure path 3 of 6 / by Richard Pett -- volume 136. Return of the Runelords. Temple of the peacock spirit. Adventure path 4 of 6 / by Jason Keeley -- volume 137. Return of the Runelords. The city outside of time. Advemture path 5 of 6 / by Amanda Hamon Kunz -- volume 138. Return of the Runelords. Rise of New Thassilon. Adventure path 6 of 6 / by Greg A. Vaughan -- volume 140. Tyrant's grasp. Eulogy for Roslar's Coffer. Adventure path 2 of 6 / by Jason Keeley -- volume 141. Tyrant's grasp. Last watch. Adventure path 3 of 6 / by Larry Wilhelm -- volume 142. Tyrant's grasp. Gardens of Gallowspire. Adventure path 4 of 6 / by Crystal Frasier -- volume 143. Tyrant's grasp. Borne of the sun's grace. Adventure path 5 of 6 / by Luis Loza -- volume 144. Tyrant's grasp. Midwives to Death. Adventure path 6 of 6 / by John Compton -- volume 145. Age of ashes. Hellknight Hill. Second edition. Adventure path 1 of 6 / by Amanda Hamon --  volume 147.  Age of ashes. Second edition. Tomorrow must burn. Adventure path 3 of 6 / by Ron Lundeen and Stephanie Lundeen -- volume 150. Age of ashes.  Broken promises. Adventure path 6 of 6. Second edition / by Luis Loza</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Pathfinder (Game)</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Rejected as serial by C. Davis.</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Numbering on spine; will not be visible after binding.</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Other volumes of Pathfinder adventure path may be cataloged separately.</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>5</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>16619cam a2202401 a 4500</leader>
+  <controlfield tag="001">3210651</controlfield>
+  <controlfield tag="005">20190904090819.0</controlfield>
+  <controlfield tag="008">781103m19799999nyua     b    001 0 eng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">0</subfield>
+    <subfield code="b">vip</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">1</subfield>
+    <subfield code="e">ocip</subfield>
+    <subfield code="f">19</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="b">2 shelf copies</subfield>
+    <subfield code="x">Sel/rjc, 2016-08-26</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">Tracking for vols 1-114 deleted for space per PSD; 2009-07-30;</subfield>
+    <subfield code="e">xj01 2011-11-01 added vols. 116-117, copies 1, vol. 118, copies 1-2 to CALM</subfield>
+    <subfield code="c">xj01 2011-09-06</subfield>
+    <subfield code="e">xj01 2011-09-06 added index v. 3, copies 1-2 to CALM</subfield>
+    <subfield code="e">tc12 2011-11-02 Set 3: v.104, v.113-115, v.118, Index (v.51-100: pt. 3) to FM</subfield>
+    <subfield code="a">xj15 2012-02-08 (added v. 101, 102, 108, 110)</subfield>
+    <subfield code="a">xj15 2012-04-25 (added v. 119, 120)</subfield>
+    <subfield code="a">xj15 2012-05-21 (added 123, 124)</subfield>
+    <subfield code="c">xj99 2013-06-05 (added 125, 129-131 to copy 1, v. 125 to copy 2; added 020s and updated 260, 300, started a new 505 field with v. 125)</subfield>
+    <subfield code="c">rm99 2013-09-03 added 126-128, 132 to r-Main reading room; need more copies for other locations</subfield>
+    <subfield code="c">bc07 2014-04-08 added v. 129 to r-Newspaper have to talk with AG how to add for gencoll.--copy 1 used to be gencoll and it was changed to MRR, copy 2 to Newspaper, copy 3 Landover, but I am not allowed to add.</subfield>
+    <subfield code="c">bc07 2015-04-0 9 added v. 130 (copy 2) to rNewspaper and copy 3 to GenCol.</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="c">bc07 2014-04-17 consulted with Selection Officer: General Collection needs 2 current copies: for copy 3 and copy 4. If possible do not wait for discards from MRR; added 125. 128, 128 for copy 3; added 128 for copy 4;</subfield>
+    <subfield code="c">bc07 2014-07-22  added v. 131 (copy 2) to rNewspaper and gencol (copy 3)</subfield>
+    <subfield code="a">xk06 2014-09-30 v. 132 (copy 2) to Newsp/Current Per, (copy 3) to GenColl</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">xj15 2012-07-03 (added 121,122)</subfield>
+    <subfield code="c">xj15 2012-07-03 (added to: 020, 300, 500, 505)</subfield>
+    <subfield code="a">xn12 2015-06-05 v. 135-136 rec'd., to CIP ver.</subfield>
+    <subfield code="c">bc07 2016-03-04 added v. 134, 137-138, index 5 copy 1 to MRR, copy 3 to     GenCol.</subfield>
+    <subfield code="c">bc07 2016-03-31 added v. 139-140 copy 1 to MRR, index 5 copy 2 to rNewspaper</subfield>
+    <subfield code="c">bc07  2016-04-20 v. 141-142 copy 1 to MRR</subfield>
+    <subfield code="f">rm04 2017-01-24 added copy 3 to GenCol.</subfield>
+    <subfield code="f">rm04 2017-02-07 Copy 3 vol. 107 to GenCol.</subfield>
+    <subfield code="t">rm04 2017-07-26 vol. 142 to CALM</subfield>
+    <subfield code="c">rm06 2018-10-16 vol. 142-146 to MRR</subfield>
+    <subfield code="c">rm06 2018-10-25 vol. 142-143, 145-146 Copy 2 for ref.</subfield>
+    <subfield code="c">rm06 2018-10-25 vol. 143, 145-146 Copy 3 to GenCol.</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ADDED VOLS: v. 135-136 xn12 2015-06-05 to USPRLL</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ADDED VOLS: v. 137  rn02  2015-09-17  ( 2 copies) to LIT</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">INDEXES: copies needed</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ADDED VOLS: v. 123 xn02 2012-05-08 to USPL</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ADDED VOLS: v. 124 xn04 2012-05-09 to USPL</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ADDED VOLS: v. 121-122 xn02 2012-09-07 to USPL</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ADDED VOLS: v. 101-120 xn02 2012-09-07 to USPL</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ADDED VOLS: v. 125 xe08 (2 copies)2013-04-01 to USPL</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ADDED VOLS: v. 133 rm08 2014-10-09 to USASH</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ADDED VOLS: v. 147 rn05 2019-04-11 to USASH</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">   78026126 </subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379006901 (v. 1)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007045 (v. 10)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">037900707X (v. 13)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007088 (v. 14)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007096 (v. 15)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007126 (v. 16)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007142 (v. 18)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007150 (v. 19 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007169 (v. 20 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007177 (v. 21)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007193 (v. 23 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007207 (v. 24 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007215 (v. 25 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007223 (v. 26 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007231 (v. 27 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">037900724X (v. 28 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007517 (v. 29 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007525 (v. 30 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007533 (v. 31 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">037900755X (v. 32 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007568 (v. 33 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007576 (v. 34 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007584 (v. 35 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007592 (v. 36 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007606 (v. 37 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007614 (v. 38 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007622 (v. 39 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007630 (v. 40 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007649 (v. 41 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007657 (v. 42 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007665 (v. 43 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007673 (v. 44 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007681 (v. 45 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">037900769X (v. 46 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007703 (v. 47 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007711 (v. 48 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379007738 (v. 50 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">037900853X (v. 51 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008548 (v. 52 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008564 (v. 53 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008572 (v. 54 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008580 (v. 55 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008599 (v. 56 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008602 (v. 57 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008610 (v. 58 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008629 (v. 59 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008637 (v. 60 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008645 (v. 61 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008653 (v. 62 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008661 (v. 63 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">037900867X (v. 64 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008688 (v. 65 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008696 (v. 66 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">037900870X (v. 67 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008718 (v. 68 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379008722 (v. 69 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008726 (v. 69 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379008739 (v. 70 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008734 (v. 70 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379008746 (v. 71 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008742 (v. 71 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379008906 (v. 72 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008904 (v. 72 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379008913 (v. 73 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008912 (v. 73 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379008920 (v. 74 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008920 (v. 74 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379008937 (v. 75 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">0379008939 (v. 75 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379008944 (v. 76 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="z">0379008944 (v. 76 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379008951 (v. 77 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="z">0979008955 (v. 77 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195325126 (v. 78 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195325133 (v. 79 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195338713 (v. 80 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195338720 (v. 81 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195338737 (v. 82 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195338744 (v. 83 : Acid free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195338768 (v. 85 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195338775 (v. 86 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195338782 (v. 87 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195376920 (v. 88 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195376913 (v. 89 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195381023 (v. 90 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195381016 (v. 91 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195382785 (v. 92 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195382778 (v. 93 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195383003 (v. 94 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195382990 (v. 95 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195382983 (v. 96 : acif-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195383096 (v. 97 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195383089 (v. 98 : acid free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195383072 (v. 99 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398052 (v. 100 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195399387 (v. 101 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398069 (v. 102 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398076 (v. 103 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398083 (v. 104 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398106 (v. 105 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398113 (v. 106 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398120 (v. 107 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398137 (v. 108 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398144 (v. 109 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780195398151 (v. 110:  acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758197 (v. 111 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758203 (v. 112 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758210 (v. 113 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758227 (v. 114 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758234 (v. 115 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758241 (v. 116 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758258 (v. 117 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758265 (v. 118 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758289 (v. 119 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758289 (v. 120 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758296 (v. 121 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199758302 (v. 122 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199915897 (v. 123 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199915903 (v. 124 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199915910 (v. 125)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199915927 (v/ 126)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199948475 (v. 127)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199948482 (v. 128)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199978526 (v. 129)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199978533 (v. 130)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199978540 (v. 131)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199998173 (v. 132)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780379012941 ( indexes : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199734030 ( index v. 3 : acid-free paper)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199351046 (v. 133)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199351053 (v. 134)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199351084 (v. 137)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199351091 (v. 138)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199351107 (v. 139)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780199351114 (v. 140)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780190255282 (index vol. V)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780190255312 (v. 141)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780190255329 (v. 142)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780190255336 (v. 143)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780190255343 (v. 144)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780190255350 (v. 145)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9780190255367 (v. 146)</subfield>
+  </datafield>
+  <datafield tag="022" ind1=" " ind2=" ">
+    <subfield code="a">1062-4007</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">(DLC)   78026126</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">HV6431</subfield>
+    <subfield code="b">.T464 1979</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="0">
+    <subfield code="a">303.6/25</subfield>
+    <subfield code="2">19</subfield>
+  </datafield>
+  <datafield tag="245" ind1="0" ind2="0">
+    <subfield code="a">Terrorism :</subfield>
+    <subfield code="b">documents of international and local control.</subfield>
+  </datafield>
+  <datafield tag="246" ind1="0" ind2=" ">
+    <subfield code="a">Terrorism, commentary on security documents</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">Dobbs Ferry, N.Y. :</subfield>
+    <subfield code="b">Oceana Publications,</subfield>
+    <subfield code="c">1979-&lt;2013  &gt;</subfield>
+    <subfield code="3">v. 1-79:</subfield>
+  </datafield>
+  <datafield tag="260" ind1="2" ind2=" ">
+    <subfield code="a">New York :</subfield>
+    <subfield code="b">Oceana</subfield>
+    <subfield code="3">v. 80-100:</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">New York :</subfield>
+    <subfield code="b">Oxford University Press, 2014-&lt;2016&gt;</subfield>
+    <subfield code="3">v. 103-&lt;131-134, 137-142&gt; :</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">v. &lt;1-16, 18-83, 85-89, 91-100, 103-109, 111-140, index 3, 5  &gt; :</subfield>
+    <subfield code="b">ill. ;</subfield>
+    <subfield code="c">26 cm.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Subtitle varies: v. 103-&lt;120-128, 132, 134, 137-138, Index 3&gt; Commentary on security documents.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Vols. 1-6 edited by Robert A. Friedlander; v. 7-12 edited by Howard S. Levie; v. 13-14, 72-73 edited by Donald J. Musch; v. 15-16, 18-35 edited by Yonah Alexander and Donald J. Musch; v. 36-41 edited by James Walsh; v. 86-87 [commentaries by] Douglas C. Lovelace, Jr.; v.91-100, 137-142 edited by Douglas C. Lovelace, Jr. -- v. 103-109, 111-133 edited by Kristen E. Boon, Aziz Huq, Douglas C. Lovelace, Jr. -- v. 134 edited by Kristen E. Boon, Douglas C. Lovelace, Jr.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Accompanied by cumulative index to vols. 1-50 in 2 v.; starting with vols. 51-100 in 1 v., published as 1st series.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Accompanied by cumulative index to vols. 51-68.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Accompanied by cumulative subject, title, name, subject by year indexes and index by year to vols. 51-81.</subfield>
+  </datafield>
+  <datafield tag="504" ind1=" " ind2=" ">
+    <subfield code="a">Includes bibliographical references and indexes.</subfield>
+  </datafield>
+  <datafield tag="505" ind1="1" ind2=" ">
+    <subfield code="a">v. 1-2. [without special title] -- v. 3. From the terror decade of the 1970's to the dangerous decade of the 1980's -- v. 4. A world on fire -- v. 5. [without special title] -- v. 6. Global terrorism in the dangerous decade -- v. 7-15. [without special title] -- v. 16. U.S. perspectives    -- v. 18-&lt;46, 49-59, 66-83, 85&gt;. U.S. perspectives -- Index v. 1-2 -- v. 86. Understanding United States national security strategy relating to terrorism, pt. 1, Foundational strategies -- v. 87. Understanding United States national security strategy relating to terrorism, pt. 2, Derivative and supporting strategies -- v. 88. The UK's approach to terrorism -- v. 89. Europe's approach to terrorism -- v. 90. Presidential powers and the global war against terrorists -- v. 91. Terrorism intelligence : what we know and how we know  it -- v. 92. Lebanon and Hezbollah -- v. 93. The Palestinian territories and Hamas -- v. 94. Managing the nation's borders during the global war against terrorists -- v. 95. Detainee treatment, interrogation, and extraordinary renditions in the war against terroists -- v. 96. Cyberterrorism : evolving perceptions of the threat -- v. 97. Use of contractors in the war against terrorists -- v. 98. Terrorism in India -- v. 99. Terrorism in Pakistan --</subfield>
+  </datafield>
+  <datafield tag="505" ind1="1" ind2=" ">
+    <subfield code="a">v. 100. Detention of terrorist suspects : what courts have done, what Congress and Obama are doing -- v. 101. Weapons of mass destruction. Pt. 1: Bioterrorism -- v. 102. Weapons of mass destruction. Pt. 2: Nuclear terrorism, consequence management, and attack insurance -- v. 103. Global issues -- v. 104. Current trends -- v. 105. Narco-terrorism -- v. 106. Terrorist financing and money laundering -- v. 107. U.N. response to Al-Qaeda -- v. 108. Extraordinary rendition -- v. 109. Terror-based interrogation -- v. 110. Assessing the GWOT -- v. 111. Discerning President Obama's national security strategy -- v. 112. Discerning President Obama's national defense strategy, part two -- v. 113. Piracy and international maritime security -- v. 114. European responses to terrorist radicalization -- v. 115. Gangs, terrorism, and international disorder -- v. 116. Assessing President Obama's national security strategy -- v. 117. Al Qaeda, the Taliban, and conflict in Afghanistan -- v. 118. International nuclear security -- v. 119. Catastrophic possibilities threatening U.S. security -- v. 120. U.S. preparedness for catastrophic attacks -- v. 121. Nuclear non-proliferation treaty -- v. 122. U.N. response to Al Qaeda--Developments through 2011 -- v. 123. Global stability and U.S. national security -- v. 124. U.S. approaches to global security challenges -- v. 125. Piracy and international maritime security : developments through 2011-- v. 126. The intersection of law and war --v. 127. The changing nature of war -- v. 128. Detention under international law: liberty and permissible detention -- v. 129. Detention under international law : the state of emergency exception and evolving topics -- v. 130. Detention under international law : safeguards against torture and other abuses -- v. 131. The 2012 shift in U.S. national security strategy : the context -- v. 132. The 2012 shift in U.S. National security strategy: the analysis--v. 133. The Drone Wars of the 21st Century: Costs and Benefits -- v. 134. The domestic use of unmanned aerial vehicles -- v. 137. The Obama administration's second term national security strategy -- v. 138. The resurgent terrorist threat -- v. 139. The rise of China -- v. 140. The cyber threat -- v. 141. Hybrid warfare and the gray zone threat -- v. 142. Security strategies of the second Obama administration: 2015 developments.</subfield>
+  </datafield>
+  <datafield tag="505" ind1="1" ind2=" ">
+    <subfield code="a">v. 143. The evolution of Islamic state -- v. 144. Autonomous and semiautonomous weapons systems -- v. 145. The North Korean threat -- v. 146. Russia's resurgence</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Terrorism.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">National security.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Friedlander, Robert A.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Levie, Howard S.</subfield>
+    <subfield code="q">(Howard Sidney),</subfield>
+    <subfield code="d">1907-2009.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Musch, Donald J.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Alexander, Yonah.</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Lovelace, Douglas C.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2="1">
+    <subfield code="3">Table of contents for vol. 29</subfield>
+    <subfield code="u">http://www.loc.gov/catdir/toc/fy022/78026126.html</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Class collect; not analyze; please continue to add contents note: Ann Gardner, HSS.</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">No editor named in vols. 42-59, 76-81, 85.</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">No place of pub. given in vols. 57-59, etc.; sf09 2006-04-14</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Indexes to vols. 101-  in loose-leaf form; pages sent directly to C&amp;S/HSS/MRR; xj01/Ann Gardner  2011-09-23.</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Loose-leaf indexes are cumulative and will be replaced with a bound volume.</subfield>
+  </datafield>
+  <datafield tag="984" ind1=" " ind2=" ">
+    <subfield code="a">gsl</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">c-GenColl</subfield>
+    <subfield code="h">HV6431</subfield>
+    <subfield code="i">.T464 1979</subfield>
+    <subfield code="t">Copy 1</subfield>
+    <subfield code="w">BOOKS</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">r-N&amp;CPR</subfield>
+    <subfield code="h">HV6431</subfield>
+    <subfield code="i">.T464 1979</subfield>
+    <subfield code="t">Copy 2</subfield>
+    <subfield code="w">GenBib bi 92-004440</subfield>
+  </datafield>
+  <datafield tag="991" ind1=" " ind2=" ">
+    <subfield code="b">r-MRR</subfield>
+    <subfield code="h">HV6431</subfield>
+    <subfield code="i">.T464 1979</subfield>
+    <subfield code="t">Copy 1</subfield>
+    <subfield code="m">Alc</subfield>
+    <subfield code="z">Latest 10 volumes</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>6</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>02281cam a2200397 a 4500</leader>
+  <controlfield tag="001">14854250</controlfield>
+  <controlfield tag="005">20190718085811.0</controlfield>
+  <controlfield tag="008">070517m2006uuuulo ab    b   f000 0 eng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">3</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="b">1 shelf copy</subfield>
+    <subfield code="x">policy default</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="c">lh08 2007-05-17 to subj. (sections 21, l64, l68)</subfield>
+    <subfield code="d">lk31 2007-10-25 to SL</subfield>
+    <subfield code="e">lk31 2007-10-25 to BCCD</subfield>
+    <subfield code="i">bc08 2009-06-22 v. 123-124, 126, 129 added</subfield>
+    <subfield code="a">Barcode 00285540847 returned from bindery 2009-09-17</subfield>
+    <subfield code="a">Barcode 00285540859 returned from bindery 2009-09-18</subfield>
+    <subfield code="a">Barcode 00149008676 returned from bindery 2009-12-18</subfield>
+    <subfield code="a">Barcode 00285540835 returned from bindery 2009-12-18;</subfield>
+    <subfield code="e">bc05 2010-10-05 sent sect. 228 to BCCD</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="c">wn15 2010-02-05 ADDED VOLS: vol. 22, section 228 to ASCD</subfield>
+    <subfield code="a">bc00 2010-03-25</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="c">wn15 2014-04-30 ADDED VOLS: vol. 3, section 32 to BCCD</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="c">wn15 2015-04-28 ADDED VOLS: vol. 1, section 17 to ALAWE/A</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="b">wn15 2019-07-18</subfield>
+    <subfield code="i">wn15 2019-07-17 ADDED VOLS: vol., section 16 to BCCD</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2007540109</subfield>
+    <subfield code="z">  2009314145</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9991137246 (section 21)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9789991137582 (section 123)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9789991137568 (section 124)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9789991137575 (section 125)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9991137262 (section 164)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9991137254 (section 168)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="z">978991137681 (section 228)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9789991137940 (section 32)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9789991137971 (section 17)</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+  </datafield>
+  <datafield tag="043" ind1=" " ind2=" ">
+    <subfield code="a">f-lo---</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">Z3558</subfield>
+    <subfield code="b">.A465 2006</subfield>
+    <subfield code="a">DT2557</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Ambrose, David,</subfield>
+    <subfield code="d">1939-</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Lesotho annotated bibliography /</subfield>
+    <subfield code="c">David Ambrose.</subfield>
+  </datafield>
+  <datafield tag="250" ind1=" " ind2=" ">
+    <subfield code="a">2nd ed.</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">Roma, Lesotho :</subfield>
+    <subfield code="b">House 9 Publications, National University of Lesotho, &lt;2006-&gt;</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">sections &lt;21, 123-124, 126, 129, 164, 168, 228&gt; :</subfield>
+    <subfield code="b">ill., maps ;</subfield>
+    <subfield code="c">30 cm.</subfield>
+  </datafield>
+  <datafield tag="505" ind1="1" ind2=" ">
+    <subfield code="a">--section 16. Mining, kimberlite &amp; diamonds -- section 21. Archaeology   -- section 123. Fiction in Sesotho -- section 124. Poetry in Sesotho --    section 126. Essays &amp; literary criticism   -- section 129. Sephuthi language &amp; liertaure    -- section 164. Fish, including annotated species checklist    -- section 168. Mammals, including annotated species checklist   -- section 228. Aloe polyphylla</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="0">
+    <subfield code="a">Lesotho</subfield>
+    <subfield code="v">Bibliography.</subfield>
+  </datafield>
+  <datafield tag="985" ind1=" " ind2=" ">
+    <subfield code="e">ODE-nb</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>7</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>00571nam a22002175a 4500</leader>
+  <controlfield tag="001">31316</controlfield>
+  <controlfield tag="005">00000000000000.0</controlfield>
+  <controlfield tag="008">890601s1989    xx            000 0 eng  </controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">(DLC)   90146771</subfield>
+  </datafield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">0</subfield>
+    <subfield code="b">ibc</subfield>
+    <subfield code="c">orignew</subfield>
+    <subfield code="d">3</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">19</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ep84 06-01-89</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">   90146771 </subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="z">123</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">IN PROCESS</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Drew, James</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">At work : training /</subfield>
+    <subfield code="c">J. Drew.</subfield>
+  </datafield>
+  <datafield tag="250" ind1=" " ind2=" ">
+    <subfield code="a">1st ed.</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">Washington, D.C. :</subfield>
+    <subfield code="b">Library of Congress,</subfield>
+    <subfield code="c">1989.</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">2 p. ;</subfield>
+    <subfield code="c">22cm.</subfield>
+  </datafield>
+  <datafield tag="440" ind1=" " ind2="0">
+    <subfield code="a">going on-</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>8</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>02432cem a2200517 a 4500</leader>
+  <controlfield tag="001">15070267</controlfield>
+  <controlfield tag="005">20170526124120.0</controlfield>
+  <controlfield tag="007">aj|canzn</controlfield>
+  <controlfield tag="008">071103m20049999xr ag     b     1   cze  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">7</subfield>
+    <subfield code="b">cbc</subfield>
+    <subfield code="c">origcop</subfield>
+    <subfield code="d">u</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-geogmaps</subfield>
+  </datafield>
+  <datafield tag="955" ind1=" " ind2=" ">
+    <subfield code="a">ga05 2007-11-03 sent to CMT</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2007630539</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">8070118067 (no. 122)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">8070118075 (no. 123)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">8070118091 (no. 133)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">8070118199 (no. 138)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">8070118180 (no. 146)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">8070118202 (no. 148)</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">8070118083 (no. 149)</subfield>
+  </datafield>
+  <datafield tag="034" ind1="1" ind2=" ">
+    <subfield code="a">a</subfield>
+    <subfield code="b">70000</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="c">DLC</subfield>
+    <subfield code="d">DLC</subfield>
+  </datafield>
+  <datafield tag="041" ind1="0" ind2=" ">
+    <subfield code="a">cze</subfield>
+    <subfield code="a">eng</subfield>
+    <subfield code="a">ger</subfield>
+  </datafield>
+  <datafield tag="050" ind1="0" ind2="0">
+    <subfield code="a">G6511.E63 s70</subfield>
+    <subfield code="b">.K3</subfield>
+  </datafield>
+  <datafield tag="052" ind1=" " ind2=" ">
+    <subfield code="a">6511</subfield>
+  </datafield>
+  <datafield tag="110" ind1="2" ind2=" ">
+    <subfield code="a">Kartografie Praha (Firm)</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="0">
+    <subfield code="a">Cykloturisticka&#x301; mapa 1:70 000 :</subfield>
+    <subfield code="b">kompletni&#x301; si&#x301;t&#x315; znac&#x30C;eny&#x301;ch cyklotras ... pro&#x30A;be&#x30C;h tras ove&#x30C;r&#x30C;en v tere&#x301;nu : [C&#x30C;eska&#x301; republika] /</subfield>
+    <subfield code="c">zpracovala a vydala Kartografie Praha, a.s. ; odpove&#x30C;dny&#x301; redaktor Jir&#x30C;i&#x301; Cajthaml ... [et al.].</subfield>
+  </datafield>
+  <datafield tag="246" ind1="3" ind2=" ">
+    <subfield code="a">Moira cykloturisticka&#x301; mapa 1:70,000</subfield>
+  </datafield>
+  <datafield tag="250" ind1=" " ind2=" ">
+    <subfield code="a">1. vyd.</subfield>
+  </datafield>
+  <datafield tag="255" ind1=" " ind2=" ">
+    <subfield code="a">Scale 1:70,000. 1 cm. = 700 m.</subfield>
+  </datafield>
+  <datafield tag="260" ind1=" " ind2=" ">
+    <subfield code="a">Praha :</subfield>
+    <subfield code="b">Kartografie Praha a.s.,</subfield>
+    <subfield code="c">2004-</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">&lt; &gt; maps :</subfield>
+    <subfield code="b">col. ;</subfield>
+    <subfield code="c">60 x 74 cm. and 74 x 60 cm., folded to 22 x 11 cm.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Shows designated bicycling routes and complete road system in Czech Republic.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Relief shown by contours and spot heights.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Title from panel.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">"Produkt digita&#x301;lni&#x301; kartografie."</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Areal coverage complete in 59 sheets (numbered 101 thru 160).</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Includes extensive legend and small advertisements.</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Text, descriptive index to points of interest, bike-trail profiles with statistical data, coverage map, publisher's index map, col. ill., and advertisements on verso.</subfield>
+  </datafield>
+  <datafield tag="505" ind1="1" ind2=" ">
+    <subfield code="a">122. Karls&#x30C;tejnsko, Kr&#x30C;ivokla&#x301;tsko, Slapy -- 123. Dolni&#x301; Posa&#x301;zavi&#x301;, Benes&#x30C;ovsko --    133. S&#x30C;umava, Povydr&#x30C;i&#x301;, Pla&#x301;ne&#x30C; --    138. Ta&#x301;borsko, Blani&#x301;k --    146. Pi&#x301;secko, Vodn&#x30C;ansko --    148. Tr&#x30C;ebon&#x30C;sko, str&#x30C;edni&#x301; Luz&#x30C;nice -- 149. Jindr&#x30C;ichohradecko, C&#x30C;eska&#x301; Kanada.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Bicycle trails</subfield>
+    <subfield code="z">Czech Republic</subfield>
+    <subfield code="v">Maps.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Recreation areas</subfield>
+    <subfield code="z">Czech Republic</subfield>
+    <subfield code="v">Maps.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">Roads</subfield>
+    <subfield code="z">Czech Republic</subfield>
+    <subfield code="v">Maps.</subfield>
+  </datafield>
+  <datafield tag="651" ind1=" " ind2="0">
+    <subfield code="a">Czech Republic</subfield>
+    <subfield code="v">Maps.</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Road maps.</subfield>
+    <subfield code="2">lcgft</subfield>
+  </datafield>
+  <datafield tag="655" ind1=" " ind2="7">
+    <subfield code="a">Tourist maps.</subfield>
+    <subfield code="2">lcgft</subfield>
+  </datafield>
+  <datafield tag="700" ind1="1" ind2=" ">
+    <subfield code="a">Cajthaml, jir&#x30C;i&#x301;.</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>9</zs:recordPosition></zs:record><zs:record><zs:recordSchema>marcxml</zs:recordSchema><zs:recordPacking>xml</zs:recordPacking><zs:recordData><record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>03821cam a22004815i 4500</leader>
+  <controlfield tag="001">21939347</controlfield>
+  <controlfield tag="005">20210311171527.0</controlfield>
+  <controlfield tag="006">m    |o  d |      </controlfield>
+  <controlfield tag="007">cr |||||||||||</controlfield>
+  <controlfield tag="008">160524s2016    ne |||| o    |||| 0|eng  </controlfield>
+  <datafield tag="906" ind1=" " ind2=" ">
+    <subfield code="a">0</subfield>
+    <subfield code="b">ibc</subfield>
+    <subfield code="c">origres</subfield>
+    <subfield code="d">u</subfield>
+    <subfield code="e">ncip</subfield>
+    <subfield code="f">20</subfield>
+    <subfield code="g">y-gencatlg</subfield>
+  </datafield>
+  <datafield tag="925" ind1="0" ind2=" ">
+    <subfield code="a">acquire</subfield>
+    <subfield code="e">pcnspringer</subfield>
+    <subfield code="x">policy default</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="a">(DE-He213)978-94-6265-123-4</subfield>
+  </datafield>
+  <datafield tag="010" ind1=" " ind2=" ">
+    <subfield code="a">  2019770322</subfield>
+  </datafield>
+  <datafield tag="020" ind1=" " ind2=" ">
+    <subfield code="a">9789462651234</subfield>
+  </datafield>
+  <datafield tag="024" ind1="7" ind2=" ">
+    <subfield code="a">10.1007/978-94-6265-123-4</subfield>
+    <subfield code="2">doi</subfield>
+  </datafield>
+  <datafield tag="040" ind1=" " ind2=" ">
+    <subfield code="a">DLC</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="e">pn</subfield>
+    <subfield code="e">rda</subfield>
+    <subfield code="c">DLC</subfield>
+  </datafield>
+  <datafield tag="072" ind1=" " ind2="7">
+    <subfield code="a">LAW051000</subfield>
+    <subfield code="2">bisacsh</subfield>
+  </datafield>
+  <datafield tag="072" ind1=" " ind2="7">
+    <subfield code="a">LBBZ</subfield>
+    <subfield code="2">bicssc</subfield>
+  </datafield>
+  <datafield tag="072" ind1=" " ind2="7">
+    <subfield code="a">LBBZ</subfield>
+    <subfield code="2">thema</subfield>
+  </datafield>
+  <datafield tag="082" ind1="0" ind2="4">
+    <subfield code="a">345</subfield>
+    <subfield code="2">23</subfield>
+  </datafield>
+  <datafield tag="097" ind1="0" ind2="0">
+    <subfield code="a">KZ7000-7500</subfield>
+  </datafield>
+  <datafield tag="100" ind1="1" ind2=" ">
+    <subfield code="a">Kim, Sangkul,</subfield>
+    <subfield code="e">author.</subfield>
+  </datafield>
+  <datafield tag="245" ind1="1" ind2="2">
+    <subfield code="a">A Collective Theory of Genocidal Intent  /</subfield>
+    <subfield code="c">by Sangkul Kim.</subfield>
+  </datafield>
+  <datafield tag="250" ind1=" " ind2=" ">
+    <subfield code="a">1st ed. 2016.</subfield>
+  </datafield>
+  <datafield tag="264" ind1=" " ind2="1">
+    <subfield code="a">The Hague :</subfield>
+    <subfield code="b">T.M.C. Asser Press :</subfield>
+    <subfield code="b">Imprint: T.M.C. Asser Press,</subfield>
+    <subfield code="c">2016.</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">1 online resource (XI, 235 pages)</subfield>
+  </datafield>
+  <datafield tag="336" ind1=" " ind2=" ">
+    <subfield code="a">text</subfield>
+    <subfield code="b">txt</subfield>
+    <subfield code="2">rdacontent</subfield>
+  </datafield>
+  <datafield tag="337" ind1=" " ind2=" ">
+    <subfield code="a">computer</subfield>
+    <subfield code="b">c</subfield>
+    <subfield code="2">rdamedia</subfield>
+  </datafield>
+  <datafield tag="338" ind1=" " ind2=" ">
+    <subfield code="a">online resource</subfield>
+    <subfield code="b">cr</subfield>
+    <subfield code="2">rdacarrier</subfield>
+  </datafield>
+  <datafield tag="347" ind1=" " ind2=" ">
+    <subfield code="a">text file</subfield>
+    <subfield code="b">PDF</subfield>
+    <subfield code="2">rda</subfield>
+  </datafield>
+  <datafield tag="490" ind1="1" ind2=" ">
+    <subfield code="a">International Criminal Justice Series,</subfield>
+    <subfield code="x">2352-6718 ;</subfield>
+    <subfield code="v">7</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">Tackling one of the most confusing and controversial issues in the field of international criminal law - id est, the genocidal intent element, this monograph seeks to develop an account of genocidal intent from a collectivist perspective. Drawing upon the two-layered structure of the crime of genocide composed of the 'conduct level' and 'context level', it detects the genocidal intent element at the 'context level'. The genocidal intent found in this manner belongs to a collective, which significantly departs from the prior individualistic understandings of the notion of genocidal intent. The author argues that the crime of genocide is not a 'crime of mens rea'. Collective genocidal intent at the 'context level' operates in a way that renders the crime of genocide itself a criminal enterprise. The idea of genocide as a criminal enterprise also suggests that genocide is a leadership crime in respect of which only the high-level actors can be labeled as principals (as opposed to accessories). The book criticizes the dominant individualistic approaches to genocidal intent (in particular: the knowledge-based approach) which have thus far governed the relevant jurisprudential and academic analysis. It further demonstrates that the hidden notion of 'collective genocide' silently governs the relevant international jurisprudence. Practitioners and academics in the field of international criminal law and related disciplines will find in this book a new approach to the crime of genocide. The text is the first-ever book-length exposition of a collective account of genocidal intent. Its accessibility is highly enhanced by relevant footnotes. Sangkul Kim is Lecturer at Korea University in Seoul and Research Fellow with the Centre for International Law Research and Policy (CILRAP).He served as Associate Legal Adviser at the Office of the Prosecutor of the International Criminal Court (2004-2008). He earned law degrees from Korea University and Georgetown University Law Center.</subfield>
+  </datafield>
+  <datafield tag="588" ind1=" " ind2=" ">
+    <subfield code="a">Description based on publisher-supplied MARC data.</subfield>
+  </datafield>
+  <datafield tag="650" ind1=" " ind2="0">
+    <subfield code="a">International criminal law.</subfield>
+  </datafield>
+  <datafield tag="650" ind1="1" ind2="4">
+    <subfield code="a">International Criminal Law.</subfield>
+    <subfield code="0">https://scigraph.springernature.com/ontologies/product-market-codes/R19040</subfield>
+  </datafield>
+  <datafield tag="776" ind1="0" ind2="8">
+    <subfield code="i">Print version:</subfield>
+    <subfield code="t">A collective theory of genocidal intent.</subfield>
+    <subfield code="z">9789462651227</subfield>
+    <subfield code="w">(DLC)  2016934677</subfield>
+  </datafield>
+  <datafield tag="776" ind1="0" ind2="8">
+    <subfield code="i">Printed edition:</subfield>
+    <subfield code="z">9789462651227</subfield>
+  </datafield>
+  <datafield tag="776" ind1="0" ind2="8">
+    <subfield code="i">Printed edition:</subfield>
+    <subfield code="z">9789462651241</subfield>
+  </datafield>
+  <datafield tag="830" ind1=" " ind2="0">
+    <subfield code="a">International Criminal Justice Series,</subfield>
+    <subfield code="x">2352-6718 ;</subfield>
+    <subfield code="v">7</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Law and Criminology (R0) (SpringerNature-43727)</subfield>
+  </datafield>
+  <datafield tag="952" ind1=" " ind2=" ">
+    <subfield code="a">Law and Criminology (SpringerNature-41177)</subfield>
+  </datafield>
+  <datafield tag="985" ind1=" " ind2=" ">
+    <subfield code="a">springerpcn</subfield>
+    <subfield code="e">batch8</subfield>
+  </datafield>
+</record></zs:recordData><zs:recordPosition>10</zs:recordPosition></zs:record></zs:records><zs:echoedSearchRetrieveRequest><zs:version>1.2</zs:version><zs:query>dc.identifier = 123</zs:query><zs:startRecord>1</zs:startRecord><zs:maximumRecords>10</zs:maximumRecords><zs:recordPacking>xml</zs:recordPacking><zs:recordSchema>marcxml</zs:recordSchema></zs:echoedSearchRetrieveRequest></zs:searchRetrieveResponse>
+
