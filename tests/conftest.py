@@ -324,6 +324,14 @@ def loc_recordid_all_2014043016():
 
 
 @pytest.fixture(scope="module")
+def loc_without_010():
+    """Load LoC without 010."""
+    file_name = join(dirname(__file__), 'data/xml/loc/loc_without_010.xml')
+    with open(file_name, 'rb') as file:
+        return file.read()
+
+
+@pytest.fixture(scope="module")
 def dnb_isbn_123():
     """Load DNB isbn 123 xml file."""
     file_name = join(dirname(__file__), 'data/xml/dnb/dnb_isbn_123.xml')
