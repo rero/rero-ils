@@ -19,6 +19,7 @@
 """RERO ILS common record extensions."""
 
 
+from invenio_db import db
 from invenio_records.extensions import RecordExtension
 
 
@@ -43,12 +44,19 @@ class AddMEFPidExtension(RecordExtension):
                     # inject mef pid
                     agent['pid'] = cont['pid']
 
-    def pre_create(self, record):
+    def post_create(self, record):
         """Called after a record is initialized."""
         self.add_mef_pid(record)
         if record.model:
-            record.model.data = record
+            with db.session.begin_nested():
+                record.model.data = record
+                db.session.add(record.model)
 
-    def pre_commit(self, record):
+    def post_commit(self, record):
         """Called before a record is committed."""
         self.add_mef_pid(record)
+        if record.model:
+            with db.session.begin_nested():
+                record.model.data = record
+                # Note: session merge is not required as it is done by the
+                #       record.commit
