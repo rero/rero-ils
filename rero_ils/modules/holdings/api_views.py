@@ -20,6 +20,7 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
 from functools import wraps
 
 from elasticsearch import exceptions
@@ -158,7 +159,7 @@ def do_holding_jsonify_action(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
         try:
-            data = flask_request.get_json()
+            data = deepcopy(flask_request.get_json())
             description = data.pop('description')
         except KeyError:
             # The description parameter is missing.
@@ -188,9 +189,9 @@ def do_holding_jsonify_action(func):
             return jsonify({
                 'action_applied': action_applied
             })
-        except NoCirculationActionIsPermitted:
+        except NoCirculationActionIsPermitted as error:
             # The circulation specs do not allow updates on some loan states.
-            return jsonify({'status': 'error: Forbidden'}), 403
+            return jsonify({'status': f'error: {str(error)}'}), 403
         except MissingRequiredParameterError as error:
             # Return error 400 when there is a missing required parameter
             abort(400, str(error))
@@ -204,7 +205,7 @@ def do_holding_jsonify_action(func):
         except Exception as error:
             # TODO: need to know what type of exception and document there.
             # raise error
-            current_app.logger.error(str(error))
+            current_app.logger.error(f'{func.__name__}: {str(error)}')
             return jsonify({'status': f'error: {error}'}), 400
     return decorated_view
 

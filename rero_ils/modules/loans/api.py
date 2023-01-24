@@ -199,7 +199,7 @@ class Loan(IlsRecord):
         if self['state'] not in [
                 LoanState.PENDING, LoanState.ITEM_IN_TRANSIT_FOR_PICKUP]:
             raise NoCirculationActionIsPermitted(
-                'No circulation action is permitted')
+                _('No circulation action is permitted'))
 
         self['pickup_location_pid'] = pickup_location_pid
         return self.update(self, dbcommit=True, reindex=True)
