@@ -23,9 +23,13 @@ from copy import deepcopy
 
 import mock
 import pytest
+from invenio_db import db
+from jsonschema.exceptions import ValidationError
 from utils import flush_index, mock_response
 
 from rero_ils.modules.api import IlsRecordError
+from rero_ils.modules.contributions.api import Contribution, \
+    ContributionsSearch
 from rero_ils.modules.documents.api import Document, DocumentsSearch, \
     document_id_fetcher
 from rero_ils.modules.documents.models import DocumentIdentifier
@@ -62,9 +66,11 @@ def test_document_create_with_mef(
     mock_contributions_mef_get.return_value = mock_response(
         json_data=contribution_person_response_data
     )
+    assert ContributionsSearch().count() == 0
     doc = Document.create(
         data=deepcopy(document_data_ref),
-        delete_pid=True, dbcommit=True, reindex=True)
+        delete_pid=False, dbcommit=False, reindex=False)
+    doc.reindex()
     flush_index(DocumentsSearch.Meta.index)
     doc = Document.get_record_by_pid(doc.get('pid'))
     assert doc['contribution'][0]['agent']['pid'] == \
@@ -75,6 +81,49 @@ def test_document_create_with_mef(
         'pid'] == contribution_person_data['pid']
     assert hit['_source']['contribution'][0]['agent'][
         'primary_source'] == 'rero'
+    assert ContributionsSearch().count() == 1
+    contrib = Contribution.get_record_by_pid(contribution_person_data['pid'])
+    contrib.delete_from_index()
+    doc.delete_from_index()
+    db.session.rollback()
+
+    assert not Document.get_record_by_pid(doc.get('pid'))
+    assert not Contribution.get_record_by_pid(contribution_person_data['pid'])
+    assert ContributionsSearch().count() == 0
+
+    with pytest.raises(ValidationError):
+        doc = Document.create(
+            data={},
+            delete_pid=False, dbcommit=True, reindex=True)
+
+    assert not Document.get_record_by_pid(doc.get('pid'))
+    assert not Contribution.get_record_by_pid(contribution_person_data['pid'])
+    assert ContributionsSearch().count() == 0
+    data = deepcopy(document_data_ref)
+    contrib = data.pop('contribution')
+    doc = Document.create(
+        data=data,
+        delete_pid=False, dbcommit=False, reindex=False)
+    doc.reindex()
+    flush_index(DocumentsSearch.Meta.index)
+    with pytest.raises(ValidationError):
+        doc['contribution'] = contrib
+        # remove required property
+        doc.pop('type')
+        doc.update(doc, commit=True, dbcommit=True, reindex=True)
+    assert Document.get_record_by_pid(doc.get('pid'))
+    assert not Contribution.get_record_by_pid(contribution_person_data['pid'])
+    assert ContributionsSearch().count() == 0
+
+    data = deepcopy(document_data_ref)
+    doc.update(data, commit=True, dbcommit=False, reindex=False)
+    doc.reindex()
+    assert Document.get_record_by_pid(doc.get('pid'))
+    assert Contribution.get_record_by_pid(contribution_person_data['pid'])
+    assert ContributionsSearch().count() == 1
+
+    doc.delete_from_index()
+    db.session.rollback()
 
 
 def test_document_add_cover_url(db, document):

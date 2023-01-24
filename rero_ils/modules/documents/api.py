@@ -414,10 +414,12 @@ class Document(IlsRecord):
         for electronic_locator in electronic_locators:
             e_content = electronic_locator.get('content')
             e_type = electronic_locator.get('type')
-            if e_content == 'coverImage' and e_type == 'relatedResource':
-                # don't add the same url
-                if electronic_locator.get('url') == url:
-                    return self, False
+            if (
+                e_content == 'coverImage'
+                and e_type == 'relatedResource'
+                and electronic_locator.get('url') == url
+            ):
+                return self, False
         electronic_locators.append({
             'content': 'coverImage',
             'type': 'relatedResource',
