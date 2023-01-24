@@ -22,24 +22,29 @@ import pytz
 from elasticsearch_dsl.query import Q
 from flask_babelex import gettext as _
 
+from rero_ils.modules.api import IlsRecord
+from rero_ils.modules.holdings.models import HoldingTypes
+from rero_ils.modules.item_types.api import ItemType
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.operation_logs.extensions import \
+    UntrackedFieldsOperationLogObserverExtension
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.record_extensions import OrgLibRecordExtension
+from rero_ils.modules.utils import date_string_to_utc, \
+    extracted_data_from_ref, generate_item_barcode, get_ref_for_pid, \
+    trim_item_barcode_for_record
+
+from ..extensions import IssueSortDateExtension, IssueStatusExtension
 from ..models import TypeOfItem
 from ..utils import item_pid_to_object
-from ...api import IlsRecord
-from ...holdings.models import HoldingTypes
-from ...item_types.api import ItemType
-from ...locations.api import Location
-from ...operation_logs.extensions import \
-    UntrackedFieldsOperationLogObserverExtension
-from ...organisations.api import Organisation
-from ...record_extensions import OrgLibRecordExtension
-from ...utils import date_string_to_utc, extracted_data_from_ref, \
-    generate_item_barcode, get_ref_for_pid, trim_item_barcode_for_record
 
 
 class ItemRecord(IlsRecord):
     """Item record class."""
 
     _extensions = [
+        IssueSortDateExtension(),
+        IssueStatusExtension(),
         OrgLibRecordExtension(),
         UntrackedFieldsOperationLogObserverExtension(['status'])
     ]
@@ -71,12 +76,11 @@ class ItemRecord(IlsRecord):
         holding = Holding.get_record_by_pid(holding_pid)
         if not holding:
             return _('Holding does not exist: {pid}.'.format(pid=holding_pid))
-        is_serial = holding.holdings_type == 'serial'
-        issue = self.get('issue', {})
-        if issue and self.get('type') == 'standard':
+
+        if self.get('issue') and self.get('type') == TypeOfItem.STANDARD:
             return _('Standard item can not have a issue field.')
-        if self.get('type') == 'issue':
-            if not issue:
+        if self.get('type') == TypeOfItem.ISSUE:
+            if not self.get('issue', {}):
                 return _('Issue item must have an issue field.')
             if not self.get('enumerationAndChronology'):
                 return _('enumerationAndChronology field is required '
@@ -86,8 +90,7 @@ class ItemRecord(IlsRecord):
             return _('Can not have multiple notes of the same type.')
 
         # check temporary item type data
-        tmp_itty = self.get('temporary_item_type')
-        if tmp_itty:
+        if tmp_itty := self.get('temporary_item_type'):
             if tmp_itty['$ref'] == self['item_type']['$ref']:
                 return _('Temporary circulation category cannot be the same '
                          'than default circulation category.')
@@ -422,18 +425,6 @@ class ItemRecord(IlsRecord):
                 Holding.get_record_by_pid(
                     self.holding_pid).circulation_category_pid
         return circulation_category_pid
-
-    @property
-    def issue_inherited_first_call_number(self):
-        """Get issue inherited first call number.
-
-        For item of type issue, when the issue first call number is missing,
-        it returns the parent holdings first call number if exists.
-        """
-        from ...holdings.api import Holding
-        if self.get('type') == 'issue' and not self.get('call_number'):
-            return Holding.get_record_by_pid(
-                self.holding_pid).get('call_number')
 
     @property
     def call_numbers(self):

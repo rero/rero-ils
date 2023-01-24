@@ -23,9 +23,11 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 from datetime import datetime, timedelta
 
+from utils import flush_index
+
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.models import HoldingTypes
-from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.items.models import ItemIssueStatus
 from rero_ils.modules.items.tasks import process_late_issues
 from rero_ils.modules.utils import get_ref_for_pid
@@ -38,37 +40,31 @@ def test_late_expected(
     martigny = holding_lib_martigny_w_patterns
     sion = holding_lib_sion_w_patterns
 
-    def count_issues(holding):
-        """Get holdings issues counts.
-
-        output format: [late_issues_count]
-        """
-        late_issues = list(Item.get_issues_by_status(
-            issue_status=ItemIssueStatus.LATE,
+    def get_late_issues(holding):
+        return Item.get_issues_by_status(
+            ItemIssueStatus.LATE,
             holdings_pid=holding.pid
-        ))
-        return len(late_issues)
+        )
 
     # these two holdings has no late
-    assert not count_issues(martigny)
-    assert not count_issues(sion)
+    assert not len(list(get_late_issues(martigny)))
+    assert not len(list(get_late_issues(sion)))
 
-    # for these holdings records, the next expected date is already passed
+    # for these holdings records, the need date is already passed
     # system will receive the issue and change its status to late
     process_late_issues(dbcommit=True, reindex=True)
-    assert count_issues(martigny) == 1
-    assert count_issues(sion) == 1
+    assert len(list(get_late_issues(martigny))) == 1
+    assert len(list(get_late_issues(sion))) == 1
 
-    # create a second late issue for martigny and no more for sion
+    # create a second late issue for Martigny and no more for Sion
     sion['patterns']['next_expected_date'] = tomorrow.strftime('%Y-%m-%d')
     sion.update(sion, dbcommit=True, reindex=True)
-
     martigny['patterns']['next_expected_date'] = yesterday.strftime('%Y-%m-%d')
     martigny.update(martigny, dbcommit=True, reindex=True)
 
     process_late_issues(dbcommit=True, reindex=True)
-    assert count_issues(martigny) == 2
-    assert count_issues(sion) == 1
+    assert len(list(get_late_issues(martigny))) == 2
+    assert len(list(get_late_issues(sion))) == 1
 
     # change the acq_status of Martigny holding.
     # as Martigny holding isn't yet considered as alive, no new issue should
@@ -79,8 +75,35 @@ def test_late_expected(
     martigny['patterns']['next_expected_date'] = date2.strftime('%Y-%m-%d')
     martigny['acquisition_status'] = 'not_currently_received'
     martigny.update(martigny, dbcommit=True, reindex=True)
+
     process_late_issues(dbcommit=True, reindex=True)
-    assert count_issues(martigny) == 2  # no new late issue than before
+    late_issues = list(get_late_issues(martigny))
+    assert len(late_issues) == 2  # no new late issue than before
+
+    # Get a late issues and update it's expected date : this will be set the
+    # `sort_date` field
+    issue = late_issues[0]
+    assert issue.issue_status == ItemIssueStatus.LATE
+    original_expected_date = issue.expected_date
+    es_issue = ItemsSearch().get_record_by_pid(issue.pid)
+    assert not issue.sort_date
+    assert es_issue['issue']['sort_date'] == original_expected_date
+
+    issue.expected_date = tomorrow.strftime('%Y-%m-%d')
+    issue = issue.update(issue, dbcommit=True, reindex=True)
+    assert issue.sort_date == original_expected_date
+    assert issue.issue_status == ItemIssueStatus.EXPECTED
+
+    # Now set the issue `expected_date` to an over date and run again the task.
+    # The previous issue should be updated to `LATE` status
+    issue.expected_date = yesterday.strftime('%Y-%m-%d')
+    issue.update(issue, dbcommit=True, reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+    process_late_issues(dbcommit=True, reindex=True)
+
+    issue = Item.get_record_by_pid(issue.pid)
+    assert issue.issue_status == ItemIssueStatus.LATE
+
     # reset Martigny holding
     martigny.update(martigny_data, dbcommit=True, reindex=True)
 

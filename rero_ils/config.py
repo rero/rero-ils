@@ -2638,6 +2638,10 @@ RECORDS_REST_SORT_OPTIONS['items']['issue_expected_date'] = dict(
     fields=['issue.expected_date'], title='Issue expected date',
     default_order='asc'
 )
+RECORDS_REST_SORT_OPTIONS['items']['issue_sort_date'] = dict(
+    fields=['issue.sort_date'], title='Issue chronology date',
+    default_order='asc'
+)
 RECORDS_REST_SORT_OPTIONS['items']['enumeration_chronology'] = dict(
     fields=['-enumerationAndChronology'], title='Enumeration and Chronology',
     default_order='desc'

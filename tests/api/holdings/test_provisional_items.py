@@ -30,7 +30,7 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus, TypeOfItem
 from rero_ils.modules.items.tasks import delete_provisional_items
 from rero_ils.modules.items.utils import \
-    get_provisional_items_pids_candidate_to_delete
+    get_provisional_items_candidate_to_delete
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.patron_transactions.api import PatronTransaction
@@ -246,7 +246,7 @@ def test_holding_requests(client, patron_martigny, loc_public_martigny,
 
     # test delete provisional items with no active fees/loans
     report = delete_provisional_items()
-    assert report.get('numner_of_deleted_items')
+    assert report.get('number_of_deleted_items')
     assert report.get('number_of_candidate_items_to_delete')
     # assert that not deleted items are either having loans/fees or not
     # provisional items
@@ -258,7 +258,7 @@ def test_holding_requests(client, patron_martigny, loc_public_martigny,
         assert not can or record.get('type') != TypeOfItem.PROVISIONAL
     # item_2 has pending loans then it should not be removed
     assert item_2.pid in left_item_pids
-    assert item_2.pid in get_provisional_items_pids_candidate_to_delete()
+    assert item_2 in get_provisional_items_candidate_to_delete()
     # add fee to item_2 and make sure it will not be candidate at the deletion.
     data = {
         'loan': {'$ref': get_ref_for_pid('loanid', loan_2.pid)},
@@ -270,4 +270,4 @@ def test_holding_requests(client, patron_martigny, loc_public_martigny,
         'creation_date': datetime.now(timezone.utc).isoformat()
     }
     PatronTransaction.create(data, dbcommit=True, reindex=True)
-    assert item_2.pid not in get_provisional_items_pids_candidate_to_delete()
+    assert item_2 not in get_provisional_items_candidate_to_delete()

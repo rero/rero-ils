@@ -65,10 +65,11 @@ class ItemStatus:
 class ItemIssueStatus:
     """Enum class to list all possible status of an issue item."""
 
-    RECEIVED = 'received'
     CLAIMED = 'claimed'
     DELETED = 'deleted'
+    EXPECTED = 'expected'
     LATE = 'late'
+    RECEIVED = 'received'
 
 
 class ItemCirculationAction:

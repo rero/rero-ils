@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,10 +25,12 @@ from flask import current_app
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.holdings.api import Holding
+from rero_ils.modules.holdings.utils import receive_next_late_expected_issues
 from rero_ils.modules.utils import extracted_data_from_ref, set_timestamp
 
 from .api import Item
-from .utils import get_provisional_items_pids_candidate_to_delete
+from .utils import get_provisional_items_candidate_to_delete, \
+    update_late_expected_issue
 
 
 @shared_task()
@@ -40,11 +43,10 @@ def delete_provisional_items():
       1) no active loans
       2) no fees
     """
-    deleted_items = 0
-    for count_items, item_pid in enumerate(
-            get_provisional_items_pids_candidate_to_delete(), 1):
+    deleted_items, counter = 0, 0
+    for item in get_provisional_items_candidate_to_delete():
+        counter += 1
         try:
-            item = Item.get_record_by_pid(item_pid)
             item.delete(dbcommit=True, delindex=True)
             deleted_items += 1
         except IlsRecordError.NotDeleted:
@@ -53,33 +55,29 @@ def delete_provisional_items():
             current_app.logger.error(error)
 
     msg_dict = {
-        'number_of_candidate_items_to_delete': count_items,
-        'numner_of_deleted_items': deleted_items
+        'number_of_candidate_items_to_delete': counter,
+        'number_of_deleted_items': deleted_items
     }
     set_timestamp('claims-creation', **msg_dict)
     return msg_dict
 
 
 @shared_task
-def process_late_issues(
-        expected_issues_to_late=True, dbcommit=True, reindex=True):
+def process_late_issues(dbcommit=True, reindex=True):
     """Job to manage late issues.
 
     Receives the next late expected issue for all holdings.
 
-    :param expected_issues_to_late: by default creates late issues.
     :param reindex: reindex the records.
     :param dbcommit: commit record to database.
-
-    :return a count of modified and created issues.
+    :return: number of modified or created issues.
     """
-    expected_issues_to_late_count = 0
-
-    if expected_issues_to_late:
-        expected_issues_to_late_count = Item.receive_next_late_expected_issues(
-            dbcommit=dbcommit, reindex=reindex)
-
-    msg = f'expected_issues_to_late: {expected_issues_to_late_count} '
+    # Perform serial type holding with passed `next_expected_date`
+    counter = receive_next_late_expected_issues(
+        dbcommit=dbcommit, reindex=reindex)
+    # Perform already created issue with passed `next_expected_date`
+    counter += update_late_expected_issue(dbcommit=dbcommit, reindex=reindex)
+    msg = f'expected_issues_to_late: {counter}'
     set_timestamp('late-issues-creation', msg=msg)
     return msg
 
