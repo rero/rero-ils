@@ -397,6 +397,17 @@ class IlsRecord(Record):
         """Get record count."""
         return cls._get_all(with_deleted=with_deleted).count()
 
+    def db_record(self):
+        """Get record stored into DB for this record (aka original_record).
+
+        :returns: the record stored into database corresponding to the record
+                  id. If the record ID doesn't yet exist, return None.
+        """
+        try:
+            return self.__class__.get_record(self.id)
+        except NoResultFound:
+            pass
+
     def delete(self, force=False, dbcommit=False, delindex=False):
         """Delete record and persistent identifier."""
         can, _ = self.can_delete

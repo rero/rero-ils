@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -31,32 +32,30 @@ def enrich_item_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index.split('-')[0] == ItemsSearch.Meta.index:
-        item = record
-        if not isinstance(record, Item):
-            item = Item.get_record_by_pid(record.get('pid'))
-        # add vendor name
-        if item.vendor_pid:
-            json['vendor'] = {
-                'pid': item.vendor_pid,
-                'type': 'vndr'
-            }
+    if index.split('-')[0] != ItemsSearch.Meta.index:
+        return
+    if not isinstance(record, Item):
+        record = Item.get_record_by_pid(record.get('pid'))
 
-        # Local fields in JSON
-        local_fields = LocalField.get_local_fields_by_resource(
-            'item', item.pid)
-        if local_fields:
-            json['local_fields'] = local_fields
+    # Document type
+    document = Document.get_record_by_pid(json['document']['pid'])
+    json['document']['document_type'] = document['type']
 
+    # Current pending requests
+    json['current_pending_requests'] = record.get_requests(output='count')
+
+    # add related local fields
+    if fields := LocalField.get_local_fields_by_resource('item', record.pid):
+        json['local_fields'] = fields
+
+    if record.is_issue:
+        # Issue `sort_date` is an optional field but value is used to sort
+        # issues from one another ; if this field is empty, use the issue
+        # `expected_date` as value
+        json['issue']['sort_date'] = record.sort_date or record.expected_date
         # inherited_first_call_number to issue
-        inherited_first_call_number = item.issue_inherited_first_call_number
-        if inherited_first_call_number:
-            json['issue']['inherited_first_call_number'] = \
-                inherited_first_call_number
-
-        # Document type
-        document = Document.get_record_by_pid(json['document']['pid'])
-        json['document']['document_type'] = document['type']
-
-        # Current pending requests
-        json['current_pending_requests'] = item.get_requests(output='count')
+        if call_number := record.issue_inherited_first_call_number:
+            json['issue']['inherited_first_call_number'] = call_number
+        # inject vendor pid
+        if vendor_pid := record.vendor_pid:
+            json['vendor'] = {'pid': vendor_pid, 'type': 'vndr'}

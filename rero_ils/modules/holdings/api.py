@@ -244,17 +244,17 @@ class Holding(IlsRecord):
     @property
     def max_number_of_claims(self):
         """Shortcut to return the max_number_of_claims."""
-        return self.get('patterns', {}).get('max_number_of_claims')
+        return self.get('patterns', {}).get('max_number_of_claims', 0)
 
     @property
     def days_before_first_claim(self):
         """Shortcut to return the days_before_first_claim."""
-        return self.get('patterns', {}).get('days_before_first_claim')
+        return self.get('patterns', {}).get('days_before_first_claim', 0)
 
     @property
     def days_before_next_claim(self):
         """Shortcut to return the days_before_next_claim."""
-        return self.get('patterns', {}).get('days_before_next_claim')
+        return self.get('patterns', {}).get('days_before_next_claim', 0)
 
     @property
     def vendor_pid(self):
@@ -344,40 +344,33 @@ class Holding(IlsRecord):
 
     def get_items_filter_by_viewcode(self, viewcode):
         """Return items filter by view code."""
-        items = []
-        holdings_items = [
+        items = [
             Item.get_record_by_pid(item_pid)
             for item_pid in Item.get_items_pid_by_holding_pid(self.get('pid'))
         ]
         if (viewcode != current_app.
                 config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')):
             org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
-            for item in holdings_items:
-                if item.organisation_pid == org_pid:
-                    items.append(item)
-            return items
-        return holdings_items
+            return [item for item in items if item.organisation_pid == org_pid]
+        return items
 
     @property
     def get_items(self):
         """Return standard items and received issues for a holding record."""
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
-            item = Item.get_record_by_pid(item_pid)
-            if item:
+            if item := Item.get_record_by_pid(item_pid):
                 if not item.issue_status or \
                         item.issue_status == ItemIssueStatus.RECEIVED:
                     # inherit holdings first call#
                     # for issues with no 1st call#.
-                    issue_call_number = item.issue_inherited_first_call_number
-                    if issue_call_number:
-                        item['call_number'] = issue_call_number
+                    if call_number := item.issue_inherited_first_call_number:
+                        item['call_number'] = call_number
                     yield item
 
     def get_all_items(self):
         """Return all items a holding record."""
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
-            item = Item.get_record_by_pid(item_pid)
-            yield item
+            yield Item.get_record_by_pid(item_pid)
 
     def get_links_to_me(self, get_pids=False):
         """Record links.
@@ -609,11 +602,7 @@ class Holding(IlsRecord):
         :param expected_date: The issue expected_date to prepare.
         :return: The prepared issue data.
         """
-        issue_data = {
-            'issue': issue,
-            'expected_date':  expected_date
-        }
-        return issue_data
+        return {'issue': issue, 'expected_date': expected_date}
 
     def _prepare_issue_record(
             self, item=None, issue_display=None, expected_date=None):
@@ -630,8 +619,7 @@ class Holding(IlsRecord):
             'status': 'on_shelf'
         }
         if item:
-            issue = item.pop('issue', None)
-            if issue:
+            if issue := item.pop('issue', None):
                 data['issue'].update(issue)
             data.update(item)
         # ensure that we have the right item fields such as location,
@@ -651,7 +639,7 @@ class Holding(IlsRecord):
 
     def receive_regular_issue(self, item=None, dbcommit=False, reindex=False):
         """Receive the next expected regular issue for the holdings record."""
-        # receive is allowed only on holdings of type serials and regular
+        # receive is allowed only on holdings of type serials with a regular
         # frequency
         if self.holdings_type != HoldingTypes.SERIAL \
            or self.get('patterns', {}).get('frequency') == 'rdafr:1016':
@@ -660,8 +648,10 @@ class Holding(IlsRecord):
         issue_display, expected_date = self._get_next_issue_display_text(
                     self.get('patterns'))
         data = self._prepare_issue_record(
-            item=item, issue_display=issue_display,
-            expected_date=expected_date)
+            item=item,
+            issue_display=issue_display,
+            expected_date=expected_date
+        )
         return Item.create(data=data, dbcommit=dbcommit, reindex=reindex)
 
 

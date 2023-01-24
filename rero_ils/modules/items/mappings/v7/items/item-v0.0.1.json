@@ -184,6 +184,9 @@
           "expected_date": {
             "type": "date"
           },
+          "sort_date": {
+            "type": "date"
+          },
           "regular": {
             "type": "boolean"
           },

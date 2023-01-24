@@ -65,7 +65,7 @@ def test_patterns_quarterly_one_level(holding_lib_martigny_w_patterns):
     assert holding.next_issue_display_text == 'no 61 mars 2020'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'no 62 juin 2020'
-    for r in range(11):
+    for _ in range(11):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'no 73 mars 2023'
     # test preview
@@ -78,7 +78,7 @@ def test_patterns_quarterly_one_level(holding_lib_martigny_w_patterns):
     assert new_holding.next_issue_display_text == '1 3'
 
 
-def test_receive_regular_issue(holding_lib_martigny_w_patterns):
+def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
     """Test holdings receive regular issues."""
     holding = holding_lib_martigny_w_patterns
     assert holding.is_serial
@@ -104,9 +104,12 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns):
     assert issue_status_date.strftime('%Y-%m-%d') == \
         datetime.now().strftime('%Y-%m-%d')
     # test change status_date with status changes
-    issue['issue']['status'] = ItemIssueStatus.CLAIMED
+    issue.expected_date = tomorrow.strftime('%Y-%m-%d')
+    issue.issue_status = ItemIssueStatus.CLAIMED
     new_issues = issue.update(issue, dbcommit=True, reindex=True)
-    assert new_issues.issue_status == ItemIssueStatus.CLAIMED
+    # As we choose a future expected date, the issue status should be
+    # automatically changed to `expected`
+    assert new_issues.issue_status == ItemIssueStatus.EXPECTED
     new_issue_status_date = ciso8601.parse_datetime(
         new_issues.issue_status_date)
     assert new_issue_status_date > issue_status_date
@@ -150,7 +153,7 @@ def test_patterns_yearly_one_level(
     assert holding.next_issue_display_text == '82 2020'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == '83 2021'
-    for r in range(25):
+    for _ in range(25):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == '108 2046'
     # test preview
@@ -169,7 +172,7 @@ def test_patterns_yearly_one_level_with_label(
     assert holding.next_issue_display_text == '29 Edition 2020'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == '30 Edition 2021'
-    for r in range(25):
+    for _ in range(25):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == '55 Edition 2046'
     # test preview
@@ -188,7 +191,7 @@ def test_patterns_yearly_two_times(
     assert holding.next_issue_display_text == 'Jg. 8 Nov. 2019'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'Jg. 9 März 2020'
-    for r in range(25):
+    for _ in range(25):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'Jg. 21 Nov. 2032'
     # test preview
@@ -207,7 +210,7 @@ def test_patterns_quarterly_two_levels(
     assert holding.next_issue_display_text == 'Jg. 20 Heft 1 2020'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'Jg. 20 Heft 2 2020'
-    for r in range(25):
+    for _ in range(25):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'Jg. 26 Heft 3 2026'
     # test preview
@@ -228,7 +231,7 @@ def test_patterns_quarterly_two_levels_with_season(
         'année 2019 no 277 printemps 2018'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'année 2019 no 278 été 2018'
-    for r in range(25):
+    for _ in range(25):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == \
         'année 2025 no 303 automne 2024'
@@ -251,7 +254,7 @@ def test_patterns_half_yearly_one_level(
     assert holding.next_issue_display_text == 'N˚ 48 printemps 2019'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'N˚ 49 automne 2019'
-    for r in range(13):
+    for _ in range(13):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'N˚ 62 printemps 2026'
     # test preview
@@ -271,7 +274,7 @@ def test_patterns_bimonthly_every_two_months_one_level(
     assert holding.next_issue_display_text == '47 jan./fév. 2020'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == '48 mars/avril 2020'
-    for r in range(25):
+    for _ in range(25):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == '73 mai/juin 2024'
     # test preview
@@ -291,7 +294,7 @@ def test_patterns_half_yearly_two_levels(
     assert holding.next_issue_display_text == 'Année 30 no 84 June 2020'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'Année 30 no 85 Dec. 2020'
-    for r in range(25):
+    for _ in range(25):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'Année 43 no 110 June 2033'
     # test preview
@@ -311,7 +314,7 @@ def test_bimonthly_every_two_months_two_levels(
     assert holding.next_issue_display_text == 'Jg 51 Nr 1 Jan. 2020'
     holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'Jg 51 Nr 2 März 2020'
-    for r in range(25):
+    for _ in range(25):
         holding.increment_next_prediction()
     assert holding.next_issue_display_text == 'Jg 55 Nr 3 Mai 2024'
     # test preview

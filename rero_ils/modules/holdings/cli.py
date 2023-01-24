@@ -26,15 +26,15 @@ from datetime import datetime, timedelta, timezone
 import click
 from flask.cli import with_appcontext
 
-from ..documents.api import Document, DocumentsSearch
-from ..holdings.api import Holding, create_holding
-from ..item_types.api import ItemTypesSearch
-from ..items.api import Item
-from ..items.models import ItemIssueStatus
-from ..items.tasks import process_late_issues
-from ..locations.api import LocationsSearch
-from ..organisations.api import Organisation
-from ..utils import read_json_record
+from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.holdings.api import Holding, create_holding
+from rero_ils.modules.item_types.api import ItemTypesSearch
+from rero_ils.modules.items.api import ItemIssue
+from rero_ils.modules.items.models import ItemIssueStatus
+from rero_ils.modules.items.tasks import process_late_issues
+from rero_ils.modules.locations.api import LocationsSearch
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.utils import read_json_record
 
 
 def get_document_pid_by_rero_number(rero_control_number):
@@ -198,8 +198,7 @@ def create_patterns(infile, verbose, debug, lazy):
     # create some late issues.
     process_late_issues(dbcommit=True, reindex=True)
     # make late issues ready for a claim
-    for item in Item.get_issues_by_status(issue_status=ItemIssueStatus.LATE):
-        holding = Holding.get_record_by_pid(item.holding_pid)
-        item['issue']['status_date'] = \
+    for issue in ItemIssue.get_issues_by_status(status=ItemIssueStatus.LATE):
+        issue['issue']['status_date'] = \
             (datetime.now(timezone.utc) - timedelta(days=8)).isoformat()
-        item.update(item, dbcommit=True, reindex=True)
+        issue.update(issue, dbcommit=True, reindex=True)
