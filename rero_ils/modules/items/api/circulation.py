@@ -76,8 +76,7 @@ class ItemCirculation(ItemRecord):
 
     def prior_validate_actions(self, **kwargs):
         """Check if the validate action can be executed or not."""
-        loan_pid = kwargs.get('pid')
-        if loan_pid:
+        if loan_pid := kwargs.get('pid'):
             # no item validation is possible when an item has an active loan.
             states = self.get_loans_states_by_item_pid_exclude_loan_pid(
                 self.pid, loan_pid)
@@ -87,7 +86,10 @@ class ItemCirculation(ItemRecord):
                 raise NoValidTransitionAvailableError()
         else:
             # no validation is possible when loan is not found/given
-            raise NoCirculationAction('No circulation action is possible')
+            current_app.logger.error(
+                'NoCirculationAction prior_validate_actions')
+            raise NoCirculationAction(
+                _('No circulation action performed: validate_actions'))
 
     def prior_extend_loan_actions(self, **kwargs):
         """Actions to execute before an extend_loan action."""
@@ -102,11 +104,12 @@ class ItemCirculation(ItemRecord):
             loan = Loan.get_record_by_pid(loan_pid)
 
         # Check extend is allowed
-        #   It's not allowed to extend an item that if it is not checked out
-        #   and if some pending requests already placed on it
+        #   It's not allowed to extend an item if it is not checked out
+        #   or has some pending requests already placed on it
         have_request = LoanState.PENDING in self.get_loan_states_for_an_item()
         if not checked_out or have_request:
-            raise NoCirculationAction('No circulation action is possible')
+            raise NoCirculationAction(
+                _('No circulation action performed: extend_loan_actions'))
 
         return loan, kwargs
 
@@ -206,10 +209,11 @@ class ItemCirculation(ItemRecord):
             if self.status != ItemStatus.ON_SHELF:
                 self.status_update(
                     self, dbcommit=True, reindex=True, forceindex=True)
-                raise NoCirculationAction(
-                    'Item returned at owning library')
+                raise NoCirculationAction(_(
+                    'No circulation action performed: '
+                    'Item returned at owning library'))
             raise NoCirculationAction(
-                'No circulation action performed')
+                _('No circulation action performed: on shelf'))
         else:
             # CHECKIN_1_1_2: item library != transaction library
             # item will be checked-in in an external library, no
@@ -218,7 +222,8 @@ class ItemCirculation(ItemRecord):
             self.status_update(
                 self, on_shelf=False, dbcommit=True, reindex=True,
                 forceindex=True)
-            raise NoCirculationAction('in_transit status added')
+            raise NoCirculationAction(
+                _('No circulation action performed: in transit added'))
 
     def checkin_item_at_desk(self, **kwargs):
         """Checkin actions for at_desk item.
@@ -236,7 +241,7 @@ class ItemCirculation(ItemRecord):
             # CHECKIN_2_1: pickup location = transaction library
             # (no action, item is: at_desk (ITEM_AT_DESK))
             raise NoCirculationAction(
-                'No circulation action performed')
+                _('No circulation action performed: item at desk'))
 
         # CHECKIN_2_2: pickup location != transaction library
         # item is: in_transit
@@ -245,7 +250,8 @@ class ItemCirculation(ItemRecord):
         self['status'] = ItemStatus.IN_TRANSIT
         self.status_update(
             self, on_shelf=False, dbcommit=True, reindex=True, forceindex=True)
-        raise NoCirculationAction('in_transit status added')
+        raise NoCirculationAction(
+            _('No circulation action performed: in transit added'))
 
     def checkin_item_in_transit_for_pickup(self, **kwargs):
         """Checkin actions for item in_transit for pickup.
@@ -269,7 +275,7 @@ class ItemCirculation(ItemRecord):
             # CHECKIN_4_2: pickup location != transaction library
             # (no action, item is: in_transit (IN_TRANSIT_FOR_PICKUP))
             raise NoCirculationAction(
-                'No circulation action performed')
+                _('No circulation action performed: in transit for pickup'))
 
     def checkin_item_in_transit_to_house(self, loans_list, **kwargs):
         """Checkin actions for an item in IN_TRANSIT_TO_HOUSE with no requests.
@@ -289,7 +295,7 @@ class ItemCirculation(ItemRecord):
                 # CHECKIN_5_1_2: item location != transaction library
                 # (no action, item is: in_transit (IN_TRANSIT_TO_HOUSE))
                 raise NoCirculationAction(
-                    'No circulation action performed')
+                    _('No circulation action performed: in transit to house'))
             # CHECKIN_5_1_1: item location = transaction library
             # (house_receive current loan, item is: on_shelf)
             kwargs['receive_in_transit_request'] = True
@@ -334,9 +340,9 @@ class ItemCirculation(ItemRecord):
                 # transaction library
                 if libraries['item_pickup_libraries']:
                     # CHECKIN_5_2_2_1: pickup location of first PENDING loan =
-                    # item library (no action, item is: in_transit)
+                    # item library (no action, item is: IN_TRANSIT)
                     raise NoCirculationAction(
-                        'No circulation action performed')
+                        _('No circulation action performed: in transit'))
                 else:
                     # CHECKIN_5_2_2_2: pickup location of first PENDING loan !=
                     # item library (checkin current loan, item is: in_transit)
@@ -514,9 +520,9 @@ class ItemCirculation(ItemRecord):
                 actions_to_execute['cancel_loan'] = True
             elif loan['state'] == LoanState.ITEM_ON_LOAN:
                 # CANCEL_REQUEST_3_1: no cancel action is possible on the loan
-                # of a checked-in item.
+                # of a CHECKED_IN item.
                 raise NoCirculationAction(
-                    'No circulation action is possible')
+                    _('No circulation action is possible: CHECKED_IN'))
             elif loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
                 # CANCEL_REQUEST_4_1_1: cancelling a ITEM_IN_TRANSIT_FOR_PICKUP
                 # loan with no pending request puts the item on in_transit

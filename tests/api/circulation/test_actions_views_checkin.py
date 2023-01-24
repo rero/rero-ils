@@ -19,6 +19,7 @@
 from datetime import date, datetime, timedelta, timezone
 
 from flask import url_for
+from flask_babelex import gettext as _
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
@@ -118,7 +119,8 @@ def test_auto_checkin_else(client, librarian_martigny,
         )
     )
     assert res.status_code == 400
-    assert get_json(res)['status'] == 'error: No circulation action performed'
+    assert get_json(res)['status'] == \
+        _('error: No circulation action performed: on shelf')
 
 
 def test_checkin_overdue_item(

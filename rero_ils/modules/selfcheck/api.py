@@ -498,7 +498,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                     _('Error encountered: item not found'))
                 checkin.get('screen_messages', []).append(
                     _('Error encountered: please contact a librarian'))
-            except NoCirculationAction as circ_no_action:
+            except NoCirculationAction:
                 checkin.get('screen_messages', []).append(
                     _('No circulation action is possible'))
             except CirculationException as circ_err:

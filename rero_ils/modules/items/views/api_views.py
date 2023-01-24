@@ -19,6 +19,7 @@
 
 from __future__ import absolute_import, print_function
 
+from copy import deepcopy
 from functools import wraps
 
 from elasticsearch import exceptions
@@ -33,7 +34,8 @@ from werkzeug.exceptions import NotFound
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.decorators import check_authentication
 from rero_ils.modules.documents.views import record_library_pickup_locations
-from rero_ils.modules.errors import NoCirculationActionIsPermitted
+from rero_ils.modules.errors import NoCirculationAction, \
+    NoCirculationActionIsPermitted
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.patrons.api import Patron, current_librarian
@@ -96,7 +98,7 @@ def do_loan_jsonify_action(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
         try:
-            data = flask_request.get_json()
+            data = deepcopy(flask_request.get_json())
             loan_pid = data.pop('pid', None)
             pickup_location_pid = data.get('pickup_location_pid', None)
             if not loan_pid or not pickup_location_pid:
@@ -119,7 +121,7 @@ def do_item_jsonify_action(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
         try:
-            data = flask_request.get_json()
+            data = deepcopy(flask_request.get_json())
             item = Item.get_item_record_for_ui(**data)
             data.pop('item_barcode', None)
 
@@ -135,9 +137,11 @@ def do_item_jsonify_action(func):
                 'metadata': item_data.dumps_for_circulation(),
                 'action_applied': action_applied
             })
-        except NoCirculationActionIsPermitted:
+        except NoCirculationAction as error:
+            return jsonify({'status': f'error: {str(error)}'}), 400
+        except NoCirculationActionIsPermitted as error:
             # The circulation specs do not allow updates on some loan states.
-            return jsonify({'status': 'error: Forbidden'}), 403
+            return jsonify({'status': f'error: {str(error)}'}), 403
         except MissingRequiredParameterError as error:
             # Return error 400 when there is a missing required parameter
             abort(400, str(error))
@@ -151,7 +155,7 @@ def do_item_jsonify_action(func):
         except Exception as error:
             # TODO: need to know what type of exception and document there.
             # raise error
-            current_app.logger.error(str(error))
+            current_app.logger.error(f'{func.__name__}: {str(error)}')
             return jsonify({'status': f'error: {error}'}), 400
     return decorated_view
 
