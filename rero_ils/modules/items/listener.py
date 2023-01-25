@@ -57,3 +57,6 @@ def enrich_item_data(sender, json=None, record=None, index=None,
         # Document type
         document = Document.get_record_by_pid(json['document']['pid'])
         json['document']['document_type'] = document['type']
+
+        # Current pending requests
+        json['current_pending_requests'] = item.get_requests(output='count')

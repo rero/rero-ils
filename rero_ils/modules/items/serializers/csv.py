@@ -30,7 +30,7 @@ from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.serializers import CachedDataSerializerMixin
 from rero_ils.utils import get_i18n_supported_languages
 
-from .collector import Collecter
+from .collector import Collector
 
 
 class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
@@ -86,21 +86,21 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
             writer.writeheader()
             yield line.read()
 
-            for pids, batch_results in Collecter.batch(results=search_result):
+            for pids, batch_results in Collector.batch(results=search_result):
                 # get documents
-                documents = Collecter.get_documents_by_item_pids(
+                documents = Collector.get_documents_by_item_pids(
                     item_pids=pids, language=language)
                 # get loans
-                items_stats = Collecter.get_loans_by_item_pids(item_pids=pids)
+                items_stats = Collector.get_loans_by_item_pids(item_pids=pids)
                 for hit in batch_results:
-                    csv_data = Collecter.get_item_data(hit)
+                    csv_data = Collector.get_item_data(hit)
                     # _process_item_types_libs_locs(self, csv_data)
                     _process_item_types_libs_locs(csv_data)
-                    Collecter.append_document_data(csv_data, documents)
-                    Collecter.append_local_fields(csv_data)
+                    Collector.append_document_data(csv_data, documents)
+                    Collector.append_local_fields(csv_data)
                     # update csv data with loan
-                    Collecter.append_loan_data(hit, csv_data, items_stats)
-                    Collecter.append_issue_data(hit, csv_data)
+                    Collector.append_loan_data(hit, csv_data, items_stats)
+                    Collector.append_issue_data(hit, csv_data)
                     # write csv data
                     data = self.process_dict(dictionary=csv_data)
                     writer.writerow(data)

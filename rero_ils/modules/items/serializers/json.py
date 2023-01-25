@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2020-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -106,4 +106,11 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             aggregations.get('vendor', {}).get('buckets', []),
             VendorsSearch, 'name'
         )
+        if aggregations.get('current_requests'):
+            aggregations['current_requests']['type'] = 'range'
+            aggregations['current_requests']['config'] = {
+                'min': 1,
+                'max': 100,
+                'step': 1
+            }
         super()._postprocess_search_aggregations(aggregations)
