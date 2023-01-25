@@ -170,6 +170,9 @@
       "status": {
         "type": "keyword"
       },
+      "current_pending_requests": {
+        "type": "integer"
+      },
       "type": {
         "type": "keyword"
       },

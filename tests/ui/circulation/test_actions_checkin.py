@@ -25,6 +25,7 @@ from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.errors import NoCirculationAction
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.api.api import ItemsSearch
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
@@ -65,7 +66,7 @@ def test_checkin_on_item_on_shelf_no_requests(
 
 def test_checkin_on_item_on_shelf_with_requests(
         item_on_shelf_martigny_patron_and_loan_pending,
-        loc_public_martigny, librarian_martigny,
+        loc_public_martigny, librarian_martigny, item_lib_martigny_data,
         patron2_martigny, loc_public_fully, lib_martigny):
     """Test checkin on an on_shelf item with requests."""
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
@@ -76,6 +77,10 @@ def test_checkin_on_item_on_shelf_with_requests(
     # validate_request circulation action will be performed.
 
     # create a second pending loan on same item
+    item_pid = item_lib_martigny_data.get('pid')
+    item_es = ItemsSearch().filter('term', pid=item_pid)\
+        .execute().hits.hits[0]._source
+    assert item_es['current_pending_requests'] == 0
     params = {
         'patron_pid': patron2_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
@@ -86,6 +91,9 @@ def test_checkin_on_item_on_shelf_with_requests(
         item=item, loan_state=LoanState.PENDING,
         params=params, copy_item=False)
     assert requested_loan['state'] == LoanState.PENDING
+    item_es = ItemsSearch().filter('term', pid=item.pid)\
+        .execute().hits.hits[0]._source
+    assert item_es['current_pending_requests'] == 2
 
     params = {
         'transaction_location_pid': loc_public_martigny.pid,

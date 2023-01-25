@@ -31,7 +31,7 @@ from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from ..models import ItemCirculationAction, ItemNoteTypes
 
 
-class Collecter():
+class Collector():
     """collect data for csv."""
 
     # define chunk size
@@ -198,7 +198,8 @@ class Collecter():
                 'temporary_item_type', {}).get('pid'),
             'item_masked': 'No',
             'item_status': hit.get('status'),
-            'issue': hit.get('issue', {})
+            'issue': hit.get('issue', {}),
+            'current_pending_requests': hit.get('current_pending_requests', 0)
         }
         fields = [
             ('pid', 'item_pid'),

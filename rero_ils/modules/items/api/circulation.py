@@ -204,8 +204,8 @@ class ItemCirculation(ItemRecord):
             # CHECKIN_1_1_1, item library = transaction library
             # item will be checked in in home library, no action
             if self.status != ItemStatus.ON_SHELF:
-                self.status_update(self, dbcommit=True,
-                                   reindex=True, forceindex=True)
+                self.status_update(
+                    self, dbcommit=True, reindex=True, forceindex=True)
                 raise NoCirculationAction(
                     'Item returned at owning library')
             raise NoCirculationAction(
@@ -1120,9 +1120,8 @@ class ItemCirculation(ItemRecord):
         return actions
 
     @classmethod
-    def status_update(
-            cls, item, on_shelf=True, dbcommit=False, reindex=False,
-            forceindex=False):
+    def status_update(cls, item, on_shelf=True, dbcommit=False,
+                      reindex=False, forceindex=False):
         """Update item status.
 
         The item normally inherits its status from its active loan. In other
@@ -1161,7 +1160,8 @@ class ItemCirculation(ItemRecord):
         """
         # TODO: check transaction location
         self['status'] = ItemStatus.ON_SHELF
-        self.status_update(self, dbcommit=True, reindex=True, forceindex=True)
+        self.status_update(
+            self, dbcommit=True, reindex=True, forceindex=True)
         return self, {
             LoanAction.RETURN_MISSING: None
         }

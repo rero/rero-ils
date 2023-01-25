@@ -741,7 +741,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         search_serializers_aliases={
             'json': 'application/json',
-            'rero+json': 'application/rero+json',
+            'rero': 'application/rero+json',
             'csv': 'text/csv',
         },
         search_serializers={
@@ -1992,6 +1992,11 @@ RECORDS_REST_FACETS = dict(
                 terms=dict(
                     field='vendor.pid',
                     size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+            ),
+            current_requests=dict(
+                max=dict(
+                    field='current_pending_requests'
+                )
             )
         ),
         filters={
@@ -2007,7 +2012,8 @@ RECORDS_REST_FACETS = dict(
             _('vendor'): and_term_filter('vendor.pid'),
             # to allow multiple filters support, in this case to filter by
             # "late or claimed"
-            'or_issue_status': terms_filter('issue.status')
+            'or_issue_status': terms_filter('issue.status'),
+            'current_requests': range_filter('current_pending_requests')
         }
     ),
     loans=dict(
@@ -2640,6 +2646,12 @@ RECORDS_REST_SORT_OPTIONS['items']['library'] = dict(
     fields=['library.pid'], title='Library',
     default_order='asc'
 )
+
+RECORDS_REST_SORT_OPTIONS['items']['current_requests'] = dict(
+    fields=['-current_pending_requests'], title='Current pending requests',
+    default_order='desc'
+)
+
 RECORDS_REST_DEFAULT_SORT['items'] = dict(
     query='bestmatch', noquery='enum_chronology')
 
