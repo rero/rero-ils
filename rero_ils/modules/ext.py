@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+import logging
+
 import jinja2
 from flask import Blueprint
 from flask_bootstrap import Bootstrap4
@@ -118,8 +120,13 @@ class REROILSAPP(object):
         REROILSAPP.register_import_api_blueprint(app)
         REROILSAPP.register_users_api_blueprint(app)
         REROILSAPP.register_sru_api_blueprint(app)
-        # import logging
-        # logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
+        if db_log := app.config.get('RERO_ILS_DB_LOGGING'):
+            logging.getLogger('sqlalchemy.engine').setLevel(db_log)
+        if es_log := app.config.get('RERO_ILS_ES_LOGGING'):
+            es_trace_logger = logging.getLogger('elasticsearch.trace')
+            es_trace_logger.setLevel(es_log)
+            handler = logging.StreamHandler()
+            es_trace_logger.addHandler(handler)
 
     @staticmethod
     def register_import_api_blueprint(app):
