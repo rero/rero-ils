@@ -1156,7 +1156,6 @@ python-versions = "*"
 files = [
     {file = "Flask-Limiter-1.1.0.tar.gz", hash = "sha256:905c35cd87bf60c92fd87922ae23fe27aa5fb31980bab31fc00807adee9f5a55"},
     {file = "Flask_Limiter-1.1.0-py2-none-any.whl", hash = "sha256:9087984ae7eeb862f93bf5b18477a5e5b1e0c907647ae74fba1c7e3f1de63d6f"},
-    {file = "Flask_Limiter-1.1.0-py2.7.egg", hash = "sha256:5831d6b5b9ef6a83dca4b89f216880a7aa204b5ce8b710b5bc02786bf21e11fd"},
 ]
 
 [package.dependencies]
@@ -1422,13 +1421,13 @@ wcwidth = ">=0.2.5"
 
 [[package]]
 name = "future"
-version = "0.18.2"
+version = "0.18.3"
 description = "Clean single-source support for Python 3 and 2"
 category = "main"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 files = [
-    {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
+    {file = "future-0.18.3.tar.gz", hash = "sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307"},
 ]
 
 [[package]]
@@ -4041,7 +4040,6 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
     {file = "requests-oauthlib-1.1.0.tar.gz", hash = "sha256:eabd8eb700ebed81ba080c6ead96d39d6bdc39996094bd23000204f6965786b0"},
     {file = "requests_oauthlib-1.1.0-py2.py3-none-any.whl", hash = "sha256:be76f2bb72ca5525998e81d47913e09b1ca8b7957ae89b46f787a79e68ad5e61"},
-    {file = "requests_oauthlib-1.1.0-py3.7.egg", hash = "sha256:490229d14a98e1b69612dcc1a22887ec14f5487dc1b8c6d7ba7f77a42ce7347b"},
 ]
 
 [package.dependencies]
@@ -4474,7 +4472,7 @@ mssql = ["pyodbc"]
 mssql-pymssql = ["pymssql"]
 mssql-pyodbc = ["pyodbc"]
 mysql = ["mysqlclient"]
-oracle = ["cx_oracle"]
+oracle = ["cx-oracle"]
 postgresql = ["psycopg2"]
 postgresql-pg8000 = ["pg8000 (<1.16.6)"]
 postgresql-psycopg2binary = ["psycopg2-binary"]
