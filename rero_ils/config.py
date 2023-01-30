@@ -546,6 +546,12 @@ APP_ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
+#: Enable DB logging (level)
+# RERO_ILS_DB_LOGGING = 1
+
+#: Enable Indexer logging (level)
+# RERO_ILS_ES_LOGGING = 1
+
 # REST API Configuration
 # ======================
 RERO_ILS_APP_DISABLE_PERMISSION_CHECKS = False
