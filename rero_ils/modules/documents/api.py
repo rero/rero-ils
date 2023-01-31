@@ -317,18 +317,23 @@ class Document(IlsRecord):
         for contribution in data.get('contribution', []):
             if not contribution['agent'].get('$ref'):
                 new_contributions.append(contribution)
-            if mef_pid := contribution['agent'].get('pid'):
-                if agent := Contribution.get_record_by_pid(mef_pid):
-                    _type, _ = Contribution.get_type_and_pid_from_ref(
-                        contribution['agent']['$ref'])
+            else:
+                agent = None
+                _type, _pid = Contribution.get_type_and_pid_from_ref(
+                    contribution['agent']['$ref'])
+                if mef_pid := contribution['agent'].get('pid'):
+                    agent = Contribution.get_contribution('mef', mef_pid)
+                else:
+                    agent = Contribution.get_contribution(_type, _pid)
+                if agent:
                     contribution['agent'] = agent.dumps_for_document()
                     contribution['agent']['primary_source'] = _type
                     new_contributions.append(contribution)
-            elif contribution['agent'].get('$ref'):
-                current_app.logger.error(
-                    f'Unable to resolve contribution $ref '
-                    f'{contribution["agent"].get("$ref")}'
-                    f' for document {data.get("pid")}')
+                else:
+                    current_app.logger.error(
+                        f'Unable to resolve contribution $ref '
+                        f'{contribution["agent"].get("$ref")}'
+                        f' for document {data.get("pid")}')
         if new_contributions:
             data['contribution'] = new_contributions
         return data
@@ -350,9 +355,21 @@ class Document(IlsRecord):
                     DocumentSubjectType.PERSON,
                     DocumentSubjectType.ORGANISATION
                 ]:
-                    contrib_data = Contribution.get_record_by_pid(mef_pid)
-                    del subject['$ref']
-                    subject.update(contrib_data)
+                    agent = None
+                    _type, _pid = Contribution.get_type_and_pid_from_ref(
+                        subject_ref)
+                    if mef_pid:
+                        agent = Contribution.get_contribution('mef', mef_pid)
+                    else:
+                        agent = Contribution.get_contribution(_type, _pid)
+                    if agent:
+                        del subject['$ref']
+                        subject.update(agent)
+                    else:
+                        current_app.logger.error(
+                            f'Unable to resolve suject $ref '
+                            f'{subject_ref}'
+                            f' for document {data.get("pid")}')
         return data
 
     def replace_refs(self):
