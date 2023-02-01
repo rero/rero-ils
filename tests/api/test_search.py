@@ -21,7 +21,7 @@ from flask import url_for
 from utils import get_json, login_user_via_session
 
 
-def test_document_search(
+def test_documents_search(
         client,
         doc_title_travailleurs,
         doc_title_travailleuses
@@ -316,6 +316,17 @@ def test_document_search(
     res = client.get(list_url)
     hits = get_json(res)['hits']
     assert hits['total']['value'] == 1
+
+    # test wildcard query with boolean sub property
+    # See: elasticsearch query_string lenient property
+    #      for more details
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=r'subjects.\*:test'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits
 
 
 def test_patrons_search(

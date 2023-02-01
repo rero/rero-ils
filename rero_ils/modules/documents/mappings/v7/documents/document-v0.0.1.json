@@ -955,9 +955,6 @@
           "pid": {
             "type": "keyword"
           },
-          "available": {
-            "type": "boolean"
-          },
           "location": {
             "type": "object",
             "properties": {
@@ -1065,9 +1062,6 @@
               },
               "status": {
                 "type": "keyword"
-              },
-              "available": {
-                "type": "boolean"
               },
               "acquisition": {
                 "type": "nested",
@@ -1828,9 +1822,6 @@
             "type": "text"
           }
         }
-      },
-      "available": {
-        "type": "boolean"
       },
       "organisation": {
         "properties": {
