@@ -1,5 +1,35 @@
 {
-  "index_patterns": "*",
+  "index_patterns": [
+    "acq_accounts-*",
+    "acq_invoices-*",
+    "acq_order_lines-*",
+    "acq_orders-*",
+    "acq_receipt_lines-*",
+    "acq_receipts-*",
+    "budgets-*",
+    "circ_policies-*",
+    "collections-*",
+    "contributions-*",
+    "documents-*",
+    "holdings-*",
+    "ill_requests-*",
+    "item_types-*",
+    "items-*",
+    "libraries-*",
+    "loans-*",
+    "loans-*",
+    "local_fields-*",
+    "locations-*",
+    "notifications-*",
+    "organisations-*",
+    "patron_transaction_events-*",
+    "patron_transactions-*",
+    "patron_types-*",
+    "patrons-*",
+    "stats-*",
+    "templates-*",
+    "vendors-*"
+  ],
   "settings": {
     "number_of_shards": "8",
     "number_of_replicas": "1",
@@ -141,5 +171,18 @@
         }
       }
     }
+  },
+  "mappings": {
+    "dynamic": "false",
+    "dynamic_templates": [
+      {
+        "objects": {
+          "match_mapping_type": "object",
+          "mapping": {
+            "dynamic": "false"
+          }
+        }
+      }
+    ]
   }
 }

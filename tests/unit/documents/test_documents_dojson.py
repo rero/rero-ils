@@ -1578,7 +1578,7 @@ def test_marc21_provisionActivity_without_264_with_752():
         'place': [{
             'country': 'sz',
             'type': 'bf:Place',
-            'identifyBy': {
+            'identifiedBy': {
                     'type': 'IdRef',
                     'value': '027401421'
                 }
@@ -1815,7 +1815,7 @@ def test_marc21_to_provision_activity_1_place_2_agents_with_one_752():
             'place': [{
                 'country': 'fr',
                 'type': 'bf:Place',
-                'identifyBy': {
+                'identifiedBy': {
                     'type': 'IdRef',
                     'value': '027401421'
                 }
@@ -1879,14 +1879,14 @@ def test_marc21_to_provision_activity_1_place_2_agents_with_two_752():
             'place': [{
                     'country': 'fr',
                     'type': 'bf:Place',
-                    'identifyBy': {
+                    'identifiedBy': {
                         'type': 'IdRef',
                         'value': '027401421'
                     }
                 }, {
                     'country': 'xx',
                     'type': 'bf:Place',
-                    'identifyBy': {
+                    'identifiedBy': {
                         'type': 'RERO',
                         'value': 'A000000001'
                     }

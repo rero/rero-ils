@@ -650,7 +650,7 @@ class ReroIlsOverdo(Overdo):
         if place:
             place['type'] = 'bf:Place'
         if self.links_from_752:
-            place['identifyBy'] = self.links_from_752[0]
+            place['identifiedBy'] = self.links_from_752[0]
         return place
 
     def default_provision_activity(self, result):
@@ -666,7 +666,7 @@ class ReroIlsOverdo(Overdo):
             place = {
                 'country': 'xx',
                 'type': 'bf:Place',
-                'identifyBy': self.links_from_752[i]
+                'identifiedBy': self.links_from_752[i]
             }
             places.append(place)
 
@@ -1187,7 +1187,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                     self.admin_meta_data['descriptionConventions'] = \
                         description_conventions
 
-            # build the list of links from filed 752
+            # build the list of links from field 752
             self.links_from_752 = []
             fields_752 = self.get_fields(tag='752')
             for field_752 in fields_752:
@@ -1986,7 +1986,7 @@ def build_responsibility_data(responsibility_data):
 
 
 def build_identifier(data):
-    """Build identifyBy for document_identifier-v0.0.1.json from $0.
+    """Build identifiedBy for document_identifier-v0.0.1.json from $0.
 
     :param data: data to build the identifiedBy from.
     :returns: identifiedBy from $0 or None.
