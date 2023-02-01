@@ -1063,6 +1063,9 @@
               "call_number": {
                 "type": "text"
               },
+              "second_call_number": {
+                "type": "text"
+              },
               "status": {
                 "type": "keyword"
               },
@@ -1195,6 +1198,12 @@
       "supplement": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
           "label": {
             "type": "text"
           },
@@ -1226,6 +1235,12 @@
       "supplementTo": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
           "label": {
             "type": "text"
           },
@@ -1257,6 +1272,12 @@
       "otherEdition": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
           "label": {
             "type": "text"
           },
@@ -1288,6 +1309,12 @@
       "otherPhysicalFormat": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
           "label": {
             "type": "text"
           },
@@ -1319,6 +1346,12 @@
       "issuedWith": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
           "label": {
             "type": "text"
           },
@@ -1350,6 +1383,12 @@
       "precededBy": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
           "label": {
             "type": "text"
           },
@@ -1381,6 +1420,12 @@
       "succeededBy": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
           "label": {
             "type": "text"
           },
@@ -1412,6 +1457,12 @@
       "relatedTo": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
           "label": {
             "type": "text"
           },

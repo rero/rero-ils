@@ -818,19 +818,18 @@ def do_provision_activity(data, marc21, key, value):
             place = {
                 'country': 'xx',
                 'type': 'bf:Place',
-                'identifyBy': marc21.links_from_752[i]
             }
+            if marc21.links_from_752:
+                place['identifiedBy'] = marc21.links_from_752[i]
             places.append(place)
         if places:
             publication['place'] = places
     subfield_3 = not_repetitive(
         marc21.bib_id, marc21.rero_id, key, value, '3')
     if subfield_3:
-        notes = publication.get('note')
-        if notes:
-            notes = [notes]
-        else:
-            notes = []
+        notes = []
+        if pub_notes := publication.get('note'):
+            notes = [pub_notes]
         notes.append(subfield_3)
         publication['note'] = ', '.join(notes)
 
