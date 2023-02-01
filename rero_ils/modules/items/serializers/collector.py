@@ -66,7 +66,7 @@ class Collecter():
         """Chunk search results.
 
         :param results: search results.
-        :return list of chuncked item pids and search records
+        :return list of chunked item pids and search records
         """
         records, pids = [], []
         for result in results:
@@ -87,14 +87,20 @@ class Collecter():
         """
 
         def _build_doc(data):
-            document_data = {
-                'document_title': next(
-                    filter(
-                        lambda x: x.get('type')
-                        == 'bf:Title', data.get('title'))
-                ).get('_text'),
-                'document_masked': 'No'
-            }
+            document_data = {}
+            # document title
+            doc_titles = filter(
+                lambda t: t.get('type') == 'bf:Title',
+                data.get('title', {})
+            )
+            if title := next(doc_titles):
+                document_data['document_title'] = title.get('_text')
+
+            # document masked
+            bool_values = ('No', 'Yes')
+            is_masked = data.get('masked', False)
+            document_data['document_masked'] = bool_values[is_masked]
+
             # process contributions
             creator = []
             for contribution in data.get('contribution', []):
@@ -108,53 +114,50 @@ class Collecter():
                                 authorized_access_point]
                         )
             document_data['document_creator'] = ' ; '.join(creator)
-            document_main_type = []
-            document_sub_type = []
+
+            # document type/subtypes
+            doc_types = []
+            doc_subtypes = []
             for document_type in data.get('type'):
-                # data = document_type.to_dict()
-                document_main_type.append(
-                    document_type.get('main_type'))
-                document_sub_type.append(
-                    document_type.get('subtype', ''))
-            document_data['document_main_type'] = ', '.join(
-                document_main_type)
-            document_data['document_sub_type'] = ', '.join(
-                document_sub_type)
-            # masked
-            document_data['document_masked'] = \
-                'Yes' if data.get('_masked') else 'No'
-            # isbn:
-            document_data['document_isbn'] = cls.separator.join(
-                data.get('isbn', []))
-            # issn:
-            document_data['document_issn'] = cls.separator.join(
-                data.get('issn', []))
+                doc_types.append(document_type.get('main_type'))
+                doc_subtypes.append(document_type.get('subtype'))
+            if doc_types := filter(None, doc_types):
+                document_data['document_main_type'] = ', '.join(doc_types)
+            if doc_subtypes := filter(None, doc_subtypes):
+                document_data['document_sub_type'] = ', '.join(doc_subtypes)
+
+            # identifiers
+            document_data |= {
+                'document_isbn': cls.separator.join(data.get('isbn', [])),
+                'document_issn': cls.separator.join(data.get('issn', []))
+            }
+
             # document_series_statement
             document_data['document_series_statement'] = cls.separator.join(
                 data['value']
                 for serie in data.get('seriesStatement', [])
                 for data in serie.get('_text', [])
             )
+
             # document_edition_statement
             document_data['document_edition_statement'] = cls.separator.join(
                 edition.get('value')
-                for edition_statement in
-                data.get('editionStatement', [])
+                for edition_statement in data.get('editionStatement', [])
                 for edition in edition_statement.get('_text', [])
             )
-            # process provision activity
 
-            # we only use the first provision activity of type
-            # bf:publication
-            if any(
-                (provision_activity := prov).get('type' == 'bf:Publication')
-                for prov in data.get('provisionActivity', [])
-            ):
+            # provision activity
+            #   we only use the first provision activity of type
+            #   `bf:publication`
+            publications = [
+                prov for prov in data.get('provisionActivity', [])
+                if prov.get('type') == 'bf:Publication'
+            ]
+            if provision_activity := next(iter(publications), None):
                 start_date = provision_activity.get('startDate', '')
                 end_date = provision_activity.get('endDate')
                 document_data['document_publication_year'] = \
-                    f'{start_date} - {end_date}' \
-                    if end_date else start_date
+                    f'{start_date} - {end_date}' if end_date else start_date
 
                 document_data['document_publisher'] = cls.separator.join(
                     data['value']
