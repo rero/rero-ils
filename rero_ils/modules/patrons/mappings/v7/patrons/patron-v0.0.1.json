@@ -160,6 +160,15 @@
           "communication_channel": {
             "type": "keyword"
           },
+          "additional_communication_email": {
+            "type": "keyword",
+            "fields": {
+              "analyzed": {
+                "type": "text",
+                "analyzer": "custom_keyword"
+              }
+            }
+          },
           "communication_language": {
             "type": "keyword"
           },

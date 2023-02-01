@@ -16383,7 +16383,7 @@
           {
             "country": "sz",
             "type": "bf:Place",
-            "identifyBy": {
+            "identifiedBy": {
               "value": "027418545",
               "type": "IdRef"
             }
