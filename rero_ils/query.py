@@ -377,6 +377,9 @@ def search_factory(self, search, query_parser=None):
     def _default_parser(qstr=None, query_boosting=None):
         """Default parser that uses the Q() from elasticsearch_dsl."""
         query_type = 'query_string'
+        # avoid elasticsearch errors when it can't convert a boolean or
+        # numerical values during the query
+        lenient = True
         default_operator = 'OR'
         if request.args.get('simple') == '1':
             query_type = 'simple_query_string'
@@ -386,17 +389,29 @@ def search_factory(self, search, query_parser=None):
             # TODO: remove this bad hack
             qstr = _PUNCTUATION_REGEX.sub(' ', qstr)
             qstr = re.sub(r'\s+', ' ', qstr).rstrip()
-            if not query_boosting:
-                return Q(query_type, query=qstr,
-                         default_operator=default_operator)
-            else:
-                return Q('bool', should=[
-                    Q(query_type, query=qstr, boost=2,
-                        fields=query_boosting,
-                        default_operator=default_operator),
-                    Q(query_type, query=qstr,
-                      default_operator=default_operator)
-                ])
+            return (
+                Q(
+                    query_type,
+                    lenient=lenient,
+                    query=qstr,
+                    boost=2,
+                    fields=query_boosting,
+                    default_operator=default_operator,
+                )
+                | Q(
+                    query_type,
+                    lenient=lenient,
+                    query=qstr,
+                    default_operator=default_operator,
+                )
+                if query_boosting
+                else Q(
+                    query_type,
+                    lenient=lenient,
+                    query=qstr,
+                    default_operator=default_operator,
+                )
+            )
         return Q()
 
     def _boosting_parser(query_boosting, search_index):
