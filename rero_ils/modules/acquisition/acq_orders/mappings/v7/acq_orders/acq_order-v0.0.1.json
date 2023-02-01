@@ -102,10 +102,16 @@
           "reference": {
             "type": "keyword"
           },
+          "pid": {
+            "type": "keyword"
+          },
           "receipt_date": {
             "type": "date"
           }
         }
+      },
+      "order_date": {
+        "type": "date"
       },
       "order_lines": {
         "properties": {
