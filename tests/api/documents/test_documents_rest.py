@@ -23,9 +23,11 @@ from datetime import datetime, timedelta
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
-    postdata
+from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
+    mock_response, postdata
 
+from rero_ils.modules.commons.identifiers import IdentifierType
+from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.utils import clean_text, get_remote_cover
 from rero_ils.modules.documents.views import can_request, \
     record_library_pickup_locations
@@ -691,3 +693,22 @@ def test_document_identifiers_search(client, document):
     url = url_for('invenio_records_rest.doc_list', **params)
     res = client.get(url)
     assert success(get_json(res))
+
+    # STEP#9 :: SEARCH ABOUT INVALID EAN IDENTIFIER
+    #    Ensure than if an invalid EAN identifier exists into the document
+    #    metadata, this identifier is searchable anyway.
+    original_data = deepcopy(document)
+    document['identifiedBy'].append({
+        'type': IdentifierType.EAN,
+        'value': 'invalid_ean_identifier'
+    })
+    document.update(document, dbcommit=True, reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+
+    params = {'identifiers': ['(bf:Ean)invalid_ean_identifier']}
+    url = url_for('invenio_records_rest.doc_list', **params)
+    res = client.get(url)
+    assert success(get_json(res))
+
+    # RESET THE DOCUMENT
+    document.update(original_data, dbcommit=True, reindex=True)

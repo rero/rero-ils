@@ -241,11 +241,15 @@ class EANIdentifier(Identifier):
 
     def normalize(self) -> str:
         """Get the normalized value for this EAN."""
-        return canonical(self.value)
+        return canonical(self.value) or self.value
     __str__ = normalize
 
+    def is_valid(self) -> bool:
+        """Check if the identifier is valid."""
+        return bool(canonical(self.value))
+
     def get_alternatives(self) -> list[Identifier]:
-        """Get a list of alternative for this identifiers."""
+        """Get a list of alternative for this identifier."""
         alternatives = []
         for identifier in (to_isbn10(self.value), to_isbn13(self.value)):
             if identifier:
