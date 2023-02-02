@@ -19,7 +19,7 @@
 """RERO Item JSON serialization."""
 
 from rero_ils.modules.documents.api import DocumentsSearch
-from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.documents.extensions import TitleExtension
 from rero_ils.modules.item_types.api import ItemTypesSearch
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -39,7 +39,7 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         metadata = hit.get('metadata', {})
         doc_pid = metadata.get('document').get('pid')
         document = self.get_resource(DocumentsSearch(), doc_pid)
-        metadata['ui_title_text'] = title_format_text_head(
+        metadata['ui_title_text'] = TitleExtension.format_text(
             document['title'], with_subtitle=True)
 
         item = self.get_resource(Item, metadata.get('pid'))
