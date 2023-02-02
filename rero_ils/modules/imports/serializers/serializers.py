@@ -23,10 +23,9 @@ from invenio_records_rest.serializers.json import JSONSerializer
 from jsonref import JsonRef
 from marshmallow import fields
 
-from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
-from rero_ils.modules.documents.utils import process_literal_contributions, \
-    title_format_text_head
+from rero_ils.modules.documents.extensions import TitleExtension
+from rero_ils.modules.documents.utils import process_literal_contributions
 
 
 class ImportSchemaJSONV1(RecordSchemaJSONV1):
@@ -104,15 +103,16 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
         :param metadata: dictionary version of a record
         :return: the modified dictionary
         """
-        metadata = Document.post_process(metadata)
+        # TODO: See it this is ok.
+        # metadata = Document.dumps()
 
         titles = metadata.get('title', [])
-        text_title = title_format_text_head(titles, with_subtitle=False)
+        text_title = TitleExtension.format_text(titles, with_subtitle=False)
         if text_title:
             metadata['ui_title_text'] = text_title
         responsibility = metadata.get('responsibilityStatement', [])
-        text_title = title_format_text_head(titles, responsibility,
-                                            with_subtitle=False)
+        text_title = TitleExtension.format_text(
+            titles, responsibility, with_subtitle=False)
         if text_title:
             metadata['ui_title_text_responsibility'] = text_title
         contributions = metadata.get('contribution', [])

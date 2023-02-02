@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""RERO ILS common record extensions."""
+"""Document record extension to add the MEF pid in the database."""
 
 
 from invenio_db import db
@@ -24,12 +24,12 @@ from invenio_records.extensions import RecordExtension
 
 
 class AddMEFPidExtension(RecordExtension):
-    """Adds the MEF pid for contributions."""
+    """Adds the MEF pid for contributions and subjects."""
 
     def add_mef_pid(self, record):
         """Injects the MEF pid in the contribution.
 
-        :params record: a document record.
+        :params record: dict - a document record.
         """
         from rero_ils.modules.contributions.api import Contribution
         agents = record.get('subjects', []) +\
@@ -45,7 +45,10 @@ class AddMEFPidExtension(RecordExtension):
                     agent['pid'] = cont['pid']
 
     def post_create(self, record):
-        """Called after a record is initialized."""
+        """Called after a record is initialized.
+
+        :param record: dict - the record to be modified.
+        """
         self.add_mef_pid(record)
         if record.model:
             with db.session.begin_nested():
@@ -53,7 +56,10 @@ class AddMEFPidExtension(RecordExtension):
                 db.session.add(record.model)
 
     def post_commit(self, record):
-        """Called before a record is committed."""
+        """Called before a record is committed.
+
+        :param record: dict - the record to be modified.
+        """
         self.add_mef_pid(record)
         if record.model:
             with db.session.begin_nested():
