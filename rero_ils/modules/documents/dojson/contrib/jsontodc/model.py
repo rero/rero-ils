@@ -22,7 +22,7 @@ from flask_babelex import gettext as _
 
 from rero_ils.modules.contributions.utils import \
     get_contribution_localized_value
-from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.documents.extensions import TitleExtension
 
 
 class DublinCoreOverdo(Overdo):
@@ -55,7 +55,7 @@ class DublinCoreOverdo(Overdo):
         titles = blob.get('title', [])
         bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
 
-        text = title_format_text_head(
+        text = TitleExtension.format_text(
             titles=bf_titles,
             responsabilities=blob.get('responsibilityStatement', []),
             with_subtitle=True

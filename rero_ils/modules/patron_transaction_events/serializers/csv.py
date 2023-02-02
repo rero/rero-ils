@@ -27,7 +27,7 @@ from invenio_i18n.ext import current_i18n
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.documents.extensions import TitleExtension
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
@@ -151,7 +151,7 @@ def _extract_document_data(record):
     return {
         'document_pid': record.pid,
         'document_title':
-            title_format_text_head(record.get('title', []))
+            TitleExtension.format_text(record.get('title', []))
     }
 
 

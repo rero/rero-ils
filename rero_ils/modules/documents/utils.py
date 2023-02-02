@@ -23,13 +23,10 @@ import json
 import re
 
 import requests
-from elasticsearch_dsl.utils import AttrDict
 from flask import current_app
 from flask import request as flask_request
 from invenio_jsonschemas.proxies import current_jsonschemas
 from werkzeug.local import LocalProxy
-
-from rero_ils.dojson.utils import remove_trailing_punctuation
 
 from ..utils import get_schema_for_resource, memoized
 from ...utils import get_i18n_supported_languages
@@ -84,131 +81,6 @@ def clean_text(data):
     return data
 
 
-def publication_statement_text(provision_activity):
-    """Create publication statement from place, agent and date values."""
-    punctuation = {
-        'bf:Place': ' ; ',
-        'bf:Agent': ' ; ',
-        'Date': ', '
-    }
-    statement_with_language = {'default': ''}
-    last_statement_type = None
-    # Perform each statement entries to build the best possible string
-    for statement in provision_activity.get('statement', []):
-        for label in statement['label']:
-            language = label.get('language', 'default')
-            statement_with_language.setdefault(language, '')
-            if statement_with_language[language]:
-                if last_statement_type == statement['type']:
-                    statement_with_language[language] += punctuation[
-                        last_statement_type
-                    ]
-                elif statement['type'] == 'bf:Place':
-                    statement_with_language[language] += ' ; '
-                elif statement['type'] == 'Date':
-                    statement_with_language[language] += ', '
-                else:
-                    statement_with_language[language] += ' : '
-
-            statement_with_language[language] += label['value']
-        last_statement_type = statement['type']
-    # date field: remove ';' and append
-    statement_text = []
-    for key, value in statement_with_language.items():
-        value = remove_trailing_punctuation(value)
-        if display_alternate_graphic_first(key):
-            statement_text.insert(0, {'value': value, 'language': key})
-        else:
-            statement_text.append({'value': value, 'language': key})
-    return statement_text
-
-
-def series_statement_format_text(serie_statement):
-    """Format series statement for template."""
-    def get_title_language(data):
-        """Get title and language."""
-        output = {}
-        for value in data:
-            language = value.get('language', 'default')
-            title = value.get('value', '')
-            language_title = output.get(language, [])
-            language_title.append(title)
-            output[language] = language_title
-        return output
-
-    serie_title = get_title_language(serie_statement.get('seriesTitle', []))
-    serie_enum = get_title_language(
-        serie_statement.get('seriesEnumeration', [])
-    )
-    subserie_data = []
-    for subserie in serie_statement.get('subseriesStatement', []):
-        subserie_title = get_title_language(subserie.get('subseriesTitle', []))
-        subserie_enum = get_title_language(
-            subserie.get('subseriesEnumeration', [])
-        )
-        subserie_data.append({'title': subserie_title, 'enum': subserie_enum})
-
-    intermediate_output = {}
-    for key, value in serie_title.items():
-        intermediate_output[key] = ', '.join(value)
-    for key, value in serie_enum.items():
-        value = ', '.join(value)
-        intermediate_value = intermediate_output.get(key, '')
-        intermediate_value = f'{intermediate_value}; {value}'
-        intermediate_output[key] = intermediate_value
-    for intermediate_subserie in subserie_data:
-        for key, value in intermediate_subserie.get('title', {}).items():
-            value = ', '.join(value)
-            intermediate_value = intermediate_output.get(key, '')
-            intermediate_value = f'{intermediate_value}. {value}'
-            intermediate_output[key] = intermediate_value
-        for key, value in subserie_enum.items():
-            value = ', '.join(value)
-            intermediate_value = intermediate_output.get(key, '')
-            intermediate_value = f'{intermediate_value}; {value}'
-            intermediate_output[key] = intermediate_value
-
-    serie_statement_text = []
-    for key, value in intermediate_output.items():
-        if display_alternate_graphic_first(key):
-            serie_statement_text.insert(0, {'value': value, 'language': key})
-        else:
-            serie_statement_text.append({'value': value, 'language': key})
-
-    return serie_statement_text
-
-
-def edition_format_text(edition):
-    """Format edition for _text."""
-    designations = edition.get('editionDesignation', [])
-    responsibilities = edition.get('responsibility', [])
-    designation_output = {}
-    for designation in designations:
-        language = designation.get('language', 'default')
-        value = designation.get('value', '')
-        designation_output[language] = value
-    responsibility_output = {}
-    for responsibility in responsibilities:
-        language = responsibility.get('language', 'default')
-        value = responsibility.get('value', '')
-        responsibility_output[language] = value
-
-    edition_text = []
-    for key, value in designation_output.items():
-        value = remove_trailing_punctuation(
-            '{designation} / {responsibility}'.format(
-                designation=designation_output.get(key),
-                responsibility=responsibility_output.get(key, ''),
-            )
-        )
-        if display_alternate_graphic_first(key):
-            edition_text.insert(0, {'value': value, 'language': key})
-        else:
-            edition_text.append({'value': value, 'language': key})
-
-    return edition_text
-
-
 def display_alternate_graphic_first(language):
     """Display alternate graphic first.
 
@@ -221,87 +93,6 @@ def display_alternate_graphic_first(language):
     :rtype: bool
     """
     return not re.search(r'(default|^und-|-zyyy$)', language)
-
-
-def title_format_text_head(titles, responsabilities=None, with_subtitle=True):
-    """Format title head for display purpose.
-
-    :param titles: titles object list
-    :type titles: JSON object list
-    :param with_subtitle: `True` for including the subtitle in the output
-    :type with_subtitle: bool, optional
-    :return: a title string formatted for display purpose
-    :rtype: str
-    """
-    head_titles = []
-    parallel_titles = []
-    for title in titles:
-        if isinstance(title, AttrDict):
-            # force title to dict because ES gives AttrDict
-            title = title.to_dict()
-        title = dict(title)
-        if title.get('type') == 'bf:Title':
-            title_texts = \
-                title_format_text(title=title, with_subtitle=with_subtitle)
-            if len(title_texts) == 1:
-                head_titles.append(title_texts[0].get('value'))
-            else:
-                languages = [title.get('language') for title in title_texts]
-
-                def filter_list(value):
-                    """Check if a value should be removed from the languages.
-
-                    :returns: True if the language type is latin and a
-                              vernacular from exits
-                    """
-                    # keep simple language such as `default`
-                    if '-' not in value:
-                        return True
-                    lang, charset = value.split('-')
-                    # remove the latin form if a vernacular form exists
-                    if value.endswith('-latn') and sum(
-                            v.startswith(f'{lang}-') for v in languages) > 1:
-                        return False
-                    return True
-                # list of selected language
-                filtered_languages = list(filter(filter_list, languages))
-
-                for title_text in title_texts:
-                    language = title_text.get('language')
-                    if language not in filtered_languages:
-                        continue
-                    if display_alternate_graphic_first(language):
-                        head_titles.append(title_text.get('value'))
-                # If I don't have a title available,
-                # I get the last value of the array
-                if not len(head_titles):
-                    head_titles.append(title_texts[-1].get('value'))
-        elif title.get('type') == 'bf:ParallelTitle':
-            parallel_title_texts = title_format_text(
-                title=title, with_subtitle=with_subtitle)
-            if len(parallel_title_texts) == 1:
-                parallel_titles.append(parallel_title_texts[0].get('value'))
-            else:
-                for parallel_title_text in parallel_title_texts:
-                    language = parallel_title_text.get('language')
-                    if display_alternate_graphic_first(language):
-                        parallel_titles.append(
-                            parallel_title_text.get('value')
-                        )
-    output_value = '. '.join(head_titles)
-    for parallel_title in parallel_titles:
-        output_value += ' = ' + str(parallel_title)
-    responsabilities = responsabilities or []
-    for responsibility in responsabilities:
-        if len(responsibility) == 1:
-            output_value += ' / ' + responsibility[0].get('value')
-        else:
-            for responsibility_language in responsibility:
-                value = responsibility_language.get('value')
-                language = responsibility_language.get('language', 'default')
-                if display_alternate_graphic_first(language):
-                    output_value += ' / ' + value
-    return output_value
 
 
 def title_format_text_alternate_graphic(titles, responsabilities=None):

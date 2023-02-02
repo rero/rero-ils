@@ -21,8 +21,8 @@ from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 from rero_ils.modules.commons.identifiers import IdentifierType, \
     QualifierIdentifierRenderer
-from rero_ils.modules.documents.utils import publication_statement_text, \
-    series_statement_format_text, title_format_text_head
+from rero_ils.modules.documents.extensions import \
+    ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
 
 
 class DocumentGenericDumper(InvenioRecordsDumper):
@@ -34,7 +34,7 @@ class DocumentGenericDumper(InvenioRecordsDumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        title_text = title_format_text_head(
+        title_text = TitleExtension.format_text(
             record.get('title', []),
             responsabilities=record.get('responsibilityStatement')
         )
@@ -59,7 +59,7 @@ class DocumentAcquisitionDumper(DocumentGenericDumper):
 
         # provision activity ------------------------
         provision_activities = filter(None, [
-            publication_statement_text(activity)
+            ProvisionActivitiesExtension.format_text(activity)
             for activity in record.get('provisionActivity', [])
         ])
         provision_activity = next(iter(provision_activities or []), None)
@@ -68,7 +68,7 @@ class DocumentAcquisitionDumper(DocumentGenericDumper):
 
         # series statement --------------------------
         series_statements = filter(None, [
-            series_statement_format_text(statement)
+            SeriesStatementExtension.format_text(statement)
             for statement in record.get('seriesStatement', [])
         ])
         series_statement = next(iter(series_statements or []), None)
