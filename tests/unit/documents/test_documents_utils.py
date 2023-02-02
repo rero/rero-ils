@@ -19,10 +19,10 @@
 
 from __future__ import absolute_import, print_function
 
-from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.documents.extensions import TitleExtension
 
 
-def test_title_format_text_head():
+def test_format_text():
     """Test title format text head."""
     data = [{
         'mainTitle': [{
@@ -33,7 +33,7 @@ def test_title_format_text_head():
         }],
         'type': 'bf:Title'
     }]
-    assert '\u4e01\u4e01\u5386\u9669\u8bb0' == title_format_text_head(data)
+    assert '\u4e01\u4e01\u5386\u9669\u8bb0' == TitleExtension.format_text(data)
 
     data = [{
         'mainTitle': [{
@@ -45,7 +45,7 @@ def test_title_format_text_head():
         'type': 'bf:Title'
     }]
     assert 'Die russischen orthodoxen Bischöfe von 1893 ' \
-           ': Bio-Bibliographie' == title_format_text_head(data)
+           ': Bio-Bibliographie' == TitleExtension.format_text(data)
 
     data = [{
         'mainTitle': [{
@@ -60,7 +60,7 @@ def test_title_format_text_head():
         'type': 'bf:Title'
     }]
     assert 'The Russian Orthodox Bishops of 1893' == \
-        title_format_text_head(data)
+        TitleExtension.format_text(data)
 
     data = [{
         'mainTitle': [{
@@ -83,7 +83,7 @@ def test_title_format_text_head():
     }]
     assert 'main_title_text : subtitle_text. '\
         'number1, number1.1, part1, part1.1. number2, number2.2, part2' == \
-           title_format_text_head(data)
+           TitleExtension.format_text(data)
 
     data = [{
         "mainTitle": [
@@ -109,4 +109,4 @@ def test_title_format_text_head():
         "type": "bf:Title"
     }]
     assert 'Французско-русский словарь : около 25 000 слов' == \
-        title_format_text_head(data)
+        TitleExtension.format_text(data)

@@ -35,7 +35,9 @@ from rero_ils.modules.acquisition.acq_order_lines.api import \
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.commons.identifiers import IdentifierFactory, \
     IdentifierType
-from rero_ils.modules.documents.extensions import AddMEFPidExtension
+from rero_ils.modules.documents.extensions import AddMEFPidExtension, \
+    EditionStatementExtension, ProvisionActivitiesExtension, \
+    SeriesStatementExtension, TitleExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.operation_logs.extensions import \
@@ -45,8 +47,6 @@ from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import sorted_pids
 
 from .models import DocumentIdentifier, DocumentMetadata, DocumentSubjectType
-from .utils import edition_format_text, publication_statement_text, \
-    series_statement_format_text, title_format_text_head
 
 # provider
 DocumentProvider = type(
@@ -84,7 +84,11 @@ class Document(IlsRecord):
 
     _extensions = [
         OperationLogObserverExtension(),
-        AddMEFPidExtension()
+        AddMEFPidExtension(),
+        ProvisionActivitiesExtension(),
+        SeriesStatementExtension(),
+        EditionStatementExtension(),
+        TitleExtension()
     ]
 
     def _validate(self, **kwargs):
@@ -228,36 +232,6 @@ class Document(IlsRecord):
         if self.harvested:
             cannot_delete['others'] = dict(harvested=True)
         return cannot_delete
-
-    @classmethod
-    def post_process(cls, dump):
-        """Post process data after a dump.
-
-        :param dump: a dictionary of a resulting Record dumps
-        :return: a modified dictionary
-        """
-        provision_activities = dump.get('provisionActivity', [])
-        for provision_activity in provision_activities:
-            pub_state_text = publication_statement_text(provision_activity)
-            if pub_state_text:
-                provision_activity['_text'] = pub_state_text
-        series = dump.get('seriesStatement', [])
-        for series_element in series:
-            series_element["_text"] = series_statement_format_text(
-                series_element
-            )
-        editions = dump.get('editionStatement', [])
-        for edition in editions:
-            edition['_text'] = edition_format_text(edition)
-        titles = dump.get('title', [])
-        bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
-        for title in bf_titles:
-            title['_text'] = title_format_text_head(titles, with_subtitle=True)
-        return dump
-
-    def dumps(self, **kwargs):
-        """Return pure Python dictionary with record metadata."""
-        return Document.post_process(super().dumps(**kwargs))
 
     def index_contributions(self, bulk=False):
         """Index all attached contributions."""

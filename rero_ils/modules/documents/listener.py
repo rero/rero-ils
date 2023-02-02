@@ -19,7 +19,8 @@
 
 from flask.globals import current_app
 
-from .utils import process_literal_contributions, title_format_text_head
+from .extensions import TitleExtension
+from .utils import process_literal_contributions
 from ..commons.identifiers import IdentifierFactory, IdentifierType
 from ..documents.api import Document, DocumentsSearch
 from ..holdings.api import HoldingsSearch
@@ -195,7 +196,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 part_of['document']['title'] = titles.pop()
 
     # sort title
-    sort_title = title_format_text_head(
+    sort_title = TitleExtension.format_text(
         json.get('title', []),
         with_subtitle=True
     )

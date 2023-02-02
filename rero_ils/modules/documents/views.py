@@ -31,11 +31,11 @@ from invenio_records_ui.signals import record_viewed
 
 from .api import Document, DocumentsSearch
 from .commons import SubjectFactory
+from .extensions import EditionStatementExtension, \
+    ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
 from .utils import create_authorized_access_point, \
-    display_alternate_graphic_first, edition_format_text, get_remote_cover, \
-    publication_statement_text, series_statement_format_text, \
-    title_format_text, title_format_text_alternate_graphic, \
-    title_format_text_head, title_variant_format_text
+    display_alternate_graphic_first, get_remote_cover, title_format_text, \
+    title_format_text_alternate_graphic, title_variant_format_text
 from ..collections.api import CollectionsSearch
 from ..contributions.api import Contribution
 from ..holdings.models import HoldingNoteTypes
@@ -68,11 +68,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     record['available'] = Document.is_available(record.pid, viewcode)
 
     # build provision activity
-    provision_activities = record.get('provisionActivity', [])
-    for provision_activity in provision_activities:
-        pub_state_text = publication_statement_text(provision_activity)
-        if pub_state_text:
-            provision_activity['_text'] = pub_state_text
+    ProvisionActivitiesExtension().post_dump(record={}, data=record)
 
     # Counting holdings to display the get button
     from ..holdings.api import HoldingsSearch
@@ -304,7 +300,7 @@ def edition_format(editions):
     """Format edition for template."""
     output = []
     for edition in editions:
-        languages = edition_format_text(edition)
+        languages = EditionStatementExtension.format_text(edition)
         if languages:
             for edition_text in languages:
                 output.append(edition_text.get('value'))
@@ -333,7 +329,7 @@ def part_of_format(part_of):
             lambda t: t['type'] == 'bf:Title', document.get('title')
         )
     )
-    output['title'] = title_format_text_head(bf_titles)
+    output['title'] = TitleExtension.format_text(bf_titles)
 
     # Format and set numbering (example: 2020, vol. 2, nr. 3, p. 302)
     if nums is not None:
@@ -474,7 +470,9 @@ def document_availability(document_pid):
 def create_publication_statement(provision_activity):
     """Create publication statement from place, agent and date values."""
     output = []
-    publication_texts = publication_statement_text(provision_activity)
+    publication_texts = \
+        ProvisionActivitiesExtension.format_text(
+            provision_activity)
     for publication_text in publication_texts:
         language = publication_text.get('language', 'default')
         if display_alternate_graphic_first(language):
@@ -564,8 +562,9 @@ def create_title_text(titles, responsibility_statement=None):
     :return: the title text for display purpose
     :rtype: str
     """
-    return title_format_text_head(titles, responsibility_statement,
-                                  with_subtitle=True)
+    return TitleExtension.format_text(
+        titles, responsibility_statement,
+        with_subtitle=True)
 
 
 @blueprint.app_template_filter()
@@ -683,7 +682,7 @@ def get_articles(record):
         .filter('term', partOf__document__pid=record.get('pid')) \
         .source(['pid', 'title'])
     return [
-        {'title': title_format_text_head(hit.title), 'pid': hit.pid}
+        {'title': TitleExtension.format_text(hit.title), 'pid': hit.pid}
         for hit in search.scan()
     ]
 
@@ -745,7 +744,8 @@ def subject_format(subject_data, language):
 @blueprint.app_template_filter()
 def series_statement_format(series):
     """Series statement format."""
-    return [series_statement_format_text(serie) for serie in series]
+    return [SeriesStatementExtension.format_text(
+        serie) for serie in series]
 
 
 @blueprint.app_template_filter()
