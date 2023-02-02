@@ -25,7 +25,7 @@ from flask import stream_with_context
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 
 from rero_ils.modules.documents.api import DocumentsSearch
-from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.documents.extensions import TitleExtension
 from rero_ils.modules.items.api import ItemsSearch
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.patron_types.api import PatronTypesSearch
@@ -71,7 +71,8 @@ class LoanStreamedCSVSerializer(CSVSerializer, StreamSerializerMixin,
 
         # document information dumping
         if doc := self.get_resource(DocumentsSearch(), hit['document_pid']):
-            hit['document_title'] = title_format_text_head(doc.get('title'))
+            hit['document_title'] = \
+                TitleExtension.format_text(doc.get('title'))
 
         # Item information dumping
         if item := self.get_resource(ItemsSearch(), hit['item_pid']['value']):

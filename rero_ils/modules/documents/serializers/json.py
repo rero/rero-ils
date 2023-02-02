@@ -22,14 +22,15 @@ from flask import current_app, json, request, stream_with_context
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.utils import process_literal_contributions, \
-    title_format_text_head
+from rero_ils.modules.documents.utils import process_literal_contributions
 from rero_ils.modules.documents.views import create_title_alternate_graphic, \
     create_title_responsibilites, create_title_variants, subject_format
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.organisations.api import OrganisationsSearch
 from rero_ils.modules.serializers import JSONSerializer
+
+from ..extensions import TitleExtension
 
 GLOBAL_VIEW_CODE = LocalProxy(lambda: current_app.config.get(
     'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
@@ -95,9 +96,11 @@ class DocumentJSONSerializer(JSONSerializer):
 
         metadata['available'] = Document.is_available(pid, view_code)
         titles = metadata.get('title', [])
-        if text_title := title_format_text_head(titles, with_subtitle=False):
+        if text_title := TitleExtension.format_text(
+            titles, with_subtitle=False
+        ):
             metadata['ui_title_text'] = text_title
-        if text_title := title_format_text_head(
+        if text_title := TitleExtension.format_text(
             titles,
             responsabilities=metadata.get('responsibilityStatement', []),
             with_subtitle=False
@@ -203,8 +206,7 @@ class DocumentExportJSONSerializer(JSONSerializer):
         :param record: Record instance.
         :param links_factory: Factory function for record links.
         """
-        Document.post_process(record)
-        record = record.replace_refs()
+        record = record.replace_refs().dumps()
         if contributions := process_literal_contributions(
                 record.get('contribution', [])):
             record['contribution'] = contributions

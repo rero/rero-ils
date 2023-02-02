@@ -31,7 +31,8 @@ from rero_ils.modules.local_fields.dumpers import \
     ElasticSearchDumper as LocalFieldESDumper
 from rero_ils.utils import language_mapping
 
-from .utils import process_literal_contributions, title_format_text_head
+from .extensions import TitleExtension
+from .utils import process_literal_contributions
 
 
 def process_holdings(record, json):
@@ -200,7 +201,7 @@ def enrich_document_data(sender, json=None, record=None, index=None,
                 part_of['document']['title'] = titles.pop()
 
     # sort title
-    sort_title = title_format_text_head(
+    sort_title = TitleExtension.format_text(
         json.get('title', []),
         with_subtitle=True
     )
