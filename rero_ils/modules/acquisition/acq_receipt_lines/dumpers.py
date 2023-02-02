@@ -21,7 +21,7 @@
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 from rero_ils.modules.commons.identifiers import IdentifierType
-from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.documents.extensions import TitleExtension
 
 
 class AcqReceiptLineESDumper(InvenioRecordsDumper):
@@ -54,7 +54,7 @@ class AcqReceiptLineESDumper(InvenioRecordsDumper):
         identifiers = [identifier.normalize() for identifier in identifiers]
         data['document'] = {
             'pid': document.pid,
-            'title': title_format_text_head(document.get('title', [])),
+            'title': TitleExtension.format_text(document.get('title', [])),
             'identifiers': identifiers
         }
         data['document'] = {k: v for k, v in data['document'].items() if v}

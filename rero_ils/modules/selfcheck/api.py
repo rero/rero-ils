@@ -26,7 +26,7 @@ from invenio_circulation.errors import CirculationException, \
     ItemNotAvailableError
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.utils import title_format_text_head
+from rero_ils.modules.documents.extensions import TitleExtension
 from rero_ils.modules.errors import ItemBarcodeNotFound, NoCirculationAction, \
     PatronBarcodeNotFound
 from rero_ils.modules.items.api import Item
@@ -283,7 +283,7 @@ def item_information(item_barcode, **kwargs):
 
                 item_information = SelfcheckItemInformation(
                     item_id=item.get('barcode'),
-                    title_id=title_format_text_head(document.get('title')),
+                    title_id=TitleExtension.format_text(document.get('title')),
                     circulation_status=map_item_circulation_status(
                         item.status),
                     fee_type=SelfcheckFeeType.OTHER,
@@ -358,7 +358,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode,
                     raise ItemBarcodeNotFound
                 document = Document.get_record_by_pid(item.document_pid)
                 checkout = SelfcheckCheckout(
-                    title_id=title_format_text_head(document.get('title')),
+                    title_id=TitleExtension.format_text(document.get('title')),
                 )
 
                 staffer = Patron.get_record_by_pid(transaction_user_pid)
@@ -468,7 +468,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                     raise ItemBarcodeNotFound
 
                 document = Document.get_record_by_pid(item.document_pid)
-                checkin['title_id'] = title_format_text_head(
+                checkin['title_id'] = TitleExtension.format_text(
                     document.get('title')
                 )
                 staffer = Patron.get_record_by_pid(transaction_user_pid)
@@ -539,7 +539,7 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
 
                 document = Document.get_record_by_pid(item.document_pid)
                 renew = SelfcheckRenew(
-                    title_id=title_format_text_head(document.get('title'))
+                    title_id=TitleExtension.format_text(document.get('title'))
                 )
 
                 staffer = Patron.get_record_by_pid(transaction_user_pid)
