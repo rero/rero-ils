@@ -319,7 +319,9 @@ class Document(IlsRecord):
             else:
                 new_contributions.append({
                     'agent': self._replace_refs_contribution(
-                        contribution['agent'])})
+                        contribution['agent']),
+                    'role': contribution['role']
+                    })
         if new_contributions:
             data['contribution'] = new_contributions
         return data
