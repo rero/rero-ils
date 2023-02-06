@@ -24,6 +24,7 @@ import sys
 from copy import deepcopy
 from datetime import datetime
 from itertools import islice
+from logging.config import dictConfig
 
 import requests
 from deepdiff import DeepDiff
@@ -107,7 +108,7 @@ class SyncAgent(object):
                 }
             }
         }
-        logging.config.dictConfig(logging_config)
+        dictConfig(logging_config)
         self.logger = logging.getLogger(__name__)
         self.log_dir = log_dir
 

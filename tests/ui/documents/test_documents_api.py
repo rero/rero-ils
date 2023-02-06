@@ -336,4 +336,6 @@ def test_document_replace_refs(document):
     document.update(document, True, True)
     data = document.replace_refs()
     assert len(data.get('contribution')) == 2
+    assert 'agent' in data.get('contribution')[1]
+    assert data.get('contribution')[1].get('role') == ['aut']
     document.update(orig, True, True)
