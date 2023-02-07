@@ -126,8 +126,10 @@ def create_notifications(types=None, tstamp=None, verbose=True):
                     )
         process_notifications(NotificationType.OVERDUE)
     notification_sum = sum(notification_counter.values())
-    counters = {k: v for k, v in notification_counter.items() if v > 0}
+    # in timestamp we need also 0 values
+    set_timestamp('notification-creation', **notification_counter)
 
+    counters = {k: v for k, v in notification_counter.items() if v > 0}
     if verbose:
         logger = current_app.logger
         logger.info("NOTIFICATIONS CREATION TASK")
@@ -135,5 +137,4 @@ def create_notifications(types=None, tstamp=None, verbose=True):
         for notif_type, cpt in counters.items():
             logger.info(f'  +--> {cpt} `{notif_type}` notification(s) created')
 
-    set_timestamp('notification-creation', **counters)
     return counters
