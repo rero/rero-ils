@@ -335,7 +335,7 @@ class SyncAgent(object):
                 if not mef.get('pid'):
                     raise Exception(
                         f'Error cannot get latest for '
-                        '{source}:{agent[source]["pid"]}')
+                        f'{source}:{agent[source]["pid"]}')
 
                 old_agent_pid = agent[source]["pid"]
                 new_agent_pid = mef[source]['pid']
@@ -349,7 +349,7 @@ class SyncAgent(object):
                     # need a copy as we want to keep the MEF record
                     # untouched for the next agent
                     new_mef_data = deepcopy(mef)
-                    fields_to_remove = ['$schema', '_created', '_update']
+                    fields_to_remove = ['$schema', '_created', '_updated']
                     for field in fields_to_remove:
                         new_mef_data.pop(field, None)
 
@@ -411,7 +411,7 @@ class SyncAgent(object):
                         doc_pid=doc_pid,
                         pids_to_replace=pids_to_replace
                     )
-                doc_updated = set(doc_pid)
+                doc_updated = set(doc_pids)
         except Exception as e:
             self.logger.error(f'ERROR: MEF(pid:{pid}) -> {e}')
             error = True

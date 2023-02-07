@@ -105,7 +105,7 @@ def replace_idby_subjects_imported(verbose, debug, details):
 @with_appcontext
 def sync(query, dry_run, from_last_date, verbose, log_dir, from_date,
          in_memory):
-    """Find and replace identifiedBy subjects imported."""
+    """Updated the MEF records and the linked documents."""
     a = SyncAgent(
         dry_run=dry_run, verbose=verbose, log_dir=log_dir,
         from_last_date=from_last_date)
@@ -140,7 +140,7 @@ def sync(query, dry_run, from_last_date, verbose, log_dir, from_date,
 @click.option('-l', '--log-dir', default=None)
 @with_appcontext
 def clean(query, dry_run, verbose, log_dir):
-    """Find and replace identifiedBy subjects imported."""
+    """Removes MEF records that are not linked to documents."""
     a = SyncAgent(dry_run=dry_run, verbose=verbose, log_dir=log_dir)
     if verbose:
         a.remove_unused(query)
@@ -166,7 +166,7 @@ def clean(query, dry_run, verbose, log_dir):
 @click.option('-c', '--clear', is_flag=True, default=False)
 @with_appcontext
 def sync_errors(clear):
-    """Find and replace identifiedBy subjects imported."""
+    """Removes errors in the cache information."""
     errors = SyncAgent.get_errors()
     if clear:
         SyncAgent.clear_errors()
