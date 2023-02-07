@@ -569,6 +569,7 @@ def set_timestamp(name, **kwargs):
     time_stamps[name]['time'] = utc_now
     for key, value in kwargs.items():
         time_stamps[name][key] = value
+    time_stamps[name]['name'] = name
     if not current_cache.set(key='timestamps', value=time_stamps, timeout=0):
         current_app.logger.warning(
             f'Can not set time stamp for: {name}')

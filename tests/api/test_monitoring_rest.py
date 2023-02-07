@@ -137,7 +137,11 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
 def test_timestamps(app, client):
     """Test timestamps."""
     time_stamp = set_timestamp('test', msg='test msg')
-    assert get_timestamp('test') == {'time': time_stamp, 'msg': 'test msg'}
+    assert get_timestamp('test') == {
+        'time': time_stamp,
+        'name': 'test',
+        'msg': 'test msg'
+    }
     res = client.get(url_for('api_monitoring.timestamps'))
     assert res.status_code == 401
 
@@ -158,6 +162,7 @@ def test_timestamps(app, client):
         'data': {
             'test': {
                 'msg': 'test msg',
+                'name': 'test',
                 'unixtime': time.mktime(time_stamp.timetuple()),
                 'utctime': time_stamp.strftime("%Y-%m-%d %H:%M:%S")
             }
