@@ -40,10 +40,20 @@
         "search_analyzer": "standard"
       },
       "call_number": {
-        "type": "text"
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
       },
       "second_call_number": {
-        "type": "text"
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
       },
       "enumerationAndChronology": {
         "type": "keyword"
