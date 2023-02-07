@@ -29,7 +29,7 @@ from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.holdings.api import Holding
-from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.items.models import ItemNoteTypes, ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
@@ -183,9 +183,13 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
     # Delete record/DELETE
     res = client.delete(item_url)
     assert res.status_code == 204
-
     res = client.get(item_url)
     assert res.status_code == 410
+
+    # Reset fixtures
+    item_url = url_for('invenio_records_rest.item_item', pid_value='pid')
+    res = client.delete(item_url)
+    assert res.status_code == 204
 
 
 def test_checkout_default_policy(client, lib_martigny,
@@ -785,7 +789,7 @@ def test_filtered_items_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total']['value'] == 5
+    assert data['hits']['total']['value'] == 4
 
     # Patron Sion
     login_user_via_session(client, patron_sion.user)
@@ -1081,3 +1085,61 @@ def test_items_facets(
         'status', 'temporary_item_type', 'temporary_location', 'vendor'
     ]:
         assert aggs[facet]
+
+
+def test_items_rest_api_sort(
+    client, item_lib_martigny, item_lib_fully, rero_json_header
+):
+    """Test sorting option on `Item` REST API endpoints."""
+
+    item_lib_fully['second_call_number'] = 'second_call_number'
+    item_lib_fully.update(item_lib_fully, dbcommit=True, reindex=True)
+    flush_index(ItemsSearch.Meta.index)
+
+    # STEP 1 :: Sort on 'call_number'
+    #   * Ensure sort on `call_number` is possible
+    #   * Ensure `call_number.raw` ES field contains correct value
+    url = url_for('invenio_records_rest.item_list', sort='call_number')
+    response = client.get(url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = response.json
+    first_hit = data['hits']['hits'][0]['metadata']
+    assert first_hit['call_number'] == item_lib_martigny['call_number']
+
+    url = url_for(
+        'invenio_records_rest.item_list',
+        q=f'call_number.raw:{item_lib_martigny["call_number"]}'
+    )
+    response = client.get(url, headers=rero_json_header)
+    assert response.status_code == 200
+    assert response.json['hits']['total']['value'] == 1
+
+    # STEP 2 :: Sort on 'second_call_number'
+    #   * Ensure sort `second_call_number` is possible
+    #   * Ensure `second_call_number.raw` ES field contains correct value
+    url = url_for('invenio_records_rest.item_list', sort='second_call_number')
+    response = client.get(url, headers=rero_json_header)
+    assert response.status_code == 200
+    data = response.json
+    first_hit = data['hits']['hits'][0]['metadata']
+    assert first_hit['second_call_number'] == \
+           item_lib_fully['second_call_number']
+
+    url = url_for(
+        'invenio_records_rest.item_list',
+        q=f'second_call_number.raw:"{item_lib_fully["second_call_number"]}"'
+    )
+    response = client.get(url, headers=rero_json_header)
+    assert response.status_code == 200
+    assert response.json['hits']['total']['value'] == 1
+    url = url_for(
+        'invenio_records_rest.item_list',
+        q=f'second_call_number.raw:"{item_lib_fully["second_call_number"]} "'
+    )
+    response = client.get(url, headers=rero_json_header)
+    assert response.status_code == 200
+    assert response.json['hits']['total']['value'] == 0
+
+    # Reset fixtures
+    del item_lib_fully['second_call_number']
+    item_lib_fully.update(item_lib_fully, dbcommit=True, reindex=True)
