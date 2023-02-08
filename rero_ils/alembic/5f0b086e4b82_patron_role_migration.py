@@ -20,6 +20,8 @@
 
 from logging import getLogger
 
+from invenio_accounts.cli import _datastore
+
 from rero_ils.modules.patrons.api import Patron, PatronsIndexer, PatronsSearch
 from rero_ils.modules.users.models import UserRole
 
@@ -51,6 +53,22 @@ def upgrade():
             ])
         return roles
 
+    # add new roles
+    new_roles = {
+        UserRole.PROFESSIONAL_READ_ONLY: 'Professional: Read_only',
+        UserRole.ACQUISITION_MANAGER: 'Professional: Acquisition manager',
+        UserRole.FULL_PERMISSIONS: 'Professional: Full permissions',
+        UserRole.CATALOG_MANAGER: 'Professional: Catalog manager',
+        UserRole.CIRCULATION_MANAGER: 'Professional: Circulation manager',
+        UserRole.LIBRARY_ADMINISTRATOR: 'Professional: Library administrator',
+        UserRole.USER_MANAGER: 'Professional: User manager'
+    }
+    for name, description in new_roles.items():
+        _datastore.create_role(name=name, description=description)
+        LOGGER.info(f'--> [{name}] role created')
+    _datastore.commit()
+
+    # assign new roles
     query = PatronsSearch()\
         .filter('terms', roles=['librarian', 'system_librarian'])\
         .source(False)
