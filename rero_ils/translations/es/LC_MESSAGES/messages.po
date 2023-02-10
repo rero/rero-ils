@@ -11,23 +11,24 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-12-20 16:04+0100\n"
-"PO-Revision-Date: 2022-05-17 06:04+0000\n"
-"Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
+"PO-Revision-Date: 2023-02-10 10:38+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.16-dev\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
 #: rero_ils/config.py:2886 rero_ils/config.py:2887
 msgid "INVALID_USER_OR_PASSWORD"
-msgstr ""
+msgstr "Usuario o contraseña no válido"
 
 #: rero_ils/config.py:170
 msgid "French"
@@ -47,7 +48,7 @@ msgstr "RERO-ILS"
 
 #: rero_ils/config.py:258
 msgid "Welcome"
-msgstr ""
+msgstr "Bienvenido"
 
 #: rero_ils/config.py:260
 msgid "RERO ID password reset"
@@ -59,8 +60,9 @@ msgstr "Se ha restablecido la contraseña de su identificador de RERO"
 
 #: rero_ils/config.py:1764
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
+#, fuzzy
 msgid "Global catalog"
-msgstr ""
+msgstr "Catálogo colectivo"
 
 #: rero_ils/config.py:1890
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:79
@@ -68,32 +70,28 @@ msgid "online"
 msgstr "en línea"
 
 #: rero_ils/config.py:1894
-#, fuzzy
 msgid "not_online"
-msgstr "en línea"
+msgstr "no en línea"
 
 #: rero_ils/config.py:1897
 msgid "author"
 msgstr "autor"
 
 #: rero_ils/config.py:1898
-#, fuzzy
 msgid "subject_fiction"
-msgstr "suscripción"
+msgstr "tema (ficción)"
 
 #: rero_ils/config.py:1904
-#, fuzzy
 msgid "subject_no_fiction"
-msgstr "suscripción"
+msgstr "tema (no ficción)"
 
 #: rero_ils/config.py:1910
 msgid "new_acquisition"
 msgstr "Novedades"
 
 #: rero_ils/config.py:1911
-#, fuzzy
 msgid "identifiers"
-msgstr "Identificadores"
+msgstr "identificadores"
 
 #: rero_ils/config.py:1914 rero_ils/config.py:1915 rero_ils/config.py:1988
 msgid "document_type"
@@ -127,33 +125,28 @@ msgid "status"
 msgstr "estado"
 
 #: rero_ils/config.py:1927
-#, fuzzy
 msgid "genreForm"
-msgstr "general"
+msgstr "género, forma"
 
 #: rero_ils/config.py:1928
-#, fuzzy
 msgid "intendedAudience"
-msgstr "Público al que va dirigido"
+msgstr "público destinatario"
 
 #: rero_ils/config.py:1929
-#, fuzzy
 msgid "year"
-msgstr "Año"
+msgstr "año"
 
 #: rero_ils/config.py:1992
 msgid "item_type"
 msgstr "Tipo de ejemplar"
 
 #: rero_ils/config.py:1993
-#, fuzzy
 msgid "temporary_item_type"
-msgstr "Tipo de ejemplar"
+msgstr "Categoría de circulación temporal"
 
 #: rero_ils/config.py:1994
-#, fuzzy
 msgid "temporary_location"
-msgstr "préstamo interbibliotecario"
+msgstr "Ubicación temporal"
 
 #: rero_ils/config.py:1996
 msgid "issue_status"
@@ -164,58 +157,48 @@ msgid "vendor"
 msgstr "proveedor"
 
 #: rero_ils/config.py:2059
-#, fuzzy
 msgid "owner_library"
-msgstr "Su biblioteca"
+msgstr "biblioteca titular"
 
 #: rero_ils/config.py:2060
-#, fuzzy
 msgid "owner_location"
-msgstr "depósito"
+msgstr "ubicación"
 
 #: rero_ils/config.py:2061
-#, fuzzy
 msgid "pickup_library"
-msgstr "biblioteca"
+msgstr "lugar de recogida"
 
 #: rero_ils/config.py:2062
-#, fuzzy
 msgid "pickup_location"
-msgstr "Lugar de recogida"
+msgstr "lugar de recogida"
 
 #: rero_ils/config.py:2063
-#, fuzzy
 msgid "transaction_library"
-msgstr "Biblioteca de afiliación"
+msgstr "biblioteca de transacción"
 
 #: rero_ils/config.py:2064
-#, fuzzy
 msgid "transaction_location"
-msgstr "PID del lugar de transacción"
+msgstr "ubicación de la transacción"
 
 #: rero_ils/config.py:2066
-#, fuzzy
 msgid "misc_status"
-msgstr "Estado del número"
+msgstr "estado de retraso"
 
 #: rero_ils/config.py:2067 rero_ils/config.py:2116
 msgid "patron_type"
 msgstr "Tipo de usuario"
 
 #: rero_ils/config.py:2068
-#, fuzzy
 msgid "request_expire_date"
-msgstr "Fecha de expiración de una reservación"
+msgstr "expiración de la reservación"
 
 #: rero_ils/config.py:2074
-#, fuzzy
 msgid "end_date"
-msgstr "Fecha de fin"
+msgstr "fecha de fin"
 
 #: rero_ils/config.py:2080
-#, fuzzy
 msgid "exclude_status"
-msgstr "Estado del número"
+msgstr "excluir estado"
 
 #: rero_ils/config.py:2114
 msgid "roles"
@@ -236,15 +219,15 @@ msgstr "tipo"
 
 #: rero_ils/config.py:2191
 msgid "account"
-msgstr ""
+msgstr "cuenta"
 
 #: rero_ils/config.py:2193
 msgid "order_date"
-msgstr ""
+msgstr "fecha del pedido"
 
 #: rero_ils/config.py:2199
 msgid "receipt_date"
-msgstr ""
+msgstr "fecha de recepción"
 
 #: rero_ils/config.py:2229
 msgid "sources"
@@ -273,13 +256,12 @@ msgstr "solicitante"
 #: rero_ils/config.py:2926 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:98
 msgid "This is a TEST VERSION."
-msgstr ""
+msgstr "Esta es una VERSIÓN DE TEST."
 
 #: rero_ils/config.py:2927 rero_ils/manual_translations.txt:71
 #: rero_ils/theme/templates/rero_ils/header.html:100
-#, fuzzy
 msgid "Go to the production site."
-msgstr "Código del depósito."
+msgstr "Ir al sitio de producción."
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:440
@@ -400,19 +382,19 @@ msgstr "cancelar"
 
 #: rero_ils/manual_translations.txt:51
 msgid "checkin"
-msgstr ""
+msgstr "devolución"
 
 #: rero_ils/manual_translations.txt:52
 msgid "checkout"
-msgstr ""
+msgstr "préstamo"
 
 #: rero_ils/manual_translations.txt:53
 msgid "extend"
-msgstr ""
+msgstr "renovar"
 
 #: rero_ils/manual_translations.txt:54
 msgid "receive"
-msgstr ""
+msgstr "recibir"
 
 #: rero_ils/manual_translations.txt:55
 msgid "request"
@@ -420,7 +402,7 @@ msgstr "reservar"
 
 #: rero_ils/manual_translations.txt:56
 msgid "validate_request"
-msgstr ""
+msgstr "validar la solicitud"
 
 #: rero_ils/manual_translations.txt:59
 msgid "Tools"
@@ -470,19 +452,16 @@ msgid "approved"
 msgstr "aprobado"
 
 #: rero_ils/manual_translations.txt:75
-#, fuzzy
 msgid "cancelled"
-msgstr "cancelar"
+msgstr "cancelado"
 
 #: rero_ils/manual_translations.txt:76
-#, fuzzy
 msgid "ordered"
-msgstr "Pedido planificado"
+msgstr "pedido"
 
 #: rero_ils/manual_translations.txt:77
-#, fuzzy
 msgid "partially_received"
-msgstr "recibido"
+msgstr "parcialmente recibido"
 
 #: rero_ils/manual_translations.txt:78
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:54
@@ -4162,20 +4141,20 @@ msgstr "Valor"
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:334
 msgid "Cannot transfer fund to myself."
-msgstr ""
+msgstr "No se puede transferir a la misma cuenta."
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:336
 msgid "Not enough available money from source account."
-msgstr ""
+msgstr "No hay suficiente dinero disponible en la cuenta de origen."
 
 #: rero_ils/modules/acquisition/acq_accounts/extensions.py:42
 #: rero_ils/modules/acquisition/acq_order_lines/extensions.py:56
 msgid "Parent account available amount too low"
-msgstr ""
+msgstr "Monto disponible de cuenta pariente demasiado bajo"
 
 #: rero_ils/modules/acquisition/acq_accounts/extensions.py:51
 msgid "Remaining balance too low"
-msgstr ""
+msgstr "Saldo restante demasiado bajo"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
 #: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:41
@@ -4252,15 +4231,15 @@ msgstr "Nombre"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:37
 msgid "Common name of the acquisition account."
-msgstr ""
+msgstr "Nombre común de la cuenta de adquisición."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:45
 msgid "Account number"
-msgstr ""
+msgstr "Número de cuenta"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:46
 msgid "Reference account number in accounting system."
-msgstr ""
+msgstr "Número de cuenta de referencia en el sistema contable."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:51
 msgid "Allocated amount"
@@ -4272,41 +4251,46 @@ msgstr "Monto asignado para la cuenta."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:61
 msgid "Encumbrance exceedance"
-msgstr ""
+msgstr "Superación de los gravámenes"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:62
 msgid ""
 "The exceedance percentage of account amount that linked pending orders "
 "can reach."
 msgstr ""
+"El porcentaje de superación del importe de la cuenta que pueden alcanzar las "
+"órdenes pendientes vinculadas."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:70
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:85
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:100
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:76
 msgid "Expenditure exceedance"
-msgstr ""
+msgstr "Superación de los gastos"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:77
 msgid ""
 "The exceedance percentage of account amount than linked paid invoices can"
 " reach."
 msgstr ""
+"El porcentaje de superación del importe de la cuenta que pueden alcanzar las "
+"facturas pagadas vinculadas."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:91
 msgid "Parent account"
-msgstr ""
+msgstr "Cuenta madre"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:95
 msgid "Account URI"
-msgstr ""
+msgstr "URI de la cuenta"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:99
+#, fuzzy
 msgid "Choose a parent account\\u2026"
-msgstr ""
+msgstr "Elegir una cuenta principal\\u2026"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:109
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:4
@@ -4615,8 +4599,9 @@ msgid "Can not have multiple notes of the same type."
 msgstr "No puede tener múltiples notas del mismo tipo."
 
 #: rero_ils/modules/acquisition/acq_order_lines/extensions.py:64
+#, fuzzy
 msgid "Cannot link to an harvested document"
-msgstr ""
+msgstr "No se puede enlazar con un documento recopilado"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:5
 msgid "JSON schema for acquisition order line."
@@ -4632,11 +4617,11 @@ msgstr "ID de la línea de pedido"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:42
 msgid "Priority"
-msgstr ""
+msgstr "Prioridad"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:43
 msgid "The higher the number, the higher the priority."
-msgstr ""
+msgstr "Cuanto mayor sea el número, mayor será la prioridad."
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:56
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:65
@@ -4649,8 +4634,9 @@ msgstr "Monto total"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:77
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:58
+#, fuzzy
 msgid "Exchange rate"
-msgstr "Tipo de cambio"
+msgstr "Tasa de intercambio"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:95
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:91
@@ -4735,7 +4721,7 @@ msgstr "Tipo"
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:117
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:113
 msgid "vendor_note"
-msgstr ""
+msgstr "nota al vendedor"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:121
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:117
@@ -4780,7 +4766,7 @@ msgstr "Fecha del pedido"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:185
 msgid "Receipt date"
-msgstr ""
+msgstr "Fecha de recepción"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:217
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:111
@@ -4809,16 +4795,17 @@ msgstr ""
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:294
 msgid "Cancelled"
-msgstr ""
+msgstr "Cancelado"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:295
 msgid "If checked this order line should be considered as cancelled."
 msgstr ""
+"Si esta casilla está marcada, esta línea de pedido se considera cancelada."
 
 #: rero_ils/modules/acquisition/acq_orders/api.py:442
 #, python-format
 msgid "Order status is %s"
-msgstr ""
+msgstr "El estado del pedido es %s"
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:5
 msgid "JSON schema for Acquisition Order."
@@ -4835,42 +4822,41 @@ msgstr "ID del pedido"
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:34
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:48
 msgid "Reference"
-msgstr ""
+msgstr "Referencia"
 
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:213
-#, fuzzy
 msgid "Previous version"
-msgstr "versión"
+msgstr "Versión anterior"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/extensions.py:68
 msgid "Received quantity is grower than ordered quantity"
-msgstr ""
+msgstr "La cantidad recibida es superior a la cantidad pedida"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:4
 msgid "Acquisition receipt line"
-msgstr ""
+msgstr "Línea de recepción"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:5
 msgid "JSON schema for Acquisition Receipt Line."
-msgstr ""
+msgstr "JSON schema para la línea de recepción."
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:24
 msgid "Schema to validate Acquisition Receipt Line records against."
-msgstr ""
+msgstr "Esquema para validar una línea de recepción."
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:30
 msgid "Acquisition receipt line ID"
-msgstr ""
+msgstr "ID de la línea de recepción"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:35
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:43
 msgid "Receipt"
-msgstr ""
+msgstr "Recepción"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:50
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:58
 msgid "Order line"
-msgstr ""
+msgstr "Línea de pedido"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:88
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:344
@@ -4879,45 +4865,45 @@ msgstr "Tasa de IVA"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:90
 msgid "percentage of VAT rate to apply on this receipt line"
-msgstr ""
+msgstr "IVA (en porcentaje) que debe aplicarse en esta línea de recepción"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:106
 msgid "Receipt line date"
-msgstr ""
+msgstr "Fecha de la línea de recepción"
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:157
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:125
 msgid "receipt_note"
-msgstr ""
+msgstr "nota de recepción"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:4
 msgid "Acquisition receipt"
-msgstr ""
+msgstr "Recepción"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:5
 msgid "JSON schema for Acquisition Receipt."
-msgstr ""
+msgstr "JSON schema para la línea de recepción."
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:22
 msgid "Schema to validate Acquisition Receipt records against."
-msgstr ""
+msgstr "Esquema para validar una línea de recepción."
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:28
 msgid "Acquisition receipt ID"
-msgstr ""
+msgstr "ID de una recepción"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:33
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:41
 msgid "Order"
-msgstr ""
+msgstr "Pedido"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:70
 msgid "Additional fees, discount and credit"
-msgstr ""
+msgstr "Tasas adicionales, descuento y crédito"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:76
 msgid "Fee"
-msgstr ""
+msgstr "Tasa"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:89
 #: rero_ils/modules/documents/jsonschemas/documents/document_dissertation-v0.0.1.json:8
@@ -4973,7 +4959,7 @@ msgstr "Fecha de fin"
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:81
 msgid "True if not rolled over yet"
-msgstr ""
+msgstr "Verdadero si el presupuesto aún no está cerrado"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:4
 msgid "Circulation policy"
@@ -5041,6 +5027,8 @@ msgid ""
 "Number of day(s) after which a not-picked up validated request will be "
 "cancelled. Keep empty to specify infinite duration."
 msgstr ""
+"Número de días(s) después de los cuales se cancelará una solicitud validada "
+"no recogida. Mantener vacío para especificar una duración infinita."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:120
 msgid ""
@@ -5780,8 +5768,9 @@ msgstr "Ejemplo: Edición abreviada, 22"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:364
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:448
+#, fuzzy
 msgid "Assigning agency"
-msgstr ""
+msgstr "Agencia asignadora"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:365
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:449
@@ -5789,6 +5778,8 @@ msgid ""
 "Used for imported records only. Agency that assigned this classification "
 "value."
 msgstr ""
+"Se utiliza sólo para registros importados. Agencia que asignó este valor de "
+"clasificación."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:372
 msgid "classification_musicale_genres"
@@ -6322,9 +6313,8 @@ msgstr "Enlace a la entidad corporativa"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:43
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:43
-#, fuzzy
 msgid "MEF ID"
-msgstr "médium"
+msgstr "MEF ID"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
 msgid "Example: 1955"
@@ -7122,28 +7112,32 @@ msgid ""
 "A document that precedes the succeeding document (earlier in time or "
 "before in a narrative) (MARC 780)."
 msgstr ""
+"Un documento que precede al documento siguiente (antes en el tiempo o antes "
+"en una narrativa) (MARC 780)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:129
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:133
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:160
 msgid "Succeeded by"
-msgstr ""
+msgstr "Sucedido por"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:134
 msgid ""
 "A document that succeeds, that is, is later in time or after in a "
 "narrative, etc., the preceding work (MARC 785)."
 msgstr ""
+"Documento que sucede, es decir, es posterior en el tiempo o posterior en una "
+"narración, etc., a la obra precedente (MARC 785)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:150
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:154
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:27
 msgid "Related to"
-msgstr ""
+msgstr "Relacionado con"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:155
 msgid "Any other relationship between documents (MARC 787)."
-msgstr ""
+msgstr "Cualquiera otra relación entre documentos (MARC 787)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:171
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:175
@@ -7152,7 +7146,7 @@ msgstr "Reproducido como"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:176
 msgid "Descriptive data for a reproduction (MARC 533)."
-msgstr ""
+msgstr "Datos descriptivos de una reproducción (MARC 533)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:192
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:196
@@ -7163,7 +7157,7 @@ msgstr "Método de producción"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:197
 msgid "A reproduction of a document (MARC 534)."
-msgstr ""
+msgstr "Una reproducción de un documento (MARC 534)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:214
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:31
@@ -7172,7 +7166,7 @@ msgstr "Enlace de documento"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:237
 msgid "Example: https://bib.rero.ch/api/documents/66"
-msgstr ""
+msgstr "Ejemplo: https://bib.rero.ch/api/documents/66"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:3
 msgid "Durations"
@@ -7439,6 +7433,9 @@ msgid ""
 "integrating resource is issued. For former frequencies, repeat the field "
 "and specify dates (MARC 310, 321)."
 msgstr ""
+"Intervalo en el que se emite una edición o parte de una publicación seriada "
+"o la actualización de un recurso integrador. Para frecuencias anteriores, "
+"repita el campo y especifique fechas (MARC 310, 321)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:116
@@ -7448,11 +7445,11 @@ msgstr "Frecuencia"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:24
 msgid "RDA recommended terms: monthly, weekly, daily, ..."
-msgstr ""
+msgstr "Términos recomendados por RDA: mensual, semanal, diario, ..."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:29
 msgid "Required if a former frequency is indicated"
-msgstr ""
+msgstr "Requerido si se indica una frecuencia anterior"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:33
 msgid "Example: 1953-1988"
@@ -7460,20 +7457,20 @@ msgstr "Ejemplo: 1953-1988"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:3
 msgid "Genres, forms"
-msgstr ""
+msgstr "Géneros, formas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:4
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:4
 msgid "(MARC 655)"
-msgstr ""
+msgstr "(MARC 655)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:9
 msgid "Genre, form"
-msgstr ""
+msgstr "Género, forma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:12
 msgid "Link to concept entity"
-msgstr ""
+msgstr "Enlace a un concepto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:23
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:78
@@ -7487,18 +7484,18 @@ msgstr "Concepto (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:55
 msgid "Source of the subject, for instance rero."
-msgstr ""
+msgstr "Fuente del tema, por ejemplo rero."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:69
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:252
 msgid "bf:Topic"
-msgstr ""
+msgstr "Concepto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:76
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:264
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:394
 msgid "Term"
-msgstr ""
+msgstr "Término"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:3
 msgid "Identifiers"
@@ -7509,6 +7506,8 @@ msgid ""
 "Other identifier types are entered as local identifiers with indication "
 "of the source."
 msgstr ""
+"Otros tipos de identificador están introducidos como identificadores locales "
+"con indicación de la fuente."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:55
 msgid "bf:AudioIssueNumber"
@@ -7555,9 +7554,8 @@ msgid "bf:IssnL"
 msgstr "ISSN-L"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:99
-#, fuzzy
 msgid "bf:Lccn"
-msgstr "Identificador local"
+msgstr "LCCN"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:103
 msgid "bf:Local"
@@ -7605,27 +7603,31 @@ msgstr "Valor del identificador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:174
 msgid "Qualification"
-msgstr ""
+msgstr "Calificador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:175
 msgid ""
 "Qualification if the resource has more than one identifier of the same, "
 "to enter if considered important for identification."
 msgstr ""
+"Calificador si el recurso tiene más de un identificador del mismo, a "
+"introducir si se considera importante para la identificación."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:179
 msgid "Example: volume 1"
-msgstr ""
+msgstr "Ejemplo: Volumen 1"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:188
 msgid ""
 "The source is entered only for local identifiers, it indicates the system"
 " or agency responsible for the identifier."
 msgstr ""
+"La fuente se introduce sólo para los identificadores locales, indica el "
+"sistema o la agencia responsable del identificador."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:192
 msgid "Examples: LCCN, PMID, DNB"
-msgstr ""
+msgstr "Ejemplos: LCCN, PMID, DNB"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:203
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:42
@@ -7644,25 +7646,25 @@ msgstr "Identificador local"
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:83
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:120
 msgid "IdRef"
-msgstr ""
+msgstr "IdRef"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:87
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:124
 msgid "GND"
-msgstr ""
+msgstr "GND"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:91
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:128
 msgid "RERO"
-msgstr ""
+msgstr "RERO"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:95
 msgid "RERO-RAMEAU"
-msgstr ""
+msgstr "RERO-RAMEAU"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:148
 msgid "Source in case of a local identifier."
-msgstr ""
+msgstr "Fuente en caso de un identificador local."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_illustrative_content-v0.0.1.json:3
 msgid "Illustrative contents"
@@ -7702,7 +7704,7 @@ msgstr "Público al que va dirigido"
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:12
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:24
 msgid "understanding_level"
-msgstr ""
+msgstr "Nivel de lectura/comprensión"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:38
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:212
@@ -7711,116 +7713,116 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:472
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:32
 msgid "value"
-msgstr ""
+msgstr "valor"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:74
 msgid "target_understanding_children"
-msgstr ""
+msgstr "Niños"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:78
 msgid "target_understanding_children_0_3"
-msgstr ""
+msgstr "Niños (0-3 años)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:82
 msgid "target_understanding_children_3_6"
-msgstr ""
+msgstr "Niños (3-6 años)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:86
 msgid "target_understanding_children_6_9"
-msgstr ""
+msgstr "Niños (6-9 años)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:90
 msgid "target_understanding_children_9_12"
-msgstr ""
+msgstr "Niños (9-12 años)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:94
 msgid "target_understanding_teenagers"
-msgstr ""
+msgstr "Adolescentes"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:98
 msgid "target_understanding_teenagers_12_15"
-msgstr ""
+msgstr "Adolescentes (12-15 años)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:102
 msgid "target_understanding_teenagers_15_18"
-msgstr ""
+msgstr "Adolescentes (15-18 años)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:106
 msgid "target_understanding_secondary_level_2"
-msgstr ""
+msgstr "Nivel secundario 2"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:110
 msgid "target_understanding_tertiary"
-msgstr ""
+msgstr "Terciario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:114
 msgid "target_understanding_apprentices"
-msgstr ""
+msgstr "Aprendices"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:118
 msgid "target_understanding_bachelor_students"
-msgstr ""
+msgstr "Estudiantes de bachillerato"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:122
 msgid "target_understanding_master_students"
-msgstr ""
+msgstr "Estudiantes de máster"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:126
 msgid "target_understanding_doctoral_students"
-msgstr ""
+msgstr "Doctorandos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:130
 msgid "target_understanding_beginners"
-msgstr ""
+msgstr "Principiantes"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:134
 msgid "target_understanding_intermediaries"
-msgstr ""
+msgstr "Intermediarios"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:138
 msgid "target_understanding_advanced"
-msgstr ""
+msgstr "Avanzados"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:142
 msgid "target_understanding_specialists"
-msgstr ""
+msgstr "Especialistas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:146
 msgid "target_understanding_adults"
-msgstr ""
+msgstr "Adultos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:150
 msgid "target_understanding_allophone_adults"
-msgstr ""
+msgstr "Alófonos adultos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:154
 msgid "target_understanding_all_audience"
-msgstr ""
+msgstr "Todos los públicos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:158
 msgid "target_understanding_teachers_harmos_degree"
-msgstr ""
+msgstr "Profesores (nivel Harmos)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:162
 msgid "target_understanding_teachers_secondary_level_2"
-msgstr ""
+msgstr "Profesores nivel secundaria 2"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:166
 msgid "target_understanding_hep_trainers"
-msgstr ""
+msgstr "Formadores HEP"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:170
 msgid "target_understanding_parents"
-msgstr ""
+msgstr "Padres"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:174
 msgid "target_understanding_caregivers"
-msgstr ""
+msgstr "Cuidadores"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:186
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:198
 msgid "school_level"
-msgstr ""
+msgstr "Niveles escolares"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:236
 msgid "target_school_harmos1"
@@ -7914,40 +7916,40 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:409
 msgid "from the age of 18"
-msgstr ""
+msgstr "Desde los 18 años"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:413
 msgid "from the age of 16"
-msgstr ""
+msgstr "Desde los 16 años"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:417
 msgid "from the age of 14"
-msgstr ""
+msgstr "Desde los 14 años"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:421
 msgid "from the age of 12"
-msgstr ""
+msgstr "Desde los 12 años"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:425
 msgid "from the age of 10"
-msgstr ""
+msgstr "Desde los 10 años"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:429
 msgid "from the age of 7"
-msgstr ""
+msgstr "Desde los 7 años"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:433
 msgid "from the age of 5"
-msgstr ""
+msgstr "Desde los 5 años"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:437
 msgid "from the age of 2"
-msgstr ""
+msgstr "Desde los 2 años"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:446
 #: rero_ils/modules/documents/jsonschemas/documents/document_intended_audience-v0.0.1.json:458
 msgid "undefined"
-msgstr ""
+msgstr "indefinido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:528
@@ -8073,7 +8075,7 @@ msgstr "idioma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:4
 msgid "(MARC 500, 510, 530, 545, 555, 580)"
-msgstr ""
+msgstr "(MARC 500, 510, 530, 545, 555, 580)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:20
 msgid "Type of note"
@@ -8093,15 +8095,15 @@ msgstr "otros detalles físicos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:45
 msgid "cited_by"
-msgstr ""
+msgstr "Citado por"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_original_language-v0.0.1.json:3
 msgid "Language of representative expression"
-msgstr ""
+msgstr "Lengua de expresión representativa"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_original_language-v0.0.1.json:4
 msgid "Language of original work (MARC 041$h)"
-msgstr ""
+msgstr "Lengua de la obra original (MARC 041$h)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:3
 msgid "Part of (host document)"
@@ -8339,105 +8341,111 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:266
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:351
 msgid "Date of the original"
-msgstr ""
+msgstr "Fecha del original"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:267
 msgid "Date of the original in case of a reproduction."
-msgstr ""
+msgstr "Fecha del original en el caso de una reproducción."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:3
 msgid "Scales"
-msgstr ""
+msgstr "Escalas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:4
 msgid ""
 "Ratio of the dimensions of an image or three-dimensional form to the "
 "dimensions of the thing that is represented. (MARC 034, 255)"
 msgstr ""
+"Relación entre las dimensiones de una imagen o forma tridimensional y las "
+"dimensiones de la cosa representada. (ORUJO 034, 255)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:194
 msgid "Scale"
-msgstr ""
+msgstr "Escala"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:29
 msgid "Linear scale"
-msgstr ""
+msgstr "Escala lineal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:33
 msgid "Angular scale"
-msgstr ""
+msgstr "Escala angular"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:37
 msgid "Other"
-msgstr ""
+msgstr "Otro"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:44
 msgid "Horizontal scale"
-msgstr ""
+msgstr "Escala horizontal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:45
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:54
 msgid "Enter only the denominator."
-msgstr ""
+msgstr "Introduzca sólo el denominador."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:49
 msgid "Example: 25000"
-msgstr ""
+msgstr "Ejemplo: 25000"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:53
 msgid "Vertical scale"
-msgstr ""
+msgstr "Escala vertical"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:58
 msgid "Example: 250"
-msgstr ""
+msgstr "Ejemplo: 250"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:63
 msgid "Scale designation (MARC 255$a)"
-msgstr ""
+msgstr "Designación de la escala (MARC 255$a)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:67
 msgid "Example: Scale 1:25 000"
-msgstr ""
+msgstr "Ejemplo: Escala 1:25 000"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:77
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:81
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:210
 msgid "Cartographic data"
-msgstr ""
+msgstr "Datos cartográficos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:90
 msgid "Coordinates"
-msgstr ""
+msgstr "Coordenadas"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:106
 msgid "Longitude"
-msgstr ""
+msgstr "Longitud"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:107
 msgid ""
 "Enter one value, or two values (westernmost then easternmost) separated "
 "by a space."
 msgstr ""
+"Introduzca un valor, o dos valores (el más occidental y el más oriental) "
+"separados por un espacio."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:111
 msgid "Example: W1800000 E1800000"
-msgstr ""
+msgstr "Ejemplo: W1800000 E1800000"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:115
 msgid "Latitude"
-msgstr ""
+msgstr "Latitud"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:116
 msgid ""
 "Enter one value, or two values (northernmost then southernmost) separated"
 " by a space."
 msgstr ""
+"Introduzca un valor, o dos valores (el más septentrional y el más meridional)"
+" separados por un espacio."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:120
 msgid "Example: N0251500 N0221000"
-msgstr ""
+msgstr "Ejemplo: N0251500 N0221000"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:124
 msgid "Declination"
@@ -8448,10 +8456,12 @@ msgid ""
 "Use the format hdddmmss (hemisphere-degrees-minutes-seconds). Enter one "
 "value, or two values separated by a space."
 msgstr ""
+"Utilice el formato hdddmmss (hemisferio-grados-minutos-segundos). Introduzca "
+"un valor o dos valores separados por un espacio."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:129
 msgid "Example: N0300000"
-msgstr ""
+msgstr "Ejemplo: N0300000"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:133
 msgid "Right ascension"
@@ -8462,10 +8472,12 @@ msgid ""
 "Use the format hhmmss (hour-minute-seconds). Enter one value, or two "
 "values separated by a space."
 msgstr ""
+"Utilice el formato hhmmss (hora-minuto-segundo). Introduzca un valor o dos "
+"valores separados por un espacio."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:138
 msgid "Example: 021800"
-msgstr ""
+msgstr "Ejemplo: 021800"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:144
 msgid "Projection"
@@ -8481,11 +8493,11 @@ msgstr "Equinoccio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:153
 msgid "Enter only a year (yyyy) or year and month (yyyy.mm)."
-msgstr ""
+msgstr "Introduzca sólo un año (aaaa) o el año y el mes (aaaa.mm)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:157
 msgid "Example: 1950"
-msgstr ""
+msgstr "Ejemplo: 1950"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:3
 msgid "Numbering of sequence"
@@ -8496,10 +8508,12 @@ msgid ""
 "First and last designations of a sequence for a document is issued in two"
 " or more units (MARC 362)"
 msgstr ""
+"La primera y última designación de una secuencia para un documento se emite "
+"en dos o más unidades (MARC 362)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_sequence_numbering-v0.0.1.json:8
 msgid "Example: Volume 1(2006)-volume 9(2014)"
-msgstr ""
+msgstr "Ejemplo: Volumen 1(2006)-volumen 9(2014)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:316
@@ -8524,7 +8538,7 @@ msgstr "Ejemplo: vol. 3"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:4
 msgid "(MARC 6XX)"
-msgstr ""
+msgstr "(MARC 6XX)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 msgid "Person (local)"
@@ -8558,7 +8572,7 @@ msgstr "Creador"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:199
 msgid "Example: Voltenauer, Marc"
-msgstr ""
+msgstr "Ejemplo: Voltenauer, Marc"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:292
 msgid "Place (local)"
@@ -8578,29 +8592,31 @@ msgstr "Nombre preferido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:435
 msgid "Source of the subject."
-msgstr ""
+msgstr "Fuente del tema."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:441
 msgid "Factum"
-msgstr ""
+msgstr "Factum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:445
 msgid "RAMEAU proposal"
-msgstr ""
+msgstr "Propuesta de RAMEAU"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:455
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:118
 msgid "Form subdivisions"
-msgstr ""
+msgstr "Formar subdivisiones"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:459
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:122
 msgid "Form subdivision"
-msgstr ""
+msgstr "Subdivisión de la forma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:460
 msgid "Subject subdivision for a specific kind or genre of material (MARC 6XX$v)"
 msgstr ""
+"Subdivisión temática para un tipo o género específico de material (MARC "
+"6XX$v)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:464
 #, fuzzy
@@ -8619,7 +8635,7 @@ msgstr "Subdivisión"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:477
 msgid "Subject subdivision for a concept (MARC 6XX$x)"
-msgstr ""
+msgstr "Subdivisión temática de un concepto (MARC 6XX$x)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:481
 #, fuzzy
@@ -8638,7 +8654,7 @@ msgstr "Subdivisión"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:494
 msgid "Subject subdivision for a period of time (MARC 6XX$y)"
-msgstr ""
+msgstr "Subdivisión temática durante un periodo de tiempo (MARC 6XX$y)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:498
 #, fuzzy
@@ -8657,11 +8673,11 @@ msgstr "Subdivisión"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:511
 msgid "Subject subdivision for a place (MARC 6XX$z)"
-msgstr ""
+msgstr "Subdivisión temática de un lugar (MARC 6XX$z)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:515
 msgid "Example: Mississippi"
-msgstr ""
+msgstr "Ejemplo: Mississippi"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:12
@@ -8703,7 +8719,7 @@ msgstr "Resumen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:51
 msgid "Provider of the summary (MARC 520$c and 520$9)"
-msgstr ""
+msgstr "Proveedor del resumen (MARC 520$c y 520$9)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:55
 msgid "Example: Internet Movie Database"
@@ -8728,22 +8744,24 @@ msgstr "Contenido complementario"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_supplementary_content-v0.0.1.json:11
 msgid "Example: Bibliography: pages 323-346"
-msgstr ""
+msgstr "Ejemplo: Bibliografía: páginas 323-346"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:122
 msgid "Contents"
-msgstr "Contenido"
+msgstr "Contenidos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:4
 msgid ""
 "Titles of the works or parts of the manifestation. Enter one title per "
 "field (MARC 505)."
 msgstr ""
+"Títulos de las obras o partes de la manifestación. Introduzca un título por "
+"campo (MARC 505)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:11
 msgid "Example: Volume 1: Fondements / \\u00e9dit\\u00e9 par A. M\\u00fcller"
-msgstr ""
+msgstr "Ejemplo: Volumen 1: Fondements / \\u00e9dit\\u00e9 par A. M\\u00fcller"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:3
 msgid "Temporal content coverages"
@@ -8751,7 +8769,7 @@ msgstr "Coberturas cronológicas del contenido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:4
 msgid "description: MARC 045"
-msgstr ""
+msgstr "descripción: MARC 045"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:8
 msgid "Temporal content coverage"
@@ -8759,7 +8777,7 @@ msgstr "Cobertura cronológica del contenido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:12
 msgid "time"
-msgstr ""
+msgstr "tiempo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:84
@@ -8768,32 +8786,35 @@ msgid ""
 "Enter a date in the format (+/-)yyyy. You can add the month, day or time "
 "as follows: (+/-)yyyy-mm-ddTHH-MM-SS."
 msgstr ""
+"Introduzca una fecha en el formato (+/-)aaaa. Puede añadir el mes, el día o "
+"la hora de la siguiente manera (+/-)aaaa-mm-ddTHH-MM-SS."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:45
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:88
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:97
 msgid "Example: +1945-05-08"
-msgstr ""
+msgstr "Ejemplo: +1945-05-08"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:54
 msgid "period"
-msgstr ""
+msgstr "período"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:113
 msgid "Period codes"
-msgstr ""
+msgstr "Códigos de periodo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:117
 msgid "Period code"
-msgstr ""
+msgstr "Código de periodo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:118
 msgid "Enter a 4 character code from the MARC time period table."
 msgstr ""
+"Introduzca un código de 4 caracteres de la tabla de periodos de tiempo MARC."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:122
 msgid "Example: x1x4"
-msgstr ""
+msgstr "Ejemplo: x1x4"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:3
 msgid "Titles"
@@ -8801,7 +8822,7 @@ msgstr "Títulos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:36
 msgid "bf:Title"
-msgstr "título principal"
+msgstr "título propio"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:40
 msgid "bf:ParallelTitle"
@@ -8859,11 +8880,11 @@ msgstr "Apellido"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_original-v0.0.1.json:3
 msgid "Original titles"
-msgstr ""
+msgstr "Títulos originales"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_original-v0.0.1.json:4
 msgid "Title of the work embodied."
-msgstr ""
+msgstr "Título de la obra encarnada."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_titles_original-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:93
@@ -9132,7 +9153,7 @@ msgstr "Videojuego"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:3
 msgid "Usage and access policies"
-msgstr ""
+msgstr "Políticas de uso y acceso"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:4
 msgid ""
@@ -9140,58 +9161,61 @@ msgid ""
 "described materials, including retention, reproduction, access, and "
 "lending (MARC 506, 540)."
 msgstr ""
+"descripción: Información sobre las restricciones impuestas al acceso a los "
+"materiales descritos, incluyendo la retención, reproducción, acceso y "
+"préstamo (MARC 506, 540)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:9
 msgid "Usage and access policy"
-msgstr ""
+msgstr "Política de uso y acceso"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:38
 msgid "Example: Copy not allowed"
-msgstr ""
+msgstr "Ejemplo: Copia no permitida"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:3
 msgid "Work access point"
-msgstr ""
+msgstr "Punto de acceso al trabajo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:77
 msgid "Date of work"
-msgstr ""
+msgstr "Fecha de la obra"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:82
 msgid "Miscellaneous information"
-msgstr ""
+msgstr "Información variada"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:91
 msgid "Part, Section, or Supplement"
-msgstr ""
+msgstr "Parte, sección o suplemento"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:103
 msgid "Designation"
-msgstr ""
+msgstr "Designación"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:104
 msgid "Numeric designation of the part, section or supplement"
-msgstr ""
+msgstr "Designación numérica de la parte, sección o suplemento"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:110
 msgid "Title of the part, section, or supplement"
-msgstr ""
+msgstr "Título de la parte, sección o suplemento"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:128
 msgid "Mediums of performance (music)"
-msgstr ""
+msgstr "Medios de actuación (música)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:132
 msgid "Medium of performance (music)"
-msgstr ""
+msgstr "Medio de actuación (música)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:138
 msgid "Arranged statement (music)"
-msgstr ""
+msgstr "Declaración arreglada (música)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:143
 msgid "Key (music)"
-msgstr ""
+msgstr "Clave (música)"
 
 #: rero_ils/modules/documents/templates/rero_ils/_anonymous_button.html:21
 msgid "Log in (to see request options)"
@@ -9217,11 +9241,11 @@ msgstr "Otras responsabilidades"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:79
 msgid "Original language"
-msgstr ""
+msgstr "Lengua original"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:136
 msgid "Thesis"
-msgstr ""
+msgstr "Tesis"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:166
 msgid "Illustrations"
@@ -9233,7 +9257,7 @@ msgstr "Colores"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:256
 msgid "Use and access condition"
-msgstr ""
+msgstr "Condiciones de uso y acceso"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:276
 msgid "Reproduced as"
@@ -9241,7 +9265,7 @@ msgstr "Reproducido como"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:300
 msgid "Statement of responsibility"
-msgstr ""
+msgstr "Mención de responsabilidad"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:402
 msgid "Format"
@@ -9249,7 +9273,7 @@ msgstr "Formato"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:507
 msgid "Carrier and content type"
-msgstr ""
+msgstr "Tipo de soporte y contenido"
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:537
 msgid "Permalink"
@@ -9266,11 +9290,11 @@ msgstr "Volver"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:32
 msgid "Export as ..."
-msgstr ""
+msgstr "Exportar como ..."
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:209
 msgid "Show more"
-msgstr ""
+msgstr "Mostrar más"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:239
 #, fuzzy
@@ -9278,9 +9302,8 @@ msgid "article/volume"
 msgstr "artículo"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:241
-#, fuzzy
 msgid " articles/volumes"
-msgstr "artículo"
+msgstr " artículos/volúmenes"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:278
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:280
@@ -9315,11 +9338,12 @@ msgstr "{field} sólo está permitido para holdings de periódicos"
 
 #: rero_ils/modules/holdings/api.py:410
 msgid "has {count} items with loan attached"
-msgstr ""
+msgstr "tiene {count} artículos con préstamo adjunto"
 
 #: rero_ils/modules/holdings/api.py:487
+#, fuzzy
 msgid "Only serial holdings can be requested."
-msgstr ""
+msgstr "Sólo se puede solicitar existencias de publicaciones seriadas."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:468
@@ -9934,7 +9958,7 @@ msgstr "Lugar de recogida"
 
 #: rero_ils/modules/ill_requests/forms.py:159
 msgid "Select…"
-msgstr ""
+msgstr "Seleccionar…"
 
 #: rero_ils/modules/ill_requests/forms.py:160
 msgid "Select the location where this request will be operated"
@@ -10057,6 +10081,7 @@ msgid ""
 "Please make sure that the requested document does not exist in your "
 "library network."
 msgstr ""
+"Asegúrese de que el documento solicitado no existe en su red de bibliotecas."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:34
 msgid "You have submitted an invalid CSRF token"
@@ -10080,14 +10105,16 @@ msgid ""
 "You are about to request an interlibrary loan. By confirming you agree "
 "that:"
 msgstr ""
+"Está a punto de solicitar un préstamo interbibliotecario. Al confirmar usted "
+"acepta que:"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:82
 msgid "The requested document does not exist in your library network."
-msgstr ""
+msgstr "El documento solicitado no existe en su red de bibliotecas."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:83
 msgid "Costs may apply."
-msgstr ""
+msgstr "Pueden aplicarse costes."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:87
 msgid "Cancel"
@@ -10153,7 +10180,7 @@ msgstr ""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:104
 msgid "Displayed status"
-msgstr ""
+msgstr "Estado visualizado"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:106
 msgid "Short text displayed in the interface, for instance \\"
@@ -10415,9 +10442,8 @@ msgid "Loan duration in days"
 msgstr "Duración de la renovación en días"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:738
-#, fuzzy
 msgid "Allow requests"
-msgstr "Permitir reservación"
+msgstr "Permitir reservaciones"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:743
 #, fuzzy
@@ -10600,9 +10626,8 @@ msgid "Online harvested sources as configured in ebooks server."
 msgstr "Fuente recolectada en línea como configurada en el servidor de ebooks."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:499
-#, fuzzy
 msgid "Name of online source."
-msgstr "Fecha de la conferencia"
+msgstr "Nombre de la fuente en línea."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:505
 msgid "URL to online source."
@@ -10633,9 +10658,8 @@ msgid "The loan cannot be extended"
 msgstr ""
 
 #: rero_ils/modules/loans/api.py:141
-#, fuzzy
 msgid "Circulation policies disallows the operation."
-msgstr "Descripción de la política de circulación"
+msgstr "Las políticas de circulación no permiten la operación."
 
 #: rero_ils/modules/loans/api.py:143
 msgid "A pending request exists on this item."
@@ -10699,7 +10723,7 @@ msgstr "Fecha de fin de la transacción"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:118
 msgid "Last end date of loan"
-msgstr ""
+msgstr "Última fecha de finalización del préstamo"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:123
 msgid "Due Soon Date"
@@ -10745,7 +10769,7 @@ msgstr "El nombre de la acción que desencadenó la transición al estado actual
 
 #: rero_ils/modules/local_fields/api.py:81
 msgid "Local fields already exist for this document."
-msgstr ""
+msgstr "Ya existen campos locales para este documento."
 
 #: rero_ils/modules/local_fields/api.py:85
 msgid "Missing fields."
@@ -10949,15 +10973,15 @@ msgstr "Recuento de recordatorio actual"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:61
 msgid "Recipient email addresses"
-msgstr ""
+msgstr "Correos electrónicos de los destinatarios"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:65
 msgid "Recipient"
-msgstr ""
+msgstr "Destinatario"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:74
 msgid "Recipient type"
-msgstr ""
+msgstr "Tipo de destinatario"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:97
 msgid "Schema to validate notifications records against."
@@ -10977,7 +11001,7 @@ msgstr "Fecha de tratamiento del aviso"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:119
 msgid "Notification sent or not"
-msgstr ""
+msgstr "Notificación enviada o no"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:136
 msgid "Notification type"
@@ -10999,7 +11023,7 @@ msgstr ""
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:16
 msgid "Schema to validate operation logs records against."
-msgstr ""
+msgstr "Esquema para validar los registros de operaciones."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:22
 msgid "Operation log PID"
@@ -11027,12 +11051,12 @@ msgstr "Tipo de operación"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:94
 msgid "ILL request status"
-msgstr ""
+msgstr "Estado de la solicitud de préstamo interbibliotecario"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:122
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:375
 msgid "Library PID"
-msgstr ""
+msgstr "PID de la biblioteca"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:129
 msgid "User organisation"
@@ -11040,11 +11064,11 @@ msgstr "Organización del usuario"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:150
 msgid "User library"
-msgstr ""
+msgstr "Biblioteca del usuario"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:172
 msgid "Loan specific data"
-msgstr ""
+msgstr "Datos específicos al préstamo"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:192
 msgid "Action Trigger"
@@ -11057,7 +11081,7 @@ msgstr "atrasado"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:206
 msgid "Allow a transaction which is normally not possible."
-msgstr ""
+msgstr "Permitir una transacción que normalmente no es posible."
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:211
 #, fuzzy
@@ -11066,11 +11090,11 @@ msgstr "Canal de comunicación"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:220
 msgid "Transaction user"
-msgstr ""
+msgstr "Usuario de la transacción"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:234
 msgid "Patron name"
-msgstr ""
+msgstr "Nombre del usuario"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:241
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:262
@@ -11138,9 +11162,8 @@ msgid "Creation date"
 msgstr "Fecha de creación"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:442
-#, fuzzy
 msgid "Modification date"
-msgstr "Tipo de aviso"
+msgstr "Fecha de modificación"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:5
 msgid "JSON schema for an organisation"
@@ -11908,7 +11931,6 @@ msgid "Login username for the web interface."
 msgstr "Nombre de usuario para la interfaz web."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:114
-#, fuzzy
 msgid ""
 "Username must start with a letter or a number, be at least three "
 "characters long and only contain alphanumeric characters, dashes and "
@@ -13859,4 +13881,3 @@ msgstr "Se ha restablecido su contraseña correctamente."
 #~ "agree to the interlibrary loan "
 #~ "conditions of the pick-up library."
 #~ msgstr ""
-
