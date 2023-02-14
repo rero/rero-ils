@@ -175,7 +175,6 @@ def enrich_document_data(sender, json=None, record=None, index=None,
     """
     if index.split('-')[0] != DocumentsSearch.Meta.index:
         return
-
     process_holdings(record, json)
 
     # # MEF contribution ES index update

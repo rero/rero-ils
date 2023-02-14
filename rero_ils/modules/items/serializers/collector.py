@@ -89,11 +89,11 @@ class Collector():
         def _build_doc(data):
             document_data = {}
             # document title
-            doc_titles = filter(
+            document_titles = filter(
                 lambda t: t.get('type') == 'bf:Title',
                 data.get('title', {})
             )
-            if title := next(doc_titles):
+            if title := next(document_titles):
                 document_data['document_title'] = title.get('_text')
 
             # document masked
