@@ -248,8 +248,8 @@ class Document(IlsRecord):
         from ..tasks import process_bulk_queue
         contributions_ids = []
         for contribution in self.get('contribution', []):
-            ref = contribution['agent'].get('$ref')
-            if not ref and (cont_pid := contribution['agent'].get('pid')):
+            ref = contribution['entity'].get('$ref')
+            if not ref and (cont_pid := contribution['entity'].get('pid')):
                 if bulk:
                     uid = Contribution.get_id_by_pid(cont_pid)
                     contributions_ids.append(uid)
@@ -297,12 +297,12 @@ class Document(IlsRecord):
         """
         new_contributions = []
         for contribution in data.get('contribution', []):
-            if not contribution['agent'].get('$ref'):
+            if not contribution['entity'].get('$ref'):
                 new_contributions.append(contribution)
             else:
                 new_contributions.append({
-                    'agent': self._replace_refs_contribution(
-                        contribution['agent']),
+                    'entity': self._replace_refs_contribution(
+                        contribution['entity']),
                     'role': contribution['role']
                     })
         if new_contributions:

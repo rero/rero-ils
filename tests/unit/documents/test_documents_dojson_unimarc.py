@@ -865,57 +865,44 @@ def test_unimarc_contribution():
     contribution = data.get('contribution')
     assert contribution == [
         {
-            'agent': {
+            'entity': {
                 'type': 'bf:Person',
-                'preferred_name': 'Jean-Paul',
-                'numeration': 'II',
-                'date_of_birth': '1954',
-                'qualifier': 'Pape'
+                'authorized_access_point': 'Jean-Paul II, Pape, 1954'
             },
             'role': ['aut']
         },
         {
-            'agent': {
+            'entity': {
                 'type': 'bf:Person',
-                'preferred_name': 'Dumont, Jean',
-                'date_of_birth': '1921',
-                'date_of_death': '2014',
-                'qualifier': 'Historien'
+                'authorized_access_point': 'Dumont, Jean, 1921-2014, Historien'
             },
             'role': ['aut']
         },
         {
-            'agent': {
+            'entity': {
                 'type': 'bf:Person',
-                'preferred_name': 'Dicker, J.',
-                'date_of_birth': '1921'
+                'authorized_access_point': 'Dicker, J., 1921'
             },
             'role': ['aut']
         },
         {
-            'agent': {
+            'entity': {
                 'type': 'bf:Organisation',
-                'preferred_name': 'RERO',
-                'conference': False
+                'authorized_access_point': 'RERO'
             },
             'role': ['aut']
         },
         {
-            'agent': {
+            'entity': {
                 'type': 'bf:Organisation',
-                'preferred_name': 'LOC',
-                'conference': False,
-                'numbering': '1',
-                'place': 'London',
-                'conference_date': '2020-02-02'
+                'authorized_access_point': 'LOC (1 : 2020-02-02 : London)'
             },
             'role': ['aut']
         },
         {
-            'agent': {
+            'entity': {
                 'type': 'bf:Organisation',
-                'preferred_name': 'BNF',
-                'conference': True
+                'authorized_access_point': 'BNF'
             },
             'role': ['aut']
         }

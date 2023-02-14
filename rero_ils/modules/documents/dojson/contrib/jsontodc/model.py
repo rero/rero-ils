@@ -85,13 +85,13 @@ CREATOR_ROLES = [
 def json_to_contributors(self, key, value):
     """Get creators and contributors data."""
     authorized_access_point = get_contribution_localized_value(
-        contribution=value.get('agent', {}),
+        contribution=value.get('entity', {}),
         key='authorized_access_point',
         language=dublincore.language
     )
     result = authorized_access_point
     if result is None:
-        result = value.get('agent', {}).get('preferred_name')
+        result = value.get('entity', {}).get('authorized_access_point')
 
     if result:
         if value.get('role') in CREATOR_ROLES:

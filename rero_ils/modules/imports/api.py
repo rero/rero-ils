@@ -176,7 +176,7 @@ class Import(object):
 
         contribution = record.get('contribution', [])
         for agent in contribution:
-            name = agent.get('agent', {}).get('preferred_name')
+            name = agent.get('entity', {}).get('authorized_access_point')
             self.calculate_aggregations_add('author', name, id)
 
         languages = record.get('language', [])

@@ -34,8 +34,8 @@ class AddMEFPidExtension(RecordExtension):
         from rero_ils.modules.contributions.api import Contribution
         agents = record.get('subjects', []) +\
             record.get('subjects_imported', []) + \
-            [c['agent'] for c in
-                record.get('contribution', []) if c.get('agent')]
+            [contrib['entity'] for contrib in
+                record.get('contribution', []) if 'entity' in contrib]
         for agent in agents:
             if contrib_ref := agent.get('$ref'):
                 cont, _ = Contribution.get_record_by_ref(
