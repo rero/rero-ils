@@ -394,7 +394,7 @@ def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
     """Test contribution to MARC21 transformation."""
     record = {
         'contribution': [{
-            'agent': {
+            'entity': {
                 'date_of_birth': '1923',
                 'date_of_death': '1999',
                 'preferred_name': 'Fujimoto, Satoko',
@@ -402,28 +402,28 @@ def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
             },
             'role': ['ctb', 'aut']
         }, {
-            'agent': {
+            'entity': {
                 '$ref': f'{mef_agents_url}/idref/'
                         'mef_record_with_idref_rero',
                 'type': 'bf:Person'
             },
             'role': ['trl']
         }, {
-            'agent': {
+            'entity': {
                 'conference': False,
                 'preferred_name': 'Université de Genève',
                 'type': 'bf:Organisation'
             },
             'role': ['ctb']
         }, {
-            'agent': {
+            'entity': {
                 '$ref': f'{mef_agents_url}/api/agents/gnd/'
                         'mef_record_with_idref_gnd',
                 'type': 'bf:Organisation'
             },
             'role': ['aut']
         }, {
-            'agent': {
+            'entity': {
                 'conference': True,
                 'conference_date': '1989',
                 'numbering': '4',
@@ -433,7 +433,7 @@ def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
             },
             'role': ['aut']
         }, {
-            'agent': {
+            'entity': {
                 '$ref': f'{mef_agents_url}/idref/'
                         'mef_record_with_idref_gnd_rero',
                 'type': 'bf:Organisation'

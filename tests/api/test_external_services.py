@@ -39,12 +39,13 @@ def test_documents_get(client, document):
         contributions = []
         for contribution in metadata.get('contribution', []):
             agent = {}
-            for item in contribution['agent']:
+            for item in contribution['entity']:
                 if item == 'authorized_access_point':
-                    agent['preferred_name'] = contribution['agent'][item]
+                    agent['authorized_access_point'] = \
+                        contribution['entity'][item]
                 elif not item.startswith('authorized_access_point_'):
-                    agent[item] = contribution['agent'][item]
-            contribution['agent'] = agent
+                    agent[item] = contribution['entity'][item]
+            contribution['entity'] = agent
             contributions.append(contribution)
         # REMOVE DYNAMICALLY ADDED ES KEYS (see listener.py)
         metadata.pop('sort_date_new', None)
