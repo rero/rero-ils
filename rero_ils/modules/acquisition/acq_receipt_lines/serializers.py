@@ -20,8 +20,8 @@
 
 from invenio_records_rest.serializers.response import record_responsify
 
+from rero_ils.modules.acquisition.dumpers import document_acquisition_dumper
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper
 from rero_ils.modules.serializers import ACQJSONSerializer, \
     RecordSchemaJSONV1, search_responsify
 
@@ -38,7 +38,7 @@ class AcqReceiptLineJSONSerializer(ACQJSONSerializer):
         if doc_pid := metadata.get('document', {}).get('pid'):
             document = Document.get_record_by_pid(doc_pid)
             metadata['document'] = document.dumps(
-                dumper=DocumentAcquisitionDumper())
+                dumper=document_acquisition_dumper)
         super()._postprocess_search_hit(hit)
 
 

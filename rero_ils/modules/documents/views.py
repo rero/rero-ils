@@ -31,6 +31,7 @@ from invenio_records_ui.signals import record_viewed
 
 from .api import Document, DocumentsSearch
 from .commons import SubjectFactory
+from .dumpers import document_replace_refs
 from .extensions import EditionStatementExtension, \
     ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
 from .utils import display_alternate_graphic_first, get_remote_cover, \
@@ -261,7 +262,7 @@ def contribution_format(pid, language, viewcode, role=False):
     :return the contribution in formatted form.
     """
     doc = Document.get_record_by_pid(pid)
-    doc = doc.replace_refs()
+    doc = doc.dumps(document_replace_refs)
     output = []
     for contribution in doc.get('contribution', []):
         cont_pid = contribution['entity'].get('pid')

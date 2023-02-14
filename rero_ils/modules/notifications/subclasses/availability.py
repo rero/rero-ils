@@ -22,7 +22,7 @@ from __future__ import absolute_import, print_function
 
 import ciso8601
 
-from rero_ils.modules.documents.dumpers import DocumentGenericDumper
+from rero_ils.modules.documents.dumpers import document_title
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
 from rero_ils.modules.libraries.dumpers import \
     LibraryCirculationNotificationDumper
@@ -97,7 +97,6 @@ class AvailabilityCirculationNotification(CirculationNotification):
             if setting['type'] == NotificationType.AVAILABILITY:
                 context.update({'delay': setting.get('delay', 0)})
         # Add metadata for any ``notification.loan`` of the notifications list
-        doc_dumper = DocumentGenericDumper()
         item_dumper = ItemNotificationDumper()
         for notification in notifications:
             loc = lib = None
@@ -113,7 +112,7 @@ class AvailabilityCirculationNotification(CirculationNotification):
                 lib = notification.transaction_library
             # merge doc and item metadata preserving document key
             item_data = notification.item.dumps(dumper=item_dumper)
-            doc_data = notification.document.dumps(dumper=doc_dumper)
+            doc_data = notification.document.dumps(dumper=document_title)
             doc_data = {**item_data, **doc_data}
             if loc and lib:
                 context['loans'].append({
