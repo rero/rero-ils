@@ -51,6 +51,7 @@ from rero_ils.modules.notifications.dispatcher import \
     Dispatcher as NotificationDispatcher
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
+from rero_ils.modules.patron_transactions.models import PatronTransactionStatus
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
 from rero_ils.modules.utils import date_string_to_utc, get_ref_for_pid
 
@@ -143,47 +144,12 @@ class Loan(IlsRecord):
             return False, [_('A pending request exists on this item.')]
         return True, []
 
-    def action_required_params(self, action=None):
-        """List of required parameters for circulation actions."""
-        shared_params = [
-            'transaction_location_pid',
-            'transaction_user_pid',
-        ]
-        params = {
-            'request': [
-                'item_pid',
-                'pickup_location_pid',
-                'patron_pid',
-            ],
-            'cancel_loan': [
-                'pid'
-            ],
-            'checkin': [
-                'pid'
-            ],
-            'validate_request': [
-                'pid'
-            ],
-            'checkout': [
-                'item_pid',
-                'patron_pid',
-                'transaction_location_pid',
-                'transaction_user_pid',
-            ],
-            'extend_loan': [
-                'item_pid'
-            ],
-            'receive': []
-        }
-
-        return params.get(action) + shared_params
-
-    def check_required_params(self, action, **kwargs):
+    @staticmethod
+    def check_required_params(action, **kwargs):
         """Validate that all required parameters are given for an action."""
         # TODO: do we need to check also the parameter exist and its value?
-        required_params = self.action_required_params(action=action)
-        missing_params = set(required_params) - set(kwargs)
-        if missing_params:
+        required_params = action_required_params(action=action)
+        if missing_params := set(required_params) - set(kwargs):
             message = f'Parameters {missing_params} are required'
             raise MissingRequiredParameterError(description=message)
 
@@ -507,9 +473,20 @@ class Loan(IlsRecord):
         """
         date = tstamp or datetime.now(timezone.utc)
         due_soon_date = self.get('due_soon_date')
-        """Check if a loan is due soon."""
         if due_soon_date:
             return ciso8601.parse_datetime(due_soon_date) <= date
+        return False
+
+    def has_pending_transaction(self):
+        """Check if a loan has pending patron transactions.
+
+        :return True if some open transaction is found, False otherwise
+        """
+        if pid := self.pid:
+            return PatronTransactionsSearch() \
+               .filter('term', loan__pid=pid) \
+               .filter('term', status=PatronTransactionStatus.OPEN) \
+               .count() > 0
         return False
 
     @property
@@ -668,12 +645,12 @@ class Loan(IlsRecord):
 
     @property
     def get_overdue_fees(self):
-        """Get all overdue fees based based on incremental fees setting.
+        """Get all overdue fees based on incremental fees setting.
 
         The fees are ALWAYS calculated based on checkout location. If a
-        loan is extend from an other location than checkout location, and this
+        loan is extended from another location than checkout location, and this
         loan is overdue, the circulation policy used will be related to the
-        checkout location, not the extend location.
+        checkout location, not the extended location.
 
         :return An array of tuple. Each tuple are composed with two values :
                 the fee amount and a related timestamp.
@@ -938,7 +915,7 @@ class Loan(IlsRecord):
     def get_anonymized_candidates(cls):
         """Search for loans to anonymize.
 
-        Depending of the related patron `keep_history` setting, there is two
+        Depending on the related patron `keep_history` setting, there is two
         ways for searching loan candidates to:
         1) If the patron specifies to keep transaction history : we keep
            history for the 6 last months. After this delay, all loans will be
@@ -968,35 +945,27 @@ class Loan(IlsRecord):
                  Q('range', transaction_date={'lt': three_month_ago}))
             ]) \
             .source(False)
-        for hit in [hit for hit in query.scan()]:
+        for hit in list(query.scan()):
             yield Loan.get_record(hit.meta.id)
 
-    @classmethod
-    def concluded(cls, loan):
-        """Check if loan is concluded.
+    def is_concluded(self):
+        """Check if loan can be considered as concluded or not.
 
-        Loan is considered concluded if it has either ITEM_RETURNED or
-        CANCELLED states and has no open patron_transactions.
-
-        :param loan: the loan to check.
-        :return True|False
+        :return True is the loan is concluded, False otherwise
         """
-        return loan.get('state') in LoanState.CONCLUDED and\
-            not loan_has_open_events(loan_pid=loan.get('pid'))
+        return self.get('state') in LoanState.CONCLUDED and \
+            not self.has_pending_transaction()
 
-    @classmethod
-    def age(cls, loan):
+    def age(self):
         """Return the age of a loan in days.
 
-        The age of a loan is calculated based on the loan transaction date.
-
-        :param loan: the loan to check.
-        :return loan_age in number of days
+        :return the number of days since last transaction date.
         """
-        transaction_date = ciso8601.parse_datetime(
-            loan.get('transaction_date'))
-        loan_age = datetime.utcnow() - transaction_date.replace(tzinfo=None)
-        return loan_age.days
+        if value := self.get('transaction_date'):
+            trans_date = ciso8601.parse_datetime(value)
+            loan_age = datetime.utcnow() - trans_date.replace(tzinfo=None)
+            return loan_age.days
+        return 0
 
     @classmethod
     def can_anonymize(cls, loan_data=None, patron=None):
@@ -1014,21 +983,24 @@ class Loan(IlsRecord):
         :param patron: the patron to check.
         :return True if the loan can be anonymized, False otherwise.
         """
+        # force `loan_data` as a `Loan` object instance if it's not yet.
+        loan = loan_data if isinstance(loan_data, cls) else cls(loan_data)
+
         # CHECK #1 : Is the loan is concluded ?
         #   If the loan is still alive (item in loan, item requested), we can't
         #   anonymize it
-        if not cls.concluded(loan_data):
+        if not loan.is_concluded():
             return False
 
-        # CHECK #2 : is the loan is a old loan ?
+        # CHECK #2 : is the loan is an old loan ?
         #   A concluded loan, older than a limit, could always be anonymized.
-        #   The limit could be configure by 'RERO_ILS_ANONYMISATION_TIME_LIMIT'
+        #   Limit could be configured by 'RERO_ILS_ANONYMISATION_TIME_LIMIT'
         #   key into `config.py`.
         max_limit = current_app.config.get(
             'RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT',
             math.inf
         )
-        loan_age = cls.age(loan_data)
+        loan_age = loan.age()
         if loan_age > max_limit:
             return True
 
@@ -1042,8 +1014,8 @@ class Loan(IlsRecord):
         if loan_age < (min_limit + 1):
             return False
 
-        # CHECK #4 : Check about patron preferences
-        #   Patron could specify if it want keep transaction history or not
+        # CHECK #5 : Check about patron preferences
+        #   Patron could specify if it wants to keep transaction history or not
         patron_pid = loan_data.get('patron_pid')
         patron = patron or Patron.get_record_by_pid(patron_pid)
         keep_history = True
@@ -1054,6 +1026,30 @@ class Loan(IlsRecord):
                   f'no patron: {loan_data.get("patron_pid")}'
             current_app.logger.warning(msg)
         return not keep_history
+
+
+def action_required_params(action=None):
+    """List of required parameters for circulation actions.
+
+    :param action: the action name to check.
+    :return the list of required parameters than the `Loan` must define to
+        validate the action.
+    """
+    shared_params = ['transaction_location_pid', 'transaction_user_pid']
+    params = {
+        'cancel_loan': ['pid'],
+        'validate_request': ['pid'],
+        LoanAction.REQUEST: ['item_pid', 'pickup_location_pid', 'patron_pid'],
+        LoanAction.CHECKIN: ['pid'],
+        LoanAction.EXTEND: ['item_pid'],
+        LoanAction.CHECKOUT: [
+            'item_pid',
+            'patron_pid',
+            'transaction_location_pid',
+            'transaction_user_pid',
+        ]
+    }
+    return params.get(action, []) + shared_params
 
 
 def get_request_by_item_pid_by_patron_pid(item_pid, patron_pid):
@@ -1119,7 +1115,7 @@ def get_loans_stats_by_patron_pid(patron_pid):
     agg = A('terms', field='state')
     search = search_by_patron_item_or_document(patron_pid=patron_pid)
     search.aggs.bucket('state', agg)
-    search = search[0:0]
+    search = search[:0]
     results = search.execute()
     return {
         result.key: result.doc_count
@@ -1177,7 +1173,7 @@ def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
         filter_states=filter_states
     )
     search.aggs.bucket('library', agg)
-    search = search[0:0]
+    search = search[:0]
     results = search.execute()
     return {
         result.key: result.doc_count
@@ -1252,28 +1248,6 @@ def get_overdue_loans(patron_pid=None, tstamp=None):
     """
     for pid in get_overdue_loan_pids(patron_pid, tstamp):
         yield Loan.get_record_by_pid(pid)
-
-
-def loan_has_open_events(loan_pid=None):
-    """Check if a loan has open patron transactions.
-
-    Loan has no open_events if the he has no related patron transaction with
-    the status open.
-
-    :return True|False.
-    """
-    if loan_pid:
-        search = NotificationsSearch()\
-            .filter('term', context__loan__pid=loan_pid)\
-            .source(['pid']).scan()
-        for record in search:
-            transactions_count = PatronTransactionsSearch()\
-                .filter('term', notification__pid=record.pid)\
-                .filter('term', status='open')\
-                .source().count()
-            if transactions_count > 0:
-                return True
-    return False
 
 
 def get_non_anonymized_loans(patron=None, org_pid=None):

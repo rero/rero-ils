@@ -32,7 +32,8 @@ from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patron_transactions.utils import \
     create_subscription_for_patron, get_transactions_pids_for_patron
-from rero_ils.modules.utils import add_years, get_ref_for_pid
+from rero_ils.modules.utils import add_years, extracted_data_from_ref, \
+    get_ref_for_pid
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -321,8 +322,9 @@ def test_transactions_add_manual_fee(client, librarian_sion, org_sion,
     record = PatronTransaction.get_record_by_pid(metadata['pid'])
     assert record.get('library') == librarian_sion.get('libraries')[0]
     event = next(record.events)
-    event.get('operator') == librarian_sion.get('pid')
-    event.get('library') == librarian_sion.get('libraries')[0]
+    assert extracted_data_from_ref(event.get('operator')) \
+        == librarian_sion.get('pid')
+    assert event.get('library') == librarian_sion.get('libraries')[0]
 
     # Delete the record created above
     clear_patron_transaction_data(metadata['pid'])

@@ -59,6 +59,25 @@ def test_loans_create(loan_pending_martigny):
     assert loan_pending_martigny.get('state') == LoanState.PENDING
 
 
+def test_loans_properties(loan_pending_martigny, item_lib_fully):
+    """Test loan properties."""
+    loan = loan_pending_martigny
+    assert loan.request_creation_date
+    assert not loan.rank
+    assert loan.item_pid_object['value'] == item_lib_fully.pid
+
+    # pending transactions
+    pid = loan.pop('pid')
+    assert not loan.has_pending_transaction()
+    loan['pid'] = pid
+    # loan due soon
+    assert not loan.is_loan_due_soon()
+    # age
+    transaction_date = loan.pop('transaction_date')
+    assert loan.age() == 0
+    loan['transaction_date'] = transaction_date
+
+
 def test_loans_indexing(loan_pending_martigny, loc_public_martigny):
     """Test loan indexing."""
     loan = loan_pending_martigny
@@ -194,7 +213,7 @@ def test_loan_keep_and_to_anonymize(
         librarian_martigny, loc_public_martigny):
     """Test anonymize and keep loan based on open transactions."""
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
-    assert not Loan.concluded(loan)
+    assert not loan.is_concluded()
     assert not Loan.can_anonymize(loan_data=loan)
 
     params = {
@@ -207,7 +226,7 @@ def test_loan_keep_and_to_anonymize(
     #  * item checked-in
     #  * no open events
     #  * patron doesn't specify any information into `keep_history`
-    assert Loan.concluded(loan)
+    assert loan.is_concluded()
     assert not Loan.can_anonymize(loan_data=loan)
 
     # CHECK #2 : Update the patron 'keep_history'
@@ -218,7 +237,7 @@ def test_loan_keep_and_to_anonymize(
     #           RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT parameter
     patron.set_keep_history(False)
     loan = Loan.get_record_by_pid(loan.pid)
-    assert Loan.concluded(loan)
+    assert loan.is_concluded()
     assert not Loan.can_anonymize(loan_data=loan)
 
     # CHECK #3 : Check if loan is concluded between 3 and 6 months.
@@ -228,7 +247,7 @@ def test_loan_keep_and_to_anonymize(
     #           RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT parameter
     four_months_ago = datetime.utcnow() - timedelta(days=4 * 31)
     loan['transaction_date'] = four_months_ago.isoformat()
-    assert loan.concluded(loan)
+    assert loan.is_concluded()
     assert loan.can_anonymize(loan_data=loan)
 
     # Update the loan to set the "to_anonymize" attribute into DB
@@ -240,7 +259,7 @@ def test_loan_keep_and_to_anonymize(
     #   This notification will create a new PatronTransaction with a fee.
     #   This will cause that this loan cannot be concluded and anonymize
     item, patron, loan = item2_on_loan_martigny_patron_and_loan_on_loan
-    assert not Loan.concluded(loan)
+    assert not loan.is_concluded()
     assert not Loan.can_anonymize(loan_data=loan)
     #  we update the loan end_date, removing 1 year. We are now sure that all
     #  possible library exceptions don't conflict with `library.open_days`
@@ -263,7 +282,7 @@ def test_loan_keep_and_to_anonymize(
     item.checkin(**params)
     loan = Loan.get_record_by_pid(loan.pid)
 
-    assert not Loan.concluded(loan)
+    assert not loan.is_concluded()
     assert not Loan.can_anonymize(loan_data=loan)
 
 
@@ -292,7 +311,7 @@ def test_anonymizer_job(
 
     # ensure than this loan cannot be anonymize (it's not yet concluded and
     # could have open fees [depending of the related CIPO])
-    assert not Loan.concluded(loan)
+    assert not loan.is_concluded()
     assert not Loan.can_anonymize(loan_data=loan)
 
     # update the patron `keep_history` setting to ensure the patron want keep
@@ -307,7 +326,7 @@ def test_anonymizer_job(
     loan = Loan.get_record_by_pid(loan.pid)
     # ensure than, after check-in, the loan isn't considerate as 'concluded'
     # (because of open fees transactions)
-    assert not Loan.concluded(loan)
+    assert not loan.is_concluded()
 
     # So a this time, if we run the `loan_anonymizer` task, none loan cannot
     # be anonymized --> return should be 0
