@@ -413,7 +413,7 @@ def test_documents_get_resolve_rero_json(
     res = client.get(api_url, headers=rero_json_header)
     assert res.status_code == 200
     metadata = get_json(res).get('metadata', {})
-    pid = metadata['contribution'][0]['agent']['pid']
+    pid = metadata['contribution'][0]['entity']['pid']
     assert pid == contribution_person_data['pid']
 
 
@@ -497,7 +497,7 @@ def test_documents_resolve(
         pid_value='doc2'
     ))
     assert res.json['metadata']['contribution'] == [{
-        'agent': {
+        'entity': {
             '$ref': 'https://mef.rero.ch/api/agents/rero/A017671081',
             'pid': 'cont_pers',
             'type': 'bf:Person'
@@ -515,7 +515,7 @@ def test_documents_resolve(
         resolve='1'
     ))
     assert res.json['metadata'][
-        'contribution'][0]['agent']['authorized_access_point_fr']
+        'contribution'][0]['entity']['authorized_access_point_fr']
     assert res.status_code == 200
 
 

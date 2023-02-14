@@ -306,7 +306,7 @@
       "contribution": {
         "type": "object",
         "properties": {
-          "agent": {
+          "entity": {
             "type": "object",
             "properties": {
               "type": {
@@ -362,9 +362,6 @@
                 "type": "text"
               },
               "parallel_access_point": {
-                "type": "text"
-              },
-              "preferred_name": {
                 "type": "text"
               },
               "identifiedBy": {

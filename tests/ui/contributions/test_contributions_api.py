@@ -114,7 +114,7 @@ def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
     flush_index(ContributionsSearch.Meta.index)
 
     idref_pid = pers['idref']['pid']
-    document_data_ref['contribution'][0]['agent']['$ref'] = \
+    document_data_ref['contribution'][0]['entity']['$ref'] = \
         f'https://mef.rero.ch/api/agents/idref/{idref_pid}'
 
     doc = Document.create(
@@ -144,7 +144,7 @@ def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
     mock_get.return_value = mock_response(json_data=mock_resp)
     assert DocumentsSearch().query(
         'term',
-        contribution__agent__authorized_access_point_fr='foo').count() == 0
+        contribution__entity__authorized_access_point_fr='foo').count() == 0
     # synchronization the same document has been updated 3 times, one MEF
     # record has been updated, no errors
     assert (1, 1, set()) == sync.sync(f'{pers.pid}')
@@ -154,7 +154,7 @@ def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
     assert Contribution.get_record_by_pid(
         pers.pid)['idref']['authorized_access_point'] == 'foo'
     assert DocumentsSearch().query(
-        'term', contribution__agent__authorized_access_point_fr='foo').count()
+        'term', contribution__entity__authorized_access_point_fr='foo').count()
     # nothing has been removed as only metadata has been changed
     assert (0, []) == sync.remove_unused(f'{pers.pid}')
 
@@ -179,7 +179,7 @@ def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
     assert Contribution.get_record_by_ref(
         f'https://mef.rero.ch/api/agents/idref/{idref_pid}')[0]
     db_agent = Document.get_record_by_pid(
-        doc.pid).get('contribution')[0]['agent']
+        doc.pid).get('contribution')[0]['entity']
     assert db_agent['pid'] == 'foo_mef'
     # the old MEF has been removed
     assert (1, []) == sync.remove_unused(f'{pers.pid}')
@@ -208,11 +208,11 @@ def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
     assert Contribution.get_record_by_pid('foo_mef')
     # document has been updated with the new MEF and IDREF pid
     assert DocumentsSearch().query(
-        'term', contribution__agent__pid='foo_mef').count()
+        'term', contribution__entity__pid='foo_mef').count()
     assert DocumentsSearch().query(
-        'term', contribution__agent__id_idref='foo_idref').count()
+        'term', contribution__entity__id_idref='foo_idref').count()
     db_agent = Document.get_record_by_pid(
-        doc.pid).get('contribution')[0]['agent']
+        doc.pid).get('contribution')[0]['entity']
     assert db_agent['$ref'] == 'https://mef.rero.ch/api/agents/idref/foo_idref'
     assert db_agent['pid'] == 'foo_mef'
 

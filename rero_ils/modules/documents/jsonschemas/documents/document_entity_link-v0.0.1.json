@@ -1,0 +1,58 @@
+{
+  "title": "MEF Entity",
+  "type": "object",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "$ref"
+  ],
+  "required": [
+    "type",
+    "$ref"
+  ],
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "default": "bf:Person",
+      "form": {
+        "type": "selectWithSort",
+        "templateOptions": {
+          "options": [
+            {
+              "label": "bf:Person",
+              "value": "bf:Person"
+            },
+            {
+              "label": "bf:Organisation",
+              "value": "bf:Organisation"
+            }
+          ]
+        }
+      }
+    },
+    "$ref": {
+      "title": "MEF Link",
+      "type": "string",
+      "pattern": "^https://mef.rero.ch/api/.*(agents/)?gnd|idref|rero/.*?$",
+      "form": {
+        "remoteTypeahead": {
+          "type": "mef",
+          "enableGroupField": true
+        },
+        "templateOptions": {
+          "itemCssClass": "col-lg-12"
+        }
+      }
+    },
+    "pid": {
+      "title": "MEF ID",
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "form": {
+    "templateOptions": {
+      "containerCssClass": "row"
+    }
+  }
+}
