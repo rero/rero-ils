@@ -185,8 +185,8 @@ class SyncAgent(object):
             if subject.get('$ref')
         ]
         agents += [
-            contrib['agent'] for contrib in doc.get('contribution', [])
-            if contrib.get('agent', {}).get('$ref')
+            contrib['entity'] for contrib in doc.get('contribution', [])
+            if contrib.get('entity', {}).get('$ref')
         ]
         if not agents:
             self.logger.debug(f'No agent to update for document {doc.pid}')
@@ -217,7 +217,7 @@ class SyncAgent(object):
         """
         # the MEF link can be in contribution or subjects
         es_query = DocumentsSearch()
-        filters = Q('term', contribution__agent__pid=pid)
+        filters = Q('term', contribution__entity__pid=pid)
         filters |= Q('term', subjects__pid=pid)
         filters |= Q('term', subjects_imported__pid=pid)
         es_query = es_query.filter('bool', must=[filters]).source('pid')

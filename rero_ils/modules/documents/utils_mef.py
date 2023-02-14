@@ -47,7 +47,7 @@ class ReplaceMefIdentifiedBy(ABC):
         self.count_deleted = {}
         self.count_no_data = {}
         self.count_no_mef = {}
-        self.preferred_names = {}
+        self.authorized_access_points = {}
         self.verbose = verbose
         self.debug = debug
         if run:
@@ -83,12 +83,13 @@ class ReplaceMefIdentifiedBy(ABC):
         count.setdefault(ref, 0)
         count[ref] += 1
 
-    def add_preferred_name(self, ref_type, ref_pid, preferred_name, type):
-        """Add preferred name."""
+    def add_authorized_access_point(
+            self, ref_type, ref_pid, authorized_access_point, type):
+        """Add authorized access point."""
         ref = f'{ref_type}/{ref_pid}'
-        self.preferred_names[ref] = {
+        self.authorized_access_points[ref] = {
             'type': f'{type:<15}',
-            'preferred_name': f'"{preferred_name}"'
+            'authorized_access_point': f'"{authorized_access_point}"'
         }
 
     @property
@@ -127,19 +128,19 @@ class ReplaceMefIdentifiedBy(ABC):
         if self.count_deleted:
             click.echo('Deleted:')
             for key in sorted(self.count_deleted.keys()):
-                info = self.preferred_names.get(key, {}).values()
+                info = self.authorized_access_points.get(key, {}).values()
                 click.echo(f'  {key:<20} : {self.count_deleted[key]:>4}'
                            f'\t{"    ".join(info)}')
         if self.count_no_data:
             click.echo('No Data:')
             for key in sorted(self.count_no_data.keys()):
-                info = self.preferred_names.get(key, {}).values()
+                info = self.authorized_access_points.get(key, {}).values()
                 click.echo(f'  {key:<20} : {self.count_no_data[key]:>4}'
                            f'\t{"    ".join(info)}')
         if self.count_no_mef:
             click.echo('No MEF:')
             for key in sorted(self.count_no_mef.keys()):
-                info = self.preferred_names.get(key, {}).values()
+                info = self.authorized_access_points.get(key, {}).values()
                 click.echo(f'  {key:<20}{self.count_no_mef[key]:>4}'
                            f'\t{"    ".join(info)}')
 
@@ -185,7 +186,7 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
     def _query_filter(self):
         """Query filter to find documents."""
         return DocumentsSearch() \
-            .filter('exists', field='contribution.agent.identifiedBy')
+            .filter('exists', field='contribution.entity.identifiedBy')
 
     def get_local(self, ref_type, ref_pid):
         """Get local MEF record."""
@@ -243,10 +244,10 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                 doc = Document.get_record(hit.meta.id)
                 changed = False
                 for contribution in doc.get('contribution', []):
-                    ref_type = contribution['agent'].get(
+                    ref_type = contribution['entity'].get(
                         'identifiedBy', {}).get('type', '').lower()
                     if ref_type in self.cont_types + ['rero']:
-                        ref_pid = contribution['agent'].get(
+                        ref_pid = contribution['entity'].get(
                             'identifiedBy', {}).get('value')
                         if cont := self.get_contribution(hit.pid, ref_type,
                                                          ref_pid):
@@ -258,23 +259,24 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                                         f'{cont[cont_type]["pid"]}'
                                     new_contribution = {
                                         '$ref': url,
-                                        'type': contribution['agent']['type']
+                                        'type': contribution['entity']['type']
                                     }
                                     self.print_debug(
                                         f'{hit.pid} Change:',
-                                        f'  {contribution["agent"]}',
+                                        f'  {contribution["entity"]}',
                                         f'  {new_contribution}'
                                     )
-                                    contribution['agent'] = new_contribution
+                                    contribution['entity'] = new_contribution
                                     break
                         else:
-                            self.add_preferred_name(
+                            self.add_authorized_access_point(
                                 ref_type=ref_type,
                                 ref_pid=ref_pid,
-                                preferred_name=contribution.get(
-                                    'agent', {}).get('preferred_name', ''),
+                                authorized_access_point=contribution.get(
+                                    'entity', {}
+                                ).get('authorized_access_point', ''),
                                 type=contribution.get(
-                                    'agent', {}).get('type', ''),
+                                    'entity', {}).get('type', ''),
                             )
                 self.update_document(changed=changed, document=doc)
         return self.counts
@@ -339,10 +341,11 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
                                     subject = new_subject
                                     break
                         else:
-                            self.add_preferred_name(
+                            self.add_authorized_access_point(
                                 ref_type=ref_type,
                                 ref_pid=ref_pid,
-                                preferred_name=subject.get('preferred_name'),
+                                authorized_access_point=subject.get(
+                                    'preferred_name'),
                                 type=subject.get('type')
                             )
                 self.update_document(changed=changed, document=doc)

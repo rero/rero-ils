@@ -133,15 +133,15 @@ def doc_title_travailleuses(app):
         }],
         'contribution': [
             {
-                'agent': {
-                    'preferred_name': 'Müller, John',
+                'entity': {
+                    'authorized_access_point': 'Müller, John',
                     'type': 'bf:Person'
                 },
                 'role': ['aut']
             },
             {
-                'agent': {
-                    'preferred_name': 'Corminbœuf, Gruß',
+                'entity': {
+                    'authorized_access_point': 'Corminbœuf, Gruß',
                     'type': 'bf:Person'
                 },
                 'role': ['aut']
