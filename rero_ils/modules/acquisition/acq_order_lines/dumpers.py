@@ -24,8 +24,8 @@ from rero_ils.modules.acquisition.acq_accounts.dumpers import \
     AcqAccountGenericDumper
 from rero_ils.modules.acquisition.acq_order_lines.models import \
     AcqOrderLineNoteType
+from rero_ils.modules.acquisition.dumpers import document_acquisition_dumper
 from rero_ils.modules.commons.identifiers import IdentifierType
-from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper
 from rero_ils.modules.documents.extensions import TitleExtension
 
 
@@ -92,7 +92,7 @@ class AcqOrderLineNotificationDumper(InvenioRecordsDumper):
             'note': record.get_note(AcqOrderLineNoteType.VENDOR),
             'account': record.account.dumps(dumper=AcqAccountGenericDumper()),
             'document': record.document.dumps(
-                dumper=DocumentAcquisitionDumper())
+                dumper=document_acquisition_dumper)
         })
         data = {k: v for k, v in data.items() if v}
         return data
