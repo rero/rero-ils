@@ -19,8 +19,8 @@
 """Tests dumpers from RERO-ILS projects."""
 from rero_ils.modules.acquisition.acq_orders.dumpers import \
     AcqOrderNotificationDumper
-from rero_ils.modules.documents.dumpers import DocumentAcquisitionDumper, \
-    DocumentGenericDumper
+from rero_ils.modules.acquisition.dumpers import document_acquisition_dumper
+from rero_ils.modules.documents.dumpers import document_title
 from rero_ils.modules.libraries.dumpers import \
     LibraryAcquisitionNotificationDumper
 
@@ -60,13 +60,13 @@ def test_library_dumpers(lib_martigny, lib_saxon):
 def test_document_dumpers(document):
     """Test document dumpers."""
     dump_data = document.dumps(
-        dumper=DocumentGenericDumper()
+        dumper=document_title
     )
     assert dump_data['pid']
     assert dump_data['title_text']
 
     dump_data = document.dumps(
-        dumper=DocumentAcquisitionDumper()
+        dumper=document_acquisition_dumper
     )
     assert dump_data['pid']
     assert dump_data['title_text']
