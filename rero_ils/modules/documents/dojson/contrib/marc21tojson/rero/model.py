@@ -29,6 +29,7 @@ from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
     build_string_from_subfields, error_print, get_contribution_link, \
     get_field_items, not_repetitive, re_identified, \
     remove_trailing_punctuation
+from rero_ils.modules.documents.utils import create_authorized_access_point
 
 from ..utils import _CONTRIBUTION_ROLE, do_abbreviated_title, \
     do_acquisition_terms_from_field_037, do_copyright_date, do_credits, \
@@ -133,27 +134,28 @@ def marc21_to_contribution(self, key, value):
             agent['type'] = 'bf:Organisation'
 
     # we do not have a $ref
+    agent_data = {}
     if not agent.get('$ref') and value.get('a'):
-        agent = {'type': 'bf:Person'}
         if value.get('a'):
             if name := not_repetitive(
                     marc21.bib_id,
                     marc21.rero_id,
                     key, value, 'a').rstrip('.'):
-                agent['preferred_name'] = name
+                agent_data['preferred_name'] = name
 
         # 100|700 Person
         if key[:3] in ['100', '700']:
-            agent['type'] = 'bf:Person'
+            agent_data['type'] = 'bf:Person'
             if value.get('b'):
                 numeration = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'b')
                 if numeration := remove_trailing_punctuation(numeration):
-                    agent['numeration'] = numeration
+                    agent_data['numeration'] = numeration
             if value.get('c'):
                 qualifier = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'c')
-                agent['qualifier'] = remove_trailing_punctuation(qualifier)
+                agent_data['qualifier'] = \
+                    remove_trailing_punctuation(qualifier)
             if value.get('d'):
                 date = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'd')
@@ -161,55 +163,61 @@ def marc21_to_contribution(self, key, value):
                 dates = remove_trailing_punctuation(date).split('-')
                 with contextlib.suppress(Exception):
                     if date_of_birth := dates[0].strip():
-                        agent['date_of_birth'] = date_of_birth
+                        agent_data['date_of_birth'] = date_of_birth
                 with contextlib.suppress(Exception):
                     if date_of_death := dates[1].strip():
-                        agent['date_of_death'] = date_of_death
+                        agent_data['date_of_death'] = date_of_death
             if value.get('q'):
                 fuller_form_of_name = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'q')
                 if fuller_form_of_name := remove_trailing_punctuation(
                         fuller_form_of_name).lstrip('(').rstrip(')'):
-                    agent['fuller_form_of_name'] = fuller_form_of_name
+                    agent_data['fuller_form_of_name'] = fuller_form_of_name
             if identifier := build_identifier(value):
-                agent['identifiedBy'] = identifier
+                agent_data['identifiedBy'] = identifier
 
         elif key[:3] in ['710', '711']:
-            agent['type'] = 'bf:Organisation'
-            agent['conference'] = key[:3] == '711'
+            agent_data['type'] = 'bf:Organisation'
+            agent_data['conference'] = key[:3] == '711'
             if value.get('b'):
                 subordinate_units = [
                     subordinate_unit.rstrip('.') for subordinate_unit
                     in utils.force_list(value.get('b'))
                 ]
 
-                agent['subordinate_unit'] = subordinate_units
+                agent_data['subordinate_unit'] = subordinate_units
             if value.get('e'):
-                subordinate_units = agent.get('subordinate_unit', [])
+                subordinate_units = agent_data.get('subordinate_unit', [])
                 for subordinate_unit in utils.force_list(value.get('e')):
                     subordinate_units.append(subordinate_unit.rstrip('.'))
-                agent['subordinate_unit'] = subordinate_units
+                agent_data['subordinate_unit'] = subordinate_units
             if value.get('n'):
                 numbering = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'n')
                 if numbering := remove_trailing_punctuation(
                         numbering).lstrip('(').rstrip(')'):
-                    agent['numbering'] = numbering
+                    agent_data['numbering'] = numbering
             if value.get('d'):
                 conference_date = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'd')
                 if conference_date := remove_trailing_punctuation(
                         conference_date).lstrip('(').rstrip(')'):
-                    agent['conference_date'] = conference_date
+                    agent_data['conference_date'] = conference_date
             if value.get('c'):
                 place = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'c')
                 if place := remove_trailing_punctuation(
                         place).lstrip('(').rstrip(')'):
-                    agent['place'] = place
+                    agent_data['place'] = place
             if identifier := build_identifier(value):
-                agent['identifiedBy'] = identifier
+                agent_data['identifiedBy'] = identifier
 
+    if agent_data:
+        agent['type'] = agent_data['type']
+        agent['authorized_access_point'] = \
+            create_authorized_access_point(agent_data)
+        if agent_data.get('identifiedBy'):
+            agent['identifiedBy'] = agent_data['identifiedBy']
     if value.get('4'):
         roles = []
         for role in utils.force_list(value.get('4')):
@@ -236,7 +244,7 @@ def marc21_to_contribution(self, key, value):
         roles = ['ctb']
     if agent:
         return {
-            'agent': agent,
+            'entity': agent,
             'role': list(set(roles))
         }
 

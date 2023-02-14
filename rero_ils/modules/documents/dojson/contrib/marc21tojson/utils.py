@@ -32,6 +32,7 @@ from rero_ils.dojson.utils import _LANGUAGES, TitlePartList, add_note, \
     error_print, extract_subtitle_and_parallel_titles_from_field_245_b, \
     get_contribution_link, get_field_items, get_field_link_data, \
     not_repetitive, re_identified, remove_trailing_punctuation
+from rero_ils.modules.documents.utils import create_authorized_access_point
 
 _DOCUMENT_RELATION_PER_TAG = {
     '770': 'supplement',
@@ -585,8 +586,12 @@ def build_agent(marc21, key, value):
             agent_data['place'] = remove_trailing_punctuation(
                 place
             ).lstrip('(').rstrip(')')
-
-    return agent_data or None
+    if not agent_data:
+        return
+    return {
+        'type': agent_data.get('type'),
+        'authorized_access_point': create_authorized_access_point(agent_data)
+        }, agent_data
 
 
 def do_contribution(data, marc21, key, value):
@@ -614,7 +619,7 @@ def do_contribution(data, marc21, key, value):
 
     # we do not have a $ref
     if not agent.get('$ref') and value.get('a'):
-        agent = build_agent(marc21=marc21, key=key, value=value)
+        agent = build_agent(marc21=marc21, key=key, value=value)[0]
 
     if value.get('4'):
         roles = set()
@@ -641,7 +646,7 @@ def do_contribution(data, marc21, key, value):
         roles = ['ctb']
     if agent:
         return {
-            'agent': agent,
+            'entity': agent,
             'role': list(roles)
         }
     return None
@@ -1771,7 +1776,7 @@ def do_work_access_point_240(marc21, key, value):
             part_list.update_part(blob_value, blob_key, blob_value)
 
     if field_100 := marc21.get_fields('100'):
-        if agent := build_agent(marc21, '100', field_100[0]['subfields']):
+        if agent := build_agent(marc21, '100', field_100[0]['subfields'])[1]:
             work_access_points['agent'] = agent
 
     if the_part_list := part_list.get_part_list():
