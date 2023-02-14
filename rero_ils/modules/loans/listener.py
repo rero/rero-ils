@@ -42,7 +42,7 @@ def enrich_loan_data(sender, json=None, record=None, index=None,
 
     # Update the patron type related to this loan only for "alive" loan to
     # try preserving performance during circulation process.
-    if not record.concluded(record):
+    if not record.is_concluded():
         if patron_type_pid := record.patron.patron_type_pid:
             json['patron_type_pid'] = patron_type_pid
         if record.transaction_location_pid:
