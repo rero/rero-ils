@@ -53,7 +53,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
           "$ref": "https://mef.rero.ch/api/agents/idref/223977268"
         },
@@ -62,7 +62,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
           "$ref": "https://mef.rero.ch/api/agents/rero/A017671081"
         },
@@ -171,7 +171,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
           "$ref": "https://mef.rero.ch/api/agents/idref/223977268"
         },

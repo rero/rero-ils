@@ -103,12 +103,12 @@
 
   <!-- WORK ACCESS POINT -->
   {% if record.work_access_point %}
-  {% set workAccessPoint = record.work_access_point | work_access_point %}
+  {% set workauthorized_access_point = record.work_access_point | work_access_point %}
   <div class="row">
     <div class="col-3 font-weight-bold">{{ _('Work') }}</div>
     <div class="col-9">
       <ul class="list-unstyled">
-      {% for work in workAccessPoint %}
+      {% for work in workauthorized_access_point %}
         <li>{{ work }}</li>
       {% endfor %}
       </ul>

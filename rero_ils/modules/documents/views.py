@@ -33,9 +33,9 @@ from .api import Document, DocumentsSearch
 from .commons import SubjectFactory
 from .extensions import EditionStatementExtension, \
     ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
-from .utils import create_authorized_access_point, \
-    display_alternate_graphic_first, get_remote_cover, title_format_text, \
-    title_format_text_alternate_graphic, title_variant_format_text
+from .utils import display_alternate_graphic_first, get_remote_cover, \
+    title_format_text, title_format_text_alternate_graphic, \
+    title_variant_format_text
 from ..collections.api import CollectionsSearch
 from ..contributions.api import Contribution
 from ..holdings.models import HoldingNoteTypes
@@ -264,7 +264,7 @@ def contribution_format(pid, language, viewcode, role=False):
     doc = doc.replace_refs()
     output = []
     for contribution in doc.get('contribution', []):
-        cont_pid = contribution['agent'].get('pid')
+        cont_pid = contribution['entity'].get('pid')
         if cont_pid:
             contrib = Contribution.get_record_by_pid(cont_pid)
             # add link <a href="url">link text</a>
@@ -282,7 +282,7 @@ def contribution_format(pid, language, viewcode, role=False):
                     text=authorized_access_point
                 )
         else:
-            line = create_authorized_access_point(contribution['agent'])
+            line = contribution['entity']['authorized_access_point']
 
         if role:
             roles = [_(role) for role in contribution.get('role', [])]
