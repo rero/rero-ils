@@ -553,6 +553,15 @@ class IlsRecord(Record):
         identifier = cls.provider.identifier
         return metadata, identifier
 
+    def resolve(self):
+        """Resolve references data.
+
+        Mainly used by the `resolve=1` URL parameter.
+
+        :returns: a fresh copy of the resolved data.
+        """
+        return deepcopy(self.replace_refs())
+
 
 class IlsRecordsIndexer(RecordIndexer):
     """Indexing class for ils."""
@@ -673,8 +682,8 @@ class IlsRecordsIndexer(RecordIndexer):
 
         return action
 
-    @staticmethod
-    def _prepare_record(record, index, doc_type, arguments=None, **kwargs):
+    def _prepare_record(
+            self, record, index, doc_type, arguments=None, **kwargs):
         """Prepare record data for indexing.
 
         :param record: The record to prepare.
@@ -684,10 +693,23 @@ class IlsRecordsIndexer(RecordIndexer):
         :param **kwargs: Extra parameters.
         :return: The record metadata.
         """
-        if current_app.config['INDEXER_REPLACE_REFS']:
-            data = record.replace_refs().dumps()
+        if not getattr(record, 'enable_jsonref', True):
+            # If dumper is None, dumps() will use the default configured dumper
+            # on the Record class.
+            data = record.dumps(dumper=self.record_dumper)
         else:
-            data = record.dumps()
+            # Old-style dumping - the old style will still if
+            # INDEXER_REPLACE_REFS is False use the Record.dumps(), however the
+            # default implementation is backward compatible for new-style
+            # records. Also, we're adding extra information into the record
+            # like _created and _updated afterwards, which the Record.dumps()
+            # have no control over.
+            if current_app.config.get('INDEXER_REPLACE_REFS'):
+                data = record.replace_refs().dumps()
+                # Original code
+                # data = copy.deepcopy(record.replace_refs())
+            else:
+                data = record.dumps()
 
         data['_created'] = pytz.utc.localize(record.created).isoformat() \
             if record.created else None

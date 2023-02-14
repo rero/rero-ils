@@ -19,14 +19,12 @@
 """API for manipulating documents."""
 
 
-from copy import deepcopy
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
 from elasticsearch_dsl import Q
 from flask import current_app
 from invenio_circulation.search.api import search_by_pid
-from invenio_records.api import _records_state
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
 
@@ -35,9 +33,6 @@ from rero_ils.modules.acquisition.acq_order_lines.api import \
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.commons.identifiers import IdentifierFactory, \
     IdentifierType
-from rero_ils.modules.documents.extensions import AddMEFPidExtension, \
-    EditionStatementExtension, ProvisionActivitiesExtension, \
-    SeriesStatementExtension, TitleExtension
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.local_fields.extensions import \
     DeleteRelatedLocalFieldExtension
@@ -48,7 +43,10 @@ from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import sorted_pids
 
-from .models import DocumentIdentifier, DocumentMetadata, DocumentSubjectType
+from .dumpers import document_indexer, document_replace_refs
+from .extensions import AddMEFPidExtension, EditionStatementExtension, \
+    ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
+from .models import DocumentIdentifier, DocumentMetadata
 
 # provider
 DocumentProvider = type(
@@ -83,6 +81,8 @@ class Document(IlsRecord):
     fetcher = document_id_fetcher
     provider = DocumentProvider
     model_cls = DocumentMetadata
+    # disable legacy replace refs
+    enable_jsonref = False
 
     _extensions = [
         OperationLogObserverExtension(),
@@ -288,86 +288,6 @@ class Document(IlsRecord):
         for es_document in es_documents:
             yield es_document.pid
 
-    def _expand_contributions(self, data):
-        """Replace the $ref for contributions.
-
-        :params data - dict: the contributions document data.
-        :returns: the modified contributions document data.
-        :rtype: dict
-        """
-        new_contributions = []
-        for contribution in data.get('contribution', []):
-            if not contribution['entity'].get('$ref'):
-                new_contributions.append(contribution)
-            else:
-                new_contributions.append({
-                    'entity': self._replace_refs_contribution(
-                        contribution['entity']),
-                    'role': contribution['role']
-                    })
-        if new_contributions:
-            data['contribution'] = new_contributions
-        return data
-
-    def _replace_refs_contribution(self, data, subject=False):
-        """Replace the $ref for contribution.
-
-        :param data: dict - data containing the $ref
-        :param subject: bool - True if the data comes from subject
-        :returns: the literal version of the contribution
-        :rtype: dict
-        """
-        from ..contributions.api import Contribution
-        if agent := Contribution.get_record_by_pid(data['pid']):
-            _type, _ = Contribution.get_type_and_pid_from_ref(
-                    data['$ref'])
-            if subject:
-                contribution = deepcopy(data)
-                contribution.update(dict(agent))
-                del contribution['$ref']
-            else:
-                contribution = agent.dumps_for_document()
-            contribution['primary_source'] = _type
-            contribution['pid'] = data['pid']
-            return contribution
-        else:
-            raise Exception(f'Contribution does not exists for {self.pid}')
-
-    def _expand_subjects(self, data):
-        """Replace the $ref for subjects.
-
-        :params data - dict: the subjects document data.
-        :returns: the modified subject document data.
-        :rtype: dict
-        """
-        for subjects in ['subjects', 'subjects_imported']:
-            new_contributions = []
-            for subject in data.get(subjects, []):
-                subject_type = subject.get('type')
-                subject_ref = subject.get('$ref')
-                if subject_ref and subject_type in [
-                    DocumentSubjectType.PERSON,
-                    DocumentSubjectType.ORGANISATION
-                ]:
-                    new_contributions.append(
-                        self._replace_refs_contribution(subject, subject=True))
-                else:
-                    new_contributions.append(subject)
-            if new_contributions:
-                data[subjects] = new_contributions
-        return data
-
-    def replace_refs(self):
-        """Replace $ref with real data."""
-        data = deepcopy(self)
-        data = self._expand_contributions(data)
-        data = self._expand_subjects(data)
-
-        if self.enable_jsonref:
-            return _records_state.replace_refs(data)
-        else:
-            self
-
     def get_identifiers(self, filters=None, with_alternatives=False):
         """Get the document identifier object filtered by identifier types.
 
@@ -432,11 +352,23 @@ class Document(IlsRecord):
             data=self, commit=True, dbcommit=dbcommit, reindex=reindex)
         return self, True
 
+    def resolve(self):
+        """Resolve references data.
+
+        Uses the dumper to do the job.
+        Mainly used by the `resolve=1` URL parameter.
+
+        :returns: a fresh copy of the resolved data.
+        """
+        return self.dumps(document_replace_refs)
+
 
 class DocumentsIndexer(IlsRecordsIndexer):
     """Indexing documents in Elasticsearch."""
 
     record_cls = Document
+    # data dumper for indexing
+    record_dumper = document_indexer
 
     @classmethod
     def _es_document(cls, record):
