@@ -44,8 +44,8 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "preferred_name": "Vincent, Sophie",
+        "entity": {
+          "authorized_access_point": "Vincent, Sophie",
           "type": "bf:Person"
         },
         "role": [

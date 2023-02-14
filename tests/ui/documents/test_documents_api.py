@@ -73,13 +73,13 @@ def test_document_create_with_mef(
     doc.reindex()
     flush_index(DocumentsSearch.Meta.index)
     doc = Document.get_record_by_pid(doc.get('pid'))
-    assert doc['contribution'][0]['agent']['pid'] == \
+    assert doc['contribution'][0]['entity']['pid'] == \
         contribution_person_data['pid']
     hit = DocumentsSearch().execute().to_dict()[
         'hits']['hits'][0]
-    assert hit['_source']['contribution'][0]['agent'][
+    assert hit['_source']['contribution'][0]['entity'][
         'pid'] == contribution_person_data['pid']
-    assert hit['_source']['contribution'][0]['agent'][
+    assert hit['_source']['contribution'][0]['entity'][
         'primary_source'] == 'rero'
     assert ContributionsSearch().count() == 1
     contrib = Contribution.get_record_by_pid(contribution_person_data['pid'])
@@ -325,7 +325,7 @@ def test_document_replace_refs(document, mef_agents_url):
 
     # add MEF contribution agent
     contributions.append({
-        'agent': {
+        'entity': {
             'type': 'bf:Person',
             '$ref': f'{mef_agents_url}/rero/A017671081'
         },
@@ -336,6 +336,6 @@ def test_document_replace_refs(document, mef_agents_url):
     document.update(document, True, True)
     data = document.replace_refs()
     assert len(data.get('contribution')) == 2
-    assert 'agent' in data.get('contribution')[1]
+    assert 'entity' in data.get('contribution')[1]
     assert data.get('contribution')[1].get('role') == ['aut']
     document.update(orig, True, True)

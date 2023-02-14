@@ -108,9 +108,9 @@ class Collector():
                         for role in cls.role_filter):
                     authorized_access_point = \
                         f'authorized_access_point_{language}'
-                    if authorized_access_point in contribution.get('agent'):
+                    if authorized_access_point in contribution.get('entity'):
                         creator.append(
-                            contribution['agent'][
+                            contribution['entity'][
                                 authorized_access_point]
                         )
             document_data['document_creator'] = ' ; '.join(creator)

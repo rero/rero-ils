@@ -31,6 +31,7 @@ from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
     get_field_link_data, make_year, not_repetitive, \
     remove_trailing_punctuation
 from rero_ils.modules.documents.api import Document
+from rero_ils.modules.documents.utils import create_authorized_access_point
 
 _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
     'a': 'rdami:1001',
@@ -650,7 +651,10 @@ def unimarc_to_contribution(self, key, value):
         roles = ['aut']
 
     return {
-        'agent': agent,
+        'entity': {
+            'authorized_access_point': create_authorized_access_point(agent),
+            'type': agent['type']
+        },
         'role': roles
     }
 
