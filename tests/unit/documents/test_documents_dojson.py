@@ -1371,41 +1371,33 @@ def test_marc21_to_contribution(mock_get):
     contribution = data.get('contribution')
     assert contribution == [
         {
-            'agent': {
-                'type': 'bf:Person',
-                'preferred_name': 'Jean-Paul',
-                'numeration': 'II',
-                'date_of_birth': '1954',
-                'qualifier': 'Pape'
+            'entity': {
+                'authorized_access_point': 'Jean-Paul II, Pape, 1954',
+                'type': 'bf:Person'
             },
             'role': ['aut']
         },
         {
-            'agent': {
-                'type': 'bf:Person',
-                'preferred_name': 'Dumont, Jean',
-                'date_of_birth': '1921',
-                'date_of_death': '2014',
-                'qualifier': 'Historien'
+            'entity': {
+                'authorized_access_point':
+                    'Dumont, Jean, 1921-2014, Historien',
+                'type': 'bf:Person'
             },
             'role': ['edt']
         },
         {
-            'agent': {
+            'entity': {
                 'type': 'bf:Organisation',
-                'preferred_name': 'RERO',
-                'conference': False
+                'authorized_access_point': 'RERO'
             },
             'role': ['ctb']
         },
         {
-            'agent': {
-                'type': 'bf:Organisation',
-                'preferred_name': 'Biennale de céramique contemporaine',
-                'conference_date': '2003',
-                'numbering': '17',
-                'place': 'Châteauroux',
-                'conference': True
+            'entity': {
+                'authorized_access_point':
+                    'Biennale de céramique contemporaine (17 : 2003 : '
+                    'Châteauroux)',
+                'type': 'bf:Organisation'
             },
             'role': ['aut']
         }
@@ -1428,7 +1420,7 @@ def test_marc21_to_contribution(mock_get):
     data = marc21.do(marc21json)
     contribution = data.get('contribution')
     assert contribution == [{
-        'agent': {
+        'entity': {
             'type': 'bf:Person',
             '$ref': 'https://mef.rero.ch/api/agents/idref/XXXXXXXX'
         },
@@ -1448,8 +1440,8 @@ def test_marc21_to_contribution(mock_get):
     data = marc21.do(marc21json)
     contribution = data.get('contribution')
     assert contribution == [{
-        'agent': {
-            'preferred_name': 'Jean-Paul',
+        'entity': {
+            'authorized_access_point': 'Jean-Paul',
             'type': 'bf:Person',
             'identifiedBy': {
                 'type': 'IdRef',

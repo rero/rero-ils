@@ -1755,8 +1755,8 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "preferred_name": "Nebehay, Christian Michael",
+        "entity": {
+          "authorized_access_point": "Nebehay, Christian Michael",
           "type": "bf:Person",
           "identifiedBy": {
             "type": "RERO",
@@ -1934,7 +1934,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
           "$ref": "https://mef.rero.ch/api/agents/rero/A017671081"
         },
@@ -2038,42 +2038,27 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "preferred_name": "Vincent, Edward",
+        "entity": {
           "type": "bf:Person",
-          "date_of_birth": "1954",
-          "date_of_death": "2222",
-          "qualifier": "physicist",
-          "fuller_form_of_name": "fuller"
+          "authorized_access_point": "Vincent, Edward (fuller), 1954-2222, physicist"
         },
         "role": [
           "aut"
         ]
       },
       {
-        "agent": {
-          "preferred_name": "Vincent, Edward",
-          "type": "bf:Person",
-          "date_of_birth": "1954",
-          "date_of_death": "2222",
-          "qualifier": "physicist",
-          "numeration": "1"
+        "entity": {
+          "authorized_access_point": "Vincent, Edward (fuller), 1954-2222, physicist",
+          "type": "bf:Person"
         },
         "role": [
           "aut"
         ]
       },
       {
-        "agent": {
-          "preferred_name": "RERO",
-          "type": "bf:Organisation",
-          "subordinate_unit": [
-            "Martigny"
-          ],
-          "numbering": "1",
-          "conference_date": "2020-02-02",
-          "place": "Martigny",
-          "conference": false
+        "entity": {
+          "authorized_access_point": "RERO. Martigny (1 : 2020-02-02 : Martigny)",
+          "type": "bf:Organisation"
         },
         "role": [
           "aut"
@@ -2384,18 +2369,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Liang, Xi, 1924-"
+          "authorized_access_point": "Liang, Xi, 1924-"
         },
         "role": [
           "aut"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Zeng, Lingliang"
+          "authorized_access_point": "Zeng, Lingliang"
         },
         "role": [
           "aut"
@@ -2496,10 +2481,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Instituto de Estudios Africanos (Madrid)",
-          "conference": false
+          "authorized_access_point": "Instituto de Estudios Africanos (Madrid)"
         },
         "role": [
           "aut"
@@ -2600,10 +2584,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Instituto de Estudios Africanos (Madrid)",
-          "conference": false
+          "authorized_access_point": "Instituto de Estudios Africanos (Madrid)"
         },
         "role": [
           "aut"
@@ -2642,7 +2625,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029314100",
           "type": "bf:Person"
         },
@@ -2806,12 +2789,8 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "date_of_birth": "1921",
-          "date_of_death": "1987",
-          "numeration": "XXII",
-          "preferred_name": "Yourcenar, Marguerite",
-          "qualifier": "autrice",
+        "entity": {
+          "authorized_access_point": "Yourcenar, Marguerite XXII, autrice, 1921-1987",
           "type": "bf:Person"
         },
         "role": [
@@ -2819,12 +2798,8 @@
         ]
       },
       {
-        "agent": {
-          "conference": false,
-          "preferred_name": "Universit\u00e9 de Gen\u00e8ve",
-          "subordinate_unit": [
-            "Facult\u00e9 des sciences"
-          ],
+        "entity": {
+          "authorized_access_point": "Universit\u00e9 de Gen\u00e8ve. Facult\u00e9 des sciences",
           "type": "bf:Organisation"
         },
         "role": [
@@ -2832,7 +2807,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027037061",
           "type": "bf:Person"
         },
@@ -2841,7 +2816,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028401743",
           "type": "bf:Person"
         },
@@ -3090,8 +3065,8 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "preferred_name": "Peter James",
+        "entity": {
+          "authorized_access_point": "Peter James",
           "type": "bf:Person"
         },
         "role": [
@@ -3099,10 +3074,9 @@
         ]
       },
       {
-        "agent": {
-          "preferred_name": "Great Edition",
-          "type": "bf:Organisation",
-          "conference": false
+        "entity": {
+          "authorized_access_point": "Great Edition",
+          "type": "bf:Organisation"
         },
         "role": [
           "aut"
@@ -3212,8 +3186,8 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "preferred_name": "Christopher Sch\u00fctze",
+        "entity": {
+          "authorized_access_point": "Christopher Sch\u00fctze",
           "type": "bf:Person"
         },
         "role": [
@@ -3303,8 +3277,8 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "preferred_name": "J.K. Rowling",
+        "entity": {
+          "authorized_access_point": "J.K. Rowling",
           "type": "bf:Person"
         },
         "role": [
@@ -3394,8 +3368,8 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "preferred_name": "Peter James",
+        "entity": {
+          "authorized_access_point": "Peter James",
           "type": "bf:Person"
         },
         "role": [
@@ -3501,8 +3475,8 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "preferred_name": "Peter James",
+        "entity": {
+          "authorized_access_point": "Peter James",
           "type": "bf:Person"
         },
         "role": [

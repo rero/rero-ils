@@ -90,7 +90,7 @@
     "sequence_numbering": "1->",
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030744245",
           "type": "bf:Organisation"
         },
@@ -99,13 +99,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Universit\u00e9 catholique de Louvain",
-          "conference": false,
-          "subordinate_unit": [
-            "Institut sup\u00e9rieur de philosophie"
-          ]
+          "authorized_access_point": "Universit\u00e9 catholique de Louvain. Institut sup\u00e9rieur de philosophie"
         },
         "role": [
           "ctb"
@@ -147,9 +143,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Lyons, Cathie"
+          "authorized_access_point": "Lyons, Cathie"
         },
         "role": [
           "cre"
@@ -305,10 +301,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Bauchklang",
-          "conference": false
+          "authorized_access_point": "Bauchklang"
         },
         "role": [
           "ctb"
@@ -364,9 +359,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Shali\ufe20a\ufe21pin, Fedor Ivanovich"
+          "authorized_access_point": "Shali\ufe20a\ufe21pin, Fedor Ivanovich"
         },
         "role": [
           "cre"
@@ -488,16 +483,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bach, Johann Sebastian"
+          "authorized_access_point": "Bach, Johann Sebastian"
         },
         "role": [
           "cmp"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/066924502",
           "type": "bf:Person"
         },
@@ -607,7 +602,7 @@
       {
         "agent": {
           "type": "bf:Person",
-          "preferred_name": "Bach, Johann Sebastian."
+          "preferred_name": "Bach, Johann Sebastian"
         },
         "title": "Jauchzet Gott in allen Landen"
       }
@@ -685,7 +680,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/095969314",
           "type": "bf:Person"
         },
@@ -694,7 +689,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/095969357",
           "type": "bf:Person"
         },
@@ -994,10 +989,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Bureau international du travail",
-          "conference": false
+          "authorized_access_point": "Bureau international du travail"
         },
         "role": [
           "ctb"
@@ -1278,11 +1272,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bea, Augustin,",
-          "date_of_birth": "1881",
-          "date_of_death": "1968"
+          "authorized_access_point": "Bea, Augustin,, 1881-1968"
         },
         "role": [
           "cre"
@@ -1375,11 +1367,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bea, Augustin,",
-          "date_of_birth": "1881",
-          "date_of_death": "1968"
+          "authorized_access_point": "Bea, Augustin,, 1881-1968"
         },
         "role": [
           "cre"
@@ -1476,7 +1466,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/093644701",
           "type": "bf:Person"
         },
@@ -1485,7 +1475,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/137401922",
           "type": "bf:Person"
         },
@@ -1707,10 +1697,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Arbeitskreis Volkskunde und Kulturwissenschaften (Marburg)",
-          "conference": false
+          "authorized_access_point": "Arbeitskreis Volkskunde und Kulturwissenschaften (Marburg)"
         },
         "role": [
           "ctb"
@@ -1756,7 +1745,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/050421204",
           "type": "bf:Person"
         },
@@ -1999,10 +1988,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Association suisse pour l'alimentation",
-          "conference": false
+          "authorized_access_point": "Association suisse pour l'alimentation"
         },
         "role": [
           "ctb"
@@ -2051,7 +2039,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026815141",
           "type": "bf:Person"
         },
@@ -2060,9 +2048,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Delanghe, J.M"
+          "authorized_access_point": "Delanghe, J.M"
         },
         "role": [
           "ctb"
@@ -2357,16 +2345,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Meyer, Stephenie"
+          "authorized_access_point": "Meyer, Stephenie"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/20183152X",
           "type": "bf:Person"
         },
@@ -2569,7 +2557,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/235346756",
           "type": "bf:Organisation"
         },
@@ -2627,7 +2615,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027337049",
           "type": "bf:Person"
         },
@@ -2921,7 +2909,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027009211",
           "type": "bf:Person"
         },
@@ -3037,6 +3025,18 @@
         ]
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Marguerite",
+          "date_of_birth": "1492",
+          "date_of_death": "1549",
+          "qualifier": "d'Angoul\u00eame, reine de Navarre"
+        },
+        "title": "L'heptam\u00e9ron"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -3093,7 +3093,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/171084896",
           "type": "bf:Person"
         },
@@ -3224,6 +3224,15 @@
         "term": "Science-fiction pour la jeunesse"
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Plas, Alain"
+        },
+        "title": "Chasseurs de temps"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -3275,7 +3284,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/034708138",
           "type": "bf:Person"
         },
@@ -3284,7 +3293,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/144600749",
           "type": "bf:Person"
         },
@@ -3582,18 +3591,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Liang, Xi"
+          "authorized_access_point": "Liang, Xi"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Zeng, Lingliang"
+          "authorized_access_point": "Zeng, Lingliang"
         },
         "role": [
           "ctb"
@@ -3702,10 +3711,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Israel/Palestine Center for Research and Information",
-          "conference": false
+          "authorized_access_point": "Israel/Palestine Center for Research and Information"
         },
         "role": [
           "ctb"
@@ -3751,7 +3759,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Travelling.",
+        "title": "Travelling",
         "miscellaneous_information": "Lausanne"
       }
     ],
@@ -3894,34 +3902,34 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Wolfensberger, Andreas"
+          "authorized_access_point": "Wolfensberger, Andreas"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Treichler, Hans Peter"
+          "authorized_access_point": "Treichler, Hans Peter"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Gillioz, Kay"
+          "authorized_access_point": "Gillioz, Kay"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029399939",
           "type": "bf:Person"
         },
@@ -4092,7 +4100,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/084565241",
           "type": "bf:Person"
         },
@@ -4352,7 +4360,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/074755978",
           "type": "bf:Person"
         },
@@ -4361,9 +4369,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Perrin, Henri"
+          "authorized_access_point": "Perrin, Henri"
         },
         "role": [
           "ctb"
@@ -4437,7 +4445,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/244025843",
           "type": "bf:Person"
         },
@@ -4518,17 +4526,26 @@
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Civil procedure - Poland"
+        "term": "Civil procedure",
+        "place_subdivisions": [
+          "Poland"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Debtor and creditor - Poland"
+        "term": "Debtor and creditor",
+        "place_subdivisions": [
+          "Poland"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Executions (Law) - Poland"
+        "term": "Executions (Law)",
+        "place_subdivisions": [
+          "Poland"
+        ]
       }
     ],
     "classification": [
@@ -4572,7 +4589,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027155811",
           "type": "bf:Person"
         },
@@ -4667,7 +4684,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032441770",
           "type": "bf:Person"
         },
@@ -4902,7 +4919,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/103522026",
           "type": "bf:Person"
         },
@@ -4911,7 +4928,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/082330778",
           "type": "bf:Person"
         },
@@ -4920,7 +4937,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/072277742",
           "type": "bf:Person"
         },
@@ -5093,7 +5110,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027088170",
           "type": "bf:Person"
         },
@@ -5102,7 +5119,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026930595",
           "type": "bf:Person"
         },
@@ -5292,9 +5309,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Wegenstein, Willy O"
+          "authorized_access_point": "Wegenstein, Willy O"
         },
         "role": [
           "cre"
@@ -5432,9 +5449,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Baum, Gregory"
+          "authorized_access_point": "Baum, Gregory"
         },
         "role": [
           "cre"
@@ -5706,7 +5723,10 @@
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Theology - Bio-bibliography"
+        "term": "Theology",
+        "genreForm_subdivisions": [
+          "Bio-bibliography"
+        ]
       },
       {
         "type": "bf:Topic",
@@ -5756,7 +5776,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029383099",
           "type": "bf:Person"
         },
@@ -5765,7 +5785,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031201547",
           "type": "bf:Person"
         },
@@ -5917,7 +5937,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026817756",
           "type": "bf:Person"
         },
@@ -5926,9 +5946,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Zanzotto, Andrea"
+          "authorized_access_point": "Zanzotto, Andrea"
         },
         "role": [
           "ctb"
@@ -6146,9 +6166,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Binet, Christian"
+          "authorized_access_point": "Binet, Christian"
         },
         "role": [
           "ill",
@@ -6252,6 +6272,15 @@
       {
         "type": "bf:Topic",
         "term": "Bandes dessin\u00e9es"
+      }
+    ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Binet, Christian"
+        },
+        "title": "Les Bidochons"
       }
     ]
   },
@@ -6396,7 +6425,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030031966",
           "type": "bf:Person"
         },
@@ -6405,7 +6434,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/03003194X",
           "type": "bf:Person"
         },
@@ -6548,9 +6577,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Kraft, Hartmut"
+          "authorized_access_point": "Kraft, Hartmut"
         },
         "role": [
           "cre"
@@ -6785,10 +6814,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Association romande pour la protection des eaux et de l'air",
-          "conference": false
+          "authorized_access_point": "Association romande pour la protection des eaux et de l'air"
         },
         "role": [
           "ctb"
@@ -6844,16 +6872,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Mozart, Wolfgang Amadeus"
+          "authorized_access_point": "Mozart, Wolfgang Amadeus"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/070427518",
           "type": "bf:Person"
         },
@@ -6862,7 +6890,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030261163",
           "type": "bf:Person"
         },
@@ -6871,7 +6899,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/061128163",
           "type": "bf:Person"
         },
@@ -6982,6 +7010,15 @@
     "tableOfContents": [
       "Sinfonien in C (Linzer Sinfonie) KV 425, in D (Prager Sinfonie) KV 504. - 1971",
       "Kritischer Bericht / vorgelegt von Henning Bey. - 2003"
+    ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Mozart, Wolfgang Amadeus"
+        },
+        "title": "Neue Ausgabe s\u00e4mtlicher Werke"
+      }
     ],
     "seriesStatement": [
       {
@@ -7313,6 +7350,15 @@
         "term": "Bibliographie"
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Glanzmann, Arthur"
+        },
+        "title": "Bibliographie des schweizerischen Steuerrechts"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -7370,7 +7416,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/060510714",
           "type": "bf:Person"
         },
@@ -7496,7 +7542,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/079963374",
           "type": "bf:Person"
         },
@@ -7618,11 +7664,11 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos10"
+        "value": "target_school_harmos9"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos9"
+        "value": "target_school_harmos10"
       },
       {
         "audienceType": "school_level",
@@ -7760,16 +7806,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Villaz\u00f3n, Rolando"
+          "authorized_access_point": "Villaz\u00f3n, Rolando"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027771202",
           "type": "bf:Person"
         },
@@ -7778,10 +7824,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Orquesta de la Comunidad de Madrid",
-          "conference": false
+          "authorized_access_point": "Orquesta de la Comunidad de Madrid"
         },
         "role": [
           "ctb"
@@ -7830,16 +7875,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Koenig, Viviane"
+          "authorized_access_point": "Koenig, Viviane"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/035573139",
           "type": "bf:Person"
         },
@@ -7969,7 +8014,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033963584",
           "type": "bf:Person"
         },
@@ -7978,7 +8023,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/050835750",
           "type": "bf:Person"
         },
@@ -8078,6 +8123,15 @@
         ]
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Cantin, Marc"
+        },
+        "title": "Les mal\u00e9fices d'Halequin"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -8134,7 +8188,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/03346894X",
           "type": "bf:Person"
         },
@@ -8334,7 +8388,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/244017360",
           "type": "bf:Person"
         },
@@ -8448,6 +8502,16 @@
         "term": "Photographies"
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Urlaub, Farin",
+          "date_of_birth": "1963"
+        },
+        "title": "Unterwegs"
+      }
+    ],
     "electronicLocator": [
       {
         "url": "http://d-nb.info/1071856731/04",
@@ -8543,7 +8607,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Tempi e figure.",
+        "title": "Tempi e figure",
         "date_of_work": "1953-1968"
       }
     ],
@@ -8647,45 +8711,43 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Alexander,",
-          "qualifier": "von Roes"
+          "authorized_access_point": "Alexander,, von Roes"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Engelbertus,",
-          "qualifier": "Admontensis"
+          "authorized_access_point": "Engelbertus,, Admontensis"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Grundmann, Herbert"
+          "authorized_access_point": "Grundmann, Herbert"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Heimpel, Hermann"
+          "authorized_access_point": "Heimpel, Hermann"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/064816125",
           "type": "bf:Person"
         },
@@ -8694,9 +8756,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Schneider, Herbert"
+          "authorized_access_point": "Schneider, Herbert"
         },
         "role": [
           "ctb"
@@ -8851,7 +8913,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032444621",
           "type": "bf:Person"
         },
@@ -8860,7 +8922,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028028856",
           "type": "bf:Person"
         },
@@ -8869,7 +8931,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032583702",
           "type": "bf:Person"
         },
@@ -9173,11 +9235,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Weiss, Pierre,",
-          "date_of_birth": "1865",
-          "date_of_death": "1940"
+          "authorized_access_point": "Weiss, Pierre,, 1865-1940"
         },
         "role": [
           "aut"
@@ -9309,7 +9369,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028563700",
           "type": "bf:Person"
         },
@@ -9556,10 +9616,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Estaci\u00f3n Agr\u00edcola Experimental (Le\u00f3n)",
-          "conference": false
+          "authorized_access_point": "Estaci\u00f3n Agr\u00edcola Experimental (Le\u00f3n)"
         },
         "role": [
           "ctb"
@@ -9608,7 +9667,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028710355",
           "type": "bf:Person"
         },
@@ -9714,6 +9773,16 @@
         "term": "Fantasy"
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "King, Stephen",
+          "date_of_birth": "1947"
+        },
+        "title": "La tour sombre"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -9768,7 +9837,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028710355",
           "type": "bf:Person"
         },
@@ -9872,6 +9941,16 @@
       {
         "type": "bf:Topic",
         "term": "Fantasy"
+      }
+    ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "King, Stephen",
+          "date_of_birth": "1947"
+        },
+        "title": "La tour sombre"
       }
     ],
     "partOf": [
@@ -10016,7 +10095,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029768748",
           "type": "bf:Person"
         },
@@ -10071,7 +10150,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029679400",
           "type": "bf:Person"
         },
@@ -10080,9 +10159,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Flemans, R.J"
+          "authorized_access_point": "Flemans, R.J"
         },
         "role": [
           "ctb"
@@ -10245,7 +10324,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Collection histoire de l'art.",
+        "title": "Collection histoire de l'art",
         "part": [
           {
             "partName": "Carr\u00e9 multim\u00e9dia"
@@ -10521,7 +10600,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/186402163",
           "type": "bf:Person"
         },
@@ -10530,7 +10609,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/186402376",
           "type": "bf:Person"
         },
@@ -10539,7 +10618,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/186402627",
           "type": "bf:Person"
         },
@@ -10548,7 +10627,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/18640266X",
           "type": "bf:Person"
         },
@@ -10716,9 +10795,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Sallin, Jean-Daniel"
+          "authorized_access_point": "Sallin, Jean-Daniel"
         },
         "role": [
           "ctb"
@@ -10763,7 +10842,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027152596",
           "type": "bf:Person"
         },
@@ -10772,16 +10851,16 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Axelrad, Albert Jos\u00e9"
+          "authorized_access_point": "Axelrad, Albert Jos\u00e9"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026773252",
           "type": "bf:Person"
         },
@@ -10790,7 +10869,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032410182",
           "type": "bf:Person"
         },
@@ -11077,7 +11156,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/060312149",
           "type": "bf:Person"
         },
@@ -11086,7 +11165,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033405786",
           "type": "bf:Person"
         },
@@ -11144,7 +11223,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/035707119",
           "type": "bf:Person"
         },
@@ -11280,7 +11359,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030260868",
           "type": "bf:Person"
         },
@@ -11289,7 +11368,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/172774004",
           "type": "bf:Person"
         },
@@ -11298,7 +11377,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/067022847",
           "type": "bf:Person"
         },
@@ -11307,9 +11386,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "M\u00fchle, Friederike"
+          "authorized_access_point": "M\u00fchle, Friederike"
         },
         "role": [
           "ctb"
@@ -11424,6 +11503,17 @@
       {
         "main_type": "docmaintype_score",
         "subtype": "docsubtype_printed_score"
+      }
+    ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Haydn, Joseph",
+          "date_of_birth": "1732",
+          "date_of_death": "1809"
+        },
+        "title": "Werke"
       }
     ],
     "seriesStatement": [
@@ -11597,9 +11687,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Zimmer, Dieter E"
+          "authorized_access_point": "Zimmer, Dieter E"
         },
         "role": [
           "cre"
@@ -11728,7 +11818,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028028945",
           "type": "bf:Person"
         },
@@ -11858,9 +11948,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Perrault, Gilles"
+          "authorized_access_point": "Perrault, Gilles"
         },
         "role": [
           "cre"
@@ -12149,16 +12239,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Labrune, Jeanne"
+          "authorized_access_point": "Labrune, Jeanne"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/174111819",
           "type": "bf:Person"
         },
@@ -12262,13 +12352,9 @@
     "sequence_numbering": "No 1(1904)-[?]",
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Phillips Academy",
-          "conference": false,
-          "subordinate_unit": [
-            "Department of Archaeology (Andover, Mass.)"
-          ]
+          "authorized_access_point": "Phillips Academy. Department of Archaeology (Andover, Mass.)"
         },
         "role": [
           "ctb"
@@ -12428,7 +12514,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/057790981",
           "type": "bf:Person"
         },
@@ -12437,7 +12523,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/076020673",
           "type": "bf:Organisation"
         },
@@ -12488,16 +12574,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Guidoux, Val\u00e9rie"
+          "authorized_access_point": "Guidoux, Val\u00e9rie"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/055281729",
           "type": "bf:Person"
         },
@@ -12659,9 +12745,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Zeiter, Silvano"
+          "authorized_access_point": "Zeiter, Silvano"
         },
         "role": [
           "pht"
@@ -12910,7 +12996,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031598099",
           "type": "bf:Organisation"
         },
@@ -12959,7 +13045,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/035216999",
           "type": "bf:Person"
         },
@@ -13066,7 +13152,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026806347",
           "type": "bf:Person"
         },
@@ -13193,10 +13279,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Cole, John,",
-          "qualifier": "of Beverley"
+          "authorized_access_point": "Cole, John,, of Beverley"
         },
         "role": [
           "cre"
@@ -13297,12 +13382,24 @@
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Odes - Early works to 1800"
+        "term": "Odes",
+        "genreForm_subdivisions": [
+          "Early works to 1800"
+        ]
       },
       {
         "type": "bf:Place",
         "source": "LCSH",
-        "preferred_name": "United States - History - Revolution, 1775-1783 - Poetry"
+        "preferred_name": "United States",
+        "genreForm_subdivisions": [
+          "Poetry"
+        ],
+        "topic_subdivisions": [
+          "History"
+        ],
+        "temporal_subdivisions": [
+          "Revolution, 1775-1783"
+        ]
       }
     ],
     "electronicLocator": [
@@ -13361,7 +13458,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026868024",
           "type": "bf:Person"
         },
@@ -13500,7 +13597,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032104561",
           "type": "bf:Person"
         },
@@ -13653,9 +13750,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Topalovi\u0107, Elvira [VNV]"
+          "authorized_access_point": "Topalovi\u0107, Elvira [VNV]"
         },
         "role": [
           "cre"
@@ -13905,7 +14002,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030049814",
           "type": "bf:Organisation"
         },
@@ -14077,7 +14174,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/077007220",
           "type": "bf:Person"
         },
@@ -14216,13 +14313,8 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organisation",
-        "preferred_name": "British Rail Pension Fund (Grande-Bretagne)",
-        "conference": false,
-        "identifiedBy": {
-          "value": "204515998",
-          "type": "IdRef"
-        }
+        "$ref": "https://mef.rero.ch/api/agents/idref/204515998",
+        "type": "bf:Organisation"
       },
       {
         "type": "bf:Topic",
@@ -14278,17 +14370,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Friedl, Johanna,",
-          "date_of_birth": "1964"
+          "authorized_access_point": "Friedl, Johanna,, 1964"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/080115942",
           "type": "bf:Person"
         },
@@ -14435,7 +14526,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/074180304",
           "type": "bf:Person"
         },
@@ -14774,23 +14865,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Smirnova, Natal\u02b9i\ufe20a\ufe21 Mikha\u012dlovna"
+          "authorized_access_point": "Smirnova, Natal\u02b9i\ufe20a\ufe21 Mikha\u012dlovna"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
-          "type": "bf:Organisation",
-          "preferred_name": "Gosudarstvenny\u012d muze\u012d izobrazitel\u02b9nykh iskusstv imeni A.S. Pushkina",
-          "conference": false,
-          "identifiedBy": {
-            "value": "092877575",
-            "type": "IdRef"
-          }
+        "entity": {
+          "$ref": "https://mef.rero.ch/api/agents/idref/092877575",
+          "type": "bf:Organisation"
         },
         "role": [
           "ctb"
@@ -14917,7 +15003,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/059315156",
           "type": "bf:Person"
         },
@@ -15078,7 +15164,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/03545802X",
           "type": "bf:Organisation"
         },
@@ -15126,27 +15212,25 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Faur\u00e9, Gabriel,",
-          "date_of_birth": "1845",
-          "date_of_death": "1924"
+          "authorized_access_point": "Faur\u00e9, Gabriel,, 1845-1924"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Danco, Suzanne"
+          "authorized_access_point": "Danco, Suzanne"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026687860",
           "type": "bf:Person"
         },
@@ -15155,7 +15239,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032601786",
           "type": "bf:Person"
         },
@@ -15164,7 +15248,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/172453070",
           "type": "bf:Organisation"
         },
@@ -15173,7 +15257,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/05018959X",
           "type": "bf:Organisation"
         },
@@ -15382,7 +15466,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030599296",
           "type": "bf:Person"
         },
@@ -15391,9 +15475,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Louis, Robert"
+          "authorized_access_point": "Louis, Robert"
         },
         "role": [
           "ctb"
@@ -15526,10 +15610,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Herpetological Association of Africa",
-          "conference": false
+          "authorized_access_point": "Herpetological Association of Africa"
         },
         "role": [
           "ctb"
@@ -15585,7 +15668,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028836642",
           "type": "bf:Person"
         },
@@ -15594,7 +15677,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/07377233X",
           "type": "bf:Person"
         },
@@ -15920,30 +16003,67 @@
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Koreans - Legal status, laws, etc. - Japan - History - 20th century"
+        "term": "Koreans",
+        "topic_subdivisions": [
+          "Legal status, laws, etc.",
+          "History"
+        ],
+        "temporal_subdivisions": [
+          "20th century"
+        ],
+        "place_subdivisions": [
+          "Japan"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Koreans - Legal status, laws, etc. - Japan - History - 21st century"
+        "term": "Koreans",
+        "topic_subdivisions": [
+          "Legal status, laws, etc.",
+          "History"
+        ],
+        "temporal_subdivisions": [
+          "21st century"
+        ],
+        "place_subdivisions": [
+          "Japan"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Koreans - Japan - Social conditions - 20th century"
+        "term": "Koreans",
+        "topic_subdivisions": [
+          "Social conditions"
+        ],
+        "temporal_subdivisions": [
+          "20th century"
+        ],
+        "place_subdivisions": [
+          "Japan"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Koreans - Japan - Social conditions - 21st century"
+        "term": "Koreans",
+        "topic_subdivisions": [
+          "Social conditions"
+        ],
+        "temporal_subdivisions": [
+          "21st century"
+        ],
+        "place_subdivisions": [
+          "Japan"
+        ]
       }
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Koria Jinken Seikatsu Ky\u014dkai",
-          "conference": false
+          "authorized_access_point": "Koria Jinken Seikatsu Ky\u014dkai"
         },
         "role": [
           "ctb"
@@ -15992,7 +16112,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/056746512",
           "type": "bf:Person"
         },
@@ -16001,7 +16121,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/234848111",
           "type": "bf:Person"
         },
@@ -16010,14 +16130,9 @@
         ]
       },
       {
-        "agent": {
-          "type": "bf:Organisation",
-          "preferred_name": "Organisation de coop\u00e9ration et de d\u00e9veloppement \u00e9conomiques (Paris)",
-          "conference": false,
-          "identifiedBy": {
-            "value": "086251392",
-            "type": "IdRef"
-          }
+        "entity": {
+          "$ref": "https://mef.rero.ch/api/agents/idref/026396963",
+          "type": "bf:Organisation"
         },
         "role": [
           "ctb"
@@ -16168,7 +16283,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026958775",
           "type": "bf:Person"
         },
@@ -16335,16 +16450,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Gessner, Johann Jacob"
+          "authorized_access_point": "Gessner, Johann Jacob"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/229507255",
           "type": "bf:Person"
         },
@@ -16501,7 +16616,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030688361",
           "type": "bf:Person"
         },
@@ -16766,18 +16881,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Kumlehn, J\u00fcrgen"
+          "authorized_access_point": "Kumlehn, J\u00fcrgen"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bursch, Peter"
+          "authorized_access_point": "Bursch, Peter"
         },
         "role": [
           "ctb"
@@ -16925,7 +17040,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031568637",
           "type": "bf:Person"
         },
@@ -16969,7 +17084,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/148257054",
           "type": "bf:Person"
         },
@@ -17134,7 +17249,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/118198726",
           "type": "bf:Person"
         },
@@ -17143,7 +17258,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/152618333",
           "type": "bf:Person"
         },
@@ -17243,7 +17358,10 @@
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Tourism - China"
+        "term": "Tourism",
+        "place_subdivisions": [
+          "China"
+        ]
       },
       {
         "type": "bf:Topic",
@@ -17439,13 +17557,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Suisse",
-          "conference": false,
-          "subordinate_unit": [
-            "Office f\u00e9d\u00e9ral de la statistique"
-          ]
+          "authorized_access_point": "Suisse. Office f\u00e9d\u00e9ral de la statistique"
         },
         "role": [
           "ctb"
@@ -17492,9 +17606,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bellah, Robert Neelly"
+          "authorized_access_point": "Bellah, Robert Neelly"
         },
         "role": [
           "cre"
@@ -17596,9 +17710,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "B\u00e4r, Wolfgang"
+          "authorized_access_point": "B\u00e4r, Wolfgang"
         },
         "role": [
           "cre"
@@ -17764,9 +17878,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Balka, Marie"
+          "authorized_access_point": "Balka, Marie"
         },
         "role": [
           "cre"
@@ -17877,10 +17991,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Ab\u016b al-R\u016bs, Kh\u0101lid",
-          "date_of_birth": "1920"
+          "authorized_access_point": "Ab\u016b al-R\u016bs, Kh\u0101lid, 1920"
         },
         "role": [
           "cre"
@@ -18093,10 +18206,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Comit\u00e9 oecum\u00e9nique suisse pour la justice, la paix et la sauvegarde de la cr\u00e9ation",
-          "conference": false
+          "authorized_access_point": "Comit\u00e9 oecum\u00e9nique suisse pour la justice, la paix et la sauvegarde de la cr\u00e9ation"
         },
         "role": [
           "ctb"
@@ -18249,9 +18361,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Margulies, Anita"
+          "authorized_access_point": "Margulies, Anita"
         },
         "role": [
           "ctb"
@@ -18389,7 +18501,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/235616796",
           "type": "bf:Organisation"
         },
@@ -18438,9 +18550,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Anson, Gunars"
+          "authorized_access_point": "Anson, Gunars"
         },
         "role": [
           "cre"
@@ -18540,9 +18652,9 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux.",
+        "title": "Journal des tribunaux",
         "date_of_work": "2011-.",
-        "miscellaneous_information": "Lausanne.",
+        "miscellaneous_information": "Lausanne",
         "part": [
           {
             "partNumber": "2,",
@@ -18817,7 +18929,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/176678980",
           "type": "bf:Person"
         },
@@ -18831,7 +18943,7 @@
         "agent": {
           "type": "bf:Organisation",
           "conference": false,
-          "preferred_name": "Italia. -"
+          "preferred_name": "Italia"
         },
         "title": "Code p\u00e9nal"
       }
@@ -18985,9 +19097,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "M\u00e9choulan, Eric"
+          "authorized_access_point": "M\u00e9choulan, Eric"
         },
         "role": [
           "ctb"
@@ -19043,16 +19155,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Knoepfel, Peter"
+          "authorized_access_point": "Knoepfel, Peter"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031771440",
           "type": "bf:Person"
         },
@@ -19061,7 +19173,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/077156072",
           "type": "bf:Organisation"
         },
@@ -19214,7 +19326,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026727587",
           "type": "bf:Person"
         },
@@ -19223,10 +19335,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Pef,",
-          "date_of_birth": "1939"
+          "authorized_access_point": "Pef,, 1939"
         },
         "role": [
           "ctb"
@@ -19377,16 +19488,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Knoepfel, Peter"
+          "authorized_access_point": "Knoepfel, Peter"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031771440",
           "type": "bf:Person"
         },
@@ -19527,6 +19638,15 @@
         "preferred_name": "Europe occidentale"
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Knoepfel, Peter"
+        },
+        "title": "Luftreinhaltepolitik (station\u00e4re Quellen) im internationalen Vergleich"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -19587,7 +19707,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027000346",
           "type": "bf:Person"
         },
@@ -19709,9 +19829,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Watson, J. Francis"
+          "authorized_access_point": "Watson, J. Francis"
         },
         "role": [
           "cre"
@@ -19816,18 +19936,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Ahlberg, Allan"
+          "authorized_access_point": "Ahlberg, Allan"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Amstutz, Andr\u00e9"
+          "authorized_access_point": "Amstutz, Andr\u00e9"
         },
         "role": [
           "ctb"
@@ -20075,7 +20195,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028417232",
           "type": "bf:Person"
         },
@@ -20123,9 +20243,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Tavosanis, Mirko"
+          "authorized_access_point": "Tavosanis, Mirko"
         },
         "role": [
           "cre"
@@ -20313,7 +20433,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026932997",
           "type": "bf:Person"
         },
@@ -20468,7 +20588,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/050769561",
           "type": "bf:Person"
         },
@@ -20661,7 +20781,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/122516176",
           "type": "bf:Organisation"
         },
@@ -20708,10 +20828,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Abercrombie, John,",
-          "qualifier": "psychologue"
+          "authorized_access_point": "Abercrombie, John,, psychologue"
         },
         "role": [
           "cre"
@@ -20956,13 +21075,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Suisse",
-          "conference": false,
-          "subordinate_unit": [
-            "Office f\u00e9d\u00e9ral de la statistique"
-          ]
+          "authorized_access_point": "Suisse. Office f\u00e9d\u00e9ral de la statistique"
         },
         "role": [
           "ctb"
@@ -21023,7 +21138,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/078047285",
           "type": "bf:Person"
         },
@@ -21139,9 +21254,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Young, M"
+          "authorized_access_point": "Young, M"
         },
         "role": [
           "aut"
@@ -21312,16 +21427,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Protagoras"
+          "authorized_access_point": "Protagoras"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/199829586",
           "type": "bf:Person"
         },
@@ -21470,18 +21585,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Potot\ufe20s\ufe21kai\ufe20a\ufe21, Varvara Vasil\u02b9evna,",
-          "date_of_birth": "1872",
-          "date_of_death": "1944"
+          "authorized_access_point": "Potot\ufe20s\ufe21kai\ufe20a\ufe21, Varvara Vasil\u02b9evna,, 1872-1944"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030724392",
           "type": "bf:Person"
         },
@@ -21674,7 +21787,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/199473927",
           "type": "bf:Person"
         },
@@ -21683,7 +21796,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/057566860",
           "type": "bf:Person"
         },
@@ -21812,7 +21925,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/251298299",
           "type": "bf:Person"
         },
@@ -21921,9 +22034,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Mauriac, Claude"
+          "authorized_access_point": "Mauriac, Claude"
         },
         "role": [
           "cre"
@@ -22007,6 +22120,15 @@
             "value": "9"
           }
         ]
+      }
+    ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Mauriac, Claude"
+        },
+        "title": "Le temps immobile"
       }
     ]
   },
@@ -22174,20 +22296,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Office du tourisme (Liddes)",
-          "conference": false
+          "authorized_access_point": "Office du tourisme (Liddes)"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Office du tourisme (Bourg-Saint-Pierre)",
-          "conference": false
+          "authorized_access_point": "Office du tourisme (Bourg-Saint-Pierre)"
         },
         "role": [
           "ctb"
@@ -22563,7 +22683,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031206999",
           "type": "bf:Person"
         },
@@ -22791,7 +22911,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/073942103",
           "type": "bf:Person"
         },
@@ -22850,7 +22970,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Babel.",
+        "title": "Babel",
         "part": [
           {
             "partName": "Actes sud"
@@ -22858,7 +22978,7 @@
         ]
       },
       {
-        "title": "Babel.",
+        "title": "Babel",
         "part": [
           {
             "partName": "Labor"
@@ -22866,7 +22986,7 @@
         ]
       },
       {
-        "title": "Babel.",
+        "title": "Babel",
         "part": [
           {
             "partName": "Lem\u00e9ac"
@@ -22874,7 +22994,7 @@
         ]
       },
       {
-        "title": "Babel.",
+        "title": "Babel",
         "part": [
           {
             "partName": "L'Aire"
@@ -23044,7 +23164,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/034000038",
           "type": "bf:Person"
         },
@@ -23053,7 +23173,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/078122538",
           "type": "bf:Person"
         },
@@ -23211,9 +23331,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Wickeri, Philip L"
+          "authorized_access_point": "Wickeri, Philip L"
         },
         "role": [
           "cre"
@@ -23411,9 +23531,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Goonan, Kathleen Ann"
+          "authorized_access_point": "Goonan, Kathleen Ann"
         },
         "role": [
           "ctb"
@@ -23472,7 +23592,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033893438",
           "type": "bf:Person"
         },
@@ -23621,9 +23741,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Borgialli, Michele"
+          "authorized_access_point": "Borgialli, Michele"
         },
         "role": [
           "cre"
@@ -23754,7 +23874,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/075450844",
           "type": "bf:Person"
         },
@@ -23763,7 +23883,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026784556",
           "type": "bf:Person"
         },
@@ -23918,9 +24038,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Eckebrecht, Marc"
+          "authorized_access_point": "Eckebrecht, Marc"
         },
         "role": [
           "cre"
@@ -24116,9 +24236,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Yu, Feng"
+          "authorized_access_point": "Yu, Feng"
         },
         "role": [
           "cre"
@@ -24245,17 +24365,32 @@
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Copyright - China"
+        "term": "Copyright",
+        "place_subdivisions": [
+          "China"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Mass media - Law and legislation - China"
+        "term": "Mass media",
+        "topic_subdivisions": [
+          "Law and legislation"
+        ],
+        "place_subdivisions": [
+          "China"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Performing arts - Law and legislation - China"
+        "term": "Performing arts",
+        "topic_subdivisions": [
+          "Law and legislation"
+        ],
+        "place_subdivisions": [
+          "China"
+        ]
       }
     ]
   },
@@ -24390,9 +24525,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Costa, Emilio"
+          "authorized_access_point": "Costa, Emilio"
         },
         "role": [
           "ctb"
@@ -24522,7 +24657,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028804430",
           "type": "bf:Person"
         },
@@ -24646,7 +24781,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/164099832",
           "type": "bf:Person"
         },
@@ -24655,7 +24790,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/164099859",
           "type": "bf:Person"
         },
@@ -24818,18 +24953,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Gantzhorn, Ralf"
+          "authorized_access_point": "Gantzhorn, Ralf"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Attenberger, Moritz"
+          "authorized_access_point": "Attenberger, Moritz"
         },
         "role": [
           "ctb"
@@ -25162,16 +25297,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Branagh, Kenneth"
+          "authorized_access_point": "Branagh, Kenneth"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/05765025X",
           "type": "bf:Person"
         },
@@ -25180,7 +25315,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/057223688",
           "type": "bf:Person"
         },
@@ -25189,9 +25324,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Coppola, Francis Ford"
+          "authorized_access_point": "Coppola, Francis Ford"
         },
         "role": [
           "ctb"
@@ -25204,7 +25339,7 @@
           "type": "bf:Person",
           "preferred_name": "Shelley, Mary Wollstonecraft Godwin",
           "date_of_birth": "1797",
-          "date_of_death": "1851.",
+          "date_of_death": "1851",
           "identifiedBy": {
             "value": "026671131",
             "type": "IdRef"
@@ -25261,9 +25396,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Pagano, Caio"
+          "authorized_access_point": "Pagano, Caio"
         },
         "role": [
           "aut"
@@ -25369,7 +25504,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/234193093",
           "type": "bf:Person"
         },
@@ -25565,7 +25700,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028965892",
           "type": "bf:Person"
         },
@@ -25815,7 +25950,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029033616",
           "type": "bf:Organisation"
         },
@@ -26044,7 +26179,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/131203460",
           "type": "bf:Person"
         },
@@ -26199,17 +26334,40 @@
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Jews - Belarus - Minsk - Biography"
+        "term": "Jews",
+        "genreForm_subdivisions": [
+          "Biography"
+        ],
+        "place_subdivisions": [
+          "Belarus",
+          "Minsk"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Jews - Belarus - Minsk - Social life and customs"
+        "term": "Jews",
+        "topic_subdivisions": [
+          "Social life and customs"
+        ],
+        "place_subdivisions": [
+          "Belarus",
+          "Minsk"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Jews - Russia - History - 19th century"
+        "term": "Jews",
+        "topic_subdivisions": [
+          "History"
+        ],
+        "temporal_subdivisions": [
+          "19th century"
+        ],
+        "place_subdivisions": [
+          "Russia"
+        ]
       }
     ]
   },
@@ -26252,18 +26410,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bromfield, Louis"
+          "authorized_access_point": "Bromfield, Louis"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Breuzebosc, Simone"
+          "authorized_access_point": "Breuzebosc, Simone"
         },
         "role": [
           "ctb"
@@ -26444,7 +26602,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/199562202",
           "type": "bf:Organisation"
         },
@@ -26491,7 +26649,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028188012",
           "type": "bf:Person"
         },
@@ -26500,7 +26658,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/094513627",
           "type": "bf:Person"
         },
@@ -26682,9 +26840,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "PoiPoi"
+          "authorized_access_point": "PoiPoi"
         },
         "role": [
           "cre"
@@ -26787,6 +26945,15 @@
       {
         "type": "bf:Topic",
         "term": "Bandes dessin\u00e9es"
+      }
+    ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "PoiPoi"
+        },
+        "title": "Ange le Terrible"
       }
     ],
     "partOf": [
@@ -26957,13 +27124,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Sociedade Bot\u00e2nica do Brasil",
-          "conference": false,
-          "subordinate_unit": [
-            "Sec\u00e7\u00e3o Rio de Janeiro"
-          ]
+          "authorized_access_point": "Sociedade Bot\u00e2nica do Brasil. Sec\u00e7\u00e3o Rio de Janeiro"
         },
         "role": [
           "ctb"
@@ -27113,18 +27276,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Schefer, Dorothy"
+          "authorized_access_point": "Schefer, Dorothy"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Chanine, Nathalie"
+          "authorized_access_point": "Chanine, Nathalie"
         },
         "role": [
           "ctb"
@@ -27173,7 +27336,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/035155051",
           "type": "bf:Person"
         },
@@ -27300,7 +27463,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026717948",
           "type": "bf:Person"
         },
@@ -27569,7 +27732,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/070192979",
           "type": "bf:Person"
         },
@@ -27578,7 +27741,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/05737841X",
           "type": "bf:Person"
         },
@@ -27587,7 +27750,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/052496767",
           "type": "bf:Person"
         },
@@ -27733,7 +27896,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032014201",
           "type": "bf:Person"
         },
@@ -27891,9 +28054,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Schneider, Fritz Christian"
+          "authorized_access_point": "Schneider, Fritz Christian"
         },
         "role": [
           "cre"
@@ -27990,9 +28153,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Brun, Rudolf"
+          "authorized_access_point": "Brun, Rudolf"
         },
         "role": [
           "cre"
@@ -28227,7 +28390,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030782805",
           "type": "bf:Person"
         },
@@ -28236,18 +28399,18 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Albert, Hans"
+          "authorized_access_point": "Albert, Hans"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "D\u00f6lle, Ernst August"
+          "authorized_access_point": "D\u00f6lle, Ernst August"
         },
         "role": [
           "ctb"
@@ -28305,7 +28468,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/085939323",
           "type": "bf:Person"
         },
@@ -28531,10 +28694,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Michel, Jean-Fran\u00e7ois,",
-          "date_of_birth": "1957"
+          "authorized_access_point": "Michel, Jean-Fran\u00e7ois,, 1957"
         },
         "role": [
           "ctb"
@@ -28543,7 +28705,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Go down Moses.",
+        "title": "Go down Moses",
         "medium_of_performance_for_music": [
           "Orchestre \u00e0 cordes"
         ]
@@ -28745,7 +28907,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/085817627",
           "type": "bf:Person"
         },
@@ -28754,7 +28916,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/069761124",
           "type": "bf:Person"
         },
@@ -28763,7 +28925,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/06949665X",
           "type": "bf:Organisation"
         },
@@ -28934,12 +29096,12 @@
     "sequence_numbering": "No 1(2005)-",
     "intendedAudience": [
       {
-        "audienceType": "understanding_level",
-        "value": "target_understanding_tertiary"
-      },
-      {
         "audienceType": "school_level",
         "value": "target_school_tertiary"
+      },
+      {
+        "audienceType": "understanding_level",
+        "value": "target_understanding_tertiary"
       },
       {
         "audienceType": "understanding_level",
@@ -28997,38 +29159,36 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bertholet, Alfred,",
-          "qualifier": "Musicien"
+          "authorized_access_point": "Bertholet, Alfred,, Musicien"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Voser, Roger"
+          "authorized_access_point": "Voser, Roger"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Petignat, Jean-Louis"
+          "authorized_access_point": "Petignat, Jean-Louis"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Commission romande des moyens d'enseignement",
-          "conference": false
+          "authorized_access_point": "Commission romande des moyens d'enseignement"
         },
         "role": [
           "ctb"
@@ -29192,6 +29352,16 @@
         ]
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Bertholet, Alfred",
+          "qualifier": "Musicien"
+        },
+        "title": "A vous la musique, 2\u00e8me ann\u00e9e"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -29234,10 +29404,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Hoffmann, Erich,",
-          "qualifier": "th\u00e9ologien"
+          "authorized_access_point": "Hoffmann, Erich,, th\u00e9ologien"
         },
         "role": [
           "cre"
@@ -29330,7 +29499,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028339819",
           "type": "bf:Person"
         },
@@ -29500,7 +29669,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/072752580",
           "type": "bf:Person"
         },
@@ -29612,7 +29781,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029093147",
           "type": "bf:Person"
         },
@@ -29769,19 +29938,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Augustinus,",
-          "qualifier": "saint",
-          "date_of_birth": "354",
-          "date_of_death": "430"
+          "authorized_access_point": "Augustinus,, 354-430, saint"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026723417",
           "type": "bf:Person"
         },
@@ -30067,16 +30233,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Joire, Fran\u00e7oise"
+          "authorized_access_point": "Joire, Fran\u00e7oise"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031800084",
           "type": "bf:Person"
         },
@@ -30346,7 +30512,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/251273660",
           "type": "bf:Person"
         },
@@ -30451,7 +30617,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/07146073X",
           "type": "bf:Person"
         },
@@ -30460,18 +30626,16 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "I\ufe20A\ufe21glom, Akiva Moiseevich,",
-          "date_of_birth": "1921",
-          "date_of_death": "2007"
+          "authorized_access_point": "I\ufe20A\ufe21glom, Akiva Moiseevich,, 1921-2007"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031604005",
           "type": "bf:Person"
         },
@@ -30660,16 +30824,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Mai, Manfred"
+          "authorized_access_point": "Mai, Manfred"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/086144715",
           "type": "bf:Person"
         },
@@ -30938,7 +31102,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029957281",
           "type": "bf:Person"
         },
@@ -30947,7 +31111,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/24393744X",
           "type": "bf:Person"
         },
@@ -31059,7 +31223,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/063805162",
           "type": "bf:Organisation"
         },
@@ -31207,16 +31371,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bachof, Otto"
+          "authorized_access_point": "Bachof, Otto"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031505910",
           "type": "bf:Person"
         },
@@ -31282,16 +31446,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Arnaud, Brigitte"
+          "authorized_access_point": "Arnaud, Brigitte"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/194824799",
           "type": "bf:Person"
         },
@@ -31448,18 +31612,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "H\u00e1mos, Ildik\u00f3"
+          "authorized_access_point": "H\u00e1mos, Ildik\u00f3"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Sohlo, Ilari"
+          "authorized_access_point": "Sohlo, Ilari"
         },
         "role": [
           "ctb"
@@ -31619,9 +31783,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Olson, George L"
+          "authorized_access_point": "Olson, George L"
         },
         "role": [
           "cre"
@@ -31819,7 +31983,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/02911344X",
           "type": "bf:Person"
         },
@@ -31828,7 +31992,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028845870",
           "type": "bf:Person"
         },
@@ -31837,7 +32001,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026464462",
           "type": "bf:Organisation"
         },
@@ -31881,7 +32045,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/194447421",
           "type": "bf:Person"
         },
@@ -32169,47 +32333,86 @@
       {
         "type": "bf:Person",
         "source": "LCSH",
-        "preferred_name": "Clark, Lygia, - 1920-1988 - Exhibitions"
+        "preferred_name": "Clark, Lygia, - 1920-1988",
+        "genreForm_subdivisions": [
+          "Exhibitions"
+        ]
       },
       {
         "type": "bf:Person",
         "source": "LCSH",
-        "preferred_name": "Freundlich, Otto, - 1878-1943 - Exhibitions"
+        "preferred_name": "Freundlich, Otto, - 1878-1943",
+        "genreForm_subdivisions": [
+          "Exhibitions"
+        ]
       },
       {
         "type": "bf:Person",
         "source": "LCSH",
-        "preferred_name": "Lye, Len, - 1901-1980 - Exhibitions"
+        "preferred_name": "Lye, Len, - 1901-1980",
+        "genreForm_subdivisions": [
+          "Exhibitions"
+        ]
       },
       {
         "type": "bf:Person",
         "source": "LCSH",
-        "preferred_name": "Palermo, - 1943-1977 - Exhibitions"
+        "preferred_name": "Palermo, - 1943-1977",
+        "genreForm_subdivisions": [
+          "Exhibitions"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Art - Israel - Exhibitions"
+        "term": "Art",
+        "genreForm_subdivisions": [
+          "Exhibitions"
+        ],
+        "place_subdivisions": [
+          "Israel"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Art, Abstract - Israel - Exhibitions"
+        "term": "Art, Abstract",
+        "genreForm_subdivisions": [
+          "Exhibitions"
+        ],
+        "place_subdivisions": [
+          "Israel"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Art, Modern - Exhibitions"
+        "term": "Art, Modern",
+        "genreForm_subdivisions": [
+          "Exhibitions"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Sculpture - Israel - Exhibitions"
+        "term": "Sculpture",
+        "genreForm_subdivisions": [
+          "Exhibitions"
+        ],
+        "place_subdivisions": [
+          "Israel"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Video art - Israel - Exhibitions"
+        "term": "Video art",
+        "genreForm_subdivisions": [
+          "Exhibitions"
+        ],
+        "place_subdivisions": [
+          "Israel"
+        ]
       }
     ],
     "subjects": [
@@ -32238,7 +32441,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/118427369",
           "type": "bf:Organisation"
         },
@@ -32315,7 +32518,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/251463028",
           "type": "bf:Person"
         },
@@ -32324,9 +32527,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Falkenberg, Sabine"
+          "authorized_access_point": "Falkenberg, Sabine"
         },
         "role": [
           "ctb"
@@ -32492,7 +32695,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/056792948",
           "type": "bf:Person"
         },
@@ -32696,7 +32899,10 @@
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Environmental policy - European Union countries"
+        "term": "Environmental policy",
+        "place_subdivisions": [
+          "European Union countries"
+        ]
       },
       {
         "type": "bf:Topic",
@@ -32705,23 +32911,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Union europ\u00e9enne",
-          "conference": false,
-          "subordinate_unit": [
-            "Commission"
-          ]
+          "authorized_access_point": "Union europ\u00e9enne. Commission"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Agence europ\u00e9enne pour l'environnement",
-          "conference": false
+          "authorized_access_point": "Agence europ\u00e9enne pour l'environnement"
         },
         "role": [
           "ctb"
@@ -32781,10 +32982,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Lambert, Nicole,",
-          "date_of_birth": "1948"
+          "authorized_access_point": "Lambert, Nicole,, 1948"
         },
         "role": [
           "cre"
@@ -32921,17 +33121,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Cortey, Anne,",
-          "date_of_birth": "1966"
+          "authorized_access_point": "Cortey, Anne,, 1966"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/130950041",
           "type": "bf:Person"
         },
@@ -33056,9 +33255,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Olmi, V\u00e9ronique"
+          "authorized_access_point": "Olmi, V\u00e9ronique"
         },
         "role": [
           "cre"
@@ -33186,7 +33385,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/127839852",
           "type": "bf:Person"
         },
@@ -33195,10 +33394,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Arz, Astrid,",
-          "date_of_birth": "1958"
+          "authorized_access_point": "Arz, Astrid,, 1958"
         },
         "role": [
           "ctb"
@@ -33327,7 +33525,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/035713801",
           "type": "bf:Person"
         },
@@ -33459,11 +33657,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Vogt, Walter,",
-          "date_of_birth": "1927",
-          "date_of_death": "1988"
+          "authorized_access_point": "Vogt, Walter,, 1927-1988"
         },
         "role": [
           "cre"
@@ -33598,7 +33794,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/122152603",
           "type": "bf:Person"
         },
@@ -33727,7 +33923,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/080514294",
           "type": "bf:Person"
         },
@@ -33830,6 +34026,15 @@
         "value": "target_understanding_children_9_12"
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Nix, Garth"
+        },
+        "title": "Les sept clefs du pouvoir"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -33889,7 +34094,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/086136151",
           "type": "bf:Person"
         },
@@ -34035,7 +34240,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/03020027X",
           "type": "bf:Person"
         },
@@ -34044,7 +34249,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031386725",
           "type": "bf:Person"
         },
@@ -34269,13 +34474,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Fototage",
-          "conference": true,
-          "numbering": "1",
-          "conference_date": "1993",
-          "place": "Frankfurt, Main"
+          "authorized_access_point": "Fototage (1 : 1993 : Frankfurt, Main)"
         },
         "role": [
           "aut"
@@ -34426,7 +34627,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/055053149",
           "type": "bf:Organisation"
         },
@@ -34571,17 +34772,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Dubois, Pierre,",
-          "date_of_birth": "1945"
+          "authorized_access_point": "Dubois, Pierre,, 1945"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028597907",
           "type": "bf:Person"
         },
@@ -34590,7 +34790,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027116344",
           "type": "bf:Person"
         },
@@ -34717,19 +34917,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Cassina, Ga\u00ebtan"
+          "authorized_access_point": "Cassina, Ga\u00ebtan"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Mayer, Alexandre,",
-          "qualifier": "\u00e9b\u00e9niste"
+          "authorized_access_point": "Mayer, Alexandre,, \u00e9b\u00e9niste"
         },
         "role": [
           "ctb"
@@ -34853,7 +35052,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/03098064X",
           "type": "bf:Person"
         },
@@ -34862,7 +35061,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026934574",
           "type": "bf:Person"
         },
@@ -35013,7 +35212,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031301134",
           "type": "bf:Person"
         },
@@ -35148,7 +35347,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/171084896",
           "type": "bf:Person"
         },
@@ -35260,9 +35459,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Scheffbuch, Ruth"
+          "authorized_access_point": "Scheffbuch, Ruth"
         },
         "role": [
           "cre"
@@ -35408,18 +35607,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Schild, Tabea"
+          "authorized_access_point": "Schild, Tabea"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Schild, Simon"
+          "authorized_access_point": "Schild, Simon"
         },
         "role": [
           "ctb"
@@ -35566,7 +35765,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/153235217",
           "type": "bf:Person"
         },
@@ -35874,7 +36073,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032910150",
           "type": "bf:Organisation"
         },
@@ -35931,7 +36130,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/061061689",
           "type": "bf:Person"
         },
@@ -35940,16 +36139,16 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Meurgues, V\u00e9ronique"
+          "authorized_access_point": "Meurgues, V\u00e9ronique"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/061062162",
           "type": "bf:Person"
         },
@@ -36127,10 +36326,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Henry, Pierre,",
-          "qualifier": "linguiste"
+          "authorized_access_point": "Henry, Pierre,, linguiste"
         },
         "role": [
           "cre"
@@ -36245,9 +36443,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Marek, Robert"
+          "authorized_access_point": "Marek, Robert"
         },
         "role": [
           "cre"
@@ -36351,9 +36549,9 @@
       {
         "agent": {
           "type": "bf:Person",
-          "preferred_name": "Marek, Robert."
+          "preferred_name": "Marek, Robert"
         },
-        "title": "Trios.",
+        "title": "Trios",
         "medium_of_performance_for_music": [
           "Trompette, cor, trombone"
         ]
@@ -36521,10 +36719,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Hiroshima Botanical Club",
-          "conference": false
+          "authorized_access_point": "Hiroshima Botanical Club"
         },
         "role": [
           "ctb"
@@ -36687,10 +36884,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Regions- und Wirtschaftszentrum Oberwallis",
-          "conference": false
+          "authorized_access_point": "Regions- und Wirtschaftszentrum Oberwallis"
         },
         "role": [
           "ctb"
@@ -36772,13 +36968,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Universit\u00e4t Bremen",
-          "conference": false,
-          "subordinate_unit": [
-            "Zentrale wissenschaftliche Einrichtung \"Arbeit und Betrieb\""
-          ]
+          "authorized_access_point": "Universit\u00e4t Bremen. Zentrale wissenschaftliche Einrichtung \"Arbeit und Betrieb\""
         },
         "role": [
           "ctb"
@@ -36827,9 +37019,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bonkowski, Frank"
+          "authorized_access_point": "Bonkowski, Frank"
         },
         "role": [
           "cre"
@@ -36983,7 +37175,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/068867735",
           "type": "bf:Person"
         },
@@ -37169,7 +37361,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/23529182X",
           "type": "bf:Person"
         },
@@ -37178,7 +37370,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/235279471",
           "type": "bf:Person"
         },
@@ -37313,9 +37505,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Myl\u014dnas, Ge\u014drgios Emmanou\u0113l"
+          "authorized_access_point": "Myl\u014dnas, Ge\u014drgios Emmanou\u0113l"
         },
         "role": [
           "cre"
@@ -37523,7 +37715,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/243986998",
           "type": "bf:Person"
         },
@@ -37678,16 +37870,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Abercrombie, Michael"
+          "authorized_access_point": "Abercrombie, Michael"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/121408515",
           "type": "bf:Person"
         },
@@ -37696,7 +37888,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/12431600X",
           "type": "bf:Person"
         },
@@ -37864,7 +38056,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/031605753",
           "type": "bf:Person"
         },
@@ -37873,10 +38065,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Taylor, John B.,",
-          "qualifier": "\u00e9conomiste"
+          "authorized_access_point": "Taylor, John B.,, \u00e9conomiste"
         },
         "role": [
           "aut"
@@ -38215,27 +38406,62 @@
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Ecology - Morocco - Dra Wadi - Congresses"
+        "term": "Ecology",
+        "genreForm_subdivisions": [
+          "Congresses"
+        ],
+        "place_subdivisions": [
+          "Morocco",
+          "Dra Wadi"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Environmental policy - Morocco - Congresses"
+        "term": "Environmental policy",
+        "genreForm_subdivisions": [
+          "Congresses"
+        ],
+        "place_subdivisions": [
+          "Morocco"
+        ]
       },
       {
         "type": "bf:Topic",
         "source": "LCSH",
-        "term": "Forests and forestry - Morocco - Dra Wadi - History - Congresses"
+        "term": "Forests and forestry",
+        "genreForm_subdivisions": [
+          "Congresses"
+        ],
+        "topic_subdivisions": [
+          "History"
+        ],
+        "place_subdivisions": [
+          "Morocco",
+          "Dra Wadi"
+        ]
       },
       {
         "type": "bf:Place",
         "source": "LCSH",
-        "preferred_name": "Dra Wadi (Morocco) - Environmental conditions - Congresses"
+        "preferred_name": "Dra Wadi (Morocco)",
+        "genreForm_subdivisions": [
+          "Congresses"
+        ],
+        "topic_subdivisions": [
+          "Environmental conditions"
+        ]
       },
       {
         "type": "bf:Place",
         "source": "LCSH",
-        "preferred_name": "Morocco - Environmental conditions - Congresses"
+        "preferred_name": "Morocco",
+        "genreForm_subdivisions": [
+          "Congresses"
+        ],
+        "topic_subdivisions": [
+          "Environmental conditions"
+        ]
       }
     ],
     "subjects": [
@@ -38264,14 +38490,9 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "\u1e24um\u0101m, Muh\u0323ammad,",
-          "date_of_birth": "1968",
-          "identifiedBy": {
-            "value": "066861322",
-            "type": "IdRef"
-          }
+        "entity": {
+          "$ref": "https://mef.rero.ch/api/agents/idref/066861322",
+          "type": "bf:Person"
         },
         "role": [
           "ctb"
@@ -38420,9 +38641,9 @@
     ],
     "work_access_point": [
       {
-        "title": "Conf\u00e9rence.",
+        "title": "Conf\u00e9rence",
         "date_of_work": "1995-2019",
-        "miscellaneous_information": "Meaux."
+        "miscellaneous_information": "Meaux"
       }
     ],
     "title": [
@@ -38729,7 +38950,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033053413",
           "type": "bf:Person"
         },
@@ -38874,10 +39095,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Besson, Philippe,",
-          "date_of_birth": "1967"
+          "authorized_access_point": "Besson, Philippe,, 1967"
         },
         "role": [
           "cre"
@@ -39103,7 +39323,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029100291",
           "type": "bf:Person"
         },
@@ -39112,7 +39332,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028432266",
           "type": "bf:Person"
         },
@@ -39171,7 +39391,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027128660",
           "type": "bf:Person"
         },
@@ -39180,11 +39400,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Ruthardt, Adolf,",
-          "date_of_birth": "1849",
-          "date_of_death": "1934"
+          "authorized_access_point": "Ruthardt, Adolf,, 1849-1934"
         },
         "role": [
           "ctb"
@@ -39281,9 +39499,9 @@
           "type": "bf:Person",
           "preferred_name": "Schumann, Robert",
           "date_of_birth": "1810",
-          "date_of_death": "1856."
+          "date_of_death": "1856"
         },
-        "title": "Romances.",
+        "title": "Romances",
         "medium_of_performance_for_music": [
           "Piano"
         ]
@@ -39293,7 +39511,7 @@
           "type": "bf:Person",
           "preferred_name": "Schumann, Robert",
           "date_of_birth": "1810",
-          "date_of_death": "1856."
+          "date_of_death": "1856"
         },
         "title": "Waldszenen"
       }
@@ -39365,7 +39583,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/055280536",
           "type": "bf:Person"
         },
@@ -39497,7 +39715,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030260868",
           "type": "bf:Person"
         },
@@ -39506,7 +39724,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/078617960",
           "type": "bf:Person"
         },
@@ -39515,7 +39733,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/080493394",
           "type": "bf:Organisation"
         },
@@ -39600,9 +39818,9 @@
           "type": "bf:Person",
           "preferred_name": "Haydn, Joseph",
           "date_of_birth": "1732",
-          "date_of_death": "1809."
+          "date_of_death": "1809"
         },
-        "title": "Symphonies.",
+        "title": "Symphonies",
         "medium_of_performance_for_music": [
           "Orchestre."
         ],
@@ -39613,9 +39831,9 @@
           "type": "bf:Person",
           "preferred_name": "Haydn, Joseph",
           "date_of_birth": "1732",
-          "date_of_death": "1809."
+          "date_of_death": "1809"
         },
-        "title": "Symphonies.",
+        "title": "Symphonies",
         "medium_of_performance_for_music": [
           "Orchestre."
         ],
@@ -39626,9 +39844,9 @@
           "type": "bf:Person",
           "preferred_name": "Haydn, Joseph",
           "date_of_birth": "1732",
-          "date_of_death": "1809."
+          "date_of_death": "1809"
         },
-        "title": "Symphonies.",
+        "title": "Symphonies",
         "medium_of_performance_for_music": [
           "Orchestre."
         ],
@@ -39670,7 +39888,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/10924785X",
           "type": "bf:Person"
         },
@@ -39679,7 +39897,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/185544207",
           "type": "bf:Person"
         },
@@ -39688,9 +39906,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Kohl, X"
+          "authorized_access_point": "Kohl, X"
         },
         "role": [
           "ctb"
@@ -39876,7 +40094,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/111661315",
           "type": "bf:Person"
         },
@@ -39885,16 +40103,16 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Blanc, Emmanu\u00e8le"
+          "authorized_access_point": "Blanc, Emmanu\u00e8le"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/194090493",
           "type": "bf:Person"
         },
@@ -40042,7 +40260,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/145790274",
           "type": "bf:Person"
         },
@@ -40194,9 +40412,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Hasler, Julie"
+          "authorized_access_point": "Hasler, Julie"
         },
         "role": [
           "cre"
@@ -40452,7 +40670,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/074120956",
           "type": "bf:Person"
         },
@@ -40547,9 +40765,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Hellot, Fr\u00e9d\u00e9ric Emile Am\u00e9d\u00e9e"
+          "authorized_access_point": "Hellot, Fr\u00e9d\u00e9ric Emile Am\u00e9d\u00e9e"
         },
         "role": [
           "cre"
@@ -40824,16 +41042,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Vallana, Andr\u00e9"
+          "authorized_access_point": "Vallana, Andr\u00e9"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/135988489",
           "type": "bf:Person"
         },
@@ -40842,10 +41060,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Orchestre de chambre de Neuch\u00e2tel",
-          "conference": false
+          "authorized_access_point": "Orchestre de chambre de Neuch\u00e2tel"
         },
         "role": [
           "ctb"
@@ -40982,7 +41199,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033607028",
           "type": "bf:Person"
         },
@@ -40991,9 +41208,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Kennell, John H"
+          "authorized_access_point": "Kennell, John H"
         },
         "role": [
           "ctb"
@@ -41335,7 +41552,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026725428",
           "type": "bf:Person"
         },
@@ -41391,7 +41608,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/02827850X",
           "type": "bf:Person"
         },
@@ -41400,9 +41617,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Rufo, Marcel"
+          "authorized_access_point": "Rufo, Marcel"
         },
         "role": [
           "ctb"
@@ -41651,16 +41868,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Kongzi"
+          "authorized_access_point": "Kongzi"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028927761",
           "type": "bf:Person"
         },
@@ -41838,7 +42055,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026745151",
           "type": "bf:Person"
         },
@@ -41847,7 +42064,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/034460608",
           "type": "bf:Person"
         },
@@ -41978,7 +42195,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028817257",
           "type": "bf:Person"
         },
@@ -42116,16 +42333,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Brin, David"
+          "authorized_access_point": "Brin, David"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028275055",
           "type": "bf:Person"
         },
@@ -42278,7 +42495,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/243997876",
           "type": "bf:Person"
         },
@@ -42437,16 +42654,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Daumier, Honor\u00e9"
+          "authorized_access_point": "Daumier, Honor\u00e9"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029314100",
           "type": "bf:Person"
         },
@@ -42455,7 +42672,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/182639096",
           "type": "bf:Person"
         },
@@ -42608,7 +42825,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027329453",
           "type": "bf:Person"
         },
@@ -42617,7 +42834,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/143311867",
           "type": "bf:Person"
         },
@@ -42626,9 +42843,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Lunn, Jean"
+          "authorized_access_point": "Lunn, Jean"
         },
         "role": [
           "ctb"
@@ -42737,9 +42954,9 @@
       {
         "agent": {
           "type": "bf:Person",
-          "preferred_name": "Mendelssohn-Bartholdy, Felix."
+          "preferred_name": "Mendelssohn-Bartholdy, Felix"
         },
-        "title": "Motets.",
+        "title": "Motets",
         "key_for_music": "Op. 23 no 1"
       }
     ],
@@ -42888,7 +43105,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029065216",
           "type": "bf:Person"
         },
@@ -43165,7 +43382,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/235679704",
           "type": "bf:Person"
         },
@@ -43174,7 +43391,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/056779348",
           "type": "bf:Person"
         },
@@ -43234,7 +43451,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/18609809X",
           "type": "bf:Person"
         },
@@ -43370,20 +43587,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Plato,",
-          "date_of_birth": "ca. 427",
-          "date_of_death": "ca. 348 av. J."
+          "authorized_access_point": "Plato,, ca. 427-ca. 348 av. J."
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Brisson, Luc"
+          "authorized_access_point": "Brisson, Luc"
         },
         "role": [
           "ctb"
@@ -43491,7 +43706,7 @@
           "type": "bf:Person",
           "preferred_name": "Plato",
           "date_of_birth": "ca. 427",
-          "date_of_death": "ca. 348 av. J."
+          "date_of_death": "ca. 348 av. J"
         },
         "title": "Criton"
       }
@@ -43581,7 +43796,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/13370744X",
           "type": "bf:Person"
         },
@@ -43591,7 +43806,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/158025555",
           "type": "bf:Person"
         },
@@ -43600,7 +43815,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/251561240",
           "type": "bf:Person"
         },
@@ -43609,7 +43824,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/251561623",
           "type": "bf:Person"
         },
@@ -43618,38 +43833,36 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Metcalfe, John,",
-          "date_of_birth": "1964"
+          "authorized_access_point": "Metcalfe, John,, 1964"
         },
         "role": [
           "prf"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Burdge, Ian"
+          "authorized_access_point": "Burdge, Ian"
         },
         "role": [
           "prf"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Worsey, Chris"
+          "authorized_access_point": "Worsey, Chris"
         },
         "role": [
           "prf"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Deutsches Filmorchester Babelsberg",
-          "conference": false
+          "authorized_access_point": "Deutsches Filmorchester Babelsberg"
         },
         "role": [
           "prf"
@@ -43857,7 +44070,8 @@
     ],
     "work_access_point": [
       {
-        "title": "Poema del Cid."
+        "title": "Poema del Cid",
+        "miscellaneous_information": "language: Espagnol"
       }
     ]
   },
@@ -43895,7 +44109,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/111364388",
           "type": "bf:Person"
         },
@@ -44061,7 +44275,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028320549",
           "type": "bf:Person"
         },
@@ -44070,17 +44284,16 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Gardiner, John Eliot,",
-          "date_of_birth": "1943"
+          "authorized_access_point": "Gardiner, John Eliot,, 1943"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/07950535X",
           "type": "bf:Person"
         },
@@ -44089,7 +44302,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/190059915",
           "type": "bf:Person"
         },
@@ -44098,7 +44311,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/060995254",
           "type": "bf:Person"
         },
@@ -44107,7 +44320,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/079505341",
           "type": "bf:Person"
         },
@@ -44116,7 +44329,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/080667198",
           "type": "bf:Organisation"
         },
@@ -44236,7 +44449,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/092363830",
           "type": "bf:Person"
         },
@@ -44430,7 +44643,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032910150",
           "type": "bf:Organisation"
         },
@@ -44838,7 +45051,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027925218",
           "type": "bf:Organisation"
         },
@@ -45076,10 +45289,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Bureau international du travail",
-          "conference": false
+          "authorized_access_point": "Bureau international du travail"
         },
         "role": [
           "ctb"
@@ -45141,7 +45353,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/035000457",
           "type": "bf:Person"
         },
@@ -45150,10 +45362,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Soci\u00e9t\u00e9 suisse de physique",
-          "conference": false
+          "authorized_access_point": "Soci\u00e9t\u00e9 suisse de physique"
         },
         "role": [
           "ctb"
@@ -45410,10 +45621,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Association romande pour la protection des eaux et de l'air",
-          "conference": false
+          "authorized_access_point": "Association romande pour la protection des eaux et de l'air"
         },
         "role": [
           "ctb"
@@ -46209,7 +46419,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Travelling.",
+        "title": "Travelling",
         "part": [
           {
             "partName": "Cin\u00e9math\u00e8que suisse"
@@ -46324,7 +46534,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033492115",
           "type": "bf:Organisation"
         },
@@ -46862,7 +47072,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029973198",
           "type": "bf:Organisation"
         },
@@ -46913,7 +47123,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Po\u00e9sie.",
+        "title": "Po\u00e9sie",
         "part": [
           {
             "partName": "Gallimard"
@@ -47199,7 +47409,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
@@ -47264,9 +47474,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "PoiPoi"
+          "authorized_access_point": "PoiPoi"
         },
         "role": [
           "cre"
@@ -47477,6 +47687,15 @@
         ]
       }
     ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Bubnoff, Serge von"
+        },
+        "title": "Geologie von Europa"
+      }
+    ],
     "partOf": [
       {
         "document": {
@@ -47623,7 +47842,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/251298523",
           "type": "bf:Person"
         },
@@ -47883,7 +48102,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028432266",
           "type": "bf:Person"
         },
@@ -47892,7 +48111,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026639122",
           "type": "bf:Organisation"
         },
@@ -47994,7 +48213,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029493641",
           "type": "bf:Organisation"
         },
@@ -48117,13 +48336,8 @@
     ],
     "subjects": [
       {
-        "type": "bf:Organisation",
-        "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-        "conference": false,
-        "identifiedBy": {
-          "value": "026576988",
-          "type": "IdRef"
-        }
+        "$ref": "https://mef.rero.ch/api/agents/idref/026576988",
+        "type": "bf:Organisation"
       },
       {
         "type": "bf:Topic",
@@ -48138,10 +48352,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -48208,7 +48421,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/080514294",
           "type": "bf:Person"
         },
@@ -48418,7 +48631,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/176157158",
           "type": "bf:Organisation"
         },
@@ -48538,10 +48751,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Edinburgh Obstetrical Society",
-          "conference": false
+          "authorized_access_point": "Edinburgh Obstetrical Society"
         },
         "role": [
           "ctb"
@@ -48686,6 +48898,15 @@
       {
         "type": "bf:Topic",
         "term": "Bibliographie"
+      }
+    ],
+    "work_access_point": [
+      {
+        "agent": {
+          "type": "bf:Person",
+          "preferred_name": "Glanzmann, Arthur"
+        },
+        "title": "Bibliographie des schweizerischen Steuerrechts"
       }
     ],
     "classification": [
@@ -48903,10 +49124,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Centre national de recherches de psychotechnique scolaire (Belgique)",
-          "conference": false
+          "authorized_access_point": "Centre national de recherches de psychotechnique scolaire (Belgique)"
         },
         "role": [
           "ctb"
@@ -49024,10 +49244,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Medico-Chirurgical Society of Edinburgh",
-          "conference": false
+          "authorized_access_point": "Medico-Chirurgical Society of Edinburgh"
         },
         "role": [
           "ctb"
@@ -49091,19 +49310,18 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bertholet, Alfred,",
-          "qualifier": "Musicien"
+          "authorized_access_point": "Bertholet, Alfred,, Musicien"
         },
         "role": [
           "cre"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Petignat, Jean-Louis"
+          "authorized_access_point": "Petignat, Jean-Louis"
         },
         "role": [
           "ctb"
@@ -49367,7 +49585,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/068666918",
           "type": "bf:Organisation"
         },
@@ -49493,7 +49711,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/118427369",
           "type": "bf:Organisation"
         },
@@ -49537,7 +49755,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1930).",
+        "title": "Journal des tribunaux (Lausanne : 1930)",
         "part": [
           {
             "partNumber": "2,",
@@ -49764,10 +49982,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Cercle Saint Jean-Baptiste",
-          "conference": false
+          "authorized_access_point": "Cercle Saint Jean-Baptiste"
         },
         "role": [
           "ctb"
@@ -50040,7 +50257,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/144302691",
           "type": "bf:Person"
         },
@@ -50049,7 +50266,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/147817110",
           "type": "bf:Person"
         },
@@ -50058,7 +50275,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/251309835",
           "type": "bf:Person"
         },
@@ -50067,7 +50284,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/067025501",
           "type": "bf:Person"
         },
@@ -50080,7 +50297,7 @@
       {
         "agent": {
           "type": "bf:Person",
-          "preferred_name": "Darbellay, Etienne.",
+          "preferred_name": "Darbellay, Etienne",
           "identifiedBy": {
             "value": "055056911",
             "type": "IdRef"
@@ -50091,7 +50308,7 @@
       {
         "agent": {
           "type": "bf:Person",
-          "preferred_name": "Darbellay, Etienne."
+          "preferred_name": "Darbellay, Etienne"
         },
         "title": "Stile fantastico, passi, affetti: des imprese musicali? : le temps comme interpr\u00e8te de l'espace et la forme comme histoire"
       }
@@ -50135,7 +50352,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Etudes fran\u00e7aises.",
+        "title": "Etudes fran\u00e7aises",
         "part": [
           {
             "partName": "Presses de l'Universit\u00e9 de Montr\u00e9al"
@@ -50370,7 +50587,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/08859176X",
           "type": "bf:Organisation"
         },
@@ -50489,7 +50706,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/08859176X",
           "type": "bf:Organisation"
         },
@@ -50651,7 +50868,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/11964603X",
           "type": "bf:Person"
         },
@@ -50660,16 +50877,16 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Masereel, Frans"
+          "authorized_access_point": "Masereel, Frans"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026798212",
           "type": "bf:Person"
         },
@@ -50733,7 +50950,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033963584",
           "type": "bf:Person"
         },
@@ -50858,7 +51075,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Romans.",
+        "title": "Romans",
         "part": [
           {
             "partName": "Presses de la Cit\u00e9"
@@ -51646,7 +51863,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/235593176",
           "type": "bf:Organisation"
         },
@@ -51905,30 +52122,27 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Office du tourisme (Liddes)",
-          "conference": false
+          "authorized_access_point": "Office du tourisme (Liddes)"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Office du tourisme (Bourg-Saint-Pierre)",
-          "conference": false
+          "authorized_access_point": "Office du tourisme (Bourg-Saint-Pierre)"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Agence de promotion touristique du Grand-Saint-Bernard",
-          "conference": false
+          "authorized_access_point": "Agence de promotion touristique du Grand-Saint-Bernard"
         },
         "role": [
           "ctb"
@@ -53434,7 +53648,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/230233384",
           "type": "bf:Organisation"
         },
@@ -53672,7 +53886,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029033616",
           "type": "bf:Organisation"
         },
@@ -53841,10 +54055,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Hiroshima Botanical Club",
-          "conference": false
+          "authorized_access_point": "Hiroshima Botanical Club"
         },
         "role": [
           "ctb"
@@ -54074,10 +54287,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Unitas (Roma)",
-          "conference": false
+          "authorized_access_point": "Unitas (Roma)"
         },
         "role": [
           "ctb"
@@ -54204,7 +54416,7 @@
     "sequence_numbering": "Bd. 1(1955)->",
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028033078",
           "type": "bf:Organisation"
         },
@@ -54213,7 +54425,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030089980",
           "type": "bf:Organisation"
         },
@@ -54367,7 +54579,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Critique.",
+        "title": "Critique",
         "part": [
           {
             "partName": "Ed. de Minuit."
@@ -54571,10 +54783,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Herpetological Association of Africa",
-          "conference": false
+          "authorized_access_point": "Herpetological Association of Africa"
         },
         "role": [
           "ctb"
@@ -54883,10 +55094,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Science et vie.",
+        "title": "Science et vie",
         "part": [
           {
-            "partName": "Excelsior Publications."
+            "partName": "Excelsior Publications"
           },
           {
             "partName": "Hors s\u00e9rie"
@@ -55081,7 +55292,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Documenti.",
+        "title": "Documenti",
         "part": [
           {
             "partName": "Allemandi"
@@ -55254,13 +55465,8 @@
         "conference": false
       },
       {
-        "type": "bf:Organisation",
-        "preferred_name": "Banco di San Giorgio (G\u00eanes)",
-        "conference": false,
-        "identifiedBy": {
-          "value": "031023169",
-          "type": "IdRef"
-        }
+        "$ref": "https://mef.rero.ch/api/agents/idref/031023169",
+        "type": "bf:Organisation"
       },
       {
         "type": "bf:Topic",
@@ -55279,7 +55485,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030363624",
           "type": "bf:Person"
         },
@@ -55288,7 +55494,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/055053149",
           "type": "bf:Organisation"
         },
@@ -56061,7 +56267,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032910150",
           "type": "bf:Organisation"
         },
@@ -56943,10 +57149,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -57061,7 +57266,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/027925218",
           "type": "bf:Organisation"
         },
@@ -57180,30 +57385,27 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Association Protection Rh\u00f4ne-L\u00e9man",
-          "conference": false
+          "authorized_access_point": "Association Protection Rh\u00f4ne-L\u00e9man"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Chasseurs Sans Fusil",
-          "conference": false
+          "authorized_access_point": "Chasseurs Sans Fusil"
         },
         "role": [
           "ctb"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Action Suisse Saine",
-          "conference": false
+          "authorized_access_point": "Action Suisse Saine"
         },
         "role": [
           "ctb"
@@ -57337,10 +57539,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -57548,16 +57749,16 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Tripet, Maurice"
+          "authorized_access_point": "Tripet, Maurice"
         },
         "role": [
           "edt"
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
@@ -57680,7 +57881,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/032910150",
           "type": "bf:Organisation"
         },
@@ -58100,7 +58301,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
@@ -58410,10 +58611,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Bureau international du travail",
-          "conference": false
+          "authorized_access_point": "Bureau international du travail"
         },
         "role": [
           "ctb"
@@ -58526,10 +58726,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Cercle Saint Jean-Baptiste",
-          "conference": false
+          "authorized_access_point": "Cercle Saint Jean-Baptiste"
         },
         "role": [
           "ctb"
@@ -58640,7 +58839,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029493641",
           "type": "bf:Organisation"
         },
@@ -58766,13 +58965,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Washington State University (Pullman, Wash.)",
-          "conference": false,
-          "subordinate_unit": [
-            "National Observatory"
-          ]
+          "authorized_access_point": "Washington State University (Pullman, Wash.). National Observatory"
         },
         "role": [
           "ctb"
@@ -58902,10 +59097,9 @@
     "sequence_numbering": "1(1824)-11(1877)",
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Lyceum of natural history of New York",
-          "conference": false
+          "authorized_access_point": "Lyceum of natural history of New York"
         },
         "role": [
           "ctb"
@@ -59059,7 +59253,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/02794980X",
           "type": "bf:Organisation"
         },
@@ -59114,7 +59308,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Pubblicazioni degli Archivi di Stato.",
+        "title": "Pubblicazioni degli Archivi di Stato",
         "part": [
           {
             "partName": "Ministero per i beni culturali e ambientali Ufficio centrale per i beni archivistici"
@@ -59176,14 +59370,9 @@
     ],
     "contribution": [
       {
-        "agent": {
-          "type": "bf:Organisation",
-          "preferred_name": "Archivi di Stato (Italia)",
-          "conference": false,
-          "identifiedBy": {
-            "value": "026389916",
-            "type": "IdRef"
-          }
+        "entity": {
+          "$ref": "https://mef.rero.ch/api/agents/idref/079821626",
+          "type": "bf:Organisation"
         },
         "role": [
           "ctb"
@@ -59384,10 +59573,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -59546,9 +59734,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Person",
-          "preferred_name": "Bubnoff, Serge von"
+          "authorized_access_point": "Bubnoff, Serge von"
         },
         "role": [
           "cre"
@@ -59807,10 +59995,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -59948,7 +60135,7 @@
     "sequence_numbering": "No 1(1959) - 6(1966)",
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033492115",
           "type": "bf:Organisation"
         },
@@ -60229,7 +60416,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/235593176",
           "type": "bf:Organisation"
         },
@@ -60387,7 +60574,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/029033616",
           "type": "bf:Organisation"
         },
@@ -60531,13 +60718,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Evangelische Kirche in Deutschland",
-          "conference": false,
-          "subordinate_unit": [
-            "Aussenamt"
-          ]
+          "authorized_access_point": "Evangelische Kirche in Deutschland. Aussenamt"
         },
         "role": [
           "ctb"
@@ -60700,10 +60883,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -60831,10 +61013,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -60949,10 +61130,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -61079,7 +61259,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/07653023X",
           "type": "bf:Organisation"
         },
@@ -61189,7 +61369,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033492115",
           "type": "bf:Organisation"
         },
@@ -61475,10 +61655,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -61671,10 +61850,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -61792,7 +61970,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/026372193",
           "type": "bf:Organisation"
         },
@@ -61801,10 +61979,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "Association romande pour la protection des eaux",
-          "conference": false
+          "authorized_access_point": "Association romande pour la protection des eaux"
         },
         "role": [
           "ctb"
@@ -62183,7 +62360,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
@@ -62308,10 +62485,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -62587,7 +62763,7 @@
     "sequence_numbering": "No 7(1978)->",
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/033492115",
           "type": "bf:Organisation"
         },
@@ -62763,7 +62939,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/069522316",
           "type": "bf:Organisation"
         },
@@ -62772,7 +62948,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/028165861",
           "type": "bf:Organisation"
         },
@@ -62781,7 +62957,7 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/030671639",
           "type": "bf:Organisation"
         },
@@ -62951,8 +63127,8 @@
     ],
     "work_access_point": [
       {
-        "title": "Documentation.",
-        "miscellaneous_information": "Minneapolis.",
+        "title": "Documentation",
+        "miscellaneous_information": "Minneapolis",
         "part": [
           {
             "partName": "Lutheran University Press"
@@ -63039,10 +63215,9 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         },
         "role": [
           "ctb"
@@ -63270,7 +63445,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/184282624",
           "type": "bf:Organisation"
         },
@@ -63279,10 +63454,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration suisse de p\u00eache et pisciculture",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration suisse de p\u00eache et pisciculture"
         },
         "role": [
           "ctb"
@@ -64416,7 +64590,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/184282624",
           "type": "bf:Organisation"
         },
@@ -64742,7 +64916,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1930).",
+        "title": "Journal des tribunaux (Lausanne : 1930)",
         "part": [
           {
             "partNumber": "3,",
@@ -64920,7 +65094,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1930).",
+        "title": "Journal des tribunaux (Lausanne : 1930)",
         "part": [
           {
             "partNumber": "1,",
@@ -65348,7 +65522,7 @@
     ],
     "contribution": [
       {
-        "agent": {
+        "entity": {
           "$ref": "https://mef.rero.ch/api/agents/idref/184282624",
           "type": "bf:Organisation"
         },
@@ -65357,10 +65531,9 @@
         ]
       },
       {
-        "agent": {
+        "entity": {
           "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration suisse de p\u00eache et pisciculture",
-          "conference": false
+          "authorized_access_point": "F\u00e9d\u00e9ration suisse de p\u00eache et pisciculture"
         },
         "role": [
           "ctb"
@@ -65418,9 +65591,9 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux.",
+        "title": "Journal des tribunaux",
         "date_of_work": "2011-.",
-        "miscellaneous_information": "Lausanne.",
+        "miscellaneous_information": "Lausanne",
         "part": [
           {
             "partNumber": "3,",
@@ -65731,9 +65904,9 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux.",
+        "title": "Journal des tribunaux",
         "date_of_work": "2011-.",
-        "miscellaneous_information": "Lausanne.",
+        "miscellaneous_information": "Lausanne",
         "part": [
           {
             "partNumber": "1,",
@@ -65901,7 +66074,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1930).",
+        "title": "Journal des tribunaux (Lausanne : 1930)",
         "part": [
           {
             "partNumber": "4,",
@@ -66242,9 +66415,9 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux.",
+        "title": "Journal des tribunaux",
         "date_of_work": "2011-.",
-        "miscellaneous_information": "Lausanne.",
+        "miscellaneous_information": "Lausanne",
         "part": [
           {
             "partNumber": "4,",
@@ -66659,7 +66832,7 @@
     ],
     "work_access_point": [
       {
-        "title": "Droit.",
+        "title": "Droit",
         "miscellaneous_information": "Lausanne"
       }
     ],
@@ -66744,357 +66917,6 @@
     "succeededBy": [
       {
         "$ref": "https://bib.rero.ch/api/documents/2000148"
-      }
-    ]
-  },
-  {
-    "contentMediaCarrier": [
-      {
-        "carrierType": "rdact:1049",
-        "contentType": [
-          "rdaco:1020",
-          "rdaco:1014"
-        ],
-        "mediaType": "rdamt:1007"
-      }
-    ],
-    "adminMetadata": {
-      "encodingLevel": "Full level",
-      "source": "RERO necfbv"
-    },
-    "contribution": [
-      {
-        "agent": {
-          "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
-        },
-        "role": [
-          "ctb"
-        ]
-      }
-    ],
-    "extent": "1 volume",
-    "genreForm": [
-      {
-        "identifiedBy": {
-          "type": "RERO-RAMEAU",
-          "value": "A021100103"
-        },
-        "term": "Ouvrages pour la jeunesse",
-        "type": "bf:Topic"
-      },
-      {
-        "identifiedBy": {
-          "type": "RERO-RAMEAU",
-          "value": "A027757308"
-        },
-        "term": "Fictions",
-        "type": "bf:Topic"
-      },
-      {
-        "identifiedBy": {
-          "type": "RERO-RAMEAU",
-          "value": "A021013611"
-        },
-        "term": "Livres d'images",
-        "type": "bf:Topic"
-      },
-      {
-        "identifiedBy": {
-          "type": "RERO-RAMEAU",
-          "value": "A021121588"
-        },
-        "term": "Livres anim\u00e9s",
-        "type": "bf:Topic"
-      },
-      {
-        "identifiedBy": {
-          "type": "RERO-RAMEAU",
-          "value": "A021144168"
-        },
-        "term": "Livres tactiles",
-        "type": "bf:Topic"
-      }
-    ],
-    "identifiedBy": [
-      {
-        "type": "bf:Isbn",
-        "value": "9782075160728"
-      }
-    ],
-    "illustrativeContent": [
-      "illustrations"
-    ],
-    "issuance": {
-      "main_type": "rdami:1001",
-      "subtype": "materialUnit"
-    },
-    "language": [
-      {
-        "type": "bf:Language",
-        "value": "fre"
-      }
-    ],
-    "pid": "2093138",
-    "provisionActivity": [
-      {
-        "place": [
-          {
-            "country": "fr",
-            "type": "bf:Place"
-          }
-        ],
-        "startDate": 2021,
-        "statement": [
-          {
-            "label": [
-              {
-                "value": "Paris"
-              }
-            ],
-            "type": "bf:Place"
-          },
-          {
-            "label": [
-              {
-                "value": "Gallimard Jeunesse"
-              }
-            ],
-            "type": "bf:Agent"
-          },
-          {
-            "label": [
-              {
-                "value": "2021"
-              }
-            ],
-            "type": "Date"
-          }
-        ],
-        "type": "bf:Publication"
-      }
-    ],
-    "responsibilityStatement": [
-      [
-        {
-          "value": "Camille Chincholle"
-        }
-      ]
-    ],
-    "seriesStatement": [
-      {
-        "seriesTitle": [
-          {
-            "value": "Les petits coquins"
-          }
-        ]
-      },
-      {
-        "seriesTitle": [
-          {
-            "value": "Mes tout premiers livres"
-          }
-        ]
-      }
-    ],
-    "subjects": [
-      {
-        "identifiedBy": {
-          "type": "RERO-RAMEAU",
-          "value": "A021002444"
-        },
-        "term": "Animaux",
-        "type": "bf:Topic"
-      }
-    ],
-    "title": [
-      {
-        "mainTitle": [
-          {
-            "value": "O\u00f9 es-tu, petit coquin ?"
-          }
-        ],
-        "type": "bf:Title"
-      }
-    ],
-    "type": [
-      {
-        "main_type": "docmaintype_children"
-      }
-    ]
-  },
-  {
-    "adminMetadata": {
-      "encodingLevel": "Full level",
-      "source": "RERO necfbv"
-    },
-    "colorContent": [
-      "rdacc:1003"
-    ],
-    "contentMediaCarrier": [
-      {
-        "carrierType": "rdact:1060",
-        "contentType": [
-          "rdaco:1023"
-        ],
-        "mediaType": "rdamt:1008"
-      }
-    ],
-    "contribution": [
-      {
-        "agent": {
-          "type": "bf:Organisation",
-          "preferred_name": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale",
-          "conference": false
-        },
-        "role": [
-          "ctb"
-        ]
-      }
-    ],
-    "copyrightDate": [
-      "\u00a9 2021"
-    ],
-    "credits": [
-      "Interpr\u00e8tes: Alex Lutz ; Ana Girardot ; Kristin Scott Thomas"
-    ],
-    "duration": [
-      "1h48"
-    ],
-    "extent": "1 DVD-vid\u00e9o",
-    "genreForm": [
-      {
-        "identifiedBy": {
-          "type": "RERO-RAMEAU",
-          "value": "A021097366"
-        },
-        "source": "rero",
-        "term": "Films de fiction",
-        "type": "bf:Topic"
-      },
-      {
-        "identifiedBy": {
-          "type": "RERO-RAMEAU",
-          "value": "A021121517"
-        },
-        "term": "Films dramatiques",
-        "type": "bf:Topic"
-      }
-    ],
-    "identifiedBy": [
-      {
-        "type": "bf:VideoRecordingNumber",
-        "value": "5053083237080"
-      },
-      {
-        "type": "bf:VideoRecordingNumber",
-        "value": "832 370-8"
-      }
-    ],
-    "issuance": {
-      "main_type": "rdami:1001",
-      "subtype": "materialUnit"
-    },
-    "language": [
-      {
-        "type": "bf:Language",
-        "value": "fre"
-      }
-    ],
-    "note": [
-      {
-        "label": "Une prod.: 22h22 - Apollo Films - Studiocanal - Praesens film, 2020",
-        "noteType": "general"
-      },
-      {
-        "label": "Langues: Fran\u00e7ais. Sous-titres: Fran\u00e7ais pour sourds et malentendants.",
-        "noteType": "general"
-      }
-    ],
-    "pid": "2078628",
-    "provisionActivity": [
-      {
-        "place": [
-          {
-            "country": "xx",
-            "type": "bf:Place"
-          }
-        ],
-        "startDate": 2021,
-        "statement": [
-          {
-            "label": [
-              {
-                "value": "[Lieu de publication non identifi\u00e9]"
-              }
-            ],
-            "type": "bf:Place"
-          },
-          {
-            "label": [
-              {
-                "value": "Studiocanal"
-              }
-            ],
-            "type": "bf:Agent"
-          },
-          {
-            "label": [
-              {
-                "value": "[2021]"
-              }
-            ],
-            "type": "Date"
-          }
-        ],
-        "type": "bf:Publication"
-      }
-    ],
-    "responsibilityStatement": [
-      [
-        {
-          "value": "un film de Quentin Reynaud"
-        }
-      ],
-      [
-        {
-          "value": "musique originale Delphine Malauss\u00e9na"
-        }
-      ]
-    ],
-    "summary": [
-      {
-        "label": [
-          {
-            "value": "\u00c0 presque 38 ans, Thomas est un tennisman qui n\u2019a jamais brill\u00e9\u0301. Pourtant, il y a 17 ans, il \u00e9tait l\u2019un des plus grands espoirs du tennis. Mais une d\u00e9faite en demi-finale l\u2019a traumatis\u00e9 et depuis, il est rest\u00e9 dans les profondeurs du classement. Aujourd\u2019hui, il se pr\u00e9pare \u00e0 ce qui devrait \u00eatre son dernier tournoi. Mais il refuse d\u2019abdiquer. Subitement enivr\u00e9 par un d\u00e9sir de sauver son honneur, il se lance dans un combat hom\u00e9rique improbable au r\u00e9sultat incertain..."
-          }
-        ],
-        "source": "Allocine.fr"
-      }
-    ],
-    "title": [
-      {
-        "mainTitle": [
-          {
-            "value": "5\u00e8me set"
-          }
-        ],
-        "type": "bf:Title"
-      },
-      {
-        "mainTitle": [
-          {
-            "value": "Cinqui\u00e8me set"
-          }
-        ],
-        "type": "bf:VariantTitle"
-      }
-    ],
-    "type": [
-      {
-        "main_type": "docmaintype_movie_series",
-        "subtype": "docsubtype_movie"
       }
     ]
   }

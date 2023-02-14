@@ -294,30 +294,30 @@ def process_literal_contributions(contributions):
     """Normalize literal contributions."""
     calculated_contributions = []
     for contribution in contributions:
-        if not contribution['agent'].get('pid'):
+        if not contribution['entity'].get('pid'):
             # transform local data for indexing
             agent = {
-                'type': contribution['agent']['type'],
-                'preferred_name': contribution['agent']['preferred_name'],
+                'type': contribution['entity']['type'],
+                'authorized_access_point': contribution[
+                    'entity']['authorized_access_point'],
             }
-            authorized_access_point = create_authorized_access_point(
-                contribution['agent']
-            )
+            authorized_access_point = contribution[
+                'entity']['authorized_access_point']
             agent['authorized_access_point'] = authorized_access_point
             for language in get_i18n_supported_languages():
                 agent[f'authorized_access_point_{language}'] = \
                     authorized_access_point
-            variant_access_point = contribution['agent'].get(
+            variant_access_point = contribution['entity'].get(
                 'variant_access_point')
             if variant_access_point:
                 agent['variant_access_point'] = variant_access_point
-            parallel_access_point = contribution['agent'].get(
+            parallel_access_point = contribution['entity'].get(
                 'parallel_access_point')
             if parallel_access_point:
                 agent['parallel_access_point'] = parallel_access_point
-            if contribution['agent'].get('identifiedBy'):
-                agent['identifiedBy'] = contribution['agent']['identifiedBy']
-            contribution['agent'] = agent
+            if contribution['entity'].get('identifiedBy'):
+                agent['identifiedBy'] = contribution['entity']['identifiedBy']
+            contribution['entity'] = agent
 
         calculated_contributions.append(contribution)
     return calculated_contributions
