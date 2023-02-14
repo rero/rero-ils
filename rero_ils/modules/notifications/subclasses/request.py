@@ -21,7 +21,7 @@
 from __future__ import absolute_import, print_function
 
 from rero_ils.filter import format_date_filter
-from rero_ils.modules.documents.dumpers import DocumentGenericDumper
+from rero_ils.modules.documents.dumpers import document_title
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
 from rero_ils.modules.loans.api import LoanState
 from rero_ils.modules.patrons.dumpers import PatronNotificationDumper
@@ -58,7 +58,6 @@ class RequestCirculationNotification(InternalCirculationNotification):
         context = {'loans': []}
         notifications = notifications or []
 
-        doc_dumper = DocumentGenericDumper()
         item_dumper = ItemNotificationDumper()
         patron_dumper = PatronNotificationDumper()
         for notification in notifications:
@@ -69,7 +68,7 @@ class RequestCirculationNotification(InternalCirculationNotification):
             )
             # merge doc and item metadata preserving document key
             item_data = notification.item.dumps(dumper=item_dumper)
-            doc_data = notification.document.dumps(dumper=doc_dumper)
+            doc_data = notification.document.dumps(dumper=document_title)
             doc_data = {**item_data, **doc_data}
             # pickup location name
             pickup_location = notification.pickup_location

@@ -245,11 +245,11 @@ class Monitoring(object):
         return info
 
     def check(self, with_deleted=False, difference_db_es=False):
-        """Compaire elasticsearch with database counts.
+        """Compare elasticsearch with database counts.
 
         :param with_deleted: count also deleted items in database.
         :return: dictionary with all document types with a difference in
-        databse and elasticsearch counts.
+        database and elasticsearch counts.
         """
         checks = {}
         for info, data in self.info(

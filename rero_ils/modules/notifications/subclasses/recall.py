@@ -22,7 +22,7 @@ from __future__ import absolute_import, print_function
 
 import ciso8601
 
-from rero_ils.modules.documents.dumpers import DocumentGenericDumper
+from rero_ils.modules.documents.dumpers import document_title
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.dumpers import \
     LibraryCirculationNotificationDumper
@@ -85,14 +85,13 @@ class RecallCirculationNotification(CirculationNotification):
             'loans': []
         })
         # Add metadata for any ``notification.loan`` of the notifications list
-        doc_dumper = DocumentGenericDumper()
         for notification in notifications:
             end_date = notification.loan.get('end_date')
             if end_date:
                 end_date = ciso8601.parse_datetime(end_date)
                 end_date = end_date.strftime("%d.%m.%Y")
             context['loans'].append({
-                'document': notification.document.dumps(dumper=doc_dumper),
+                'document': notification.document.dumps(dumper=document_title),
                 'end_date': end_date
             })
         return context
