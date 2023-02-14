@@ -10,29 +10,21 @@
       "description": "Person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
       "additionalProperties": false,
       "propertiesOrder": [
-        "agent",
+        "entity",
         "role"
       ],
       "required": [
-        "agent",
+        "entity",
         "role"
       ],
       "properties": {
-        "agent": {
-          "title": "Agent",
-          "type": "object",
+        "entity": {
           "oneOf": [
             {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_person_link-v0.0.1.json"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_link-v0.0.1.json"
             },
             {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_organisation_link-v0.0.1.json"
-            },
-            {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_person-v0.0.1.json"
-            },
-            {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_organisation-v0.0.1.json"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_local-v0.0.1.json"
             }
           ]
         },

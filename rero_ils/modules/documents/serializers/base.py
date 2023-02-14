@@ -122,11 +122,11 @@ class BaseDocumentFormatterMixin(ABC):
 
         def _extract_contribution_callback(contribution) -> str:
             """Extract value for the given contribution."""
-            agent = contribution.get('agent', {})
+            agent = contribution.get('entity', {})
             role = contribution.get('role', [])
             if any(r in role for r in CREATOR_ROLES):
                 return self._get_localized_contribution(agent) \
-                       or agent.get('preferred_name')
+                       or agent.get('authorized_access_point')
 
         return [contribution
                 for contribution in map(_extract_contribution_callback,
@@ -139,7 +139,7 @@ class BaseDocumentFormatterMixin(ABC):
 
         def _extract_contribution_callback(contribution) -> str:
             """Extract value for the given contribution."""
-            agent = contribution.get('agent', {})
+            agent = contribution.get('entity', {})
             role = contribution.get('role', [])
             if all(r not in role for r in CREATOR_ROLES):
                 return self._get_localized_contribution(agent) \

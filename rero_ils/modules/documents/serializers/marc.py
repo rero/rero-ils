@@ -111,7 +111,7 @@ class DocumentMARCXMLSerializer(JSONSerializer):
         contribution_pids = []
         for hit in hits:
             for contribution in hit['_source'].get('contribution', []):
-                contribution_pid = contribution.get('agent', {}).get('pid')
+                contribution_pid = contribution.get('entity', {}).get('pid')
                 if contribution_pid:
                     contribution_pids.append(contribution_pid)
         search = ContributionsSearch() \
@@ -129,9 +129,9 @@ class DocumentMARCXMLSerializer(JSONSerializer):
             document = hit['_source']
             contributions = document.get('contribution', [])
             for contribution in contributions:
-                contribution_pid = contribution.get('agent', {}).get('pid')
+                contribution_pid = contribution.get('entity', {}).get('pid')
                 if contribution_pid in es_contributions:
-                    contribution['agent'] = deepcopy(
+                    contribution['entity'] = deepcopy(
                         es_contributions[contribution_pid])
                     replace_contribution_sources(
                         contribution=contribution,

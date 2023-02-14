@@ -118,7 +118,7 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
         contributions = metadata.get('contribution', [])
         new_contributions = []
         for contribution in contributions:
-            agent = contribution['agent']
+            agent = contribution['entity']
             agent_type = agent['type']
             agent_data = JsonRef.replace_refs(
                 agent, loader=None).get('metadata')
@@ -126,7 +126,7 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
                 agent_data.pop('$schema', None)
                 agent = agent_data
                 agent['type'] = agent_type
-            new_contributions.append({'agent': agent})
+            new_contributions.append({'entity': agent})
         if new_contributions:
             metadata['contribution'] = \
                 process_literal_contributions(new_contributions)

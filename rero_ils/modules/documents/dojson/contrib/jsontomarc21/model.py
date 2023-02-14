@@ -49,7 +49,7 @@ def replace_contribution_sources(contribution, source_order):
         return old_data
 
     refs = []
-    agent = contribution.get('agent')
+    agent = contribution.get('entity')
     for source in source_order:
         source_data = agent.get(source, {})
         if source_data:
@@ -66,7 +66,7 @@ def replace_contribution_sources(contribution, source_order):
     agent['refs'] = refs
     if 'bf:Agent' in agent:
         agent['type'] = agent.pop('bf:Agent')
-    contribution['agent'] = agent
+    contribution['entity'] = agent
     return contribution
 
 
@@ -256,11 +256,11 @@ class ToMarc21Overdo(Underdo):
         )
         contributions = blob.get('contribution', [])
         for contribution in contributions:
-            if ref := contribution['agent'].get('$ref'):
+            if ref := contribution['entity'].get('$ref'):
                 agent, _ = Contribution.get_record_by_ref(ref)
                 if agent:
                     db.session.commit()
-                    contribution['agent'] = agent
+                    contribution['entity'] = agent
                     replace_contribution_sources(
                         contribution=contribution,
                         source_order=source_order
@@ -587,48 +587,47 @@ def reverse_physical_description(self, key, value):
 def reverse_contribution(self, key, value):
     """Reverse - contribution."""
     contributions = utils.force_list(value)
-    if contributions:
-        for contribution in contributions:
-            roles = contribution.get('role', {})
-            agent = contribution.get('agent', {})
-            agent_type = agent.get('type')
-            preferred_name = agent.get('preferred_name')
-            if not preferred_name:
-                current_app.logger.warning(f'JSON to MARC21 {key}: {value}')
-                break
-            result = {}
-            result = add_value(result, 'a', preferred_name)
-            if agent_type == 'bf:Person':
-                tag = '7000_'
-                if ',' in preferred_name:
-                    tag = '7001_'
-                result = add_value(result, 'b', agent.get('numeration'))
-                result = add_value(result, 'c', agent.get('qualifier'))
-                date_of_birth = agent.get('date_of_birth', '')
-                date_of_birth = \
-                    date_of_birth[:4] if len(date_of_birth) > 3 else ''
-                date_of_death = agent.get('date_of_death', '')
-                date_of_death = \
-                    date_of_death[:4] if len(date_of_death) > 3 else ''
-                date = f'{date_of_birth} - {date_of_death}'
-                if date != ' - ':
-                    result = add_value(result, 'd', date)
-            elif agent_type == 'bf:Organisation':
-                tag = '710__'
-                if agent.get('conference'):
-                    tag = '711__'
-                result = add_values(result, 'b', agent.get('subordinate_unit'))
-                result = add_value(result, 'n', agent.get('conference_number'))
-                result = add_value(result, 'd', agent.get('conference_date'))
-                result = add_value(result, 'c', agent.get('conference_place'))
-            result = add_values(result, '4', roles)
-            refs = agent.get('refs', [])
-            if refs:
-                result['0'] = []
-            for ref in refs:
-                result['__order__'].append('0')
-                result['0'].append(f'({ref["source"]}){ref["pid"]}')
-            self.append((tag, utils.GroupableOrderedDict(result)))
+    for contribution in contributions or []:
+        roles = contribution.get('role', {})
+        agent = contribution.get('entity', {})
+        agent_type = agent.get('type')
+        preferred_name = agent.get('preferred_name')
+        if not preferred_name:
+            current_app.logger.warning(f'JSON to MARC21 {key}: {value}')
+            break
+        result = {}
+        result = add_value(result, 'a', preferred_name)
+        if agent_type == 'bf:Person':
+            tag = '7000_'
+            if ',' in preferred_name:
+                tag = '7001_'
+            result = add_value(result, 'b', agent.get('numeration'))
+            result = add_value(result, 'c', agent.get('qualifier'))
+            date_of_birth = agent.get('date_of_birth', '')
+            date_of_birth = \
+                date_of_birth[:4] if len(date_of_birth) > 3 else ''
+            date_of_death = agent.get('date_of_death', '')
+            date_of_death = \
+                date_of_death[:4] if len(date_of_death) > 3 else ''
+            date = f'{date_of_birth} - {date_of_death}'
+            if date != ' - ':
+                result = add_value(result, 'd', date)
+        elif agent_type == 'bf:Organisation':
+            tag = '710__'
+            if agent.get('conference'):
+                tag = '711__'
+            result = add_values(result, 'b', agent.get('subordinate_unit'))
+            result = add_value(result, 'n', agent.get('conference_number'))
+            result = add_value(result, 'd', agent.get('conference_date'))
+            result = add_value(result, 'c', agent.get('conference_place'))
+        result = add_values(result, '4', roles)
+        refs = agent.get('refs', [])
+        if refs:
+            result['0'] = []
+        for ref in refs:
+            result['__order__'].append('0')
+            result['0'].append(f'({ref["source"]}){ref["pid"]}')
+        self.append((tag, utils.GroupableOrderedDict(result)))
     return None
 
 
