@@ -16,37 +16,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Documents dumpers."""
-from invenio_records.dumpers import Dumper as InvenioRecordsDumper
+"""Common acquisition dumpers."""
 
+from invenio_records.dumpers import Dumper
+
+from rero_ils.modules.commons.dumpers import MultiDumper
 from rero_ils.modules.commons.identifiers import IdentifierType, \
     QualifierIdentifierRenderer
+from rero_ils.modules.documents.dumpers import TitleDumper
 from rero_ils.modules.documents.extensions import \
-    ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
+    ProvisionActivitiesExtension, SeriesStatementExtension
 
 
-class DocumentGenericDumper(InvenioRecordsDumper):
-    """Document generic dumper class."""
-
-    def dump(self, record, data):
-        """Dump a document instance with basic document informations.
-
-        :param record: The record to dump.
-        :param data: The initial dump data passed in by ``record.dumps()``.
-        """
-        title_text = TitleExtension.format_text(
-            record.get('title', []),
-            responsabilities=record.get('responsibilityStatement')
-        )
-        data.update({
-            'pid': record.get('pid'),
-            'title_text': title_text
-        })
-        data = {k: v for k, v in data.items() if v}
-        return data
-
-
-class DocumentAcquisitionDumper(DocumentGenericDumper):
+class DocumentAcquisitionDumper(Dumper):
     """Document dumper class for acquisition resources."""
 
     def dump(self, record, data):
@@ -55,8 +37,6 @@ class DocumentAcquisitionDumper(DocumentGenericDumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        data = super().dump(record, data)
-
         # provision activity ------------------------
         provision_activities = filter(None, [
             ProvisionActivitiesExtension.format_text(activity)
@@ -96,3 +76,12 @@ class DocumentAcquisitionDumper(DocumentGenericDumper):
         })
         data = {k: v for k, v in data.items() if v}
         return data
+
+
+# specific acquisition dumper
+document_acquisition_dumper = MultiDumper(dumpers=[
+    # make a fresh copy
+    Dumper(),
+    TitleDumper(),
+    DocumentAcquisitionDumper()
+])
