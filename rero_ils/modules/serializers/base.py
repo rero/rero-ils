@@ -18,6 +18,9 @@
 
 """RERO ILS record serialization."""
 
+from copy import deepcopy
+
+import pytz
 from flask import json, request
 from invenio_jsonschemas import current_jsonschemas
 from invenio_records_rest.serializers.json import \
@@ -37,14 +40,22 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
 
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
         """Prepare a record and persistent identifier for serialization."""
-        rec = record
+        links_factory = links_factory or (lambda x, record=None, **k: dict())
         if request and request.args.get('resolve') == '1':
-            rec = record.replace_refs()
-            # because the replace_refs loose the record original model. We need
-            # to reset it to have correct 'created'/'updated' output data
-            rec.model = record.model
-        return super().preprocess_record(
-            pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
+            metadata = record.resolve()
+        else:
+            metadata = deepcopy(record.replace_refs()) if self.replace_refs \
+                else record.dumps()
+        return dict(
+            pid=pid,
+            metadata=metadata,
+            links=links_factory(pid, record=record, **kwargs),
+            revision=record.revision_id,
+            created=(pytz.utc.localize(record.created).isoformat()
+                     if record.created else None),
+            updated=(pytz.utc.localize(record.updated).isoformat()
+                     if record.updated else None),
+        )
 
     @staticmethod
     def preprocess_search_hit(pid, record_hit, links_factory=None, **kwargs):
