@@ -233,11 +233,11 @@ def test_document_can_delete_with_loans(
     assert reasons['links']['loans']
 
 
-def test_document_contribution_resolve_exception(es_clear, db,
+def test_document_contribution_resolve_exception(es_clear, db, mef_agents_url,
                                                  document_data_ref):
     """Test document contribution resolve."""
     document_data_ref['contribution'] = [{
-        '$ref': 'https://mef.rero.ch/api/agents/rero/XXXXXX'
+        '$ref': f'{mef_agents_url}/rero/XXXXXX'
     }],
     with pytest.raises(Exception):
         Document.create(
@@ -315,7 +315,7 @@ def test_document_indexing(document, export_document):
     document.update(document, dbcommit=True, reindex=True)
 
 
-def test_document_replace_refs(document):
+def test_document_replace_refs(document, mef_agents_url):
     """Test document replace refs."""
     orig = deepcopy(document)
     data = document.replace_refs()
@@ -327,7 +327,7 @@ def test_document_replace_refs(document):
     contributions.append({
         'agent': {
             'type': 'bf:Person',
-            '$ref': 'https://mef.rero.ch/api/agents/rero/A017671081'
+            '$ref': f'{mef_agents_url}/rero/A017671081'
         },
         'role': [
             'aut'

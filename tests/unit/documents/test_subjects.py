@@ -101,17 +101,17 @@ def test_document_local_subjects():
 
 
 @mock.patch('requests.get')
-def test_document_referenced_subject(
-    mock_contributions_mef_get, contribution_person_response_data,
-    contribution_person
-):
+def test_document_referenced_subject(mock_contributions_mef_get,
+                                     mef_agents_url,
+                                     contribution_person_response_data,
+                                     contribution_person):
     """Test referenced document subjects."""
     mock_contributions_mef_get.return_value = mock_response(
         json_data=contribution_person_response_data)
 
     # REFERENCED SUBJECTS - SUCCESS
     data = {
-        '$ref': 'https://mef.rero.ch/api/agents/idref/223977268',
+        '$ref': f'{mef_agents_url}/idref/223977268',
         'type': DocumentSubjectType.PERSON
     }
     subject = SubjectFactory.create_subject(data)

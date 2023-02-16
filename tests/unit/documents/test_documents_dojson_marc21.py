@@ -387,7 +387,7 @@ def test_physical_description_to_marc21(app, marc21_record):
     assert result == record
 
 
-def test_contribution_to_marc21(app, marc21_record,
+def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
                                 mef_record_with_idref_rero,
                                 mef_record_with_idref_gnd,
                                 mef_record_with_idref_gnd_rero):
@@ -403,7 +403,7 @@ def test_contribution_to_marc21(app, marc21_record,
             'role': ['ctb', 'aut']
         }, {
             'agent': {
-                '$ref': 'https://mef.rero.ch/api/agents/idref/'
+                '$ref': f'{mef_agents_url}/idref/'
                         'mef_record_with_idref_rero',
                 'type': 'bf:Person'
             },
@@ -417,7 +417,7 @@ def test_contribution_to_marc21(app, marc21_record,
             'role': ['ctb']
         }, {
             'agent': {
-                '$ref': 'https://mef.rero.ch/agents/api/agents/gnd/'
+                '$ref': f'{mef_agents_url}/api/agents/gnd/'
                         'mef_record_with_idref_gnd',
                 'type': 'bf:Organisation'
             },
@@ -434,7 +434,7 @@ def test_contribution_to_marc21(app, marc21_record,
             'role': ['aut']
         }, {
             'agent': {
-                '$ref': 'https://mef.rero.ch/api/agents/idref/'
+                '$ref': f'{mef_agents_url}/idref/'
                         'mef_record_with_idref_gnd_rero',
                 'type': 'bf:Organisation'
             },

@@ -1332,7 +1332,7 @@ def test_marc21_to_language():
 
 
 @mock.patch('requests.Session.get')
-def test_marc21_to_contribution(mock_get):
+def test_marc21_to_contribution(mock_get, mef_agents_url):
     """Test dojson marc21_to_contribution."""
     marc21xml = """
     <record>
@@ -1430,7 +1430,7 @@ def test_marc21_to_contribution(mock_get):
     assert contribution == [{
         'agent': {
             'type': 'bf:Person',
-            '$ref': 'https://mef.rero.ch/api/agents/idref/XXXXXXXX'
+            '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
         },
         'role': ['cre']
     }]
@@ -4742,7 +4742,7 @@ def test_marc21_to_acquisition_terms():
 
 
 @mock.patch('requests.Session.get')
-def test_marc21_to_subjects(mock_get):
+def test_marc21_to_subjects(mock_get, mef_agents_url):
     """Test dojson subjects from 6xx (L49, L50)."""
     # field 600 without $t with ref
     marc21xml = """
@@ -4765,7 +4765,7 @@ def test_marc21_to_subjects(mock_get):
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
           'type': 'bf:Person',
-          '$ref': 'https://mef.rero.ch/api/agents/idref/XXXXXXXX'
+          '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
     }]
 
     # field 600 without $t
