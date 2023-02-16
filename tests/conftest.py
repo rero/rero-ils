@@ -203,6 +203,7 @@ def app_config(app_config):
     app_config['WTF_CSRF_ENABLED'] = False
     # enable operation logs validation for the tests
     app_config['RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION'] = True
+    app_config['RERO_ILS_MEF_AGENTS_URL'] = 'https://mef.rero.ch/api/agents'
     return app_config
 
 
@@ -241,6 +242,12 @@ def instance_path():
     if not invenio_instance_path:
         os.environ.pop('INVENIO_INSTANCE_PATH', None)
         shutil.rmtree(path)
+
+
+@pytest.fixture(scope='module')
+def mef_agents_url(app):
+    """Get MEF agent URL from config."""
+    return app.config.get('RERO_ILS_MEF_AGENTS_URL')
 
 
 @pytest.fixture(scope="module")

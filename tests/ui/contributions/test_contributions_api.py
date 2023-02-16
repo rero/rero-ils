@@ -70,6 +70,7 @@ def test_contribution_create(app, contribution_person_data_tmp, caplog):
 
 @mock.patch('requests.get')
 def test_contribution_mef_create(mock_contributions_mef_get, app,
+                                 mef_agents_url,
                                  contribution_person_data_tmp,
                                  contribution_person_response_data):
     """Test MEF contribution creation."""
@@ -78,7 +79,7 @@ def test_contribution_mef_create(mock_contributions_mef_get, app,
         json_data=contribution_person_response_data
     )
     pers_mef, online = Contribution.get_record_by_ref(
-        'https://mef.rero.ch/api/agents/rero/A017671081')
+        f'{mef_agents_url}/rero/A017671081')
     flush_index(ContributionsSearch.Meta.index)
     assert pers_mef == contribution_person_data_tmp
     assert online
@@ -87,7 +88,7 @@ def test_contribution_mef_create(mock_contributions_mef_get, app,
     pers_mef['sources'] = ['gnd']
     pers_mef.replace(pers_mef, dbcommit=True)
     pers_db, online = Contribution.get_record_by_ref(
-        'https://mef.rero.ch/api/agents/gnd/13343771X')
+        f'{mef_agents_url}/gnd/13343771X')
     assert pers_db['sources'] == ['gnd']
     assert not online
     # remove created contribution
@@ -96,10 +97,9 @@ def test_contribution_mef_create(mock_contributions_mef_get, app,
 
 
 @mock.patch('rero_ils.modules.contributions.api.requests.get')
-def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
-                           document_data_ref):
+def test_sync_contribution(mock_get, app, mef_agents_url,
+                           contribution_person_data_tmp, document_data_ref):
     """Test MEF agent synchronization."""
-
     # === setup
     log_path = tempfile.mkdtemp()
     sync = SyncAgent(log_dir=log_path)
@@ -115,7 +115,7 @@ def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
 
     idref_pid = pers['idref']['pid']
     document_data_ref['contribution'][0]['agent']['$ref'] = \
-        f'https://mef.rero.ch/api/agents/idref/{idref_pid}'
+        f'{mef_agents_url}/idref/{idref_pid}'
 
     doc = Document.create(
         deepcopy(document_data_ref),
@@ -177,7 +177,7 @@ def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
     # new contribution has been created
     assert Contribution.get_record_by_pid('foo_mef')
     assert Contribution.get_record_by_ref(
-        f'https://mef.rero.ch/api/agents/idref/{idref_pid}')[0]
+        f'{mef_agents_url}/idref/{idref_pid}')[0]
     db_agent = Document.get_record_by_pid(
         doc.pid).get('contribution')[0]['agent']
     assert db_agent['pid'] == 'foo_mef'
@@ -213,7 +213,7 @@ def test_sync_contribution(mock_get, app, contribution_person_data_tmp,
         'term', contribution__agent__id_idref='foo_idref').count()
     db_agent = Document.get_record_by_pid(
         doc.pid).get('contribution')[0]['agent']
-    assert db_agent['$ref'] == 'https://mef.rero.ch/api/agents/idref/foo_idref'
+    assert db_agent['$ref'] == f'{mef_agents_url}/idref/foo_idref'
     assert db_agent['pid'] == 'foo_mef'
 
     # remove the document

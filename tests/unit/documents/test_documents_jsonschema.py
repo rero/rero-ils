@@ -85,7 +85,7 @@ def test_languages(document_schema, document_data_tmp):
         validate(document_data_tmp, document_schema)
 
 
-def test_contribution(document_schema, document_data_tmp):
+def test_contribution(mef_agents_url, document_schema, document_data_tmp):
     """Test contribution for jsonschemas."""
     document_data_tmp['contribution'] = [{
         'agent': {
@@ -105,13 +105,13 @@ def test_contribution(document_schema, document_data_tmp):
     }, {
         'agent': {
             'type': 'bf:Person',
-            '$ref': 'https://mef.rero.ch/api/agents/gnd/XXXXXXX'
+            '$ref': f'{mef_agents_url}/gnd/XXXXXXX'
         },
         'role': ['aut']
     }, {
         'agent': {
             'type': 'bf:Person',
-            '$ref': 'https://mef.rero.ch/api/agents/gnd/XXXXXXX'
+            '$ref': f'{mef_agents_url}/gnd/XXXXXXX'
         },
         'role': ['aut']
     }]
