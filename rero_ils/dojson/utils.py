@@ -1995,7 +1995,7 @@ def build_identifier(data):
         'RERO-RAMEAU': 'RERO-RAMEAU',
         'IDREF': 'IdRef',
         'GND': 'GND',
-        'DE-588': 'GND'
+        'DE-101': 'GND'
     }
     result = {}
     data_0 = utils.force_list(data.get('0'))

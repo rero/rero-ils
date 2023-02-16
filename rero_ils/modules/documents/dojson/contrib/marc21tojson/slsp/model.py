@@ -425,8 +425,8 @@ def marc21_to_subjects_6XX(self, key, value):
         field_key = 'genreForm' if tag_key == '655' else config_field_key
         subfields_0 = utils.force_list(value.get('0'))
         if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
-            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                        subfields_0[0], key)
+            ref = get_contribution_link(
+                marc21.bib_id, marc21.bib_id, subfields_0[0], key)
             if ref:
                 subject = {
                     '$ref': ref,

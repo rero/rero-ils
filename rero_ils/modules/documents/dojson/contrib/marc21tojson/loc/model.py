@@ -629,10 +629,18 @@ def marc21_to_subjects_6XX(self, key, value):
                     value, subfield_code_per_tag[creator_tag_key]), '.', '.')
         field_key = 'genreForm' if tag_key == '655' else config_field_key
         subfields_0 = utils.force_list(value.get('0'))
+
+        cont_id = None
+        if subfields_0:
+            cont_id = subfields_0[0]
+            for subfield_0 in subfields_0:
+                if 'DE-101' in subfield_0:
+                    cont_id = subfield_0.replace('DE-101', 'gnd')
+                    break
         if data_type in [DocumentSubjectType.PERSON,
-                         DocumentSubjectType.ORGANISATION] and subfields_0:
-            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                        subfields_0[0], key)
+                         DocumentSubjectType.ORGANISATION] and cont_id:
+            ref = get_contribution_link(
+                marc21.bib_id, marc21.bib_id, cont_id, key)
             if ref:
                 subject = {
                     '$ref': ref,
