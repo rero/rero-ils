@@ -5060,6 +5060,7 @@ def test_marc21_to_subjects_imported():
       <datafield tag="919" ind1=" " ind2=" ">
         <subfield code="a">Sekundarstufe</subfield>
         <subfield code="0">(DE-588)4077347-4</subfield>
+        <subfield code="0">(DE-101)040773477</subfield>
         <subfield code="2">gnd</subfield>
       </datafield>
     </record>

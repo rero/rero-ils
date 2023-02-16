@@ -432,7 +432,6 @@ def get_contribution_link(bibid, reroid, id, key):
     if match and len(match.groups()) == 2 and key[:3] in _CONTRIBUTION_TAGS:
         match_type = match.group(1).lower()
         match_value = match.group(2)
-        match_type = match_type.replace('de-588', 'gnd')
         # if we have a viafid, look for the contributor in MEF
         if match_type == "viaf":
             url = f'{mef_url}/mef/agents/?q=viaf_pid:{match_value}'
@@ -1996,7 +1995,7 @@ def build_identifier(data):
         'RERO-RAMEAU': 'RERO-RAMEAU',
         'IDREF': 'IdRef',
         'GND': 'GND',
-        'DE-588': 'GND'
+        'DE-101': 'GND'
     }
     result = {}
     data_0 = utils.force_list(data.get('0'))
