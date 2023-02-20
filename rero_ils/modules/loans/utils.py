@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -38,16 +39,13 @@ def get_circ_policy(loan, checkout_location=False):
 
     :param loan: the loan to analyze
     :param checkout_location: if True, return the cipo related to the
-               `checkout_location_pid`, otherwise return the cipo related to
-               the `transaction_location_pid`.
-    :return the cipo related to the loan
+        `checkout_location_pid`, otherwise return the cipo related to the
+        `transaction_location_pid`.
+    :return the circulation policy related to the loan
     """
     item = Item.get_record_by_pid(loan.item_pid)
-    library_pid = None
-    if checkout_location:
-        library_pid = loan.checkout_library_pid
-    if not library_pid:
-        library_pid = loan.library_pid
+    library_pid = loan.checkout_library_pid if checkout_location else \
+        loan.library_pid
 
     patron = Patron.get_record_by_pid(loan.get('patron_pid'))
     patron_type_pid = patron.patron_type_pid
