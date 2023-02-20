@@ -35,11 +35,13 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_item_can_request(
-        client, document, holding_lib_martigny, item_lib_martigny,
-        librarian_martigny, lib_martigny,
-        patron_martigny, circulation_policies,
-        patron_type_children_martigny, loc_public_martigny_data,
-        system_librarian_martigny, item_lib_martigny_data):
+    client, document, holding_lib_martigny, item_lib_martigny,
+    librarian_martigny, lib_martigny, loc_public_martigny,
+    patron_martigny, circulation_policies,
+    patron_type_children_martigny, loc_public_martigny_data,
+    system_librarian_martigny, item_lib_martigny_data,
+    yesterday, tomorrow
+):
     """Test item can request API."""
     # test no logged user
     res = client.get(
@@ -126,7 +128,7 @@ def test_item_can_request(
 
     # Location :: allow_request == false
     #   create a new location and set 'allow_request' to false. Assign a new
-    #   item to this location. Chek if this item can be requested : it couldn't
+    #   item to this location. Check if the item can be requested : it couldn't
     #   with 'Item location doesn't allow request' reason.
     new_location = deepcopy(loc_public_martigny_data)
     del new_location['pid']
@@ -142,25 +144,51 @@ def test_item_can_request(
 
     res = client.get(url_for('api_item.can_request', item_pid=new_item.pid))
     assert res.status_code == 200
-    data = get_json(res)
-    assert not data.get('can')
+    assert not res.json.get('can')
+
+    # Same test with temporary_location disallowing request.
+    #   * Main location of the new item allow request
+    #   --> the request is allowed
+    #   * Temporary location of the new item disallow request
+    #   --> the request is disallowed
+    #   * with an obsolete temporary location
+    #   --> the request is allowed
+    new_item['location']['$ref'] = get_ref_for_pid(
+        Location, loc_public_martigny.pid)
+    assert loc_public_martigny.get('allow_request')
+    new_item.update(new_item, dbcommit=True, reindex=True)
+    res = client.get(url_for('api_item.can_request', item_pid=new_item.pid))
+    assert res.status_code == 200
+    assert res.json.get('can')
+
+    new_item['temporary_location'] = {
+        '$ref': get_ref_for_pid(Location, new_location.pid),
+        'end_date': tomorrow.strftime('%Y-%m-%d')
+    }
+    new_item.update(new_item, dbcommit=True, reindex=True)
+    res = client.get(url_for('api_item.can_request', item_pid=new_item.pid))
+    assert res.status_code == 200
+    assert not res.json.get('can')
+
+    new_item['temporary_location']['end_date'] = yesterday.strftime('%Y-%m-%d')
+    new_item.update(new_item, dbcommit=True, reindex=True)
+    res = client.get(url_for('api_item.can_request', item_pid=new_item.pid))
+    assert res.status_code == 200
+    assert res.json.get('can')
 
     # remove created data
-    item_url = url_for(
+    client.delete(url_for(
         'invenio_records_rest.item_item',
         pid_value=new_item.pid
-    )
-    hold_url = url_for(
+    ))
+    client.delete(url_for(
         'invenio_records_rest.hold_item',
         pid_value=new_item.holding_pid
-    )
-    loc_url = url_for(
+    ))
+    client.delete(url_for(
         'invenio_records_rest.loc_item',
         pid_value=new_location.pid
-    )
-    client.delete(item_url)
-    client.delete(hold_url)
-    client.delete(loc_url)
+    ))
 
 
 def test_item_holding_document_availability(

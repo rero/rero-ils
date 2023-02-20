@@ -410,9 +410,9 @@ def item_availability(item_pid):
 @check_logged_user_authentication
 @jsonify_error
 def can_request(item_pid):
-    """HTTP request to check if an item can be requested.
+    """REST-API endpoint to check if an item can be requested.
 
-    Depending of query string argument, either only check if configuration
+    Depending on query string argument, either only check if configuration
     allows the request of this item ; either if a librarian can request an
     item for a patron.
 
@@ -435,11 +435,11 @@ def can_request(item_pid):
         if not kwargs['library']:
             abort(404, 'Library not found')
 
-    # ask to item if the request is possible with these data.
+    # ask item if the request is possible with these data.
     can, reasons = item.can(ItemCirculationAction.REQUEST, **kwargs)
 
     # check the `reasons_not_request` array. If it's empty, the request is
-    # allowed ; if not the request is disallow and we need to return the
+    # allowed ; if not the request is disallowed, and we need to return the
     # reasons why
     response = {'can': can}
     if reasons:

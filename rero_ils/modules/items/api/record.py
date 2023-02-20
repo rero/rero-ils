@@ -360,8 +360,21 @@ class ItemRecord(IlsRecord):
 
     def get_location(self):
         """Shortcut to the location of the item."""
-        location_pid = extracted_data_from_ref(self.get('location'))
-        return Location.get_record_by_pid(location_pid)
+        return extracted_data_from_ref(self['location'], data='record')
+
+    def get_circulation_location(self):
+        """Get the location to used for circulation operation."""
+        # By default, the location used for circulation operations is the main
+        # item location except if this item has a `temporary_location` and this
+        # location isn't yet over.
+        if tmp_location := self.get('temporary_location'):
+            if end_date := tmp_location.get('end_date'):
+                now_date = pytz.utc.localize(datetime.now())
+                end_date = date_string_to_utc(end_date)
+                if now_date > end_date:
+                    return self.get_location()
+            return extracted_data_from_ref(tmp_location['$ref'], data='record')
+        return self.get_location()
 
     @property
     def status(self):
@@ -382,12 +395,9 @@ class ItemRecord(IlsRecord):
     @property
     def temporary_item_type_pid(self):
         """Shortcut for temporary item type pid."""
-        tmp_item_type = self.get('temporary_item_type', {})
-        if tmp_item_type:
-            end_date = tmp_item_type.get('end_date')
-            # check if the temporary item_type.end_date is over. If yes, return
-            # None
-            if end_date:
+        if tmp_item_type := self.get('temporary_item_type', {}):
+            # if the temporary_item_type end_date is over : return none
+            if end_date := tmp_item_type.get('end_date'):
                 now_date = pytz.utc.localize(datetime.now())
                 end_date = date_string_to_utc(end_date)
                 if now_date > end_date:
