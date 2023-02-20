@@ -25,7 +25,7 @@ from rero_ils.modules.items.api import Item
 
 def test_item_dumps(client, item_lib_martigny, org_martigny,
                     librarian_martigny):
-    """Test item dumps and elastic search version."""
+    """Test item dumps and Elasticsearch version."""
     item_dumps = Item(item_lib_martigny.dumps()).replace_refs()
 
     assert item_dumps.get('organisation').get('pid') == org_martigny.pid

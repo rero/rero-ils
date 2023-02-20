@@ -31,7 +31,7 @@ def process_bulk_queue(version_type=None, queue=None, es_bulk_kwargs=None,
     """Process bulk indexing queue.
 
     :param str version_type: Elasticsearch version type.
-    :param Queue queue: Queue tu use.
+    :param Queue queue: Queue to use.
     :param str routing_key: Routing key to use.
     :param dict es_bulk_kwargs: Passed to
         :func:`elasticsearch:elasticsearch.helpers.bulk`.

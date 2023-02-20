@@ -101,7 +101,7 @@ def db_connections():
 def es_db_counts():
     """Display count for elasticsearch and documents.
 
-    Displays for all document types defind in config.py following informations:
+    Displays for all document types defined in config.py following information:
     - index name for document type
     - count of records in database
     - count of records in elasticsearch
@@ -124,7 +124,7 @@ def check_es_db_counts():
 
     If there are no problems the status in returned data will be `green`,
     otherwise the status will be `red` and in the returned error
-    links will be provided with more detailed informations.
+    links will be provided with more detailed information.
     :return: jsonified health status for elasticsearch and database counts
     """
     result = {'data': {'status': 'green'}}
@@ -152,9 +152,9 @@ def check_es_db_counts():
                         _external=True
                     )
                     errors.append({
-                        'id': 'DB_ES_COUNTER_MISSMATCH',
+                        'id': 'DB_ES_COUNTER_MISMATCH',
                         'links': links,
-                        'code': 'DB_ES_COUNTER_MISSMATCH',
+                        'code': 'DB_ES_COUNTER_MISMATCH',
                         'title': "DB items counts don't match ES items count.",
                         'details': msg
                     })
@@ -197,11 +197,11 @@ def check_es_db_counts():
 def missing_pids(doc_type):
     """Displays details of counts for document type.
 
-    Following informations will be displayed:
+    Following information will be displayed:
     - missing pids in database
     - missing pids in elasticsearch
     - pids indexed multiple times in elasticsearch
-    If possible, direct links will be provieded to the corresponding records.
+    If possible, direct links will be provided to the corresponding records.
     This view needs an logged in system admin.
 
     :param doc_type: Document type to display.
@@ -226,24 +226,23 @@ def missing_pids(doc_type):
                 'details': res.get('ERROR')
             }
         }
-    else:
-        data = {'DB': [], 'ES': [], 'ES duplicate': []}
-        for pid in res.get('DB'):
-            if api_url:
-                data['DB'].append(f'{api_url}?q=pid:"{pid}"')
-            else:
-                data['DB'].append(pid)
-        for pid in res.get('ES'):
-            if api_url:
-                data['ES'].append(f'{api_url}{pid}')
-            else:
-                data['ES'].append(pid)
-        for pid in res.get('ES duplicate'):
-            if api_url:
-                data['ES duplicate'].append(f'{api_url}?q=pid:"{pid}"')
-            else:
-                data['ES duplicate'].append(pid)
-        return jsonify({'data': data})
+    data = {'DB': [], 'ES': [], 'ES duplicate': []}
+    for pid in res.get('DB'):
+        if api_url:
+            data['DB'].append(f'{api_url}?q=pid:"{pid}"')
+        else:
+            data['DB'].append(pid)
+    for pid in res.get('ES'):
+        if api_url:
+            data['ES'].append(f'{api_url}{pid}')
+        else:
+            data['ES'].append(pid)
+    for pid in res.get('ES duplicate'):
+        if api_url:
+            data['ES duplicate'].append(f'{api_url}?q=pid:"{pid}"')
+        else:
+            data['ES duplicate'].append(pid)
+    return jsonify({'data': data})
 
 
 @api_blueprint.route('/redis')
@@ -263,11 +262,24 @@ def redis():
 @api_blueprint.route('/es')
 @check_authentication
 def elastic_search():
-    """Displays elastic search cluster info.
+    """Displays Elasticsearch cluster info.
 
-    :return: jsonified elastic search cluster info.
+    :return: jsonified Elasticsearch cluster info.
     """
     info = current_search_client.cluster.health()
+    return jsonify({'data': info})
+
+
+@api_blueprint.route('/es_indices')
+@check_authentication
+def elastic_search_indices():
+    """Displays Elasticsearch indices info.
+
+    :return: jsonified Elasticsearch indices info.
+    """
+    info = current_search_client.cat.indices(
+        bytes='b', format='json', s='index')
+    info = {data['index']: data for data in info}
     return jsonify({'data': info})
 
 
@@ -281,8 +293,7 @@ def timestamps():
     :return: jsonified timestamps.
     """
     data = {}
-    time_stamps = current_cache.get('timestamps')
-    if time_stamps:
+    if time_stamps := current_cache.get('timestamps'):
         for name, values in time_stamps.items():
             # make the name safe for JSON export
             name = name.replace('-', '_')
