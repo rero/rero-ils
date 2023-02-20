@@ -120,7 +120,7 @@ class ReminderCirculationNotification(CirculationNotification):
 
     def get_communication_channel(self):
         """Get the communication channel to dispatch the notification."""
-        # For REMINDERS notification, the communication channel tu use is
+        # For REMINDERS notification, the communication channel to use is
         # define into the corresponding circulation policy
         if self._cipo_reminder:
             channel = self._cipo_reminder.get('communication_channel')

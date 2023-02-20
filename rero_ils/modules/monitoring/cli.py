@@ -37,13 +37,13 @@ def monitoring():
 @click.option('-m', '--missing', 'missing', is_flag=True, default=False,
               help='Display missing pids.')
 @click.option('-d', '--delay', 'delay', default=1,
-              help='Get ES and DB counts from delay miniutes in the past.')
+              help='Get ES and DB counts from delay min minutes in the past.')
 @with_appcontext
 def es_db_counts_cli(missing, delay):
     """Print ES and DB counts.
 
     Prints a table representation of database and elasticsearch counts.
-    Columes:
+    Columns:
     1. database count minus elasticsearch count
     2. document type
     3. database count
@@ -75,7 +75,7 @@ def es_db_counts_cli(missing, delay):
 @monitoring.command('es_db_missing')
 @click.argument('doc_type')
 @click.option('-d', '--delay', 'delay', default=1,
-              help='Get ES and DB counts from delay miniutes in the past.')
+              help='Get ES and DB counts from delay minutes in the past.')
 @with_appcontext
 def es_db_missing_cli(doc_type, delay):
     """Print missing pids informations."""
@@ -86,21 +86,27 @@ def es_db_missing_cli(doc_type, delay):
 @monitoring.command('time_stamps')
 @with_appcontext
 def time_stamps_cli():
-    """Print time_stampss informations."""
-    cache = current_cache.get('timestamps')
-    if cache:
+    """Print time_stamps information."""
+    if cache := current_cache.get('timestamps'):
         for key, value in cache.items():
             time = value.pop('time')
             args = [f'{k}={v}' for k, v in value.items()]
             click.echo(f'{time}: {key} {" | ".join(args)}')
 
 
-@monitoring.command()
+@monitoring.command('es')
 @with_appcontext
 def es():
-    """Displays elastic search cluster info."""
+    """Displays Elasticsearch cluster info."""
     for key, value in current_search_client.cluster.health().items():
         click.echo(f'{key:<33}: {value}')
+
+
+@monitoring.command('es_indices')
+@with_appcontext
+def es_indices():
+    """Displays Elasticsearch indices info."""
+    click.echo(current_search_client.cat.indices(s='index'))
 
 
 @monitoring.command()

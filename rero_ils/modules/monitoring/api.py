@@ -64,7 +64,7 @@ class Monitoring(object):
     The main idea here is to check the consistency between the database and
     the search index. We need to check that all documents presents in the
     database are also present in the search index and vice versa.
-    Addidionaly timestamps could be accessed for monitoring of execution
+    Furthermore, timestamps could be accessed for monitoring of execution
     times of selected functions.
     """
 
@@ -73,7 +73,7 @@ class Monitoring(object):
     def __init__(self, time_delta=1):
         """Constructor.
 
-        :param time_delta: Minutes tu substract from DB EScreation time.
+        :param time_delta: Minutes to subtract from DB ES creation time.
         """
         self.time_delta = int(time_delta)
 
@@ -95,8 +95,7 @@ class Monitoring(object):
             db_es = info.get('db-es', '')
             count_db = info.get('db', '')
             msg = f'{db_es:>7}  {doc_type:>6} {count_db:>10}'
-            index = info.get('index', '')
-            if index:
+            if index := info.get('index', ''):
                 msg += f'  {index:>25} {info.get("es", ""):>10}'
             result += msg + '\n'
         return msg_head + result
@@ -147,7 +146,7 @@ class Monitoring(object):
         :param with_deleted: get also deleted pids.
         :param limit: Limit sql query to count size.
         :param date: Get all pids <= date.
-        :returns: pid gernerator.
+        :returns: pid generator.
         """
         query = PersistentIdentifier.query.filter_by(pid_type=doc_type)
         if not with_deleted:
@@ -196,8 +195,7 @@ class Monitoring(object):
                     pids_es.pop(pid)
                 else:
                     pids_db.append(pid)
-            pids_es = [v for v in pids_es]
-        return pids_es, pids_db, pids_es_double, index
+        return list(pids_es), pids_db, pids_es_double, index
 
     def info(self, with_deleted=False, difference_db_es=False):
         """Info.
@@ -205,8 +203,8 @@ class Monitoring(object):
         Get count details for all records rest endpoints in json format.
 
         :param with_deleted: count also deleted items in database.
-        :return: dictionary with database, elasticsearch and databse minus
-        elasticsearch count informations.
+        :return: dictionary with database, elasticsearch and database minus
+        elasticsearch count information.
         """
         info = {}
         for doc_type, endpoint in current_app.config.get(
@@ -219,8 +217,7 @@ class Monitoring(object):
                     doc_type, with_deleted=with_deleted, date=date)
                 count_db = count_db if isinstance(count_db, int) else 0
                 info[doc_type]['db'] = count_db
-            index = endpoint.get('search_index', '')
-            if index:
+            if index := endpoint.get('search_index', ''):
                 count_es = self.get_es_count(index, date=date)
                 count_es = count_es if isinstance(count_es, int) else 0
                 db_es = count_db - count_es
@@ -245,11 +242,11 @@ class Monitoring(object):
         return info
 
     def check(self, with_deleted=False, difference_db_es=False):
-        """Compaire elasticsearch with database counts.
+        """Compare elasticsearch with database counts.
 
         :param with_deleted: count also deleted items in database.
         :return: dictionary with all document types with a difference in
-        databse and elasticsearch counts.
+        database and elasticsearch counts.
         """
         checks = {}
         for info, data in self.info(
@@ -313,6 +310,6 @@ class Monitoring(object):
                 )
             if 'DB' in missing and missing["DB"]:
                 click.secho(
-                    f'DB mising {doc_type}: {", ".join(missing["DB"])}',
+                    f'DB missing {doc_type}: {", ".join(missing["DB"])}',
                     fg='red'
                 )

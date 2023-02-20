@@ -91,9 +91,9 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
     assert get_json(res) == {
         'data': {'status': 'red'},
         'errors': [{
-            'code': 'DB_ES_COUNTER_MISSMATCH',
+            'code': 'DB_ES_COUNTER_MISMATCH',
             'details': 'There are 1 items from cont missing in ES.',
-            'id': 'DB_ES_COUNTER_MISSMATCH',
+            'id': 'DB_ES_COUNTER_MISMATCH',
             'links': {
                 'about': 'http://localhost/monitoring/check_es_db_counts',
                 'cont': 'http://localhost/monitoring/missing_pids/cont'
