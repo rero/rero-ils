@@ -31,14 +31,14 @@ from invenio_records_ui.signals import record_viewed
 
 from .api import Document, DocumentsSearch
 from .commons import SubjectFactory
-from .dumpers import document_replace_refs
+from .dumpers import document_replace_refs_dumper
 from .extensions import EditionStatementExtension, \
     ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
 from .utils import display_alternate_graphic_first, get_remote_cover, \
     title_format_text, title_format_text_alternate_graphic, \
     title_variant_format_text
 from ..collections.api import CollectionsSearch
-from ..contributions.api import Contribution
+from ..entities.api import Entity
 from ..holdings.models import HoldingNoteTypes
 from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
@@ -262,26 +262,18 @@ def contribution_format(pid, language, viewcode, role=False):
     :return the contribution in formatted form.
     """
     doc = Document.get_record_by_pid(pid)
-    doc = doc.dumps(document_replace_refs)
+    doc = doc.dumps(document_replace_refs_dumper)
     output = []
     for contribution in doc.get('contribution', []):
-        cont_pid = contribution['entity'].get('pid')
-        if cont_pid:
-            contrib = Contribution.get_record_by_pid(cont_pid)
+        if entity_pid := contribution['entity'].get('pid'):
+            entity = Entity.get_record_by_pid(entity_pid)
             # add link <a href="url">link text</a>
-            authorized_access_point = contrib.get_authorized_access_point(
-                language=language
-            )
-            contribution_type = 'persons'
-            if contrib.get('type') == 'bf:Organisation':
-                contribution_type = 'corporate-bodies'
+            text = entity.get_authorized_access_point(language=language)
+            entity_type = 'persons'
+            if entity.get('type') == 'bf:Organisation':
+                entity_type = 'corporate-bodies'
             line = \
-                '<a href="/{viewcode}/{c_type}/{pid}">{text}</a>'.format(
-                    viewcode=viewcode,
-                    c_type=contribution_type,
-                    pid=cont_pid,
-                    text=authorized_access_point
-                )
+                f'<a href="/{viewcode}/{entity_type}/{entity_pid}">{text}</a>'
         else:
             line = contribution['entity']['authorized_access_point']
 
@@ -301,10 +293,8 @@ def edition_format(editions):
     """Format edition for template."""
     output = []
     for edition in editions:
-        languages = EditionStatementExtension.format_text(edition)
-        if languages:
-            for edition_text in languages:
-                output.append(edition_text.get('value'))
+        if languages := EditionStatementExtension.format_text(edition):
+            output.extend(edition.get('value') for edition in languages)
     return output
 
 
@@ -472,8 +462,7 @@ def create_publication_statement(provision_activity):
     """Create publication statement from place, agent and date values."""
     output = []
     publication_texts = \
-        ProvisionActivitiesExtension.format_text(
-            provision_activity)
+        ProvisionActivitiesExtension.format_text(provision_activity)
     for publication_text in publication_texts:
         language = publication_text.get('language', 'default')
         if display_alternate_graphic_first(language):

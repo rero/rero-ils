@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,8 +27,7 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from utils import flush_index, get_json
 
-from rero_ils.modules.contributions.api import Contribution, \
-    ContributionsSearch
+from rero_ils.modules.entities.api import EntitiesSearch, Entity
 from rero_ils.modules.utils import get_timestamp, set_timestamp
 
 
@@ -47,7 +47,7 @@ def test_monitoring_es_db_counts(client):
             'budg': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'budgets'},
             'cipo': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'circ_policies'},
             'coll': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'collections'},
-            'cont': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'contributions'},
+            'ent': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'entities'},
             'doc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'documents'},
             'hold': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'holdings'},
             'illr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'ill_requests'},
@@ -73,43 +73,41 @@ def test_monitoring_es_db_counts(client):
     }
 
 
-def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
+def test_monitoring_check_es_db_counts(app, client, entity_person_data,
                                        system_librarian_martigny):
     """Test monitoring check_es_db_counts."""
     res = client.get(url_for('api_monitoring.check_es_db_counts', delay=0))
     assert res.status_code == 200
     assert get_json(res) == {'data': {'status': 'green'}}
 
-    pers = Contribution.create(
-        data=contribution_person_data,
+    pers = Entity.create(
+        data=entity_person_data,
         delete_pid=False,
         dbcommit=True,
         reindex=False)
-    flush_index(ContributionsSearch.Meta.index)
+    flush_index(EntitiesSearch.Meta.index)
     res = client.get(url_for('api_monitoring.check_es_db_counts', delay=0))
     assert res.status_code == 200
     assert get_json(res) == {
         'data': {'status': 'red'},
         'errors': [{
             'code': 'DB_ES_COUNTER_MISMATCH',
-            'details': 'There are 1 items from cont missing in ES.',
+            'details': 'There are 1 items from ent missing in ES.',
             'id': 'DB_ES_COUNTER_MISMATCH',
             'links': {
                 'about': 'http://localhost/monitoring/check_es_db_counts',
-                'cont': 'http://localhost/monitoring/missing_pids/cont'
+                'ent': 'http://localhost/monitoring/missing_pids/ent'
             },
             'title': "DB items counts don't match ES items count."
         }]
     }
 
     # this view is only accessible by monitoring
-    res = client.get(url_for('api_monitoring.missing_pids', doc_type='cont'))
+    res = client.get(url_for('api_monitoring.missing_pids', doc_type='ent'))
     assert res.status_code == 401
 
     login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(
-        url_for('api_monitoring.missing_pids', doc_type='cont')
-    )
+    res = client.get(url_for('api_monitoring.missing_pids', doc_type='ent'))
     assert res.status_code == 403
 
     # give user superuser admin rights
@@ -120,15 +118,13 @@ def test_monitoring_check_es_db_counts(app, client, contribution_person_data,
         )
     )
     db.session.commit()
-    res = client.get(
-        url_for('api_monitoring.missing_pids', doc_type='cont', delay=0)
-    )
+    res = client.get(url_for(
+        'api_monitoring.missing_pids', doc_type='ent', delay=0))
     assert res.status_code == 200
-
     assert get_json(res) == {
         'data': {
             'DB': [],
-            'ES': ['http://localhost/contributions/cont_pers'],
+            'ES': ['http://localhost/entities/ent_pers'],
             'ES duplicate': []
         }
     }

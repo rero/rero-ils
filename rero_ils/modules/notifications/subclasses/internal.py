@@ -69,7 +69,7 @@ class InternalCirculationNotification(CirculationNotification, ABC):
     @property
     def aggregation_key(self):
         """Get the aggregation key for this notification."""
-        # Internal notifications must be send to a library. No need to
+        # Internal notifications must be sent to a library. No need to
         # take care of the requested patron for these notifications.
         parts = [
             self.get_template_path(),
@@ -90,6 +90,5 @@ class InternalCirculationNotification(CirculationNotification, ABC):
         """Get notification recipient email addresses."""
         # Internal notification will be sent to the library, not to the
         # patron related to the loan.
-        recipient = self.library.get_email(self.type)
-        if recipient:
+        if recipient := self.library.get_email(self.type):
             return [recipient]

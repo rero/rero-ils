@@ -28,10 +28,10 @@ from lxml import etree
 from lxml.builder import ElementMaker
 from werkzeug.local import LocalProxy
 
-from rero_ils.modules.contributions.api import ContributionsSearch
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21.model import \
     replace_contribution_sources
+from rero_ils.modules.entities.api import EntitiesSearch
 from rero_ils.modules.serializers import JSONSerializer
 from rero_ils.modules.utils import strip_chars
 
@@ -114,15 +114,14 @@ class DocumentMARCXMLSerializer(JSONSerializer):
                 contribution_pid = contribution.get('entity', {}).get('pid')
                 if contribution_pid:
                     contribution_pids.append(contribution_pid)
-        search = ContributionsSearch() \
+        search = EntitiesSearch() \
             .filter('terms', pid=list(set(contribution_pids)))
         es_contributions = {}
         for hit in search.scan():
             contribution = hit.to_dict()
             es_contributions[contribution['pid']] = contribution
 
-        order = current_app.config.get(
-            'RERO_ILS_CONTRIBUTIONS_LABEL_ORDER', [])
+        order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', {})
         source_order = order.get(language, order.get(order['fallback'], []))
         records = []
         for hit in hits:

@@ -24,9 +24,9 @@ from flask import current_app
 from flask_babelex import gettext as translate
 from invenio_db import db
 
-from rero_ils.modules.contributions.api import Contribution
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
 from rero_ils.modules.documents.views import create_title_responsibilites
+from rero_ils.modules.entities.api import Entity
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.libraries.api import Library
@@ -248,8 +248,7 @@ class ToMarc21Overdo(Underdo):
                 ))
             }
         # Fix ContributionsSearch
-        order = current_app.config.get(
-            'RERO_ILS_CONTRIBUTIONS_LABEL_ORDER', [])
+        order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', [])
         source_order = order.get(
             self.language,
             order.get(order['fallback'], [])
@@ -257,7 +256,7 @@ class ToMarc21Overdo(Underdo):
         contributions = blob.get('contribution', [])
         for contribution in contributions:
             if ref := contribution['entity'].get('$ref'):
-                agent, _ = Contribution.get_record_by_ref(ref)
+                agent, _ = Entity.get_record_by_ref(ref)
                 if agent:
                     db.session.commit()
                     contribution['entity'] = agent
