@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,27 +23,27 @@ from copy import deepcopy
 from invenio_records.api import _records_state
 from invenio_records.dumpers import Dumper
 
+from rero_ils.modules.commons.exceptions import RecordNotFound
+
 from ..models import DocumentSubjectType
 
 
-class ReplaceRefsContributionsDumper(Dumper):
+class ReplaceRefsEntitiesDumper(Dumper):
     """Replace linked contributions in document."""
 
     @staticmethod
-    def _replace_contribution(data):
+    def _replace_entity(data):
         """Replace the `$ref` linked contributions."""
-        from rero_ils.modules.contributions.api import Contribution
-
-        if entity := Contribution.get_record_by_pid(data['pid']):
-            _type, _ = Contribution.get_type_and_pid_from_ref(data['$ref'])
-            contribution = entity.dumps_for_document()
-            contribution.update({
-                'primary_source': _type,
-                'pid': data['pid']
-            })
-            return contribution
-        else:
-            raise Exception(f'Contribution does not exists for {self.pid}')
+        from rero_ils.modules.entities.api import Entity
+        if not (entity := Entity.get_record_by_pid(data['pid'])):
+            raise RecordNotFound(Entity, data['pid'])
+        _type, _ = Entity.get_type_and_pid_from_ref(data['$ref'])
+        contribution = entity.dumps_for_document()
+        contribution.update({
+            'primary_source': _type,
+            'pid': data['pid']
+        })
+        return contribution
 
     def dump(self, record, data):
         """Dump an item instance for notification.
@@ -54,14 +54,13 @@ class ReplaceRefsContributionsDumper(Dumper):
         """
         new_contributions = []
         for contribution in data.get('contribution', []):
-            if not contribution['entity'].get('$ref'):
-                new_contributions.append(contribution)
-            else:
+            if contribution['entity'].get('$ref'):
                 new_contributions.append({
-                    'entity': self._replace_contribution(
-                        contribution['entity']),
+                    'entity': self._replace_entity(contribution['entity']),
                     'role': contribution['role']
-                    })
+                })
+            else:
+                new_contributions.append(contribution)
         if new_contributions:
             data['contribution'] = new_contributions
         return data
@@ -76,13 +75,11 @@ class ReplaceRefsSubjectsDumper(Dumper):
 
         :param data: dict - subjects data.
         """
-        from rero_ils.modules.contributions.api import Contribution
+        from rero_ils.modules.entities.api import Entity
 
-        if not (entity := Contribution.get_record_by_pid(data['pid'])):
-            raise Exception(f'Contribution does not exists for {data["pid"]}')
-
-        _type, _ = Contribution.get_type_and_pid_from_ref(
-            data['$ref'])
+        if not (entity := Entity.get_record_by_pid(data['pid'])):
+            raise RecordNotFound(Entity, data['pid'])
+        _type, _ = Entity.get_type_and_pid_from_ref(data['$ref'])
         contribution = deepcopy(data)
         contribution.update(dict(entity))
         contribution.update({
@@ -99,21 +96,20 @@ class ReplaceRefsSubjectsDumper(Dumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         :return a dict with dumped data.
         """
-        for subjects in ['subjects', 'subjects_imported']:
-            new_contributions = []
-            for subject in data.get(subjects, []):
+        for field in ['subjects', 'subjects_imported']:
+            entities = []
+            for subject in data.get(field, []):
                 subject_type = subject.get('type')
                 subject_ref = subject.get('$ref')
                 if subject_ref and subject_type in [
                     DocumentSubjectType.PERSON,
                     DocumentSubjectType.ORGANISATION
                 ]:
-                    new_contributions.append(
-                        self._replace_subjects(subject))
+                    entities.append(self._replace_subjects(subject))
                 else:
-                    new_contributions.append(subject)
-            if new_contributions:
-                data[subjects] = new_contributions
+                    entities.append(subject)
+            if entities:
+                data[field] = entities
         return data
 
 

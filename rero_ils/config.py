@@ -68,12 +68,12 @@ from .modules.circ_policies.permissions import \
     CirculationPolicyPermissionPolicy
 from .modules.collections.api import Collection
 from .modules.collections.permissions import CollectionPermissionPolicy
-from .modules.contributions.api import Contribution
-from .modules.contributions.permissions import ContributionPermissionPolicy
 from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermissionPolicy
 from .modules.documents.query import acquisition_filter, \
     nested_identified_filter
+from .modules.entities.api import Entity
+from .modules.entities.permissions import EntityPermissionPolicy
 from .modules.holdings.api import Holding
 from .modules.holdings.models import HoldingCirculationAction
 from .modules.holdings.permissions import HoldingsPermissionPolicy
@@ -443,7 +443,7 @@ CELERY_BEAT_SCHEDULE = {
         'enabled': False,
     },
     'sync-agents': {
-        'task': 'rero_ils.modules.contributions.tasks.sync_agents',
+        'task': 'rero_ils.modules.entities.tasks.sync_agents',
         'schedule': crontab(minute=0, hour=1), # Every day at 01:00 UTC,
         'enabled': False,
     },
@@ -1125,13 +1125,13 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=lambda record: LocationPermissionPolicy('update', record=record),
         delete_permission_factory_imp=lambda record: LocationPermissionPolicy('delete', record=record)
     ),
-    cont=dict(
-        pid_type='cont',
-        pid_minter='contribution_id',
-        pid_fetcher='contribution_id',
-        search_class='rero_ils.modules.contributions.api:ContributionsSearch',
-        search_index='contributions',
-        indexer_class='rero_ils.modules.contributions.api:ContributionsIndexer',
+    ent=dict(
+        pid_type='ent',
+        pid_minter='entity_id',
+        pid_fetcher='entity_id',
+        search_class='rero_ils.modules.entities.api:EntitiesSearch',
+        search_index='entities',
+        indexer_class='rero_ils.modules.entities.api:EntitiesIndexer',
         search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
@@ -1142,22 +1142,23 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search'
         },
-        list_route='/contributions/',
-        record_loaders={
-            'application/json': lambda: Contribution(request.get_json()),
+        search_serializers_aliases={
+            'json': 'application/json'
         },
-        record_class='rero_ils.modules.contributions.api:Contribution',
-        item_route=('/contributions/<pid(cont, record_class='
-                    '"rero_ils.modules.contributions.api:Contribution"):'
-                    'pid_value>'),
+        list_route='/entities/',
+        record_loaders={
+            'application/json': lambda: Entity(request.get_json()),
+        },
+        record_class='rero_ils.modules.entities.api:Entity',
+        item_route='/entities/<pid(ent, record_class="rero_ils.modules.entities.api:Entity"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:contribution_view_search_factory',
-        list_permission_factory_imp=lambda record: ContributionPermissionPolicy('search', record=record),
-        read_permission_factory_imp=lambda record: ContributionPermissionPolicy('read', record=record),
-        create_permission_factory_imp=lambda record: ContributionPermissionPolicy('create', record=record),
-        update_permission_factory_imp=lambda record: ContributionPermissionPolicy('update', record=record),
-        delete_permission_factory_imp=lambda record: ContributionPermissionPolicy('delete', record=record)
+        search_factory_imp='rero_ils.query:entity_view_search_factory',
+        list_permission_factory_imp=lambda record: EntityPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: EntityPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: EntityPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: EntityPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: EntityPermissionPolicy('delete', record=record)
     ),
     cipo=dict(
         pid_type='cipo',
@@ -2048,7 +2049,7 @@ RECORDS_REST_FACETS = dict(
             )
         },
     ),
-    contributions=dict(
+    entities=dict(
         aggs=dict(
             sources=dict(
                 terms=dict(
@@ -2275,7 +2276,7 @@ indexes = [
     'budgets',
     'circ_policies',
     'collections',
-    'contributions',
+    'entities',
     'documents',
     'holdings',
     'items',
@@ -2398,7 +2399,7 @@ RECORDS_REST_DEFAULT_SORT['collections'] = dict(
     query='bestmatch', noquery='start_date')
 
 # ------ CONTRIBUTIONS SORT
-RECORDS_REST_SORT_OPTIONS['contributions']['fr_name'] = dict(
+RECORDS_REST_SORT_OPTIONS['entities']['fr_name'] = dict(
     fields=[
         'idref_authorized_access_point_sort',
         'rero_authorized_access_point_sort',
@@ -2407,7 +2408,7 @@ RECORDS_REST_SORT_OPTIONS['contributions']['fr_name'] = dict(
     title='Collection french name',
     default_order='asc'
 )
-RECORDS_REST_SORT_OPTIONS['contributions']['de_name'] = dict(
+RECORDS_REST_SORT_OPTIONS['entities']['de_name'] = dict(
     fields=[
         'gnd_authorized_access_point_sort',
         'idref_authorized_access_point_sort',
@@ -2829,7 +2830,7 @@ RERO_ILS_DEFAULT_JSON_SCHEMA = {
     'budg': '/budgets/budget-v0.0.1.json',
     'cipo': '/circ_policies/circ_policy-v0.0.1.json',
     'coll': '/collections/collection-v0.0.1.json',
-    'cont': '/contributions/contribution-v0.0.1.json',
+    'ent': '/entities/entity-v0.0.1.json',
     'doc': '/documents/document-v0.0.1.json',
     'hold': '/holdings/holding-v0.0.1.json',
     'illr': '/ill_requests/ill_request-v0.0.1.json',
@@ -3004,14 +3005,13 @@ RERO_ILS_APP_HELP_PAGE = (
 #: Cover service
 RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 
-#: Contributions
-RERO_ILS_CONTRIBUTIONS_MEF_SCHEMA = 'contributions/contribution-v0.0.1.json'
-RERO_ILS_CONTRIBUTIONS_SOURCES = ['idref', 'gnd', 'rero']
-RERO_ILS_CONTRIBUTIONS_AGENT_TYPES = {
+#: Entities
+RERO_ILS_AGENTS_SOURCES = ['idref', 'gnd', 'rero']
+RERO_ILS_AGENTS_AGENT_TYPES = {
     'bf:Person': 'persons',
     'bf:Organisation': 'corporate-bodies'
 }
-RERO_ILS_CONTRIBUTIONS_LABEL_ORDER = {
+RERO_ILS_AGENTS_LABEL_ORDER = {
     'fallback': 'fr',
     'fr': ['idref', 'rero', 'gnd'],
     'de': ['gnd', 'idref', 'rero'],
@@ -3060,15 +3060,11 @@ OAISERVER_ID_PREFIX = 'oai:bib.rero.ch:'
 RERO_ILS_DEFAULT_PICKUP_HOLD_DURATION = 10
 
 # =============================================================================
-# ANONYMISATION PROCESS CONFIGURATION
+# ANONYMIZATION PROCESS CONFIGURATION
 # =============================================================================
-
-# Specify the delay (in days) under which no loan can't be anonymized anyway (
-# for circulation management process).
+# Specify the delay (in days) under which no loan can't be anonymized anyway (for circulation management process).
 RERO_ILS_ANONYMISATION_MIN_TIME_LIMIT = 3 * 365 / 12
-
-# Specify the delay (in days) when a loan should be anonymized anyway after it
-# concluded.
+# Specify the delay (in days) when a loan should be anonymized anyway after it concluded.
 RERO_ILS_ANONYMISATION_MAX_TIME_LIMIT = 6 * 365 / 12
 
 #: Invenio circulation configuration.

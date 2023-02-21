@@ -245,8 +245,8 @@ def create_authorized_access_point(agent):
     if not agent:
         return None
     authorized_access_point = agent.get('preferred_name')
-    from ..contributions.models import ContributionType
-    if agent.get('type') == ContributionType.PERSON:
+    from ..entities.models import EntityType
+    if agent.get('type') == EntityType.PERSON:
         date_of_birth = agent.get('date_of_birth')
         date_of_death = agent.get('date_of_death')
         date = date_of_birth or ''
@@ -269,7 +269,7 @@ def create_authorized_access_point(agent):
                 authorized_access_point += f', {date}'
             if qualifier:
                 authorized_access_point += f', {qualifier}'
-    elif agent.get('type') == ContributionType.ORGANISATION:
+    elif agent.get('type') == EntityType.ORGANISATION:
         subordinate_unit = agent.get('subordinate_unit')
         if subordinate_unit:
             authorized_access_point += f'''. {'. '.join(subordinate_unit)}'''

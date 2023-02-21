@@ -31,14 +31,14 @@ class AddMEFPidExtension(RecordExtension):
 
         :params record: dict - a document record.
         """
-        from rero_ils.modules.contributions.api import Contribution
+        from rero_ils.modules.entities.api import Entity
         agents = record.get('subjects', []) +\
             record.get('subjects_imported', []) + \
             [contrib['entity'] for contrib in
                 record.get('contribution', []) if 'entity' in contrib]
         for agent in agents:
             if contrib_ref := agent.get('$ref'):
-                cont, _ = Contribution.get_record_by_ref(
+                cont, _ = Entity.get_record_by_ref(
                     contrib_ref)
                 if cont:
                     # inject mef pid

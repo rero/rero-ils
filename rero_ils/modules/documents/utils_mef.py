@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -29,9 +30,10 @@ from flask import current_app
 from sqlalchemy.orm.exc import NoResultFound
 from webargs import ValidationError
 
+from rero_ils.modules.entities.api import Entity
+from rero_ils.modules.utils import set_timestamp
+
 from .api import Document, DocumentsSearch
-from ..contributions.api import Contribution
-from ..utils import set_timestamp
 
 
 class ReplaceMefIdentifiedBy(ABC):
@@ -190,32 +192,32 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
 
     def get_local(self, ref_type, ref_pid):
         """Get local MEF record."""
-        return Contribution.get_contribution(ref_type, ref_pid)
+        return Entity.get_entity(ref_type, ref_pid)
 
     def get_online(self, doc_pid, ref_type, ref_pid):
         """Get online MEF record."""
         ref = f'{ref_type}/{ref_pid}'
         try:
             # try to get the contribution online
-            data = Contribution._get_mef_data_by_type(ref_type, ref_pid)
+            data = Entity._get_mef_data_by_type(ref_type, ref_pid)
             if data.get('idref') or data.get('gnd'):
                 if data.get('deleted'):
                     self.increment_count(self.count_deleted, ref,
                                          f'{doc_pid} Deleted')
                 else:
-                    if cont := Contribution.get_record_by_pid(data.get('pid')):
-                        # update local contribution
+                    if entity := Entity.get_record_by_pid(data.get('pid')):
+                        # update local entity
                         self.increment_count(self.count_found, ref,
                                              f'{doc_pid} Online update')
-                        data['$schema'] = cont['$schema']
-                        return cont.replace(data=data, dbcommit=True,
-                                            reindex=True)
+                        data['$schema'] = entity['$schema']
+                        return entity.replace(data=data, dbcommit=True,
+                                              reindex=True)
                     else:
                         # create and return local contribution
                         self.increment_count(self.count_found, ref,
                                              f'{doc_pid} Online create')
-                        return Contribution.create(data=data, dbcommit=True,
-                                                   reindex=True)
+                        return Entity.create(data=data, dbcommit=True,
+                                             reindex=True)
             else:
                 # online contribution has no IdREf, GND or RERO
                 self.increment_count(self.count_no_data, ref,

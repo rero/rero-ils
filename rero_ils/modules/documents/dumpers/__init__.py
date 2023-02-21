@@ -23,38 +23,38 @@ from invenio_records.dumpers import Dumper
 from rero_ils.modules.commons.dumpers import MultiDumper
 
 from .indexer import IndexerDumper
-from .replace_refs import ReplaceRefsContributionsDumper, ReplaceRefsDumper, \
+from .replace_refs import ReplaceRefsDumper, ReplaceRefsEntitiesDumper, \
     ReplaceRefsSubjectsDumper
 from .title import TitleDumper
 
 __all__ = (
     'TitleDumper',
-    'ReplaceRefsContributionsDumper',
+    'ReplaceRefsEntitiesDumper',
     'ReplaceRefsSubjectsDumper',
     'ReplaceRefsDumper'
 )
 
 # replace linked data
-document_replace_refs = MultiDumper(dumpers=[
+document_replace_refs_dumper = MultiDumper(dumpers=[
     # make a fresh copy
     Dumper(),
-    ReplaceRefsContributionsDumper(),
+    ReplaceRefsEntitiesDumper(),
     ReplaceRefsSubjectsDumper(),
     ReplaceRefsDumper()
 ])
 
 # create a string version of the complex title field
-document_title = MultiDumper(dumpers=[
+document_title_dumper = MultiDumper(dumpers=[
     # make a fresh copy
     Dumper(),
     TitleDumper()
 ])
 
 # dumper used for indexing
-document_indexer = MultiDumper(dumpers=[
+document_indexer_dumper = MultiDumper(dumpers=[
     # make a fresh copy
     Dumper(),
-    ReplaceRefsContributionsDumper(),
+    ReplaceRefsEntitiesDumper(),
     ReplaceRefsSubjectsDumper(),
     ReplaceRefsDumper(),
     IndexerDumper()

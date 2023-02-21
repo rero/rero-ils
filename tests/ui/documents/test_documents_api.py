@@ -28,13 +28,27 @@ from jsonschema.exceptions import ValidationError
 from utils import flush_index, mock_response
 
 from rero_ils.modules.api import IlsRecordError
-from rero_ils.modules.contributions.api import Contribution, \
-    ContributionsSearch
 from rero_ils.modules.documents.api import Document, DocumentsSearch, \
     document_id_fetcher
 from rero_ils.modules.documents.models import DocumentIdentifier
 from rero_ils.modules.ebooks.tasks import create_records
+from rero_ils.modules.entities.api import EntitiesSearch, Entity
 from rero_ils.modules.tasks import process_bulk_queue
+
+
+def test_document_properties(document):
+    """Test document properties."""
+    # As no item/holding are loaded into this test, `is_available` should
+    # return false/raise an error.
+    assert not Document.is_available(document.pid, 'global')
+
+    with mock.patch(
+        'rero_ils.modules.holdings.api.Holding.'
+        'get_holdings_pid_by_document_pid',
+        mock.MagicMock(return_value=['not_exists'])
+    ):
+        with pytest.raises(ValueError):
+            Document.is_available(document.pid, 'global', raise_exception=True)
 
 
 def test_document_create(db, document_data_tmp):
@@ -61,35 +75,34 @@ def test_document_create(db, document_data_tmp):
 @mock.patch('requests.get')
 def test_document_create_with_mef(
         mock_contributions_mef_get, app, document_data_ref, document_data,
-        contribution_person_data, contribution_person_response_data):
+        entity_person_data, entity_person_response_data):
     """Load document with mef records reference."""
     mock_contributions_mef_get.return_value = mock_response(
-        json_data=contribution_person_response_data
+        json_data=entity_person_response_data
     )
-    assert ContributionsSearch().count() == 0
+    assert EntitiesSearch().count() == 0
     doc = Document.create(
         data=deepcopy(document_data_ref),
         delete_pid=False, dbcommit=False, reindex=False)
     doc.reindex()
     flush_index(DocumentsSearch.Meta.index)
     doc = Document.get_record_by_pid(doc.get('pid'))
-    assert doc['contribution'][0]['entity']['pid'] == \
-        contribution_person_data['pid']
-    hit = DocumentsSearch().execute().to_dict()[
-        'hits']['hits'][0]
-    assert hit['_source']['contribution'][0]['entity'][
-        'pid'] == contribution_person_data['pid']
-    assert hit['_source']['contribution'][0]['entity'][
-        'primary_source'] == 'rero'
-    assert ContributionsSearch().count() == 1
-    contrib = Contribution.get_record_by_pid(contribution_person_data['pid'])
+    assert doc['contribution'][0]['entity']['pid'] == entity_person_data['pid']
+    hit = DocumentsSearch().get_record_by_pid(doc.pid).to_dict()
+    from pprint import pprint
+    pprint(hit)
+
+    assert hit['contribution'][0]['entity']['pid'] == entity_person_data['pid']
+    assert hit['contribution'][0]['entity']['primary_source'] == 'rero'
+    assert EntitiesSearch().count() == 1
+    contrib = Entity.get_record_by_pid(entity_person_data['pid'])
     contrib.delete_from_index()
     doc.delete_from_index()
     db.session.rollback()
 
     assert not Document.get_record_by_pid(doc.get('pid'))
-    assert not Contribution.get_record_by_pid(contribution_person_data['pid'])
-    assert ContributionsSearch().count() == 0
+    assert not Entity.get_record_by_pid(entity_person_data['pid'])
+    assert EntitiesSearch().count() == 0
 
     with pytest.raises(ValidationError):
         doc = Document.create(
@@ -97,8 +110,8 @@ def test_document_create_with_mef(
             delete_pid=False, dbcommit=True, reindex=True)
 
     assert not Document.get_record_by_pid(doc.get('pid'))
-    assert not Contribution.get_record_by_pid(contribution_person_data['pid'])
-    assert ContributionsSearch().count() == 0
+    assert not Entity.get_record_by_pid(entity_person_data['pid'])
+    assert EntitiesSearch().count() == 0
     data = deepcopy(document_data_ref)
     contrib = data.pop('contribution')
     doc = Document.create(
@@ -112,15 +125,15 @@ def test_document_create_with_mef(
         doc.pop('type')
         doc.update(doc, commit=True, dbcommit=True, reindex=True)
     assert Document.get_record_by_pid(doc.get('pid'))
-    assert not Contribution.get_record_by_pid(contribution_person_data['pid'])
-    assert ContributionsSearch().count() == 0
+    assert not Entity.get_record_by_pid(entity_person_data['pid'])
+    assert EntitiesSearch().count() == 0
 
     data = deepcopy(document_data_ref)
     doc.update(data, commit=True, dbcommit=False, reindex=False)
     doc.reindex()
     assert Document.get_record_by_pid(doc.get('pid'))
-    assert Contribution.get_record_by_pid(contribution_person_data['pid'])
-    assert ContributionsSearch().count() == 1
+    assert Entity.get_record_by_pid(entity_person_data['pid'])
+    assert EntitiesSearch().count() == 1
 
     doc.delete_from_index()
     db.session.rollback()
