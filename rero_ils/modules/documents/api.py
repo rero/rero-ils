@@ -41,7 +41,7 @@ from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import sorted_pids
 
-from .dumpers import document_indexer, document_replace_refs
+from .dumpers import document_indexer_dumper, document_replace_refs_dumper
 from .extensions import AddMEFPidExtension, EditionStatementExtension, \
     ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
 from .models import DocumentIdentifier, DocumentMetadata
@@ -128,7 +128,6 @@ class Document(IlsRecord):
     def is_available(cls, pid, view_code, raise_exception=False):
         """Get availability for document."""
         from ..holdings.api import Holding
-        holding_pids = []
         if view_code != current_app.config.get(
                 'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
             view_id = Organisation.get_record_by_viewcode(view_code)['pid']
@@ -235,20 +234,22 @@ class Document(IlsRecord):
 
     def index_contributions(self, bulk=False):
         """Index all attached contributions."""
-        from ..contributions.api import Contribution, ContributionsIndexer
+        from ..entities.api import EntitiesIndexer, Entity
         from ..tasks import process_bulk_queue
         contributions_ids = []
         for contribution in self.get('contribution', []):
             ref = contribution['entity'].get('$ref')
             if not ref and (cont_pid := contribution['entity'].get('pid')):
+                print("OK...")
                 if bulk:
-                    uid = Contribution.get_id_by_pid(cont_pid)
+                    uid = Entity.get_id_by_pid(cont_pid)
                     contributions_ids.append(uid)
                 else:
-                    contrib = Contribution.get_record_by_pid(cont_pid)
+                    contrib = Entity.get_record_by_pid(cont_pid)
                     contrib.reindex()
         if contributions_ids:
-            ContributionsIndexer().bulk_index(contributions_ids)
+            print("ids are", contributions_ids)
+            EntitiesIndexer().bulk_index(contributions_ids)
             process_bulk_queue.apply_async()
 
     @classmethod
@@ -351,7 +352,7 @@ class Document(IlsRecord):
 
         :returns: a fresh copy of the resolved data.
         """
-        return self.dumps(document_replace_refs)
+        return self.dumps(document_replace_refs_dumper)
 
 
 class DocumentsIndexer(IlsRecordsIndexer):
@@ -359,7 +360,7 @@ class DocumentsIndexer(IlsRecordsIndexer):
 
     record_cls = Document
     # data dumper for indexing
-    record_dumper = document_indexer
+    record_dumper = document_indexer_dumper
 
     @classmethod
     def _es_document(cls, record):

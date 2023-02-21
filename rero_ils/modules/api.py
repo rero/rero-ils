@@ -666,7 +666,7 @@ class IlsRecordsIndexer(RecordIndexer):
         arguments = {}
         index = payload.get('index') or index
         body = self._prepare_record(record, index, doc_type, arguments)
-        action = {
+        return {
             '_op_type': 'index',
             '_index': index,
             '_type': doc_type,
@@ -674,10 +674,7 @@ class IlsRecordsIndexer(RecordIndexer):
             '_version': record.revision_id,
             '_version_type': self._version_type,
             '_source': body
-        }
-        action.update(arguments)
-
-        return action
+        } | arguments
 
     def _prepare_record(
             self, record, index, doc_type, arguments=None, **kwargs):

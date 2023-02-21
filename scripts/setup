@@ -78,7 +78,7 @@ invert_warning_option() {
 
 
 DEPLOYMENT=false
-LOADCONTRIBUTIONS=false
+LOADENTITIES=false
 CREATE_ITEMS_HOLDINGS_SMALL=false
 CREATE_ITEMS_HOLDINGS_BIG=false
 STOP_EXECUTION=true
@@ -101,7 +101,7 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 # options may be followed by one colon to indicate they have a required argument
-if ! options=$(getopt -o dCsbclptmwkD:i: -l deployment,contributions,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path:,index_parallel: -- "$@")
+if ! options=$(getopt -o dCsbclptmwkD:i: -l deployment,entities,create_items_holdings_small,create_items_holdings_big,lazy,pursue,time,es-mapping,warnings,enqueue,data_path:,index_parallel: -- "$@")
 then
     # something went wrong, getopt will put out an error message for us
     exit 1
@@ -116,8 +116,8 @@ do
     -L|--load_extra_files)
       LOADEXTRAFILES=true
       ;;
-    -C|--contributions)
-      LOADCONTRIBUTIONS=true
+    -E|--entities)
+      LOADENTITIES=true
       ;;
     -s|--create_items_holdings_small)
       CREATE_ITEMS_HOLDINGS_SMALL=true
@@ -333,34 +333,34 @@ eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
 # SIZE=big # SIZE=small
 # export RERO_ILS_MEF_AGENTS_URL=https://mef.rero.ch/api/agents
 # invenio reroils utils marc21tojson -t rero ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
-# Save the contribution after setup for later use.
-# invenio reroils utils export -t cont -o ${DATA_PATH}/contributions_${SIZE}.json -v
+# Save the entities after setup for later use.
+# invenio reroils utils export -t ent -o ${DATA_PATH}/entities_${SIZE}.json -v
 
 if ${DEPLOYMENT}
 then
     DOCUMENTS=${DATA_PATH}/documents_big.json
     ITEMS=${DATA_PATH}/items_big.json
     HOLDINGS=${DATA_PATH}/holdings_big.json
-    CONTRIBUTIONS=${DATA_PATH}/contributions_big.json
+    ENTITIES=${DATA_PATH}/entities_big.json
 else
     DOCUMENTS=${DATA_PATH}/documents_small.json
     ITEMS=${DATA_PATH}/items_small.json
     HOLDINGS=${DATA_PATH}/holdings_small.json
-    CONTRIBUTIONS=${DATA_PATH}/contributions_small.json
+    ENTITIES=${DATA_PATH}/entities_small.json
 fi
 
 if ${LOADCONTRIBUTIONS}
 then
-    info_msg "- CONTRIBUTIONS: ${CONTRIBUTIONS} ${CREATE_LAZY} ${DONT_STOP}"
-    eval ${PREFIX} invenio reroils fixtures create --pid_type cont --schema 'https://bib.rero.ch/schemas/contributions/contribution-v0.0.1.json' ${CONTRIBUTIONS} --append ${CREATE_LAZY} ${DONT_STOP}
-    info_msg "Indexing Contributions:"
-    eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know
+    info_msg "- ENTITIES: ${ENTITIES} ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio reroils fixtures create --pid_type ent --schema 'https://bib.rero.ch/schemas/entities/entity-v0.0.1.json' ${ENTITIES} --append ${CREATE_LAZY} ${DONT_STOP}
+    info_msg "Indexing Entities:"
+    eval ${PREFIX} invenio reroils index reindex -t ent --yes-i-know
     if [ ${INDEX_PARALLEL} -gt 0 ]; then
         eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
     fi
     eval ${PREFIX} invenio reroils index run --raise-on-error
     if [ ${INDEX_PARALLEL} -gt 0 ]; then
-        eval ${PREFIX} invenio reroils index reindex_missing -t cont -v
+        eval ${PREFIX} invenio reroils index reindex_missing -t ent -v
     fi
 # else
 #     info_msg "- Contributions from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
@@ -431,15 +431,15 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index reindex_missing -t doc -v
 fi
 
-# index contributions
-# We have to reindex contributions to get the oraganisations pids indexed correctly.
-eval ${PREFIX} invenio reroils index reindex -t cont --yes-i-know
+# index entities
+# We have to reindex entities to get the organisations pids indexed correctly.
+eval ${PREFIX} invenio reroils index reindex -t ent --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
 eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t cont -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t ent -v
 fi
 
 info_msg "- Local fields ${DATA_PATH}/local_fields.json ${CREATE_LAZY} ${DONT_STOP}"
