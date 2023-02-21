@@ -21,9 +21,9 @@ import mock
 import pytest
 from utils import mock_response
 
-from rero_ils.modules.contributions.api import Contribution
 from rero_ils.modules.documents.commons import SubjectFactory
 from rero_ils.modules.documents.models import DocumentSubjectType
+from rero_ils.modules.entities.api import Entity
 from rero_ils.modules.utils import get_ref_for_pid
 
 
@@ -101,13 +101,13 @@ def test_document_local_subjects():
 
 
 @mock.patch('requests.get')
-def test_document_referenced_subject(mock_contributions_mef_get,
-                                     mef_agents_url,
-                                     contribution_person_response_data,
-                                     contribution_person):
+def test_document_referenced_subject(
+    mock_contributions_mef_get, mef_agents_url,
+    entity_person_response_data, entity_person
+):
     """Test referenced document subjects."""
     mock_contributions_mef_get.return_value = mock_response(
-        json_data=contribution_person_response_data)
+        json_data=entity_person_response_data)
 
     # REFERENCED SUBJECTS - SUCCESS
     data = {
@@ -121,7 +121,7 @@ def test_document_referenced_subject(mock_contributions_mef_get,
 
     # REFERENCED SUBJECTS - ERRORS
     data = {
-        '$dummy_ref': get_ref_for_pid(Contribution, contribution_person.pid),
+        '$dummy_ref': get_ref_for_pid(Entity, entity_person.pid),
         'type': DocumentSubjectType.PERSON
     }
     with pytest.raises(AttributeError):

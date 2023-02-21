@@ -26,9 +26,8 @@ import mock
 import pytest
 from utils import flush_index, mock_response
 
-from rero_ils.modules.contributions.api import Contribution, \
-    ContributionsSearch
 from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.entities.api import EntitiesSearch, Entity
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
@@ -246,31 +245,30 @@ def journal(app, journal_data):
 
 
 @pytest.fixture(scope="module")
-def contribution_person_data(data):
+def entity_person_data(data):
     """Load mef contribution person data."""
-    return deepcopy(data.get('cont_pers'))
+    return deepcopy(data.get('ent_pers'))
 
 
 @pytest.fixture(scope="function")
-def contribution_person_data_tmp(app, data):
+def entity_person_data_tmp(app, data):
     """Load mef contribution data person scope function."""
-    contribution_person = deepcopy(data.get('cont_pers'))
-    sources = app.config.get('RERO_ILS_CONTRIBUTIONS_SOURCES', [])
-    for source in sources:
-        if source in contribution_person:
-            contribution_person[source].pop('$schema', None)
-    return contribution_person
+    entity_person = deepcopy(data.get('ent_pers'))
+    for source in app.config.get('RERO_ILS_AGENTS_SOURCES', []):
+        if source in entity_person:
+            entity_person[source].pop('$schema', None)
+    return entity_person
 
 
 @pytest.fixture(scope="module")
-def contribution_person_response_data(contribution_person_data):
+def entity_person_response_data(entity_person_data):
     """Load mef contribution person response data."""
     return {
         'hits': {
             'hits': [
                 {
-                    'id': contribution_person_data['pid'],
-                    'metadata': contribution_person_data
+                    'id': entity_person_data['pid'],
+                    'metadata': entity_person_data
                 }
             ]
         }
@@ -278,73 +276,72 @@ def contribution_person_response_data(contribution_person_data):
 
 
 @pytest.fixture(scope="module")
-def contribution_person(app, contribution_person_data):
+def entity_person(app, entity_person_data):
     """Load contribution person record."""
-    cont = Contribution.create(
-        data=contribution_person_data,
+    cont = Entity.create(
+        data=entity_person_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ContributionsSearch.Meta.index)
+    flush_index(EntitiesSearch.Meta.index)
     return cont
 
 
 @pytest.fixture(scope="module")
-def contribution_organisation_data(data):
+def entity_organisation_data(data):
     """Load mef contribution organisation data."""
-    return deepcopy(data.get('cont_org'))
+    return deepcopy(data.get('ent_org'))
 
 
 @pytest.fixture(scope="function")
-def contribution_organisation_data_tmp(data):
+def entity_organisation_data_tmp(data):
     """Load mef contribution data organisation scope function."""
     return deepcopy(data.get('cont_oeg'))
 
 
 @pytest.fixture(scope="module")
-def contribution_organisation_response_data(contribution_organisation_data):
+def entity_organisation_response_data(entity_organisation_data):
     """Load mef contribution organisation response data."""
-    json_data = {
+    return {
         'hits': {
             'hits': [
                 {
-                    'id': contribution_organisation_data['pid'],
-                    'metadata': contribution_organisation_data
+                    'id': entity_organisation_data['pid'],
+                    'metadata': entity_organisation_data
                 }
             ]
         }
     }
-    return json_data
 
 
 @pytest.fixture(scope="module")
-def contribution_organisation(app, contribution_organisation_data):
+def entity_organisation(app, entity_organisation_data):
     """Create mef contribution organisation record."""
-    org = Contribution.create(
-        data=contribution_organisation_data,
+    org = Entity.create(
+        data=entity_organisation_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ContributionsSearch.Meta.index)
+    flush_index(EntitiesSearch.Meta.index)
     return org
 
 
 @pytest.fixture(scope="module")
 def person2_data(data):
     """Load mef person data."""
-    return deepcopy(data.get('cont_pers2'))
+    return deepcopy(data.get('ent_pers2'))
 
 
 @pytest.fixture(scope="function")
 def person2_data_tmp(data):
     """Load mef person data scope function."""
-    return deepcopy(data.get('cont_pers2'))
+    return deepcopy(data.get('ent_pers2'))
 
 
 @pytest.fixture(scope="module")
 def person2_response_data(person2_data):
     """Load mef person response data."""
-    json_data = {
+    return {
         'hits': {
             'hits': [
                 {
@@ -354,28 +351,27 @@ def person2_response_data(person2_data):
             ]
         }
     }
-    return json_data
 
 
 @pytest.fixture(scope="module")
 def person2(app, person2_data):
     """Create mef person record."""
-    pers = Contribution.create(
+    pers = Entity.create(
         data=person2_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(ContributionsSearch.Meta.index)
+    flush_index(EntitiesSearch.Meta.index)
     return pers
 
 
 @pytest.fixture(scope="module")
 @mock.patch('requests.get')
 def document_ref(mock_contributions_mef_get,
-                 app, document_data_ref, contribution_person_response_data):
+                 app, document_data_ref, entity_person_response_data):
     """Load document with mef records reference."""
     mock_contributions_mef_get.return_value = mock_response(
-        json_data=contribution_person_response_data
+        json_data=entity_person_response_data
     )
     doc = Document.create(
         data=document_data_ref,

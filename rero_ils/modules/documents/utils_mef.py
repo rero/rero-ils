@@ -30,7 +30,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from webargs import ValidationError
 
 from .api import Document, DocumentsSearch
-from ..contributions.api import Contribution
+from ..entities.api import Entity
 from ..utils import set_timestamp
 
 
@@ -190,14 +190,14 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
 
     def get_local(self, ref_type, ref_pid):
         """Get local MEF record."""
-        return Contribution.get_contribution(ref_type, ref_pid)
+        return Entity.get_entity(ref_type, ref_pid)
 
     def get_online(self, doc_pid, ref_type, ref_pid):
         """Get online MEF record."""
         ref = f'{ref_type}/{ref_pid}'
         try:
             # try to get the contribution online
-            data = Contribution._get_mef_data_by_type(ref_type, ref_pid)
+            data = Entity._get_mef_data_by_type(ref_type, ref_pid)
             if data.get('idref') or data.get('gnd'):
                 if data.get('deleted'):
                     self.increment_count(self.count_deleted, ref,
@@ -206,8 +206,8 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                     self.increment_count(self.count_found, ref,
                                          f'{doc_pid} Online found')
                     # create and return local contribution
-                    return Contribution.create(data=data, dbcommit=True,
-                                               reindex=True)
+                    return Entity.create(data=data, dbcommit=True,
+                                         reindex=True)
             else:
                 # online contribution has no IdREf, GND or RERO
                 self.increment_count(self.count_no_data, ref,

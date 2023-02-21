@@ -32,7 +32,7 @@ def test_sru_explain(client):
     assert 'sru:explainResponse' in xml_dict
 
 
-def test_sru_documents(client, document_ref, contribution_person_data):
+def test_sru_documents(client, document_ref, entity_person_data):
     """Test sru documents rest api."""
     api_url = url_for('api_sru.documents',
                       version='1.1', operation='searchRetrieve',
