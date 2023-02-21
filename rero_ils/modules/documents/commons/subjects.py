@@ -40,10 +40,9 @@ So we NEVER need to use other classes than `Subject` and `SubjectFactory`.
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 
-from rero_ils.modules.contributions.api import Contribution
-from rero_ils.modules.contributions.utils import \
-    get_contribution_localized_value
 from rero_ils.modules.documents.models import DocumentSubjectType
+from rero_ils.modules.entities.api import Entity
+from rero_ils.modules.entities.utils import get_entity_localized_value
 
 
 # =============================================================================
@@ -87,7 +86,7 @@ class ReferenceSubject(Subject):
         :param language: preferred language for the subject.
         :return the string representation of this subject.
         """
-        sub, _ = Contribution.get_record_by_ref(self.reference)
+        sub, _ = Entity.get_record_by_ref(self.reference)
         return sub.get_authorized_access_point(language=language)
 
 
@@ -107,8 +106,8 @@ class ResolvedReferenceSubject(Subject):
         :param language: preferred language for the subject.
         :return the string representation of this subject.
         """
-        return get_contribution_localized_value(
-            contribution=self.data,
+        return get_entity_localized_value(
+            entity=self.data,
             key='authorized_access_point',
             language=language)
 

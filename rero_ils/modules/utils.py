@@ -390,7 +390,7 @@ def get_schema_for_resource(resource):
 
     USAGE:
       schema = get_schema_for_resource('ptrn')
-      shcema = get_schema_for_resource(Patron)
+      schema = get_schema_for_resource(Patron)
     """
     if not isinstance(resource, str):
         resource = resource.provider.pid_type
@@ -556,7 +556,7 @@ def set_timestamp(name, **kwargs):
     """Set timestamp in current cache.
 
     Allows to timestamp functionality and monitoring of the changed
-    timestamps externaly via url requests.
+    timestamps externally via url requests.
 
     :param name: name of time stamp.
     :returns: time of time stamp

@@ -405,7 +405,7 @@ def test_documents_post_put_delete(
 
 
 def test_documents_get_resolve_rero_json(
-    client, document_ref, contribution_person_data, rero_json_header,
+    client, document_ref, entity_person_data, rero_json_header,
 ):
     """Test record get with resolve and mimetype rero+json."""
     api_url = url_for('invenio_records_rest.doc_item', pid_value='doc2',
@@ -414,7 +414,7 @@ def test_documents_get_resolve_rero_json(
     assert res.status_code == 200
     metadata = get_json(res).get('metadata', {})
     pid = metadata['contribution'][0]['entity']['pid']
-    assert pid == contribution_person_data['pid']
+    assert pid == entity_person_data['pid']
 
 
 def test_document_can_request_view(
@@ -488,8 +488,8 @@ def test_document_boosting(client, ebook_1, ebook_4):
 
 @mock.patch('requests.get')
 def test_documents_resolve(
-        mock_contributions_mef_get, client, mef_agents_url,
-        loc_public_martigny, document_ref, contribution_person_response_data
+    mock_contributions_mef_get, client, mef_agents_url,loc_public_martigny, document_ref,
+    entity_person_response_data
 ):
     """Test document detailed view with items filter."""
     res = client.get(url_for(
@@ -499,7 +499,7 @@ def test_documents_resolve(
     assert res.json['metadata']['contribution'] == [{
         'entity': {
             '$ref': f'{mef_agents_url}/rero/A017671081',
-            'pid': 'cont_pers',
+            'pid': 'ent_pers',
             'type': 'bf:Person'
             },
         'role': ['aut']
@@ -507,7 +507,7 @@ def test_documents_resolve(
     assert res.status_code == 200
 
     mock_contributions_mef_get.return_value = mock_response(
-        json_data=contribution_person_response_data
+        json_data=entity_person_response_data
     )
     res = client.get(url_for(
         'invenio_records_rest.doc_item',

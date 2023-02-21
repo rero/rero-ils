@@ -23,7 +23,7 @@ from celery import shared_task
 
 from .utils_mef import ReplaceMefIdentifiedByContribution, \
     ReplaceMefIdentifiedBySubjects
-from ..contributions.api import Contribution
+from ..entities.api import Entity
 
 
 def get_contribution_or_create(ref_pid, ref_type, count_found, count_exists,
@@ -32,7 +32,7 @@ def get_contribution_or_create(ref_pid, ref_type, count_found, count_exists,
     ref = f'{ref_type}/{ref_pid}'
     if ref_type and ref_pid:
         # Try to get existing contribution
-        cont = Contribution.get_contribution(ref_type, ref_pid)
+        cont = Entity.get_entity(ref_type, ref_pid)
         if cont:
             # contribution exist allready
             count_exists.setdefault(ref, 0)
@@ -41,7 +41,7 @@ def get_contribution_or_create(ref_pid, ref_type, count_found, count_exists,
             # contribution does not exist
             try:
                 # try to get the contribution online
-                data = Contribution._get_mef_data_by_type(ref_pid, ref_type)
+                data = Entity._get_mef_data_by_type(ref_pid, ref_type)
                 if (
                     data.get('idref') or
                     data.get('gnd') or
@@ -55,7 +55,7 @@ def get_contribution_or_create(ref_pid, ref_type, count_found, count_exists,
                     # delete mef $schema
                     data.pop('$schema', None)
                     # create local contribution
-                    cont = Contribution.create(
+                    cont = Entity.create(
                         data=data, dbcommit=True, reindex=True)
                 else:
                     # online contribution has no IdREf, GND or RERO

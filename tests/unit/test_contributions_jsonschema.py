@@ -24,40 +24,40 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(contributions_schema, contribution_person_data_tmp):
+def test_required(entities_schema, entity_person_data_tmp):
     '''Test required for patron jsonschemas.'''
-    validate(contribution_person_data_tmp, contributions_schema)
+    validate(entity_person_data_tmp, entities_schema)
 
     with pytest.raises(ValidationError):
-        validate({}, contributions_schema)
-        validate(contribution_person_data_tmp, contributions_schema)
+        validate({}, entities_schema)
+        validate(entity_person_data_tmp, entities_schema)
 
     with pytest.raises(ValidationError):
         validate({
-            'pid': 'cont_pers',
+            'pid': 'ent_pers',
             'viaf_pid': '56597999',
             'sources': [
                 'rero',
                 'gnd'
-            ]}, contributions_schema)
-        validate(contribution_person_data_tmp, contributions_schema)
+            ]}, entities_schema)
+        validate(entity_person_data_tmp, entities_schema)
 
     with pytest.raises(ValidationError):
         validate({
-            '$schema': 'https://bib.rero.ch/schemas/contributions/'
-                       'contribution-v0.0.1.json',
+            '$schema': 'https://bib.rero.ch/schemas/entities/'
+                       'entity-v0.0.1.json',
             'viaf_pid': '56597999',
             'sources': [
                 'rero',
                 'gnd'
-            ]}, contributions_schema)
-        validate(contribution_person_data_tmp, contributions_schema)
+            ]}, entities_schema)
+        validate(entity_person_data_tmp, entities_schema)
 
     with pytest.raises(ValidationError):
         validate({
-            '$schema': 'https://bib.rero.ch/schemas/contributions/'
-                       'contribution-v0.0.1.json',
-            'pid': 'cont_pers',
+            '$schema': 'https://bib.rero.ch/schemas/entities/'
+                       'entity-v0.0.1.json',
+            'pid': 'ent_pers',
             'viaf_pid': '56597999'
-        }, contributions_schema)
-        validate(contribution_person_data_tmp, contributions_schema)
+        }, entities_schema)
+        validate(entity_person_data_tmp, entities_schema)

@@ -20,9 +20,8 @@
 from dojson import Overdo, utils
 from flask_babelex import gettext as _
 
-from rero_ils.modules.contributions.utils import \
-    get_contribution_localized_value
 from rero_ils.modules.documents.extensions import TitleExtension
+from rero_ils.modules.entities.utils import get_entity_localized_value
 
 
 class DublinCoreOverdo(Overdo):
@@ -84,8 +83,8 @@ CREATOR_ROLES = [
 @utils.ignore_value
 def json_to_contributors(self, key, value):
     """Get creators and contributors data."""
-    authorized_access_point = get_contribution_localized_value(
-        contribution=value.get('entity', {}),
+    authorized_access_point = get_entity_localized_value(
+        entity=value.get('entity', {}),
         key='authorized_access_point',
         language=dublincore.language
     )
@@ -214,8 +213,8 @@ def json_to_subject(self, key, value):
     subject_type = value.get('type')
     if subject_type in ['bf:Person', 'bf:Organisation', 'bf:Place']:
         # TODO: set the language
-        authorized_access_point = get_contribution_localized_value(
-            contribution=value,
+        authorized_access_point = get_entity_localized_value(
+            entity=value,
             key='authorized_access_point',
             language=dublincore.language
         )

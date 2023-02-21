@@ -51,11 +51,11 @@ def test_count(app, script_info):
 
 @mock.patch('requests.get')
 def test_create(mock_contributions_mef_get, app, script_info,
-                contribution_person_response_data):
+                entity_person_response_data):
     """Test create cli."""
     json_file_name = join(dirname(__file__), '../data/documents.json')
     mock_contributions_mef_get.return_value = mock_response(
-        json_data=contribution_person_response_data
+        json_data=entity_person_response_data
     )
 
     runner = CliRunner()

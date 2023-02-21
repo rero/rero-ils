@@ -27,7 +27,7 @@ from rero_ils.modules.commons.identifiers import IdentifierFactory, \
 from rero_ils.utils import get_i18n_supported_languages
 
 from .base import BaseDocumentFormatterMixin
-from ..dumpers import document_replace_refs
+from ..dumpers import document_replace_refs_dumper
 from ..utils import process_literal_contributions
 
 
@@ -41,7 +41,7 @@ class RISSerializer(SerializerMixinInterface):
         :param record: Record instance.
         :param links_factory: Factory function for record links.
         """
-        record = record.dumps(document_replace_refs)
+        record = record.dumps(document_replace_refs_dumper)
         if contributions := process_literal_contributions(
                 record.get('contribution', [])):
             record['contribution'] = contributions
