@@ -23,7 +23,7 @@ from __future__ import absolute_import, print_function
 import hashlib
 
 from rero_ils.filter import format_date_filter
-from rero_ils.modules.documents.dumpers import document_title
+from rero_ils.modules.documents.dumpers import document_title_dumper
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
 from rero_ils.modules.loans.api import LoanState
 from rero_ils.modules.locations.api import Location
@@ -92,7 +92,8 @@ class BookingCirculationNotification(CirculationNotification):
             )
             # merge doc and item metadata preserving document key
             item_data = notification.item.dumps(dumper=item_dumper)
-            doc_data = notification.document.dumps(dumper=document_title)
+            doc_data = notification.document.dumps(
+                dumper=document_title_dumper)
             doc_data = {**item_data, **doc_data}
             # pickup location name --> !! pickup is on notif.request_loan, not
             # on notif.loan

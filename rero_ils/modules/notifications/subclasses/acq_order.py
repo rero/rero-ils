@@ -148,10 +148,9 @@ class AcquisitionOrderNotification(Notification, ABC):
                               the required data to build the template.
         :return: a ``dict`` containing all required data to build the template.
         """
-        context = {}
         notifications = notifications or []
         if not notifications:
-            return context
+            return {}
 
         notification = notifications[0]
         order = notification.order

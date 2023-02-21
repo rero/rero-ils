@@ -29,14 +29,14 @@ from rero_ils.modules.documents.api import Document, DocumentsSearch
 @mock.patch('requests.get')
 def test_document_es_mapping(mock_contributions_mef_get, es, db, org_martigny,
                              document_data_ref, item_lib_martigny,
-                             contribution_person_response_data):
+                             entity_person_response_data):
     """Test document elasticsearch mapping."""
     search = DocumentsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     data = deepcopy(document_data_ref)
     mock_contributions_mef_get.return_value = mock_response(
-        json_data=contribution_person_response_data
+        json_data=entity_person_response_data
     )
     Document.create(
         data,

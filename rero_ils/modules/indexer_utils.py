@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,8 +41,8 @@ def record_to_index(record):
 
     # authorities specific transformation
     if re.search(r'/mef/', schema):
-        schema = re.sub(r'/mef/', '/contributions/', schema)
-        schema = re.sub(r'mef-contribution', 'contribution', schema)
+        schema = re.sub(r'/mef/', '/entities/', schema)
+        schema = re.sub(r'mef-contribution', 'entity', schema)
     index, doc_type = schema_to_index(schema, index_names=index_names)
 
     if index and doc_type:

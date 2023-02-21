@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,13 +25,13 @@ from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 class MultiDumper(InvenioRecordsDumper):
     """Aggregate several dumpers."""
 
-    def __init__(self, dumpers=[]):
+    def __init__(self, dumpers=None):
         """Constructor.
 
         :param dumpers: list - list of dumpers to aggregate.
         """
         super().__init__()
-        self._dumpers = dumpers
+        self._dumpers = dumpers or []
 
     def dump(self, record, data):
         """Dump a record that can be used a source document.
