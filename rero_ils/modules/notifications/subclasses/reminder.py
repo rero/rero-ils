@@ -25,7 +25,7 @@ from num2words import num2words
 
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
     OVERDUE_REMINDER_TYPE
-from rero_ils.modules.documents.dumpers import document_title
+from rero_ils.modules.documents.dumpers import document_title_dumper
 from rero_ils.modules.libraries.dumpers import \
     LibraryCirculationNotificationDumper
 from rero_ils.modules.loans.utils import get_circ_policy
@@ -154,13 +154,13 @@ class ReminderCirculationNotification(CirculationNotification):
         include_address = notifications[0].get_communication_channel == \
             NotificationChannel.MAIL
         # Dump basic informations
-        context.update({
+        context |= {
             'include_patron_address': include_address,
             'patron': patron.dumps(dumper=PatronNotificationDumper()),
             'library': library.dumps(
                 dumper=LibraryCirculationNotificationDumper()),
             'loans': []
-        })
+        }
         # Add metadata for any ``notification.loan`` of the notifications list
         item_dumper = ItemNotificationDumper()
         language = language_iso639_2to1(notifications[0].get_language_to_use())
@@ -175,7 +175,8 @@ class ReminderCirculationNotification(CirculationNotification):
                 end_date = end_date.strftime("%d.%m.%Y")
             # merge doc and item metadata preserving document key
             item_data = notification.item.dumps(dumper=item_dumper)
-            doc_data = notification.document.dumps(dumper=document_title)
+            doc_data = notification.document.dumps(
+                dumper=document_title_dumper)
             doc_data = {**item_data, **doc_data}
             context['loans'].append({
                 'document': doc_data,

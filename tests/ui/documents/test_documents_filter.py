@@ -16,8 +16,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Document filters tests."""
+import mock
 
-from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.models import DocumentSubjectType
 from rero_ils.modules.documents.views import cartographic_attributes, \
     contribution_format, identified_by, main_title_text, note_general, \
@@ -394,11 +394,24 @@ def test_work_access_point():
     assert results == work_access_point(wap)
 
 
-def test_contribution_format(db, document_data):
+def test_contribution_format(db, document, entity_organisation):
     """Test contribution format."""
     result = 'Nebehay, Christian Michael'
-    doc = Document.create(document_data, delete_pid=True)
-    assert contribution_format(doc.pid, 'en', 'global').startswith(result)
+    assert contribution_format(document.pid, 'en', 'global').startswith(result)
+
+    magic_mock = mock.MagicMock(return_value={
+        'contribution': [{
+            'entity': {
+                'pid': entity_organisation.pid,
+            }
+        }]
+    })
+    with mock.patch(
+        'rero_ils.modules.documents.api.Document.dumps',
+        magic_mock
+    ):
+        link_part = f'/corporate-bodies/{entity_organisation.pid}'
+        assert link_part in contribution_format(document.pid, 'en', 'global')
 
 
 def test_identifiedby_format():
