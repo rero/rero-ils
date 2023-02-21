@@ -211,11 +211,11 @@ def patron_martigny_data_tmp_with_id(patron_martigny_data_tmp):
 
 
 @pytest.fixture()
-def contributions_schema(monkeypatch):
-    """Patron Jsonschema for records."""
+def entities_schema(monkeypatch):
+    """Entity Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.contributions.jsonschemas',
-        '/contributions/contribution-v0.0.1.json'
+        'rero_ils.modules.entities.jsonschemas',
+        '/entities/entity-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
 
@@ -292,7 +292,7 @@ def mef_record_with_idref_rero():
     """Mef record with idref rero."""
     return {
         '$schema': 'https://ils.rero.ch/schemas/'
-                   'contributions/contribution-v0.0.1.json',
+                   'entities/entity-v0.0.1.json',
         'idref': {
             '$schema': 'https://mef.rero.ch/schemas/'
                        'agents_idref/idref-agent-v0.0.1.json',

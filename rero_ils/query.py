@@ -180,7 +180,7 @@ def search_factory_for_holdings_and_items(view, search):
     return search
 
 
-def contribution_view_search_factory(self, search, query_parser=None):
+def entity_view_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
     view = request.args.get(
         'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))

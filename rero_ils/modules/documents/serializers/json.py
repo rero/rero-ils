@@ -30,7 +30,7 @@ from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.organisations.api import OrganisationsSearch
 from rero_ils.modules.serializers import JSONSerializer
 
-from ..dumpers import document_replace_refs
+from ..dumpers import document_replace_refs_dumper
 from ..extensions import TitleExtension
 
 GLOBAL_VIEW_CODE = LocalProxy(lambda: current_app.config.get(
@@ -207,7 +207,7 @@ class DocumentExportJSONSerializer(JSONSerializer):
         :param record: Record instance.
         :param links_factory: Factory function for record links.
         """
-        record = record.dumps(document_replace_refs)
+        record = record.dumps(document_replace_refs_dumper)
         if contributions := process_literal_contributions(
                 record.get('contribution', [])):
             record['contribution'] = contributions

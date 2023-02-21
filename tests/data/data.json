@@ -1489,8 +1489,8 @@
       }
     ]
   },
-  "cont_pers": {
-    "$schema": "https://bib.rero.ch/schemas/contributions/contribution-v0.0.1.json",
+  "ent_pers": {
+    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
     "gnd": {
       "$schema": "https://mef.test.rero.ch/schemas/gnd/gnd-contribution-v0.0.1.json",
       "bf:Agent": "bf:Person",
@@ -1537,7 +1537,7 @@
       "authorized_access_point": "Loy, Georg, 1885-19..",
       "preferred_name": "Loy, Georg"
     },
-    "pid": "cont_pers",
+    "pid": "ent_pers",
     "type": "bf:Person",
     "sources": [
       "gnd",
@@ -1546,8 +1546,8 @@
     ],
     "viaf_pid": "70119347"
   },
-  "cont_org": {
-    "$schema": "https://bib.rero.ch/schemas/contributions/contribution-v0.0.1.json",
+  "ent_org": {
+    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
     "gnd": {
       "$schema": "https://mef.rero.ch/schemas/gnd/gnd-contribution-v0.0.1.json",
       "bf:Agent": "bf:Organisation",
@@ -1570,7 +1570,7 @@
       "pid": "A027711299",
       "preferred_name": "Convegno internazionale di Italianistica"
     },
-    "pid": "cont_org",
+    "pid": "ent_org",
     "type": "bf:Organisation",
     "sources": [
       "rero",
@@ -1578,7 +1578,7 @@
     ],
     "viaf_pid": "3117153063217219320007"
   },
-  "cont_pers2": {
+  "ent_pers2": {
     "$schema": "https://mef.rero.ch/schemas/mef/mef-v0.0.1.json",
     "type": "bf:Person",
     "gnd": {
@@ -1621,7 +1621,7 @@
       "pid": "029314100",
       "preferred_name": "Nebehay, Christian Michael"
     },
-    "pid": "cont_pers2",
+    "pid": "ent_pers2",
     "rero": {
       "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
       "authorized_access_point": "Nebehay, Christian Michael",
