@@ -23,7 +23,6 @@ from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.stats.api import StatsSearch
-from rero_ils.modules.stats_cfg.extensions import StatConfigDataExtension
 from rero_ils.modules.stats_cfg.models import StatCfgIdentifier, \
     StatCfgMetadata
 
@@ -60,10 +59,6 @@ class StatConfiguration(IlsRecord):
     fetcher = stat_cfg_id_fetcher
     provider = StatCfgProvider
     model_cls = StatCfgMetadata
-
-    _extensions = [
-        StatConfigDataExtension()
-    ]
 
     def get_links_to_me(self, get_pids=False):
         """Record links.

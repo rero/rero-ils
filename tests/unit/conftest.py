@@ -56,6 +56,16 @@ def template_schema(monkeypatch):
 
 
 @pytest.fixture()
+def stats_cfg_schema(monkeypatch):
+    """Template Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.stats_cfg.jsonschemas',
+        'stats_cfg/stats_cfg-v0.0.1.json',
+    )
+    return get_schema(monkeypatch, schema_in_bytes)
+
+
+@pytest.fixture()
 def notification_schema(monkeypatch):
     """Notifications Jsonschema for records."""
     schema_in_bytes = resource_string(

@@ -1,0 +1,1241 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Statistics configuration",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "name",
+    "description",
+    "frequency",
+    "category",
+    "is_active"
+  ],
+  "required": [
+    "$schema",
+    "pid",
+    "name",
+    "frequency",
+    "is_active",
+    "organisation",
+    "category"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate statistics configuration records against.",
+      "type": "string",
+      "minLength": 9,
+      "default": "https://bib.rero.ch/schemas/stats_cfg/stats_cfg-v0.0.1.json"
+    },
+    "pid": {
+      "title": "Configuration ID",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "description": "Name of the configuration.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "focus": true
+    },
+    "description": {
+      "title": "Description",
+      "description": "Description of the configuration.",
+      "type": "string",
+      "minLength": 1,
+      "widget": {
+        "formlyConfig": {
+          "type": "textarea",
+          "templateOptions": {
+            "rows": 3,
+            "navigation": {
+              "essential": true
+            }
+          }
+        }
+      }
+    },
+    "frequency": {
+      "title": "Frequency",
+      "description": "Frequency at which the statistics reports are created.",
+      "type": "string",
+      "enum": [
+        "month",
+        "year"
+      ],
+      "widget": {
+        "formlyConfig": {
+          "options": [
+            {
+              "value": "month",
+              "label": "month"
+            },
+            {
+              "value": "year",
+              "label": "year"
+            }
+          ]
+        }
+      }
+    },
+    "is_active": {
+      "title": "Active",
+      "description": "Is the configuration active.",
+      "type": "boolean",
+      "default": true
+    },
+    "organisation": {
+      "title": "Organisation",
+      "description": "The system librarian's organisation.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
+      "properties": {
+        "$ref": {
+          "title": "Organisation URI",
+          "type": "string",
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
+        }
+      }
+    },
+    "category": {
+      "title": "Category",
+      "description": "Category of the configuration.",
+      "type": "object",
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "indicator"
+          ],
+          "required": [
+            "type",
+            "indicator"
+          ],
+          "title": "Catalogue",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "const": "catalogue",
+              "default": "catalogue",
+              "widget": {
+                "formlyConfig": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "indicator": {
+              "title": "Indicator",
+              "type": "object",
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of documents",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_documents",
+                      "default": "number_of_documents",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "additionalProperties": false,
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library",
+                              "imported"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                },
+                                {
+                                  "value": "imported",
+                                  "label": "imported"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: documents"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of serial holdings",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_serial_holdings",
+                      "default": "number_of_serial_holdings",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "additionalProperties": false,
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: holdings"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of items",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_items",
+                      "default": "number_of_items",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "additionalProperties": false,
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library",
+                              "location",
+                              "type"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                },
+                                {
+                                  "value": "location",
+                                  "label": "location"
+                                },
+                                {
+                                  "value": "type",
+                                  "label": "type"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: items"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "period",
+                    "distributions",
+                    "filter"
+                  ],
+                  "required": [
+                    "type",
+                    "period"
+                  ],
+                  "title": "Number of deleted items",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_deleted_items",
+                      "default": "number_of_deleted_items",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "additionalProperties": false,
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library",
+                              "item_location",
+                              "type"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                },
+                                {
+                                  "value": "item_location",
+                                  "label": "item_location"
+                                },
+                                {
+                                  "value": "type",
+                                  "label": "type"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "period": {
+                      "$ref": "#/definitions/period"
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: operation_logs"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "indicator"
+          ],
+          "required": [
+            "type",
+            "indicator"
+          ],
+          "title": "Circulation",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "const": "circulation",
+              "default": "circulation",
+              "widget": {
+                "formlyConfig": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "indicator": {
+              "title": "Indicator",
+              "type": "object",
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "period",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of ill requests",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_ill_requests",
+                      "default": "number_of_ill_requests",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library",
+                              "status"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                },
+                                {
+                                  "value": "status",
+                                  "label": "status"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "period": {
+                      "$ref": "#/definitions/period"
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: ill_requests"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "period",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of checkins",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_checkins",
+                      "default": "number_of_checkins",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library",
+                              "item_owning_library",
+                              "item_location",
+                              "patron_type",
+                              "document_type",
+                              "transaction_channel"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                },
+                                {
+                                  "value": "item_owning_library",
+                                  "label": "item_owning_library"
+                                },
+                                {
+                                  "value": "item_location",
+                                  "label": "item_location"
+                                },
+                                {
+                                  "value": "patron_type",
+                                  "label": "patron_type"
+                                },
+                                {
+                                  "value": "document_type",
+                                  "label": "document_type"
+                                },
+                                {
+                                  "value": "transaction_channel",
+                                  "label": "transaction_channel"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "period": {
+                      "$ref": "#/definitions/period"
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: operation_logs"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "period",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of checkouts",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_checkouts",
+                      "default": "number_of_checkouts",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library",
+                              "item_owning_library",
+                              "item_location",
+                              "patron_type",
+                              "document_type",
+                              "transaction_channel"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                },
+                                {
+                                  "value": "item_owning_library",
+                                  "label": "item_owning_library"
+                                },
+                                {
+                                  "value": "item_location",
+                                  "label": "item_location"
+                                },
+                                {
+                                  "value": "patron_type",
+                                  "label": "patron_type"
+                                },
+                                {
+                                  "value": "document_type",
+                                  "label": "document_type"
+                                },
+                                {
+                                  "value": "transaction_channel",
+                                  "label": "transaction_channel"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "period": {
+                      "$ref": "#/definitions/period"
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: operation_logs"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "period",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of renewals",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_renewals",
+                      "default": "number_of_renewals",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library",
+                              "item_owning_library",
+                              "item_location",
+                              "patron_type",
+                              "document_type",
+                              "transaction_channel"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                },
+                                {
+                                  "value": "item_owning_library",
+                                  "label": "item_owning_library"
+                                },
+                                {
+                                  "value": "item_location",
+                                  "label": "item_location"
+                                },
+                                {
+                                  "value": "patron_type",
+                                  "label": "patron_type"
+                                },
+                                {
+                                  "value": "document_type",
+                                  "label": "document_type"
+                                },
+                                {
+                                  "value": "transaction_channel",
+                                  "label": "transaction_channel"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "period": {
+                      "$ref": "#/definitions/period"
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: operation_logs"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "period",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of requests",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_requests",
+                      "default": "number_of_requests",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "item_owning_library",
+                              "item_location",
+                              "patron_type",
+                              "document_type",
+                              "transaction_channel",
+                              "location"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "item_owning_library",
+                                  "label": "item_owning_library"
+                                },
+                                {
+                                  "value": "item_location",
+                                  "label": "item_location"
+                                },
+                                {
+                                  "value": "patron_type",
+                                  "label": "patron_type"
+                                },
+                                {
+                                  "value": "document_type",
+                                  "label": "document_type"
+                                },
+                                {
+                                  "value": "transaction_channel",
+                                  "label": "transaction_channel"
+                                },
+                                {
+                                  "value": "location",
+                                  "label": "location"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "period": {
+                      "$ref": "#/definitions/period"
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: operation_logs"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "type",
+            "indicator"
+          ],
+          "required": [
+            "indicator",
+            "type"
+          ],
+          "title": "User management",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "type": "string",
+              "const": "user_management",
+              "default": "user_management",
+              "widget": {
+                "formlyConfig": {
+                  "wrappers": [
+                    "hide"
+                  ]
+                }
+              }
+            },
+            "indicator": {
+              "title": "Indicator",
+              "type": "object",
+              "oneOf": [
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of patrons",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_patrons",
+                      "default": "number_of_patrons",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library",
+                              "gender",
+                              "role"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                },
+                                {
+                                  "value": "gender",
+                                  "label": "gender"
+                                },
+                                {
+                                  "value": "role",
+                                  "label": "role"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: patrons"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "additionalProperties": false,
+                  "propertiesOrder": [
+                    "type",
+                    "distributions",
+                    "filter"
+                  ],
+                  "required": [
+                    "type"
+                  ],
+                  "title": "Number of active patrons",
+                  "properties": {
+                    "type": {
+                      "title": "Type",
+                      "type": "string",
+                      "const": "number_of_active_patrons",
+                      "default": "number_of_active_patrons",
+                      "widget": {
+                        "formlyConfig": {
+                          "wrappers": [
+                            "hide"
+                          ]
+                        }
+                      }
+                    },
+                    "distributions": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/distributions"
+                        },
+                        {
+                          "items": {
+                            "title": "distributions",
+                            "type": "string",
+                            "enum": [
+                              "time_range_month",
+                              "time_range_year",
+                              "library",
+                              "patron_postal_code",
+                              "gender"
+                            ]
+                          },
+                          "widget": {
+                            "formlyConfig": {
+                              "type": "selectWithSort",
+                              "options": [
+                                {
+                                  "value": "time_range_month",
+                                  "label": "time_range_month"
+                                },
+                                {
+                                  "value": "time_range_year",
+                                  "label": "time_range_year"
+                                },
+                                {
+                                  "value": "library",
+                                  "label": "library"
+                                },
+                                {
+                                  "value": "patron_postal_code",
+                                  "label": "patron_postal_code"
+                                },
+                                {
+                                  "value": "gender",
+                                  "label": "gender"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "filter": {
+                      "allOf": [
+                        {
+                          "$ref": "#/definitions/filter"
+                        },
+                        {
+                          "description": "index: operation_logs"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "definitions": {
+    "distributions": {
+      "title": "Distributions",
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "period": {
+      "title": "Period",
+      "description": "Time range of data used to calculate the statistics report.",
+      "type": "string",
+      "enum": [
+        "month",
+        "year"
+      ],
+      "widget": {
+        "formlyConfig": {
+          "options": [
+            {
+              "value": "month",
+              "label": "month"
+            },
+            {
+              "value": "year",
+              "label": "year"
+            }
+          ]
+        }
+      }
+    },
+    "filter": {
+      "title": "Filter",
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
