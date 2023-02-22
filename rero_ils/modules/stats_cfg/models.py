@@ -39,10 +39,3 @@ class StatCfgMetadata(db.Model, RecordMetadataBase):
     """Statistics configuration record metadata."""
 
     __tablename__ = 'stat_cfg_metadata'
-
-
-class StatConfigurationStatus:
-    """Statistics configuration status."""
-
-    ENABLED = 'enabled'
-    DISABLED = 'disabled'

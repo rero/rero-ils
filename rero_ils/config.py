@@ -2281,7 +2281,20 @@ RECORDS_REST_FACETS = dict(
                 'subtype': terms_filter('subtype')
             }
         }
-
+    ),
+    stats_cfg=dict(
+        aggs=dict(
+            category=dict(
+                terms=dict(
+                    field='category.type',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'stats_cfg', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
+        ),
+        filters={
+            _('category'): and_term_filter('category.type')
+        }
     )
 )
 
@@ -2329,6 +2342,7 @@ indexes = [
     'patron_transaction_events',
     'patron_transactions',
     'patron_types',
+    'stats_cfg',
     'templates',
     'vendors'
 ]
@@ -2617,6 +2631,14 @@ RECORDS_REST_SORT_OPTIONS['patron_transaction_events']['amount'] = dict(
 )
 RECORDS_REST_DEFAULT_SORT['acq_accounts'] = dict(query='bestmatch', noquery='created')
 
+# ------ STATISTICS CONFIG SORT
+RECORDS_REST_SORT_OPTIONS['stats_cfg']['name'] = dict(
+    fields=['name.raw'], title='Statistics config name',
+    default_order='asc'
+)
+RECORDS_REST_DEFAULT_SORT['stats_cfg'] = dict(
+    query='bestmatch', noquery='name')
+
 
 # =============================================================================
 # RERO_ILS PERMISSIONS CONFIGURATION
@@ -2884,7 +2906,7 @@ RERO_ILS_DEFAULT_JSON_SCHEMA = {
     'ptre': '/patron_transaction_events/patron_transaction_event-v0.0.1.json',
     'ptrn': '/patrons/patron-v0.0.1.json',
     'stat': '/stats/stat-v0.0.1.json',
-    'stacfg': '/stats_cfg/stat_cfg-v0.0.1.json',
+    'stacfg': '/stats_cfg/stats_cfg-v0.0.1.json',
     'tmpl': '/templates/template-v0.0.1.json',
     'oplg': '/operation_logs/operation_log-v0.0.1.json',
     'vndr': '/vendors/vendor-v0.0.1.json',
