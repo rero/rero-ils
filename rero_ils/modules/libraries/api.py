@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""API for manipulating libraries."""
+"""API for manipulating `Library` resources."""
 
 from datetime import datetime, timedelta
 from functools import partial
@@ -37,6 +37,7 @@ from rero_ils.modules.utils import date_string_to_utc, \
     extracted_data_from_ref, sorted_pids, strtotime
 
 from .exceptions import LibraryNeverOpen
+from .extensions import LibraryCalendarChangesExtension
 from .models import LibraryAddressType, LibraryIdentifier, LibraryMetadata
 
 # provider
@@ -77,6 +78,10 @@ class Library(IlsRecord):
             'org': 'organisation'
         }
     }
+
+    _extensions = [
+        LibraryCalendarChangesExtension(['opening_hours', 'exception_dates'])
+    ]
 
     def extended_validation(self, **kwargs):
         """Add additional record validation.
@@ -242,20 +247,21 @@ class Library(IlsRecord):
         is_open = False
         rule_hours = []
 
-        # First of all, change date to be aware and with timezone.
+        # First, change date to be aware and with timezone.
         if isinstance(date, str):
             date = date_string_to_utc(date)
         if isinstance(date, datetime) and date.tzinfo is None:
             date = date.replace(tzinfo=pytz.utc)
 
         # STEP 1 :: check about regular rules
-        #   Each library could defined if a specific weekday is open or closed.
+        #   Each library could define if a specific weekday is open or closed.
         #   Check into this weekday array if the day is open/closed. If the
         #   searched weekday isn't defined the default value is closed
         #
         #   If the find rule defined open time periods, check if date_to_check
-        #   is into this periods (depending of `day_only` method argument).
-        day_name = date.strftime("%A").lower()
+        #   is into one of these periods (depending on `day_only` method
+        #   argument).
+        day_name = date.strftime('%A').lower()
         regular_rule = [
             rule for rule in self.get('opening_hours', [])
             if rule['day'] == day_name
@@ -267,14 +273,14 @@ class Library(IlsRecord):
         if is_open and not day_only:
             is_open = self._is_betweentimes(date.time(), rule_hours)
 
-        # STEP 2 :: test each exceptions
-        #   Each library can defined a set of exception dates. These exceptions
+        # STEP 2 :: test each exception
+        #   Each library can define a set of exception dates. These exceptions
         #   could be repeatable for a specific interval. Check is some
         #   exceptions are relevant related to date_to_check and if these
-        #   exception changed the behavior of regular rules.
+        #   exceptions changed the behavior of regular rules.
         #
-        #   Each exception can defined open time periods, check if
-        #   date_to_check is into this periods (depending of `day_only`
+        #   Each exception can define open time periods, check if
+        #   date_to_check is into one of these periods (depending on `day_only`
         #   method argument)
         for exception in self._get_exceptions_matching_date(date, day_only):
             if is_open != exception['is_open']:
