@@ -574,20 +574,14 @@ def set_timestamp(name, **kwargs):
     timestamps externally via url requests.
 
     :param name: name of time stamp.
+    :param kwargs: any additional
     :returns: time of time stamp
     """
-    time_stamps = current_cache.get('timestamps')
-    if not time_stamps:
-        time_stamps = {}
+    time_stamps = current_cache.get('timestamps') or {}
     utc_now = datetime.utcnow()
-    time_stamps[name] = {}
-    time_stamps[name]['time'] = utc_now
-    for key, value in kwargs.items():
-        time_stamps[name][key] = value
-    time_stamps[name]['name'] = name
+    time_stamps[name] = kwargs | {'time': utc_now, 'name': name}
     if not current_cache.set(key='timestamps', value=time_stamps, timeout=0):
-        current_app.logger.warning(
-            f'Can not set time stamp for: {name}')
+        current_app.logger.warning(f'Can not set time stamp for: {name}')
     return utc_now
 
 
@@ -631,7 +625,7 @@ def profile(output_file=None, sort_by='cumulative', lines_to_print=None,
     def inner(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            _output_file = output_file or func.__name__ + '.prof'
+            _output_file = output_file or f'{func.__name__}.prof'
             pr = cProfile.Profile()
             pr.enable()
             retval = func(*args, **kwargs)
@@ -670,7 +664,7 @@ def timeit(func):
 
 
 def get_timestamp(name):
-    """Get timestamp in current cache.
+    """Get timestamp from current cache.
 
     :param name: name of time stamp.
     :returns: data for time stamp

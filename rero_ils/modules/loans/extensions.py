@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -36,9 +36,9 @@ class CheckoutLocationExtension(RecordExtension):
     def _add_checkout_location(record):
         """Add the checkout location as a new loan field.
 
-        During the laon life cycle, the transaction location could be update.
-        By example, when a loan is extended, the transaction location pid is
-        updated with the location pid where the extend operation is done. In
+        During the loan life cycle, the transaction location could be updated.
+        For example, when a loan is extended, the transaction location pid is
+        updated with the location pid where the "extend" operation is done. In
         this case, it's impossible to retrieve the checkout location pid
         without using heavy versioning behavior or external `OperationLog`
         module.
@@ -67,7 +67,7 @@ class CirculationDatesExtension(RecordExtension):
 
         This value is consistent only if the loan is a validated request
         (loan.state == ITEM_AT_DESK). If the loan state is different this
-        value could represent an other concept.
+        value could represent another concept.
 
         :param record: the record metadata.
         """
@@ -110,7 +110,7 @@ class CirculationDatesExtension(RecordExtension):
         :param record: the record metadata.
         """
         from .utils import get_circ_policy
-        if record.state == LoanState.ITEM_ON_LOAN and record.get('end_date'):
+        if record.state == LoanState.ITEM_ON_LOAN and record.end_date:
             # find the correct policy based on the checkout location.
             circ_policy = get_circ_policy(record, checkout_location=True)
             due_date = ciso8601.parse_datetime(record.end_date).replace(

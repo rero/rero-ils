@@ -1181,6 +1181,20 @@ def get_loans_count_by_library_for_patron_pid(patron_pid, filter_states=None):
     }
 
 
+def get_on_loan_loans_for_library(library_pid):
+    """Get 'ON_LOAN' loans for a specific library.
+
+    :param library_pid: the library pid.
+    :returns a generator of `Loan` record.
+    """
+    query = current_circulation.loan_search_cls() \
+        .filter('term', library_pid=library_pid) \
+        .filter('term', state=LoanState.ITEM_ON_LOAN) \
+        .source(False)
+    for id_ in [hit.meta.id for hit in query.scan()]:
+        yield Loan.get_record(id_)
+
+
 def get_due_soon_loans(tstamp=None):
     """Return all due_soon loans.
 
