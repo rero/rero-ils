@@ -13660,7 +13660,6 @@
                </marc:datafield>
                <marc:datafield tag="100" ind1="1" ind2=" ">
                   <marc:subfield code="a">De Pelsmacker, Patrick</marc:subfield>
-                  <marc:subfield code="0">(viaf)15054858</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="245" ind1="1" ind2=" ">
                   <marc:subfield code="a">Marketing communications :</marc:subfield>
@@ -13691,11 +13690,9 @@
                </marc:datafield>
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Geuens, Maggie</marc:subfield>
-                  <marc:subfield code="0">(viaf)17507331</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Van den Bergh, Joeri</marc:subfield>
-                  <marc:subfield code="0">(viaf)47046670</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="852" ind1="4" ind2=" ">
                   <marc:subfield code="x">EB</marc:subfield>
@@ -14231,7 +14228,6 @@
                </marc:datafield>
                <marc:datafield tag="100" ind1="1" ind2=" ">
                   <marc:subfield code="a">De Pelsmacker, Patrick</marc:subfield>
-                  <marc:subfield code="0">(viaf)15054858</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="245" ind1="1" ind2=" ">
                   <marc:subfield code="a">Marketing communications :</marc:subfield>
@@ -14265,11 +14261,9 @@
                </marc:datafield>
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Geuens, Maggie</marc:subfield>
-                  <marc:subfield code="0">(viaf)17507331</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Van den Bergh, Joeri</marc:subfield>
-                  <marc:subfield code="0">(viaf)47046670</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="852" ind1="4" ind2=" ">
                   <marc:subfield code="x">EB</marc:subfield>

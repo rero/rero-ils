@@ -856,7 +856,6 @@
                </marc:datafield>
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Tirosh-Samuelson, Hava</marc:subfield>
-                  <marc:subfield code="0">(viaf)98261499</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="852" ind1="4" ind2=" ">
                   <marc:subfield code="x">LW</marc:subfield>
@@ -993,12 +992,10 @@
                </marc:datafield>
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Barnett, William Arnold</marc:subfield>
-                  <marc:subfield code="0">(viaf)76372038</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Samuelson, Paul Anthony,</marc:subfield>
                   <marc:subfield code="d">1915-2009</marc:subfield>
-                  <marc:subfield code="0">(viaf)98511352</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="852" ind1="4" ind2=" ">
                   <marc:subfield code="x">EB</marc:subfield>

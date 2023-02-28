@@ -34,7 +34,6 @@
           </datafield>
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Urchs, Ossi</subfield>
-            <subfield code="0">(RERO)A003922810</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -66,17 +65,14 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Téléphonie Internet</subfield>
-            <subfield code="0">(RERO)A021064672</subfield>
             <subfield code="2">rero</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="655">
             <subfield code="a">[Manuels d'enseignement]</subfield>
-            <subfield code="0">(RERO)A021098695</subfield>
             <subfield code="2">rero</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Zapp, Harald</subfield>
-            <subfield code="0">(RERO)A013058709</subfield>
           </datafield>
           <datafield ind1="0" ind2="1" tag="852">
             <subfield code="a">41SLSP_BCUFR</subfield>

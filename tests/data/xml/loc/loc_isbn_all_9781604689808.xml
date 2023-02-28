@@ -144,7 +144,6 @@
   </datafield>
   <datafield tag="650" ind1=" " ind2="7">
     <subfield code="a">Morale sociale</subfield>
-    <subfield code="0">(RERO)A021003578</subfield>
     <subfield code="2">rero</subfield>
   </datafield>
   <datafield tag="655" ind1=" " ind2="7">
@@ -155,7 +154,6 @@
   <datafield tag="700" ind1="1" ind2=" ">
     <subfield code="a">Chatelain, Yannick</subfield>
     <subfield code="d">1965-....</subfield>
-    <subfield code="0">(IDREF)055771041</subfield>
     <subfield code="4">cre</subfield>
   </datafield>
   <datafield tag="710" ind1="2" ind2=" ">
