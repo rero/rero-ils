@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2022-12-20 16:04+0100\n"
-"PO-Revision-Date: 2022-12-20 15:31+0000\n"
+"PO-Revision-Date: 2023-02-28 13:13+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.1-dev\n"
+"X-Generator: Weblate 4.16-rc\n"
 "Generated-By: Babel 2.10.3\n"
 
 #: rero_ils/accounts_views.py:46 rero_ils/accounts_views.py:69
@@ -11665,7 +11665,7 @@ msgstr "Das Enddatum des Abonnements (ausgewähltes Datum ausgeschlossen)."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:343
 msgid "Patron transaction"
-msgstr "Gebühren"
+msgstr "Gebühr"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:360
 msgid "Blocking"
