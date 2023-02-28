@@ -92,7 +92,6 @@
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Conraux, Aurélien</marc:subfield>
                   <marc:subfield code="4">edt</marc:subfield>
-                  <marc:subfield code="0">(viaf)172620811</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Haquin, Anne-Sophie</marc:subfield>
@@ -101,7 +100,6 @@
                <marc:datafield tag="700" ind1="1" ind2=" ">
                   <marc:subfield code="a">Mengin, Christine</marc:subfield>
                   <marc:subfield code="4">edt</marc:subfield>
-                  <marc:subfield code="0">(viaf)66606986</marc:subfield>
                </marc:datafield>
                <marc:datafield tag="852" ind1="4" ind2=" ">
                   <marc:subfield code="x">EA</marc:subfield>

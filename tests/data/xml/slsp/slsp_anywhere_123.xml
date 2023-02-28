@@ -32,7 +32,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Llopis, Jorge</subfield>
             <subfield code="d">1919-1976</subfield>
-            <subfield code="0">(IDREF)093591209</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -189,7 +188,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Schaeffer, Claude</subfield>
             <subfield code="d">1898-1982</subfield>
-            <subfield code="0">(IDREF)033556083</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -1143,7 +1141,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Libye</subfield>
-            <subfield code="0">(IDREF)027262545</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1=" " ind2=" " tag="830">
@@ -1383,7 +1380,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Iran</subfield>
-            <subfield code="0">(IDREF)027234576</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1=" " ind2=" " tag="690">
@@ -1764,7 +1760,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Novara, Lázaro Juan</subfield>
             <subfield code="d">19..-....</subfield>
-            <subfield code="0">(IDREF)148729673</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -1878,7 +1873,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Luer, Carlyle A.</subfield>
             <subfield code="d">1922-2019</subfield>
-            <subfield code="0">(IDREF)067150047</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -1921,7 +1915,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Colombie</subfield>
-            <subfield code="0">(IDREF)027230430</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1=" " ind2=" " tag="690">
@@ -1935,7 +1928,6 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Thoerle, Lisa</subfield>
             <subfield code="d">19..-....</subfield>
-            <subfield code="0">(IDREF)169999386</subfield>
           </datafield>
           <datafield ind1=" " ind2="0" tag="830">
             <subfield code="a">Icones Pleurothallidinarum</subfield>
@@ -2182,7 +2174,6 @@
           </datafield>
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Mejía-Saulés, María Teresa</subfield>
-            <subfield code="0">(IDREF)061333247</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -2223,7 +2214,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Veracruz (Mexique ; État)</subfield>
-            <subfield code="0">(IDREF)027356434</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
@@ -2296,7 +2286,6 @@
           </datafield>
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Di Lella, Luigi</subfield>
-            <subfield code="0">(IDREF)032501684</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -2424,7 +2413,6 @@
           </datafield>
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Redonda-Martínez, Rosario</subfield>
-            <subfield code="0">(IDREF)142607177</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -2707,7 +2695,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Guyanes</subfield>
-            <subfield code="0">(IDREF)027527514</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
@@ -3241,7 +3228,6 @@
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Gentaz, Édouard</subfield>
-            <subfield code="0">(IDREF)053479653</subfield>
           </datafield>
           <datafield ind1=" " ind2=" " tag="830">
             <subfield code="a">Approche neuropsychologique des apprentissages chez l'enfant</subfield>
@@ -3334,7 +3320,6 @@
           </datafield>
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Acocella, Mariantonietta</subfield>
-            <subfield code="0">(IDREF)069118191</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -3556,7 +3541,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Italie</subfield>
-            <subfield code="0">(IDREF)027235408</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1=" " ind2=" " tag="691">
@@ -5015,7 +4999,6 @@
           </datafield>
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Bueno Avila, Antonio</subfield>
-            <subfield code="0">(IDREF)154655929</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -5665,7 +5648,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Barbieri, Luca</subfield>
             <subfield code="d">1966-....</subfield>
-            <subfield code="0">(IDREF)074314742</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -5748,7 +5730,6 @@
             <subfield code="a">Ovide</subfield>
             <subfield code="d">0043 av. J.-C.-0017</subfield>
             <subfield code="t">Heroides</subfield>
-            <subfield code="0">(IDREF)028729587</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1="0" ind2="7" tag="600">
@@ -5971,7 +5952,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Dufour, Alfred</subfield>
             <subfield code="d">1938-....</subfield>
-            <subfield code="0">(IDREF)026841614</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -6085,7 +6065,6 @@
             <subfield code="6">100-01</subfield>
             <subfield code="a">Göllner, Theodor</subfield>
             <subfield code="d">1929-....</subfield>
-            <subfield code="0">(IDREF)028777581</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -6732,25 +6711,21 @@
           <datafield ind1="1" ind2="7" tag="600">
             <subfield code="a">Schnitzler, Arthur</subfield>
             <subfield code="d">1862-1931</subfield>
-            <subfield code="0">(IDREF)027127869</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1="1" ind2="7" tag="600">
             <subfield code="a">Hofmannsthal, Hugo von</subfield>
             <subfield code="d">1874-1929</subfield>
-            <subfield code="0">(IDREF)026923483</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1="1" ind2="7" tag="600">
             <subfield code="a">Salten, Felix</subfield>
             <subfield code="d">1869-1945</subfield>
-            <subfield code="0">(IDREF)027120600</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1="1" ind2="7" tag="600">
             <subfield code="a">Bahr, Hermann</subfield>
             <subfield code="d">1863-1934</subfield>
-            <subfield code="0">(IDREF)028826914</subfield>
             <subfield code="2">idref</subfield>
           </datafield>
           <datafield ind1="2" ind2="7" tag="610">

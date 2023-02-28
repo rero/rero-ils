@@ -59,7 +59,6 @@
           <datafield tag="100" ind1="1" ind2=" ">
             <subfield code="a">Chatelain, Yannick</subfield>
             <subfield code="d">1965-....</subfield>
-            <subfield code="0">(IDREF)055771041</subfield>
             <subfield code="4">cre</subfield>
           </datafield>
           <datafield tag="210" ind1="1" ind2=" ">
@@ -132,22 +131,18 @@
           </datafield>
           <datafield tag="650" ind1=" " ind2="7">
             <subfield code="a">Morale sociale</subfield>
-            <subfield code="0">(RERO)A021003578</subfield>
             <subfield code="2">rero</subfield>
           </datafield>
           <datafield tag="650" ind1=" " ind2="7">
             <subfield code="a">Pirates informatiques</subfield>
-            <subfield code="0">(RERO)A021073688</subfield>
             <subfield code="2">rero</subfield>
           </datafield>
           <datafield tag="650" ind1=" " ind2="7">
             <subfield code="a">Innovations technologiques</subfield>
-            <subfield code="0">(RERO)A021005087</subfield>
             <subfield code="2">rero</subfield>
           </datafield>
           <datafield tag="650" ind1=" " ind2="7">
             <subfield code="a">Société numérique</subfield>
-            <subfield code="0">(RERO)A021066932</subfield>
             <subfield code="2">rero</subfield>
           </datafield>
           <datafield tag="653" ind1=" " ind2=" ">

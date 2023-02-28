@@ -2830,24 +2830,6 @@
         "role": [
           "aut"
         ]
-      },
-      {
-        "agent": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/027037061",
-          "type": "bf:Person"
-        },
-        "role": [
-          "cre"
-        ]
-      },
-      {
-        "agent": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/028401743",
-          "type": "bf:Person"
-        },
-        "role": [
-          "ctb"
-        ]
       }
     ],
     "identifiedBy": [
@@ -3002,14 +2984,6 @@
       }
     ],
     "subjects": [
-      {
-        "type": "bf:Person",
-        "$ref": "https://mef.rero.ch/api/agents/gnd/041288890"
-      },
-      {
-        "type": "bf:Person",
-        "$ref": "https://mef.rero.ch/api/agents/idref/032106939"
-      },
       {
         "type": "bf:Person",
         "preferred_name": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
