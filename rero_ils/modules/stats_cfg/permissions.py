@@ -25,6 +25,9 @@ from rero_ils.modules.permissions import AllowedByAction, \
 # Actions to control statistics configuration policies for CRUD operations
 search_action = action_factory('stat_cfg-search')
 read_action = action_factory('stat_cfg-read')
+create_action = action_factory('stat_cfg-create')
+update_action = action_factory('stat_cfg-update')
+delete_action = action_factory('stat_cfg-delete')
 access_action = action_factory('stat_cfg-access')
 
 
@@ -33,3 +36,6 @@ class StatisticsConfigurationPermissionPolicy(RecordPermissionPolicy):
 
     can_search = [AllowedByAction(search_action)]
     can_read = [AllowedByActionRestrictByOrganisation(read_action)]
+    can_create = [AllowedByActionRestrictByOrganisation(create_action)]
+    can_update = [AllowedByActionRestrictByOrganisation(update_action)]
+    can_delete = [AllowedByActionRestrictByOrganisation(delete_action)]
