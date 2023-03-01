@@ -488,8 +488,8 @@ def test_document_boosting(client, ebook_1, ebook_4):
 
 @mock.patch('requests.get')
 def test_documents_resolve(
-    mock_contributions_mef_get, client, mef_agents_url,loc_public_martigny, document_ref,
-    entity_person_response_data
+    mock_contributions_mef_get, client, mef_agents_url, loc_public_martigny,
+    document_ref, entity_person_response_data
 ):
     """Test document detailed view with items filter."""
     res = client.get(url_for(

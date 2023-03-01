@@ -379,19 +379,19 @@ def test_identifiedby(document_schema, document_data_tmp):
 
 def test_subjects(document_schema, document_data_tmp):
     """Test subjects for jsonschemas."""
-    document_data_tmp['subjects'] = [
-        {
+    document_data_tmp['subjects'] = [{
+        'entity': {
             'type': "bf:Topic",
-            'term': 'ILS'
-        },
-        {
+            'authorized_access_point': 'ILS'
+        }}, {
+        'entity': {
             'type': "bf:Topic",
-            'term': 'informatique'
-        },
-        {
+            'authorized_access_point': 'informatique'
+        }}, {
+        'entity': {
             'type': "bf:Topic",
-            'term': 'bibliothèque'
-        }
+            'authorized_access_point': 'bibliothèque'
+        }}
     ]
 
     validate(document_data_tmp, document_schema)

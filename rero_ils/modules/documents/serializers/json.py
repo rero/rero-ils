@@ -24,7 +24,7 @@ from werkzeug.local import LocalProxy
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.utils import process_literal_contributions
 from rero_ils.modules.documents.views import create_title_alternate_graphic, \
-    create_title_responsibilites, create_title_variants, subject_format
+    create_title_responsibilites, create_title_variants
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.organisations.api import OrganisationsSearch
@@ -53,38 +53,23 @@ class DocumentJSONSerializer(JSONSerializer):
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
         """Prepare a record and persistent identifier for serialization."""
         rec = record
-        titles = rec.get('title', [])
-
-        # build subjects text for display purpose
-        #   Subject formatting must be done before `replace_refs` otherwise the
-        #   referenced object couldn't be performed
-        # TODO :: Find a way to get language to use to render subject using
-        #         `Accepted-language` header.
-        language = None
-        for subject in record.get('subjects', []):
-            subject['_text'] = subject_format(subject, language)
 
         # build responsibility data for display purpose
         responsibility_statement = rec.get('responsibilityStatement', [])
-        responsibilities = \
-            create_title_responsibilites(responsibility_statement)
-        if responsibilities:
-            rec['ui_responsibilities'] = responsibilities
-        # build alternate graphic title data for display purpose
-        altgr_titles = create_title_alternate_graphic(titles)
-        if altgr_titles:
-            rec['ui_title_altgr'] = altgr_titles
-        altgr_titles_responsibilities = create_title_alternate_graphic(
-            titles,
+        if responsibilities := create_title_responsibilites(
             responsibility_statement
-        )
-        if altgr_titles_responsibilities:
+        ):
+            rec['ui_responsibilities'] = responsibilities
+        titles = rec.get('title', [])
+        if altgr_titles := create_title_alternate_graphic(titles):
+            rec['ui_title_altgr'] = altgr_titles
+        if altgr_titles_responsibilities := create_title_alternate_graphic(
+            titles, responsibility_statement
+        ):
             rec['ui_title_altgr_responsibilities'] = \
-                altgr_titles_responsibilities
+                                altgr_titles_responsibilities
 
-        variant_titles = create_title_variants(titles)
-        # build variant title data for display purpose
-        if variant_titles:
+        if variant_titles := create_title_variants(titles):
             rec['ui_title_variants'] = variant_titles
         return super().preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
