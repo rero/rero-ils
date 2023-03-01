@@ -64,7 +64,10 @@ def test_stats_cfg_permissions(
     login_user(system_librarian_martigny.user)
     check_permission(StatisticsConfigurationPermissionPolicy, {
         'search': True,
-        'read': True
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
     }, stats_cfg_martigny)
 
     check_permission(StatisticsConfigurationPermissionPolicy, {
