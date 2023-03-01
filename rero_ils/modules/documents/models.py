@@ -40,14 +40,3 @@ class DocumentMetadata(db.Model, RecordMetadataBase):
     """Document record metadata."""
 
     __tablename__ = 'document_metadata'
-
-
-class DocumentSubjectType:
-    """Document subject type."""
-
-    ORGANISATION = 'bf:Organisation'
-    PERSON = 'bf:Person'
-    PLACE = 'bf:Place'
-    TEMPORAL = 'bf:Temporal'
-    TOPIC = 'bf:Topic'
-    WORK = 'bf:Work'

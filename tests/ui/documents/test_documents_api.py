@@ -90,8 +90,6 @@ def test_document_create_with_mef(
     doc = Document.get_record_by_pid(doc.get('pid'))
     assert doc['contribution'][0]['entity']['pid'] == entity_person_data['pid']
     hit = DocumentsSearch().get_record_by_pid(doc.pid).to_dict()
-    from pprint import pprint
-    pprint(hit)
 
     assert hit['contribution'][0]['entity']['pid'] == entity_person_data['pid']
     assert hit['contribution'][0]['entity']['primary_source'] == 'rero'

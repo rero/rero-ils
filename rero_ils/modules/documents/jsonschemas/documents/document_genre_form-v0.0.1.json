@@ -6,83 +6,27 @@
     "minItems": 1,
     "items": {
       "type": "object",
-      "title": "Genre, form",
-      "oneOf": [
-        {
-          "title": "Link to concept entity",
-          "type": "object",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "$ref"
-          ],
-          "required": [
-            "$ref"
-          ],
-          "properties": {
-            "$ref": {
-              "title": "Concept",
-              "type": "string",
-              "pattern": "^https://mef.rero.ch/api/concepts/rero/.*?$",
-              "form": {
-                "remoteTypeahead": {
-                  "type": "mef-concepts",
-                  "enableGroupField": true
-                },
-                "templateOptions": {
-                  "itemCssClass": "col-lg-12"
-                }
-              }
+      "title": "Entities",
+      "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "entity"
+      ],
+      "required": [
+        "entity"
+      ],
+      "properties": {
+        "entity": {
+          "oneOf": [
+            {
+              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_link-v0.0.1.json"
+            },
+            {
+              "$ref": "https://bib.rero.ch/schemas/documents/document_genre_form_local-v0.0.1.json"
             }
-          }
-        },
-        {
-          "title": "Concept (local)",
-          "type": "object",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "type",
-            "term",
-            "identifiedBy",
-            "source"
-          ],
-          "required": [
-            "type",
-            "term"
-          ],
-          "properties": {
-            "source": {
-              "title": "Source",
-              "description": "Source of the subject, for instance rero.",
-              "type": "string"
-            },
-            "type": {
-              "title": "Type",
-              "type": "string",
-              "default": "bf:Topic",
-              "enum": [
-                "bf:Topic"
-              ],
-              "form": {
-                "type": "selectWithSort",
-                "options": [
-                  {
-                    "label": "bf:Topic",
-                    "value": "bf:Topic"
-                  }
-                ]
-              }
-            },
-            "term": {
-              "title": "Term",
-              "type": "string",
-              "minLength": 1
-            },
-            "identifiedBy": {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
-            }
-          }
+          ]
         }
-      ]
+      }
     },
     "form": {
       "hide": true,
