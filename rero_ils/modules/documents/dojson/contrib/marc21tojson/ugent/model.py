@@ -37,7 +37,7 @@ from ..utils import do_abbreviated_title, \
     do_specific_document_relation, do_summary, do_table_of_contents, \
     do_temporal_coverage, do_title, do_type, \
     do_usage_and_access_policy_from_field_506_540, do_work_access_point, \
-    do_work_access_point_240
+    do_work_access_point_240, perform_subdivisions
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -304,19 +304,6 @@ def marc21_to_subjects_6XX(self, key, value):
         subjects :  for 6xx with $2 rero
         subjects_imported : for 6xx having indicator 2 '0' or '2'
     """
-
-    def perform_subdivisions(field):
-        """Perform subject subdivisions from MARC field."""
-        subdivisions = {
-            'v': 'genreForm_subdivisions',
-            'x': 'topic_subdivisions',
-            'y': 'temporal_subdivisions',
-            'z': 'place_subdivisions'
-        }
-        for code, subdivision in subdivisions.items():
-            for subfield_value in utils.force_list(value.get(code, [])):
-                field.setdefault(subdivision, []).append(subfield_value)
-
     type_per_tag = {
         '600': 'bf:Person',
         '610': 'bf:Organisation',
@@ -328,19 +315,6 @@ def marc21_to_subjects_6XX(self, key, value):
         '650': 'bf:Topic',  # or bf:Temporal, changed by code
         '651': 'bf:Place',
         '655': 'bf:Topic'
-    }
-
-    field_data_per_tag = {
-        '600': 'preferred_name',
-        '610': 'preferred_name',
-        '611': 'preferred_name',
-        '600t': 'title',
-        '610t': 'title',
-        '611t': 'title',
-        '630': 'title',
-        '650': 'term',
-        '651': 'preferred_name',
-        '655': 'term'
     }
 
     conference_per_tag = {
@@ -372,13 +346,12 @@ def marc21_to_subjects_6XX(self, key, value):
             data = {
                 'type': type_per_tag[tag_key],
                 'source': source,
-                field_data_per_tag[tag_key]: term_string.rstrip('.')
+                'authorized_access_point': term_string.rstrip('.')
             }
-            perform_subdivisions(data)
-            if tag_key in ['610', '611']:
-                data['conference'] = conference_per_tag[tag_key]
+            perform_subdivisions(data, value)
             if data:
-                self.setdefault(config_field_key, []).append(data)
+                self.setdefault(config_field_key, []).append(
+                    dict(entity=data))
 
 
 @marc21.over('sequence_numbering', '^362..')

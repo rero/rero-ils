@@ -233,44 +233,62 @@
       "$ref": "https://bib.rero.ch/schemas/documents/document_usage_and_access_policy-v0.0.1.json#/usageAndAccessPolicy"
     },
     "subjects_imported": {
-      "allOf": [
-        {
-          "title": "Subjects (imported)",
-          "description": "Subject from imported bibliographic data",
-          "form": {
-            "hide": true,
-            "navigation": {
-              "essential": false
-            },
-            "templateOptions": {
-              "cssClass": "editor-title"
-            }
+      "title": "Subjects (imported)",
+      "description": "Subject imported from external data",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "title": "Entities",
+        "description": "Imported topic, place, temporal, person, family or corporate body (including conferences), used for information. Do not enter data manually.",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "entity"
+        ],
+        "required": [
+          "entity"
+        ],
+        "properties": {
+          "entity": {
+            "$ref": "https://bib.rero.ch/schemas/documents/document_entity_local-v0.0.1.json"
           }
         },
-        {
-          "$ref": "https://bib.rero.ch/schemas/documents/document_subjects-v0.0.1.json#/subjects"
+        "form": {
+          "hide": true,
+          "templateOptions": {
+            "cssClass": "editor-title"
+          }
         }
-      ]
+      }
     },
     "genreForm_imported": {
-      "allOf": [
-        {
-          "title": "Genres, forms (imported)",
-          "description": "Genre of form from imported bibliographic data",
-          "form": {
-            "hide": true,
-            "navigation": {
-              "essential": false
-            },
-            "templateOptions": {
-              "cssClass": "editor-title"
-            }
+      "title": "Genres, forms (imported)",
+      "description": "Genre or form imported from external data",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "title": "Entities",
+        "description": "Imported genre or form, used for information. Do not enter data manually.",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "entity"
+        ],
+        "required": [
+          "entity"
+        ],
+        "properties": {
+          "entity": {
+            "$ref": "https://bib.rero.ch/schemas/documents/document_genre_form_local-v0.0.1.json"
           }
         },
-        {
-          "$ref": "https://bib.rero.ch/schemas/documents/document_subjects-v0.0.1.json#/subjects"
+        "form": {
+          "hide": true,
+          "templateOptions": {
+            "cssClass": "editor-title"
+          }
         }
-      ]
+      }
     },
     "work_access_point": {
       "$ref": "https://bib.rero.ch/schemas/documents/document_work_access_point-v0.0.1.json#/work_access_point"

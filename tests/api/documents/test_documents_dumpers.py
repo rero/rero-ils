@@ -24,7 +24,7 @@ from rero_ils.modules.commons.exceptions import RecordNotFound
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dumpers import document_replace_refs_dumper, \
     document_title_dumper
-from rero_ils.modules.documents.models import DocumentSubjectType
+from rero_ils.modules.entities.models import EntityType
 
 
 def test_document_dumpers(document, document_data):
@@ -43,10 +43,13 @@ def test_document_dumpers(document, document_data):
         document.dumps(dumper=document_replace_refs_dumper)
     document['contribution'] = document_data['contribution']
     document['subjects'] = [{
-        '$ref': 'n/a',
-        'pid': 'n/a',
-        'type': DocumentSubjectType.PERSON
-    }]
+        'entity': {
+            '$ref': 'n/a',
+            'pid': 'n/a',
+            'type': EntityType.PERSON
+            }
+        }
+    ]
     with pytest.raises(RecordNotFound):
         document.dumps(dumper=document_replace_refs_dumper)
 

@@ -829,77 +829,105 @@
       "subjects": {
         "type": "object",
         "properties": {
-          "type": {
-            "type": "keyword"
-          },
-          "preferred_name": {
-            "type": "text",
-            "copy_to": "facet_subjects"
-          },
-          "term": {
-            "type": "text",
-            "copy_to": "facet_subjects",
-            "fields": {
-              "eng": {
-                "type": "text",
-                "analyzer": "english"
-              },
-              "fre": {
-                "type": "text",
-                "analyzer": "french"
-              },
-              "ger": {
-                "type": "text",
-                "analyzer": "german"
-              },
-              "ita": {
-                "type": "text",
-                "analyzer": "italian"
-              }
-            }
-          },
-          "title": {
-            "type": "text",
-            "copy_to": "facet_subjects"
-          },
-          "creator": {
-            "type": "text"
-          },
-          "conference": {
-            "type": "boolean"
-          },
-          "identifiedBy": {
+          "entity": {
             "type": "object",
             "properties": {
               "type": {
                 "type": "keyword"
               },
+              "primary_source": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "id_gnd": {
+                "type": "keyword"
+              },
+              "id_idref": {
+                "type": "keyword"
+              },
+              "id_rero": {
+                "type": "keyword"
+              },
+              "authorized_access_point_en": {
+                "type": "text",
+                "analyzer": "english",
+                "copy_to": "facet_subjects"
+              },
+              "authorized_access_point_fr": {
+                "type": "text",
+                "analyzer": "french",
+                "copy_to": "facet_subjects"
+              },
+              "authorized_access_point_de": {
+                "type": "text",
+                "analyzer": "german",
+                "copy_to": "facet_subjects"
+              },
+              "authorized_access_point_it": {
+                "type": "text",
+                "analyzer": "italian",
+                "copy_to": "facet_subjects"
+              },
               "source": {
                 "type": "keyword"
               },
-              "value": {
-                "type": "keyword"
+              "authorized_access_point": {
+                "type": "text",
+                "copy_to": "facet_subjects"
+              },
+              "variant_access_point": {
+                "type": "text"
+              },
+              "parallel_access_point": {
+                "type": "text"
+              },
+              "subdivisions": {
+                "type": "object",
+                "properties": {
+                  "entity": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "keyword"
+                      },
+                      "authorized_access_point": {
+                        "type": "keyword"
+                      },
+                      "identifiedBy": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "keyword"
+                          },
+                          "value": {
+                            "type": "keyword"
+                          },
+                          "source": {
+                            "type": "keyword"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "identifiedBy": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  },
+                  "source": {
+                    "type": "keyword"
+                  }
+                }
               }
             }
-          },
-          "source": {
-            "type": "keyword"
-          },
-          "genreForm_subdivisions": {
-            "type": "keyword",
-            "copy_to": "facet_subjects"
-          },
-          "topic_subdivisions": {
-            "type": "keyword",
-            "copy_to": "facet_subjects"
-          },
-          "temporal_subdivisions": {
-            "type": "keyword",
-            "copy_to": "facet_subjects"
-          },
-          "place_subdivisions": {
-            "type": "keyword",
-            "copy_to": "facet_subjects"
           }
         }
       },
@@ -912,20 +940,38 @@
           "type": {
             "type": "keyword"
           },
-          "preferred_name": {
+          "authorized_access_point": {
             "type": "text"
           },
-          "term": {
-            "type": "text"
-          },
-          "title": {
-            "type": "text"
-          },
-          "creator": {
-            "type": "text"
-          },
-          "conference": {
-            "type": "boolean"
+          "subdivisions": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "authorized_access_point": {
+                    "type": "keyword"
+                  },
+                  "identifiedBy": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "keyword"
+                      },
+                      "value": {
+                        "type": "keyword"
+                      },
+                      "source": {
+                        "type": "keyword"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           },
           "identifiedBy": {
             "type": "object",
@@ -1679,29 +1725,105 @@
       "genreForm": {
         "type": "object",
         "properties": {
-          "type": {
-            "type": "keyword"
-          },
-          "term": {
-            "type": "text",
-            "copy_to": "facet_genre_form"
-          },
-          "identifiedBy": {
+          "entity": {
             "type": "object",
             "properties": {
               "type": {
                 "type": "keyword"
               },
+              "primary_source": {
+                "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "id_gnd": {
+                "type": "keyword"
+              },
+              "id_idref": {
+                "type": "keyword"
+              },
+              "id_rero": {
+                "type": "keyword"
+              },
+              "authorized_access_point_en": {
+                "type": "text",
+                "analyzer": "english",
+                "copy_to": "facet_genre_form"
+              },
+              "authorized_access_point_fr": {
+                "type": "text",
+                "analyzer": "french",
+                "copy_to": "facet_genre_form"
+              },
+              "authorized_access_point_de": {
+                "type": "text",
+                "analyzer": "german",
+                "copy_to": "facet_genre_form"
+              },
+              "authorized_access_point_it": {
+                "type": "text",
+                "analyzer": "italian",
+                "copy_to": "facet_genre_form"
+              },
               "source": {
                 "type": "keyword"
               },
-              "value": {
-                "type": "keyword"
+              "authorized_access_point": {
+                "type": "text",
+                "copy_to": "facet_genre_form"
+              },
+              "variant_access_point": {
+                "type": "text"
+              },
+              "parallel_access_point": {
+                "type": "text"
+              },
+              "subdivisions": {
+                "type": "object",
+                "properties": {
+                  "entity": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "keyword"
+                      },
+                      "authorized_access_point": {
+                        "type": "keyword"
+                      },
+                      "identifiedBy": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "keyword"
+                          },
+                          "value": {
+                            "type": "keyword"
+                          },
+                          "source": {
+                            "type": "keyword"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "identifiedBy": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  },
+                  "source": {
+                    "type": "keyword"
+                  }
+                }
               }
             }
-          },
-          "source": {
-            "type": "keyword"
           }
         }
       },
@@ -1714,7 +1836,7 @@
           "type": {
             "type": "keyword"
           },
-          "term": {
+          "authorized_access_point": {
             "type": "text"
           },
           "identifiedBy": {
