@@ -49,6 +49,10 @@ class EntityType:
 
     ORGANISATION = 'bf:Organisation'
     PERSON = 'bf:Person'
+    PLACE = 'bf:Place'
+    TEMPORAL = 'bf:Temporal'
+    TOPIC = 'bf:Topic'
+    WORK = 'bf:Work'
 
 
 class EntityUpdateAction:

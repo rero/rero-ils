@@ -5,7 +5,9 @@
   "propertiesOrder": [
     "authorized_access_point",
     "type",
-    "identifiedBy"
+    "identifiedBy",
+    "subdivisions",
+    "source"
   ],
   "required": [
     "type",
@@ -16,6 +18,14 @@
       "title": "Type",
       "type": "string",
       "default": "bf:Person",
+      "enum": [
+        "bf:Person",
+        "bf:Organisation",
+        "bf:Work",
+        "bf:Topic",
+        "bf:Place",
+        "bf:Temporal"
+      ],
       "form": {
         "type": "selectWithSort",
         "templateOptions": {
@@ -27,6 +37,22 @@
             {
               "label": "bf:Organisation",
               "value": "bf:Organisation"
+            },
+            {
+              "label": "bf:Work",
+              "value": "bf:Work"
+            },
+            {
+              "label": "bf:Topic",
+              "value": "bf:Topic"
+            },
+            {
+              "label": "bf:Place",
+              "value": "bf:Place"
+            },
+            {
+              "label": "bf:Temporal",
+              "value": "bf:Temporal"
             }
           ]
         }
@@ -45,11 +71,114 @@
     },
     "identifiedBy": {
       "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+    },
+    "source": {
+      "title": "Source",
+      "description": "Source catalog where the subject was imported from.",
+      "type": "string",
+      "minLength": 3,
+      "form": {
+        "templateOptions": {
+          "itemCssClass": "col-lg-6"
+        }
+      }
+    },
+    "subdivisions": {
+      "title": "Subdivisions",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "title": "Entities",
+        "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+        "additionalProperties": false,
+        "propertiesOrder": [
+          "entity"
+        ],
+        "required": [
+          "entity"
+        ],
+        "properties": {
+          "entity": {
+            "title": "Subdivision",
+            "type": "object",
+            "additionalProperties": false,
+            "propertiesOrder": [
+              "authorized_access_point",
+              "type",
+              "identifiedBy"
+            ],
+            "required": [
+              "type",
+              "authorized_access_point"
+            ],
+            "properties": {
+              "type": {
+                "$ref": "#/definitions/subtype"
+              },
+              "authorized_access_point": {
+                "$ref": "#/properties/authorized_access_point"
+              },
+              "identifiedBy": {
+                "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+              }
+            },
+            "form": {
+              "templateOptions": {
+                "containerCssClass": "row"
+              }
+            }
+          }
+        }
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "itemCssClass": "col-lg-12"
+        }
+      }
     }
   },
   "form": {
     "templateOptions": {
       "containerCssClass": "row"
+    }
+  },
+  "definitions": {
+    "subtype": {
+      "title": "Type",
+      "type": "string",
+      "default": "bf:Person",
+      "enum": [
+        "bf:Topic",
+        "bf:Concept",
+        "bf:Place",
+        "bf:Temporal"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "templateOptions": {
+          "options": [
+            {
+              "label": "bf:Concept",
+              "value": "bf:Concept"
+            },
+            {
+              "label": "bf:Topic",
+              "value": "bf:Topic"
+            },
+            {
+              "label": "bf:Place",
+              "value": "bf:Place"
+            },
+            {
+              "label": "bf:Temporal",
+              "value": "bf:Temporal"
+            }
+          ]
+        }
+      }
     }
   }
 }

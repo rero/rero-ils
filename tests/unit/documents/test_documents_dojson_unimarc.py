@@ -1543,12 +1543,17 @@ def test_unimarc_subjects():
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
     assert data.get('subjects_imported') == [{
-        'term': 'subjects 600',
-        'type': 'bf:Topic',
-        'source': 'rameau'
+        'entity': {
+            'authorized_access_point': 'subjects 600',
+            'type': 'bf:Topic',
+            'source': 'rameau'
+        }
     }, {
-        'term': 'Capet, Louis III, Jr., 1700-1780 -- France',
-        'type': 'bf:Topic'
+        'entity': {
+            'authorized_access_point':
+                'Capet, Louis III, Jr., 1700-1780 -- France',
+            'type': 'bf:Topic'
+        }
     }]
 
 

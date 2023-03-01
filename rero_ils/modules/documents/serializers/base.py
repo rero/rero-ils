@@ -27,7 +27,6 @@ from rero_ils.modules.commons.identifiers import IdentifierFactory, \
 from rero_ils.modules.utils import get_base_url
 
 from ..api import DocumentsSearch
-from ..commons.subjects import SubjectFactory
 
 CREATOR_ROLES = [
     'aut', 'cmp', 'cre', 'dub', 'pht', 'ape', 'aqt', 'arc', 'art', 'aus',
@@ -261,11 +260,7 @@ class BaseDocumentFormatterMixin(ABC):
 
     def _get_subjects(self):
         """Return keywords."""
-        return [
-            SubjectFactory.create_subject(subject).render(
-                language=self._language)
-            for subject in self.record.get('subjects', [])
-        ]
+        return self.record.get('subjects', [])
 
     def _get_editions(self):
         """Return editions."""

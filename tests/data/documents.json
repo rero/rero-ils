@@ -126,12 +126,16 @@
     ],
     "subjects": [
       {
-        "type": "bf:Topic",
-        "term": "contrat de construction"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "contrat de construction"
+        }
       },
       {
-        "type": "bf:Topic",
-        "term": "Suisse"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "Suisse"
+        }
       }
     ],
     "adminMetadata": {

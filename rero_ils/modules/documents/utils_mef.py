@@ -285,9 +285,11 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
         """Query filter to find documents."""
         return DocumentsSearch() \
             .filter('bool', must=[
-                Q('exists', field=f'{self.name}.identifiedBy'),
+                Q('exists', field=f'{self.name}.entity.identifiedBy'),
                 Q({'terms': {
-                    f'{self.name}.type': ['bf:Person', 'bf:Organisation']
+                    f'{self.name}.entity.type': [
+                        'bf:Person', 'bf:Organisation'
+                    ]
                 }})
             ])
 
@@ -300,7 +302,9 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
             with contextlib.suppress(NoResultFound):
                 doc = Document.get_record(hit.meta.id)
                 changed = False
-                for subject in doc.get(self.name, []):
+                for subject in [
+                    res['entity'] for res in doc.get(self.name, [])
+                ]:
                     ref_type = subject.get(
                         'identifiedBy', {}).get('type', '').lower()
                     is_pers_org = subject.get('type') in [

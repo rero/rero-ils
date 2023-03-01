@@ -1139,12 +1139,12 @@ def unimarc_subjects(self, key, value):
     if value.get('y'):
         to_return += ' -- ' + ' -- '.join(utils.force_list(value.get('y')))
     if to_return:
-        data = {
+        data = dict(entity={
             'type': "bf:Topic",
-            'term': to_return
-        }
+            'authorized_access_point': to_return
+        })
         if source := value.get('2', None):
-            data['source'] = source
+            data['entity']['source'] = source
         self.setdefault(config_field_key, []).append(data)
 
 
