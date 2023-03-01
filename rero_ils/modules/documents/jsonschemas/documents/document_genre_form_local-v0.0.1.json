@@ -1,0 +1,55 @@
+{
+  "title": "Local Entity",
+  "type": "object",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "authorized_access_point",
+    "type",
+    "identifiedBy",
+    "source"
+  ],
+  "required": [
+    "type",
+    "authorized_access_point"
+  ],
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "default": "bf:Topic",
+      "const": "bf:Topic",
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
+    },
+    "authorized_access_point": {
+      "title": "Access Point",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]",
+        "templateOptions": {
+          "itemCssClass": "col-lg-6"
+        }
+      }
+    },
+    "source": {
+      "title": "Source",
+      "description": "Source of the subject.",
+      "type": "string",
+      "minLength": 3
+    },
+    "identifiedBy": {
+      "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+    }
+  },
+  "form": {
+    "templateOptions": {
+      "containerCssClass": "row"
+    }
+  }
+}

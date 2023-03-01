@@ -28,7 +28,7 @@ from flask import current_app
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
     build_identifier, build_string_from_subfields, get_contribution_link, \
     get_field_items, remove_trailing_punctuation
-from rero_ils.modules.documents.models import DocumentSubjectType
+from rero_ils.modules.entities.models import EntityType
 
 from ..utils import do_abbreviated_title, \
     do_acquisition_terms_from_field_037, do_classification, do_contribution, \
@@ -42,7 +42,7 @@ from ..utils import do_abbreviated_title, \
     do_scale_and_cartographic, do_sequence_numbering, \
     do_specific_document_relation, do_summary, do_table_of_contents, \
     do_temporal_coverage, do_title, do_type, \
-    do_usage_and_access_policy_from_field_506_540
+    do_usage_and_access_policy_from_field_506_540, perform_subdivisions
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -525,43 +525,17 @@ def marc21_to_subjects_6XX(self, key, value):
         subjects :  for 6xx with $2 rero
         subjects_imported : for 6xx having indicator 2 '0' or '2'
     """
-
-    def perform_subdivisions(field):
-        """Perform subject subdivisions from MARC field."""
-        subdivisions = {
-            'v': 'genreForm_subdivisions',
-            'x': 'topic_subdivisions',
-            'y': 'temporal_subdivisions',
-            'z': 'place_subdivisions'
-        }
-        for code, subdivision in subdivisions.items():
-            for subfield_value in utils.force_list(value.get(code, [])):
-                field.setdefault(subdivision, []).append(subfield_value)
-
     type_per_tag = {
-        '600': DocumentSubjectType.PERSON,
-        '610': DocumentSubjectType.ORGANISATION,
-        '611': DocumentSubjectType.ORGANISATION,
-        '600t': DocumentSubjectType.WORK,
-        '610t': DocumentSubjectType.WORK,
-        '611t': DocumentSubjectType.WORK,
-        '630': DocumentSubjectType.WORK,
-        '650': DocumentSubjectType.TOPIC,  # or bf:Temporal, changed by code
-        '651': DocumentSubjectType.PLACE,
-        '655': DocumentSubjectType.TOPIC
-    }
-
-    field_data_per_tag = {
-        '600': 'preferred_name',
-        '610': 'preferred_name',
-        '611': 'preferred_name',
-        '600t': 'title',
-        '610t': 'title',
-        '611t': 'title',
-        '630': 'title',
-        '650': 'term',
-        '651': 'preferred_name',
-        '655': 'term'
+        '600': EntityType.PERSON,
+        '610': EntityType.ORGANISATION,
+        '611': EntityType.ORGANISATION,
+        '600t': EntityType.WORK,
+        '610t': EntityType.WORK,
+        '611t': EntityType.WORK,
+        '630': EntityType.WORK,
+        '650': EntityType.TOPIC,  # or bf:Temporal, changed by code
+        '651': EntityType.PLACE,
+        '655': EntityType.TOPIC
     }
 
     subfield_code_per_tag = {
@@ -617,7 +591,7 @@ def marc21_to_subjects_6XX(self, key, value):
         if tag_key == '655':
             # remove the square brackets
             string_build = re.sub(r'^\[(.*)\]$', r'\1', string_build)
-        subject[field_data_per_tag[tag_key]] = string_build
+        subject['authorized_access_point'] = string_build
 
         if tag_key in ['610', '611']:
             subject['conference'] = conference_per_tag[tag_key]
@@ -637,8 +611,8 @@ def marc21_to_subjects_6XX(self, key, value):
                 if 'DE-101' in subfield_0:
                     cont_id = subfield_0.replace('DE-101', 'gnd')
                     break
-        if data_type in [DocumentSubjectType.PERSON,
-                         DocumentSubjectType.ORGANISATION] and cont_id:
+        if data_type in [EntityType.PERSON,
+                         EntityType.ORGANISATION] and cont_id:
             ref = get_contribution_link(
                 marc21.bib_id, marc21.bib_id, cont_id, key)
             if ref:
@@ -650,10 +624,11 @@ def marc21_to_subjects_6XX(self, key, value):
             identifier = build_identifier(value)
             if identifier:
                 subject['identifiedBy'] = identifier
-            perform_subdivisions(subject)
+            if field_key != 'genreForm':
+                perform_subdivisions(subject, value)
 
-        if subject.get('$ref') or subject.get(field_data_per_tag[tag_key]):
-            self.setdefault(field_key, []).append(subject)
+        if subject.get('$ref') or subject.get('authorized_access_point'):
+            self.setdefault(field_key, []).append(dict(entity=subject))
     elif indicator_2 in ['0', '2']:
         term_string = build_string_from_subfields(
             value, 'abcdefghijklmnopqrstuw', ' - ')
@@ -661,13 +636,11 @@ def marc21_to_subjects_6XX(self, key, value):
             data = {
                 'type': type_per_tag[tag_key],
                 'source': source_per_indicator_2[indicator_2],
-                field_data_per_tag[tag_key]: term_string.rstrip('.')
+                'authorized_access_point': term_string.rstrip('.')
             }
-            perform_subdivisions(data)
-            if tag_key in ['610', '611']:
-                data['conference'] = conference_per_tag[tag_key]
+            perform_subdivisions(data, value)
             if data:
-                self.setdefault(config_field_key, []).append(data)
+                self.setdefault(config_field_key, []).append(dict(entity=data))
 
 
 @marc21.over('sequence_numbering', '^362..')

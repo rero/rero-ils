@@ -24,8 +24,7 @@ from invenio_records.api import _records_state
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
-
-from ..models import DocumentSubjectType
+from rero_ils.modules.entities.models import EntityType
 
 
 class ReplaceRefsEntitiesDumper(Dumper):
@@ -96,20 +95,19 @@ class ReplaceRefsSubjectsDumper(Dumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         :return a dict with dumped data.
         """
-        for field in ['subjects', 'subjects_imported']:
-            entities = []
-            for subject in data.get(field, []):
-                subject_type = subject.get('type')
-                subject_ref = subject.get('$ref')
-                if subject_ref and subject_type in [
-                    DocumentSubjectType.PERSON,
-                    DocumentSubjectType.ORGANISATION
-                ]:
-                    entities.append(self._replace_subjects(subject))
-                else:
-                    entities.append(subject)
-            if entities:
-                data[field] = entities
+        entities = []
+        for subject in [d['entity'] for d in data.get('subjects', [])]:
+            subject_type = subject.get('type')
+            subject_ref = subject.get('$ref')
+            if subject_ref and subject_type in [
+                EntityType.PERSON,
+                EntityType.ORGANISATION
+            ]:
+                entities.append(dict(entity=self._replace_subjects(subject)))
+            else:
+                entities.append(dict(entity=subject))
+        if entities:
+            data['subjects'] = entities
         return data
 
 

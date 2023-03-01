@@ -1,0 +1,59 @@
+{
+  "title": "Local Entity",
+  "type": "object",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "authorized_access_point",
+    "type",
+    "identifiedBy"
+  ],
+  "required": [
+    "type",
+    "authorized_access_point"
+  ],
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "default": "bf:Person",
+      "enum": [
+        "bf:Person",
+        "bf:Organisation"
+      ],
+      "form": {
+        "type": "selectWithSort",
+        "templateOptions": {
+          "options": [
+            {
+              "label": "bf:Person",
+              "value": "bf:Person"
+            },
+            {
+              "label": "bf:Organisation",
+              "value": "bf:Organisation"
+            }
+          ]
+        }
+      }
+    },
+    "authorized_access_point": {
+      "title": "Access Point",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: Musset, Alfred de, 1810-1857",
+        "templateOptions": {
+          "itemCssClass": "col-lg-6"
+        }
+      }
+    },
+    "identifiedBy": {
+      "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+    }
+  },
+  "form": {
+    "templateOptions": {
+      "containerCssClass": "row"
+    }
+  }
+}
