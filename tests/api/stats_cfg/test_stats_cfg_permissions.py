@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2020 RERO
-# Copyright (C) 2020 UCLouvain
+# Copyright (C) 2022-2023 RERO
+# Copyright (C) 2022-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -79,9 +79,9 @@ def test_stats_cfg_permissions(
     check_permission(StatisticsConfigurationPermissionPolicy, {
         'search': True,
         'read': True,
-        'create': False,
-        'update': False,
-        'delete': False
+        'create': True,
+        'update': True,
+        'delete': True
     }, stats_cfg_martigny)
 
     check_permission(StatisticsConfigurationPermissionPolicy, {

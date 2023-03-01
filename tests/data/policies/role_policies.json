@@ -577,6 +577,18 @@
     "pro_statistics_manager",
     "pro_full_permissions"
   ],
+  "stat_cfg-create": [
+    "pro_full_permissions",
+    "pro_statistics_manager"
+  ],
+  "stat_cfg-update": [
+    "pro_full_permissions",
+    "pro_statistics_manager"
+  ],
+  "stat_cfg-delete": [
+    "pro_full_permissions",
+    "pro_statistics_manager"
+  ],
   "tmpl-search": [
     "pro_full_permissions",
     "pro_read_only",
