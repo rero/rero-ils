@@ -490,18 +490,16 @@ def marc21_to_subjects(self, key, value):
     subjects: 6xx [duplicates could exist between several vocabularies,
         if possible deduplicate]
     """
-    subjects = self.get('subjects', [])
     seen = {}
     for subject in utils.force_list(value.get('a')):
         subject = {
             'type': "bf:Topic",
-            'term': subject
+            'authorized_access_point': subject
         }
         str_subject = str(subject)
         if str_subject not in seen:
-            subjects.append(subject)
             seen[str_subject] = 1
-    self['subjects'] = subjects
+            self.setdefault('subjects', []).append(dict(entity=subject))
     return None
 
 

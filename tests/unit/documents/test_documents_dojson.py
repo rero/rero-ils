@@ -3699,13 +3699,19 @@ def test_marc21_to_subjects_from_980_2_factum():
     data = marc21.do(marc21json)
     assert data.get('classification') is None
     assert data.get('subjects') == [{
-            'type': 'bf:Person',
-            'preferred_name': 'Conti, Louis de Bourbon, prince de',
-            'source': 'Factum',
+            'entity': {
+                'type': 'bf:Person',
+                'authorized_access_point':
+                    'Conti, Louis de Bourbon, prince de',
+                'source': 'Factum',
+            }
         }, {
-            'type': 'bf:Person',
-            'preferred_name': 'Lesdiguières, Marie-Françoise de Gondi',
-            'source': 'Factum',
+            'entity': {
+                'type': 'bf:Person',
+                'authorized_access_point':
+                    'Lesdiguières, Marie-Françoise de Gondi',
+                'source': 'Factum',
+            }
         }
     ]
 
@@ -4960,8 +4966,10 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
-          'type': 'bf:Person',
-          '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
+        'entity': {
+            'type': 'bf:Person',
+            '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
+        }
     }]
 
     # field 600 without $t
@@ -4979,12 +4987,16 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
-          'type': 'bf:Person',
-          'preferred_name': 'Athenagoras (patriarche oecuménique ; 1)',
-          'identifiedBy': {
-              'value': 'A009963344',
-              'type': 'RERO'
-          }
+        'entity': {
+            'type': 'bf:Person',
+            'authorized_access_point':
+                'Athenagoras (patriarche oecuménique ; 1)',
+            'source': 'rero',
+            'identifiedBy': {
+                'value': 'A009963344',
+                'type': 'RERO'
+            }
+        }
     }]
 
     # field 611 without $t
@@ -5001,13 +5013,15 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
-          'type': 'bf:Organisation',
-          'conference': True,
-          'preferred_name': 'Belalp Hexe (Blatten)',
-          'identifiedBy': {
-              'value': 'A017827554',
-              'type': 'RERO'
-          }
+        'entity': {
+            'type': 'bf:Organisation',
+            'authorized_access_point': 'Belalp Hexe (Blatten)',
+            'source': 'rero',
+            'identifiedBy': {
+                'value': 'A017827554',
+                'type': 'RERO'
+            }
+        }
     }]
 
     # field 600 with $t
@@ -5024,13 +5038,15 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
-          'type': 'bf:Work',
-          'creator': 'Giraudoux, Jean',
-          'title': 'Electre',
-          'identifiedBy': {
-              'value': '027538303',
-              'type': 'IdRef'
-          }
+        'entity': {
+            'type': 'bf:Work',
+            'authorized_access_point': 'Giraudoux, Jean. Electre',
+            'source': 'rero',
+            'identifiedBy': {
+                'value': '027538303',
+                'type': 'IdRef'
+            }
+        }
     }]
 
     # field 611 with $t
@@ -5047,13 +5063,15 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
-          'type': 'bf:Work',
-          'creator': 'Concile de Vatican 2',
-          'title': 'Influence reçue',
-          'identifiedBy': {
-              'value': 'A010067471',
-              'type': 'RERO'
-          }
+        'entity': {
+            'type': 'bf:Work',
+            'source': 'rero',
+            'authorized_access_point': 'Concile de Vatican 2. Influence reçue',
+            'identifiedBy': {
+                'value': 'A010067471',
+                'type': 'RERO'
+            }
+        }
     }]
 
     # field 650 topic
@@ -5069,12 +5087,15 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
-          'type': 'bf:Topic',
-          'term': 'Vie',
-          'identifiedBy': {
-              'value': 'A021002965',
-              'type': 'RERO'
-          }
+        'entity': {
+            'type': 'bf:Topic',
+            'authorized_access_point': 'Vie',
+            'source': 'rero',
+            'identifiedBy': {
+                'value': 'A021002965',
+                'type': 'RERO'
+            }
+        }
     }]
 
     # field 650 temporal
@@ -5090,12 +5111,15 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
-          'type': 'bf:Temporal',
-          'term': '1961',
-          'identifiedBy': {
-              'value': 'G021002965',
-              'type': 'RERO'
-          }
+        'entity': {
+            'type': 'bf:Temporal',
+            'authorized_access_point': '1961',
+            'source': 'rero',
+            'identifiedBy': {
+                'value': 'G021002965',
+                'type': 'RERO'
+            }
+        }
     }]
 
     # field 651
@@ -5111,12 +5135,15 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
-          'type': 'bf:Place',
-          'preferred_name': 'Europe occidentale',
-          'identifiedBy': {
-              'value': 'A009975209',
-              'type': 'RERO'
-          }
+        'entity': {
+            'type': 'bf:Place',
+            'authorized_access_point': 'Europe occidentale',
+            'source': 'rero',
+            'identifiedBy': {
+                'value': 'A009975209',
+                'type': 'RERO'
+            }
+        }
     }]
 
     # field 655 with $0
@@ -5132,12 +5159,15 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('genreForm') == [{
+        'entity': {
           'type': 'bf:Topic',
-          'term': 'Bases de données',
+          'authorized_access_point': 'Bases de données',
+          'source': 'rero',
           'identifiedBy': {
               'value': 'A001234567',
               'type': 'RERO'
           }
+        }
     }]
 
     # field 655 without $0
@@ -5158,12 +5188,11 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('genreForm') == [{
-        'type': 'bf:Topic',
-        'term': 'Bases de données',
-        'genreForm_subdivisions': ['genre1', 'genre2'],
-        'temporal_subdivisions': ['temporal1', 'temporal2'],
-        'topic_subdivisions': ['topic1'],
-        'place_subdivisions': ['place1'],
+        'entity': {
+            'type': 'bf:Topic',
+            'authorized_access_point': 'Bases de données',
+            'source': 'rero'
+        }
     }]
 
 
@@ -5182,8 +5211,11 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-          'type': 'bf:Topic',
-          'term': 'Pollution - Government policy - Germany (West)'
+        'entity': {
+            'type': 'bf:Topic',
+            'authorized_access_point':
+                'Pollution - Government policy - Germany (West)'
+        }
     }]
 
     # field 919 with $2 chrero and $v
@@ -5201,9 +5233,12 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-          'type': 'bf:Topic',
-          'term': 'Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]',
-          'source': 'chrero'
+        'entity': {
+            'type': 'bf:Topic',
+            'authorized_access_point':
+                'Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]',
+            'source': 'chrero'
+        }
     }]
 
     # field 919 with $2 chrero and without $v
@@ -5264,9 +5299,11 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-          'type': 'bf:Topic',
-          'term': 'Sekundarstufe',
-          'source': 'gnd'
+        'entity': {
+            'type': 'bf:Topic',
+            'authorized_access_point': 'Sekundarstufe',
+            'source': 'gnd'
+        }
     }]
 
     # field 650 _0
@@ -5280,10 +5317,11 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-          'type': 'bf:Organisation',
-          'conference': False,
-          'preferred_name': 'Conference of European Churches',
-          'source': 'LCSH'
+        'entity': {
+            'type': 'bf:Organisation',
+            'authorized_access_point': 'Conference of European Churches',
+            'source': 'LCSH'
+        }
     }]
 
     # field 650 _2
@@ -5297,9 +5335,11 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-          'type': 'bf:Topic',
-          'term': 'Philosophy, Medical',
-          'source': 'MeSH'
+        'entity': {
+            'type': 'bf:Topic',
+            'authorized_access_point': 'Philosophy, Medical',
+            'source': 'MeSH'
+        }
     }]
 
     # field 650 with $2 rerovoc
@@ -5314,9 +5354,11 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-          'type': 'bf:Topic',
-          'term': 'société (milieu humain)',
-          'source': 'rerovoc'
+        'entity': {
+            'type': 'bf:Topic',
+            'authorized_access_point': 'société (milieu humain)',
+            'source': 'rerovoc'
+        }
     }]
 
     # field 650 with $2 rerovoc
@@ -5332,14 +5374,22 @@ def test_marc21_to_subjects_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('subjects_imported') == [{
-        'type': 'bf:Organisation',
-        'preferred_name': 'Catholic Church',
-        'source': 'LCSH',
-        'conference': False,
-        'topic_subdivisions': [
-            'Relations',
-            'Eastern churches'
-        ]
+        'entity': {
+            'type': 'bf:Organisation',
+            'authorized_access_point': 'Catholic Church',
+            'source': 'LCSH',
+            'subdivisions': [{
+                'entity': {
+                    'type': 'bf:Topic',
+                    'authorized_access_point': 'Relations'
+                }
+            }, {
+                'entity': {
+                    'type': 'bf:Topic',
+                    'authorized_access_point': 'Eastern churches'
+                }
+            }]
+        }
     }]
 
 
@@ -5359,9 +5409,11 @@ def test_marc21_to_genreForm_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('genreForm_imported') == [{
-          'type': 'bf:Topic',
-          'term': 'Erlebnisbericht',
-          'source': 'gnd-content'
+        'entity': {
+            'type': 'bf:Topic',
+            'authorized_access_point': 'Erlebnisbericht',
+            'source': 'gnd-content'
+        }
     }]
 
     # field 919 with $2 chrero and $v
@@ -5379,9 +5431,12 @@ def test_marc21_to_genreForm_imported():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('genreForm_imported') == [{
-          'type': 'bf:Topic',
-          'term': 'Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]',
-          'source': 'gnd-content'
+        'entity': {
+            'type': 'bf:Topic',
+            'authorized_access_point':
+                'Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]',
+            'source': 'gnd-content'
+        }
     }]
 
 

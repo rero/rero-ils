@@ -18,13 +18,13 @@
 """Document filters tests."""
 import mock
 
-from rero_ils.modules.documents.models import DocumentSubjectType
 from rero_ils.modules.documents.views import cartographic_attributes, \
     contribution_format, identified_by, main_title_text, note_general, \
     notes_except_general, part_of_format, provision_activity, \
     provision_activity_not_publication, provision_activity_original_date, \
     provision_activity_publication, subject_format, title_variants, \
     work_access_point
+from rero_ils.modules.entities.models import EntityType
 
 
 def test_note_general():
@@ -554,9 +554,21 @@ def test_main_title_text():
 def test_subject_format():
     """Test subject format filter."""
     data = {
-        'term': 'subject topic',
-        'type': DocumentSubjectType.TOPIC
+        'entity': {
+            'authorized_access_point': 'subject topic',
+            'type': EntityType.TOPIC
+        }
     }
     assert subject_format(data, None) == 'subject topic'
-    data['type'] = DocumentSubjectType.ORGANISATION
-    assert subject_format(data, None) == 'Subject parsing error !'
+    assert subject_format(data, 'fr') == 'subject topic'
+
+    data = {
+        'entity': {
+            'authorized_access_point': 'subject topic',
+            'authorized_access_point_fr': 'sujet thème',
+            'type': EntityType.TOPIC
+        }
+    }
+    assert subject_format(data, 'fr') == 'sujet thème'
+    assert subject_format(data, 'en') == 'subject topic'
+    assert subject_format(data, None) == 'subject topic'

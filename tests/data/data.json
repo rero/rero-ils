@@ -1778,19 +1778,25 @@
     ],
     "subjects": [
       {
-        "type": "bf:Topic",
-        "term": "thriller"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "thriller"
+        }
       },
       {
-        "type": "bf:Topic",
-        "term": "suspense"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "suspense"
+        }
       },
       {
-        "preferred_name": "Nebehay, Christian Michael",
-        "type": "bf:Person",
-        "identifiedBy": {
-          "type": "RERO",
-          "value": "A003633163"
+        "entity": {
+          "authorized_access_point": "Nebehay, Christian Michael",
+          "type": "bf:Person",
+          "identifiedBy": {
+            "type": "RERO",
+            "value": "A003633163"
+          }
         }
       }
     ],
@@ -2966,44 +2972,48 @@
     ],
     "subjects": [
       {
-        "type": "bf:Person",
-        "preferred_name": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
-        "identifiedBy": {
-          "value": "A009963344",
-          "source": "rero",
-          "type": "bf:Local"
-        },
-        "source": "rero"
+        "entity": {
+          "type": "bf:Person",
+          "authorized_access_point": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
+          "identifiedBy": {
+            "value": "A009963344",
+            "source": "rero",
+            "type": "bf:Local"
+          }
+        }
       },
       {
-        "type": "bf:Place",
-        "preferred_name": "Europe occidentale",
-        "identifiedBy": {
-          "value": "A009975209",
-          "source": "rero",
-          "type": "bf:Local"
-        },
-        "source": "rero"
+        "entity": {
+          "type": "bf:Place",
+          "authorized_access_point": "Europe occidentale",
+          "identifiedBy": {
+            "value": "A009975209",
+            "source": "rero",
+            "type": "bf:Local"
+          }
+        }
       },
       {
-        "type": "bf:Topic",
-        "term": "Bases de donn\u00e9es",
-        "identifiedBy": {
-          "value": "A001234567",
-          "source": "rero",
-          "type": "bf:Local"
-        },
-        "source": "rero"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "Bases de donn\u00e9es",
+          "identifiedBy": {
+            "value": "A001234567",
+            "source": "rero",
+            "type": "bf:Local"
+          }
+        }
       },
       {
-        "creator": "Voltenauer, Marc",
-        "identifiedBy": {
-          "type": "RERO",
-          "value": "A001234567"
-        },
-        "source": "rero",
-        "title": "Bases de donn\u00e9es",
-        "type": "bf:Work"
+        "entity": {
+          "authorized_access_point": "Bases de donn\u00e9esi (Voltenauer, Marc)",
+          "type": "bf:Work",
+          "identifiedBy": {
+            "type": "RERO",
+            "value": "A001234567",
+            "source": "rero"
+          }
+        }
       }
     ]
   },
@@ -3109,12 +3119,16 @@
     ],
     "subjects": [
       {
-        "type": "bf:Topic",
-        "term": "thriller"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "thriller"
+        }
       },
       {
-        "type": "bf:Topic",
-        "term": "suspense"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "suspense"
+        }
       }
     ],
     "adminMetadata": {
@@ -3392,12 +3406,16 @@
     ],
     "subjects": [
       {
-        "type": "bf:Topic",
-        "term": "thriller"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "thriller"
+        }
       },
       {
-        "type": "bf:Topic",
-        "term": "suspense"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "suspense"
+        }
       }
     ],
     "note": [
@@ -3499,12 +3517,16 @@
     ],
     "subjects": [
       {
-        "type": "bf:Topic",
-        "term": "thriller"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "thriller"
+        }
       },
       {
-        "type": "bf:Topic",
-        "term": "suspense"
+        "entity": {
+          "type": "bf:Topic",
+          "authorized_access_point": "suspense"
+        }
       }
     ],
     "note": [
