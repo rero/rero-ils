@@ -2007,3 +2007,20 @@ def do_temporal_coverage(marc21, key, value):
     if temporal_coverage:
         temporal_coverage['type'] = coverage_type
         return temporal_coverage
+
+
+def perform_subdivisions(field, value):
+    """Perform subject subdivisions from MARC field."""
+    subdivisions = {
+        'v': 'bf:Concept',
+        'x': 'bf:Topic',
+        'y': 'bf:Temporal',
+        'z': 'bf:Place'
+    }
+    for tag, val in value.items():
+        if tag in subdivisions:
+            for v in utils.force_list(val):
+                field.setdefault('subdivisions', []).append(dict(entity={
+                        'type': subdivisions[tag],
+                        'authorized_access_point': v
+                }))

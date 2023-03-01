@@ -42,7 +42,8 @@ from ..utils import _CONTRIBUTION_ROLE, do_abbreviated_title, \
     do_scale_and_cartographic, do_sequence_numbering, \
     do_specific_document_relation, do_summary, do_table_of_contents, \
     do_temporal_coverage, do_title, \
-    do_usage_and_access_policy_from_field_506_540, do_work_access_point
+    do_usage_and_access_policy_from_field_506_540, do_work_access_point, \
+    perform_subdivisions
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -504,19 +505,6 @@ def marc21_to_subjects(self, key, value):
         subjects :  for 6xx with $2 rero
         subjects_imported : for 6xx having indicator 2 '0' or '2'
     """
-
-    def perform_subdivisions(field):
-        """Perform subject subdivisions from MARC field."""
-        subdivisions = {
-            'v': 'genreForm_subdivisions',
-            'x': 'topic_subdivisions',
-            'y': 'temporal_subdivisions',
-            'z': 'place_subdivisions'
-        }
-        for code, subdivision in subdivisions.items():
-            for subfield_value in utils.force_list(value.get(code, [])):
-                field.setdefault(subdivision, []).append(subfield_value)
-
     type_per_tag = {
         '600': 'bf:Person',
         '610': 'bf:Organisation',
@@ -530,23 +518,6 @@ def marc21_to_subjects(self, key, value):
         '655': 'bf:Topic'
     }
 
-    field_data_per_tag = {
-        '600': 'preferred_name',
-        '610': 'preferred_name',
-        '611': 'preferred_name',
-        '600t': 'title',
-        '610t': 'title',
-        '611t': 'title',
-        '630': 'title',
-        '650': 'term',
-        '651': 'preferred_name',
-        '655': 'term'
-    }
-
-    conference_per_tag = {
-        '610': False,
-        '611': True
-    }
     source_per_indicator_2 = {
         '0': 'LCSH',
         '2': 'MeSH'
@@ -572,6 +543,7 @@ def marc21_to_subjects(self, key, value):
 
         subject = {
             'type': data_type,
+            'source': subfield_2
         }
 
         subfield_code_per_tag = {
@@ -592,18 +564,16 @@ def marc21_to_subjects(self, key, value):
         if tag_key == '655':
             # remove the square brackets
             string_build = re.sub(r'^\[(.*)\]$', r'\1', string_build)
-        subject[field_data_per_tag[tag_key]] = string_build
+        subject['authorized_access_point'] = string_build
 
-        if tag_key in ['610', '611']:
-            subject['conference'] = conference_per_tag[tag_key]
-        elif tag_key in ['600t', '610t', '611t']:
+        if tag_key in ['600t', '610t', '611t']:
             creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
-            subject['creator'] = remove_trailing_punctuation(
+            subject['authorized_access_point'] = remove_trailing_punctuation(
                 build_string_from_subfields(
                     value,
                     subfield_code_per_tag[creator_tag_key]),
                 '.', '.'
-            )
+            ) + '. ' + subject['authorized_access_point']
         field_key = 'genreForm' if tag_key == '655' else 'subjects'
         subfields_0 = utils.force_list(value.get('0'))
         if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
@@ -621,11 +591,12 @@ def marc21_to_subjects(self, key, value):
             identifier = build_identifier(value)
             if identifier:
                 subject['identifiedBy'] = identifier
-            perform_subdivisions(subject)
+            if field_key != 'genreForm':
+                perform_subdivisions(subject, value)
 
-        if subject.get('$ref') or subject.get(field_data_per_tag[tag_key]):
+        if subject.get('$ref') or subject.get('authorized_access_point'):
             subjects = self.get(field_key, [])
-            subjects.append(subject)
+            subjects.append(dict(entity=subject))
             self[field_key] = subjects
 
     elif subfield_2 == 'rerovoc' or indicator_2 in ['0', '2']:
@@ -637,15 +608,13 @@ def marc21_to_subjects(self, key, value):
             subject_imported = {
                 'type': type_per_tag[tag_key],
                 'source': source,
-                field_data_per_tag[tag_key]: term_string
+                'authorized_access_point': term_string
             }
-            perform_subdivisions(subject_imported)
+            perform_subdivisions(subject_imported, value)
 
-            if tag_key in ['610', '611']:
-                subject_imported['conference'] = conference_per_tag[tag_key]
             subjects_imported = self.get('subjects_imported', [])
             if subject_imported:
-                subjects_imported.append(subject_imported)
+                subjects_imported.append(dict(entity=subject_imported))
                 self['subjects_imported'] = subjects_imported
 
 
@@ -690,17 +659,18 @@ def marc21_to_subjects_imported(self, key, value):
                 data_imported = {
                     'type': 'bf:Topic',
                     'source': subfield_2,
-                    'term': term_string
+                    'authorized_access_point': term_string
                 }
     elif term_string := build_string_from_subfields(
             value, 'abcdefghijklmnopqrstuvwxyz', ' - '):
         data_imported = {
             'type': 'bf:Topic',
-            'term': term_string
+            'authorized_access_point': term_string
         }
     if data_imported:
         subjects_or_genre_form_imported_imported = self.get(field_key, [])
-        subjects_or_genre_form_imported_imported.append(data_imported)
+        subjects_or_genre_form_imported_imported.append(
+            dict(entity=data_imported))
         self[field_key] = subjects_or_genre_form_imported_imported
 
 
@@ -764,11 +734,11 @@ def marc21_to_classification(self, key, value):
             if subfield_2 and _CONTAINS_FACTUM_REGEXP.search(subfield_2):
                 subject = {
                     'type': 'bf:Person',
-                    'preferred_name': subfield_a,
+                    'authorized_access_point': subfield_a,
                     'source': 'Factum'
                 }
                 subjects = self.get('subjects', [])
-                subjects.append(subject)
+                subjects.append(dict(entity=subject))
                 self['subjects'] = subjects
 
             classif_type, subdivision_subfield_codes = \

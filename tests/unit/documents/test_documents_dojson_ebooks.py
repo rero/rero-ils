@@ -450,14 +450,37 @@ def test_marc21_to_subjects():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [
-        {'term': 'Croissance personnelle', 'type': 'bf:Topic'},
-        {'term': 'Self-Help', 'type': 'bf:Topic'},
-        {'term': 'Santé', 'type': 'bf:Topic'},
-        {'term': 'Health', 'type': 'bf:Topic'},
-        {'term': 'Développement Personnel', 'type': 'bf:Topic'},
-        {'term': 'Self-Help', 'type': 'bf:Topic'}
-    ]
+    assert data.get('subjects') == [{
+            'entity': {
+                'authorized_access_point': 'Croissance personnelle',
+                'type': 'bf:Topic'
+            }
+        }, {
+            'entity': {
+                'authorized_access_point': 'Self-Help',
+                'type': 'bf:Topic'
+            }
+        }, {
+            'entity': {
+                'authorized_access_point': 'Santé',
+                'type': 'bf:Topic'
+            }
+        }, {
+            'entity': {
+                'authorized_access_point': 'Health',
+                'type': 'bf:Topic'
+            }
+        }, {
+            'entity': {
+                'authorized_access_point': 'Développement Personnel',
+                'type': 'bf:Topic'
+            }
+        }, {
+            'entity': {
+                'authorized_access_point': 'Self-Help',
+                'type': 'bf:Topic'
+            }
+        }]
 
 
 def test_marc21_to_contribution():

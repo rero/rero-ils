@@ -32,10 +32,12 @@ class AddMEFPidExtension(RecordExtension):
         :params record: dict - a document record.
         """
         from rero_ils.modules.entities.api import Entity
-        agents = record.get('subjects', []) +\
-            record.get('subjects_imported', []) + \
-            [contrib['entity'] for contrib in
-                record.get('contribution', []) if 'entity' in contrib]
+        agents = [
+            subject['entity'] for subject in record.get('subjects', [])
+        ] + [
+            contrib['entity'] for contrib in record.get('contribution', [])
+            if 'entity' in contrib
+        ]
         for agent in agents:
             if contrib_ref := agent.get('$ref'):
                 cont, _ = Entity.get_record_by_ref(
