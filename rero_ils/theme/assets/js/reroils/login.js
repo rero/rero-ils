@@ -1,7 +1,7 @@
 /*
 
 RERO ILS
-Copyright (C) 2020 RERO
+Copyright (C) 2020-2023 RERO
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -45,6 +45,22 @@ $("#login-user").submit(function (e) {
       alert.show();
     }
   });
+});
+
+$('#password-show-hide').on('click', function() {
+  var type = 'password' == $('#password').attr('type') ? 'text': 'password';
+  $('#password').attr('type', type);
+  if (type == 'text') {
+    $('#password-show-hide-icon')
+      .attr('title', 'Hide password')
+      .removeClass('fa-eye')
+      .addClass('fa-eye-slash');
+  } else {
+    $('#password-show-hide-icon')
+      .attr('title', 'Show password')
+      .removeClass('fa-eye-slash')
+      .addClass('fa-eye');
+  }
 });
 
 var getUrlParameter = function getUrlParameter(sParam) {

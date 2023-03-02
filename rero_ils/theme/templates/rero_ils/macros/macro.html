@@ -1,7 +1,7 @@
 {# -*- coding: utf-8 -*-
 
   RERO ILS
-  Copyright (C) 2019 RERO
+  Copyright (C) 2019-2023 RERO
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
@@ -171,13 +171,21 @@
   <div class="input-group {{size}}{% if icon %} has-feedback{% endif %}{% if field.errors %} has-error{% endif %} mb-2">
     {%- set extras = dict(autofocus="") if autofocus else dict() %}
     {{field(class_="form-control", placeholder=placeholder, **extras)}}
-    {%- if icon %}
+    {%- if icon and field.id != 'password' %}
     <div class="input-group-append">
-    <span class="input-group-text">
-      <i class="{{icon}} form-control-feedback" aria-hidden="true" ></i>
-    </span>
-  </div>
+      <span class="input-group-text">
+        <i class="{{icon}} form-control-feedback" aria-hidden="true"></i>
+      </span>
+    </div>
     {%- endif%}
+
+    {% if field.id == 'password' %}
+    <div class="input-group-append">
+      <span id="password-show-hide" class="input-group-text">
+        <small><i id="password-show-hide-icon" class="fa fa-eye form-control-feedback" aria-hidden="true" title="{{ _('Show password') }}"></i></small>
+      </span>
+    </div>
+    {% endif %}
   </div>
   {%- if field.errors and errormsg %}
   <div class="text-danger text-left" role="alert">
