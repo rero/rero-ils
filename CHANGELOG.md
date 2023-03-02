@@ -1,5 +1,59 @@
 # Changelog
 
+## [v1.15.0](https://github.com/rero/rero-ils/tree/v1.15.0) (2023-03-02)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.14.1...v1.15.0)
+
+**New features:**
+* Permissions: add multiple roles [\#2779](https://github.com/rero/rero-ils/issues/2779) (by @zannkukai)
+* Synchro MEF / RERO-ILS [\#2849](https://github.com/rero/rero-ils/issues/2849) (by @jma, @rerowep)
+* Add additional fees manualy [\#3143](https://github.com/rero/rero-ils/issues/3143) (by @Garfield-fr)
+* Specify for serial issues a delivery date different from the expected date [\#2921](https://github.com/rero/rero-ils/issues/2921) (by @zannkukai)
+* Search items by current number of pending requests [\#2708](https://github.com/rero/rero-ils/issues/2708) (by @Garfield-fr, @rerowep)
+* users: add an option "no_information" for gender [\#3199](https://github.com/rero/rero-ils/pull/3199) (by @PascalRepond)
+
+**Enhancements:**
+* Circulation policy (can request) should take into account the temporary location [\#2885](https://github.com/rero/rero-ils/issues/2885) (by @zannkukai)
+* Enhance login security [\#3168](https://github.com/rero/rero-ils/issues/3168) (by @Garfield-fr, @PascalRepond)
+* Allow to edit expected date for received issues [\#2239](https://github.com/rero/rero-ils/issues/2239) (by @PascalRepond)
+* The canceled request is displayed in the history tab of the professional patron account [\#1516](https://github.com/rero/rero-ils/issues/1516)
+* security: enhance login [\#3223](https://github.com/rero/rero-ils/pull/3223) (by @Garfield-fr)
+
+**Fixes:**
+* circulation: fix `can_be_requested` circulation method [\#3285](https://github.com/rero/rero-ils/pull/3285) (by @zannkukai, @jma)
+* Strings `i18nPlural` seem to not be translated correctly [\#3112](https://github.com/rero/rero-ils/issues/3112) (by @Garfield-fr)
+* Author-Titles entries should be removed from the MEF link to person (GnD) [\#2803](https://github.com/rero/rero-ils/issues/2803) (by @rerowep)
+* validator: fix translations on password validator [\#3284](https://github.com/rero/rero-ils/pull/3284) (by @Garfield-fr)
+* translations: fix unicode characters in jsonschema [\#3279](https://github.com/rero/rero-ils/pull/3279) (by @PascalRepond)
+* permissions: fix patron read permission [\#3281](https://github.com/rero/rero-ils/pull/3281) (by @jma)
+* Inventory list : sort by call number leads to an Error 500 [\#3212](https://github.com/rero/rero-ils/issues/3212) (by @zannkukai)
+* "Acquisition_order" notification setting, in the library editor, cannot be saved [\#2974](https://github.com/rero/rero-ils/issues/2974)
+* Suppress the 'acquisition_order' field in the library notification setting [\#3241](https://github.com/rero/rero-ils/issues/3241) (by @zannkukai)
+* Fees not calculated correctly when past holidays and exceptions are deleted [\#3159](https://github.com/rero/rero-ils/issues/3159) (by @zannkukai)
+* Local fields should be displayed in their numeric sequence [\#2994](https://github.com/rero/rero-ils/issues/2994) (by @zannkukai)
+* Some IdRef authorities appear in more than one MEF cluster [\#2144](https://github.com/rero/rero-ils/issues/2144)
+* Cannot remove gender value in the user data editor [\#2189](https://github.com/rero/rero-ils/issues/2189)
+* documents: invalid identifiers should be indexed [\#3220](https://github.com/rero/rero-ils/issues/3220) (by @zannkukai)
+* inventory list: fields from provisionActivity are not exported to csv [\#3227](https://github.com/rero/rero-ils/issues/3227) (by @zannkukai)
+* Syntax error in stale.yml GitHub Workflow [\#3217](https://github.com/rero/rero-ils/issues/3217)
+* indexing: fix wildcard queries [\#3269](https://github.com/rero/rero-ils/pull/3269) (by @jma)
+* import: fix get_contribution_link [\#3257](https://github.com/rero/rero-ils/pull/3257) (by @rerowep)
+* documents: fix role in contribution [\#3244](https://github.com/rero/rero-ils/pull/3244) (by @rerowep)
+* documents: fix contribution duplicates [\#3221](https://github.com/rero/rero-ils/pull/3221) (by @jma)
+
+**Other changes:**
+* alembic: scripts for data migration [\#3251](https://github.com/rero/rero-ils/issues/3251) (by @zannkukai)
+* tests: Prevent MEF access [\#3263](https://github.com/rero/rero-ils/pull/3263) (by @rerowep)
+* monitoring: ES indices [\#3258](https://github.com/rero/rero-ils/pull/3258) (by @rerowep)
+* test: better MEF tests [\#3256](https://github.com/rero/rero-ils/pull/3256) (by @rerowep)
+* utils: timestamps [\#3248](https://github.com/rero/rero-ils/pull/3248) (by @rerowep)
+* agents: add MEF synchronization [\#3237](https://github.com/rero/rero-ils/pull/3237) (by @jma)
+* imports: LOC [\#3219](https://github.com/rero/rero-ils/pull/3219) (by @rerowep)
+* circulation: better logs for no circulation action [\#3230](https://github.com/rero/rero-ils/pull/3230) (by @rerowep)
+* debug: Add some configuration to debug [\#3229](https://github.com/rero/rero-ils/pull/3229) (by @jma)
+* tests: fix dependency error [\#3228](https://github.com/rero/rero-ils/pull/3228) (by @jma)
+* contributions: remove legacy code [\#3205](https://github.com/rero/rero-ils/pull/3205) (by @jma)
+
 ## [v1.14.1](https://github.com/rero/rero-ils/tree/v1.14.1) (2023-01-16)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.14.0...v1.14.1)
