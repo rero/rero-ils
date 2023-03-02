@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -53,8 +54,21 @@ class LocalFieldsSearch(IlsRecordsSearch):
         doc_types = None
         fields = ('*', )
         facets = {}
-
         default_filter = None
+
+    def get_local_fields(self, parent_type, parent_pid, organisation_pid=None):
+        """Get local fields related to a resource.
+
+        :param parent_type: the parent record type.
+        :param parent_pid: the parent record pid.
+        :param organisation_pid: organisation pid filter value.
+        :return: a list of ElasticSearch hit.
+        """
+        filters = Q('term', parent__type=parent_type)
+        filters &= Q('term', parent__pid=parent_pid)
+        if organisation_pid:
+            filters &= Q('term', organisation__pid=organisation_pid)
+        return self.filter(filters)
 
 
 class LocalField(IlsRecord):
@@ -67,54 +81,50 @@ class LocalField(IlsRecord):
 
     def extended_validation(self, **kwargs):
         """Extended validation."""
+        # parent reference must exists
+        parent = extracted_data_from_ref(self.get('parent'), data='record')
+        if not parent:
+            return _("Parent record doesn't exists.")
         # check if a local_fields resource exists for this document
-        p_type = extracted_data_from_ref(self.get('parent'), data='acronym')
-        p_pid = extracted_data_from_ref(self.get('parent'))
-        organisation_pid = extracted_data_from_ref(self.get('organisation'))
-        count = LocalFieldsSearch()\
-            .filter('term', parent__type=p_type)\
-            .filter('term', parent__pid=p_pid)\
-            .filter('term', organisation__pid=organisation_pid)\
-            .exclude('term', pid=self['pid'])\
-            .count()
-        if count > 0:
-            return _('Local fields already exist for this document.')
-
+        query = LocalFieldsSearch().get_local_fields(
+            parent.provider.pid_type, parent.pid,
+            extracted_data_from_ref(self.get('organisation'))
+        )
+        if query.exclude('term', pid=self['pid']).count():
+            return _('Local fields already exist for this resource.')
         # check if all fields are empty.
         if len(self.get('fields', {}).keys()) == 0:
             return _('Missing fields.')
         return True
 
-    @classmethod
-    def get_local_fields_by_resource(cls, type, pid, organisation_pid=None):
-        """Get all local fields linked to a resource.
+    @staticmethod
+    def get_local_fields_by_id(parent_type, parent_pid, organisation_pid=None):
+        """Get local fields related to a parent record.
 
-        :param type: type of record (Ex: doc).
-        :param pid: pid of record type.
-        :param organisation_pid: current organisation pid.
-        :return: list of local fields record.
+        :param parent_type: the parent record type.
+        :param parent_pid: the parent record pid.
+        :param organisation_pid: organisation pid filter value.
+        :returns: a generator of `LocalField` records.
         """
-        queryFilters = [
-            Q('term', parent__type=type),
-            Q('term', parent__pid=pid)
-        ]
-        if (organisation_pid):
-            queryFilters.append(Q('term', organisation__pid=organisation_pid))
-        query = LocalFieldsSearch()\
-            .query('bool', filter=queryFilters)\
-            .sort(
-                {'organisation__pid': {'order': 'asc'}},
-                {'parent__type': {'order': 'asc'}}
-            )\
-            .source(['organisation', 'fields']).scan()
-        local_fields = []
-        for local_field in query:
-            data = local_field.to_dict()
-            local_fields.append({
-                'organisation_pid': data['organisation']['pid'],
-                'fields': data['fields']
-            })
-        return local_fields
+        search = LocalFieldsSearch()\
+            .get_local_fields(parent_type, parent_pid, organisation_pid)\
+            .source(False)
+        for hit in search.scan():
+            yield LocalField.get_record(hit.meta.id)
+
+    @staticmethod
+    def get_local_fields(parent, organisation_pid=None):
+        """Get local fields related to a parent record.
+
+        :param parent: the parent record.
+        :param organisation_pid: organisation pid filter value.
+        :returns: a generator of `LocalField` records.
+        """
+        return LocalField.get_local_fields_by_id(
+            parent.provider.pid_type,
+            parent.pid,
+            organisation_pid
+        )
 
 
 class LocalFieldsIndexer(IlsRecordsIndexer):
@@ -122,26 +132,32 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
 
     record_cls = LocalField
 
-    def index(self, record):
-        """Reindex a resource (documents, items, holdings).
+    @staticmethod
+    def _reindex_parent_resource(record):
+        """Reindex the parent resource.
 
-        :param record: Record instance.
+        :param record: the `LocalField` instance.
+        """
+        resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
+        if isinstance(resource, (Document, Item)):
+            resource.reindex()
+
+    def index(self, record):
+        """Reindex a `LocalField` resource.
+
+        :param record: `LocalField` record instance.
         """
         return_value = super().index(record)
-        resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
-        if isinstance(resource, Document) or isinstance(resource, Item):
-            resource.reindex()
+        LocalFieldsIndexer._reindex_parent_resource(record)
         return return_value
 
     def delete(self, record):
-        """Reindex a resource (documents, items, holdings).
+        """Delete a `LocalField` record.
 
-        :param record: Record instance.
+        :param record: `LocalField` record instance.
         """
         return_value = super().delete(record)
-        resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
-        if isinstance(resource, Document) or isinstance(resource, Item):
-            resource.reindex()
+        LocalFieldsIndexer._reindex_parent_resource(record)
         return return_value
 
     def bulk_index(self, record_id_iterator):

@@ -18,9 +18,12 @@
 
 """Signals connector for Item."""
 
+from rero_ils.modules.documents.api import Document
+from rero_ils.modules.local_fields.api import LocalField
+from rero_ils.modules.local_fields.dumpers import \
+    ElasticSearchDumper as LocalFieldESDumper
+
 from .api import Item, ItemsSearch
-from ..documents.api import Document
-from ..local_fields.api import LocalField
 
 
 def enrich_item_data(sender, json=None, record=None, index=None,
@@ -45,8 +48,12 @@ def enrich_item_data(sender, json=None, record=None, index=None,
     json['current_pending_requests'] = record.get_requests(output='count')
 
     # add related local fields
-    if fields := LocalField.get_local_fields_by_resource('item', record.pid):
-        json['local_fields'] = fields
+    local_fields = [
+        field.dumps(dumper=LocalFieldESDumper())
+        for field in LocalField.get_local_fields(record)
+    ]
+    if local_fields:
+        json['local_fields'] = local_fields
 
     if record.is_issue:
         # Issue `sort_date` is an optional field but value is used to sort

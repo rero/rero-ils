@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,14 +20,18 @@
 
 from flask.globals import current_app
 
+from rero_ils.modules.commons.identifiers import IdentifierFactory, \
+    IdentifierType
+from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.holdings.api import HoldingsSearch
+from rero_ils.modules.items.api import ItemsSearch
+from rero_ils.modules.items.models import ItemNoteTypes
+from rero_ils.modules.local_fields.api import LocalField
+from rero_ils.modules.local_fields.dumpers import \
+    ElasticSearchDumper as LocalFieldESDumper
+from rero_ils.utils import language_mapping
+
 from .utils import process_literal_contributions, title_format_text_head
-from ..commons.identifiers import IdentifierFactory, IdentifierType
-from ..documents.api import Document, DocumentsSearch
-from ..holdings.api import HoldingsSearch
-from ..items.api import ItemsSearch
-from ..items.models import ItemNoteTypes
-from ..local_fields.api import LocalField
-from ...utils import language_mapping
 
 
 def process_holdings(record, json):
@@ -207,11 +212,12 @@ def enrich_document_data(sender, json=None, record=None, index=None,
     json['sort_title'] = sort_title
 
     # Local fields in JSON
-    local_fields = LocalField.get_local_fields_by_resource(
-        'doc', record['pid'])
+    local_fields = [
+        field.dumps(dumper=LocalFieldESDumper())
+        for field in LocalField.get_local_fields(record)
+    ]
     if local_fields:
         json['local_fields'] = local_fields
-
     process_identifiers(record, json)
 
     # Populate sort date new and old for use in sorting

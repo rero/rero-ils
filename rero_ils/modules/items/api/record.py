@@ -25,6 +25,8 @@ from flask_babelex import gettext as _
 from rero_ils.modules.api import IlsRecord
 from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.item_types.api import ItemType
+from rero_ils.modules.local_fields.extensions import \
+    DeleteRelatedLocalFieldExtension
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.operation_logs.extensions import \
     UntrackedFieldsOperationLogObserverExtension
@@ -46,7 +48,8 @@ class ItemRecord(IlsRecord):
         IssueSortDateExtension(),
         IssueStatusExtension(),
         OrgLibRecordExtension(),
-        UntrackedFieldsOperationLogObserverExtension(['status'])
+        UntrackedFieldsOperationLogObserverExtension(['status']),
+        DeleteRelatedLocalFieldExtension()
     ]
 
     def extended_validation(self, **kwargs):

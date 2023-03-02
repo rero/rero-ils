@@ -288,12 +288,12 @@ class Collector():
             """Append local fields data.
 
             :param csv_data: data dictionary.
-            :param resource_type: resoruce_type.
+            :param resource_type: resource_type.
             :param resource_pid: resource_pid.
             """
             lf_type = 'document' if resource_type == 'doc' else resource_type
             org_pid = csv_data['item_org_pid']
-            local_fields = LocalField.get_local_fields_by_resource(
+            local_fields = LocalField.get_local_fields_by_id(
                     resource_type, resource_pid, organisation_pid=org_pid)
             for field, num in itertools.product(local_fields, range(1, 11)):
                 field_name = f'{lf_type}_local_field_{num}'

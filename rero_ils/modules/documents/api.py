@@ -37,6 +37,8 @@ from rero_ils.modules.commons.identifiers import IdentifierFactory, \
     IdentifierType
 from rero_ils.modules.documents.extensions import AddMEFPidExtension
 from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.local_fields.extensions import \
+    DeleteRelatedLocalFieldExtension
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.operation_logs.extensions import \
     OperationLogObserverExtension
@@ -84,7 +86,8 @@ class Document(IlsRecord):
 
     _extensions = [
         OperationLogObserverExtension(),
-        AddMEFPidExtension()
+        AddMEFPidExtension(),
+        DeleteRelatedLocalFieldExtension()
     ]
 
     def _validate(self, **kwargs):
@@ -161,10 +164,10 @@ class Document(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        links = {}
         from ..holdings.api import HoldingsSearch
         from ..items.api import ItemsSearch
         from ..loans.models import LoanState
+        from ..local_fields.api import LocalFieldsSearch
         hold_query = HoldingsSearch().filter('term', document__pid=self.pid)
         item_query = ItemsSearch().filter('term', document__pid=self.pid)
         loan_query = search_by_pid(
@@ -173,6 +176,8 @@ class Document(IlsRecord):
         )
         acq_order_lines_query = AcqOrderLinesSearch() \
             .filter('term', document__pid=self.pid)
+        local_fields_query = LocalFieldsSearch()\
+            .get_local_fields(self.provider.pid_type, self.pid)
         relation_types = {
             'partOf': 'partOf.document.pid',
             'supplement': 'supplement.pid',
@@ -192,6 +197,7 @@ class Document(IlsRecord):
             items = sorted_pids(item_query)
             loans = sorted_pids(loan_query)
             acq_order_lines = sorted_pids(acq_order_lines_query)
+            local_fields = sorted_pids(local_fields_query)
             documents = {}
             for relation, relation_es in relation_types.items():
                 doc_query = DocumentsSearch() \
@@ -203,27 +209,30 @@ class Document(IlsRecord):
             items = item_query.count()
             loans = loan_query.count()
             acq_order_lines = acq_order_lines_query.count()
+            local_fields = local_fields_query.count()
             documents = 0
             for relation_es in relation_types.values():
                 doc_query = DocumentsSearch() \
                     .filter({'term': {relation_es: self.pid}})
                 documents += doc_query.count()
-        if holdings:
-            links['holdings'] = holdings
-        if items:
-            links['items'] = items
-        if loans:
-            links['loans'] = loans
-        if acq_order_lines:
-            links['acq_order_lines'] = acq_order_lines
-        if documents:
-            links['documents'] = documents
-        return links
+
+        links = {
+            'holdings': holdings,
+            'items': items,
+            'loans': loans,
+            'acq_order_lines': acq_order_lines,
+            'documents': documents,
+            'local_fields': local_fields
+        }
+        return {k: v for k, v in links.items() if v}
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
-        if links := self.get_links_to_me():
+        links = self.get_links_to_me()
+        # related LocalFields isn't a reason to block suppression
+        links.pop('local_fields', None)
+        if links:
             cannot_delete['links'] = links
         if self.harvested:
             cannot_delete['others'] = dict(harvested=True)

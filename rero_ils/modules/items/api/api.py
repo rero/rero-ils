@@ -94,6 +94,8 @@ class Item(ItemCirculation, ItemIssue):
         """Get reasons not to delete record."""
         cannot_delete = {}
         links = self.get_links_to_me()
+        # local_fields aren't a reason to block suppression
+        links.pop('local_fields', None)
         if links:
             cannot_delete['links'] = links
         return cannot_delete
