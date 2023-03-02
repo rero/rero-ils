@@ -31,25 +31,30 @@ from flask_babelex import gettext as _
 from invenio_records_rest.utils import obj_or_import_string
 from jinja2 import Environment
 
+from rero_ils.filter import format_date_filter
+from rero_ils.modules.api import IlsRecord, IlsRecordError, \
+    IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.documents.api import Document
+from rero_ils.modules.errors import MissingRequiredParameterError, \
+    RegularReceiveNotAllowed
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.items.models import ItemIssueStatus
+from rero_ils.modules.local_fields.api import LocalFieldsSearch
+from rero_ils.modules.local_fields.extensions import \
+    DeleteRelatedLocalFieldExtension
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.operation_logs.extensions import \
+    OperationLogObserverExtension
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.record_extensions import OrgLibRecordExtension
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, \
+    get_schema_for_resource, sorted_pids
+from rero_ils.modules.vendors.api import Vendor
 
 from .models import HoldingIdentifier, HoldingMetadata, HoldingTypes
-from ..api import IlsRecord, IlsRecordError, IlsRecordsIndexer, \
-    IlsRecordsSearch
-from ..documents.api import Document
-from ..errors import MissingRequiredParameterError, RegularReceiveNotAllowed
-from ..fetchers import id_fetcher
-from ..items.api import Item, ItemsSearch
-from ..locations.api import Location
-from ..minters import id_minter
-from ..operation_logs.extensions import OperationLogObserverExtension
-from ..organisations.api import Organisation
-from ..providers import Provider
-from ..record_extensions import OrgLibRecordExtension
-from ..utils import extracted_data_from_ref, get_ref_for_pid, \
-    get_schema_for_resource, sorted_pids
-from ..vendors.api import Vendor
-from ...filter import format_date_filter
 
 # holing provider
 HoldingProvider = type(
@@ -86,7 +91,8 @@ class Holding(IlsRecord):
 
     _extensions = [
         OrgLibRecordExtension(),
-        OperationLogObserverExtension()
+        OperationLogObserverExtension(),
+        DeleteRelatedLocalFieldExtension(),
     ]
 
     minter = holding_id_minter
@@ -378,16 +384,20 @@ class Holding(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        links = {}
-        query = ItemsSearch().filter('term', holding__pid=self.pid)
+        items_query = ItemsSearch().filter('term', holding__pid=self.pid)
+        local_fields_query = LocalFieldsSearch().get_local_fields(
+            self.provider.pid_type, self.pid)
         if get_pids:
-            items = sorted_pids(query)
+            items = sorted_pids(items_query)
+            local_fields = sorted_pids(local_fields_query)
         else:
-            items = query.count()
-        # get number of attached items
-        if items:
-            links['items'] = items
-        return links
+            items = items_query.count()
+            local_fields = local_fields_query.count()
+        links = {
+            'items': items,
+            'local_fields': local_fields
+        }
+        return {k: v for k, v in links.items() if v}
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
@@ -404,6 +414,8 @@ class Holding(IlsRecord):
                         count=count)): count}
         else:
             links = self.get_links_to_me()
+            # local_fields isn't a reason to block holding suppression
+            links.pop('local_fields', None)
             if links:
                 cannot_delete['links'] = links
         return cannot_delete
