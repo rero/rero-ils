@@ -259,10 +259,7 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                                     changed = True
                                     url = f'{self.mef_url}/{cont_type}/' \
                                         f'{cont[cont_type]["pid"]}'
-                                    new_contribution = {
-                                        '$ref': url,
-                                        'type': contribution['entity']['type']
-                                    }
+                                    new_contribution = {'$ref': url}
                                     self.print_debug(
                                         f'{hit.pid} Change:',
                                         f'  {contribution["entity"]}',
@@ -309,7 +306,6 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
         if self.verbose:
             click.echo(f'Found identifiedBy {self.name}: '
                        f'{self._query_filter().count()}')
-        hits = list(self._query_filter().source('pid').scan())
         for hit in list(self._query_filter().source('pid').scan()):
             with contextlib.suppress(NoResultFound):
                 doc = Document.get_record(hit.meta.id)
@@ -329,12 +325,7 @@ class ReplaceMefIdentifiedBySubjects(ReplaceMefIdentifiedByContribution):
                                     changed = True
                                     url = f'{self.mef_url}/{cont_type}/' \
                                         f'{cont[cont_type]["pid"]}'
-                                    new_subject = {
-                                        '$ref': url,
-                                        # TOTO: we have to correct all wrong
-                                        # bf:Organisation
-                                        'type': subject['type']
-                                    }
+                                    new_subject = {'$ref': url}
                                     self.print_debug(
                                         f'{hit.pid} Change:',
                                         f'  {subject}',

@@ -29,7 +29,6 @@ from utils import flush_index, mock_response
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.api import EntitiesSearch, Entity, \
     entity_id_fetcher
-from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.entities.sync import SyncAgent
 
 
@@ -236,8 +235,7 @@ def test_entity_properties(
     assert item.organisation_pid not in entity_person.organisation_pids
     document['contribution'] = [{
         'entity': {
-            '$ref': 'https://mef.rero.ch/api/agents/idref/223977268',
-            'type': EntityType.PERSON
+            '$ref': 'https://mef.rero.ch/api/agents/idref/223977268'
         },
         'role': ['cre']
     }]

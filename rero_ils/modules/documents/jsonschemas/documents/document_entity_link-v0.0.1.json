@@ -6,30 +6,9 @@
     "$ref"
   ],
   "required": [
-    "type",
     "$ref"
   ],
   "properties": {
-    "type": {
-      "title": "Type",
-      "type": "string",
-      "default": "bf:Person",
-      "form": {
-        "type": "selectWithSort",
-        "templateOptions": {
-          "options": [
-            {
-              "label": "bf:Person",
-              "value": "bf:Person"
-            },
-            {
-              "label": "bf:Organisation",
-              "value": "bf:Organisation"
-            }
-          ]
-        }
-      }
-    },
     "$ref": {
       "title": "MEF Link",
       "type": "string",
