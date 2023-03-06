@@ -33,6 +33,7 @@ from rero_ils.modules.documents.api import Document, DocumentsSearch, \
 from rero_ils.modules.documents.models import DocumentIdentifier
 from rero_ils.modules.ebooks.tasks import create_records
 from rero_ils.modules.entities.api import EntitiesSearch, Entity
+from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.tasks import process_bulk_queue
 
 
@@ -334,21 +335,21 @@ def test_document_replace_refs(document, mef_agents_url):
     data = document.replace_refs()
     assert len(data.get('contribution')) == 1
 
-    contributions = document.get('contribution', [])
-
     # add MEF contribution agent
-    contributions.append({
-        'entity': {
-            'type': 'bf:Person',
-            '$ref': f'{mef_agents_url}/rero/A017671081'
-        },
-        'role': [
-            'aut'
-        ]
+    document['contribution'].append({
+        'entity': {'$ref': f'{mef_agents_url}/rero/A017671081'},
+        'role': ['aut']
     })
-    document.update(document, True, True)
+
+    document.update(document, dbcommit=True, reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    es_doc = DocumentsSearch().get_record_by_pid(document.pid).to_dict()
+    assert es_doc['contribution'][1]['entity']['type'] == EntityType.PERSON
+
     data = document.replace_refs()
     assert len(data.get('contribution')) == 2
     assert 'entity' in data.get('contribution')[1]
     assert data.get('contribution')[1].get('role') == ['aut']
-    document.update(orig, True, True)
+
+    # Reset fixtures
+    document.update(orig, dbcommit=True, reindex=True)
