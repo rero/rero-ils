@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2023-02-28 14:17+0100\n"
+"POT-Creation-Date: 2023-03-06 15:41+0100\n"
 "PO-Revision-Date: 2021-10-24 13:38+0000\n"
 "Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
 "Language: ar\n"
@@ -21,7 +21,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
 msgid "The 2 passwords are not identical."
@@ -66,36 +66,30 @@ msgstr ""
 
 #: rero_ils/config.py:1724
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:79
-#, fuzzy
 msgid "online"
-msgstr "مباشر"
+msgstr ""
 
 #: rero_ils/config.py:1728
-#, fuzzy
 msgid "not_online"
-msgstr "مباشر"
+msgstr ""
 
 #: rero_ils/config.py:1731
 msgid "author"
 msgstr "المؤلف"
 
 #: rero_ils/config.py:1732
-#, fuzzy
 msgid "subject_fiction"
-msgstr "التفاصيل"
+msgstr ""
 
 #: rero_ils/config.py:1738
-#, fuzzy
 msgid "subject_no_fiction"
-msgstr "التفاصيل"
+msgstr ""
 
 #: rero_ils/config.py:1744
-#, fuzzy
 msgid "new_acquisition"
-msgstr "شروط المقنيات"
+msgstr ""
 
 #: rero_ils/config.py:1745
-#, fuzzy
 msgid "identifiers"
 msgstr "معرف"
 
@@ -104,9 +98,8 @@ msgid "document_type"
 msgstr "تصنبف المستند"
 
 #: rero_ils/config.py:1750 rero_ils/config.py:1828
-#, fuzzy
 msgid "document_subtype"
-msgstr "تصنبف المستند"
+msgstr "\""
 
 #: rero_ils/config.py:1752
 msgid "language"
@@ -123,9 +116,8 @@ msgid "library"
 msgstr "المكتبة"
 
 #: rero_ils/config.py:1758 rero_ils/config.py:1830
-#, fuzzy
 msgid "location"
-msgstr "مكان"
+msgstr ""
 
 #: rero_ils/config.py:1760 rero_ils/config.py:1834 rero_ils/config.py:1905
 #: rero_ils/config.py:2000 rero_ils/config.py:2030 rero_ils/config.py:2177
@@ -133,98 +125,84 @@ msgid "status"
 msgstr "الحالة"
 
 #: rero_ils/config.py:1761
-#, fuzzy
 msgid "genreForm"
-msgstr "دورية"
+msgstr ""
 
 #: rero_ils/config.py:1762
 msgid "intendedAudience"
 msgstr ""
 
 #: rero_ils/config.py:1763
-#, fuzzy
 msgid "year"
-msgstr "البحث"
+msgstr ""
 
 #: rero_ils/config.py:1831
-#, fuzzy
 msgid "item_type"
-msgstr "تصنيف النسخة"
+msgstr ""
 
 #: rero_ils/config.py:1832
-#, fuzzy
 msgid "temporary_item_type"
-msgstr "تصنيف النسخة"
+msgstr ""
 
 #: rero_ils/config.py:1833
-#, fuzzy
 msgid "temporary_location"
-msgstr "أمين المكتبة"
+msgstr ""
 
 #: rero_ils/config.py:1835
-#, fuzzy
 msgid "issue_status"
-msgstr "الحالة"
+msgstr ""
 
 #: rero_ils/config.py:1836 rero_ils/config.py:2028
-#, fuzzy
 msgid "vendor"
-msgstr "المورد"
+msgstr ""
+
+#: rero_ils/config.py:1840
+msgid "current_requests"
+msgstr ""
 
 #: rero_ils/config.py:1899
-#, fuzzy
 msgid "owner_library"
-msgstr "المكتبة"
+msgstr ""
 
 #: rero_ils/config.py:1900
-#, fuzzy
 msgid "owner_location"
-msgstr "مكان"
+msgstr ""
 
 #: rero_ils/config.py:1901
-#, fuzzy
 msgid "pickup_library"
-msgstr "المكتبة"
+msgstr ""
 
 #: rero_ils/config.py:1902
-#, fuzzy
 msgid "pickup_location"
-msgstr "هل مكان إستلام"
+msgstr ""
 
 #: rero_ils/config.py:1903
-#, fuzzy
 msgid "transaction_library"
-msgstr "البريد الإلكتروني للمكتبة"
+msgstr ""
 
 #: rero_ils/config.py:1904
-#, fuzzy
 msgid "transaction_location"
-msgstr "رقم مكان المعاملة"
+msgstr ""
 
 #: rero_ils/config.py:1906
-#, fuzzy
 msgid "misc_status"
-msgstr "الحالة"
+msgstr ""
 
 #: rero_ils/config.py:1907 rero_ils/config.py:1956
-#, fuzzy
 msgid "patron_type"
-msgstr "تصنيف المستخدم"
+msgstr ""
 
 #: rero_ils/config.py:1908
-#, fuzzy
 msgid "request_expire_date"
-msgstr "تاريخ انتهاء الصلاحية للطلب"
+msgstr ""
 
 #: rero_ils/config.py:1914
-#, fuzzy
 msgid "end_date"
-msgstr "تاريخ الانتهاء"
+msgstr ""
 
 #: rero_ils/config.py:1920
-#, fuzzy
 msgid "exclude_status"
-msgstr "الحالة"
+msgstr ""
 
 #: rero_ils/config.py:1954
 msgid "roles"
@@ -240,9 +218,8 @@ msgstr "الميزانية"
 
 #: rero_ils/config.py:2029 rero_ils/config.py:2070 rero_ils/config.py:2095
 #: rero_ils/config.py:2139
-#, fuzzy
 msgid "type"
-msgstr "تصنيف"
+msgstr ""
 
 #: rero_ils/config.py:2031
 msgid "account"
@@ -282,15 +259,13 @@ msgstr "الطالب"
 
 #: rero_ils/config.py:2974 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:98
-#, fuzzy
 msgid "This is a TEST VERSION."
-msgstr "خادم تجريبي"
+msgstr ""
 
 #: rero_ils/config.py:2975 rero_ils/manual_translations.txt:71
 #: rero_ils/theme/templates/rero_ils/header.html:100
-#, fuzzy
 msgid "Go to the production site."
-msgstr "رمز المكان"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:456
@@ -437,9 +412,8 @@ msgid "Tools"
 msgstr "الأدوات"
 
 #: rero_ils/manual_translations.txt:60
-#, fuzzy
 msgid "Interlibrary loan request"
-msgstr "أمين المكتبة"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:61
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:70
@@ -477,72 +451,60 @@ msgstr "تسجيل جديد"
 
 #: rero_ils/manual_translations.txt:74
 #: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:143
-#, fuzzy
 msgid "approved"
-msgstr "تمت الموافقة"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:75
-#, fuzzy
 msgid "cancelled"
-msgstr "إلغاء"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:76
-#, fuzzy
 msgid "ordered"
-msgstr "طلب شراء مخطط"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:77
-#, fuzzy
 msgid "partially_received"
-msgstr "تم الاستلام"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:78
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:54
-#, fuzzy
 msgid "pending"
-msgstr "قيد الانتظار"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:79
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:330
-#, fuzzy
 msgid "received"
-msgstr "تم الاستلام"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:82
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:55
-#, fuzzy
 msgid "monograph"
-msgstr "دراسة علمية"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:83
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:59
-#, fuzzy
 msgid "serial"
-msgstr "دورية"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:84
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:63
-#, fuzzy
 msgid "standing_order"
-msgstr "طلب شراء قائم"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:85
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:67
-#, fuzzy
 msgid "monographic_set"
-msgstr "مجموعة دراسة علمية"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:86
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:71
-#, fuzzy
 msgid "planned_order"
-msgstr "طلب شراء مخطط"
+msgstr ""
 
 #: rero_ils/manual_translations.txt:87
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:75
-#, fuzzy
 msgid "multi_volume"
-msgstr "اصدارات متعددة"
+msgstr ""
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -12476,1656 +12438,4 @@ msgstr ""
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "تمت إعادة تعيين كلمتك السرية بنجاح."
-
-#~ msgid "Examples: 135, 5-27, ..."
-#~ msgstr ""
-
-#~ msgid "Series to which belongs the resource."
-#~ msgstr "السلسلة التي ينتمي إليها المورد"
-
-#~ msgid "Title of the series."
-#~ msgstr "عنوان السلسلة"
-
-#~ msgid "Numbering of the resource within the series."
-#~ msgstr "ترقيم المصدر داخل السلسلة"
-
-#~ msgid "Should be in the following format: 2020."
-#~ msgstr ""
-
-#~ msgid "No pending"
-#~ msgstr "لا انتظار"
-
-#~ msgid "Call Number"
-#~ msgstr "رقم الاستدعاء"
-
-#~ msgid "Pickup library"
-#~ msgstr "مكتبة إستلام"
-
-#~ msgid "Request date"
-#~ msgstr "تاريخ الحجز"
-
-#~ msgid "Renewals"
-#~ msgstr "التجديدات"
-
-#~ msgid ""
-#~ "\n"
-#~ "              %(count)s renewal\n"
-#~ "            "
-#~ msgid_plural ""
-#~ "\n"
-#~ "              %(count)s renewals\n"
-#~ "            "
-#~ msgstr[0] "%(icon)s الملف الشخصي"
-#~ msgstr[1] ""
-#~ msgstr[2] ""
-#~ msgstr[3] ""
-#~ msgstr[4] ""
-#~ msgstr[5] ""
-
-#~ msgid "author__en"
-#~ msgstr "المؤلف"
-
-#~ msgid "author__fr"
-#~ msgstr "المؤلف"
-
-#~ msgid "author__de"
-#~ msgstr "المؤلف"
-
-#~ msgid "author__it"
-#~ msgstr "المؤلف"
-
-#~ msgid "Author(s) of the resource. Can be either persons or organisations."
-#~ msgstr "مؤلف(ي) المصدر. يمكن أن يكون إما أشخاص أو منظمات."
-
-#~ msgid "MEF person reference"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Information about the birth and the "
-#~ "death of a person. Helpful to "
-#~ "disambiguate people."
-#~ msgstr "معلومات عن ولادة وموت اسناد مؤلف. مفيدة للناس إزالة الغموض."
-
-#~ msgid ""
-#~ "Information about the person, ie her "
-#~ "profession. Helpful to disambiguate people."
-#~ msgstr "معلومات عن اسناد مؤلف، المهنة. مفيدة للناس إزالة الغموض."
-
-#~ msgid "Item PID"
-#~ msgstr "PID النسخة"
-
-#~ msgid "composer"
-#~ msgstr ""
-
-#~ msgid "contributor"
-#~ msgstr "country_ur"
-
-#~ msgid "honouree"
-#~ msgstr "الهاتف"
-
-#~ msgid "illustrator"
-#~ msgstr "الرسوم التوضيحية"
-
-#~ msgid "photographer"
-#~ msgstr "التصوير"
-
-#~ msgid "performer"
-#~ msgstr ""
-
-#~ msgid "translator"
-#~ msgstr "الترجمة من"
-
-#~ msgid "abridger"
-#~ msgstr ""
-
-#~ msgid "art Director"
-#~ msgstr ""
-
-#~ msgid "writer of postface"
-#~ msgstr ""
-
-#~ msgid "animator"
-#~ msgstr "الماراثية"
-
-#~ msgid "annotator"
-#~ msgstr ""
-
-#~ msgid "appellee"
-#~ msgstr ""
-
-#~ msgid "appellant"
-#~ msgstr ""
-
-#~ msgid "abstractor"
-#~ msgstr "الملخص"
-
-#~ msgid "architect"
-#~ msgstr ""
-
-#~ msgid "arranger"
-#~ msgstr "التيرينو"
-
-#~ msgid "artist"
-#~ msgstr "الأجزاء"
-
-#~ msgid "autographer"
-#~ msgstr "التصوير"
-
-#~ msgid "auctioneer"
-#~ msgstr ""
-
-#~ msgid "writer of introduction"
-#~ msgstr ""
-
-#~ msgid "screenwriter"
-#~ msgstr ""
-
-#~ msgid "book designer"
-#~ msgstr ""
-
-#~ msgid "binder"
-#~ msgstr "النوع"
-
-#~ msgid "broadcaster"
-#~ msgstr "تاريخ الإعارة"
-
-#~ msgid "braille embosser"
-#~ msgstr ""
-
-#~ msgid "bookseller"
-#~ msgstr ""
-
-#~ msgid "choreographer"
-#~ msgstr "التصوير"
-
-#~ msgid "calligrapher"
-#~ msgstr ""
-
-#~ msgid "colourist"
-#~ msgstr "country_st"
-
-#~ msgid "collotyper"
-#~ msgstr "country_pe"
-
-#~ msgid "writer of added commentary"
-#~ msgstr ""
-
-#~ msgid "commentator"
-#~ msgstr ""
-
-#~ msgid "instrumental conductor"
-#~ msgstr ""
-
-#~ msgid "director of photography"
-#~ msgstr ""
-
-#~ msgid "collector"
-#~ msgstr ""
-
-#~ msgid "compiler"
-#~ msgstr ""
-
-#~ msgid "collection registrar"
-#~ msgstr ""
-
-#~ msgid "creator"
-#~ msgstr "أمين المكتبة"
-
-#~ msgid "court stenographer"
-#~ msgstr ""
-
-#~ msgid "consultant"
-#~ msgstr ""
-
-#~ msgid "costume designer"
-#~ msgstr ""
-
-#~ msgid "cartographer"
-#~ msgstr "التصوير"
-
-#~ msgid "participant in a treaty"
-#~ msgstr ""
-
-#~ msgid "defendant"
-#~ msgstr ""
-
-#~ msgid "degree granting institution"
-#~ msgstr ""
-
-#~ msgid "thesis advisor"
-#~ msgstr ""
-
-#~ msgid "donor"
-#~ msgstr ""
-
-#~ msgid "depositor"
-#~ msgstr ""
-
-#~ msgid "draftsman"
-#~ msgstr ""
-
-#~ msgid "director (movie, radio, television, etc.)"
-#~ msgstr ""
-
-#~ msgid "designer"
-#~ msgstr ""
-
-#~ msgid "distributor"
-#~ msgstr "توزيع"
-
-#~ msgid "dedicatee"
-#~ msgstr "تاريخ الإستحقاق"
-
-#~ msgid "data manager"
-#~ msgstr ""
-
-#~ msgid "supposed author"
-#~ msgstr ""
-
-#~ msgid "editor of moving image work"
-#~ msgstr ""
-
-#~ msgid "engraver"
-#~ msgstr "الراروتونجاني"
-
-#~ msgid "enacting jurisdiction"
-#~ msgstr ""
-
-#~ msgid "art expert"
-#~ msgstr ""
-
-#~ msgid "facsimilist"
-#~ msgstr ""
-
-#~ msgid "film distributor"
-#~ msgstr "توزيع"
-
-#~ msgid "film director"
-#~ msgstr ""
-
-#~ msgid "filmmaker"
-#~ msgstr ""
-
-#~ msgid "former owner"
-#~ msgstr ""
-
-#~ msgid "film producer"
-#~ msgstr ""
-
-#~ msgid "host institution"
-#~ msgstr ""
-
-#~ msgid "illuminator"
-#~ msgstr ""
-
-#~ msgid "inscriber"
-#~ msgstr ""
-
-#~ msgid "inventor"
-#~ msgstr "Invenio"
-
-#~ msgid "publishing community"
-#~ msgstr ""
-
-#~ msgid "instrumentalist"
-#~ msgstr ""
-
-#~ msgid "interviewee"
-#~ msgstr ""
-
-#~ msgid "interviewer"
-#~ msgstr ""
-
-#~ msgid "other jurisdiction"
-#~ msgstr "إشعار"
-
-#~ msgid "librettist"
-#~ msgstr ""
-
-#~ msgid "landscape architect"
-#~ msgstr ""
-
-#~ msgid "lithographer"
-#~ msgstr "التصوير"
-
-#~ msgid "lyricist"
-#~ msgstr ""
-
-#~ msgid "medium"
-#~ msgstr ""
-
-#~ msgid "manufacturer"
-#~ msgstr "تصنيع"
-
-#~ msgid "moderator"
-#~ msgstr "أمين المكتبة"
-
-#~ msgid "musical director"
-#~ msgstr ""
-
-#~ msgid "minute taker"
-#~ msgstr ""
-
-#~ msgid "musician"
-#~ msgstr "استخدام"
-
-#~ msgid "narrator"
-#~ msgstr "أمين المكتبة"
-
-#~ msgid "organizer"
-#~ msgstr ""
-
-#~ msgid "on-screen presenter"
-#~ msgstr ""
-
-#~ msgid "panelist"
-#~ msgstr "الأسبانية"
-
-#~ msgid "publishing director"
-#~ msgstr ""
-
-#~ msgid "commercial publisher"
-#~ msgstr ""
-
-#~ msgid "platemaker"
-#~ msgstr ""
-
-#~ msgid "printmaker"
-#~ msgstr ""
-
-#~ msgid "puppeteer"
-#~ msgstr ""
-
-#~ msgid "praeses"
-#~ msgstr ""
-
-#~ msgid "presenter"
-#~ msgstr ""
-
-#~ msgid "programmer"
-#~ msgstr ""
-
-#~ msgid "production company"
-#~ msgstr ""
-
-#~ msgid "producer"
-#~ msgstr ""
-
-#~ msgid "production staff member"
-#~ msgstr "بيانات الطبعة"
-
-#~ msgid "printer"
-#~ msgstr ""
-
-#~ msgid "plaintiff"
-#~ msgstr ""
-
-#~ msgid "recorder"
-#~ msgstr "باركود"
-
-#~ msgid "audio engineer"
-#~ msgstr ""
-
-#~ msgid "addressee"
-#~ msgstr "عنوان"
-
-#~ msgid "radio director"
-#~ msgstr ""
-
-#~ msgid "researcher"
-#~ msgstr "البحث"
-
-#~ msgid "radio producer"
-#~ msgstr ""
-
-#~ msgid "respondent"
-#~ msgstr ""
-
-#~ msgid "restorationist"
-#~ msgstr "الرسوم التوضيحية"
-
-#~ msgid "sculptor"
-#~ msgstr "نتيجة"
-
-#~ msgid "sound designer"
-#~ msgstr ""
-
-#~ msgid "restager"
-#~ msgstr ""
-
-#~ msgid "singer"
-#~ msgstr "استخدام"
-
-#~ msgid "Speaker"
-#~ msgstr ""
-
-#~ msgid "Sponsor"
-#~ msgstr ""
-
-#~ msgid "surveyor"
-#~ msgstr ""
-
-#~ msgid "storyteller"
-#~ msgstr ""
-
-#~ msgid "TV director"
-#~ msgstr ""
-
-#~ msgid "television producer"
-#~ msgstr ""
-
-#~ msgid "transcriber"
-#~ msgstr ""
-
-#~ msgid "voice actor"
-#~ msgstr ""
-
-#~ msgid "videographer"
-#~ msgstr ""
-
-#~ msgid "writer of added lyrics"
-#~ msgstr ""
-
-#~ msgid "writer of added text"
-#~ msgstr ""
-
-#~ msgid "writer of foreword"
-#~ msgstr ""
-
-#~ msgid "writer of supplementary textual content"
-#~ msgstr ""
-
-#~ msgid "AcqOrderLine"
-#~ msgstr "سطر طلب شراء"
-
-#~ msgid "AcqOrderLine ID"
-#~ msgstr "ID سطر طلب شراء"
-
-#~ msgid "Acquisition Order"
-#~ msgstr "طلب شراء التزويد"
-
-#~ msgid "Pending"
-#~ msgstr "قيد الانتظار"
-
-#~ msgid "Annual"
-#~ msgstr ""
-
-#~ msgid "Biennial"
-#~ msgstr ""
-
-#~ msgid "Bimonthly"
-#~ msgstr ""
-
-#~ msgid "Biweekly"
-#~ msgstr ""
-
-#~ msgid "Daily"
-#~ msgstr ""
-
-#~ msgid "Irregular"
-#~ msgstr ""
-
-#~ msgid "Monthly"
-#~ msgstr ""
-
-#~ msgid "Quarterly"
-#~ msgstr ""
-
-#~ msgid "Semiannual"
-#~ msgstr ""
-
-#~ msgid "Semimonthly"
-#~ msgstr ""
-
-#~ msgid "Semiweekly"
-#~ msgstr ""
-
-#~ msgid "Three times a month"
-#~ msgstr ""
-
-#~ msgid "Three times a week"
-#~ msgstr ""
-
-#~ msgid "Three times a year"
-#~ msgstr ""
-
-#~ msgid "Triennial"
-#~ msgstr ""
-
-#~ msgid "Weekly"
-#~ msgstr ""
-
-#~ msgid "Must have a first call number to have a second call number"
-#~ msgstr ""
-
-#~ msgid "public note"
-#~ msgstr ""
-
-#~ msgid "checkin note"
-#~ msgstr ""
-
-#~ msgid "checkout note"
-#~ msgstr ""
-
-#~ msgid "Fee"
-#~ msgstr ""
-
-#~ msgid "Overdue"
-#~ msgstr "متأخر"
-
-#~ msgid "Damaged"
-#~ msgstr ""
-
-#~ msgid "Debit card"
-#~ msgstr ""
-
-#~ msgid "Credit card"
-#~ msgstr ""
-
-#~ msgid "Paypal"
-#~ msgstr ""
-
-#~ msgid "Patron Type URI"
-#~ msgstr "URI ل تصنيف مستخدم"
-
-#~ msgid "Librarian"
-#~ msgstr "امين المكتبة"
-
-#~ msgid "English"
-#~ msgstr "الانجليزية"
-
-#~ msgid "Spanish"
-#~ msgstr "الأسبانية"
-
-#~ msgid "contribution__en"
-#~ msgstr ""
-
-#~ msgid "contribution__fr"
-#~ msgstr "canton_fr"
-
-#~ msgid "contribution__de"
-#~ msgstr ""
-
-#~ msgid "contribution__it"
-#~ msgstr "country_it"
-
-#~ msgid "Is request copy"
-#~ msgstr "طلب"
-
-#~ msgid "In"
-#~ msgstr ""
-
-#~ msgid "displayed text"
-#~ msgstr ""
-
-#~ msgid "Your account is currently blocked. Reason: %(reason)s"
-#~ msgstr ""
-
-#~ msgid "ready"
-#~ msgstr ""
-
-#~ msgid "DOI"
-#~ msgstr ""
-
-#~ msgid "EAN"
-#~ msgstr ""
-
-#~ msgid "GTIN 14"
-#~ msgstr ""
-
-#~ msgid "ISAN"
-#~ msgstr "ISAN"
-
-#~ msgid "ISBN"
-#~ msgstr "ISBN"
-
-#~ msgid "ISMN"
-#~ msgstr "ISMN"
-
-#~ msgid "ISRC"
-#~ msgstr "ISRC"
-
-#~ msgid "ISSN"
-#~ msgstr "ISSN"
-
-#~ msgid "ISSN-L"
-#~ msgstr "ISSN-L"
-
-#~ msgid "Matrix number"
-#~ msgstr ""
-
-#~ msgid "Music distributor number"
-#~ msgstr ""
-
-#~ msgid "Music plate"
-#~ msgstr ""
-
-#~ msgid "Music publisher number"
-#~ msgstr ""
-
-#~ msgid "Publisher number"
-#~ msgstr ""
-
-#~ msgid "UPC"
-#~ msgstr "UPC"
-
-#~ msgid "URN"
-#~ msgstr "URN"
-
-#~ msgid "Video recording number"
-#~ msgstr ""
-
-#~ msgid "Email should have at least one <code>@</code> and one <code>.</code>."
-#~ msgstr ""
-
-#~ msgid "Define the roles of the user."
-#~ msgstr "تحديد مهام المستخدم"
-
-#~ msgid "bnf"
-#~ msgstr "bnf"
-
-#~ msgid "Agent's name."
-#~ msgstr "إسم إسنادات المؤلف"
-
-#~ msgid "MEF agent reference"
-#~ msgstr ""
-
-#~ msgid "Circulation type URI"
-#~ msgstr ""
-
-#~ msgid "Vol. {{numbering.vol}}, {{chronology.year}}"
-#~ msgstr ""
-
-#~ msgid "numbering"
-#~ msgstr ""
-
-#~ msgid "chronology"
-#~ msgstr ""
-
-#~ msgid "general note"
-#~ msgstr ""
-
-#~ msgid "staff note"
-#~ msgstr ""
-
-#~ msgid "binding note"
-#~ msgstr "طلب شراء قائم"
-
-#~ msgid "acquisition note"
-#~ msgstr "شروط المقنيات"
-
-#~ msgid "%(icon)s Profile"
-#~ msgstr "%(icon)s الملف الشخصي"
-
-#~ msgid "Mef person"
-#~ msgstr "MEF إسناد المؤلف"
-
-#~ msgid "BNF authorities"
-#~ msgstr "BNF استنادات"
-
-#~ msgid "Language of person"
-#~ msgstr "لغة إسناد المؤلف"
-
-#~ msgid "Variant name"
-#~ msgstr "اسم متغير"
-
-#~ msgid "{prefix}{key}"
-#~ msgstr ""
-
-#~ msgid "{prefix}{data}"
-#~ msgstr ""
-
-#~ msgid "Menu"
-#~ msgstr "القائمة"
-
-#~ msgid "Monochrome"
-#~ msgstr ""
-
-#~ msgid "Polychrome"
-#~ msgstr ""
-
-#~ msgid "Start date of publication"
-#~ msgstr "تاريخ بدء النشر"
-
-#~ msgid ""
-#~ "Start date of the publication. This "
-#~ "must be an integer, ie 1989, 453,"
-#~ " -50. Used to sort search results."
-#~ " Once this field is set, a free"
-#~ " formed date of publication can be"
-#~ " added in the next field."
-#~ msgstr ""
-#~ "تاريخ بداية المنشور. يجب أن يكون "
-#~ "عددًا صحيحًا ، أي 1989 ، 453 "
-#~ "، -50. يستخدم لفرز نتائج البحث. "
-#~ "بمجرد تعيين هذا الحقل ، يمكن إضافة"
-#~ " تاريخ نشر اخر في الحقل التالي."
-
-#~ msgid "End date of publication"
-#~ msgstr "تاريخ الانتهاء من النشر"
-
-#~ msgid ""
-#~ "End date of the publication. This "
-#~ "must be an integer, ie 1989, 453,"
-#~ " -50. Used to sort search results."
-#~ " Once this field is set, a free"
-#~ " formed date of publication can be"
-#~ " added in the next field."
-#~ msgstr ""
-#~ "تاريخ الانتهاء من المنشور. يجب أن "
-#~ "يكون عددًا صحيحًا ، أي 1989 ، "
-#~ "453 ، -50. يستخدم لفرز نتائج "
-#~ "البحث. بمجرد تعيين هذا الحقل ، "
-#~ "يمكن إضافة تاريخ نشر اخر في الحقل"
-#~ " التالي"
-
-#~ msgid ""
-#~ "A patron with a blocked account "
-#~ "cannot request and borrow items, but "
-#~ "can still renew and check in "
-#~ "items."
-#~ msgstr ""
-
-#~ msgid "Add further information to the librarian."
-#~ msgstr ""
-
-#~ msgid "Library affiliation."
-#~ msgstr "توابع المكتبة"
-
-#~ msgid "CHF"
-#~ msgstr "غير"
-
-#~ msgid "CAD"
-#~ msgstr "باركود"
-
-#~ msgid "EUR"
-#~ msgstr "غير"
-
-#~ msgid "GBP"
-#~ msgstr ""
-
-#~ msgid "USD"
-#~ msgstr "gnd"
-
-#~ msgid "AUD"
-#~ msgstr "الميزانية"
-
-#~ msgid "Found {{$count}} result."
-#~ msgid_plural "Found {{$count}} results."
-#~ msgstr[0] "Found {{$count}} results."
-#~ msgstr[1] "Found {{$count}} result."
-#~ msgstr[2] "Found {{$count}} results."
-#~ msgstr[3] "Found {{$count}} results."
-#~ msgstr[4] "Found {{$count}} results."
-#~ msgstr[5] "تم العثور على {{$count}} نتائج."
-
-#~ msgid "No results found."
-#~ msgstr "لم يتم العثور على نتائج"
-
-#~ msgid "No holdings"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "For the email channel, the user "
-#~ "must have an e-mail. Otherwise, no "
-#~ "notifications will be sent."
-#~ msgstr ""
-
-#~ msgid "If enabled, loan is set to be anonymized."
-#~ msgstr ""
-
-#~ msgid "Circulation category of the item"
-#~ msgstr ""
-
-#~ msgid "Click here to reset your password"
-#~ msgstr "انقر هنا لإعادة تعيين كلمة المرور الخاصة بك"
-
-#~ msgid "Holding is not attached to the correct document type. document: {pid}"
-#~ msgstr ""
-
-#~ msgid "Standard item can not attached to a journal."
-#~ msgstr ""
-
-#~ msgid "Book"
-#~ msgstr "كتاب"
-
-#~ msgid "E-Book"
-#~ msgstr "كتاب الكتروني"
-
-#~ msgid "Other"
-#~ msgstr "غير"
-
-#~ msgid "Score"
-#~ msgstr "نتيجة"
-
-#~ msgid "Sound"
-#~ msgstr "صوت"
-
-#~ msgid "Serial configuration"
-#~ msgstr ""
-
-#~ msgid "Issue display template"
-#~ msgstr ""
-
-#~ msgid "book"
-#~ msgstr "كتاب"
-
-#~ msgid "ebook"
-#~ msgstr "كتاب الكتروني"
-
-#~ msgid "journal"
-#~ msgstr "دورية"
-
-#~ msgid "score"
-#~ msgstr "نتيجة"
-
-#~ msgid "sound"
-#~ msgstr "صوت"
-
-#~ msgid "Local"
-#~ msgstr ""
-
-#~ msgid "Hidden URL"
-#~ msgstr "URL مخفي"
-
-#~ msgid "Web site"
-#~ msgstr "موقع الكتروني"
-
-#~ msgid "Video"
-#~ msgstr "فيديو"
-
-#~ msgid "Single unit"
-#~ msgstr ""
-
-#~ msgid "Article"
-#~ msgstr "مقالة"
-
-#~ msgid "Material unit"
-#~ msgstr ""
-
-#~ msgid "Private file"
-#~ msgstr ""
-
-#~ msgid "Private subfile"
-#~ msgstr ""
-
-#~ msgid "Multipart monograph"
-#~ msgstr ""
-
-#~ msgid "Independant title"
-#~ msgstr ""
-
-#~ msgid "Dependant title"
-#~ msgstr ""
-
-#~ msgid "Serial"
-#~ msgstr "دورية"
-
-#~ msgid "Serial in serial"
-#~ msgstr ""
-
-#~ msgid "Monographic series"
-#~ msgstr ""
-
-#~ msgid "Periodical"
-#~ msgstr ""
-
-#~ msgid "Integrating resource"
-#~ msgstr ""
-
-#~ msgid "Updating website"
-#~ msgstr ""
-
-#~ msgid "Updating loose leaf"
-#~ msgstr ""
-
-#~ msgid "General"
-#~ msgstr ""
-
-#~ msgid "Other physical details"
-#~ msgstr ""
-
-#~ msgid "Blueline process"
-#~ msgstr ""
-
-#~ msgid "Blueprint process"
-#~ msgstr ""
-
-#~ msgid "Collotype"
-#~ msgstr ""
-
-#~ msgid "Daguerreotype process"
-#~ msgstr ""
-
-#~ msgid "Engraving"
-#~ msgstr ""
-
-#~ msgid "Etching"
-#~ msgstr ""
-
-#~ msgid "Lithography"
-#~ msgstr ""
-
-#~ msgid "Photocopying"
-#~ msgstr ""
-
-#~ msgid "Photoengraving"
-#~ msgstr ""
-
-#~ msgid "Printing"
-#~ msgstr ""
-
-#~ msgid "White print process"
-#~ msgstr ""
-
-#~ msgid "Woodcut making"
-#~ msgstr ""
-
-#~ msgid "Photogravure process"
-#~ msgstr ""
-
-#~ msgid "Burning"
-#~ msgstr ""
-
-#~ msgid "Inscribing"
-#~ msgstr ""
-
-#~ msgid "Stamping"
-#~ msgstr ""
-
-#~ msgid "Embossing"
-#~ msgstr ""
-
-#~ msgid "Solid dot"
-#~ msgstr ""
-
-#~ msgid "Swell paper"
-#~ msgstr ""
-
-#~ msgid "Thermoform"
-#~ msgstr ""
-
-#~ msgid "Publication"
-#~ msgstr ""
-
-#~ msgid "Manufacture"
-#~ msgstr ""
-
-#~ msgid "Distribution"
-#~ msgstr ""
-
-#~ msgid "Production"
-#~ msgstr ""
-
-#~ msgid "Parallel title"
-#~ msgstr ""
-
-#~ msgid "archives"
-#~ msgstr "تم الاستلام"
-
-#~ msgid "audio document"
-#~ msgstr "المستندات"
-
-#~ msgid "children's album"
-#~ msgstr ""
-
-#~ msgid "comic strip"
-#~ msgstr ""
-
-#~ msgid "electronic carrier"
-#~ msgstr ""
-
-#~ msgid "game"
-#~ msgstr "الإسم"
-
-#~ msgid "image"
-#~ msgstr "صورة الغلاف"
-
-#~ msgid "language, method"
-#~ msgstr "اللغة"
-
-#~ msgid "leaf"
-#~ msgstr "التاريخ"
-
-#~ msgid "map, atlas"
-#~ msgstr ""
-
-#~ msgid "movie, series"
-#~ msgstr ""
-
-#~ msgid "object"
-#~ msgstr "الموضوع"
-
-#~ msgid "editorial series"
-#~ msgstr ""
-
-#~ msgid "Login (to see request options)"
-#~ msgstr ""
-
-#~ msgid "item"
-#~ msgstr "النسخة"
-
-#~ msgid "see collections and items"
-#~ msgstr ""
-
-#~ msgid "no items received"
-#~ msgstr ""
-
-#~ msgid "available"
-#~ msgstr "متاح"
-
-#~ msgid "not available"
-#~ msgstr "غيرمتاح"
-
-#~ msgid "Temporary location"
-#~ msgstr "مخطط JSON للمكان"
-
-#~ msgid "Unit"
-#~ msgstr "كمية"
-
-#~ msgid "Request"
-#~ msgstr "طلب"
-
-#~ msgid "Select a Pickup Location"
-#~ msgstr "اختيار مكان الإستلام"
-
-#~ msgid "There is already one pickup location in this library."
-#~ msgstr ""
-
-#~ msgid "daily"
-#~ msgstr "البريد"
-
-#~ msgid "weekly"
-#~ msgstr ""
-
-#~ msgid "monthly"
-#~ msgstr "المبلغ"
-
-#~ msgid "yearly"
-#~ msgstr ""
-
-#~ msgid "User ID"
-#~ msgstr "ID المستخدم"
-
-#~ msgid ""
-#~ "Username must start with a letter, "
-#~ "be at least three characters long "
-#~ "and only contain alphanumeric characters, "
-#~ "dashes and underscores."
-#~ msgstr ""
-
-#~ msgid "RERO ID"
-#~ msgstr "rero"
-
-#~ msgid "Schema to validate circulation policies records against."
-#~ msgstr "مخطط لتدقيق سياسات الإعارة"
-
-#~ msgid "Circulation policy name"
-#~ msgstr "إسم سياسة الإعارة "
-
-#~ msgid "The name of the circulation policy."
-#~ msgstr "إسم سياسة الإعارة "
-
-#~ msgid "Allow Checkout"
-#~ msgstr "السماح بالإعارة"
-
-#~ msgid "Checkouts are allowed or not."
-#~ msgstr "الاعارات مسموحة او لا"
-
-#~ msgid "The duration of the checkout in days."
-#~ msgstr "عدد ايام مدة الاعارة"
-
-#~ msgid "Patron requests are allowed or not."
-#~ msgstr "طلبات المستخدم مسموح بها ام لا"
-
-#~ msgid "Number of days before due date."
-#~ msgstr "عدد الآيام قبل تاريخ الإستحقاق"
-
-#~ msgid "Number of days before due date for sending the due_soon notification."
-#~ msgstr "عدد الآيام قبل تاريخ الإستحقاق لإرسال إشعارإقتراب الإستحقاق"
-
-#~ msgid "Number of days after due date"
-#~ msgstr "عدد الآيام بعد تاريخ الإستحقاق"
-
-#~ msgid ""
-#~ "Number of days after due date for"
-#~ " sending the first overdue notification."
-#~ msgstr "عدد الآيام بعد تاريخ الإستحقاق لإرسال إشعار الإستحقاق"
-
-#~ msgid "The amount of reminder fee"
-#~ msgstr "مبلغ رسوم التذكير"
-
-#~ msgid "Overdue amount."
-#~ msgstr "مبلغ تاريخ الإستحقاق"
-
-#~ msgid "The duration of the renewal in days."
-#~ msgstr "ايام مدة التجديد"
-
-#~ msgid "The request for item %(item_id)s has been canceled."
-#~ msgstr "الطلب على النسخة %(item_id)s تم الغاؤه ."
-
-#~ msgid ""
-#~ "Error during the cancellation of the "
-#~ "request of                 item %(item_id)s."
-#~ msgstr "خطأ في عملية الالغاء%(item_id)s."
-
-#~ msgid "The item %(item_id)s has been renewed."
-#~ msgstr "تم تجديد النسخة %(item_id)s ."
-
-#~ msgid "Error during the renewal of the item %(item_id)s."
-#~ msgstr "خطأ في تجديد النسخة %(item_id)s."
-
-#~ msgid "Details"
-#~ msgstr "البريد الالكتروني"
-
-#~ msgid "Loan started at"
-#~ msgstr ""
-
-#~ msgid "Transactions history"
-#~ msgstr "تاريخ بدء المعاملة"
-
-#~ msgid "Category"
-#~ msgstr ""
-
-#~ msgid "No fee"
-#~ msgstr ""
-
-#~ msgid "History"
-#~ msgstr "تاريخ الاعارات"
-
-#~ msgid "Author(s)"
-#~ msgstr "المؤلفين"
-
-#~ msgid "Return date"
-#~ msgstr "تاريخ الإستحقاق"
-
-#~ msgid "Transaction history"
-#~ msgstr "تاريخ بدء المعاملة"
-
-#~ msgid "Checkin"
-#~ msgstr "يوم الاسترجاع"
-
-#~ msgid "Checkout"
-#~ msgstr "السماح بالإعارة"
-
-#~ msgid "No history"
-#~ msgstr "لا يوجد تسجيلات"
-
-#~ msgid "Due date"
-#~ msgstr "تاريخ الإستحقاق"
-
-#~ msgid "%(count)s renewal"
-#~ msgid_plural "%(count)s renewals"
-#~ msgstr[0] "%(count)s الملف الشخصي"
-#~ msgstr[1] ""
-#~ msgstr[2] ""
-#~ msgstr[3] ""
-#~ msgstr[4] ""
-#~ msgstr[5] ""
-
-#~ msgid "Renew"
-#~ msgstr "تجديد"
-
-#~ msgid "Call number unavailable"
-#~ msgstr "غيرمتاح"
-
-#~ msgid "No loan"
-#~ msgstr "ليست إعارة"
-
-#~ msgid "Personal details"
-#~ msgstr "معلومات شخصية"
-
-#~ msgid "Phone"
-#~ msgstr "الهاتف"
-
-#~ msgid "Patron number"
-#~ msgstr "رقم الجزء"
-
-#~ msgid "Account expiration"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The loan history is saved for a"
-#~ " maximum of six months. It is "
-#~ "visible to you and the library "
-#~ "staff."
-#~ msgstr ""
-
-#~ msgid "The loan history is not saved."
-#~ msgstr ""
-
-#~ msgid "to pick up"
-#~ msgstr ""
-
-#~ msgid "waiting"
-#~ msgstr ""
-
-#~ msgid "<br>(position %(rank)s in waiting list)"
-#~ msgstr ""
-
-#~ msgid "Cancel"
-#~ msgstr "الغاء"
-
-#~ msgid "Transaction date"
-#~ msgstr "تاريخ انتهاء المعاملة"
-
-#~ msgid "Loans"
-#~ msgstr "إعارات"
-
-#~ msgid "Requests"
-#~ msgstr "طلبات"
-
-#~ msgid "Fees"
-#~ msgstr "السلسلة"
-
-#~ msgid "ILL requests"
-#~ msgstr "طلبات"
-
-#~ msgid "Personal data"
-#~ msgstr "معلومات شخصية"
-
-#~ msgid "Acquisition terms"
-#~ msgstr "شروط المقنيات"
-
-#~ msgid "Acquisition terms of the resource."
-#~ msgstr "شروط المقنيات للمصدر"
-
-#~ msgid "Subject of the resource."
-#~ msgstr "موضوع المصدر"
-
-#~ msgid ""
-#~ "Uniform title, a related or an "
-#~ "analytical title that is controlled by"
-#~ " an authority file or list, used "
-#~ "as an added access point."
-#~ msgstr ""
-#~ "عنوان موحد ، عنوان ذو صلة أو "
-#~ "عنوان تحليلي يتم التحكم فيه بواسطة "
-#~ "ملف أو إسنادات ، يستخدم كنقطة دخول"
-#~ " معتمدة."
-
-#~ msgid "Create request"
-#~ msgstr "طلب"
-
-#~ msgid "Collection"
-#~ msgstr "مكان"
-
-#~ msgid "Identifier value."
-#~ msgstr "رقم التعريف"
-
-#~ msgid "Note of the identifier."
-#~ msgstr "ملاحطة التعريف"
-
-#~ msgid "Qualifier of the identifier."
-#~ msgstr "تأهيل المعرف"
-
-#~ msgid "Source of the identifier."
-#~ msgstr "مصدر رقم التعريف"
-
-#~ msgid "Status of the ISBN/ISSN identifier."
-#~ msgstr "حالة معرف ISBN/ISSN"
-
-#~ msgid "Collections"
-#~ msgstr "مكان"
-
-#~ msgid "rdami:1005"
-#~ msgstr "وحدة متعددة الأجزاء"
-
-#~ msgid "rdact:1070"
-#~ msgstr "حزمة صوتية"
-
-#~ msgid "rdact:1001"
-#~ msgstr ""
-
-#~ msgid "rdact:1010"
-#~ msgstr ""
-
-#~ msgid "rdact:1020"
-#~ msgstr ""
-
-#~ msgid "rdact:1029"
-#~ msgstr ""
-
-#~ msgid "rdact:1031"
-#~ msgstr ""
-
-#~ msgid "rdact:1041"
-#~ msgstr ""
-
-#~ msgid "rdact:1044"
-#~ msgstr ""
-
-#~ msgid "rdact:1050"
-#~ msgstr ""
-
-#~ msgid "rdaco:1024"
-#~ msgstr ""
-
-#~ msgid "Biographical information"
-#~ msgstr "معلومات ببليوجرافية"
-
-#~ msgid "Date establishment"
-#~ msgstr ""
-
-#~ msgid "Death termination"
-#~ msgstr ""
-
-#~ msgid "Associated country"
-#~ msgstr "المبلغ المخصص"
-
-#~ msgid "ID"
-#~ msgstr "ID"
-
-#~ msgid "Authorized access point"
-#~ msgstr "نقطة دخول معتمدة"
-
-#~ msgid "Variant access point"
-#~ msgstr "نقطة دخول معتمدة"
-
-#~ msgid "Parallel access point"
-#~ msgstr "نقطة دخول معتمدة"
-
-#~ msgid "All sources"
-#~ msgstr "كل المصادر"
-
-#~ msgid "Unified"
-#~ msgstr "موحد"
-
-#~ msgid "By source"
-#~ msgstr "بالمصدر"
-
-#~ msgid "Documents"
-#~ msgstr "المستندات"
-
-#~ msgid "PID"
-#~ msgstr "PID"
-
-#~ msgid "Availability"
-#~ msgstr "الإتاحة"
-
-#~ msgid "The item %(item_id)s has been requested."
-#~ msgstr "النسخة %(item_id)s محجوزة."
-
-#~ msgid "due until"
-#~ msgstr "مستحق الى"
-
-#~ msgid "in transit"
-#~ msgstr "في مرحلة انتقالية"
-
-#~ msgid "request"
-#~ msgstr "طلب"
-
-#~ msgid "requests"
-#~ msgstr "طلبات"
-
-#~ msgid "Your library"
-#~ msgstr "المكتبة"
-
-#~ msgid "Source in case of a local identifier"
-#~ msgstr ""
-
-#~ msgid "Enter 0 if checkout is not allowed."
-#~ msgstr ""
-
-#~ msgid "{prefix}{item}"
-#~ msgstr ""
-
-#~ msgid "Enumeration and chronology"
-#~ msgstr ""
-
-#~ msgid "Code used to classify users, for instance for statistics."
-#~ msgstr ""
-
-#~ msgid "Short alphanumeric string that serves as an identifier for a class"
-#~ msgstr ""
-
-#~ msgid "Link to organisation entity"
-#~ msgstr "خط معاملة المستخدم"
-
-#~ msgid "rero-rameau"
-#~ msgstr ""
-
-#~ msgid "Source of the subject, for instance MeSH, rero or IdRef."
-#~ msgstr ""
-
-#~ msgid "Abstracts"
-#~ msgstr "ملخصات"
-
-#~ msgid "Abstract of the resource."
-#~ msgstr "ملخص للمصدر."
-
-#~ msgid "Abstract"
-#~ msgstr "الملخص"
-
-#~ msgid "Proper titles"
-#~ msgstr "العناوين المناسبة"
-
-#~ msgid ""
-#~ "Proper title, a related or an "
-#~ "analytical title that is controlled by"
-#~ " an authority file or list, used "
-#~ "as an added access point."
-#~ msgstr ""
-
-#~ msgid "Proper title"
-#~ msgstr "العنوان المناسب"
-
-#~ msgid "Translated from"
-#~ msgstr "الترجمة من"
-
-#~ msgid "Language from which a resource is translated."
-#~ msgstr "اللغة التي يتم ترجمة المصدر إليها"
-
-#~ msgid "Uniform title"
-#~ msgstr "عنوان منتظم"
-
-#~ msgid "Other physical formats"
-#~ msgstr ""
-
-#~ msgid "Other physical format"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Username must start with a letter "
-#~ "or a number, be at least three "
-#~ "characters long and only contain "
-#~ "alphanumeric characters, dashes and "
-#~ "underscores"
-#~ msgstr ""
-
-#~ msgid "Used for imported records only. Assigning agency."
-#~ msgstr ""
-
-#~ msgid "Related resource"
-#~ msgstr "مصدر ذو صلة"
-
-#~ msgid "Assigning agency."
-#~ msgstr ""
-
-#~ msgid "Schema to validate operation_log records against."
-#~ msgstr "مخطط لتدقيق تسجيلات الشبكة"
-
-#~ msgid "record"
-#~ msgstr "باركود"
-
-#~ msgid "User URI"
-#~ msgstr "مستخدم"
-
-#~ msgid "Transaction user name"
-#~ msgstr "PID لمعاملة المستخدم"
-
-#~ msgid "Transaction location name"
-#~ msgstr "رقم مكان المعاملة"
-
-#~ msgid "Welcome to RERO-ILS!"
-#~ msgstr "مرحباً بك في RERO-ILS"
-
-#~ msgid "What's on your mind?"
-#~ msgstr "في ماذا تفكر؟"
-
-#~ msgid "Software under development"
-#~ msgstr "البرمجيات قيد التطوير"
-
-#~ msgid "Organisations' catalogues"
-#~ msgstr "فهارس الشبكة"
-
-#~ msgid "RERO ILS global"
-#~ msgstr "RERO ILS global"
-
-#~ msgid "Your Libray"
-#~ msgstr ""
-
-#~ msgid "Should be in the following format: YYYY (2020)."
-#~ msgstr "يجب أن تكون بالتنسيق: 2022-12-31 (YYYY-MM-DD)."
-
-#~ msgid "Link to the RERO Twitter account"
-#~ msgstr "رابط إلى حساب RERO Twitter"
-
-#~ msgid "availability"
-#~ msgstr "الاتاحة"
-
-#~ msgid "recall"
-#~ msgstr "استدعاء"
-
-#~ msgid "transit_notice"
-#~ msgstr ""
-
-#~ msgid "booking"
-#~ msgstr ""
-
-#~ msgid "Checkout impossible: the item is requested by another patron"
-#~ msgstr ""
-
-#~ msgid "Variant title"
-#~ msgstr "العنوان المتغير"
-
-#~ msgid "Physical details"
-#~ msgstr ""
-
-#~ msgid "Accompanying material"
-#~ msgstr ""
-
-#~ msgid "Articles"
-#~ msgstr "مقالة"
-
-#~ msgid "Core leve"
-#~ msgstr ""
-
-#~ msgid "Name of the acquisition account."
-#~ msgstr "إسم حساب التزويد"
-
-#~ msgid "Description of the acquisition account."
-#~ msgstr "تفاصيل حساب التزويد"
-
-#~ msgid "Order line status"
-#~ msgstr "حالة طلب الشراء"
-
-#~ msgid "canceled"
-#~ msgstr "ملغي"
-
-#~ msgid "ordered"
-#~ msgstr "طُلب"
-
-#~ msgid "requested"
-#~ msgstr "مطلوب"
-
-#~ msgid "The order number is already taken."
-#~ msgstr ""
-
-#~ msgid "Order type"
-#~ msgstr "تصنيف طلب شراء"
-
-#~ msgid "Order status"
-#~ msgstr "حالة طلب الشراء"
-
-#~ msgid "Order currency"
-#~ msgstr "عملة طلب الشراء"
-
-#~ msgid "Item location disallows request."
-#~ msgstr ""
-
-#~ msgid "Library id"
-#~ msgstr "المكتبة"
-
-#~ msgid "Library name"
-#~ msgstr "المكتبة"
-
-#~ msgid "The name is already taken."
-#~ msgstr ""
-
-#~ msgid "The number is already taken."
-#~ msgstr ""
-
-#~ msgid "bf:Organization"
-#~ msgstr ""
-
-#~ msgid "Available collection"
-#~ msgstr "متاح"
-
-#~ msgid "Test version"
-#~ msgstr "خادم تجريبي"
-
-#~ msgid "contentType"
-#~ msgstr "نوع المحتوى"
-
-#~ msgid "The email is not valid."
-#~ msgstr ""
-
-#~ msgid "If checked this order line should be considerate as cancelled."
-#~ msgstr ""
-
-#~ msgid "Active"
-#~ msgstr "فعال"
-
-#~ msgid "note"
-#~ msgstr "ملاحظة"
-
-#~ msgid "Link to the RERO ILS backlog on Taiga"
-#~ msgstr "رابط ل RERO ILS على Taiga"
-
-#~ msgid "Scrum process"
-#~ msgstr "طريقة Scrum"
-
-#~ msgid "on Taiga"
-#~ msgstr "في Taiga"
-
-#~ msgid "Developed by"
-#~ msgstr "طورت بواسطة"
-
-#~ msgid "using"
-#~ msgstr "استخدام"
-
-#~ msgid "USER_DOES_NOT_EXIST"
-#~ msgstr "هذا المستخدم غير موجود"
-
-#~ msgid "This reference number already exists."
-#~ msgstr ""
-
-#~ msgid "A well detailed request is more likely to be satisfied"
-#~ msgstr ""
-
-#~ msgid "Confirmation"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Costs may apply. By confirming, you "
-#~ "agree to the interlibrary loan "
-#~ "conditions of the pick-up library."
-#~ msgstr ""
-
-#~ msgid "Library affiliations for the librarian."
-#~ msgstr "توابع المكتبة"
-
-#~ msgid "acquisition_librarian"
-#~ msgstr ""
-
-#~ msgid "system_librarian"
-#~ msgstr "اخصائي المكتبة"
-
-#~ msgid ""
-#~ "This user has already a professional "
-#~ "role in another organisation. A user "
-#~ "can be professional only in one "
-#~ "organisation."
-#~ msgstr ""
 

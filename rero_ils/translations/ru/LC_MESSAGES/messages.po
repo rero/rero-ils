@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 1.7.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2023-02-28 14:17+0100\n"
+"POT-Creation-Date: 2023-03-06 15:41+0100\n"
 "PO-Revision-Date: 2022-01-21 16:53+0000\n"
 "Last-Translator: lushnikov3d37b9a0863842c1 <pavel.lushnikov@gmail.com>\n"
 "Language: ru\n"
@@ -18,7 +18,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
 msgid "The 2 passwords are not identical."
@@ -153,6 +153,10 @@ msgstr ""
 
 #: rero_ils/config.py:1836 rero_ils/config.py:2028
 msgid "vendor"
+msgstr ""
+
+#: rero_ils/config.py:1840
+msgid "current_requests"
 msgstr ""
 
 #: rero_ils/config.py:1899
@@ -12100,101 +12104,4 @@ msgstr ""
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr ""
-
-#~ msgid "educational sheet"
-#~ msgstr ""
-
-#~ msgid "Item location disallows request."
-#~ msgstr ""
-
-#~ msgid "Library id"
-#~ msgstr "библиотека"
-
-#~ msgid "Library name"
-#~ msgstr "библиотека"
-
-#~ msgid "The name is already taken."
-#~ msgstr ""
-
-#~ msgid "The number is already taken."
-#~ msgstr ""
-
-#~ msgid "bf:Organization"
-#~ msgstr ""
-
-#~ msgid "Available collection"
-#~ msgstr ""
-
-#~ msgid "Test version"
-#~ msgstr "Тестовая версия"
-
-#~ msgid "contentType"
-#~ msgstr ""
-
-#~ msgid "The email is not valid."
-#~ msgstr ""
-
-#~ msgid "Online harvested source"
-#~ msgstr ""
-
-#~ msgid "Online harvested source as configured in ebooks server."
-#~ msgstr ""
-
-#~ msgid "If checked this order line should be considerate as cancelled."
-#~ msgstr ""
-
-#~ msgid "Active"
-#~ msgstr ""
-
-#~ msgid "note"
-#~ msgstr ""
-
-#~ msgid "Link to the RERO ILS backlog on Taiga"
-#~ msgstr ""
-
-#~ msgid "Scrum process"
-#~ msgstr ""
-
-#~ msgid "on Taiga"
-#~ msgstr ""
-
-#~ msgid "Developed by"
-#~ msgstr ""
-
-#~ msgid "using"
-#~ msgstr ""
-
-#~ msgid "USER_DOES_NOT_EXIST"
-#~ msgstr "Пользователь_не_существует"
-
-#~ msgid "This reference number already exists."
-#~ msgstr ""
-
-#~ msgid "A well detailed request is more likely to be satisfied"
-#~ msgstr ""
-
-#~ msgid "Confirmation"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Costs may apply. By confirming, you "
-#~ "agree to the interlibrary loan "
-#~ "conditions of the pick-up library."
-#~ msgstr ""
-
-#~ msgid "Library affiliations for the librarian."
-#~ msgstr ""
-
-#~ msgid "acquisition_librarian"
-#~ msgstr ""
-
-#~ msgid "system_librarian"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This user has already a professional "
-#~ "role in another organisation. A user "
-#~ "can be professional only in one "
-#~ "organisation."
-#~ msgstr ""
 
