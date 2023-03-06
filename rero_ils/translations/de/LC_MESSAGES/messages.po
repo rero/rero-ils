@@ -17,20 +17,21 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-02-28 14:17+0100\n"
-"PO-Revision-Date: 2023-02-28 13:13+0000\n"
+"PO-Revision-Date: 2023-03-06 14:00+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.16.2-dev\n"
 "Generated-By: Babel 2.11.0\n"
 
 #: rero_ils/accounts_views.py:60
 msgid "The 2 passwords are not identical."
-msgstr ""
+msgstr "Die 2 Passwörter sind nicht identisch."
 
 #: rero_ils/accounts_views.py:82 rero_ils/accounts_views.py:90
 msgid "INVALID_USER_OR_PASSWORD"
@@ -4147,8 +4148,8 @@ msgstr "Wert"
 #, python-format
 msgid "Field must be at least %(min)d character long."
 msgid_plural "Field must be at least %(min)d characters long."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Das Feld muss mindestens %(min)d lang sein."
+msgstr[1] "Das Feld muss mindestens %(min)d lang sein."
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:334
 msgid "Cannot transfer fund to myself."
@@ -10095,9 +10096,9 @@ msgstr ""
 "erklären Sie sich damit einverstanden:"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:82
-#, fuzzy
 msgid "The requested document does not exist in your library network."
-msgstr "Das angeforderte Dokument ist in Ihrem Bibliotheksverbund nicht vorhanden."
+msgstr ""
+"Das angeforderte Dokument ist in Ihrem Bibliotheksverbund nicht vorhanden."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:83
 msgid "Costs may apply."
@@ -10197,51 +10198,49 @@ msgid "Information"
 msgstr "Information"
 
 #: rero_ils/modules/items/api/circulation.py:92
-#, fuzzy
 msgid "No circulation action performed: validate_actions"
-msgstr "Information zur Ausleihe"
+msgstr "Keine Umlaufaktion durchgeführt: Bestätigung nicht möglich"
 
 #: rero_ils/modules/items/api/circulation.py:112
 msgid "No circulation action performed: extend_loan_actions"
-msgstr ""
+msgstr "Keine Umlaufaktion durchgeführt: Verlängerung nicht möglich"
 
 #: rero_ils/modules/items/api/circulation.py:212
 msgid "No circulation action performed: Item returned at owning library"
 msgstr ""
+"Keine Zirkulationsaktion durchgeführt: Rückgabe des Exemplar an die "
+"besitzende Bibliothek"
 
 #: rero_ils/modules/items/api/circulation.py:216
-#, fuzzy
 msgid "No circulation action performed: on shelf"
-msgstr "Es ist keine Ausleihsaktion möglich"
+msgstr "Keine Zirkulationsaktion durchgeführt: im Regal"
 
 #: rero_ils/modules/items/api/circulation.py:226
 #: rero_ils/modules/items/api/circulation.py:254
-#, fuzzy
 msgid "No circulation action performed: in transit added"
-msgstr "Es ist keine Ausleihsaktion möglich"
+msgstr "Keine Zirkulationsaktion durchgeführt: unterwegs hinzugefügt"
 
 #: rero_ils/modules/items/api/circulation.py:244
+#, fuzzy
 msgid "No circulation action performed: item at desk"
-msgstr ""
+msgstr "Keine Zirkulationsaktion durchgeführt: item at desk"
 
 #: rero_ils/modules/items/api/circulation.py:278
 msgid "No circulation action performed: in transit for pickup"
-msgstr ""
+msgstr "Keine Umlaufaktion durchgeführt: zur Abholort unterwegs"
 
 #: rero_ils/modules/items/api/circulation.py:298
-#, fuzzy
 msgid "No circulation action performed: in transit to house"
-msgstr "Es ist keine Ausleihsaktion möglich"
+msgstr "Keine Zirkulationsaktion durchgeführt: unterwegs zum Haus"
 
 #: rero_ils/modules/items/api/circulation.py:345
-#, fuzzy
 msgid "No circulation action performed: in transit"
-msgstr "Es ist keine Ausleihsaktion möglich"
+msgstr "Keine Zirkulationsaktion durchgeführt: unterwegs"
 
 #: rero_ils/modules/items/api/circulation.py:525
 #, fuzzy
 msgid "No circulation action is possible: CHECKED_IN"
-msgstr "Es ist keine Ausleihsaktion möglich"
+msgstr "Es ist keine Zirkulationsaktion möglich: CHECKED_IN"
 
 #: rero_ils/modules/items/api/circulation.py:1034
 msgid "Item status disallows the operation."
@@ -10364,15 +10363,16 @@ msgid "Expected date"
 msgstr "Erwartetes Datum"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:398
-#, fuzzy
 msgid "Sorting date"
-msgstr "Erstellungsdatum"
+msgstr "Sortierdatum"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:399
 msgid ""
 "Date used to sort the issue from the holdings item list. If empty, the "
 "issue expected date will be used as sort key."
 msgstr ""
+"Datum, um die Ausgabe aus der Bestandsliste zu sortieren. Wenn leer, wird "
+"das voraussichtliche Ausgabedatum verwendet."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:413
 msgid "Regularity"
@@ -10706,7 +10706,6 @@ msgid "A pending request exists on this item."
 msgstr "Eine ausstehende Bestellung existiert zu diesem Exemplar."
 
 #: rero_ils/modules/loans/api.py:202
-#, fuzzy
 msgid "No circulation action is permitted"
 msgstr "Es ist keine Ausleihsaktion möglich"
 
@@ -11763,9 +11762,8 @@ msgid "libraries"
 msgstr "Bibliotheken"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:390
-#, fuzzy
 msgid "Library affiliations for the professional users."
-msgstr "Bibliothekszugehörigkeit des Kunden."
+msgstr "Bibliotheksverbünde für die professionellen Nutzer."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:424
 msgid ""
@@ -11781,33 +11779,31 @@ msgstr "Kunde"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:453
 msgid "pro_full_permissions"
-msgstr ""
+msgstr "professionell: alle Berechtigungen"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:457
 msgid "pro_read_only"
-msgstr ""
+msgstr "professionell: nur lesen"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:461
 msgid "pro_catalog_manager"
-msgstr ""
+msgstr "professionell: Katalog"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:465
-#, fuzzy
 msgid "pro_circulation_manager"
-msgstr "Ausleihkategorie"
+msgstr "professionell: Ausleihe"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:469
 msgid "pro_user_manager"
-msgstr ""
+msgstr "professionell: Verwaltung von Benutzern"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:473
-#, fuzzy
 msgid "pro_acquisition_manager"
-msgstr "Anmerkung zum Erwerb"
+msgstr "professionell: Acquisitions"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:477
 msgid "pro_library_administrator"
-msgstr ""
+msgstr "professionell: Bibliotheksverwaltung"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:489
 msgid "The public note is visible for the patron in his/her account."
@@ -11958,11 +11954,11 @@ msgstr "JSON Daten der Vorlage"
 
 #: rero_ils/modules/templates/schemas/json.py:82
 msgid "Template can be created only with `private` visibility"
-msgstr ""
+msgstr "Vorlage kann nur mit \"privater\" Sichtbarkeit erstellt werden"
 
 #: rero_ils/modules/templates/schemas/json.py:118
 msgid "You are not allowed to change template visibility"
-msgstr ""
+msgstr "Sie sind nicht berechtigt, die Sichtbarkeit der Vorlage zu ändern"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:4
 msgid "User Personal Informations"
@@ -11997,9 +11993,8 @@ msgid "female"
 msgstr "Frau"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:102
-#, fuzzy
 msgid "no_information"
-msgstr "Information"
+msgstr "keine Information"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:109
 msgid "Username"
@@ -12438,4 +12433,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 #~ "professionelle Rolle in einer anderen "
 #~ "Organisation. Ein Benutzer kann nur in"
 #~ " einer Organisation professionell sein."
-

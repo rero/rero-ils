@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-02-28 14:17+0100\n"
 "PO-Revision-Date: 2023-03-06 14:00+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -10389,7 +10389,7 @@ msgstr "Fecha prevista"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:398
 #, fuzzy
 msgid "Sorting date"
-msgstr "Fecha de creación"
+msgstr "Fecha de clasificación"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:399
 #, fuzzy
@@ -11796,9 +11796,8 @@ msgid "libraries"
 msgstr "Bibliotecas"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:390
-#, fuzzy
 msgid "Library affiliations for the professional users."
-msgstr "Biblioteca de afiliación del usuario."
+msgstr "Biblioteca de afiliación para los usuarios profesionales."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:424
 msgid ""
@@ -11815,37 +11814,37 @@ msgstr "usuario"
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:453
 #, fuzzy
 msgid "pro_full_permissions"
-msgstr "pro_full_permissions"
+msgstr "profesional: todos los permisos"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:457
 #, fuzzy
 msgid "pro_read_only"
-msgstr "pro_read_only"
+msgstr "profesional: sólo lectura"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:461
 #, fuzzy
 msgid "pro_catalog_manager"
-msgstr "pro_catalog_manager"
+msgstr "profesional: catálogo"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:465
 #, fuzzy
 msgid "pro_circulation_manager"
-msgstr "Categoría de préstamo"
+msgstr "profesional: préstamo"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:469
 #, fuzzy
 msgid "pro_user_manager"
-msgstr "pro_user_manager"
+msgstr "profesional: gestión de usuarios"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:473
 #, fuzzy
 msgid "pro_acquisition_manager"
-msgstr "Adquisición"
+msgstr "profesional: adquisiciones"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:477
 #, fuzzy
 msgid "pro_library_administrator"
-msgstr "pro_library_administrator"
+msgstr "profesional: administración de biblioteca"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:489
 msgid "The public note is visible for the patron in his/her account."
@@ -12117,9 +12116,8 @@ msgid "Other phone number"
 msgstr "Otro número telefónico"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:216
-#, fuzzy
 msgid "Other phone number with the international prefix, without spaces."
-msgstr "Número de teléfono con el prefijo internacional, sin espacios."
+msgstr "Otro número de teléfono con el prefijo internacional, sin espacios."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:235
 msgid "Keep history"
