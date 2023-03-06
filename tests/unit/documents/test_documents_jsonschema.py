@@ -101,13 +101,11 @@ def test_contribution(mef_agents_url, document_schema, document_data_tmp):
         'role': ['aut']
     }, {
         'entity': {
-            'type': 'bf:Organisation',
             '$ref': f'{mef_agents_url}/gnd/XXXXXXX'
         },
         'role': ['aut']
     }, {
         'entity': {
-            'type': 'bf:Person',
             '$ref': f'{mef_agents_url}/gnd/XXXXXXX'
         },
         'role': ['aut']
