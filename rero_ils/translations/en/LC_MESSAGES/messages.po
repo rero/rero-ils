@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2023-02-28 14:17+0100\n"
-"PO-Revision-Date: 2022-12-20 15:31+0000\n"
+"POT-Creation-Date: 2023-03-06 15:41+0100\n"
+"PO-Revision-Date: 2023-03-06 14:00+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language: en\n"
 "Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
@@ -27,11 +27,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
 msgid "The 2 passwords are not identical."
-msgstr ""
+msgstr "The two passwords are not identical."
 
 #: rero_ils/accounts_views.py:82 rero_ils/accounts_views.py:90
 msgid "INVALID_USER_OR_PASSWORD"
@@ -161,6 +161,10 @@ msgstr "Issue status"
 #: rero_ils/config.py:1836 rero_ils/config.py:2028
 msgid "vendor"
 msgstr "Vendor"
+
+#: rero_ils/config.py:1840
+msgid "current_requests"
+msgstr "Current requests"
 
 #: rero_ils/config.py:1899
 msgid "owner_library"
@@ -4148,8 +4152,8 @@ msgstr "Value"
 #, python-format
 msgid "Field must be at least %(min)d character long."
 msgid_plural "Field must be at least %(min)d characters long."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Field must be at least %(min)d character long."
+msgstr[1] "Field must be at least %(min)d characters long."
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:334
 msgid "Cannot transfer fund to myself."
@@ -9266,7 +9270,6 @@ msgid "article/volume"
 msgstr "article/volume"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:246
-#, fuzzy
 msgid " articles/volumes"
 msgstr " articles/volumes"
 
@@ -10158,51 +10161,45 @@ msgid "Information"
 msgstr "Information"
 
 #: rero_ils/modules/items/api/circulation.py:92
-#, fuzzy
 msgid "No circulation action performed: validate_actions"
-msgstr "Circulation information"
+msgstr "No circulation action performed: validate impossible"
 
 #: rero_ils/modules/items/api/circulation.py:112
 msgid "No circulation action performed: extend_loan_actions"
-msgstr ""
+msgstr "No circulation action performed: extension impossible"
 
 #: rero_ils/modules/items/api/circulation.py:212
 msgid "No circulation action performed: Item returned at owning library"
-msgstr ""
+msgstr "No circulation action performed: item returned at owning library"
 
 #: rero_ils/modules/items/api/circulation.py:216
-#, fuzzy
 msgid "No circulation action performed: on shelf"
-msgstr "No circulation action is possible"
+msgstr "No circulation action performed: on shelf"
 
 #: rero_ils/modules/items/api/circulation.py:226
 #: rero_ils/modules/items/api/circulation.py:254
-#, fuzzy
 msgid "No circulation action performed: in transit added"
-msgstr "No circulation action is possible"
+msgstr "No circulation action performed: in transit added"
 
 #: rero_ils/modules/items/api/circulation.py:244
 msgid "No circulation action performed: item at desk"
-msgstr ""
+msgstr "No circulation action performed: item at desk"
 
 #: rero_ils/modules/items/api/circulation.py:278
 msgid "No circulation action performed: in transit for pickup"
-msgstr ""
+msgstr "No circulation action performed: in transit for pickup"
 
 #: rero_ils/modules/items/api/circulation.py:298
-#, fuzzy
 msgid "No circulation action performed: in transit to house"
-msgstr "No circulation action is possible"
+msgstr "No circulation action performed: in transit to house"
 
 #: rero_ils/modules/items/api/circulation.py:345
-#, fuzzy
 msgid "No circulation action performed: in transit"
-msgstr "No circulation action is possible"
+msgstr "No circulation action performed: in transit"
 
 #: rero_ils/modules/items/api/circulation.py:525
-#, fuzzy
 msgid "No circulation action is possible: CHECKED_IN"
-msgstr "No circulation action is possible"
+msgstr "No circulation action is possible: CHECKED_IN"
 
 #: rero_ils/modules/items/api/circulation.py:1034
 msgid "Item status disallows the operation."
@@ -10325,15 +10322,16 @@ msgid "Expected date"
 msgstr "Expected date"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:398
-#, fuzzy
 msgid "Sorting date"
-msgstr "Creation date"
+msgstr "Sorting date"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:399
 msgid ""
 "Date used to sort the issue from the holdings item list. If empty, the "
 "issue expected date will be used as sort key."
 msgstr ""
+"Date used to sort the issue from the holdings' item list. If empty, the "
+"expected date will be used."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:413
 msgid "Regularity"
@@ -10667,7 +10665,6 @@ msgid "A pending request exists on this item."
 msgstr "A pending request exists on this item."
 
 #: rero_ils/modules/loans/api.py:202
-#, fuzzy
 msgid "No circulation action is permitted"
 msgstr "No circulation action is possible"
 
@@ -11691,9 +11688,8 @@ msgid "libraries"
 msgstr "libraries"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:390
-#, fuzzy
 msgid "Library affiliations for the professional users."
-msgstr "Library affiliation of the patron."
+msgstr "Affiliation libraries for the professional users."
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:424
 msgid ""
@@ -11709,33 +11705,31 @@ msgstr "patron"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:453
 msgid "pro_full_permissions"
-msgstr ""
+msgstr "pro: full permissions"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:457
 msgid "pro_read_only"
-msgstr ""
+msgstr "pro: read only"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:461
 msgid "pro_catalog_manager"
-msgstr ""
+msgstr "pro: catalog manager"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:465
-#, fuzzy
 msgid "pro_circulation_manager"
-msgstr "Circulation category"
+msgstr "pro: circulation manager"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:469
 msgid "pro_user_manager"
-msgstr ""
+msgstr "pro: user manager"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:473
-#, fuzzy
 msgid "pro_acquisition_manager"
-msgstr "Acquisition"
+msgstr "pro: acquisition manager"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:477
 msgid "pro_library_administrator"
-msgstr ""
+msgstr "pro: library administrator"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:489
 msgid "The public note is visible for the patron in his/her account."
@@ -11886,11 +11880,11 @@ msgstr "Template json data"
 
 #: rero_ils/modules/templates/schemas/json.py:82
 msgid "Template can be created only with `private` visibility"
-msgstr ""
+msgstr "Template can be created only with `private` visibility"
 
 #: rero_ils/modules/templates/schemas/json.py:118
 msgid "You are not allowed to change template visibility"
-msgstr ""
+msgstr "You are not allowed to change template visibility"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:4
 msgid "User Personal Informations"
@@ -11925,9 +11919,8 @@ msgid "female"
 msgstr "female"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:102
-#, fuzzy
 msgid "no_information"
-msgstr "Information"
+msgstr "no information"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:109
 msgid "Username"
@@ -12296,66 +12289,4 @@ msgstr "Your library"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Your password has been successfully reset."
-
-#~ msgid "Active"
-#~ msgstr "Active"
-
-#~ msgid "note"
-#~ msgstr "note"
-
-#~ msgid "Link to the RERO ILS backlog on Taiga"
-#~ msgstr "Link to the RERO ILS backlog on Taiga"
-
-#~ msgid "Scrum process"
-#~ msgstr "Scrum process"
-
-#~ msgid "on Taiga"
-#~ msgstr "on Taiga"
-
-#~ msgid "Developed by"
-#~ msgstr "Developed by"
-
-#~ msgid "using"
-#~ msgstr "using"
-
-#~ msgid "USER_DOES_NOT_EXIST"
-#~ msgstr "This user does not exists."
-
-#~ msgid "This reference number already exists."
-#~ msgstr "This reference number already exists."
-
-#~ msgid "A well detailed request is more likely to be satisfied"
-#~ msgstr "A well detailed request is more likely to be satisfied"
-
-#~ msgid "Confirmation"
-#~ msgstr "Confirmation"
-
-#~ msgid ""
-#~ "Costs may apply. By confirming, you "
-#~ "agree to the interlibrary loan "
-#~ "conditions of the pick-up library."
-#~ msgstr ""
-#~ "Costs may apply. By confirming, you "
-#~ "agree to the interlibrary loan "
-#~ "conditions of the pick-up library."
-
-#~ msgid "Library affiliations for the librarian."
-#~ msgstr "Library affiliations of the librarian."
-
-#~ msgid "acquisition_librarian"
-#~ msgstr "acquisition_librarian"
-
-#~ msgid "system_librarian"
-#~ msgstr "System librarian"
-
-#~ msgid ""
-#~ "This user has already a professional "
-#~ "role in another organisation. A user "
-#~ "can be professional only in one "
-#~ "organisation."
-#~ msgstr ""
-#~ "This user has already a professional "
-#~ "role in another organisation. A user "
-#~ "can be professional only in one "
-#~ "organisation."
 

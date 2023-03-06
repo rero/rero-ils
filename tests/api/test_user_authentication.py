@@ -144,7 +144,7 @@ def test_change_password(client, app, patron_martigny,
     assert res.status_code == 400
     assert data.get('message') == 'Validation error.'
     assert data.get('errors')[0].get('message') == \
-        'Field must be at least 8 characters long.'
+        gettext('Field must be at least 8 characters long.')
 
     # with a logged user
     res, _ = postdata(
@@ -160,7 +160,7 @@ def test_change_password(client, app, patron_martigny,
     assert res.status_code == 400
     assert data.get('message') == 'Validation error.'
     assert data.get('errors')[0].get('message') == \
-        'The 2 passwords are not identical.'
+        gettext('The 2 passwords are not identical.')
 
     res, _ = postdata(
         client,
@@ -205,7 +205,7 @@ def test_change_password(client, app, patron_martigny,
     assert res.status_code == 400
     assert data.get('message') == 'Validation error.'
     assert data.get('errors')[0].get('message') == \
-        'The 2 passwords are not identical.'
+        gettext('The 2 passwords are not identical.')
 
     res, _ = postdata(
         client,

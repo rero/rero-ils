@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 1.5.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2023-02-28 14:17+0100\n"
+"POT-Creation-Date: 2023-03-06 15:41+0100\n"
 "PO-Revision-Date: 2021-12-25 09:52+0000\n"
 "Last-Translator: Sam Tse <codefzer@gmail.com>\n"
 "Language: zh_Hant\n"
@@ -17,7 +17,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.11.0\n"
+"Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
 msgid "The 2 passwords are not identical."
@@ -66,18 +66,16 @@ msgid "online"
 msgstr ""
 
 #: rero_ils/config.py:1728
-#, fuzzy
 msgid "not_online"
-msgstr "在線"
+msgstr ""
 
 #: rero_ils/config.py:1731
 msgid "author"
 msgstr "作者"
 
 #: rero_ils/config.py:1732
-#, fuzzy
 msgid "subject_fiction"
-msgstr "主題"
+msgstr ""
 
 #: rero_ils/config.py:1738
 msgid "subject_no_fiction"
@@ -158,6 +156,11 @@ msgstr "現況"
 #: rero_ils/config.py:1836 rero_ils/config.py:2028
 msgid "vendor"
 msgstr "供應商"
+
+#: rero_ils/config.py:1840
+#, fuzzy
+msgid "current_requests"
+msgstr "請求"
 
 #: rero_ils/config.py:1899
 #, fuzzy
@@ -12223,134 +12226,4 @@ msgstr "您的圖書館"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "您的密碼已成功重置。"
-
-#~ msgid "Core leve"
-#~ msgstr ""
-
-#~ msgid "Name of the acquisition account."
-#~ msgstr ""
-
-#~ msgid "Description of the acquisition account."
-#~ msgstr ""
-
-#~ msgid "Order line status"
-#~ msgstr ""
-
-#~ msgid "canceled"
-#~ msgstr "已取消"
-
-#~ msgid "ordered"
-#~ msgstr ""
-
-#~ msgid "requested"
-#~ msgstr ""
-
-#~ msgid "The order number is already taken."
-#~ msgstr ""
-
-#~ msgid "Order type"
-#~ msgstr "訂單類型"
-
-#~ msgid "Order status"
-#~ msgstr "訂單狀態"
-
-#~ msgid "Order currency"
-#~ msgstr ""
-
-#~ msgid "educational sheet"
-#~ msgstr ""
-
-#~ msgid "Item location disallows request."
-#~ msgstr ""
-
-#~ msgid "Library id"
-#~ msgstr "圖書館"
-
-#~ msgid "Library name"
-#~ msgstr "圖書館"
-
-#~ msgid "The name is already taken."
-#~ msgstr ""
-
-#~ msgid "The number is already taken."
-#~ msgstr ""
-
-#~ msgid "bf:Organization"
-#~ msgstr ""
-
-#~ msgid "Available collection"
-#~ msgstr ""
-
-#~ msgid "Test version"
-#~ msgstr "測試版"
-
-#~ msgid "contentType"
-#~ msgstr ""
-
-#~ msgid "The email is not valid."
-#~ msgstr "電郵地址無效。"
-
-#~ msgid "Online harvested source"
-#~ msgstr ""
-
-#~ msgid "Online harvested source as configured in ebooks server."
-#~ msgstr ""
-
-#~ msgid "If checked this order line should be considerate as cancelled."
-#~ msgstr ""
-
-#~ msgid "Active"
-#~ msgstr ""
-
-#~ msgid "note"
-#~ msgstr "備注"
-
-#~ msgid "Link to the RERO ILS backlog on Taiga"
-#~ msgstr ""
-
-#~ msgid "Scrum process"
-#~ msgstr ""
-
-#~ msgid "on Taiga"
-#~ msgstr ""
-
-#~ msgid "Developed by"
-#~ msgstr ""
-
-#~ msgid "using"
-#~ msgstr ""
-
-#~ msgid "USER_DOES_NOT_EXIST"
-#~ msgstr "用戶不存在"
-
-#~ msgid "This reference number already exists."
-#~ msgstr ""
-
-#~ msgid "A well detailed request is more likely to be satisfied"
-#~ msgstr ""
-
-#~ msgid "Confirmation"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Costs may apply. By confirming, you "
-#~ "agree to the interlibrary loan "
-#~ "conditions of the pick-up library."
-#~ msgstr ""
-
-#~ msgid "Library affiliations for the librarian."
-#~ msgstr ""
-
-#~ msgid "acquisition_librarian"
-#~ msgstr ""
-
-#~ msgid "system_librarian"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This user has already a professional "
-#~ "role in another organisation. A user "
-#~ "can be professional only in one "
-#~ "organisation."
-#~ msgstr ""
 

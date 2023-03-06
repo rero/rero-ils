@@ -1837,7 +1837,7 @@ RECORDS_REST_FACETS = dict(
             # to allow multiple filters support, in this case to filter by
             # "late or claimed"
             'or_issue_status': terms_filter('issue.status'),
-            'current_requests': range_filter('current_pending_requests')
+            _('current_requests'): range_filter('current_pending_requests')
         }
     ),
     loans=dict(
