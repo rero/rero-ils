@@ -1,0 +1,52 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2023 RERO
+  Copyright (C) 2023 UCLouvain
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{% set patron_message = patron_message() %}
+{% if patron_message and patron_message.show_info %}
+<div class="patron-info-message">
+  <div class="container mt-0">
+    {% set view = viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}
+    {% if view == config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE %}
+      <ul class="list-unstyled py-2 mb-0">
+        {% for key, patron in patron_message.data.items() %}
+          {% if patron.blocked.is_blocked or patron.is_expired %}
+          <li class="py-1">
+            <span class="font-weight-bold">{{ patron.name }}</span>
+            {% with data=patron %}
+              {%- include "rero_ils/_patron_info_message_data.html" -%}
+            {% endwith %}
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    {% else %}
+      {% if view in patron_message.data %}
+        {% set message = patron_message.data[view] %}
+        {% if message.blocked.is_blocked or message.is_expired %}
+          <div class="py-2">
+            {% with data=message %}
+              {%- include "rero_ils/_patron_info_message_data.html" -%}
+            {% endwith %}
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endif %}

@@ -92,6 +92,10 @@
       </div>
     </nav>
 
+    <!-- start info patron -->
+    {%- include "rero_ils/_patron_info_message.html" %}
+    <!-- end info patron -->
+
     <!-- Info message (not in production) -->
     {% if not config.RERO_ILS_STATE_PRODUCTION %}
       <h5 class="text-center bg-danger text-white py-2 mb-0">
