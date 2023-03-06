@@ -240,7 +240,6 @@ class Document(IlsRecord):
         for contribution in self.get('contribution', []):
             ref = contribution['entity'].get('$ref')
             if not ref and (cont_pid := contribution['entity'].get('pid')):
-                print("OK...")
                 if bulk:
                     uid = Entity.get_id_by_pid(cont_pid)
                     contributions_ids.append(uid)
@@ -248,7 +247,6 @@ class Document(IlsRecord):
                     contrib = Entity.get_record_by_pid(cont_pid)
                     contrib.reindex()
         if contributions_ids:
-            print("ids are", contributions_ids)
             EntitiesIndexer().bulk_index(contributions_ids)
             process_bulk_queue.apply_async()
 
