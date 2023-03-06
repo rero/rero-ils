@@ -110,6 +110,6 @@ def test_replace_idby_subjects(mock_contributions_mef_get, app,
 
     # clean up
     doc.delete(dbcommit=True, delindex=True, force=True)
-    for id in Entity.get_all_ids():
-        cont = Entity.get_record(id)
+    for _id in Entity.get_all_ids():
+        cont = Entity.get_record(_id)
         cont.delete(dbcommit=True, delindex=True, force=True)
