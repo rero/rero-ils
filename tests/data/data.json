@@ -1935,7 +1935,6 @@
     "contribution": [
       {
         "entity": {
-          "type": "bf:Person",
           "$ref": "https://mef.rero.ch/api/agents/rero/A017671081"
         },
         "role": [
@@ -2626,8 +2625,7 @@
     "contribution": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/029314100",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/029314100"
         },
         "role": [
           "ctb"
