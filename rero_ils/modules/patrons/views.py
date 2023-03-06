@@ -383,3 +383,27 @@ def info():
             data['patron_types'] = patron_types
 
     return jsonify(data)
+
+
+@blueprint.add_app_template_global
+def patron_message():
+    """Get patron message."""
+    if not current_patrons:
+        return
+    data = {
+        'show_info': False,
+        'data': {}
+    }
+    for patron in current_patrons:
+        if (patron.is_blocked or patron.is_expired):
+            data['show_info'] = True
+        organisation = patron.organisation
+        data['data'][organisation['code']] = {
+            'name': organisation['name'],
+            'blocked': {
+                'is_blocked': patron.is_blocked,
+                'message': patron.get_blocked_message(public=True)
+            },
+            'is_expired': patron.is_expired
+        }
+    return data

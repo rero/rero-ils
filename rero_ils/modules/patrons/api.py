@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -440,7 +440,7 @@ class Patron(IlsRecord):
         # if patron is blocked - error type message
         #   if patron is blocked, no need to return any other circulation
         #   messages !
-        if self.is_blocked:
+        if not public and self.is_blocked:
             return [{
                 'type': 'error',
                 'content': self.get_blocked_message(public)
@@ -448,7 +448,7 @@ class Patron(IlsRecord):
 
         messages = []
         # if patron expiration_date has reached - error type message
-        if self.is_expired:
+        if not public and self.is_expired:
             messages.append({
                 'type': 'error',
                 'content': _('Patron rights expired.')
@@ -586,7 +586,7 @@ class Patron(IlsRecord):
         if patron.is_blocked:
             messages.append(patron.get_blocked_message())
         if patron.is_expired:
-            messages.append(_('Patron rights expired.'))
+            messages.append(_('Patron account expired.'))
 
         return not messages, messages
 
