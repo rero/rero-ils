@@ -85,3 +85,11 @@ _('standing_order')
 _('monographic_set')
 _('planned_order')
 _('multi_volume')
+
+
+# Phone
+_('Phone')
+_('Phones')
+_('Business')
+_('Home')
+_('Mobile')
