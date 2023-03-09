@@ -37,7 +37,7 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: M\u00fcller, Hans",
+        "placeholder": "Example: Miller, John",
         "templateOptions": {
           "itemCssClass": "col-lg-6"
         }
