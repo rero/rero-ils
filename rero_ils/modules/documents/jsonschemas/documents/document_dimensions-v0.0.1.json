@@ -1,7 +1,7 @@
 {
   "dimensions": {
     "title": "Dimensions",
-    "description": "Dimensions include measurements of height, width, depth, length, gauge, and diameter. For oblong volumes, record the height \u00d7 width.",
+    "description": "Dimensions include measurements of height, width, depth, length, gauge, and diameter. For oblong volumes, record the height x width.",
     "type": "array",
     "minItems": 1,
     "items": {
