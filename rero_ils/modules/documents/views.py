@@ -375,71 +375,16 @@ def record_library_pickup_locations(record):
 
 
 @blueprint.app_template_filter()
-def work_access_point(work_access_point):
-    """Process work access point data."""
-    wap = []
-    for work in work_access_point:
-        agent_formatted = ''
-        if 'agent' in work:
-            agent = work['agent']
-            if agent['type'] == 'bf:Person':
-                # Person
-                name = []
-                if 'preferred_name' in agent:
-                    name.append(agent['preferred_name'])
-                if 'numeration' in agent:
-                    name.append(agent['numeration'])
-                elif 'fuller_form_of_name' in agent:
-                    name.append(f"({agent['fuller_form_of_name']})")
-                if len(name):
-                    agent_formatted += f"{', '.join(name)}, "
-                if 'numeration' in agent and 'qualifier' in agent:
-                    agent_formatted += f"{agent['qualifier']}, "
-                dates = [
-                    agent[key]
-                    for key in ['date_of_birth', 'date_of_death']
-                    if key in agent
-                ]
-                if len(dates):
-                    agent_formatted += f"{'-'.join(dates)}. "
-                if 'numeration' not in agent and 'qualifier' in agent:
-                    agent_formatted += f"{agent['qualifier']}. "
-            else:
-                # Organisation
-                if 'preferred_name' in agent:
-                    agent_formatted += agent['preferred_name'] + '. '
-                if 'subordinate_unit' in agent:
-                    for unit in agent['subordinate_unit']:
-                        agent_formatted += unit + '. '
-                if 'numbering' in agent or 'conference_date' in agent or \
-                   'place' in agent:
-                    conf = [
-                        agent[key]
-                        for key in ['numbering', 'conference_date', 'place']
-                    ]
-                    if len(conf):
-                        agent_formatted += f"({' : '.join(conf)}) "
-        agent_formatted += f"{work['title']}. "
-        if 'part' in work:
-            for part in work['part']:
-                for key in ['partNumber', 'partName']:
-                    if key in part:
-                        agent_formatted += f"{part[key]}. "
-        if 'miscellaneous_information' in work:
-            agent_formatted += f"{work['miscellaneous_information']}. "
-        if 'language' in work:
-            agent_formatted += f"{_('lang_'+work['language'])}. "
-        if 'medium_of_performance_for_music' in work:
-            agent_formatted += \
-                f"{'. '.join(work['medium_of_performance_for_music'])}. "
-        if 'key_for_music' in work:
-            agent_formatted += f"{work['key_for_music']}. "
-        if 'arranged_statement_for_music' in work:
-            agent_formatted += f"{work['arranged_statement_for_music']}. "
-        if 'date_of_work' in work:
-            agent_formatted += f"{work['date_of_work']}. "
-        wap.append(agent_formatted.strip())
-    return wap
+def work_access_point(access_points):
+    """Process work access point data.
+
+    :param access_points: a list of work access points data as a dictionary.
+    :returns a list of formatted work access points.
+    """
+    return list(filter(None, [
+        work.get('entity', {}).get('authorized_access_point')
+        for work in access_points
+    ]))
 
 
 @api_blueprint.route('/availabilty/<document_pid>', methods=['GET'])

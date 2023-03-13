@@ -1421,7 +1421,6 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
     contribution = data.get('contribution')
     assert contribution == [{
         'entity': {
-            'type': 'bf:Person',
             '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
         },
         'role': ['cre']
@@ -4161,11 +4160,10 @@ def test_marc21_to_part_of_without_link():
         }
     ]
     assert data.get('work_access_point') == [{
-        'agent': {
-            'preferred_name': 'Jacq, Christian',
-            'type': 'bf:Person'
-        },
-        'title': 'Ramsès'
+        'entity': {
+            'authorized_access_point': 'Jacq, Christian. Ramsès.',
+            'type': 'bf:Work'
+        }
     }]
 
     marc21xml = """
@@ -4185,7 +4183,10 @@ def test_marc21_to_part_of_without_link():
         }
     ]
     assert data.get('work_access_point') == [{
-         'title': 'Stuart Hall : critical dialogues'
+        'entity': {
+            'authorized_access_point': 'Stuart Hall : critical dialogues.',
+            'type': 'bf:Work'
+        }
     }]
 
     marc21xml = """
@@ -4323,17 +4324,18 @@ def test_marc21_to_part_of_with_multiple_800():
       }
     ]
     assert data.get('work_access_point') == [{
-        'agent': {
-            'preferred_name': 'Mirallés, Ana',
-            'type': 'bf:Person'
-        },
-        'title': 'A la recherche de la Licorne'
+        'entity': {
+            'authorized_access_point':
+                'Mirallés, Ana. A la recherche de la Licorne.',
+            'type': 'bf:Work'
+        }
+
     }, {
-        'agent': {
-            'preferred_name': 'Ruiz, Emilio',
-            'type': 'bf:Person'
-        },
-        'title': 'A la recherche de la Licorne'
+        'entity': {
+            'authorized_access_point':
+                'Ruiz, Emilio. A la recherche de la Licorne.',
+            'type': 'bf:Work'
+        }
     }]
 
 
@@ -4763,7 +4765,6 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
         'entity': {
-            'type': 'bf:Person',
             '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
         }
     }]

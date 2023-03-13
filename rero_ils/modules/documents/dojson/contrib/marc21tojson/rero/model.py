@@ -126,10 +126,6 @@ def marc21_to_contribution(self, key, value):
         if ref := get_contribution_link(
                 marc21.bib_id, marc21.rero_id, subfields_0[0], key):
             agent['$ref'] = ref
-            if key[:3] in ['100', '700']:
-                agent['type'] = 'bf:Person'
-            elif key[:3] in ['710', '711']:
-                agent['type'] = 'bf:Organisation'
 
     # we do not have a $ref
     agent_data = {}
@@ -574,16 +570,13 @@ def marc21_to_subjects(self, key, value):
         field_key = 'genreForm' if tag_key == '655' else 'subjects'
         subfields_0 = utils.force_list(value.get('0'))
         if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
-            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                        subfields_0[0], key)
-            if ref:
+            if ref := get_contribution_link(marc21.bib_id, marc21.rero_id,
+                                            subfields_0[0], key):
                 subject = {
-                    '$ref': ref,
-                    'type': data_type,
+                    '$ref': ref
                 }
         if not subject.get('$ref'):
-            identifier = build_identifier(value)
-            if identifier:
+            if identifier := build_identifier(value):
                 subject['identifiedBy'] = identifier
             if field_key != 'genreForm':
                 perform_subdivisions(subject, value)
@@ -594,9 +587,8 @@ def marc21_to_subjects(self, key, value):
             self[field_key] = subjects
 
     elif subfield_2 == 'rerovoc' or indicator_2 in ['0', '2']:
-        term_string = build_string_from_subfields(
-            value, 'abcdefghijklmnopqrstuw', ' - ')
-        if term_string:
+        if term_string := build_string_from_subfields(
+           value, 'abcdefghijklmnopqrstuw', ' - '):
             source = 'rerovoc' if subfield_2 == 'rerovoc' \
                 else source_per_indicator_2[indicator_2]
             subject_imported = {
@@ -628,7 +620,7 @@ def marc21_to_subjects_imported(self, key, value):
     field_key = 'subjects_imported'
     if subfields_2:
         subfield_2 = subfields_2[0]
-        if match := contains_specific_voc_regexp.search(subfield_2):
+        if contains_specific_voc_regexp.search(subfield_2):
             add_data_imported = False
             if subfield_2 == 'chrero':
                 subfields_9 = utils.force_list(value.get('9'))

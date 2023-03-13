@@ -303,95 +303,17 @@ def test_title_variants():
 
 def test_work_access_point():
     """Test work access point process."""
-    wap = [
-        {
-            'part': [
-                {
-                    'partName': 'part section title',
-                    'partNumber': 'part section designation'
-                }
-            ],
-            'agent': {
-                'type': 'bf:Person',
-                'qualifier': 'physicien',
-                'numeration': 'XX',
-                'date_of_birth': '1955',
-                'date_of_death': '2012',
-                'preferred_name':
-                'Müller, Hans',
-                'fuller_form_of_name':
-                'Müller, Hans Peter'
-            },
-            'title': 'Müller, Hans (Title)',
-            'language': 'fre',
-            'date_of_work': '2000',
-            'key_for_music': 'key music',
-            'form_subdivision': ['Form sub.'],
-            'miscellaneous_information': 'Miscellaneous info',
-            'arranged_statement_for_music': 'arranged stat',
-            'medium_of_performance_for_music': ['medium perf']
-        },
-        {
-            'part': [
-                {
-                    'partName': 'Title',
-                    'partNumber': 'part designation'
-                }],
-            'agent': {
-                'type': 'bf:Organisation',
-                'place': 'Lausanne',
-                'numbering': '4',
-                'conference': False,
-                'preferred_name': 'Corp body Name',
-                'conference_date': '1990',
-                'subordinate_unit': ['Office 1', 'Office 2']
-            },
-            'title': 'Corp Title',
-            'language': 'fre',
-            'date_of_work': '1980',
-            'key_for_music': 'Corp Key music',
-            'form_subdivision': ['Form sub 1', 'Form sub 2'],
-            'miscellaneous_information': 'miscellaneous info',
-            'arranged_statement_for_music': 'Copr Arranged stat',
-            'medium_of_performance_for_music': [
-                'Corp Medium perf  1',
-                'Corp Medium perf  2'
-            ]
-        },
-        {
-            'agent': {
-                'type': 'bf:Person',
-                'qualifier': 'pianiste',
-                'date_of_birth': '1980',
-                'preferred_name': 'Hans, Peter'
-            },
-            'title': 'Work title'
-        },
-        {
-            'part': [
-                {
-                    'partNumber': 'part number'
-                }
-            ],
-            'agent': {
-                'type': 'bf:Person',
-                'qualifier': 'pianiste'
-            },
-            'title': 'title with part'
+    assert work_access_point([{
+        'entity': {
+            'type': 'bf:Work',
+            'authorized_access_point':
+                'Müller, Hans, XX, physicien, 1955-2012. Müller, Hans (Title).'
+                ' part section designation. part section title. Miscellaneous '
+                'info. medium perf. key music. arranged stat. 2000.'
         }
-    ]
-    results = [
-        'Müller, Hans, XX, physicien, 1955-2012. Müller, Hans (Title). '
-        'part section designation. part section title. Miscellaneous info. '
-        'lang_fre. medium perf. key music. arranged stat. 2000.',
-        'Corp body Name. Office 1. Office 2. (4 : 1990 : Lausanne) '
-        'Corp Title. part designation. Title. miscellaneous info. '
-        'lang_fre. Corp Medium perf  1. Corp Medium perf  2. '
-        'Corp Key music. Copr Arranged stat. 1980.',
-        'Hans, Peter, 1980. pianiste. Work title.',
-        'pianiste. title with part. part number.'
-    ]
-    assert results == work_access_point(wap)
+    }]) == ['Müller, Hans, XX, physicien, 1955-2012. Müller, Hans (Title). '
+            'part section designation. part section title. Miscellaneous '
+            'info. medium perf. key music. arranged stat. 2000.']
 
 
 def test_contribution_format(db, document, entity_organisation):

@@ -1,0 +1,41 @@
+{
+  "title": "Local Entity",
+  "type": "object",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "type",
+    "authorized_access_point",
+    "identifiedBy"
+  ],
+  "required": [
+    "type",
+    "authorized_access_point"
+  ],
+  "properties": {
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "const": "bf:Work",
+      "default": "bf:Work",
+      "form": {
+        "hide": true
+      }
+    },
+    "authorized_access_point": {
+      "title": "Access Point",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: Musset, Alfred de, 1810-1857. Work title (2008)"
+      }
+    },
+    "identifiedBy": {
+      "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+    }
+  },
+  "form": {
+    "templateOptions": {
+      "containerCssClass": "row"
+    }
+  }
+}

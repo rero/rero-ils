@@ -6,150 +6,23 @@
     "minItems": 1,
     "items": {
       "type": "object",
-      "title": "Title",
-      "oneOf": [
-        {
-          "title": "Link to work",
-          "type": "object",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "$ref"
-          ],
-          "required": [
-            "$ref"
-          ],
-          "properties": {
-            "$ref": {
-              "title": "Title",
-              "type": "string",
-              "pattern": "^https://mef.rero.ch/api/work/rero/.*?$",
-              "form": {
-                "remoteTypeahead": {
-                  "type": "mef-work",
-                  "enableGroupField": true
-                },
-                "templateOptions": {
-                  "itemCssClass": "col-lg-12"
-                }
-              }
+      "title": "Work",
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "entity"
+      ],
+      "required": [
+        "entity"
+      ],
+      "properties": {
+        "entity": {
+          "oneOf": [
+            {
+              "$ref": "https://bib.rero.ch/schemas/documents/document_work_access_point_local-v0.0.1.json"
             }
-          }
-        },
-        {
-          "title": "Work (local)",
-          "type": "object",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "agent",
-            "title",
-            "date_of_work",
-            "miscellaneous_information",
-            "language",
-            "part",
-            "form_subdivision",
-            "medium_of_performance_for_music",
-            "arranged_statement_for_music",
-            "key_for_music",
-            "identifiedBy"
-          ],
-          "required": [
-            "title"
-          ],
-          "properties": {
-            "agent": {
-              "title": "Agent",
-              "type": "object",
-              "oneOf": [
-                {
-                  "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_person-v0.0.1.json"
-                },
-                {
-                  "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_organisation-v0.0.1.json"
-                }
-              ]
-            },
-            "title": {
-              "title": "Title",
-              "type": "string",
-              "minLength": 1
-            },
-            "date_of_work": {
-              "title": "Date of work",
-              "type": "string",
-              "minLength": 1
-            },
-            "miscellaneous_information": {
-              "title": "Miscellaneous information",
-              "type": "string",
-              "minLength": 1
-            },
-            "language": {
-              "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language"
-            },
-            "part": {
-              "title": "Parts",
-              "description": "Part, Section, or Supplement",
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "title": "Part",
-                "type": "object",
-                "propertiesOrder": [
-                  "partNumber",
-                  "partName"
-                ],
-                "properties": {
-                  "partNumber": {
-                    "title": "Designation",
-                    "description": "Numeric designation of the part, section or supplement",
-                    "type": "string",
-                    "minLength": 1
-                  },
-                  "partName": {
-                    "title": "Title",
-                    "description": "Title of the part, section, or supplement",
-                    "type": "string",
-                    "minLength": 1
-                  }
-                }
-              }
-            },
-            "form_subdivision": {
-              "title": "Form subdivisions",
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "title": "Form subdivision",
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "medium_of_performance_for_music": {
-              "title": "Mediums of performance (music)",
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "title": "Medium of performance (music)",
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "arranged_statement_for_music": {
-              "title": "Arranged statement (music)",
-              "type": "string",
-              "minLength": 1
-            },
-            "key_for_music": {
-              "title": "Key (music)",
-              "type": "string",
-              "minLength": 1
-            },
-            "identifiedBy": {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
-            }
-          }
+          ]
         }
-      ]
+      }
     },
     "form": {
       "hide": true

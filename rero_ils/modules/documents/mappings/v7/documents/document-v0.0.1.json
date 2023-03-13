@@ -329,6 +329,7 @@
               },
               "authorized_access_point_en": {
                 "type": "text",
+                "analyzer": "english",
                 "copy_to": [
                   "authorized_access_point",
                   "facet_contribution_en"
@@ -336,6 +337,7 @@
               },
               "authorized_access_point_fr": {
                 "type": "text",
+                "analyzer": "french",
                 "copy_to": [
                   "authorized_access_point",
                   "facet_contribution_fr"
@@ -343,6 +345,7 @@
               },
               "authorized_access_point_de": {
                 "type": "text",
+                "analyzer": "german",
                 "copy_to": [
                   "authorized_access_point",
                   "facet_contribution_de"
@@ -350,6 +353,7 @@
               },
               "authorized_access_point_it": {
                 "type": "text",
+                "analyzer": "italian",
                 "copy_to": [
                   "authorized_access_point",
                   "facet_contribution_it"
@@ -1932,52 +1936,67 @@
       "work_access_point": {
         "type": "object",
         "properties": {
-          "title": {
-            "type": "text"
-          },
-          "date_of_work": {
-            "type": "text"
-          },
-          "miscellaneous_information": {
-            "type": "text"
-          },
-          "language": {
-            "type": "keyword"
-          },
-          "part": {
-            "type": "object",
-            "properties": {
-              "partNumber": {
-                "type": "text"
-              },
-              "partName": {
-                "type": "text"
-              }
-            }
-          },
-          "form_subdivision": {
-            "type": "text"
-          },
-          "medium_of_performance_for_music": {
-            "type": "text"
-          },
-          "arranged_statement_for_music": {
-            "type": "text"
-          },
-          "key_for_music": {
-            "type": "text"
-          },
-          "identifiedBy": {
+          "entity": {
             "type": "object",
             "properties": {
               "type": {
                 "type": "keyword"
               },
-              "value": {
+              "primary_source": {
                 "type": "keyword"
+              },
+              "pid": {
+                "type": "keyword"
+              },
+              "id_gnd": {
+                "type": "keyword"
+              },
+              "id_idref": {
+                "type": "keyword"
+              },
+              "id_rero": {
+                "type": "keyword"
+              },
+              "authorized_access_point_en": {
+                "type": "text",
+                "analyzer": "english",
+                "copy_to": "facet_genre_form"
+              },
+              "authorized_access_point_fr": {
+                "type": "text",
+                "analyzer": "french",
+                "copy_to": "facet_genre_form"
+              },
+              "authorized_access_point_de": {
+                "type": "text",
+                "analyzer": "german",
+                "copy_to": "facet_genre_form"
+              },
+              "authorized_access_point_it": {
+                "type": "text",
+                "analyzer": "italian",
+                "copy_to": "facet_genre_form"
               },
               "source": {
                 "type": "keyword"
+              },
+              "authorized_access_point": {
+                "type": "text",
+                "copy_to": "facet_genre_form"
+              },
+              "identifiedBy": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  },
+                  "source": {
+                    "type": "keyword"
+                  }
+                }
               }
             }
           }

@@ -242,16 +242,13 @@ def create_authorized_access_point(agent):
     :param agent: Agent to create the authorized_access_point for.
     :returns: authorized access point.
     """
+    from rero_ils.modules.entities.models import EntityType
     if not agent:
         return None
     authorized_access_point = agent.get('preferred_name')
-    from ..entities.models import EntityType
     if agent.get('type') == EntityType.PERSON:
-        date_of_birth = agent.get('date_of_birth')
-        date_of_death = agent.get('date_of_death')
-        date = date_of_birth or ''
-        if date_of_death:
-            date += f'-{date_of_death}'
+        date_parts = [agent.get('date_of_birth'), agent.get('date_of_death')]
+        date = '-'.join(filter(None, date_parts))
         numeration = agent.get('numeration')
         fuller_form_of_name = agent.get('fuller_form_of_name')
         qualifier = agent.get('qualifier')
@@ -270,18 +267,14 @@ def create_authorized_access_point(agent):
             if qualifier:
                 authorized_access_point += f', {qualifier}'
     elif agent.get('type') == EntityType.ORGANISATION:
-        subordinate_unit = agent.get('subordinate_unit')
-        if subordinate_unit:
+        if subordinate_unit := agent.get('subordinate_unit'):
             authorized_access_point += f'''. {'. '.join(subordinate_unit)}'''
         conference_data = []
-        numbering = agent.get('numbering')
-        if numbering:
+        if numbering := agent.get('numbering'):
             conference_data.append(numbering)
-        conference_date = agent.get('conference_date')
-        if conference_date:
+        if conference_date := agent.get('conference_date'):
             conference_data.append(conference_date)
-        place = agent.get('place')
-        if place:
+        if place := agent.get('place'):
             conference_data.append(place)
         if conference_data:
             authorized_access_point += ' ({conference})'.format(

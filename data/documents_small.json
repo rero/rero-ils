@@ -598,11 +598,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Bach, Johann Sebastian"
-        },
-        "title": "Jauchzet Gott in allen Landen"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Bach, Johann Sebastian. Jauchzet Gott in allen Landen."
+        }
       }
     ],
     "partOf": [
@@ -3115,14 +3114,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Marguerite",
-          "date_of_birth": "1492",
-          "date_of_death": "1549",
-          "qualifier": "d'Angoul\u00eame, reine de Navarre"
-        },
-        "title": "L'heptam\u00e9ron"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Marguerite, 1492-1549, d'Angoul\u00eame, reine de Navarre. L'heptam\u00e9ron."
+        }
       }
     ],
     "partOf": [
@@ -3328,11 +3323,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Plas, Alain"
-        },
-        "title": "Chasseurs de temps"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Plas, Alain. Chasseurs de temps."
+        }
       }
     ],
     "partOf": [
@@ -3864,8 +3858,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Travelling",
-        "miscellaneous_information": "Lausanne"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Travelling. Lausanne."
+        }
       }
     ],
     "title": [
@@ -4506,7 +4502,10 @@
     ],
     "work_access_point": [
       {
-        "title": "La norme SIA 118 et l'actualit\u00e9 juridique en mati\u00e8re de construction"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "La norme SIA 118 et l'actualit\u00e9 juridique en mati\u00e8re de construction."
+        }
       }
     ],
     "classification": [
@@ -6374,8 +6373,8 @@
           "authorized_access_point": "Binet, Christian"
         },
         "role": [
-          "aut",
-          "ill"
+          "ill",
+          "aut"
         ]
       }
     ],
@@ -6482,11 +6481,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Binet, Christian"
-        },
-        "title": "Les Bidochons"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Binet, Christian. Les Bidochons."
+        }
       }
     ]
   },
@@ -7237,11 +7235,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Mozart, Wolfgang Amadeus"
-        },
-        "title": "Neue Ausgabe s\u00e4mtlicher Werke"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Mozart, Wolfgang Amadeus. Neue Ausgabe s\u00e4mtlicher Werke."
+        }
       }
     ],
     "seriesStatement": [
@@ -7588,11 +7585,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Glanzmann, Arthur"
-        },
-        "title": "Bibliographie des schweizerischen Steuerrechts"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Glanzmann, Arthur. Bibliographie des schweizerischen Steuerrechts."
+        }
       }
     ],
     "partOf": [
@@ -7898,11 +7894,11 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos10"
+        "value": "target_school_harmos9"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos9"
+        "value": "target_school_harmos10"
       },
       {
         "audienceType": "school_level",
@@ -8355,11 +8351,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Cantin, Marc"
-        },
-        "title": "Les mal\u00e9fices d'Halequin"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Cantin, Marc. Les mal\u00e9fices d'Halequin."
+        }
       }
     ],
     "partOf": [
@@ -8743,12 +8738,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Urlaub, Farin",
-          "date_of_birth": "1963"
-        },
-        "title": "Unterwegs"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Urlaub, Farin, 1963. Unterwegs."
+        }
       }
     ],
     "electronicLocator": [
@@ -8858,8 +8851,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Tempi e figure",
-        "date_of_work": "1953-1968"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Tempi e figure. 1953-1968."
+        }
       }
     ],
     "title": [
@@ -10058,12 +10053,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "King, Stephen",
-          "date_of_birth": "1947"
-        },
-        "title": "La tour sombre"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "King, Stephen, 1947. La tour sombre."
+        }
       }
     ],
     "partOf": [
@@ -10230,12 +10223,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "King, Stephen",
-          "date_of_birth": "1947"
-        },
-        "title": "La tour sombre"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "King, Stephen, 1947. La tour sombre."
+        }
       }
     ],
     "partOf": [
@@ -10615,12 +10606,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Collection histoire de l'art",
-        "part": [
-          {
-            "partName": "Carr\u00e9 multim\u00e9dia"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Collection histoire de l'art. Carr\u00e9 multim\u00e9dia."
+        }
       }
     ],
     "title": [
@@ -10866,14 +10855,12 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/082686335",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/082686335"
         }
       },
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026699656",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026699656"
         }
       },
       {
@@ -11825,13 +11812,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Haydn, Joseph",
-          "date_of_birth": "1732",
-          "date_of_death": "1809"
-        },
-        "title": "Werke"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Haydn, Joseph, 1732-1809. Werke."
+        }
       }
     ],
     "seriesStatement": [
@@ -14708,8 +14692,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/204515998",
-          "type": "bf:Organisation"
+          "$ref": "https://mef.rero.ch/api/agents/idref/204515998"
         }
       },
       {
@@ -14873,19 +14856,19 @@
     "intendedAudience": [
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos1"
-      },
-      {
-        "audienceType": "school_level",
         "value": "target_school_harmos2"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos3"
+        "value": "target_school_harmos1"
       },
       {
         "audienceType": "school_level",
         "value": "target_school_harmos4"
+      },
+      {
+        "audienceType": "school_level",
+        "value": "target_school_harmos3"
       }
     ]
   },
@@ -15254,8 +15237,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/027408183",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/027408183"
         }
       },
       {
@@ -19241,15 +19223,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux",
-        "date_of_work": "2011-.",
-        "miscellaneous_information": "Lausanne",
-        "part": [
-          {
-            "partNumber": "2,",
-            "partName": "Droit civil, poursuite pour dettes et faillites et proc\u00e9dure civile : jurisprudence f\u00e9d\u00e9rale"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux. 2,. Droit civil, poursuite pour dettes et faillites et proc\u00e9dure civile : jurisprudence f\u00e9d\u00e9rale. Lausanne. 2011-.."
+        }
       }
     ],
     "title": [
@@ -19550,12 +19527,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Organisation",
-          "conference": false,
-          "preferred_name": "Italia"
-        },
-        "title": "Code p\u00e9nal"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Italia. Code p\u00e9nal."
+        }
       }
     ],
     "partOf": [
@@ -20279,11 +20254,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Knoepfel, Peter"
-        },
-        "title": "Luftreinhaltepolitik (station\u00e4re Quellen) im internationalen Vergleich"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Knoepfel, Peter. Luftreinhaltepolitik (station\u00e4re Quellen) im internationalen Vergleich."
+        }
       }
     ],
     "partOf": [
@@ -22817,11 +22791,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Mauriac, Claude"
-        },
-        "title": "Le temps immobile"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Mauriac, Claude. Le temps immobile."
+        }
       }
     ]
   },
@@ -23689,36 +23662,28 @@
     ],
     "work_access_point": [
       {
-        "title": "Babel",
-        "part": [
-          {
-            "partName": "Actes sud"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Babel. Actes sud."
+        }
       },
       {
-        "title": "Babel",
-        "part": [
-          {
-            "partName": "Labor"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Babel. Labor."
+        }
       },
       {
-        "title": "Babel",
-        "part": [
-          {
-            "partName": "Lem\u00e9ac"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Babel. Lem\u00e9ac."
+        }
       },
       {
-        "title": "Babel",
-        "part": [
-          {
-            "partName": "L'Aire"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Babel. L'Aire."
+        }
       }
     ],
     "title": [
@@ -24252,8 +24217,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/139843418",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/139843418"
         }
       }
     ],
@@ -26131,17 +26095,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Shelley, Mary Wollstonecraft Godwin",
-          "date_of_birth": "1797",
-          "date_of_death": "1851",
-          "identifiedBy": {
-            "value": "026671131",
-            "type": "IdRef"
-          }
-        },
-        "title": "Frankenstein"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Shelley, Mary Wollstonecraft Godwin, 1797-1851. Frankenstein."
+        }
       }
     ]
   },
@@ -26898,8 +26855,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026667673",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026667673"
         }
       },
       {
@@ -27832,11 +27788,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "PoiPoi"
-        },
-        "title": "Ange le Terrible"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "PoiPoi. Ange le Terrible."
+        }
       }
     ],
     "partOf": [
@@ -29641,10 +29596,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Go down Moses",
-        "medium_of_performance_for_music": [
-          "Orchestre \u00e0 cordes"
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Go down Moses. Orchestre \u00e0 cordes."
+        }
       }
     ]
   },
@@ -30038,12 +29993,12 @@
     "sequence_numbering": "No 1(2005)-",
     "intendedAudience": [
       {
-        "audienceType": "understanding_level",
-        "value": "target_understanding_tertiary"
-      },
-      {
         "audienceType": "school_level",
         "value": "target_school_tertiary"
+      },
+      {
+        "audienceType": "understanding_level",
+        "value": "target_understanding_tertiary"
       },
       {
         "audienceType": "understanding_level",
@@ -30302,12 +30257,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Bertholet, Alfred",
-          "qualifier": "Musicien"
-        },
-        "title": "A vous la musique, 2\u00e8me ann\u00e9e"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Bertholet, Alfred, Musicien. A vous la musique, 2\u00e8me ann\u00e9e."
+        }
       }
     ],
     "partOf": [
@@ -33542,8 +33495,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/027525457",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/027525457"
         }
       },
       {
@@ -33562,8 +33514,7 @@
       },
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/027930408",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/027930408"
         }
       }
     ],
@@ -35179,11 +35130,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Nix, Garth"
-        },
-        "title": "Les sept clefs du pouvoir"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Nix, Garth. Les sept clefs du pouvoir."
+        }
       }
     ],
     "partOf": [
@@ -37720,14 +37670,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Marek, Robert"
-        },
-        "title": "Trios",
-        "medium_of_performance_for_music": [
-          "Trompette, cor, trombone"
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Marek, Robert. Trios. Trompette, cor, trombone."
+        }
       }
     ],
     "partOf": [
@@ -39955,9 +39901,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Conf\u00e9rence",
-        "date_of_work": "1995-2019",
-        "miscellaneous_information": "Meaux"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Conf\u00e9rence. Meaux. 1995-2019."
+        }
       }
     ],
     "title": [
@@ -40829,25 +40776,16 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Schumann, Robert",
-          "date_of_birth": "1810",
-          "date_of_death": "1856"
-        },
-        "title": "Romances",
-        "medium_of_performance_for_music": [
-          "Piano"
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Schumann, Robert, 1810-1856. Romances. Piano."
+        }
       },
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Schumann, Robert",
-          "date_of_birth": "1810",
-          "date_of_death": "1856"
-        },
-        "title": "Waldszenen"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Schumann, Robert, 1810-1856. Waldszenen."
+        }
       }
     ],
     "classification": [
@@ -41144,43 +41082,22 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Haydn, Joseph",
-          "date_of_birth": "1732",
-          "date_of_death": "1809"
-        },
-        "title": "Symphonies",
-        "medium_of_performance_for_music": [
-          "Orchestre."
-        ],
-        "key_for_music": "Hob. 1:7, do majeur"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Haydn, Joseph, 1732-1809. Symphonies. Orchestre.. Hob. 1:7, do majeur."
+        }
       },
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Haydn, Joseph",
-          "date_of_birth": "1732",
-          "date_of_death": "1809"
-        },
-        "title": "Symphonies",
-        "medium_of_performance_for_music": [
-          "Orchestre."
-        ],
-        "key_for_music": "Hob. 1:8, sol majeur"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Haydn, Joseph, 1732-1809. Symphonies. Orchestre.. Hob. 1:8, sol majeur."
+        }
       },
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Haydn, Joseph",
-          "date_of_birth": "1732",
-          "date_of_death": "1809"
-        },
-        "title": "Symphonies",
-        "medium_of_performance_for_music": [
-          "Orchestre."
-        ],
-        "key_for_music": "Hob. 1:6, r\u00e9 majeur"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Haydn, Joseph, 1732-1809. Symphonies. Orchestre.. Hob. 1:6, r\u00e9 majeur."
+        }
       }
     ]
   },
@@ -41693,8 +41610,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/027437469",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/027437469"
         }
       },
       {
@@ -43513,8 +43429,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026745151",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026745151"
         }
       },
       {
@@ -44329,12 +44244,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Mendelssohn-Bartholdy, Felix"
-        },
-        "title": "Motets",
-        "key_for_music": "Op. 23 no 1"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Mendelssohn-Bartholdy, Felix. Motets. Op. 23 no 1."
+        }
       }
     ],
     "classification": [
@@ -44574,8 +44487,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026934612",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026934612"
         }
       },
       {
@@ -45101,13 +45013,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Plato",
-          "date_of_birth": "ca. 427",
-          "date_of_death": "ca. 348 av. J"
-        },
-        "title": "Criton"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Plato, ca. 427-ca. 348 av. J. Criton."
+        }
       }
     ],
     "partOf": [
@@ -45465,8 +45374,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Poema del Cid",
-        "miscellaneous_information": "language: Espagnol"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Poema del Cid. language: Espagnol."
+        }
       }
     ]
   },
@@ -46888,8 +46799,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/035000457",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/035000457"
         }
       }
     ]
@@ -47883,12 +47793,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Travelling",
-        "part": [
-          {
-            "partName": "Cin\u00e9math\u00e8que suisse"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Travelling. Cin\u00e9math\u00e8que suisse."
+        }
       }
     ],
     "title": [
@@ -48605,12 +48513,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Po\u00e9sie",
-        "part": [
-          {
-            "partName": "Gallimard"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Po\u00e9sie. Gallimard."
+        }
       }
     ],
     "title": [
@@ -49182,11 +49088,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Bubnoff, Serge von"
-        },
-        "title": "Geologie von Europa"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Bubnoff, Serge von. Geologie von Europa."
+        }
       }
     ],
     "partOf": [
@@ -49846,8 +49751,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026576988",
-          "type": "bf:Organisation"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026576988"
         }
       },
       {
@@ -50426,11 +50330,10 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Glanzmann, Arthur"
-        },
-        "title": "Bibliographie des schweizerischen Steuerrechts"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Glanzmann, Arthur. Bibliographie des schweizerischen Steuerrechts."
+        }
       }
     ],
     "classification": [
@@ -51286,13 +51189,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1930)",
-        "part": [
-          {
-            "partNumber": "2,",
-            "partName": "Poursuite pour dettes"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux (Lausanne : 1930). 2,. Poursuite pour dettes."
+        }
       }
     ],
     "title": [
@@ -51780,8 +51680,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/067025501",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/067025501"
         }
       },
       {
@@ -51844,22 +51743,16 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Darbellay, Etienne",
-          "identifiedBy": {
-            "value": "055056911",
-            "type": "IdRef"
-          }
-        },
-        "title": "Luigi Ferdinando Tagliavini: le musicologue"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Darbellay, Etienne. Luigi Ferdinando Tagliavini: le musicologue."
+        }
       },
       {
-        "agent": {
-          "type": "bf:Person",
-          "preferred_name": "Darbellay, Etienne"
-        },
-        "title": "Stile fantastico, passi, affetti: des imprese musicali? : le temps comme interpr\u00e8te de l'espace et la forme comme histoire"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Darbellay, Etienne. Stile fantastico, passi, affetti: des imprese musicali? : le temps comme interpr\u00e8te de l'espace et la forme comme histoire."
+        }
       }
     ]
   },
@@ -51901,12 +51794,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Etudes fran\u00e7aises",
-        "part": [
-          {
-            "partName": "Presses de l'Universit\u00e9 de Montr\u00e9al"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Etudes fran\u00e7aises. Presses de l'Universit\u00e9 de Montr\u00e9al."
+        }
       }
     ],
     "title": [
@@ -52643,12 +52534,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Romans",
-        "part": [
-          {
-            "partName": "Presses de la Cit\u00e9"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Romans. Presses de la Cit\u00e9."
+        }
       }
     ],
     "title": [
@@ -56194,15 +56083,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Critique",
-        "part": [
-          {
-            "partName": "Ed. de Minuit."
-          },
-          {
-            "partName": "Revue"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Critique. Ed. de Minuit.. Revue."
+        }
       }
     ],
     "title": [
@@ -56727,15 +56611,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Science et vie",
-        "part": [
-          {
-            "partName": "Excelsior Publications"
-          },
-          {
-            "partName": "Hors s\u00e9rie"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Science et vie. Excelsior Publications. Hors s\u00e9rie."
+        }
       }
     ],
     "title": [
@@ -56925,12 +56804,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Documenti",
-        "part": [
-          {
-            "partName": "Allemandi"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Documenti. Allemandi."
+        }
       }
     ],
     "title": [
@@ -57101,8 +56978,7 @@
       },
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/031023169",
-          "type": "bf:Organisation"
+          "$ref": "https://mef.rero.ch/api/agents/idref/031023169"
         }
       },
       {
@@ -61025,12 +60901,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Pubblicazioni degli Archivi di Stato",
-        "part": [
-          {
-            "partName": "Ministero per i beni culturali e ambientali Ufficio centrale per i beni archivistici"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Pubblicazioni degli Archivi di Stato. Ministero per i beni culturali e ambientali Ufficio centrale per i beni archivistici."
+        }
       }
     ],
     "title": [
@@ -62386,7 +62260,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Studienheft / Kirchliches Aussenamt der Evangelischen Kirche in Deutschland"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Studienheft / Kirchliches Aussenamt der Evangelischen Kirche in Deutschland."
+        }
       }
     ],
     "responsibilityStatement": [
@@ -64959,13 +64836,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Documentation",
-        "miscellaneous_information": "Minneapolis",
-        "part": [
-          {
-            "partName": "Lutheran University Press"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Documentation. Lutheran University Press. Minneapolis."
+        }
       }
     ],
     "responsibilityStatement": [
@@ -65772,7 +65646,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1877)"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux (Lausanne : 1877)."
+        }
       }
     ],
     "title": [
@@ -66872,13 +66749,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1930)",
-        "part": [
-          {
-            "partNumber": "3,",
-            "partName": "Droit cantonal"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux (Lausanne : 1930). 3,. Droit cantonal."
+        }
       }
     ],
     "title": [
@@ -67064,13 +66938,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1930)",
-        "part": [
-          {
-            "partNumber": "1,",
-            "partName": "Droit f\u00e9d\u00e9ral"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux (Lausanne : 1930). 1,. Droit f\u00e9d\u00e9ral."
+        }
       }
     ],
     "title": [
@@ -67590,15 +67461,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux",
-        "date_of_work": "2011-.",
-        "miscellaneous_information": "Lausanne",
-        "part": [
-          {
-            "partNumber": "3,",
-            "partName": "Jurisprudence et pratique des autorit\u00e9s vaudoises"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux. 3,. Jurisprudence et pratique des autorit\u00e9s vaudoises. Lausanne. 2011-.."
+        }
       }
     ],
     "title": [
@@ -67932,15 +67798,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux",
-        "date_of_work": "2011-.",
-        "miscellaneous_information": "Lausanne",
-        "part": [
-          {
-            "partNumber": "1,",
-            "partName": "Droit public, droit constitutionnel et administratif : jurisprudence f\u00e9d\u00e9rale"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux. 1,. Droit public, droit constitutionnel et administratif : jurisprudence f\u00e9d\u00e9rale. Lausanne. 2011-.."
+        }
       }
     ],
     "title": [
@@ -68117,13 +67978,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1930)",
-        "part": [
-          {
-            "partNumber": "4,",
-            "partName": "Droit p\u00e9nal"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux (Lausanne : 1930). 4,. Droit p\u00e9nal."
+        }
       }
     ],
     "title": [
@@ -68311,7 +68169,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux (Lausanne : 1846)"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux (Lausanne : 1846)."
+        }
       }
     ],
     "title": [
@@ -68482,15 +68343,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Journal des tribunaux",
-        "date_of_work": "2011-.",
-        "miscellaneous_information": "Lausanne",
-        "part": [
-          {
-            "partNumber": "4,",
-            "partName": "Droit p\u00e9nal et proc\u00e9dure p\u00e9nale : jurisprudence f\u00e9d\u00e9rale"
-          }
-        ]
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Journal des tribunaux. 4,. Droit p\u00e9nal et proc\u00e9dure p\u00e9nale : jurisprudence f\u00e9d\u00e9rale. Lausanne. 2011-.."
+        }
       }
     ],
     "title": [
@@ -68917,8 +68773,10 @@
     ],
     "work_access_point": [
       {
-        "title": "Droit",
-        "miscellaneous_information": "Lausanne"
+        "entity": {
+          "type": "bf:Work",
+          "authorized_access_point": "Droit. Lausanne."
+        }
       }
     ],
     "title": [

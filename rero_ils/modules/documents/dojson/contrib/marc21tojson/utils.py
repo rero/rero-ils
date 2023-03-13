@@ -33,6 +33,7 @@ from rero_ils.dojson.utils import _LANGUAGES, TitlePartList, add_note, \
     get_contribution_link, get_field_items, get_field_link_data, \
     not_repetitive, re_identified, remove_trailing_punctuation
 from rero_ils.modules.documents.utils import create_authorized_access_point
+from rero_ils.modules.entities.models import EntityType
 
 _DOCUMENT_RELATION_PER_TAG = {
     '770': 'supplement',
@@ -518,16 +519,12 @@ def build_agent(marc21, key, value):
     """Build agent."""
     agent_data = {}
     if value.get('a'):
-        name = not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, 'a')
-        agent_data['preferred_name'] = remove_trailing_punctuation(name)
+        agent_data['preferred_name'] = remove_trailing_punctuation(
+            not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'a'))
+
     # 100|700|240 Person
     if key[:3] in ['100', '700']:
-        agent_data['type'] = 'bf:Person'
-        if value.get('a'):
-            name = not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'a')
-            agent_data['preferred_name'] = remove_trailing_punctuation(name)
+        agent_data['type'] = EntityType.PERSON
         if value.get('b'):
             numeration = not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'b')
@@ -559,8 +556,7 @@ def build_agent(marc21, key, value):
 
     # 710|711 Organisation
     if key[:3] in ['710', '711']:
-        agent_data['type'] = 'bf:Organisation'
-        agent_data['conference'] = key[:3] == '711'
+        agent_data['type'] = EntityType.ORGANISATION
         if value.get('b'):
             subordinate_units = [
                 remove_trailing_punctuation(subordinate_unit, ',.')
@@ -609,10 +605,6 @@ def do_contribution(data, marc21, key, value):
         if ref := get_contribution_link(marc21.bib_id, marc21.rero_id,
                                         value.get('0'), key):
             agent['$ref'] = ref
-            if key[:3] in ['100', '700']:
-                agent['type'] = 'bf:Person'
-            elif key[:3] in ['710', '711']:
-                agent['type'] = 'bf:Organisation'
 
     # we do not have a $ref
     if not agent.get('$ref') and value.get('a'):
@@ -1598,46 +1590,34 @@ def do_part_of(data, marc21, key, value):
 
 def do_work_access_point(marc21, key, value):
     """Get work access point."""
-    """
-    * "agent": {
-    *   "type": "bf:Person", (700.2)
-    *   "preferred_name": "700.2$a",
-    *   "numeration": "700.2$b",
-    *   "date_of_birth": "700.2$d - 1ère date",
-    *   "date_of_death": "700.2$d - 2e date",
-    *   "qualifier": ["700.2$c"]
-    *   "type": "bf:Organisation", (710.2)
-    *   "conference": false, (710.2)
-    *   "preferred_name": "710.2$a",
-    *   "subordinate_unit": ["710.2$b"]
-    * }
-    * "title": "130|700$t|730$a",
-    * "date_of_work": "130|730$f",
-    * "miscellaneous_information": "130|730$g",
-    * "language": "130|730$l",
-    * "part": [{
-    *   "partNumber": "130|730$n",
-    *   "partName": "130|730$p"
-    * }],
-    * "form_subdivision": ["130|730$k"],
-    * "medium_of_performance_for_music": ["130|730$m"],
-    * "arranged_statement_for_music": "130|730$o",
-    * "key_for_music": "130|730$r",
-    * "identifiedBy": {
-    *   "type": "RERO",
-    *   "value": "[ID autorité RERO]"
-    * }
-   """
-    tag = key[:3]
-    title_tag = 'a'
-    agent = {}
-    work_access_point = {}
+    # "agent": {
+    #   "entity": {
+    #     "type": "bf:Person" (700.2) | "bf:Organisation" (710.2),
+    #     "authorized_access_point": "700.2$a" | "710.2$a",
+    #     "identifiedBy": {
+    #       "type": "700.2$0",
+    #       "value": "700.2$0"
+    #     }
+    #   }
+    # }
+    # "title": "130|700$t|730$a",
+    # "date_of_work": "130|730$f",
+    # "miscellaneous_information": "130|730$g",
+    # "language": "130|730$l",
+    # "part": [{
+    #   "partNumber": "130|730$n",
+    #   "partName": "130|730$p"
+    # }],
+    # "form_subdivision": ["130|730$k"],
+    # "medium_of_performance_for_music": ["130|730$m"],
+    # "arranged_statement_for_music": "130|730$o",
+    # "key_for_music": "130|730$r",
+    tag, title_tag, agent, work_access_point = key[:3], 'a', {}, {}
+
     if tag in ['700', '800'] and value.get('t'):
         title_tag = 't'
-        agent['type'] = 'bf:Person'
+        agent['type'] = EntityType.PERSON
         if value.get('a'):
-            preferred_name = not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'a')
             preferred_name = remove_trailing_punctuation(not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'a',
                 ',.'
@@ -1660,11 +1640,9 @@ def do_work_access_point(marc21, key, value):
             ).rstrip('.')
     elif tag == '710':
         title_tag = 't'
-        agent['type'] = 'bf:Organisation'
+        agent['type'] = EntityType.ORGANISATION
         agent['conference'] = False
         if value.get('a'):
-            preferred_name = not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'a')
             preferred_name = remove_trailing_punctuation(not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'a',
                 ',.'
@@ -1678,7 +1656,13 @@ def do_work_access_point(marc21, key, value):
                 agent['subordinate_unit'].append(subordinate_unit)
 
     if agent:
-        work_access_point['agent'] = agent
+        work_access_point['agent'] = {
+            'entity': {
+                'type': agent.get('type'),
+                'authorized_access_point':
+                    create_authorized_access_point(agent)
+            }
+        }
     if value.get(title_tag):
         title = not_repetitive(
             marc21.bib_id, marc21.bib_id, key, value, title_tag)
@@ -1706,10 +1690,9 @@ def do_work_access_point(marc21, key, value):
         if lang == 'mul' or lang not in _LANGUAGES:
             error_print('WARNING WORK ACCESS POINT LANGUAGE:', marc21.bib_id,
                         marc21.rero_id, language)
-            if miscellaneous_information := work_access_point.get(
-                    'miscellaneous_information'):
+            if misc_info := work_access_point.get('miscellaneous_information'):
                 work_access_point['miscellaneous_information'] = \
-                    f'{miscellaneous_information} | language: {language}'
+                    f'{misc_info} | language: {language}'
             else:
                 work_access_point['miscellaneous_information'] = \
                     f'language: {language}'
@@ -1743,44 +1726,89 @@ def do_work_access_point(marc21, key, value):
             ',.'
         )
     if identifier := build_identifier(value):
-        agent['identifiedBy'] = identifier
+        work_access_point\
+            .setdefault('agent', {})\
+            .setdefault('entity', {})['identifiedBy'] = identifier
 
     if not work_access_point.get('title'):
         error_print('WARNING WORK ACCESS POINT:', marc21.bib_id,
                     marc21.rero_id, 'no title')
         return None
-    agent = work_access_point.get('agent', {})
-    if agent and not agent.get('preferred_name'):
+    agent = work_access_point.get('agent', {}).get('entity', {})
+    if agent and not agent.get('authorized_access_point'):
         work_access_point.pop('agent')
-    return work_access_point or None
+    return _format_work_access_point(work_access_point) or None
 
 
 def do_work_access_point_240(marc21, key, value):
     """Get work access point from 240."""
-    work_access_points = {}
+    work_access_point = {}
     part_list = TitlePartList(
         part_number_code='n',
         part_name_code='p'
     )
     part_selection = {'n', 'p'}
     for blob_key, blob_value in get_field_items(value):
-        if blob_key in {'a'}:
-            title = remove_trailing_punctuation(
+        if blob_key == 'a':
+            work_access_point['title'] = remove_trailing_punctuation(
                 blob_value.replace('\u009c', ''))
-            work_access_points['title'] = title
-
         if blob_key in part_selection:
             part_list.update_part(blob_value, blob_key, blob_value)
 
     if field_100 := marc21.get_fields('100'):
         if agent := build_agent(marc21, '100', field_100[0]['subfields'])[1]:
-            work_access_points['agent'] = agent
+            work_access_point['agent'] = {
+                'entity': {
+                    'type': agent.get('type'),
+                    'authorized_access_point':
+                        create_authorized_access_point(agent)
+                }
+            }
 
     if the_part_list := part_list.get_part_list():
-        work_access_points['part'] = the_part_list
+        work_access_point['part'] = the_part_list
 
-    if work_access_points:
-        return work_access_points
+    if work_access_point:
+        return _format_work_access_point(work_access_point)
+
+
+def _format_work_access_point(access_point):
+    """Format a structured work_access_points as a simple auth_access_point.
+
+    During transformation process of original data, we build a list of
+    structured work_access_point ; we need to flat this structure on a simple
+    'authorized_access_point' string accepted into the document JSONSchema.
+
+    :param access_point: a structured work_access_point.
+    :returns the flatten authorized_access_points for this work.
+    """
+    label = ''
+    agent_entity = access_point.get('agent', {}).get('entity', {})
+    if agent_label := agent_entity.get('authorized_access_point'):
+        label = f'{agent_label}. '
+    label += f"{access_point['title']}. "
+    for part in access_point.get('part', []):
+        for key in ['partNumber', 'partName']:
+            if key in part:
+                label += f"{part[key]}. "
+    if misc_info := access_point.get('miscellaneous_information'):
+        label += f"{misc_info}. "
+    if language := access_point.get('language'):
+        label += f"{language}. "
+    if medium := access_point.get('medium_of_performance_for_music', []):
+        label += f"{'. '.join(medium)}. "
+    if key := access_point.get('key_for_music'):
+        label += f"{key}. "
+    if stmt := access_point.get('arranged_statement_for_music'):
+        label += f"{stmt}. "
+    if work_date := access_point.get('date_of_work'):
+        label += f"{work_date}. "
+    return {
+        'entity': {
+            'type': 'bf:Work',
+            'authorized_access_point': label.strip()
+        }
+    }
 
 
 def do_scale_and_cartographic(data, marc21, key, value):

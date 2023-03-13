@@ -617,8 +617,7 @@ def marc21_to_subjects_6XX(self, key, value):
                 marc21.bib_id, marc21.bib_id, cont_id, key)
             if ref:
                 subject = {
-                    '$ref': ref,
-                    'type': data_type,
+                    '$ref': ref
                 }
         if not subject.get('$ref'):
             identifier = build_identifier(value)

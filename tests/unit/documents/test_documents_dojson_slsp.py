@@ -97,28 +97,22 @@ def test_marc21_to_contribution(mock_get):
         'role': ['aut']
     }]
     assert data.get('work_access_point') == [{
-        'agent': {
-            'date_of_birth': '1954',
-            'numeration': 'II',
-            'preferred_name': 'Jean-Paul',
-            'qualifier': 'Pape',
-            'type': 'bf:Person'
-        },
-        'title': 'Treaties, etc.'
+        'entity': {
+            'authorized_access_point':
+                'Jean-Paul II, Pape, 1954. Treaties, etc..',
+            'type': 'bf:Work'
+        }
     }, {
-        'agent': {
-            'preferred_name': 'Santamaría, Germán',
-            'type': 'bf:Person'
-        },
-        'language': 'fre',
-        'title': 'No morirás'
+        'entity': {
+            'authorized_access_point': 'Santamaría, Germán. No morirás. fre.',
+            'type': 'bf:Work'
+        }
     }, {
-        'miscellaneous_information': 'language: Coréen',
-        'part': [{
-            'partName': 'A.T. et N.T.',
-            'partNumber': '000'
-        }],
-        'title': 'Bible'
+        'entity': {
+            'authorized_access_point':
+                'Bible. 000. A.T. et N.T.. language: Coréen.',
+            'type': 'bf:Work'
+        }
     }]
 
     marc21xml = """
@@ -138,18 +132,15 @@ def test_marc21_to_contribution(mock_get):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('work_access_point') == [{
-        'agent': {
-            'date_of_birth': '1919',
-            'date_of_death': '1990',
-            'preferred_name': 'Santamaría, Germán',
-            'type': 'bf:Person'
-        },
-        'title': 'No morirás'
+        'entity': {
+            'type': 'bf:Work',
+            'authorized_access_point':
+                'Santamaría, Germán, 1919-1990. No morirás.',
+        }
     }, {
-        'agent': {
-            'date_of_birth': '1919',
-            'preferred_name': 'Santamaría, Germán',
-            'type': 'bf:Person'
-        },
-        'title': 'No morirás'
+        'entity': {
+            'type': 'bf:Work',
+            'authorized_access_point':
+                'Santamaría, Germán, 1919. No morirás.',
+        }
     }]
