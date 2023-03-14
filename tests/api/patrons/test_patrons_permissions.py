@@ -142,3 +142,31 @@ def test_patrons_permissions(
     librarian_martigny['roles'] = original_roles
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
     flush_index(PatronsSearch.Meta.index)
+
+    original_roles = patron_martigny.get('roles', [])
+
+    # librarian + patron roles
+    patron_martigny['roles'] = [UserRole.FULL_PERMISSIONS, UserRole.PATRON]
+    patron_martigny['libraries'] = librarian_martigny['libraries']
+    patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)
+
+    login_user(patron_martigny.user)  # to refresh identity !
+    check_permission(PatronPermissionPolicy, {'search': True}, {})
+    check_permission(PatronPermissionPolicy, {
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, patron_martigny)
+    check_permission(PatronPermissionPolicy, {
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
+    }, patron2_martigny)
+
+    patron_martigny['roles'] = original_roles
+    del patron_martigny['libraries']
+    patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
+    flush_index(PatronsSearch.Meta.index)

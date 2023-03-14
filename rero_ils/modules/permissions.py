@@ -430,12 +430,13 @@ class AllowedByActionRestrictByOwnerOrOrganisation(AllowedByAction):
         if record:
             if self.record_mapper:
                 record = self.record_mapper(record)
-            required_need = None
+            required_need = set()
             if current_patrons:
-                required_need = OwnerNeed(self.patron_callback(record))
-            elif current_librarian:
-                required_need = OrganisationNeed(record.organisation_pid)
-            if required_need and required_need not in g.identity.provides:
+                required_need.add(OwnerNeed(self.patron_callback(record)))
+            if current_librarian:
+                required_need.add(OrganisationNeed(record.organisation_pid))
+            if required_need and not required_need.intersection(
+                    g.identity.provides):
                 return []
 
         return super().needs(record, **kwargs)
