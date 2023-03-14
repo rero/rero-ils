@@ -1386,7 +1386,7 @@ def test_unimarc_partOf_without_link(document):
       <datafield tag="410" ind1=" " ind2="0">
         <subfield code="t">Formation permanente en sciences humaines</subfield>
         <subfield code="x">0768-2026</subfield>
-        <subfield code="v">41</subfield>
+        <subfield code="v">24</subfield>
       </datafield>
     </record>
     """
@@ -1416,17 +1416,86 @@ def test_unimarc_partOf_with_link(document_with_issn):
       <datafield tag="410" ind1=" " ind2="0">
         <subfield code="t">Formation permanente en sciences humaines</subfield>
         <subfield code="x">0768-2026</subfield>
-        <subfield code="v">41</subfield>
+        <subfield code="v">24</subfield>
+        <subfield code="d">2024</subfield>
       </datafield>
     </record>
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
     assert data['partOf'] == [{
-            'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
-            'numbering': '41'
-        }
-    ]
+        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
+        'numbering': [{
+            'volume': 24,
+            'year': 2024
+        }]
+    }]
+
+    unimarcxml = """
+    <record>
+      <datafield tag="410" ind1=" " ind2="0">
+        <subfield code="t">Formation permanente en sciences humaines</subfield>
+        <subfield code="x">0768-2026</subfield>
+        <subfield code="v">3-4,11-15</subfield>
+        <subfield code="d">2024</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data['partOf'] == [{
+        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
+        'numbering': [{
+            'volume': 3,
+            'pages': '11-15',
+            'year': 2024
+        }, {
+            'volume': 4,
+            'pages': '11-15',
+            'year': 2024
+        }]
+    }]
+
+    unimarcxml = """
+    <record>
+      <datafield tag="410" ind1=" " ind2="0">
+        <subfield code="t">Formation permanente en sciences humaines</subfield>
+        <subfield code="x">0768-2026</subfield>
+        <subfield code="v">3-4,11-15</subfield>
+        <subfield code="d">1867-1869</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data['partOf'] == [{
+        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
+        'numbering': [{
+            'volume': 3,
+            'pages': '11-15',
+            'year': 1867
+        }, {
+            'volume': 4,
+            'pages': '11-15',
+            'year': 1867
+        }, {
+            'volume': 3,
+            'pages': '11-15',
+            'year': 1868
+        }, {
+            'volume': 4,
+            'pages': '11-15',
+            'year': 1868
+        }, {
+            'volume': 3,
+            'pages': '11-15',
+            'year': 1869
+        }, {
+            'volume': 4,
+            'pages': '11-15',
+            'year': 1869
+        }]
+    }]
 
 
 # abstract: [330$a repetitive]
