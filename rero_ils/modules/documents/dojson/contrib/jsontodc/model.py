@@ -21,6 +21,7 @@ from dojson import Overdo, utils
 from flask_babelex import gettext as _
 
 from rero_ils.modules.documents.extensions import TitleExtension
+from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.entities.utils import get_entity_localized_value
 
 
@@ -210,8 +211,8 @@ def json_to_relations(self, key, value):
 def json_to_subject(self, key, value):
     """Get subject data."""
     result = ''
-    subject_type = value.get('type')
-    if subject_type in ['bf:Person', 'bf:Organisation', 'bf:Place']:
+    _type = value.get('type')
+    if _type in [EntityType.PERSON, EntityType.ORGANISATION, EntityType.PLACE]:
         # TODO: set the language
         authorized_access_point = get_entity_localized_value(
             entity=value,
@@ -222,13 +223,13 @@ def json_to_subject(self, key, value):
             result = authorized_access_point
         else:
             result = value.get('preferred_name')
-    elif subject_type == 'bf:Work':
+    elif _type == EntityType.WORK:
         work = []
         creator = value.get('creator')
         if creator:
             work.append(creator)
         work.append(value.get('title'))
         result = '. - '.join(work)
-    elif subject_type in ['bf:Topic', 'bf:Temporal']:
+    elif _type in [EntityType.TOPIC, EntityType.TEMPORAL]:
         result = value.get('term')
     return result or None

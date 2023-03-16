@@ -32,6 +32,7 @@ from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
     remove_trailing_punctuation
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.utils import create_authorized_access_point
+from rero_ils.modules.entities.models import EntityType
 
 _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
     'a': 'rdami:1001',
@@ -561,7 +562,7 @@ def unimarc_to_contribution(self, key, value):
     """
     agent = {
         'preferred_name': ', '.join(utils.force_list(value.get('a', ''))),
-        'type': 'bf:Person',
+        'type': EntityType.PERSON
     }
 
     if key[:3] in ['700', '701', '702', '703']:
@@ -685,10 +686,10 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
     """Get provision activity dates."""
     def build_place_or_agent_data(code, label, index):
         type_per_code = {
-            'a': 'bf:Place',
-            'c': 'bf:Agent',
-            'e': 'bf:Place',
-            'g': 'bf:Agent'
+            'a': EntityType.PLACE,
+            'c': EntityType.AGENT,
+            'e': EntityType.PLACE,
+            'g': EntityType.AGENT
         }
         place_or_agent_data = {
             'type': type_per_code[code],
@@ -707,7 +708,7 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
                 country = _COUNTRY_UNIMARC_MARC21.get(country_codes[0])
                 if country:
                     place['country'] = country
-                    place['type'] = 'bf:Place'
+                    place['type'] = EntityType.PLACE
         return place
 
     # only take 214 if exists
@@ -1156,7 +1157,7 @@ def unimarc_subjects(self, key, value):
         to_return += ' -- ' + ' -- '.join(utils.force_list(value.get('y')))
     if to_return:
         data = dict(entity={
-            'type': "bf:Topic",
+            'type': EntityType.TOPIC,
             'authorized_access_point': to_return
         })
         if source := value.get('2', None):

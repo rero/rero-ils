@@ -2356,8 +2356,7 @@
         "startDate": 2015,
         "place": [
           {
-            "country": "cc",
-            "type": "bf:Place"
+            "country": "cc"
           }
         ]
       }
@@ -2475,8 +2474,7 @@
         "startDate": 1950,
         "place": [
           {
-            "country": "xx",
-            "type": "bf:Place"
+            "country": "xx"
           }
         ]
       }
@@ -2578,8 +2576,7 @@
         "startDate": 1950,
         "place": [
           {
-            "country": "xx",
-            "type": "bf:Place"
+            "country": "xx"
           }
         ]
       }
@@ -2702,8 +2699,7 @@
         "startDate": 1979,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ]
       }
@@ -2851,8 +2847,7 @@
         "endDate": 1944,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
