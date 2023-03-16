@@ -25,6 +25,7 @@ from flask import current_app
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
     build_string_from_subfields, get_contribution_link, \
     remove_trailing_punctuation
+from rero_ils.modules.entities.models import EntityType
 
 from ..utils import do_abbreviated_title, \
     do_acquisition_terms_from_field_037, do_classification, do_contribution, \
@@ -320,16 +321,16 @@ def marc21_to_subjects_6XX(self, key, value):
         subjects_imported : for 6xx having indicator 2 '0' or '2'
     """
     type_per_tag = {
-        '600': 'bf:Person',
-        '610': 'bf:Organisation',
-        '611': 'bf:Organisation',
-        '600t': 'bf:Work',
-        '610t': 'bf:Work',
-        '611t': 'bf:Work',
-        '630': 'bf:Work',
-        '650': 'bf:Topic',  # or bf:Temporal, changed by code
-        '651': 'bf:Place',
-        '655': 'bf:Topic'
+        '600': EntityType.PERSON,
+        '610': EntityType.ORGANISATION,
+        '611': EntityType.ORGANISATION,
+        '600t': EntityType.WORK,
+        '610t': EntityType.WORK,
+        '611t': EntityType.WORK,
+        '630': EntityType.WORK,
+        '650': EntityType.TOPIC,  # or bf:Temporal, changed by code
+        '651': EntityType.PLACE,
+        '655': EntityType.TOPIC
     }
 
     conference_per_tag = {
@@ -362,7 +363,7 @@ def marc21_to_subjects_6XX(self, key, value):
         if tag_key == '650':
             for subfield_a in subfields_a:
                 if subfield_a[0].isdigit():
-                    data_type = 'bf:Temporal'
+                    data_type = EntityType.TEMPORAL
                     break
 
         subject = {
@@ -397,7 +398,7 @@ def marc21_to_subjects_6XX(self, key, value):
                 build_string_from_subfields(
                     value, subfield_code_per_tag[creator_tag_key]), '.', '.')
         field_key = 'genreForm' if tag_key == '655' else config_field_key
-        if data_type in ['bf:Person', 'bf:Organisation']:
+        if data_type in [EntityType.PERSON, EntityType.ORGANISATION]:
             if ref := get_contribution_link(
                 bibid=marc21.bib_id,
                 reroid=marc21.rero_id,
@@ -405,8 +406,7 @@ def marc21_to_subjects_6XX(self, key, value):
                 key=key
             ):
                 subject = {
-                    '$ref': ref,
-                    'type': data_type,
+                    '$ref': ref
                 }
         if not subject.get('$ref'):
             identifier = build_identifier(value)
@@ -415,7 +415,7 @@ def marc21_to_subjects_6XX(self, key, value):
             subfields_2 = utils.force_list(value.get('2'))
 
             if identifier \
-                    and data_type == 'bf:Topic' \
+                    and data_type == EntityType.TOPIC \
                     and len(subfields_2) > 0 \
                     and subfields_2[0].lower() == 'rero':
                 identifier['type'] = 'RERO-RAMEAU'

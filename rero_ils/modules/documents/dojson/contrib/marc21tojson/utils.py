@@ -33,6 +33,7 @@ from rero_ils.dojson.utils import _LANGUAGES, TitlePartList, add_note, \
     get_contribution_link, get_field_items, get_field_link_data, \
     not_repetitive, re_identified, remove_trailing_punctuation
 from rero_ils.modules.documents.utils import create_authorized_access_point
+from rero_ils.modules.entities.models import EntityType
 
 _DOCUMENT_RELATION_PER_TAG = {
     '770': 'supplement',
@@ -518,16 +519,11 @@ def build_agent(marc21, key, value):
     """Build agent."""
     agent_data = {}
     if value.get('a'):
-        name = not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, 'a')
-        agent_data['preferred_name'] = remove_trailing_punctuation(name)
+        agent_data['preferred_name'] = remove_trailing_punctuation(
+            not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'a'))
     # 100|700|240 Person
     if key[:3] in ['100', '700']:
-        agent_data['type'] = 'bf:Person'
-        if value.get('a'):
-            name = not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'a')
-            agent_data['preferred_name'] = remove_trailing_punctuation(name)
+        agent_data['type'] = EntityType.PERSON
         if value.get('b'):
             numeration = not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'b')
@@ -559,7 +555,7 @@ def build_agent(marc21, key, value):
 
     # 710|711 Organisation
     if key[:3] in ['710', '711']:
-        agent_data['type'] = 'bf:Organisation'
+        agent_data['type'] = EntityType.ORGANISATION
         agent_data['conference'] = key[:3] == '711'
         if value.get('b'):
             subordinate_units = [
@@ -604,17 +600,8 @@ def do_contribution(data, marc21, key, value):
         return None
 
     agent = {}
-    if key[:3] in ['100', '700']:
-        agent['type'] = 'bf:Person'
-    elif key[:3] in ['710', '711']:
-        agent['type'] = 'bf:Organisation'
-
-    if ref := get_contribution_link(
-        bibid=marc21.bib_id,
-        reroid=marc21.rero_id,
-        ids=utils.force_list(value.get('0')),
-        key=key
-    ):
+    if ref := get_contribution_link(marc21.bib_id, marc21.rero_id,
+                                        value.get('0'), key):
         agent['$ref'] = ref
 
     # we do not have a $ref
@@ -747,10 +734,10 @@ def do_provision_activity(data, marc21, key, value):
 
         def build_agent_data(code, label, index, link):
             type_per_code = {
-                'a': 'bf:Place',
-                'b': 'bf:Agent',
-                'e': 'bf:Place',
-                'f': 'bf:Agent'
+                'a': EntityType.PLACE,
+                'b': EntityType.AGENT,
+                'e': EntityType.PLACE,
+                'f': EntityType.AGENT
             }
             label = remove_trailing_punctuation(label)
             if label and code == 'e':
@@ -824,8 +811,7 @@ def do_provision_activity(data, marc21, key, value):
         # parce the link skipping the fist (already used by build_place)
         for i in range(1, len(marc21.links_from_752)):
             place = {
-                'country': 'xx',
-                'type': 'bf:Place',
+                'country': 'xx'
             }
             if marc21.links_from_752:
                 place['identifiedBy'] = marc21.links_from_752[i]
@@ -1637,7 +1623,7 @@ def do_work_access_point(marc21, key, value):
     work_access_point = {}
     if tag in ['700', '800'] and value.get('t'):
         title_tag = 't'
-        agent['type'] = 'bf:Person'
+        agent['type'] = EntityType.PERSON
         if value.get('a'):
             preferred_name = not_repetitive(
                 marc21.bib_id, marc21.bib_id, key, value, 'a')
@@ -1663,7 +1649,7 @@ def do_work_access_point(marc21, key, value):
             ).rstrip('.')
     elif tag == '710':
         title_tag = 't'
-        agent['type'] = 'bf:Organisation'
+        agent['type'] = EntityType.ORGANISATION
         agent['conference'] = False
         if value.get('a'):
             preferred_name = not_repetitive(
@@ -2012,10 +1998,10 @@ def do_temporal_coverage(marc21, key, value):
 def perform_subdivisions(field, value):
     """Perform subject subdivisions from MARC field."""
     subdivisions = {
-        'v': 'bf:Concept',
-        'x': 'bf:Topic',
-        'y': 'bf:Temporal',
-        'z': 'bf:Place'
+        'v': EntityType.CONCEPT,
+        'x': EntityType.TOPIC,
+        'y': EntityType.TEMPORAL,
+        'z': EntityType.PLACE
     }
     for tag, val in value.items():
         if tag in subdivisions:

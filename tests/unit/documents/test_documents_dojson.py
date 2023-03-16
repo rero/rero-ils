@@ -1421,7 +1421,6 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
     contribution = data.get('contribution')
     assert contribution == [{
         'entity': {
-            'type': 'bf:Person',
             '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
         },
         'role': ['cre']
@@ -1540,8 +1539,7 @@ def test_marc21_provisionActivity_without_264():
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
         'place': [{
-            'country': 'sz',
-            'type': 'bf:Place'
+            'country': 'sz'
         }],
         'startDate': 2006,
         'endDate': 2010
@@ -1569,7 +1567,6 @@ def test_marc21_provisionActivity_without_264_with_752():
         'type': 'bf:Publication',
         'place': [{
             'country': 'sz',
-            'type': 'bf:Place',
             'identifiedBy': {
                     'type': 'IdRef',
                     'value': '027401421'
@@ -1594,8 +1591,7 @@ def test_marc21_provisionActivity_with_original_date():
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
         'place': [{
-            'country': 'sz',
-            'type': 'bf:Place'
+            'country': 'sz'
         }],
         'startDate': 1997,
         'original_date': 1849,
@@ -1646,8 +1642,7 @@ def test_marc21_to_provision_activity_canton():
             'type': 'bf:Publication',
             'place': [{
                 'canton': 'be',
-                'country': 'sz',
-                'type': 'bf:Place'
+                'country': 'sz'
             }],
             'statement': [
                 {
@@ -1719,8 +1714,7 @@ def test_marc21_to_provision_activity_canton():
             'type': 'bf:Publication',
             'place': [{
                 'canton': 'vd',
-                'country': 'sz',
-                'type': 'bf:Place'
+                'country': 'sz'
             }],
             'startDate': 1998
         }
@@ -1954,8 +1948,7 @@ def test_marc21_to_provision_activity_1_place_2_agents():
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'fr',
-                'type': 'bf:Place'
+                'country': 'fr'
             }],
             'statement': [
                 {
@@ -2010,7 +2003,6 @@ def test_marc21_to_provision_activity_1_place_2_agents_with_one_752():
             'type': 'bf:Publication',
             'place': [{
                 'country': 'fr',
-                'type': 'bf:Place',
                 'identifiedBy': {
                     'type': 'IdRef',
                     'value': '027401421'
@@ -2074,14 +2066,12 @@ def test_marc21_to_provision_activity_1_place_2_agents_with_two_752():
             'type': 'bf:Publication',
             'place': [{
                     'country': 'fr',
-                    'type': 'bf:Place',
                     'identifiedBy': {
                         'type': 'IdRef',
                         'value': '027401421'
                     }
                 }, {
                     'country': 'xx',
-                    'type': 'bf:Place',
                     'identifiedBy': {
                         'type': 'RERO',
                         'value': 'A000000001'
@@ -2133,8 +2123,7 @@ def test_marc21_to_provision_activity_unknown_place_2_agents():
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'be',
-                'type': 'bf:Place'
+                'country': 'be'
             }],
             'statement': [
                 {
@@ -2188,8 +2177,7 @@ def test_marc21_to_provision_activity_3_places_dann_2_agents():
         {
             'type': 'bf:Publication',
             'place': [{
-                 'country': 'gw',
-                 'type': 'bf:Place'
+                 'country': 'gw'
             }],
             'statement': [
                 {
@@ -2244,8 +2232,7 @@ def test_marc21_to_provision_activity_2_places_1_agent():
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'sz',
-                'type': 'bf:Place'
+                'country': 'sz'
             }],
             'statement': [
                 {
@@ -2299,8 +2286,7 @@ def test_marc21_to_provision_activity_1_place_1_agent_reprint_date():
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'xxu',
-                'type': 'bf:Place'
+                'country': 'xxu'
             }],
             'statement': [
                 {
@@ -2344,8 +2330,7 @@ def test_marc21_to_provision_activity_1_place_1_agent_uncertain_date():
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'fr',
-                'type': 'bf:Place'
+                'country': 'fr'
             }],
             'statement': [
                 {
@@ -2408,8 +2393,7 @@ def test_marc21_to_provision_activity_1_place_1_agent_chi_hani():
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'cc',
-                'type': 'bf:Place'
+                'country': 'cc'
             }],
             'statement': [
                 {
@@ -2473,8 +2457,7 @@ def test_marc21_to_provision_activity_1_place_1_agent_chi_hani():
     assert data.get('provisionActivity') == [{
         'type': 'bf:Publication',
         'place': [{
-            'country': 'cc',
-            'type': 'bf:Place'
+            'country': 'cc'
         }],
         'statement': [
             {
@@ -2750,8 +2733,7 @@ def test_marc21_to_provision_activity_1_place_1_agent_ara_arab():
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'ua',
-                'type': 'bf:Place'
+                'country': 'ua'
             }],
             'statement': [
                 {
@@ -2834,8 +2816,7 @@ def test_marc21_to_provision_activity_2_places_2_agents_rus_cyrl():
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'ru',
-                'type': 'bf:Place'
+                'country': 'ru'
             }],
             'statement': [
                 {
@@ -2912,8 +2893,7 @@ def test_marc21_to_provision_activity_exceptions(capsys):
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'ru',
-                'type': 'bf:Place'
+                'country': 'ru'
             }],
             'statement': [
                 {
@@ -4967,7 +4947,6 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     data = marc21.do(marc21json)
     assert data.get('subjects') == [{
         'entity': {
-            'type': 'bf:Person',
             '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
         }
     }]
@@ -5257,7 +5236,7 @@ def test_marc21_to_subjects_imported():
     assert data == {
         'provisionActivity': [{
             'note': 'Date not available and automatically set to 2050',
-            'place': [{'country': 'xx', 'type': 'bf:Place'}],
+            'place': [{'country': 'xx'}],
             'startDate': 2050,
             'type': 'bf:Publication'
         }]
@@ -5279,7 +5258,7 @@ def test_marc21_to_subjects_imported():
     assert data == {
         'provisionActivity': [{
             'note': 'Date not available and automatically set to 2050',
-            'place': [{'country': 'xx', 'type': 'bf:Place'}],
+            'place': [{'country': 'xx'}],
             'startDate': 2050,
             'type': 'bf:Publication'
         }]

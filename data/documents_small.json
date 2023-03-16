@@ -47,8 +47,7 @@
         "startDate": 1946,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -384,8 +383,7 @@
         "endDate": 2004,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -532,8 +530,7 @@
         "startDate": 1920,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -726,8 +723,7 @@
         "startDate": 2017,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -987,8 +983,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -1108,8 +1103,7 @@
         "startDate": 2014,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -1200,8 +1194,7 @@
         "startDate": 2011,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -1566,8 +1559,7 @@
         "startDate": 1982,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -1709,8 +1701,7 @@
         "startDate": 1993,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -1836,8 +1827,7 @@
         "startDate": 1999,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -1986,8 +1976,7 @@
         "startDate": 1967,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -2161,8 +2150,7 @@
         "startDate": 1978,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -2340,8 +2328,7 @@
         "startDate": 1936,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -2473,8 +2460,7 @@
         "startDate": 2006,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -2590,8 +2576,7 @@
         "endDate": 2002,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -2731,8 +2716,7 @@
         "note": "Date(s) uncertain or unknown",
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -2919,8 +2903,7 @@
         "startDate": 1957,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -3057,8 +3040,7 @@
         "startDate": 1991,
         "place": [
           {
-            "country": "fi",
-            "type": "bf:Place"
+            "country": "fi"
           }
         ],
         "statement": [
@@ -3212,8 +3194,7 @@
         "startDate": 2015,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -3439,8 +3420,7 @@
         "startDate": 2017,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -3630,8 +3610,7 @@
         "startDate": 2015,
         "place": [
           {
-            "country": "cc",
-            "type": "bf:Place"
+            "country": "cc"
           }
         ],
         "statement": [
@@ -3777,8 +3756,7 @@
         "note": "Date(s) uncertain or unknown",
         "place": [
           {
-            "country": "is",
-            "type": "bf:Place"
+            "country": "is"
           }
         ],
         "statement": [
@@ -3891,8 +3869,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -4090,8 +4067,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -4259,8 +4235,7 @@
         "startDate": 1968,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -4410,8 +4385,7 @@
         "startDate": 1987,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -4602,8 +4576,7 @@
         "startDate": 1986,
         "place": [
           {
-            "country": "pl",
-            "type": "bf:Place"
+            "country": "pl"
           }
         ],
         "statement": [
@@ -5110,8 +5083,7 @@
         "startDate": 2007,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -5306,8 +5278,7 @@
         "startDate": 1985,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -5515,8 +5486,7 @@
         "place": [
           {
             "canton": "be",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -5808,8 +5778,7 @@
         "startDate": 1975,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -6051,8 +6020,7 @@
         "startDate": 1984,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -6191,8 +6159,7 @@
         "startDate": 1999,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -6402,8 +6369,7 @@
         "startDate": 1983,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -6552,8 +6518,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -6710,8 +6675,7 @@
         "startDate": 1975,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -6822,8 +6786,7 @@
         "startDate": 1977,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -6942,8 +6905,7 @@
         "place": [
           {
             "canton": "ne",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -7175,8 +7137,7 @@
         "endDate": 2003,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -7491,8 +7452,7 @@
         "startDate": 1987,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -7688,8 +7648,7 @@
         "startDate": 2003,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -7822,8 +7781,7 @@
         "startDate": 2010,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -7898,15 +7856,15 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos10"
-      },
-      {
-        "audienceType": "school_level",
         "value": "target_school_harmos9"
       },
       {
         "audienceType": "school_level",
         "value": "target_school_harmos11"
+      },
+      {
+        "audienceType": "school_level",
+        "value": "target_school_harmos10"
       }
     ],
     "partOf": [
@@ -8148,8 +8106,7 @@
         "startDate": 2008,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -8285,8 +8242,7 @@
         "startDate": 2008,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -8463,8 +8419,7 @@
         "startDate": 1998,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -8653,8 +8608,7 @@
         "startDate": 2015,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -8879,8 +8833,7 @@
         "endDate": 1968,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -9032,8 +8985,7 @@
         "endDate": 2016,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -9225,8 +9177,7 @@
         "endDate": 1758,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -9396,8 +9347,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "at",
-            "type": "bf:Place"
+            "country": "at"
           }
         ],
         "statement": [
@@ -9537,8 +9487,7 @@
         "startDate": 1911,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -9674,8 +9623,7 @@
         "startDate": 1974,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -9822,8 +9770,7 @@
         "startDate": 1964,
         "place": [
           {
-            "country": "sp",
-            "type": "bf:Place"
+            "country": "sp"
           }
         ],
         "statement": [
@@ -9979,8 +9926,7 @@
         "startDate": 1994,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -10151,8 +10097,7 @@
         "startDate": 1993,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -10315,8 +10260,7 @@
         "startDate": 1981,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -10483,8 +10427,7 @@
         "startDate": 1982,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -10798,8 +10741,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -10866,14 +10808,12 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/082686335",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/082686335"
         }
       },
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026699656",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026699656"
         }
       },
       {
@@ -10994,8 +10934,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -11233,8 +11172,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -11397,8 +11335,7 @@
         "endDate": 1908,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -11581,8 +11518,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -11766,8 +11702,7 @@
         "endDate": 2018,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -12045,8 +11980,7 @@
         "startDate": 1986,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -12170,8 +12104,7 @@
         "startDate": 1992,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -12305,8 +12238,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -12397,8 +12329,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -12496,8 +12427,7 @@
         "startDate": 2011,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -12628,8 +12558,7 @@
         "startDate": 1904,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -12748,8 +12677,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "bl",
-            "type": "bf:Place"
+            "country": "bl"
           }
         ],
         "statement": [
@@ -12937,8 +12865,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -13100,8 +13027,7 @@
         "place": [
           {
             "canton": "vs",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -13265,8 +13191,7 @@
         "startDate": 1984,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -13526,8 +13451,7 @@
         "startDate": 1999,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -13658,8 +13582,7 @@
         "startDate": 1779,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -13851,8 +13774,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -13989,8 +13911,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -14147,8 +14068,7 @@
         "startDate": 2015,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -14295,8 +14215,7 @@
         "startDate": 1981,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -14475,8 +14394,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "bl",
-            "type": "bf:Place"
+            "country": "bl"
           }
         ],
         "statement": [
@@ -14639,8 +14557,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -14708,8 +14625,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/204515998",
-          "type": "bf:Organisation"
+          "$ref": "https://mef.rero.ch/api/agents/idref/204515998"
         }
       },
       {
@@ -14822,8 +14738,7 @@
         "startDate": 2011,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -14881,11 +14796,11 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos3"
+        "value": "target_school_harmos4"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos4"
+        "value": "target_school_harmos3"
       }
     ]
   },
@@ -14963,8 +14878,7 @@
         "startDate": 1999,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -15182,8 +15096,7 @@
         "startDate": 2009,
         "place": [
           {
-            "country": "ru",
-            "type": "bf:Place"
+            "country": "ru"
           }
         ],
         "statement": [
@@ -15254,8 +15167,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/027408183",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/027408183"
         }
       },
       {
@@ -15371,8 +15283,7 @@
         "place": [
           {
             "canton": "be",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -15846,8 +15757,7 @@
         "startDate": 1959,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -15972,8 +15882,7 @@
         "startDate": 1996,
         "place": [
           {
-            "country": "sa",
-            "type": "bf:Place"
+            "country": "sa"
           }
         ],
         "statement": [
@@ -16141,8 +16050,7 @@
         "startDate": 1985,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -16382,8 +16290,7 @@
         "startDate": 2006,
         "place": [
           {
-            "country": "ja",
-            "type": "bf:Place"
+            "country": "ja"
           }
         ],
         "statement": [
@@ -16684,8 +16591,7 @@
         "startDate": 1976,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -16839,8 +16745,7 @@
         "startDate": 2015,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -17032,7 +16937,6 @@
         "place": [
           {
             "country": "sz",
-            "type": "bf:Place",
             "identifiedBy": {
               "value": "027418545",
               "type": "IdRef"
@@ -17182,8 +17086,7 @@
         "startDate": 2002,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -17358,8 +17261,7 @@
         "startDate": 1991,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -17514,8 +17416,7 @@
         "endDate": 1977,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -17653,8 +17554,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -17837,8 +17737,7 @@
         "startDate": 2011,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -18080,8 +17979,7 @@
         "place": [
           {
             "canton": "ne",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -18307,8 +18205,7 @@
         "startDate": 1982,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -18476,8 +18373,7 @@
         "startDate": 1980,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -18594,8 +18490,7 @@
         "startDate": 2014,
         "place": [
           {
-            "country": "ua",
-            "type": "bf:Place"
+            "country": "ua"
           }
         ],
         "statement": [
@@ -18863,8 +18758,7 @@
         "startDate": 2002,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -19016,8 +18910,7 @@
         "startDate": 1965,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -19296,8 +19189,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -19451,8 +19343,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -19636,8 +19527,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "xxc",
-            "type": "bf:Place"
+            "country": "xxc"
           }
         ],
         "statement": [
@@ -19823,8 +19713,7 @@
         "startDate": 1985,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -19992,8 +19881,7 @@
         "startDate": 2002,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -20177,8 +20065,7 @@
         "startDate": 1985,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -20377,8 +20264,7 @@
         "startDate": 2002,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -20615,8 +20501,7 @@
         "startDate": 2002,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -20761,8 +20646,7 @@
         "startDate": 1976,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -20921,8 +20805,7 @@
         "startDate": 2011,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -21138,8 +21021,7 @@
         "startDate": 2002,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -21295,8 +21177,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -21553,8 +21434,7 @@
         "type": "bf:Publication",
         "place": [
           {
-            "country": "stk",
-            "type": "bf:Place"
+            "country": "stk"
           }
         ],
         "startDate": 1818
@@ -21652,8 +21532,7 @@
         "startDate": 1991,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -21838,8 +21717,7 @@
         "startDate": 2009,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -21959,8 +21837,7 @@
         "startDate": 1860,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -22161,8 +22038,7 @@
         "startDate": 2017,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -22349,8 +22225,7 @@
         "startDate": 1963,
         "place": [
           {
-            "country": "ru",
-            "type": "bf:Place"
+            "country": "ru"
           }
         ],
         "statement": [
@@ -22527,8 +22402,7 @@
         "startDate": 2016,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -22759,8 +22633,7 @@
         "startDate": 1986,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -22882,8 +22755,7 @@
         "place": [
           {
             "canton": "vs",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -23278,8 +23150,7 @@
         "startDate": 1994,
         "place": [
           {
-            "country": "ne",
-            "type": "bf:Place"
+            "country": "ne"
           }
         ],
         "statement": [
@@ -23527,8 +23398,7 @@
         "startDate": 1988,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -23936,8 +23806,7 @@
         "startDate": 1968,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -24176,8 +24045,7 @@
         "startDate": 2002,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -24252,8 +24120,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/139843418",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/139843418"
         }
       }
     ],
@@ -24356,8 +24223,7 @@
         "startDate": 2009,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -24500,8 +24366,7 @@
         "startDate": 1839,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -24645,8 +24510,7 @@
         "startDate": 2011,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -24814,8 +24678,7 @@
         "startDate": 1992,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -25037,8 +24900,7 @@
         "startDate": 2017,
         "place": [
           {
-            "country": "cc",
-            "type": "bf:Place"
+            "country": "cc"
           }
         ],
         "statement": [
@@ -25213,8 +25075,7 @@
         "endDate": 1970,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -25367,8 +25228,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -25509,8 +25369,7 @@
         "startDate": 1987,
         "place": [
           {
-            "country": "ru",
-            "type": "bf:Place"
+            "country": "ru"
           }
         ],
         "statement": [
@@ -25633,8 +25492,7 @@
         "startDate": 1952,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -25783,8 +25641,7 @@
         "startDate": 2011,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -25973,8 +25830,7 @@
         "startDate": 1998,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -26331,8 +26187,7 @@
         "startDate": 1999,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -26551,8 +26406,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -26669,8 +26523,7 @@
         "place": [
           {
             "canton": "lu",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -26839,8 +26692,7 @@
         "startDate": 1988,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -26898,8 +26750,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026667673",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026667673"
         }
       },
       {
@@ -27066,8 +26917,7 @@
         "startDate": 2017,
         "place": [
           {
-            "country": "ru",
-            "type": "bf:Place"
+            "country": "ru"
           }
         ],
         "statement": [
@@ -27335,8 +27185,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -27601,8 +27450,7 @@
         "endDate": 1871,
         "place": [
           {
-            "country": "ru",
-            "type": "bf:Place"
+            "country": "ru"
           }
         ],
         "statement": [
@@ -27752,8 +27600,7 @@
         "startDate": 2011,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -27920,8 +27767,7 @@
         "startDate": 1981,
         "place": [
           {
-            "country": "bl",
-            "type": "bf:Place"
+            "country": "bl"
           }
         ],
         "statement": [
@@ -28100,8 +27946,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -28276,8 +28121,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -28402,8 +28246,7 @@
         "startDate": 1983,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -28520,8 +28363,7 @@
         "endDate": 1954,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -28686,8 +28528,7 @@
         "startDate": 2008,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -28831,8 +28672,7 @@
         "startDate": 1993,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -29002,8 +28842,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -29101,8 +28940,7 @@
         "startDate": 1942,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -29236,8 +29074,7 @@
         "startDate": 1974,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -29429,8 +29266,7 @@
         "startDate": 1886,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -29577,8 +29413,7 @@
         "place": [
           {
             "canton": "fr",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -29735,8 +29570,7 @@
         "place": [
           {
             "canton": "be",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -29969,8 +29803,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -30038,12 +29871,12 @@
     "sequence_numbering": "No 1(2005)-",
     "intendedAudience": [
       {
-        "audienceType": "understanding_level",
-        "value": "target_understanding_tertiary"
-      },
-      {
         "audienceType": "school_level",
         "value": "target_school_tertiary"
+      },
+      {
+        "audienceType": "understanding_level",
+        "value": "target_understanding_tertiary"
       },
       {
         "audienceType": "understanding_level",
@@ -30203,8 +30036,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -30478,8 +30310,7 @@
         "startDate": 1966,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -30780,8 +30611,7 @@
         "startDate": 1991,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -30953,8 +30783,7 @@
         "startDate": 1969,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -31125,8 +30954,7 @@
         "startDate": 1970,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -31269,8 +31097,7 @@
         "startDate": 1992,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -31416,8 +31243,7 @@
         "startDate": 2016,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -31703,8 +31529,7 @@
         "endDate": 1975,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -31898,8 +31723,7 @@
         "startDate": 1992,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -32039,8 +31863,7 @@
         "place": [
           {
             "canton": "zh",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -32221,8 +32044,7 @@
         "startDate": 1947,
         "place": [
           {
-            "country": "sa",
-            "type": "bf:Place"
+            "country": "sa"
           }
         ],
         "statement": [
@@ -32339,8 +32161,7 @@
         "startDate": 1983,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -32534,8 +32355,7 @@
         "startDate": 1992,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -32709,8 +32529,7 @@
         "startDate": 2008,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -32974,8 +32793,7 @@
         "startDate": 2004,
         "place": [
           {
-            "country": "sp",
-            "type": "bf:Place"
+            "country": "sp"
           }
         ],
         "statement": [
@@ -33287,8 +33105,7 @@
         "startDate": 2016,
         "place": [
           {
-            "country": "is",
-            "type": "bf:Place"
+            "country": "is"
           }
         ],
         "statement": [
@@ -33542,8 +33359,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/027525457",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/027525457"
         }
       },
       {
@@ -33562,8 +33378,7 @@
       },
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/027930408",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/027930408"
         }
       }
     ],
@@ -33713,8 +33528,7 @@
         "startDate": 2013,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -33989,8 +33803,7 @@
         "startDate": 2003,
         "place": [
           {
-            "country": "lu",
-            "type": "bf:Place"
+            "country": "lu"
           }
         ],
         "statement": [
@@ -34175,8 +33988,7 @@
         "startDate": 2007,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -34322,8 +34134,7 @@
         "startDate": 2009,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -34447,8 +34258,7 @@
         "startDate": 2009,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -34590,8 +34400,7 @@
         "startDate": 2016,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -34715,8 +34524,7 @@
         "startDate": 2009,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -34847,8 +34655,7 @@
         "startDate": 1985,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -34983,8 +34790,7 @@
         "startDate": 2009,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -35106,8 +34912,7 @@
         "startDate": 2009,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -35276,8 +35081,7 @@
         "startDate": 2010,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -35433,8 +35237,7 @@
         "startDate": 1745,
         "place": [
           {
-            "country": "ne",
-            "type": "bf:Place"
+            "country": "ne"
           }
         ],
         "statement": [
@@ -35569,8 +35372,7 @@
         "startDate": 1993,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -35734,8 +35536,7 @@
         "startDate": 1989,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -35970,8 +35771,7 @@
         "startDate": 1997,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -36239,8 +36039,7 @@
         "startDate": 1997,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -36394,8 +36193,7 @@
         "startDate": 1997,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -36523,8 +36321,7 @@
         "startDate": 2015,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -36640,8 +36437,7 @@
         "startDate": 2010,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -36805,8 +36601,7 @@
         "startDate": 2010,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -36955,8 +36750,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "bl",
-            "type": "bf:Place"
+            "country": "bl"
           }
         ],
         "statement": [
@@ -37072,8 +36866,7 @@
         "startDate": 1989,
         "place": [
           {
-            "country": "sp",
-            "type": "bf:Place"
+            "country": "sp"
           }
         ],
         "statement": [
@@ -37179,8 +36972,7 @@
         "endDate": 1893,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -37355,8 +37147,7 @@
         "startDate": 2004,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -37532,8 +37323,7 @@
         "place": [
           {
             "canton": "ju",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -37653,8 +37443,7 @@
         "startDate": 1959,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -37826,8 +37615,7 @@
         "startDate": 1950,
         "place": [
           {
-            "country": "ja",
-            "type": "bf:Place"
+            "country": "ja"
           }
         ],
         "statement": [
@@ -37975,8 +37763,7 @@
         "place": [
           {
             "canton": "vs",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -38255,8 +38042,7 @@
         "startDate": 2010,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -38411,8 +38197,7 @@
         "startDate": 1988,
         "place": [
           {
-            "country": "ne",
-            "type": "bf:Place"
+            "country": "ne"
           }
         ],
         "statement": [
@@ -38612,8 +38397,7 @@
         "startDate": 2005,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -38764,8 +38548,7 @@
         "startDate": 1975,
         "place": [
           {
-            "country": "gr",
-            "type": "bf:Place"
+            "country": "gr"
           }
         ],
         "statement": [
@@ -38974,8 +38757,7 @@
         "place": [
           {
             "canton": "lu",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -39159,8 +38941,7 @@
         "startDate": 1984,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -39336,8 +39117,7 @@
         "startDate": 1986,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -39561,8 +39341,7 @@
         "startDate": 2005,
         "place": [
           {
-            "country": "mr",
-            "type": "bf:Place"
+            "country": "mr"
           }
         ],
         "statement": [
@@ -39862,8 +39641,7 @@
         "startDate": 1966,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -39990,8 +39768,7 @@
         "endDate": 2019,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -40110,8 +39887,7 @@
         "startDate": 1974,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -40317,8 +40093,7 @@
         "place": [
           {
             "canton": "zh",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -40455,8 +40230,7 @@
         "startDate": 2006,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -40573,8 +40347,7 @@
         "startDate": 1986,
         "place": [
           {
-            "country": "au",
-            "type": "bf:Place"
+            "country": "au"
           }
         ],
         "statement": [
@@ -40785,8 +40558,7 @@
         "startDate": 1899,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -40948,8 +40720,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "is",
-            "type": "bf:Place"
+            "country": "is"
           }
         ],
         "statement": [
@@ -41276,8 +41047,7 @@
         "startDate": 1968,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -41488,8 +41258,7 @@
         "startDate": 2012,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -41628,8 +41397,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -41693,8 +41461,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/027437469",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/027437469"
         }
       },
       {
@@ -41784,8 +41551,7 @@
         "startDate": 1998,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -41912,8 +41678,7 @@
         "startDate": 1992,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -42147,8 +41912,7 @@
         "startDate": 1936,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -42313,8 +42077,7 @@
         "place": [
           {
             "canton": "ne",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -42478,8 +42241,7 @@
         "startDate": 1884,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -42604,8 +42366,7 @@
         "startDate": 1982,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -42747,8 +42508,7 @@
         "endDate": 1956,
         "place": [
           {
-            "country": "ne",
-            "type": "bf:Place"
+            "country": "ne"
           }
         ],
         "statement": [
@@ -42866,8 +42626,7 @@
         "startDate": 1977,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -43019,8 +42778,7 @@
         "startDate": 2005,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -43132,8 +42890,7 @@
         "startDate": 2004,
         "place": [
           {
-            "country": "cc",
-            "type": "bf:Place"
+            "country": "cc"
           }
         ],
         "statement": [
@@ -43279,8 +43036,7 @@
         "place": [
           {
             "canton": "bs",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -43460,8 +43216,7 @@
         "startDate": 1996,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -43513,8 +43268,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026745151",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026745151"
         }
       },
       {
@@ -43600,8 +43354,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -43751,8 +43504,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -43893,8 +43645,7 @@
         "startDate": 1984,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -44098,8 +43849,7 @@
         "startDate": 1979,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -44267,8 +44017,7 @@
         "startDate": 1977,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -44518,8 +44267,7 @@
         "startDate": 1986,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -44574,8 +44322,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026934612",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026934612"
         }
       },
       {
@@ -44655,8 +44402,7 @@
         "startDate": 1999,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -44896,8 +44642,7 @@
         "startDate": 2014,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -45037,8 +44782,7 @@
         "startDate": 2003,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -45292,8 +45036,7 @@
         "startDate": 2017,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -45412,8 +45155,7 @@
         "startDate": 1988,
         "place": [
           {
-            "country": "sp",
-            "type": "bf:Place"
+            "country": "sp"
           }
         ],
         "statement": [
@@ -45535,8 +45277,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -45885,8 +45626,7 @@
         "startDate": 1854,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -45996,8 +45736,7 @@
         "endDate": 1885,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -46370,8 +46109,7 @@
         "startDate": 1877,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -46642,8 +46380,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -46834,8 +46571,7 @@
         "startDate": 1911,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -46888,8 +46624,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/035000457",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/035000457"
         }
       }
     ]
@@ -46960,8 +46695,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -47148,8 +46882,7 @@
         "endDate": 1992,
         "place": [
           {
-            "country": "ja",
-            "type": "bf:Place"
+            "country": "ja"
           }
         ],
         "statement": [
@@ -47402,8 +47135,7 @@
         "startDate": 1864,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -47540,8 +47272,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -47796,8 +47527,7 @@
         "startDate": 1964,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -47914,8 +47644,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -48082,8 +47811,7 @@
         "endDate": 2000,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -48224,8 +47952,7 @@
         "endDate": 1908,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -48506,8 +48233,7 @@
         "startDate": 1909,
         "place": [
           {
-            "country": "fi",
-            "type": "bf:Place"
+            "country": "fi"
           }
         ],
         "statement": [
@@ -48813,8 +48539,7 @@
         "endDate": 1986,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -48996,8 +48721,7 @@
         "startDate": 2008,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -49115,8 +48839,7 @@
         "endDate": 1936,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -49266,8 +48989,7 @@
         "startDate": 1982,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -49417,8 +49139,7 @@
         "startDate": 1965,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -49545,8 +49266,7 @@
         "endDate": 1990,
         "place": [
           {
-            "country": "au",
-            "type": "bf:Place"
+            "country": "au"
           }
         ],
         "statement": [
@@ -49683,8 +49403,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -49791,8 +49510,7 @@
         "endDate": 1977,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -49846,8 +49564,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/026576988",
-          "type": "bf:Organisation"
+          "$ref": "https://mef.rero.ch/api/agents/idref/026576988"
         }
       },
       {
@@ -49969,8 +49686,7 @@
         "startDate": 2006,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -50205,8 +49921,7 @@
         "endDate": 1939,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -50336,8 +50051,7 @@
         "startDate": 1987,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -50707,8 +50421,7 @@
         "endDate": 1954,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -50877,8 +50590,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -51050,8 +50762,7 @@
         "startDate": 1941,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -51335,8 +51046,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -51482,8 +51192,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -51717,8 +51426,7 @@
         "startDate": 2001,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -51780,8 +51488,7 @@
     "subjects": [
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/067025501",
-          "type": "bf:Person"
+          "$ref": "https://mef.rero.ch/api/agents/idref/067025501"
         }
       },
       {
@@ -51930,8 +51637,7 @@
         "startDate": 1965,
         "place": [
           {
-            "country": "xxc",
-            "type": "bf:Place"
+            "country": "xxc"
           }
         ],
         "statement": [
@@ -52100,8 +51806,7 @@
         "endDate": 1939,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -52206,8 +51911,7 @@
         "endDate": 1950,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -52340,8 +52044,7 @@
         "startDate": 1966,
         "place": [
           {
-            "country": "be",
-            "type": "bf:Place"
+            "country": "be"
           }
         ],
         "statement": [
@@ -52550,8 +52253,7 @@
         "startDate": 2004,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -53248,8 +52950,7 @@
         "endDate": 1937,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -53392,8 +53093,7 @@
         "startDate": 1969,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -53504,8 +53204,7 @@
         "startDate": 1988,
         "place": [
           {
-            "country": "ne",
-            "type": "bf:Place"
+            "country": "ne"
           }
         ],
         "statement": [
@@ -53601,8 +53300,7 @@
         "place": [
           {
             "canton": "vs",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -53891,8 +53589,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -55196,8 +54893,7 @@
         "startDate": 1957,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -55387,8 +55083,7 @@
         "endDate": 2011,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -55591,8 +55286,7 @@
         "startDate": 1981,
         "place": [
           {
-            "country": "ja",
-            "type": "bf:Place"
+            "country": "ja"
           }
         ],
         "statement": [
@@ -55727,8 +55421,7 @@
         "endDate": 1964,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -55839,8 +55532,7 @@
         "startDate": 1946,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -55985,8 +55677,7 @@
         "startDate": 1955,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -56111,8 +55802,7 @@
         "endDate": 2001,
         "place": [
           {
-            "country": "xxk",
-            "type": "bf:Place"
+            "country": "xxk"
           }
         ],
         "statement": [
@@ -56226,8 +55916,7 @@
         "startDate": 1946,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -56346,8 +56035,7 @@
         "endDate": 1995,
         "place": [
           {
-            "country": "sa",
-            "type": "bf:Place"
+            "country": "sa"
           }
         ],
         "statement": [
@@ -56659,8 +56347,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -56780,8 +56467,7 @@
         "startDate": 1945,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -56860,8 +56546,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -57041,8 +56726,7 @@
         "startDate": 1989,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -57101,8 +56785,7 @@
       },
       {
         "entity": {
-          "$ref": "https://mef.rero.ch/api/agents/idref/031023169",
-          "type": "bf:Organisation"
+          "$ref": "https://mef.rero.ch/api/agents/idref/031023169"
         }
       },
       {
@@ -57220,8 +56903,7 @@
         "startDate": 1954,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -57849,8 +57531,7 @@
         "endDate": 1899,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -58009,8 +57690,7 @@
         "endDate": 2007,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -58393,8 +58073,7 @@
         "startDate": 1945,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -58493,8 +58172,7 @@
         "startDate": 1993,
         "place": [
           {
-            "country": "ja",
-            "type": "bf:Place"
+            "country": "ja"
           }
         ],
         "statement": [
@@ -58617,8 +58295,7 @@
         "endDate": 1986,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -58739,8 +58416,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -58902,8 +58578,7 @@
         "endDate": 1983,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -59011,8 +58686,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -59150,8 +58824,7 @@
         "endDate": 1990,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -59323,8 +58996,7 @@
         "endDate": 1952,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -59516,8 +59188,7 @@
         "endDate": 1992,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -59629,8 +59300,7 @@
         "endDate": 1983,
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -59877,8 +59547,7 @@
         "startDate": 1987,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -60064,8 +59733,7 @@
         "startDate": 2000,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -60229,8 +59897,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -60393,8 +60060,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "fr",
-            "type": "bf:Place"
+            "country": "fr"
           }
         ],
         "statement": [
@@ -60615,8 +60281,7 @@
         "endDate": 1867,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -60745,8 +60410,7 @@
         "endDate": 1877,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -60878,8 +60542,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -61049,8 +60712,7 @@
         "startDate": 1950,
         "place": [
           {
-            "country": "it",
-            "type": "bf:Place"
+            "country": "it"
           }
         ],
         "statement": [
@@ -61148,8 +60810,7 @@
         "endDate": 1967,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -61231,8 +60892,7 @@
         "endDate": 1950,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -61366,8 +61026,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -61483,8 +61142,7 @@
         "endDate": 1936,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -61628,8 +61286,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -61808,8 +61465,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -61946,8 +61602,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -62104,8 +61759,7 @@
         "endDate": 1968,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -62249,8 +61903,7 @@
         "endDate": 1950,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -62551,8 +62204,7 @@
         "endDate": 1990,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -62718,8 +62370,7 @@
         "endDate": 1950,
         "place": [
           {
-            "country": "xxu",
-            "type": "bf:Place"
+            "country": "xxu"
           }
         ],
         "statement": [
@@ -62852,8 +62503,7 @@
         "note": "Date not available and automatically set to 2050",
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -62980,8 +62630,7 @@
         "endDate": 2000,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -63086,8 +62735,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -63213,8 +62861,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -63394,8 +63041,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -63520,8 +63166,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -63726,8 +63371,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -63861,8 +63505,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -64093,8 +63736,7 @@
         "place": [
           {
             "canton": "ne",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -64255,8 +63897,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -64379,8 +64020,7 @@
         "endDate": 2000,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -64532,8 +64172,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -64681,8 +64320,7 @@
         "endDate": 1987,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -64853,8 +64491,7 @@
         "endDate": 1998,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ],
         "statement": [
@@ -64993,8 +64630,7 @@
         "place": [
           {
             "canton": "ge",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -65193,8 +64829,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -65453,8 +65088,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -65633,8 +65267,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -65811,8 +65444,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -65983,8 +65615,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -66144,8 +65775,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -66312,8 +65942,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -66469,8 +66098,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -66603,8 +66231,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -66744,8 +66371,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -66921,8 +66547,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -67113,8 +66738,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -67281,8 +66905,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -67441,8 +67064,7 @@
         "endDate": 1969,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -67640,8 +67262,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -67788,8 +67409,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -67987,8 +67607,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -68166,8 +67785,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -68340,8 +67958,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -68537,8 +68154,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -68646,8 +68262,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -68802,8 +68417,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [
@@ -68944,8 +68558,7 @@
         "place": [
           {
             "canton": "vd",
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ],
         "statement": [

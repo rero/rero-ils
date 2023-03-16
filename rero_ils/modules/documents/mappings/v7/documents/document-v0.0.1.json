@@ -502,9 +502,6 @@
           "place": {
             "type": "object",
             "properties": {
-              "type": {
-                "type": "text"
-              },
               "canton": {
                 "type": "text"
               },

@@ -675,8 +675,6 @@ class ReroIlsOverdo(Overdo):
             place['canton'] = self.cantons[0]
         if self.country:
             place['country'] = self.country
-        if place:
-            place['type'] = 'bf:Place'
         if self.links_from_752:
             place['identifiedBy'] = self.links_from_752[0]
         return place
@@ -693,7 +691,6 @@ class ReroIlsOverdo(Overdo):
         for i in range(1, len(self.links_from_752)):
             place = {
                 'country': 'xx',
-                'type': 'bf:Place',
                 'identifiedBy': self.links_from_752[i]
             }
             places.append(place)

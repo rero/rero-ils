@@ -27,6 +27,7 @@ from invenio_db import db
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
 from rero_ils.modules.documents.views import create_title_responsibilites
 from rero_ils.modules.entities.api import Entity
+from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.libraries.api import Library
@@ -596,7 +597,7 @@ def reverse_contribution(self, key, value):
             break
         result = {}
         result = add_value(result, 'a', preferred_name)
-        if agent_type == 'bf:Person':
+        if agent_type == EntityType.PERSON:
             tag = '7000_'
             if ',' in preferred_name:
                 tag = '7001_'
@@ -611,7 +612,7 @@ def reverse_contribution(self, key, value):
             date = f'{date_of_birth} - {date_of_death}'
             if date != ' - ':
                 result = add_value(result, 'd', date)
-        elif agent_type == 'bf:Organisation':
+        elif agent_type == EntityType.ORGANISATION:
             tag = '710__'
             if agent.get('conference'):
                 tag = '711__'
