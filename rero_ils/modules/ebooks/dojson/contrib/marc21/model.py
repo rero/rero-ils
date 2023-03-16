@@ -31,6 +31,7 @@ from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.utils import \
     do_language
 from rero_ils.modules.documents.utils import create_authorized_access_point
+from rero_ils.modules.entities.models import EntityType
 
 marc21 = ReroIlsMarc21Overdo()
 
@@ -346,8 +347,8 @@ def marc21_to_provision_activity(self, key, value):
 
         def build_place_or_agent_data(code, label):
             type_per_code = {
-                'a': 'bf:Place',
-                'b': 'bf:Agent'
+                'a': EntityType.PLACE,
+                'b': EntityType.AGENT
             }
             return {'type': type_per_code[code], 'label': [{'value': value}]} \
                 if (value := remove_trailing_punctuation(label)) else None
@@ -368,7 +369,7 @@ def marc21_to_provision_activity(self, key, value):
         if marc21.country:
             place['country'] = marc21.country
         if place:
-            place['type'] = 'bf:Place'
+            place['type'] = EntityType.PLACE
         return place
 
     # the function marc21_to_provision_activity start here
@@ -493,7 +494,7 @@ def marc21_to_subjects(self, key, value):
     seen = {}
     for subject in utils.force_list(value.get('a')):
         subject = {
-            'type': "bf:Topic",
+            'type': EntityType.TOPIC,
             'authorized_access_point': subject
         }
         str_subject = str(subject)

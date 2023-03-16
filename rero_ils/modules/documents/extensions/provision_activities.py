@@ -24,6 +24,7 @@ from invenio_records.extensions import RecordExtension
 from rero_ils.dojson.utils import remove_trailing_punctuation
 
 from ..utils import display_alternate_graphic_first
+from ...entities.models import EntityType
 
 
 class ProvisionActivitiesExtension(RecordExtension):
@@ -38,8 +39,8 @@ class ProvisionActivitiesExtension(RecordExtension):
         :rtype: string
         """
         punctuation = {
-            'bf:Place': ' ; ',
-            'bf:Agent': ' ; ',
+            EntityType.PLACE: ' ; ',
+            EntityType.AGENT: ' ; ',
             'Date': ', '
         }
         statement_with_language = {'default': ''}
@@ -54,7 +55,7 @@ class ProvisionActivitiesExtension(RecordExtension):
                         statement_with_language[language] += punctuation[
                             last_statement_type
                         ]
-                    elif statement['type'] == 'bf:Place':
+                    elif statement['type'] == EntityType.PLACE:
                         statement_with_language[language] += ' ; '
                     elif statement['type'] == 'Date':
                         statement_with_language[language] += ', '

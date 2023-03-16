@@ -168,7 +168,7 @@ def marc21_to_work_access_point(self, key, value):
         if field_100 := marc21.get_fields('100'):
             agent = {}
             for blob_key, blob_value in field_100[0].get('subfields').items():
-                agent['type'] = 'bf:Person'
+                agent['type'] = EntityType.PERSON
                 if blob_key == 'a':
                     # numeration = not_repetitive(
                     # marc21.bib_id, marc21.bib_id, blob_key, blob_value, 'b')
@@ -616,10 +616,7 @@ def marc21_to_subjects_6XX(self, key, value):
             ref = get_contribution_link(
                 marc21.bib_id, marc21.bib_id, cont_id, key)
             if ref:
-                subject = {
-                    '$ref': ref,
-                    'type': data_type,
-                }
+                subject = {'$ref': ref}
         if not subject.get('$ref'):
             identifier = build_identifier(value)
             if identifier:

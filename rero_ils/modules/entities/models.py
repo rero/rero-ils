@@ -47,6 +47,8 @@ class EntityMetadata(db.Model, RecordMetadataBase):
 class EntityType:
     """Class holding all available entity types."""
 
+    AGENT = 'bf:Agent'
+    CONCEPT = 'bf:Concept'
     ORGANISATION = 'bf:Organisation'
     PERSON = 'bf:Person'
     PLACE = 'bf:Place'
