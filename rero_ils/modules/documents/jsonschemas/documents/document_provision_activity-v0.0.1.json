@@ -68,31 +68,14 @@
             "type": "object",
             "title": "Place",
             "required": [
-              "country",
-              "type"
+              "country"
             ],
             "propertiesOrder": [
-              "type",
               "country",
               "canton",
-              "$ref",
               "identifiedBy"
             ],
             "properties": {
-              "type": {
-                "title": "Type",
-                "type": "string",
-                "const": "bf:Place",
-                "default": "bf:Place",
-                "readOnly": true,
-                "form": {
-                  "templateOptions": {
-                    "wrappers": [
-                      "hide"
-                    ]
-                  }
-                }
-              },
               "country": {
                 "allOf": [
                   {
@@ -109,21 +92,6 @@
               },
               "canton": {
                 "$ref": "https://bib.rero.ch/schemas/common/cantons-v0.0.1.json#/canton"
-              },
-              "$ref": {
-                "title": "Place",
-                "type": "string",
-                "pattern": "^https://mef.rero.ch/api/places/gnd|idref|rero/.*?$",
-                "form": {
-                  "hide": true,
-                  "remoteTypeahead": {
-                    "type": "mef-places",
-                    "enableGroupField": true
-                  },
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-12"
-                  }
-                }
               },
               "identifiedBy": {
                 "allOf": [

@@ -30,6 +30,7 @@ from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
     get_field_items, not_repetitive, re_identified, \
     remove_trailing_punctuation
 from rero_ils.modules.documents.utils import create_authorized_access_point
+from rero_ils.modules.entities.models import EntityType
 
 from ..utils import _CONTRIBUTION_ROLE, do_abbreviated_title, \
     do_acquisition_terms_from_field_037, do_copyright_date, do_credits, \
@@ -126,10 +127,6 @@ def marc21_to_contribution(self, key, value):
         if ref := get_contribution_link(
                 marc21.bib_id, marc21.rero_id, subfields_0[0], key):
             agent['$ref'] = ref
-            if key[:3] in ['100', '700']:
-                agent['type'] = 'bf:Person'
-            elif key[:3] in ['710', '711']:
-                agent['type'] = 'bf:Organisation'
 
     # we do not have a $ref
     agent_data = {}
@@ -143,7 +140,7 @@ def marc21_to_contribution(self, key, value):
 
         # 100|700 Person
         if key[:3] in ['100', '700']:
-            agent_data['type'] = 'bf:Person'
+            agent_data['type'] = EntityType.PERSON
             if value.get('b'):
                 numeration = not_repetitive(
                     marc21.bib_id, marc21.rero_id, key, value, 'b')
@@ -175,7 +172,7 @@ def marc21_to_contribution(self, key, value):
                 agent_data['identifiedBy'] = identifier
 
         elif key[:3] in ['710', '711']:
-            agent_data['type'] = 'bf:Organisation'
+            agent_data['type'] = EntityType.ORGANISATION
             agent_data['conference'] = key[:3] == '711'
             if value.get('b'):
                 subordinate_units = [
@@ -503,16 +500,16 @@ def marc21_to_subjects(self, key, value):
         subjects_imported : for 6xx having indicator 2 '0' or '2'
     """
     type_per_tag = {
-        '600': 'bf:Person',
-        '610': 'bf:Organisation',
-        '611': 'bf:Organisation',
-        '600t': 'bf:Work',
-        '610t': 'bf:Work',
-        '611t': 'bf:Work',
-        '630': 'bf:Work',
-        '650': 'bf:Topic',  # or bf:Temporal, changed by code
-        '651': 'bf:Place',
-        '655': 'bf:Topic'
+        '600': EntityType.PERSON,
+        '610': EntityType.ORGANISATION,
+        '611': EntityType.ORGANISATION,
+        '600t': EntityType.WORK,
+        '610t': EntityType.WORK,
+        '611t': EntityType.WORK,
+        '630': EntityType.WORK,
+        '650': EntityType.TOPIC,  # or bf:Temporal, changed by code
+        '651': EntityType.PLACE,
+        '655': EntityType.TOPIC
     }
 
     source_per_indicator_2 = {
@@ -535,7 +532,7 @@ def marc21_to_subjects(self, key, value):
         if tag_key == '650':
             for subfield_a in subfields_a:
                 if subfield_a[0].isdigit():
-                    data_type = 'bf:Temporal'
+                    data_type = EntityType.TEMPORAL
                     break
 
         subject = {
@@ -573,17 +570,13 @@ def marc21_to_subjects(self, key, value):
             ) + '. ' + subject['authorized_access_point']
         field_key = 'genreForm' if tag_key == '655' else 'subjects'
         subfields_0 = utils.force_list(value.get('0'))
-        if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
-            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                        subfields_0[0], key)
-            if ref:
-                subject = {
-                    '$ref': ref,
-                    'type': data_type,
-                }
+        if data_type in [EntityType.PERSON, EntityType.ORGANISATION] \
+           and subfields_0:
+            if ref := get_contribution_link(marc21.bib_id, marc21.rero_id,
+                                            subfields_0[0], key):
+                subject = {'$ref': ref}
         if not subject.get('$ref'):
-            identifier = build_identifier(value)
-            if identifier:
+            if identifier := build_identifier(value):
                 subject['identifiedBy'] = identifier
             if field_key != 'genreForm':
                 perform_subdivisions(subject, value)
@@ -594,9 +587,8 @@ def marc21_to_subjects(self, key, value):
             self[field_key] = subjects
 
     elif subfield_2 == 'rerovoc' or indicator_2 in ['0', '2']:
-        term_string = build_string_from_subfields(
-            value, 'abcdefghijklmnopqrstuw', ' - ')
-        if term_string:
+        if term_string := build_string_from_subfields(
+           value, 'abcdefghijklmnopqrstuw', ' - '):
             source = 'rerovoc' if subfield_2 == 'rerovoc' \
                 else source_per_indicator_2[indicator_2]
             subject_imported = {
@@ -628,7 +620,7 @@ def marc21_to_subjects_imported(self, key, value):
     field_key = 'subjects_imported'
     if subfields_2:
         subfield_2 = subfields_2[0]
-        if match := contains_specific_voc_regexp.search(subfield_2):
+        if contains_specific_voc_regexp.search(subfield_2):
             add_data_imported = False
             if subfield_2 == 'chrero':
                 subfields_9 = utils.force_list(value.get('9'))
@@ -651,14 +643,14 @@ def marc21_to_subjects_imported(self, key, value):
                     value,
                     'abcdefghijklmnopqrstuvwxyz', ' - ')
                 data_imported = {
-                    'type': 'bf:Topic',
+                    'type': EntityType.TOPIC,
                     'source': subfield_2,
                     'authorized_access_point': term_string
                 }
     elif term_string := build_string_from_subfields(
             value, 'abcdefghijklmnopqrstuvwxyz', ' - '):
         data_imported = {
-            'type': 'bf:Topic',
+            'type': EntityType.TOPIC,
             'authorized_access_point': term_string
         }
     if data_imported:
@@ -727,7 +719,7 @@ def marc21_to_classification(self, key, value):
         if tag == '980':
             if subfield_2 and _CONTAINS_FACTUM_REGEXP.search(subfield_2):
                 subject = {
-                    'type': 'bf:Person',
+                    'type': EntityType.PERSON,
                     'authorized_access_point': subfield_a,
                     'source': 'Factum'
                 }

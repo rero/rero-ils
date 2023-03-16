@@ -101,8 +101,7 @@
         "startDate": 1987,
         "place": [
           {
-            "country": "sz",
-            "type": "bf:Place"
+            "country": "sz"
           }
         ]
       }
@@ -235,8 +234,7 @@
         "startDate": 1999,
         "place": [
           {
-            "country": "gw",
-            "type": "bf:Place"
+            "country": "gw"
           }
         ]
       }
