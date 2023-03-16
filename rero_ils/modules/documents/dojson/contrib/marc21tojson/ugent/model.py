@@ -23,6 +23,7 @@ from flask import current_app
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, \
     build_string_from_subfields
+from rero_ils.modules.entities.models import EntityType
 
 from ..utils import do_abbreviated_title, \
     do_acquisition_terms_from_field_037, do_classification, do_contribution, \
@@ -305,16 +306,16 @@ def marc21_to_subjects_6XX(self, key, value):
         subjects_imported : for 6xx having indicator 2 '0' or '2'
     """
     type_per_tag = {
-        '600': 'bf:Person',
-        '610': 'bf:Organisation',
-        '611': 'bf:Organisation',
-        '600t': 'bf:Work',
-        '610t': 'bf:Work',
-        '611t': 'bf:Work',
-        '630': 'bf:Work',
-        '650': 'bf:Topic',  # or bf:Temporal, changed by code
-        '651': 'bf:Place',
-        '655': 'bf:Topic'
+        '600': EntityType.PERSON,
+        '610': EntityType.ORGANISATION,
+        '611': EntityType.ORGANISATION,
+        '600t': EntityType.WORK,
+        '610t': EntityType.WORK,
+        '611t': EntityType.WORK,
+        '630': EntityType.WORK,
+        '650': EntityType.TOPIC,  # or bf:Temporal, changed by code
+        '651': EntityType.PLACE,
+        '655': EntityType.TOPIC
     }
 
     conference_per_tag = {

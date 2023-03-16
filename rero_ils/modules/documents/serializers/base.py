@@ -27,6 +27,7 @@ from rero_ils.modules.commons.identifiers import IdentifierFactory, \
 from rero_ils.modules.utils import get_base_url
 
 from ..api import DocumentsSearch
+from ...entities.models import EntityType
 
 CREATOR_ROLES = [
     'aut', 'cmp', 'cre', 'dub', 'pht', 'ape', 'aqt', 'arc', 'art', 'aus',
@@ -188,7 +189,7 @@ class BaseDocumentFormatterMixin(ABC):
             for statement in provision.get('statement', [])
             for data in statement.get('label', [])
             if provision['type'] == 'bf:Publication'
-            and statement['type'] == 'bf:Place'
+            and statement['type'] == EntityType.PLACE
         ]
 
     def _get_languages(self):
@@ -203,7 +204,7 @@ class BaseDocumentFormatterMixin(ABC):
             for statement in provision.get('statement', [])
             for data in statement.get('label', [])
             if provision['type'] == 'bf:Publication'
-            and statement['type'] == 'bf:Agent'
+            and statement['type'] == EntityType.AGENT
         ]
 
     def _get_identifiers(self, types, states=None):
