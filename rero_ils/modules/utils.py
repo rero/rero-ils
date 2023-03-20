@@ -27,7 +27,6 @@ import string
 import unicodedata
 from datetime import date, datetime, time
 from functools import wraps
-from gettext import ngettext
 from io import StringIO
 from json import JSONDecodeError, JSONDecoder, dumps
 from time import sleep
@@ -39,6 +38,8 @@ import requests
 import sqlalchemy
 from dateutil import parser
 from flask import current_app, session
+from flask_babelex import gettext as _
+from flask_babelex import ngettext
 from flask_login import current_user
 from invenio_accounts.models import Role
 from invenio_cache import current_cache
@@ -1218,21 +1219,22 @@ def password_validator(pw, length=8, special_char=False):
     """
     if len(pw) < length:
         raise PasswordValidatorException(ngettext(
-            'Field must be at least %(min)d character long.',
-            'Field must be at least %(min)d characters long.',
-            length
-        ) % {"min": length})
+            'Field must be at least %(num)d character long.',
+            'Field must be at least %(num)d characters long.',
+            num=length
+        ))
     if not set(string.ascii_lowercase).intersection(pw):
-        raise PasswordValidatorException('The password must contain a lower '
-                                         'case character.')
+        raise PasswordValidatorException(
+            _('The password must contain a lower case character.'))
     if not set(string.ascii_uppercase).intersection(pw):
-        raise PasswordValidatorException('The password must contain a upper '
-                                         'case character.')
+        raise PasswordValidatorException(
+            _('The password must contain a upper case character.'))
     if not set(string.digits).intersection(pw):
-        raise PasswordValidatorException('The password must contain a number.')
+        raise PasswordValidatorException(
+            _('The password must contain a number.'))
     if special_char and not set(string.punctuation).intersection(pw):
-        raise PasswordValidatorException('The password must contain a special '
-                                         'character.')
+        raise PasswordValidatorException(
+            _('The password must contain a special character.'))
     return True
 
 
