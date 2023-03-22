@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,10 +30,9 @@ def enrich_notification_data(sender, json=None, record=None, index=None,
     :param doc_type: The doc_type for the record.
     """
     if index.split('-')[0] == NotificationsSearch.Meta.index:
-        notification = record
         if not isinstance(record, Notification):
-            notification = Notification.get_record_by_pid(record.get('pid'))
+            record = Notification.get_record_by_pid(record.get('pid'))
         json['organisation'] = {
-            'pid': notification.organisation_pid,
+            'pid': record.organisation_pid,
             'type': 'org'
         }

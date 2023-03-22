@@ -41,6 +41,25 @@
       "operation": {
         "type": "keyword"
       },
+      "notification": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          },
+          "date": {
+            "type": "date"
+          },
+          "sender_library_pid": {
+            "type": "keyword"
+          },
+          "recipients": {
+            "type": "text"
+          }
+        }
+      },
       "ill_request": {
         "properties": {
           "status": {

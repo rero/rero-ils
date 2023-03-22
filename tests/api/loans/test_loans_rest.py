@@ -37,6 +37,7 @@ from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import number_of_notifications_sent
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
 
 
 def test_loans_search(
@@ -327,7 +328,12 @@ def test_overdue_loans(client, librarian_martigny,
     Dispatcher.dispatch_notifications([notification.get('pid')])
     flush_index(NotificationsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
+    flush_index(OperationLogsSearch.Meta.index)
     assert number_of_notifications_sent(loan) == 1
+    # Check notification is created on operation logs
+    assert len(list(
+        OperationLogsSearch()
+        .get_logs_by_notification_pid(notification.get('pid')))) == 1
 
     # Try a checkout for a blocked user :: It should be blocked
     res, data = postdata(

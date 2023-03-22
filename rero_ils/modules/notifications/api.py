@@ -27,6 +27,7 @@ from functools import partial
 from flask import current_app
 
 from .extensions import NotificationSubclassExtension
+from .logs.api import NotificationOperationLog
 from .models import NotificationIdentifier, NotificationMetadata, \
     NotificationStatus
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -115,6 +116,7 @@ class Notification(IlsRecord, ABC):
             notification=record, dbcommit=dbcommit, reindex=reindex,
             delete_pid=delete_pid
         )
+        NotificationOperationLog.create(record)
         return record
 
     # ABSTRACT METHODS ========================================================

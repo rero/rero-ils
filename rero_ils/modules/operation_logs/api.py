@@ -43,6 +43,17 @@ class OperationLogsSearch(IlsRecordsSearch):
 
         default_filter = None
 
+    def get_logs_by_notification_pid(self, notif_pid):
+        """Get operation logs records by notification pid.
+
+        :param notif_pid: The notification pid.
+        :returns a generator of ElasticSearch hit.
+        :rtype generator<dict>.
+        """
+        query = self.filter('term', notification__pid=notif_pid)
+        for hit in query.scan():
+            yield hit.to_dict()
+
 
 def operation_log_id_fetcher(record_uuid, data):
     """Fetch an Organisation record's identifier.
