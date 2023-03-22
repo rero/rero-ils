@@ -190,8 +190,7 @@ def can_be_requested(loan):
         return False
 
     # 2) Check if owning location allows request
-    location_pid = Item.get_record_by_pid(loan.item_pid).holding_location_pid
-    location = Location.get_record_by_pid(location_pid)
+    location = Item.get_record_by_pid(loan.item_pid).get_circulation_location()
     if not location or not location.get('allow_request'):
         return False
 
