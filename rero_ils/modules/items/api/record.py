@@ -429,12 +429,9 @@ class ItemRecord(IlsRecord):
     def holding_circulation_category_pid(self):
         """Shortcut for holding circulation category pid of an item."""
         from ...holdings.api import Holding
-        circulation_category_pid = None
         if self.holding_pid:
-            circulation_category_pid = \
-                Holding.get_record_by_pid(
+            return Holding.get_record_by_pid(
                     self.holding_pid).circulation_category_pid
-        return circulation_category_pid
 
     @property
     def call_numbers(self):
@@ -454,9 +451,8 @@ class ItemRecord(IlsRecord):
             for key in ['call_number', 'second_call_number']:
                 if self.get(key):
                     data.append(self.get(key))
-                else:
-                    if holding.get(key):
-                        data.append(holding.get(key))
+                elif holding.get(key):
+                    data.append(holding.get(key))
         return [call_number for call_number in data if call_number]
 
     @property
@@ -469,11 +465,8 @@ class ItemRecord(IlsRecord):
     def holding_location_pid(self):
         """Shortcut for holding location pid of an item."""
         from ...holdings.api import Holding
-        location_pid = None
         if self.holding_pid:
-            location_pid = Holding.get_record_by_pid(
-                self.holding_pid).location_pid
-        return location_pid
+            return Holding.get_record_by_pid(self.holding_pid).location_pid
 
     @property
     def library_pid(self):
@@ -537,8 +530,7 @@ class ItemRecord(IlsRecord):
 
         :return True if Item is a new acquisition, False otherwise
         """
-        acquisition_date = self.get('acquisition_date')
-        if acquisition_date:
+        if acquisition_date := self.get('acquisition_date'):
             return datetime.strptime(
                 acquisition_date, '%Y-%m-%d') < datetime.now()
         return False
@@ -552,6 +544,5 @@ class ItemRecord(IlsRecord):
         """
         from . import ItemsSearch
         query = ItemsSearch().filter('term', holding__pid=holding_pid)
-        results = query.filter('bool', must_not=[Q('term', _masked=True)]) \
+        return query.filter('bool', must_not=[Q('term', _masked=True)]) \
             .source(['pid']).count()
-        return results

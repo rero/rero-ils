@@ -25,6 +25,7 @@ from utils import get_json
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.utils import can_be_requested
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_item_pickup_location(
@@ -51,13 +52,16 @@ def test_item_pickup_location(
     assert 'locations' in data
 
 
-def test_location_disallow_request(item_lib_martigny, loc_public_martigny,
-                                   loc_public_martigny_data, lib_martigny,
-                                   patron_martigny):
+def test_location_disallow_request(
+    item_lib_martigny, item_lib_martigny_data, loc_public_martigny,
+    loc_public_martigny_data, loc_public_saxon, lib_martigny, patron_martigny,
+    circulation_policies
+):
     """Test a request when location disallow request."""
+    item = item_lib_martigny
+    location = loc_public_martigny
 
     # update location to disallow request
-    location = loc_public_martigny
     location['allow_request'] = False
     location.update(location, dbcommit=True, reindex=True)
 
@@ -69,7 +73,19 @@ def test_location_disallow_request(item_lib_martigny, loc_public_martigny,
     })
     assert not can_be_requested(loan)
 
-    # reset the location to original data
+    # update item to set a temporary location allowing request
+    #   owning location disallow request, but temporary location allow request
+    #   then the request could be accepted (for locations checks)
+
+    item['temporary_location'] = {
+        '$ref': get_ref_for_pid('loc', loc_public_saxon.pid)
+    }
+    item.update(item, dbcommit=True, reindex=True)
+    assert loc_public_saxon['allow_request']
+    assert can_be_requested(loan)
+
+    # reset fixtures
+    item.update(item_lib_martigny_data, dbcommit=True, reindex=True)
     location.update(loc_public_martigny_data, dbcommit=True, reindex=True)
 
 
