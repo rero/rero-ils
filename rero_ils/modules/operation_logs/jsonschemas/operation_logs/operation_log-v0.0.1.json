@@ -40,7 +40,8 @@
             "hold",
             "item",
             "loan",
-            "illr"
+            "illr",
+            "notif"
           ]
         },
         "value": {
@@ -89,6 +90,50 @@
         "update",
         "delete"
       ]
+    },
+    "notification": {
+      "title": "Notification",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pid",
+        "type",
+        "date",
+        "sender_library_pid",
+        "recipients"
+      ],
+      "properties": {
+        "pid": {
+          "title": "Notification pid",
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "title": "Notification type",
+          "type": "string",
+          "minLength": 1
+        },
+        "date": {
+          "title": "Notification date",
+          "type": "string",
+          "format": "date-time"
+        },
+        "sender_library_pid": {
+          "title": "Sender library pid",
+          "type": "string",
+          "minLength": 1
+        },
+        "recipients": {
+          "title": "Recipients",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "Recipient",
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
     },
     "ill_request": {
       "title": "ILL request status",

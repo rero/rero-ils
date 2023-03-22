@@ -98,7 +98,7 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
     flush_index(LoanOperationLog.index_name)
 
     logs = LoanOperationLog.get_logs_by_record_pid(loan['pid'])
-    assert len(logs) == 2
+    assert len(logs) == 3
     for log in logs:
         assert log['loan']['patron']['pid'] == patron['pid']
         assert log['loan']['patron']['name'] == 'Roduit, Louis'
@@ -106,7 +106,7 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
     loan.anonymize(loan)
 
     logs = LoanOperationLog.get_logs_by_record_pid(loan['pid'])
-    assert len(logs) == 2
+    assert len(logs) == 3
     for log in logs:
         log = log.to_dict()
         md5_hash = hashlib.md5(patron['pid'].encode()).hexdigest()
