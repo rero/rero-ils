@@ -41,7 +41,7 @@ def get_contribution_or_create(ref_pid, ref_type, count_found, count_exists,
             # contribution does not exist
             try:
                 # try to get the contribution online
-                data = Contribution._get_mef_data_by_type(ref_pid, ref_type)
+                data = Contribution._get_mef_data_by_type(ref_type, ref_pid)
                 if (
                     data.get('idref') or
                     data.get('gnd') or
