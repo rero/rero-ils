@@ -196,7 +196,7 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
         ref = f'{ref_type}/{ref_pid}'
         try:
             # try to get the contribution online
-            data = Contribution._get_mef_data_by_type(ref_pid, ref_type)
+            data = Contribution._get_mef_data_by_type(ref_type, ref_pid)
             if data.get('idref') or data.get('gnd'):
                 if data.get('deleted'):
                     self.increment_count(self.count_deleted, ref,

@@ -118,8 +118,8 @@ class Contribution(IlsRecord):
             nested = db.session.begin_nested()
             try:
                 data = cls._get_mef_data_by_type(
-                    pid=ref_pid,
                     pid_type=ref_type,
+                    pid=ref_pid
                 )
                 # TODO: create or update
                 contribution = cls.create(
@@ -159,7 +159,7 @@ class Contribution(IlsRecord):
         return data
 
     @classmethod
-    def _get_mef_data_by_type(cls, pid, pid_type, verbose=False,
+    def _get_mef_data_by_type(cls, pid_type, pid, verbose=False,
                               with_deleted=True, resolve=True, sources=True):
         """Request MEF REST API in JSON format.
 
@@ -173,7 +173,7 @@ class Contribution(IlsRecord):
             if pid_type == 'viaf':
                 mef_url = f'{url}/mef/?q=viaf_pid:"{pid}"'
             else:
-                mef_url = f'{url}/mef/?q={pid_type}.pid:"{pid}"'
+                mef_url = f'{url}/mef/latest/{pid_type}:{pid}'
         request = requests.get(
             url=mef_url,
             params=dict(
@@ -185,11 +185,20 @@ class Contribution(IlsRecord):
         status = request.status_code
         if status == requests_codes.ok:
             try:
-                data = request.json().get('hits', {}).get('hits', [None])[0]
-                metadata = cls.remove_schema(data['metadata'])
+                json_data = request.json()
+                if 'hits' in json_data:
+                    # we got an ES response
+                    data = request.json().get('hits', {}).get(
+                        'hits', [None])[0].get('metadata', {})
+                else:
+                    # we got an DB response
+                    data = json_data
+                    data.pop('_created', None)
+                    data.pop('_updated', None)
+                metadata = cls.remove_schema(data)
                 return metadata
-            except Exception:
-                msg = f'MEF resolver no metadata: {mef_url}'
+            except Exception as err:
+                msg = f'MEF resolver no metadata: {mef_url} {err}'
                 if verbose:
                     current_app.logger.warning(msg)
                 raise ValueError(msg)
@@ -318,7 +327,7 @@ class Contribution(IlsRecord):
         pid = self.get('pid')
         try:
             if data := self._get_mef_data_by_type(
-                    pid=pid, pid_type='mef', verbose=verbose):
+                    pid_type='mef', pid=pid, verbose=verbose):
                 data['$schema'] = self['$schema']
                 if data.get('deleted'):
                     current_app.logger.warning(
