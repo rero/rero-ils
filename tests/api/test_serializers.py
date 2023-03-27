@@ -17,6 +17,8 @@
 
 """Tests Serializers."""
 
+from datetime import datetime
+
 import mock
 from flask import url_for
 from utils import VerifyRecordPermissionPatch, flush_index, get_csv, \
@@ -133,6 +135,7 @@ def test_items_serializers(
     librarian_martigny,
     librarian_sion,
     loan_pending_martigny,
+    loan_due_soon_martigny,
     coll_martigny_1,
     loc_public_martigny
 ):
@@ -171,6 +174,14 @@ def test_items_serializers(
 
     list_url = url_for('invenio_records_rest.item_list')
     response = client.get(list_url, headers=rero_json_header)
+    data = get_json(response)['hits']['hits']
+    # check the due date: it should be an ISO date
+    item_with_due_date = [
+        res['metadata'] for res in data
+        if res['metadata'].get('availability', {}).get('due_date')
+    ][0]
+    due_date = item_with_due_date['availability']['due_date']
+    assert datetime.fromisoformat(due_date).year is not None
     assert response.status_code == 200
 
     list_url = url_for('api_item.inventory_search')
