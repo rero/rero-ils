@@ -53,7 +53,7 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         if not metadata['available'] \
            and metadata['status'] == ItemStatus.ON_LOAN:
             metadata['availability']['due_date'] = \
-                item.get_item_end_date(format='long', language='en')
+                item.get_item_end_date(format=None)
 
         # Item in collection
         if collection := item.in_collection():
