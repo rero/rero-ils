@@ -2053,7 +2053,7 @@ RECORDS_REST_FACETS = dict(
                     # This does not take into account
                     # env variable or instance config file
                     size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'contribution', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                        'entity', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
                 )
             ),
             type=dict(
@@ -2062,7 +2062,7 @@ RECORDS_REST_FACETS = dict(
                     # This does not take into account
                     # env variable or instance config file
                     size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'contribution', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                        'entity', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
                 )
             )
         ),
@@ -2251,8 +2251,8 @@ RERO_ILS_QUERY_BOOSTING = {
     'documents': {
         'autocomplete_title': 3,
         'title\.*': 3,
-        'contribution.name': 2,
-        'contribution.name_*': 2,
+        'contribution.entity.authorized_access_point_*': 2,
+        'contribution.entity.authorized_access_point': 2,
         'publicationYearText': 2,
         'freeFormedPublicationDate': 2,
         'subjects.term': 2,

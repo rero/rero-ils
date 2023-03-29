@@ -9,6 +9,7 @@
       "oneOf": [
         {
           "title": "unknown media",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType"
@@ -24,6 +25,7 @@
         },
         {
           "title": "rdamt:1001",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
@@ -114,6 +116,7 @@
         },
         {
           "title": "rdamt:1002",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
@@ -209,6 +212,7 @@
         },
         {
           "title": "rdamt:1003",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
@@ -299,6 +303,7 @@
         },
         {
           "title": "rdamt:1004",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
@@ -354,6 +359,7 @@
         },
         {
           "title": "rdamt:1005",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
@@ -449,6 +455,7 @@
         },
         {
           "title": "rdamt:1006",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
@@ -509,6 +516,7 @@
         },
         {
           "title": "rdamt:1007",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
@@ -589,6 +597,7 @@
         },
         {
           "title": "rdamt:1008",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType",
@@ -659,6 +668,7 @@
         },
         {
           "title": "other",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "contentType",

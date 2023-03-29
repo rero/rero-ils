@@ -14,37 +14,6 @@
     ],
     "properties": {
       "type": {
-        "$ref": "#/definitions/type_main"
-      },
-      "value": {
-        "$ref": "#/definitions/value"
-      },
-      "source": {
-        "$ref": "#/definitions/source"
-      }
-    },
-    "form": {
-      "hide": true,
-      "templateOptions": {
-        "containerCssClass": "row"
-      }
-    }
-  },
-  "identifier_contribution": {
-    "title": "Identifier",
-    "type": "object",
-    "additionalProperties": false,
-    "propertiesOrder": [
-      "type",
-      "value",
-      "source"
-    ],
-    "required": [
-      "type",
-      "value"
-    ],
-    "properties": {
-      "type": {
         "$ref": "#/definitions/type_contribution"
       },
       "value": {
@@ -57,49 +26,12 @@
     "form": {
       "hide": true,
       "templateOptions": {
-        "containerCssClass": "row"
+        "containerCssClass": "row",
+        "itemCssClass": "col-lg-12"
       }
     }
   },
   "definitions": {
-    "type_main": {
-      "title": "Type",
-      "type": "string",
-      "enum": [
-        "bf:Local",
-        "IdRef",
-        "GND",
-        "RERO",
-        "RERO-RAMEAU"
-      ],
-      "form": {
-        "options": [
-          {
-            "value": "bf:Local",
-            "label": "bf:local"
-          },
-          {
-            "value": "IdRef",
-            "label": "IdRef"
-          },
-          {
-            "value": "GND",
-            "label": "GND"
-          },
-          {
-            "value": "RERO",
-            "label": "RERO"
-          },
-          {
-            "value": "RERO-RAMEAU",
-            "label": "RERO-RAMEAU"
-          }
-        ],
-        "templateOptions": {
-          "itemCssClass": "col-lg-12"
-        }
-      }
-    },
     "type_contribution": {
       "title": "Type",
       "type": "string",
@@ -129,7 +61,7 @@
           }
         ],
         "templateOptions": {
-          "itemCssClass": "col-lg-12"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -139,7 +71,7 @@
       "minLength": 1,
       "form": {
         "templateOptions": {
-          "itemCssClass": "col-lg-12"
+          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -150,7 +82,7 @@
       "minLength": 1,
       "form": {
         "templateOptions": {
-          "itemCssClass": "col-lg-12"
+          "itemCssClass": "col-lg-6"
         },
         "expressionProperties": {
           "templateOptions.required": "true"
