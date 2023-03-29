@@ -15,6 +15,7 @@
       "oneOf": [
         {
           "title": "docmaintype_archives",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -46,6 +47,7 @@
         },
         {
           "title": "docmaintype_article",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -77,6 +79,7 @@
         },
         {
           "title": "docmaintype_audio",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -144,6 +147,7 @@
         },
         {
           "title": "docmaintype_book",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -231,6 +235,7 @@
         },
         {
           "title": "docmaintype_children",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -262,6 +267,7 @@
         },
         {
           "title": "docmaintype_comic",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -319,6 +325,7 @@
         },
         {
           "title": "docmaintype_electronic",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -373,6 +380,7 @@
         },
         {
           "title": "docmaintype_game",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -440,6 +448,7 @@
         },
         {
           "title": "docmaintype_image",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -522,6 +531,7 @@
         },
         {
           "title": "docmaintype_language_method",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -553,6 +563,7 @@
         },
         {
           "title": "docmaintype_leaf",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -584,6 +595,7 @@
         },
         {
           "title": "docmaintype_map",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -638,6 +650,7 @@
         },
         {
           "title": "docmaintype_movie_series",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -700,6 +713,7 @@
         },
         {
           "title": "docmaintype_object",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -762,6 +776,7 @@
         },
         {
           "title": "docmaintype_other",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -793,6 +808,7 @@
         },
         {
           "title": "docmaintype_score",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",
@@ -855,6 +871,7 @@
         },
         {
           "title": "docmaintype_serial",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -886,6 +903,7 @@
         },
         {
           "title": "docmaintype_series",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type"
@@ -917,6 +935,7 @@
         },
         {
           "title": "docmaintype_teaching_material",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "main_type",

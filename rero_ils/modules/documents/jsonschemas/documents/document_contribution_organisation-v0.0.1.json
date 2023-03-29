@@ -46,6 +46,7 @@
     "subordinate_unit": {
       "title": "Subordinate units",
       "type": "array",
+      "minItems": 1,
       "items": {
         "title": "Subordinate unit",
         "type": "string",
@@ -115,7 +116,7 @@
           }
         },
         {
-          "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+          "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
         }
       ]
     }

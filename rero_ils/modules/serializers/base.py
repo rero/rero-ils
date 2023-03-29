@@ -43,6 +43,10 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
         links_factory = links_factory or (lambda x, record=None, **k: dict())
         if request and request.args.get('resolve') == '1':
             metadata = record.resolve()
+            # if not enable jsonref the dumps is already done in the resolve
+            # method
+            if getattr(record, 'enable_jsonref', False):
+                metadata = metadata.dumps()
         else:
             metadata = deepcopy(record.replace_refs()) if self.replace_refs \
                 else record.dumps()

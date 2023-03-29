@@ -95,6 +95,12 @@ class ImportsSearchSerializer(JSONSerializer):
 class UIImportsSearchSerializer(ImportsSearchSerializer):
     """Serializing records as JSON with additional data."""
 
+    entity_mapping = {
+       'authorized_access_point': 'authorized_access_point',
+       'identifiedBy': 'identifiedBy',
+       'bf:Agent': 'type'
+    }
+
     def post_process(self, metadata):
         """Post process the data.
 
@@ -104,7 +110,8 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
         :return: the modified dictionary
         """
         # TODO: See it this is ok.
-        # metadata = Document.dumps()
+        from rero_ils.modules.documents.api import Document
+        metadata = Document(data=metadata).dumps()
 
         titles = metadata.get('title', [])
         text_title = TitleExtension.format_text(titles, with_subtitle=False)
@@ -119,17 +126,19 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
         new_contributions = []
         for contribution in contributions:
             agent = contribution['entity']
-            agent_type = agent['type']
-            agent_data = JsonRef.replace_refs(
-                agent, loader=None).get('metadata')
-            if agent_data:
-                agent_data.pop('$schema', None)
-                agent = agent_data
-                agent['type'] = agent_type
+            # convert a MEF link into a local entity
+            if agent_data := JsonRef.replace_refs(agent, loader=None).get(
+                'metadata'
+            ):
+                agent = {
+                    local_value: agent_data[local_key]
+                    for local_key, local_value in self.entity_mapping.items()
+                    if agent_data.get(local_key)
+                }
             new_contributions.append({'entity': agent})
         if new_contributions:
             metadata['contribution'] = \
-                process_literal_contributions(new_contributions)
+                        process_literal_contributions(new_contributions)
         return metadata
 
 

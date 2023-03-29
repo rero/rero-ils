@@ -65,7 +65,7 @@
         {% for genre in record.genreForm %}
         <li class="figure-caption">
           <i class="fa fa-tag mr-1"></i>
-          {{ genre.term }}
+          {{ genre.entity.authorized_access_point }}
         </li>
         {% endfor %}
       </ul>

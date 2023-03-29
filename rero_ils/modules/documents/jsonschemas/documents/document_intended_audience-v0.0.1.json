@@ -10,6 +10,7 @@
       "oneOf": [
         {
           "title": "understanding_level",
+          "type": "object",
           "propertiesOrder": [
             "audienceType",
             "value"
@@ -18,7 +19,6 @@
             "audienceType",
             "value"
           ],
-          "type": "object",
           "properties": {
             "audienceType": {
               "title": "understanding_level",
@@ -184,6 +184,7 @@
         },
         {
           "title": "school_level",
+          "type": "object",
           "propertiesOrder": [
             "audienceType",
             "value"
@@ -192,7 +193,6 @@
             "audienceType",
             "value"
           ],
-          "type": "object",
           "properties": {
             "audienceType": {
               "title": "school_level",
@@ -299,6 +299,7 @@
         },
         {
           "title": "pegi_level",
+          "type": "object",
           "propertiesOrder": [
             "audienceType",
             "value"
@@ -307,7 +308,6 @@
             "audienceType",
             "value"
           ],
-          "type": "object",
           "properties": {
             "audienceType": {
               "title": "pegi_level",
@@ -364,6 +364,7 @@
         },
         {
           "title": "filmage_ch",
+          "type": "object",
           "propertiesOrder": [
             "audienceType",
             "value"
@@ -372,7 +373,6 @@
             "audienceType",
             "value"
           ],
-          "type": "object",
           "properties": {
             "audienceType": {
               "title": "filmage_ch",
@@ -444,6 +444,7 @@
         },
         {
           "title": "undefined",
+          "type": "object",
           "propertiesOrder": [
             "audienceType",
             "value"
@@ -452,7 +453,6 @@
             "audienceType",
             "value"
           ],
-          "type": "object",
           "properties": {
             "audienceType": {
               "title": "undefined",

@@ -252,12 +252,12 @@
           "entity": {
             "$ref": "https://bib.rero.ch/schemas/documents/document_entity_local-v0.0.1.json"
           }
-        },
-        "form": {
-          "hide": true,
-          "templateOptions": {
-            "cssClass": "editor-title"
-          }
+        }
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "editor-title"
         }
       }
     },
@@ -281,12 +281,12 @@
           "entity": {
             "$ref": "https://bib.rero.ch/schemas/documents/document_genre_form_local-v0.0.1.json"
           }
-        },
-        "form": {
-          "hide": true,
-          "templateOptions": {
-            "cssClass": "editor-title"
-          }
+        }
+      },
+      "form": {
+        "hide": true,
+        "templateOptions": {
+          "cssClass": "editor-title"
         }
       }
     },

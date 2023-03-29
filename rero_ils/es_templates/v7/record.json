@@ -39,7 +39,7 @@
         "edge_ngram_filter": {
           "type": "edge_ngram",
           "min_gram": 3,
-          "max_gram": 10
+          "max_gram": 30
         },
         "french_elision": {
           "type": "elision",
