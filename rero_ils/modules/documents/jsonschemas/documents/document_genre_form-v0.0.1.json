@@ -5,28 +5,45 @@
     "type": "array",
     "minItems": 1,
     "items": {
-      "type": "object",
       "title": "Entities",
+      "type": "object",
       "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
-      "additionalProperties": false,
-      "propertiesOrder": [
-        "entity"
-      ],
-      "required": [
-        "entity"
-      ],
-      "properties": {
-        "entity": {
-          "oneOf": [
-            {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_link-v0.0.1.json"
-            },
-            {
+      "oneOf": [
+        {
+          "title": "Local Entities",
+          "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "entity"
+          ],
+          "required": [
+            "entity"
+          ],
+          "properties": {
+            "entity": {
               "$ref": "https://bib.rero.ch/schemas/documents/document_genre_form_local-v0.0.1.json"
             }
-          ]
+          }
+        },
+        {
+          "title": "MEF Entities",
+          "type": "object",
+          "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "entity"
+          ],
+          "required": [
+            "entity"
+          ],
+          "properties": {
+            "entity": {
+              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_link-v0.0.1.json"
+            }
+          }
         }
-      }
+      ]
     },
     "form": {
       "hide": true,

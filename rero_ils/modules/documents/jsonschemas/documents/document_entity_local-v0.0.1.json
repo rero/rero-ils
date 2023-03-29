@@ -29,6 +29,7 @@
       "form": {
         "type": "selectWithSort",
         "templateOptions": {
+          "itemCssClass": "col-lg-6",
           "options": [
             {
               "label": "bf:Person",
@@ -65,12 +66,12 @@
       "form": {
         "placeholder": "Example: Musset, Alfred de, 1810-1857",
         "templateOptions": {
-          "itemCssClass": "col-lg-6"
+          "itemCssClass": "col-lg-12"
         }
       }
     },
     "identifiedBy": {
-      "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+      "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
     },
     "source": {
       "title": "Source",
@@ -121,7 +122,7 @@
                 "$ref": "#/properties/authorized_access_point"
               },
               "identifiedBy": {
-                "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+                "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
               }
             },
             "form": {
@@ -159,6 +160,7 @@
       "form": {
         "type": "selectWithSort",
         "templateOptions": {
+          "itemCssClass": "col-lg-6",
           "options": [
             {
               "label": "bf:Concept",
