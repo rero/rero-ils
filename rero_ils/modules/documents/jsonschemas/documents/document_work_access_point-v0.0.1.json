@@ -145,7 +145,7 @@
               "minLength": 1
             },
             "identifiedBy": {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier_contribution"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_identifier-v0.0.1.json#/identifier"
             }
           }
         }

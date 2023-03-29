@@ -8,25 +8,42 @@
       "type": "object",
       "title": "Entities",
       "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
-      "additionalProperties": false,
-      "propertiesOrder": [
-        "entity"
-      ],
-      "required": [
-        "entity"
-      ],
-      "properties": {
-        "entity": {
-          "oneOf": [
-            {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_link-v0.0.1.json"
-            },
-            {
+      "oneOf": [
+        {
+          "title": "Local Entities",
+          "type": "object",
+          "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "entity"
+          ],
+          "required": [
+            "entity"
+          ],
+          "properties": {
+            "entity": {
               "$ref": "https://bib.rero.ch/schemas/documents/document_entity_local-v0.0.1.json"
             }
-          ]
+          }
+        },
+        {
+          "title": "MEF Entities",
+          "type": "object",
+          "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "entity"
+          ],
+          "required": [
+            "entity"
+          ],
+          "properties": {
+            "entity": {
+              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_link-v0.0.1.json"
+            }
+          }
         }
-      }
+      ]
     },
     "form": {
       "hide": true
