@@ -14,9 +14,23 @@
       "type": "string",
       "pattern": "^https://mef.rero.ch/api/.*(agents/)?gnd|idref|rero/.*?$",
       "form": {
+        "type": "remoteTypeahead",
         "remoteTypeahead": {
+          "enableGroupField": true,
           "type": "mef",
-          "enableGroupField": true
+          "filters": {
+            "default": "bf:Person",
+            "options": [
+              {
+                "label": "Person",
+                "value": "bf:Person"
+              },
+              {
+                "label": "Organisation",
+                "value": "bf:Organisation"
+              }
+            ]
+          }
         },
         "templateOptions": {
           "itemCssClass": "col-lg-12"

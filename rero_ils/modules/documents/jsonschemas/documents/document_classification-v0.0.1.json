@@ -9,6 +9,7 @@
       "oneOf": [
         {
           "title": "bf:Classification",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "type",
@@ -20,7 +21,6 @@
             "type",
             "classificationPortion"
           ],
-          "type": "object",
           "properties": {
             "type": {
               "title": "Type",
@@ -50,6 +50,7 @@
         },
         {
           "title": "bf:ClassificationLcc",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "type",
@@ -61,7 +62,6 @@
             "type",
             "classificationPortion"
           ],
-          "type": "object",
           "properties": {
             "type": {
               "title": "Type",
@@ -91,6 +91,7 @@
         },
         {
           "title": "bf:ClassificationNlm",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "type",
@@ -102,7 +103,6 @@
             "type",
             "classificationPortion"
           ],
-          "type": "object",
           "properties": {
             "type": {
               "title": "Type",
@@ -132,6 +132,7 @@
         },
         {
           "title": "bf:ClassificationUdc",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "type",
@@ -144,7 +145,6 @@
             "type",
             "classificationPortion"
           ],
-          "type": "object",
           "properties": {
             "type": {
               "title": "Type",
@@ -177,6 +177,7 @@
         },
         {
           "title": "bf:ClassificationDdc",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "type",
@@ -189,7 +190,6 @@
             "type",
             "classificationPortion"
           ],
-          "type": "object",
           "properties": {
             "type": {
               "title": "Type",
@@ -222,6 +222,7 @@
         },
         {
           "title": "classification_brunetparguez",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "type",
@@ -233,7 +234,6 @@
             "type",
             "classificationPortion"
           ],
-          "type": "object",
           "properties": {
             "type": {
               "title": "Type",
@@ -263,6 +263,7 @@
         },
         {
           "title": "classification_droit",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "type",
@@ -274,7 +275,6 @@
             "type",
             "classificationPortion"
           ],
-          "type": "object",
           "properties": {
             "type": {
               "title": "Type",
@@ -342,14 +342,7 @@
               }
             },
             "subdivision": {
-              "title": "Subdivisions",
-              "minItems": 1,
-              "type": "array",
-              "items": {
-                "title": "Subdivision",
-                "type": "string",
-                "minLength": 2
-              }
+              "$ref": "#/definitions/subdivision"
             },
             "edition": {
               "title": "Edition",
@@ -370,6 +363,7 @@
         },
         {
           "title": "classification_musicale_genres",
+          "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [
             "type",
@@ -381,7 +375,6 @@
             "type",
             "classificationPortion"
           ],
-          "type": "object",
           "properties": {
             "type": {
               "title": "Type",
@@ -427,7 +420,7 @@
     },
     "subdivision": {
       "title": "Subdivisions",
-      "minItems": 0,
+      "minItems": 1,
       "type": "array",
       "items": {
         "title": "Subdivision",
