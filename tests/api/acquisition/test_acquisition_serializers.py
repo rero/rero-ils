@@ -20,8 +20,7 @@
 
 from api.acquisition.acq_utils import _del_resource, _make_resource
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import get_json, login_user
 
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -31,7 +30,7 @@ def test_acquisition_orders_serializers(
     vendor_martigny, document, rero_json_header
 ):
     """Test orders serializer."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     # STEP 0 :: Create the account with multiple order lines
     account_data = {
         'name': 'Account A',

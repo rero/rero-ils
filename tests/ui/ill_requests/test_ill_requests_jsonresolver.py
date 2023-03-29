@@ -18,7 +18,7 @@
 """Item type JSONResolver tests."""
 
 import pytest
-from invenio_records.api import Record
+from invenio_records import Record
 from jsonref import JsonRefError
 
 
@@ -34,11 +34,11 @@ def test_ill_requests_jsonresolver(ill_request_martigny):
     # deleted record
     ill_request_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
 
     # non existing record
     rec = Record.create({
         'ill_request': {'$ref': 'https://bib.rero.ch/api/ill_requests/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)

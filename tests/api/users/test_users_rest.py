@@ -22,8 +22,7 @@ from __future__ import absolute_import, print_function
 import json
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, login_user, logout_user, postdata
 
 
 def test_users_post_put(client, user_data_tmp, librarian_martigny,
@@ -40,7 +39,7 @@ def test_users_post_put(client, user_data_tmp, librarian_martigny,
     )
     assert res.status_code == 401
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # test invalid create
     user_data_tmp['toto'] = 'toto'
@@ -143,6 +142,7 @@ def test_users_post_put(client, user_data_tmp, librarian_martigny,
         headers=json_header
     )
     assert res.status_code == 200
+    logout_user()
 
 
 def test_users_search_api(client, librarian_martigny, patron_martigny):
@@ -160,7 +160,7 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     )
     assert res.status_code == 401
 
-    login_user_via_session(client, l_martigny.user)
+    login_user(client, l_martigny)
     # empty query => no result
     res = client.get(
         url_for(
@@ -239,7 +239,7 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     assert hits['hits']['total']['value'] == 1
 
     # Login with patron role
-    login_user_via_session(client, p_martigny.user)
+    login_user(client, p_martigny)
     res = client.get(
         url_for(
             'api_users.users_list',
@@ -263,7 +263,7 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
         .get('username')
 
     # Login with librarian role
-    login_user_via_session(client, l_martigny.user)
+    login_user(client, l_martigny)
     res = client.get(
         url_for(
             'api_users.users_list',
@@ -275,3 +275,4 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     assert 'metadata' in hits['hits']['hits'][0]
     assert hits['hits']['hits'][0]['metadata']['username'] == \
         patron_martigny['username']
+    logout_user()

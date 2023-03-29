@@ -21,8 +21,7 @@ import json
 
 import pytest
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.organisations.api import Organisation
 
@@ -49,7 +48,7 @@ def test_organisation_secure_api_update(client, json_header, org_martigny,
                                         librarian_sion,
                                         org_martigny_data):
     """Test organisation secure api create."""
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     record_url = url_for('invenio_records_rest.org_item',
                          pid_value=org_martigny.pid)
 
@@ -66,7 +65,7 @@ def test_organisation_secure_api_update(client, json_header, org_martigny,
     client.get(list_url)
     assert res.status_code == 200
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     data['name'] = 'New Name 2'
     res = client.put(
         record_url,
@@ -76,7 +75,7 @@ def test_organisation_secure_api_update(client, json_header, org_martigny,
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     res = client.put(
         record_url,
@@ -100,7 +99,7 @@ def test_organisation_secure_api(client, json_header, org_martigny,
                                  librarian_sion):
     """Test organisation secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     record_url = url_for('invenio_records_rest.org_item',
                          pid_value=org_martigny.pid)
 
@@ -108,7 +107,7 @@ def test_organisation_secure_api(client, json_header, org_martigny,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     record_url = url_for('invenio_records_rest.org_item',
                          pid_value=org_martigny.pid)
 
@@ -119,7 +118,7 @@ def test_organisation_secure_api_create(client, json_header, org_martigny,
                                         org_martigny_data):
     """Test organisation secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     post_entrypoint = 'invenio_records_rest.org_list'
 
     del org_martigny_data['pid']
@@ -131,7 +130,7 @@ def test_organisation_secure_api_create(client, json_header, org_martigny,
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     res, _ = postdata(
         client,
@@ -146,7 +145,7 @@ def test_organisation_secure_api_delete(client, json_header, org_martigny,
                                         librarian_sion,
                                         org_martigny_data):
     """Test organisation secure api delete."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     record_url = url_for('invenio_records_rest.org_item',
                          pid_value=org_martigny.pid)
 
@@ -154,7 +153,7 @@ def test_organisation_secure_api_delete(client, json_header, org_martigny,
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     res = client.delete(record_url)
     assert res.status_code == 403

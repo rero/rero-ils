@@ -19,9 +19,8 @@
 """Tests resource streamed exports."""
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
-from utils import get_csv, parse_csv
+from utils import get_csv, login_user, logout_user, parse_csv
 
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -37,7 +36,7 @@ def test_loans_exports(app, client, librarian_martigny,
 
     # STEP#2 :: CHECK EXPORT RESOURCES
     #   Logged as librarian and test the export endpoint.
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(url)
     assert res.status_code == 200
     data = list(parse_csv(get_csv(res)))
@@ -51,6 +50,7 @@ def test_loans_exports(app, client, librarian_martigny,
     ]
     assert all(field in header for field in header_columns)
     assert len(data) == 2
+    logout_user()
 
 
 def test_patron_transaction_events_exports(
@@ -72,7 +72,7 @@ def test_patron_transaction_events_exports(
     # STEP#2 :: CHECK EXPORT RESOURCES
     #   Logged as librarian and test the export endpoint.
     #   DEV NOTE :: update `operator` to max the code coverage
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     ptre['operator'] = {
         '$ref': get_ref_for_pid('ptrn', librarian_martigny.pid)
     }

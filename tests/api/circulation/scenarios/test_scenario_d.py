@@ -18,8 +18,7 @@
 """Tests circulation scenario D."""
 
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 
 def test_circ_scenario_d(
@@ -50,7 +49,7 @@ def test_circ_scenario_d(
 
     # An inexperienced librarian A (library A) makes a checkin on item A,
     # which is on shelf at library A and without requests (-> nothing happens).
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
             'pickup_location_pid': loc_public_martigny.pid,
@@ -70,7 +69,7 @@ def test_circ_scenario_d(
 
     # Another librarian B of library B tries
     # to check it out for patron B (-> denied).
-    login_user_via_session(client, librarian_saxon.user)
+    login_user(client, librarian_saxon)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
             'patron_pid': patron2_martigny.pid,
@@ -125,7 +124,7 @@ def test_circ_scenario_d(
     assert res.status_code == 200
 
     # Patron A requests it again, with pickup library A.
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
             'patron_pid': patron_martigny.pid,
@@ -158,7 +157,7 @@ def test_circ_scenario_d(
 
     # Patron B returns item A at library C.
     # It goes in transit to library A for patron A.
-    login_user_via_session(client, librarian_fully.user)
+    login_user(client, librarian_fully)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
             'patron_pid': patron2_martigny.pid,
@@ -171,7 +170,7 @@ def test_circ_scenario_d(
     assert res.status_code == 200
 
     # Before arriving to library A, it transits through library B.
-    login_user_via_session(client, librarian_saxon.user)
+    login_user(client, librarian_saxon)
     # Patron A
     # cancels his request. Item A transits through library C. It is then
     # received at its owning library A.
@@ -184,7 +183,7 @@ def test_circ_scenario_d(
         client, 'api_item.cancel_item_request', dict(circ_params))
     assert res.status_code == 200
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
             'patron_pid': patron_martigny.pid,

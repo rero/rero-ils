@@ -23,6 +23,7 @@ import os
 
 import mock
 from dojson.contrib.marc21.utils import create_record
+from flask_babel import gettext as _
 from utils import mock_response
 
 from rero_ils.dojson.utils import not_repetitive
@@ -5476,7 +5477,7 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get):
         {
             'url': 'http://reader.digitale-s.de/r/d/XXX.html',
             'type': 'versionOfResource',
-            'content': 'fullText',
+            'content': f'{_("fullText")}',
             'public_note': 'Vol. 1'
         }
     ]

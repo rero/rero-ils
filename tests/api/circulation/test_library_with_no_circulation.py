@@ -19,8 +19,7 @@
 
 from datetime import datetime
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -34,7 +33,7 @@ def test_checking_out_external_items_at_non_circ_library(
         item_lib_martigny_bourg, circulation_policies, item_lib_martigny,
         librarian_martigny_bourg):
     """Test checkout of external items at non-circ library."""
-    login_user_via_session(client, librarian_martigny_bourg.user)
+    login_user(client, librarian_martigny_bourg)
     # A non-circulation library (has no pickup configured) and library hours is
     # well configured
     opening_hours = [
@@ -88,7 +87,7 @@ def test_requesting_item_from_non_circulating_library(
         item_lib_martigny_bourg, circulation_policies,
         librarian_martigny_bourg):
     """Test requests on items of a non-circulating library."""
-    login_user_via_session(client, librarian_martigny_bourg.user)
+    login_user(client, librarian_martigny_bourg)
     # Test a checkout of an item at a library with open-hours and no pickup
     # locations defined is possible.
     opening_hours = [
@@ -144,7 +143,7 @@ def test_requesting_item_from_non_circulating_library(
     lib_martigny_bourg.pop('opening_hours', None)
     lib_martigny_bourg.update(lib_martigny_bourg, dbcommit=True, reindex=True)
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_item.librarian_request',
@@ -166,7 +165,7 @@ def test_requesting_item_from_non_circulating_library(
     assert pickup_lib_pid == lib_martigny.pid
 
     # non-circulating library send items to requesting library
-    login_user_via_session(client, librarian_martigny_bourg.user)
+    login_user(client, librarian_martigny_bourg)
     res, data = postdata(
         client,
         'api_item.validate_request',
@@ -188,7 +187,7 @@ def test_requesting_item_from_non_circulating_library(
     assert loan.get('state') == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
 
     # requesting library receives an item from non-circulating library.
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_item.receive',
@@ -211,7 +210,7 @@ def test_requesting_item_from_non_circulating_library(
     assert loan.get('state') == LoanState.ITEM_AT_DESK
 
     # checkout item to requested patron
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     date_format = '%Y/%m/%dT%H:%M:%S.000Z'
     today = datetime.utcnow()
     eod = today.replace(hour=23, minute=59, second=0, microsecond=0,

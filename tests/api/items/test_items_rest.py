@@ -24,8 +24,8 @@ from datetime import datetime, timezone
 import ciso8601
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
+from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
+    login_user, postdata
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
 from rero_ils.modules.holdings.api import Holding
@@ -81,7 +81,7 @@ def test_items_permissions(client, item_lib_martigny,
         data={}
     )
     assert res.status_code == 401
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     for view, status in views.items():
         res, _ = postdata(client, view, {})
         assert res.status_code == status
@@ -200,7 +200,7 @@ def test_checkout_default_policy(client, lib_martigny,
                                  item_lib_martigny, json_header,
                                  circulation_policies):
     """Test circ policy parameters"""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
@@ -257,7 +257,7 @@ def test_checkout_library_level_policy(client, lib_martigny,
                                        item_lib_martigny, json_header,
                                        circ_policy_short_martigny):
     """Test circ policy parameters"""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
@@ -306,7 +306,7 @@ def test_checkout_organisation_policy(client, lib_martigny,
                                       item_lib_martigny, json_header,
                                       circ_policy_short_martigny):
     """Test circ policy parameters"""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
@@ -353,7 +353,7 @@ def test_items_receive(client, librarian_martigny,
                        item_lib_martigny, json_header,
                        circulation_policies):
     """Test item receive."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
@@ -402,7 +402,7 @@ def test_items_no_extend(client, librarian_martigny,
                          item_lib_martigny, json_header,
                          circ_policy_short_martigny):
     """Test items when no renewals is possible."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
@@ -481,7 +481,7 @@ def test_items_deny_requests(client, librarian_martigny,
         dbcommit=True,
         reindex=True)
     flush_index(CircPoliciesSearch.Meta.index)
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron = patron_martigny
@@ -529,7 +529,7 @@ def test_extend_possible_actions(client, item_lib_martigny,
                                  patron_martigny,
                                  circ_policy_short_martigny):
     """Extend action changes according to params of cipo."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     patron_pid = patron_martigny.pid
     res, _ = postdata(
@@ -609,7 +609,7 @@ def test_items_extend_end_date(client, librarian_martigny,
                                item_lib_martigny, json_header,
                                circ_policy_short_martigny):
     """Test correct renewal due date for items."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
@@ -693,7 +693,7 @@ def test_multiple_loans_on_item_error(client,
                                       loc_public_fully,
                                       librarian_martigny):
     """Test MultipleLoansOnItemError."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     checked_patron = patron2_martigny.pid
     requested_patron = patron_martigny.pid
@@ -783,7 +783,7 @@ def test_filtered_items_get(
         item_lib_sion, patron_sion):
     """Test items filter by organisation."""
     # Librarian Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.item_list')
 
     res = client.get(list_url)
@@ -792,7 +792,7 @@ def test_filtered_items_get(
     assert data['hits']['total']['value'] == 4
 
     # Patron Sion
-    login_user_via_session(client, patron_sion.user)
+    login_user(client, patron_sion)
     list_url = url_for('invenio_records_rest.item_list', view='org2')
 
     res = client.get(list_url)
@@ -806,7 +806,7 @@ def test_local_fields_items_get(
         item_lib_fully, local_field_3_martigny):
     """Test items filter by local_fields."""
     # Librarian Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.item_list',
                        q='local_fields.fields.field_1:testfield1')
 
@@ -829,7 +829,7 @@ def test_items_notes(client, librarian_martigny, item_lib_martigny,
     """Test items notes."""
 
     item = item_lib_martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # at start the items have one note
     assert len(item.notes) == 1
@@ -877,7 +877,7 @@ def test_requested_loans_to_validate(
         item_type_standard_martigny, item2_lib_martigny, json_header,
         item_type_missing_martigny, patron_sion, circulation_policies):
     """Test requested loans to validate."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     holding_pid = item2_lib_martigny.holding_pid
     holding = Holding.get_record_by_pid(holding_pid)
@@ -935,7 +935,7 @@ def test_requested_loans_to_validate(
 def test_patron_request(client, patron_martigny, loc_public_martigny,
                         item_lib_martigny, circulation_policies):
     """Test patron request."""
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
 
     res, data = postdata(
         client,
@@ -960,7 +960,7 @@ def test_requests_with_different_locations(
     loc_public_martigny, item_lib_martigny, circulation_policies, lib_saxon
 ):
     """Test patron and librarian request with different locations."""
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     loc_public_saxon['allow_request'] = False
     loc_public_saxon.update(loc_public_saxon, True, True)
     res, data = postdata(
@@ -981,7 +981,7 @@ def test_requests_with_different_locations(
     }
     item_lib_martigny.cancel_item_request(**params)
 
-    login_user_via_session(client, librarian_saxon.user)
+    login_user(client, librarian_saxon)
     res, data = postdata(
         client,
         'api_item.librarian_request',
@@ -1012,7 +1012,7 @@ def test_item_possible_actions(client, item_lib_martigny,
                                patron_martigny,
                                circulation_policies):
     """Possible action changes according to params of cipo."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     patron_pid = patron_martigny.pid
     res = client.get(

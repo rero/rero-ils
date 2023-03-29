@@ -18,9 +18,8 @@
 
 from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
-from invenio_accounts.testutils import login_user_via_session
-from utils import check_permission, get_json
+from flask_security import login_user as flask_login_user
+from utils import check_permission, get_json, login_user
 
 from rero_ils.modules.organisations.permissions import \
     OrganisationPermissionPolicy
@@ -50,7 +49,7 @@ def test_organisation_permissions_api(client, patron_martigny,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     res = client.get(org_permissions_url)
     assert res.status_code == 403
 
@@ -58,7 +57,7 @@ def test_organisation_permissions_api(client, patron_martigny,
     #   * sys_lib can 'list' organisations
     #   * sys_lib can never 'create' and 'delete' any organisation
     #   * sys_lib can 'read' and 'update' only their own organisation
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     res = client.get(org_martigny_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -97,7 +96,7 @@ def test_organisation_permissions(patron_martigny,
 
     # Patron
     #    A simple patron can't operate any operation about Organisation
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(permission_policy, {
         'search': False,
         'read': False,
@@ -110,7 +109,7 @@ def test_organisation_permissions(patron_martigny,
     #     - search : any Organisation despite organisation owner
     #     - read : only Organisation for its own organisation
     #     - create/update/delete: disallowed
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(permission_policy, {'search': True}, None)
     check_permission(permission_policy, {'create': False}, {})
     check_permission(permission_policy, {
@@ -130,7 +129,7 @@ def test_organisation_permissions(patron_martigny,
     #     - search : any Organisation despite organisation owner
     #     - read/update : only Organisation for its own organisation
     #     - create/delete : always disallowed (only CLI command)
-    login_user(system_librarian_martigny.user)
+    flask_login_user(system_librarian_martigny.user)
     check_permission(permission_policy, {'search': True}, None)
     check_permission(permission_policy, {'create': False}, {})
     check_permission(permission_policy, {

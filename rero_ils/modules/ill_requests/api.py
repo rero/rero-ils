@@ -19,7 +19,7 @@
 
 from functools import partial
 
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 
 from .extensions import IllRequestOperationLogObserverExtension
 from .models import ILLRequestIdentifier, ILLRequestMetadata, \

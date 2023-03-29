@@ -21,8 +21,7 @@ from copy import deepcopy
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata
+from utils import VerifyRecordPermissionPatch, get_json, login_user, postdata
 
 from rero_ils.modules.patron_transaction_events.models import \
     PatronTransactionEventType
@@ -40,7 +39,7 @@ def test_patron_payment(
     transaction = PatronTransaction.get_record_by_pid(transaction.pid)
     assert calculated_amount == transaction.total_amount == 2.00
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     post_entrypoint = 'invenio_records_rest.ptre_list'
     payment = deepcopy(ptre)
 

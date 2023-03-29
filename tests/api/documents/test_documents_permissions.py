@@ -19,7 +19,7 @@
 import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission, flush_index
 
 from rero_ils.modules.documents.permissions import DocumentPermissionPolicy
@@ -51,7 +51,7 @@ def test_documents_permissions(
         'update': False,
         'delete': False
     }, document)
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(DocumentPermissionPolicy, {'create': False}, {})
     check_permission(DocumentPermissionPolicy, {
         'search': True,
@@ -64,7 +64,7 @@ def test_documents_permissions(
     # Librarian with specific role
     #     - search/read: any document
     #     - create/update/delete: allowed for any document
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(DocumentPermissionPolicy, {
         'search': True,
         'read': True,
@@ -81,7 +81,7 @@ def test_documents_permissions(
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
     flush_index(PatronsSearch.Meta.index)
 
-    login_user(librarian_martigny.user)  # to refresh identity !
+    flask_login_user(librarian_martigny.user)  # to refresh identity !
     check_permission(DocumentPermissionPolicy, {
         'search': True,
         'read': True,

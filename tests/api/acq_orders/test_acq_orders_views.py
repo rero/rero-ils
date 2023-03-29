@@ -19,8 +19,7 @@
 """Test acquisition order API."""
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
 from rero_ils.modules.acquisition.acq_order_lines.models import \
@@ -39,7 +38,7 @@ def test_order_notification_preview(
     acq_order_line2_fiction_martigny
 ):
     """Test order notification preview API."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     acor = acq_order_fiction_martigny
 
     url = url_for('api_order.order_notification_preview', order_pid=acor.pid)
@@ -72,7 +71,7 @@ def test_send_order(
     mailbox
 ):
     """Test send order notification API."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     acor = acq_order_fiction_martigny
     address = vendor_martigny.get('default_contact').get('email')
     emails = [{'type': 'cc', 'address': address}]

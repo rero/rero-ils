@@ -18,9 +18,8 @@
 
 from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security.utils import login_user
-from invenio_accounts.testutils import login_user_via_session
-from utils import check_permission, get_json
+from flask_security.utils import login_user as flask_login_user
+from utils import check_permission, get_json, login_user
 
 from rero_ils.modules.patron_types.permissions import \
     PatronTypePermissionPolicy
@@ -54,7 +53,7 @@ def test_item_types_permissions_api(client, librarian_martigny,
     #   * lib can 'list' item_type
     #   * lib can 'read' item_type from its own organisation
     #   * lib can't never 'create', 'delete', 'update' item_type
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(itty_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -69,7 +68,7 @@ def test_item_types_permissions_api(client, librarian_martigny,
     # Logged as system librarian
     #   * sys_lib can do anything about item_type for its own organisation
     #   * sys_lib can't do anything about item_type for other organisation
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     res = client.get(itty_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -106,7 +105,7 @@ def test_item_types_permissions(patron_martigny,
 
     # Patron
     #    A simple patron can't operate any operation about item type
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(permission_policy, {'search': False}, None)
     check_permission(permission_policy, {'create': False}, {})
     check_permission(permission_policy, {
@@ -120,7 +119,7 @@ def test_item_types_permissions(patron_martigny,
     #     - search : any item type despite organisation owner
     #     - read : only item type for its own organisation
     #     - create/update/delete: disallowed
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(permission_policy, {'search': True}, None)
     check_permission(permission_policy, {'create': False}, {})
     check_permission(permission_policy, {
@@ -140,7 +139,7 @@ def test_item_types_permissions(patron_martigny,
     #     - search : any item type despite organisation owner
     #     - read/create/update/delete : only item type for its own
     #       organisation
-    login_user(system_librarian_martigny.user)
+    flask_login_user(system_librarian_martigny.user)
     check_permission(permission_policy, {'search': True}, None)
     check_permission(permission_policy, {'create': True}, {})
     check_permission(permission_policy, {

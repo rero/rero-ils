@@ -17,7 +17,6 @@
 
 """Test record permissions API."""
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, login_user
 
 
@@ -45,7 +44,7 @@ def test_document_permissions(
     assert res.status_code == 401
 
     # failed: logged patron and a valid document pid is given
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     res = client.get(
         url_for(
             'api_blueprint.permissions',
@@ -56,13 +55,13 @@ def test_document_permissions(
     assert res.status_code == 403
 
     # success: logged user and a valid document pid is given
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     data = call_api_permissions(client, 'documents', document.pid)
     assert 'update' in data
     assert 'delete' in data
 
     # success: logged user and a valid document pid is given
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     data = call_api_permissions(client, 'documents', ebook_1.pid)
     assert 'update' in data
     assert 'delete' in data

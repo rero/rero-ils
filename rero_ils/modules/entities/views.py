@@ -20,7 +20,7 @@
 from __future__ import absolute_import, print_function
 
 from flask import Blueprint, abort, current_app, render_template
-from flask_babelex import gettext as translate
+from flask_babel import gettext as translate
 from invenio_records_ui.signals import record_viewed
 
 from rero_ils.modules.decorators import check_logged_as_librarian

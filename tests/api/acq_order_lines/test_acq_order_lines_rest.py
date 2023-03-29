@@ -21,9 +21,8 @@ import json
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    postdata, to_relative_url
 
 from rero_ils.modules.acquisition.acq_order_lines.models import \
     AcqOrderLineNoteType
@@ -154,7 +153,7 @@ def test_acq_order_line_secure_api_update(client,
                                           json_header):
     """Test acq order line secure api update."""
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     record_url = url_for('invenio_records_rest.acol_item',
                          pid_value=acq_order_line_fiction_sion.pid)
     data = acq_order_line_fiction_sion

@@ -20,8 +20,7 @@
 import json
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.users.models import UserRole
@@ -55,7 +54,7 @@ def test_patrons_marshmallow_loaders(
     #   Through the API, the `role` field is controlled by marshmallow
     #   validation process. A simple staff member isn't allowed to control all
     #   roles.
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     user_data['roles'] = [UserRole.FULL_PERMISSIONS]
     user_data = create_user_from_data(system_librarian_martigny_data_tmp)
@@ -75,7 +74,7 @@ def test_patrons_marshmallow_loaders(
     original_roles = librarian_martigny['roles']
     librarian_martigny['roles'] = [UserRole.LIBRARY_ADMINISTRATOR]
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     user_data['roles'] = [UserRole.USER_MANAGER]
     res, response_data = postdata(

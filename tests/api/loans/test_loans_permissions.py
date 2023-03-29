@@ -18,7 +18,7 @@
 
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission
 
 from rero_ils.modules.loans.permissions import LoanPermissionPolicy
@@ -44,7 +44,7 @@ def test_loan_permissions(
     # Patron
     #    * can : search, read (own record), create
     #    * can't : update, delete
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(LoanPermissionPolicy, {
         'search': True,
         'read': True,
@@ -63,7 +63,7 @@ def test_loan_permissions(
     # Librarian without correct role
     #     - can : search, read (own organisation), create
     #     - update, delete : disallowed (missing ActionNeed)
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(LoanPermissionPolicy, {
         'search': True,
         'read': True,
@@ -81,7 +81,7 @@ def test_loan_permissions(
 
     # Loan anonymized
     loan_overdue_martigny['to_anonymize'] = True
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(LoanPermissionPolicy, {
         'search': True,
         'read': False,

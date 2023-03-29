@@ -18,7 +18,7 @@
 """Tests account rest auth api."""
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
+from utils import login_user
 
 
 def test_disabled_endpoint(client, app, patron_martigny):
@@ -48,7 +48,7 @@ def test_disabled_endpoint(client, app, patron_martigny):
     post('invenio_accounts_rest_auth.confirm_email')
 
     # Logged as user
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
 
     post(url_for('invenio_accounts_rest_auth.logout'))
     get(url_for('invenio_accounts_rest_auth.user_info'))

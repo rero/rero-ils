@@ -26,7 +26,7 @@ import click
 from elasticsearch_dsl.query import Q
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 

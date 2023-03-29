@@ -23,6 +23,7 @@ from flask_principal import Identity, RoleNeed
 from invenio_access import ActionUsers, Permission
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, mock_response, postdata
+from utils import get_json, login_user, logout_user, postdata
 
 from rero_ils.modules.acquisition.budgets.permissions import \
     search_action as budget_search_action
@@ -34,12 +35,13 @@ from rero_ils.permissions import librarian_delete_permission_factory
 def test_librarian_delete_permission_factory(
         client, librarian_fully, org_martigny, lib_martigny):
     """Test librarian_delete_permission_factory """
-    login_user_via_session(client, librarian_fully.user)
+    login_user(client, librarian_fully)
     assert type(librarian_delete_permission_factory(
         None,
         credentials_only=True
     )) == Permission
     assert librarian_delete_permission_factory(org_martigny) is not None
+    logout_user()
 
 
 def test_system_librarian_permissions(
@@ -48,7 +50,7 @@ def test_system_librarian_permissions(
         librarian_fully):
     """Test system_librarian permissions."""
     # Login as system_librarian
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
 
     # can manage all types of patron roles
     role_url = url_for('api_patrons.get_roles_management_permissions')
@@ -56,11 +58,12 @@ def test_system_librarian_permissions(
     assert res.status_code == 200
     data = get_json(res)
     assert UserRole.FULL_PERMISSIONS in data['allowed_roles']
+    logout_user()
 
 
 def test_permission_exposition(app, db, client, system_librarian_martigny):
     """Test permission exposition."""
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
 
     # test exposition by role =================================================
     res = client.get(url_for(
@@ -119,6 +122,7 @@ def test_permission_exposition(app, db, client, system_librarian_martigny):
         .filter(ActionUsers.user_id == system_librarian_martigny.user.id)\
         .delete(synchronize_session=False)
     db.session.commit()
+    logout_user()
 
 
 def test_permission_management(client, system_librarian_martigny):
@@ -132,7 +136,7 @@ def test_permission_management(client, system_librarian_martigny):
     res, _ = postdata(client, 'api_blueprint.permission_management', {})
     assert res.status_code == 401
 
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     res, data = postdata(client, 'api_blueprint.permission_management', {})
     assert res.status_code == 400
     assert 'context' in data['message']
@@ -186,6 +190,7 @@ def test_permission_management(client, system_librarian_martigny):
     res = client.post(perm_url, json=perm_data)
     assert res.status_code == 200
     assert fake_identity.can(permission)
+<<<<<<< HEAD:tests/api/test_commons_api.py
 
 
 @mock.patch('rero_ils.modules.decorators.login_and_librarian',
@@ -203,3 +208,6 @@ def test_proxy(mock_get, client):
         url='http://mocked.url')
     )
     assert response.status_code == 418
+=======
+    logout_user()
+>>>>>>> 313e33abb (dependencies: fix security issues):tests/api/test_permissions_api.py

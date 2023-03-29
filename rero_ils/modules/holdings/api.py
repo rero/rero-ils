@@ -27,7 +27,7 @@ from functools import partial
 from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl import Q
 from flask import current_app
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_records_rest.utils import obj_or_import_string
 from jinja2 import Environment
 

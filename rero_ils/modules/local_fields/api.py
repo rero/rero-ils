@@ -21,7 +21,7 @@
 from functools import partial
 
 from elasticsearch_dsl import Q
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 
 from .models import LocalFieldIdentifier, LocalFieldMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch

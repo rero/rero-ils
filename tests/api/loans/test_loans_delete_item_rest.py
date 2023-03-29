@@ -18,8 +18,7 @@
 """Tests REST API loan deleted item."""
 
 from flask.helpers import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 
 def test_loans_serializer_with_deleted_item(
@@ -27,7 +26,7 @@ def test_loans_serializer_with_deleted_item(
     lib_martigny, rero_json_header, circulation_policies
 ):
     """Test loan serializer with a deleted item."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, _ = postdata(client, 'api_item.checkout', dict(
         item_pid=item_lib_martigny.pid,
         patron_pid=patron2_martigny.pid,

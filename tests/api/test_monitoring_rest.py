@@ -21,11 +21,12 @@
 import time
 
 from flask import url_for
+from flask_security import login_user as flask_login_user
 from invenio_access.models import ActionUsers
 from invenio_access.permissions import superuser_access
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
-from utils import flush_index, get_json
+from utils import flush_index, get_json, login_user, logout_user
 
 from rero_ils.modules.entities.api import EntitiesSearch, Entity
 from rero_ils.modules.utils import get_timestamp, set_timestamp
@@ -128,6 +129,7 @@ def test_monitoring_check_es_db_counts(app, client, entity_person_data,
             'ES duplicate': []
         }
     }
+    logout_user()
 
 
 def test_timestamps(app, client):
@@ -150,7 +152,8 @@ def test_timestamps(app, client):
     ds.add_role_to_user(user, role)
     ds.commit()
     user = ds.get_user('monitoring@rero.ch')
-    login_user_via_session(client, user)
+    flask_login_user(user)
+    login_user_via_session(client, user=user)
     res = client.get(url_for('api_monitoring.timestamps'))
     assert res.status_code == 200
     assert get_json(res) == {
@@ -163,3 +166,4 @@ def test_timestamps(app, client):
             }
         }
     }
+    logout_user()

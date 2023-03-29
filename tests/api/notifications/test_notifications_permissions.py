@@ -19,7 +19,7 @@
 import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission, flush_index
 
 from rero_ils.modules.notifications.permissions import \
@@ -54,7 +54,7 @@ def test_notifcations_permissions(
         'update': False,
         'delete': False
     }, notification_late_martigny)
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(NotificationPermissionPolicy, {'create': False}, {})
     check_permission(NotificationPermissionPolicy, {
         'search': True,
@@ -67,7 +67,7 @@ def test_notifcations_permissions(
     # Librarian without specific role
     #   - search/read: any notifications
     #   - create/update/delete: disallowed for any notifications
-    login_user(librarian2_martigny.user)
+    flask_login_user(librarian2_martigny.user)
     check_permission(NotificationPermissionPolicy, {
         'search': True,
         'read': True,
@@ -96,7 +96,7 @@ def test_notifcations_permissions(
                                dbcommit=True, reindex=True)
     flush_index(PatronsSearch.Meta.index)
 
-    login_user(librarian2_martigny.user)
+    flask_login_user(librarian2_martigny.user)
     check_permission(NotificationPermissionPolicy, {
         'search': True,
         'read': True,
@@ -126,7 +126,7 @@ def test_notifcations_permissions(
 
     # System librarian (aka. full-permissions)
     #   - create/update/delete: allow for notification if its own org
-    login_user(system_librarian_martigny.user)
+    flask_login_user(system_librarian_martigny.user)
     check_permission(NotificationPermissionPolicy, {
         'search': True,
         'read': True,

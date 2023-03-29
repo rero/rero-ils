@@ -22,9 +22,8 @@ from copy import deepcopy
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    postdata, to_relative_url
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -173,7 +172,7 @@ def test_filtered_acq_accounts_get(
     assert res.status_code == 401
 
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.acac_list')
 
     res = client.get(list_url)
@@ -182,7 +181,7 @@ def test_filtered_acq_accounts_get(
     assert data['hits']['total']['value'] == 1
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.acac_list')
 
     res = client.get(list_url)
@@ -197,7 +196,7 @@ def test_acq_account_secure_api(client, json_header,
                                 librarian_sion):
     """Test acq account secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     record_url = url_for('invenio_records_rest.acac_item',
                          pid_value=acq_account_fiction_martigny.pid)
 
@@ -205,7 +204,7 @@ def test_acq_account_secure_api(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     record_url = url_for('invenio_records_rest.acac_item',
                          pid_value=acq_account_fiction_martigny.pid)
 
@@ -221,7 +220,7 @@ def test_acq_account_secure_api_create(client, json_header,
                                        system_librarian_martigny):
     """Test acq account secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     post_entrypoint = 'invenio_records_rest.acac_list'
 
     acq_account_books_saxon_data.pop('pid')
@@ -241,7 +240,7 @@ def test_acq_account_secure_api_create(client, json_header,
     assert res.status_code == 201
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     res, _ = postdata(client, post_entrypoint, acc_data)
     assert res.status_code == 403
 
@@ -254,7 +253,7 @@ def test_acq_account_secure_api_update(client,
                                        json_header):
     """Test acq account secure api update."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     record_url = url_for('invenio_records_rest.acac_item',
                          pid_value=acq_account_books_martigny.pid)
 
@@ -268,7 +267,7 @@ def test_acq_account_secure_api_update(client,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     res = client.put(
         record_url,
@@ -286,7 +285,7 @@ def test_acq_account_secure_api_delete(client,
                                        json_header):
     """Test acq account secure api delete."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     record_url = url_for('invenio_records_rest.acac_item',
                          pid_value=acq_account_books_martigny.pid)
 
@@ -300,7 +299,7 @@ def test_acq_account_secure_api_delete(client,
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     res = client.delete(record_url)
     assert res.status_code == 403

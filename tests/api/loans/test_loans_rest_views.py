@@ -18,7 +18,6 @@
 """Tests REST API loans."""
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from invenio_jsonschemas import current_jsonschemas
 from utils import get_json, item_record_to_a_specific_loan_state, login_user
 
@@ -62,12 +61,12 @@ def test_loan_circulation_policy(
     dummy_url = url_for(base_url_for, loan_pid='dummy_pid')
 
     # Patron user cannot access to this API
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     response = client.get(api_url)
     assert response.status_code == 403
 
     # Librarian user can access to this API
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     response = client.get(api_url)
     assert response.status_code == 200
     data = get_json(response)

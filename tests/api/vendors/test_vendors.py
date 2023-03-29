@@ -20,14 +20,13 @@
 import json
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 
 def test_vendors_get(client, librarian_martigny, vendor_martigny):
     """Test vendor record retrieval."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item_url = url_for(
         'invenio_records_rest.vndr_item',
         pid_value=vendor_martigny.pid)
@@ -53,7 +52,7 @@ def test_filtered_vendors_get(client, librarian_martigny,
                               vendor2_martigny, vendor_sion, vendor2_sion):
     """Test vendors filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.vndr_list')
 
     res = client.get(list_url)
@@ -62,7 +61,7 @@ def test_filtered_vendors_get(client, librarian_martigny,
     assert data['hits']['total']['value'] == 2
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.vndr_list')
 
     res = client.get(list_url)
@@ -85,7 +84,7 @@ def test_vendors_can_delete(
 def test_vendor_post_update_delete(client, librarian_martigny,
                                    vendor3_martigny_data, json_header):
     """Test CRUD on vendor."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item_url = url_for('invenio_records_rest.vndr_item', pid_value='vndr3')
 
     # create

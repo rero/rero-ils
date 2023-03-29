@@ -18,8 +18,7 @@
 """Tests REST change pickup location API methods in the item api_views."""
 
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 
 def test_change_pickup_location_request(
@@ -28,7 +27,7 @@ def test_change_pickup_location_request(
         item_on_shelf_martigny_patron_and_loan_pending, loc_public_martigny,
         circulation_policies, loc_public_fully):
     """Test the frontend update pickup location calls."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
 
     # test fails when there is a missing required parameter
@@ -72,7 +71,7 @@ def test_change_pickup_location_request_for_other_loans(
         item_in_transit_martigny_patron_and_loan_for_pickup,
         item_in_transit_martigny_patron_and_loan_to_house):
     """Test the frontend update pickup location calls of other loan states."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     # CHANGE_PICKUP_LOCATION_2_1: update denied on ITEM_ON_LOAN loans.
     item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
     res, data = postdata(

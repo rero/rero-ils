@@ -22,9 +22,8 @@ import json
 import mock
 import pytest
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    postdata, to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 
@@ -197,7 +196,7 @@ def test_filtered_item_types_get(
         item_type_internal_sion, item_type_particular_sion):
     """Test item types filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.itty_list')
 
     res = client.get(list_url)
@@ -206,7 +205,7 @@ def test_filtered_item_types_get(
     assert data['hits']['total']['value'] == 4
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.itty_list')
 
     res = client.get(list_url)
@@ -221,7 +220,7 @@ def test_item_type_secure_api(client, json_header,
                               librarian_sion):
     """Test item type secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     record_url = url_for('invenio_records_rest.itty_item',
                          pid_value=item_type_standard_martigny.pid)
 
@@ -229,7 +228,7 @@ def test_item_type_secure_api(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     record_url = url_for('invenio_records_rest.itty_item',
                          pid_value=item_type_standard_martigny.pid)
 
@@ -244,7 +243,7 @@ def test_item_type_secure_api_create(client, json_header,
                                      item_type_standard_martigny_data):
     """Test item type secure api create."""
     # Martigny
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     post_entrypoint = 'invenio_records_rest.itty_list'
 
     del item_type_standard_martigny_data['pid']
@@ -256,7 +255,7 @@ def test_item_type_secure_api_create(client, json_header,
     assert res.status_code == 201
 
     # Sion
-    login_user_via_session(client, system_librarian_sion.user)
+    login_user(client, system_librarian_sion)
 
     res, _ = postdata(
         client,
@@ -274,7 +273,7 @@ def test_item_type_secure_api_update(client,
                                      json_header):
     """Test item type secure api update."""
     # Martigny
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     record_url = url_for('invenio_records_rest.itty_item',
                          pid_value=item_type_on_site_martigny.pid)
 
@@ -288,7 +287,7 @@ def test_item_type_secure_api_update(client,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, system_librarian_sion.user)
+    login_user(client, system_librarian_sion)
 
     res = client.put(
         record_url,
@@ -306,7 +305,7 @@ def test_item_type_secure_api_delete(client,
                                      json_header):
     """Test item type secure api delete."""
     # Martigny
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     record_url = url_for('invenio_records_rest.itty_item',
                          pid_value=item_type_on_site_martigny.pid)
 
@@ -315,7 +314,7 @@ def test_item_type_secure_api_delete(client,
         assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, system_librarian_sion.user)
+    login_user(client, system_librarian_sion)
 
     res = client.delete(record_url)
     assert res.status_code == 403

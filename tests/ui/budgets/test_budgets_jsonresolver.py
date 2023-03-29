@@ -18,7 +18,7 @@
 """Budget JSONResolver tests."""
 
 import pytest
-from invenio_records.api import Record
+from invenio_records import Record
 from jsonref import JsonRefError
 
 from rero_ils.modules.utils import extracted_data_from_ref
@@ -34,11 +34,11 @@ def test_budgets_jsonresolver(budget_2017_martigny):
     # deleted record
     budget_2017_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
 
     # non existing record
     rec = Record.create({
         'budget': {'$ref': 'https://bib.rero.ch/api/budgets/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)

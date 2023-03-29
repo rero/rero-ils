@@ -19,8 +19,7 @@
 from datetime import datetime, timedelta
 
 import ciso8601
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.items.models import ItemStatus
 
@@ -41,7 +40,7 @@ def test_checkout_missing_parameters(
         - transaction_location_pid or transaction_library_pid
         - transaction_user_pid
     """
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 
@@ -85,7 +84,7 @@ def test_checkout(
         circulation_policies,
         item_on_shelf_martigny_patron_and_loan_pending):
     """Test a successful frontend checkout action."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 

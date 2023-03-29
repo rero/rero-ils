@@ -21,9 +21,8 @@ from datetime import datetime, timedelta
 
 from flask import url_for
 from freezegun import freeze_time
-from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, get_json, postdata
+from utils import flush_index, get_json, login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, get_overdue_loans
@@ -56,7 +55,7 @@ def test_checkout_library_limit(
     library_ref = get_ref_for_pid('lib', lib_martigny.pid)
     location_ref = get_ref_for_pid('loc', loc_public_martigny.pid)
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # Update fixtures for the tests
     #   * Update the patron_type to set a checkout limits
@@ -235,7 +234,7 @@ def test_overdue_limit(
     #   * Create a checkout and set end_date to a fixed_date equals to
     #     current tested date. The loan should not be considered as overdue
     #     and a second checkout should be possible
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_item.checkout',
@@ -429,7 +428,7 @@ def test_unpaid_subscription(
     patron = patron_martigny
     patron_type = patron_type_children_martigny
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # STEP#0 :: Prepare data for test
     #   * Update the patron_type to set a unpaid_subscription limit rule to

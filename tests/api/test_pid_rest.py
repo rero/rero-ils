@@ -17,8 +17,7 @@
 
 """API tests for PID and IlsRecords"""
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.locations.api import Location
 
@@ -30,7 +29,7 @@ def test_ilsrecord_pid_after_validationerror(
     next_pid = str(int(loc.pid) + 1)
 
     # post invalid data and post them
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, _ = postdata(
         client,
         'invenio_records_rest.loc_list',

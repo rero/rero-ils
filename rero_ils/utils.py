@@ -22,9 +22,9 @@ from datetime import datetime
 
 import iso639
 from flask import current_app
-from flask_babelex import gettext
+from flask_babel import gettext
 from flask_security.confirmable import confirm_user
-from invenio_accounts.ext import hash_password
+from flask_security.utils import hash_password
 from invenio_accounts.models import User as BaseUser
 from invenio_db import db
 from invenio_i18n.ext import current_i18n

@@ -19,8 +19,7 @@
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import get_json, login_user
 
 from rero_ils.modules.patrons.views import format_currency_filter
 
@@ -37,7 +36,7 @@ def test_patrons_logged_user(client, librarian_martigny):
     assert data.get('settings')
 
     # logged user
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(url_for('patrons.logged_user', resolve=1))
     assert res.status_code == 200
     data = get_json(res)
@@ -55,7 +54,7 @@ def test_patrons_logged_user(client, librarian_martigny):
         'rero_ils.modules.patrons.views.current_i18n',
         current_i18n
     ):
-        login_user_via_session(client, librarian_martigny.user)
+        login_user(client, librarian_martigny)
         res = client.get(url_for('patrons.logged_user'))
         assert res.status_code == 200
         data = get_json(res)

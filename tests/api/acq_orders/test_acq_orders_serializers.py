@@ -19,8 +19,7 @@
 """Tests Serializers."""
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_csv
+from utils import get_csv, login_user
 
 
 def test_csv_serializer(client, csv_header, librarian_martigny,
@@ -32,7 +31,7 @@ def test_csv_serializer(client, csv_header, librarian_martigny,
                         acq_receipt_line_1_fiction_martigny,
                         acq_receipt_line_2_fiction_martigny):
     """Test CSV formatter"""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('api_exports.acq_order_export',
                        q=f'pid:{acq_order_fiction_martigny.pid}')
     response = client.get(list_url, headers=csv_header)

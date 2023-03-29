@@ -22,9 +22,8 @@ import json
 import mock
 import pytest
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    postdata, to_relative_url
 
 from rero_ils.modules.libraries.api import LibraryNeverOpen
 
@@ -176,7 +175,7 @@ def test_filtered_libraries_get(
         client, librarian_martigny, lib_martigny, lib_saxon,
         lib_fully, librarian_sion, lib_sion):
     """Test libraries filter by organisation."""    # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.lib_list')
 
     res = client.get(list_url)
@@ -185,7 +184,7 @@ def test_filtered_libraries_get(
     assert data['hits']['total']['value'] == 4
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.lib_list')
 
     res = client.get(list_url)
@@ -201,7 +200,7 @@ def test_library_secure_api(client, lib_martigny, lib_fully,
                             system_librarian_sion):
     """Test library secure api access."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     record_url = url_for('invenio_records_rest.lib_item',
                          pid_value=lib_martigny.pid)
 
@@ -215,7 +214,7 @@ def test_library_secure_api(client, lib_martigny, lib_fully,
     # a librarian is authorized to access other library records of its org
     assert res.status_code == 200
 
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     record_url = url_for('invenio_records_rest.lib_item',
                          pid_value=lib_martigny.pid)
     res = client.get(record_url)
@@ -229,7 +228,7 @@ def test_library_secure_api(client, lib_martigny, lib_fully,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     record_url = url_for('invenio_records_rest.lib_item',
                          pid_value=lib_martigny.pid)
 
@@ -237,7 +236,7 @@ def test_library_secure_api(client, lib_martigny, lib_fully,
     # a librarian is not authorized to access library record of another  org
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion.user)
+    login_user(client, system_librarian_sion)
     res = client.get(record_url)
     # a sys_lib is not authorized to access its library record of its org
     assert res.status_code == 403
@@ -251,7 +250,7 @@ def test_library_secure_api_create(client, lib_martigny,
                                    system_librarian_sion):
     """Test library secure api create."""
     # Martigny
-    login_user_via_session(client, librarian2_martigny.user)
+    login_user(client, librarian2_martigny)
     post_entrypoint = 'invenio_records_rest.lib_list'
 
     del lib_martigny_data['pid']
@@ -266,7 +265,7 @@ def test_library_secure_api_create(client, lib_martigny,
 
     # * sys_librarian is authorized to create its library record of its org
     # * sys_librarian is authorized to create new library record in its org
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     res, _ = postdata(client, post_entrypoint, lib_martigny_data)
     assert res.status_code == 201
     res, _ = postdata(client, post_entrypoint, lib_fully_data)
@@ -281,7 +280,7 @@ def test_library_secure_api_update(client, lib_fully, lib_martigny,
                                    system_librarian_sion):
     """Test library secure api update."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     record_url = url_for('invenio_records_rest.lib_item',
                          pid_value=lib_martigny.pid)
 
@@ -306,7 +305,7 @@ def test_library_secure_api_update(client, lib_fully, lib_martigny,
     # a librarian is not authorized to update an external library of its org
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     res = client.put(
         record_url,
         data=json.dumps(lib_fully),
@@ -327,7 +326,7 @@ def test_library_secure_api_update(client, lib_fully, lib_martigny,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     record_url = url_for('invenio_records_rest.lib_item',
                          pid_value=lib_fully.pid)
@@ -341,7 +340,7 @@ def test_library_secure_api_update(client, lib_fully, lib_martigny,
     # librarian is not authorized to update an external library of another org
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_sion.user)
+    login_user(client, system_librarian_sion)
     res = client.put(
         record_url,
         data=json.dumps(lib_fully),
@@ -358,7 +357,7 @@ def test_library_secure_api_delete(client, lib_fully, lib_martigny,
                                    system_librarian_sion):
     """Test library secure api delete."""
     # Martigny
-    login_user_via_session(client, librarian2_martigny.user)
+    login_user(client, librarian2_martigny)
     record_url = url_for('invenio_records_rest.lib_item',
                          pid_value=lib_martigny.pid)
 
@@ -374,19 +373,19 @@ def test_library_secure_api_delete(client, lib_fully, lib_martigny,
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     res = client.delete(record_url)
     # librarian is not authorized to delete an external library of another org
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
 
     res = client.delete(record_url)
     # sys_librarian is authorized to delete any library of its org
     assert res.status_code == 204
 
-    login_user_via_session(client, system_librarian_sion.user)
+    login_user(client, system_librarian_sion)
     record_url = url_for('invenio_records_rest.lib_item',
                          pid_value=lib_martigny.pid)
 

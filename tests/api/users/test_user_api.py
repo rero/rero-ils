@@ -20,8 +20,7 @@
 import string
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import get_json, login_user
 
 
 def test_generate_password(client, app, librarian_martigny):
@@ -34,7 +33,7 @@ def test_generate_password(client, app, librarian_martigny):
     assert res.status_code == 401
 
     # Logged as librarian
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(url_for('api_user.password_generate', length=6))
     assert res.status_code == 400
     assert get_json(res)['message'] \

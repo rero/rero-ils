@@ -21,9 +21,8 @@ import json
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    postdata, to_relative_url
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -163,7 +162,7 @@ def test_filtered_acquisition_invoices_get(
     assert res.status_code == 401
 
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.acin_list')
 
     res = client.get(list_url)
@@ -172,7 +171,7 @@ def test_filtered_acquisition_invoices_get(
     assert data['hits']['total']['value'] == 2
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.acin_list')
 
     res = client.get(list_url)

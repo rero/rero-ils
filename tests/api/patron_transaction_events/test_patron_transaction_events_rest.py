@@ -22,9 +22,8 @@ from copy import deepcopy
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    postdata, to_relative_url
 
 from rero_ils.modules.patron_transaction_events.api import \
     PatronTransactionEvent
@@ -164,12 +163,12 @@ def test_filtered_patron_transaction_events_get(
     """Test patron transaction event filter by organisation."""
     list_url = url_for('invenio_records_rest.ptre_list')
 
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     res = client.get(list_url)
     assert res.status_code == 200
 
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     res = client.get(list_url)
     assert res.status_code == 200
@@ -177,7 +176,7 @@ def test_filtered_patron_transaction_events_get(
     assert data['hits']['total']['value'] == 1
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.ptre_list')
 
     res = client.get(list_url)

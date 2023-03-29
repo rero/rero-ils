@@ -18,7 +18,7 @@
 """Organisation JSONResolver tests."""
 
 import pytest
-from invenio_records.api import Record
+from invenio_records import Record
 from jsonref import JsonRefError
 
 
@@ -33,11 +33,11 @@ def test_libraries_jsonresolver(lib_martigny):
     # deleted record
     library.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
 
     # non existing record
     rec = Record.create({
         'library': {'$ref': 'https://bib.rero.ch/api/libraries/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)

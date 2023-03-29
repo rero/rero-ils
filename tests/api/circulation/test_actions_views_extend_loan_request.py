@@ -18,8 +18,7 @@
 """Tests REST checkout API methods in the item api_views."""
 
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.items.models import ItemStatus
 
@@ -37,7 +36,7 @@ def test_extend_loan_missing_parameters(
         - transaction_location_pid or transaction_library_pid
         - transaction_user_pid
     """
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     assert item.status == ItemStatus.ON_LOAN
 
@@ -79,7 +78,7 @@ def test_extend_loan(
         item_on_loan_martigny_patron_and_loan_on_loan,
         yesterday):
     """Test frontend extend action."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     # Update loan `end_date` to play with "extend" function without problem
     loan['end_date'] = loan['start_date']

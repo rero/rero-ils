@@ -18,8 +18,7 @@
 """Tests REST validate item request API methods in the item api_views."""
 
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 
 def test_validate_item_request(
@@ -29,7 +28,7 @@ def test_validate_item_request(
     circulation_policies
 ):
     """Test the frontend validate an item request action."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
 
     # TEST FAILS WHEN THERE IS A MISSING REQUIRED PARAMETER
@@ -67,7 +66,7 @@ def test_validate_item_request(
     })
     assert res.status_code == 200
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item, patron, loan = item2_on_shelf_martigny_patron_and_loan_pending
     res, data = postdata(client, 'api_item.validate_request', data={
         'pid': loan.pid,

@@ -18,9 +18,8 @@
 
 from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security.utils import login_user
-from invenio_accounts.testutils import login_user_via_session
-from utils import check_permission, get_json
+from flask_security.utils import login_user as flask_user_login
+from utils import check_permission, get_json, login_user
 
 from rero_ils.modules.circ_policies.permissions import \
     CirculationPolicyPermissionPolicy as CiPoPermissionPolicy
@@ -55,7 +54,7 @@ def test_circ_policies_permissions_api(client, librarian_martigny,
     #   * lib can 'read' cipo from its own organisation
     #   * lib can't never 'create', 'delete', cipo
     #   * lib can update cipo depending of cipo settings
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(cipo_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -70,7 +69,7 @@ def test_circ_policies_permissions_api(client, librarian_martigny,
     # Logged as system librarian
     #   * sys_lib can do anything about patron type for its own organisation
     #   * sys_lib can't doo anything about patron type for other organisation
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     res = client.get(cipo_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -106,7 +105,7 @@ def test_circ_policies_permissions(patron_martigny,
 
     # Patron
     #    A simple patron can't operate any operation about circulation policies
-    login_user(patron_martigny.user)
+    flask_user_login(patron_martigny.user)
     check_permission(CiPoPermissionPolicy, {'search': False}, None)
     check_permission(CiPoPermissionPolicy, {'create': False}, {})
     check_permission(CiPoPermissionPolicy, {
@@ -120,7 +119,7 @@ def test_circ_policies_permissions(patron_martigny,
     #     - search : any circulation policies despite organisation owner
     #     - read : only circulation policies for its own organisation
     #     - create/update/delete: disallowed
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(CiPoPermissionPolicy, {'search': True}, None)
     check_permission(CiPoPermissionPolicy, {'create': False}, {})
     check_permission(CiPoPermissionPolicy, {
@@ -140,7 +139,7 @@ def test_circ_policies_permissions(patron_martigny,
     #     - search : any circulation policies despite organisation owner
     #     - read/create/update/delete : only circulation policies for its own
     #       organisation
-    login_user(system_librarian_martigny.user)
+    flask_login_user(system_librarian_martigny.user)
     check_permission(CiPoPermissionPolicy, {'search': True}, None)
     check_permission(CiPoPermissionPolicy, {'create': True}, {})
     check_permission(CiPoPermissionPolicy, {

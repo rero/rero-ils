@@ -18,7 +18,7 @@
 """Acq order JSONResolver tests."""
 
 import pytest
-from invenio_records.api import Record
+from invenio_records import Record
 from jsonref import JsonRefError
 
 from rero_ils.modules.utils import extracted_data_from_ref
@@ -33,11 +33,11 @@ def test_acq_orders_jsonresolver(acq_order_fiction_martigny):
     # deleted record
     acq_order_fiction_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
 
     # non existing record
     rec = Record.create({
         'acq_order': {'$ref': 'https://bib.rero.ch/api/acq_orders/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)

@@ -19,8 +19,7 @@
 
 from copy import deepcopy
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, logout_user, postdata
 
 from rero_ils.modules.cli.utils import create_personal
 from rero_ils.modules.items.models import ItemStatus
@@ -32,7 +31,7 @@ def test_patron_can_delete(client, librarian_martigny,
                            item_lib_martigny, json_header, lib_martigny,
                            circulation_policies):
     """Test patron can delete."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     patron = patron_martigny
     location = loc_public_martigny
@@ -71,6 +70,7 @@ def test_patron_can_delete(client, librarian_martigny,
     )
     assert res.status_code == 200
     assert item.status == ItemStatus.ON_SHELF
+    logout_user()
 
 
 def test_patron_utils(client, librarian_martigny,
@@ -78,7 +78,7 @@ def test_patron_utils(client, librarian_martigny,
                       item_lib_martigny, json_header,
                       circulation_policies):
     """Test patron utils."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     patron = patron_martigny
     location = loc_public_martigny
@@ -92,6 +92,7 @@ def test_patron_utils(client, librarian_martigny,
 
     from rero_ils.modules.patrons.views import get_checkout_loan_for_item
     assert not get_checkout_loan_for_item(item.pid)
+    logout_user()
 
 
 def test_patron_authenticate(client, patron_martigny, patron_martigny_data,

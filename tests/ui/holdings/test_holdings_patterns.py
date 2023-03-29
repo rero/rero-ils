@@ -26,8 +26,8 @@ from datetime import datetime
 import ciso8601
 import jinja2
 import pytest
-from invenio_accounts.testutils import login_user_via_session
 from jsonschema.exceptions import ValidationError
+from utils import login_user
 
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.models import HoldingNoteTypes
@@ -331,7 +331,7 @@ def test_holding_validate_next_expected_date(
 
     the next_expected_date.
     """
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     holding = holding_lib_sion_w_patterns_data
     holding['holdings_type'] = 'serial'
     holding['patterns'] = \
@@ -559,7 +559,7 @@ def test_holding_notes(client, librarian_martigny,
     """Test holdings notes."""
 
     holding = holding_lib_martigny_w_patterns
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # holdings has only on general note
     assert len(holding.notes) == 1

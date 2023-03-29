@@ -21,11 +21,11 @@
 from datetime import datetime
 
 from flask import current_app, url_for
-from flask_babelex import lazy_gettext as _
+from flask_babel import lazy_gettext as _
 from flask_login import current_user
 from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
-from invenio_accounts.ext import hash_password
+from flask_security.utils import hash_password
 from invenio_accounts.models import User as BaseUser
 from invenio_db import db
 from invenio_jsonschemas import current_jsonschemas

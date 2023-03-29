@@ -22,9 +22,8 @@ import json
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    postdata, to_relative_url
 
 from rero_ils.modules.holdings.api import Holding
 
@@ -100,7 +99,7 @@ def test_filtered_holdings_get(
         patron_sion):
     """Test holding filter by organisation."""
     # Librarian Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.hold_list')
 
     res = client.get(list_url)
@@ -109,7 +108,7 @@ def test_filtered_holdings_get(
     assert data['hits']['total']['value'] == 4
 
     # Patron Martigny
-    login_user_via_session(client, patron_sion.user)
+    login_user(client, patron_sion)
     list_url = url_for('invenio_records_rest.hold_list', view='org2')
     res = client.get(list_url)
     assert res.status_code == 200
@@ -193,7 +192,7 @@ def test_holding_request(client, librarian_martigny, patron_martigny,
                          lib_martigny, circ_policy_short_martigny):
     """Test holding can be requested"""
     # test patron can request holding
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     patron = patron_martigny
 
     res = client.get(
@@ -208,7 +207,7 @@ def test_holding_request(client, librarian_martigny, patron_martigny,
     assert response['can']
 
     # test librarian can request holding
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     patron = librarian_martigny
 
     res = client.get(
@@ -223,7 +222,7 @@ def test_holding_request(client, librarian_martigny, patron_martigny,
     assert response['can']
 
     # test patron cannot request holding
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     patron = patron_martigny
 
     res = client.get(
@@ -238,7 +237,7 @@ def test_holding_request(client, librarian_martigny, patron_martigny,
     assert not response['can']
 
     # test librarian cannot request holding
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     patron = librarian_martigny
 
     res = client.get(

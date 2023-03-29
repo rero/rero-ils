@@ -19,7 +19,7 @@
 import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission
 
 from rero_ils.modules.acquisition.acq_receipt_lines.permissions import \
@@ -44,7 +44,7 @@ def test_receipt_lines_permissions(
         'update': False,
         'delete': False
     }, {})
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(AcqReceiptLinePermissionPolicy, {
         'search': False,
         'read': False,
@@ -56,7 +56,7 @@ def test_receipt_lines_permissions(
     # As staff member without any specific access :
     #   - None action allowed
     #   - except read record of its own library (pro_read_only)
-    login_user(librarian2_martigny.user)
+    flask_login_user(librarian2_martigny.user)
     check_permission(AcqReceiptLinePermissionPolicy, {
         'search': True,
         'read': True,
@@ -76,7 +76,7 @@ def test_receipt_lines_permissions(
     #   - Search :: everything
     #   - Read :: record of its own library
     #   - Create/Update/Delete :: record of its own library
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(AcqReceiptLinePermissionPolicy, {
         'search': True,
         'read': True,
@@ -96,7 +96,7 @@ def test_receipt_lines_permissions(
     #   - Search :: everything
     #   - Read :: record of its own organisation
     #   - Create/Update/Delete :: record of its own organisation
-    login_user(system_librarian_martigny.user)
+    flask_login_user(system_librarian_martigny.user)
     check_permission(AcqReceiptLinePermissionPolicy, {
         'search': True,
         'read': True,

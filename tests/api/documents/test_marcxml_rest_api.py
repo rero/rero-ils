@@ -19,7 +19,7 @@
 
 
 from click.testing import CliRunner
-from utils import login_user_via_session, postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.cli.utils import tokens_create
 
@@ -37,7 +37,7 @@ def test_marcxml_documents_create(
     )
     assert res.status_code == 401
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'invenio_records_rest.doc_list',

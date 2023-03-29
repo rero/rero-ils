@@ -22,7 +22,7 @@ from __future__ import absolute_import, print_function
 import json
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
+from utils import login_user
 
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.models import CommunicationChannel
@@ -37,7 +37,7 @@ def test_user_profile_updates(
     # into the public interface
     assert patron_martigny.patron['communication_channel'] == \
         CommunicationChannel.MAIL
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     # mailbox is empty
     assert not (len(mailbox))
     user_metadata = User.get_record(patron_martigny.user.id).dumps_metadata()
@@ -78,7 +78,7 @@ def test_user_profile_updates(
 
     # login as a system_librarian this means we are logging into the
     # professional interface
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     # adding an email to a profile does not send any reset_password
     # notification
     user_metadata['email'] = 'toto@toto.com'

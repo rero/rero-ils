@@ -22,9 +22,8 @@ from copy import deepcopy
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    logout_user, postdata, to_relative_url
 
 from rero_ils.modules.templates.api import Template
 from rero_ils.modules.templates.models import TemplateVisibility
@@ -72,7 +71,7 @@ def test_filtered_templates_get(
     """Test templates filter by organisation."""
     # Martigny
     # system librarian can have access to all templates
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
@@ -81,7 +80,7 @@ def test_filtered_templates_get(
     assert data['hits']['total']['value'] == 2
 
     # librarian martigny can have access to all public and his templates
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
@@ -90,7 +89,7 @@ def test_filtered_templates_get(
     assert data['hits']['total']['value'] == 2
 
     # librarian fully can have access to all public templates only
-    login_user_via_session(client, librarian_fully.user)
+    login_user(client, librarian_fully)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
@@ -100,7 +99,7 @@ def test_filtered_templates_get(
 
     # Sion
     # librarian sion can have access to no templates
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
@@ -109,13 +108,14 @@ def test_filtered_templates_get(
     assert data['hits']['total']['value'] == 0
 
     # system librarian sion can have access to no templates
-    login_user_via_session(client, system_librarian_sion.user)
+    login_user(client, system_librarian_sion)
     list_url = url_for('invenio_records_rest.tmpl_list')
 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total']['value'] == 0
+    logout_user()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -176,7 +176,7 @@ def test_template_secure_api_create(
 ):
     """Test templates secure api create."""
     post_entrypoint = 'invenio_records_rest.tmpl_list'
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
 
     # test template creation for documents
     doc_tmpl = templ_doc_public_martigny
@@ -257,6 +257,7 @@ def test_template_secure_api_create(
             assert level_2 not in json_data.get(level_1)
         else:
             assert field not in json_data
+    logout_user()
 
 
 def test_template_secure_api_update(
@@ -266,7 +267,7 @@ def test_template_secure_api_update(
 ):
     """Test templates secure api update."""
     # Martigny
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     record_url = url_for('invenio_records_rest.tmpl_item',
                          pid_value=templ_doc_private_martigny.pid)
 
@@ -276,7 +277,7 @@ def test_template_secure_api_update(
     res = client.put(record_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 403
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     data = templ_doc_private_martigny_data
     data['name'] = 'Test Name'
     data['data']['pid'] = 'toto'
@@ -286,32 +287,33 @@ def test_template_secure_api_update(
     # ensure that pid is removed from records
     assert 'pid' not in res.json['metadata']['data']
 
-    login_user_via_session(client, librarian2_martigny.user)
+    login_user(client, librarian2_martigny)
     data = templ_doc_private_martigny_data
     data['visibility'] = 'public'
     res = client.put(record_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 403
 
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     data = templ_doc_private_martigny_data
     data['visibility'] = TemplateVisibility.PUBLIC
     res = client.put(record_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 403
 
-    login_user_via_session(client, librarian_saxon.user)
+    login_user(client, librarian_saxon)
     data = templ_doc_private_martigny_data
     data['name'] = 'Test Name'
     res = client.put(record_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 403
 
     # Sion
-    login_user_via_session(client, system_librarian_sion.user)
+    login_user(client, system_librarian_sion)
     res = client.put(record_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 403
 
     # Reset data
     templ_doc_private_martigny.update(
         original_data, dbcommit=True, reindex=True)
+    logout_user()
 
 
 def test_template_update_visibility(
@@ -341,7 +343,7 @@ def test_template_update_visibility(
     # STEP#1 :: Connected as the owner of the template
     #   Owner of the template can update template attributes but can't change
     #   the template visibility.
-    login_user_via_session(client, librarian2_martigny.user)
+    login_user(client, librarian2_martigny)
     description_content = 'my custom description'
     tmpl['description'] = description_content
     res = client.put(
@@ -365,7 +367,7 @@ def test_template_update_visibility(
     #   As system librarian, I can clone the template and update it to change
     #   visibility attribute as 'public'. After all test, delete this new
     #   template
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     tmpl_data = deepcopy(templ_doc_private_martigny_data_tmp)
     del tmpl_data['pid']
     tmpl_data['creator']['$ref'] = \
@@ -390,3 +392,4 @@ def test_template_update_visibility(
 
     res = client.delete(record_url)
     assert res.status_code == 204
+    logout_user()

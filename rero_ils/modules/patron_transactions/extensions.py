@@ -18,7 +18,7 @@
 
 """Patron transactions record extensions."""
 
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_records.extensions import RecordExtension
 
 from rero_ils.modules.patron_transaction_events.api import \

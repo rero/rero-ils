@@ -26,9 +26,9 @@ import mock
 import pytest
 import pytz
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    item_record_to_a_specific_loan_state, postdata, to_relative_url
+    item_record_to_a_specific_loan_state, login_user, postdata, \
+    to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
@@ -95,7 +95,7 @@ def test_filtered_notifications_get(
         librarian_sion):
     """Test notification filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.notif_list')
 
     res = client.get(list_url)
@@ -104,7 +104,7 @@ def test_filtered_notifications_get(
     assert data['hits']['total']['value'] > 0
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.notif_list')
 
     res = client.get(list_url)
@@ -120,7 +120,7 @@ def test_notification_secure_api(client, json_header,
                                  loan_validated_martigny):
     """Test notification secure api create."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     post_entrypoint = 'invenio_records_rest.notif_list'
     item_url = url_for('invenio_records_rest.notif_item', pid_value='notif1')
 
@@ -156,7 +156,7 @@ def test_notification_secure_api(client, json_header,
     assert res.status_code == 200
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     # test get notification
     res = client.get(item_url)
@@ -183,7 +183,7 @@ def test_notification_secure_api(client, json_header,
     res = client.delete(item_url)
     assert res.status_code == 403
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     # test notification delete at Martigny
     res = client.delete(item_url)
     assert res.status_code == 204
@@ -333,7 +333,7 @@ def test_recall_notification(client, patron_sion, lib_sion,
                              mailbox):
     """Test recall notification."""
     mailbox.clear()
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     res, data = postdata(
         client,
         'api_item.checkout',
@@ -442,7 +442,7 @@ def test_recall_notification_with_disabled_config(
     # STEP#0 :: INIT
     #   Create a checkout
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(client, 'api_item.checkout', dict(
         item_pid=item3_lib_martigny.pid,
         patron_pid=patron_sion.pid,
@@ -502,7 +502,7 @@ def test_recall_notification_without_email(
         mailbox):
     """Test recall notification."""
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_item.checkout',
@@ -577,7 +577,7 @@ def test_recall_notification_with_patron_additional_email_only(
         mailbox):
     """Test recall notification."""
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_item.checkout',
@@ -644,7 +644,7 @@ def test_notification_templates_list(client, librarian_martigny):
     url = url_for('notifications.list_available_template')
     res = client.get(url)
     assert res.status_code == 401
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)
@@ -658,7 +658,7 @@ def test_multiple_notifications(client, patron_martigny, patron_sion,
                                 loc_public_fully, mailbox):
     """Test multiple notifications."""
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     res, data = postdata(
         client,
@@ -725,7 +725,7 @@ def test_request_notifications_temp_item_type(
 ):
     """Test request notifications with item type with negative availability."""
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item_lib_martigny['temporary_item_type'] = {
         '$ref': get_ref_for_pid('itty', item_type_missing_martigny.pid)
     }
@@ -776,7 +776,7 @@ def test_request_notifications(client, patron_martigny, patron_sion,
                                loc_public_fully, mailbox):
     """Test request notifications."""
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     res, data = postdata(
         client,
@@ -823,7 +823,7 @@ def test_dispatch_error(client, patron_martigny, patron_sion,
                         loc_public_fully, mailbox):
     """Test request notifications."""
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     res, data = postdata(
         client,
@@ -868,7 +868,7 @@ def test_multiple_request_booking_notifications(
 ):
     """Test multiple requests booking notifications."""
     # request 1
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_item.librarian_request',
@@ -882,7 +882,7 @@ def test_multiple_request_booking_notifications(
     )
     assert res.status_code == 200
     # request 2
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     res, data = postdata(
         client,
         'api_item.librarian_request',
@@ -896,7 +896,7 @@ def test_multiple_request_booking_notifications(
     )
     assert res.status_code == 200
     # request 3
-    login_user_via_session(client, librarian_saxon.user)
+    login_user(client, librarian_saxon)
     res, data = postdata(
         client,
         'api_item.librarian_request',
@@ -979,7 +979,7 @@ def test_cancel_notifications(
     librarian_martigny, loc_public_martigny, circulation_policies, mailbox
 ):
     """Test cancel notifications."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     # CREATE and VALIDATE a request ...
     res, data = postdata(
         client,
@@ -1098,7 +1098,7 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
     }
     item_lib_martigny.checkout(**params)
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     res, data = postdata(
         client,
@@ -1226,7 +1226,7 @@ def test_reminder_notifications_after_extend(
     #   * User has received the DUE_SOON message and extend the loan.
     #   * Get the new 'due_soon_date' it will be used later to create
     #     notifications
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     params = dict(
         item_pid=item.pid,
         transaction_user_pid=librarian_martigny.pid,

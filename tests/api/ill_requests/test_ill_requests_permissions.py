@@ -18,7 +18,7 @@
 
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission
 
 from rero_ils.modules.ill_requests.permissions import \
@@ -45,7 +45,7 @@ def test_ill_requests_permissions(
     # Patron
     #    * can : search, read (own record), create
     #    * can't : update, delete
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(ILLRequestPermissionPolicy, {
         'search': True,
         'read': True,
@@ -65,7 +65,7 @@ def test_ill_requests_permissions(
     #     - can : search, read (own organisation), create
     #     - update : only request for its own organisation
     #     - delete : disallowed (missing ActionNeed)
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(ILLRequestPermissionPolicy, {
         'search': True,
         'read': True,

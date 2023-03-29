@@ -18,7 +18,7 @@
 
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission
 
 from rero_ils.modules.stats.permissions import StatisticsPermissionPolicy
@@ -47,7 +47,7 @@ def test_stats_permissions(
         'update': False,
         'delete': False
     }, stats_librarian)
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(StatisticsPermissionPolicy, {'create': False}, {})
     check_permission(StatisticsPermissionPolicy, {
         'search': False,
@@ -60,7 +60,7 @@ def test_stats_permissions(
     # Librarian with specific role
     #     - search/read: any items
     #     - create/update/delete: always disallowed
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(StatisticsPermissionPolicy, {
         'search': True,
         'read': True,

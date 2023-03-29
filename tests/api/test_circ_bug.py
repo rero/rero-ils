@@ -18,8 +18,7 @@
 """Tests invenio circulation bug when document has items attached."""
 
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.loans.models import LoanAction
 
@@ -30,7 +29,7 @@ def test_document_with_one_item_attached_bug(
         item_type_standard_martigny, item_lib_martigny, json_header,
         circulation_policies, lib_martigny):
     """Test document with one item."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # checkout first item1 to patron
     res, data = postdata(
@@ -100,7 +99,7 @@ def test_document_with_items_attached_bug(client, librarian_martigny,
                                           item_lib_martigny, json_header,
                                           circulation_policies, lib_martigny):
     """Test document with multiple items."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # checkout first item1 to patron
     res, data = postdata(

@@ -22,9 +22,8 @@ from copy import deepcopy
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    postdata, to_relative_url
+    login_user, postdata, to_relative_url
 
 from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.locations.api import Location, LocationsSearch
@@ -211,7 +210,7 @@ def test_filtered_locations_get(client, librarian_martigny,
                                 librarian_sion, locations):
     """Test location filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.loc_list')
 
     res = client.get(list_url)
@@ -220,7 +219,7 @@ def test_filtered_locations_get(client, librarian_martigny,
     assert data['hits']['total']['value'] == 9
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.loc_list')
 
     res = client.get(list_url)
@@ -239,7 +238,7 @@ def test_location_secure_api_create(client, lib_fully, lib_martigny,
     """Test location secure api create."""
     # try to create a pickup location without pickup location name. This should
     # be failed due to `extended_validation` rules
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     post_entrypoint = 'invenio_records_rest.loc_list'
     fake_location_data = deepcopy(loc_public_martigny_data)
     del fake_location_data['pid']

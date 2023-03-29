@@ -25,6 +25,8 @@ import jsonref
 import requests
 import xmltodict
 from flask import url_for
+from flask_security import login_user as flask_login_user
+from flask_security import logout_user as flask_logout_user
 from invenio_accounts.testutils import login_user_via_session, \
     login_user_via_view
 from invenio_circulation.api import get_loan_for_item
@@ -33,6 +35,7 @@ from invenio_oauth2server.models import Client, Token
 from invenio_search import current_search
 from mock import Mock
 from pkg_resources import resource_string
+from requests.models import HTTPError
 from six import StringIO
 from six.moves.urllib.parse import parse_qs, urlparse
 
@@ -76,7 +79,13 @@ def check_permission(permission_policy, actions, record):
 
 def login_user(client, user):
     """Sign in user."""
+    flask_login_user(user.user)
     login_user_via_session(client, user=user.user)
+
+
+def logout_user():
+    """Sign out user."""
+    flask_logout_user()
 
 
 def login_user_for_view(client, user, default_user_password):
@@ -88,6 +97,8 @@ def login_user_for_view(client, user, default_user_password):
 
 def get_json(response):
     """Get JSON from response."""
+    print('---->', response, type(response))
+    print(response.json)
     return json.loads(response.get_data(as_text=True))
 
 
@@ -130,11 +141,13 @@ def postdata(
         url_data = {}
     if force_data_as_json:
         data = json.dumps(data)
+    print('>>>>>>', endpoint, url_data, data, headers)
     res = client.post(
         url_for(endpoint, **url_data),
         data=data,
         headers=headers
     )
+    print('=======', res.get_data(as_text=True))
     output = get_json(res)
     return res, output
 
@@ -259,12 +272,30 @@ def mocked_requests_get(*args, **kwargs):
             rero_ils.jsonschemas.common.languages-v0.0.1.json
         """
 
-        def __init__(self, json_data, status_code):
+        def __init__(self, json_data, status_code=200, reason=''):
             self.json_data = json_data
             self.status_code = status_code
+            self.reason = reason
 
         def json(self):
             return self.json_data
+
+        def raise_for_status(self):
+            """Raises :class:`HTTPError`, if one occurred."""
+            http_error_msg = ''
+            if 400 <= self.status_code < 500:
+                http_error_msg = (
+                    f"{self.status_code} Client Error: "
+                    f"{self.reason} for url: {self.url}"
+                )
+
+            elif 500 <= self.status_code < 600:
+                http_error_msg = (
+                    f"{self.status_code} Server Error: "
+                    f"{self.reason} for url: {self.url}"
+                )
+            if http_error_msg:
+                raise HTTPError(http_error_msg, response=self)
 
     ref_split = args[0].split('/')
     if ref_split[-2] == 'common':
@@ -283,12 +314,12 @@ def mocked_requests_get(*args, **kwargs):
 
     schema_in_bytes = resource_string(path, name)
     if not schema_in_bytes:
-        return MockResponse({}, 404)
-    schema = json.loads(schema_in_bytes.decode('utf8'))
-    if not schema:
-        return MockResponse({}, 404)
+        return MockResponse({}, 404, f'No resource string: {path} {name}')
 
-    return MockResponse(schema, 200)
+    if schema := json.loads(schema_in_bytes.decode('utf8')):
+        return MockResponse(schema)
+    else:
+        return MockResponse({}, 404, f'No schema: {path} {name}')
 
 
 def get_schema(monkeypatch, schema_in_bytes):
@@ -303,8 +334,7 @@ def get_schema(monkeypatch, schema_in_bytes):
     """
     # apply the monkeypatch for requests.get to mocked_requests_get
     monkeypatch.setattr(requests, "get", mocked_requests_get)
-
-    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes)
     # Replace all remaining $refs
     while schema != jsonref.loads(jsonref.dumps(schema)):
         schema = jsonref.loads(jsonref.dumps(schema))

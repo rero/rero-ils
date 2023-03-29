@@ -23,9 +23,8 @@ from __future__ import absolute_import, print_function
 from datetime import datetime, timedelta, timezone
 
 import pytest
-from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.search.api import LoansSearch
-from utils import flush_index, get_json, postdata
+from utils import flush_index, get_json, login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan
@@ -145,7 +144,7 @@ def test_patron_information(client, librarian_martigny,
                             item3_lib_martigny, circulation_policies,
                             lib_martigny):
     """Test patron information."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     # checkout
     res, data = postdata(
         client,
@@ -285,7 +284,7 @@ def test_item_information(client, librarian_martigny,
                           item_lib_martigny,
                           circulation_policies):
     """Test item information."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     # checkout
     res, data = postdata(
         client,

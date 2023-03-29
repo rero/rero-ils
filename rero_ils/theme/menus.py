@@ -20,7 +20,7 @@
 from functools import partial
 
 from flask import current_app, request, session
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
 from invenio_i18n.ext import current_i18n

@@ -21,9 +21,8 @@ from datetime import datetime, timedelta, timezone
 
 import ciso8601
 from freezegun import freeze_time
-from invenio_accounts.testutils import login_user_via_session
 from invenio_records.signals import after_record_update
-from utils import flush_index, postdata
+from utils import flush_index, login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.tasks import \
@@ -54,7 +53,7 @@ def test_notifications_task(
         item_lib_martigny, circ_policy_short_martigny,
         loc_public_martigny, lib_martigny):
     """Test overdue and due_soon loans."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid

@@ -47,7 +47,7 @@ from invenio_jsonschemas.proxies import current_jsonschemas
 from invenio_oauth2server.cli import process_scopes, process_user
 from invenio_oauth2server.models import Client, Token
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_records.api import Record
+from invenio_records import Record
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search.proxies import current_search
 from jsonschema import validate

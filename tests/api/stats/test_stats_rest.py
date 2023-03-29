@@ -19,8 +19,7 @@
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_csv, get_json, \
+from utils import VerifyRecordPermissionPatch, get_csv, get_json, login_user, \
     to_relative_url
 
 
@@ -74,7 +73,7 @@ def test_stats_librarian_data(
     params = dict(pid_value=stats_librarian.pid)
     item_url = url_for('invenio_records_rest.stat_item', **params)
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(item_url)
     data = res.get_json()
 
@@ -95,7 +94,7 @@ def test_stats_librarian_data(
     assert not filtered_stat_libs.difference(manageable_libs)
 
     # system librarian could view all libraries stats for its own organisation
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     res = client.get(item_url)
     data = res.get_json()
     filtered_stat_libs = {

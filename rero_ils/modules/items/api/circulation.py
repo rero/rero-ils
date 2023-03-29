@@ -21,7 +21,7 @@ from copy import deepcopy
 from datetime import datetime
 
 from flask import current_app
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.errors import ItemNotAvailableError, \
     NoValidTransitionAvailableError

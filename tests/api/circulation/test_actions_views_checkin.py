@@ -19,9 +19,8 @@
 from datetime import date, datetime, timedelta, timezone
 
 from flask import url_for
-from flask_babelex import gettext as _
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from flask_babel import gettext as _
+from utils import get_json, login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -37,7 +36,7 @@ def test_checkin_an_item(
         circulation_policies):
     """Test the frontend return a checked-out item action."""
     # test passes when all required parameters are given
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # test fails when there is a missing required parameter
@@ -108,7 +107,7 @@ def test_auto_checkin_else(client, librarian_martigny,
                            item_lib_martigny, json_header, lib_martigny,
                            loc_public_saxon):
     """Test item checkin no action."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_item.checkin',
@@ -128,7 +127,7 @@ def test_checkin_overdue_item(
         item_on_loan_martigny_patron_and_loan_on_loan):
     """Test a checkin for an overdue item with incremental fees."""
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # Update the circulation policy corresponding to the loan

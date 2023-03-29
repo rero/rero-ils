@@ -19,13 +19,12 @@
 """Tests REST API libraries."""
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+from utils import get_json, login_user
 
 
 def test_library_closed_date_api(client, lib_martigny, librarian_martigny):
     """Test closed date api."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     # CHECK#0 :: unknown library
     url = url_for(
         'api_library.list_closed_dates',

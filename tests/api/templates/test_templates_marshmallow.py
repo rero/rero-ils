@@ -22,7 +22,7 @@ from copy import deepcopy
 
 import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, login_user_via_session, postdata
+from utils import VerifyRecordPermissionPatch, login_user, postdata
 
 from rero_ils.modules.templates.api import Template
 from rero_ils.modules.templates.models import TemplateVisibility
@@ -35,7 +35,7 @@ def test_templates_marshmallow_loaders(
     json_header
 ):
     """Test template marshmallow loaders"""
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     data = templ_doc_public_martigny_data_tmp
     del data['pid']
 

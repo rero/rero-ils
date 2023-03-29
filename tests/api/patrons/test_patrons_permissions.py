@@ -21,7 +21,7 @@
 import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission, flush_index
 
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
@@ -54,7 +54,7 @@ def test_patrons_permissions(
         'update': False,
         'delete': False
     }, patron_martigny)
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(PatronPermissionPolicy, {'search': False}, {})
     check_permission(PatronPermissionPolicy, {'create': False}, {})
     check_permission(PatronPermissionPolicy, {
@@ -78,7 +78,7 @@ def test_patrons_permissions(
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
     flush_index(PatronsSearch.Meta.index)
 
-    login_user(librarian_martigny.user)  # to refresh identity !
+    flask_login_user(librarian_martigny.user)  # to refresh identity !
     check_permission(PatronPermissionPolicy, {'search': True}, {})
     check_permission(PatronPermissionPolicy, {
         'read': True,
@@ -104,7 +104,7 @@ def test_patrons_permissions(
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
     flush_index(PatronsSearch.Meta.index)
 
-    login_user(librarian_martigny.user)  # to refresh identity !
+    flask_login_user(librarian_martigny.user)  # to refresh identity !
     check_permission(PatronPermissionPolicy, {'search': True}, {})
     check_permission(PatronPermissionPolicy, {
         'read': True,
@@ -151,7 +151,7 @@ def test_patrons_permissions(
     patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
     flush_index(PatronsSearch.Meta.index)
 
-    login_user(patron_martigny.user)  # to refresh identity !
+    flask_login_user(patron_martigny.user)  # to refresh identity !
     check_permission(PatronPermissionPolicy, {'search': True}, {})
     check_permission(PatronPermissionPolicy, {
         'read': True,

@@ -164,7 +164,7 @@ RATELIMIT_ENABLED = False
 # I18N
 # ====
 #: Default language
-BABEL_DEFAULT_LANGUAGE = 'en'
+BABEL_DEFAULT_LOCAL = 'en'
 #: Default time zone
 BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 #: Other supported languages (do not include the default language in list).

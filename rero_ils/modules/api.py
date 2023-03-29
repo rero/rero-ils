@@ -35,7 +35,7 @@ from invenio_indexer.signals import before_record_index
 from invenio_indexer.utils import _es7_expand_action
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-from invenio_records.api import Record
+from invenio_records import Record
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
 from invenio_search.api import RecordsSearch
@@ -562,6 +562,13 @@ class IlsRecord(Record):
         """
         return deepcopy(self.replace_refs())
 
+    def replace_refs(self):
+        """Replace $ref with real data.
+
+        Needed because jsonref > 0.3.0 loses the type information.
+        """
+        return type(self)(super().replace_refs())
+
 
 class IlsRecordsIndexer(RecordIndexer):
     """Indexing class for ils."""
@@ -690,10 +697,20 @@ class IlsRecordsIndexer(RecordIndexer):
         :param **kwargs: Extra parameters.
         :return: The record metadata.
         """
-        if not getattr(record, 'enable_jsonref', True):
+        # New-style record dumping - we use the Record.enable_jsonref flag on
+        # the Record to control if we use the new simplified dumping.
+        if not getattr(record, "enable_jsonref", True):
             # If dumper is None, dumps() will use the default configured dumper
             # on the Record class.
-            data = record.dumps(dumper=self.record_dumper)
+            return record.dumps(dumper=self.record_dumper)
+
+        # Old-style dumping - the old style will still if INDEXER_REPLACE_REFS
+        # is False use the Record.dumps(), however the default implementation
+        # is backward compatible for new-style records. Also, we're adding
+        # extra information into the record like _created and _updated
+        # afterwards, which the Record.dumps() have no control over.
+        if current_app.config['INDEXER_REPLACE_REFS']:
+            data = deepcopy(record.replace_refs().dumps())
         else:
             # Old-style dumping - the old style will still if
             # INDEXER_REPLACE_REFS is False use the Record.dumps(), however the

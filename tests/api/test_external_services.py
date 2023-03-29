@@ -22,9 +22,8 @@
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    mock_response, to_relative_url
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.imports.api import LoCImport
@@ -97,7 +96,7 @@ def test_documents_get(client, document):
 
 def test_imports_get_config(client, librarian_martigny):
     """Get the configuration for the external import services."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(url_for('api_import.get_config'))
     assert res.status_code == 200
     data = get_json(res)

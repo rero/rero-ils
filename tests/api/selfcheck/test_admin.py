@@ -65,6 +65,8 @@ def test_admin_createuser(app, client, loc_public_martigny):
     create_view_url = url_for('selfcheckterminal.create_view')
 
     # test required values
+    babel = app.extensions.get('babel')
+    print('>>>>>', babel, type(babel))
     res = client.post(
         create_view_url,
         data={},

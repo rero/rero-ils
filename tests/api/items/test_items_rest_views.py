@@ -22,6 +22,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from mock import mock
 from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
@@ -34,7 +35,7 @@ def test_item_dumps(client, item_lib_martigny, org_martigny,
 
     assert item_dumps.get('organisation').get('pid') == org_martigny.pid
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     record_url = url_for('invenio_records_rest.item_item',
                          pid_value=item_lib_martigny.pid)
 
@@ -53,7 +54,7 @@ def test_patron_checkouts_order(client, librarian_martigny,
                                 item4_lib_martigny,
                                 circulation_policies):
     """Test sort of checkout loans."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, _ = postdata(
         client,
         'api_item.checkout',

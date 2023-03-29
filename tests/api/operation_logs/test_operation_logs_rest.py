@@ -21,8 +21,8 @@ from datetime import datetime
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
+from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
+    login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -39,21 +39,21 @@ def test_operation_logs_permissions(client, operation_log,
     item_list = url_for('invenio_records_rest.oplg_list')
 
     # Check access for librarian role
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(item_list)
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total']['value'] == 4
 
     # Check access for patron role
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     res = client.get(item_list)
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total']['value'] == 0
 
     # Check access for patron and librarian roles
-    login_user_via_session(client, librarian_patron_martigny.user)
+    login_user(client, librarian_patron_martigny)
     res = client.get(item_list)
     assert res.status_code == 200
     data = get_json(res)
@@ -65,7 +65,7 @@ def test_operation_logs_rest(client, loan_pending_martigny,
                              json_header,
                              loan_overdue_martigny):
     """Test operation logs REST API."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item_url = url_for('invenio_records_rest.oplg_item', pid_value='1')
     item_list = url_for('invenio_records_rest.oplg_list')
 
@@ -105,7 +105,7 @@ def test_operation_log_on_item(
     item_lib_martigny
 ):
     """Test operation log on Item."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # Get the operation log index
     fake_data = {'date': datetime.now().isoformat()}
@@ -181,7 +181,7 @@ def test_operation_log_on_ill_request(client, ill_request_martigny,
     # Using the ``ill_request_martigny`` fixtures, an operation log is created
     # for 'create' operation. Check this operation log to check if special
     # additional informations are included into this OpLog.
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     fake_data = {'date': datetime.now().isoformat()}
     oplg_index = OperationLog.get_index(fake_data)

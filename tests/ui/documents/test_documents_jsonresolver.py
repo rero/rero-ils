@@ -18,7 +18,7 @@
 """Document JSONResolver tests."""
 
 import pytest
-from invenio_records.api import Record
+from invenio_records import Record
 from jsonref import JsonRefError
 
 
@@ -32,11 +32,11 @@ def test_documents_jsonresolver(document):
     # deleted record
     document.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
 
     # non existing record
     rec = Record.create({
         'document': {'$ref': 'https://bib.rero.ch/api/documents/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)

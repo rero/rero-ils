@@ -18,8 +18,7 @@
 """Tests REST API patrons."""
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, item_pid_to_object
+from utils import get_json, item_pid_to_object, login_user
 
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.utils import can_be_requested
@@ -31,7 +30,7 @@ def test_blocked_field_exists(
         patron_martigny,
         patron3_martigny_blocked):
     """Test ptrn6 have blocked field present and set to False."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     patron3 = patron3_martigny_blocked
 
     # non blocked patron
@@ -64,7 +63,7 @@ def test_blocked_field_not_present(
         librarian_martigny,
         patron2_martigny):
     """Test ptrn7 do not have any blocked field."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item_url = url_for(
         'invenio_records_rest.ptrn_item',
         pid_value=patron2_martigny.pid)
@@ -81,7 +80,7 @@ def test_blocked_patron_cannot_request(client,
                                        patron_martigny,
                                        patron3_martigny_blocked,
                                        circulation_policies):
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(
         url_for(
             'api_item.can_request',

@@ -18,7 +18,7 @@
 
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission
 
 from rero_ils.modules.acquisition.budgets.permissions import \
@@ -44,7 +44,7 @@ def test_budget_permissions(
     }, {})
 
     # Patron :: can't operate any operation about Budget
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(BudgetPermissionPolicy, {
         'search': False,
         'read': False,
@@ -54,7 +54,7 @@ def test_budget_permissions(
     }, budget_2018_martigny)
 
     # Staff members :: can only search and read (only org record)
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(BudgetPermissionPolicy, {
         'search': True,
         'read': True,

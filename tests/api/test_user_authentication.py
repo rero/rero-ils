@@ -19,10 +19,9 @@
 import re
 
 from flask import url_for
-from flask_babelex import gettext
+from flask_babel import gettext
 from flask_security.recoverable import send_password_reset_notice
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 
 def test_login(client, patron_sion, default_user_password):
@@ -130,7 +129,7 @@ def test_change_password(client, app, patron_martigny,
     assert res.status_code == 401
 
     # with a logged but the password is too short
-    login_user_via_session(client, p_martigny.user)
+    login_user(client, p_martigny)
     res, _ = postdata(
         client,
         'invenio_accounts_rest_auth.change_password',
@@ -176,7 +175,7 @@ def test_change_password(client, app, patron_martigny,
     assert data.get('message') == 'You successfully changed your password.'
 
     # with a librarian of a different organisation
-    login_user_via_session(client, l_sion.user)
+    login_user(client, l_sion)
     res, _ = postdata(
         client,
         'invenio_accounts_rest_auth.change_password',
@@ -190,7 +189,7 @@ def test_change_password(client, app, patron_martigny,
     assert res.status_code == 401
 
     # with a librarian of the same organisation
-    login_user_via_session(client, l_martigny.user)
+    login_user(client, l_martigny)
 
     res, _ = postdata(
         client,

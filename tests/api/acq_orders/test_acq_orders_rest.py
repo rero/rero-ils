@@ -22,9 +22,8 @@ from copy import deepcopy
 import mock
 from api.acquisition.acq_utils import _del_resource, _make_resource
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    postdata, to_relative_url
 
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.utils import get_ref_for_pid
@@ -189,7 +188,7 @@ def test_filtered_acq_orders_get(
     assert res.status_code == 401
 
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.acor_list')
 
     res = client.get(list_url)
@@ -198,7 +197,7 @@ def test_filtered_acq_orders_get(
     assert data['hits']['total']['value'] == 2
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.acor_list')
 
     res = client.get(list_url)
@@ -212,7 +211,7 @@ def test_acq_order_history_api(
   acq_account_fiction_martigny, document, budget_2020_martigny
 ):
     """Test acquisition order history API."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     # STEP#0 :: create order related to each other.
     data = {
         'vendor': {'$ref': get_ref_for_pid('vndr', vendor_martigny.pid)},

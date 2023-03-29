@@ -22,10 +22,10 @@ from datetime import datetime, timedelta, timezone
 import ciso8601
 import pytz
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.search.api import LoansSearch
-from utils import check_timezone_date, flush_index, get_json, postdata
+from utils import check_timezone_date, flush_index, get_json, login_user, \
+    postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.utils import item_pid_to_object
@@ -45,7 +45,7 @@ def test_loans_search(
     yesterday
 ):
     """Test record retrieval."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     loan = loan_pending_martigny
     original_loan = deepcopy(loan)
 
@@ -108,7 +108,7 @@ def test_loan_access_permissions(client, librarian_martigny,
                                  ):
     """Test loans read permissions."""
     # ensure we have loans from the two configured organisation.
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     res, _ = postdata(
         client,
         'api_item.checkout',
@@ -133,7 +133,7 @@ def test_loan_access_permissions(client, librarian_martigny,
 
     # test query filters with a user who is librarian and patron in org2 and
     # patron in org1
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     # create a loan for itself
     res, _ = postdata(
         client,
@@ -148,7 +148,7 @@ def test_loan_access_permissions(client, librarian_martigny,
     assert res.status_code == 200
 
     # act as multiple patron
-    login_user_via_session(client, patron_sion_multiple.user)
+    login_user(client, patron_sion_multiple)
     # without query filter I should have 3 loans one of mine and two
     # in my employed organisation, the other patron loan of my patron org
     # should be filtered
@@ -170,7 +170,7 @@ def test_loan_access_permissions(client, librarian_martigny,
     assert len(data['hits']['hits']) == 1
 
     # checkin the item to put it back to it's original state
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     res, data = postdata(
         client,
@@ -202,7 +202,7 @@ def test_due_soon_loans(client, librarian_martigny,
                         item_lib_martigny,
                         circ_policy_short_martigny, yesterday):
     """Test overdue loans."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
@@ -290,7 +290,7 @@ def test_overdue_loans(client, librarian_martigny,
                        circ_policy_short_martigny,
                        patron3_martigny_blocked):
     """Test overdue loans."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
@@ -368,7 +368,7 @@ def test_last_end_date_loans(client, librarian_martigny,
                              item_lib_martigny,
                              circ_policy_short_martigny):
     """Test last_end_date of loan."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     item_pid = item.pid
     patron_pid = patron_martigny.pid
@@ -424,7 +424,7 @@ def test_checkout_item_transit(client, mailbox, item2_lib_martigny,
     mailbox.clear()
 
     # request
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     loc_public_martigny['notification_email'] = 'dummy_email@fake.domain'
     loc_public_martigny['send_notification'] = True
     loc_public_martigny.update(
@@ -484,7 +484,7 @@ def test_checkout_item_transit(client, mailbox, item2_lib_martigny,
     loan = Loan.get_record_by_pid(loan_pid)
     assert loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
 
-    login_user_via_session(client, librarian_saxon.user)
+    login_user(client, librarian_saxon)
     # receive
     res, _ = postdata(
         client,
@@ -529,7 +529,7 @@ def test_timezone_due_date(client, librarian_martigny,
                            lib_martigny):
     """Test that timezone affects due date regarding library location."""
     # Login to perform action
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # Close the library all days. Except Monday.
     del lib_martigny['opening_hours']
@@ -644,7 +644,7 @@ def test_librarian_request_on_blocked_user(
     assert item_lib_martigny.available
 
     # request
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_item.librarian_request',

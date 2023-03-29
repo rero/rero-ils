@@ -18,8 +18,7 @@
 """Tests circulation scenario A."""
 
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import flush_index, get_json, postdata
+from utils import flush_index, get_json, login_user, postdata
 
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan
@@ -35,7 +34,7 @@ def test_circ_scenario_a(
     # A request is made on on-shelf item, that has no requests, to be picked
     # up at the owning library. Validated by the librarian. Picked up at same
     # owning library. and returned on-time at the owning library
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
             'patron_pid': patron_martigny.pid,

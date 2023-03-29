@@ -21,7 +21,7 @@
 from dojson import utils
 from dojson.contrib.to_marc21.model import Underdo
 from flask import current_app
-from flask_babelex import gettext as translate
+from flask_babel import gettext as translate
 from invenio_db import db
 
 from rero_ils.modules.documents.utils import display_alternate_graphic_first

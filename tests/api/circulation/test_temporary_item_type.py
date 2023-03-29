@@ -20,8 +20,7 @@ from datetime import datetime, timedelta
 
 import ciso8601
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.items.models import ItemStatus
@@ -40,7 +39,7 @@ def test_checkout_temporary_item_type(
         circ_policy_short_martigny,
         circ_policy_default_martigny):
     """Test checkout or item with temporary item_types"""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 

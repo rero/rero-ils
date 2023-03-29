@@ -23,11 +23,10 @@ from datetime import datetime, timedelta
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    logout_user, postdata, to_relative_url
 
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patrons.api import Patron
@@ -65,7 +64,7 @@ def test_filtered_patrons_get(
 ):
     """Test patron filter by organisation."""
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     list_url = url_for('invenio_records_rest.ptrn_list')
 
     res = client.get(list_url)
@@ -75,13 +74,14 @@ def test_filtered_patrons_get(
 
     # Sion
     # TODO: find why it's failed
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.ptrn_list')
 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
     assert data['hits']['total']['value'] == 1
+    logout_user()
 
 
 def test_patron_has_valid_subscriptions(
@@ -177,7 +177,7 @@ def test_patron_pending_subscription(client, patron_type_grown_sion,
     assert len(pending_subscription) == 1
 
     # Pay this subscription.
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     post_entrypoint = 'invenio_records_rest.ptre_list'
     trans_pid = extracted_data_from_ref(
         pending_subscription[0]['patron_transaction'], data='pid'
@@ -207,6 +207,7 @@ def test_patron_pending_subscription(client, patron_type_grown_sion,
     patron_sion = Patron.get_record_by_pid(patron_sion.pid)
     pending_subscription = patron_sion.pending_subscriptions
     assert len(pending_subscription) == 0
+    logout_user()
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -253,7 +254,7 @@ def test_patrons_post_put_delete(
     roles, mailbox
 ):
     """Test record retrieval."""
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     pid_value = 'ptrn_1'
     item_url = url_for('invenio_records_rest.ptrn_item', pid_value=pid_value)
     list_url = url_for('invenio_records_rest.ptrn_list', q=f'pid:{pid_value}')
@@ -275,6 +276,7 @@ def test_patrons_post_put_delete(
         'invenio_records_rest.ptrn_list',
         patron_data
     )
+    logout_user()
 
     assert res.status_code == 201
     assert Patron.count() == pids + 1
@@ -336,7 +338,7 @@ def test_patrons_post_without_email(
     system_librarian_martigny
 ):
     """Test record retrieval."""
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
     patron_data = deepcopy(patron_martigny_data_tmp)
     patron_data['email'] = 'post_without_email@test.ch'
     patron_data['username'] = 'post_without_email'
@@ -366,6 +368,7 @@ def test_patrons_post_without_email(
 
     ds = app.extensions['invenio-accounts'].datastore
     ds.delete_user(ds.find_user(id=patron_data['user_id']))
+    logout_user()
 
 
 def test_patrons_dirty_barcode(client, patron_martigny, librarian_martigny):
@@ -396,7 +399,7 @@ def test_patrons_circulation_informations(
     res = client.get(url)
     assert res.status_code == 401
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)
@@ -433,6 +436,7 @@ def test_patrons_circulation_informations(
     )
     res = client.get(url)
     assert res.status_code == 404
+    logout_user()
 
 
 def test_patron_messages(client, patron_martigny):
@@ -442,7 +446,7 @@ def test_patron_messages(client, patron_martigny):
     res = client.get(url)
     assert res.status_code == 401
 
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     url = url_for('api_patrons.get_messages', patron_pid=patron_pid)
     res = client.get(url)
     assert res.status_code == 200
@@ -451,6 +455,7 @@ def test_patron_messages(client, patron_martigny):
     assert data[0]['type'] == 'warning'
     assert data[0]['content'] == 'This person will be in vacations.\n' \
         'Will be back in february.'
+    logout_user()
 
 
 def test_patron_info(app, client, patron_martigny, librarian_martigny):
@@ -533,7 +538,7 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
 
 def test_patrons_search(client, librarian_martigny):
     """Test patron search."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     birthdate = librarian_martigny.dumps()['birth_date']
     # complete birthdate
     list_url = url_for(
@@ -552,3 +557,4 @@ def test_patrons_search(client, librarian_martigny):
     res = client.get(list_url)
     hits = get_json(res)['hits']
     assert hits['total']['value'] == 1
+    logout_user()

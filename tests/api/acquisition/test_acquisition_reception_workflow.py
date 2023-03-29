@@ -20,8 +20,7 @@
 import mock
 from api.acquisition.acq_utils import _make_resource
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, postdata
+from utils import VerifyRecordPermissionPatch, login_user, postdata
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
 from rero_ils.modules.acquisition.acq_order_lines.models import \
@@ -144,7 +143,7 @@ def test_acquisition_reception_workflow(
     #           line_3: quantity: 10 of amount 7   = 70
     #                                        Total = 265
     #       Items quantity = 24: order total amount = 715
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     data = {
         'vendor': {'$ref': get_ref_for_pid('vndr', vendor_martigny.pid)},
         'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)},

@@ -18,8 +18,7 @@
 """Tests items in-transit."""
 
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -32,7 +31,7 @@ def test_items_in_transit_between_libraries(
         item_type_standard_martigny, loc_public_saxon, item_lib_martigny,
         json_header, circulation_policies):
     """Test item in-transit scenarios."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     # checkout the item at location A
     res, data = postdata(
         client,

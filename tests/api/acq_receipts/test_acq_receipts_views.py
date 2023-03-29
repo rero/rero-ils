@@ -16,8 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test acquisition receipt API."""
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 from rero_ils.modules.acquisition.acq_receipts.models import \
     AcqReceiptLineCreationStatus
@@ -28,7 +27,7 @@ def test_create_lines(app, client, librarian_martigny, lib_martigny,
                       acq_order_line2_fiction_martigny,
                       acq_receipt_fiction_martigny, json_header):
     """Test create_lines API."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     receipt = acq_receipt_fiction_martigny
     receipt_lines = []
     # test when parent order is not in database

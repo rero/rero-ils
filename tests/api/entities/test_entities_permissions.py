@@ -18,9 +18,8 @@
 
 from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security.utils import login_user
-from invenio_accounts.testutils import login_user_via_session
-from utils import check_permission, get_json
+from flask_security.utils import login_user as flask_login_user
+from utils import check_permission, get_json, login_user
 
 from rero_ils.modules.entities.permissions import EntityPermissionPolicy
 
@@ -44,12 +43,12 @@ def test_entity_permissions_api(client, patron_martigny,
     assert res.status_code == 401
 
     # Logged as patron
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     res = client.get(prs_permissions_url)
     assert res.status_code == 403
 
     # Logged as librarian
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res = client.get(prs_real_permission_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -80,9 +79,9 @@ def test_entity_permissions(patron_martigny,
         'delete': False
     }, {})
     # Patron user
-    #   - Allow search/read actions on any entity
-    #   - Deny create/update/delete actions on any entity
-    login_user(patron_martigny.user)
+    #   - Allow search/read actions on any contribution
+    #   - Deny create/update/delete actions on any contribution
+    flask_login_user(patron_martigny.user)
     check_permission(permission_policy, {
         'search': True,
         'read': True,
@@ -91,9 +90,9 @@ def test_entity_permissions(patron_martigny,
         'delete': False
     }, {})
     # Full permission user
-    #   - Allow search/read actions on any entity
-    #   - Deny create/update/delete actions on any entity
-    login_user(system_librarian_martigny.user)
+    #   - Allow search/read actions on any contribution
+    #   - Deny create/update/delete actions on any contribution
+    flask_login_user(system_librarian_martigny.user)
     check_permission(permission_policy, {
         'search': True,
         'read': True,

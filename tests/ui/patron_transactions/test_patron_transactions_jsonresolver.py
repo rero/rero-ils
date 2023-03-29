@@ -18,7 +18,7 @@
 """Patron transaction JSON Resolver tests."""
 
 import pytest
-from invenio_records.api import Record
+from invenio_records import Record
 from jsonref import JsonRefError
 
 from rero_ils.modules.utils import extracted_data_from_ref
@@ -40,7 +40,7 @@ def test_patron_transaction_jsonresolver(patron_transaction_overdue_martigny):
     # deleted record
     patron_transaction_overdue_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
 
     # non existing record
     rec = Record.create(
@@ -49,4 +49,4 @@ def test_patron_transaction_jsonresolver(patron_transaction_overdue_martigny):
                 '$ref': 'https://bib.rero.ch/api/patron_transactions/n_e'}}
     )
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)

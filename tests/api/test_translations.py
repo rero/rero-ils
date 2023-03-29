@@ -47,7 +47,7 @@ def test_translations_exceptions(client, app):
     #   ...     paths = []
     #
     magic_mock = mock.MagicMock(return_value=type(
-        'FakeDomain', (object,), dict(paths=[])
+        'FakeDomain', (object,), dict(translation_directories=[])
     ))
     with mock.patch('rero_ils.modules.views.get_domain', magic_mock):
         res = client.get(

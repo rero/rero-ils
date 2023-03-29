@@ -23,8 +23,7 @@ from __future__ import absolute_import, print_function
 from datetime import datetime, timezone
 
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus, TypeOfItem
@@ -60,7 +59,7 @@ def test_provisional_items_creation(client, document, org_martigny,
 
     # TEST: logged patrons can not have the provisional items in the results.
     # for both global and insitutional view.
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
 
     list_url = url_for('invenio_records_rest.item_list', view='org1')
     response = client.get(list_url, headers=json_header)
@@ -80,7 +79,7 @@ def test_provisional_items_creation(client, document, org_martigny,
 
     # TEST: logged librarians can have the provisional items in the results.
     # provisional items are still not available for the global and other views.
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
 
     list_url = url_for('invenio_records_rest.item_list')
     response = client.get(list_url, headers=json_header)
@@ -111,7 +110,7 @@ def test_holding_requests(client, patron_martigny, loc_public_martigny,
                           holding_lib_martigny_w_patterns, lib_martigny,
                           item_lib_martigny, org_martigny):
     """Test holding patron request."""
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
     holding = holding_lib_martigny_w_patterns
     description = 'Year: 2000 / volume: 15 / number: 22 / pages: 11-12'
     # test fails when there is a missing description or holding_pid
@@ -153,7 +152,7 @@ def test_holding_requests(client, patron_martigny, loc_public_martigny,
     assert item.holding_pid == holding.pid
     assert item.get('enumerationAndChronology') == description
     # checkout the item to the requested patron
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(client, 'api_item.checkout', dict(
         item_pid=item.pid,
         patron_pid=patron_martigny.pid,

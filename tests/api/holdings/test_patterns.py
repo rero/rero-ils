@@ -25,9 +25,8 @@ from datetime import datetime
 
 import pytest
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from jsonschema.exceptions import ValidationError
-from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.holdings.api import Holding
@@ -39,7 +38,7 @@ from rero_ils.modules.utils import get_ref_for_pid, get_schema_for_resource
 def test_pattern_preview_api(
         client, holding_lib_martigny_w_patterns, librarian_martigny):
     """Test holdings patterns preview api."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     holding = holding_lib_martigny_w_patterns
     # holding = Holding.get_record_by_pid(holding.pid)
     # test preview by default 10 issues returned
@@ -82,7 +81,7 @@ def test_pattern_preview_api(
 def test_pattern_preview_api(
         client, holding_lib_martigny_w_patterns, librarian_martigny):
     """Test holdings patterns preview api."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     holding = holding_lib_martigny_w_patterns
     # holding = Holding.get_record_by_pid(holding.pid)
     # test preview by default 10 issues returned
@@ -141,7 +140,7 @@ def test_receive_regular_issue_api(
 
     # librarian of another library are not authoritzed to receive issues
     # for another library.
-    login_user_via_session(client, librarian_fully.user)
+    login_user(client, librarian_fully)
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',
@@ -149,7 +148,7 @@ def test_receive_regular_issue_api(
     )
     assert res.status_code == 401
     # only users of same organisation may receive issues.
-    login_user_via_session(client, system_librarian_sion.user)
+    login_user(client, system_librarian_sion)
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',
@@ -157,7 +156,7 @@ def test_receive_regular_issue_api(
     )
     assert res.status_code == 401
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',
@@ -195,7 +194,7 @@ def test_create_holdings_with_pattern(
         json_header, holding_lib_martigny_data, pattern_yearly_one_level_data,
         holding_lib_martigny_w_patterns_data):
     """Test create holding type serial with patterns."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     post_entrypoint = 'invenio_records_rest.hold_list'
 
     del holding_lib_martigny_data['pid']
@@ -244,7 +243,7 @@ def test_holding_pattern_preview_api(
         client, pattern_yearly_one_level_data,
         librarian_martigny):
     """Test holdings patterns preview api."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     patterns = pattern_yearly_one_level_data.get('patterns')
     # test preview by default 10 issues returned
     res, data = postdata(
@@ -276,7 +275,7 @@ def test_automatic_item_creation_no_serials(
         client, json_header, holding_lib_martigny_w_patterns,
         item_lib_martigny_data, librarian_martigny):
     """Test automatically created items are not attached to serials."""
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     post_url = 'invenio_records_rest.item_list'
     res, _ = postdata(
         client,
@@ -301,7 +300,7 @@ def test_pattern_validate_next_expected_date(
 
     the next_expected_date.
     """
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     holding = holding_lib_sion_w_patterns_data
     holding['holdings_type'] = 'serial'
     holding['patterns'] = \
@@ -326,7 +325,7 @@ def test_irregular_issue_creation_update_delete_api(
     issue_display, expected_date = holding._get_next_issue_display_text(
                         holding.get('patterns'))
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     item = {
         'issue': {
             'status': ItemIssueStatus.RECEIVED,

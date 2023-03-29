@@ -21,7 +21,8 @@ from __future__ import absolute_import, print_function
 
 import pytest
 from flask import session, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user as flask_login_user
+from flask_login import logout_user as flask_logout_user
 from utils import postdata
 
 from rero_ils.theme.views import nl2br
@@ -184,24 +185,24 @@ def test_set_user_name(
         user_without_email):
     """Test the user_name in the flask session."""
     # should be the email address
-    login_user(user=user_with_profile)
+    flask_login_user(user=user_with_profile)
     assert 'user_name' in session
     assert session['user_name'] == user_with_profile.email
     # should be removed
-    logout_user()
+    flask_logout_user()
     assert 'user_name' not in session
 
     # should not be set
-    login_user(user=user_without_email)
+    flask_login_user(user=user_without_email)
     assert 'user_name' not in session
-    logout_user()
+    flask_logout_user()
 
     # should be the formatted name
-    login_user(user=patron_martigny.user)
+    flask_login_user(user=patron_martigny.user)
     assert session['user_name'] == patron_martigny.formatted_name
-    logout_user()
+    flask_logout_user()
 
     # should be the formatted name
-    login_user(user=librarian_martigny.user)
+    flask_login_user(user=librarian_martigny.user)
     assert session['user_name'] == librarian_martigny.formatted_name
-    logout_user()
+    flask_logout_user()

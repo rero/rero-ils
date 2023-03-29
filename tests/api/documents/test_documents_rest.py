@@ -22,9 +22,8 @@ from datetime import datetime, timedelta
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    mock_response, postdata
+    login_user, mock_response, postdata
 
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.api import DocumentsSearch
@@ -41,7 +40,7 @@ def test_documents_newacq_filters(app, client,
                                   loc_public_saxon,
                                   item_lib_martigny_data,
                                   ):
-    login_user_via_session(client, system_librarian_martigny.user)
+    login_user(client, system_librarian_martigny)
 
     # compute useful date
     today = datetime.today()
@@ -431,7 +430,7 @@ def test_document_can_request_view(
         loc_public_martigny
 ):
     """Test can request on document view."""
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
 
     with mock.patch(
         'rero_ils.modules.documents.views.current_user',

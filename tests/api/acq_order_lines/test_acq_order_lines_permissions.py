@@ -19,7 +19,7 @@
 import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission
 
 from rero_ils.modules.acquisition.acq_order_lines.permissions import \
@@ -47,7 +47,7 @@ def test_order_lines_permissions(patron_martigny,
         'update': False,
         'delete': False
     }, {})
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(AcqOrderLinePermissionPolicy, {
         'search': False,
         'read': False,
@@ -59,7 +59,7 @@ def test_order_lines_permissions(patron_martigny,
     # As staff member without any specific access :
     #   - None action allowed
     #   - except read record of its own library (pro_read_only)
-    login_user(librarian2_martigny.user)
+    flask_login_user(librarian2_martigny.user)
     check_permission(AcqOrderLinePermissionPolicy, {
         'search': True,
         'read': True,
@@ -79,7 +79,7 @@ def test_order_lines_permissions(patron_martigny,
     #   - Search :: everything
     #   - Read :: record of its own library
     #   - Create/Update/Delete :: record of its own library
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(AcqOrderLinePermissionPolicy, {
         'search': True,
         'read': True,
@@ -99,7 +99,7 @@ def test_order_lines_permissions(patron_martigny,
     #   - Search :: everything
     #   - Read :: record of its own organisation
     #   - Create/Update/Delete :: record of its own organisation
-    login_user(system_librarian_martigny.user)
+    flask_login_user(system_librarian_martigny.user)
     check_permission(AcqOrderLinePermissionPolicy, {
         'search': True,
         'read': True,

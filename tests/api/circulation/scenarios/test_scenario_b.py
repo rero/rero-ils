@@ -18,8 +18,7 @@
 """Tests circulation scenario B."""
 
 
-from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, login_user, postdata
 
 from rero_ils.modules.items.models import ItemStatus
 
@@ -36,7 +35,7 @@ def test_circ_scenario_b(
     # Picked up at library B. Returned on-time at the library B, goes
     # in transit. Received at library A and goes on shelf.
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
             'patron_pid': patron_martigny.pid,
@@ -54,7 +53,7 @@ def test_circ_scenario_b(
         client, 'api_item.validate_request', dict(circ_params))
     assert res.status_code == 200
 
-    login_user_via_session(client, librarian_saxon.user)
+    login_user(client, librarian_saxon)
 
     circ_params = {
             'item_pid': item_lib_martigny.pid,
@@ -76,7 +75,7 @@ def test_circ_scenario_b(
     assert res.status_code == 200
     assert item_lib_martigny.status == ItemStatus.ON_SHELF
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     circ_params = {
             'item_pid': item_lib_martigny.pid,
             'patron_pid': patron_martigny.pid,

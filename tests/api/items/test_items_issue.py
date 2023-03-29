@@ -18,8 +18,7 @@
 
 import mock
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata
+from utils import VerifyRecordPermissionPatch, get_json, login_user, postdata
 
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
@@ -35,7 +34,7 @@ def test_issues_permissions(client, json_header,
     # receive a regular issue
     holding = holding_lib_martigny_w_patterns
     holding = Holding.get_record_by_pid(holding.pid)
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
     res, data = postdata(
         client,
         'api_holding.receive_regular_issue',

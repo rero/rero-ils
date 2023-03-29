@@ -25,7 +25,7 @@ import ciso8601
 from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl import A, Q
 from flask import current_app
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_circulation.errors import MissingRequiredParameterError
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.pidstore.minters import loan_pid_minter

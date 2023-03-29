@@ -24,9 +24,8 @@ from datetime import datetime
 import mock
 import pytest
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, get_json, login_user, \
+    postdata, to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.patron_transactions.api import PatronTransaction
@@ -221,7 +220,7 @@ def test_filtered_patron_transactions_get(
     res = client.get(list_url)
     assert res.status_code == 401
 
-    login_user_via_session(client, patron_martigny.user)
+    login_user(client, patron_martigny)
 
     res = client.get(list_url)
     assert res.status_code == 200
@@ -229,7 +228,7 @@ def test_filtered_patron_transactions_get(
     assert data['hits']['total']['value'] == 1
 
     # Martigny
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     res = client.get(list_url)
     assert res.status_code == 200
@@ -237,7 +236,7 @@ def test_filtered_patron_transactions_get(
     assert data['hits']['total']['value'] == 1
 
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
     list_url = url_for('invenio_records_rest.pttr_list')
 
     res = client.get(list_url)
@@ -288,7 +287,7 @@ def test_transactions_add_manual_fee(client, librarian_sion, org_sion,
                                      patron_sion):
     """Test for adding manual fees."""
     # Sion
-    login_user_via_session(client, librarian_sion.user)
+    login_user(client, librarian_sion)
 
     data = {
         'type': 'photocopy',

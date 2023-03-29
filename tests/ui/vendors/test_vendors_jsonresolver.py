@@ -18,7 +18,7 @@
 """Document JSONResolver tests."""
 
 import pytest
-from invenio_records.api import Record
+from invenio_records import Record
 from jsonref import JsonRefError
 
 from rero_ils.modules.utils import extracted_data_from_ref
@@ -34,7 +34,7 @@ def test_vendors_jsonresolver(app, vendor_martigny):
     # deleted record
     vendor_martigny.delete()
     with pytest.raises(Exception):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
 
     # non existing record
     rec = Record.create({
@@ -42,5 +42,5 @@ def test_vendors_jsonresolver(app, vendor_martigny):
     })
 
     with pytest.raises(JsonRefError) as error:
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
     assert 'PIDDoesNotExistError' in str(error)

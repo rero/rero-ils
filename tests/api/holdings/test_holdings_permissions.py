@@ -19,7 +19,7 @@
 import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission, flush_index
 
 from rero_ils.modules.holdings.permissions import HoldingsPermissionPolicy
@@ -55,7 +55,7 @@ def test_holdings_permissions(
         'update': False,
         'delete': False
     }, holding_lib_martigny)
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(HoldingsPermissionPolicy, {'create': False}, {})
     check_permission(HoldingsPermissionPolicy, {
         'search': True,
@@ -70,7 +70,7 @@ def test_holdings_permissions(
     #     - create/update/delete:
     #        -- allowed for serial holdings of its own library
     #        -- disallowed for standard holdings despite its own library
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(HoldingsPermissionPolicy, {
         'search': True,
         'read': True,
@@ -122,7 +122,7 @@ def test_holdings_permissions(
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
     flush_index(PatronsSearch.Meta.index)
 
-    login_user(librarian_martigny.user)  # to refresh identity !
+    flask_login_user(librarian_martigny.user)  # to refresh identity !
     check_permission(HoldingsPermissionPolicy, {
         'search': True,
         'read': True,
@@ -138,7 +138,7 @@ def test_holdings_permissions(
 
     # System librarian (aka. full-permissions)
     #   - create/update/delete: allow for serial holding if its own org
-    login_user(system_librarian_martigny.user)
+    flask_login_user(system_librarian_martigny.user)
     check_permission(HoldingsPermissionPolicy, {
         'search': True,
         'read': True,

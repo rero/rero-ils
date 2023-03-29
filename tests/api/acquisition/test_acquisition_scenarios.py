@@ -24,6 +24,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from jsonschema.exceptions import ValidationError
 from utils import VerifyRecordPermissionPatch, flush_index, get_json
+from utils import VerifyRecordPermissionPatch, get_json, login_user
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, \
     AcqAccountsSearch
@@ -103,7 +104,7 @@ def test_transfer_funds_api(client, rero_json_header, org_martigny,
         """Check amount available about an account."""
         return account['allocated_amount'], account.remaining_balance[0]
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # STEP 0 :: Create account tree
     #   Test structure account is described below. Each account are noted like
@@ -373,7 +374,7 @@ def test_acquisition_order(
 ):
     """Scenario to test orders creation."""
 
-    login_user_via_session(client, librarian_martigny.user)
+    login_user(client, librarian_martigny)
 
     # STEP 0 :: Create the account tree
     basic_data = {

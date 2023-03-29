@@ -21,7 +21,7 @@ from copy import deepcopy
 
 import ciso8601
 from freezegun import freeze_time
-from utils import login_user_via_session, postdata
+from utils import login_user, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
@@ -62,7 +62,7 @@ def test_less_than_one_day_checkout(
         # an ON_SHELF item
         # WITHOUT pending loan
         # CAN be CHECKOUT for less than one day
-        login_user_via_session(client, librarian_martigny.user)
+        login_user(client, librarian_martigny)
         res, data = postdata(
             client,
             'api_item.checkout',

@@ -19,7 +19,7 @@
 import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
-from flask_security import login_user
+from flask_security import login_user as flask_login_user
 from utils import check_permission, flush_index
 
 from rero_ils.modules.libraries.permissions import LibraryPermissionPolicy
@@ -47,7 +47,7 @@ def test_library_permissions(patron_martigny,
 
     # Patron
     #    A simple patron can't operate any operation about Library
-    login_user(patron_martigny.user)
+    flask_login_user(patron_martigny.user)
     check_permission(LibraryPermissionPolicy, {
         'search': False,
         'read': False,
@@ -64,7 +64,7 @@ def test_library_permissions(patron_martigny,
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
     flush_index(PatronsSearch.Meta.index)
 
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(LibraryPermissionPolicy, {'search': True}, None)
     check_permission(LibraryPermissionPolicy, {'create': False}, {})
     check_permission(LibraryPermissionPolicy, {
@@ -89,7 +89,7 @@ def test_library_permissions(patron_martigny,
     #    - search/read : same as common librarian
     #    - create/update/delete : if patron is manager for this library
 
-    login_user(librarian_martigny.user)
+    flask_login_user(librarian_martigny.user)
     check_permission(LibraryPermissionPolicy, {
         'read': True,
         'create': True,
@@ -113,7 +113,7 @@ def test_library_permissions(patron_martigny,
     #     - search : any Library despite organisation owner
     #     - read : only Library for its own organisation
     #     - create/update/delete : only Library for its own organisation
-    login_user(system_librarian_martigny.user)
+    flask_login_user(system_librarian_martigny.user)
     check_permission(LibraryPermissionPolicy, {
         'read': True,
         'create': True,

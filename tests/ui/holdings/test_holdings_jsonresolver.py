@@ -19,7 +19,7 @@
 """Holding JSON Resolver tests."""
 
 import pytest
-from invenio_records.api import Record
+from invenio_records import Record
 from jsonref import JsonRefError
 
 
@@ -35,11 +35,11 @@ def test_holdings_jsonresolver(holding_lib_martigny):
     # deleted record
     holding_lib_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
 
     # non existing record
     rec = Record.create({
         'holding': {'$ref': 'https://bib.rero.ch/api/holdings/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)

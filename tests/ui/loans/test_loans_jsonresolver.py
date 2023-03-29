@@ -18,7 +18,7 @@
 """Loan JSON Resolver tests."""
 
 import pytest
-from invenio_records.api import Record
+from invenio_records import Record
 from jsonref import JsonRefError
 
 
@@ -32,11 +32,11 @@ def test_loans_jsonresolver(loan_pending_martigny):
     # deleted record
     loan_pending_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
 
     # non existing record
     rec = Record.create({
         'loan': {'$ref': 'https://bib.rero.ch/api/loans/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        rec.replace_refs(lazy_load=False)
