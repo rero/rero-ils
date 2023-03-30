@@ -24,6 +24,16 @@
       "notification_type": {
         "type": "keyword"
       },
+      "effective_recipients": {
+        "properties": {
+          "type": {
+            "type": "keyword"
+          },
+          "address": {
+            "type": "keyword"
+          }
+        }
+      },
       "context": {
         "properties": {
           "loan": {

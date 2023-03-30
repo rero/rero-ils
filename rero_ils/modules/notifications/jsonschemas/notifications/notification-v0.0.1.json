@@ -148,6 +148,38 @@
         "acquisition_order"
       ]
     },
+    "effective_recipients": {
+      "title": "Effective notification recipients",
+      "description": "Where the notification were really dispatched",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Recipient",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "address"
+        ],
+        "properties": {
+          "type": {
+            "title": "Recipient type",
+            "type": "string",
+            "enum": [
+              "to",
+              "cc",
+              "bcc",
+              "reply_to"
+            ]
+          },
+          "address": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^.*@.*\\..+$"
+          }
+        }
+      }
+    },
     "context": {
       "oneOf": [
         {

@@ -231,7 +231,22 @@ class Notification(IlsRecord, ABC):
         for result in results:
             yield PatronTransaction.get_record(result.meta.id)
 
-    # CLASS METHODS ===========================================================
+    def update_effective_recipients(self, recipients):
+        """Update the notification to set effective recipients.
+
+        :param recipients: a list of tuple ; first element is the recipient
+            type, second element is the recipient address.
+        :return the updated notification.
+        """
+        recipients = recipients or []
+        for type_, address in recipients:
+            self.setdefault('effective_recipients', []).append({
+                'type': type_,
+                'address': address
+            })
+        return self.update(
+            data=self.dumps(), commit=True, dbcommit=True, reindex=True)
+
     def update_process_date(self, sent=False, status=NotificationStatus.DONE):
         """Update the notification to set process date.
 
