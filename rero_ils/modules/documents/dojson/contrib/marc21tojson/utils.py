@@ -1589,14 +1589,13 @@ def do_part_of(data, marc21, key, value):
 def do_work_access_point(marc21, key, value):
     """Get work access point."""
     """
-    * "agent": {
-    *   "type": "bf:Person", (700.2)
+    * "creator": {
+    *   "type": "bf:Person", (700.2) | "bf:Organisation", (710.2)
     *   "preferred_name": "700.2$a",
     *   "numeration": "700.2$b",
     *   "date_of_birth": "700.2$d - 1ère date",
     *   "date_of_death": "700.2$d - 2e date",
     *   "qualifier": ["700.2$c"]
-    *   "type": "bf:Organisation", (710.2)
     *   "conference": false, (710.2)
     *   "preferred_name": "710.2$a",
     *   "subordinate_unit": ["710.2$b"]
@@ -1620,71 +1619,39 @@ def do_work_access_point(marc21, key, value):
    """
     tag = key[:3]
     title_tag = 'a'
-    agent = {}
     work_access_point = {}
-    if tag in ['700', '800'] and value.get('t'):
+    bib_id = marc21.bib_id
+    # work_access_point.creator
+    if (tag in ['700', '800'] and value.get('t')) or tag == '710':
         title_tag = 't'
-        agent['type'] = EntityType.PERSON
-        if value.get('a'):
-            preferred_name = not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'a')
-            preferred_name = remove_trailing_punctuation(not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'a',
-                ',.'
-            )).rstrip('.')
-            agent['preferred_name'] = preferred_name
-        if value.get('b'):
-            agent['numeration'] = remove_trailing_punctuation(
-                not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'b'))
-        if dates := not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'd'):
-            split_dates = dates.split('-')
-            if date_of_birth := split_dates[0].strip().rstrip('.'):
-                agent['date_of_birth'] = date_of_birth
-            with contextlib.suppress(Exception):
-                if date_of_death := split_dates[1].strip().rstrip('.'):
-                    agent['date_of_death'] = date_of_death
-        if value.get('c'):
-            agent['qualifier'] = remove_trailing_punctuation(
-                not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'c')
-            ).rstrip('.')
-    elif tag == '710':
-        title_tag = 't'
-        agent['type'] = EntityType.ORGANISATION
-        agent['conference'] = False
-        if value.get('a'):
-            preferred_name = not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'a')
-            preferred_name = remove_trailing_punctuation(not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'a',
-                ',.'
-            )).rstrip('.')
-            agent['preferred_name'] = preferred_name
-        if value.get('b'):
-            for subordinate_unit in list(utils.force_list(value.get('b'))):
-                subordinate_unit = remove_trailing_punctuation(
-                    subordinate_unit).rstrip('.')
-                agent.setdefault('subordinate_unit', [])
-                agent['subordinate_unit'].append(subordinate_unit)
-
-    if agent:
-        work_access_point['agent'] = agent
+        if (creator_data := _do_work_access_point_creator(marc21, key, value))\
+           and creator_data.get('preferred_name'):
+            work_access_point['creator'] = creator_data
+    # work_access_point.title
     if value.get(title_tag):
-        title = not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, title_tag)
         work_access_point['title'] = remove_trailing_punctuation(
-            title, ',.').replace('\u009c', '')
+            not_repetitive(bib_id, bib_id, key, value, title_tag), ',.'
+        ).replace('\u009c', '')
+
+        if not work_access_point.get('title'):
+            error_print('WARNING WORK ACCESS POINT:', bib_id, marc21.rero_id,
+                        'no title')
+            return None
+    # work_access_point.date_of_work
     if value.get('f'):
-        work_access_point['date_of_work'] = not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, 'f')
+        work_access_point['date_of_work'] = \
+            not_repetitive(bib_id, bib_id, key, value, 'f')
+    # work_access_point.miscellaneous_information
     if value.get('g'):
         work_access_point['miscellaneous_information'] = \
             remove_trailing_punctuation(not_repetitive(
-                marc21.bib_id, marc21.bib_id, key, value, 'g'), ',.')
+                bib_id, bib_id, key, value, 'g'), ',.')
+    # work_access_point.language
     if value.get('l'):
-        language = not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, 'l'
-        ).lstrip('(').rstrip('.').rstrip(')')
+        language = not_repetitive(bib_id, bib_id, key, value, 'l')\
+            .lstrip('(')\
+            .rstrip('.')\
+            .rstrip(')')
         lang = language
         if language not in _LANGUAGES:
             if len(language.split('-')) > 1 or language == 'mehrsprachig':
@@ -1694,15 +1661,15 @@ def do_work_access_point(marc21, key, value):
         if lang in _LANGUAGES:
             work_access_point['language'] = lang
         if lang == 'mul' or lang not in _LANGUAGES:
-            error_print('WARNING WORK ACCESS POINT LANGUAGE:', marc21.bib_id,
+            error_print('WARNING WORK ACCESS POINT LANGUAGE:', bib_id,
                         marc21.rero_id, language)
-            if miscellaneous_information := work_access_point.get(
-                    'miscellaneous_information'):
+            if misc_info := work_access_point.get('miscellaneous_information'):
                 work_access_point['miscellaneous_information'] = \
-                    f'{miscellaneous_information} | language: {language}'
+                    f'{misc_info} | language: {language}'
             else:
                 work_access_point['miscellaneous_information'] = \
                     f'language: {language}'
+    # work_access_point.part
     part_list = TitlePartList(part_number_code='n', part_name_code='p')
     items = get_field_items(value)
     index = 1
@@ -1716,33 +1683,76 @@ def do_work_access_point(marc21, key, value):
             if part_name := part.get('partName'):
                 part['partName'] = remove_trailing_punctuation(part_name)
         work_access_point['part'] = the_part_list
+    # work_access_point.form_subdivision
     if value.get('k'):
-        for form_subdivision in list(utils.force_list(value.get('k'))):
-            work_access_point.setdefault('form_subdivision', [])
-            work_access_point['form_subdivision'].append(
-                remove_trailing_punctuation(form_subdivision, ',.'))
+        work_access_point['form_subdivision'] = list(filter(None, [
+            remove_trailing_punctuation(form_subdivision, ',.')
+            for form_subdivision in list(utils.force_list(value.get('k')))
+        ]))
+    # work_access_point.medium_of_performance_for_music
     if value.get('m'):
         work_access_point['medium_of_performance_for_music'] = list(
             utils.force_list(value.get('m')))
+    # work_access_point.arranged_statement_for_music
     if value.get('o'):
         work_access_point['arranged_statement_for_music'] = not_repetitive(
-            marc21.bib_id, marc21.bib_id, key, value, 'o')
+            bib_id, bib_id, key, value, 'o')
+    # work_access_point.key_for_music
     if value.get('r'):
         work_access_point['key_for_music'] = remove_trailing_punctuation(
-            not_repetitive(marc21.bib_id, marc21.bib_id, key, value, 'r'),
-            ',.'
-        )
-    if identifier := build_identifier(value):
-        agent['identifiedBy'] = identifier
+            not_repetitive(bib_id, bib_id, key, value, 'r'), ',.')
 
-    if not work_access_point.get('title'):
-        error_print('WARNING WORK ACCESS POINT:', marc21.bib_id,
-                    marc21.rero_id, 'no title')
-        return None
-    agent = work_access_point.get('agent', {})
-    if agent and not agent.get('preferred_name'):
-        work_access_point.pop('agent')
     return work_access_point or None
+
+
+def _do_work_access_point_creator(marc21, key, value):
+    """Create the structure for the work_access_point.creator field.
+
+    :param marc21: the marc record.
+    :param key: the MARC tag code and indicator.
+    :param value: the MARC tag content (subfields).
+    :return the work_access_point.creator structure as a dict
+    :rtype dict
+    """
+    tag = key[:3]
+    bib_id = marc21.bib_id
+    data = {}
+    if tag in ['100', '700', '800']:
+        data = {'type': EntityType.PERSON}
+        if value.get('a'):
+            data['preferred_name'] = remove_trailing_punctuation(
+                not_repetitive(bib_id, bib_id, key, value, 'a',)).rstrip('.')
+        if value.get('b'):
+            data['numeration'] = remove_trailing_punctuation(
+                not_repetitive(bib_id, bib_id, key, value, 'b'))
+        if date := not_repetitive(bib_id, bib_id, key, value, 'd'):
+            date_parts = [d.strip().rstrip('.') for d in date.split('-')]
+            if date_parts[0]:
+                data['date_of_birth'] = date_parts[0]
+            if date_parts[1]:
+                data['date_of_death'] = date_parts[1]
+        if value.get('c'):
+            data['qualifier'] = remove_trailing_punctuation(
+                not_repetitive(bib_id, bib_id, key, value, 'c')).rstrip('.')
+
+    # bf:Organisation
+    if tag == '710':
+        data = {
+            'type': EntityType.ORGANISATION,
+            'conference': False
+        }
+        if value.get('a'):
+            data['name'] = remove_trailing_punctuation(
+                not_repetitive(bib_id, bib_id, key, value, 'a',)).rstrip('.')
+        if value.get('b'):
+            data['subordinate_unit'] = list(filter(None, [
+                remove_trailing_punctuation(unit).rstrip('.')
+                for unit in list(utils.force_list(value.get('b')))
+            ]))
+
+    if data and (identifier := build_identifier(value)):
+        data['identifiedBy'] = identifier
+    return data
 
 
 def do_work_access_point_240(marc21, key, value):
@@ -1764,7 +1774,7 @@ def do_work_access_point_240(marc21, key, value):
 
     if field_100 := marc21.get_fields('100'):
         if agent := build_agent(marc21, '100', field_100[0]['subfields'])[1]:
-            work_access_points['agent'] = agent
+            work_access_points['creator'] = agent
 
     if the_part_list := part_list.get_part_list():
         work_access_points['part'] = the_part_list
