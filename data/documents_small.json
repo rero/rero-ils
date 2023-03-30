@@ -595,7 +595,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Bach, Johann Sebastian"
         },
@@ -3097,7 +3097,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Marguerite",
           "date_of_birth": "1492",
@@ -3309,7 +3309,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Plas, Alain"
         },
@@ -6448,7 +6448,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Binet, Christian"
         },
@@ -7198,7 +7198,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Mozart, Wolfgang Amadeus"
         },
@@ -7548,7 +7548,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Glanzmann, Arthur"
         },
@@ -8311,7 +8311,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Cantin, Marc"
         },
@@ -8697,7 +8697,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Urlaub, Farin",
           "date_of_birth": "1963"
@@ -10004,7 +10004,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "King, Stephen",
           "date_of_birth": "1947"
@@ -10175,7 +10175,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "King, Stephen",
           "date_of_birth": "1947"
@@ -11760,7 +11760,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Haydn, Joseph",
           "date_of_birth": "1732",
@@ -14788,11 +14788,11 @@
     "intendedAudience": [
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos1"
+        "value": "target_school_harmos2"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos2"
+        "value": "target_school_harmos1"
       },
       {
         "audienceType": "school_level",
@@ -19441,11 +19441,6 @@
     ],
     "work_access_point": [
       {
-        "agent": {
-          "type": "bf:Organisation",
-          "conference": false,
-          "preferred_name": "Italia"
-        },
         "title": "Code p\u00e9nal"
       }
     ],
@@ -20166,7 +20161,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Knoepfel, Peter"
         },
@@ -22690,7 +22685,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Mauriac, Claude"
         },
@@ -25987,7 +25982,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Shelley, Mary Wollstonecraft Godwin",
           "date_of_birth": "1797",
@@ -27679,7 +27674,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "PoiPoi"
         },
@@ -30134,7 +30129,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Bertholet, Alfred",
           "qualifier": "Musicien"
@@ -34984,7 +34979,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Nix, Garth"
         },
@@ -37509,7 +37504,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Marek, Robert"
         },
@@ -40601,7 +40596,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Schumann, Robert",
           "date_of_birth": "1810",
@@ -40613,7 +40608,7 @@
         ]
       },
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Schumann, Robert",
           "date_of_birth": "1810",
@@ -40915,7 +40910,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Haydn, Joseph",
           "date_of_birth": "1732",
@@ -40928,7 +40923,7 @@
         "key_for_music": "Hob. 1:7, do majeur"
       },
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Haydn, Joseph",
           "date_of_birth": "1732",
@@ -40941,7 +40936,7 @@
         "key_for_music": "Hob. 1:8, sol majeur"
       },
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Haydn, Joseph",
           "date_of_birth": "1732",
@@ -44078,7 +44073,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Mendelssohn-Bartholdy, Felix"
         },
@@ -44845,7 +44840,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Plato",
           "date_of_birth": "ca. 427",
@@ -48905,7 +48900,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Bubnoff, Serge von"
         },
@@ -50140,7 +50135,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Glanzmann, Arthur"
         },
@@ -51551,7 +51546,7 @@
     ],
     "work_access_point": [
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Darbellay, Etienne",
           "identifiedBy": {
@@ -51562,7 +51557,7 @@
         "title": "Luigi Ferdinando Tagliavini: le musicologue"
       },
       {
-        "agent": {
+        "creator": {
           "type": "bf:Person",
           "preferred_name": "Darbellay, Etienne"
         },
