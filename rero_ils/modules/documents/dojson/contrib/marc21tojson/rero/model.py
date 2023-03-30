@@ -124,7 +124,11 @@ def marc21_to_contribution(self, key, value):
         return None
     agent = {}
     if ref := get_contribution_link(
-            marc21.bib_id, marc21.rero_id, subfields_0[0], key):
+        bibid=marc21.bib_id,
+        reroid=marc21.rero_id,
+        ids=utils.force_list(value.get('0')),
+        key=key
+    ):
         agent['$ref'] = ref
 
     # we do not have a $ref

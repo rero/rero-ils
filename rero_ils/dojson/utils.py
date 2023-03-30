@@ -334,21 +334,20 @@ def error_print(*args):
 
 
 def make_year(date):
-    """Test if string is integer and between 1000 to 9999."""
+    """Test if string is integer and between 1000 and 9999."""
     with contextlib.suppress(Exception):
         int_date = int(date)
-        if int_date >= 1000 and int_date < 9999:
+        if 1000 <= int_date < 9999:
             return int_date
     return None
 
 
 def not_repetitive(bibid, reroid, key, value, subfield, default=None):
     """Get the first value if the value is a list or tuple."""
-    data = value.get(
-        subfield) if default is None else value.get(subfield, default)
+    data = value.get(subfield, default)
     if isinstance(data, (list, tuple)):
-        error_print('WARNING NOT REPETITIVE:', bibid, reroid, key, subfield,
-                    value)
+        error_print(
+            'WARNING NOT REPETITIVE:', bibid, reroid, key, subfield, value)
         data = data[0]
     return data
 
@@ -394,7 +393,7 @@ def remove_trailing_punctuation(
     :type spaced_punctuation: str
 
     :return: the data string with specific trailing punctuation removed
-    :rtype: list
+    :rtype: str
     """
     # escape chars: .[]^-
     if punctuation:

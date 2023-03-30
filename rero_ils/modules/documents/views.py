@@ -38,6 +38,7 @@ from .utils import display_alternate_graphic_first, get_remote_cover, \
     title_variant_format_text
 from ..collections.api import CollectionsSearch
 from ..entities.api import Entity
+from ..entities.models import EntityType
 from ..holdings.models import HoldingNoteTypes
 from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
@@ -380,9 +381,8 @@ def work_access_point(work_access_point):
     wap = []
     for work in work_access_point:
         agent_formatted = ''
-        if 'agent' in work:
-            agent = work['agent']
-            if agent['type'] == 'bf:Person':
+        if agent := work.get('creator'):
+            if agent['type'] == EntityType.PERSON:
                 # Person
                 name = []
                 if 'preferred_name' in agent:
@@ -410,7 +410,7 @@ def work_access_point(work_access_point):
                     agent_formatted += agent['preferred_name'] + '. '
                 if 'subordinate_unit' in agent:
                     for unit in agent['subordinate_unit']:
-                        agent_formatted += unit + '. '
+                        agent_formatted += f'{unit}. '
                 if 'numbering' in agent or 'conference_date' in agent or \
                    'place' in agent:
                     conf = [

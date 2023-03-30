@@ -1935,6 +1935,61 @@
       "work_access_point": {
         "type": "object",
         "properties": {
+          "creator": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "preferred_name": {
+                "type": "keyword"
+              },
+              "date_of_birth": {
+                "type": "keyword"
+              },
+              "date_of_death": {
+                "type": "keyword"
+              },
+              "qualifier": {
+                "type": "keyword"
+              },
+              "numeration": {
+                "type": "keyword"
+              },
+              "fully_form_of_name": {
+                "type": "keyword"
+              },
+              "subordinate_unit": {
+                "type": "keyword"
+              },
+              "conference": {
+                "type": "boolean"
+              },
+              "place": {
+                "type": "keyword"
+              },
+              "numbering": {
+                "type": "keyword"
+              },
+              "conference_date": {
+                "type": "keyword"
+              },
+              "identifiedBy": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "keyword"
+                  },
+                  "source": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          },
           "title": {
             "type": "text"
           },

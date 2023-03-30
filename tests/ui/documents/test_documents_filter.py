@@ -311,7 +311,7 @@ def test_work_access_point():
                     'partNumber': 'part section designation'
                 }
             ],
-            'agent': {
+            'creator': {
                 'type': 'bf:Person',
                 'qualifier': 'physicien',
                 'numeration': 'XX',
@@ -337,7 +337,7 @@ def test_work_access_point():
                     'partName': 'Title',
                     'partNumber': 'part designation'
                 }],
-            'agent': {
+            'creator': {
                 'type': 'bf:Organisation',
                 'place': 'Lausanne',
                 'numbering': '4',
@@ -359,7 +359,7 @@ def test_work_access_point():
             ]
         },
         {
-            'agent': {
+            'creator': {
                 'type': 'bf:Person',
                 'qualifier': 'pianiste',
                 'date_of_birth': '1980',
@@ -373,7 +373,7 @@ def test_work_access_point():
                     'partNumber': 'part number'
                 }
             ],
-            'agent': {
+            'creator': {
                 'type': 'bf:Person',
                 'qualifier': 'pianiste'
             },
