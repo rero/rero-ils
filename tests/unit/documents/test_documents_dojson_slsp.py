@@ -97,7 +97,7 @@ def test_marc21_to_contribution(mock_get):
         'role': ['aut']
     }]
     assert data.get('work_access_point') == [{
-        'agent': {
+        'creator': {
             'date_of_birth': '1954',
             'numeration': 'II',
             'preferred_name': 'Jean-Paul',
@@ -106,7 +106,7 @@ def test_marc21_to_contribution(mock_get):
         },
         'title': 'Treaties, etc.'
     }, {
-        'agent': {
+        'creator': {
             'preferred_name': 'Santamaría, Germán',
             'type': 'bf:Person'
         },
@@ -138,7 +138,7 @@ def test_marc21_to_contribution(mock_get):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('work_access_point') == [{
-        'agent': {
+        'creator': {
             'date_of_birth': '1919',
             'date_of_death': '1990',
             'preferred_name': 'Santamaría, Germán',
@@ -146,7 +146,7 @@ def test_marc21_to_contribution(mock_get):
         },
         'title': 'No morirás'
     }, {
-        'agent': {
+        'creator': {
             'date_of_birth': '1919',
             'preferred_name': 'Santamaría, Germán',
             'type': 'bf:Person'
