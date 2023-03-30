@@ -72,6 +72,16 @@ def test_delayed_notifications(
     assert loan.is_notified(notification_type=NotificationType.AVAILABILITY)
     assert loan.is_notified(notification_type=NotificationType.AT_DESK)
 
+    # Ensure than `effective_recipients` is filled
+    #   The notification should be sent to library AT_DESK email setting.
+    notification = Notification.get_record(notification.id)
+    effective_recipients = [
+        recipient['address']
+        for recipient in notification.get('effective_recipients')
+    ]
+    assert effective_recipients == \
+           [lib_martigny.get_email(NotificationType.AT_DESK)]
+
     # One notification will be sent : AVAILABILITY (sent to patron).
     # Get the last message from mailbox and check it.
     availability_msg = mailbox[-1]

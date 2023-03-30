@@ -77,7 +77,7 @@ class Dispatcher:
         #   The aggregation key we build ensure than aggregated notifications
         #   are always send to same recipient (patron, lib, vendor, ...) with
         #   the same communication channel. So we can check any notification
-        #   of the set to get the theses informations.
+        #   of the set to get the these informations.
         for aggr_key, aggr_notifications in aggregated.items():
             notification = aggr_notifications[0]
             comm_channel = notification.get_communication_channel()
@@ -90,11 +90,13 @@ class Dispatcher:
                     f'patron: {notification.patron.pid} '
                     f'documents: {counter}'
                 )
-            result = dispatcher_function(aggr_notifications)
+            result, recipients = dispatcher_function(aggr_notifications)
             for notification in aggr_notifications:
                 notification.update_process_date(sent=result)
             if result:
                 sent += counter
+                for notification in aggr_notifications:
+                    notification.update_effective_recipients(recipients)
             else:
                 not_sent += counter
         return {
@@ -181,7 +183,10 @@ class Dispatcher:
                 generator process working with CUPS (using RabbitMQ queue)
 
         :param notifications: the notification set to perform.
-        :return True if email is send, False if errors are found.
+        :return a tuple where first element is a boolean value to determine if
+            email was sent (False if errors are found) ; second element is a
+            list of used recipients.
+        :rtype tuple
         """
         notifications = notifications or []
         if not notifications:
@@ -219,14 +224,14 @@ class Dispatcher:
             current_app.logger.warning(
                 f'Notification#{notification.pid} for printing is lost :: '
                 f'({")(".join(error_reasons)})')
-            return False
+            return False, None
 
         # 2. Build the context to render the template
         notif_class = notification.__class__
         context = notif_class.get_notification_context(notifications)
         # 3. Force patron communication channel to 'mail'
-        #    In some cases we force the notification to be send by mail despite
-        #    the patron asked to received them by email (cipo reminders
+        #    In some cases we force the notification to be sent by mail despite
+        #    the patron asked to receive them by email (cipo reminders
         #    notifications with a communication channel to 'mail' value).
         #    Ensure than the ``include_patron_address`` are set to True.
         context['include_patron_address'] = True
@@ -239,14 +244,17 @@ class Dispatcher:
             template=notification.get_template_path()
         )
         task_send_email.apply_async((msg.__dict__,))
-        return True
+        return True, [(RecipientType.TO, recipient)]
 
     @staticmethod
     def send_notification_by_email(notifications):
         """Send the notification by email to the patron.
 
         :param notifications: the notification set to perform.
-        :return True if email is send, False if errors are found.
+        :return a tuple where first element is a boolean value to determine if
+            email was sent (False if errors are found) ; second element is a
+            list of used recipients.
+        :rtype tuple
         """
         notifications = notifications or []
         if not notifications:
@@ -265,7 +273,7 @@ class Dispatcher:
             current_app.logger.warning(
                 f'Notification#{notification.pid} is lost :: '
                 f'({")(".join(error_reasons)})')
-            return False
+            return False, None
 
         # build the context for this notification set
         notif_class = notification.__class__
@@ -279,4 +287,4 @@ class Dispatcher:
         )
         delay = context.get('delay', 0)
         task_send_email.apply_async((msg.__dict__,), countdown=delay)
-        return True
+        return True, [(RecipientType.TO, addr) for addr in recipients]
