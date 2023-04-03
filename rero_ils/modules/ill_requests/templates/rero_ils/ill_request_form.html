@@ -1,8 +1,8 @@
 {# -*- coding: utf-8 -*-
 
   RERO ILS
-  Copyright (C) 2019-2022 RERO
-  Copyright (C) 2019-2022 UCLouvain
+  Copyright (C) 2019-2023 RERO
+  Copyright (C) 2019-2023 UCLouvain
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
@@ -27,7 +27,7 @@
     <p class="mb-0">{{ _('Please make sure that the requested document does not exist in your library network.') }}</p>
   </div>
 
-  <form id="ill-public-form" action="{{ url_for('ill_requests.ill_request_form', viewcode=viewcode) }}" method="POST" class="form" role="form" novalidate>
+  <form id="ill-public-form" action="{{ url_for('ill_requests.ill_request_form', viewcode=viewcode) }}" method="POST" class="form" role="form" data-organisation="{{ org_pids }}" novalidate>
     {{ form.hidden_tag() }}
     {%- if form.csrf_token and form.csrf_token.errors %}
       <div class="alert alert-danger" role="alert">
@@ -62,7 +62,7 @@
     </section>
     <div class="row pt-3">
       <div class="col text-right">
-        <input type="submit" id="submit" class="btn btn-primary" value="{{ _('Submit') }}"/>
+        <input type="submit" id="submit-btn" class="btn btn-primary" value="{{ _('Submit') }}"/>
       </div>
     </div>
   </form>
@@ -84,10 +84,32 @@
           </ul>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" data-dismiss="modal">{{ _('Cancel') }}</button>
-          <button id="ill-modal-confirmation-btn" type="button" class="btn btn-primary">{{ _('Confirm') }}</button>
+          <button id="ill-modal-confirmation-no" type="button" class="btn btn-outline-danger" data-dismiss="modal">{{ _('Cancel') }}</button>
+          <button id="ill-modal-confirmation-yes" type="button" class="btn btn-primary">{{ _('Confirm') }}</button>
         </div>
       </div>
     </div>
   </div>
+
+  <div id="ill-modal-document-exists" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ _('Document is available') }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{ _('The document you are requesting exists in the catalog at your institution.') }}<br>
+          {{ _('Are you sure you want to continue with your ILL request?')}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="ill-modal-document-exists-no" class="btn btn-outline-danger" data-dismiss="modal">{{ _('No') }}</button>
+          <button id="ill-modal-document-exists-yes" type="button" class="btn btn-primary">{{ _('Yes') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {%- endblock body %}

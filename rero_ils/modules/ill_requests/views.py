@@ -58,6 +58,10 @@ def ill_request_form(viewcode):
     form.pickup_location.choices = [
         *form.pickup_location.choices, *list(get_pickup_location_options())]
 
+    # Extraction of the pids organizations from the connected patron
+    org_pids = ','.join(
+        [patron.organisation_pid for patron in current_patrons])
+
     # Populate data only if we are on the global view
     # and that the function is allowed in the configuration
     if request.method == 'GET' and 'record_pid' in request.args \
@@ -88,10 +92,15 @@ def ill_request_form(viewcode):
             _('The request has been transmitted to your library.'),
             'success'
         )
-        return redirect(url_for('patrons.profile', viewcode=viewcode))
+        return redirect(url_for(
+            'patrons.profile',
+            viewcode=viewcode,
+            org_pids=org_pids))
 
     return render_template('rero_ils/ill_request_form.html',
-                           form=form, viewcode=viewcode)
+                           form=form,
+                           viewcode=viewcode,
+                           org_pids=org_pids)
 
 
 def _populate_document_data_form(doc_pid, form):
