@@ -77,13 +77,15 @@ function pretests () {
   # | wtforms                    | 2.3.3     | <3.0.0a1                 | 42852    |
   # | werkzeug                   | 1.0.1     | <2.2.3                   | 53325    |
   # | werkzeug                   | 1.0.1     | <2.2.3                   | 53326    |
+  # | werkzeug                   | 1.0.1     | >=0,<2.1.1               | 54456    |
   # | celery                     | 5.1.2     | <5.2.0                   | 42498    |
   # | celery                     | 5.1.2     | <5.2.2                   | 43738    |
   # | click                      | 7.1.2     | <8.0.0                   | 47833    |
   # | py                         | 1.11.0    | <=1.11.0                 | 51457    |
   # | safety                     | 1.10.3    | <2.2.0                   | 51358    |
+  # | sentry-sdk                 | 1.6.0     | <1.14.0                  | 53812    |
   # +==============================================================================+
-  safety check -i 45183 -i 44501 -i 51668 -i 42194 -i 42852 -i 53325 -i 53326 -i 42498 -i 43738 -i 47833 -i 51457 -i 51358
+  safety check -i 45183 -i 44501 -i 51668 -i 42194 -i 42852 -i 53325 -i 53326 -i 54456 -i 42498 -i 43738 -i 47833 -i 51457 -i 51358 -i 53812
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
