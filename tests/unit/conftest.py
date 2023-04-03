@@ -279,6 +279,15 @@ def operation_log_schema(monkeypatch):
 
 
 @pytest.fixture()
+def vendors_schema(monkeypatch):
+    """Local fields Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.vendors.jsonschemas',
+        'vendors/vendor-v0.0.1.json')
+    return get_schema(monkeypatch, schema_in_bytes)
+
+
+@pytest.fixture()
 def marc21_record():
     """Marc21 record."""
     return {

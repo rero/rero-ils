@@ -48,8 +48,11 @@
           }
         }
       },
-      "default_contact": {
+      "contacts": {
         "properties": {
+          "type": {
+            "type": "keyword"
+          },
           "contact_person": {
             "type": "text"
           },
@@ -72,37 +75,6 @@
             "type": "keyword"
           },
           "phone": {
-            "type": "keyword"
-          },
-          "postal_code": {
-            "type": "keyword"
-          },
-          "street": {
-            "type": "text"
-          }
-        }
-      },
-      "order_contact": {
-        "properties": {
-          "contact_person": {
-            "type": "text"
-          },
-          "city": {
-            "type": "text"
-          },
-          "country": {
-            "type": "text"
-          },
-          "email": {
-            "type": "keyword",
-            "fields": {
-              "analyzed": {
-                "type": "text",
-                "analyzer": "custom_keyword"
-              }
-            }
-          },
-          "home_phone": {
             "type": "keyword"
           },
           "postal_code": {
