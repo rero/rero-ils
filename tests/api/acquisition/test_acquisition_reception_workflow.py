@@ -38,6 +38,7 @@ from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.models import NotificationChannel, \
     NotificationStatus, NotificationType, RecipientType
 from rero_ils.modules.utils import get_ref_for_pid
+from rero_ils.modules.vendors.models import VendorContactType
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -353,7 +354,9 @@ def test_acquisition_reception_workflow(
     #      - check order lines (status, order-date)
     #      - check order (status)
     #      - check notification
-    address = vendor_martigny.get('default_contact').get('email')
+    address = vendor_martigny\
+        .get_contact(VendorContactType.DEFAULT)\
+        .get('email')
     emails = [
         {'type': 'to', 'address': address},
         {'type': 'reply_to', 'address': lib_martigny.get('email')}

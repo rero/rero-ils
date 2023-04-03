@@ -10,14 +10,17 @@
       }
     ],
     "communication_language": "ita",
-    "default_contact": {
-      "city": "Aosta",
-      "email": "reroilstest+vendor1@gmail.com",
-      "phone": "+39324993598",
-      "postal_code": "11100",
-      "street": "Via de Lostan 3",
-      "country": "Italia"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Aosta",
+        "email": "reroilstest+vendor1@gmail.com",
+        "phone": "+39324993598",
+        "postal_code": "11100",
+        "street": "Via de Lostan 3",
+        "country": "Italia"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
@@ -35,14 +38,17 @@
       }
     ],
     "communication_language": "ita",
-    "default_contact": {
-      "city": "Aosta",
-      "email": "reroilstest+vendor1@gmail.com",
-      "phone": "+39324993598",
-      "postal_code": "11100",
-      "street": "Via de Lostan 3",
-      "country": "Italia"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Aosta",
+        "email": "reroilstest+vendor1@gmail.com",
+        "phone": "+39324993598",
+        "postal_code": "11100",
+        "street": "Via de Lostan 3",
+        "country": "Italia"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
@@ -60,14 +66,17 @@
       }
     ],
     "communication_language": "ita",
-    "default_contact": {
-      "city": "Aosta",
-      "email": "reroilstest+vendor1@gmail.com",
-      "phone": "+39324993598",
-      "postal_code": "11100",
-      "street": "Via de Lostan 3",
-      "country": "Italia"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Aosta",
+        "email": "reroilstest+vendor1@gmail.com",
+        "phone": "+39324993598",
+        "postal_code": "11100",
+        "street": "Via de Lostan 3",
+        "country": "Italia"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
@@ -79,14 +88,17 @@
     "name": "FNAC Aoste",
     "website": "http://www.fnac.it",
     "communication_language": "fre",
-    "default_contact": {
-      "city": "Aosta",
-      "email": "reroilstest+vendor2@gmail.com",
-      "phone": "+39324867598",
-      "postal_code": "11100",
-      "street": "Via Chambery 82",
-      "country": "Italia"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Aosta",
+        "email": "reroilstest+vendor2@gmail.com",
+        "phone": "+39324867598",
+        "postal_code": "11100",
+        "street": "Via Chambery 82",
+        "country": "Italia"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
@@ -98,14 +110,17 @@
     "name": "FNAC Aoste",
     "website": "http://www.fnac.it",
     "communication_language": "fre",
-    "default_contact": {
-      "city": "Aosta",
-      "email": "reroilstest+vendor2@gmail.com",
-      "phone": "+39324867598",
-      "postal_code": "11100",
-      "street": "Via Chambery 82",
-      "country": "Italia"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Aosta",
+        "email": "reroilstest+vendor2@gmail.com",
+        "phone": "+39324867598",
+        "postal_code": "11100",
+        "street": "Via Chambery 82",
+        "country": "Italia"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
@@ -117,14 +132,17 @@
     "name": "FNAC Aoste",
     "website": "http://www.fnac.it",
     "communication_language": "fre",
-    "default_contact": {
-      "city": "Aosta",
-      "email": "reroilstest+vendor2@gmail.com",
-      "phone": "+39324867598",
-      "postal_code": "11100",
-      "street": "Via Chambery 82",
-      "country": "Italia"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Aosta",
+        "email": "reroilstest+vendor2@gmail.com",
+        "phone": "+39324867598",
+        "postal_code": "11100",
+        "street": "Via Chambery 82",
+        "country": "Italia"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
@@ -145,13 +163,16 @@
         "content": "accept all currencies"
       }
     ],
-    "default_contact": {
-      "city": "Saint-Vincent",
-      "email": "reroilstest+vendor3@gmail.com",
-      "postal_code": "11027",
-      "street": "Via G. Aichino 9",
-      "country": "Italia"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Saint-Vincent",
+        "email": "reroilstest+vendor3@gmail.com",
+        "postal_code": "11027",
+        "street": "Via G. Aichino 9",
+        "country": "Italia"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
@@ -162,13 +183,16 @@
     "pid": "8",
     "name": "Association des Alpes",
     "communication_language": "ita",
-    "default_contact": {
-      "city": "Saint-Vincent",
-      "email": "reroilstest+vendor3@gmail.com",
-      "postal_code": "11027",
-      "street": "Via G. Aichino 9",
-      "country": "Italia"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Saint-Vincent",
+        "email": "reroilstest+vendor3@gmail.com",
+        "postal_code": "11027",
+        "street": "Via G. Aichino 9",
+        "country": "Italia"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
@@ -179,13 +203,16 @@
     "pid": "9",
     "name": "Association des Alpes",
     "communication_language": "ita",
-    "default_contact": {
-      "city": "Saint-Vincent",
-      "email": "reroilstest+vendor3@gmail.com",
-      "postal_code": "11027",
-      "street": "Via G. Aichino 9",
-      "country": "Italia"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Saint-Vincent",
+        "email": "reroilstest+vendor3@gmail.com",
+        "postal_code": "11027",
+        "street": "Via G. Aichino 9",
+        "country": "Italia"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 22,
     "organisation": {
@@ -203,13 +230,16 @@
       }
     ],
     "communication_language": "eng",
-    "default_contact": {
-      "city": "London",
-      "email": "reroilstest+vendor4@gmail.com",
-      "phone": "+448444825000",
-      "street": "Diagon Alley",
-      "country": "UK"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "London",
+        "email": "reroilstest+vendor4@gmail.com",
+        "phone": "+448444825000",
+        "street": "Diagon Alley",
+        "country": "UK"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 20,
     "organisation": {
@@ -227,13 +257,16 @@
       }
     ],
     "communication_language": "eng",
-    "default_contact": {
-      "city": "London",
-      "email": "reroilstest+vendor4@gmail.com",
-      "phone": "+448444825000",
-      "street": "Diagon Alley",
-      "country": "UK"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "London",
+        "email": "reroilstest+vendor4@gmail.com",
+        "phone": "+448444825000",
+        "street": "Diagon Alley",
+        "country": "UK"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 20,
     "organisation": {
@@ -251,13 +284,16 @@
       }
     ],
     "communication_language": "eng",
-    "default_contact": {
-      "city": "London",
-      "email": "reroilstest+vendor4@gmail.com",
-      "phone": "+448444825000",
-      "street": "Diagon Alley",
-      "country": "UK"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "London",
+        "email": "reroilstest+vendor4@gmail.com",
+        "phone": "+448444825000",
+        "street": "Diagon Alley",
+        "country": "UK"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 20,
     "organisation": {
@@ -267,9 +303,20 @@
   {
     "pid": "13",
     "name": "Tomes and Scrolls",
-    "default_contact": {
-      "city": "Hogsmeade"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Hogsmeade"
+      },
+      {
+        "type": "order",
+        "city": "Tomes"
+      },
+      {
+        "type": "serial",
+        "city": "Scrolls"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 21.5,
     "organisation": {
@@ -279,9 +326,16 @@
   {
     "pid": "14",
     "name": "Tomes and Scrolls",
-    "default_contact": {
-      "city": "Hogsmeade"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Hogsmeade"
+      },
+      {
+        "type": "order",
+        "city": "Scrolls"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 21.5,
     "organisation": {
@@ -291,9 +345,12 @@
   {
     "pid": "15",
     "name": "Tomes and Scrolls",
-    "default_contact": {
-      "city": "Hogsmeade"
-    },
+    "contacts": [
+      {
+        "type": "order",
+        "city": "Scrolls"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 21.5,
     "organisation": {
@@ -304,14 +361,17 @@
     "pid": "16",
     "name": "Sempere and Sons",
     "communication_language": "eng",
-    "default_contact": {
-      "city": "Barcelona",
-      "email": "reroilstest+vendor6@gmail.com",
-      "phone": "+34932680900",
-      "postal_code": "08003",
-      "street": "Carrer dels Banys Vells 21",
-      "country": "Spain"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Barcelona",
+        "email": "reroilstest+vendor6@gmail.com",
+        "phone": "+34932680900",
+        "postal_code": "08003",
+        "street": "Carrer dels Banys Vells 21",
+        "country": "Spain"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 21,
     "organisation": {
@@ -322,14 +382,17 @@
     "pid": "17",
     "name": "Sempere and Sons",
     "communication_language": "eng",
-    "default_contact": {
-      "city": "Barcelona",
-      "email": "reroilstest+vendor6@gmail.com",
-      "phone": "+34932680900",
-      "postal_code": "08003",
-      "street": "Carrer dels Banys Vells 21",
-      "country": "Spain"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Barcelona",
+        "email": "reroilstest+vendor6@gmail.com",
+        "phone": "+34932680900",
+        "postal_code": "08003",
+        "street": "Carrer dels Banys Vells 21",
+        "country": "Spain"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 21,
     "organisation": {
@@ -340,14 +403,17 @@
     "pid": "18",
     "name": "Sempere and Sons",
     "communication_language": "eng",
-    "default_contact": {
-      "city": "Barcelona",
-      "email": "reroilstest+vendor6@gmail.com",
-      "phone": "+34932680900",
-      "postal_code": "08003",
-      "street": "Carrer dels Banys Vells 21",
-      "country": "Spain"
-    },
+    "contacts": [
+      {
+        "type": "default",
+        "city": "Barcelona",
+        "email": "reroilstest+vendor6@gmail.com",
+        "phone": "+34932680900",
+        "postal_code": "08003",
+        "street": "Carrer dels Banys Vells 21",
+        "country": "Spain"
+      }
+    ],
     "currency": "EUR",
     "vat_rate": 21,
     "organisation": {

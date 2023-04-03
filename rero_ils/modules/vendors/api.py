@@ -30,7 +30,7 @@ from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import sorted_pids
 
-from .models import VendorIdentifier, VendorMetadata
+from .models import VendorContactType, VendorIdentifier, VendorMetadata
 
 # provider
 VendorProvider = type(
@@ -75,14 +75,30 @@ class Vendor(IlsRecord):
         """Add additional record validation.
 
         :return: False if
+            - contacts array has multiple contacts with same type
             - notes array has multiple notes with same type
         """
-        # NOTES fields testing
-        note_types = [note.get('type') for note in self.get('notes', [])]
-        if len(note_types) != len(set(note_types)):
-            return _('Can not have multiple notes of the same type.')
+        # CONTACTS field
+        types = [contact.get('type') for contact in self.get('contacts', [])]
+        if len(types) != len(set(types)):
+            return _('Can not have multiple contacts with the same type.')
+        # NOTES field
+        types = [note.get('type') for note in self.get('notes', [])]
+        if len(types) != len(set(types)):
+            return _('Can not have multiple notes with the same type.')
 
         return True
+
+    def get_contact(self, contact_type):
+        """Get contact by type.
+
+        :param contact_type: type of the contact. See `VendorContactType` class
+            to see all contact type available.
+        :return data relative to this contact type.
+        """
+        for contact in self.get('contacts', []):
+            if contact['type'] == contact_type:
+                return contact
 
     @property
     def order_email(self):
@@ -92,9 +108,11 @@ class Vendor(IlsRecord):
                 order contact information does not exist, the default contact
                 information will be used.
         """
-        return self\
-            .get('order_contact', self.get('default_contact', {}))\
-            .get('email')
+        contact = \
+            self.get_contact(VendorContactType.ORDER) or \
+            self.get_contact(VendorContactType.DEFAULT) or \
+            {}
+        return contact.get('email')
 
     def get_note(self, note_type):
         """Get a specific type of note.
