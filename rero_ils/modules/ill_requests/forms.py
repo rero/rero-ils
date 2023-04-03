@@ -126,7 +126,7 @@ class ILLRequestSourceForm(FlaskForm):
         if self.origin.data:
             self.url.validators = [
                 validators.DataRequired(),
-                validators.URL()
+                validators.URL(require_tld=False)
             ]
         return super().validate()
 
