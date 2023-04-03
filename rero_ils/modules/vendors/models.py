@@ -42,6 +42,14 @@ class VendorMetadata(db.Model, RecordMetadataBase):
     __tablename__ = 'vendor_metadata'
 
 
+class VendorContactType:
+    """Type of vendor contact."""
+
+    DEFAULT = 'default'
+    ORDER = 'order'
+    SERIAL = 'serial'
+
+
 class VendorNoteType:
     """Type of vendor note."""
 
