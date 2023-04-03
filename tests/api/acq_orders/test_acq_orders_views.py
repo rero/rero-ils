@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
-# Copyright (C) 2021 UCLouvain
+# Copyright (C) 2091-2023 RERO
+# Copyright (C) 2091-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,6 +30,7 @@ from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.models import NotificationChannel, \
     NotificationStatus, NotificationType, RecipientType
+from rero_ils.modules.vendors.models import VendorContactType
 
 
 def test_order_notification_preview(
@@ -74,7 +75,9 @@ def test_send_order(
     """Test send order notification API."""
     login_user_via_session(client, librarian_martigny.user)
     acor = acq_order_fiction_martigny
-    address = vendor_martigny.get('default_contact').get('email')
+    address = vendor_martigny\
+        .get_contact(VendorContactType.DEFAULT)\
+        .get('email')
     emails = [{'type': 'cc', 'address': address}]
     mailbox.clear()
     # test when parent order is not in database
