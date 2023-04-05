@@ -21,13 +21,10 @@
 import contextlib
 from functools import partial
 
-import requests
 from elasticsearch_dsl import A
 from elasticsearch_dsl.query import Q
 from flask import current_app
 from invenio_db import db
-from requests import codes as requests_codes
-from requests.exceptions import RequestException
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsIndexer, DocumentsSearch
@@ -37,6 +34,7 @@ from rero_ils.modules.providers import Provider
 from rero_ils.utils import get_i18n_supported_languages
 
 from .models import EntityIdentifier, EntityMetadata, EntityUpdateAction
+from .utils import extract_data_from_mef_uri, get_mef_data_by_type
 
 # provider
 EntityProvider = type(
@@ -93,16 +91,6 @@ class Entity(IlsRecord):
             return cls.get_record_by_pid(pid)
 
     @classmethod
-    def get_type_and_pid_from_ref(cls, ref):
-        """Extract agent type and pid form the MEF URL.
-
-        :params ref: MEF URI.
-        :returns: the ref type such as idref, and the pid value.
-        """
-        ref_split = ref.split('/')
-        return ref_split[-2], ref_split[-1]
-
-    @classmethod
     def get_record_by_ref(cls, ref):
         """Get a record from DB.
 
@@ -112,13 +100,14 @@ class Entity(IlsRecord):
         :returns: the corresponding `Entity` class instance
         """
         online = False
-        ref_type, ref_pid = cls.get_type_and_pid_from_ref(ref)
-        contribution = cls.get_entity(ref_type, ref_pid)
-        if not contribution:
+        entity_type, ref_type, ref_pid = extract_data_from_mef_uri(ref)
+        entity = cls.get_entity(ref_type, ref_pid)
+        if not entity:
             # We dit not find the record in DB get it from MEF and create it.
             nested = db.session.begin_nested()
             try:
-                if not (data := cls._get_mef_data_by_type(
+                if not (data := get_mef_data_by_type(
+                    entity_type=entity_type,
                     pid_type=ref_type,
                     pid=ref_pid
                 )):
@@ -133,7 +122,7 @@ class Entity(IlsRecord):
                         reindex=False
                     )
                 else:
-                    contribution = cls.create(
+                    entity = cls.create(
                         data=data,
                         dbcommit=False,
                         reindex=False
@@ -141,79 +130,14 @@ class Entity(IlsRecord):
                 online = True
                 nested.commit()
                 # TODO: reindex in the document indexing
-                contribution.reindex()
+                entity.reindex()
             except Exception as err:
                 nested.rollback()
                 current_app.logger.error(
                     f'Get MEF record: {ref_type}:{ref_pid} >>{err}<<'
                 )
-                contribution = None
-        return contribution, online
-
-    @classmethod
-    def remove_schema(cls, data):
-        """Removes in place the $schema values.
-
-        Removes the root and the sources $schema.
-
-        :param data - dict: the data representation of the current
-                            contribution.
-        :returns: the modified data.
-        :rtype: dict.
-        """
-        data.pop('$schema', None)
-        for source in current_app.config.get('RERO_ILS_AGENTS_SOURCES', []):
-            if source in data:
-                data[source].pop('$schema', None)
-        return data
-
-    @classmethod
-    def _get_mef_data_by_type(cls, pid_type, pid, verbose=False,
-                              with_deleted=True, resolve=True, sources=True):
-        """Request MEF REST API in JSON format.
-
-        :param language: language for authorized access point.
-        :returns: authorized access point in given language.
-        """
-        url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
-        if pid_type == 'mef':
-            mef_url = f'{url}/mef/?q=pid:"{pid}"'
-        elif pid_type == 'viaf':
-            mef_url = f'{url}/mef/?q=viaf_pid:"{pid}"'
-        else:
-            mef_url = f'{url}/mef/latest/{pid_type}:{pid}'
-        request = requests.get(
-            url=mef_url,
-            params=dict(
-                with_deleted=int(with_deleted),
-                resolve=int(resolve),
-                sources=int(sources)
-            )
-        )
-        status = request.status_code
-        if status == requests_codes.ok:
-            try:
-                json_data = request.json()
-                if 'hits' in json_data:
-                    # we got an ES response
-                    data = request.json().get('hits', {}).get(
-                        'hits', [None])[0].get('metadata', {})
-                else:
-                    # we got an DB response
-                    data = json_data
-                    data.pop('_created', None)
-                    data.pop('_updated', None)
-                return cls.remove_schema(data)
-            except Exception as err:
-                msg = f'MEF resolver no metadata: {mef_url} {err}'
-                if verbose:
-                    current_app.logger.warning(msg)
-                raise ValueError(msg)
-        else:
-            msg = f'Mef http error: {status} {mef_url}'
-            if verbose:
-                current_app.logger.error(msg)
-            raise RequestException(msg)
+                entity = None
+        return entity, online
 
     def _get_mef_localized_value(self, key, language):
         """Get the 1st localized value for given key among MEF source list."""
@@ -228,9 +152,10 @@ class Entity(IlsRecord):
         """Transform the record into document contribution format."""
         agent = {'pid': self.pid}
         for agency in current_app.config['RERO_ILS_AGENTS_SOURCES']:
-            if self.get(agency):
-                agent['type'] = self[agency]['bf:Agent']
+            if field := self.get(agency):
+                agent['type'] = field.get('bf:Agent', self['type'])
                 agent[f'id_{agency}'] = self[agency]['pid']
+
         for language in get_i18n_supported_languages():
             value = self._get_mef_localized_value(
                 'authorized_access_point', language)
@@ -251,6 +176,9 @@ class Entity(IlsRecord):
     @property
     def organisation_pids(self):
         """Get organisations pids."""
+        # TODO :: Should be linked also on other fields ?
+        #    ex: subjects, genre_form, ...
+        #    Seems only use to filer entities by viewcode.
         search = DocumentsSearch()\
             .filter('term', contribution__entity__pid=self.pid)
         agg = A(
@@ -324,8 +252,7 @@ class Entity(IlsRecord):
         action = EntityUpdateAction.UPTODATE
         pid = self.get('pid')
         try:
-            if data := self._get_mef_data_by_type(
-                    pid_type='mef', pid=pid, verbose=verbose):
+            if data := get_mef_data_by_type('mef', pid, verbose=verbose):
                 data['$schema'] = self['$schema']
                 if data.get('deleted'):
                     current_app.logger.warning(

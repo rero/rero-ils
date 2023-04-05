@@ -2987,8 +2987,10 @@ RERO_ILS_APP_GIT_HASH = None
 RERO_ILS_UI_GIT_HASH = None
 
 #: RERO_ILS MEF specific configurations.
-# TODO: to be changed with new MEF version
-RERO_ILS_MEF_AGENTS_URL = 'https://mef.rero.ch/api/agents'
+RERO_ILS_MEF_URLS = {
+    'agents': os.environ.get('RERO_ILS_MEF_AGENTS_URL', 'https://mef.rero.ch/api/agents'),
+    'concepts': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts')
+}
 RERO_ILS_MEF_RESULT_SIZE = 100
 
 # The absolute path to put the agent synchronization logs, default is the

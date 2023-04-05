@@ -33,7 +33,7 @@ from flask import current_app
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.api import EntitiesSearch, Entity
-from rero_ils.modules.utils import get_timestamp, set_timestamp
+from rero_ils.modules.utils import get_mef_url, get_timestamp, set_timestamp
 
 
 class SyncAgent(object):
@@ -155,8 +155,7 @@ class SyncAgent(object):
         :returns: dictionary representing the MEF record.
         :rtype: dictionary.
         """
-        mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
-        url = f'{mef_url}/mef/latest/{source}:{pid}'
+        url = f'{get_mef_url("agents")}/mef/latest/{source}:{pid}'
         return requests.get(url).json()
 
     def _update_agents_in_document(self, doc_pid, pids_to_replace):
@@ -171,7 +170,7 @@ class SyncAgent(object):
         # get the document from the DB
         doc = Document.get_record_by_pid(doc_pid)
         # build the $ref urls
-        mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
+        mef_url = get_mef_url("agents")
 
         # get all agents from the document over all agent fields:
         # contribution and subjects
@@ -231,8 +230,7 @@ class SyncAgent(object):
         :rtype: list of strings.
         """
         logging.basicConfig(filename='myfile.log', level=logging.DEBUG)
-        mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
-        url = f'{mef_url}/mef/updated'
+        url = f'{get_mef_url("agents")}/mef/updated'
         es_query = EntitiesSearch().filter('query_string', query=query)
         total = es_query.count()
         if not from_date and self.from_date:

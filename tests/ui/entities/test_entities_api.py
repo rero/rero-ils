@@ -93,7 +93,7 @@ def test_entity_mef_create(
         True, True, True)
 
 
-@mock.patch('rero_ils.modules.entities.api.requests.get')
+@mock.patch('rero_ils.modules.entities.utils.requests.get')
 def test_sync_contribution(
     mock_get, app, mef_agents_url, entity_person_data_tmp, document_data_ref
 ):
@@ -253,6 +253,17 @@ def test_entity_properties(
 
     document.index_contributions()
     document.index_contributions(True)
+
+    # Test special behavior of `get_record_by_ref` ::
+    #   Simulate an exception into the entity creation to test the exception
+    #   catching block statement.
+    with mock.patch(
+        'rero_ils.modules.entities.api.Entity.create',
+        side_effect=Exception()
+    ):
+        entity, _ = Entity.get_record_by_ref(
+            'https://bib.rero.ch/api/documents/dummy_doc')
+        assert entity is None
 
     # Reset fixture
     document.update(document_data, dbcommit=True, reindex=True)
