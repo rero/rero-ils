@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,14 +22,15 @@ from functools import partial
 from elasticsearch_dsl.query import Q
 from flask_babelex import gettext as _
 
+from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.errors import MissingRequiredParameterError
+from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.loans.models import LoanState
+from rero_ils.modules.minters import id_minter
+from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref, sorted_pids
+
 from .models import LocationIdentifier, LocationMetadata
-from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from ..errors import MissingRequiredParameterError
-from ..fetchers import id_fetcher
-from ..loans.models import LoanState
-from ..minters import id_minter
-from ..providers import Provider
-from ..utils import extracted_data_from_ref, sorted_pids
 
 # provider
 LocationProvider = type(
@@ -87,10 +88,11 @@ class Location(IlsRecord):
         return True
 
     @classmethod
-    def get_pickup_location_pids(cls, patron_pid=None, item_pid=None):
+    def get_pickup_location_pids(cls, patron_pid=None, item_pid=None,
+                                 is_ill_pickup=False):
         """Return pickup locations."""
-        from ..items.api import Item
-        from ..patrons.api import Patron
+        from rero_ils.modules.items.api import Item
+        from rero_ils.modules.patrons.api import Patron
         search = LocationsSearch()
 
         if item_pid:
@@ -98,7 +100,8 @@ class Location(IlsRecord):
             if loc.restrict_pickup_to:
                 search = search.filter('terms', pid=loc.restrict_pickup_to)
 
-        search = search.filter('term', is_pickup=True)
+        field = 'is_ill_pickup' if is_ill_pickup else 'is_pickup'
+        search = search.filter('term', **{field: True})
 
         if patron_pid:
             org_pid = Patron.get_record_by_pid(patron_pid).organisation_pid
