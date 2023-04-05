@@ -17,18 +17,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Replace refs dumpers."""
-
-from copy import deepcopy
-
 from invenio_records.api import _records_state
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.entities.utils import extract_data_from_mef_uri
 
 
-class ReplaceRefsEntitiesDumper(Dumper):
-    """Replace linked contributions in document."""
+class ReplaceRefsEntitiesDumperMixin(Dumper):
+    """Mixin class for entity dumper."""
 
     @staticmethod
     def _replace_entity(data):
@@ -36,13 +33,17 @@ class ReplaceRefsEntitiesDumper(Dumper):
         from rero_ils.modules.entities.api import Entity
         if not (entity := Entity.get_record_by_pid(data['pid'])):
             raise RecordNotFound(Entity, data['pid'])
-        _type, _ = Entity.get_type_and_pid_from_ref(data['$ref'])
-        contribution = entity.dumps_for_document()
-        contribution.update({
+        _, _type, _ = extract_data_from_mef_uri(data['$ref'])
+        entity = entity.dumps_for_document()
+        entity.update({
             'primary_source': _type,
             'pid': data['pid']
         })
-        return contribution
+        return entity
+
+
+class ReplaceRefsContributionsDumper(ReplaceRefsEntitiesDumperMixin):
+    """Replace linked contributions in document."""
 
     def dump(self, record, data):
         """Dump an item instance for notification.
@@ -65,28 +66,8 @@ class ReplaceRefsEntitiesDumper(Dumper):
         return data
 
 
-class ReplaceRefsSubjectsDumper(Dumper):
+class ReplaceRefsSubjectsDumper(ReplaceRefsEntitiesDumperMixin):
     """Replace linked subjects in document."""
-
-    @staticmethod
-    def _replace_subjects(data):
-        """Replace the `$ref` linked subjects.
-
-        :param data: dict - subjects data.
-        """
-        from rero_ils.modules.entities.api import Entity
-
-        if not (entity := Entity.get_record_by_pid(data['pid'])):
-            raise RecordNotFound(Entity, data['pid'])
-        _type, _ = Entity.get_type_and_pid_from_ref(data['$ref'])
-        contribution = deepcopy(data)
-        contribution.update(dict(entity))
-        contribution.update({
-            'primary_source': _type,
-            'pid': data['pid']
-        })
-        del contribution['$ref']
-        return contribution
 
     def dump(self, record, data):
         """Dump record data by replacing linked subjects and imported subjects.
@@ -95,17 +76,11 @@ class ReplaceRefsSubjectsDumper(Dumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         :return a dict with dumped data.
         """
-        entities = []
-        for subject in [d['entity'] for d in data.get('subjects', [])]:
-            subject_type = subject.get('type')
-            subject_ref = subject.get('$ref')
-            if subject_ref and subject_type in [
-                EntityType.PERSON,
-                EntityType.ORGANISATION
-            ]:
-                entities.append(dict(entity=self._replace_subjects(subject)))
-            else:
-                entities.append(dict(entity=subject))
+        entities = [
+            dict(entity=self._replace_entity(subject) if subject.get('$ref')
+                 else subject)
+            for subject in [d['entity'] for d in data.get('subjects', [])]
+        ]
         if entities:
             data['subjects'] = entities
         return data

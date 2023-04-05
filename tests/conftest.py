@@ -33,7 +33,8 @@ pytest_plugins = (
     'fixtures.organisations',
     'fixtures.acquisition',
     'fixtures.sip2',
-    'fixtures.basics'
+    'fixtures.basics',
+    'fixtures.mef'
 )
 
 
@@ -111,6 +112,13 @@ def holdings():
 def local_fields():
     """Load local fields file."""
     with open(join(dirname(__file__), 'data/local_fields.json')) as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="module")
+def mef_entities():
+    """Load MEF entities file."""
+    with open(join(dirname(__file__), 'data/mef.json')) as f:
         return json.load(f)
 
 
@@ -203,7 +211,10 @@ def app_config(app_config):
     app_config['WTF_CSRF_ENABLED'] = False
     # enable operation logs validation for the tests
     app_config['RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION'] = True
-    app_config['RERO_ILS_MEF_AGENTS_URL'] = 'https://mef.rero.ch/api/agents'
+    app_config['RERO_ILS_MEF_URLS'] = {
+        'agents': 'https://mef.rero.ch/api/agents',
+        'concepts': 'https://mef.rero.ch/api/concepts'
+    }
     return app_config
 
 
@@ -247,7 +258,7 @@ def instance_path():
 @pytest.fixture(scope='module')
 def mef_agents_url(app):
     """Get MEF agent URL from config."""
-    return app.config.get('RERO_ILS_MEF_AGENTS_URL')
+    return app.config.get('RERO_ILS_MEF_URLS', {}).get('agents')
 
 
 @pytest.fixture(scope="module")

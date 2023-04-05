@@ -34,6 +34,7 @@ from rero_ils.modules.documents.models import DocumentIdentifier
 from rero_ils.modules.ebooks.tasks import create_records
 from rero_ils.modules.entities.api import EntitiesSearch, Entity
 from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.entities.utils import extract_data_from_mef_uri
 from rero_ils.modules.tasks import process_bulk_queue
 
 
@@ -70,7 +71,7 @@ def test_document_create(db, document_data_tmp):
     assert fetched_pid.pid_type == 'doc'
 
     with pytest.raises(IlsRecordError.PidAlreadyUsed):
-        new_doc = Document.create(doc)
+        Document.create(doc)
 
 
 @mock.patch('requests.get')
@@ -136,6 +137,51 @@ def test_document_create_with_mef(
 
     doc.delete_from_index()
     db.session.rollback()
+
+
+@mock.patch('requests.get')
+def test_document_linked_subject(
+    mock_subjects_mef_get, app, document_data_tmp,
+    mef_concept1_data, mef_concept1_es_response
+):
+    """Load document with MEF reference as a subject."""
+    mock_subjects_mef_get.return_value = mock_response(
+        json_data=mef_concept1_es_response)
+
+    concept_pid = mef_concept1_data['idref']['pid']
+    entity_uri = f'https://mef.rero.ch/api/concepts/idref/{concept_pid}'
+    document_data_tmp['subjects'] = [{'entity': {'$ref': entity_uri}}]
+
+    doc = Document.create(document_data_tmp,
+                          delete_pid=True, dbcommit=True, reindex=True)
+    flush_index(DocumentsSearch.Meta.index)
+    doc = Document.get_record(doc.id)
+
+    # a "bf:Concepts" entity should be created.
+    #    - Check if the entity has been created
+    #    - Check if ES mapping is correct for this entity
+    _, _type, _id = extract_data_from_mef_uri(entity_uri)
+    entity = Entity.get_entity(_type, _id)
+    assert _type in entity.get('sources')
+
+    es_record = EntitiesSearch().get_record_by_pid(entity.pid)
+    assert es_record['type'] == EntityType.TOPIC
+    assert es_record[_type]['pid'] == _id
+
+    # Check the document ES record
+    #    - check if $ref linked subject is correctly dumped
+    es_record = DocumentsSearch().get_record_by_pid(doc.pid)
+    subject = es_record['subjects'][0]
+    assert subject['entity']['primary_source'] == _type
+    assert _id in subject['entity'][f'id_{_type}']
+    assert subject['entity']['authorized_access_point_fr'] == \
+        'Antienzymes'
+    assert 'Inhibiteurs enzymatiques' \
+           in subject['entity']['variant_access_point']
+
+    # reset fixtures
+    entity.delete()
+    doc.delete()
 
 
 def test_document_add_cover_url(db, document):
