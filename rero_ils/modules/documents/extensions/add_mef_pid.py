@@ -40,8 +40,7 @@ class AddMEFPidExtension(RecordExtension):
         ]
         for agent in agents:
             if contrib_ref := agent.get('$ref'):
-                cont, _ = Entity.get_record_by_ref(
-                    contrib_ref)
+                cont, _ = Entity.get_record_by_ref(contrib_ref)
                 if cont:
                     # inject mef pid
                     agent['pid'] = cont['pid']

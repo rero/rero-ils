@@ -34,8 +34,8 @@ from invenio_db import db
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.api import EntitiesSearch, Entity
-from rero_ils.modules.utils import get_timestamp, requests_retry_session, \
-    set_timestamp
+from rero_ils.modules.utils import get_mef_url, get_timestamp, \
+    requests_retry_session, set_timestamp
 
 
 class SyncAgent(object):
@@ -148,8 +148,7 @@ class SyncAgent(object):
             return True
         return False
 
-    @staticmethod
-    def _get_latest(source, pid):
+    def _get_latest(self, source, pid):
         """Query the MEF server to retrieve the last MEF for a given agent id.
 
         :param source: (string) the agent source such as `idref`, `gnd`
@@ -157,8 +156,7 @@ class SyncAgent(object):
         :returns: dictionary representing the MEF record.
         :rtype: dictionary.
         """
-        mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
-        url = f'{mef_url}/mef/latest/{source}:{pid}'
+        url = f'{get_mef_url("agents")}/mef/latest/{source}:{pid}'
         res = requests_retry_session().get(url)
         if res.status_code == requests.codes.ok:
             return res.json()
@@ -177,7 +175,7 @@ class SyncAgent(object):
         # get the document from the DB
         doc = Document.get_record_by_pid(doc_pid)
         # build the $ref urls
-        mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
+        mef_url = get_mef_url("agents")
 
         # get all agents from the document over all agent fields:
         # contribution and subjects
@@ -237,8 +235,7 @@ class SyncAgent(object):
         :rtype: list of strings.
         """
         logging.basicConfig(filename='myfile.log', level=logging.DEBUG)
-        mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
-        url = f'{mef_url}/mef/updated'
+        url = f'{get_mef_url("agents")}/mef/updated'
         es_query = EntitiesSearch().filter('query_string', query=query)
         total = es_query.count()
         if not from_date and self.from_date:

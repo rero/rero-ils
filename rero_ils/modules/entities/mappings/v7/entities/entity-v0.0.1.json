@@ -178,6 +178,111 @@
           "bf:Agent": {
             "type": "keyword"
           },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "text"
+              }
+            }
+          },
+          "bnf_type": {
+            "type": "text",
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            }
+          },
+          "broader": {
+            "type": "object",
+            "properties": {
+              "$ref": {
+                "enabled": false
+              },
+              "authorized_access_point": {
+                "type": "text"
+              }
+            }
+          },
+          "related": {
+            "type": "object",
+            "properties": {
+              "$ref": {
+                "enabled": false
+              },
+              "authorized_access_point": {
+                "type": "text"
+              }
+            }
+          },
+          "narrower": {
+            "type": "object",
+            "properties": {
+              "$ref": {
+                "enabled": false
+              },
+              "authorized_access_point": {
+                "type": "text"
+              }
+            }
+          },
+          "classification": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "classificationPortion": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "keyword"
+              }
+            }
+          },
+          "closeMatch": {
+            "type": "object",
+            "properties": {
+              "authorized_access_point": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "identifiedBy": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "source": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "text"
+                  }
+                }
+              }
+            }
+          },
+          "note": {
+            "type": "object",
+            "properties": {
+              "nodeType": {
+                "type": "keyword"
+              },
+              "label": {
+                "type": "text"
+              }
+            }
+          },
           "md5": {
             "type": "keyword"
           },
@@ -283,6 +388,111 @@
           },
           "bf:Agent": {
             "type": "keyword"
+          },
+          "identifiedBy": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "value": {
+                "type": "text"
+              }
+            }
+          },
+          "bnf_type": {
+            "type": "text",
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            }
+          },
+          "broader": {
+            "type": "object",
+            "properties": {
+              "$ref": {
+                "enabled": false
+              },
+              "authorized_access_point": {
+                "type": "text"
+              }
+            }
+          },
+          "related": {
+            "type": "object",
+            "properties": {
+              "$ref": {
+                "enabled": false
+              },
+              "authorized_access_point": {
+                "type": "text"
+              }
+            }
+          },
+          "narrower": {
+            "type": "object",
+            "properties": {
+              "$ref": {
+                "enabled": false
+              },
+              "authorized_access_point": {
+                "type": "text"
+              }
+            }
+          },
+          "classification": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "keyword"
+              },
+              "classificationPortion": {
+                "type": "keyword"
+              },
+              "name": {
+                "type": "keyword"
+              }
+            }
+          },
+          "closeMatch": {
+            "type": "object",
+            "properties": {
+              "authorized_access_point": {
+                "type": "keyword"
+              },
+              "source": {
+                "type": "keyword"
+              },
+              "identifiedBy": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "keyword"
+                  },
+                  "source": {
+                    "type": "keyword"
+                  },
+                  "value": {
+                    "type": "text"
+                  }
+                }
+              }
+            }
+          },
+          "note": {
+            "type": "object",
+            "properties": {
+              "nodeType": {
+                "type": "keyword"
+              },
+              "label": {
+                "type": "text"
+              }
+            }
           },
           "md5": {
             "type": "keyword"
