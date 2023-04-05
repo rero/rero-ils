@@ -18,6 +18,8 @@
     "is_online",
     "is_pickup",
     "pickup_name",
+    "is_ill_pickup",
+    "ill_pickup_name",
     "allow_request",
     "send_notification",
     "notification_email",
@@ -65,6 +67,12 @@
       "default": false,
       "description": "Qualify this location as a pickup location."
     },
+    "is_ill_pickup": {
+      "title": "Is ILL pickup location",
+      "type": "boolean",
+      "default": false,
+      "description": "Qualify this location as a ILL pickup location."
+    },
     "is_online": {
       "title": "Is online location",
       "type": "boolean",
@@ -103,6 +111,27 @@
           },
           "messages": {
             "alreadyTakenMessage": "The pickup location name is already taken."
+          }
+        }
+      }
+    },
+    "ill_pickup_name": {
+      "title": "ILL Pickup location name",
+      "type": "string",
+      "description": "Displayed ILL pickup location name, if different from the location name.",
+      "form": {
+        "hideExpression": "model && model.is_ill_pickup === false",
+        "expressionProperties": {
+          "templateOptions.required": "model && model.is_ill_pickup === true"
+        },
+        "validation": {
+          "validators": {
+            "valueAlreadyExists": {
+              "filter": "'library.pid:' + model.library.pid"
+            }
+          },
+          "messages": {
+            "alreadyTakenMessage": "The ILL pickup location name is already taken."
           }
         }
       }

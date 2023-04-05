@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,7 +26,6 @@ import click
 from flask.cli import with_appcontext
 
 from rero_ils.modules.ill_requests.api import ILLRequest
-from rero_ils.modules.items.cli import get_locations
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_ref_for_pid
@@ -76,7 +75,7 @@ def get_locations():
     :return: A dict of locations pids by organisation
     """
     location_data = {}
-    for pid in Location.get_pickup_location_pids():
+    for pid in Location.get_pickup_location_pids(is_ill_pickup=True):
         record = Location.get_record_by_pid(pid)
         if record.organisation_pid not in location_data:
             location_data[record.organisation_pid] = pid

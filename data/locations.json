@@ -8,6 +8,8 @@
     },
     "is_pickup": true,
     "pickup_name": "AOSTE CANT1: Espaces publics",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "AOSTE CANT1: ILL Espaces publics",
     "allow_request": true
   },
   {
@@ -48,6 +50,8 @@
     },
     "is_pickup": true,
     "pickup_name": "AOSTE CANT2: Espaces publics",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "AOSTE CANT2: ILL Espaces publics",
     "allow_request": true
   },
   {
@@ -95,6 +99,8 @@
     },
     "is_pickup": true,
     "pickup_name": "AOSTE-AVISE-PUB: Espaces publics",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "AOSTE-AVISE-PUB: ILL Espaces publics",
     "allow_request": true
   },
   {
@@ -117,6 +123,8 @@
     },
     "is_pickup": true,
     "pickup_name": "AOSTE-LYCEE: Espaces publics",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "AOSTE-LYCEE: ILL Espaces publics",
     "allow_request": true
   },
   {
@@ -143,6 +151,8 @@
     "name": "Public Section",
     "is_pickup": true,
     "pickup_name": "Public Section",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Public Section",
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/5"
     },
@@ -168,6 +178,8 @@
     },
     "is_pickup": true,
     "pickup_name": "La Citadelle",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL La Citadelle",
     "is_online": false,
     "allow_request": true
   },
@@ -180,6 +192,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Beast's Library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Beast's Library",
     "is_online": false,
     "allow_request": true
   },
@@ -192,6 +206,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Dream's Library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Dream's Library",
     "is_online": false,
     "allow_request": true
   },
@@ -204,6 +220,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Lux Foundation Library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Lux Foundation Library",
     "is_online": false,
     "allow_request": true
   },
@@ -216,6 +234,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Hogwarts Library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Hogwarts Library",
     "is_online": false,
     "allow_request": true
   },
@@ -228,6 +248,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Biblioth\u00e8que de Babel",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Biblioth\u00e8que de Babel",
     "is_online": false,
     "allow_request": true
   },
@@ -240,6 +262,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Biblioth\u00e8que de l\u2019abbaye",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Biblioth\u00e8que de l\u2019abbaye",
     "is_online": false,
     "allow_request": true
   },
@@ -252,6 +276,8 @@
     },
     "is_pickup": true,
     "pickup_name": "The University's Library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL The University's Library",
     "is_online": false,
     "allow_request": true
   },
@@ -264,6 +290,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Cemetery of Forgotten Books",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Cemetery of Forgotten Books",
     "is_online": false,
     "allow_request": true
   },
@@ -276,6 +304,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Ministry of Truth",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Ministry of Truth",
     "is_online": false,
     "allow_request": true
   },
@@ -288,6 +318,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Rivendell Library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Rivendell Library",
     "is_online": false,
     "allow_request": true
   },
@@ -300,6 +332,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Matilda's Library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Matilda's Library",
     "is_online": false,
     "allow_request": true
   },
@@ -312,6 +346,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Unseen University Library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Unseen University Library",
     "is_online": false,
     "allow_request": true
   },
@@ -324,6 +360,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Wan Shi Tong's Library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Wan Shi Tong's Library",
     "is_online": false,
     "allow_request": true
   },
@@ -336,6 +374,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Sunnydale High School library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Sunnydale High School library",
     "is_online": false,
     "allow_request": true
   },
@@ -348,6 +388,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Jedi Archives",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Jedi Archives",
     "is_online": false,
     "allow_request": true
   },
@@ -360,6 +402,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Starfleet library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Starfleet library",
     "is_online": false,
     "allow_request": true
   },
@@ -372,6 +416,8 @@
     },
     "is_pickup": true,
     "pickup_name": "Vulcan library",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "ILL Vulcan library",
     "is_online": false,
     "allow_request": true
   }

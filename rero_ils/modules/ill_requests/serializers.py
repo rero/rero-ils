@@ -33,7 +33,7 @@ class ILLRequestJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         metadata = hit.get('metadata', {})
         if pid := metadata.get('pickup_location', {}).get('pid'):
             location = self.get_resource(LocationsSearch(), pid)
-            pickup_name = location.get('pickup_name', location.get('name'))
+            pickup_name = location.get('ill_pickup_name', location.get('name'))
             metadata['pickup_location']['name'] = pickup_name
         super()._postprocess_search_hit(hit)
 

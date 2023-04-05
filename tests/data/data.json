@@ -941,6 +941,8 @@
     },
     "is_pickup": true,
     "pickup_name": "MARTIGNY-PUBLIC: Public Space",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "MARTIGNY-PUBLIC: ILL Public Space",
     "allow_request": true
   },
   "loc2": {
@@ -963,6 +965,8 @@
     },
     "is_pickup": true,
     "pickup_name": "SAXON-PUBLIC: Public Space",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "SAXON-PUBLIC: ILL Public Space",
     "allow_request": true
   },
   "loc4": {
@@ -985,6 +989,8 @@
     },
     "is_pickup": true,
     "pickup_name": "FULLY-PUBLIC: Public Space",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "FULLY-PUBLIC: ILL Public Space",
     "allow_request": true
   },
   "loc6": {
@@ -1084,6 +1090,8 @@
     },
     "is_pickup": true,
     "pickup_name": "SAILLON-PUBLIC: Public Space",
+    "is_ill_pickup": true,
+    "ill_pickup_name": "SAILLON-PUBLIC: ILL Public Space",
     "allow_request": true
   },
   "loc15": {

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -38,15 +38,19 @@ def test_location_pickup_locations(locations, patron_martigny,
     # At the beginning, if we load all locations from fixtures, there are 4
     # pickup locations (loc1, loc3, loc5, loc7)
     pickup_locations = Location.get_pickup_location_pids()
-    assert set(pickup_locations) == set(['loc1', 'loc3', 'loc5', 'loc7'])
+    assert set(pickup_locations) == {'loc1', 'loc3', 'loc5', 'loc7'}
 
     # check pickup restrictions by patron_pid
     pickup_locations = Location.get_pickup_location_pids(
         patron_pid=patron_martigny.pid)
-    assert set(pickup_locations) == set(['loc1', 'loc3', 'loc5'])
+    assert set(pickup_locations) == {'loc1', 'loc3', 'loc5'}
     pickup_locations = Location.get_pickup_location_pids(
         patron_pid=patron_sion.pid)
-    assert set(pickup_locations) == set(['loc7'])
+    assert set(pickup_locations) == {'loc7'}
+
+    # check ill pickup
+    pickup_locations = Location.get_pickup_location_pids(is_ill_pickup=True)
+    assert set(pickup_locations) == {'loc1', 'loc3', 'loc5'}
 
     # check pickup restrictions by item_barcode
     #   * update `loc1` to restrict_pickup_to 'loc3' and 'loc6'
@@ -63,7 +67,7 @@ def test_location_pickup_locations(locations, patron_martigny,
     flush_index(LocationsSearch.Meta.index)
     pickup_locations = Location.get_pickup_location_pids(
         item_pid=item2_lib_martigny.pid)
-    assert set(pickup_locations) == set(['loc3'])
+    assert set(pickup_locations) == {'loc3'}
 
     pickup_locations = Location.get_pickup_location_pids(
         patron_pid=patron_sion.pid,
