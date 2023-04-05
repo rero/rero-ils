@@ -23,13 +23,13 @@ from invenio_records.dumpers import Dumper
 from rero_ils.modules.commons.dumpers import MultiDumper
 
 from .indexer import IndexerDumper
-from .replace_refs import ReplaceRefsDumper, ReplaceRefsEntitiesDumper, \
+from .replace_refs import ReplaceRefsContributionsDumper, ReplaceRefsDumper, \
     ReplaceRefsSubjectsDumper
 from .title import TitleDumper
 
 __all__ = (
     'TitleDumper',
-    'ReplaceRefsEntitiesDumper',
+    'ReplaceRefsContributionsDumper',
     'ReplaceRefsSubjectsDumper',
     'ReplaceRefsDumper'
 )
@@ -38,7 +38,7 @@ __all__ = (
 document_replace_refs_dumper = MultiDumper(dumpers=[
     # make a fresh copy
     Dumper(),
-    ReplaceRefsEntitiesDumper(),
+    ReplaceRefsContributionsDumper(),
     ReplaceRefsSubjectsDumper(),
     ReplaceRefsDumper()
 ])
@@ -54,7 +54,7 @@ document_title_dumper = MultiDumper(dumpers=[
 document_indexer_dumper = MultiDumper(dumpers=[
     # make a fresh copy
     Dumper(),
-    ReplaceRefsEntitiesDumper(),
+    ReplaceRefsContributionsDumper(),
     ReplaceRefsSubjectsDumper(),
     ReplaceRefsDumper(),
     IndexerDumper()
