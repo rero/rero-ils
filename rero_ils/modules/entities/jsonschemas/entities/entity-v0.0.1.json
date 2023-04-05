@@ -30,7 +30,8 @@
       "type": "string",
       "enum": [
         "bf:Organisation",
-        "bf:Person"
+        "bf:Person",
+        "bf:Topic"
       ]
     },
     "viaf_pid": {

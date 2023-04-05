@@ -413,7 +413,6 @@ def get_contribution_link(bibid, reroid, id, key):
     :params reroid: RERO id from the record.
     :params id: $0 from the marc field.
     :params key: Tag from the marc field.
-    :params deleted: Get deleted urls.
     :returns: MEF url.
     """
     from rero_ils.modules.utils import requests_retry_session

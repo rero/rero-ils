@@ -23,49 +23,6 @@ from celery import shared_task
 
 from .utils_mef import ReplaceMefIdentifiedByContribution, \
     ReplaceMefIdentifiedBySubjects
-from ..entities.api import Entity
-
-
-def get_contribution_or_create(ref_pid, ref_type, count_found, count_exists,
-                               count_no_data, count_no_mef):
-    """Get existing contribution or greate new one."""
-    ref = f'{ref_type}/{ref_pid}'
-    if ref_type and ref_pid:
-        # Try to get existing contribution
-        cont = Entity.get_entity(ref_type, ref_pid)
-        if cont:
-            # contribution exist allready
-            count_exists.setdefault(ref, 0)
-            count_exists[ref] += 1
-        else:
-            # contribution does not exist
-            try:
-                # try to get the contribution online
-                data = Entity._get_mef_data_by_type(ref_type, ref_pid)
-                if (
-                    data.get('idref') or
-                    data.get('gnd') or
-                    data.get('rero')
-                ):
-                    count_found.setdefault(
-                        ref,
-                        {'count': 0, 'mef': data.get('pid')}
-                    )
-                    count_found[ref]['count'] += 1
-                    # delete mef $schema
-                    data.pop('$schema', None)
-                    # create local contribution
-                    cont = Entity.create(
-                        data=data, dbcommit=True, reindex=True)
-                else:
-                    # online contribution has no IdREf, GND or RERO
-                    count_no_data.setdefault(ref, 0)
-                    count_no_data[ref] += 1
-            except Exception:
-                # no online contribution found
-                count_no_mef.setdefault(ref, 0)
-                count_no_mef[ref] += 1
-    return cont, count_found, count_exists, count_no_data, count_no_mef
 
 
 @shared_task(ignore_result=True)

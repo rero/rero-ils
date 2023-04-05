@@ -24,12 +24,26 @@ from rero_ils.modules.entities.api import EntitiesSearch, Entity
 
 
 def test_entity_es_mapping(es_clear, db, entity_person_data_tmp):
-    """Test entity elasticsearch mapping."""
+    """Test contribution entity elasticsearch mapping."""
     search = EntitiesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     Entity.create(
         entity_person_data_tmp,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    assert mapping == get_mapping(search.Meta.index)
+
+
+def test_concept_entity_es_mapping(es_clear, db, mef_concept1_data_tmp):
+    """Test concept entity elasticsearch mapping."""
+    search = EntitiesSearch()
+    mapping = get_mapping(search.Meta.index)
+    assert mapping
+    Entity.create(
+        mef_concept1_data_tmp,
         dbcommit=True,
         reindex=True,
         delete_pid=True

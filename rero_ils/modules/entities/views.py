@@ -29,6 +29,7 @@ from .api import Entity
 from .models import EntityType
 from ..documents.api import DocumentsSearch
 from ..organisations.api import Organisation
+from ..utils import get_mef_url
 from ...theme.views import url_active
 
 blueprint = Blueprint(
@@ -113,7 +114,7 @@ def mef_proxy(path):
         method=request.method,
         url=request.url.replace(
             request.base_url.replace(path, ''),
-            f'{current_app.config.get("RERO_ILS_MEF_AGENTS_URL")}/mef/'
+            f'{get_mef_url("agents")}/mef/'
         ),
         headers={
             key: value for (key, value) in request.headers if key != 'Host'

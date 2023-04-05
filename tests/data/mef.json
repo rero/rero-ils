@@ -1,0 +1,175 @@
+{
+  "concept_1": {
+    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "type": "bf:Topic",
+    "idref": {
+      "$schema": "https://mef.rero.ch/schemas/concepts_idref/idref-concept-v0.0.1.json",
+      "authorized_access_point": "Antienzymes",
+      "bnf_type": "sujet Rameau",
+      "broader": [
+        {
+          "authorized_access_point": "Antim\u00e9tabolites"
+        }
+      ],
+      "classification": [
+        {
+          "classificationPortion": "570",
+          "name": "Sciences de la vie",
+          "type": "bf:ClassificationDdc"
+        },
+        {
+          "classificationPortion": "615",
+          "type": "bf:ClassificationDdc"
+        }
+      ],
+      "closeMatch": [
+        {
+          "authorized_access_point": "Enzyme inhibitors",
+          "identifiedBy": {
+            "source": "LCSH",
+            "type": "uri",
+            "value": "http://id.loc.gov/authorities/subjects/sh85044226"
+          },
+          "source": "LCSH"
+        },
+        {
+          "authorized_access_point": "Enzyme Inhibitors",
+          "identifiedBy": {
+            "source": "MeSH",
+            "type": "uri",
+            "value": "https://id.nlm.nih.gov/mesh/M0007520"
+          },
+          "source": "MeSH"
+        },
+        {
+          "authorized_access_point": "Antienzymes",
+          "source": "RVMLaval"
+        }
+      ],
+      "identifiedBy": [
+        {
+          "source": "IdRef",
+          "type": "uri",
+          "value": "http://www.idref.fr/027828085"
+        },
+        {
+          "source": "BNF",
+          "type": "uri",
+          "value": "http://catalogue.bnf.fr/ark:/12148/cb11978590d"
+        }
+      ],
+      "md5": "6749e67b3e837cbde10c13c61580e0f2",
+      "narrower": [
+        {
+          "authorized_access_point": "Anticholinest\u00e9rasiques"
+        },
+        {
+          "authorized_access_point": "Antifoliques"
+        },
+        {
+          "authorized_access_point": "Antipeptidases"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de l'alpha-glucosidase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de l'aromatase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de l'inosine monophosphate d\u00e9shydrog\u00e9nase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de l'int\u00e9grase du VIH"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la 5-alpha-r\u00e9ductase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la 5-lipoxyg\u00e9nase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la b\u00eata-lactamase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la cat\u00e9chol-O-m\u00e9thyltransf\u00e9rase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la farn\u00e9syl transf\u00e9rase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la monoamine oxydase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la neuraminidase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la poly (ADP-ribose) polym\u00e9rase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la pompe \u00e0 protons"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la s\u00e9rine / thr\u00e9onine phosphatase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la topoisom\u00e9rase I"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la topoisom\u00e9rase II"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la transcriptase inverse"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs de la xanthine-oxydase"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs des cyclo-oxyg\u00e9nases"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs des kinases d\u00e9pendantes des cyclines"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs des phosphodiest\u00e9rases"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs des prot\u00e9ines kinases"
+        },
+        {
+          "authorized_access_point": "Statines"
+        }
+      ],
+      "note": [
+        {
+          "label": [
+            "Dict. de m\u00e9decine Flammarion, 2008",
+            "Dict. de biologie / J. Polonovski, 2000",
+            "Dict. de biologie / J. Berthet, 2007 (art. : Inhibiteur) : inhibiteur enzymatique",
+            "Dict. illustr\u00e9 des termes de m\u00e9decine, 2008 : anti-enzyme",
+            "TermSciences : anti-enzymes - http://www.termsciences.fr (2010-12-15)"
+          ],
+          "noteType": "dataSource"
+        }
+      ],
+      "pid": "027828085",
+      "related": [
+        {
+          "authorized_access_point": "Enzymes"
+        },
+        {
+          "authorized_access_point": "Inhibiteurs"
+        }
+      ],
+      "variant_access_point": [
+        "Anti-enzymes",
+        "Antiferments",
+        "Enzymes - Inhibiteurs",
+        "Inhibiteurs enzymatiques"
+      ]
+    },
+    "pid": "163554",
+    "sources": [
+      "idref"
+    ]
+  }
+}

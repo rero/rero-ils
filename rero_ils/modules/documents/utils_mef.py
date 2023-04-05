@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -25,13 +26,14 @@ from abc import ABC, abstractmethod
 
 import click
 from elasticsearch_dsl import Q
-from flask import current_app
 from sqlalchemy.orm.exc import NoResultFound
 from webargs import ValidationError
 
+from rero_ils.modules.entities.api import Entity
+from rero_ils.modules.entities.utils import get_mef_data_by_type
+from rero_ils.modules.utils import get_mef_url, set_timestamp
+
 from .api import Document, DocumentsSearch
-from ..entities.api import Entity
-from ..utils import set_timestamp
 
 
 class ReplaceMefIdentifiedBy(ABC):
@@ -178,9 +180,12 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
 
     def __init__(self, run=False, verbose=False, debug=False):
         """Constructor."""
-        mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
         super().__init__(
-            run=run, mef_url=mef_url, verbose=verbose, debug=debug)
+            run=run,
+            mef_url=get_mef_url('agents'),
+            verbose=verbose,
+            debug=debug
+        )
         self.cont_types = ['idref', 'gnd']
 
     def _query_filter(self):
@@ -197,7 +202,7 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
         ref = f'{ref_type}/{ref_pid}'
         try:
             # try to get the contribution online
-            data = Entity._get_mef_data_by_type(ref_type, ref_pid)
+            data = get_mef_data_by_type(ref_type, ref_pid)
             if data.get('idref') or data.get('gnd'):
                 if data.get('deleted'):
                     self.increment_count(self.count_deleted, ref,
