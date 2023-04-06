@@ -2045,9 +2045,9 @@ def build_identifier(data):
     :param data: data to build the identifiedBy from.
     :returns: identifiedBy from $0 or None.
     """
-    sources = {
+    sources_mapping = {
         'RERO': 'RERO',
-        'RERO-RAMEAU': 'RERO-RAMEAU',
+        'RERO-RAMEAU': 'RERO',
         'IDREF': 'IdRef',
         'GND': 'GND',
         'DE-101': 'GND'
@@ -2067,7 +2067,7 @@ def build_identifier(data):
                 with contextlib.suppress(IndexError):
                     result['value'] = match.group(2)
                     source = match.group(1)
-                    if identifier_type := sources.get(source.upper()):
+                    if identifier_type := sources_mapping.get(source.upper()):
                         result['type'] = identifier_type
                         return result
                     elif source.upper() == 'DE-588' and has_no_de_101:

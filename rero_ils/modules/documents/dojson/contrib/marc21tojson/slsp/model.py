@@ -409,17 +409,10 @@ def marc21_to_subjects_6XX(self, key, value):
                     '$ref': ref
                 }
         if not subject.get('$ref'):
-            identifier = build_identifier(value)
-            if identifier:
-                subject['identifiedBy'] = identifier
-            subfields_2 = utils.force_list(value.get('2'))
-
-            if identifier \
-                    and data_type == EntityType.TOPIC \
-                    and len(subfields_2) > 0 \
-                    and subfields_2[0].lower() == 'rero':
-                identifier['type'] = 'RERO-RAMEAU'
-            if identifier:
+            if identifier := build_identifier(value):
+                sub_2 = next(iter(utils.force_list(value.get('2') or [])), '')
+                if data_type == EntityType.TOPIC and sub_2.lower() == 'rero':
+                    identifier['type'] = 'RERO'
                 subject['identifiedBy'] = identifier
             if field_key != 'genreForm':
                 perform_subdivisions(subject, value)
