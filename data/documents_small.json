@@ -5867,7 +5867,7 @@
           "subdivisions": [
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Bio-bibliography"
               }
             }
@@ -6341,8 +6341,8 @@
           "authorized_access_point": "Binet, Christian"
         },
         "role": [
-          "aut",
-          "ill"
+          "ill",
+          "aut"
         ]
       }
     ],
@@ -7856,15 +7856,15 @@
       },
       {
         "audienceType": "school_level",
+        "value": "target_school_harmos10"
+      },
+      {
+        "audienceType": "school_level",
         "value": "target_school_harmos9"
       },
       {
         "audienceType": "school_level",
         "value": "target_school_harmos11"
-      },
-      {
-        "audienceType": "school_level",
-        "value": "target_school_harmos10"
       }
     ],
     "partOf": [
@@ -13652,7 +13652,7 @@
           "subdivisions": [
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Early works to 1800"
               }
             }
@@ -13679,7 +13679,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Poetry"
               }
             }
@@ -14796,11 +14796,11 @@
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos4"
+        "value": "target_school_harmos3"
       },
       {
         "audienceType": "school_level",
-        "value": "target_school_harmos3"
+        "value": "target_school_harmos4"
       }
     ]
   },
@@ -27041,7 +27041,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Biography"
               }
             }
@@ -29871,12 +29871,12 @@
     "sequence_numbering": "No 1(2005)-",
     "intendedAudience": [
       {
-        "audienceType": "school_level",
-        "value": "target_school_tertiary"
-      },
-      {
         "audienceType": "understanding_level",
         "value": "target_understanding_tertiary"
+      },
+      {
+        "audienceType": "school_level",
+        "value": "target_school_tertiary"
       },
       {
         "audienceType": "understanding_level",
@@ -33204,7 +33204,7 @@
           "subdivisions": [
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Exhibitions"
               }
             }
@@ -33219,7 +33219,7 @@
           "subdivisions": [
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Exhibitions"
               }
             }
@@ -33234,7 +33234,7 @@
           "subdivisions": [
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Exhibitions"
               }
             }
@@ -33249,7 +33249,7 @@
           "subdivisions": [
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Exhibitions"
               }
             }
@@ -33270,7 +33270,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Exhibitions"
               }
             }
@@ -33291,7 +33291,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Exhibitions"
               }
             }
@@ -33306,7 +33306,7 @@
           "subdivisions": [
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Exhibitions"
               }
             }
@@ -33327,7 +33327,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Exhibitions"
               }
             }
@@ -33348,7 +33348,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Exhibitions"
               }
             }
@@ -39442,7 +39442,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Congresses"
               }
             }
@@ -39463,7 +39463,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Congresses"
               }
             }
@@ -39496,7 +39496,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Congresses"
               }
             }
@@ -39517,7 +39517,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Congresses"
               }
             }
@@ -39538,7 +39538,7 @@
             },
             {
               "entity": {
-                "type": "bf:Concept",
+                "type": "bf:Topic",
                 "authorized_access_point": "Congresses"
               }
             }

@@ -1987,25 +1987,22 @@ def build_identifier(data):
     :param data: data to build the identifiedBy from.
     :returns: identifiedBy from $0 or None.
     """
-    sources = {
+    sources_mapping = {
         'RERO': 'RERO',
-        'RERO-RAMEAU': 'RERO-RAMEAU',
+        'RERO-RAMEAU': 'RERO',
         'IDREF': 'IdRef',
         'GND': 'GND',
         'DE-101': 'GND'
     }
-    result = {}
-    data_0 = utils.force_list(data.get('0'))
-    if data_0:
-        match = re_identified.match(data_0[0])
-        if match:
+    if data_0 := utils.force_list(data.get('0')):
+        if match := re_identified.match(data_0[0]):
             try:
-                result['value'] = match.group(2)
                 source = match.group(1)
-                identifier_type = sources.get(source.upper())
-                if identifier_type:
-                    result['type'] = identifier_type
+                result = {
+                    'value': match.group(2),
+                    'type': sources_mapping.get(source.upper())
+                }
+                return {k: v for k, v in result.items() if v}
             except IndexError:
-                result = {}
                 click.echo(f'WARNING creating identifier: {data_0}')
-    return result or None
+                return None
