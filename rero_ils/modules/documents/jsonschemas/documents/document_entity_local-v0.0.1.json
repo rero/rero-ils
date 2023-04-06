@@ -153,7 +153,6 @@
       "default": "bf:Person",
       "enum": [
         "bf:Topic",
-        "bf:Concept",
         "bf:Place",
         "bf:Temporal"
       ],
@@ -162,10 +161,6 @@
         "templateOptions": {
           "itemCssClass": "col-lg-6",
           "options": [
-            {
-              "label": "bf:Concept",
-              "value": "bf:Concept"
-            },
             {
               "label": "bf:Topic",
               "value": "bf:Topic"

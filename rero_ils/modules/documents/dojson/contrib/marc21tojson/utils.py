@@ -1999,7 +1999,7 @@ def do_temporal_coverage(marc21, key, value):
 def perform_subdivisions(field, value):
     """Perform subject subdivisions from MARC field."""
     subdivisions = {
-        'v': EntityType.CONCEPT,
+        'v': EntityType.TOPIC,
         'x': EntityType.TOPIC,
         'y': EntityType.TEMPORAL,
         'z': EntityType.PLACE
