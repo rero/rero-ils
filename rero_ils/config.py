@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -2796,6 +2796,7 @@ RECORDS_UI_ENDPOINTS = {
         route='/stats/<pid_value>',
         template='rero_ils/detailed_view_stats.html',
         record_class='rero_ils.modules.stats.api:Stat',
+        view_imp='rero_ils.modules.stats.views.stats_view_method',
         permission_factory_imp='rero_ils.modules.stats.permissions:stats_ui_permission_factory',
     )
 }
