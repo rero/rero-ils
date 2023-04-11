@@ -60,7 +60,10 @@ def get_mef_url(entity_type):
     :rtype str
     :raises KeyError if no URL could be found for this entity_type.
     """
-    return current_app.config.get('RERO_ILS_MEF_URLS', {})[entity_type]
+    return current_app.config\
+        .get('RERO_ILS_MEF_CONFIG', {})\
+        .get(entity_type, {})\
+        .get('base_url')
 
 
 def cached(timeout=50, key_prefix='default', query_string=False):

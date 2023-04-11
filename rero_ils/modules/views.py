@@ -22,13 +22,15 @@ from __future__ import absolute_import, print_function
 import os
 
 import polib
-from flask import Blueprint, abort, current_app, jsonify, request
+import requests
+from flask import Blueprint, abort, current_app, jsonify, make_response, \
+    request
 from flask_babelex import get_domain
 
 from rero_ils.modules.utils import cached, get_all_roles
 
-from .decorators import check_authentication, check_permission, \
-    parse_permission_payload
+from .decorators import check_authentication, check_logged_as_librarian, \
+    check_permission, parse_permission_payload
 from .patrons.api import Patron
 from .permissions import PermissionContext, expose_action_needs_by_patron, \
     expose_action_needs_by_role, manage_role_permissions
@@ -130,6 +132,17 @@ def permissions_by_patron(patron_pid):
     if not patron:
         abort(404, 'Patron not found')
     return jsonify(expose_action_needs_by_patron(patron))
+
+
+# PROXY APIS' =================================================================
+@api_blueprint.route('/proxy')
+@check_logged_as_librarian
+def proxy():
+    """Proxy to get record metadata from MEF server."""
+    if not (url := request.args.get('url')):
+        abort(400, "Missing `url` parameter")
+    response = requests.get(url)
+    return make_response(response.content, response.status_code)
 
 
 # TRANSLATIONS APIS' ==========================================================

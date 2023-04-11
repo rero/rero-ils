@@ -211,9 +211,22 @@ def app_config(app_config):
     app_config['WTF_CSRF_ENABLED'] = False
     # enable operation logs validation for the tests
     app_config['RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION'] = True
-    app_config['RERO_ILS_MEF_URLS'] = {
-        'agents': 'https://mef.rero.ch/api/agents',
-        'concepts': 'https://mef.rero.ch/api/concepts'
+    app_config['RERO_ILS_MEF_CONFIG'] = {
+        'agents': {
+            'base_url': 'https://mef.rero.ch/api/agents',
+            'sources': ['idref', 'gnd']
+        },
+        'concepts': {
+            'base_url': 'https://mef.rero.ch/api/concepts',
+            'sources': ['idref']
+        },
+        'concepts-rameau': {
+            'base_url': 'https://mef.rero.ch/api/concepts',
+            'sources': ['idref'],
+            'filters': [
+                {'idref.bnf_type': 'sujet Rameau'}
+            ]
+        }
     }
     return app_config
 
@@ -258,7 +271,10 @@ def instance_path():
 @pytest.fixture(scope='module')
 def mef_agents_url(app):
     """Get MEF agent URL from config."""
-    return app.config.get('RERO_ILS_MEF_URLS', {}).get('agents')
+    return app.config\
+        .get('RERO_ILS_MEF_CONFIG', {})\
+        .get('agents', {})\
+        .get('base_url')
 
 
 @pytest.fixture(scope="module")
