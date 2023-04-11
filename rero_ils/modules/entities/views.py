@@ -19,18 +19,18 @@
 
 from __future__ import absolute_import, print_function
 
-import requests
-from flask import Blueprint, Response, abort, current_app, render_template, \
-    request
+from flask import Blueprint, abort, current_app, render_template
 from flask_babelex import gettext as translate
 from invenio_records_ui.signals import record_viewed
 
+from rero_ils.modules.decorators import check_logged_as_librarian
+from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.theme.views import url_active
+
 from .api import Entity
 from .models import EntityType
-from ..documents.api import DocumentsSearch
-from ..organisations.api import Organisation
-from ..utils import get_mef_url
-from ...theme.views import url_active
+from .proxy import MEFProxyFactory
 
 blueprint = Blueprint(
     'entities',
@@ -106,34 +106,25 @@ def corporate_bodies_proxy(viewcode, pid):
     return entity_proxy(viewcode, pid, EntityType.ORGANISATION)
 
 
-@api_blueprint.route('/mef/', defaults={'path': ''})
-@api_blueprint.route('/mef/<path:path>')
-def mef_proxy(path):
-    """Proxy to mef server."""
-    resp = requests.request(
-        method=request.method,
-        url=request.url.replace(
-            request.base_url.replace(path, ''),
-            f'{get_mef_url("agents")}/mef/'
-        ),
-        headers={
-            key: value for (key, value) in request.headers if key != 'Host'
-        },
-        data=request.get_data(),
-        cookies=request.cookies,
-        allow_redirects=True
-    )
-    excluded_headers = ['content-encoding', 'content-length',
-                        'transfer-encoding', 'connection']
-    headers = [
-        (name, value)
-        for (name, value) in resp.raw.headers.items()
-        if name.lower() not in excluded_headers
-    ]
-    response = Response(resp.content, resp.status_code, headers)
-    if response.status_code != requests.codes.ok:
-        abort(response.status_code)
-    return response
+@api_blueprint.route('/entities/remote/search/<term>',
+                     defaults={'entity_type': 'agents'})
+@api_blueprint.route('/entities/remote/search/<entity_type>/<term>')
+@api_blueprint.route('/entities/remote/search/<entity_type>/<term>/')
+@check_logged_as_librarian
+def remote_search_proxy(entity_type, term):
+    """Proxy to search entities on remote server.
+
+    Currently, we only search on MEF remote servers. If multiple remote sources
+    are possible to search, a request must be sent to each remote API and
+    all result must be unified into a common response.
+
+    :param entity_type: The type of entities to search.
+    :param term: the searched term.
+    """
+    try:
+        return MEFProxyFactory.create_proxy(entity_type).search(term)
+    except ValueError as err:
+        abort(400, str(err))
 
 
 # TEMPLATE JINJA FILTERS ======================================================

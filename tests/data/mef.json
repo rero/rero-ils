@@ -171,5 +171,127 @@
     "sources": [
       "idref"
     ]
+  },
+  "es_concepts_1": {
+    "hits": {
+      "hits": [
+        {
+          "created": "2022-09-20T08:58:39.434146+00:00",
+          "id": "124363",
+          "links": {
+            "self": "https://mef.rero.ch/api/concepts/mef/124363"
+          },
+          "metadata": {
+            "$schema": "https://mef.rero.ch/schemas/concepts_mef/mef-concept-v0.0.1.json",
+            "idref": {
+              "$schema": "https://mef.rero.ch/schemas/concepts_idref/idref-concept-v0.0.1.json",
+              "authorized_access_point": "Voyages en side-car",
+              "bnf_type": "sujet Rameau",
+              "broader": [
+                {
+                  "authorized_access_point": "Voyages \u00e0 motocyclette"
+                }
+              ],
+              "classification": [
+                {
+                  "classificationPortion": "793",
+                  "name": "Sports",
+                  "type": "bf:ClassificationDdc"
+                },
+                {
+                  "classificationPortion": "910",
+                  "name": "G\u00e9ographie",
+                  "type": "bf:ClassificationDdc"
+                }
+              ],
+              "identifiedBy": [
+                {
+                  "source": "IdRef",
+                  "type": "uri",
+                  "value": "http://www.idref.fr/184053064"
+                },
+                {
+                  "source": "BNF",
+                  "type": "uri",
+                  "value": "http://catalogue.bnf.fr/ark:/12148/cb16947261t"
+                }
+              ],
+              "md5": "a6f866961fc65fb7674ec28059c5a1e0",
+              "pid": "184053064",
+              "related": [
+                {
+                  "authorized_access_point": "Side-cars"
+                }
+              ],
+              "variant_access_point": [
+                "Balades en side-car",
+                "Randonn\u00e9e en side-car",
+                "Randonn\u00e9es en side-car"
+              ]
+            },
+            "pid": "124363",
+            "sources": [
+              "idref"
+            ]
+          },
+          "updated": "2022-09-20T08:58:39.434153+00:00"
+        },
+        {
+          "created": "2022-09-20T10:16:09.937646+00:00",
+          "id": "149909",
+          "links": {
+            "self": "https://mef.rero.ch/api/concepts/mef/149909"
+          },
+          "updated": "2022-09-20T10:16:09.937650+00:00"
+        }
+      ],
+      "total": 2
+    }
+  },
+  "es_agents_1": {
+    "hits": {
+      "hits": [
+        {
+          "created": "2021-11-06T05:05:27.295609+00:00",
+          "id": "13176076",
+          "links": {
+            "self": "https://mef.rero.ch/api/agents/mef/13176076"
+          },
+          "metadata": {
+            "$schema": "https://mef.rero.ch/schemas/mef/mef-v0.0.1.json",
+            "idref": {
+              "$schema": "https://mef.rero.ch/schemas/agents_idref/idref-agent-v0.0.1.json",
+              "authorized_access_point": "Universit\u00e9 catholique de Louvain",
+              "bf:Agent": "bf:Organisation",
+              "conference": false,
+              "country_associated": "be",
+              "identifier": "http://www.idref.fr/258289333",
+              "language": [
+                "fre"
+              ],
+              "md5": "204d97ee801fa61ba9edc6cc91953bf5",
+              "pid": "258289333",
+              "preferred_name": "Universit\u00e9 catholique de Louvain",
+              "variant_access_point": [
+                "UCLouvain",
+                "UCL"
+              ],
+              "variant_name": [
+                "UCLouvain",
+                "UCL"
+              ]
+            },
+            "pid": "13176076",
+            "sources": [
+              "idref"
+            ],
+            "type": "bf:Organisation",
+            "viaf_pid": "44163936631000832749"
+          },
+          "updated": "2022-09-23T10:12:43.203337+00:00"
+        }
+      ],
+      "total": 1
+    }
   }
 }

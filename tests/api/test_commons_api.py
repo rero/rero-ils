@@ -16,13 +16,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Tests Permissions REST API."""
-
+"""Tests Commons RERO-ILS REST API."""
+import mock
 from flask import url_for
 from flask_principal import Identity, RoleNeed
 from invenio_access import ActionUsers, Permission
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+from utils import get_json, mock_response, postdata
 
 from rero_ils.modules.acquisition.budgets.permissions import \
     search_action as budget_search_action
@@ -186,3 +186,20 @@ def test_permission_management(client, system_librarian_martigny):
     res = client.post(perm_url, json=perm_data)
     assert res.status_code == 200
     assert fake_identity.can(permission)
+
+
+@mock.patch('rero_ils.modules.decorators.login_and_librarian',
+            mock.MagicMock())
+@mock.patch('requests.get')
+def test_proxy(mock_get, client):
+    """Test proxy."""
+    response = client.get(url_for('api_blueprint.proxy'))
+    assert response.status_code == 400
+    assert response.json['message'] == 'Missing `url` parameter'
+
+    mock_get.return_value = mock_response(status=418)
+    response = client.get(url_for(
+        'api_blueprint.proxy',
+        url='http://mocked.url')
+    )
+    assert response.status_code == 418

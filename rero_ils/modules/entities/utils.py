@@ -89,13 +89,11 @@ def get_mef_data_by_type(pid_type, pid, entity_type='agents', verbose=False,
     """
     # Depending on the entity type, try to get the correct MEF base URL.
     # If no base URL could be found, a key error will be raised
-    try:
-        base_url = get_mef_url(entity_type)
-    except KeyError:
+    if not (base_url := get_mef_url(entity_type)):
         msg = f'Unable to find MEF base url for {entity_type}'
         if verbose:
             current_app.logger.warning(msg)
-        raise
+        raise KeyError(msg)
 
     if pid_type == 'mef':
         mef_url = f'{base_url}/mef/?q=pid:"{pid}"'
