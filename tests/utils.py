@@ -197,9 +197,10 @@ def loaded_resources_report():
     return report
 
 
-def mock_response(status=200, content="CONTENT", json_data=None,
+def mock_response(status=200, content="CONTENT", headers=None, json_data=None,
                   raise_for_status=None):
     """Mock a request response."""
+    headers = headers or {'Content-Type': 'text/plain'}
     mock_resp = Mock()
     # mock raise_for_status call w/optional error
     mock_resp.raise_for_status = Mock()
@@ -208,11 +209,14 @@ def mock_response(status=200, content="CONTENT", json_data=None,
     # set status code and content
     mock_resp.status_code = status
     mock_resp.content = content
+    mock_resp.headers = headers
     mock_resp.text = content
     # add json data if provided
     if json_data:
+        mock_resp.headers['Content-Type'] = 'application/json'
         mock_resp.json = Mock(return_value=json_data)
         mock_resp.text = json.dumps(json_data)
+        mock_resp.content = json.dumps(json_data)
     return mock_resp
 
 

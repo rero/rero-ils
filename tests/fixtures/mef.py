@@ -24,13 +24,13 @@ import pytest
 
 @pytest.fixture(scope="module")
 def mef_concept1_data(mef_entities):
-    """Load Martigny librarian data."""
+    """Load MEF concept_1 data."""
     return deepcopy(mef_entities.get('concept_1'))
 
 
 @pytest.fixture(scope="module")
 def mef_concept1_data_tmp(mef_entities):
-    """Load Martigny librarian data."""
+    """Load MEF concept_1 data."""
     return deepcopy(mef_entities.get('concept_1'))
 
 
@@ -47,3 +47,15 @@ def mef_concept1_es_response(mef_concept1_data_tmp):
         'id': data['idref']['pid'],
         'metadata': data
     }]}}
+
+
+@pytest.fixture(scope="module")
+def mef_concept2_es_response(mef_entities):
+    """Load MEF es_concept_1 data."""
+    return deepcopy(mef_entities.get('es_concepts_1'))
+
+
+@pytest.fixture(scope="module")
+def mef_agents1_es_response(mef_entities):
+    """Load MEF es_concept_1 data."""
+    return deepcopy(mef_entities.get('es_agents_1'))

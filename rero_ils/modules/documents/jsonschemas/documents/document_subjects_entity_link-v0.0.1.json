@@ -12,7 +12,7 @@
     "$ref": {
       "title": "MEF Link",
       "type": "string",
-      "pattern": "^https://mef.rero.ch/api/agents/(gnd|idref|rero)/.*?$",
+      "pattern": "^https://mef.rero.ch/api/(agents|concepts)/(gnd|idref|rero)/.*?$",
       "form": {
         "type": "remoteTypeahead",
         "remoteTypeahead": {
@@ -28,6 +28,10 @@
               {
                 "label": "Organisation",
                 "value": "bf:Organisation"
+              },
+              {
+                "label": "Concept",
+                "value": "bf:Topic"
               }
             ]
           }
