@@ -39,7 +39,7 @@
           ],
           "properties": {
             "entity": {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_link-v0.0.1.json"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_subjects_entity_link-v0.0.1.json"
             }
           }
         }

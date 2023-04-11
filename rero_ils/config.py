@@ -2990,9 +2990,22 @@ RERO_ILS_APP_GIT_HASH = None
 RERO_ILS_UI_GIT_HASH = None
 
 #: RERO_ILS MEF specific configurations.
-RERO_ILS_MEF_URLS = {
-    'agents': os.environ.get('RERO_ILS_MEF_AGENTS_URL', 'https://mef.rero.ch/api/agents'),
-    'concepts': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts')
+RERO_ILS_MEF_CONFIG = {
+    'agents': {
+        'base_url': os.environ.get('RERO_ILS_MEF_AGENTS_URL', 'https://mef.rero.ch/api/agents'),
+        'sources': ['idref', 'gnd']
+    },
+    'concepts': {
+        'base_url': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts'),
+        'sources': ['idref']
+    },
+    'concepts-rameau': {
+        'base_url': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts'),
+        'sources': ['idref'],
+        'filters': [
+            {'idref.bnf_type': 'sujet Rameau'}
+        ]
+    }
 }
 RERO_ILS_MEF_RESULT_SIZE = 100
 
