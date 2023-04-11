@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,6 +32,25 @@ from flask import Blueprint, abort, make_response, render_template, request
 from .api import Stat, StatsForPricing, StatsSearch
 from .permissions import check_logged_as_admin, check_logged_as_librarian
 from .serializers import StatCSVSerializer
+
+
+def stats_view_method(pid, record, template=None, **kwargs):
+    """Display the detail view..
+
+    :param pid: PID object.
+    :param record: Record object.
+    :param template: Template to render.
+    :param **kwargs: Additional view arguments based on URL rule.
+    :return: The rendered template.
+    """
+    # We make a `dumps` to trigger the extension on the statistical record
+    # that allows to filter the libraries.
+    record = record.dumps()
+    return render_template(
+        template,
+        record=record
+    )
+
 
 blueprint = Blueprint(
     'stats',
