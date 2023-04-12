@@ -111,12 +111,8 @@ def test_holding_extended_validation(client,
     del holding_tmp['notes']
 
     # 2. holding type electronic
-    # 2.1. test holding type electronic attached to wrong document type
-    holding_tmp['holdings_type'] = 'electronic'
-    with pytest.raises(ValidationError):
-        holding_tmp.validate()
 
-    # 2.2 test electronic holding
+    # 2.1 test electronic holding
     # instantiate electronic holding
     holding_tmp = Holding.create(
         holding_lib_sion_electronic_data, delete_pid=True)

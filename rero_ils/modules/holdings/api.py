@@ -160,10 +160,6 @@ class Holding(IlsRecord):
                     and not patterns.get('next_expected_date'):
                 return _(
                     'Must have next expected date for regular frequencies.')
-        if document.harvested ^ self.is_electronic:
-            msg = _('Electronic Holding is not attached to the correct \
-                    document type. document: {pid}')
-            return _(msg.format(pid=document_pid))
         # the enumeration and chronology optional fields are only allowed for
         # serial or electronic holdings
         if not self.is_serial ^ self.is_electronic:
