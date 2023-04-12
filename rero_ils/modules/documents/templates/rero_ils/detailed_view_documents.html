@@ -1,7 +1,7 @@
 {# -*- coding: utf-8 -*-
 
   RERO ILS
-  Copyright (C) 2019-2022 RERO
+  Copyright (C) 2019-2023 RERO
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
@@ -50,10 +50,10 @@
 {%- endif %}
 <div class="row">
   {%- set icon_name = record | document_main_type(false) %}
+  {%- set covert_art = record | get_cover_art %}
   <figure id="thumbnail" class="figure-img col-sm-2 d-sm-block figure text-center">
     <img class="img-fluid img-thumbnail thumb"
-         src="{{record | get_cover_art}}"
-         onerror="this.src='{{url_for("static", filename="images/icon_%s.svg" % icon_name) }}'" >
+      src="{% if covert_art %}{{ covert_art }}{% else %}{{ url_for('static', filename='images/icon_%s.svg' % icon_name) }}{% endif %}">
     <figcaption class="figure-caption mt-2">
       <ul class="list-unstyled mb-1">
         {% for document_type in record | document_types %}
