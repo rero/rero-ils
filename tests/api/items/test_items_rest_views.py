@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,11 +17,14 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API items."""
+from elasticsearch_dsl.search import Response
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from mock import mock
 from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
 
 
 def test_item_dumps(client, item_lib_martigny, org_martigny,
@@ -106,3 +110,88 @@ def test_patron_checkouts_order(client, librarian_martigny,
     assert res.status_code == 500
     data = get_json(res)
     assert 'RequestError(400' in data['status']
+
+
+def test_item_stats(
+    app, client, librarian_martigny, item_lib_martigny
+):
+    """Test item stats."""
+    # A mock on the answer has been created, because it is not possible
+    # to freeze on the date, because the string "now-1y" passed to
+    # the configuration of the "year" facet is calculated
+    # on the Elasticsearch instance.
+    es_response = Response(OperationLogsSearch(), {
+        'aggregations': {
+            'trigger': {
+                'buckets': [{
+                    'doc_count': 1,
+                    'key': 'checkout',
+                    'year': {
+                        'doc_count': 1,
+                        'meta': {}
+                    }
+                }, {
+                    'doc_count': 2,
+                    'key': 'extend',
+                    'year': {
+                        'doc_count': 1,
+                        'meta': {}
+                    }
+                }, {
+                    'doc_count': 2,
+                    'key': 'checkin',
+                    'year': {
+                        'doc_count': 1,
+                        'meta': {}
+                    }
+                }]
+            }
+        }
+    })
+
+    es_response_checkin = Response(OperationLogsSearch(), {
+        'aggregations': {
+            'trigger': {
+                'buckets': [{
+                    'doc_count': 2,
+                    'key': 'checkin',
+                    'year': {
+                        'doc_count': 1,
+                        'meta': {}
+                    }
+                }]
+            }
+        }
+    })
+
+    login_user_via_session(client, librarian_martigny.user)
+    with mock.patch.object(
+        OperationLogsSearch,
+        'execute',
+        mock.MagicMock(return_value=es_response)
+    ):
+        # We sum the Legacy_count field in the checkout field
+        res = client.get(url_for('api_item.stats', item_pid='item1'))
+        assert res.json == \
+            {
+                'total': {'checkout': 5, 'extend': 2, 'checkin': 2},
+                'total_year': {'checkout': 1, 'extend': 1, 'checkin': 1}}
+
+    with mock.patch.object(
+        OperationLogsSearch,
+        'execute',
+        mock.MagicMock(return_value=es_response_checkin)
+    ):
+        # item found
+        # We add the legacy_checkout_count field to the checkout field
+        res = client.get(url_for('api_item.stats', item_pid='item1'))
+        assert res.json == \
+            {
+                'total': {'checkout': 4, 'checkin': 2},
+                'total_year': {'checkin': 1}}
+        # No item found
+        res = client.get(url_for('api_item.stats', item_pid='foot'))
+        assert res.json == \
+            {
+                'total': {'checkin': 2},
+                'total_year': {'checkin': 1}}

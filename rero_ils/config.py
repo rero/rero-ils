@@ -2241,7 +2241,6 @@ RECORDS_REST_FACETS = dict(
                 'subtype': terms_filter('subtype')
             }
         }
-
     )
 )
 

@@ -96,6 +96,9 @@
           "pid": {
             "type": "keyword"
           },
+          "trigger": {
+            "type": "keyword"
+          },
           "override_flag": {
             "type": "boolean"
           },

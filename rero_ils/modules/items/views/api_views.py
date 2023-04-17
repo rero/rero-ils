@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +24,7 @@ from copy import deepcopy
 from functools import wraps
 
 from elasticsearch import exceptions
+from elasticsearch_dsl import A, Q
 from flask import Blueprint, abort, current_app, jsonify
 from flask import request as flask_request
 from flask_login import current_user
@@ -32,12 +34,15 @@ from invenio_circulation.errors import CirculationException, \
 from werkzeug.exceptions import NotFound
 
 from rero_ils.modules.circ_policies.api import CircPolicy
-from rero_ils.modules.decorators import check_authentication
+from rero_ils.modules.decorators import check_authentication, check_permission
 from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.errors import NoCirculationAction, \
     NoCirculationActionIsPermitted
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
+from rero_ils.modules.operation_logs.permissions import \
+    search_action as op_log_search_action
 from rero_ils.modules.patrons.api import Patron, current_librarian
 from rero_ils.permissions import request_item_permission
 
@@ -464,3 +469,35 @@ def get_pickup_locations(item_pid):
     return jsonify({
         'locations': locations
     })
+
+
+@api_blueprint.route('/<item_pid>/stats', methods=['GET'])
+@check_permission([op_log_search_action])
+@jsonify_error
+def stats(item_pid):
+    """REST-API endpoint to get item statistics (total and past year).
+
+    :param item_pid: the item pid
+    """
+    search = OperationLogsSearch()\
+        .filter('term', loan__item__pid=item_pid)
+    trigger = A(
+        'terms',
+        field='loan.trigger',
+        aggs={
+            'year': A('filter', Q('range', date={'gte': 'now-1y'}))
+        }
+    )
+    search.aggs.bucket('trigger', trigger)
+    search = search[:0]
+    results = search.execute()
+    output = {'total': {}, 'total_year': {}}
+    for result in results.aggregations.trigger.buckets:
+        output['total'][result.key] = result.doc_count
+        output['total_year'][result.key] = result.year.doc_count
+    # Add legacy count on checkout
+    if item := Item.get_record_by_pid(item_pid):
+        legacy_count = item.get('legacy_checkout_count', 0)
+        output['total'].setdefault('checkout', 0)
+        output['total']['checkout'] += legacy_count
+    return jsonify(output)
