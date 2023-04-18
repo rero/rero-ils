@@ -659,12 +659,12 @@ def get_timestamp(name):
     """Get timestamp in current cache.
 
     :param name: name of time stamp.
-    :returns: time of time stamp
+    :returns: data for time stamp
     """
-    time_stamps = current_cache.get('timestamps')
-    if not time_stamps:
-        return None
-    return time_stamps.get(name)
+    if time_stamps := current_cache.get('timestamps'):
+        data = time_stamps.get(name, {})
+        data.pop('name', None)
+        return data if data else None
 
 
 def csv_metadata_line(record, uuid, date):

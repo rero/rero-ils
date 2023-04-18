@@ -832,6 +832,12 @@
       "subjects": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "sources": {
+            "type": "keyword"
+          },
           "type": {
             "type": "keyword"
           },
@@ -912,6 +918,12 @@
       "subjects_imported": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "sources": {
+            "type": "keyword"
+          },
           "type": {
             "type": "keyword"
           },

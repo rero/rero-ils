@@ -139,7 +139,6 @@ def test_timestamps(app, client):
     time_stamp = set_timestamp('test', msg='test msg')
     assert get_timestamp('test') == {
         'time': time_stamp,
-        'name': 'test',
         'msg': 'test msg'
     }
     res = client.get(url_for('api_monitoring.timestamps'))
