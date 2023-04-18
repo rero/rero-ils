@@ -202,11 +202,19 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                     self.increment_count(self.count_deleted, ref,
                                          f'{doc_pid} Deleted')
                 else:
-                    self.increment_count(self.count_found, ref,
-                                         f'{doc_pid} Online found')
-                    # create and return local contribution
-                    return Contribution.create(data=data, dbcommit=True,
-                                               reindex=True)
+                    if cont := Contribution.get_record_by_pid(data.get('pid')):
+                        # update local contribution
+                        self.increment_count(self.count_found, ref,
+                                             f'{doc_pid} Online update')
+                        data['$schema'] = cont['$schema']
+                        return cont.replace(data=data, dbcommit=True,
+                                            reindex=True)
+                    else:
+                        # create and return local contribution
+                        self.increment_count(self.count_found, ref,
+                                             f'{doc_pid} Online create')
+                        return Contribution.create(data=data, dbcommit=True,
+                                                   reindex=True)
             else:
                 # online contribution has no IdREf, GND or RERO
                 self.increment_count(self.count_no_data, ref,

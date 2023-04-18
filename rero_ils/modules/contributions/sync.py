@@ -219,6 +219,7 @@ class SyncAgent(object):
         es_query = DocumentsSearch()
         filters = Q('term', contribution__agent__pid=pid)
         filters |= Q('term', subjects__pid=pid)
+        filters |= Q('term', subjects_imported__pid=pid)
         es_query = es_query.filter('bool', must=[filters]).source('pid')
         # can be a list as the should not be too big
         return [d.pid for d in es_query.params(scroll='30m').scan()]
