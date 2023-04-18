@@ -28,6 +28,7 @@ from copy import deepcopy
 import click
 import jsonref
 import requests
+import xmltodict
 from dojson import Overdo, utils
 from pkg_resources import resource_string
 
@@ -419,7 +420,7 @@ def remove_special_characters(value, chars=['\u0098', '\u009C']):
     return value
 
 
-def get_contribution_link(bibid, reroid, id, key):
+def get_contribution_link(bibid, reroid, ids, key):
     """Get MEF contribution link.
 
     :params bibid: Bib id from the record.
@@ -434,46 +435,62 @@ def get_contribution_link(bibid, reroid, id, key):
     # In dojson we dont have app. mef_url should be the same as
     # RERO_ILS_MEF_AGENTS_URL in config.py
     # https://mef.test.rero.ch/api/agents/mef/?q=rero.rero_pid:A012327677
+    if not ids:
+        return
     mef_url = os.environ.get(
         'RERO_ILS_MEF_AGENTS_URL',
         'https://mef.rero.ch/api/agents')
-    if type(id) is str:
-        match = re_identified.search(id)
-    else:
-        match = re_identified.search(id[0])
-    if match and len(match.groups()) == 2 and key[:3] in _CONTRIBUTION_TAGS:
-        match_type = match.group(1).lower()
-        match_value = match.group(2)
-        # if we have a viafid, look for the contributor in MEF
-        if match_type == "viaf":
-            url = f'{mef_url}/mef/agents/?q=viaf_pid:{match_value}'
-            response = requests_retry_session().get(url)
-            status_code = response.status_code
-            if status_code == requests.codes.ok:
-                resp = response.json()
-                with contextlib.suppress(IndexError, KeyError):
-                    mdata = resp['hits']['hits'][0]['metadata']
-                    for source in ['idref', 'gnd']:
-                        match_value = mdata.get(source, {}).get('pid')
-                        if match_value:
-                            match_type = source
-                            break
-        if match_type in ['idref', 'gnd']:
-            url = f'{mef_url}/mef/latest/{match_type}:{match_value}'
-            response = requests_retry_session().get(url)
-            status_code = response.status_code
-            total = 0
-            if status_code == requests.codes.ok:
-                if value := response.json().get(match_type, {}).get('pid'):
-                    if match_value != value:
-                        error_print('INFO GET MEF CONTRIBUTION:',
-                                    bibid, reroid, key, id, 'NEW',
-                                    f'({match_type.upper()}){value}')
-                    return f'{mef_url}/{match_type}/{value}'
-            error_print('WARNING GET MEF CONTRIBUTION:',
-                        bibid, reroid, key, id, url, status_code, total)
-    else:
-        error_print('ERROR GET MEF CONTRIBUTION:', bibid, reroid, key, id)
+    has_no_de_101 = True
+    for id_ in ids:
+        # see if we have a $0 with (DE-101)
+        if match := re_identified.match(id_):
+            with contextlib.suppress(IndexError):
+                if match.group(1).lower() == 'de-101':
+                    has_no_de_101 = False
+                    break
+    for id_ in ids:
+        if type(id_) is str:
+            match = re_identified.search(id_)
+        else:
+            match = re_identified.search(id_[0])
+        if match and len(match.groups()) == 2 \
+                and key[:3] in _CONTRIBUTION_TAGS:
+            match_type = match.group(1).lower()
+            match_value = match.group(2)
+            if match_type == 'de-101':
+                match_type = 'gnd'
+            elif match_type == 'de-588' and has_no_de_101:
+                match_type = 'gnd'
+                match_value = get_gnd_de_101(match_value)
+            if match_type in ['idref', 'gnd']:
+                url = f'{mef_url}/mef/latest/{match_type}:{match_value}'
+                response = requests_retry_session().get(url)
+                status_code = response.status_code
+                total = 0
+                if status_code == requests.codes.ok:
+                    if value := response.json().get(match_type, {}).get('pid'):
+                        if match_value != value:
+                            error_print('INFO GET MEF CONTRIBUTION:',
+                                        bibid, reroid, key, id_, 'NEW',
+                                        f'({match_type.upper()}){value}')
+                        return f'{mef_url}/{match_type}/{value}'
+                error_print('WARNING GET MEF CONTRIBUTION:',
+                            bibid, reroid, key, id_, url, status_code, total)
+            # if we have a viaf id, look for the contributor in MEF
+            elif match_type == "viaf":
+                url = f'{mef_url}/mef?q=viaf_pid:{match_value}'
+                response = requests_retry_session().get(url)
+                status_code = response.status_code
+                if status_code == requests.codes.ok:
+                    resp = response.json()
+                    with contextlib.suppress(IndexError, KeyError):
+                        mdata = resp['hits']['hits'][0]['metadata']
+                        for source in ['idref', 'gnd']:
+                            if match_value := mdata.get(source, {}).get('pid'):
+                                match_type = source
+                                break
+        else:
+            error_print('ERROR GET MEF CONTRIBUTION:', bibid, reroid, key, id_)
 
 
 def add_note(new_note, data):
@@ -1999,6 +2016,32 @@ def build_responsibility_data(responsibility_data):
     return responsibilities
 
 
+def get_gnd_de_101(de_588):
+    """Get DE-101 from GND DE-588 value.
+
+    GND documentation:
+    https://www.dnb.de/DE/Service/Hilfe/Katalog/kataloghilfe.html?nn=587750
+    https://services.dnb.de/sru/authorities?version=1.1
+        &operation=searchRetrieve
+        &query=identifier%3D{DE-588}
+        &recordSchema=oai_dc
+    :params de_588: DE-588 value
+    :returns: DE-101 value
+    """
+    from rero_ils.modules.utils import requests_retry_session
+
+    url = (
+        'https://services.dnb.de/sru/authorities?version=1.1'
+        f'&operation=searchRetrieve&query=identifier%3D{de_588}'
+        '&recordSchema=oai_dc'
+    )
+    response = requests_retry_session().get(url)
+    if response.status_code == requests.codes.ok:
+        result = xmltodict.parse(response.text)
+        return result['searchRetrieveResponse']['records']['record'][
+            'recordData']['dc']['dc:identifier']['#text']
+
+
 def build_identifier(data):
     """Build identifiedBy for document_identifier-v0.0.1.json from $0.
 
@@ -2013,17 +2056,25 @@ def build_identifier(data):
         'DE-101': 'GND'
     }
     result = {}
-    data_0 = utils.force_list(data.get('0'))
-    if data_0:
-        match = re_identified.match(data_0[0])
-        if match:
-            try:
-                result['value'] = match.group(2)
-                source = match.group(1)
-                identifier_type = sources.get(source.upper())
-                if identifier_type:
-                    result['type'] = identifier_type
-            except IndexError:
-                result = {}
-                click.echo(f'WARNING creating identifier: {data_0}')
-    return result or None
+    if datas_0 := utils.force_list(data.get('0')):
+        has_no_de_101 = True
+        for data_0 in datas_0:
+            # see if we have a $0 with (DE-101)
+            if match := re_identified.match(data_0):
+                with contextlib.suppress(IndexError):
+                    if match.group(1).upper() == 'DE-101':
+                        has_no_de_101 = False
+                        break
+        for data_0 in datas_0:
+            if match := re_identified.match(data_0):
+                with contextlib.suppress(IndexError):
+                    result['value'] = match.group(2)
+                    source = match.group(1)
+                    if identifier_type := sources.get(source.upper()):
+                        result['type'] = identifier_type
+                        return result
+                    elif source.upper() == 'DE-588' and has_no_de_101:
+                        if idn := get_gnd_de_101(match.group(2)):
+                            result['value'] = idn
+                            result['type'] = 'GND'
+                            return result
