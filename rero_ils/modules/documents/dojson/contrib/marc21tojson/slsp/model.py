@@ -333,10 +333,6 @@ def marc21_to_subjects_6XX(self, key, value):
         '655': EntityType.TOPIC
     }
 
-    conference_per_tag = {
-        '610': False,
-        '611': True
-    }
     source_per_indicator_2 = {
         '0': 'LCSH',
         '2': 'MeSH'
@@ -354,7 +350,7 @@ def marc21_to_subjects_6XX(self, key, value):
             'subjects_imported'
         )
 
-    if subfield_2 == 'rero':
+    if subfield_2 in ['rero', 'gnd', 'idref']:
         if tag_key in ['600', '610', '611'] and value.get('t'):
             tag_key += 't'
         data_type = type_per_tag[tag_key]
@@ -390,6 +386,10 @@ def marc21_to_subjects_6XX(self, key, value):
             string_build = re.sub(r'^\[(.*)\]$', r'\1', string_build)
         subject['authorized_access_point'] = string_build
 
+        conference_per_tag = {
+            '610': False,
+            '611': True
+        }
         if tag_key in ['610', '611']:
             subject['conference'] = conference_per_tag[tag_key]
         elif tag_key in ['600t', '610t', '611t']:

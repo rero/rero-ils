@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -30,7 +31,6 @@ from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
 from .api import Document, DocumentsSearch
-from .dumpers import document_replace_refs_dumper
 from .extensions import EditionStatementExtension, \
     ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
 from .utils import display_alternate_graphic_first, get_remote_cover, \
@@ -55,7 +55,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     :param pid: PID object.
     :param record: Record object.
     :param template: Template to render.
-    :param **kwargs: Additional view arguments based on URL rule.
+    :param kwargs: Additional view arguments based on URL rule.
     :return: The rendered template.
     """
     record_viewed.send(
@@ -252,40 +252,62 @@ def can_request(item):
 
 
 @blueprint.app_template_filter()
-def contribution_format(pid, language, viewcode, role=False):
+def contribution_format(contributions, language, viewcode, with_roles=False):
     """Format contribution for template in given language.
 
-    :param pid: pid for document.
+    :param contributions: the list of contributors to format.
     :param language: language to use.
     :param viewcode: viewcode to use.
-    :param role: display roles.
+    :param with_roles: display roles.
     :return the contribution in formatted form.
     """
-    doc = Document.get_record_by_pid(pid)
-    doc = doc.dumps(document_replace_refs_dumper)
     output = []
-    for contribution in doc.get('contribution', []):
-        if entity_pid := contribution['entity'].get('pid'):
-            entity = Entity.get_record_by_pid(entity_pid)
-            # add link <a href="url">link text</a>
+    for contrib in filter(lambda c: c.get('entity'), contributions):
+        if entity := Entity.get_record_by_pid(contrib['entity'].get('pid')):
             text = entity.get_authorized_access_point(language=language)
             entity_type = 'persons'
-            if entity.get('type') == 'bf:Organisation':
+            if entity.get('type') == EntityType.ORGANISATION:
                 entity_type = 'corporate-bodies'
-            line = \
-                f'<a href="/{viewcode}/{entity_type}/{entity_pid}">{text}</a>'
+            label = \
+                f'<a href="/{viewcode}/{entity_type}/{entity.pid}">{text}</a>'
         else:
-            line = contribution['entity']['authorized_access_point']
+            default_key = 'authorized_access_point'
+            localized_key = f'{default_key}_{language}'
+            label = contrib['entity'].get(localized_key) or \
+                contrib['entity'].get(default_key)
 
-        if role:
-            roles = [_(role) for role in contribution.get('role', [])]
-            if roles:
-                line += '<span class="text-secondary"> ({role})</span>'.format(
-                    role=', '.join(roles)
-                )
+        if with_roles:
+            if roles := [_(role) for role in contrib.get('role', [])]:
+                roles_str = ', '.join(roles)
+                label += f'<span class="text-secondary"> ({roles_str})</span>'
+        output.append(label)
 
-        output.append(line)
     return '&#8239;; '.join(output)
+
+
+@blueprint.app_template_filter()
+def entity_label(entity, language=None, part_separator=' - ') -> str:
+    """Format an entity according to the available keys.
+
+    :param entity: the entity to analyze.
+    :param language: current language on interface.
+    :param part_separator: the string use to glue parts of the entity label.
+    :returns: the best possible label to display.
+    """
+    parts = []
+    if 'pid' in entity:
+        entity = Entity.get_record_by_pid(entity['pid'])
+        parts.append(entity.get_authorized_access_point(language=language))
+    else:
+        default_key = 'authorized_access_point'
+        localized_key = f'{default_key}_{language}'
+        parts.append(entity.get(localized_key) or entity.get(default_key))
+
+    for subdivision in entity.get('subdivisions', []):
+        if sub_entity := subdivision.get('entity'):
+            parts.append(entity_label(sub_entity, language, part_separator))
+
+    return part_separator.join(filter(None, parts))
 
 
 @blueprint.app_template_filter()
@@ -712,21 +734,6 @@ def online_holdings(document_pid, viewcode='global'):
         library_holdings.append(record)
         holdings[library['name']] = library_holdings
     return holdings
-
-
-@blueprint.app_template_filter()
-def subject_format(subject_data, language=None):
-    """Format the subject according to the available keys.
-
-    :param subject_data: the record subject.
-    :param language: current language on interface.
-    """
-    entity = subject_data['entity']
-    if language is None:
-        return entity['authorized_access_point']
-    return entity.get(
-        f'authorized_access_point_{language}',
-        entity['authorized_access_point'])
 
 
 @blueprint.app_template_filter()

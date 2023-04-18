@@ -25,7 +25,7 @@ from marshmallow import fields
 
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
 from rero_ils.modules.documents.extensions import TitleExtension
-from rero_ils.modules.documents.utils import process_literal_contributions
+from rero_ils.modules.documents.utils import process_i18n_literal_fields
 
 
 class ImportSchemaJSONV1(RecordSchemaJSONV1):
@@ -138,7 +138,7 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
             new_contributions.append({'entity': agent})
         if new_contributions:
             metadata['contribution'] = \
-                        process_literal_contributions(new_contributions)
+                        process_i18n_literal_fields(new_contributions)
         return metadata
 
 

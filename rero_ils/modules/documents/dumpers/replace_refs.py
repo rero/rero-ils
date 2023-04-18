@@ -66,8 +66,16 @@ class ReplaceRefsContributionsDumper(ReplaceRefsEntitiesDumperMixin):
         return data
 
 
-class ReplaceRefsSubjectsDumper(ReplaceRefsEntitiesDumperMixin):
-    """Replace linked subjects in document."""
+class ReplaceRefsEntitiesDumper(ReplaceRefsEntitiesDumperMixin):
+    """Replace linked entities in document."""
+
+    def __init__(self, *args):
+        """Initialization.
+
+        :param args: field names on which replace the $ref entities.
+        :type args: tuple<str>
+        """
+        self.field_names = list(args) or []
 
     def dump(self, record, data):
         """Dump record data by replacing linked subjects and imported subjects.
@@ -76,13 +84,14 @@ class ReplaceRefsSubjectsDumper(ReplaceRefsEntitiesDumperMixin):
         :param data: The initial dump data passed in by ``record.dumps()``.
         :return a dict with dumped data.
         """
-        entities = [
-            dict(entity=self._replace_entity(subject) if subject.get('$ref')
-                 else subject)
-            for subject in [d['entity'] for d in data.get('subjects', [])]
-        ]
-        if entities:
-            data['subjects'] = entities
+        for field_name in self.field_names:
+            entities = []
+            for entity in [d['entity'] for d in data.get(field_name, [])]:
+                if entity.get('$ref'):
+                    entity = self._replace_entity(entity)
+                entities.append({'entity': entity})
+            if entities:
+                data[field_name] = entities
         return data
 
 

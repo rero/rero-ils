@@ -30,7 +30,7 @@ from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dojson.contrib.jsontodc import dublincore
 
 from ..dumpers import document_replace_refs_dumper
-from ..utils import process_literal_contributions
+from ..utils import process_i18n_literal_fields
 
 DEFAULT_LANGUAGE = LocalProxy(
     lambda: current_app.config.get('BABEL_DEFAULT_LANGUAGE'))
@@ -62,11 +62,8 @@ class DublinCoreSerializer(_DublinCoreSerializer):
                          language=DEFAULT_LANGUAGE, **kwargs):
         """Transform record into an intermediate representation."""
         record = record.dumps(document_replace_refs_dumper)
-        contributions = process_literal_contributions(
-            record.get('contribution', [])
-        )
-        if contributions:
-            record['contribution'] = contributions
+        if contributions := record.pop('contribution', []):
+            record['contribution'] = process_i18n_literal_fields(contributions)
         record = dublincore.do(record, language=language)
         return record
 

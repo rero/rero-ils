@@ -850,29 +850,25 @@
               "authorized_access_point_en": {
                 "type": "text",
                 "analyzer": "english",
-                "copy_to": "facet_subjects"
+                "copy_to": "facet_subject_en"
               },
               "authorized_access_point_fr": {
                 "type": "text",
                 "analyzer": "french",
-                "copy_to": "facet_subjects"
+                "copy_to": "facet_subject_fr"
               },
               "authorized_access_point_de": {
                 "type": "text",
                 "analyzer": "german",
-                "copy_to": "facet_subjects"
+                "copy_to": "facet_subject_de"
               },
               "authorized_access_point_it": {
                 "type": "text",
                 "analyzer": "italian",
-                "copy_to": "facet_subjects"
+                "copy_to": "facet_subject_it"
               },
               "source": {
                 "type": "keyword"
-              },
-              "authorized_access_point": {
-                "type": "text",
-                "copy_to": "facet_subjects"
               },
               "variant_access_point": {
                 "type": "text"
@@ -889,8 +885,28 @@
                       "type": {
                         "type": "keyword"
                       },
-                      "authorized_access_point": {
-                        "type": "keyword"
+                      "isGenreForm": {
+                        "type": "boolean"
+                      },
+                      "authorized_access_point_en": {
+                        "type": "text",
+                        "analyzer": "english",
+                        "copy_to": "facet_subject_en"
+                      },
+                      "authorized_access_point_fr": {
+                        "type": "text",
+                        "analyzer": "french",
+                        "copy_to": "facet_subject_fr"
+                      },
+                      "authorized_access_point_de": {
+                        "type": "text",
+                        "analyzer": "german",
+                        "copy_to": "facet_subject_de"
+                      },
+                      "authorized_access_point_it": {
+                        "type": "text",
+                        "analyzer": "italian",
+                        "copy_to": "facet_subject_it"
                       },
                       "identifiedBy": {
                         "type": "object",
@@ -928,7 +944,16 @@
           }
         }
       },
-      "facet_subjects": {
+      "facet_subject_en": {
+        "type": "keyword"
+      },
+      "facet_subject_fr": {
+        "type": "keyword"
+      },
+      "facet_subject_de": {
+        "type": "keyword"
+      },
+      "facet_subject_it": {
         "type": "keyword"
       },
       "subjects_imported": {
@@ -963,6 +988,9 @@
                     "properties": {
                       "type": {
                         "type": "keyword"
+                      },
+                      "genreForm": {
+                        "type": "boolean"
                       },
                       "value": {
                         "type": "keyword"
@@ -1752,65 +1780,31 @@
               "authorized_access_point_en": {
                 "type": "text",
                 "analyzer": "english",
-                "copy_to": "facet_genre_form"
+                "copy_to": "facet_genre_form_en"
               },
               "authorized_access_point_fr": {
                 "type": "text",
                 "analyzer": "french",
-                "copy_to": "facet_genre_form"
+                "copy_to": "facet_genre_form_fr"
               },
               "authorized_access_point_de": {
                 "type": "text",
                 "analyzer": "german",
-                "copy_to": "facet_genre_form"
+                "copy_to": "facet_genre_form_de"
               },
               "authorized_access_point_it": {
                 "type": "text",
                 "analyzer": "italian",
-                "copy_to": "facet_genre_form"
+                "copy_to": "facet_genre_form_it"
               },
               "source": {
                 "type": "keyword"
-              },
-              "authorized_access_point": {
-                "type": "text",
-                "copy_to": "facet_genre_form"
               },
               "variant_access_point": {
                 "type": "text"
               },
               "parallel_access_point": {
                 "type": "text"
-              },
-              "subdivisions": {
-                "type": "object",
-                "properties": {
-                  "entity": {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "type": "keyword"
-                      },
-                      "authorized_access_point": {
-                        "type": "keyword"
-                      },
-                      "identifiedBy": {
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "type": "keyword"
-                          },
-                          "value": {
-                            "type": "keyword"
-                          },
-                          "source": {
-                            "type": "keyword"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
               },
               "identifiedBy": {
                 "type": "object",
@@ -1830,7 +1824,16 @@
           }
         }
       },
-      "facet_genre_form": {
+      "facet_genre_form_en": {
+        "type": "keyword"
+      },
+      "facet_genre_form_de": {
+        "type": "keyword"
+      },
+      "facet_genre_form_fr": {
+        "type": "keyword"
+      },
+      "facet_genre_form_it": {
         "type": "keyword"
       },
       "genreForm_imported": {

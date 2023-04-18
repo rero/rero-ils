@@ -93,7 +93,7 @@ def test_remote_search_proxy(
 
     response = client.get(url_for(
         'api_entities.remote_search_proxy',
-        entity_type='concepts-rameau',
+        entity_type='concepts-genreForm',
         term='side-car'
     ))
     assert response.status_code == 200
