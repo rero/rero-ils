@@ -283,33 +283,48 @@ def create_authorized_access_point(agent):
     return authorized_access_point
 
 
-def process_literal_contributions(contributions):
-    """Normalize literal contributions."""
-    calculated_contributions = []
-    for contribution in contributions:
-        if not contribution['entity'].get('pid'):
-            # transform local data for indexing
-            agent = {
-                'type': contribution['entity']['type'],
-                'authorized_access_point': contribution[
-                    'entity']['authorized_access_point'],
-            }
-            authorized_access_point = contribution[
-                'entity']['authorized_access_point']
-            agent['authorized_access_point'] = authorized_access_point
-            for language in get_i18n_supported_languages():
-                agent[f'authorized_access_point_{language}'] = \
-                    authorized_access_point
-            if variant := contribution['entity'].get('variant_access_point'):
-                agent['variant_access_point'] = variant
-            if parallel := contribution['entity'].get('parallel_access_point'):
-                agent['parallel_access_point'] = parallel
-            if contribution['entity'].get('identifiedBy'):
-                agent['identifiedBy'] = contribution['entity']['identifiedBy']
-            contribution['entity'] = agent
+def process_i18n_literal_fields(fields):
+    """Normalize literal fields."""
+    calculated_fields = []
+    for field in fields:
+        if entity := field.get('entity'):
+            entity = process_i18n_literal_entity(entity)
+            if subs := entity.pop('subdivisions', []):
+                entity['subdivisions'] = process_i18n_literal_fields(subs)
+            field['entity'] = entity
+        calculated_fields.append(field)
+    return calculated_fields
 
-        calculated_contributions.append(contribution)
-    return calculated_contributions
+
+def process_i18n_literal_entity(entity):
+    """Normalize literal entity.
+
+    An entity could be linked to a remote $ref, or could be local.
+    If entity is related to a $ref, it should be dumped to an appropriate
+    dumper method before and should contain all recommended keys to be
+    correctly indexed (i18n access point key, variant/parallel title, ...).
+
+    In this method we will focus on 'literal' entity. For such entity, we don't
+    have any i18n variant, or parallel/variant title, ... but for a correct
+    search results, we need it. So we will build these keys based on the
+    default access point.
+
+    :param entity: the entity to transform.
+    """
+    if entity.get('pid'):
+        # in such case, it means that's an entity linked to an `Entity` record.
+        # and we don't need to transform it. Just return the current entity
+        # without any modifications.
+        return entity
+
+    if access_point := entity.pop('authorized_access_point', None):
+        # use the encoded access point for all supported languages if the key
+        # doesn't already exists for the entity.
+        for language in get_i18n_supported_languages():
+            key = f'authorized_access_point_{language}'
+            if key not in entity:
+                entity[key] = access_point
+    return entity
 
 
 def get_remote_cover(isbn):

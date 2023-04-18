@@ -16,14 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Document filters tests."""
-import mock
-
 from rero_ils.modules.documents.views import cartographic_attributes, \
-    contribution_format, identified_by, main_title_text, note_general, \
-    notes_except_general, part_of_format, provision_activity, \
+    contribution_format, entity_label, identified_by, main_title_text, \
+    note_general, notes_except_general, part_of_format, provision_activity, \
     provision_activity_not_publication, provision_activity_original_date, \
-    provision_activity_publication, subject_format, title_variants, \
-    work_access_point
+    provision_activity_publication, title_variants, work_access_point
 from rero_ils.modules.entities.models import EntityType
 
 
@@ -394,24 +391,23 @@ def test_work_access_point():
     assert results == work_access_point(wap)
 
 
-def test_contribution_format(db, document, entity_organisation):
+def test_contribution_format(db, entity_organisation):
     """Test contribution format."""
-    result = 'Nebehay, Christian Michael'
-    assert contribution_format(document.pid, 'en', 'global').startswith(result)
+    contributions = [{
+        'entity': {
+            'authorized_access_point': 'author_def',
+            'authorized_access_point_fr': 'author_fr'
+        }
+    }]
+    assert contribution_format(contributions, 'en', 'global') == 'author_def'
+    assert contribution_format(contributions, 'fr', 'global') == 'author_fr'
+    assert contribution_format(contributions, 'zh', 'global') == 'author_def'
 
-    magic_mock = mock.MagicMock(return_value={
-        'contribution': [{
-            'entity': {
-                'pid': entity_organisation.pid,
-            }
-        }]
-    })
-    with mock.patch(
-        'rero_ils.modules.documents.api.Document.dumps',
-        magic_mock
-    ):
-        link_part = f'/corporate-bodies/{entity_organisation.pid}'
-        assert link_part in contribution_format(document.pid, 'en', 'global')
+    contributions = [{
+        'entity': {'pid': entity_organisation.pid}
+    }]
+    link_part = f'/corporate-bodies/{entity_organisation.pid}'
+    assert link_part in contribution_format(contributions, 'en', 'global')
 
 
 def test_identifiedby_format():
@@ -551,24 +547,44 @@ def test_main_title_text():
     assert extract[0].get('_text') is not None
 
 
-def test_subject_format():
-    """Test subject format filter."""
+def test_entity_label_filter(entity_person):
+    """Test entity label filter."""
     data = {
         'entity': {
             'authorized_access_point': 'subject topic',
             'type': EntityType.TOPIC
         }
     }
-    assert subject_format(data, None) == 'subject topic'
-    assert subject_format(data, 'fr') == 'subject topic'
+    assert entity_label(data['entity'], None) == 'subject topic'
+    assert entity_label(data['entity'], 'fr') == 'subject topic'
 
     data = {
         'entity': {
-            'authorized_access_point': 'subject topic',
-            'authorized_access_point_fr': 'sujet thème',
+            'authorized_access_point': 'topic_default',
+            'authorized_access_point_fr': 'topic_fr',
             'type': EntityType.TOPIC
         }
     }
-    assert subject_format(data, 'fr') == 'sujet thème'
-    assert subject_format(data, 'en') == 'subject topic'
-    assert subject_format(data, None) == 'subject topic'
+    assert entity_label(data['entity'], 'fr') == 'topic_fr'
+    assert entity_label(data['entity'], 'en') == 'topic_default'
+    assert entity_label(data['entity'], None) == 'topic_default'
+
+    data = {
+        'entity': {
+            'authorized_access_point': 'topic_default',
+            'subdivisions': [{
+                'entity': {
+                    'authorized_access_point': 'sub_default',
+                    'authorized_access_point_fr': 'sub_fr'
+                }
+            }],
+            'type': EntityType.TOPIC
+        }
+    }
+    assert entity_label(data['entity'], 'fr') == 'topic_default - sub_fr'
+    assert entity_label(data['entity'], 'en') == 'topic_default - sub_default'
+    assert entity_label(data['entity'], None) == 'topic_default - sub_default'
+
+    data = {'entity': {'pid': entity_person.pid}}
+    assert entity_label(data['entity'], 'fr') == 'Loy, Georg, 1885-19..'
+    assert entity_label(data['entity'], 'de') == 'Loy, Georg, 1885'

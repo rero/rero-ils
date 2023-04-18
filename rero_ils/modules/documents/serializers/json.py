@@ -22,7 +22,7 @@ from flask import current_app, json, request, stream_with_context
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.documents.api import Document
-from rero_ils.modules.documents.utils import process_literal_contributions
+from rero_ils.modules.documents.utils import process_i18n_literal_fields
 from rero_ils.modules.documents.views import create_title_alternate_graphic, \
     create_title_responsibilites, create_title_variants
 from rero_ils.modules.libraries.api import LibrariesSearch
@@ -193,9 +193,8 @@ class DocumentExportJSONSerializer(JSONSerializer):
         :param links_factory: Factory function for record links.
         """
         record = record.dumps(document_replace_refs_dumper)
-        if contributions := process_literal_contributions(
-                record.get('contribution', [])):
-            record['contribution'] = contributions
+        if contributions := record.pop('contribution', []):
+            record['contribution'] = process_i18n_literal_fields(contributions)
         return json.dumps(record, **self._format_args())
 
     def serialize_search(self, pid_fetcher, search_result, links=None,

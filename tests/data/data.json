@@ -1780,7 +1780,15 @@
       {
         "entity": {
           "type": "bf:Topic",
-          "authorized_access_point": "thriller"
+          "authorized_access_point": "thriller",
+          "subdivisions": [
+            {
+              "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "gore"
+              }
+            }
+          ]
         }
       },
       {

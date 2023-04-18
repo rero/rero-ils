@@ -58,7 +58,7 @@
         <dl class="row pt-2 ml-4">
           <!-- CONTRIBUTION -->
           {%- if document.contribution %}
-            {{ dl(_('Contribution'),document.pid | contribution_format(current_i18n.language, viewcode, true)) }}
+            {{ dl(_('Contribution'),document.contribution | contribution_format(current_i18n.language, viewcode, true)) }}
           {%- endif %}
           <!-- PROVISION ACTIVITY -->
           {%- for provision_activity in document.provisionActivity %}

@@ -1,0 +1,47 @@
+{
+  "title": "MEF Entity",
+  "type": "object",
+  "additionalProperties": false,
+  "propertiesOrder": [
+    "$ref"
+  ],
+  "required": [
+    "$ref"
+  ],
+  "properties": {
+    "$ref": {
+      "title": "MEF Link",
+      "type": "string",
+      "pattern": "^https://mef.rero.ch/api/concepts/idref/.*?$",
+      "form": {
+        "type": "remoteTypeahead",
+        "remoteTypeahead": {
+          "enableGroupField": true,
+          "type": "mef",
+          "filters": {
+            "default": "concepts-genreForm",
+            "options": [
+              {
+                "label": "Concept",
+                "value": "concepts-genreForm"
+              }
+            ]
+          }
+        },
+        "templateOptions": {
+          "itemCssClass": "col-lg-12"
+        }
+      }
+    },
+    "pid": {
+      "title": "MEF ID",
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "form": {
+    "templateOptions": {
+      "containerCssClass": "row"
+    }
+  }
+}

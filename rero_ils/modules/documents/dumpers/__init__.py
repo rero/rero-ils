@@ -24,13 +24,13 @@ from rero_ils.modules.commons.dumpers import MultiDumper
 
 from .indexer import IndexerDumper
 from .replace_refs import ReplaceRefsContributionsDumper, ReplaceRefsDumper, \
-    ReplaceRefsSubjectsDumper
+    ReplaceRefsEntitiesDumper
 from .title import TitleDumper
 
 __all__ = (
     'TitleDumper',
     'ReplaceRefsContributionsDumper',
-    'ReplaceRefsSubjectsDumper',
+    'ReplaceRefsEntitiesDumper',
     'ReplaceRefsDumper'
 )
 
@@ -39,7 +39,7 @@ document_replace_refs_dumper = MultiDumper(dumpers=[
     # make a fresh copy
     Dumper(),
     ReplaceRefsContributionsDumper(),
-    ReplaceRefsSubjectsDumper(),
+    ReplaceRefsEntitiesDumper('subjects', 'genreForm'),
     ReplaceRefsDumper()
 ])
 
@@ -55,7 +55,7 @@ document_indexer_dumper = MultiDumper(dumpers=[
     # make a fresh copy
     Dumper(),
     ReplaceRefsContributionsDumper(),
-    ReplaceRefsSubjectsDumper(),
+    ReplaceRefsEntitiesDumper('subjects', 'genreForm'),
     ReplaceRefsDumper(),
     IndexerDumper()
 ])

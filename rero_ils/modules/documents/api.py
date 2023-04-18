@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -86,7 +86,7 @@ class Document(IlsRecord):
 
     _extensions = [
         OperationLogObserverExtension(),
-        AddMEFPidExtension(),
+        AddMEFPidExtension('subjects', 'contribution', 'genreForm'),
         ProvisionActivitiesExtension(),
         SeriesStatementExtension(),
         EditionStatementExtension(),
@@ -113,8 +113,7 @@ class Document(IlsRecord):
             ) or True
             if validation_message is True:
                 # also test partOf
-                part_of = self.get('partOf', [])
-                if part_of:
+                if part_of := self.get('partOf', []):
                     # make a list of refs for easier testing
                     part_of_documents = [doc['document'] for doc in part_of]
                     validation_message = pids_exists_in_data(

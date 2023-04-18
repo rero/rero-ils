@@ -87,7 +87,6 @@
     "subdivisions": {
       "title": "Subdivisions",
       "type": "array",
-      "minItems": 1,
       "uniqueItems": true,
       "items": {
         "type": "object",
@@ -106,8 +105,9 @@
             "type": "object",
             "additionalProperties": false,
             "propertiesOrder": [
-              "authorized_access_point",
               "type",
+              "isGenreForm",
+              "authorized_access_point",
               "identifiedBy"
             ],
             "required": [
@@ -117,6 +117,15 @@
             "properties": {
               "type": {
                 "$ref": "#/definitions/subtype"
+              },
+              "isGenreForm": {
+                "title": "Genre / form",
+                "description": "Is this entity is a genre/form ?",
+                "type": "boolean",
+                "default": false,
+                "form": {
+                  "hideExpression": "!field?.parent?.model || (field.parent.model && field.parent.model.type !== 'bf:Topic')"
+                }
               },
               "authorized_access_point": {
                 "$ref": "#/properties/authorized_access_point"
