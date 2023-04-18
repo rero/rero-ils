@@ -134,7 +134,7 @@ from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory, librarian_update_permission_factory, \
     wiki_edit_ui_permission, wiki_edit_view_permission
 from .query import and_i18n_term_filter, and_term_filter, \
-    exclude_terms_filter, or_terms_filter_by_criteria
+    exclude_terms_filter, i18n_terms_filter, or_terms_filter_by_criteria
 from .utils import TranslatedList, get_current_language
 
 
@@ -1615,115 +1615,84 @@ RERO_ILS_AGGREGATION_SIZE = {
 DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('documents', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 PTRE_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('patron_transaction_events', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 ACQ_ORDER_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+
+FICTIONS_TERMS = ['Fictions', 'Films de fiction']
+
 RECORDS_REST_FACETS = dict(
     documents=dict(
         i18n_aggs=dict(
             author=dict(
+                en=dict(terms=dict(field='facet_contribution_en', size=DOCUMENTS_AGGREGATION_SIZE)),
+                fr=dict(terms=dict(field='facet_contribution_fr', size=DOCUMENTS_AGGREGATION_SIZE)),
+                de=dict(terms=dict(field='facet_contribution_de', size=DOCUMENTS_AGGREGATION_SIZE)),
+                it=dict(terms=dict(field='facet_contribution_it', size=DOCUMENTS_AGGREGATION_SIZE)),
+            ),
+            subject_fiction=dict(
                 en=dict(
-                    terms=dict(field='facet_contribution_en',
-                               size=DOCUMENTS_AGGREGATION_SIZE)
+                    terms=dict(field='facet_subject_en', size=DOCUMENTS_AGGREGATION_SIZE),
+                    filter=dict(bool=dict(must=[dict(terms=dict(facet_genre_form_en=FICTIONS_TERMS))]))
                 ),
                 fr=dict(
-                    terms=dict(field='facet_contribution_fr',
-                               size=DOCUMENTS_AGGREGATION_SIZE)
+                    terms=dict(field='facet_subject_fr', size=DOCUMENTS_AGGREGATION_SIZE),
+                    filter=dict(bool=dict(must=[dict(terms=dict(facet_genre_form_fr=FICTIONS_TERMS))]))
                 ),
                 de=dict(
-                    terms=dict(field='facet_contribution_de',
-                               size=DOCUMENTS_AGGREGATION_SIZE)
+                    terms=dict(field='facet_subject_de', size=DOCUMENTS_AGGREGATION_SIZE),
+                    filter=dict(bool=dict(must=[dict(terms=dict(facet_genre_form_de=FICTIONS_TERMS))]))
                 ),
                 it=dict(
-                    terms=dict(field='facet_contribution_it',
-                               size=DOCUMENTS_AGGREGATION_SIZE)
+                    terms=dict(field='facet_subject_it', size=DOCUMENTS_AGGREGATION_SIZE),
+                    filter=dict(bool=dict(must=[dict(terms=dict(facet_genre_form_it=FICTIONS_TERMS))]))
                 ),
+            ),
+            subject_no_fiction=dict(
+                en=dict(
+                    terms=dict(field='facet_subject_en', size=DOCUMENTS_AGGREGATION_SIZE),
+                    filter=dict(bool=dict(must_not=[dict(terms=dict(facet_genre_form_en=FICTIONS_TERMS))]))
+                ),
+                fr=dict(
+                    terms=dict(field='facet_subject_fr', size=DOCUMENTS_AGGREGATION_SIZE),
+                    filter=dict(bool=dict(must_not=[dict(terms=dict(facet_genre_form_fr=FICTIONS_TERMS))]))
+                ),
+                de=dict(
+                    terms=dict(field='facet_subject_de', size=DOCUMENTS_AGGREGATION_SIZE),
+                    filter=dict(bool=dict(must_not=[dict(terms=dict(facet_genre_form_de=FICTIONS_TERMS))]))
+                ),
+                it=dict(
+                    terms=dict(field='facet_subject_it', size=DOCUMENTS_AGGREGATION_SIZE),
+                    filter=dict(bool=dict(must_not=[dict(terms=dict(facet_genre_form_it=FICTIONS_TERMS))]))
+                ),
+            ),
+            genreForm=dict(
+                en=dict(terms=dict(field='facet_genre_form_en', size=DOCUMENTS_AGGREGATION_SIZE)),
+                fr=dict(terms=dict(field='facet_genre_form_fr', size=DOCUMENTS_AGGREGATION_SIZE)),
+                de=dict(terms=dict(field='facet_genre_form_de', size=DOCUMENTS_AGGREGATION_SIZE)),
+                it=dict(terms=dict(field='facet_genre_form_it', size=DOCUMENTS_AGGREGATION_SIZE)),
             ),
         ),
         aggs=dict(
-            # The organisation or library facet is defined
-            # dynamically during the query (query.py)
-
+            # The organisation or library facet is defined dynamically during the query (query.py)
             document_type=dict(
-                terms=dict(field='type.main_type',
-                           size=DOCUMENTS_AGGREGATION_SIZE),
+                terms=dict(field='type.main_type', size=DOCUMENTS_AGGREGATION_SIZE),
                 aggs=dict(
-                    document_subtype=dict(
-                        terms=dict(field='type.subtype',
-                                   size=DOCUMENTS_AGGREGATION_SIZE)
-                    )
+                    document_subtype=dict(terms=dict(field='type.subtype', size=DOCUMENTS_AGGREGATION_SIZE))
                 )
             ),
-            language=dict(
-                terms=dict(field='language.value',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
-            ),
+            language=dict(terms=dict(field='language.value', size=DOCUMENTS_AGGREGATION_SIZE)),
             organisation=dict(
-                terms=dict(field='holdings.organisation.organisation_pid',
-                           size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
+                terms=dict(field='holdings.organisation.organisation_pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
                 aggs=dict(
                     library=dict(
-                        terms=dict(field='holdings.organisation.library_pid',
-                                   size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
+                        terms=dict(field='holdings.organisation.library_pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
                         aggs=dict(
-                            location=dict(
-                                terms=dict(field='holdings.location.pid',
-                                           size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0)
-                            )
+                            location=dict(terms=dict(field='holdings.location.pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0))
                         )
                     )
                 )
             ),
-            subject_fiction=dict(
-                terms=dict(field='facet_subjects',
-                           size=DOCUMENTS_AGGREGATION_SIZE),
-                filter=dict(
-                    bool=dict(
-                        must=[
-                            dict(
-                                terms=dict(
-                                    facet_genre_form=[
-                                        'Fictions',
-                                        'Films de fiction'
-                                    ]
-                                )
-                            )
-                        ]
-                    )
-                )
-            ),
-            subject_no_fiction=dict(
-                terms=dict(field='facet_subjects',
-                           size=DOCUMENTS_AGGREGATION_SIZE),
-                filter=dict(
-                    bool=dict(
-                        must_not=[
-                            dict(
-                                terms=dict(
-                                    facet_genre_form=[
-                                        'Fictions',
-                                        'Films de fiction'
-                                    ]
-                                )
-                            )
-                        ]
-                    )
-                )
-            ),
-            status=dict(
-                terms=dict(field='holdings.items.status',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
-            ),
-            genreForm=dict(
-                terms=dict(field='facet_genre_form',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
-            ),
-            intendedAudience=dict(
-                terms=dict(field='intendedAudience.value',
-                           size=DOCUMENTS_AGGREGATION_SIZE)
-            ),
-            year=dict(date_histogram=dict(
-                field='provisionActivity.startDate',
-                interval='year',
-                format='yyyy')
-            )
+            status=dict(terms=dict(field='holdings.items.status', size=DOCUMENTS_AGGREGATION_SIZE)),
+            intendedAudience=dict(terms=dict(field='intendedAudience.value', size=DOCUMENTS_AGGREGATION_SIZE)),
+            year=dict(date_histogram=dict(field='provisionActivity.startDate', interval='year', format='yyyy'))
         ),
         filters={
             _('online'): or_terms_filter_by_criteria({
@@ -1734,17 +1703,19 @@ RECORDS_REST_FACETS = dict(
                 'holdings.holdings_type': ['standard', 'serial']
             }),
             _('author'): and_i18n_term_filter('facet_contribution'),
-            _('subject_fiction'): and_term_filter('facet_subjects',
+            _('subject_fiction'): and_i18n_term_filter(
+                'facet_subject',
                 must=[{
                     'name_or_query': 'terms',
                     'genreForm__identifiedBy__value': ['A027757308', 'A021097366']
                 }]
             ),
-            _('subject_no_fiction'): and_term_filter('facet_subjects',
+            _('subject_no_fiction'): and_i18n_term_filter(
+                'facet_subject',
                 must_not=[{
                     'name_or_query': 'terms',
-                    'genreForm__identifiedBy__value': ['A027757308', 'A021097366']
-                }]
+                    'genreForm__identifiedBy__value': ['A027757308', 'A021097366']}
+                ]
             ),
             _('new_acquisition'): acquisition_filter(),
             _('identifiers'): nested_identified_filter()
@@ -1763,7 +1734,7 @@ RECORDS_REST_FACETS = dict(
                 _('location'): terms_filter('holdings.location.pid')
             },
             _('status'): terms_filter('holdings.items.status'),
-            _('genreForm'): terms_filter('facet_genre_form'),
+            _('genreForm'): i18n_terms_filter('facet_genre_form'),
             _('intendedAudience'): terms_filter('intendedAudience.value'),
             _('year'): range_filter('provisionActivity.startDate')
         }
@@ -2999,11 +2970,11 @@ RERO_ILS_MEF_CONFIG = {
         'base_url': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts'),
         'sources': ['idref']
     },
-    'concepts-rameau': {
+    'concepts-genreForm': {
         'base_url': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts'),
         'sources': ['idref'],
         'filters': [
-            {'idref.bnf_type': 'sujet Rameau'}
+            {'idref.bnf_type': 'genre/forme Rameau'}
         ]
     }
 }

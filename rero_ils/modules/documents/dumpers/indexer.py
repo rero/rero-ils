@@ -17,11 +17,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Indexing dumper."""
+
 from flask import current_app
 from invenio_records.dumpers import Dumper
 
 from ..extensions import TitleExtension
-from ..utils import process_literal_contributions
+from ..utils import process_i18n_literal_fields
 
 
 class IndexerDumper(Dumper):
@@ -164,28 +165,45 @@ class IndexerDumper(Dumper):
             ):
                 data[key] = filtered_identifiers
 
-    def dump(self, record, data):
-        """Dump a document instance with basic document informations.
+    @staticmethod
+    def _process_i18n_entities(record, data):
+        """Process fields containing entities to allow i18n search."""
+        # Contribution (aka. authors of the document)
+        if contributions := data.pop('contribution', []):
+            data['contribution'] = process_i18n_literal_fields(contributions)
+        # Subject (could contain subdivisions to perform too)
+        if subjects := data.pop('subjects', []):
+            data['subjects'] = process_i18n_literal_fields(subjects)
+        if genreForms := data.pop('genreForm', []):
+            data['genreForm'] = process_i18n_literal_fields(genreForms)
 
-        :param record: The record to dump.
-        :param data: The initial dump data passed in by ``record.dumps()``.
-        """
-        from rero_ils.modules.local_fields.api import LocalField
+    @staticmethod
+    def _process_sort_title(record, data):
+        """Compute and store the document title used to sort it."""
         from rero_ils.utils import language_mapping
+        sort_title = TitleExtension.format_text(data.get('title', []))
+        language = language_mapping(data.get('language')[0].get('value'))
+        if current_app.config.get('RERO_ILS_STOP_WORDS_ACTIVATE', False):
+            sort_title = current_app. \
+                extensions['reroils-normalizer-stop-words']. \
+                normalize(sort_title, language)
+        data['sort_title'] = sort_title
 
+    @staticmethod
+    def _process_local_field(record, data):
+        """Add local field data related to this document."""
+        from rero_ils.modules.local_fields.api import LocalField
+        data['local_fields'] = [{
+            'organisation_pid': field.organisation_pid,
+            'fields': field.get('fields')
+        } for field in LocalField.get_local_fields_by_id('doc', record['pid'])]
+        if not data['local_fields']:
+            del data['local_fields']
+
+    @staticmethod
+    def _process_host_document(record, data):
+        """Store host document title in child document (part of)."""
         from ..api import Document
-        self._process_holdings(record, data)
-
-        if contributions := process_literal_contributions(
-            data.get('contribution', [])
-        ):
-            data.pop('contribution', None)
-            data['contribution'] = contributions
-
-        # TODO: compare record with those in DB to check which authors have
-        # to be deleted from index
-
-        # Index host document title in child document (part of)
         for part_of in data.get('partOf', []):
             doc_pid = part_of.get('document', {}).get('pid')
             document = Document.get_record_by_pid(doc_pid).dumps()
@@ -196,33 +214,33 @@ class IndexerDumper(Dumper):
             ]:
                 part_of['document']['title'] = titles.pop()
 
-        # sort title
-        sort_title = TitleExtension.format_text(
-            data.get('title', []),
-            with_subtitle=True
-        )
-        language = language_mapping(data.get('language')[0].get('value'))
-        if current_app.config.get('RERO_ILS_STOP_WORDS_ACTIVATE', False):
-            sort_title = current_app.\
-                            extensions['reroils-normalizer-stop-words'].\
-                            normalize(sort_title, language)
-        data['sort_title'] = sort_title
-
-        # Local fields in JSON
-        local_fields = LocalField.get_local_fields_by_resource(
-            'doc', record['pid'])
-        if local_fields:
-            data['local_fields'] = local_fields
-
-        self._process_identifiers(record, data)
-
+    @staticmethod
+    def _process_provision_activity(record, data):
+        """Search into `provisionActivity` field to found sort dates."""
         if pub_provisions := [
-            p
-            for p in record.get('provisionActivity', [])
-            if p['type'] == 'bf:Publication'
+            provision
+            for provision in record.get('provisionActivity', [])
+            if provision['type'] == 'bf:Publication'
         ]:
             start_date = pub_provisions[0].get('startDate')
             end_date = pub_provisions[0].get('endDate')
             data['sort_date_new'] = end_date or start_date
             data['sort_date_old'] = start_date
+
+    def dump(self, record, data):
+        """Dump a document instance with basic document information's.
+
+        :param record: The record to dump.
+        :param data: The initial dump data passed in by ``record.dumps()``.
+        """
+        self._process_holdings(record, data)
+        self._process_i18n_entities(record, data)
+        self._process_identifiers(record, data)
+        self._process_local_field(record, data)
+        self._process_sort_title(record, data)
+        self._process_host_document(record, data)
+        self._process_provision_activity(record, data)
+
+        # TODO: compare record with those in DB to check which authors have
+        #       to be deleted from index
         return data

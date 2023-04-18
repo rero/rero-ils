@@ -72,8 +72,8 @@ class MEFProxyFactory:
                 'class': MefConceptsProxy,
                 'entities': (EntityType.TOPIC,)
             },
-            'concepts-rameau': {
-                'class': MefConceptsRameauProxy,
+            'concepts-genreForm': {
+                'class': MefConceptsGenreFormProxy,
                 'entities': (EntityType.TOPIC,)
             }
         }
@@ -291,7 +291,7 @@ class MefConceptsProxy(MEFProxyMixin):
         super()._post_process_result_hit(hit)
 
 
-class MefConceptsRameauProxy(MefConceptsProxy):
-    """Proxy on RERO-MEF authority system for specific `RAMEAU concepts`."""
+class MefConceptsGenreFormProxy(MefConceptsProxy):
+    """Proxy on RERO-MEF authority system for specific `genreForm` concepts."""
 
-    mef_entrypoint = 'concepts-rameau'
+    mef_entrypoint = 'concepts-genreForm'

@@ -28,7 +28,7 @@ from rero_ils.utils import get_i18n_supported_languages
 
 from .base import BaseDocumentFormatterMixin
 from ..dumpers import document_replace_refs_dumper
-from ..utils import process_literal_contributions
+from ..utils import process_i18n_literal_fields
 
 
 class RISSerializer(SerializerMixinInterface):
@@ -42,10 +42,8 @@ class RISSerializer(SerializerMixinInterface):
         :param links_factory: Factory function for record links.
         """
         record = record.dumps(document_replace_refs_dumper)
-        if contributions := process_literal_contributions(
-                record.get('contribution', [])):
-            record['contribution'] = contributions
-
+        if contributions := record.pop('contribution', []):
+            record['contribution'] = process_i18n_literal_fields(contributions)
         # enrich record data with encoded identifier alternatives. The
         # record identifiers list should contain only distinct identifier !
         identifiers = set([

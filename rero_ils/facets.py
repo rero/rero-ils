@@ -32,36 +32,6 @@ from six import text_type
 from werkzeug.datastructures import MultiDict
 
 
-def i18n_facets_factory(search, index):
-    """Add a i18n facets to search query.
-
-    It's possible to select facets which should be added to query
-    by passing their name in `facets` parameter.
-
-    :param search: Basic search object.
-    :param index: Index name.
-    :returns: the new search object.
-    """
-    facets_config = current_app.config['RECORDS_REST_FACETS'].get(index, {})
-    # i18n Aggregations.
-    selected_facets = make_comma_list_a_list(
-        request.args.getlist('facets', None)
-    )
-    all_aggs = facets_config.get("i18n_aggs", {})
-    if selected_facets == []:
-        selected_facets = all_aggs.keys()
-    for name, agg in all_aggs.items():
-        if name in selected_facets:
-            i18n_agg = agg.get(
-                request.args.get("lang", current_i18n.language),
-                agg.get(current_app.config.get('BABEL_DEFAULT_LANGUAGE'))
-            )
-            search.aggs[name] = i18n_agg if not callable(i18n_agg) \
-                else i18n_agg()
-
-    return search
-
-
 def default_facets_factory(search, index):
     """Add a default facets to query.
 
@@ -154,11 +124,10 @@ def default_facets_factory(search, index):
     search = _aggregations(search, aggs)
     # Query filter
     search, urlkwargs = _query_filter(
-        search, urlkwargs, facets.get("filters", {}))
+        search, urlkwargs, facets.get('filters', {}))
     # Post filter
     search, urlkwargs = _post_filter(
-        search, urlkwargs, facets.get("post_filters", {}))
-
+        search, urlkwargs, facets.get('post_filters', {}))
     return search, urlkwargs
 
 
@@ -229,7 +198,7 @@ def _post_filter(search, urlkwargs, definitions):
         q = Q('bool', should=filter_)
         search = search.post_filter(q)
 
-    return (search, urlkwargs)
+    return search, urlkwargs
 
 
 def _facet_filter(index, filters, filters_group, facet_name, facet_field):
@@ -242,9 +211,9 @@ def _facet_filter(index, filters, filters_group, facet_name, facet_field):
 
     :param index: the resource (ex: documents)
     :param filters: the DSL expression of the single filters defined
-    in post_filters (in file config.py)
+        in post_filters (in file config.py)
     :param filters_group: the DSL expression of a dict of filters defined
-    in post_filters (in file config.py)
+        in post_filters (in file config.py)
     :param facet_name: the facet name
     :param facet_field: the facet field
     :returns: the filter to inject in the facet

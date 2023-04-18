@@ -113,20 +113,10 @@ class Entity(IlsRecord):
                 )):
                     raise Exception('NO DATA')
                 # Try to get the contribution from DB maybe it was not indexed.
-                if contribution := Contribution.get_record_by_pid(
-                    data['pid']
-                ):
-                    contribution = contribution.replace(
-                        data=data,
-                        dbcommit=False,
-                        reindex=False
-                    )
+                if entity := Entity.get_record_by_pid(data['pid']):
+                    entity = entity.replace(data)
                 else:
-                    entity = cls.create(
-                        data=data,
-                        dbcommit=False,
-                        reindex=False
-                    )
+                    entity = cls.create(data)
                 online = True
                 nested.commit()
                 # TODO: reindex in the document indexing

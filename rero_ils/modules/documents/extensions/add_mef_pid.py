@@ -26,24 +26,40 @@ from invenio_records.extensions import RecordExtension
 class AddMEFPidExtension(RecordExtension):
     """Adds the MEF pid for contributions and subjects."""
 
+    def __init__(self, *args):
+        """Initialization.
+
+        :param args: the list of fields where to find entity and add the
+            local Entity.pid corresponding to $ref.
+        :param args: tuple<str>.
+        """
+        self.field_names = list(args) or []
+
     def add_mef_pid(self, record):
         """Injects the MEF pid in the contribution.
 
         :params record: dict - a document record.
         """
         from rero_ils.modules.entities.api import Entity
-        agents = [
-            subject['entity'] for subject in record.get('subjects', [])
-        ] + [
-            contrib['entity'] for contrib in record.get('contribution', [])
-            if 'entity' in contrib
-        ]
-        for agent in agents:
-            if contrib_ref := agent.get('$ref'):
-                cont, _ = Entity.get_record_by_ref(contrib_ref)
-                if cont:
+        entities = []
+
+        # Search about all entities present in the document through fields
+        # defined for this extension
+        for field_name in self.field_names:
+            fields = record.get(field_name, [])
+            if not isinstance(fields, list):
+                fields = [fields]
+            entities.extend([
+                field['entity'] for field in fields if 'entity' in field
+            ])
+
+        # For each found entity, add its PID into the entity data.
+        for entity_data in entities:
+            if ref := entity_data.get('$ref'):
+                entity, _ = Entity.get_record_by_ref(ref)
+                if entity:
                     # inject mef pid
-                    agent['pid'] = cont['pid']
+                    entity_data['pid'] = entity['pid']
 
     def post_create(self, record):
         """Called after a record is initialized.

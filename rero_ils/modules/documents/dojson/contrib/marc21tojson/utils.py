@@ -1409,38 +1409,38 @@ def do_classification(data, key, value):
     tag = key[:3]
     indicator1 = key[3]
     indicator2 = key[4]
-    subfields_a = utils.force_list(value.get('a', []))
     subfield_2 = None
     if subfields_2 := utils.force_list(value.get('2')):
         subfield_2 = subfields_2[0]
-    for subfield_a in subfields_a:
+    for subfield_a in utils.force_list(value.get('a', [])):
         classification = {
             'classificationPortion': subfield_a,
-            'type': classification_type_per_tag[tag]}
-
+            'type': classification_type_per_tag[tag]
+        }
+        # LCC classification
         if tag == '050' and indicator2 == '0':
             classification['assigner'] = 'LOC'
-        if tag == '060' and indicator2 == '0':
+        # NLM classification
+        elif tag == '060' and indicator2 == '0':
             classification['assigner'] = 'NLM'
-        if tag == '080':
+        # UDC classification
+        elif tag == '080':
             if subfields_x := utils.force_list(value.get('x')):
                 classification['subdivision'] = list(subfields_x)
-            edition = None
+            edition_parts = []
             if indicator1 == '0':
-                edition = 'Full edition'
+                edition_parts.append('Full edition')
             elif indicator1 == '1':
-                edition = 'Abridged edition'
+                edition_parts.append('Abridged edition')
             if subfield_2:
-                if edition:
-                    edition += f', {subfield_2}'
-                else:
-                    edition = subfield_2
-            if edition:
-                classification['edition'] = edition
+                edition_parts.append(subfield_2)
+            if edition_parts:
+                classification['edition'] = ', '.join(edition_parts)
+        # DDC classification
         elif tag == '082':
             subfields_q = utils.force_list(value.get('q'))
             subfield_q = None
-            edition = None
+            edition_parts = []
             if subfields_q:
                 subfield_q = subfields_q[0]
             if indicator2 == '0':
@@ -1448,20 +1448,16 @@ def do_classification(data, key, value):
             elif subfield_q:
                 classification['assigner'] = subfield_q
             if indicator1 == '0':
-                edition = 'Full edition'
+                edition_parts.append('Full edition')
             elif indicator1 == '1':
-                edition = 'Abridged edition'
+                edition_parts.append('Abridged edition')
             if subfield_2:
-                if edition:
-                    edition += f', {subfield_2}'
-                else:
-                    edition = subfield_2
-            if edition:
-                classification['edition'] = edition
-        classification_list = data.get('classification', [])
+                edition_parts.append(subfield_2)
+            if edition_parts:
+                classification['edition'] = ', '.join(edition_parts)
+
         if classification:
-            classification_list.append(classification)
-            data['classification'] = classification_list
+            data.setdefault('classification', []).append(classification)
 
 
 def do_part_of(data, marc21, key, value):

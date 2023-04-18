@@ -60,15 +60,18 @@
           <li>{{ document_type }}</li>
         {% endfor %}
       </ul>
-      <ul class="list-unstyled mb-0">
-         <!-- TODO: GENRE FORM LINK (not implemend with ref) -->
-        {% for genre in record.genreForm %}
-        <li class="figure-caption">
-          <i class="fa fa-tag mr-1"></i>
-          {{ genre.entity.authorized_access_point }}
-        </li>
-        {% endfor %}
-      </ul>
+      {% if 'genreForm' in record %}
+        <ul class="list-unstyled mb-0">
+           {% for genreForm in record.genreForm %}
+             {% if 'entity' in genreForm %}
+               <li class="figure-caption">
+                 <i class="fa fa-tag mr-1"></i>
+                 {{ genreForm.entity | entity_label(language=current_i18n.language) }}
+               </li>
+             {% endif %}
+           {% endfor %}
+        </ul>
+      {% endif %}
     </figcaption>
   </figure>
   <div class="col-sm-10">
@@ -83,7 +86,7 @@
     {% endfor %}
     <!-- CONTRIBUTION -->
     {% if record.contribution %}
-    {{ div(record.pid | contribution_format(current_i18n.language, viewcode, true)) }}
+      {{ div(record.contribution | contribution_format(current_i18n.language, viewcode, true)) }}
     {% endif %}
 
     <!-- PUBLICATION ACTIVITY: PUBLICATION -->
@@ -226,7 +229,9 @@
       <div class="pt-2">
       {% for subject in record.subjects %}
         <span class="badge badge-secondary my-0" title="{{ _(subject.type) }}">
-          <i class="fa fa-tag"></i> {{ subject | subject_format(current_i18n.language) }}
+          {% if 'entity' in subject %}
+            <i class="fa fa-tag"></i> {{ subject.entity | entity_label(language=current_i18n.language) }}
+          {% endif %}
         </span>
       {% endfor %}
       </div>

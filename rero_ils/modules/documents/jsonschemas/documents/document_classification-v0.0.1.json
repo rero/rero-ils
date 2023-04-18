@@ -420,7 +420,7 @@
     },
     "subdivision": {
       "title": "Subdivisions",
-      "minItems": 1,
+      "minItems": 0,
       "type": "array",
       "items": {
         "title": "Subdivision",
