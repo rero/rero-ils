@@ -628,20 +628,15 @@ def marc21_to_subjects_6XX(self, key, value):
                 build_string_from_subfields(
                     value, subfield_code_per_tag[creator_tag_key]), '.', '.')
         field_key = 'genreForm' if tag_key == '655' else config_field_key
-        subfields_0 = utils.force_list(value.get('0'))
 
-        cont_id = None
-        if subfields_0:
-            cont_id = subfields_0[0]
-            for subfield_0 in subfields_0:
-                if 'DE-101' in subfield_0:
-                    cont_id = subfield_0.replace('DE-101', 'gnd')
-                    break
         if data_type in [DocumentSubjectType.PERSON,
-                         DocumentSubjectType.ORGANISATION] and cont_id:
-            ref = get_contribution_link(
-                marc21.bib_id, marc21.bib_id, cont_id, key)
-            if ref:
+                         DocumentSubjectType.ORGANISATION]:
+            if ref := get_contribution_link(
+                bibid=marc21.bib_id,
+                reroid=marc21.bib_id,
+                ids=utils.force_list(value.get('0')),
+                key=key
+            ):
                 subject = {
                     '$ref': ref,
                     'type': data_type,

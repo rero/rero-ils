@@ -120,14 +120,17 @@ def marc21_to_contribution(self, key, value):
             self['work_access_point'].append(work_access_point)
         return None
     agent = {}
-    if subfields_0 := utils.force_list(value.get('0')):
-        if ref := get_contribution_link(
-                marc21.bib_id, marc21.rero_id, subfields_0[0], key):
-            agent['$ref'] = ref
-            if key[:3] in ['100', '700']:
-                agent['type'] = 'bf:Person'
-            elif key[:3] in ['710', '711']:
-                agent['type'] = 'bf:Organisation'
+    if ref := get_contribution_link(
+        bibid=marc21.bib_id,
+        reroid=marc21.rero_id,
+        ids=utils.force_list(value.get('0')),
+        key=key
+    ):
+        agent['$ref'] = ref
+        if key[:3] in ['100', '700']:
+            agent['type'] = 'bf:Person'
+        elif key[:3] in ['710', '711']:
+            agent['type'] = 'bf:Organisation'
 
     # we do not have a $ref
     if not agent.get('$ref') and value.get('a'):
@@ -596,9 +599,12 @@ def marc21_to_subjects(self, key, value):
         field_key = 'genreForm' if tag_key == '655' else 'subjects'
         subfields_0 = utils.force_list(value.get('0'))
         if data_type in ['bf:Person', 'bf:Organisation'] and subfields_0:
-            ref = get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                        subfields_0[0], key)
-            if ref:
+            if ref := get_contribution_link(
+                bibid=marc21.bib_id,
+                reroid=marc21.rero_id,
+                ids=subfields_0,
+                key=key
+            ):
                 subject = {
                     '$ref': ref,
                     'type': data_type,

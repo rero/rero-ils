@@ -599,15 +599,18 @@ def do_contribution(data, marc21, key, value):
         return None
 
     agent = {}
+    if key[:3] in ['100', '700']:
+        agent['type'] = 'bf:Person'
+    elif key[:3] in ['710', '711']:
+        agent['type'] = 'bf:Organisation'
 
-    if value.get('0'):
-        if ref := get_contribution_link(marc21.bib_id, marc21.rero_id,
-                                        value.get('0'), key):
-            agent['$ref'] = ref
-            if key[:3] in ['100', '700']:
-                agent['type'] = 'bf:Person'
-            elif key[:3] in ['710', '711']:
-                agent['type'] = 'bf:Organisation'
+    if ref := get_contribution_link(
+        bibid=marc21.bib_id,
+        reroid=marc21.rero_id,
+        ids=utils.force_list(value.get('0')),
+        key=key
+    ):
+        agent['$ref'] = ref
 
     # we do not have a $ref
     if not agent.get('$ref') and value.get('a'):

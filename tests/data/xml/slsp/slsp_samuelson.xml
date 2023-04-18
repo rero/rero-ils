@@ -100,7 +100,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Bellman, Carl Michael</subfield>
             <subfield code="d">1740-1795</subfield>
-            <subfield code="0">(DE-588)118508709</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="240">
             <subfield code="a">Fredmans epistlar</subfield>
@@ -169,7 +168,6 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Scholander, Sven</subfield>
             <subfield code="d">1860-1936</subfield>
-            <subfield code="0">(DE-588)116895500</subfield>
           </datafield>
           <datafield ind1=" " ind2=" " tag="830">
             <subfield code="a">Musica Sveciae</subfield>

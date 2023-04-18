@@ -393,13 +393,11 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Genath, Johann Jacob</subfield>
             <subfield code="d">1582-1654</subfield>
-            <subfield code="0">(DE-588)121416720</subfield>
             <subfield code="e">Drucker</subfield>
             <subfield code="4">prt</subfield>
           </datafield>
           <datafield ind1=" " ind2=" " tag="751">
             <subfield code="a">Basel</subfield>
-            <subfield code="0">(DE-588)4004617-5</subfield>
           </datafield>
           <datafield ind1="4" ind2=" " tag="856">
             <subfield code="u">http://dx.doi.org/10.3931/e-rara-17515</subfield>
@@ -477,7 +475,6 @@
           <datafield ind1="1" ind2=" " tag="880">
             <subfield code="a">Fontana, Giovanni Battista</subfield>
             <subfield code="d">1589-1631</subfield>
-            <subfield code="0">(DE-588)133145271</subfield>
             <subfield code="6">100-01</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
@@ -631,12 +628,10 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Palestrina, Giovanni Pierluigi &lt;&lt;da&gt;&gt;</subfield>
             <subfield code="d">1525-1594</subfield>
-            <subfield code="0">(DE-588)118818686</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Lasso, Orlando &lt;&lt;di&gt;&gt;</subfield>
             <subfield code="d">1532-1594</subfield>
-            <subfield code="0">(DE-588)118569945</subfield>
           </datafield>
           <datafield ind1="1" ind2="2" tag="700">
             <subfield code="a">Fontana, Giovanni Battista</subfield>
@@ -649,40 +644,32 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Frescobaldi, Girolamo</subfield>
             <subfield code="d">1583-1643</subfield>
-            <subfield code="0">(DE-588)118896229</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Merula, Tarquinio</subfield>
             <subfield code="d">1594-1665</subfield>
-            <subfield code="0">(DE-588)121540235</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Rognoni Taeggio, Francesco</subfield>
             <subfield code="d">-1625</subfield>
-            <subfield code="0">(DE-588)103845445</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Selma y Salaverde, Bartolomeo</subfield>
             <subfield code="d">1595-1638</subfield>
-            <subfield code="0">(DE-588)133012328</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Storace, Bernardo</subfield>
-            <subfield code="0">(DE-588)103952403</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Turini, Francesco</subfield>
             <subfield code="d">1589-1656</subfield>
-            <subfield code="0">(DE-588)124767516</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Virgiliano, Aurelio</subfield>
             <subfield code="d">1540-1600</subfield>
-            <subfield code="0">(DE-588)1020577517</subfield>
           </datafield>
           <datafield ind1="2" ind2=" " tag="710">
             <subfield code="a">Ganassi Consort</subfield>
-            <subfield code="0">(DE-588)5153700-X</subfield>
           </datafield>
           <datafield ind1="0" ind2="1" tag="852">
             <subfield code="a">41SLSP_ZHK</subfield>
@@ -785,13 +772,11 @@
           <datafield ind1="1" ind2="7" tag="600">
             <subfield code="a">Pellizza da Volpedo, Giuseppe</subfield>
             <subfield code="d">1868-1907</subfield>
-            <subfield code="0">(DE-588)11951463X</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="1" ind2="7" tag="600">
             <subfield code="a">Segantini, Giovanni</subfield>
             <subfield code="d">1858-1899</subfield>
-            <subfield code="0">(DE-588)118612700</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="600">
@@ -817,14 +802,12 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Segantini, Giovanni</subfield>
             <subfield code="d">1858-1899</subfield>
-            <subfield code="0">(DE-588)118612700</subfield>
             <subfield code="e">Verfasser</subfield>
             <subfield code="4">aut</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Pellizza da Volpedo, Giuseppe</subfield>
             <subfield code="d">1868-1907</subfield>
-            <subfield code="0">(DE-588)11951463X</subfield>
             <subfield code="e">Verfasser</subfield>
             <subfield code="4">aut</subfield>
           </datafield>
@@ -989,7 +972,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Sammartini, Giovanni Battista</subfield>
             <subfield code="d">1700-1775</subfield>
-            <subfield code="0">(DE-588)118794302</subfield>
             <subfield code="e">Komponist</subfield>
             <subfield code="4">cmp</subfield>
           </datafield>
@@ -1604,7 +1586,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Gurlitt, Cornelius</subfield>
             <subfield code="d">1820-1901</subfield>
-            <subfield code="0">(DE-588)118962256</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
             <subfield code="a">&lt;&lt;L&gt;&gt;'Ecole des Agréments</subfield>
@@ -2651,12 +2632,10 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Bestimmungsbuch</subfield>
-            <subfield code="0">(DE-588)4144950-2</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Samenpflanzen</subfield>
-            <subfield code="0">(DE-588)4076988-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="0" tag="650">
@@ -2703,7 +2682,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Guayana</subfield>
-            <subfield code="0">(DE-588)4022431-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="655">
@@ -3034,7 +3012,6 @@
           </datafield>
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Oester, Kathrin</subfield>
-            <subfield code="0">(DE-588)112147410</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
             <subfield code="a">"Aku cinta kamu - harapan tahun 2000"</subfield>
@@ -3125,7 +3102,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Drache</subfield>
-            <subfield code="0">(DE-588)4012864-7</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="655">
@@ -3384,14 +3360,12 @@
             <subfield code="c">Madaurensis</subfield>
             <subfield code="d">123-170</subfield>
             <subfield code="t">Metamorphoses</subfield>
-            <subfield code="0">(DE-588)4139053-2</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="0" ind2="7" tag="600">
             <subfield code="a">Pseudo-Lucianus Samosatensis</subfield>
             <subfield code="d">ca. 12. Jh.</subfield>
             <subfield code="t">Asinus</subfield>
-            <subfield code="0">(DE-588)4230319-9</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="0" ind2="0" tag="600">
@@ -3495,17 +3469,14 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Italienisch</subfield>
-            <subfield code="0">(DE-588)4114056-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Literatur</subfield>
-            <subfield code="0">(DE-588)4035964-5</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Rezeption</subfield>
-            <subfield code="0">(DE-588)4049716-1</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="0" tag="650">
@@ -3757,27 +3728,22 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Unruhen</subfield>
-            <subfield code="0">(DE-588)4136263-9</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Medien</subfield>
-            <subfield code="0">(DE-588)4169187-8</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Darstellung</subfield>
-            <subfield code="0">(DE-588)4200624-7</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Sprachanalyse</subfield>
-            <subfield code="0">(DE-588)4129916-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Diskurs</subfield>
-            <subfield code="0">(DE-588)4012475-7</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
@@ -3792,13 +3758,11 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Paris</subfield>
-            <subfield code="0">(DE-588)4044660-8</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Vogel, Friedemann</subfield>
             <subfield code="d">1983-</subfield>
-            <subfield code="0">(DE-588)138723826</subfield>
           </datafield>
           <datafield ind1="4" ind2=" " tag="856">
             <subfield code="3">Inhaltsverzeichnis</subfield>
@@ -4067,7 +4031,6 @@
           </datafield>
           <datafield ind1="0" ind2="7" tag="630">
             <subfield code="a">Bibel</subfield>
-            <subfield code="0">(DE-588)4006406-2</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="0" ind2="7" tag="630">
@@ -4090,12 +4053,10 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Slawische Sprachen</subfield>
-            <subfield code="0">(DE-588)4120036-6</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Übersetzung</subfield>
-            <subfield code="0">(DE-588)4061418-9</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
@@ -4195,11 +4156,9 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Rothe, Hans</subfield>
             <subfield code="d">1928-</subfield>
-            <subfield code="0">(DE-588)119207125</subfield>
           </datafield>
           <datafield ind1="2" ind2=" " tag="710">
             <subfield code="a">Nordrhein-Westfälische Akademie der Wissenschaften und der Künste</subfield>
-            <subfield code="0">(DE-588)10370564-8</subfield>
           </datafield>
           <datafield ind1="4" ind2=" " tag="856">
             <subfield code="3">Titelblatt und Inhaltsverzeichnis</subfield>
@@ -5140,7 +5099,6 @@
             <subfield code="a">Joseph-Carlebach-Konferenz. Joseph Carlebach und Seine Zeit. Würdigung und Wirkung</subfield>
             <subfield code="d">2003</subfield>
             <subfield code="c">Hamburg</subfield>
-            <subfield code="0">(DE-588)6047780-5</subfield>
           </datafield>
           <datafield ind1="1" ind2="0" tag="245">
             <subfield code="a">"Die da lehren, werden leuchten wie des Himmels Glanz ..." (Daniel 12,3)</subfield>
@@ -5216,7 +5174,6 @@
           <datafield ind1="1" ind2="7" tag="600">
             <subfield code="a">Carlebach, Joseph</subfield>
             <subfield code="d">1883-1942</subfield>
-            <subfield code="0">(DE-588)119066823</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="0" tag="650">
@@ -5247,24 +5204,20 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Vogel, Barbara</subfield>
             <subfield code="d">1940-</subfield>
-            <subfield code="0">(DE-588)132099896</subfield>
             <subfield code="e">Herausgeber</subfield>
             <subfield code="4">edt</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Gilis-Ḳarlebakh, Miryam</subfield>
             <subfield code="d">1922-2020</subfield>
-            <subfield code="0">(DE-588)122952200</subfield>
             <subfield code="e">Herausgeber</subfield>
             <subfield code="4">edt</subfield>
           </datafield>
           <datafield ind1="2" ind2=" " tag="711">
             <subfield code="a">Joseph-Carlebach-Konferenz</subfield>
-            <subfield code="0">(DE-588)109177773x</subfield>
           </datafield>
           <datafield ind1="2" ind2=" " tag="711">
             <subfield code="a">Joseph-Carlebach-Konferenz</subfield>
-            <subfield code="0">(DE-588)109177773X</subfield>
           </datafield>
           <datafield ind1="0" ind2="1" tag="852">
             <subfield code="a">41SLSP_UZB</subfield>
@@ -5336,7 +5289,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Perti, Giacomo Antonio</subfield>
             <subfield code="d">1661-1756</subfield>
-            <subfield code="0">(DE-588)12390921X</subfield>
             <subfield code="e">Komponist</subfield>
             <subfield code="4">cmp</subfield>
           </datafield>
@@ -5423,7 +5375,6 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Giegling, Franz</subfield>
             <subfield code="d">1921-2007</subfield>
-            <subfield code="0">(DE-588)13438475X</subfield>
             <subfield code="e">Mitwirkender</subfield>
             <subfield code="4">ctb</subfield>
           </datafield>
@@ -5476,7 +5427,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Brugmann, Karl</subfield>
             <subfield code="d">1849-1919</subfield>
-            <subfield code="0">(DE-588)119066882</subfield>
             <subfield code="6">880-01</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="880">
@@ -5749,7 +5699,6 @@
             <subfield code="a">Ovidius Naso, Publius</subfield>
             <subfield code="d">v43-17</subfield>
             <subfield code="t">Heroides</subfield>
-            <subfield code="0">(DE-588)4139612-1</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="2" ind2="7" tag="610">
@@ -5763,7 +5712,6 @@
           <datafield ind1="2" ind2="7" tag="610">
             <subfield code="a">London</subfield>
             <subfield code="g">Diözese</subfield>
-            <subfield code="0">(DE-588)7795859-7</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="0" ind2="7" tag="630">
@@ -5779,21 +5727,18 @@
             <subfield code="a">Histoire ancienne jusqu'à César</subfield>
             <subfield code="x">Handschrift</subfield>
             <subfield code="x">Ms. Royal 20 D. I</subfield>
-            <subfield code="0">(DE-588)4836644-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="0" ind2="7" tag="630">
             <subfield code="a">Histoire ancienne jusqu'à César</subfield>
             <subfield code="x">Handschrift</subfield>
             <subfield code="x">Ms. Royal 20 D. I</subfield>
-            <subfield code="0">(DE-588)4836644-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="0" ind2="7" tag="630">
             <subfield code="a">Roman de Troie</subfield>
             <subfield code="g">Prosa</subfield>
             <subfield code="p">Fassung 5</subfield>
-            <subfield code="0">(DE-588)4836604-3</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
@@ -5806,7 +5751,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Handschrift</subfield>
-            <subfield code="0">(DE-588)4023287-6</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
@@ -5821,12 +5765,10 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Mittelfranzösisch</subfield>
-            <subfield code="0">(DE-588)4120259-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Übersetzung</subfield>
-            <subfield code="0">(DE-588)4061418-9</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="1" ind2="2" tag="700">
@@ -5837,7 +5779,6 @@
             <subfield code="a">Benoît</subfield>
             <subfield code="c">de Sainte-More</subfield>
             <subfield code="d">ca. 2. H. 12. Jh.</subfield>
-            <subfield code="0">(DE-588)118655566</subfield>
           </datafield>
           <datafield ind1="1" ind2="2" tag="700">
             <subfield code="a">Ovidius Naso, Publius</subfield>
@@ -5847,7 +5788,6 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Ovidius Naso, Publius</subfield>
             <subfield code="d">v43-17</subfield>
-            <subfield code="0">(DE-588)118590995</subfield>
           </datafield>
           <datafield ind1="4" ind2=" " tag="856">
             <subfield code="3">Inhaltsverzeichnis</subfield>
@@ -6058,7 +5998,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="a">Göllner, Theodor</subfield>
             <subfield code="d">1929-</subfield>
-            <subfield code="0">(DE-588)119272237</subfield>
             <subfield code="6">880-01</subfield>
           </datafield>
           <datafield ind1="1" ind2=" " tag="880">
@@ -6219,7 +6158,6 @@
           <datafield ind1="1" ind2=" " tag="700">
             <subfield code="a">Czapla, Ralf Georg</subfield>
             <subfield code="d">1964-</subfield>
-            <subfield code="0">(DE-588)134305108</subfield>
             <subfield code="e">Herausgeber</subfield>
             <subfield code="4">edt</subfield>
           </datafield>
@@ -6358,32 +6296,26 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Anfechtung</subfield>
-            <subfield code="0">(DE-588)4001993-7</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Beschränkung</subfield>
-            <subfield code="0">(DE-588)4247482-6</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Fragerecht</subfield>
-            <subfield code="0">(DE-588)4597124-9</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Verhandlung</subfield>
-            <subfield code="0">(DE-588)4062875-9</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Zulässigkeit</subfield>
-            <subfield code="0">(DE-588)4278469-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Deutschland</subfield>
-            <subfield code="0">(DE-588)4011882-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="655">
@@ -6659,7 +6591,6 @@
           <datafield ind1="1" ind2=" " tag="100">
             <subfield code="6">880-01</subfield>
             <subfield code="a">Österle, David</subfield>
-            <subfield code="0">(DE-588)1080877789</subfield>
             <subfield code="e">Verfasser</subfield>
             <subfield code="4">aut</subfield>
           </datafield>
@@ -6699,13 +6630,11 @@
           <datafield ind1="1" ind2="7" tag="600">
             <subfield code="a">Hofmannsthal, Hugo &lt;&lt;von&gt;&gt;</subfield>
             <subfield code="d">1874-1929</subfield>
-            <subfield code="0">(DE-588)118552759</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="1" ind2="7" tag="600">
             <subfield code="a">Schnitzler, Arthur</subfield>
             <subfield code="d">1862-1931</subfield>
-            <subfield code="0">(DE-588)118609807</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1="1" ind2="7" tag="600">
@@ -6739,17 +6668,14 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Geistesleben</subfield>
-            <subfield code="0">(DE-588)4274490-8</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Gesellschaftsleben</subfield>
-            <subfield code="0">(DE-588)4071788-4</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
             <subfield code="a">Jung-Wien</subfield>
-            <subfield code="0">(DE-588)4139204-8</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="650">
@@ -6779,7 +6705,6 @@
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">
             <subfield code="a">Wien</subfield>
-            <subfield code="0">(DE-588)4066009-6</subfield>
             <subfield code="2">gnd</subfield>
           </datafield>
           <datafield ind1=" " ind2="7" tag="651">

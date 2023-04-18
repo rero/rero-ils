@@ -5594,7 +5594,7 @@ def test_get_contribution_link(mock_get, capsys):
     mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
-        id='(IdRef)003945843',
+        ids=['(IdRef)003945843'],
         key='100..'
     )
     assert mef_url == 'https://mef.xxx.rero.ch/api/agents/idref/003945843'
@@ -5603,7 +5603,7 @@ def test_get_contribution_link(mock_get, capsys):
     mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
-        id='(IdRef)123456789',
+        ids=['(IdRef)123456789'],
         key='100..'
     )
     assert not mef_url
@@ -5618,7 +5618,7 @@ def test_get_contribution_link(mock_get, capsys):
     mef_url = get_contribution_link(
         bibid='1',
         reroid='1',
-        id='X123456789',
+        ids=['X123456789'],
         key='100..'
     )
     assert not mef_url
