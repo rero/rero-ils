@@ -72,8 +72,10 @@ def create_notifications(types=None, tstamp=None, verbose=True):
         for loan in get_due_soon_loans(tstamp=tstamp):
             try:
                 logger.debug(f"* Loan#{loan.pid} is considered as 'due_soon'")
-                loan.create_notification(_type=NotificationType.DUE_SOON)
-                notification_counter[NotificationType.DUE_SOON] += 1
+                notifications = loan.create_notification(
+                    _type=NotificationType.DUE_SOON)
+                notification_counter[NotificationType.DUE_SOON] += len(
+                    notifications)
             except Exception as error:
                 logger.error(
                     f'Unable to create DUE_SOON notification :: {error}',
@@ -104,16 +106,16 @@ def create_notifications(types=None, tstamp=None, verbose=True):
             #   the `create_notification` method will check if the notification
             #   is already sent. If the notification has already sent, it will
             #   not be created again
-            for idx, reminder in enumerate(reminders):
+            for idx, _ in enumerate(reminders):
                 try:
-                    notification = loan.create_notification(
+                    if notifications := loan.create_notification(
                         _type=NotificationType.OVERDUE,
                         counter=idx
-                    )
-                    if notification:
+                    ):
                         msg = f'  --> Overdue notification#{idx+1} created'
                         logger.debug(msg)
-                        notification_counter[NotificationType.OVERDUE] += 1
+                        notification_counter[NotificationType.OVERDUE] += len(
+                            notifications)
 
                     else:
                         msg = f'  --> Overdue notification#{idx+1} skipped ' \
@@ -126,8 +128,6 @@ def create_notifications(types=None, tstamp=None, verbose=True):
                     )
         process_notifications(NotificationType.OVERDUE)
     notification_sum = sum(notification_counter.values())
-    # in timestamp we need also 0 values
-    set_timestamp('notification-creation', **notification_counter)
 
     counters = {k: v for k, v in notification_counter.items() if v > 0}
     if verbose:
