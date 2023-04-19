@@ -641,8 +641,11 @@ class IlsRecordsIndexer(RecordIndexer):
             except Exception:
                 message.reject()
                 current_app.logger.error(
-                    f"Failed to index record {payload.get('id')}",
-                    exc_info=True)
+                    f"Failed to {payload['op']}"
+                    f" {indexer.record_cls.__name__} "
+                    f"{payload.get('pid')}:{payload.get('id')}",
+                    exc_info=True
+                )
 
     def _index_action(self, payload):
         """Bulk index action.

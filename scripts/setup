@@ -546,7 +546,7 @@ if ${LOADEXTRAFILES}
 
 # create circulation transactions
 info_msg "Circulation transactions: ${DATA_PATH}/loans.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create_loans ${DATA_PATH}/loans.json
+eval ${PREFIX} invenio reroils fixtures create_loans ${DATA_PATH}/loans.json -v
 
 # process notifications
 eval ${PREFIX} invenio reroils notifications process

@@ -236,14 +236,32 @@ def create_loans(infile, verbose, debug):
                           'extended', 'requested_by_others']
             for loan_type in loan_types:
                 for _ in range(loans.get(loan_type, 0)):
-                    item_barcode = create_loan(barcode, loan_type,
-                                               loanable_items, verbose, debug)
-                    print_message(item_barcode, loan_type, errors_count)
+                    item_barcode, error = create_loan(
+                        barcode=barcode,
+                        transaction_type=loan_type,
+                        loanable_items=loanable_items,
+                        verbose=verbose,
+                        debug=debug
+                    )
+                    if error:
+                        errors_count.setdefault(loan_type, 0)
+                        errors_count[loan_type] += 1
+                    click.echo(
+                        f'\titem {item_barcode}: {loan_type}')
             for request_type in ['requests', 'rank_1', 'rank_2']:
                 for _ in range(requests.get(request_type, 0)):
-                    item_barcode = create_loan(barcode, request_type,
-                                               loanable_items, verbose, debug)
-                    print_message(item_barcode, request_type, errors_count)
+                    item_barcode, error = create_loan(
+                        barcode=barcode,
+                        transaction_type=request_type,
+                        loanable_items=loanable_items,
+                        verbose=verbose,
+                        debug=debug
+                    )
+                    if error:
+                        errors_count.setdefault(request_type, 0)
+                        errors_count[request_type] += 1
+                    click.echo(
+                        f'\titem {item_barcode}: {request_type}')
 
     # create due soon notifications, overdue notifications are auto created.
     # block given patron
@@ -260,28 +278,25 @@ def create_loans(infile, verbose, debug):
     for transaction_type, count in errors_count.items():
         click.secho(f'Errors {transaction_type}: {count}', fg='red')
     result = create_notifications(
-        types=[
-            NotificationType.DUE_SOON,
-            NotificationType.OVERDUE
-        ],
+        types=[NotificationType.DUE_SOON, NotificationType.OVERDUE],
         verbose=verbose
     )
-    click.echo(result)
-
-
-def print_message(item_barcode, transaction_type, errors_count):
-    """Print confirmation message."""
-    if item_barcode:
-        click.echo(f'\titem {item_barcode}: {transaction_type}')
-    else:
-        click.secho(f'\tcreation error: {transaction_type}', fg='red')
-        errors_count.setdefault(transaction_type, 0)
-        errors_count[transaction_type] += 1
+    for notification, count in result.items():
+        click.secho(f'Notification {notification}: {count}', fg='green')
 
 
 def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 debug=False):
-    """Create loans transactions."""
+    """Create loans transactions.
+
+    :param barcode: patron barcode
+    :param transaction_type: transaction type
+    :param loanable_items: loanable items
+    :param verbose: verbose print
+    :param debug: debug print
+
+    :returns: item barcode, error (True, False)
+    """
     notification_pids = []
     try:
         item = next(loanable_items)
@@ -304,7 +319,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             end_date = datetime.now(timezone.utc) - timedelta(days=2)
             loan['end_date'] = end_date.isoformat()
             loan.update(
-                loan,
+                data=loan,
                 dbcommit=True,
                 reindex=True
             )
@@ -314,7 +329,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             end_date = datetime.now(timezone.utc) - timedelta(days=70)
             loan['end_date'] = end_date.isoformat()
             loan.update(
-                loan,
+                data=loan,
                 dbcommit=True,
                 reindex=True
             )
@@ -325,7 +340,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             end_date = datetime.now(timezone.utc) - timedelta(days=2)
             loan['end_date'] = end_date.isoformat()
             loan.update(
-                loan,
+                data=loan,
                 dbcommit=True,
                 reindex=True
             )
@@ -337,7 +352,7 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             end_date = datetime.now(timezone.utc) - timedelta(days=70)
             loan['end_date'] = end_date.isoformat()
             loan.update(
-                loan,
+                data=loan,
                 dbcommit=True,
                 reindex=True
             )
@@ -348,17 +363,24 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             patron_transaction = next(notif.patron_transactions)
             user = get_random_librarian(patron).replace_refs()
             payment = create_payment_record(
-                patron_transaction,
-                user_pid,
-                random.choice(user['libraries'])['pid']
+                patron_transaction=patron_transaction,
+                user_pid=user_pid,
+                user_library=random.choice(user['libraries'])['pid']
             )
             PatronTransactionEvent.create(
-                payment,
+                data=payment,
                 dbcommit=True,
                 reindex=True,
                 update_parent=True
             )
         elif transaction_type == 'extended':
+            end_date = datetime.now(timezone.utc) - timedelta(days=1)
+            loan['end_date'] = end_date.isoformat()
+            loan.update(
+                data=loan,
+                dbcommit=True,
+                reindex=True
+            )
             user_pid, user_location = \
                 get_random_librarian_and_transaction_location(patron)
             item.extend_loan(
@@ -366,7 +388,9 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 patron_pid=patron.pid,
                 transaction_location_pid=user_location,
                 transaction_user_pid=user_pid,
-                transaction_date=transaction_date,
+                transaction_date=(
+                    datetime.now(timezone.utc) - timedelta(days=1)
+                ).isoformat(),
                 document_pid=extracted_data_from_ref(item.get('document')),
                 item_pid=item.pid,
             )
@@ -375,10 +399,10 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
             user_pid, user_location = \
                 get_random_librarian_and_transaction_location(patron)
             circ_policy = CircPolicy.provide_circ_policy(
-                item.organisation_pid,
-                item.library_pid,
-                requested_patron.patron_type_pid,
-                item.item_type_circulation_category_pid
+                organisation_pid=item.organisation_pid,
+                library_pid=item.library_pid,
+                patron_type_pid=requested_patron.patron_type_pid,
+                item_type_pid=item.item_type_circulation_category_pid
             )
             if circ_policy.get('allow_requests'):
                 item.request(
@@ -395,13 +419,13 @@ def create_loan(barcode, transaction_type, loanable_items, verbose=False,
                 notification_pids.extend(
                     notif['pid'] for notif in notifications)
         Dispatcher.dispatch_notifications(notification_pids, verbose=verbose)
-        return item['barcode']
+        return item['barcode'], False
     except Exception as err:
         if verbose:
             click.secho(f'\tException loan {transaction_type}:{err}', fg='red')
         if debug:
             traceback.print_exc()
-        return None, []
+        return item['barcode'], True
 
 
 def create_request(barcode, transaction_type, loanable_items, verbose=False,
