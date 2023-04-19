@@ -77,7 +77,7 @@ def test_order_lines_permissions(patron_martigny,
 
     # As staff member with "library-administration" role :
     #   - Search :: everything
-    #   - Read :: record of its own library
+    #   - Read :: record of its own organisation
     #   - Create/Update/Delete :: record of its own library
     login_user(librarian_martigny.user)
     check_permission(AcqOrderLinePermissionPolicy, {
@@ -89,7 +89,7 @@ def test_order_lines_permissions(patron_martigny,
     }, acq_order_line_fiction_martigny)
     check_permission(AcqOrderLinePermissionPolicy, {
         'search': True,
-        'read': False,
+        'read': True,
         'create': False,
         'update': False,
         'delete': False

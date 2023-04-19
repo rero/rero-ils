@@ -74,7 +74,7 @@ def test_receipt_lines_permissions(
 
     # As staff member with "library-administration" role :
     #   - Search :: everything
-    #   - Read :: record of its own library
+    #   - Read :: record of its own organisation
     #   - Create/Update/Delete :: record of its own library
     login_user(librarian_martigny.user)
     check_permission(AcqReceiptLinePermissionPolicy, {
@@ -86,7 +86,7 @@ def test_receipt_lines_permissions(
     }, acq_receipt_line_1_fiction_martigny)
     check_permission(AcqReceiptLinePermissionPolicy, {
         'search': True,
-        'read': False,
+        'read': True,
         'create': False,
         'update': False,
         'delete': False

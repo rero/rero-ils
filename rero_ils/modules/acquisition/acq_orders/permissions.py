@@ -20,7 +20,8 @@
 from invenio_access import action_factory
 
 from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByManageableLibrary, DisallowedIfRollovered, \
+    AllowedByActionRestrictByManageableLibrary, \
+    AllowedByActionRestrictByOrganisation, DisallowedIfRollovered, \
     RecordPermissionPolicy
 
 from .api import AcqOrder
@@ -38,7 +39,7 @@ class AcqOrderPermissionPolicy(RecordPermissionPolicy):
     """Acquisition order Permission Policy used by the CRUD operations."""
 
     can_search = [AllowedByAction(search_action)]
-    can_read = [AllowedByActionRestrictByManageableLibrary(read_action)]
+    can_read = [AllowedByActionRestrictByOrganisation(read_action)]
     can_create = [
         AllowedByActionRestrictByManageableLibrary(create_action),
         DisallowedIfRollovered(AcqOrder)
