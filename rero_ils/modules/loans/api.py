@@ -125,19 +125,19 @@ class Loan(IlsRecord):
 
         patron = Patron.get_record_by_pid(loan.get('patron_pid'))
         cipo = CircPolicy.provide_circ_policy(
-            item.organisation_pid,
-            transaction_library_pid,
-            patron.patron_type_pid,
-            item.item_type_circulation_category_pid
+            organisation_pid=item.organisation_pid,
+            library_pid=transaction_library_pid,
+            patron_type_pid=patron.patron_type_pid,
+            item_type_pid=item.item_type_circulation_category_pid
         )
         extension_count = loan.get('extension_count', 0)
-        if not (cipo.get('number_renewals', 0) > 0 and
-                extension_count < cipo.get('number_renewals', 0) and
-                extend_loan_data_is_valid(
-                    loan.get('end_date'),
-                    cipo.get('renewal_duration'),
-                    transaction_library_pid
-               )):
+        number_renewals = cipo.get('number_renewals', 0)
+        loan_data_is_valid = extend_loan_data_is_valid(
+            end_date=loan.get('end_date'),
+            renewal_duration=cipo.get('renewal_duration'),
+            library_pid=transaction_library_pid
+        )
+        if not (extension_count < number_renewals > 0 and loan_data_is_valid):
             return False, [_('Circulation policies disallows the operation.')]
         if item.number_of_requests():
             return False, [_('A pending request exists on this item.')]

@@ -424,7 +424,6 @@ class ItemCirculation(ItemRecord):
                 new_end_date = new_end_date.astimezone()\
                     .replace(microsecond=0).isoformat()
                 action_params['end_date'] = new_end_date
-
         # Call invenio_circulation for 'checkout' trigger
         loan = current_circulation.circulation.trigger(
             current_loan,

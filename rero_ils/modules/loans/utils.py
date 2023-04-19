@@ -149,13 +149,14 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
 
 def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
     """Checks extend loan will be valid."""
+    renewal_duration = renewal_duration or 0
     end_date = ciso8601.parse_datetime(end_date)
-    current_date = datetime.now(timezone.utc)
     library = Library.get_record_by_pid(library_pid)
-    calculated_due_date = current_date + timedelta(
-        days=renewal_duration)
     first_open_date = library.next_open(
-        date=calculated_due_date - timedelta(days=1))
+        date=datetime.now(timezone.utc)
+        + timedelta(days=renewal_duration)
+        - timedelta(days=1)
+    )
     return first_open_date.date() > end_date.date()
 
 

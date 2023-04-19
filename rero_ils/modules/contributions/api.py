@@ -117,16 +117,26 @@ class Contribution(IlsRecord):
             # We dit not find the record in DB get it from MEF and create it.
             nested = db.session.begin_nested()
             try:
-                data = cls._get_mef_data_by_type(
+                if not (data := cls._get_mef_data_by_type(
                     pid_type=ref_type,
                     pid=ref_pid
-                )
-                # TODO: create or update
-                contribution = cls.create(
-                    data=data,
-                    dbcommit=False,
-                    reindex=False
-                )
+                )):
+                    raise Exception('NO DATA')
+                # Try to get the contribution from DB maybe it was not indexed.
+                if contribution := Contribution.get_record_by_pid(
+                    data['pid']
+                ):
+                    contribution = contribution.replace(
+                        data=data,
+                        dbcommit=False,
+                        reindex=False
+                    )
+                else:
+                    contribution = cls.create(
+                        data=data,
+                        dbcommit=False,
+                        reindex=False
+                    )
                 online = True
                 nested.commit()
                 # TODO: reindex in the document indexing
