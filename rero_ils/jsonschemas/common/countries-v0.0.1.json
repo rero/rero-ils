@@ -64,7 +64,6 @@
       "ck",
       "cl",
       "cm",
-      "cn",
       "co",
       "cou",
       "cp",
@@ -90,7 +89,6 @@
       "em",
       "enk",
       "er",
-      "err",
       "es",
       "et",
       "fa",
@@ -170,13 +168,11 @@
       "le",
       "lh",
       "li",
-      "lir",
       "ln",
       "lo",
       "ls",
       "lu",
       "lv",
-      "lvr",
       "ly",
       "mau",
       "mbc",
@@ -321,12 +317,8 @@
       "ug",
       "ui",
       "uik",
-      "uk",
       "un",
-      "unr",
       "up",
-      "ur",
-      "us",
       "utu",
       "uv",
       "uy",
@@ -383,7 +375,6 @@
       "xxu",
       "ye",
       "ykc",
-      "ys",
       "yu",
       "za"
     ],
@@ -631,10 +622,6 @@
           "value": "cm"
         },
         {
-          "label": "country_cn",
-          "value": "cn"
-        },
-        {
           "label": "country_co",
           "value": "co"
         },
@@ -733,10 +720,6 @@
         {
           "label": "country_er",
           "value": "er"
-        },
-        {
-          "label": "country_err",
-          "value": "err"
         },
         {
           "label": "country_es",
@@ -1058,10 +1041,6 @@
           "value": "li"
         },
         {
-          "label": "country_lir",
-          "value": "lir"
-        },
-        {
           "label": "country_ln",
           "value": "ln"
         },
@@ -1080,10 +1059,6 @@
         {
           "label": "country_lv",
           "value": "lv"
-        },
-        {
-          "label": "country_lvr",
-          "value": "lvr"
         },
         {
           "label": "country_ly",
@@ -1663,28 +1638,12 @@
           "value": "uik"
         },
         {
-          "label": "country_uk",
-          "value": "uk"
-        },
-        {
           "label": "country_un",
           "value": "un"
         },
         {
-          "label": "country_unr",
-          "value": "unr"
-        },
-        {
           "label": "country_up",
           "value": "up"
-        },
-        {
-          "label": "country_ur",
-          "value": "ur"
-        },
-        {
-          "label": "country_us",
-          "value": "us"
         },
         {
           "label": "country_utu",
@@ -1911,10 +1870,6 @@
         {
           "label": "country_ykc",
           "value": "ykc"
-        },
-        {
-          "label": "country_ys",
-          "value": "ys"
         },
         {
           "label": "country_yu",

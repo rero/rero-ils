@@ -1735,6 +1735,210 @@ def test_marc21_to_provision_activity_canton():
     ]
 
 
+def test_marc21_to_provision_activity_obsolete_countries():
+    """Test dojson publication statement.
+    - convert country to correct code if encountering an obsolete code.
+    """
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    cn ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">cn</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'xxc',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    err ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">err</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'er',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    lir ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">lir</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'li',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    lvr ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">lvr</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'lv',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    uk ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">uk</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'xxk',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    unr ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">unr</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'un',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    us ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">us</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'xxu',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    ur ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">ur</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'xxr',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
+    marc21xml = """
+      <record>
+        <controlfield tag=
+          "008">060831s1998    ys ||| |  ||||00|  |fre d</controlfield>
+        <datafield tag="044" ind1=" " ind2=" ">
+          <subfield code="a">ys</subfield>
+        </datafield>
+      </record>
+     """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('provisionActivity') == [
+        {
+            'type': 'bf:Publication',
+            'place': [{
+                'country': 'ye',
+                'type': 'bf:Place'
+            }],
+            'startDate': 1998
+        }
+    ]
+
+
 def test_marc21_to_provision_activity_1_place_2_agents():
     """Test dojson publication statement.
     - 1 publication place and 2 agents from one field 264
