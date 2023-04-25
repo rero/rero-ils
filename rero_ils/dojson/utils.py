@@ -175,6 +175,18 @@ _CANTON = [
     'zg', 'zh'
 ]
 
+_OBSOLETE_COUNTRIES_MAPPING = {
+    'cn': 'xxc',
+    'err': 'er',
+    'lir': 'li',
+    'lvr': 'lv',
+    'uk': 'xxk',
+    'unr': 'un',
+    'us': 'xxu',
+    'ur': 'xxr',
+    'ys': 'ye'
+}
+
 # field 336 mapping
 _CONTENT_TYPE_MAPPING = {
     'cri': 'rdaco:1002',
@@ -1255,6 +1267,9 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 self.country = self.field_008_data[15:18].rstrip()
             except Exception as err:
                 pass
+        # Use equivalent if country code is obsolete
+        if self.country in _OBSOLETE_COUNTRIES_MAPPING:
+            self.country = _OBSOLETE_COUNTRIES_MAPPING[self.country]
         # We did not find a country set it to 'xx'
         if self.country not in _COUNTRIES:
             error_print('WARNING NOT A COUNTRY:', self.bib_id, self.rero_id,
