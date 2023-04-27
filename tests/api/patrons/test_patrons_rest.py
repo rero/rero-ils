@@ -387,7 +387,7 @@ def test_patrons_dirty_barcode(client, patron_martigny, librarian_martigny):
 
 def test_patrons_circulation_informations(
      client, patron_sion, librarian_martigny,
-     patron3_martigny_blocked, yesterday, tomorrow):
+     patron3_martigny_blocked, yesterday, tomorrow, ill_request_sion):
     """test patron circulation informations."""
     url = url_for(
         'api_patrons.patron_circulation_informations',
@@ -399,8 +399,22 @@ def test_patrons_circulation_informations(
     login_user_via_session(client, librarian_martigny.user)
     res = client.get(url)
     assert res.status_code == 200
-    data = get_json(res)
+    data = res.json
     assert len(data['messages']) == 0
+
+    url = url_for(
+        'api_patrons.patron_circulation_informations',
+        patron_pid=patron_sion.pid
+    )
+    res = client.get(url)
+    data = res.json
+    assert res.status_code == 200
+    assert 'engaged' in data['fees']
+    assert 'preview' in data['fees']
+    assert data['messages'] == []
+    assert data['statistics'] == {
+        'ill_requests': 1
+    }
 
     url = url_for(
         'api_patrons.patron_circulation_informations',
@@ -408,7 +422,7 @@ def test_patrons_circulation_informations(
     )
     res = client.get(url)
     assert res.status_code == 200
-    data = get_json(res)
+    data = res.json
     assert 'error' == data['messages'][0]['type']
     assert 'This patron is currently blocked' in data['messages'][0]['content']
 
@@ -418,7 +432,7 @@ def test_patrons_circulation_informations(
     patron['patron']['blocked'] = False
     patron.update(patron, dbcommit=True, reindex=True)
     res = client.get(url)
-    data = get_json(res)
+    data = res.json
     assert 'error' == data['messages'][0]['type']
     assert 'Patron rights expired.' in data['messages'][0]['content']
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,7 +23,7 @@ from flask_babelex import gettext as _
 
 from .extensions import IllRequestOperationLogObserverExtension
 from .models import ILLRequestIdentifier, ILLRequestMetadata, \
-    ILLRequestNoteStatus
+    ILLRequestNoteStatus, ILLRequestStatus
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..locations.api import Location
@@ -51,6 +51,17 @@ class ILLRequestsSearch(IlsRecordsSearch):
 
         index = 'ill_requests'
         doc_types = None
+
+    def get_ill_requests_total_for_patron(self, patron_pid):
+        """Get total of ill requests linked to a patron.
+
+        :param patron_pid: the patron pid being searched.
+        :return: return total of ill requests.
+        """
+        return self \
+            .filter('term', patron__pid=patron_pid) \
+            .filter('term', status=ILLRequestStatus.PENDING) \
+            .count()
 
 
 class ILLRequest(IlsRecord):
