@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,6 +37,7 @@ from invenio_oauth2server.decorators import require_api_auth
 
 from rero_ils.modules.decorators import check_logged_as_librarian, \
     check_logged_as_patron, check_logged_user_authentication
+from rero_ils.modules.ill_requests.api import ILLRequestsSearch
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.loans.api import get_loans_stats_by_patron_pid, \
     get_overdue_loans
@@ -82,12 +83,15 @@ def patron_circulation_informations(patron_pid):
     )
     engaged_amount = get_transactions_total_amount_for_patron(
         patron.pid, status='open')
+    statistics = get_loans_stats_by_patron_pid(patron_pid)
+    statistics['ill_requests'] = ILLRequestsSearch() \
+        .get_ill_requests_total_for_patron(patron_pid)
     return jsonify({
         'fees': {
           'engaged': engaged_amount,
           'preview': preview_amount
         },
-        'statistics': get_loans_stats_by_patron_pid(patron_pid),
+        'statistics': statistics,
         'messages': patron.get_circulation_messages()
     })
 
