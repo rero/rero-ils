@@ -30,11 +30,13 @@ import requests
 from deepdiff import DeepDiff
 from elasticsearch_dsl import Q
 from flask import current_app
+from invenio_db import db
 
 from rero_ils.modules.contributions.api import Contribution, \
     ContributionsSearch
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.utils import get_timestamp, set_timestamp
+from rero_ils.modules.utils import get_timestamp, requests_retry_session, \
+    set_timestamp
 
 
 class SyncAgent(object):
@@ -157,7 +159,11 @@ class SyncAgent(object):
         """
         mef_url = current_app.config.get('RERO_ILS_MEF_AGENTS_URL')
         url = f'{mef_url}/mef/latest/{source}:{pid}'
-        return requests.get(url).json()
+        res = requests_retry_session().get(url)
+        if res.status_code == requests.codes.ok:
+            return res.json()
+        self.logger.debug(f'Problem get {url}: {res.status_code}')
+        return {}
 
     def update_agents_in_document(
         self,
@@ -285,7 +291,7 @@ class SyncAgent(object):
                     while chunk := list(islice(iter(pids), chunk_size)):
                         # ask the mef server to return only the updated
                         # pids form a given date
-                        res = requests.post(
+                        res = requests_retry_session().post(
                             url,
                             json=dict(
                                 from_date=from_date.strftime("%Y-%m-%d"),
@@ -318,6 +324,9 @@ class SyncAgent(object):
                   has been update, true if an error occurs.
         :rtype: integer, boolean, boolean.
         """
+        # close db session to prevent psycopg2.OperationalError.
+        # a new session will be opend automaticly.
+        db.session.close()
         doc_updated = set()
         updated = error = False
         try:

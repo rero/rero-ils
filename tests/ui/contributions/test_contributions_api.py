@@ -217,6 +217,7 @@ def test_sync_contribution(mock_get, app, mef_agents_url,
     assert db_agent['pid'] == 'foo_mef'
 
     # remove the document
+    doc = Document.get_record_by_pid(doc.pid)
     doc.delete(True, True, True)
     flush_index(DocumentsSearch.Meta.index)
 
