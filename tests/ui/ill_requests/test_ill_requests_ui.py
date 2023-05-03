@@ -49,7 +49,7 @@ def test_ill_request_create_request_form(client, app,
     #   form with error message)
     form_data = {
         'document-title': 'test title',
-        'request_copy': '1',
+        'copy': '1',
         'document-year': '2020',
         'pickup_location': loc_public_martigny.pid
     }

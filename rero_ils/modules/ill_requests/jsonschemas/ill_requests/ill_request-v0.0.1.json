@@ -146,8 +146,8 @@
           "form": {
             "remoteOptions": {
               "type": "locations",
-              "query": "is_pickup:true",
-              "labelField": "pickup_name"
+              "query": "is_ill_pickup:true",
+              "labelField": "ill_pickup_name"
             },
             "templateOptions": {
               "label": ""
