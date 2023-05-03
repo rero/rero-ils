@@ -32,10 +32,10 @@ $('.btn-toogle').on('click', function () {
 });
 
 // ILLRequest
-$('input:radio[name="request_copy"]').on('change', function () {
+$('input:radio[name="copy"]').on('change', function () {
   toggleField($(this).val());
 });
-$('input:radio[name="request_copy"]:checked').trigger('change')
+$('input:radio[name="copy"]:checked').trigger('change')
 
 /**
  * Toogle element

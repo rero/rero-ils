@@ -135,7 +135,7 @@ class ILLRequestForm(FlaskForm):
     """Form to create an ILL request."""
 
     document = FormField(ILLRequestDocumentForm)
-    request_copy = RadioField(
+    copy = RadioField(
         label=_('Scope'),
         choices=[(0, _('Loan')), (1, _('Copy'))],
         default=0,
@@ -168,9 +168,9 @@ class ILLRequestForm(FlaskForm):
         """Add custom validation on the form."""
         form_validate = super().validate()
 
-        # if 'request_copy' is set to True, then 'pages' is required field
+        # if 'copy' is set to True, then 'pages' is required field
         custom_validate = True
-        if self.request_copy.data == '1' and len(self.pages.data.strip()) == 0:
+        if self.copy.data == '1' and len(self.pages.data.strip()) == 0:
             custom_validate = False
             self.pages.errors.append(
                 _('As you request a document part, you need to specify '
@@ -212,7 +212,7 @@ class ILLRequestForm(FlaskForm):
         # if we put 'copy' in the dict before the dict cleaning and if 'copy'
         # is set to 'No', then it will be removed by `remove_empties_from_dict`
         # So we need to add it after the cleaning
-        data['copy'] = self.request_copy.data == 1
+        data['copy'] = self.copy.data == '1'
 
         # if user select 'not specified' into the ILL request form, this value
         # must be removed from the dict.
