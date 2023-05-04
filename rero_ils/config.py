@@ -1103,15 +1103,19 @@ RECORDS_REST_ENDPOINTS = dict(
             'json': 'application/json',
         },
         search_serializers={
-            'application/json': 'rero_ils.modules.serializers:json_v1_search'
+            'application/json': 'rero_ils.modules.serializers:json_v1_search',
+            'application/rero+json': 'rero_ils.modules.locations.serializers:json_loc_search'
+        },
+        search_serializers_aliases={
+            'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         list_route='/locations/',
         record_loaders={
             'application/json': lambda: Location(request.get_json()),
         },
         record_class='rero_ils.modules.locations.api:Location',
-        item_route=('/locations/<pid(loc, record_class='
-                    '"rero_ils.modules.locations.api:Location"):pid_value>'),
+        item_route='/locations/<pid(loc, record_class="rero_ils.modules.locations.api:Location"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:viewcode_patron_search_factory',
