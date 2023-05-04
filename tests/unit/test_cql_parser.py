@@ -56,6 +56,20 @@ def test_get_query_clause(app):
     assert query.get_result_set_id() == ''
 
 
+def test_get_query_clause_no_xml_character(app):
+    """Check that simple clause with non XML charactersis parsed correctly.
+
+    All strings must be XML compatible: Unicode or ASCII,
+    no NULL bytes or control characters
+    """
+    query = parse('dc.anywhere all ">>\x00<<"')
+    # Check query instance
+    assert isinstance(query, SearchClause)
+    assert query.term.value == '">><<"'
+    es_string = query.to_es()
+    assert es_string == '(>><<)'
+
+
 def test_get_query_clause_utf8(app):
     """Check that simple clause with utf8 is parsed correctly."""
     query = parse('dc.anywhere any "späm h\xe4mm"')
@@ -227,8 +241,8 @@ def test_get_query_with_modifiers():
     for mod in query.relation.modifiers:
         assert isinstance(mod, ModifierClause)
     assert str(query.relation.modifiers[0].type) == 'cql.relevant'
-    assert str(query.relation.modifiers[0].comparison) == ''
-    assert str(query.relation.modifiers[0].value) == ''
+    assert not str(query.relation.modifiers[0].comparison)
+    assert not str(query.relation.modifiers[0].value)
     with pytest.raises(Diagnostic):
         query.to_es()
 

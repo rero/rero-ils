@@ -31,6 +31,8 @@ from shlex import shlex
 from lxml import etree
 from lxml.builder import ElementMaker
 
+from ..utils import strip_chars
+
 SERVER_CHOISE_RELATION = '='
 SERVER_CHOISE_INDEX = 'cql.serverchoice'
 
@@ -981,6 +983,7 @@ class CQLParser:
 
 def parse(query):
     """Return a searchClause/triple object from CQL string."""
+    query = strip_chars(query)
     query_orig = deepcopy(query)
     query_io_string = StringIO(query)
     lexer = CQLshlex(query_io_string, query)
