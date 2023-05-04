@@ -30,6 +30,7 @@ from .explaine import Explain
 from ..documents.api import DocumentsSearch, document_id_fetcher
 from ..documents.serializers import json_doc_search, xml_dc_search, \
     xml_marcxmlsru_search
+from ..utils import strip_chars
 
 
 class SRUDocumentsSearch(ContentNegotiatedMethodView):
@@ -102,7 +103,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
                         'relation': 'eq'
                     },
                     'sru': {
-                        'query': query,
+                        'query': strip_chars(query),
                         'query_es': query_string,
                         'start_record': start_record,
                         'maximum_records': maximum_records
