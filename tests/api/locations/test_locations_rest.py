@@ -98,7 +98,7 @@ def test_locations_get(client, loc_public_martigny):
     location = loc_public_martigny
     item_url = url_for('invenio_records_rest.loc_item', pid_value=location.pid)
     list_url = url_for(
-        'invenio_records_rest.loc_list', q='pid:' + location.pid)
+        'invenio_records_rest.loc_list', q=f'pid:{location.pid}')
     item_url_with_resolve = url_for(
         'invenio_records_rest.loc_item',
         pid_value=location.pid,
@@ -109,7 +109,7 @@ def test_locations_get(client, loc_public_martigny):
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(location.revision_id)
+    assert res.headers['ETag'] == f'"{location.revision_id}"'
 
     data = get_json(res)
     assert location.dumps() == data['metadata']
@@ -255,3 +255,18 @@ def test_location_secure_api_create(client, lib_fully, lib_martigny,
         'status': 400,
         'message': 'Validation error: Pickup location name field is required..'
     }
+
+
+def test_location_serializers(
+    client, locations, librarian_martigny, rero_json_header
+):
+    """Test location serializers."""
+    login_user_via_session(client, librarian_martigny.user)
+    list_url = url_for('invenio_records_rest.loc_list')
+    response = client.get(list_url, headers=rero_json_header)
+    assert response.status_code == 200
+    assert all(
+        hit['metadata']['library'].get('code')
+        and hit['metadata']['library'].get('name')
+        for hit in response.json['hits']['hits']
+    )
