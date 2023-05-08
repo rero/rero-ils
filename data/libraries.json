@@ -168,6 +168,30 @@
         }
       }
     },
+    "serial_acquisition_settings": {
+      "shipping_informations": {
+        "name": "Cover, Harry",
+        "email": "reroilstest+serial+shipping@gmail.com",
+        "phone": "+4134567890",
+        "address": {
+          "street": "Via Challand 133 bte/2",
+          "zip_code": "11100",
+          "city": "Aosta",
+          "country": "sz"
+        }
+      },
+      "billing_informations": {
+        "name": "Derata, Daisy",
+        "email": "reroilstest+serial+billing@gmail.com",
+        "phone": "+4134567890",
+        "address": {
+          "street": "Via Challand 133 bte/10",
+          "zip_code": "11100",
+          "city": "Aosta",
+          "country": "sz"
+        }
+      }
+    },
     "online_harvested_source": [
       {
         "source": "ebibliomedia",

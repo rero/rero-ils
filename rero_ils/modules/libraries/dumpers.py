@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -40,6 +40,29 @@ class LibraryAcquisitionNotificationDumper(InvenioRecordsDumper):
                       .get('shipping_informations', {}),
             'billing_informations':
                 record.get('acquisition_settings', {})
+                      .get('billing_informations', {})
+        })
+        data = {k: v for k, v in data.items() if v}
+        return data
+
+
+class LibrarySerialClaimNotificationDumper(InvenioRecordsDumper):
+    """Library dumper class for serial claim notification."""
+
+    def dump(self, record, data):
+        """Dump a library instance for serial claim notification.
+
+        :param record: The record to dump.
+        :param data: The initial dump data passed in by ``record.dumps()``.
+        """
+        data.update({
+            'name': record.get('name'),
+            'address': record.get_address(LibraryAddressType.MAIN_ADDRESS),
+            'shipping_informations':
+                record.get('serial_acquisition_settings', {})
+                      .get('shipping_informations', {}),
+            'billing_informations':
+                record.get('serial_acquisition_settings', {})
                       .get('billing_informations', {})
         })
         data = {k: v for k, v in data.items() if v}
