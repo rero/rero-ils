@@ -108,7 +108,7 @@
           "shipping_informations": {
             "properties": {
               "name": {
-                "type": "keyword"
+                "type": "text"
               },
               "email": {
                 "type": "keyword",
@@ -146,7 +146,87 @@
           "billing_informations": {
             "properties": {
               "name": {
-                "type": "keyword"
+                "type": "text"
+              },
+              "email": {
+                "type": "keyword",
+                "fields": {
+                  "analyzed": {
+                    "type": "text",
+                    "analyzer": "custom_keyword"
+                  }
+                }
+              },
+              "phone": {
+                "type": "text"
+              },
+              "extra": {
+                "type": "text"
+              },
+              "address": {
+                "properties": {
+                  "street": {
+                    "type": "text"
+                  },
+                  "zip_code": {
+                    "type": "keyword"
+                  },
+                  "city": {
+                    "type": "keyword"
+                  },
+                  "country": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "serial_acquisition_settings": {
+        "properties": {
+          "shipping_informations": {
+            "properties": {
+              "name": {
+                "type": "text"
+              },
+              "email": {
+                "type": "keyword",
+                "fields": {
+                  "analyzed": {
+                    "type": "text",
+                    "analyzer": "custom_keyword"
+                  }
+                }
+              },
+              "phone": {
+                "type": "text"
+              },
+              "extra": {
+                "type": "text"
+              },
+              "address": {
+                "properties": {
+                  "street": {
+                    "type": "text"
+                  },
+                  "zip_code": {
+                    "type": "keyword"
+                  },
+                  "city": {
+                    "type": "keyword"
+                  },
+                  "country": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          },
+          "billing_informations": {
+            "properties": {
+              "name": {
+                "type": "text"
               },
               "email": {
                 "type": "keyword",

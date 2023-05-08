@@ -100,6 +100,86 @@
           "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
         }
       }
+    },
+    "acquisition_management_settings": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "shipping_informations"
+      ],
+      "properties": {
+        "shipping_informations": {
+          "title": "Shipping informations",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "email",
+            "address"
+          ],
+          "properties": {
+            "name": {
+              "title": "Contact person",
+              "type": "string",
+              "minLength": 3
+            },
+            "email": {
+              "title": "Contact email",
+              "type": "string",
+              "format": "email"
+            },
+            "phone": {
+              "title": "Contact phone",
+              "type": "string",
+              "minLength": 6
+            },
+            "address": {
+              "$ref": "#/definitions/address_block"
+            },
+            "extra": {
+              "title": "Extra information",
+              "description": "VAT number, note, ...",
+              "type": "string",
+              "minLength": 3
+            }
+          }
+        },
+        "billing_informations": {
+          "title": "Billing informations",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "address"
+          ],
+          "properties": {
+            "name": {
+              "title": "Contact person",
+              "type": "string",
+              "minLength": 3
+            },
+            "email": {
+              "title": "Contact email",
+              "type": "string",
+              "format": "email"
+            },
+            "phone": {
+              "title": "Contact phone",
+              "type": "string",
+              "minLength": 6
+            },
+            "address": {
+              "$ref": "#/definitions/address_block"
+            },
+            "extra": {
+              "title": "Extra information",
+              "description": "VAT number, note, ...",
+              "type": "string",
+              "minLength": 3
+            }
+          }
+        }
+      }
     }
   },
   "properties": {
@@ -402,84 +482,10 @@
       }
     },
     "acquisition_settings": {
-      "additionalProperties": false,
-      "type": "object",
-      "required": [
-        "shipping_informations"
-      ],
-      "properties": {
-        "shipping_informations": {
-          "title": "Shipping informations",
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "name",
-            "email",
-            "address"
-          ],
-          "properties": {
-            "name": {
-              "title": "Contact person",
-              "type": "string",
-              "minLength": 3
-            },
-            "email": {
-              "title": "Contact email",
-              "type": "string",
-              "format": "email"
-            },
-            "phone": {
-              "title": "Contact phone",
-              "type": "string",
-              "minLength": 6
-            },
-            "address": {
-              "$ref": "#/definitions/address_block"
-            },
-            "extra": {
-              "title": "Extra information",
-              "description": "VAT number, note, ...",
-              "type": "string",
-              "minLength": 3
-            }
-          }
-        },
-        "billing_informations": {
-          "title": "Billing informations",
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "name",
-            "address"
-          ],
-          "properties": {
-            "name": {
-              "title": "Contact person",
-              "type": "string",
-              "minLength": 3
-            },
-            "email": {
-              "title": "Contact email",
-              "type": "string",
-              "format": "email"
-            },
-            "phone": {
-              "title": "Contact phone",
-              "type": "string",
-              "minLength": 6
-            },
-            "address": {
-              "$ref": "#/definitions/address_block"
-            },
-            "extra": {
-              "title": "Extra information",
-              "description": "VAT number, note, ...",
-              "type": "string",
-              "minLength": 3
-            }
-          }
-        }
-      }
+      "$ref": "#/definitions/acquisition_management_settings"
+    },
+    "serial_acquisition_settings": {
+      "$ref": "#/definitions/acquisition_management_settings"
     },
     "online_harvested_source": {
       "title": "Online harvested sources",
