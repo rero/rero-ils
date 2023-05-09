@@ -468,8 +468,8 @@ class AcqOrder(AcquisitionIlsRecord):
         dispatcher_result = Dispatcher.dispatch_notifications(
             notification_pids=[notif.get('pid')])
 
-        # If the dispatcher result is good, update the order_lines status and
-        # reindex myself. Reload the notification to obtain the right
+        # If the dispatcher result is correct, update the order_lines status
+        # and reindex myself. Reload the notification to obtain the right
         # notification metadata (status, process_date, ...)
         if dispatcher_result.get('sent', 0):
             order_date = datetime.now().strftime('%Y-%m-%d')

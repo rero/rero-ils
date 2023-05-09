@@ -40,6 +40,7 @@ class NotificationSubclassExtension(RecordExtension):
         from .subclasses.availability import \
             AvailabilityCirculationNotification
         from .subclasses.booking import BookingCirculationNotification
+        from .subclasses.claim_issue import ClaimSerialIssueNotification
         from .subclasses.recall import RecallCirculationNotification
         from .subclasses.reminder import ReminderCirculationNotification
         from .subclasses.request import RequestCirculationNotification
@@ -54,6 +55,7 @@ class NotificationSubclassExtension(RecordExtension):
             NotificationType.REQUEST: RequestCirculationNotification,
             NotificationType.TRANSIT_NOTICE: TransitCirculationNotification,
             NotificationType.ACQUISITION_ORDER: AcquisitionOrderNotification,
+            NotificationType.CLAIM_ISSUE: ClaimSerialIssueNotification
         }
         try:
             return mapping[record.type]

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,10 +20,20 @@
 
 from __future__ import absolute_import, print_function
 
+import mock
+import pytest
+from jsonschema.exceptions import ValidationError
+
+from rero_ils.modules.items.api import Item
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.subclasses.availability import \
     AvailabilityCirculationNotification
+from rero_ils.modules.notifications.subclasses.circulation import \
+    CirculationNotification
+from rero_ils.modules.notifications.subclasses.claim_issue import \
+    ClaimSerialIssueNotification
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_notification_organisation_pid(
@@ -102,3 +113,43 @@ def test_notification_email_aggregated(notification_availability_martigny,
         if notification_setting['type'] == NotificationType.AVAILABILITY:
             recipient = notification_setting['email']
     assert mailbox[0].recipients == [recipient]
+
+
+def test_notification_properties(client, holding_lib_martigny_w_patterns):
+    """Test notification properties."""
+
+    record = CirculationNotification({})
+    with pytest.raises(NotImplementedError):
+        record.get_recipients('cc')
+
+
+def test_notification_extended_validation(client, item_lib_martigny):
+    """Test notification extended validation process."""
+    item = item_lib_martigny
+
+    data = {'notification_type': NotificationType.AT_DESK}
+    record = ClaimSerialIssueNotification(data)
+    record.__class__ = ClaimSerialIssueNotification
+
+    with pytest.raises(ValidationError) as err:
+        record.validate()
+    assert "isn't an ClaimSerialIssueNotification" in str(err)
+
+    record['notification_type'] = NotificationType.CLAIM_ISSUE
+    record['context'] = {'item': {'$ref': get_ref_for_pid('item', 'dummy')}}
+    with pytest.raises(ValidationError) as err:
+        record.validate()
+    assert '`item` field must be specified into `context`' in str(err)
+    assert record.item_pid == 'dummy'
+    assert not record.get_notification_context()
+
+    record['context'] = {'item': {'$ref': get_ref_for_pid('item', item.pid)}}
+    with pytest.raises(ValidationError) as err:
+        record.validate()
+    assert '`item` field must reference an serial issue' in str(err)
+
+    record['context']['recipients'] = [{'type': 'to', 'address': 'cc@mail.co'}]
+    with mock.patch.object(Item, 'is_issue', True), \
+         pytest.raises(ValidationError) as err:
+        record.validate()
+    assert 'Recipient type `to` and `reply_to` are required' in str(err)

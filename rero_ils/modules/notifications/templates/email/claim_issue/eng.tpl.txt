@@ -1,0 +1,30 @@
+{{ issue.library.name }} - Claim about "{{ issue.document.title_text }}"
+
+Dear Sir or Madam,
+
+We noticed that we did not receive the following issue:
+Serial title: {{ issue.document.title_text }}
+Issue number: {{ issue.enumerationAndChronology }}
+
+{%- if issue.holdings and issue.holdings.client_id %}
+Our customer number: {{ issue.holdings.client_id }}
+{%- endif %}
+{%- if issue.holdings and issue.holdings.order_reference %}
+Our order number: {{ issue.holdings.order_reference }}
+{%- endif %}
+Claim count for this issue: {{ issue.claim_counter }}
+
+We thank you in advance for ensuring that we receive this issue as soon as possible.
+
+
+Best regards,
+
+{{ issue.library.shipping_informations.name }}
+
+Shipping address:
+{{ issue.library.shipping_informations | address_block(language=issue.vendor.language) }}
+
+{% if issue.library.billing_informations -%}
+Billing address:
+{{ issue.library.billing_informations | address_block(language=issue.vendor.language) }}
+{%- endif %}

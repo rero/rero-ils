@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -52,7 +52,6 @@ from rero_ils.modules.providers import Provider
 from rero_ils.modules.record_extensions import OrgLibRecordExtension
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, \
     get_schema_for_resource, sorted_pids
-from rero_ils.modules.vendors.api import Vendor
 
 from .models import HoldingIdentifier, HoldingMetadata, HoldingTypes
 
@@ -215,24 +214,51 @@ class Holding(IlsRecord):
         return extracted_data_from_ref(self.get('document'))
 
     @property
+    def document(self):
+        """Shortcut for document record related to this holding."""
+        return extracted_data_from_ref(self.get('document'), data='record')
+
+    @property
     def circulation_category_pid(self):
         """Shortcut for circulation_category pid of the holding."""
         return extracted_data_from_ref(self.get('circulation_category'))
 
     @property
     def location_pid(self):
-        """Shortcut for location pid of the holding."""
+        """Shortcut for location pid related to the holdings."""
         return extracted_data_from_ref(self.get('location'))
 
     @property
+    def location(self):
+        """Shortcut for location resource related to the holdings."""
+        return extracted_data_from_ref(self.get('location'), data='record')
+
+    @property
     def library_pid(self):
-        """Shortcut for library of the holding location."""
-        return Location.get_record_by_pid(self.location_pid).library_pid
+        """Shortcut for library related to the holdings location."""
+        return self.location.library_pid
+
+    @property
+    def library(self):
+        """Shortcut for library resource related to this holding."""
+        return self.location.library
 
     @property
     def organisation_pid(self):
         """Get organisation pid for holding."""
         return Location.get_record_by_pid(self.location_pid).organisation_pid
+
+    @property
+    def vendor_pid(self):
+        """Shortcut for vendor pid of the holding."""
+        if self.get('vendor'):
+            return extracted_data_from_ref(self.get('vendor'))
+
+    @property
+    def vendor(self):
+        """Shortcut to return the vendor record."""
+        if self.get('vendor'):
+            return extracted_data_from_ref(self.get('vendor'), data='record')
 
     @property
     def available(self):
@@ -257,18 +283,6 @@ class Holding(IlsRecord):
     def days_before_next_claim(self):
         """Shortcut to return the days_before_next_claim."""
         return self.get('patterns', {}).get('days_before_next_claim', 0)
-
-    @property
-    def vendor_pid(self):
-        """Shortcut for vendor pid of the holding."""
-        if self.get('vendor'):
-            return extracted_data_from_ref(self.get('vendor'))
-
-    @property
-    def vendor(self):
-        """Shortcut to return the vendor record."""
-        if self.vendor_pid:
-            return Vendor.get_record_by_pid(self.vendor_pid)
 
     @property
     def notes(self):
