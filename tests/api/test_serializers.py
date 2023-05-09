@@ -213,12 +213,11 @@ def test_items_serializers(
         'item_local_field_2', 'item_local_field_3', 'item_local_field_4',
         'item_local_field_5', 'item_local_field_6', 'item_local_field_7',
         'item_local_field_8', 'item_local_field_9', 'item_local_field_10',
-        'issue_status', 'issue_status_date', 'issue_expected_date',
-        'issue_regular', 'item_checkouts_count', 'item_renewals_count',
-        'last_transaction_date', 'last_checkout_date'
+        'issue_status', 'issue_status_date', 'issue_claims_count',
+        'issue_expected_date', 'issue_regular', 'item_checkouts_count',
+        'item_renewals_count', 'last_transaction_date', 'last_checkout_date'
     ]
-    for field in fields:
-        assert field in data
+    assert all(field in data for field in fields)
 
     # test provisionActivity without type bf:Publication
     document['provisionActivity'][0]['type'] = 'bf:Manufacture'

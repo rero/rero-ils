@@ -168,6 +168,11 @@ class Location(IlsRecord):
         return extracted_data_from_ref(self.get('library'))
 
     @property
+    def library(self):
+        """Get library record related to this location."""
+        return extracted_data_from_ref(self.get('library'), data='record')
+
+    @property
     def organisation_pid(self):
         """Get organisation pid for location."""
         from ..libraries.api import Library

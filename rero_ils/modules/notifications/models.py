@@ -56,18 +56,20 @@ class NotificationType:
     - TRANSIT_NOTICE    : when an item is sent to the owning location/library
     - DUE_SOON          : when the loaned item is about to expire.
     - OVERDUE           : when the loaned item is expired.
-    - ACQUISITION_ORDER : when an acquisition order is send to a vendor.
+    - ACQUISITION_ORDER : when an acquisition order is sent to a vendor.
+    - CLAIM_ISSUE       : when a claim is sent to a vendor about a serial issue
     """
 
-    RECALL = 'recall'
-    AVAILABILITY = 'availability'
-    DUE_SOON = 'due_soon'
-    OVERDUE = 'overdue'
-    TRANSIT_NOTICE = 'transit_notice'
-    REQUEST = 'request'
-    BOOKING = 'booking'
     ACQUISITION_ORDER = 'acquisition_order'
     AT_DESK = 'at_desk'
+    AVAILABILITY = 'availability'
+    BOOKING = 'booking'
+    CLAIM_ISSUE = 'claim_issue'
+    DUE_SOON = 'due_soon'
+    OVERDUE = 'overdue'
+    RECALL = 'recall'
+    REQUEST = 'request'
+    TRANSIT_NOTICE = 'transit_notice'
 
     # All notification types
     ALL_NOTIFICATIONS = [

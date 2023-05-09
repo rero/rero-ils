@@ -302,6 +302,18 @@ class ItemRecord(IlsRecord):
         return extracted_data_from_ref(self.get('holding'), data='record')
 
     @property
+    def holding_location_pid(self):
+        """Shortcut for holding location pid of an item."""
+        if holding := self.holding:
+            return holding.location_pid
+
+    @property
+    def holding_library_pid(self):
+        """Shortcut for holding library pid of an item."""
+        if holding := self.holding:
+            return holding.library_pid
+
+    @property
     def document_pid(self):
         """Shortcut for item document pid."""
         return extracted_data_from_ref(self['document'])
@@ -473,24 +485,10 @@ class ItemRecord(IlsRecord):
             return extracted_data_from_ref(self.get('location'))
 
     @property
-    def holding_location_pid(self):
-        """Shortcut for holding location pid of an item."""
-        from ...holdings.api import Holding
-        if self.holding_pid:
-            return Holding.get_record_by_pid(self.holding_pid).location_pid
-
-    @property
     def library_pid(self):
         """Shortcut for item library pid."""
         location = Location.get_record_by_pid(self.location_pid)
         return extracted_data_from_ref(location.get('library'))
-
-    @property
-    def holding_library_pid(self):
-        """Shortcut for holding library pid of an item."""
-        if self.holding_location_pid:
-            location = Location.get_record_by_pid(self.holding_location_pid)
-            return extracted_data_from_ref(location.get('library'))
 
     @property
     def organisation_pid(self):

@@ -84,12 +84,13 @@ class Dispatcher:
             dispatcher_function = get_dispatcher_function(comm_channel)
             counter = len(aggr_notifications)
             if verbose:
-                current_app.logger.info(
-                    f'Dispatch notifications: {notification.type} '
-                    f'library: {notification.library.pid} '
-                    f'patron: {notification.patron.pid} '
-                    f'documents: {counter}'
-                )
+                msg = f'Dispatch notifications: {notification.type} '
+                if hasattr(notification, 'library'):
+                    msg += f'library: {notification.library.pid} '
+                if hasattr(notification, 'patron'):
+                    msg += f'patron: {notification.patron.pid} '
+                msg += f'documents: {counter}'
+                current_app.logger.info(msg)
             result, recipients = dispatcher_function(aggr_notifications)
             for notification in aggr_notifications:
                 notification.update_process_date(sent=result)
