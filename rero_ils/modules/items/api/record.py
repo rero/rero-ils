@@ -294,20 +294,23 @@ class ItemRecord(IlsRecord):
     @property
     def holding_pid(self):
         """Shortcut for item holding pid."""
-        if self.get('holding'):
-            return extracted_data_from_ref(self.get('holding'))
+        return extracted_data_from_ref(self.get('holding'))
+
+    @property
+    def holding(self):
+        """Shortcut for item holding."""
+        return extracted_data_from_ref(self.get('holding'), data='record')
 
     @property
     def document_pid(self):
         """Shortcut for item document pid."""
-        if self.get('document'):
-            return extracted_data_from_ref(self.get('document'))
+        return extracted_data_from_ref(self['document'])
 
     @classmethod
     def get_document_pid_by_item_pid(cls, item_pid):
         """Returns document pid from item pid."""
         item = cls.get_record_by_pid(item_pid)
-        return extracted_data_from_ref(item.get('document'))
+        return extracted_data_from_ref(item['document'])
 
     @classmethod
     def get_document_pid_by_item_pid_object(cls, item_pid):
@@ -319,11 +322,16 @@ class ItemRecord(IlsRecord):
         :rtype: str
         """
         item = cls.get_record_by_pid(item_pid.get('value'))
-        return extracted_data_from_ref(item.get('document'))
+        return extracted_data_from_ref(item['document'])
 
     @classmethod
     def get_items_pid_by_document_pid(cls, document_pid):
-        """Returns item pisd from document pid."""
+        """Returns item pids related to a document pid.
+
+        :param document_pid: the parent document pid.
+        :return a generator of related item pid.
+        :rtype generator<str>
+        """
         from . import ItemsSearch
         results = ItemsSearch()\
             .filter('term', document__pid=document_pid)\
@@ -337,10 +345,10 @@ class ItemRecord(IlsRecord):
 
         :param barcode: the item barcode.
         :param organisation_pid: the organisation pid. As barcode could be
-                                 shared between items from multiple
-                                 organisations we need to filter result by
-                                 organisation.pid
+            shared between items from multiple organisations we need to filter
+            result by organisation.pid
         :return The item corresponding to the barcode if exists or None.
+        :rtype `rero_ils.modules.items.api.api.Item`
         """
         from . import ItemsSearch
         results = ItemsSearch()\

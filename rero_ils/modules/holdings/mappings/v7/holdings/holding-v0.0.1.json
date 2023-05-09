@@ -150,6 +150,12 @@
           }
         }
       },
+      "client_id": {
+        "type": "keyword"
+      },
+      "order_reference": {
+        "type": "keyword"
+      },
       "notes": {
         "properties": {
           "type": {

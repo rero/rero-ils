@@ -24,6 +24,8 @@
     "acquisition_status",
     "patterns",
     "vendor",
+    "client_id",
+    "order_reference",
     "supplementaryContent",
     "index",
     "missing_issues",
@@ -202,9 +204,6 @@
         "frequency"
       ],
       "propertiesOrder": [
-        "max_number_of_claims",
-        "days_before_first_claim",
-        "days_before_next_claim",
         "language",
         "template",
         "frequency",
@@ -517,6 +516,30 @@
           }
         }
       },
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "client_id": {
+      "title": "Client ID",
+      "description": "The client reference ID at the vendor.",
+      "type": "string",
+      "minLength": 2,
+      "form": {
+        "hide": true,
+        "navigation": {
+          "essential": true
+        }
+      }
+    },
+    "order_reference": {
+      "title": "Order reference",
+      "description": "The vendor order reference.",
+      "type": "string",
+      "minLength": 2,
       "form": {
         "hide": true,
         "navigation": {
