@@ -247,6 +247,8 @@
       "$ref": "https://bib.rero.ch/api/vendors/vndr1"
     },
     "holdings_type": "serial",
+    "client_id": "CLI_12345",
+    "order_reference": "OR_2023.05.112",
     "enumerationAndChronology": "enumerationAndChronology",
     "supplementaryContent": "supplementaryContent",
     "index": "index",

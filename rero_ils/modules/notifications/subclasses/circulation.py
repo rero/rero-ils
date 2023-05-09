@@ -120,8 +120,8 @@ class CirculationNotification(Notification, ABC):
         }
         try:
             return mapping[address_type]()
-        except KeyError:
-            raise NotImplementedError()
+        except KeyError as e:
+            raise NotImplementedError() from e
 
     def get_recipients_reply_to(self):
         """Get the notification email address for 'REPLY_TO' recipient type."""

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,17 +16,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-
 """Holding Record tests."""
-
 
 from __future__ import absolute_import, print_function
 
+import mock
 import pytest
 from jsonschema.exceptions import ValidationError
 
+from rero_ils.modules.documents.api import Document
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.holdings.api import holding_id_fetcher as fetcher
+from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.holdings.tasks import \
     delete_standard_holdings_having_no_items
 
@@ -71,56 +73,62 @@ def test_holding_availability(holding_lib_sion_electronic,
     """Test holding availability."""
     # An electronic holding is always available despite if no item are linked
     assert holding_lib_sion_electronic.available
-    # The availability of other holdings type depends of children availability
+    # The availability of other holdings type depends on children availability
     assert holding_lib_martigny.available == item_lib_martigny.available
 
 
-def test_holding_extended_validation(client,
-                                     journal, ebook_5,
-                                     loc_public_sion,
-                                     loc_public_martigny,
-                                     item_type_standard_martigny,
-                                     item_type_online_sion,
-                                     holding_lib_martigny_w_patterns_data,
-                                     holding_lib_sion_electronic_data):
+def test_holding_extended_validation(
+    client, journal, ebook_5, loc_public_sion, loc_public_martigny,
+    item_type_standard_martigny, item_type_online_sion,
+    holding_lib_martigny_w_patterns_data, holding_lib_sion_electronic_data
+):
     """Test holding extended validation."""
-    # instantiate serial holding
-    holding_tmp = Holding.create(
-        holding_lib_martigny_w_patterns_data, delete_pid=True)
-    # 1. holding type serial
+    serial_holding_data = holding_lib_martigny_w_patterns_data
 
-    # 1.1. test correct holding
-    holding_tmp.validate()  # validation with extented_validation rules
+    # TESTING SERIAL HOLDINGS
+    #   1. validate correct holding
+    #   2. testing next expected date for regular frequencies
+    #   3. test multiple note with same type
+    #   4. test for unknown document
+    #   5. test not allowed field.
+    record = Holding.create(serial_holding_data, delete_pid=True)
 
-    # 1.1. test next expected date for regular frequencies
-    expected_date = holding_tmp['patterns']['next_expected_date']
-    del holding_tmp['patterns']['next_expected_date']
+    record.validate()
+
+    expected_date = record['patterns']['next_expected_date']
+    del record['patterns']['next_expected_date']
     with pytest.raises(ValidationError):
-        holding_tmp.validate()
-
+        record.validate()
     # reset data with original value
-    holding_tmp['patterns']['next_expected_date'] = expected_date
+    record['patterns']['next_expected_date'] = expected_date
 
-    # 1.2. test multiple note with same type
-    holding_tmp.get('notes').append({
-        'type': 'general_note',
-        'content': 'other general_note...'
-    })
-    with pytest.raises(ValidationError):
-        holding_tmp.validate()
-    del holding_tmp['notes']
+    record.get('notes').append({'type': 'general_note', 'content': 'note'})
+    with pytest.raises(ValidationError) as err:
+        record.validate()
+    assert 'Can not have multiple notes of the same type' in str(err)
+    del record['notes']
 
-    # 2. holding type electronic
+    with mock.patch.object(Document, 'get_record_by_pid',
+                           mock.MagicMock(return_value=None)), \
+         pytest.raises(ValidationError) as err:
+        record.validate()
+    assert 'Document does not exist' in str(err)
 
-    # 2.1 test electronic holding
-    # instantiate electronic holding
-    holding_tmp = Holding.create(
-        holding_lib_sion_electronic_data, delete_pid=True)
-    holding_tmp.validate()
+    record['holdings_type'] = HoldingTypes.STANDARD
+    assert record['enumerationAndChronology']
+    with pytest.raises(ValidationError) as err:
+        record.validate()
+    assert 'is allowed only for serial holdings' in str(err)
 
-    # 2.2 test electronic holding with enumeration and chronology
-    holding_tmp['enumerationAndChronology'] = 'enumerationAndChronology'
-    holding_tmp.validate()
+    # TESTING ELECTRONIC HOLDING
+    #   1. instantiate electronic holding
+    #   2. test electronic holding with enumeration and chronology
+    electronic_holding_data = holding_lib_sion_electronic_data
+    record = Holding.create(electronic_holding_data, delete_pid=True)
+    record.validate()
+
+    record['enumerationAndChronology'] = 'enumerationAndChronology'
+    record.validate()
 
 
 def test_holding_tasks(
@@ -141,3 +149,17 @@ def test_holding_tasks(
     hold = Holding.get_record_by_pid(holdings_pid)
     # holdings no longer exist.
     assert not hold
+
+
+def test_holdings_properties(holding_lib_martigny_w_patterns, vendor_martigny):
+    """Test holding properties."""
+    holding = holding_lib_martigny_w_patterns
+    assert holding.vendor == vendor_martigny
+    assert holding.vendor_pid == vendor_martigny.pid
+
+    assert holding.max_number_of_claims == 2
+    assert holding.days_before_first_claim == 7
+    assert holding.days_before_next_claim == 7
+
+    holding['_masked'] = True
+    assert not holding.available

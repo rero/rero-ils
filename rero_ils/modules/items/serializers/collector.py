@@ -29,6 +29,7 @@ from rero_ils.modules.local_fields.api import LocalField
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 
 from ..models import ItemCirculationAction, ItemNoteTypes
+from ...notifications.api import NotificationsSearch
 
 
 class Collector():
@@ -254,6 +255,8 @@ class Collector():
             csv_data['issue_status_date'] = \
                 ciso8601.parse_datetime(
                     issue.get('status_date')).date()
+        csv_data['issue_claims_count'] = \
+            len(list(NotificationsSearch().get_claims(csv_data['item_pid'])))
         csv_data['issue_expected_date'] = \
             issue.get('expected_date')
         csv_data['issue_regular'] = issue.get('regular')

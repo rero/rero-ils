@@ -29,7 +29,7 @@ from flask import current_app
 from .extensions import NotificationSubclassExtension
 from .logs.api import NotificationOperationLog
 from .models import NotificationIdentifier, NotificationMetadata, \
-    NotificationStatus
+    NotificationStatus, NotificationType
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
@@ -65,12 +65,25 @@ class NotificationsSearch(IlsRecordsSearch):
 
         default_filter = None
 
+    def get_claims(self, item_pid):
+        """Get the claims notifications about an issue item.
+
+        :param item_pid: the item pid related to the claim notification.
+        :returns: a generator of claim notification hit from ES.
+        :rtype: generator<Hit>.
+        """
+        query = self \
+            .filter('term', context__item__pid=item_pid) \
+            .filter('term', notification_type=NotificationType.CLAIM_ISSUE)
+        for hit in query.scan():
+            yield hit
+
 
 class Notification(IlsRecord, ABC):
     """Notifications class.
 
     A Notification is an abstract class representing a message to be sent to a
-    recipient. All the notification workflow depends of the notification type.
+    recipient. All the notification workflow depends on the notification type.
     The recipient, the dispatcher method, notification aggregation... all
     these settings or behaviors must be specified into a concrete
     ``Notification`` subclass.
@@ -137,9 +150,9 @@ class Notification(IlsRecord, ABC):
     def aggregation_key(self):
         """Get the key used to aggregate multiple notifications.
 
-        Depending of the notification type, notifications could be aggregated
+        Depending on the notification type, notifications could be aggregated
         into a single message (4 recall notification for the same patron should
-        be send into the same message).
+        be sent into the same message).
 
         :return the key to use to aggregate several notifications.
         """
@@ -171,10 +184,10 @@ class Notification(IlsRecord, ABC):
     def get_communication_channel(self):
         """Get the communication channel to use for this notification.
 
-        The communication channel to use depends of each notification type. It
-        could depends of the recipient, the template to use, ...
+        The communication channel to use depends on each notification type. It
+        could depend on the recipient, the template to use, ...
 
-        :return the `NotificationChannel` to use to send the notification.
+        :returns: the `NotificationChannel` to use to send the notification.
         """
         raise NotImplementedError()
 
@@ -182,7 +195,7 @@ class Notification(IlsRecord, ABC):
     def get_language_to_use(self):
         """Get the language to use for dispatching the notification.
 
-        :return return the language iso code (alpha3) to use.
+        :returns: the language iso code (alpha3) to use.
         """
         raise NotImplementedError()
 
@@ -195,7 +208,7 @@ class Notification(IlsRecord, ABC):
         the list of email addresses where to send the notification to.
 
         :param address_type: the type of address to get (to, cc, reply_to, ...)
-        :return return email addresses list where send the notification to.
+        :returns: return email addresses list where send the notification to.
         """
         raise NotImplementedError()
 
@@ -205,8 +218,9 @@ class Notification(IlsRecord, ABC):
         """Get the context to use to render the corresponding template.
 
         :param notifications: an array of ``Notification`` to parse to extract
-                              the required data to build the template.
-        :return: a ``dict`` containing all required data to build the template.
+            the required data to build the template.
+        :returns: a ``dict`` containing all required data to build the
+            template.
         """
         raise NotImplementedError()
 

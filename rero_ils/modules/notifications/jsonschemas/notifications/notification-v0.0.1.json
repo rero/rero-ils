@@ -10,6 +10,37 @@
     "notification_type"
   ],
   "definitions": {
+    "recipients": {
+      "title": "Recipient email addresses",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Recipient",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "type",
+          "address"
+        ],
+        "properties": {
+          "type": {
+            "title": "Recipient type",
+            "type": "string",
+            "enum": [
+              "to",
+              "cc",
+              "bcc",
+              "reply_to"
+            ]
+          },
+          "address": {
+            "type": "string",
+            "format": "email",
+            "pattern": "^.*@.*\\..+$"
+          }
+        }
+      }
+    },
     "circulation_context": {
       "type": "object",
       "additionalProperties": false,
@@ -58,35 +89,41 @@
           }
         },
         "recipients": {
-          "title": "Recipient email addresses",
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "title": "Recipient",
-            "type": "object",
-            "additionalProperties": false,
-            "required": [
-              "type",
-              "address"
-            ],
-            "properties": {
-              "type": {
-                "title": "Recipient type",
-                "type": "string",
-                "enum": [
-                  "to",
-                  "cc",
-                  "bcc",
-                  "reply_to"
-                ]
-              },
-              "address": {
-                "type": "string",
-                "format": "email",
-                "pattern": "^.*@.*\\..+$"
-              }
+          "$ref": "#/definitions/recipients"
+        }
+      }
+    },
+    "claim_issue_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "item",
+        "recipients",
+        "number"
+      ],
+      "properties": {
+        "item": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "$ref"
+          ],
+          "properties": {
+            "$ref": {
+              "type": "string",
+              "pattern": "^https://bib.rero.ch/api/items/.*?$"
             }
           }
+        },
+        "recipients": {
+          "$ref": "#/definitions/recipients"
+        },
+        "number": {
+          "type": "integer",
+          "title": "Claim number",
+          "description": "Claim number sequence for this serial issue",
+          "default": 0,
+          "minimum": 0
         }
       }
     }
@@ -145,7 +182,8 @@
         "transit_notice",
         "request",
         "booking",
-        "acquisition_order"
+        "acquisition_order",
+        "claim_issue"
       ]
     },
     "effective_recipients": {
@@ -187,6 +225,9 @@
         },
         {
           "$ref": "#/definitions/acquisition_context"
+        },
+        {
+          "$ref": "#/definitions/claim_issue_context"
         }
       ]
     }

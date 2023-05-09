@@ -49,7 +49,20 @@
           "reminder_counter": {
             "type": "integer"
           },
+          "number": {
+            "type": "integer"
+          },
           "order": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          },
+          "item": {
             "properties": {
               "pid": {
                 "type": "keyword"

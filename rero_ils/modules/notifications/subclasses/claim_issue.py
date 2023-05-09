@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,44 +16,49 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""API for manipulating "order" acquisition notifications."""
+"""API for manipulating "claim" notifications about serial issue."""
 
 from __future__ import absolute_import, print_function
 
+from abc import ABC, abstractmethod
+
 from werkzeug.utils import cached_property
 
-from rero_ils.modules.acquisition.acq_orders.dumpers import \
-    AcqOrderNotificationDumper
-from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.items.dumpers import ClaimIssueNotificationDumper
 from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.models import NotificationChannel, \
     NotificationType, RecipientType
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
-class AcquisitionOrderNotification(Notification):
-    """Acquisition order notifications class.
+class ClaimSerialIssueNotification(Notification, ABC):
+    """Claim serial issue notifications class.
 
-    An acquisition order notification is a message send to the vendor to order
-    an acquisition order that contains some acquisition order lines. it should
-    never be cancelled and is always sent by email (for now).
+    A claim notification is a message sent to the vendor of the serial to
+    specify if an issue isn't received as expected. It should never be
+    cancelled (except if issue item doesn't exist anymore) and is always sent
+    by email (for now).
 
-    Acquisition order notification works synchronously. This means it will be
-    send just after the creation. This also means that it should never be
+    Claim issue notification works synchronously. This means it will be sent
+    just after the creation. This also means that it should never be
     aggregated.
     """
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.
 
-        and extended validation to check that notification is indeed of type
-        acquisition order and it has a valid order pid in its context.
+        :params kwargs: additional named arguments.
+        :returns: True if all checks are ok; a string representing the problem
+            if a problem is detected.
+        :rtype: boolean|str
         """
-        if self.type != NotificationType.ACQUISITION_ORDER:
-            return f"'{self.type} isn't an AcquisitionNotification"
-        if not self.acq_order_pid:
-            return '`order` field must be specified into `context` for ' \
-                   'AcquisitionNotification'
+        if self.type != NotificationType.CLAIM_ISSUE:
+            return f"'{self.type} isn't an ClaimSerialIssueNotification"
+        if not self.item:
+            return '`item` field must be specified into `context` for ' \
+                   'ClaimSerialIssueNotification'
+        if not self.item.is_issue:
+            return '`item` field must reference an serial issue item.'
 
         # validate that at least one email of type `to` exist and one email of
         # type `reply_to` is given in the ist of emails.
@@ -70,18 +75,14 @@ class AcquisitionOrderNotification(Notification):
     #  Implementation of `Notification` parent class abstract methods.
     @property
     def organisation_pid(self):
-        """Get organisation pid for this notification.
-
-        The acquisition order notification inherits its organisation links from
-        its parent (order) record.
-        """
-        return self.order.organisation_pid
+        """Get organisation pid for this notification."""
+        return self.item.organisation_pid
 
     @property
     def aggregation_key(self):
         """Get the aggregation key for this notification.
 
-        No aggregation needed for the acquisition order notification, as such,
+        No aggregation needed for the claim issue notification, as such,
         we return the string type of the notification id.
         """
         return str(self.id)
@@ -93,32 +94,31 @@ class AcquisitionOrderNotification(Notification):
         notification is processed, it's not anymore required to be sent.
         The acquisition order notification ca not be cancelled.
 
-        :return a tuple with two values: a boolean to know if the notification
-                can be cancelled; the reason why the notification can be
-                cancelled (only present if tuple first value is True).
+        :returns: a tuple with two values: a boolean to know if the
+            notification can be cancelled; the reason why the notification can
+            be cancelled (only present if tuple first value is True).
         """
-        if not self.order:
-            return True, "Order doesn't exists anymore"
+        if not self.item:
+            return True, "Item doesn't exists anymore"
         return False, None
 
     def get_communication_channel(self):
         """Get the communication channel to use for this notification."""
-        # For now, the channel for sending the acquisition order notification
-        # is always email.
+        # For now, the channel for sending the claim issue notification is
+        # always email.
         return NotificationChannel.EMAIL
 
     def get_language_to_use(self):
         """Get the language to use for dispatching the notification."""
         # By default, the language to use to build the notification is defined
         # in the vendor setting. Override this method if needed in the future.
-        return self.order.vendor.get('communication_language')
+        return self.vendor.get('communication_language')
 
     def get_template_path(self):
         """Get the template to use to render the notification."""
         # By default, the template path to use reflects the notification type.
         # Override this method if necessary
-        return \
-            f'rero_ils/vendor_order_mail/{self.get_language_to_use()}.tpl.txt'
+        return f'email/{self.type}/{self.get_language_to_use()}.tpl.txt'
 
     def get_recipients(self, address_type):
         """Get the notification recipients email address.
@@ -129,6 +129,7 @@ class AcquisitionOrderNotification(Notification):
 
         :param address_type: the recipient address type.
         :returns: email addresses list where send the notification to.
+        :rtype: list<{type: str, address: str}>
         """
         return [
             recipient.get('address')
@@ -137,6 +138,7 @@ class AcquisitionOrderNotification(Notification):
         ]
 
     @classmethod
+    @abstractmethod
     def get_notification_context(cls, notifications=None):
         """Get the context to use to render the corresponding template.
 
@@ -150,28 +152,29 @@ class AcquisitionOrderNotification(Notification):
             return {}
 
         notification = notifications[0]
-        order = notification.order
-        return {'order': order.dumps(dumper=AcqOrderNotificationDumper())}
+        item = notification.item
+        return {'issue': item.dumps(dumper=ClaimIssueNotificationDumper())}
 
     # GETTER & SETTER METHODS =================================================
     #  Shortcuts to easy access notification attributes.
+    @property
+    def item_pid(self):
+        """Shortcut for item pid related to the notification."""
+        return extracted_data_from_ref(self['context']['item'])
 
     @property
-    def acq_order_pid(self):
-        """Shortcut for acq order pid of the notification."""
-        return extracted_data_from_ref(self['context']['order'])
+    def item(self):
+        """Shortcut for item related to the notification."""
+        return extracted_data_from_ref(self['context']['item'], data='record')
 
     @cached_property
-    def order(self):
-        """Shortcut for acquisition order related to the notification."""
-        return extracted_data_from_ref(self['context']['order'], data='record')
+    def vendor(self):
+        """Shortcut for vendor of the issue."""
+        if self.item and (holding := self.item.holding):
+            return holding.vendor
 
     @property
-    def library_pid(self):
-        """Get the library pid related to the notification."""
-        return self.order.library_pid
-
-    @cached_property
     def library(self):
-        """Shortcut for library of the notification."""
-        return Library.get_record_by_pid(self.library_pid)
+        """Shortcut for library related to the issue."""
+        if self.item and (holding := self.item.holding):
+            return holding.library

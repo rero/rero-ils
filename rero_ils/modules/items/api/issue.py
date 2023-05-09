@@ -20,6 +20,7 @@
 
 from .record import ItemRecord
 from ..models import TypeOfItem
+from ...notifications.api import NotificationsSearch
 
 
 class ItemIssue(ItemRecord):
@@ -80,6 +81,11 @@ class ItemIssue(ItemRecord):
         """Shortcut for vendor pid if exists."""
         if (holding := self.holding) and (vendor := holding.vendor):
             return vendor.pid
+
+    @property
+    def claims_count(self):
+        """Get the number of claims notification sent about this issue."""
+        return len(list(NotificationsSearch().get_claims(self.pid)))
 
     @property
     def issue_inherited_first_call_number(self):
