@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-05-08 14:43+0200\n"
-"PO-Revision-Date: 2023-03-28 08:40+0000\n"
+"PO-Revision-Date: 2023-05-08 14:11+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -60,11 +61,11 @@ msgstr "Benvenuto"
 
 #: rero_ils/config.py:262
 msgid "RERO ID password reset"
-msgstr "Reimpostazione della parola d'ordine RERO ID"
+msgstr "Reimpostazione della password RERO ID"
 
 #: rero_ils/config.py:263
 msgid "Your RERO ID password has been reset"
-msgstr "La sua parola d'ordine è stata reimposta"
+msgstr "La sua password è stata reimposta"
 
 #: rero_ils/config.py:1602
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
@@ -446,7 +447,7 @@ msgstr "Modificare il mio profilo"
 #: rero_ils/manual_translations.txt:66
 #: rero_ils/modules/users/templates/rero_ils/user_password.html:22
 msgid "Change password"
-msgstr "Cambiare la parola d'ordine"
+msgstr "Cambiare la password"
 
 #: rero_ils/manual_translations.txt:67
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:52
@@ -515,27 +516,27 @@ msgstr "multiparte"
 
 #: rero_ils/manual_translations.txt:91
 msgid "Phone"
-msgstr ""
+msgstr "Telefono"
 
 #: rero_ils/manual_translations.txt:92
 msgid "Phones"
-msgstr ""
+msgstr "Telefoni"
 
 #: rero_ils/manual_translations.txt:93
 msgid "Business"
-msgstr ""
+msgstr "Affari"
 
 #: rero_ils/manual_translations.txt:94
 msgid "Home"
-msgstr ""
+msgstr "Casa"
 
 #: rero_ils/manual_translations.txt:95
 msgid "Mobile"
-msgstr ""
+msgstr "Mobile"
 
 #: rero_ils/manual_translations.txt:99
 msgid "Hide password"
-msgstr ""
+msgstr "Nascondere la password"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -4141,24 +4142,24 @@ msgstr "Valore"
 #, python-format
 msgid "Field must be at least %(num)d character long."
 msgid_plural "Field must be at least %(num)d characters long."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Il campo deve avere una lunghezza minima di %(num)d carattere."
+msgstr[1] "Il campo deve avere una lunghezza minima di %(num)d caratteri."
 
 #: rero_ils/modules/utils.py:1228
 msgid "The password must contain a lower case character."
-msgstr ""
+msgstr "La password deve contenere un carattere minuscolo."
 
 #: rero_ils/modules/utils.py:1231
 msgid "The password must contain a upper case character."
-msgstr ""
+msgstr "La password deve contenere un carattere maiuscolo."
 
 #: rero_ils/modules/utils.py:1234
 msgid "The password must contain a number."
-msgstr ""
+msgstr "La password deve contenere un numero."
 
 #: rero_ils/modules/utils.py:1237
 msgid "The password must contain a special character."
-msgstr ""
+msgstr "La password deve contenere un carattere speciale."
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:334
 msgid "Cannot transfer fund to myself."
@@ -6263,7 +6264,7 @@ msgstr "Ente"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:40
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:39
 msgid "Example: Miller, John"
-msgstr ""
+msgstr "Esempio: Miller, John"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:47
 msgid "Subordinate units"
@@ -6971,7 +6972,7 @@ msgstr "Data di copyright"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_copyright_date-v0.0.1.json:11
 msgid "Example: cop. 2010"
-msgstr ""
+msgstr "Esempio: cop. 2010"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:3
 msgid "Notes on statement of responsibility"
@@ -7005,6 +7006,9 @@ msgid ""
 "Dimensions include measurements of height, width, depth, length, gauge, "
 "and diameter. For oblong volumes, record the height x width."
 msgstr ""
+"Dimensioni includono le misure di altezza, larghezza, profondità, lunghezza, "
+"spessore e diametro. Se la larghezza del volume è più grande dell'altezza, "
+"Si registrano altezza x larghezza."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:12
 msgid "Example: 22 cm"
@@ -8757,7 +8761,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:11
 msgid "Example: 1. Fundamentals / ed. by A. Miller"
-msgstr ""
+msgstr "Esempio: 1. Fondamenti / a cura di A. Miller"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:3
 msgid "Temporal content coverages"
@@ -10097,23 +10101,25 @@ msgstr "Confermare"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:98
 msgid "Document is available"
-msgstr ""
+msgstr "Il documento è disponibile"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:104
 msgid "The document you are requesting exists in the catalog at your institution."
-msgstr ""
+msgstr "Il documento richiesto esiste nel catalogo della vostra istituzione."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:105
 msgid "Are you sure you want to continue with your ILL request?"
 msgstr ""
+"Siete sicuri di voler continuare con la vostra richiesta di prestito "
+"interbibliotecario?"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:108
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:109
 msgid "Yes"
-msgstr ""
+msgstr "Sì"
 
 #: rero_ils/modules/item_types/api.py:79
 msgid "Another online item type exists in this organisation"
@@ -10818,11 +10824,11 @@ msgstr "Il nome dell'azione che ha innescato la transizione verso lo stato attua
 
 #: rero_ils/modules/local_fields/api.py:87
 msgid "Parent record doesn't exists."
-msgstr ""
+msgstr "La risorsa genitore non esiste."
 
 #: rero_ils/modules/local_fields/api.py:94
 msgid "Local fields already exist for this resource."
-msgstr ""
+msgstr "Esistono già campi locali per questa risorsa."
 
 #: rero_ils/modules/local_fields/api.py:97
 msgid "Missing fields."
@@ -10938,11 +10944,13 @@ msgstr "Definire questa localizzazione come punto di ritiro."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:71
 msgid "Is ILL pickup location"
-msgstr ""
+msgstr "È un punto di ritiro (presto interbibliotecario)"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:74
 msgid "Qualify this location as a ILL pickup location."
 msgstr ""
+"Definire questa localizzazione come punto di ritiro (presto "
+"interbibliotecario)."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:77
 msgid "Is online location"
@@ -10972,15 +10980,18 @@ msgstr "Il nome del punto di ritiro à già utilizzato."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:119
 msgid "ILL Pickup location name"
-msgstr ""
+msgstr "Nome del punto di ritiro (presto interbibliotecario)"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:121
 msgid "Displayed ILL pickup location name, if different from the location name."
 msgstr ""
+"Nome del punto di ritiro (presto interbibliotecario) visualizzato, se "
+"diverso del nome della localizzazione."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:134
 msgid "The ILL pickup location name is already taken."
 msgstr ""
+"Il nome del punto di ritiro (presto interbibliotecario) à già utilizzato."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:151
 msgid "Allow request"
@@ -11088,11 +11099,11 @@ msgstr "Il tipo della notifica."
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:152
 msgid "Effective notification recipients"
-msgstr ""
+msgstr "Destinatari effettivi della notifica"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:153
 msgid "Where the notification were really dispatched"
-msgstr ""
+msgstr "Dove sono state realmente spedite le notifiche"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:4
 msgid "Operation log"
@@ -11134,19 +11145,19 @@ msgstr "Tipo di operazione"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:107
 msgid "Notification pid"
-msgstr ""
+msgstr "PID della notifica"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:117
 msgid "Notification date"
-msgstr ""
+msgstr "Data di notifica"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:122
 msgid "Sender library pid"
-msgstr ""
+msgstr "PID della biblioteca mittente"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:127
 msgid "Recipients"
-msgstr ""
+msgstr "Destinatari"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:139
 msgid "ILL request status"
@@ -11661,7 +11672,7 @@ msgstr ""
 
 #: rero_ils/modules/patrons/api.py:589
 msgid "Patron account expired."
-msgstr ""
+msgstr "Il conto del lettore è scaduto."
 
 #: rero_ils/modules/patrons/views.py:177
 msgid "Patron Profile"
@@ -12013,7 +12024,6 @@ msgid "Template can be created only with `private` visibility"
 msgstr "Il template può essere creato solo con visibilità `privata`"
 
 #: rero_ils/modules/templates/schemas/json.py:118
-#, fuzzy
 msgid "You are not allowed to change template visibility"
 msgstr "Non sei autorizzato a modificare la visibilità del modello"
 
@@ -12145,7 +12155,7 @@ msgstr "Questa e-mail è già utilizzata."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:256
 msgid "Password"
-msgstr "Parola d'ordine"
+msgstr "Password"
 
 #: rero_ils/modules/users/templates/rero_ils/user_profile.html:22
 msgid "Profile"
@@ -12299,11 +12309,11 @@ msgstr "Una ricchezza di conoscenze a portata di click"
 
 #: rero_ils/theme/templates/rero_ils/_patron_info_message_data.html:24
 msgid "Your account has expired."
-msgstr ""
+msgstr "Il vostro conto è scaduto."
 
 #: rero_ils/theme/templates/rero_ils/_patron_info_message_data.html:24
 msgid "Please contact your library."
-msgstr ""
+msgstr "Contattate la vostra biblioteca."
 
 #: rero_ils/theme/templates/rero_ils/footer.html:22
 msgid "Powered by"
@@ -12318,7 +12328,7 @@ msgstr "Politica sulla riservatezza"
 #: rero_ils/theme/templates/rero_ils/reset_password.html:27
 #: rero_ils/theme/templates/rero_ils/reset_password.html:38
 msgid "Reset Password"
-msgstr "Reimpostare la parola d'ordine"
+msgstr "Reimpostare la password"
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:35
 msgid ""
@@ -12326,7 +12336,7 @@ msgid ""
 "password."
 msgstr ""
 "Inserisca il suo e-mail qui sotto e le invieremo un collegamento per "
-"ripristinare la sua parola d'ordine."
+"ripristinare la sua password."
 
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:37
 msgid "If you are registered without email, please contact your library."
@@ -12368,7 +12378,7 @@ msgstr "Nuovo a %(sitename)s?"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:69
 msgid "Forgot password?"
-msgstr "Avete dimenticato la parola d'ordine?"
+msgstr "Avete dimenticato la password?"
 
 #: rero_ils/theme/templates/rero_ils/page.html:50
 msgid "Invenio"
@@ -12397,7 +12407,7 @@ msgstr "è stato eliminato."
 
 #: rero_ils/theme/templates/rero_ils/macros/macro.html:185
 msgid "Show password"
-msgstr ""
+msgstr "Mostra la password"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:22
 #: rero_ils/theme/templates/security/email/reset_notice.html:22
@@ -12411,21 +12421,19 @@ msgstr "Cara lettrice / Caro lettore"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:26
 msgid "Someone requested that the password for your RERO ID account be reset."
-msgstr ""
-"È stata fatta una richiesta per reimpostare la tua parola d'ordine RERO "
-"ID."
+msgstr "È stata fatta una richiesta per reimpostare la tua password RERO ID."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:27
 msgid "Reset my password"
-msgstr "Reimpostare la mia parola d'ordine"
+msgstr "Reimpostare la mia password"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:28
 msgid ""
 "If you didn't request this, you can ignore this e-mail. Your password "
 "won't change until you create a new password."
 msgstr ""
-"Se non l'hai richiesto, puoi ignorare questa e-mail. La tua parola "
-"d'ordine non cambierà finché ne creerai una nuova."
+"Se non l'hai richiesto, puoi ignorare questa e-mail. La tua password non "
+"cambierà finché ne creerai una nuova."
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:29
 #: rero_ils/theme/templates/security/email/reset_notice.html:27
@@ -12439,5 +12447,4 @@ msgstr "La tua biblioteca"
 
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
-msgstr "La tua parola d'ordine è stata reimposta con successo."
-
+msgstr "La tua password è stata reimposta con successo."
