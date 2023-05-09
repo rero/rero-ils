@@ -82,7 +82,7 @@ from .modules.ill_requests.permissions import ILLRequestPermissionPolicy
 from .modules.item_types.api import ItemType
 from .modules.item_types.permissions import ItemTypePermissionPolicy
 from .modules.items.api import Item
-from .modules.items.models import ItemCirculationAction, ItemIssueStatus
+from .modules.items.models import ItemCirculationAction
 from .modules.items.permissions import ItemPermissionPolicy
 from .modules.items.utils import item_location_retriever, \
     same_location_validator
@@ -1782,12 +1782,6 @@ RECORDS_REST_FACETS = dict(
                     field='status',
                     size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
             ),
-            issue_status=dict(
-                terms=dict(
-                    field='issue.status',
-                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE,
-                    include=[ItemIssueStatus.LATE, ItemIssueStatus.CLAIMED])
-            ),
             vendor=dict(
                 terms=dict(
                     field='vendor.pid',
@@ -1808,7 +1802,6 @@ RECORDS_REST_FACETS = dict(
             _('temporary_item_type'): and_term_filter('temporary_item_type.pid'),
             _('temporary_location'): and_term_filter('temporary_location.pid'),
             _('status'): and_term_filter('status'),
-            _('issue_status'): and_term_filter('issue.status'),
             _('vendor'): and_term_filter('vendor.pid'),
             # to allow multiple filters support, in this case to filter by
             # "late or claimed"

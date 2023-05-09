@@ -319,7 +319,6 @@
           "enum": [
             "received",
             "late",
-            "claimed",
             "deleted",
             "expected"
           ],
@@ -333,10 +332,6 @@
               {
                 "label": "late",
                 "value": "late"
-              },
-              {
-                "label": "claimed",
-                "value": "claimed"
               },
               {
                 "label": "deleted",
@@ -420,12 +415,6 @@
               ]
             }
           }
-        },
-        "claims_count": {
-          "title": "Issue claims count",
-          "type": "integer",
-          "minimum": 0,
-          "default": 0
         }
       },
       "form": {

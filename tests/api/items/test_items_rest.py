@@ -1081,7 +1081,7 @@ def test_items_facets(
     aggs = data['aggregations']
     # check all facets are present
     for facet in [
-        'document_type', 'issue_status', 'item_type', 'library', 'location',
+        'document_type', 'item_type', 'library', 'location',
         'status', 'temporary_item_type', 'temporary_location', 'vendor'
     ]:
         assert aggs[facet]
