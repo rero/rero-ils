@@ -90,7 +90,6 @@ _csv = ItemCSVSerializer(
         'item_local_field_10',
         'issue_status',
         'issue_status_date',
-        'issue_claims_count',
         'issue_expected_date',
         'issue_regular',
         'item_checkouts_count',

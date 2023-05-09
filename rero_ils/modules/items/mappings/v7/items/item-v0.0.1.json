@@ -208,9 +208,6 @@
           },
           "status_date": {
             "type": "date"
-          },
-          "claims_count": {
-            "type": "integer"
           }
         }
       },

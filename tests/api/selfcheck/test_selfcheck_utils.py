@@ -46,6 +46,5 @@ def test_circulation_status():
     assert 'MISSING' == map_item_circulation_status(ItemStatus.MISSING)
     assert 'OTHER' == map_item_circulation_status(ItemStatus.EXCLUDED)
     assert 'OTHER' == map_item_circulation_status(ItemIssueStatus.RECEIVED)
-    assert 'OTHER' == map_item_circulation_status(ItemIssueStatus.CLAIMED)
     assert 'OTHER' == map_item_circulation_status(ItemIssueStatus.DELETED)
     assert 'OTHER' == map_item_circulation_status(ItemIssueStatus.LATE)

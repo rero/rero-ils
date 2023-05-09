@@ -74,7 +74,7 @@ class IssueStatusExtension(RecordExtension):
         # date) BUT this manager could forget to update the issue status to
         # 'expected' in this case, this extension will automatically change
         # the issue status.
-        invalid_statuses = [ItemIssueStatus.LATE, ItemIssueStatus.CLAIMED]
+        invalid_statuses = [ItemIssueStatus.LATE]
         if record.is_issue and record.issue_status in invalid_statuses:
             expected_date = ciso8601.parse_datetime(record.expected_date)
             if expected_date >= datetime.now():
