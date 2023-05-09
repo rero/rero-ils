@@ -105,7 +105,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
         datetime.now().strftime('%Y-%m-%d')
     # test change status_date with status changes
     issue.expected_date = tomorrow.strftime('%Y-%m-%d')
-    issue.issue_status = ItemIssueStatus.CLAIMED
+    issue.issue_status = ItemIssueStatus.LATE
     new_issues = issue.update(issue, dbcommit=True, reindex=True)
     # As we choose a future expected date, the issue status should be
     # automatically changed to `expected`
