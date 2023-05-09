@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-05-08 14:43+0200\n"
-"PO-Revision-Date: 2023-03-28 08:40+0000\n"
+"PO-Revision-Date: 2023-05-08 14:11+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.18-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -517,27 +518,27 @@ msgstr "Monographie en plusieurs parties"
 
 #: rero_ils/manual_translations.txt:91
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone"
 
 #: rero_ils/manual_translations.txt:92
 msgid "Phones"
-msgstr ""
+msgstr "Téléphones"
 
 #: rero_ils/manual_translations.txt:93
 msgid "Business"
-msgstr ""
+msgstr "Professionnel"
 
 #: rero_ils/manual_translations.txt:94
 msgid "Home"
-msgstr ""
+msgstr "Domicile"
 
 #: rero_ils/manual_translations.txt:95
 msgid "Mobile"
-msgstr ""
+msgstr "Mobile"
 
 #: rero_ils/manual_translations.txt:99
 msgid "Hide password"
-msgstr ""
+msgstr "Masquer le mot de passe"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -4143,24 +4144,24 @@ msgstr "Valeur"
 #, python-format
 msgid "Field must be at least %(num)d character long."
 msgid_plural "Field must be at least %(num)d characters long."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Le champ doit comporter au moins %(num)d caractère."
+msgstr[1] "Le champ doit comporter au moins %(num)d caractères."
 
 #: rero_ils/modules/utils.py:1228
 msgid "The password must contain a lower case character."
-msgstr ""
+msgstr "Le mot de passe doit contenir un caractère minuscule."
 
 #: rero_ils/modules/utils.py:1231
 msgid "The password must contain a upper case character."
-msgstr ""
+msgstr "Le mot de passe doit contenir un caractère majuscule."
 
 #: rero_ils/modules/utils.py:1234
 msgid "The password must contain a number."
-msgstr ""
+msgstr "Le mot de passe doit contenir un chiffre."
 
 #: rero_ils/modules/utils.py:1237
 msgid "The password must contain a special character."
-msgstr ""
+msgstr "Le mot de passe doit contenir un caractère spécial."
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:334
 msgid "Cannot transfer fund to myself."
@@ -6267,7 +6268,7 @@ msgstr "Collectivité"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:40
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:39
 msgid "Example: Miller, John"
-msgstr ""
+msgstr "Exemple : Miller, John"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:47
 msgid "Subordinate units"
@@ -6975,7 +6976,7 @@ msgstr "Date de copyright"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_copyright_date-v0.0.1.json:11
 msgid "Example: cop. 2010"
-msgstr ""
+msgstr "Exemple : cop. 2010"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_credits-v0.0.1.json:3
 msgid "Notes on statement of responsibility"
@@ -7009,6 +7010,9 @@ msgid ""
 "Dimensions include measurements of height, width, depth, length, gauge, "
 "and diameter. For oblong volumes, record the height x width."
 msgstr ""
+"Les dimensions comprennent les mesures de hauteur, de largeur, de "
+"profondeur, de longueur et de diamètre ainsi que le format. Si la largeur du "
+"volume est supérieure à la hauteur, enregistrer la hauteur x la largeur."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_dimensions-v0.0.1.json:12
 msgid "Example: 22 cm"
@@ -8763,7 +8767,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:11
 msgid "Example: 1. Fundamentals / ed. by A. Miller"
-msgstr ""
+msgstr "Exemple : 1. Fondamentaux / édité par A. Miller"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:3
 msgid "Temporal content coverages"
@@ -10111,23 +10115,25 @@ msgstr "Confirmer"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:98
 msgid "Document is available"
-msgstr ""
+msgstr "Le document est disponible"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:104
 msgid "The document you are requesting exists in the catalog at your institution."
 msgstr ""
+"Le document que vous demandez existe dans le catalogue de votre institution."
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:105
 msgid "Are you sure you want to continue with your ILL request?"
 msgstr ""
+"Voulez-vous vraiment poursuivre votre demande de prêt entre bibliothèques ?"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:108
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:109
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: rero_ils/modules/item_types/api.py:79
 msgid "Another online item type exists in this organisation"
@@ -10835,11 +10841,11 @@ msgstr "Le nom de l'action qui a déclenché la transition vers l'état actuel"
 
 #: rero_ils/modules/local_fields/api.py:87
 msgid "Parent record doesn't exists."
-msgstr ""
+msgstr "La ressource parente n'existe pas."
 
 #: rero_ils/modules/local_fields/api.py:94
 msgid "Local fields already exist for this resource."
-msgstr ""
+msgstr "Des champs locaux existent déjà pour cette ressource."
 
 #: rero_ils/modules/local_fields/api.py:97
 msgid "Missing fields."
@@ -10955,11 +10961,11 @@ msgstr "Définir cette localisation comme lieu de retrait."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:71
 msgid "Is ILL pickup location"
-msgstr ""
+msgstr "Est un lieu de retrait pour le PEB"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:74
 msgid "Qualify this location as a ILL pickup location."
-msgstr ""
+msgstr "Définir cette localisation comme lieu de retrait pour le PEB."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:77
 msgid "Is online location"
@@ -10989,15 +10995,19 @@ msgstr "Le nom du lieu de retrait doit être unique dans votre bibliothèque."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:119
 msgid "ILL Pickup location name"
-msgstr ""
+msgstr "Nom du lieu de retrait pour le PEB"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:121
 msgid "Displayed ILL pickup location name, if different from the location name."
 msgstr ""
+"Nom dans l'interface du lieu de retrait pour le PEB, s'il est différent du "
+"nom de la localisation."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:134
 msgid "The ILL pickup location name is already taken."
 msgstr ""
+"Le nom du lieu de retrait pour le PEB doit être unique dans votre "
+"bibliothèque."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:151
 msgid "Allow request"
@@ -11105,11 +11115,11 @@ msgstr "Type de la notification."
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:152
 msgid "Effective notification recipients"
-msgstr ""
+msgstr "Destinataires effectifs de la notification"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:153
 msgid "Where the notification were really dispatched"
-msgstr ""
+msgstr "Adresse(s) où la notification a été envoyée"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:4
 msgid "Operation log"
@@ -11151,19 +11161,19 @@ msgstr "Type d'opération"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:107
 msgid "Notification pid"
-msgstr ""
+msgstr "PID de la notification"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:117
 msgid "Notification date"
-msgstr ""
+msgstr "Date de la notification"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:122
 msgid "Sender library pid"
-msgstr ""
+msgstr "PID de la bibliothèque expéditrice"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:127
 msgid "Recipients"
-msgstr ""
+msgstr "Destinataires"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:139
 msgid "ILL request status"
@@ -11668,7 +11678,7 @@ msgstr ""
 
 #: rero_ils/modules/patrons/api.py:589
 msgid "Patron account expired."
-msgstr ""
+msgstr "Compte-lecteur expiré."
 
 #: rero_ils/modules/patrons/views.py:177
 msgid "Patron Profile"
@@ -12307,11 +12317,11 @@ msgstr "mille et une connaissances à portée de clic"
 
 #: rero_ils/theme/templates/rero_ils/_patron_info_message_data.html:24
 msgid "Your account has expired."
-msgstr ""
+msgstr "Votre compte a expiré."
 
 #: rero_ils/theme/templates/rero_ils/_patron_info_message_data.html:24
 msgid "Please contact your library."
-msgstr ""
+msgstr "Veuillez contacter votre bibliothèque."
 
 #: rero_ils/theme/templates/rero_ils/footer.html:22
 msgid "Powered by"
@@ -12407,7 +12417,7 @@ msgstr "a été supprimé."
 
 #: rero_ils/theme/templates/rero_ils/macros/macro.html:185
 msgid "Show password"
-msgstr ""
+msgstr "Afficher le mot de passe"
 
 #: rero_ils/theme/templates/security/email/reset_instructions.html:22
 #: rero_ils/theme/templates/security/email/reset_notice.html:22
@@ -12451,4 +12461,3 @@ msgstr "Votre bibliothèque"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Votre mot de passe a été réinitialisé avec succès."
-
