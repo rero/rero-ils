@@ -75,6 +75,7 @@
               "canton",
               "identifiedBy"
             ],
+            "additionalProperties": false,
             "properties": {
               "country": {
                 "allOf": [

@@ -1055,8 +1055,7 @@ def test_unimarc_publishers_provision_activity():
         'type': 'bf:Publication',
         'place': [
             {
-                'country': 'fr',
-                'type': 'bf:Place'
+                'country': 'fr'
             },
         ],
         'statement': [

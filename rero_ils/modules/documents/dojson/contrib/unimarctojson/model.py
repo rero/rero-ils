@@ -708,7 +708,6 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
                 country = _COUNTRY_UNIMARC_MARC21.get(country_codes[0])
                 if country:
                     place['country'] = country
-                    place['type'] = EntityType.PLACE
         return place
 
     # only take 214 if exists
