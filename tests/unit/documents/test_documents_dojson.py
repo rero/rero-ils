@@ -1741,8 +1741,7 @@ def test_marc21_to_provision_activity_obsolete_countries():
         {
             'type': 'bf:Publication',
             'place': [{
-                'country': 'xxc',
-                'type': 'bf:Place'
+                'country': 'xxc'
             }],
             'startDate': 1998
         }
@@ -1764,7 +1763,6 @@ def test_marc21_to_provision_activity_obsolete_countries():
             'type': 'bf:Publication',
             'place': [{
                 'country': 'er',
-                'type': 'bf:Place'
             }],
             'startDate': 1998
         }
@@ -1786,7 +1784,6 @@ def test_marc21_to_provision_activity_obsolete_countries():
             'type': 'bf:Publication',
             'place': [{
                 'country': 'li',
-                'type': 'bf:Place'
             }],
             'startDate': 1998
         }
@@ -1808,7 +1805,6 @@ def test_marc21_to_provision_activity_obsolete_countries():
             'type': 'bf:Publication',
             'place': [{
                 'country': 'lv',
-                'type': 'bf:Place'
             }],
             'startDate': 1998
         }
@@ -1830,7 +1826,6 @@ def test_marc21_to_provision_activity_obsolete_countries():
             'type': 'bf:Publication',
             'place': [{
                 'country': 'xxk',
-                'type': 'bf:Place'
             }],
             'startDate': 1998
         }
@@ -1852,7 +1847,6 @@ def test_marc21_to_provision_activity_obsolete_countries():
             'type': 'bf:Publication',
             'place': [{
                 'country': 'un',
-                'type': 'bf:Place'
             }],
             'startDate': 1998
         }
@@ -1874,7 +1868,6 @@ def test_marc21_to_provision_activity_obsolete_countries():
             'type': 'bf:Publication',
             'place': [{
                 'country': 'xxu',
-                'type': 'bf:Place'
             }],
             'startDate': 1998
         }
@@ -1896,7 +1889,6 @@ def test_marc21_to_provision_activity_obsolete_countries():
             'type': 'bf:Publication',
             'place': [{
                 'country': 'xxr',
-                'type': 'bf:Place'
             }],
             'startDate': 1998
         }
@@ -1918,7 +1910,6 @@ def test_marc21_to_provision_activity_obsolete_countries():
             'type': 'bf:Publication',
             'place': [{
                 'country': 'ye',
-                'type': 'bf:Place'
             }],
             'startDate': 1998
         }

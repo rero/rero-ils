@@ -573,7 +573,8 @@ def marc21_to_subjects(self, key, value):
             ) + '. ' + subject['authorized_access_point']
         field_key = 'genreForm' if tag_key == '655' else 'subjects'
         subfields_0 = utils.force_list(value.get('0'))
-        if data_type in [EntityType.PERSON, EntityType.ORGANISATION] and subfields_0:
+        if (data_type in [EntityType.PERSON, EntityType.ORGANISATION]
+                and subfields_0):
             if ref := get_contribution_link(
                 bibid=marc21.bib_id,
                 reroid=marc21.rero_id,
@@ -582,7 +583,6 @@ def marc21_to_subjects(self, key, value):
             ):
                 subject = {
                     '$ref': ref,
-                    'type': data_type,
                 }
         if not subject.get('$ref'):
             if identifier := build_identifier(value):
