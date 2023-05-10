@@ -175,8 +175,7 @@ def test_provisionActivity(document_schema, document_data_tmp):
         'type': 'bf:Publication',
         'place': [
             {
-                'country': 'fr',
-                'type': 'bf:Place'
+                'country': 'fr'
             }
         ],
         'statement': [
