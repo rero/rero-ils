@@ -1,5 +1,53 @@
 # Changelog
 
+## [v1.16.0](https://github.com/rero/rero-ils/tree/v1.16.0) (2023-05-10)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.15.0...v1.16.0)
+
+**New features:**
+* Inventory list: add descending sort by callNumber [\#2991](https://github.com/rero/rero-ils/issues/2991) (by @Garfield-fr)
+* Circulation professional interface: it should be possible to cancel a request from the patron account [\#2998](https://github.com/rero/rero-ils/issues/2998) (by @Garfield-fr)
+* ILL pickup location should be configurable in the location [\#3124](https://github.com/rero/rero-ils/issues/3124) (by @Garfield-fr)
+* Global ILL requests: check if an item exists in organisation before submitting [\#3138](https://github.com/rero/rero-ils/issues/3138) (by @Garfield-fr)
+* Add a way to display the password as the user types it (login form) [\#2033](https://github.com/rero/rero-ils/issues/2033)
+
+**Enhancements:**
+* document: country codes to replace and remove from country codes list [\#2881](https://github.com/rero/rero-ils/issues/2881) (by @PascalRepond)
+* Import from the Web : country codes mapping [\#2883](https://github.com/rero/rero-ils/issues/2883) (by @PascalRepond)
+* Item operation history: add total number of checkouts [\#2996](https://github.com/rero/rero-ils/issues/2996) (by @Garfield-fr)
+* Operation history of a document should show the user's library [\#2059](https://github.com/rero/rero-ils/issues/2059) (by @Garfield-fr)
+* Do not anonymise operation logs linked to an item with fees [\#3121](https://github.com/rero/rero-ils/issues/3121) (by @zannkukai)
+* notifications: store recipients for circulation notifications [\#3288](https://github.com/rero/rero-ils/issues/3288) (by @zannkukai)
+* institutions list should respect alphabetical order [\#2397](https://github.com/rero/rero-ils/issues/2397) (by @Garfield-fr)
+* Patron account expired: improve message [\#2920](https://github.com/rero/rero-ils/issues/2920) (by @Garfield-fr)
+* Item operation history: add the notifications sent [\#2639](https://github.com/rero/rero-ils/issues/2639) (by @Garfield-fr, @zannkukai)
+* It should be possible to load documents as harvested, even if they are not electronic [\#3147](https://github.com/rero/rero-ils/issues/3147) (by @Garfield-fr)
+
+**Fixes:**
+* permissions: a librarian should be able to change location to another library [\#3294](https://github.com/rero/rero-ils/issues/3294) (by @zannkukai)
+* ILL requests: 'copy' field is not correctly saved [\#1671](https://github.com/rero/rero-ils/issues/1671)
+* serials: sorting date is only used in the holding edit view [\#3295](https://github.com/rero/rero-ils/issues/3295) (by @zannkukai)
+* Some fees calculate the payment form sum incorrectly [\#2961](https://github.com/rero/rero-ils/issues/2961) (by @zannkukai)
+* Fix date checkout: sunday displayed as an opened day [\#2370](https://github.com/rero/rero-ils/issues/2370) (by @Garfield-fr)
+* statistics permissions: a user should only see the stats for his libraries [\#3297](https://github.com/rero/rero-ils/issues/3297) (by @Garfield-fr)
+* public view: the console displays an error message in the detailed view [\#2008](https://github.com/rero/rero-ils/issues/2008) (by @Garfield-fr)
+* circulation: cross component is not loaded after editing a patron [\#3156](https://github.com/rero/rero-ils/issues/3156) (by @zannkukai)
+* Prevent orphan local fields [\#3207](https://github.com/rero/rero-ils/issues/3207) (by @zannkukai)
+* Pro UI: by default, document search bar should be filtered by organisation  [\#2891](https://github.com/rero/rero-ils/issues/2891) (by @zannkukai)
+* contribution: fix sync [\#3323](https://github.com/rero/rero-ils/pull/3323) (by @rerowep)
+* import: fix contribution $ref creation [\#3313](https://github.com/rero/rero-ils/pull/3313) (by @rerowep)
+* dojson: fix LOC partOf numbering [\#3282](https://github.com/rero/rero-ils/pull/3282) (by @rerowep)
+* notifications: correct process counts [\#3317](https://github.com/rero/rero-ils/pull/3317) (by @rerowep)
+* contribution: fix get online [\#3312](https://github.com/rero/rero-ils/pull/3312) (by @rerowep)
+* translations: add phone types [\#3277](https://github.com/rero/rero-ils/pull/3277) (by @Garfield-fr)
+* items: return raw due date [\#3289](https://github.com/rero/rero-ils/pull/3289) (by @jma)
+
+**Other changes:**
+* locations: add RERO serializers [\#3325](https://github.com/rero/rero-ils/pull/3325) (by @zannkukai)
+* dependencies: fix security issues [\#3287](https://github.com/rero/rero-ils/pull/3287) (by @rerowep)
+* setup: fix errors [\#3316](https://github.com/rero/rero-ils/pull/3316) (by @rerowep)
+* dependencies: fix [\#3299](https://github.com/rero/rero-ils/pull/3299) (by @Garfield-fr)
+
 ## [v1.15.0](https://github.com/rero/rero-ils/tree/v1.15.0) (2023-03-02)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.14.1...v1.15.0)

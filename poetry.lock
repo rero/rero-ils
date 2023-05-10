@@ -2778,22 +2778,23 @@ rsa = ["oauthlib[signedtoken] (>=2.1.0,<3.0.0)"]
 
 [[package]]
 name = "rero-invenio-base"
-version = "0.2.0"
+version = "0.2.1"
 description = "Generic backend libraries for RERO Invenio instances."
 category = "main"
 optional = false
 python-versions = ">=3.8,<3.10"
 
 [package.dependencies]
+docker-services-cli = ">=0.6.1,<0.7.0"
 dparse = ">=0.5.2"
-invenio-db = ">=1.0.14,<2.0.0"
-invenio-indexer = "<2.0.0"
-invenio-records-rest = "*"
-invenio-search = {version = ">=1.4.2,<2.0.0", extras = ["elasticsearch7"]}
-jsonpatch = ">=1.32,<2.0"
+invenio-db = {version = ">=1.0.14,<1.1.0", extras = ["postgresql"]}
+invenio-indexer = "<2.2.0"
+invenio-records-rest = "<2.3.0"
+invenio-search = {version = ">=1.4.2,<3.0.0", extras = ["elasticsearch7"]}
+jsonpatch = "<=2.0"
 Mako = ">=1.2.2"
-pydocstyle = "<6.2.0"
-PyYAML = ">=6.0,<7.0"
+pydocstyle = ">=6.1.1,<6.2.0"
+PyYAML = "<=7.0"
 
 [[package]]
 name = "safety"
@@ -3382,7 +3383,7 @@ sip2 = ["invenio-sip2"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">= 3.9, <3.10"
-content-hash = "4ce1fbd8cb83672a31c2a4f6de8fe0f002c19e6185bf27837b42734d79dee844"
+content-hash = "5d4714b14381422b4c7895db194113a13c0e4f11e85a3057d6daddf7a0d5d626"
 
 [metadata.files]
 alabaster = [
@@ -4772,8 +4773,8 @@ requests-oauthlib = [
     {file = "requests_oauthlib-1.1.0-py2.py3-none-any.whl", hash = "sha256:be76f2bb72ca5525998e81d47913e09b1ca8b7957ae89b46f787a79e68ad5e61"},
 ]
 rero-invenio-base = [
-    {file = "rero_invenio_base-0.2.0-py3-none-any.whl", hash = "sha256:4578fd71c207a9e2d0f6e4d94dfdff0f83ede070517e50f84737528497a3bd6a"},
-    {file = "rero_invenio_base-0.2.0.tar.gz", hash = "sha256:a62310c1f243f0a060f43aab3ba6a636860b4472cb8472e277976adba337fa49"},
+    {file = "rero_invenio_base-0.2.1-py3-none-any.whl", hash = "sha256:265c3ea644c0c39bc02409f8777a06442bb88ca2edcc2066b55d8791c56fbd02"},
+    {file = "rero_invenio_base-0.2.1.tar.gz", hash = "sha256:4071a8de2201e35a22055fc42580ef2eaadb95f70c5319622b150dff3d30453a"},
 ]
 safety = [
     {file = "safety-1.10.3-py2.py3-none-any.whl", hash = "sha256:5f802ad5df5614f9622d8d71fedec2757099705c2356f862847c58c6dfe13e84"},
