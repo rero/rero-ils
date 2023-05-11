@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-05-11 11:51+0200\n"
-"PO-Revision-Date: 2023-05-08 14:11+0000\n"
+"PO-Revision-Date: 2023-05-11 11:24+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -5348,7 +5349,7 @@ msgstr "Soggetti (importati)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:237
 msgid "Subject imported from external data"
-msgstr ""
+msgstr "Soggetto importato da dati esterni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:242
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:271
@@ -5356,7 +5357,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:9
 msgid "Entities"
-msgstr ""
+msgstr "Entità"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:243
 msgid ""
@@ -5364,6 +5365,9 @@ msgid ""
 "(including conferences), used for information. Do not enter data "
 "manually."
 msgstr ""
+"Concetto, luogo, arco di tempo, persona, famiglia o ente (comprese le "
+"conferenze) importati, utilizzato per le informazioni. Non inserire i dati "
+"manualmente."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:265
 msgid "Genres, forms (imported)"
@@ -5371,11 +5375,13 @@ msgstr "Generi, forme (importati)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:266
 msgid "Genre or form imported from external data"
-msgstr ""
+msgstr "Genere o forma importati da dati esterni"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:272
 msgid "Imported genre or form, used for information. Do not enter data manually."
 msgstr ""
+"Genere o forma importati, utilizzati a scopo informativo. Non immettere i "
+"dati manualmente."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:300
 msgid "Harvested"
@@ -6109,17 +6115,17 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:14
 msgid "MEF Agents"
-msgstr ""
+msgstr "Agenti MEF"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:36
 msgid "Local Agents"
-msgstr ""
+msgstr "Agenti locali"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:2
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:2
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:2
 msgid "Local Entity"
-msgstr ""
+msgstr "Entità locale"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:28
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:35
@@ -6135,12 +6141,12 @@ msgstr "Ente"
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:63
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:30
 msgid "Access Point"
-msgstr ""
+msgstr "Punto di accesso"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:44
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:67
 msgid "Example: Musset, Alfred de, 1810-1857"
-msgstr ""
+msgstr "Esempio: Musset, Alfred de, 1810-1857"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:2
 msgid "Corporate body"
@@ -7326,13 +7332,13 @@ msgstr "Esempio: Accesso solo dalla biblioteca"
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:2
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:2
 msgid "MEF Entity"
-msgstr ""
+msgstr "Entità MEF"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_link-v0.0.1.json:13
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:13
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:13
 msgid "MEF Link"
-msgstr ""
+msgstr "MEF Link"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_link-v0.0.1.json:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:37
@@ -7356,7 +7362,7 @@ msgstr "Arco di tempo"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:78
 msgid "Source catalog where the subject was imported from."
-msgstr ""
+msgstr "Catalogo di origine da cui è stato importato il soggetto."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:94
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:10
@@ -7367,14 +7373,16 @@ msgid ""
 "corporate body (including conferences). Always create a link to IdRef or "
 "GND, if possible."
 msgstr ""
+"Concetto, luogo, arco di tempo, persona, famiglia o ente (comprese le "
+"conferenze). Creare sempre un collegamento a IdRef o GND, se possibile."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:122
 msgid "Genre / form"
-msgstr ""
+msgstr "Genere, forma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:123
 msgid "Is this entity is a genre/form ?"
-msgstr ""
+msgstr "Questa entità è un genere, forma?"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:3
 msgid "Extent"
@@ -7440,16 +7448,18 @@ msgid ""
 "Genre or form of the document. Always create a link to IdRef or GND, if "
 "possible."
 msgstr ""
+"Genere o forma del documento. Creare sempre un collegamento a IdRef o GND, "
+"se possibile."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:13
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:13
 msgid "Local Entities"
-msgstr ""
+msgstr "Entità locali"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:30
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:30
 msgid "MEF Entities"
-msgstr ""
+msgstr "Entità MEF"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:25
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:33
@@ -7458,7 +7468,7 @@ msgstr "Concetto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:34
 msgid "Example: Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]"
-msgstr ""
+msgstr "Esempio: Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:42
 msgid "Source of the subject."
@@ -9116,11 +9126,11 @@ msgstr "Formati di esportazione"
 
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:4
 msgid "Mef entity"
-msgstr ""
+msgstr "Entità MEF"
 
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:5
 msgid "JSON schema for a mef entity"
-msgstr ""
+msgstr "JSON schema per un'entità MEF"
 
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:16
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:108
@@ -12376,4 +12386,3 @@ msgstr "La tua biblioteca"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "La tua password è stata reimposta con successo."
-
