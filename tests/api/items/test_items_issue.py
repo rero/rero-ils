@@ -19,6 +19,7 @@
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from jinja2 import UndefinedError
 from utils import VerifyRecordPermissionPatch, flush_index, get_csv, \
     get_json, parse_csv, postdata
 
@@ -26,10 +27,8 @@ from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
-from rero_ils.modules.notifications.models import NotificationType, \
-    RecipientType
-from rero_ils.modules.notifications.tasks import process_notifications
-from rero_ils.modules.utils import get_ref_for_pid
+from rero_ils.modules.notifications.models import RecipientType
+from rero_ils.modules.vendors.dumpers import VendorClaimIssueNotificationDumper
 
 
 def _receive_regular_issue(client, holding):
@@ -73,9 +72,10 @@ def test_issues_permissions(
 
 def test_issues_claim_notifications(
     client, holding_lib_martigny_w_patterns, librarian_martigny, mailbox,
-    csv_header
+    csv_header, item_lib_sion
 ):
     """Test claim notification creation."""
+    item = item_lib_sion
     mailbox.clear()
 
     # receive a regular issue
@@ -86,38 +86,105 @@ def test_issues_claim_notifications(
     # Ensure than no claim already exists about this new issue
     assert issue_item.claims_count == 0
 
-    # Create a claim notification for this issue item and dispatch it
-    # TODO :: In next PR :
-    #   - 1) call claim notification preview
-    #   - 2) call API to create claim notification (with recipients in JSON)
-    #   - 3) dispatch the notification
-    notif_data = {
-        'notification_type': NotificationType.CLAIM_ISSUE,
-        'context': {
-            'item': {'$ref': get_ref_for_pid(Item, issue_item.pid)},
-            'recipients': [
-                {'type': RecipientType.TO, 'address': 'test@domain.com'},
-                {'type': RecipientType.CC, 'address': 'test_cc@domain.com'},
-                {'type': RecipientType.REPLY_TO, 'address': 'reply@to.com'}
-            ],
-            'number': 0,
-        }
-    }
-    notification = Notification.create(notif_data, dbcommit=True, reindex=True)
-    flush_index(NotificationsSearch.Meta.index)
+    # Call the API to get the preview of the future claim notification.
+    #   1) call with unknown item --> return 404
+    #   2) call with a standard item --> return 400
+    #   3) simulate a template rendering error --> return 500
+    #   4) call with an issue item --> return 200
+    for pid, ret_code in [('dummy_pid', 404), (item.pid, 400)]:
+        url = url_for('api_item.claim_notification_preview', item_pid=pid)
+        response = client.get(url)
+        assert response.status_code == ret_code
+
+    issue_pid = issue_item.pid
+    url = url_for('api_item.claim_notification_preview', item_pid=issue_pid)
+    with mock.patch('rero_ils.modules.items.views.api_views.render_template',
+                    mock.MagicMock(side_effect=UndefinedError('my_error'))):
+        response = client.get(url)
+        assert response.status_code == 500
+        assert 'my_error' in response.json['message']
+
+    response = client.get(url)
+    assert response.status_code == 200
+    assert all(field in response.json
+               for field in ['recipient_suggestions', 'preview'])
+    assert 'message' not in response.json
+
+    # update the vendor communication_language to force it to an unknown
+    # related template and retry.
+    with mock.patch.object(VendorClaimIssueNotificationDumper, 'dump',
+                           mock.MagicMock(return_value={
+                               'name': 'test vendor name',
+                               'email': 'test@vendor.com',
+                               'language': 'dummy'
+                           })):
+        response = client.get(url)
+        assert response.status_code == 200
+        assert all(
+            field in response.json
+            for field in ['recipient_suggestions', 'preview', 'message']
+        )
+
+    # Now really claim the issue
+    #   1) sending bad item_pid --> return 4xx HTTP code
+    #   2) not sending recipients data --> return 400 HTTP code
+    #   3) sending all correct data : the notification is created, dispatched
+    #      and returned
+    for pid, ret_code in [('dummy_pid', 404), (item.pid, 400)]:
+        url = url_for('api_item.claim_issue', item_pid=pid)
+        response = client.post(url)
+        assert response.status_code == ret_code
+
+    response, data = postdata(
+        client,
+        'api_item.claim_issue',
+        url_data={'item_pid': issue_pid},
+        data={'recipients': []}
+    )
+    assert response.status_code == 400
+    assert data['message'] == 'Missing recipients emails.'
+
+    response, data = postdata(
+        client,
+        'api_item.claim_issue',
+        url_data={'item_pid': issue_pid},
+        data={'recipients': [
+            {'type': RecipientType.TO, 'address': 'to@domain.com'},
+            {'type': RecipientType.REPLY_TO, 'address': 'noreply@domain.com'}
+        ]}
+    )
+    assert response.status_code == 200
+    notification = Notification.get_record_by_pid(data['data']['pid'])
     assert notification
-    process_notifications(NotificationType.CLAIM_ISSUE)
     assert len(mailbox) == 1
+    assert notification['context']['number'] == 1
+
+    # Send a second claims... just for fun (and also testing increment number)
+    mailbox.clear()
+    response, data = postdata(
+        client,
+        'api_item.claim_issue',
+        url_data={'item_pid': issue_pid},
+        data={'recipients': [
+            {'type': RecipientType.TO, 'address': 'to2@domain.com'},
+            {'type': RecipientType.REPLY_TO, 'address': 'noreply2@domain.com'}
+        ]}
+    )
+    assert response.status_code == 200
+    notification = Notification.get_record_by_pid(data['data']['pid'])
+    assert notification
+    assert len(mailbox) == 1
+    assert notification['context']['number'] == 2
 
     # As a claim notification has been created, the number of claim for this
     # issue should be incremented
     flush_index(NotificationsSearch.Meta.index)
-    assert issue_item.claims_count == 1
+    assert issue_item.claims_count == 2
 
     # Export this issue as CSV and check issue claims_count column
-    list_url = url_for('api_item.inventory_search', q=f'pid:{issue_item.pid}')
+    list_url = url_for('api_item.inventory_search', q=f'pid:{issue_pid}')
     response = client.get(list_url, headers=csv_header)
     assert response.status_code == 200
     data = list(parse_csv(get_csv(response)))
     assert len(data) == 2  # header + 1 row
-    assert data[1][-8] == str(1)  # same as `issue_item.claims_count`
+    assert data[1][-8] == str(2)  # same as `issue_item.claims_count`

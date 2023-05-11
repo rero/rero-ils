@@ -114,6 +114,20 @@ class Vendor(IlsRecord):
             {}
         return contact.get('email')
 
+    @property
+    def serial_email(self):
+        """Shortcut for vendor serial email.
+
+        :return the best possible email to use for this vendor. If the specific
+                serial contact information does not exist, the default contact
+                information will be used.
+        """
+        contact = \
+            self.get_contact(VendorContactType.SERIAL) or \
+            self.get_contact(VendorContactType.DEFAULT) or \
+            {}
+        return contact.get('email')
+
     def get_note(self, note_type):
         """Get a specific type of note.
 

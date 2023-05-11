@@ -37,3 +37,21 @@ class VendorAcquisitionNotificationDumper(InvenioRecordsDumper):
         })
         data = {k: v for k, v in data.items() if v}
         return data
+
+
+class VendorClaimIssueNotificationDumper(InvenioRecordsDumper):
+    """Vendor dumper class for claim issue notification."""
+
+    def dump(self, record, data):
+        """Dump a vendor instance for claim issue notification.
+
+        :param record: The record to dump.
+        :param data: The initial dump data passed in by ``record.dumps()``.
+        """
+        data.update({
+            'name': record.get('name'),
+            'language': record.get('communication_language', 'eng'),
+            'email': record.serial_email
+        })
+        data = {k: v for k, v in data.items() if v}
+        return data
