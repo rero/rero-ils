@@ -21,7 +21,9 @@ from datetime import datetime, timedelta, timezone
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus, \
     TypeOfItem
 from rero_ils.modules.locations.api import LocationsSearch
+from rero_ils.modules.notifications.models import RecipientType
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
+from rero_ils.modules.patrons.api import current_librarian
 
 
 def item_pid_to_object(item_pid):
@@ -141,3 +143,38 @@ def update_late_expected_issue(dbcommit=False, reindex=False):
         item.issue_status = ItemIssueStatus.LATE
         item.update(item, dbcommit=dbcommit, reindex=reindex)
     return counter
+
+
+def get_recipient_suggestions(issue):
+    """Get the recipient email suggestions for an issue.
+
+    :param issue: the issue item to analyze.
+    :return: the list of suggested emails.
+    :rtype list<{type: list<str>, address: str}>
+    """
+    # Build suggestions email :
+    #   1) related vendor issue (default TO recipient type)
+    #   2) related library serial acquisition settings information
+    #   3) current logged user
+    suggestions = {}
+    if (vendor := issue.vendor) and (email := vendor.serial_email):
+        suggestions.setdefault(email, set()).update([RecipientType.TO])
+    if settings := (issue.library or {}).get('serial_acquisition_settings'):
+        if email := settings.get('shipping_informations', {}).get('email'):
+            suggestions.setdefault(email, set())\
+                .update([RecipientType.CC, RecipientType.REPLY_TO])
+        if email := settings.get('billing_informations', {}).get('email'):
+            suggestions.setdefault(email, set())
+    if email := current_librarian.user.email:
+        suggestions.setdefault(email, set())
+
+    # sometimes, the recipient types could be an empty set. In this case, we
+    # don't need to return this key --> clean the build suggestions dict and
+    # return a recipient suggestion array.
+    cleaned_suggestions = []
+    for recipient_address, recipient_types in suggestions.items():
+        suggestion = {'address': recipient_address}
+        if recipient_types:
+            suggestion['type'] = list(recipient_types)
+        cleaned_suggestions.append(suggestion)
+    return cleaned_suggestions

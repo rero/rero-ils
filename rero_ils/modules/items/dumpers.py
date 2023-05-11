@@ -26,8 +26,7 @@ from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.dumpers import ClaimIssueHoldingDumper
 from rero_ils.modules.libraries.dumpers import \
     LibrarySerialClaimNotificationDumper
-from rero_ils.modules.vendors.dumpers import \
-    VendorAcquisitionNotificationDumper
+from rero_ils.modules.vendors.dumpers import VendorClaimIssueNotificationDumper
 
 
 class ItemNotificationDumper(InvenioRecordsDumper):
@@ -89,9 +88,8 @@ class ClaimIssueNotificationDumper(InvenioRecordsDumper):
 
         data.update({
             'vendor': holding.vendor.dumps(
-                dumper=VendorAcquisitionNotificationDumper()),
-            'document': holding.document.dumps(
-                dumper=DocumentTitleDumper()),
+                dumper=VendorClaimIssueNotificationDumper()),
+            'document': holding.document.dumps(dumper=DocumentTitleDumper()),
             'library': holding.library.dumps(
                 dumper=LibrarySerialClaimNotificationDumper()),
             'holdings': holding.dumps(dumper=ClaimIssueHoldingDumper()),

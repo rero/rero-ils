@@ -1,16 +1,19 @@
-{{ issue.library.name }} - Anspruch auf "{{ issue.document.title_text }}"
+Anspruch auf "{{ issue.document.title_text }}" {{ issue | issue_client_reference }}
 
 Sehr geehrte/r Frau/Herr,
 
 wir haben festgestellt, dass wir die folgende Lieferung nicht erhalten haben:
-Zeitschrifttitel: {{ issue.document.title_text }}
-Nummer der Lieferung: {{ issue.enumerationAndChronology }}
+{{ issue.document.title_text }}
+{{ issue.enumerationAndChronology }}
 
+Nachfolgend finden Sie Informationen zu unserem Abonnement
+{%- if issue.holdings %}
 {%- if issue.holdings and issue.holdings.client_id %}
 Unsere Kundennummer: {{ issue.holdings.client_id }}
 {%- endif %}
 {%- if issue.holdings and issue.holdings.order_reference %}
 Unsere Auftragsnummer: {{ issue.holdings.order_reference }}
+{%- endif %}
 {%- endif %}
 Anzahl der Ansprüche für diese Ausgabe: {{ issue.claim_counter }}
 

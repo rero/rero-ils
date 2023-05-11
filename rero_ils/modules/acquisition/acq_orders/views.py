@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -21,12 +21,12 @@ from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from jinja2 import TemplateNotFound
 
-from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
-from rero_ils.modules.acquisition.acq_orders.dumpers import \
-    AcqOrderHistoryDumper, AcqOrderNotificationDumper
-from rero_ils.modules.acquisition.acq_orders.utils import get_history
 from rero_ils.modules.decorators import check_logged_as_librarian, \
     jsonify_error
+
+from .api import AcqOrder
+from .dumpers import AcqOrderHistoryDumper, AcqOrderNotificationDumper
+from .utils import get_history, get_recipient_suggestions
 
 api_blueprint = Blueprint(
     'api_order',
@@ -62,10 +62,9 @@ def order_notification_preview(order_pid):
     if not order:
         abort(404, "Acquisition order not found")
 
+    response = {'recipient_suggestions': get_recipient_suggestions(order)}
     order_data = order.dumps(dumper=AcqOrderNotificationDumper())
     language = order_data.get('vendor', {}).get('language')
-
-    response = {'data': order_data}
     try:
         tmpl_file = f'rero_ils/vendor_order_mail/{language}.tpl.txt'
         response['preview'] = render_template(tmpl_file, order=order_data)

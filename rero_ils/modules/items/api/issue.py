@@ -18,9 +18,14 @@
 
 """API for manipulating the item issue."""
 
+from rero_ils.modules.notifications.api import Notification, \
+    NotificationsSearch
+from rero_ils.modules.notifications.dispatcher import Dispatcher
+from rero_ils.modules.notifications.models import NotificationType
+from rero_ils.modules.utils import get_ref_for_pid
+
 from .record import ItemRecord
 from ..models import TypeOfItem
-from ...notifications.api import NotificationsSearch
 
 
 class ItemIssue(ItemRecord):
@@ -77,9 +82,15 @@ class ItemIssue(ItemRecord):
         return self.get('issue', {}).get('status_date')
 
     @property
+    def vendor(self):
+        """Shortcut for related vendor resource if exists."""
+        if holding := self.holding:
+            return holding.vendor
+
+    @property
     def vendor_pid(self):
         """Shortcut for vendor pid if exists."""
-        if (holding := self.holding) and (vendor := holding.vendor):
+        if vendor := self.vendor:
             return vendor.pid
 
     @property
@@ -131,3 +142,35 @@ class ItemIssue(ItemRecord):
         from .api import Item
         for pid in cls.get_issues_pids_by_status(status, holdings_pid):
             yield Item.get_record_by_pid(pid)
+
+    def claims(self, recipients):
+        """Claim the item issue.
+
+        This will create a claim notification and dispatch it. The created
+        notification will be returned.
+
+        :param recipients: the list of notification recipients.
+        :type: list<{type: str, address: str}>
+        :returns: the created notifications.
+        :rtype: Notification
+        """
+        # Create the notification and dispatch it synchronously.
+        record = {
+            'notification_type': NotificationType.CLAIM_ISSUE,
+            'context': {
+                'item': {'$ref': get_ref_for_pid('item', self.pid)},
+                'recipients': recipients,
+                'number': self.claims_count + 1
+            }
+        }
+        notif = Notification.create(data=record, dbcommit=True, reindex=True)
+        dispatcher_result = Dispatcher.dispatch_notifications(
+            notification_pids=[notif.get('pid')])
+
+        # If the dispatcher result is correct, reindex myself to update claims
+        # information into ElasticSearch engine. Reload the notification to
+        # obtain the correct notification metadata (status, process_date, ...)
+        if dispatcher_result.get('sent', 0):
+            self.reindex()
+            notif = Notification.get_record(notif.id)
+        return notif

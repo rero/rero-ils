@@ -1,16 +1,19 @@
-{{ issue.library.name }} - Richiesta di informazioni su "{{ issue.document.title_text }}".
+Rivendicazioni "{{ issue.document.title_text }}" {{ issue | issue_client_reference }}
 
 Signora, signore,
 
 Abbiamo notato che non abbiamo ricevuto il seguente fascicolo:
-Titolo di seriale: {{ issue.document.title_text }}
-Numero del fascicolo: {{ issue.enumerationAndChronology }}
+{{ issue.document.title_text }}
+{{ issue.enumerationAndChronology }}
 
+Di seguito sono riportate le informazioni relative al nostro abbonamento:
+{%- if issue.holdings %}
 {%- if issue.holdings and issue.holdings.client_id %}
-Il nostro numero cliente: {{ issue.holdings.client_id }}
+Numero cliente: {{ issue.holdings.client_id }}
 {%- endif %}
 {%- if issue.holdings and issue.holdings.order_reference %}
-Il nostro numero d'ordine: {{ issue.holdings.order_reference }}
+Numero d'ordine: {{ issue.holdings.order_reference }}
+{%- endif %}
 {%- endif %}
 Numero di reclami per questo numero: {{ issue.claim_counter }}
 

@@ -1,16 +1,19 @@
-{{ issue.library.name }} - Claim about "{{ issue.document.title_text }}"
+Claim about "{{ issue.document.title_text }}" {{ issue | issue_client_reference }}
 
 Dear Sir or Madam,
 
 We noticed that we did not receive the following issue:
-Serial title: {{ issue.document.title_text }}
-Issue number: {{ issue.enumerationAndChronology }}
+{{ issue.document.title_text }}
+{{ issue.enumerationAndChronology }}
 
+See below information about our subscription:
+{%- if issue.holdings %}
 {%- if issue.holdings and issue.holdings.client_id %}
 Our customer number: {{ issue.holdings.client_id }}
 {%- endif %}
 {%- if issue.holdings and issue.holdings.order_reference %}
 Our order number: {{ issue.holdings.order_reference }}
+{%- endif %}
 {%- endif %}
 Claim count for this issue: {{ issue.claim_counter }}
 
