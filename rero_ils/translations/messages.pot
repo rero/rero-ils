@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: rero-ils 1.15.0\n"
+"Project-Id-Version: rero-ils 1.16.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2023-05-08 14:43+0200\n"
+"POT-Creation-Date: 2023-05-11 11:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,210 +53,210 @@ msgstr ""
 msgid "Your RERO ID password has been reset"
 msgstr ""
 
-#: rero_ils/config.py:1602
+#: rero_ils/config.py:1603
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 msgid "Global catalog"
 msgstr ""
 
-#: rero_ils/config.py:1728
+#: rero_ils/config.py:1698
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:79
 msgid "online"
 msgstr ""
 
-#: rero_ils/config.py:1732
+#: rero_ils/config.py:1702
 msgid "not_online"
 msgstr ""
 
-#: rero_ils/config.py:1735
+#: rero_ils/config.py:1705
 msgid "author"
 msgstr ""
 
-#: rero_ils/config.py:1736
+#: rero_ils/config.py:1706
 msgid "subject_fiction"
 msgstr ""
 
-#: rero_ils/config.py:1742
+#: rero_ils/config.py:1713
 msgid "subject_no_fiction"
 msgstr ""
 
-#: rero_ils/config.py:1748
+#: rero_ils/config.py:1720
 msgid "new_acquisition"
 msgstr ""
 
-#: rero_ils/config.py:1749
+#: rero_ils/config.py:1721
 msgid "identifiers"
 msgstr ""
 
-#: rero_ils/config.py:1752 rero_ils/config.py:1753 rero_ils/config.py:1831
+#: rero_ils/config.py:1724 rero_ils/config.py:1725 rero_ils/config.py:1803
 msgid "document_type"
 msgstr ""
 
-#: rero_ils/config.py:1754 rero_ils/config.py:1832
+#: rero_ils/config.py:1726 rero_ils/config.py:1804
 msgid "document_subtype"
 msgstr ""
 
-#: rero_ils/config.py:1756
+#: rero_ils/config.py:1728
 msgid "language"
 msgstr ""
 
-#: rero_ils/config.py:1757 rero_ils/config.py:1758
+#: rero_ils/config.py:1729 rero_ils/config.py:1730
 msgid "organisation"
 msgstr ""
 
-#: rero_ils/config.py:1761 rero_ils/config.py:1833 rero_ils/config.py:1981
-#: rero_ils/config.py:2003 rero_ils/config.py:2031 rero_ils/config.py:2144
-#: rero_ils/config.py:2184
+#: rero_ils/config.py:1733 rero_ils/config.py:1805 rero_ils/config.py:1953
+#: rero_ils/config.py:1975 rero_ils/config.py:2003 rero_ils/config.py:2116
+#: rero_ils/config.py:2156
 msgid "library"
 msgstr ""
 
-#: rero_ils/config.py:1762 rero_ils/config.py:1834
+#: rero_ils/config.py:1734 rero_ils/config.py:1806
 msgid "location"
 msgstr ""
 
-#: rero_ils/config.py:1764 rero_ils/config.py:1838 rero_ils/config.py:1909
-#: rero_ils/config.py:2004 rero_ils/config.py:2034 rero_ils/config.py:2181
+#: rero_ils/config.py:1736 rero_ils/config.py:1810 rero_ils/config.py:1881
+#: rero_ils/config.py:1976 rero_ils/config.py:2006 rero_ils/config.py:2153
 msgid "status"
 msgstr ""
 
-#: rero_ils/config.py:1765
+#: rero_ils/config.py:1737
 msgid "genreForm"
 msgstr ""
 
-#: rero_ils/config.py:1766
+#: rero_ils/config.py:1738
 msgid "intendedAudience"
 msgstr ""
 
-#: rero_ils/config.py:1767
+#: rero_ils/config.py:1739
 msgid "year"
 msgstr ""
 
-#: rero_ils/config.py:1835
+#: rero_ils/config.py:1807
 msgid "item_type"
 msgstr ""
 
-#: rero_ils/config.py:1836
+#: rero_ils/config.py:1808
 msgid "temporary_item_type"
 msgstr ""
 
-#: rero_ils/config.py:1837
+#: rero_ils/config.py:1809
 msgid "temporary_location"
 msgstr ""
 
-#: rero_ils/config.py:1839
+#: rero_ils/config.py:1811
 msgid "issue_status"
 msgstr ""
 
-#: rero_ils/config.py:1840 rero_ils/config.py:2032
+#: rero_ils/config.py:1812 rero_ils/config.py:2004
 msgid "vendor"
 msgstr ""
 
-#: rero_ils/config.py:1844
+#: rero_ils/config.py:1816
 msgid "current_requests"
 msgstr ""
 
-#: rero_ils/config.py:1903
+#: rero_ils/config.py:1875
 msgid "owner_library"
 msgstr ""
 
-#: rero_ils/config.py:1904
+#: rero_ils/config.py:1876
 msgid "owner_location"
 msgstr ""
 
-#: rero_ils/config.py:1905
+#: rero_ils/config.py:1877
 msgid "pickup_library"
 msgstr ""
 
-#: rero_ils/config.py:1906
+#: rero_ils/config.py:1878
 msgid "pickup_location"
 msgstr ""
 
-#: rero_ils/config.py:1907
+#: rero_ils/config.py:1879
 msgid "transaction_library"
 msgstr ""
 
-#: rero_ils/config.py:1908
+#: rero_ils/config.py:1880
 msgid "transaction_location"
 msgstr ""
 
-#: rero_ils/config.py:1910
+#: rero_ils/config.py:1882
 msgid "misc_status"
 msgstr ""
 
-#: rero_ils/config.py:1911 rero_ils/config.py:1960
+#: rero_ils/config.py:1883 rero_ils/config.py:1932
 msgid "patron_type"
 msgstr ""
 
-#: rero_ils/config.py:1912
+#: rero_ils/config.py:1884
 msgid "request_expire_date"
 msgstr ""
 
-#: rero_ils/config.py:1918
+#: rero_ils/config.py:1890
 msgid "end_date"
 msgstr ""
 
-#: rero_ils/config.py:1924
+#: rero_ils/config.py:1896
 msgid "exclude_status"
 msgstr ""
 
-#: rero_ils/config.py:1958
+#: rero_ils/config.py:1930
 msgid "roles"
 msgstr ""
 
-#: rero_ils/config.py:1959
+#: rero_ils/config.py:1931
 msgid "city"
 msgstr ""
 
-#: rero_ils/config.py:1982 rero_ils/config.py:2036
+#: rero_ils/config.py:1954 rero_ils/config.py:2008
 msgid "budget"
 msgstr ""
 
-#: rero_ils/config.py:2033 rero_ils/config.py:2074 rero_ils/config.py:2099
-#: rero_ils/config.py:2143
+#: rero_ils/config.py:2005 rero_ils/config.py:2046 rero_ils/config.py:2071
+#: rero_ils/config.py:2115
 msgid "type"
 msgstr ""
 
-#: rero_ils/config.py:2035
+#: rero_ils/config.py:2007
 msgid "account"
 msgstr ""
 
-#: rero_ils/config.py:2037
+#: rero_ils/config.py:2009
 msgid "order_date"
 msgstr ""
 
-#: rero_ils/config.py:2043
+#: rero_ils/config.py:2015
 msgid "receipt_date"
 msgstr ""
 
-#: rero_ils/config.py:2073
+#: rero_ils/config.py:2045
 msgid "sources"
 msgstr ""
 
-#: rero_ils/config.py:2100
+#: rero_ils/config.py:2072
 msgid "visibility"
 msgstr ""
 
-#: rero_ils/config.py:2145
+#: rero_ils/config.py:2117
 msgid "subject"
 msgstr ""
 
-#: rero_ils/config.py:2146
+#: rero_ils/config.py:2118
 msgid "teacher"
 msgstr ""
 
-#: rero_ils/config.py:2182
+#: rero_ils/config.py:2154
 msgid "loan_status"
 msgstr ""
 
-#: rero_ils/config.py:2183
+#: rero_ils/config.py:2155
 msgid "requester"
 msgstr ""
 
-#: rero_ils/config.py:2978 rero_ils/manual_translations.txt:70
+#: rero_ils/config.py:2950 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:102
 msgid "This is a TEST VERSION."
 msgstr ""
 
-#: rero_ils/config.py:2979 rero_ils/manual_translations.txt:71
+#: rero_ils/config.py:2951 rero_ils/manual_translations.txt:71
 #: rero_ils/theme/templates/rero_ils/header.html:104
 msgid "Go to the production site."
 msgstr ""
@@ -300,17 +300,17 @@ msgid "staff"
 msgstr ""
 
 #: rero_ils/manual_translations.txt:26
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:61
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:62
 msgid "gnd"
 msgstr ""
 
 #: rero_ils/manual_translations.txt:27
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:57
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:58
 msgid "rero"
 msgstr ""
 
 #: rero_ils/manual_translations.txt:28
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:65
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:66
 msgid "idref"
 msgstr ""
 
@@ -351,8 +351,9 @@ msgid "bf:Production"
 msgstr ""
 
 #: rero_ils/manual_translations.txt:41
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:182
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:318
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:51
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:178
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:150
 msgid "bf:Place"
 msgstr ""
 
@@ -4097,10 +4098,10 @@ msgstr ""
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2447
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:3
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:25
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:28
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:9
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:65
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:26
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:29
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
 msgid "Language"
 msgstr ""
@@ -4114,7 +4115,7 @@ msgstr ""
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2571
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2602
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:137
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:69
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:115
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:447
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:48
@@ -4124,26 +4125,26 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: rero_ils/modules/utils.py:1221
+#: rero_ils/modules/utils.py:1235
 #, python-format
 msgid "Field must be at least %(num)d character long."
 msgid_plural "Field must be at least %(num)d characters long."
 msgstr[0] ""
 msgstr[1] ""
 
-#: rero_ils/modules/utils.py:1228
+#: rero_ils/modules/utils.py:1242
 msgid "The password must contain a lower case character."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1231
+#: rero_ils/modules/utils.py:1245
 msgid "The password must contain a upper case character."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1234
+#: rero_ils/modules/utils.py:1248
 msgid "The password must contain a number."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1237
+#: rero_ils/modules/utils.py:1251
 msgid "The password must contain a special character."
 msgstr ""
 
@@ -4184,8 +4185,8 @@ msgstr ""
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:22
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:33
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:32
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:75
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:15
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:41
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:30
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:25
@@ -4351,7 +4352,9 @@ msgstr ""
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:217
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:85
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:259
-#: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:26
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_link-v0.0.1.json:29
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:29
+#: rero_ils/modules/entities/templates/rero_ils/detailed_view_entity.html:26
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:90
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:216
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:496
@@ -4483,7 +4486,7 @@ msgstr ""
 #: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:158
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:28
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:190
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:158
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:40
 msgid "Date"
 msgstr ""
@@ -4650,7 +4653,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:163
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:46
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:9
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:227
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:195
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:592
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:298
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:527
@@ -4676,30 +4679,19 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:239
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:280
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:321
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:387
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:380
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:16
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:22
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:21
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:15
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:59
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:18
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:160
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:17
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:24
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:66
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:104
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:36
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:29
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:83
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:171
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:139
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:18
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:34
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:100
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:171
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:245
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:311
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:375
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:16
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:64
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:112
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:160
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:25
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:68
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:22
@@ -4911,7 +4903,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:243
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:20
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:55
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:204
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:172
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:62
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:101
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:20
@@ -4977,10 +4969,10 @@ msgstr ""
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:52
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:143
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:38
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:262
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:264
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:291
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:293
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:267
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:269
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:296
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:298
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:56
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:53
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:42
@@ -5180,7 +5172,6 @@ msgstr ""
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:44
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:3
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:34
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:479
 #: rero_ils/modules/ill_requests/forms.py:93
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:196
@@ -5196,12 +5187,10 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:26
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:59
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:63
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:190
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:7
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:9
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:23
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:72
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:109
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:41
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:78
 #: rero_ils/modules/ill_requests/forms.py:64
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:176
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:467
@@ -5231,7 +5220,6 @@ msgid "Subjects"
 msgstr ""
 
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:121
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:9
 msgid "Subject"
 msgstr ""
 
@@ -5282,181 +5270,29 @@ msgstr ""
 msgid "Call number"
 msgstr ""
 
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:4
-msgid "Mef contribution"
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:5
-msgid "JSON schema for a mef contribution"
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:16
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:108
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:17
-msgid "Schema to validate organisation records against."
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:21
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:25
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:114
-msgid "Library ID"
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:29
-msgid "Agent type"
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:37
-msgid "VIAF ID"
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:41
-msgid "Source authorities list"
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:73
-msgid "RERO authorities"
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:77
-msgid "GND authorities"
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:81
-msgid "IdRef authorities"
-msgstr ""
-
-#: rero_ils/modules/contributions/jsonschemas/contributions/contribution-v0.0.1.json:85
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:208
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:257
-msgid "Deletion date"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:22
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:25
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:46
-msgid "Birth date"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:23
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:26
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:58
-msgid "Death date"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:27
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:30
-#: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:372
-#: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:80
-msgid "Gender"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:28
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:31
-msgid "Biographical information"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:29
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:32
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:70
-msgid "Qualifier"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:30
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:33
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:81
-msgid "Numeration"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:31
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:34
-msgid "Date establishment"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:32
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:35
-msgid "Death termination"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:33
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:36
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:64
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:122
-msgid "Conference"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:35
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:38
-msgid "Associated country"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:37
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:40
-msgid "ID"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:38
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:41
-msgid "Authorized access point"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:39
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:42
-msgid "Variant access point"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_by_source_data.html:40
-#: rero_ils/modules/contributions/templates/rero_ils/_contribution_unified.html:43
-msgid "Parallel access point"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:28
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:2
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:29
-msgid "Person"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:42
-msgid "All sources"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:44
-msgid "Unified"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:49
-#: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:51
-msgid "By source"
-msgstr ""
-
-#: rero_ils/modules/contributions/templates/rero_ils/detailed_view_contribution.html:70
-msgid "Documents"
-msgstr ""
-
-#: rero_ils/modules/documents/views.py:325
+#: rero_ils/modules/documents/views.py:334
 msgid "Journal"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:9
-#: rero_ils/modules/documents/views.py:327
+#: rero_ils/modules/documents/views.py:336
 msgid "Series"
 msgstr ""
 
-#: rero_ils/modules/documents/views.py:329
+#: rero_ils/modules/documents/views.py:338
 #: rero_ils/modules/ill_requests/forms.py:100
 msgid "Published in"
 msgstr ""
 
-#: rero_ils/modules/documents/views.py:345
+#: rero_ils/modules/documents/views.py:354
 msgid "vol"
 msgstr ""
 
-#: rero_ils/modules/documents/views.py:348
+#: rero_ils/modules/documents/views.py:357
 msgid "nr"
 msgstr ""
 
-#: rero_ils/modules/documents/views.py:351
+#: rero_ils/modules/documents/views.py:360
 msgid "p"
 msgstr ""
 
@@ -5474,45 +5310,64 @@ msgstr ""
 msgid "Document PID"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:238
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:236
 msgid "Subjects (imported)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:239
-msgid "Subject from imported bibliographic data"
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:237
+msgid "Subject imported from external data"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:258
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:242
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:271
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:93
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:9
+msgid "Entities"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:243
+msgid ""
+"Imported topic, place, temporal, person, family or corporate body "
+"(including conferences), used for information. Do not enter data "
+"manually."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:265
 msgid "Genres, forms (imported)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:259
-msgid "Genre of form from imported bibliographic data"
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:266
+msgid "Genre or form imported from external data"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:282
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:272
+msgid "Imported genre or form, used for information. Do not enter data manually."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:300
 msgid "Harvested"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:283
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:301
 msgid "Document is harvested or not, will disable record edition or similar."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:287
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:305
 msgid "Draft"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:288
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:306
 msgid "Document is a draft record or not, will disable record validation."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:299
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:317
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:972
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:766
 msgid "Masked"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:301
+#: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:319
 msgid ""
 "A masked document is visible in the professional interface, but not in "
 "the public interface."
@@ -5592,10 +5447,10 @@ msgid "Not applicable"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:100
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:54
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:187
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:147
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:434
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:79
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:49
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:173
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:205
@@ -5692,61 +5547,61 @@ msgid "classification_musicale_instruments"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:336
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:420
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:413
 msgid "Notation"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:337
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:421
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:414
 msgid "Short alphanumeric string that serves as an identifier for a class."
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:341
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:425
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:418
 msgid "Example: 001.012"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:345
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:429
-msgid "Subdivisions"
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:348
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:432
+msgid "Edition"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:349
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:433
-msgid "Subdivision"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:355
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:439
-msgid "Edition"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:356
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:440
 msgid ""
 "Used for imported records only. Edition of the classification, identified"
 " by a number, a date, or another textual designation."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:360
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:444
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:353
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:437
 msgid "Example: Abridged edition, 22"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:364
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:448
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:357
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:441
 msgid "Assigning agency"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:365
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:449
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:358
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:442
 msgid ""
 "Used for imported records only. Agency that assigned this classification "
 "value."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:372
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:365
 msgid "classification_musicale_genres"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:422
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:88
+msgid "Subdivisions"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:426
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:104
+msgid "Subdivision"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_color_content-v0.0.1.json:3
@@ -5783,95 +5638,95 @@ msgstr ""
 msgid "unknown media"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:26
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:42
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:27
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:44
 msgid "rdamt:1001"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:43
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:133
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:228
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:318
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:373
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:468
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:528
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:608
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:678
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:45
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:136
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:232
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:323
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:379
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:475
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:536
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:617
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:688
 msgid ""
 "Type of intermediation device required to view, play, run, etc., the "
 "content of a manifestation (MARC 337)."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:57
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:147
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:242
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:332
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:387
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:482
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:542
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:622
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:692
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:59
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:150
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:246
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:337
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:393
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:489
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:550
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:631
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:702
 msgid "Carrier type"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:59
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:149
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:244
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:334
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:389
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:484
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:544
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:624
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:694
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:61
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:152
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:248
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:339
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:395
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:491
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:552
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:633
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:704
 msgid ""
 "Format of the storage medium and housing of a carrier in combination with"
 " the type of intermediation device required to view, play, run, etc., the"
 " content of a manifestation (MARC 338)."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:75
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:77
 msgid "rdact:1002"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:79
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:81
 msgid "rdact:1003"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:83
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:85
 msgid "rdact:1004"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:87
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:89
 msgid "rdact:1005"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:91
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:93
 msgid "rdact:1006"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:95
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:97
 msgid "rdact:1007"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:99
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:101
 msgid "rdact:1008"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:103
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:105
 msgid "rdact:1071"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:107
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:202
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:292
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:347
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:442
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:502
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:582
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:652
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:109
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:205
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:296
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:352
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:448
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:509
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:590
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:661
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:677
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:850
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:670
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:687
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:860
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:923
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:159
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:90
@@ -5879,301 +5734,301 @@ msgstr ""
 msgid "other"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:116
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:132
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:118
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:135
 msgid "rdamt:1002"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:166
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:169
 msgid "rdact:1021"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:170
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:173
 msgid "rdact:1022"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:174
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:177
 msgid "rdact:1023"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:178
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:181
 msgid "rdact:1024"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:182
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:185
 msgid "rdact:1025"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:186
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:189
 msgid "rdact:1026"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:190
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:193
 msgid "rdact:1027"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:194
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:197
 msgid "rdact:1028"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:198
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:201
 msgid "rdact:1056"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:211
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:227
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:214
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:231
 msgid "rdamt:1003"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:260
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:264
 msgid "rdact:1011"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:264
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:268
 msgid "rdact:1012"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:268
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:272
 msgid "rdact:1013"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:272
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:276
 msgid "rdact:1014"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:276
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:280
 msgid "rdact:1015"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:280
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:284
 msgid "rdact:1016"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:284
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:288
 msgid "rdact:1017"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:288
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:292
 msgid "rdact:1018"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:301
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:317
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:305
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:322
 msgid "rdamt:1004"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:343
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:348
 msgid "rdact:1030"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:356
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:372
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:361
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:378
 msgid "rdamt:1005"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:406
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:412
 msgid "rdact:1032"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:410
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:416
 msgid "rdact:1033"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:414
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:420
 msgid "rdact:1034"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:418
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:424
 msgid "rdact:1035"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:422
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:428
 msgid "rdact:1036"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:426
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:432
 msgid "rdact:1037"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:430
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:436
 msgid "rdact:1039"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:434
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:440
 msgid "rdact:1040"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:438
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:444
 msgid "rdact:1069"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:451
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:467
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:457
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:474
 msgid "rdamt:1006"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:494
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:501
 msgid "rdact:1042"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:498
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:505
 msgid "rdact:1043"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:511
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:527
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:518
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:535
 msgid "rdamt:1007"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:558
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:566
 msgid "rdact:1045"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:562
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:570
 msgid "rdact:1046"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:566
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:574
 msgid "rdact:1047"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:570
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:578
 msgid "rdact:1048"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:574
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:582
 msgid "rdact:1049"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:578
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:586
 msgid "rdact:1059"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:591
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:607
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:599
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:616
 msgid "rdamt:1008"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:636
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:645
 msgid "rdact:1051"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:640
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:649
 msgid "rdact:1052"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:644
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:653
 msgid "rdact:1053"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:648
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:657
 msgid "rdact:1060"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:702
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:712
 msgid "unspecified"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:721
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:731
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:81
 msgid "Content type"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:722
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:732
 msgid ""
 "Fundamental form of communication in which the content is expressed and "
 "the human sense through which it is intended to be perceived (MARC 336)."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:758
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:768
 msgid "rdaco:1002"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:762
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:772
 msgid "rdaco:1003"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:766
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:776
 msgid "rdaco:1004"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:770
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:780
 msgid "rdaco:1005"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:774
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:784
 msgid "rdaco:1007"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:778
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:788
 msgid "rdaco:1001"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:782
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:792
 msgid "rdaco:1006"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:786
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:796
 msgid "rdaco:1023"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:790
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:800
 msgid "rdaco:1022"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:794
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:804
 msgid "rdaco:1014"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:798
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:808
 msgid "rdaco:1015"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:802
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:812
 msgid "rdaco:1011"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:806
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:816
 msgid "rdaco:1009"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:810
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:820
 msgid "rdaco:1017"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:814
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:824
 msgid "rdaco:1021"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:818
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:828
 msgid "rdaco:1019"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:822
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:832
 msgid "rdaco:1010"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:826
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:836
 msgid "rdaco:1016"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:830
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:840
 msgid "rdaco:1008"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:834
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:844
 msgid "rdaco:1012"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:838
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:848
 msgid "rdaco:1020"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:842
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:852
 msgid "rdaco:1018"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:846
+#: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:856
 msgid "rdaco:1013"
 msgstr ""
 
@@ -6181,23 +6036,54 @@ msgstr ""
 msgid "Relationship to an agent associated with the document"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:9
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:8
 msgid "Agents"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:10
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:9
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:15
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:37
 msgid ""
 "Person, family or corporate body (including conferences). Always create a"
 " link to IdRef or GND, if possible."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:22
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:60
-msgid "Agent"
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:14
+msgid "MEF Agents"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:36
+msgid "Local Agents"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:2
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:2
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:2
+msgid "Local Entity"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:28
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:35
+msgid "bf:Person"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:32
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:39
+msgid "bf:Organisation"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:40
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:63
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:30
+msgid "Access Point"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:44
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:67
+msgid "Example: Musset, Alfred de, 1810-1857"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:2
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:29
 msgid "Corporate body"
 msgstr ""
 
@@ -6210,70 +6096,97 @@ msgstr ""
 msgid "Subordinate units"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:50
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:51
 msgid "Subordinate unit"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:54
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:55
 msgid "Example: Office for Culture"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:65
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:123
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:34
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:37
+msgid "Conference"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:66
 msgid ""
 "Mark as conference if the access point is directly at the conference name"
 " and not at the corporate body name"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:75
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:76
 msgid "Location of conference"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:79
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:80
 msgid "Example: Lausanne"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:86
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:87
 msgid "Number of conference"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:90
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:91
 msgid "Example: 4"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:97
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:98
 msgid "Date of conference"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:98
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:99
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:47
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:59
 msgid "Record only years."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:102
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:103
 msgid "Example: 1989"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:2
-msgid "Link to corporate body entity"
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:2
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_link-v0.0.1.json:25
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:25
+#: rero_ils/modules/entities/templates/rero_ils/detailed_view_entity.html:28
+msgid "Person"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation_link-v0.0.1.json:43
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:43
-msgid "MEF ID"
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:46
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:23
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:26
+msgid "Birth date"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
 msgid "Example: 1955"
 msgstr ""
 
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:58
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:24
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:27
+msgid "Death date"
+msgstr ""
+
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:63
 msgid "Example: 2012"
 msgstr ""
 
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:70
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:30
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:33
+msgid "Qualifier"
+msgstr ""
+
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:74
 msgid "Example: physicist"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:81
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:31
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:34
+msgid "Numeration"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:82
@@ -6293,10 +6206,6 @@ msgid ""
 "Used only for import. Fuller form of a name represented only by an "
 "initial, abbreviation, or other variant not included in the form chosen "
 "as the preferred name"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person_link-v0.0.1.json:2
-msgid "Link to person entity"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:2
@@ -6979,7 +6888,7 @@ msgid "Supplements to"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:28
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:170
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:173
 msgid "Supplement to"
 msgstr ""
 
@@ -7018,7 +6927,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:87
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:91
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:155
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:158
 msgid "Issued with"
 msgstr ""
 
@@ -7030,7 +6939,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:108
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:112
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:160
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:163
 msgid "Preceded by"
 msgstr ""
 
@@ -7042,7 +6951,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:129
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:133
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:165
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:168
 msgid "Succeeded by"
 msgstr ""
 
@@ -7073,7 +6982,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:192
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:196
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:175
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:178
 msgid "Reproduction of"
 msgstr ""
 
@@ -7101,7 +7010,7 @@ msgid ""
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_duration-v0.0.1.json:8
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:109
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:112
 msgid "Duration"
 msgstr ""
 
@@ -7326,6 +7235,60 @@ msgstr ""
 msgid "Example: Access only from the library"
 msgstr ""
 
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_link-v0.0.1.json:2
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:2
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:2
+msgid "MEF Entity"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_link-v0.0.1.json:13
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:13
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:13
+msgid "MEF Link"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_link-v0.0.1.json:41
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:37
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:45
+msgid "MEF ID"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:43
+msgid "bf:Work"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:47
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:174
+msgid "bf:Topic"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:55
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:182
+msgid "bf:Temporal"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:78
+msgid "Source catalog where the subject was imported from."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:94
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:10
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:32
+msgid ""
+"Topic (including genre/form), place, temporal, person, family or "
+"corporate body (including conferences). Always create a link to IdRef or "
+"GND, if possible."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:122
+msgid "Genre / form"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:123
+msgid "Is this entity is a genre/form ?"
+msgstr ""
+
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:3
 msgid "Extent"
 msgstr ""
@@ -7352,7 +7315,7 @@ msgid ""
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:121
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:124
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:232
 msgid "Frequency"
 msgstr ""
@@ -7378,37 +7341,35 @@ msgstr ""
 msgid "(MARC 655)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:9
-msgid "Genre, form"
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:10
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:14
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:32
+msgid ""
+"Genre or form of the document. Always create a link to IdRef or GND, if "
+"possible."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:12
-msgid "Link to concept entity"
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:13
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:13
+msgid "Local Entities"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:23
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:78
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:30
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:30
+msgid "MEF Entities"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:25
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:33
 msgid "Concept"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:39
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:226
-msgid "Concept (local)"
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:34
+msgid "Example: Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:55
-msgid "Source of the subject, for instance rero."
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:69
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:252
-msgid "bf:Topic"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:76
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:264
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:394
-msgid "Term"
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:42
+msgid "Source of the subject."
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:3
@@ -7546,31 +7507,23 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:79
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:116
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:48
 msgid "bf:local"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:83
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:120
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:52
 msgid "IdRef"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:87
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:124
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:56
 msgid "GND"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:91
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:128
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:60
 msgid "RERO"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:95
-msgid "RERO-RAMEAU"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:148
+#: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:80
 msgid "Source in case of a local identifier."
 msgstr ""
 
@@ -7864,108 +7817,108 @@ msgstr ""
 msgid "rdami:1001"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:19
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:86
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:148
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:210
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:105
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:172
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:290
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:347
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:401
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:468
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:612
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:666
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:728
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:821
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:945
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:20
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:88
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:151
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:214
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:108
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:176
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:296
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:354
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:409
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:477
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:624
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:679
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:742
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:837
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:964
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:76
 msgid "Subtype"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:31
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:32
 msgid "article"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:35
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:36
 msgid "materialUnit"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:39
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:40
 msgid "privateFile"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:43
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:44
 msgid "privateSubfile"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:53
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:115
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:177
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:234
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:27
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:58
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:91
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:158
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:243
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:276
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:333
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:387
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:454
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:534
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:565
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:598
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:652
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:714
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:774
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:807
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:867
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:898
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:931
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:54
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:117
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:180
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:238
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:28
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:60
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:94
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:162
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:248
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:282
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:340
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:395
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:463
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:544
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:576
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:610
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:665
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:728
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:789
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:823
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:884
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:916
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:950
 msgid "Main type"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:74
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:75
 msgid "rdami:1002"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:97
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:99
 msgid "Set"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:101
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:103
 msgid "partIndependentTitle"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:105
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:107
 msgid "partDependantTitle"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:136
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:138
 msgid "rdami:1003"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:159
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:162
 msgid "serialInSerial"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:163
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:166
 msgid "monographicSeries"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:167
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:170
 msgid "periodical"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:198
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:201
 msgid "rdami:1004"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:220
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:224
 msgid "updatingWebsite"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:224
+#: rero_ils/modules/documents/jsonschemas/documents/document_issuance-v0.0.1.json:228
 msgid "updatingLoose-leaf"
 msgstr ""
 
@@ -8185,58 +8138,56 @@ msgid "Places"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:69
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:114
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:126
 msgid "Place"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:154
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:122
 msgid "Statements"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:159
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:127
 msgid "Statement"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:160
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:128
 msgid "Statement of place and agent of the provision activity."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:186
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:154
 msgid "bf:Agent"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:200
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:168
 msgid "Labels"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:238
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:206
 msgid "Date 1"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:239
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:207
 msgid ""
 "Normalised date used for sorting and filtering options (MARC 008). A free"
 " text date (transcripted) can be added in the field \\"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:253
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:221
 msgid "Date 2"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:254
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:222
 msgid ""
 "Normalised end date if the provision activity covers more than one year, "
 "and used for sorting and filtering options (MARC 008). A free text date "
 "(transcripted) can be added in the field \\"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:266
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:234
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:351
 msgid "Date of the original"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:267
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:235
 msgid "Date of the original in case of a reproduction."
 msgstr ""
 
@@ -8421,160 +8372,6 @@ msgstr ""
 msgid "(MARC 6XX)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
-msgid "Person (local)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:41
-msgid "bf:Person"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:79
-msgid "Corporate body (local)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:107
-msgid "bf:Organisation"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:151
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:39
-msgid "Work (local)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:178
-msgid "bf:Work"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:195
-#: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:68
-msgid "Creator"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:199
-msgid "Example: Voltenauer, Marc"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:292
-msgid "Place (local)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:356
-msgid "Time-span (local)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:382
-msgid "bf:Temporal"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:429
-msgid "Preferred name"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:435
-msgid "Source of the subject."
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:441
-msgid "Factum"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:445
-msgid "RAMEAU proposal"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:455
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:118
-msgid "Form subdivisions"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:459
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:122
-msgid "Form subdivision"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:460
-msgid "Subject subdivision for a specific kind or genre of material (MARC 6XX$v)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:464
-msgid "Example: Periodicals"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:472
-msgid "Concept subdivisions"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:476
-msgid "Concept subdivision"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:477
-msgid "Subject subdivision for a concept (MARC 6XX$x)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:481
-msgid "Example: History"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:489
-msgid "Time-span subdivisions"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:493
-msgid "Time-span subdivision"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:494
-msgid "Subject subdivision for a period of time (MARC 6XX$y)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:498
-msgid "Example: 500-1400"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:506
-msgid "Place subdivisions"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:510
-msgid "Place subdivision"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:511
-msgid "Subject subdivision for a place (MARC 6XX$z)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:515
-msgid "Example: Mississippi"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:3
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:12
-msgid "Link to work"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:30
-#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:108
-msgid "Work"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:51
-msgid "Link to concept"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:99
-msgid "Link to place"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:147
-msgid "Link to time-span"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_links-v0.0.1.json:174
-msgid "Time-span"
-msgstr ""
-
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:3
 msgid "Summaries"
 msgstr ""
@@ -8716,12 +8513,12 @@ msgid "Subtitle"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:82
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:90
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:59
 msgid "Parts"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:86
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:95
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:64
 msgid "Part"
 msgstr ""
 
@@ -8762,247 +8559,247 @@ msgstr ""
 msgid "docmaintype_archives"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:48
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:49
 msgid "docmaintype_article"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:79
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:81
 msgid "docmaintype_audio"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:117
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:120
 msgid "docsubtype_music"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:121
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:124
 msgid "docsubtype_sound"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:125
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:128
 msgid "docsubtype_audio_book"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:129
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:132
 msgid "docsubtype_recorded_words"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:146
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:149
 msgid "docmaintype_book"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:188
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:192
 msgid "docsubtype_other_book"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:192
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:196
 msgid "docsubtype_large_print_book"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:196
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:200
 msgid "docsubtype_braille_book"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:200
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:204
 msgid "docsubtype_manuscript"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:204
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:208
 msgid "docsubtype_thesis"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:208
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:212
 msgid "docsubtype_e-book"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:212
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:216
 msgid "docsubtype_microform"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:216
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:220
 msgid "docsubtype_pictorial_book"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:233
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:237
 msgid "docmaintype_children"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:264
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:269
 msgid "docmaintype_comic"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:300
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:306
 msgid "docsubtype_comic"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:304
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:310
 msgid "docsubtype_manga"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:321
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:327
 msgid "docmaintype_electronic"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:357
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:364
 msgid "docsubtype_cdrom_dvdrom"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:361
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:368
 msgid "docsubtype_other_electronic_carrier"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:375
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:382
 msgid "docmaintype_game"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:413
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:421
 msgid "docsubtype_other_game"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:417
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:425
 msgid "docsubtype_video_game"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:421
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:429
 msgid "docsubtype_role-playing_game"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:425
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:433
 msgid "docsubtype_board_game"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:442
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:450
 msgid "docmaintype_image"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:483
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:492
 msgid "docsubtype_poster"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:487
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:496
 msgid "docsubtype_postcard"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:491
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:500
 msgid "docsubtype_photography"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:495
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:504
 msgid "docsubtype_print_engraving"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:499
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:508
 msgid "docsubtype_calendar"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:503
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:512
 msgid "docsubtype_other_image"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:507
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:516
 msgid "docsubtype_projected_image"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:524
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:533
 msgid "docmaintype_language_method"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:555
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:565
 msgid "docmaintype_leaf"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:586
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:597
 msgid "docmaintype_map"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:622
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:634
 msgid "docsubtype_map"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:626
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:638
 msgid "docsubtype_atlas"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:640
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:652
 msgid "docmaintype_movie_series"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:677
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:690
 msgid "docsubtype_movie"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:681
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:694
 msgid "docsubtype_series"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:685
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:698
 msgid "docsubtype_documentary"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:702
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:715
 msgid "docmaintype_object"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:739
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:753
 msgid "docsubtype_kamishibai"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:743
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:757
 msgid "docsubtype_tablet"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:747
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:761
 msgid "docsubtype_other_object"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:764
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:778
 msgid "docmaintype_other"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:795
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:810
 msgid "docmaintype_score"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:832
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:848
 msgid "docsubtype_printed_score"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:836
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:852
 msgid "docsubtype_music_method"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:840
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:856
 msgid "docsubtype_manuscript_score"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:857
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:873
 msgid "docmaintype_serial"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:888
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:905
 msgid "docmaintype_series"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:919
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:937
 msgid "docmaintype_teaching_material"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:958
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:977
 msgid "docsubtype_reading_kit"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:962
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:981
 msgid "docsubtype_experimentation_kit"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:966
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:985
 msgid "docsubtype_thematic_kit"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:970
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:989
 msgid "docsubtype_official_material"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:974
+#: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:993
 msgid "docsubtype_guided_reading"
 msgstr ""
 
@@ -9029,43 +8826,55 @@ msgstr ""
 msgid "Work access point"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:77
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:29
+msgid "Agent"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:46
 msgid "Date of work"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:82
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:51
 msgid "Miscellaneous information"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:91
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:60
 msgid "Part, Section, or Supplement"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:103
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:72
 msgid "Designation"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:104
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:73
 msgid "Numeric designation of the part, section or supplement"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:110
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:79
 msgid "Title of the part, section, or supplement"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:128
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:87
+msgid "Form subdivisions"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:91
+msgid "Form subdivision"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:97
 msgid "Mediums of performance (music)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:132
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:101
 msgid "Medium of performance (music)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:138
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:107
 msgid "Arranged statement (music)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:143
+#: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:112
 msgid "Key (music)"
 msgstr ""
 
@@ -9093,6 +8902,10 @@ msgstr ""
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:79
 msgid "Original language"
+msgstr ""
+
+#: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:108
+msgid "Work"
 msgstr ""
 
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:136
@@ -9144,25 +8957,140 @@ msgstr ""
 msgid "Export as ..."
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:214
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:217
 msgid "Show more"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:244
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:249
 msgid "article/volume"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:246
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:251
 msgid " articles/volumes"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:283
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:285
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:288
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:290
 msgid "Get"
 msgstr ""
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:326
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:331
 msgid "Export Formats"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:4
+msgid "Mef entity"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:5
+msgid "JSON schema for a mef entity"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:16
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:108
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:17
+msgid "Schema to validate organisation records against."
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:21
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:25
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:114
+msgid "Library ID"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:29
+msgid "Agent type"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:38
+msgid "VIAF ID"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:42
+msgid "Source authorities list"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:74
+msgid "RERO authorities"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:78
+msgid "GND authorities"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:82
+msgid "IdRef authorities"
+msgstr ""
+
+#: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:86
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:208
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:257
+msgid "Deletion date"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:28
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:31
+#: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:372
+#: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:80
+msgid "Gender"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:29
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:32
+msgid "Biographical information"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:32
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:35
+msgid "Date establishment"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:33
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:36
+msgid "Death termination"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:36
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:39
+msgid "Associated country"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:38
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:41
+msgid "ID"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:39
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:42
+msgid "Authorized access point"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:40
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:43
+msgid "Variant access point"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:41
+#: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:44
+msgid "Parallel access point"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/detailed_view_entity.html:42
+msgid "All sources"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/detailed_view_entity.html:44
+msgid "Unified"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/detailed_view_entity.html:49
+#: rero_ils/modules/entities/templates/rero_ils/detailed_view_entity.html:51
+msgid "By source"
+msgstr ""
+
+#: rero_ils/modules/entities/templates/rero_ils/detailed_view_entity.html:70
+msgid "Documents"
 msgstr ""
 
 #: rero_ils/modules/holdings/api.py:154
@@ -11424,11 +11352,11 @@ msgstr ""
 msgid "Patron account expired."
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:177
+#: rero_ils/modules/patrons/views.py:174
 msgid "Patron Profile"
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:236
+#: rero_ils/modules/patrons/views.py:233
 msgid "You have a pending subscription fee."
 msgstr ""
 
@@ -11715,6 +11643,10 @@ msgstr ""
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:32
 msgid "Template ID"
+msgstr ""
+
+#: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:68
+msgid "Creator"
 msgstr ""
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:72
