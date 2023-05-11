@@ -30,6 +30,8 @@ from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.models import NotificationChannel, \
     NotificationStatus, NotificationType, RecipientType
+from rero_ils.modules.vendors.dumpers import \
+    VendorAcquisitionNotificationDumper
 from rero_ils.modules.vendors.models import VendorContactType
 
 
@@ -46,23 +48,22 @@ def test_order_notification_preview(
     url = url_for('api_order.order_notification_preview', order_pid=acor.pid)
     res = client.get(url)
     assert res.status_code == 200
-    data = get_json(res)
-    assert 'data' in data and 'preview' in data
+    data = res.json
+    assert 'recipient_suggestions' in data and 'preview' in data
     assert 'message' not in data
 
     # update the vendor communication_language to force it to an unknown
     # related template and retry.
-    mocked_data = data['data']
-    mocked_data['vendor']['language'] = 'dummy'
-    magic_mock = mock.MagicMock(return_value=mocked_data)
-    with mock.patch(
-        'rero_ils.modules.acquisition.acq_orders.api.AcqOrder.dumps',
-        magic_mock
-    ):
-        res = client.get(url)
-        assert res.status_code == 200
-        data = get_json(res)
-        assert 'data' in data and 'preview' in data and 'message' in data
+    with mock.patch.object(VendorAcquisitionNotificationDumper, 'dump',
+                           mock.MagicMock(return_value={
+                               'name': 'test vendor name',
+                               'email': 'test@vendor.com',
+                               'language': 'dummy'
+                           })):
+        response = client.get(url)
+        assert response.status_code == 200
+        assert all(field in response.json
+                   for field in ['recipient_suggestions', 'preview'])
 
 
 def test_send_order(

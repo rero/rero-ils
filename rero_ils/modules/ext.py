@@ -65,6 +65,7 @@ from rero_ils.modules.imports.views import ImportsListResource, \
     ImportsResource, ResultNotFoundOnTheRemoteServer
 from rero_ils.modules.item_types.listener import negative_availability_changes
 from rero_ils.modules.items.listener import enrich_item_data
+from rero_ils.modules.items.views.filters import issue_client_reference
 from rero_ils.modules.loans.listener import enrich_loan_data, \
     listener_loan_state_changed
 from rero_ils.modules.locations.listener import enrich_location_data
@@ -166,16 +167,16 @@ class REROILSAPP(object):
             app.jinja_loader = ils_loader
 
             # register filters
-            app.add_template_filter(
-                get_record_by_ref, name='get_record_by_ref')
+            app.add_template_filter(get_record_by_ref)
             app.add_template_filter(format_date_filter, name='format_date')
-            app.add_template_global(node_assets, name='node_assets')
+            app.add_template_global(node_assets)
             app.add_template_filter(to_pretty_json, name='tojson_pretty')
-            app.add_template_filter(text_to_id, name='text_to_id')
-            app.add_template_filter(jsondumps, name='jsondumps')
-            app.add_template_filter(empty_data, name='empty_data')
-            app.add_template_filter(address_block, name='address_block')
+            app.add_template_filter(text_to_id)
+            app.add_template_filter(jsondumps)
+            app.add_template_filter(empty_data)
+            app.add_template_filter(address_block)
             app.add_template_filter(message_filter, name='message')
+            app.add_template_filter(issue_client_reference)
             app.jinja_env.add_extension('jinja2.ext.do')
             app.jinja_env.globals['version'] = __version__
             self.register_signals(app)

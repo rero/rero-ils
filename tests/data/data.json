@@ -187,6 +187,7 @@
       },
       "billing_informations": {
         "name": "martigny billing dept",
+        "email": "reroilstest+martignyshipping@gmail.com",
         "address": {
           "street": "Place de l'\u00e9querre 12",
           "city": "Aristo",

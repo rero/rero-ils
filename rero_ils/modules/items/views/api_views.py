@@ -25,12 +25,13 @@ from functools import wraps
 
 from elasticsearch import exceptions
 from elasticsearch_dsl import A, Q
-from flask import Blueprint, abort, current_app, jsonify
+from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from flask_login import current_user
 from invenio_circulation.api import get_loan_for_item
 from invenio_circulation.errors import CirculationException, \
     MissingRequiredParameterError
+from jinja2 import TemplateNotFound, UndefinedError
 from werkzeug.exceptions import NotFound
 
 from rero_ils.modules.circ_policies.api import CircPolicy
@@ -47,13 +48,19 @@ from rero_ils.modules.patrons.api import Patron, current_librarian
 from rero_ils.permissions import request_item_permission
 
 from ..api import Item
+from ..dumpers import ClaimIssueNotificationDumper
 from ..models import ItemCirculationAction
-from ..utils import item_pid_to_object
+from ..permissions import late_issue_management as late_issue_management_action
+from ..utils import get_recipient_suggestions, item_pid_to_object
 
 api_blueprint = Blueprint(
     'api_item',
     __name__,
     url_prefix='/item'
+)
+blueprint = Blueprint(
+    'items',
+    __name__
 )
 
 
@@ -172,9 +179,14 @@ def do_item_jsonify_action(func):
 def patron_request(item, data):
     """HTTP POST request for Item request action by a patron.
 
-    required_parameters:
-        item_pid,
-        pickup_location_pid
+    required parameters into the JSON data are:
+        * item_pid
+        * pickup_location_pid.
+    These json data are extracted by `do_item_jsonify_action` decorator and
+    used to load `item` and `data` parameters.
+
+    :param item: the requested item resource.
+    :param data: additional data used for the circ operation (as a dict).
     """
     # get the patron account of the same org of the location pid
     patron_pid = Patron.get_current_patron(item).pid
@@ -190,12 +202,17 @@ def patron_request(item, data):
 def librarian_request(item, data):
     """HTTP POST request for Item request action.
 
-    required_parameters:
-        item_pid_value,
-        pickup_location_pid,
-        patron_pid,
-        transaction_location_pid or transaction_library_pid,
-        transaction_user_pid
+    required parameters into the JSON data are:
+        * item_pid_value
+        * pickup_location_pid
+        * patron_pid
+        * transaction_location_pid OR transaction_library_pid
+        * transaction_user_pid
+    These json data are extracted by `do_item_jsonify_action` decorator and
+    used to load `item` and `data` parameters.
+
+    :param item: the requested item resource
+    :param data: additional data used for the circ operation (as a dict).
     """
     return item.request(**data)
 
@@ -206,10 +223,15 @@ def librarian_request(item, data):
 def cancel_item_request(item, data):
     """HTTP GET request for cancelling and item request action.
 
-    required_parameters:
-        pid (loan pid)
-        transaction_location_pid or transaction_library_pid,
-        transaction_user_pid
+    required parameters into the JSON data are:
+        * pid (corresponding to loan pid)
+        * transaction_location_pid OR transaction_library_pid
+        * transaction_user_pid
+    These json data are extracted by `do_item_jsonify_action` decorator and
+    used to load `item` and `data` parameters.
+
+    :param item: the cancelled item resource
+    :param data: additional data used for the circ operation (as a dict).
     """
     return item.cancel_item_request(**data)
 
@@ -219,13 +241,18 @@ def cancel_item_request(item, data):
 @check_authentication
 @do_item_jsonify_action
 def checkout(item, data):
-    """HTTP request for Item checkout action.
+    """HTTP POST request for Item checkout action.
 
-    required_parameters:
-        patron_pid,
-        item_pid,
-        transaction_location_pid,
-        transaction_user_pid
+    required parameters into the JSON data are:
+        * patron_pid
+        * item_pid
+        * transaction_location_pid
+        * transaction_user_pid
+    These json data are extracted by `do_item_jsonify_action` decorator and
+    used to load `item` and `data` parameters.
+
+    :param item: the item resource on which checkout operation will be done.
+    :param data: additional data used for the circ operation (as a dict).
     """
     data['override_blocking'] = flask_request.args.get(
         'override_blocking', False)
@@ -239,10 +266,15 @@ def checkout(item, data):
 def checkin(item, data):
     """HTTP GET request for item return action.
 
-    required_parameters:
-        item_pid or item_barcode
-        transaction_location_pid or transaction_library_pid,
-        transaction_user_pid
+    required parameters into the JSON data are:
+        * item_pid OR item_barcode
+        * transaction_location_pid OR transaction_library_pid
+        * transaction_user_pid
+    These json data are extracted by `do_item_jsonify_action` decorator and
+    used to load `item` and `data` parameters.
+
+    :param item: the item resource on which checkin operation will be done.
+    :param data: additional data used for the circ operation (as a dict).
     """
     return item.checkin(**data)
 
@@ -253,9 +285,14 @@ def checkin(item, data):
 def update_loan_pickup_location(loan, data):
     """HTTP POST request for change a pickup location for a loan.
 
-    required_parameters:
-        pid (loan pid)
-        pickup_location_pid
+     required parameters into the JSON data are:
+        * pid (the loan pid)
+        * pickup_location_pid
+    These json data are extracted by `do_loan_jsonify_action` decorator and
+    used to load `loan` and `data` parameters.
+
+    :param loan: the loan resource that will be updated
+    :param data: additional data used for the circ operation (as a dict).
     """
     return loan.update_pickup_location(**data)
 
@@ -266,10 +303,15 @@ def update_loan_pickup_location(loan, data):
 def validate_request(item, data):
     """HTTP GET request for Item request validation action.
 
-    required_parameters:
-        pid (loan pid)
-        transaction_location_pid or transaction_library_pid,
-        transaction_user_pid
+    required parameters into the JSON data are:
+        * pid (the loan pid)
+        * transaction_location_pid OR transaction_library_pid
+        * transaction_user_pid
+    These json data are extracted by `do_item_jsonify_action` decorator and
+    used to load `item` and `data` parameters.
+
+    :param item: the item resource on which validate operation will be done.
+    :param data: additional data used for the circ operation (as a dict).
     """
     return item.validate_request(**data)
 
@@ -278,9 +320,15 @@ def validate_request(item, data):
 @check_authentication
 @do_item_jsonify_action
 def receive(item, data):
-    """HTTP HTTP request for receive item action.
+    """HTTP POST request for receive item action.
 
-    required_parameters: item_pid
+    required parameters into the JSON data are:
+        * item_pid
+    These json data are extracted by `do_item_jsonify_action` decorator and
+    used to load `item` and `data` parameters.
+
+    :param item: the item resource on which receive operation will be done.
+    :param data: additional data used for the circ operation (as a dict).
     """
     return item.receive(**data)
 
@@ -288,10 +336,16 @@ def receive(item, data):
 @api_blueprint.route('/return_missing', methods=['POST'])
 @check_authentication
 @do_item_jsonify_action
-def return_missing(item, data=None):
-    """HTTP request for Item return_missing action.
+def return_missing(item, data):
+    """HTTP POST request for Item return_missing action.
 
-    required_parameters: item_pid
+    required parameters into the JSON data are:
+        * item_pid
+    These json data are extracted by `do_item_jsonify_action` decorator and
+    used to load `item` and `data` parameters.
+
+    :param item: the item resource on which return operation will be done.
+    :param data: additional data used for the circ operation (as a dict).
     """
     return item.return_missing()
 
@@ -300,9 +354,15 @@ def return_missing(item, data=None):
 @check_logged_user_authentication
 @do_item_jsonify_action
 def extend_loan(item, data):
-    """HTTP request for Item due date extend action.
+    """HTTP POST request for Item due date extend action.
 
-    required_parameters: item_pid
+    required parameters into the JSON data are:
+        * item_pid
+    These json data are extracted by `do_item_jsonify_action` decorator and
+    used to load `item` and `data` parameters.
+
+    :param item: the item resource on which extend operation will be done.
+    :param data: additional data used for the circ operation (as a dict).
     """
     return item.extend_loan(**data)
 
@@ -363,9 +423,8 @@ def item(item_barcode):
     if loan:
         loan = Loan.get_record_by_pid(loan.get('pid')).dumps_for_circulation()
     item_dumps = item.dumps_for_circulation()
-    patron_pid = flask_request.args.get('patron_pid')
 
-    if patron_pid:
+    if patron_pid := flask_request.args.get('patron_pid'):
         patron = Patron.get_record_by_pid(patron_pid)
         organisation_pid = item.organisation_pid
         library_pid = item.library_pid
@@ -501,3 +560,60 @@ def stats(item_pid):
         output['total'].setdefault('checkout', 0)
         output['total']['checkout'] += legacy_count
     return jsonify(output)
+
+
+@api_blueprint.route('/<item_pid>/issue/claims/preview', methods=['GET'])
+@check_permission([late_issue_management_action])
+def claim_notification_preview(item_pid):
+    """Get the preview of a claim issue notification content."""
+    record = Item.get_record_by_pid(item_pid)
+    if not record:
+        abort(404, 'Item not found')
+    if not record.is_issue:
+        abort(400, 'Item isn\'t an issue')
+
+    issue_data = record.dumps(dumper=ClaimIssueNotificationDumper())
+    language = issue_data.get('vendor', {}).get('language')
+
+    response = {'recipient_suggestions': get_recipient_suggestions(record)}
+    template_directory = 'email/claim_issue/'
+    try:
+        tmpl_file = f'{template_directory}/{language}.tpl.txt'
+        response['preview'] = render_template(tmpl_file, issue=issue_data)
+    except TemplateNotFound:
+        # If the corresponding translated template isn't found, use the english
+        # template as default template
+        msg = f'None "claim_issue" template found for "{language}" language'
+        current_app.logger.error(msg)
+        response['message'] = [{'type': 'error', 'content': msg}]
+        tmpl_file = f'{template_directory}/eng.tpl.txt'
+        response['preview'] = render_template(tmpl_file, issue=issue_data)
+    except UndefinedError as ue:
+        abort(500, f'template generation failed : {str(ue)}')
+
+    return jsonify(response)
+
+
+@api_blueprint.route('/<item_pid>/issue/claims', methods=['POST'])
+@check_permission([late_issue_management_action])
+def claim_issue(item_pid):
+    """API to claim an issue.
+
+    Required parameters:
+        recipients: the list of recipients (a list of dictionaries each
+            containing the email and its type to, cc, reply_to, or bcc).
+
+    :param item_pid: the item issue pid to claim.
+    :returns: jsonify created claimed notification into `data` attribute.
+    """
+    item_issue = Item.get_record_by_pid(item_pid)
+    if not item_issue:
+        abort(404, 'Item not found')
+    if not item_issue.is_issue:
+        abort(400, 'Item isn\'t an issue')
+
+    data = flask_request.get_json()
+    if not (recipients := data.get('recipients')):
+        abort(400, "Missing recipients emails.")
+    notification = item_issue.claims(recipients)
+    return jsonify({'data': notification})

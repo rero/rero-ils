@@ -40,7 +40,6 @@ from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref, \
     get_endpoint_configuration, get_objects, get_ref_for_pid, sorted_pids
-from rero_ils.modules.vendors.api import Vendor
 
 from .extensions import AcquisitionOrderCompleteDataExtension, \
     AcquisitionOrderExtension
@@ -114,14 +113,13 @@ class AcqOrder(AcquisitionIlsRecord):
         # TODO : should be used into `pre_create` hook extensions but seems not
         #   work as expected.
         AcquisitionOrderCompleteDataExtension.populate_currency(data)
-        record = super().create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        return record
+        return super().create(data, id_, delete_pid, dbcommit, reindex,
+                              **kwargs)
 
     @property
     def vendor(self):
         """Shortcut for vendor."""
-        return Vendor.get_record_by_pid(self.vendor_pid)
+        return extracted_data_from_ref(self.get('vendor'), data='record')
 
     @property
     def organisation_pid(self):

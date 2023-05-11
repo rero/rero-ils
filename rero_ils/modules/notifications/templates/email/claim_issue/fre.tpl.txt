@@ -1,23 +1,26 @@
-{{ issue.library.name }} - Réclamation au sujet de "{{ issue.document.title_text }}"
+Réclamation "{{ issue.document.title_text }}" {{ issue | issue_client_reference }}
 
 Madame, Monsieur,
 
-Nous avons remarqué que nous n'avons pas reçu le numéro suivant :
-Titre du périodique : {{ issue.document.title_text }}
-Numéro du fasciule : {{ issue.enumerationAndChronology }}
+Nous constatons que nous n’avons pas reçu le fascicule suivant :
+{{ issue.document.title_text }}
+{{ issue.enumerationAndChronology }}
 
-{%- if issue.holdings and issue.holdings.client_id %}
-Notre numéro client : {{ issue.holdings.client_id }}
+Vous trouverez ci-dessous les informations concernant notre abonnement:
+{%- if issue.holdings %}
+{%- if issue.holdings.client_id %}
+Numéro client : {{ issue.holdings.client_id }}
 {%- endif %}
-{%- if issue.holdings and issue.holdings.order_reference %}
-Notre référence de commande : {{ issue.holdings.order_reference }}
+{%- if issue.holdings.order_reference %}
+Référence de commande : {{ issue.holdings.order_reference }}
 {%- endif %}
-Nombre de réclamation au sujet de ce fascicule : {{ issue.claim_counter }}
+{%- endif %}
+Nombre de réclamation pour ce fascicule : {{ issue.claim_counter }}
 
-Nous vous remercions par avance de veiller à ce que nous recevions ce fascilue dans les meilleurs délais.
+Nous vous remercions de tout mettre en œuvre pour que nous recevions le fascicule dans les plus brefs délais.
 
 
-Bien à vous,
+Bien cordialement,
 
 {{ issue.library.shipping_informations.name }}
 

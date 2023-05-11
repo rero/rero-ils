@@ -27,7 +27,6 @@ from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.local_fields.extensions import \
     DeleteRelatedLocalFieldExtension
-from rero_ils.modules.locations.api import Location
 from rero_ils.modules.operation_logs.extensions import \
     UntrackedFieldsOperationLogObserverExtension
 from rero_ils.modules.organisations.api import Organisation
@@ -485,10 +484,22 @@ class ItemRecord(IlsRecord):
             return extracted_data_from_ref(self.get('location'))
 
     @property
+    def location(self):
+        """Shortcut to get item related location resource."""
+        if self.get('location'):
+            return extracted_data_from_ref(self.get('location'), data='record')
+
+    @property
     def library_pid(self):
         """Shortcut for item library pid."""
-        location = Location.get_record_by_pid(self.location_pid)
-        return extracted_data_from_ref(location.get('library'))
+        if location := self.location:
+            return location.library_pid
+
+    @property
+    def library(self):
+        """Shortcut for item library resource."""
+        if location := self.location:
+            return location.library
 
     @property
     def organisation_pid(self):
