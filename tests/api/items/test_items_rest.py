@@ -1068,23 +1068,24 @@ def test_item_possible_actions(client, item_lib_martigny,
 
 
 def test_items_facets(
-    client,
+    client, librarian_martigny, rero_json_header,
     item_lib_martigny,  # on shelf
     item_lib_fully,  # on loan
-    rero_json_header
 ):
     """Test record retrieval."""
+    login_user_via_session(client, librarian_martigny.user)
     list_url = url_for('invenio_records_rest.item_list')
     response = client.get(list_url, headers=rero_json_header)
     assert response.status_code == 200
-    data = get_json(response)
-    aggs = data['aggregations']
-    # check all facets are present
-    for facet in [
+    facet_names = [
         'document_type', 'item_type', 'library', 'location',
-        'status', 'temporary_item_type', 'temporary_location', 'vendor'
-    ]:
-        assert aggs[facet]
+        'status', 'temporary_item_type', 'temporary_location', 'vendor',
+        'claims_count', 'claims_date', 'current_requests'
+    ]
+    assert all(
+        name in response.json['aggregations']
+        for name in facet_names
+    )
 
 
 def test_items_rest_api_sort(

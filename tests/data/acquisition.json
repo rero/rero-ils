@@ -108,6 +108,7 @@
     "$schema": "https://bib.rero.ch/schemas/vendors/vendor-v0.0.1.json",
     "pid": "vndr5",
     "name": "Tomes and Scrolls",
+    "communication_language": "ger",
     "contacts": [
       {
         "type": "default",

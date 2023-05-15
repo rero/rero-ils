@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating the item issue."""
+from datetime import datetime, timezone
 
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
@@ -96,7 +97,12 @@ class ItemIssue(ItemRecord):
     @property
     def claims_count(self):
         """Get the number of claims notification sent about this issue."""
-        return len(list(NotificationsSearch().get_claims(self.pid)))
+        return NotificationsSearch().get_claims_count(self.pid)
+
+    @property
+    def claim_notifications(self):
+        """Get the `CLAIM_ISSUE` notifications related to this issue."""
+        return list(NotificationsSearch().get_claims(self.pid))
 
     @property
     def issue_inherited_first_call_number(self):
@@ -156,6 +162,7 @@ class ItemIssue(ItemRecord):
         """
         # Create the notification and dispatch it synchronously.
         record = {
+            'creation_date': datetime.now(timezone.utc).isoformat(),
             'notification_type': NotificationType.CLAIM_ISSUE,
             'context': {
                 'item': {'$ref': get_ref_for_pid('item', self.pid)},

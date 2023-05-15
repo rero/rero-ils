@@ -208,6 +208,17 @@
           },
           "status_date": {
             "type": "date"
+          },
+          "claims": {
+            "type": "object",
+            "properties": {
+              "counter": {
+                "type": "integer"
+              },
+              "dates": {
+                "type": "date"
+              }
+            }
           }
         }
       },

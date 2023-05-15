@@ -31,5 +31,4 @@ def issue_client_reference(issue_data):
             holding_data.get('client_id'),
             holding_data.get('order_reference')
         ]))
-        if parts:
-            return f'({"/".join(parts)})'
+        return f'({"/".join(parts)})' if parts else ''

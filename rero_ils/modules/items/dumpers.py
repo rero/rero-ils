@@ -97,4 +97,4 @@ class ClaimIssueNotificationDumper(InvenioRecordsDumper):
             'claim_counter': record.claims_count
         })
 
-        return {k: v for k, v in data.items() if v}
+        return {k: v for k, v in data.items() if v is not None}

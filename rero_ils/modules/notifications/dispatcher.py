@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -143,12 +144,15 @@ class Dispatcher:
         aggregated[aggr_key].append(notification)
 
     @staticmethod
-    def _create_email(recipients, reply_to, ctx_data, template):
+    def _create_email(recipients, reply_to, ctx_data, template,
+                      cc=None, bcc=None):
         """Create email message from template.
 
-        :param recipients: List of emails to send the message too.
+        :param recipients: Main recipient emails list
         :param reply_to: Reply to email address.
-        :param ctx_data: Dictionary with informations used in template.
+        :param cc: Email list where to send the message as "copy"
+        :param bcc: Email list where to send the message as "blind copy"
+        :param ctx_data: Dictionary with information used in template.
         :param template: Template to use to create TemplatedMessage.
         :returns: Message created.
         """
@@ -158,6 +162,8 @@ class Dispatcher:
                                           'noreply@rero.ch'),
             reply_to=','.join(reply_to),  # the client is unable to manage list
             recipients=recipients,
+            cc=cc,
+            bcc=bcc,
             ctx=ctx_data
         )
         # subject is the first line, body is the rest
@@ -264,6 +270,8 @@ class Dispatcher:
         notification = notifications[0]
         reply_to = notification.get_recipients(RecipientType.REPLY_TO)
         recipients = notification.get_recipients(RecipientType.TO)
+        cc = notification.get_recipients(RecipientType.CC)
+        bcc = notification.get_recipients(RecipientType.BCC)
 
         error_reasons = []
         if not recipients:
@@ -282,6 +290,8 @@ class Dispatcher:
 
         msg = Dispatcher._create_email(
             recipients=recipients,
+            cc=cc,
+            bcc=bcc,
             reply_to=reply_to,
             ctx_data=context,
             template=notification.get_template_path()
