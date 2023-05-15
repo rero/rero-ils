@@ -72,7 +72,7 @@ def test_issues_permissions(
 
 def test_issues_claim_notifications(
     client, holding_lib_martigny_w_patterns, librarian_martigny, mailbox,
-    csv_header, item_lib_sion
+    csv_header, rero_json_header, item_lib_sion
 ):
     """Test claim notification creation."""
     item = item_lib_sion
@@ -150,7 +150,10 @@ def test_issues_claim_notifications(
         url_data={'item_pid': issue_pid},
         data={'recipients': [
             {'type': RecipientType.TO, 'address': 'to@domain.com'},
-            {'type': RecipientType.REPLY_TO, 'address': 'noreply@domain.com'}
+            {'type': RecipientType.REPLY_TO, 'address': 'noreply@domain.com'},
+            {'type': RecipientType.CC, 'address': 'cc1@domain.com'},
+            {'type': RecipientType.CC, 'address': 'cc2@domain.com'},
+            {'type': RecipientType.BCC, 'address': 'bcc@domain.com'},
         ]}
     )
     assert response.status_code == 200
@@ -180,6 +183,23 @@ def test_issues_claim_notifications(
     # issue should be incremented
     flush_index(NotificationsSearch.Meta.index)
     assert issue_item.claims_count == 2
+
+    # Check that all is correctly indexed into ES
+    url = url_for(
+        'invenio_records_rest.item_list',
+        q=f'pid:{issue_pid}',
+        facets='claims_date'
+    )
+    response = client.get(url)
+    data = response.json['hits']['hits'][0]['metadata']
+    assert data['issue']['claims']['counter'] == 2
+    assert len(data['issue']['claims']['dates']) == 2
+
+    # Ensure than item serialization includes claim keys
+    url = url_for('invenio_records_rest.item_item', pid_value=issue_pid)
+    response = client.get(url, headers=rero_json_header)
+    assert response.json['metadata']['issue']['claims']['counter'] == 2
+    assert len(response.json['metadata']['issue']['claims']['dates']) == 2
 
     # Export this issue as CSV and check issue claims_count column
     list_url = url_for('api_item.inventory_search', q=f'pid:{issue_pid}')

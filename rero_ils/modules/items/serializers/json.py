@@ -113,4 +113,27 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                 'max': 100,
                 'step': 1
             }
+        if aggr := aggregations.get('claims_date'):
+            JSONSerializer.add_date_range_configuration(aggr)
+
         super()._postprocess_search_aggregations(aggregations)
+
+    def preprocess_record(self, pid, record, links_factory=None, **kwargs):
+        """Prepare a record and persistent identifier for serialization.
+
+        :param pid: Persistent identifier instance.
+        :param record: Record instance.
+        :param links_factory: Factory function for record links.
+        """
+        if record.is_issue and (notifications := record.claim_notifications):
+            dates = [
+                notification['creation_date']
+                for notification in notifications
+                if 'creation_date' in notification
+            ]
+            record.setdefault('issue', {})['claims'] = {
+                'counter': len(notifications),
+                'dates': dates
+            }
+        return super().preprocess_record(
+            pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)

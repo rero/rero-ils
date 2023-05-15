@@ -119,8 +119,8 @@ def test_notification_properties(client, holding_lib_martigny_w_patterns):
     """Test notification properties."""
 
     record = CirculationNotification({})
-    with pytest.raises(NotImplementedError):
-        record.get_recipients('cc')
+    record.__class__ = CirculationNotification
+    assert record.get_recipients('cc') == []
 
 
 def test_notification_extended_validation(client, item_lib_martigny):

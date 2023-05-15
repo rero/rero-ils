@@ -19,7 +19,8 @@
     "name",
     "currency",
     "vat_rate",
-    "organisation"
+    "organisation",
+    "communication_language"
   ],
   "properties": {
     "$schema": {

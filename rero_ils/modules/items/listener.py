@@ -66,3 +66,14 @@ def enrich_item_data(sender, json=None, record=None, index=None,
         # inject vendor pid
         if vendor_pid := record.vendor_pid:
             json['vendor'] = {'pid': vendor_pid, 'type': 'vndr'}
+        # inject claims information: counter and dates
+        if notifications := record.claim_notifications:
+            dates = [
+                notification['creation_date']
+                for notification in notifications
+                if 'creation_date' in notification
+            ]
+            json['issue']['claims'] = {
+                'counter': len(notifications),
+                'dates': dates
+            }

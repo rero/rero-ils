@@ -573,6 +573,10 @@ def claim_notification_preview(item_pid):
         abort(400, 'Item isn\'t an issue')
 
     issue_data = record.dumps(dumper=ClaimIssueNotificationDumper())
+    # update the claims issue counter ::
+    #   As this is preview for next claim, we need to add 1 to the returned
+    #   claim counter
+    issue_data['claim_counter'] += 1
     language = issue_data.get('vendor', {}).get('language')
 
     response = {'recipient_suggestions': get_recipient_suggestions(record)}
