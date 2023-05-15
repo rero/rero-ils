@@ -1745,55 +1745,21 @@ RECORDS_REST_FACETS = dict(
     items=dict(
         aggs=dict(
             document_type=dict(
-                terms=dict(field='document.document_type.main_type',
-                           size=DOCUMENTS_AGGREGATION_SIZE),
+                terms=dict(field='document.document_type.main_type', size=DOCUMENTS_AGGREGATION_SIZE),
                 aggs=dict(
-                    document_subtype=dict(
-                        terms=dict(field='document.document_type.subtype',
-                                   size=DOCUMENTS_AGGREGATION_SIZE)
-                    )
+                    document_subtype=dict(terms=dict(field='document.document_type.subtype', size=DOCUMENTS_AGGREGATION_SIZE))
                 )
             ),
-            library=dict(
-                terms=dict(
-                    field='library.pid',
-                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-            ),
-            location=dict(
-                terms=dict(
-                    field='location.pid',
-                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-            ),
-            item_type=dict(
-                terms=dict(
-                    field='item_type.pid',
-                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-            ),
-            temporary_location=dict(
-                terms=dict(
-                    field='temporary_location.pid',
-                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-            ),
-            temporary_item_type=dict(
-                terms=dict(
-                    field='temporary_item_type.pid',
-                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-            ),
-            status=dict(
-                terms=dict(
-                    field='status',
-                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-            ),
-            vendor=dict(
-                terms=dict(
-                    field='vendor.pid',
-                    size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-            ),
-            current_requests=dict(
-                max=dict(
-                    field='current_pending_requests'
-                )
-            )
+            library=dict(terms=dict(field='library.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
+            location=dict(terms=dict(field='location.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
+            item_type=dict(terms=dict(field='item_type.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
+            temporary_location=dict(terms=dict(field='temporary_location.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
+            temporary_item_type=dict(terms=dict(field='temporary_item_type.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
+            status=dict(terms=dict(field='status', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
+            vendor=dict(terms=dict(field='vendor.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
+            claims_count=dict(terms=dict(field='issue.claims.counter', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
+            claims_date=dict(date_histogram=dict(field='issue.claims.dates', calendar_interval='1d', format='yyyy-MM-dd')),
+            current_requests=dict(max=dict(field='current_pending_requests'))
         ),
         filters={
             _('document_type'): and_term_filter('document.document_type.main_type'),
@@ -1805,9 +1771,9 @@ RECORDS_REST_FACETS = dict(
             _('temporary_location'): and_term_filter('temporary_location.pid'),
             _('status'): and_term_filter('status'),
             _('vendor'): and_term_filter('vendor.pid'),
-            # to allow multiple filters support, in this case to filter by
-            # "late or claimed"
-            'or_issue_status': terms_filter('issue.status'),
+            _('or_issue_status'): terms_filter('issue.status'),  # to allow multiple filters support, in this case to filter by "late or claimed"
+            _('claims_count'): and_term_filter('issue.claims.counter'),
+            _('claims_date'): range_filter('issue.claims.dates', format='epoch_millis', start_date_math='/d', end_date_math='/d'),
             _('current_requests'): range_filter('current_pending_requests')
         }
     ),

@@ -65,18 +65,34 @@ class NotificationsSearch(IlsRecordsSearch):
 
         default_filter = None
 
+    def _get_claims_query(self, item_pid):
+        """Get the query to retrieve claim notifications about an issue.
+
+        :param item_pid: the item pid related to the claim notification.
+        :returns: a ElasticSearch query object.
+        """
+        return self \
+            .filter('term', context__item__pid=item_pid) \
+            .filter('term', notification_type=NotificationType.CLAIM_ISSUE)
+
     def get_claims(self, item_pid):
         """Get the claims notifications about an issue item.
 
         :param item_pid: the item pid related to the claim notification.
-        :returns: a generator of claim notification hit from ES.
-        :rtype: generator<Hit>.
+        :returns: a generator of claim Notification object
+        :rtype: generator<Notification> | integer
         """
-        query = self \
-            .filter('term', context__item__pid=item_pid) \
-            .filter('term', notification_type=NotificationType.CLAIM_ISSUE)
-        for hit in query.scan():
-            yield hit
+        for hit in self._get_claims_query(item_pid).scan():
+            yield Notification.get_record(hit.meta.id)
+
+    def get_claims_count(self, item_pid):
+        """Get the number of claims notifications about an issue item.
+
+        :param item_pid: the item pid related to the claim notification.
+        :returns: the number of claim notification
+        :rtype: int
+        """
+        return self._get_claims_query(item_pid).count()
 
 
 class Notification(IlsRecord, ABC):

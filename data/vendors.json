@@ -303,6 +303,7 @@
   {
     "pid": "13",
     "name": "Tomes and Scrolls",
+    "communication_language": "ger",
     "contacts": [
       {
         "type": "default",
@@ -326,6 +327,7 @@
   {
     "pid": "14",
     "name": "Tomes and Scrolls",
+    "communication_language": "ger",
     "contacts": [
       {
         "type": "default",
@@ -345,6 +347,7 @@
   {
     "pid": "15",
     "name": "Tomes and Scrolls",
+    "communication_language": "ger",
     "contacts": [
       {
         "type": "order",

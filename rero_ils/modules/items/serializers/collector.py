@@ -255,8 +255,8 @@ class Collector():
             csv_data['issue_status_date'] = \
                 ciso8601.parse_datetime(
                     issue.get('status_date')).date()
-        csv_data['issue_claims_count'] = \
-            len(list(NotificationsSearch().get_claims(csv_data['item_pid'])))
+        csv_data['issue_claims_count'] = NotificationsSearch()\
+            .get_claims_count(csv_data['item_pid'])
         csv_data['issue_expected_date'] = \
             issue.get('expected_date')
         csv_data['issue_regular'] = issue.get('regular')
