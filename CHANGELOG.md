@@ -1,5 +1,34 @@
 # Changelog
 
+## [v1.17.0](https://github.com/rero/rero-ils/tree/v1.17.0) (2023-05-16)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.16.0...v1.17.0)
+
+**New features:**
+* document: allow MEF linked subject [\#3303](https://github.com/rero/rero-ils/pull/3303) (by @zannkukai)
+* document: linked concept for genreForm field [\#3315](https://github.com/rero/rero-ils/pull/3315) (by @zannkukai)
+* entity: renames `bf:Concept` to `bf:Topic` [\#3304](https://github.com/rero/rero-ils/pull/3304) (by @jma)
+* entity: configure the editor [\#3300](https://github.com/rero/rero-ils/pull/3300) (by @jma)
+* contribution: rename `Contribution` to `Entity` [\#3261](https://github.com/rero/rero-ils/pull/3261) (by @zannkukai)
+* documents: change contribution structure [\#3255](https://github.com/rero/rero-ils/pull/3255) (by @jma)
+
+**Enhancements:**
+* entities: sync for contributions and concepts [\#3342](https://github.com/rero/rero-ils/pull/3342) (by @rerowep)
+* entities: refactoring of MEF proxy [\#3292](https://github.com/rero/rero-ils/pull/3292) (by @zannkukai)
+* documents: refactoring work_access_point field [\#3305](https://github.com/rero/rero-ils/pull/3305) (by @zannkukai)
+* documents: delete `$ref` possibility on `provisionActivity.places` [\#3283](https://github.com/rero/rero-ils/pull/3283) (by @zannkukai)
+* documents: simplify subjects structure [\#3278](https://github.com/rero/rero-ils/pull/3278) (by @jma)
+* entity: remove `type` key from linked entity json schema [\#3275](https://github.com/rero/rero-ils/pull/3275) (by @zannkukai)
+* documents: use dumpers [\#3253](https://github.com/rero/rero-ils/pull/3253) (by @jma)
+* documents: uses extensions [\#3242](https://github.com/rero/rero-ils/pull/3242) (by @jma)
+
+**Fixes:**
+* entites schemas: adapt field titles and defaults [\#3338](https://github.com/rero/rero-ils/pull/3338) (by @PascalRepond)
+* fix: test scripts for poetry 1.5.0 [\#3339](https://github.com/rero/rero-ils/pull/3339) (by @PascalRepond)
+* ui: fix subjects in public document detailed views [\#3344](https://github.com/rero/rero-ils/pull/3344) (by @jma)
+* editor: `bf:Organisation` was expected [\#3231](https://github.com/rero/rero-ils/issues/3231)
+* Autocomplete doesn't work above 10 characters per word [\#2619](https://github.com/rero/rero-ils/issues/2619)
+
 ## [v1.16.0](https://github.com/rero/rero-ils/tree/v1.16.0) (2023-05-10)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.15.0...v1.16.0)
