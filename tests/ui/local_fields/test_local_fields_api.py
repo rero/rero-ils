@@ -67,14 +67,18 @@ def test_local_fields(
     #   - Ensure this LocalField is related to the document, but it's not a
     #     cause to block the document suppression
     #   - Delete the document and ensure the LocalField is now deleted.
+    #   - Ensure the LocalField index is coherent
     assert 'local_fields' not in document.get_links_to_me()
     lofi_data.pop('pid', None)
     local_field = LocalField.create(lofi_data, dbcommit=True, reindex=True)
     assert document.get_links_to_me()['local_fields'] == 1
     assert 'local_fields' not in \
            document.reasons_not_to_delete().get('links', {})
+    parent_pid = document.pid
     document.delete(delindex=True)
     assert not LocalField.get_record_by_pid(local_field.pid)
+    fields = LocalField.get_local_fields_by_id('doc', parent_pid)
+    assert len(list(fields)) == 0
 
     # TEST#4 :: Same as previous but for item.
     item = Item.create(item_lib_martigny_data, dbcommit=True, reindex=True)
@@ -86,8 +90,11 @@ def test_local_fields(
     assert item.get_links_to_me()['local_fields'] == 1
     assert 'local_fields' not in \
            item.reasons_not_to_delete().get('links', {})
+    parent_pid = item.pid
     item.delete(delindex=True)
     assert not LocalField.get_record_by_pid(local_field.pid)
+    fields = LocalField.get_local_fields_by_id('item', parent_pid)
+    assert len(list(fields)) == 0
 
 
 def test_local_fields_extended_validation(
