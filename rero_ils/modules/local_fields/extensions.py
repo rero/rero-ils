@@ -36,4 +36,4 @@ class DeleteRelatedLocalFieldExtension(RecordExtension):
         """
         from .api import LocalField
         for local_field in LocalField.get_local_fields(record):
-            local_field.delete(force=force)
+            local_field.delete(force=force, delindex=True)

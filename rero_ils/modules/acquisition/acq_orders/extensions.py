@@ -51,13 +51,14 @@ class AcquisitionOrderExtension(RecordExtension):
         """Called before a record is deleted.
 
         :param record: the record metadata.
+        :param force: force the deleting of the record.
         """
         # For pending orders, we are allowed to delete all of its
         # line orders without further checks.
         # there is no need to check if it is a pending order or not because
         # the can_delete is already execute in the method self.delete
         for line in record.get_order_lines():
-            line.delete()
+            line.delete(force=force, delindex=True)
 
 
 class AcquisitionOrderCompleteDataExtension(RecordExtension):
