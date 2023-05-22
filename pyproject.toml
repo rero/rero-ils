@@ -421,9 +421,9 @@ beautifulsoup4 = "^4.11.1"
 bootstrap = {cmd = "./scripts/bootstrap", help = "Runs bootstrap"}
 console = {cmd = "./scripts/console", help = "Opens invenio shell"}
 cypress = {cmd = "./scripts/cypress", help = "Runs Cypress tests"}
-run_tests = {cmd = "./run-tests.sh", help = "Runs all tests"}
+run_tests = {cmd = "./scripts/test", help = "Runs all tests"}
 tests = {cmd = "pytest", help = "pytest"}
-tests_debug = {cmd = "./scripts/pytest -s --v --no-cov", help = "pytest -s --v --no-cov"}
+tests_debug = {cmd = "pytest -s -vv --no-cov", help = "pytest -s -vv --no-cov"}
 server = {cmd = "./scripts/server", help = "Starts the server "}
 setup = {cmd = "./scripts/setup", help = "Runs setup"}
 update = {cmd = "./scripts/update", help = "Runs update"}
