@@ -5,13 +5,13 @@
     "type": "array",
     "minItems": 1,
     "items": {
-      "title": "Agents",
+      "title": "Contribution",
       "description": "Person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
       "type": "object",
       "oneOf": [
         {
           "type": "object",
-          "title": "MEF Agents",
+          "title": "Link to an entity",
           "description": "Person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
           "additionalProperties": false,
           "propertiesOrder": [
@@ -24,7 +24,7 @@
           ],
           "properties": {
             "entity": {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_link-v0.0.1.json"
+              "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_entity_link-v0.0.1.json"
             },
             "role": {
               "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_role-v0.0.1.json"
@@ -33,7 +33,7 @@
         },
         {
           "type": "object",
-          "title": "Local Agents",
+          "title": "Entity (local)",
           "description": "Person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
           "additionalProperties": false,
           "propertiesOrder": [

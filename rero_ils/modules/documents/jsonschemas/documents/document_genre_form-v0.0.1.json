@@ -5,29 +5,12 @@
     "type": "array",
     "minItems": 1,
     "items": {
-      "title": "Entities",
+      "title": "Genre, form",
       "type": "object",
       "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
       "oneOf": [
         {
-          "title": "Local Entities",
-          "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
-          "type": "object",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "entity"
-          ],
-          "required": [
-            "entity"
-          ],
-          "properties": {
-            "entity": {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_genre_form_local-v0.0.1.json"
-            }
-          }
-        },
-        {
-          "title": "MEF Entities",
+          "title": "Link to an entity",
           "type": "object",
           "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
           "additionalProperties": false,
@@ -40,6 +23,23 @@
           "properties": {
             "entity": {
               "$ref": "https://bib.rero.ch/schemas/documents/document_genre_form_link-v0.0.1.json"
+            }
+          }
+        },
+        {
+          "title": "Entity (local)",
+          "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "entity"
+          ],
+          "required": [
+            "entity"
+          ],
+          "properties": {
+            "entity": {
+              "$ref": "https://bib.rero.ch/schemas/documents/document_genre_form_local-v0.0.1.json"
             }
           }
         }

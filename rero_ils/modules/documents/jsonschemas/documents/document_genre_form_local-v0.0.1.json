@@ -1,5 +1,5 @@
 {
-  "title": "Local Entity",
+  "title": "Genre, form (local)",
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
@@ -31,7 +31,7 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]",
+        "placeholder": "Example: Electronic serials",
         "templateOptions": {
           "itemCssClass": "col-lg-6"
         }

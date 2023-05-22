@@ -1,5 +1,5 @@
 {
-  "title": "MEF Entity",
+  "title": "Link to a genre, form",
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
@@ -10,7 +10,7 @@
   ],
   "properties": {
     "$ref": {
-      "title": "MEF Link",
+      "title": "Genre, form",
       "type": "string",
       "pattern": "^https://mef.rero.ch/api/concepts/idref/.*?$",
       "form": {
@@ -22,7 +22,7 @@
             "default": "concepts-genreForm",
             "options": [
               {
-                "label": "Concept",
+                "label": "Genre, form",
                 "value": "concepts-genreForm"
               }
             ]
