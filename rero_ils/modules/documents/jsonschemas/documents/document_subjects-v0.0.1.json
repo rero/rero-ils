@@ -6,28 +6,11 @@
     "minItems": 1,
     "items": {
       "type": "object",
-      "title": "Entities",
+      "title": "Subject",
       "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
       "oneOf": [
         {
-          "title": "Local Entities",
-          "type": "object",
-          "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "entity"
-          ],
-          "required": [
-            "entity"
-          ],
-          "properties": {
-            "entity": {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_local-v0.0.1.json"
-            }
-          }
-        },
-        {
-          "title": "MEF Entities",
+          "title": "Link to an entity",
           "type": "object",
           "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
           "additionalProperties": false,
@@ -42,11 +25,31 @@
               "$ref": "https://bib.rero.ch/schemas/documents/document_subjects_entity_link-v0.0.1.json"
             }
           }
+        },
+        {
+          "title": "Entity (local)",
+          "type": "object",
+          "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "entity"
+          ],
+          "required": [
+            "entity"
+          ],
+          "properties": {
+            "entity": {
+              "$ref": "https://bib.rero.ch/schemas/documents/document_entity_local-v0.0.1.json"
+            }
+          }
         }
       ]
     },
     "form": {
-      "hide": true
+      "hide": true,
+      "navigation": {
+        "essential": true
+      }
     }
   }
 }

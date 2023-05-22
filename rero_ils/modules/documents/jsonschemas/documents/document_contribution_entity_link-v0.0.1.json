@@ -1,5 +1,5 @@
 {
-  "title": "MEF Entity",
+  "title": "Link to an agent",
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
@@ -10,7 +10,7 @@
   ],
   "properties": {
     "$ref": {
-      "title": "MEF Link",
+      "title": "Agent",
       "type": "string",
       "pattern": "^https://mef.rero.ch/api/agents/(gnd|idref|rero)/.*?$",
       "form": {

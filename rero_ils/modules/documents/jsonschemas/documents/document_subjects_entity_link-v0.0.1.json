@@ -1,5 +1,5 @@
 {
-  "title": "MEF Entity",
+  "title": "Link to a subject",
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
@@ -10,7 +10,7 @@
   ],
   "properties": {
     "$ref": {
-      "title": "MEF Link",
+      "title": "Subject",
       "type": "string",
       "pattern": "^https://mef.rero.ch/api/(agents|concepts)/(gnd|idref|rero)/.*?$",
       "form": {
@@ -19,8 +19,12 @@
           "enableGroupField": true,
           "type": "mef",
           "filters": {
-            "default": "bf:Person",
+            "default": "bf:Topic",
             "options": [
+              {
+                "label": "Topic",
+                "value": "bf:Topic"
+              },
               {
                 "label": "Person",
                 "value": "bf:Person"
@@ -28,10 +32,6 @@
               {
                 "label": "Organisation",
                 "value": "bf:Organisation"
-              },
-              {
-                "label": "Concept",
-                "value": "bf:Topic"
               }
             ]
           }

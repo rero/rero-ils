@@ -1,5 +1,5 @@
 {
-  "title": "Local Entity",
+  "title": "Entity (local)",
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
@@ -64,7 +64,6 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: Musset, Alfred de, 1810-1857",
         "templateOptions": {
           "itemCssClass": "col-lg-12"
         }
@@ -90,7 +89,7 @@
       "uniqueItems": true,
       "items": {
         "type": "object",
-        "title": "Entities",
+        "title": "Entity (local)",
         "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
         "additionalProperties": false,
         "propertiesOrder": [
@@ -119,8 +118,8 @@
                 "$ref": "#/definitions/subtype"
               },
               "isGenreForm": {
-                "title": "Genre / form",
-                "description": "Is this entity is a genre/form ?",
+                "title": "Genre, form",
+                "description": "Is this entity a genre, form ?",
                 "type": "boolean",
                 "default": false,
                 "form": {
