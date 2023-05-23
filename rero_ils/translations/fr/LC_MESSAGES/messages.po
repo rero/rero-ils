@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-05-11 11:51+0200\n"
-"PO-Revision-Date: 2023-05-11 11:24+0000\n"
+"PO-Revision-Date: 2023-05-23 11:38+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -7360,7 +7360,7 @@ msgstr "Œuvre"
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:47
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:174
 msgid "bf:Topic"
-msgstr "Concept"
+msgstr "Thème"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:55
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:182
