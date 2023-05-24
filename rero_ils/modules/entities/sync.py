@@ -18,24 +18,21 @@
 
 """API for manipulating documents."""
 
-import logging
-import os
 import sys
 from copy import deepcopy
 from datetime import datetime
 from itertools import islice
-from logging.config import dictConfig
 
 import requests
 from deepdiff import DeepDiff
 from elasticsearch_dsl import Q
-from flask import current_app
 from invenio_db import db
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.api import EntitiesSearch, Entity
 from rero_ils.modules.utils import get_mef_url, get_timestamp, \
     requests_retry_session, set_timestamp
+from rero_ils.modules.entities.logger import create_logger
 
 
 class SyncEntity(object):
@@ -55,7 +52,12 @@ class SyncEntity(object):
         self.verbose = verbose
         self.from_date = None
         self.start_timestamp = None
-        self._init_logger(verbose, log_dir)
+        self.logger = create_logger(
+            name='SyncEntity',
+            file_name='sync_mef.log',
+            log_dir=log_dir,
+            verbose=verbose
+        )
         if from_last_date:
             self._get_last_date()
 
@@ -64,54 +66,6 @@ class SyncEntity(object):
         data = get_timestamp('sync_entities')
         if data and data.get('start_timestamp'):
             self.from_date = data.get('start_timestamp')
-
-    def _init_logger(self, verbose, log_dir):
-        """Initialize the module logger."""
-        # default value
-        if not log_dir:
-            log_dir = current_app.config.get(
-                'RERO_ILS_MEF_SYNC_LOG_DIR',
-                os.path.join(current_app.instance_path, 'logs')
-            )
-        # create the log directory if does not exists
-        if not os.path.exists(log_dir):
-            os.mkdir(log_dir)
-        verbose_level = ['ERROR', 'INFO', 'DEBUG']
-        logging_config = {
-            'version': 1,
-            'disable_existing_loggers': False,
-            'formatters': {
-                'standard': {
-                    'format': '%(asctime)s [%(levelname)s] :: %(message)s'
-                }
-            },
-            'handlers': {
-                'console': {
-                    'class': 'logging.StreamHandler',
-                    'formatter': 'standard',
-                    'level': verbose_level[min(verbose, 2)]
-                },
-                'file': {
-                    'class': 'logging.handlers.TimedRotatingFileHandler',
-                    'filename': os.path.join(log_dir, 'sync_mef.log'),
-                    'when': 'D',
-                    'interval': 7,
-                    'backupCount': 10,
-                    'formatter': 'standard'
-                }
-            },
-            'loggers': {
-                # for the current module
-                self.__module__: {
-                    'handlers': ['console', 'file'],
-                    'level': 'INFO',
-                    'propagate': False
-                }
-            }
-        }
-        dictConfig(logging_config)
-        self.logger = logging.getLogger(__name__)
-        self.log_dir = log_dir
 
     def _entity_are_different(self, entity1, entity2):
         """Check if two entities are different.

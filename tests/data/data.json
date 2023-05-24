@@ -1579,6 +1579,30 @@
     ],
     "viaf_pid": "70119347"
   },
+  "ent_pers2": {
+    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "pid": "ent_pers2",
+    "rero": {
+      "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
+      "authorized_access_point": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
+      "bf:Agent": "bf:Person",
+      "identifier": "http://data.rero.ch/02-A009963344",
+      "numeration": "1)",
+      "pid": "A009963344",
+      "preferred_name": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
+      "qualifier": "(patriarche oecum\u00e9nique",
+      "variant_access_point": [
+        "Spyrou, Aristokles"
+      ],
+      "variant_name": [
+        "Spyrou, Aristokles"
+      ]
+    },
+    "sources": [
+      "rero"
+    ],
+    "type": "bf:Person"
+  },
   "ent_org": {
     "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
     "gnd": {
@@ -1590,6 +1614,7 @@
       "md5": "215b8b7fc6fd58fdb149258f5e385bf3",
       "pid": "1161956409",
       "preferred_name": "Convegno internazionale di italianistica Craiova",
+      "authorized_access_point": "Convegno internazionale di italianistica Craiova",
       "variant_access_point": [
         "VIII Convegno internazionale di italianistica dell'Universita\u0300 di Craiova, 16-17 settembre 2016"
       ]
@@ -1601,7 +1626,8 @@
       "identifier": "http://data.rero.ch/02-A027711299",
       "md5": "4e68fe5569c8ab038b8069e883ebae2b",
       "pid": "A027711299",
-      "preferred_name": "Convegno internazionale di Italianistica"
+      "preferred_name": "Convegno internazionale di Italianistica",
+      "authorized_access_point": "Convegno internazionale di Italianistica"
     },
     "pid": "ent_org",
     "type": "bf:Organisation",
@@ -1698,8 +1724,49 @@
       "idref"
     ]
   },
-  "ent_pers2": {
-    "$schema": "https://mef.rero.ch/schemas/mef/mef-v0.0.1.json",
+  "ent_topic2": {
+    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "pid": "ent_topic2",
+    "rero": {
+      "$schema": "https://mef.rero.ch/schemas/concepts_rero/rero-concept-v0.0.1.json",
+      "authorized_access_point": "Bases de donn\u00e9es d\u00e9ductives",
+      "broader": [
+        {
+          "authorized_access_point": "Bases de donn\u00e9es"
+        }
+      ],
+      "identifiedBy": [
+        {
+          "source": "RERO",
+          "type": "bf:Local",
+          "value": "A021039750"
+        },
+        {
+          "source": "BNF",
+          "type": "bf:Local",
+          "value": "FRBNF122513889"
+        },
+        {
+          "type": "uri",
+          "value": "http://catalogue.bnf.fr/ark:/12148/cb122513884"
+        }
+      ],
+      "note": [
+        {
+          "label": [
+            "Deductive data bases"
+          ],
+          "noteType": "general"
+        }
+      ],
+      "pid": "A021039750"
+    },
+    "sources": [
+      "rero"
+    ]
+  },
+  "ent_pers_all": {
+    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
     "type": "bf:Person",
     "gnd": {
       "$schema": "https://mef.rero.ch/schemas/agents_gnd/gnd-agent-v0.0.1.json",
@@ -1741,7 +1808,7 @@
       "pid": "029314100",
       "preferred_name": "Nebehay, Christian Michael"
     },
-    "pid": "ent_pers2",
+    "pid": "ent_pers_all",
     "rero": {
       "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
       "authorized_access_point": "Nebehay, Christian Michael",
@@ -1755,6 +1822,24 @@
       "rero",
       "gnd",
       "idref"
+    ],
+    "viaf_pid": "108158722"
+  },
+  "ent_pers_rero": {
+    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "type": "bf:Person",
+    "pid": "ent_pers_rero",
+    "rero": {
+      "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
+      "authorized_access_point": "Nebehay, Christian Michael",
+      "bf:Agent": "bf:Person",
+      "identifier": "http://data.rero.ch/02-A003633163",
+      "md5": "2f217265e5fa5fc2a361e46fd3a07f8f",
+      "pid": "A003633163",
+      "preferred_name": "Nebehay, Christian Michael"
+    },
+    "sources": [
+      "rero"
     ],
     "viaf_pid": "108158722"
   },
@@ -2190,8 +2275,12 @@
       },
       {
         "entity": {
-          "authorized_access_point": "RERO. Martigny (1 : 2020-02-02 : Martigny)",
-          "type": "bf:Organisation"
+          "authorized_access_point": "Convegno internazionale di italianistica Craiova",
+          "type": "bf:Organisation",
+          "identifiedBy": {
+            "value": "1161956409",
+            "type": "GND"
+          }
         },
         "role": [
           "aut"
@@ -3092,8 +3181,7 @@
           "authorized_access_point": "Athenagoras (patriarche oecum\u00e9nique ; 1)",
           "identifiedBy": {
             "value": "A009963344",
-            "source": "rero",
-            "type": "bf:Local"
+            "type": "RERO"
           }
         }
       },
@@ -3103,19 +3191,17 @@
           "authorized_access_point": "Europe occidentale",
           "identifiedBy": {
             "value": "A009975209",
-            "source": "rero",
-            "type": "bf:Local"
+            "type": "RERO"
           }
         }
       },
       {
         "entity": {
           "type": "bf:Topic",
-          "authorized_access_point": "Bases de donn\u00e9es",
+          "authorized_access_point": "Bases de donn\u00e9es d\u00e9ductives",
           "identifiedBy": {
-            "value": "A001234567",
-            "source": "rero",
-            "type": "bf:Local"
+            "value": "A021039750",
+            "type": "RERO"
           }
         }
       },
@@ -3125,8 +3211,7 @@
           "type": "bf:Work",
           "identifiedBy": {
             "type": "RERO",
-            "value": "A001234567",
-            "source": "rero"
+            "value": "A001234567"
           }
         }
       }

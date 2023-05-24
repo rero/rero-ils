@@ -411,27 +411,6 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=30, hour=1, day_of_month='1'),  # First day of the month at 01:30 UTC,
         'enabled': False
     },
-    'replace-idby-contribution': {
-        'task': ('rero_ils.modules.documents.tasks.replace_idby_contribution'),
-        'schedule': crontab(minute=5, hour=2, day_of_week=6),
-        # Every week on Saturday at 22:22 UTC,
-        'enabled': False
-    },
-    'replace-idby-subjects': {
-        'task': ('rero_ils.modules.documents.tasks.replace_idby_subjects'),
-        'schedule': crontab(minute=10, hour=2, day_of_week=6),
-        # Every week on Saturday at 22:22 UTC,
-        'enabled': False
-    },
-    'replace-idby-subjects-imported': {
-        'task': ('rero_ils.modules.documents.tasks.replace_idby_subjects'),
-        'kwargs': {
-            'subjects': 'subjects_imported'
-        },
-        'schedule': crontab(minute=15, hour=2, day_of_week=6),
-        # Every week on Saturday at 22:20 UTC,
-        'enabled': False
-    },
     'delete-provisional-items': {
         'task': 'rero_ils.modules.items.tasks.delete_provisional_items',
         'schedule': crontab(minute=0, hour=3),  # Every day at 03:00 UTC,
@@ -445,6 +424,11 @@ CELERY_BEAT_SCHEDULE = {
     'sync-entities': {
         'task': 'rero_ils.modules.entities.tasks.sync_entities',
         'schedule': crontab(minute=0, hour=1), # Every day at 01:00 UTC,
+        'enabled': False,
+    },
+    'replace-identified-by': {
+        'task': 'rero_ils.modules.entities.tasks.replace_identified_by',
+        'schedule': crontab(minute=0, hour=3, day_of_week=6), # Every Saturday at 03:00 UTC,
         'enabled': False,
     },
     # 'mef-harvester': {

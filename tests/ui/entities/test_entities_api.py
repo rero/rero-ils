@@ -29,6 +29,7 @@ from utils import flush_index, mock_response
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.api import EntitiesSearch, Entity, \
     entity_id_fetcher
+from rero_ils.modules.entities.replace import ReplaceIdentifiedBy
 from rero_ils.modules.entities.sync import SyncEntity
 
 
@@ -347,3 +348,84 @@ def test_entity_properties(
 
     # Reset fixture
     document.update(document_data, dbcommit=True, reindex=True)
+
+
+def test_replace_identified_by(
+    app, entity_organisation, entity_person_rero, person2_data,
+    entity_person_all, entity_topic_data_2,
+    document, document_sion_items, export_document
+):
+    """Test replace identified by with $ref."""
+    # === setup
+    log_path = tempfile.mkdtemp()
+    replace_identified_by = ReplaceIdentifiedBy(
+        field='contribution',
+        verbose=True,
+        dry_run=False,
+        log_dir=log_path
+    )
+    assert replace_identified_by
+    assert replace_identified_by.count() == 2
+
+    # no MEF response for agents in contribution
+    with mock.patch(
+        'requests.Session.get',
+        side_effect=[mock_response(status=404), mock_response(status=404)]
+    ):
+        changed, not_found, rero_only = replace_identified_by.run()
+        assert changed == 0
+        assert not_found == 2
+        assert rero_only == 0
+        assert replace_identified_by.not_found == {
+            'gnd:1161956409': 'bf:Organisation: Convegno internazionale '
+                              'di italianistica Craiova',
+            'rero:A003633163': 'bf:Person: Nebehay, Christian Michael'
+        }
+        replace_identified_by.set_timestamp()
+        data = replace_identified_by.get_timestamp()
+        assert 'contribution' in data
+        assert data['contribution']['changed'] == 0
+        assert data['contribution']['not found'] == 2
+        assert data['contribution']['rero only'] == 0
+
+    # with MEF response for agents in contribution
+    with mock.patch(
+        'requests.Session.get',
+        side_effect=[
+            mock_response(json_data=entity_person_rero),
+            mock_response(json_data=entity_organisation)
+        ]
+    ):
+        changed, not_found, rero_only = replace_identified_by.run()
+        assert changed == 1
+        assert not_found == 0
+        assert rero_only == 1
+        assert replace_identified_by.rero_only == {
+            'rero:A003633163': 'bf:Person: Nebehay, Christian Michael'
+        }
+    # with MEF response for concepts in subjects
+    replace_identified_by = ReplaceIdentifiedBy(
+        field='subjects',
+        verbose=True,
+        dry_run=False,
+        log_dir=log_path
+    )
+    assert replace_identified_by
+    assert replace_identified_by.count() == 2
+    with mock.patch(
+        'requests.Session.get',
+        side_effect=[
+            mock_response(json_data=entity_person_all),
+            mock_response(json_data=person2_data),
+            mock_response(json_data=entity_topic_data_2)
+        ]
+    ):
+        changed, not_found, rero_only = replace_identified_by.run()
+        assert changed == 1
+        assert not_found == 0
+        assert rero_only == 2
+        assert dict(sorted(replace_identified_by.rero_only.items())) == {
+            'rero:A009963344':
+                'bf:Person: Athenagoras (patriarche oecuménique ; 1)',
+            'rero:A021039750': 'bf:Topic: Bases de données déductives'
+        }

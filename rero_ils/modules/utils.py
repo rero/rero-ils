@@ -58,7 +58,6 @@ def get_mef_url(entity_type):
     :param entity_type: the type of the entity to we need to contact.
     :return the base url to use to contact MEF.
     :rtype str
-    :raises KeyError if no URL could be found for this entity_type.
     """
     return current_app.config\
         .get('RERO_ILS_MEF_CONFIG', {})\
