@@ -49,7 +49,7 @@ def test_count(app, script_info):
     assert result.output.strip().split('\n')[1] == 'Count: 2'
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_create(mock_contributions_mef_get, app, script_info,
                 entity_person_response_data):
     """Test create cli."""

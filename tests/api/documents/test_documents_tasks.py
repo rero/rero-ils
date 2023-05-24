@@ -32,7 +32,7 @@ from rero_ils.modules.documents.utils_mef import \
 from rero_ils.modules.entities.api import Entity
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_replace_idby_contribution(mock_contributions_mef_get, app,
                                    document_data,
                                    entity_person_response_data):
@@ -75,7 +75,7 @@ def test_replace_idby_contribution(mock_contributions_mef_get, app,
         cont.delete(dbcommit=True, delindex=True, force=True)
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_replace_idby_subjects(mock_contributions_mef_get, app,
                                document_data,
                                entity_person_response_data):

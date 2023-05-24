@@ -277,6 +277,15 @@ def mef_agents_url(app):
         .get('base_url')
 
 
+@pytest.fixture(scope='module')
+def mef_concepts_url(app):
+    """Get MEF agent URL from config."""
+    return app.config\
+        .get('RERO_ILS_MEF_CONFIG', {})\
+        .get('concepts', {})\
+        .get('base_url')
+
+
 @pytest.fixture(scope="module")
 def bnf_ean_any_123():
     """Load bnf ean any 123 xml file."""

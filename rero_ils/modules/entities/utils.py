@@ -20,13 +20,12 @@
 
 from __future__ import absolute_import, print_function
 
-import requests
 from flask import current_app
 from requests import RequestException
 from requests import codes as requests_codes
 
 from rero_ils.modules.entities.models import EntityType
-from rero_ils.modules.utils import get_mef_url
+from rero_ils.modules.utils import get_mef_url, requests_retry_session
 
 
 def get_entity_localized_value(entity, key, language):
@@ -102,7 +101,7 @@ def get_mef_data_by_type(pid_type, pid, entity_type='agents', verbose=False,
     else:
         mef_url = f'{base_url}/mef/latest/{pid_type}:{pid}'
 
-    request = requests.get(url=mef_url, params={
+    request = requests_retry_session().get(url=mef_url, params={
         'with_deleted': int(with_deleted),
         'resolve': int(resolve),
         'sources': int(sources)

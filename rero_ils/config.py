@@ -442,8 +442,8 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=0, hour=5),  # Every day at 05:00 UTC,
         'enabled': False,
     },
-    'sync-agents': {
-        'task': 'rero_ils.modules.entities.tasks.sync_agents',
+    'sync-entities': {
+        'task': 'rero_ils.modules.entities.tasks.sync_entities',
         'schedule': crontab(minute=0, hour=1), # Every day at 01:00 UTC,
         'enabled': False,
     },
@@ -2977,6 +2977,11 @@ RERO_ILS_MEF_CONFIG = {
             {'idref.bnf_type': 'genre/forme Rameau'}
         ]
     }
+}
+RERO_ILS_ENTITY_TYPES = {
+    'bf:Person': 'agents',
+    'bf:Organisation': 'agents',
+    'bf:Topic': 'concepts'
 }
 RERO_ILS_MEF_RESULT_SIZE = 100
 

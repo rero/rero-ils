@@ -1586,6 +1586,93 @@
     ],
     "viaf_pid": "3117153063217219320007"
   },
+  "ent_topic": {
+    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "idref": {
+      "$schema": "https://mef.rero.ch/schemas/concepts_idref/idref-concept-v0.0.1.json",
+      "authorized_access_point": "Swing (jazz)",
+      "bnf_type": "genre/forme Rameau",
+      "broader": [
+        {
+          "authorized_access_point": "Jazz"
+        }
+      ],
+      "classification": [
+        {
+          "classificationPortion": "780",
+          "name": "Musique",
+          "type": "bf:ClassificationDdc"
+        }
+      ],
+      "closeMatch": [
+        {
+          "authorized_access_point": "Swing (Music)",
+          "identifiedBy": {
+            "source": "LCSH",
+            "type": "uri",
+            "value": "http://id.loc.gov/authorities/subjects/sh90002707"
+          },
+          "source": "LCSH"
+        },
+        {
+          "authorized_access_point": "Swing (Musique)",
+          "source": "RVMLaval"
+        }
+      ],
+      "identifiedBy": [
+        {
+          "source": "IdRef",
+          "type": "uri",
+          "value": "http://www.idref.fr/030752787"
+        },
+        {
+          "source": "BNF",
+          "type": "uri",
+          "value": "http://catalogue.bnf.fr/ark:/12148/cb12210583w"
+        }
+      ],
+      "md5": "522d2821a0939bf38725c3d08a093ee5",
+      "note": [
+        {
+          "label": [
+            "Grand Larousse universel",
+            "Encycl. universalis - http://www.universalis-edu.com (2010-09-02)",
+            "Dict. du jazz / P. Carles, A. Clergeat, J.-L. Comolli, 1994",
+            "Encycl. illustr\u00e9e de toutes les musiques / P. Du Noyer, 2004",
+            "Oxford music online - http://www.grovemusic.com (2007-07-05)",
+            "Jazz styles - http://www.jazz-styles.com (2007-07-05)"
+          ],
+          "noteType": "dataSource"
+        },
+        {
+          "label": [
+            "Style de jazz jou\u00e9 dans les ann\u00e9es 1930 et 1940, appel\u00e9 \"mainstream\" (courant pricipal) dans ses prolongements plus r\u00e9cents"
+          ],
+          "noteType": "general"
+        }
+      ],
+      "pid": "030752787",
+      "related": [
+        {
+          "authorized_access_point": "Zazous"
+        },
+        {
+          "authorized_access_point": "Western swing"
+        }
+      ],
+      "variant_access_point": [
+        "Jazz classique",
+        "Mainstream (jazz)",
+        "Middle jazz",
+        "Modern mainstream (jazz)"
+      ]
+    },
+    "pid": "14613205",
+    "type": "bf:Topic",
+    "sources": [
+      "idref"
+    ]
+  },
   "ent_pers2": {
     "$schema": "https://mef.rero.ch/schemas/mef/mef-v0.0.1.json",
     "type": "bf:Person",
@@ -3019,6 +3106,102 @@
         }
       }
     ]
+  },
+  "doc9": {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "pid": "doc2",
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "ara"
+      }
+    ],
+    "harvested": false,
+    "identifiedBy": [
+      {
+        "type": "bf:Local",
+        "source": "RERO",
+        "value": "R007153123"
+      },
+      {
+        "type": "bf:Isbn",
+        "qualifier": "broch\u00e9",
+        "value": "9786039012641"
+      },
+      {
+        "type": "bf:Local",
+        "source": "BNF",
+        "value": "FRBNF452959140000002"
+      },
+      {
+        "type": "uri",
+        "value": "http://catalogue.bnf.fr/ark:/12148/cb45295914f"
+      }
+    ],
+    "subjects": [
+      {
+        "entity": {
+          "$ref": "https://mef.rero.ch/api/concepts/idref/030752787"
+        }
+      }
+    ],
+    "title": [
+      {
+        "type": "bf:Title",
+        "mainTitle": [
+          {
+            "value": "al-Waj\u012bz f\u012b ni\u1e93\u0101m khidmat al-afr\u0101d al-s\u02bf\u016bd\u012b"
+          }
+        ]
+      }
+    ],
+    "provisionActivity": [
+      {
+        "type": "bf:Publication",
+        "statement": [
+          {
+            "country": "sz",
+            "label": [
+              {
+                "value": "al-Riy\u0101\u1e0d"
+              }
+            ],
+            "type": "bf:Place"
+          },
+          {
+            "label": [
+              {
+                "value": "Maktabat al-qan\u016bn wa al-iqti\u1e63\u0101d"
+              }
+            ],
+            "type": "bf:Agent"
+          },
+          {
+            "label": [
+              {
+                "value": "2011"
+              }
+            ],
+            "type": "Date"
+          }
+        ],
+        "startDate": 2011
+      }
+    ],
+    "extent": "560 p.",
+    "adminMetadata": {
+      "encodingLevel": "Minimal level"
+    }
   },
   "ebook1": {
     "pid": "ebook1",

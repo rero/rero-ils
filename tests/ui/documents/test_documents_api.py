@@ -74,7 +74,7 @@ def test_document_create(db, document_data_tmp):
         Document.create(doc)
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_document_create_with_mef(
         mock_contributions_mef_get, app, document_data_ref, document_data,
         entity_person_data, entity_person_response_data):
@@ -139,7 +139,7 @@ def test_document_create_with_mef(
     db.session.rollback()
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_document_linked_subject(
     mock_subjects_mef_get, app, document_data_tmp,
     mef_concept1_data, mef_concept1_es_response

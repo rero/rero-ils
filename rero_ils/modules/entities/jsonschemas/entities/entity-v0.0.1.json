@@ -13,7 +13,7 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate organisation records against.",
+      "description": "Schema to validate entity records against.",
       "type": "string",
       "minLength": 9
     },

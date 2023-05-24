@@ -5448,7 +5448,7 @@ def test_marc21_to_identified_by_from_035():
     ]
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_marc21_to_electronicLocator_from_856(mock_cover_get):
     """Test dojson electronicLocator from 856."""
 
