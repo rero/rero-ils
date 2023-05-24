@@ -267,6 +267,12 @@ def entity_topic_data_tmp(app, data):
 
 
 @pytest.fixture(scope="module")
+def entity_topic_data_2(data):
+    """Load mef concept topic data."""
+    return deepcopy(data.get('ent_topic2'))
+
+
+@pytest.fixture(scope="module")
 def entity_person_response_data(entity_topic_data):
     """Load mef concept topic response data."""
     return {
@@ -334,6 +340,42 @@ def entity_person(app, entity_person_data):
         reindex=True)
     flush_index(EntitiesSearch.Meta.index)
     return cont
+
+
+@pytest.fixture(scope="module")
+def entity_person_data_all(data):
+    """Load mef contribution person data."""
+    return deepcopy(data.get('ent_pers_all'))
+
+
+@pytest.fixture(scope="module")
+def entity_person_all(app, entity_person_data_all):
+    """Load contribution person record."""
+    cont = Entity.create(
+        data=entity_person_data_all,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(EntitiesSearch.Meta.index)
+    return cont
+
+
+@pytest.fixture(scope="module")
+def entity_person_rero_data(data):
+    """Load mef person data."""
+    return deepcopy(data.get('ent_pers_rero'))
+
+
+@pytest.fixture(scope="module")
+def entity_person_rero(app, entity_person_rero_data):
+    """Create mef person record."""
+    pers = Entity.create(
+        data=entity_person_rero_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(EntitiesSearch.Meta.index)
+    return pers
 
 
 @pytest.fixture(scope="module")

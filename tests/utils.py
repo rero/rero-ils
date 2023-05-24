@@ -31,7 +31,7 @@ from invenio_circulation.api import get_loan_for_item
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
 from invenio_search import current_search
-from mock import Mock
+from mock import Mock, MagicMock
 from pkg_resources import resource_string
 from six import StringIO
 from six.moves.urllib.parse import parse_qs, urlparse
@@ -214,7 +214,7 @@ def mock_response(status=200, content="CONTENT", headers=None, json_data=None,
     # add json data if provided
     if json_data:
         mock_resp.headers['Content-Type'] = 'application/json'
-        mock_resp.json = Mock(return_value=json_data)
+        mock_resp.json = MagicMock(return_value=json_data)
         mock_resp.text = json.dumps(json_data)
         mock_resp.content = json.dumps(json_data)
     return mock_resp

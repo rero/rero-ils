@@ -193,11 +193,11 @@ def test_documents_facets(
         ({'view': 'global', 'author': ['Great Edition', 'Peter James']}, 1),
         ({'view': 'global', 'author': ['J.K. Rowling', 'Peter James']}, 0),
         # i18n facets
-        ({'view': 'global', 'author': 'Nebehay, Christian Michael'}, 2),
+        ({'view': 'global', 'author': 'Nebehay, Christian Michael'}, 1),
         ({'view': 'global',
-          'author': 'Nebehay, Christian Michael, 1909-2003', 'lang': 'de'}, 1),
+          'author': 'Nebehay, Christian Michael, 1909-2003', 'lang': 'de'}, 0),
         ({'view': 'global',
-          'author': 'Nebehay, Christian Michael', 'lang': 'thl'}, 2),
+          'author': 'Nebehay, Christian Michael', 'lang': 'thl'}, 1),
     ]
     for params, value in checks:
         url = url_for('invenio_records_rest.doc_list', **params)

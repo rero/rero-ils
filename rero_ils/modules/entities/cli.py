@@ -23,79 +23,13 @@ from __future__ import absolute_import, print_function
 import click
 from flask.cli import with_appcontext
 
-from rero_ils.modules.documents.tasks import \
-    replace_idby_contribution as task_replace_idby_contribution
-from rero_ils.modules.documents.tasks import \
-    replace_idby_subjects as task_replace_idby_subjects
-
+from .replace import ReplaceIdentifiedBy
 from .sync import SyncEntity
 
 
 @click.group()
 def entity():
     """Entity management commands."""
-
-
-def _do_replace_idby(name, replace_class, verbose, debug, details, **kwargs):
-    """Find and replace identifiedBy."""
-    click.secho(f'Find and replace identifiedBy {name}.', fg='green')
-    found, exists, deleted, no_data, no_mef = replace_class(
-        verbose=verbose,
-        details=details,
-        debug=debug,
-        **kwargs
-    )
-    click.echo(f'Found: {found} | Exists: {exists} | Deleted: {deleted} | '
-               f'No Data: {no_data} | No MEF: {no_mef}')
-
-
-@entity.command()
-@click.option('-v', '--verbose', is_flag=True, default=False)
-@click.option('-d', '--debug', is_flag=True, default=False)
-@click.option('-D', '--details', is_flag=True, default=False)
-@with_appcontext
-def replace_idby_contribution(verbose, debug, details):
-    """Find and replace identifiedBy contributions."""
-    _do_replace_idby(
-        name='contribution',
-        replace_class=task_replace_idby_contribution,
-        verbose=verbose,
-        details=details,
-        debug=debug
-    )
-
-
-@entity.command()
-@click.option('-v', '--verbose', is_flag=True, default=False)
-@click.option('-d', '--debug', is_flag=True, default=False)
-@click.option('-D', '--details', is_flag=True, default=False)
-@with_appcontext
-def replace_idby_subjects(verbose, debug, details):
-    """Find and replace identifiedBy subjects."""
-    _do_replace_idby(
-        name='subjects',
-        replace_class=task_replace_idby_subjects,
-        verbose=verbose,
-        details=details,
-        debug=debug
-    )
-
-
-@entity.command()
-@click.option('-v', '--verbose', is_flag=True, default=False)
-@click.option('-d', '--debug', is_flag=True, default=False)
-@click.option('-D', '--details', is_flag=True, default=False)
-@with_appcontext
-def replace_idby_subjects_imported(verbose, debug, details):
-    """Find and replace identifiedBy subjects imported."""
-    _do_replace_idby(
-        name='subjects_imported',
-        replace_class=task_replace_idby_subjects,
-        verbose=verbose,
-        details=details,
-        debug=debug,
-        subjects='subjects_imported'
-    )
 
 
 @entity.command()
@@ -177,3 +111,36 @@ def sync_errors(clear):
         errors = SyncEntity.get_errors()
         SyncEntity.clear_errors()
         click.secho(f'Removed {len(errors)} errors', fg='yellow')
+
+
+@entity.command('replace-identified-by')
+@click.option('-f', '--field', multiple=True)
+@click.option('-n', '--dry-run', is_flag=True, default=False)
+@click.option('-v', '--verbose', count=True, default=0)
+@click.option('-l', '--log-dir', default=None)
+@with_appcontext
+def replace_identified_by_cli(field, dry_run, verbose, log_dir):
+    """Replace identifiedBy with $ref."""
+    for parent in field or ReplaceIdentifiedBy.fields:
+        replace_identified_by = ReplaceIdentifiedBy(
+            field=parent,
+            verbose=verbose,
+            dry_run=dry_run,
+            log_dir=log_dir
+        )
+        changed, not_found, rero_only = replace_identified_by.run()
+        click.secho(
+            f'{parent:<12} | Changed: {changed} | '
+            f'Not found: {not_found} | '
+            f'RERO only: {rero_only}',
+            fg='green'
+        )
+        if verbose:
+            if replace_identified_by.not_found:
+                click.secho('Not found:', fg='yellow')
+                for pid, data in replace_identified_by.not_found.items():
+                    click.echo(f'\t{pid}: {data}')
+            if replace_identified_by.rero_only:
+                click.secho('RERO only:', fg='yellow')
+                for pid, data in replace_identified_by.rero_only.items():
+                    click.echo(f'\t{pid}: {data}')
