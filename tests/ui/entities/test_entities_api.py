@@ -29,7 +29,7 @@ from utils import flush_index, mock_response
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.api import EntitiesSearch, Entity, \
     entity_id_fetcher
-from rero_ils.modules.entities.sync import SyncAgent
+from rero_ils.modules.entities.sync import SyncEntity
 
 
 def test_entity_create(app, entity_person_data_tmp, caplog):
@@ -65,7 +65,7 @@ def test_entity_create(app, entity_person_data_tmp, caplog):
     )
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_entity_mef_create(
     mock_contributions_mef_get, app, mef_agents_url,
     entity_person_data_tmp, entity_person_response_data
@@ -93,15 +93,15 @@ def test_entity_mef_create(
         True, True, True)
 
 
-@mock.patch('rero_ils.modules.entities.utils.requests.get')
+@mock.patch('requests.Session.get')
 def test_sync_contribution(
     mock_get, app, mef_agents_url, entity_person_data_tmp, document_data_ref
 ):
     """Test MEF agent synchronization."""
     # === setup
     log_path = tempfile.mkdtemp()
-    sync = SyncAgent(log_dir=log_path)
-    assert sync
+    sync_entity = SyncEntity(log_dir=log_path)
+    assert sync_entity
 
     pers = Entity.create(
         entity_person_data_tmp,
@@ -124,16 +124,18 @@ def test_sync_contribution(
     flush_index(DocumentsSearch.Meta.index)
 
     # === nothing to update
-    sync._get_latest = mock.MagicMock(return_value=entity_person_data_tmp)
+    sync_entity._get_latest = mock.MagicMock(
+        return_value=entity_person_data_tmp
+    )
     # nothing touched as it is up-to-date
-    assert (0, 0, set()) == sync.sync(f'{pers.pid}')
+    assert (0, 0, set()) == sync_entity.sync(f'{pers.pid}')
     # nothing removed
-    assert (0, []) == sync.remove_unused(f'{pers.pid}')
+    assert (0, []) == sync_entity.remove_unused(f'{pers.pid}')
 
     # === MEF metadata has been changed
     data = deepcopy(entity_person_data_tmp)
     data['idref']['authorized_access_point'] = 'foo'
-    sync._get_latest = mock.MagicMock(return_value=data)
+    sync_entity._get_latest = mock.MagicMock(return_value=data)
     mock_resp = dict(hits=dict(hits=[dict(
         id=data['pid'],
         metadata=data
@@ -144,7 +146,7 @@ def test_sync_contribution(
         contribution__entity__authorized_access_point_fr='foo').count() == 0
     # synchronization the same document has been updated 3 times, one MEF
     # record has been updated, no errors
-    assert (1, 1, set()) == sync.sync(f'{pers.pid}')
+    assert (1, 1, set()) == sync_entity.sync(f'{pers.pid}')
     flush_index(DocumentsSearch.Meta.index)
 
     # contribution and document should be changed
@@ -153,14 +155,14 @@ def test_sync_contribution(
     assert DocumentsSearch().query(
         'term', contribution__entity__authorized_access_point_fr='foo').count()
     # nothing has been removed as only metadata has been changed
-    assert (0, []) == sync.remove_unused(f'{pers.pid}')
+    assert (0, []) == sync_entity.remove_unused(f'{pers.pid}')
 
     # === a new MEF exists with the same content
     data = deepcopy(entity_person_data_tmp)
     # MEF pid has changed
     data['pid'] = 'foo_mef'
     # mock MEF services
-    sync._get_latest = mock.MagicMock(return_value=data)
+    sync_entity._get_latest = mock.MagicMock(return_value=data)
     mock_resp = dict(hits=dict(hits=[dict(
         id=data['pid'],
         metadata=data
@@ -169,7 +171,7 @@ def test_sync_contribution(
 
     # synchronization the same document has been updated 3 times, one MEF
     # record has been updated, no errors
-    assert (1, 1, set()) == sync.sync(f'{pers.pid}')
+    assert (1, 1, set()) == sync_entity.sync(f'{pers.pid}')
     flush_index(DocumentsSearch.Meta.index)
     # new contribution has been created
     assert Entity.get_record_by_pid('foo_mef')
@@ -179,7 +181,7 @@ def test_sync_contribution(
         doc.pid).get('contribution')[0]['entity']
     assert db_agent['pid'] == 'foo_mef'
     # the old MEF has been removed
-    assert (1, []) == sync.remove_unused(f'{pers.pid}')
+    assert (1, []) == sync_entity.remove_unused(f'{pers.pid}')
     # should not exists anymore
     assert not Entity.get_record_by_pid(pers.pid)
 
@@ -190,16 +192,16 @@ def test_sync_contribution(
     # IDREF pid has changed
     data['idref']['pid'] = 'foo_idref'
     # mock MEF services
-    sync._get_latest = mock.MagicMock(return_value=data)
+    sync_entity._get_latest = mock.MagicMock(return_value=data)
     mock_resp = dict(hits=dict(hits=[dict(
         id=data['pid'],
         metadata=data
     )]))
     mock_get.return_value = mock_response(json_data=mock_resp)
 
-    # synchronization the same document has been updated 3 times, one MEF
-    # record has been udpated, no errors
-    assert (1, 1, set()) == sync.sync(f'{data["pid"]}')
+    # synchronization the same document has been updated 3 times,
+    # one MEF record has been updated, no errors
+    assert (1, 1, set()) == sync_entity.sync(f'{data["pid"]}')
     flush_index(DocumentsSearch.Meta.index)
     # new contribution has been created
     assert Entity.get_record_by_pid('foo_mef')
@@ -219,7 +221,84 @@ def test_sync_contribution(
     flush_index(DocumentsSearch.Meta.index)
 
     # the MEF record can be removed
-    assert (1, []) == sync.remove_unused()
+    assert (1, []) == sync_entity.remove_unused()
+    # should not exists anymore
+    assert not Entity.get_record_by_pid('foo_mef')
+
+
+@mock.patch('requests.Session.get')
+def test_sync_concept(
+    mock_get, app, mef_concepts_url, entity_topic_data,
+    document_data_subject_ref
+):
+    """Test MEF agent synchronization."""
+    # === setup
+    log_path = tempfile.mkdtemp()
+    sync_entity = SyncEntity(log_dir=log_path)
+    assert sync_entity
+
+    topic = Entity.create(
+        entity_topic_data,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    flush_index(EntitiesSearch.Meta.index)
+
+    idref_pid = topic['idref']['pid']
+    document_data_subject_ref['subjects'][0]['entity']['$ref'] = \
+        f'{mef_concepts_url}/idref/{idref_pid}'
+
+    doc = Document.create(
+        deepcopy(document_data_subject_ref),
+        dbcommit=True,
+        reindex=True,
+        delete_pid=True
+    )
+    flush_index(DocumentsSearch.Meta.index)
+
+    # === nothing to update
+    sync_entity._get_latest = mock.MagicMock(
+        # TODO: delete pop for MEF v0.12.0
+        return_value=entity_topic_data
+    )
+    # nothing touched as it is up-to-date
+    assert (0, 0, set()) == sync_entity.sync(f'{topic.pid}')
+    # nothing removed
+    assert (0, []) == sync_entity.remove_unused(f'{topic.pid}')
+
+    # === MEF metadata has been changed
+    data = deepcopy(entity_topic_data)
+    data['idref']['authorized_access_point'] = 'foo'
+    sync_entity._get_latest = mock.MagicMock(return_value=data)
+    mock_resp = dict(hits=dict(hits=[dict(
+        id=data['pid'],
+        metadata=data
+    )]))
+    mock_get.return_value = mock_response(json_data=mock_resp)
+    assert DocumentsSearch().query(
+        'term',
+        subjects__entity__authorized_access_point_fr='foo').count() == 0
+    # synchronization the same document has been updated 3 times, one MEF
+    # record has been updated, no errors
+    assert (1, 1, set()) == sync_entity.sync(f'{topic.pid}')
+    flush_index(DocumentsSearch.Meta.index)
+
+    # contribution and document should be changed
+    assert Entity.get_record_by_pid(
+        topic.pid)['idref']['authorized_access_point'] == 'foo'
+    assert DocumentsSearch().query(
+        'term', subjects__entity__authorized_access_point_fr='foo').count()
+    # nothing has been removed as only metadata has been changed
+    assert (0, []) == sync_entity.remove_unused(f'{topic.pid}')
+
+    # remove the document
+    doc = Document.get_record_by_pid(doc.pid)
+    doc.delete(True, True, True)
+    flush_index(DocumentsSearch.Meta.index)
+
+    # the MEF record can be removed
+    assert (1, []) == sync_entity.remove_unused()
     # should not exists anymore
     assert not Entity.get_record_by_pid('foo_mef')
 

@@ -242,19 +242,25 @@ class Entity(IlsRecord):
         action = EntityUpdateAction.UPTODATE
         pid = self.get('pid')
         try:
-            if data := get_mef_data_by_type('mef', pid, verbose=verbose):
+            if data := get_mef_data_by_type(
+                    entity_type=self.type,
+                    pid_type='mef',
+                    pid=pid,
+                    verbose=verbose):
                 data['$schema'] = self['$schema']
                 if data.get('deleted'):
                     current_app.logger.warning(
-                        f'UPDATE ONLINE {pid}: was deleted')
+                        f'UPDATE ONLINE {self.type} (pid:{pid}): was deleted')
                     action = EntityUpdateAction.ERROR
                 elif not data.get('sources'):
                     current_app.logger.warning(
-                        f'UPDATE ONLINE {pid}: has no sources')
+                        f'UPDATE ONLINE {self.type} (pid:{pid}): '
+                        f'has no sources'
+                    )
                     action = EntityUpdateAction.ERROR
                 elif not data.get('type'):
                     current_app.logger.warning(
-                        f'UPDATE ONLINE {pid}: has no type')
+                        f'UPDATE ONLINE {self.type} (pid:{pid}): has no type')
                     action = EntityUpdateAction.ERROR
                 elif dict(self) != data:
                     action = EntityUpdateAction.REPLACE
@@ -276,6 +282,12 @@ class Entity(IlsRecord):
             for source in sources
             if source in self
         }
+
+    @property
+    def type(self):
+        """Get entity type."""
+        entity_types = current_app.config['RERO_ILS_ENTITY_TYPES']
+        return entity_types.get(self['type'])
 
 
 class EntitiesIndexer(IlsRecordsIndexer):

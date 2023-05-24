@@ -25,7 +25,7 @@ from utils import mock_response
 from rero_ils.modules.entities.utils import get_mef_data_by_type
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_utils_mef_data(mock_get, app):
     """."""
     with pytest.raises(KeyError):

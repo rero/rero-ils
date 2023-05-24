@@ -38,8 +38,8 @@ from rero_ils.modules.utils import get_mef_url, get_timestamp, \
     requests_retry_session, set_timestamp
 
 
-class SyncAgent(object):
-    """Agent MEF synchronization."""
+class SyncEntity(object):
+    """Entity MEF synchronization."""
 
     def __init__(self, dry_run=False, verbose=False, log_dir=None,
                  from_last_date=False):
@@ -48,8 +48,8 @@ class SyncAgent(object):
         :param dry_run: bool - if true the data are not modified
         :param verbose: bool or integer - verbose level
         :param log_dir: string - path to put the logs
-        :param from_last_date: boolean - if True try to consider agent modified
-            after the last run date time
+        :param from_last_date: boolean - if True try to consider entity
+            modified after the last run date time
         """
         self.dry_run = dry_run
         self.verbose = verbose
@@ -61,7 +61,7 @@ class SyncAgent(object):
 
     def _get_last_date(self):
         """Get the date of the last execution of the synchronization."""
-        data = get_timestamp('sync_agents')
+        data = get_timestamp('sync_entities')
         if data and data.get('start_timestamp'):
             self.from_date = data.get('start_timestamp')
 
@@ -113,97 +113,110 @@ class SyncAgent(object):
         self.logger = logging.getLogger(__name__)
         self.log_dir = log_dir
 
-    def _agent_are_different(self, agent1, agent2):
-        """Check if two agent are different.
+    def _entity_are_different(self, entity1, entity2):
+        """Check if two entities are different.
 
         The comparison is done only on the common fields.
 
-        :param agent1: a dict representing an agent to compare.
-        :param agent2: a dict representing an agent to compare.
+        :param entity1: a dict representing an entity to compare.
+        :param entity2: a dict representing an entity to compare.
         :returns: True if they are different.
         """
 
-        def remove_fields(agent):
+        def remove_fields(entity):
             """Remove specific fields."""
             fields_to_remove = [
                 '$schema', 'organisation', '_created', '_updated'
             ]
             for field in fields_to_remove:
-                agent.pop(field, None)
+                entity.pop(field, None)
 
             fields_to_remove = ['$schema', 'md5']
-            for source in agent['sources']:
+            for source in entity['sources']:
                 for field in fields_to_remove:
-                    agent[source].pop(field, None)
-            return agent
+                    entity[source].pop(field, None)
+            return entity
 
         diff = DeepDiff(
-            remove_fields(deepcopy(agent1)),
-            remove_fields(deepcopy(agent2)),
+            remove_fields(deepcopy(entity1)),
+            remove_fields(deepcopy(entity2)),
             ignore_order=True)
         if diff:
             self.logger.debug(
-                f"Agent differs: {agent1['pid']}, {agent2['pid']}",
+                f"Entity differs: {entity1['pid']}, {entity2['pid']}",
                 diff)
             return True
         return False
 
-    def _get_latest(self, source, pid):
-        """Query the MEF server to retrieve the last MEF for a given agent id.
+    def _get_latest(self, entity_type, source, pid):
+        """Query the MEF server to retrieve the last MEF for a given entity id.
 
-        :param source: (string) the agent source such as `idref`, `gnd`
-        :param pid: (string) the agent identifier.
+        :param entity_type: (string) the entity type such as
+        `agents`, `concepts`
+        :param source: (string) the entity source such as `idref`, `gnd`
+        :param pid: (string) the entity identifier.
         :returns: dictionary representing the MEF record.
         :rtype: dictionary.
         """
-        url = f'{get_mef_url("agents")}/mef/latest/{source}:{pid}'
+        if not (base_url := get_mef_url(entity_type)):
+            msg = f'Unable to find MEF base url for {entity_type}'
+            raise KeyError(msg)
+        url = f'{base_url}/mef/latest/{source}:{pid}'
         res = requests_retry_session().get(url)
         if res.status_code == requests.codes.ok:
-            return res.json()
+            data = res.json()
+            if entity_type == 'concepts' and not data.get('type'):
+                # TODO: delete for MEF v0.12.0
+                data['type'] = 'bf:Topic'
+            return data
         self.logger.debug(f'Problem get {url}: {res.status_code}')
         return {}
 
-    def _update_agents_in_document(self, doc_pid, pids_to_replace):
+    def _update_entities_in_document(self, doc_pid, pids_to_replace):
         """Updates the contribution and subjects in document.
 
         :param doc_pid: (string) document pid
         :param pids_to_replace: (dict) the list of object where replace the
-            agents. Dictionary keys are `source` ; dictionary values are
-            tuple of (old_agent_pid, new_agent_pid)
-            >> {'gnd': ('agent_old1', 'agent_new1')}
+            entities. Dictionary keys are `source` ; dictionary values are
+            tuple of (old_entity_pid, new_entity_pid)
+            >> {'gnd': ('entity_old1', 'entity_new1')}
         """
         # get the document from the DB
         doc = Document.get_record_by_pid(doc_pid)
-        # build the $ref urls
-        mef_url = get_mef_url("agents")
 
-        # get all agents from the document over all agent fields:
+        # get all entities from the document over all entity fields:
         # contribution and subjects
-        agents = [
+        entities = [
             subject
             for subject in doc.get('subjects', [])
             if subject.get('$ref')
-        ] + [
+        ]
+        entities += [
             contrib['entity']
             for contrib in doc.get('contribution', [])
             if contrib.get('entity', {}).get('$ref')
         ]
-        if not agents:
-            self.logger.debug(f'No agent to update for document {doc.pid}')
+        entities += [
+            genre_form
+            for genre_form in doc.get('genreForm', [])
+            if genre_form.get('$ref')
+        ]
+        if not entities:
+            self.logger.debug(f'No entity to update for document {doc.pid}')
 
-        # update the $ref agent URL and MEF pid
-        for source, pids in pids_to_replace.items():
-            old_agent_url = f'{mef_url}/{source}/{pids[0]}'
-            new_agent_url = f'{mef_url}/{source}/{pids[1]}'
-            agents_to_update = filter(
-                lambda c: c.get('$ref') == old_agent_url, agents)
-            for agent in agents_to_update:
-                if old_agent_url != new_agent_url:
+        # update the $ref entity URL and MEF pid
+        for mef_url, (old_pid, new_pid) in pids_to_replace.items():
+            old_entity_url = f'{mef_url}/{old_pid}'
+            new_entity_url = f'{mef_url}/{new_pid}'
+            entities_to_update = filter(
+                lambda c: c.get('$ref') == old_entity_url, entities)
+            for entity in entities_to_update:
+                if old_entity_url != new_entity_url:
                     self.logger.info(
-                        f'Agent URL changed from {old_agent_url} to '
-                        f'{new_agent_url} for document {doc.pid}')
-                # update the agent URL
-                agent['$ref'] = new_agent_url
+                        f'Entitiy URL changed from {old_entity_url} to '
+                        f'{new_entity_url} for document {doc.pid}')
+                # update the entity URL
+                entity['$ref'] = new_entity_url
         # in any case we update the doc as the mef pid can be changed
         if not self.dry_run:
             doc.replace(doc, dbcommit=True, reindex=True)
@@ -218,9 +231,9 @@ class SyncAgent(object):
         """
         # the MEF link can be in contribution or subjects
         es_query = DocumentsSearch()
-        filters = Q('term', contribution__entity__pid=pid) |\
-            Q('term', subjects__pid=pid)
-        filters |= Q('term', subjects_imported__pid=pid)
+        filters = Q('term', contribution__entity__pid=pid)
+        filters |= Q('term', subjects__entity__pid=pid)
+        filters |= Q('term', genreForm__entity__pid=pid)
         es_query = es_query.filter('bool', must=[filters]).source('pid')
         # can be a list as it should not be too big
         return [d.pid for d in es_query.params(scroll='30m').scan()]
@@ -234,8 +247,6 @@ class SyncAgent(object):
         :returns: the list of the contribution identifiers.
         :rtype: list of strings.
         """
-        logging.basicConfig(filename='myfile.log', level=logging.DEBUG)
-        url = f'{get_mef_url("agents")}/mef/updated'
         es_query = EntitiesSearch().filter('query_string', query=query)
         total = es_query.count()
         if not from_date and self.from_date:
@@ -279,24 +290,33 @@ class SyncAgent(object):
                 :param pids - list of string: a list of MEF pids.
                 :param chunk_size - integer: the chunk size
                 """
+                # MEF urls for updated pids
+                urls = [
+                    f'{get_mef_url("agents")}/mef/updated',
+                    f'{get_mef_url("concepts")}/mef/updated'
+                ]
                 # number of provided updated MEF pids
                 n_provided = 0
                 try:
-                    while chunk := list(islice(iter(pids), chunk_size)):
-                        # ask the mef server to return only the updated
-                        # pids form a given date
-                        res = requests_retry_session().post(
-                            url,
-                            json=dict(
-                                from_date=from_date.strftime("%Y-%m-%d"),
-                                pids=chunk
+                    for url in urls:
+                        while chunk := list(islice(iter(pids), chunk_size)):
+                            # ask the mef server to return only the updated
+                            # pids form a given date
+                            res = requests_retry_session().post(
+                                url,
+                                json=dict(
+                                    from_date=from_date.strftime("%Y-%m-%d"),
+                                    pids=chunk
+                                )
                             )
-                        )
-                        if res.status_code != 200:
-                            raise Exception
-                        for hit in res.json():
-                            n_provided += 1
-                            yield hit.get('pid')
+                            if res.status_code != 200:
+                                requests.ConnectionError(
+                                    "Expected status code 200, but got "
+                                    f"{res.status_code} {url}"
+                                )
+                            for hit in res.json():
+                                n_provided += 1
+                                yield hit.get('pid')
                 finally:
                     self.logger.info(f'Processed {n_provided} records.')
             if total:
@@ -325,33 +345,38 @@ class SyncAgent(object):
         updated = error = False
         try:
             # get contribution in db
-            agent = Entity.get_record_by_pid(pid)
-            if not agent:
+            entity = Entity.get_record_by_pid(pid)
+            if not entity:
                 raise Exception(f'ERROR MEF {pid} does not exists in db.')
-            self.logger.debug(f'Processing MEF(pid: {pid})')
-            # iterate over all agent sources: rero, gnd, idref
-            doc_pids = self._get_documents_pids_from_mef(agent.pid)
+            self.logger.debug(f'Processing {entity["type"]} MEF(pid: {pid})')
+            # iterate over all entity sources: rero, gnd, idref
+            doc_pids = self._get_documents_pids_from_mef(entity.pid)
             pids_to_replace = {}
-            for source in agent['sources']:
-                mef = self._get_latest(source, agent[source]["pid"])
+            for source in entity['sources']:
+                mef = self._get_latest(
+                    entity_type=entity.type,
+                    source=source,
+                    pid=entity[source]["pid"]
+                )
                 # MEF sever failed to retrieve the latest MEF record
-                # for the given agent
+                # for the given entity
                 if not mef.get('pid'):
                     raise Exception(
                         f'Error cannot get latest for '
-                        f'{source}:{agent[source]["pid"]}')
+                        f'{entity["type"]} {source}:{entity[source]["pid"]}')
 
-                old_agent_pid = agent[source]["pid"]
-                new_agent_pid = mef[source]['pid']
+                old_entity_pid = entity[source]["pid"]
+                new_entity_pid = mef[source]['pid']
                 new_mef_pid = mef.get('pid')
-                old_mef_pid = agent.pid
-                if old_agent_pid != new_agent_pid:
-                    pids_to_replace[source] = (old_agent_pid, new_agent_pid)
+                old_mef_pid = entity.pid
+                if old_entity_pid != new_entity_pid:
+                    mef_url = f'{get_mef_url(entity.type)}/{source}'
+                    pids_to_replace[mef_url] = (old_entity_pid, new_entity_pid)
 
                 # can be mef pid, source pid or metadata
-                if self._agent_are_different(dict(agent), mef):
+                if self._entity_are_different(dict(entity), mef):
                     # need a copy as we want to keep the MEF record
-                    # untouched for the next agent
+                    # untouched for the next entity
                     new_mef_data = deepcopy(mef)
                     fields_to_remove = ['$schema', '_created', '_updated']
                     for field in fields_to_remove:
@@ -359,14 +384,15 @@ class SyncAgent(object):
 
                     if old_mef_pid != new_mef_pid:
                         self.logger.info(
-                            f'MEF pid has changed from {old_mef_pid} to '
-                            f'{new_mef_pid} for {source} (pid:{old_agent_pid})'
+                            f'MEF pid has changed from {entity.type} '
+                            f'{old_mef_pid} to {new_mef_pid} '
+                            f'for {source} (pid:{old_entity_pid})'
                         )
                         if Entity.get_record_by_pid(new_mef_pid):
                             # update the new MEF - recursion
                             self.logger.info(
-                                f'MEF(pid: {agent.pid}) recursion with'
-                                f' (pid:{new_mef_pid})')
+                                f'{entity["type"]} MEF(pid: {entity.pid}) '
+                                f'recursion with (pid:{new_mef_pid})')
                             new_doc_updated, new_updated, new_error = \
                                 self.sync_record(new_mef_pid)
                             # TODO: find a better way
@@ -382,19 +408,21 @@ class SyncAgent(object):
                                     reindex=True
                                 )
                             self.logger.info(
-                                f'Create a new MEF record(pid: {new_mef_pid})')
+                                f'Create a new MEF {entity["type"]} '
+                                f'record(pid: {new_mef_pid})')
                     # something changed, update the content
                     self.logger.info(
-                        f'MEF(pid: {agent.pid}) content has been updated')
+                        f'MEF {entity["type"]} record(pid: {entity.pid}) '
+                        'content has been updated')
                     if not self.dry_run:
                         if old_mef_pid == new_mef_pid:
-                            Entity.get_record(agent.id).replace(
+                            Entity.get_record(entity.id).replace(
                                 new_mef_data, dbcommit=True, reindex=True)
                         else:
                             # as we have only the last mef but not the old one
                             # we need get it from the MEF server
                             # this is important as it can still be used by
-                            # other agents
+                            # other entities
                             Entity.get_record_by_pid(pid)\
                                 .update_online(dbcommit=True, reindex=True)
                     updated = True
@@ -402,16 +430,16 @@ class SyncAgent(object):
             if updated:
                 # for each documents
                 self.logger.info(
-                    f'MEF(pid: {agent.pid}) try to update '
-                    f'documents: {doc_pids}')
+                    f'MEF {entity["type"]} record(pid: {entity.pid}) '
+                    f' try to update documents: {doc_pids}')
                 for doc_pid in doc_pids:
-                    self._update_agents_in_document(
+                    self._update_entities_in_document(
                         doc_pid=doc_pid,
                         pids_to_replace=pids_to_replace
                     )
                 doc_updated = set(doc_pids)
-        except Exception as e:
-            self.logger.error(f'ERROR: MEF(pid:{pid}) -> {str(e)}')
+        except Exception as err:
+            self.logger.error(f'ERROR: MEF record(pid: {pid}) -> {str(err)}')
             error = True
             # uncomment to debug
             # raise
@@ -433,13 +461,13 @@ class SyncAgent(object):
             f'mef updated: {n_mef_updated}.')
         if self.dry_run:
             return
-        if data := get_timestamp('sync_agents'):
+        if data := get_timestamp('sync_entities'):
             errors = data.get('errors', [])
         else:
             errors = []
         errors += mef_errors
         set_timestamp(
-            'sync_agents', n_doc_updated=n_doc_updated,
+            'sync_entities', n_doc_updated=n_doc_updated,
             n_mef_updated=n_mef_updated, errors=errors,
             start_timestamp=self.start_timestamp)
 
@@ -473,7 +501,7 @@ class SyncAgent(object):
                 mef_errors.add(pid)
         n_doc_updated = len(doc_updated)
         self.end_sync(n_doc_updated, n_mef_updated, mef_errors)
-        return len(doc_updated), n_mef_updated, mef_errors
+        return n_doc_updated, n_mef_updated, mef_errors
 
     def remove_unused_record(self, pid):
         """Removes MEF record if it is not linked to any documents.
@@ -483,18 +511,20 @@ class SyncAgent(object):
         :rtype: boolean, boolean
         """
         try:
-            doc_pids = SyncAgent._get_documents_pids_from_mef(pid)
+            doc_pids = SyncEntity._get_documents_pids_from_mef(pid)
             if len(doc_pids) == 0:
                 # get the contribution for the database
-                contrib = Entity.get_record_by_pid(pid)
+                entity = Entity.get_record_by_pid(pid)
                 if not self.dry_run:
                     # remove from the database and the index: no tombstone
-                    contrib.delete(True, True, True)
-                self.logger.info(f'MEF(pid:{contrib.pid}) has been deleted.')
+                    entity.delete(True, True, True)
+                self.logger.info(
+                    f'MEF {entity["type"]} record(pid: {entity.pid}) '
+                    'has been deleted.')
                 # removed, no error
                 return True, False
-        except Exception as e:
-            self.logger.error(f'MEF (pid: {pid}) -> {e}')
+        except Exception as err:
+            self.logger.error(f'MEF record(pid: {pid}) -> {err}')
             # no removed, error
             return False, True
         # no removed, no error
@@ -503,15 +533,15 @@ class SyncAgent(object):
     @classmethod
     def get_errors(cls):
         """Get all the MEF pids that causes an error."""
-        return get_timestamp('sync_agents').get('errors', [])
+        return get_timestamp('sync_entities').get('errors', [])
 
     @classmethod
     def clear_errors(cls):
         """Removes errors in the cache information."""
-        data = get_timestamp('sync_agents')
+        data = get_timestamp('sync_entities')
         if data.get('errors'):
             data['errors'] = []
-            set_timestamp('sync_agents', **data)
+            set_timestamp('sync_entities', **data)
 
     def start_clean(self):
         """Add logging information about the starting process."""

@@ -486,7 +486,7 @@ def test_document_boosting(client, ebook_1, ebook_4):
     assert data['pid'] == ebook_1.pid
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_documents_resolve(
     mock_contributions_mef_get, client, mef_agents_url, loc_public_martigny,
     document_ref, entity_person_response_data

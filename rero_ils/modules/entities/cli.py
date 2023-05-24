@@ -28,7 +28,7 @@ from rero_ils.modules.documents.tasks import \
 from rero_ils.modules.documents.tasks import \
     replace_idby_subjects as task_replace_idby_subjects
 
-from .sync import SyncAgent
+from .sync import SyncEntity
 
 
 @click.group()
@@ -111,14 +111,14 @@ def replace_idby_subjects_imported(verbose, debug, details):
 def sync(query, dry_run, from_last_date, verbose, log_dir, from_date,
          in_memory):
     """Updated the MEF records and the linked documents."""
-    a = SyncAgent(
+    sync_entity = SyncEntity(
         dry_run=dry_run, verbose=verbose, log_dir=log_dir,
         from_last_date=from_last_date)
     if verbose:
-        a.sync(query, from_date)
+        sync_entity.sync(query, from_date)
     else:
-        a.start_sync()
-        pids, total = a.get_entities_pids(query, from_date)
+        sync_entity.start_sync()
+        pids, total = sync_entity.get_entities_pids(query, from_date)
         if in_memory:
             pids = list(pids)
         n_updated = 0
@@ -126,14 +126,15 @@ def sync(query, dry_run, from_last_date, verbose, log_dir, from_date,
         err_pids = []
         with click.progressbar(pids, length=total) as bar:
             for pid in bar:
-                current_doc_updated, updated, error = a.sync_record(pid)
+                current_doc_updated, updated, error = sync_entity.sync_record(
+                    pid)
                 doc_updated.update(current_doc_updated)
                 if updated:
                     n_updated += 1
                 if error:
                     err_pids.append(pid)
         n_doc_updated = len(doc_updated)
-        a.end_sync(n_doc_updated, n_updated, err_pids)
+        sync_entity.end_sync(n_doc_updated, n_updated, err_pids)
         if err_pids:
             click.secho(f'ERROR: MEF pids: {err_pids}', fg='red')
 
@@ -146,17 +147,17 @@ def sync(query, dry_run, from_last_date, verbose, log_dir, from_date,
 @with_appcontext
 def clean(query, dry_run, verbose, log_dir):
     """Removes MEF records that are not linked to documents."""
-    a = SyncAgent(dry_run=dry_run, verbose=verbose, log_dir=log_dir)
+    sync_entity = SyncEntity(dry_run=dry_run, verbose=verbose, log_dir=log_dir)
     if verbose:
-        a.remove_unused(query)
+        sync_entity.remove_unused(query)
     else:
-        a.start_clean()
-        pids, total = a.get_entities_pids(query)
+        sync_entity.start_clean()
+        pids, total = sync_entity.get_entities_pids(query)
         n_removed = 0
         err_pids = []
         with click.progressbar(pids, length=total) as bar:
             for pid in bar:
-                updated, error = a.remove_unused_record(pid)
+                updated, error = sync_entity.remove_unused_record(pid)
                 if updated:
                     n_removed += 1
                 if error:
@@ -172,7 +173,7 @@ def clean(query, dry_run, verbose, log_dir):
 @with_appcontext
 def sync_errors(clear):
     """Removes errors in the cache information."""
-    errors = SyncAgent.get_errors()
     if clear:
-        SyncAgent.clear_errors()
+        errors = SyncEntity.get_errors()
+        SyncEntity.clear_errors()
         click.secho(f'Removed {len(errors)} errors', fg='yellow')

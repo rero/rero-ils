@@ -26,7 +26,7 @@ from utils import get_mapping, mock_response
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 
 
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def test_document_es_mapping(mock_contributions_mef_get, es, db, org_martigny,
                              document_data_ref, item_lib_martigny,
                              entity_person_response_data):

@@ -191,6 +191,12 @@ def document_data_ref(data):
 
 
 @pytest.fixture(scope="module")
+def document_data_subject_ref(data):
+    """Load document ref data."""
+    return deepcopy(data.get('doc9'))
+
+
+@pytest.fixture(scope="module")
 def document2_data_ref(data):
     """Load document ref data."""
     return deepcopy(data.get('doc7'))
@@ -242,6 +248,49 @@ def journal(app, journal_data):
         reindex=True)
     flush_index(DocumentsSearch.Meta.index)
     return doc
+
+
+@pytest.fixture(scope="module")
+def entity_topic_data(data):
+    """Load mef concept topic data."""
+    return deepcopy(data.get('ent_topic'))
+
+
+@pytest.fixture(scope="function")
+def entity_topic_data_tmp(app, data):
+    """Load mef concept data topic scope function."""
+    entity_topic = deepcopy(data.get('ent_topic'))
+    for source in app.config.get('RERO_ILS_AGENTS_SOURCES', []):
+        if source in entity_person:
+            entity_topic[source].pop('$schema', None)
+    return entity_topic
+
+
+@pytest.fixture(scope="module")
+def entity_person_response_data(entity_topic_data):
+    """Load mef concept topic response data."""
+    return {
+        'hits': {
+            'hits': [
+                {
+                    'id': entity_topic_data['pid'],
+                    'metadata': entity_topic_data
+                }
+            ]
+        }
+    }
+
+
+@pytest.fixture(scope="module")
+def entity_topic(app, entity_topic_data):
+    """Load contribution person record."""
+    cont = Entity.create(
+        data=entity_topic_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(EntitiesSearch.Meta.index)
+    return cont
 
 
 @pytest.fixture(scope="module")
@@ -366,7 +415,7 @@ def person2(app, person2_data):
 
 
 @pytest.fixture(scope="module")
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def document_ref(mock_contributions_mef_get,
                  app, document_data_ref, entity_person_response_data):
     """Load document with mef records reference."""
@@ -383,7 +432,7 @@ def document_ref(mock_contributions_mef_get,
 
 
 @pytest.fixture(scope="module")
-@mock.patch('requests.get')
+@mock.patch('requests.Session.get')
 def document2_ref(mock_persons_mef_get,
                   app, document2_data_ref, person2_response_data):
     """Load document with mef records reference."""
