@@ -17,7 +17,7 @@
 
 """Document filters tests."""
 from rero_ils.modules.documents.views import cartographic_attributes, \
-    contribution_format, entity_label, identified_by, main_title_text, \
+    contribution_format, doc_entity_label, identified_by, main_title_text, \
     note_general, notes_except_general, part_of_format, provision_activity, \
     provision_activity_not_publication, provision_activity_original_date, \
     provision_activity_publication, title_variants, work_access_point
@@ -547,7 +547,7 @@ def test_main_title_text():
     assert extract[0].get('_text') is not None
 
 
-def test_entity_label_filter(entity_person):
+def test_doc_entity_label_filter(entity_person):
     """Test entity label filter."""
     data = {
         'entity': {
@@ -555,8 +555,8 @@ def test_entity_label_filter(entity_person):
             'type': EntityType.TOPIC
         }
     }
-    assert entity_label(data['entity'], None) == 'subject topic'
-    assert entity_label(data['entity'], 'fr') == 'subject topic'
+    assert doc_entity_label(data['entity'], None) == 'subject topic'
+    assert doc_entity_label(data['entity'], 'fr') == 'subject topic'
 
     data = {
         'entity': {
@@ -565,9 +565,9 @@ def test_entity_label_filter(entity_person):
             'type': EntityType.TOPIC
         }
     }
-    assert entity_label(data['entity'], 'fr') == 'topic_fr'
-    assert entity_label(data['entity'], 'en') == 'topic_default'
-    assert entity_label(data['entity'], None) == 'topic_default'
+    assert doc_entity_label(data['entity'], 'fr') == 'topic_fr'
+    assert doc_entity_label(data['entity'], 'en') == 'topic_default'
+    assert doc_entity_label(data['entity'], None) == 'topic_default'
 
     data = {
         'entity': {
@@ -581,10 +581,12 @@ def test_entity_label_filter(entity_person):
             'type': EntityType.TOPIC
         }
     }
-    assert entity_label(data['entity'], 'fr') == 'topic_default - sub_fr'
-    assert entity_label(data['entity'], 'en') == 'topic_default - sub_default'
-    assert entity_label(data['entity'], None) == 'topic_default - sub_default'
+    assert doc_entity_label(data['entity'], 'fr') == 'topic_default - sub_fr'
+    assert doc_entity_label(
+        data['entity'], 'en') == 'topic_default - sub_default'
+    assert doc_entity_label(
+        data['entity'], None) == 'topic_default - sub_default'
 
     data = {'entity': {'pid': entity_person.pid}}
-    assert entity_label(data['entity'], 'fr') == 'Loy, Georg, 1885-19..'
-    assert entity_label(data['entity'], 'de') == 'Loy, Georg, 1885'
+    assert doc_entity_label(data['entity'], 'fr') == 'Loy, Georg, 1885-19..'
+    assert doc_entity_label(data['entity'], 'de') == 'Loy, Georg, 1885'

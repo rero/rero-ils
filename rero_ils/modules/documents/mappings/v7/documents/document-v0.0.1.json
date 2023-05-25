@@ -2,6 +2,18 @@
   "settings": {
     "analysis": {
       "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "icu_normalizer",
+            "icu_folding",
+            "french_elision",
+            "italian_elision",
+            "edge_ngram_filter"
+          ]
+        },
         "search_autocomplete": {
           "type": "custom",
           "tokenizer": "standard",

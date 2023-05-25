@@ -329,3 +329,22 @@ def test_documents_search(
     res = client.get(list_url)
     hits = get_json(res)['hits']
     assert hits
+
+    # test wildcard query with boolean sub property
+    # See: elasticsearch query_string lenient property
+    #      for more details
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=r'autocomplete_title:travailleu'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] != 0
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=r'autocomplete_title:travailleur'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] != 0
