@@ -66,7 +66,7 @@
              {% if 'entity' in genreForm %}
                <li class="figure-caption">
                  <i class="fa fa-tag mr-1"></i>
-                 {{ genreForm.entity | entity_label(language=current_i18n.language) }}
+                 {{ genreForm.entity | doc_entity_label(language=current_i18n.language) }}
                </li>
              {% endif %}
            {% endfor %}
@@ -230,7 +230,7 @@
       {% for subject in record.subjects %}
         <span class="badge badge-secondary my-0" title="{{ _(subject.type) }}">
           {% if 'entity' in subject %}
-            <i class="fa fa-tag"></i> {{ subject.entity | entity_label(language=current_i18n.language) }}
+            <i class="fa fa-tag"></i> {{ subject.entity | doc_entity_label(language=current_i18n.language) }}
           {% endif %}
         </span>
       {% endfor %}

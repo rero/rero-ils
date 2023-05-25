@@ -286,7 +286,7 @@ def contribution_format(contributions, language, viewcode, with_roles=False):
 
 
 @blueprint.app_template_filter()
-def entity_label(entity, language=None, part_separator=' - ') -> str:
+def doc_entity_label(entity, language=None, part_separator=' - ') -> str:
     """Format an entity according to the available keys.
 
     :param entity: the entity to analyze.
@@ -305,7 +305,8 @@ def entity_label(entity, language=None, part_separator=' - ') -> str:
 
     for subdivision in entity.get('subdivisions', []):
         if sub_entity := subdivision.get('entity'):
-            parts.append(entity_label(sub_entity, language, part_separator))
+            parts.append(
+                doc_entity_label(sub_entity, language, part_separator))
 
     return part_separator.join(filter(None, parts))
 

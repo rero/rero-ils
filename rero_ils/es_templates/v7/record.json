@@ -133,18 +133,6 @@
             "german_normalization"
           ]
         },
-        "autocomplete": {
-          "type": "custom",
-          "tokenizer": "standard",
-          "filter": [
-            "lowercase",
-            "icu_normalizer",
-            "icu_folding",
-            "french_elision",
-            "italian_elision",
-            "edge_ngram_filter"
-          ]
-        },
         "identifier-analyzer": {
           "tokenizer": "keyword",
           "char_filter": [
