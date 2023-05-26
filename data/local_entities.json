@@ -1,0 +1,27 @@
+[
+  {
+    "pid": "1",
+    "preferred_name": "Shakespeare, William",
+    "type": "bf:Person"
+  },
+  {
+    "pid": "2",
+    "preferred_name": "Eiffel, Gustave",
+    "type": "bf:Person"
+  },
+  {
+    "pid": "3",
+    "preferred_name": "Jobs, Steve",
+    "type": "bf:Person"
+  },
+  {
+    "pid": "4",
+    "preferred_name": "Dylan, Bob",
+    "type": "bf:Person"
+  },
+  {
+    "pid": "5",
+    "preferred_name": "UCLouvain",
+    "type": "bf:Organisation"
+  }
+]

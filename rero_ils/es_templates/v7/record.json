@@ -18,6 +18,7 @@
     "libraries-*",
     "loans-*",
     "loans-*",
+    "local_entities-*",
     "local_fields-*",
     "locations-*",
     "notifications-*",

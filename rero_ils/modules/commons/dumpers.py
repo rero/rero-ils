@@ -19,6 +19,7 @@
 """Record dumpers."""
 import contextlib
 
+from invenio_records.api import _records_state
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 
@@ -59,3 +60,17 @@ class MultiDumper(InvenioRecordsDumper):
             with contextlib.suppress(AttributeError):
                 record_cls = dumper.load(data, record_cls)
         return record_cls
+
+
+class ReplaceRefsDumper(InvenioRecordsDumper):
+    """Replace link data in resource."""
+
+    def dump(self, record, data):
+        """Dump record data by replacing `$ref` links.
+
+        :param record: The record to dump.
+        :param data: The initial dump data passed in by ``record.dumps()``.
+        :return a dict with dumped data.
+        """
+        from copy import deepcopy
+        return deepcopy(_records_state.replace_refs(data))
