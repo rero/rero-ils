@@ -438,7 +438,8 @@
           "pro_circulation_manager",
           "pro_user_manager",
           "pro_acquisition_manager",
-          "pro_library_administrator"
+          "pro_library_administrator",
+          "pro_entity_manager"
         ]
       },
       "form": {
@@ -476,6 +477,10 @@
             {
               "label": "pro_library_administrator",
               "value": "pro_library_administrator"
+            },
+            {
+              "label": "pro_entity_manager",
+              "value": "pro_entity_manager"
             }
           ],
           "wrappers": [

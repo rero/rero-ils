@@ -667,5 +667,17 @@
   ],
   "permission-management": [
     "pro_full_permissions"
+  ],
+  "locent-update": [
+    "pro_full_permissions",
+    "pro_entity_manager"
+  ],
+  "locent-create": [
+    "pro_full_permissions",
+    "pro_entity_manager"
+  ],
+  "locent-delete": [
+    "pro_full_permissions",
+    "pro_entity_manager"
   ]
 }

@@ -1,0 +1,76 @@
+{
+  "aliases": {
+    "unified_entities": {}
+  },
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "icu_normalizer",
+            "icu_folding",
+            "edge_ngram_filter"
+          ]
+        },
+        "search_autocomplete": {
+          "type": "custom",
+          "tokenizer": "standard",
+          "filter": [
+            "lowercase",
+            "icu_normalizer",
+            "icu_folding"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "date_detection": false,
+    "numeric_detection": false,
+    "properties": {
+      "autocomplete_name": {
+        "type": "text",
+        "analyzer": "autocomplete",
+        "search_analyzer": "search_autocomplete"
+      },
+      "authorized_access_point_sort": {
+        "type": "keyword",
+        "normalizer": "sort_normalizer"
+      },
+      "$schema": {
+        "type": "keyword"
+      },
+      "pid": {
+        "type": "keyword"
+      },
+      "type": {
+        "type": "keyword"
+      },
+      "preferred_name": {
+        "type": "text"
+      },
+      "authorized_access_point": {
+        "type": "text",
+        "copy_to": [
+          "autocomplete_name",
+          "authorized_access_point_sort"
+        ]
+      },
+      "document_organisation_pids": {
+        "type": "keyword"
+      },
+      "deleted": {
+        "type": "date"
+      },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      }
+    }
+  }
+}
