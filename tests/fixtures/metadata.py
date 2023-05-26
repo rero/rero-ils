@@ -30,6 +30,8 @@ from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.api import EntitiesSearch, Entity
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
+from rero_ils.modules.local_entities.api import LocalEntitiesSearch, \
+    LocalEntity
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
 from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.templates.api import Template, TemplatesSearch
@@ -412,6 +414,42 @@ def person2(app, person2_data):
         reindex=True)
     flush_index(EntitiesSearch.Meta.index)
     return pers
+
+
+@pytest.fixture(scope="module")
+def local_entity_person_data(data):
+    """Load mef contribution person data."""
+    return deepcopy(data.get('locent_pers'))
+
+
+@pytest.fixture(scope="module")
+def local_entity_org_data(data):
+    """Load mef contribution person data."""
+    return deepcopy(data.get('locent_org'))
+
+
+@pytest.fixture(scope="module")
+def local_entity_person(app, local_entity_person_data):
+    """Create mef person record."""
+    pers = LocalEntity.create(
+        data=local_entity_person_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocalEntitiesSearch.Meta.index)
+    return pers
+
+
+@pytest.fixture(scope="module")
+def local_entity_org(app, local_entity_org_data):
+    """Create mef person record."""
+    org = LocalEntity.create(
+        data=local_entity_org_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocalEntitiesSearch.Meta.index)
+    return org
 
 
 @pytest.fixture(scope="module")
