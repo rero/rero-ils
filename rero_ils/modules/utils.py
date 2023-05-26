@@ -542,17 +542,29 @@ def get_record_class_from_schema_or_pid_type(schema=None, pid_type=None):
     :return: the record class.
     """
     if schema:
-        try:
-            pid_type_schema_value = schema.split('schemas')[1]
-            schemas = current_app.config.get('RERO_ILS_DEFAULT_JSON_SCHEMA')
-            pid_type = [key for key, value in schemas.items()
-                        if value == pid_type_schema_value][0]
-        except IndexError:
-            pass
+        pid_type = get_pid_type_from_schema(schema)
     return obj_or_import_string(
         current_app.config
         .get('RECORDS_REST_ENDPOINTS')
         .get(pid_type, {}).get('record_class'))
+
+
+def get_pid_type_from_schema(schema):
+    """Get the pid_type from a given schema or a pid type.
+
+    If both the schema and pid_type are given, the record_class of the
+    schema will be returned.
+
+    :param schema: record schema.
+    :return: the pid type.
+    """
+    try:
+        pid_type_schema_value = schema.split('schemas')[1]
+        schemas = current_app.config.get('RERO_ILS_DEFAULT_JSON_SCHEMA')
+        return [key for key, value in schemas.items()
+                if value == pid_type_schema_value][0]
+    except IndexError:
+        pass
 
 
 def get_patron_from_arguments(**kwargs):
