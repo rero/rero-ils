@@ -1,4 +1,7 @@
 {
+  "aliases": {
+    "unified_entities": {}
+  },
   "settings": {
     "analysis": {
       "analyzer": {
