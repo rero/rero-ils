@@ -17,7 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Replace refs dumpers."""
-from invenio_records.api import _records_state
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
@@ -93,17 +92,3 @@ class ReplaceRefsEntitiesDumper(ReplaceRefsEntitiesDumperMixin):
             if entities:
                 data[field_name] = entities
         return data
-
-
-class ReplaceRefsDumper(Dumper):
-    """Replace link data in document."""
-
-    def dump(self, record, data):
-        """Dump record data by replacing `$ref` links.
-
-        :param record: The record to dump.
-        :param data: The initial dump data passed in by ``record.dumps()``.
-        :return a dict with dumped data.
-        """
-        from copy import deepcopy
-        return deepcopy(_records_state.replace_refs(data))

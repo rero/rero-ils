@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Local entity",
+  "description": "JSON schema for a local entity",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "preferred_name",
+    "authorized_access_point",
+    "type"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate local entity records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "pid": {
+      "title": "Local entity PID",
+      "type": "string"
+    },
+    "preferred_name": {
+      "title": "Preferred name",
+      "type": "string",
+      "minLength": 1
+    },
+    "authorized_access_point": {
+      "title": "Authorized access point",
+      "type": "string",
+      "minLength": 1
+    },
+    "type": {
+      "title": "Agent type",
+      "type": "string",
+      "enum": [
+        "bf:Organisation",
+        "bf:Person",
+        "bf:Place",
+        "bf:Topic",
+        "bf:Work"
+      ]
+    },
+    "deleted": {
+      "title": "Deletion date",
+      "type": "string"
+    }
+  }
+}

@@ -1733,6 +1733,20 @@
     ],
     "viaf_pid": "108158722"
   },
+  "locent_pers": {
+    "$schema": "https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json",
+    "pid": "locent_pers",
+    "preferred_name": "Loy, Georg",
+    "authorized_access_point": "Loy, Georg",
+    "type": "bf:Person"
+  },
+  "locent_org": {
+    "$schema": "https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json",
+    "pid": "locent_org",
+    "preferred_name": "Convegno internazionale di Italianistica",
+    "authorized_access_point": "Convegno internazionale di Italianistica",
+    "type": "bf:Organisation"
+  },
   "doc1": {
     "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
     "pid": "doc1",
@@ -4011,7 +4025,8 @@
       "pro_circulation_manager",
       "pro_user_manager",
       "pro_acquisition_manager",
-      "pro_library_administrator"
+      "pro_library_administrator",
+      "pro_entity_manager"
     ],
     "password": "Pw123456"
   },

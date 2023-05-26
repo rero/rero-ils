@@ -40,6 +40,7 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemOnLoanToItemReturned, PendingToItemAtDesk, \
     PendingToItemInTransitPickup, ToCancelled, ToItemOnLoan
 from invenio_records_rest.facets import range_filter, terms_filter
+from invenio_records_rest.utils import deny_all, allow_all
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount
 from rero_ils.modules.acquisition.acq_accounts.permissions import \
@@ -96,6 +97,8 @@ from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
     validate_item_pickup_transaction_locations, validate_loan_duration
+from .modules.local_entities.api import LocalEntity
+from .modules.local_entities.permissions import LocalEntityPermissionPolicy
 from .modules.local_fields.api import LocalField
 from .modules.local_fields.permissions import LocalFieldPermissionPolicy
 from .modules.locations.api import Location
@@ -1159,6 +1162,66 @@ RECORDS_REST_ENDPOINTS = dict(
         create_permission_factory_imp=lambda record: EntityPermissionPolicy('create', record=record),
         update_permission_factory_imp=lambda record: EntityPermissionPolicy('update', record=record),
         delete_permission_factory_imp=lambda record: EntityPermissionPolicy('delete', record=record)
+    ),
+    locent=dict(
+        pid_type='locent',
+        pid_minter='local_entity_id',
+        pid_fetcher='local_entity_id',
+        search_class='rero_ils.modules.local_entities.api:LocalEntitiesSearch',
+        search_index='local_entities',
+        indexer_class='rero_ils.modules.local_entities.api:LocalEntitiesIndexer',
+        search_type=None,
+        record_serializers={
+            'application/json': 'rero_ils.modules.serializers:json_v1_response'
+        },
+        record_serializers_aliases={
+            'json': 'application/json',
+        },
+        search_serializers={
+            'application/json': 'rero_ils.modules.serializers:json_v1_search'
+        },
+        search_serializers_aliases={
+            'json': 'application/json'
+        },
+        list_route='/local_entities/',
+        record_loaders={
+            'application/json': lambda: LocalEntity(request.get_json()),
+        },
+        record_class='rero_ils.modules.local_entities.api:LocalEntity',
+        item_route='/local_entities/<pid(locent, record_class="rero_ils.modules.local_entities.api:LocalEntity"):pid_value>',
+        default_media_type='application/json',
+        max_result_window=MAX_RESULT_WINDOW,
+        search_factory_imp='rero_ils.query:search_factory',
+        list_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('delete', record=record)
+    ),
+    unient=dict(
+        pid_type='unient',
+        pid_minter='unified_entity_id',  # This is mandatory for invenio-records-rest but not used
+        pid_fetcher='unified_entity_id',
+        search_index='unified_entities',
+        record_serializers={
+           'application/json': 'rero_ils.modules.serializers:json_v1_response'
+        },  # This is mandatory for invenio-records-rest but not used
+        search_serializers={
+            'application/json': 'rero_ils.modules.unified_entities.serializers:json_entities_search'
+        },
+        search_serializers_aliases={
+            'json': 'application/json'
+        },
+        list_route='/unified_entities/',
+        item_route='/unified_entities/<dummypid(unient, data={}):pid_value>',  # mandatory for invenio-records-rest (only used for permissions)
+        default_media_type='application/json',
+        max_result_window=MAX_RESULT_WINDOW,
+        search_factory_imp='rero_ils.query:search_factory',
+        list_permission_factory_imp=allow_all,
+        read_permission_factory_imp=deny_all,
+        create_permission_factory_imp=deny_all,
+        update_permission_factory_imp=deny_all,
+        delete_permission_factory_imp=deny_all
     ),
     cipo=dict(
         pid_type='cipo',
@@ -2249,15 +2312,16 @@ indexes = [
     'budgets',
     'circ_policies',
     'collections',
-    'entities',
     'documents',
+    'entities',
     'holdings',
     'items',
     'item_types',
     'ill_requests',
     'libraries',
-    'local_fields',
     'loans',
+    'local_entities',
+    'local_fields',
     'locations',
     'notifications',
     'operation_logs',
@@ -2267,6 +2331,7 @@ indexes = [
     'patron_transactions',
     'patron_types',
     'templates',
+    'unified_entities',
     'vendors'
 ]
 
@@ -2680,6 +2745,12 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     'rero_ils.modules.local_fields.permissions:create_action',
     'rero_ils.modules.local_fields.permissions:update_action',
     'rero_ils.modules.local_fields.permissions:delete_action',
+    'rero_ils.modules.local_entities.permissions:access_action',
+    'rero_ils.modules.local_entities.permissions:search_action',
+    'rero_ils.modules.local_entities.permissions:read_action',
+    'rero_ils.modules.local_entities.permissions:create_action',
+    'rero_ils.modules.local_entities.permissions:update_action',
+    'rero_ils.modules.local_entities.permissions:delete_action',
     'rero_ils.modules.notifications.permissions:access_action',
     'rero_ils.modules.notifications.permissions:search_action',
     'rero_ils.modules.notifications.permissions:read_action',
@@ -2811,6 +2882,7 @@ RERO_ILS_DEFAULT_JSON_SCHEMA = {
     'itty': '/item_types/item_type-v0.0.1.json',
     'lib': '/libraries/library-v0.0.1.json',
     'loc': '/locations/location-v0.0.1.json',
+    'locent': '/local_entities/local_entity-v0.0.1.json',
     'lofi': '/local_fields/local_field-v0.0.1.json',
     'notif': '/notifications/notification-v0.0.1.json',
     'org': '/organisations/organisation-v0.0.1.json',
