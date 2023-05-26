@@ -63,7 +63,7 @@ class MultiDumper(InvenioRecordsDumper):
 
 
 class ReplaceRefsDumper(InvenioRecordsDumper):
-    """Replace link data in document."""
+    """Replace link data in resource."""
 
     def dump(self, record, data):
         """Dump record data by replacing `$ref` links.

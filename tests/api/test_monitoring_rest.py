@@ -56,6 +56,8 @@ def test_monitoring_es_db_counts(client):
             'lib': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'libraries'},
             'loanid': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'loans'},
             'loc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'locations'},
+            'locent': {'db': 0, 'db-es': 0, 'es': 0,
+                       'index': 'local_entities'},
             'lofi': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'local_fields'},
             'notif': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'notifications'},
             'oplg': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'operation_logs'},
@@ -68,6 +70,8 @@ def test_monitoring_es_db_counts(client):
             'ptty': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'patron_types'},
             'stat': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'stats'},
             'tmpl': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'templates'},
+            'unient': {'db': 0, 'db-es': 0, 'es': 0,
+                       'index': 'unified_entities'},
             'vndr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'vendors'},
         }
     }
