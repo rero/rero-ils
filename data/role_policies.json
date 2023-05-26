@@ -783,7 +783,8 @@
     "pro_circulation_manager",
     "pro_user_manager",
     "pro_acquisition_manager",
-    "pro_library_administrator"
+    "pro_library_administrator",
+    "pro_entity_manager"
   ],
   "access-circulation": [
     "pro_circulation_manager",
@@ -797,5 +798,27 @@
   "permission-management": [
     "admin",
     "pro_full_permissions"
+  ],
+  "locent-access": [
+    "pro_full_permissions",
+    "pro_read_only",
+    "pro_catalog_manager",
+    "pro_circulation_manager",
+    "pro_user_manager",
+    "pro_acquisition_manager",
+    "pro_library_administrator",
+    "pro_entity_manager"
+  ],
+  "locent-update": [
+    "pro_full_permissions",
+    "pro_entity_manager"
+  ],
+  "locent-create": [
+    "pro_full_permissions",
+    "pro_entity_manager"
+  ],
+  "locent-delete": [
+    "pro_full_permissions",
+    "pro_entity_manager"
   ]
 }

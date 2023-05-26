@@ -246,6 +246,7 @@ eval ${PREFIX} "invenio roles create -d 'Professional: Catalog manager' pro_cata
 eval ${PREFIX} "invenio roles create -d 'Professional: Circulation manager' pro_circulation_manager"
 eval ${PREFIX} "invenio roles create -d 'Professional: Library administrator' pro_library_administrator"
 eval ${PREFIX} "invenio roles create -d 'Professional: User manager' pro_user_manager"
+eval ${PREFIX} "invenio roles create -d 'Professional: Entity manager' pro_entity_manager"
 eval ${PREFIX} "invenio roles create -d 'Documentation Editor' editor"
 eval ${PREFIX} "invenio roles create -d 'Document Importing' document_importer"
 
@@ -327,6 +328,11 @@ eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v 
 info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
 eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
 eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
+
+info_msg "- Local entities ${DATA_PATH}/local_entities.json ${CREATE_LAZY} ${DONT_STOP}"
+eval ${PREFIX} invenio reroils fixtures create --pid_type locent --schema 'https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json' ${DATA_PATH}/local_entities.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t locent --yes-i-know
+eval ${PREFIX} invenio reroils index run --raise-on-error
 
 #: - xml to json transformation for rero marcxml --------------------------------
 #: don't forget to recreat the documents json schema files:

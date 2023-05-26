@@ -49,5 +49,11 @@
   ],
   "ptre-read": [
     "authenticated_user"
+  ],
+  "locent-search": [
+    "any_user"
+  ],
+  "locent-read": [
+    "any_user"
   ]
 }
