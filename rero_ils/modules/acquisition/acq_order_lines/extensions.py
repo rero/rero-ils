@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,8 +37,15 @@ class AcqOrderLineValidationExtension(RecordExtension):
             - record.get('discount_amount', 0)
 
         original_record = record.__class__.get_record_by_pid(record.pid)
+
+        # compute the amount to check ; 2 possibilities :
+        #   - either the account doesn't change : in such case, we need to
+        #     check the possible difference between original record and updated
+        #     record total_amount.
+        #   - either the account changes : in such case, we need to the check
+        #     if the new destination account balance accept this order line.
         amount_to_check = record.get('total_amount', 0)
-        if original_record:
+        if original_record and original_record.account == record.account:
             amount_to_check -= original_record.get('total_amount', 0)
 
         # If we decease the total amount of this order line, no need to check.
