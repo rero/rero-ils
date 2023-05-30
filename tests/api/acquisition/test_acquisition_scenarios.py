@@ -22,9 +22,11 @@ import pytest
 from api.acquisition.acq_utils import _del_resource, _make_resource
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json
+from jsonschema.exceptions import ValidationError
+from utils import VerifyRecordPermissionPatch, flush_index, get_json
 
-from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, \
+    AcqAccountsSearch
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
 from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
@@ -520,5 +522,89 @@ def test_acquisition_order(
     assert not order_line_1
     assert not order_line_1_1
 
+    _del_resource(client, 'acac', account_b.pid)
+    _del_resource(client, 'acac', account_a.pid)
+
+
+def test_acquisition_order_line_account_changes(
+    client, rero_json_header, org_martigny, lib_martigny, budget_2020_martigny,
+    vendor_martigny, librarian_martigny, document
+):
+    """Test validation behavior on if related account of order line changes."""
+
+    # We will create an order line related to a first account (acc#A) ; then
+    # we updated the related account (acc#B). We need to check if :
+    #  - the destination account has enough balance to accept this order_line
+    #  - both account ES hits are correct (encumbrance, balance, ...) after
+    #    this change.
+
+    login_user_via_session(client, librarian_martigny.user)
+
+    # STEP 0 :: Init the acquisition structure
+    #   1) create two independent accounts
+    #   2) create an order
+    #   3) add an order line related to the acc#A
+    #   4) check if balance/encumbrance are correct into ES indexes.
+    basic_data = {
+        'allocated_amount': 0,
+        'budget': {'$ref': get_ref_for_pid('budg', budget_2020_martigny.pid)},
+        'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)}
+    }
+    account_a = dict(name='A', allocated_amount=1000)
+    account_a = _make_resource(client, 'acac', {**basic_data, **account_a})
+    account_a_ref = {'$ref': get_ref_for_pid('acac', account_a.pid)}
+
+    account_b = dict(name='B')
+    account_b = _make_resource(client, 'acac', {**basic_data, **account_b})
+    account_b_ref = {'$ref': get_ref_for_pid('acac', account_b.pid)}
+
+    order = _make_resource(client, 'acor', {
+        'vendor': {'$ref': get_ref_for_pid('vndr', vendor_martigny.pid)},
+        'library': {'$ref': get_ref_for_pid('lib', lib_martigny.pid)},
+        'type': 'monograph',
+    })
+    order_line = _make_resource(client, 'acol', {
+        'acq_account': account_a_ref,
+        'acq_order': {'$ref': get_ref_for_pid('acor', order.pid)},
+        'document': {'$ref': get_ref_for_pid('doc', document.pid)},
+        'quantity': 2,
+        'amount': 100
+    })
+
+    assert account_a.encumbrance_amount == (200, 0)
+    assert account_a.remaining_balance == (800, 800)
+    assert account_b.encumbrance_amount == (0, 0)
+    assert account_b.remaining_balance == (0, 0)
+
+    # STEP 1 :: Change account related to the order line
+    #    Staff member did a bad manipulation ! the order line should be related
+    #    to the acc#B (not the acc#A). It will try to change that. But
+    #    validation problem should occur because the remaining balance for this
+    #    account isn't correct to accept this order_line.
+    order_line['acq_account'] = account_b_ref
+    with pytest.raises(ValidationError) as err:
+        order_line.update(order_line, dbcommit=True, reindex=True)
+    assert 'Parent account available amount too low' in str(err)
+    order_line = AcqOrderLine.get_record(order_line.id)
+    assert order_line.account_pid == account_a.pid
+
+    # STEP 2 :: Set more money on destination account
+    #   Staff member add some money on the destination account to accept this
+    #   order line. We update the order line again and check that balance of
+    #   original and destination account are correct.
+    account_b['allocated_amount'] = 1000
+    account_b = account_b.update(account_b, dbcommit=True, reindex=True)
+    order_line['acq_account'] = account_b_ref
+    order_line = order_line.update(order_line, dbcommit=True, reindex=True)
+    flush_index(AcqAccountsSearch.Meta.index)
+    assert order_line.account_pid == account_b.pid
+    assert account_a.encumbrance_amount == (0, 0)
+    assert account_a.remaining_balance == (1000, 1000)
+    assert account_b.encumbrance_amount == (200, 0)
+    assert account_b.remaining_balance == (800, 800)
+
+    # RESET FIXTURES
+    _del_resource(client, 'acol', order_line.pid)
+    _del_resource(client, 'acor', order.pid)
     _del_resource(client, 'acac', account_b.pid)
     _del_resource(client, 'acac', account_a.pid)
