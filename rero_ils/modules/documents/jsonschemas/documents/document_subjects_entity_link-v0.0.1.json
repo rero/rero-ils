@@ -30,7 +30,7 @@
                 "value": "bf:Person"
               },
               {
-                "label": "Organisation",
+                "label": "bf:Organisation",
                 "value": "bf:Organisation"
               }
             ]

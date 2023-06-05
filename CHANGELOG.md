@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.17.1](https://github.com/rero/rero-ils/tree/v1.17.1) (2023-06-06)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.17.0...v1.17.1)
+
+**Fixes:**
+* facet: fix subjects fiction [\#3353](https://github.com/rero/rero-ils/pull/3353) (by @rerowep)
+* records: fix related resources indexes deletion problem [\#3355](https://github.com/rero/rero-ils/pull/3355) (by @zannkukai)
+* fix bf:Organisation labels [\#3354](https://github.com/rero/rero-ils/pull/3354) (by @PascalRepond)
+
 ## [v1.17.0](https://github.com/rero/rero-ils/tree/v1.17.0) (2023-05-16)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.16.0...v1.17.0)
@@ -23,6 +32,9 @@
 * documents: uses extensions [\#3242](https://github.com/rero/rero-ils/pull/3242) (by @jma)
 
 **Fixes:**
+* acquisition: fix account changes for order line [\#3347](https://github.com/rero/rero-ils/pull/3347) (by @zannkukai)
+* dependencies: fix security issues [\#3349](https://github.com/rero/rero-ils/pull/3349) (by @jma)
+* document: allow MEF linked subject [\#3344](https://github.com/rero/rero-ils/pull/3344) (by @jma)
 * entites schemas: adapt field titles and defaults [\#3338](https://github.com/rero/rero-ils/pull/3338) (by @PascalRepond)
 * fix: test scripts for poetry 1.5.0 [\#3339](https://github.com/rero/rero-ils/pull/3339) (by @PascalRepond)
 * ui: fix subjects in public document detailed views [\#3344](https://github.com/rero/rero-ils/pull/3344) (by @jma)
