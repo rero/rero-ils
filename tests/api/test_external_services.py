@@ -383,7 +383,7 @@ def test_documents_import_loc_missing_id(mock_get, client, loc_without_010):
         what='test',
         relation='all',
         where='anywhere',
-        max=100,
+        max_results=100,
         no_cache=True
     )
     assert status_code == 200

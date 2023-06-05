@@ -94,7 +94,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
             what=what,
             relation=relation,
             where=where,
-            max=size,
+            max_results=size,
             no_cache=no_cache
         )
         results = do_import.results
@@ -183,7 +183,7 @@ class ImportsResource(ContentNegotiatedMethodView):
             what=id,
             relation='all',
             where='recordid',
-            max=size,
+            max_results=size,
             no_cache=no_cache
         )
         if not do_import.data:

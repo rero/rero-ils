@@ -1005,10 +1005,10 @@ def unimarc_identifier_isbn(self, key, value):
         identifiers.append(isbn)
 
     if value.get('z'):
-        for data in utils.force_list(value.get('z')):
+        for value in utils.force_list(value.get('z')):
             isbn = {
                 "type": "bf:Isbn",
-                "value": data.replace('-', ''),
+                "value": value.replace('-', ''),
                 'status': 'invalid or cancelled'
             }
             identifiers.append(isbn)

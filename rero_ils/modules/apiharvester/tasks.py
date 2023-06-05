@@ -27,7 +27,7 @@ from .utils import get_records
 
 @shared_task(ignore_result=True)
 def harvest_records(url=None, name=None, from_date=None, signals=True, size=0,
-                    max=0, verbose=False):
+                    max_results=0, verbose=False):
     """Harvest records."""
     config = ApiHarvestConfig.query.filter_by(name=name).first()
     if config:
@@ -40,7 +40,7 @@ def harvest_records(url=None, name=None, from_date=None, signals=True, size=0,
             size = config.size
 
     for next, records in get_records(
-        url=url, name=name, from_date=from_date, size=size, max=max,
-        signals=signals, verbose=verbose
+        url=url, name=name, from_date=from_date, size=size,
+        max_results=max_results, signals=signals, verbose=verbose
     ):
         pass

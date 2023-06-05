@@ -487,7 +487,7 @@ def get_contribution_link(bibid, reroid, ids, key):
                             if match_value := mdata.get(source, {}).get('pid'):
                                 match_type = source
                                 break
-        else:
+        elif match:
             error_print('ERROR GET MEF CONTRIBUTION:', bibid, reroid, key, id_)
 
 
