@@ -101,11 +101,12 @@ def api_source_config_from_file(configfile, update):
               help='Signals sent with Api harvesting results.')
 @click.option('-s', '--size', type=int, default=0,
               help='Size of chunks (optional).')
-@click.option('-m', '--max', type=int, default=0,
+@click.option('-m', '--max_results', type=int, default=0,
               help='maximum of records to harvest (optional).')
 @click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
 @with_appcontext
-def harvest(name, from_date, url, enqueue, signals, size, max, verbose):
+def harvest(name, from_date, url, enqueue, signals, size, max_results,
+            verbose):
     """Harvest api."""
     if name:
         click.secho(f'Harvest api: {name}', fg='green')
@@ -113,11 +114,11 @@ def harvest(name, from_date, url, enqueue, signals, size, max, verbose):
         click.secho(f'Harvest api: {url}', fg='green')
     if enqueue:
         harvest_records.delay(url=url, name=name, from_date=from_date,
-                              signals=signals, size=size, max=max,
-                              verbose=verbose)
+                              signals=signals, size=size,
+                              max_results=max_results, verbose=verbose)
     else:
         harvest_records(url=url, name=name, from_date=from_date,
-                        signals=signals, size=size, max=max,
+                        signals=signals, size=size, max_results=max_results,
                         verbose=verbose)
 
 

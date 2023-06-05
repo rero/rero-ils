@@ -27,9 +27,11 @@ from operator import itemgetter
 
 import requests
 from dojson.contrib.marc21.utils import create_record
+from dojson.utils import GroupableOrderedDict
 from flask import abort, current_app, jsonify, url_for
 from lxml import etree
 from redis import Redis
+from requests.exceptions import Timeout
 from six import BytesIO
 
 from ..documents.dojson.contrib.marc21tojson import marc21_dnb, marc21_kul, \
@@ -46,7 +48,9 @@ class Import(object):
     search = {}
     to_json_processor = None
     status_code = 444
-    max = 50
+    max_results = 50
+    timeout_connect = 5
+    timeout_request = 60
 
     def __init__(self):
         """Init Import class."""
@@ -101,7 +105,7 @@ class Import(object):
         """
         url_api = self.url_api.format(
             url=self.url,
-            max=1,
+            max_results=1,
             what=id,
             relation='all',
             where=self.search.get('recordid')
@@ -213,8 +217,7 @@ class Import(object):
                     'doc_count_error_upper_bound': 0,
                     'sum_other_doc_count': 0
                 }
-                subs = value.get('sub')
-                if subs:
+                if subs := value.get('sub'):
                     sub_buckets = []
                     for sub_key, sub_value in subs.items():
                         sub_buckets.append({
@@ -282,9 +285,9 @@ class Import(object):
         """
         ids = []
         buckets = results.get('aggregations').get(agg, {}).get('buckets', [])
-        bucket = list(
-            filter(lambda bucket: bucket['key'] == str(key), buckets))
-        if bucket:
+        if bucket := list(
+            filter(lambda bucket: bucket['key'] == str(key), buckets)
+        ):
             sub_buckets = bucket[0].get(sub_agg, {}).get('buckets', [])
             sub_bucket = list(
                 filter(
@@ -295,39 +298,99 @@ class Import(object):
             ids = sub_bucket[0]['ids']
         return ids
 
-    def search_records(self, what, relation, where='anywhere', max=0,
+    def _create_sru_url(self, what, relation, where, max_results):
+        """Create SRU URL.
+
+        :param what: what to search
+        :param relation: relation for search
+        :param where: in witch index to search (uses self.search)
+        :param max_results: maximum records to search
+        :returns: SRU search URL
+        """
+        where_search = self.search.get(where)
+        if isinstance(where_search, list):
+            url_api = self.url_api.format(
+                url=self.url,
+                max_results=max_results,
+                what=what,
+                relation=relation,
+                where=where_search[0]
+            )
+            for key in where_search[1:]:
+                url_api = f'{url_api} OR {key} {relation} "{what}"'
+        else:
+            url_api = self.url_api.format(
+                url=self.url,
+                max_results=max_results,
+                what=what,
+                relation=relation,
+                where=where_search
+            )
+        return url_api
+
+    def clean_marc(self, json_data):
+        """Clean JSON data from unwanted tags."""
+        new_json_data = {}
+        new_order = []
+        if leader := json_data.get('leader'):
+            new_json_data = {'leader': leader}
+            new_order.append('leader')
+        for key in sorted(json_data.keys()):
+            # Don't use 9XX tag's
+            if (
+                key[0] != '9' and
+                key != 'leader' and
+                key != '__order__' and
+                key[:3].isdigit()
+            ):
+                new_json_data[key] = json_data[key]
+        new_order.extend(
+            key
+            for key in list(json_data['__order__'])
+            if (
+                key[0] != '9' and
+                key != 'leader' and
+                key[:3].isdigit()
+            )
+        )
+        new_json_data['__order__'] = new_order
+        return GroupableOrderedDict(new_json_data)
+
+    def search_records(self, what, relation, where='anywhere', max_results=0,
                        no_cache=False):
         """Get the records.
 
         :param what: what term to search
         :param relation: relation for what and where
         :param where: in witch index to search
-        :param max: maximum records to search
+        :param max_results: maximum records to search
         :param no_cache: do not use cache if true
         """
-        if max == 0:
-            max = self.max
+        if max_results == 0:
+            max_results = self.max_results
         if self.name == 'LOC' and relation == "all":
             relation = "="
         self.init_results()
         if not what:
             return self.results, 200
         try:
-            cache_key = f'{self.name}_{what}_{relation}_{where}_{max}'
+            cache_key = f'{self.name}_{what}_{relation}_{where}_{max_results}'
             cache = self.cache.get(cache_key)
             if cache and not no_cache:
                 cache_data = pickle.loads(cache)
                 self.results['hits'] = cache_data['hits']
                 self.data = cache_data['data']
             else:
-                url_api = self.url_api.format(
-                    url=self.url,
-                    max=max,
+                url_api = self._create_sru_url(
                     what=what,
                     relation=relation,
-                    where=self.search.get(where)
+                    where=where,
+                    max_results=max_results
                 )
-                response = requests.get(url_api)
+                response = requests.get(
+                    url_api,
+                    timeout=(self.timeout_connect, self.timeout_request)
+                )
                 if not response.ok:
                     self.status_code = 502
                     response = {
@@ -357,6 +420,7 @@ class Import(object):
                     for xml_record in xml_records:
                         # convert xml in marc json
                         json_data = create_record(xml_record)
+                        json_data = self.clean_marc(json_data)
                         # Some BNF records are empty hmm...
                         if not json_data.values():
                             continue
@@ -364,13 +428,13 @@ class Import(object):
                         # convert marc json to local json format
                         record = self.to_json_processor(json_data)
 
-                        id = self.get_id(json_data)
-                        if record and id:
+                        id_ = self.get_id(json_data)
+                        if record and id_:
                             data = {
-                                'id': id,
+                                'id': id_,
                                 'links': {
-                                    'self': self.get_link(id),
-                                    'marc21': self.get_marc21_link(id)
+                                    'self': self.get_link(id_),
+                                    'marc21': self.get_marc21_link(id_)
                                 },
                                 'metadata': record,
                                 'source': self.name
@@ -403,15 +467,13 @@ class Import(object):
                 )
                 self.create_aggregations(self.results)
                 self.status_code = 200
-
+        except Timeout as error:
+            current_app.logger.warning(f'{self.name}: {error}')
+            abort(503, description='Timeout')
         except Exception as error:
             current_app.logger.error(
-                '{title}: {detail}'.format(
-                    title=f'{self.name} Error!',
-                    detail=f'Error: {error}'
-                )
-            )
-            abort(500, description=f'Error: {error}')
+                f'{type(error).__name__} {self.name}: {error}')
+            abort(500, description='Error')
         return self.results, self.status_code
 
 
@@ -422,7 +484,7 @@ class BnfImport(Import):
     url = 'http://catalogue.bnf.fr'
     url_api = '{url}/api/SRU?'\
               'version=1.2&operation=searchRetrieve'\
-              '&recordSchema=unimarcxchange-anl&maximumRecords={max}'\
+              '&recordSchema=unimarcxchange-anl&maximumRecords={max_results}'\
               '&startRecord=1&query={where} {relation} "{what}"'
 
     # https://www.bnf.fr/sites/default/files/2019-04/tableau_criteres_sru.pdf
@@ -462,7 +524,7 @@ class LoCImport(Import):
     url = 'http://lx2.loc.gov:210'
     url_api = '{url}/lcdb?'\
               'version=1.2&operation=searchRetrieve'\
-              '&recordSchema=marcxml&maximumRecords={max}'\
+              '&recordSchema=marcxml&maximumRecords={max_results}'\
               '&startRecord=1&query={where} {relation} "{what}"'
 
     # http://www.loc.gov/standards/sru/resources/lcServers.html
@@ -512,7 +574,7 @@ class DNBImport(Import):
     url = 'https://services.dnb.de'
     url_api = '{url}/sru/dnb?'\
               'version=1.1&operation=searchRetrieve'\
-              '&recordSchema=MARC21-xml&maximumRecords={max}'\
+              '&recordSchema=MARC21-xml&maximumRecords={max_results}'\
               '&startRecord=1&query={where} {relation} "{what}"'
 
     # https://www.dnb.de/EN/Professionell/Metadatendienste/Datenbezug/SRU/sru_node.html
@@ -545,6 +607,46 @@ class DNBImport(Import):
         return url_for('api_imports.import_dnb_record', **args)
 
 
+class SUDOCImport(Import):
+    """Import class for SUDOC."""
+
+    name = 'SUDOC'
+    url = 'https://www.sudoc.abes.fr'
+    url_api = '{url}/cbs/sru/?'\
+              'version=1.1&operation=searchRetrieve'\
+              '&recordSchema=unimarc&maximumRecords={max_results}'\
+              '&startRecord=1&query={where} {relation} "{what}"'
+
+    # https://abes.fr/wp-content/uploads/2023/05/guide-utilisation-service-sru-catalogue-sudoc.pdf
+    search = {
+        'ean': 'isb',
+        'anywhere': ['tou', 'num', 'ppn'],
+        'author': 'dc.creator',
+        'title': 'dc.title',
+        'doctype': 'tdo',
+        'recordid': 'ppn',
+        'isbn': 'isb',
+        'issn': 'isn',
+        'date': 'dc.date'
+    }
+
+    to_json_processor = unimarc.do
+
+    def get_marc21_link(self, id):
+        """Get direct link to marc21 record.
+
+        :param id: id to use for the link
+        :return: url for id
+        """
+        args = {
+            'id': id,
+            '_external': True,
+            current_app.config.get(
+                'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
+        }
+        return url_for('api_imports.import_sudoc_record', **args)
+
+
 class SLSPImport(Import):
     """Import class for SLSP."""
 
@@ -552,7 +654,7 @@ class SLSPImport(Import):
     url = 'https://swisscovery.slsp.ch'
     url_api = '{url}/view/sru/41SLSP_NETWORK?'\
               'version=1.2&operation=searchRetrieve'\
-              '&recordSchema=marcxml&maximumRecords={max}'\
+              '&recordSchema=marcxml&maximumRecords={max_results}'\
               '&startRecord=1&query={where} {relation} "{what}"'
 
     # https://slsp.ch/fr/metadata
@@ -591,7 +693,7 @@ class UGentImport(Import):
     url = 'https://lib.ugent.be/sru'
     url_api = '{url}?'\
               'version=1.1&operation=searchRetrieve'\
-              '&recordSchema=marcxml&maximumRecords={max}'\
+              '&recordSchema=marcxml&maximumRecords={max_results}'\
               '&startRecord=1&query={where} {relation} "{what}"'
 
     # https://lib.ugent.be/sru
@@ -644,7 +746,7 @@ class KULImport(Import):
     url = 'https://eu.alma.exlibrisgroup.com'
     url_api = '{url}/view/sru/32KUL_LIBIS_NETWORK?'\
               'version=1.2&operation=searchRetrieve'\
-              '&recordSchema=marcxml&maximumRecords={max}'\
+              '&recordSchema=marcxml&maximumRecords={max_results}'\
               '&startRecord=1&query={where} {relation} "{what}"'
 
     # https://developers.exlibrisgroup.com/alma/integrations/sru/

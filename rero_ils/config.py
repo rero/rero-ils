@@ -3315,7 +3315,14 @@ RERO_IMPORT_REST_ENDPOINTS = dict(
         import_size=50,
         label='KULeuven',
         weight=30
-    )
+    ),
+    sudoc=dict(
+        key='sudoc',
+        import_class='rero_ils.modules.imports.api:SUDOCImport',
+        import_size=50,
+        label='SUDOC',
+        weight=20
+    ),
 )
 
 # RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE

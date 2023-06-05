@@ -77,7 +77,7 @@ def extract_records(data):
     return records
 
 
-def get_records(url=None, name=None, from_date=None, max=0, size=100,
+def get_records(url=None, name=None, from_date=None, max_results=0, size=100,
                 signals=True, verbose=False, **kwargs):
     """Harvest multiple records from invenio api."""
     url += f'/?size={size}'
@@ -102,12 +102,12 @@ def get_records(url=None, name=None, from_date=None, max=0, size=100,
         click.echo(f'API records found: {total}')
 
         next_url = data.get('links', {}).get('self', True)
-        while next_url and (count < max or max == 0):
+        while next_url and (count < max_results or max_results == 0):
             records = extract_records(data)
             count += len(records)
 
-            if count - max > 0 and max != 0:
-                records = records[:max]
+            if count - max_results > 0 and max_results != 0:
+                records = records[:max_results]
 
             request = requests.get(next_url)
             data = request.json()

@@ -47,7 +47,7 @@ def test_api_source(mock_get, app, capsys):
         }
     })
     harvest_records(name='test', url='http://test.com', signals=False,
-                    size=1000, max=1000)
+                    size=1000, max_results=1000)
     out, err = capsys.readouterr()
     assert out.strip() == 'API records found: 2'
 
