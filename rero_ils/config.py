@@ -1707,14 +1707,16 @@ RECORDS_REST_FACETS = dict(
                 'facet_subject',
                 must=[{
                     'name_or_query': 'terms',
-                    'genreForm__identifiedBy__value': ['A027757308', 'A021097366']
+                    # TODO: If we have translated concepts we have to addapt this filter.
+                    'facet_genre_form_en': FICTIONS_TERMS
                 }]
             ),
             _('subject_no_fiction'): and_i18n_term_filter(
                 'facet_subject',
                 must_not=[{
                     'name_or_query': 'terms',
-                    'genreForm__identifiedBy__value': ['A027757308', 'A021097366']}
+                    # TODO: If we have translated concepts we have to addapt this filter.
+                    'facet_genre_form_en': FICTIONS_TERMS}
                 ]
             ),
             _('new_acquisition'): acquisition_filter(),
