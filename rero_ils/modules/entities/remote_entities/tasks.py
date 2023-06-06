@@ -24,7 +24,7 @@ import click
 from celery import shared_task
 from flask import current_app
 
-from .api import Entity
+from .api import RemoteEntity
 from .sync import SyncEntity
 
 
@@ -37,7 +37,7 @@ def delete_records(records, verbose=False):
     :return: count of records
     """
     for record in records:
-        status = Entity.delete(
+        status = RemoteEntity.delete(
             record,
             force=False,
             dbcommit=True,

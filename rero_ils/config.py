@@ -73,8 +73,9 @@ from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermissionPolicy
 from .modules.documents.query import acquisition_filter, \
     nested_identified_filter
-from .modules.entities.api import Entity
-from .modules.entities.permissions import EntityPermissionPolicy
+from rero_ils.modules.entities.remote_entities.api import RemoteEntity
+from rero_ils.modules.entities.remote_entities.permissions import \
+    RemoteEntityPermissionPolicy
 from .modules.holdings.api import Holding
 from .modules.holdings.models import HoldingCirculationAction
 from .modules.holdings.permissions import HoldingsPermissionPolicy
@@ -97,8 +98,9 @@ from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
     validate_item_pickup_transaction_locations, validate_loan_duration
-from .modules.local_entities.api import LocalEntity
-from .modules.local_entities.permissions import LocalEntityPermissionPolicy
+from rero_ils.modules.entities.local_entities.api import LocalEntity
+from rero_ils.modules.entities.local_entities.permissions import \
+    LocalEntityPermissionPolicy
 from .modules.local_fields.api import LocalField
 from .modules.local_fields.permissions import LocalFieldPermissionPolicy
 from .modules.locations.api import Location
@@ -446,7 +448,7 @@ CELERY_BEAT_SCHEDULE = {
         'enabled': False,
     },
     'sync-entities': {
-        'task': 'rero_ils.modules.entities.tasks.sync_entities',
+        'task': 'rero_ils.modules.entities.remote_entities.tasks.sync_entities',
         'schedule': crontab(minute=0, hour=1), # Every day at 01:00 UTC,
         'enabled': False,
     },
@@ -1128,13 +1130,13 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=lambda record: LocationPermissionPolicy('update', record=record),
         delete_permission_factory_imp=lambda record: LocationPermissionPolicy('delete', record=record)
     ),
-    ent=dict(
-        pid_type='ent',
-        pid_minter='entity_id',
-        pid_fetcher='entity_id',
-        search_class='rero_ils.modules.entities.api:EntitiesSearch',
-        search_index='entities',
-        indexer_class='rero_ils.modules.entities.api:EntitiesIndexer',
+    rement=dict(
+        pid_type='rement',
+        pid_minter='remote_entity_id',
+        pid_fetcher='remote_entity_id',
+        search_class='rero_ils.modules.entities.remote_entities.api:RemoteEntitiesSearch',
+        search_index='remote_entities',
+        indexer_class='rero_ils.modules.entities.remote_entities.api:RemoteEntitiesIndexer',
         search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
@@ -1148,28 +1150,28 @@ RECORDS_REST_ENDPOINTS = dict(
         search_serializers_aliases={
             'json': 'application/json'
         },
-        list_route='/entities/',
+        list_route='/remote_entities/',
         record_loaders={
-            'application/json': lambda: Entity(request.get_json()),
+            'application/json': lambda: RemoteEntity(request.get_json()),
         },
-        record_class='rero_ils.modules.entities.api:Entity',
-        item_route='/entities/<pid(ent, record_class="rero_ils.modules.entities.api:Entity"):pid_value>',
+        record_class='rero_ils.modules.entities.remote_entities.api:RemoteEntity',
+        item_route='/remote_entities/<pid(rement, record_class="rero_ils.modules.entities.remote_entities.api:RemoteEntity"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:entity_view_search_factory',
-        list_permission_factory_imp=lambda record: EntityPermissionPolicy('search', record=record),
-        read_permission_factory_imp=lambda record: EntityPermissionPolicy('read', record=record),
-        create_permission_factory_imp=lambda record: EntityPermissionPolicy('create', record=record),
-        update_permission_factory_imp=lambda record: EntityPermissionPolicy('update', record=record),
-        delete_permission_factory_imp=lambda record: EntityPermissionPolicy('delete', record=record)
+        search_factory_imp='rero_ils.query:remote_entity_view_search_factory',
+        list_permission_factory_imp=lambda record: RemoteEntityPermissionPolicy('search', record=record),
+        read_permission_factory_imp=lambda record: RemoteEntityPermissionPolicy('read', record=record),
+        create_permission_factory_imp=lambda record: RemoteEntityPermissionPolicy('create', record=record),
+        update_permission_factory_imp=lambda record: RemoteEntityPermissionPolicy('update', record=record),
+        delete_permission_factory_imp=lambda record: RemoteEntityPermissionPolicy('delete', record=record)
     ),
     locent=dict(
         pid_type='locent',
         pid_minter='local_entity_id',
         pid_fetcher='local_entity_id',
-        search_class='rero_ils.modules.local_entities.api:LocalEntitiesSearch',
+        search_class='rero_ils.modules.entities.local_entities.api:LocalEntitiesSearch',
         search_index='local_entities',
-        indexer_class='rero_ils.modules.local_entities.api:LocalEntitiesIndexer',
+        indexer_class='rero_ils.modules.entities.local_entities.api:LocalEntitiesIndexer',
         search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
@@ -1187,8 +1189,8 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: LocalEntity(request.get_json()),
         },
-        record_class='rero_ils.modules.local_entities.api:LocalEntity',
-        item_route='/local_entities/<pid(locent, record_class="rero_ils.modules.local_entities.api:LocalEntity"):pid_value>',
+        record_class='rero_ils.modules.entities.local_entities.api:LocalEntity',
+        item_route='/local_entities/<pid(locent, record_class="rero_ils.modules.entities.local_entities.api:LocalEntity"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:search_factory',
@@ -1198,22 +1200,22 @@ RECORDS_REST_ENDPOINTS = dict(
         update_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('update', record=record),
         delete_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('delete', record=record)
     ),
-    unient=dict(
-        pid_type='unient',
-        pid_minter='unified_entity_id',  # This is mandatory for invenio-records-rest but not used
-        pid_fetcher='unified_entity_id',
-        search_index='unified_entities',
+    ent=dict(
+        pid_type='ent',
+        pid_minter='entity_id',  # This is mandatory for invenio-records-rest but not used
+        pid_fetcher='entity_id',
+        search_index='entities',
         record_serializers={
            'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },  # This is mandatory for invenio-records-rest but not used
         search_serializers={
-            'application/json': 'rero_ils.modules.unified_entities.serializers:json_entities_search'
+            'application/json': 'rero_ils.modules.entities.serializers:json_entities_search'
         },
         search_serializers_aliases={
             'json': 'application/json'
         },
-        list_route='/unified_entities/',
-        item_route='/unified_entities/<nooppid(unient, data={}):pid_value>',  # mandatory for invenio-records-rest (only used for permissions)
+        list_route='/entities/',
+        item_route='/entities/<nooppid(ent, data={}):pid_value>',  # mandatory for invenio-records-rest (only used for permissions)
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         search_factory_imp='rero_ils.query:search_factory',
@@ -2289,8 +2291,8 @@ indexes = [
     'patron_transaction_events',
     'patron_transactions',
     'patron_types',
+    'remote_entities',
     'templates',
-    'unified_entities',
     'vendors'
 ]
 
@@ -2659,6 +2661,12 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     'rero_ils.modules.documents.permissions:create_action',
     'rero_ils.modules.documents.permissions:update_action',
     'rero_ils.modules.documents.permissions:delete_action',
+    'rero_ils.modules.entities.local_entities.permissions.access_action',
+    'rero_ils.modules.entities.local_entities.permissions.search_action',
+    'rero_ils.modules.entities.local_entities.permissions.read_action',
+    'rero_ils.modules.entities.local_entities.permissions.create_action',
+    'rero_ils.modules.entities.local_entities.permissions.update_action',
+    'rero_ils.modules.entities.local_entities.permissions.delete_action',
     'rero_ils.modules.holdings.permissions:access_action',
     'rero_ils.modules.holdings.permissions:search_action',
     'rero_ils.modules.holdings.permissions:read_action',
@@ -2704,12 +2712,6 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     'rero_ils.modules.local_fields.permissions:create_action',
     'rero_ils.modules.local_fields.permissions:update_action',
     'rero_ils.modules.local_fields.permissions:delete_action',
-    'rero_ils.modules.local_entities.permissions:access_action',
-    'rero_ils.modules.local_entities.permissions:search_action',
-    'rero_ils.modules.local_entities.permissions:read_action',
-    'rero_ils.modules.local_entities.permissions:create_action',
-    'rero_ils.modules.local_entities.permissions:update_action',
-    'rero_ils.modules.local_entities.permissions:delete_action',
     'rero_ils.modules.notifications.permissions:access_action',
     'rero_ils.modules.notifications.permissions:search_action',
     'rero_ils.modules.notifications.permissions:read_action',
@@ -2833,7 +2835,7 @@ RERO_ILS_DEFAULT_JSON_SCHEMA = {
     'budg': '/budgets/budget-v0.0.1.json',
     'cipo': '/circ_policies/circ_policy-v0.0.1.json',
     'coll': '/collections/collection-v0.0.1.json',
-    'ent': '/entities/entity-v0.0.1.json',
+    'rement': '/remote_entities/remote_entity-v0.0.1.json',
     'doc': '/documents/document-v0.0.1.json',
     'hold': '/holdings/holding-v0.0.1.json',
     'illr': '/ill_requests/ill_request-v0.0.1.json',

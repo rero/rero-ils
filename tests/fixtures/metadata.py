@@ -27,10 +27,11 @@ import pytest
 from utils import flush_index, mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.entities.api import EntitiesSearch, Entity
+from rero_ils.modules.entities.remote_entities.api import \
+    RemoteEntitiesSearch, RemoteEntity
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
-from rero_ils.modules.local_entities.api import LocalEntitiesSearch, \
+from rero_ils.modules.entities.local_entities.api import LocalEntitiesSearch, \
     LocalEntity
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
 from rero_ils.modules.operation_logs.api import OperationLog
@@ -286,12 +287,12 @@ def entity_person_response_data(entity_topic_data):
 @pytest.fixture(scope="module")
 def entity_topic(app, entity_topic_data):
     """Load contribution person record."""
-    cont = Entity.create(
+    cont = RemoteEntity.create(
         data=entity_topic_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(EntitiesSearch.Meta.index)
+    flush_index(RemoteEntitiesSearch.Meta.index)
     return cont
 
 
@@ -329,12 +330,12 @@ def entity_person_response_data(entity_person_data):
 @pytest.fixture(scope="module")
 def entity_person(app, entity_person_data):
     """Load contribution person record."""
-    cont = Entity.create(
+    cont = RemoteEntity.create(
         data=entity_person_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(EntitiesSearch.Meta.index)
+    flush_index(RemoteEntitiesSearch.Meta.index)
     return cont
 
 
@@ -368,12 +369,12 @@ def entity_organisation_response_data(entity_organisation_data):
 @pytest.fixture(scope="module")
 def entity_organisation(app, entity_organisation_data):
     """Create mef contribution organisation record."""
-    org = Entity.create(
+    org = RemoteEntity.create(
         data=entity_organisation_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(EntitiesSearch.Meta.index)
+    flush_index(RemoteEntitiesSearch.Meta.index)
     return org
 
 
@@ -407,12 +408,12 @@ def person2_response_data(person2_data):
 @pytest.fixture(scope="module")
 def person2(app, person2_data):
     """Create mef person record."""
-    pers = Entity.create(
+    pers = RemoteEntity.create(
         data=person2_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(EntitiesSearch.Meta.index)
+    flush_index(RemoteEntitiesSearch.Meta.index)
     return pers
 
 

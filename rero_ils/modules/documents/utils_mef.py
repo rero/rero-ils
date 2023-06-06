@@ -29,8 +29,9 @@ from elasticsearch_dsl import Q
 from sqlalchemy.orm.exc import NoResultFound
 from webargs import ValidationError
 
-from rero_ils.modules.entities.api import Entity
-from rero_ils.modules.entities.utils import get_mef_data_by_type
+from rero_ils.modules.entities.remote_entities.api import RemoteEntity
+from rero_ils.modules.entities.remote_entities.utils import \
+    get_mef_data_by_type
 from rero_ils.modules.utils import get_mef_url, set_timestamp
 
 from .api import Document, DocumentsSearch
@@ -195,7 +196,7 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
 
     def get_local(self, ref_type, ref_pid):
         """Get local MEF record."""
-        return Entity.get_entity(ref_type, ref_pid)
+        return RemoteEntity.get_entity(ref_type, ref_pid)
 
     def get_online(self, doc_pid, ref_type, ref_pid):
         """Get online MEF record."""
@@ -208,7 +209,8 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                     self.increment_count(self.count_deleted, ref,
                                          f'{doc_pid} Deleted')
                 else:
-                    if entity := Entity.get_record_by_pid(data.get('pid')):
+                    if entity := RemoteEntity \
+                            .get_record_by_pid(data.get('pid')):
                         # update local entity
                         self.increment_count(self.count_found, ref,
                                              f'{doc_pid} Online update')
@@ -219,8 +221,8 @@ class ReplaceMefIdentifiedByContribution(ReplaceMefIdentifiedBy):
                         # create and return local contribution
                         self.increment_count(self.count_found, ref,
                                              f'{doc_pid} Online create')
-                        return Entity.create(data=data, dbcommit=True,
-                                             reindex=True)
+                        return RemoteEntity.create(data=data, dbcommit=True,
+                                                   reindex=True)
             else:
                 # online contribution has no IdREf, GND or RERO
                 self.increment_count(self.count_no_data, ref,

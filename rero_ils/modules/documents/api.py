@@ -242,20 +242,21 @@ class Document(IlsRecord):
 
     def index_contributions(self, bulk=False):
         """Index all attached contributions."""
-        from ..entities.api import EntitiesIndexer, Entity
+        from rero_ils.modules.entities.remote_entities.api import \
+            RemoteEntitiesIndexer, RemoteEntity
         from ..tasks import process_bulk_queue
         contributions_ids = []
         for contribution in self.get('contribution', []):
             ref = contribution['entity'].get('$ref')
             if not ref and (cont_pid := contribution['entity'].get('pid')):
                 if bulk:
-                    uid = Entity.get_id_by_pid(cont_pid)
+                    uid = RemoteEntity.get_id_by_pid(cont_pid)
                     contributions_ids.append(uid)
                 else:
-                    contrib = Entity.get_record_by_pid(cont_pid)
+                    contrib = RemoteEntity.get_record_by_pid(cont_pid)
                     contrib.reindex()
         if contributions_ids:
-            EntitiesIndexer().bulk_index(contributions_ids)
+            RemoteEntitiesIndexer().bulk_index(contributions_ids)
             process_bulk_queue.apply_async()
 
     @classmethod
