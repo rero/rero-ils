@@ -69,7 +69,7 @@ def test_record_to_index(app):
     assert record_to_index({
         '$schema': 'https://mef.rero.ch/schemas/'
         'mef/mef-contribution-v0.0.1.json'
-    }) == ('entities-entity-v0.0.1', '_doc')
+    }) == ('remote_entities-remote_entity-v0.0.1', '_doc')
 
     # for others
     assert record_to_index({

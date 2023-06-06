@@ -245,7 +245,7 @@ def create_authorized_access_point(agent):
     if not agent:
         return None
     authorized_access_point = agent.get('preferred_name')
-    from ..entities.models import EntityType
+    from rero_ils.modules.entities.models import EntityType
     if agent.get('type') == EntityType.PERSON:
         date_parts = [agent.get('date_of_birth'), agent.get('date_of_death')]
         date = '-'.join(filter(None, date_parts))

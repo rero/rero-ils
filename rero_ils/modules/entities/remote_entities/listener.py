@@ -18,11 +18,11 @@
 
 """Signals connector for `Entity` records."""
 
-from .api import EntitiesSearch, Entity
+from .api import RemoteEntitiesSearch, RemoteEntity
 
 
-def enrich_entities_data(sender, json=None, record=None, index=None,
-                         doc_type=None, arguments=None, **dummy_kwargs):
+def enrich_remote_entities_data(sender, json=None, record=None, index=None,
+                                doc_type=None, arguments=None, **dummy_kwargs):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -30,7 +30,7 @@ def enrich_entities_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index.split('-')[0] == EntitiesSearch.Meta.index:
-        if not isinstance(record, Entity):
-            record = Entity.get_record_by_pid(record.get('pid'))
+    if index.split('-')[0] == RemoteEntitiesSearch.Meta.index:
+        if not isinstance(record, RemoteEntity):
+            record = RemoteEntity.get_record_by_pid(record.get('pid'))
         json['organisations'] = record.organisation_pids

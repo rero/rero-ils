@@ -21,7 +21,7 @@ from flask_principal import AnonymousIdentity, identity_changed
 from flask_security.utils import login_user
 from utils import check_permission
 
-from rero_ils.modules.local_entities.permissions import \
+from rero_ils.modules.entities.local_entities.permissions import \
     LocalEntityPermissionPolicy
 
 
