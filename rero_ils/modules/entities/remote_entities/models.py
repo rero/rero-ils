@@ -18,15 +18,17 @@
 
 """Define relation between records and buckets."""
 
+from __future__ import absolute_import
+
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
 from invenio_records.models import RecordMetadataBase
 
 
-class LocalEntityIdentifier(RecordIdentifier):
-    """Sequence generator for `Entity` identifiers."""
+class RemoteEntityIdentifier(RecordIdentifier):
+    """Sequence generator for `Remote Entity` identifiers."""
 
-    __tablename__ = 'local_entity_id'
+    __tablename__ = 'remote_entity_id'
     __mapper_args__ = {'concrete': True}
 
     recid = db.Column(
@@ -36,19 +38,15 @@ class LocalEntityIdentifier(RecordIdentifier):
     )
 
 
-class LocalEntityMetadata(db.Model, RecordMetadataBase):
-    """Entity record metadata."""
+class RemoteEntityMetadata(db.Model, RecordMetadataBase):
+    """Remote Entity record metadata."""
 
-    __tablename__ = 'local_entity_metadata'
+    __tablename__ = 'remote_entity_metadata'
 
 
-class LocalEntityType:
-    """Class holding all available entity types."""
+class EntityUpdateAction:
+    """Class holding all available agent record creation actions."""
 
-    AGENT = 'bf:Agent'
-    ORGANISATION = 'bf:Organisation'
-    PERSON = 'bf:Person'
-    PLACE = 'bf:Place'
-    TEMPORAL = 'bf:Temporal'
-    TOPIC = 'bf:Topic'
-    WORK = 'bf:Work'
+    REPLACE = 'replace'
+    UPTODATE = 'uptodate'
+    ERROR = 'error'

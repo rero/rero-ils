@@ -25,7 +25,7 @@ from utils import get_json, postdata, to_relative_url, \
     VerifyRecordPermissionPatch
 
 from rero_ils.modules.entities.models import EntityType
-from rero_ils.modules.local_entities.api import LocalEntity
+from rero_ils.modules.entities.local_entities.api import LocalEntity
 
 
 def test_local_entities_permissions(client, roles, local_entity_person,
@@ -40,7 +40,7 @@ def test_local_entities_permissions(client, roles, local_entity_person,
     assert res.status_code == 401
 
     client.put(
-        url_for('invenio_records_rest.ent_item', pid_value='locent_pers'),
+        url_for('invenio_records_rest.locent_item', pid_value='locent_pers'),
         data={},
         headers=json_header
     )

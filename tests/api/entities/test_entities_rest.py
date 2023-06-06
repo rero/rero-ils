@@ -16,19 +16,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Tests `Entity` resource REST API."""
+"""Tests `LocalEntity` resource REST API."""
 
-import mock
 from flask import url_for
-from utils import get_json, mock_response, postdata, to_relative_url
-
-from rero_ils.modules.entities.models import EntityType
+from utils import get_json, postdata
 
 
-def test_entities_permissions(client, entity_person, json_header):
+def test_entities_permissions(client, entity_person,
+                              local_entity_person, json_header):
     """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.ent_item', pid_value='ent_pers')
+    item_url = url_for('invenio_records_rest.ent_item',
+                       pid_value='locent_pers')
     res = client.get(item_url)
+    assert res.status_code == 401
+
+    item_url = url_for('invenio_records_rest.ent_item',
+                       pid_value='ent_pers')
+    res = client.get(item_url)
+    assert res.status_code == 401
+
+    res = client.get(url_for('invenio_records_rest.ent_list'))
     assert res.status_code == 200
 
     res, _ = postdata(client, 'invenio_records_rest.ent_list', {})
@@ -44,103 +51,36 @@ def test_entities_permissions(client, entity_person, json_header):
     assert res.status_code == 401
 
 
-def test_entities_get(client, entity_person):
+def test_entities_get(client, entity_person, local_entity_person):
     """Test record retrieval."""
-    item_url = url_for('invenio_records_rest.ent_item', pid_value='ent_pers')
-
+    item_url = url_for('invenio_records_rest.ent_item',
+                       pid_value='locent_pers')
     res = client.get(item_url)
-    assert res.status_code == 200
-    assert res.headers['ETag'] == f'"{entity_person.revision_id}"'
+    assert res.status_code == 401
 
+    item_url = url_for('invenio_records_rest.ent_item',
+                       pid_value='ent_pers')
+    res = client.get(item_url)
+    assert res.status_code == 401
+
+    res = client.get(url_for('invenio_records_rest.ent_list'))
+    assert res.status_code == 200
+
+    # Check remote/local entities self links
     data = get_json(res)
-    assert entity_person.dumps() == data['metadata']
-    assert entity_person.dumps() == data['metadata']
+    pid_link_map = {
+        'ent_pers': 'http://localhost/remote_entities/ent_pers',
+        'locent_pers': 'http://localhost/local_entities/locent_pers'
+    }
+    for hit in data['hits']['hits']:
+        assert hit['links']['self'] == pid_link_map.get(hit['id'])
 
-    # Check metadata
-    for k in ['created', 'updated', 'metadata', 'links']:
-        assert k in data
-
-    # Check self links
-    res = client.get(to_relative_url(data['links']['self']))
-    assert res.status_code == 200
-    assert data == get_json(res)
-    assert entity_person.dumps() == data['metadata']
-
+    # search entity record
     list_url = url_for('invenio_records_rest.ent_list', pid='ent_pers')
     res = client.get(list_url)
     assert res.status_code == 200
-    data = get_json(res)
-    entity_person = entity_person.replace_refs()
-    entity_person['organisations'] = entity_person.organisation_pids
-    entity_person['type'] = EntityType.PERSON
-    entity_person['type'] = EntityType.PERSON
-    assert data['hits']['hits'][0]['metadata'] == entity_person.replace_refs()
 
-
-@mock.patch('rero_ils.modules.decorators.login_and_librarian',
-            mock.MagicMock())
-@mock.patch('requests.request')
-def test_remote_search_proxy(
-    mock_es_concept_get, app, client,
-    mef_concept2_es_response, mef_agents1_es_response
-):
-    """Test entities search on remote servers."""
-    # TEST#1 :: Concepts
-    #    All results must include a `type` key if a root `metadata` field
-    #    exists.
-    mock_es_concept_get.return_value = mock_response(
-        json_data=mef_concept2_es_response)
-
-    response = client.get(url_for(
-        'api_entities.remote_search_proxy',
-        entity_type='concepts-genreForm',
-        term='side-car'
-    ))
-    assert response.status_code == 200
-    assert all(
-        hit.get('metadata', {}).get('type') == EntityType.TOPIC
-        for hit in response.json['hits']['hits']
-        if 'metadata' in hit
-    )
-    assert all(
-        hit.get('metadata', {}).get('type') == EntityType.TOPIC
-        for hit in response.json['hits']['hits']
-        if 'metadata' in hit
-    )
-
-    # TEST#2 :: Agents
-    #   All result must include a `identifiedBy` object if a root
-    mock_es_concept_get.return_value = mock_response(
-        json_data=mef_agents1_es_response)
-    response = client.get(url_for(
-        'api_entities.remote_search_proxy',
-        entity_type='agents',
-        term='UCLouvain'
-    ))
-    identifier = mef_agents1_es_response['hits']['hits'][0][
-        'metadata']['idref']['identifier']
-    assert identifier == response.json['hits']['hits'][0][
-        'metadata']['idref']['identifiedBy'][0]['value']
-
-    # TEST#3 :: Unknown MEF search type
-    #   Try to execute a search on a not-configured MEF category. It should be
-    #   raised a `ValueError` caught by flask to return an HTTP 400 response
-    category = 'unknown_category'
-    response = client.get(url_for(
-        'api_entities.remote_search_proxy',
-        entity_type=category,
-        term='search_term'
-    ))
-    assert response.status_code == 400
-    assert response.json['message'] == \
-           f'Unable to find a MEF factory for {category}'
-
-    # TEST#4 :: Simulate MEF errors
-    #   Simulate than MEF call return an HTTP error and check the response.
-    mock_es_concept_get.return_value = mock_response(status=404)
-    response = client.get(url_for(
-        'api_entities.remote_search_proxy',
-        entity_type='agents',
-        term='UCLouvain'
-    ))
-    assert response.status_code == 404
+    # search local entity record
+    list_url = url_for('invenio_records_rest.ent_list', pid='locent_pers')
+    res = client.get(list_url)
+    assert res.status_code == 200

@@ -28,12 +28,12 @@ from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.theme.views import url_active
 
-from .api import Entity
-from .models import EntityType
+from .api import RemoteEntity
+from ..models import EntityType
 from .proxy import MEFProxyFactory
 
 blueprint = Blueprint(
-    'entities',
+    'remote_entities',
     __name__,
     url_prefix='/<string:viewcode>',
     template_folder='templates',
@@ -41,12 +41,12 @@ blueprint = Blueprint(
 )
 
 api_blueprint = Blueprint(
-    'api_entities',
+    'api_remote_entities',
     __name__
 )
 
 
-def entity_proxy(viewcode, pid, entity_type):
+def remote_entity_proxy(viewcode, pid, entity_type):
     """Proxy for entities.
 
     :param viewcode: viewcode of html request
@@ -54,10 +54,10 @@ def entity_proxy(viewcode, pid, entity_type):
     :param entity_type: type of the entity
     :returns: entity template
     """
-    entity = Entity.get_record_by_pid(pid)
+    entity = RemoteEntity.get_record_by_pid(pid)
     if not entity or entity.get('type') != entity_type:
         abort(404, 'Record not found')
-    return entity_view_method(
+    return remote_entity_view_method(
         pid=entity.persistent_identifier,
         record=entity,
         template='rero_ils/detailed_view_entity.html',
@@ -65,7 +65,7 @@ def entity_proxy(viewcode, pid, entity_type):
     )
 
 
-def entity_view_method(pid, record, template=None, **kwargs):
+def remote_entity_view_method(pid, record, template=None, **kwargs):
     """Display default view.
 
     Sends record_viewed signal and renders template.
@@ -97,19 +97,19 @@ def entity_view_method(pid, record, template=None, **kwargs):
 @blueprint.route('/persons/<pid>', methods=['GET'])
 def persons_proxy(viewcode, pid):
     """Proxy person for entity."""
-    return entity_proxy(viewcode, pid, EntityType.PERSON)
+    return remote_entity_proxy(viewcode, pid, EntityType.PERSON)
 
 
 @blueprint.route('/corporate-bodies/<pid>', methods=['GET'])
 def corporate_bodies_proxy(viewcode, pid):
     """Proxy corporate bodies for entity."""
-    return entity_proxy(viewcode, pid, EntityType.ORGANISATION)
+    return remote_entity_proxy(viewcode, pid, EntityType.ORGANISATION)
 
 
-@api_blueprint.route('/entities/remote/search/<term>',
+@api_blueprint.route('/remote_entities/search/<term>',
                      defaults={'entity_type': 'agents'})
-@api_blueprint.route('/entities/remote/search/<entity_type>/<term>')
-@api_blueprint.route('/entities/remote/search/<entity_type>/<term>/')
+@api_blueprint.route('/remote_entities/search/<entity_type>/<term>')
+@api_blueprint.route('/remote_entities/search/<entity_type>/<term>/')
 @check_logged_as_librarian
 def remote_search_proxy(entity_type, term):
     """Proxy to search entities on remote server.

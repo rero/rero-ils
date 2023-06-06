@@ -20,15 +20,16 @@
 
 from utils import get_mapping
 
-from rero_ils.modules.entities.api import EntitiesSearch, Entity
+from rero_ils.modules.entities.remote_entities.api import \
+    RemoteEntitiesSearch, RemoteEntity
 
 
-def test_entity_es_mapping(es_clear, db, entity_person_data_tmp):
+def test_remote_entity_es_mapping(es_clear, db, entity_person_data_tmp):
     """Test contribution entity elasticsearch mapping."""
-    search = EntitiesSearch()
+    search = RemoteEntitiesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Entity.create(
+    RemoteEntity.create(
         entity_person_data_tmp,
         dbcommit=True,
         reindex=True,
@@ -39,10 +40,10 @@ def test_entity_es_mapping(es_clear, db, entity_person_data_tmp):
 
 def test_concept_entity_es_mapping(es_clear, db, mef_concept1_data_tmp):
     """Test concept entity elasticsearch mapping."""
-    search = EntitiesSearch()
+    search = RemoteEntitiesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
-    Entity.create(
+    RemoteEntity.create(
         mef_concept1_data_tmp,
         dbcommit=True,
         reindex=True,
@@ -53,12 +54,12 @@ def test_concept_entity_es_mapping(es_clear, db, mef_concept1_data_tmp):
 
 def test_entities_search_mapping(app, entity_person):
     """Test Mef entities search mapping."""
-    assert EntitiesSearch()\
+    assert RemoteEntitiesSearch()\
         .query('query_string', query='philosophische Fakultät')\
         .count() == 1
-    assert EntitiesSearch()\
+    assert RemoteEntitiesSearch()\
         .query('match', **{'gnd.preferred_name': 'Loy'})\
         .count() == 1
-    assert EntitiesSearch()\
+    assert RemoteEntitiesSearch()\
         .query('match', **{'gnd.variant_name': 'Madeiros'})\
         .count() == 1

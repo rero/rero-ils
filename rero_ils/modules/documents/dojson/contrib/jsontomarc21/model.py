@@ -25,8 +25,9 @@ from flask_babelex import gettext as translate
 
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
 from rero_ils.modules.documents.views import create_title_responsibilites
-from rero_ils.modules.entities.api import Entity, EntitiesSearch
 from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.entities.remote_entities.api import RemoteEntity, \
+    RemoteEntitiesSearch
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.libraries.api import Library
@@ -116,7 +117,7 @@ def do_contribution(contribution, source_order):
     if pid := entity.get('pid'):
         # we have a $ref, get the real entity
         ref = entity.get('$ref')
-        if entity_db := Entity.get_record_by_pid(pid):
+        if entity_db := RemoteEntity.get_record_by_pid(pid):
             contribution = replace_contribution_sources(
                 contribution={'entity': entity_db},
                 source_order=source_order
@@ -180,7 +181,7 @@ def do_concept(entity, source_order):
     if pid := entity.get('pid'):
         ref = entity.get('$ref')
         # we have a $ref, get the real entity
-        if entity := Entity.get_record_by_pid(pid):
+        if entity := RemoteEntity.get_record_by_pid(pid):
             entity = replace_concept_sources(
                 concept=entity,
                 source_order=source_order
@@ -718,7 +719,7 @@ def reverse_subjects(self, key, value):
         tag = None
         entity_type = entity.get('type') or entity.get('bf:Agent')
         if entity_pid := entity.get('pid'):
-            query = EntitiesSearch().filter('term', pid=entity_pid)
+            query = RemoteEntitiesSearch().filter('term', pid=entity_pid)
             if query.count():
                 entity_type = next(query.source('type').scan()).type
         if entity_type in [EntityType.PERSON, EntityType.ORGANISATION]:
