@@ -214,8 +214,8 @@ def patron_martigny_data_tmp_with_id(patron_martigny_data_tmp):
 def entities_schema(monkeypatch):
     """Entity Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.entities.jsonschemas',
-        '/entities/entity-v0.0.1.json'
+        'rero_ils.modules.entities.remote_entities.jsonschemas',
+        '/remote_entities/remote_entity-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
 

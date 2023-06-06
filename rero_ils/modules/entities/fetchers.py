@@ -36,7 +36,7 @@ def id_fetcher(record_uuid, data):
     :param data: The record metadata.
     :return: A :data:`rero_ils.modules.fetchers.FetchedPID` instance.
     """
-    pid_type = 'unient'
+    pid_type = 'ent'
     # try to extract pid type from schema
     if schema := data.get('$schema'):
         pid_type = get_pid_type_from_schema(schema)

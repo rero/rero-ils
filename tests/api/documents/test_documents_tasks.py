@@ -29,7 +29,7 @@ from rero_ils.modules.documents.tasks import replace_idby_contribution, \
     replace_idby_subjects
 from rero_ils.modules.documents.utils_mef import \
     ReplaceMefIdentifiedByContribution, ReplaceMefIdentifiedBySubjects
-from rero_ils.modules.entities.api import Entity
+from rero_ils.modules.entities.remote_entities.api import RemoteEntity
 
 
 @mock.patch('requests.Session.get')
@@ -70,8 +70,8 @@ def test_replace_idby_contribution(mock_contributions_mef_get, app,
 
     # clean up
     doc.delete(dbcommit=True, delindex=True, force=True)
-    for id in Entity.get_all_ids():
-        cont = Entity.get_record(id)
+    for id in RemoteEntity.get_all_ids():
+        cont = RemoteEntity.get_record(id)
         cont.delete(dbcommit=True, delindex=True, force=True)
 
 
@@ -110,6 +110,6 @@ def test_replace_idby_subjects(mock_contributions_mef_get, app,
 
     # clean up
     doc.delete(dbcommit=True, delindex=True, force=True)
-    for _id in Entity.get_all_ids():
-        cont = Entity.get_record(_id)
+    for _id in RemoteEntity.get_all_ids():
+        cont = RemoteEntity.get_record(_id)
         cont.delete(dbcommit=True, delindex=True, force=True)

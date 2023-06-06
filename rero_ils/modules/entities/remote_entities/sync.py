@@ -33,7 +33,8 @@ from flask import current_app
 from invenio_db import db
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.entities.api import EntitiesSearch, Entity
+from rero_ils.modules.entities.remote_entities.api import \
+    RemoteEntitiesSearch, RemoteEntity
 from rero_ils.modules.utils import get_mef_url, get_timestamp, \
     requests_retry_session, set_timestamp
 
@@ -186,22 +187,22 @@ class SyncEntity(object):
 
         # get all entities from the document over all entity fields:
         # contribution and subjects
-        entities = [
+        remote_entities = [
             subject
             for subject in doc.get('subjects', [])
             if subject.get('$ref')
         ]
-        entities += [
+        remote_entities += [
             contrib['entity']
             for contrib in doc.get('contribution', [])
             if contrib.get('entity', {}).get('$ref')
         ]
-        entities += [
+        remote_entities += [
             genre_form
             for genre_form in doc.get('genreForm', [])
             if genre_form.get('$ref')
         ]
-        if not entities:
+        if not remote_entities:
             self.logger.debug(f'No entity to update for document {doc.pid}')
 
         # update the $ref entity URL and MEF pid
@@ -209,7 +210,7 @@ class SyncEntity(object):
             old_entity_url = f'{mef_url}/{old_pid}'
             new_entity_url = f'{mef_url}/{new_pid}'
             entities_to_update = filter(
-                lambda c: c.get('$ref') == old_entity_url, entities)
+                lambda c: c.get('$ref') == old_entity_url, remote_entities)
             for entity in entities_to_update:
                 if old_entity_url != new_entity_url:
                     self.logger.info(
@@ -247,7 +248,7 @@ class SyncEntity(object):
         :returns: the list of the contribution identifiers.
         :rtype: list of strings.
         """
-        es_query = EntitiesSearch().filter('query_string', query=query)
+        es_query = RemoteEntitiesSearch().filter('query_string', query=query)
         total = es_query.count()
         if not from_date and self.from_date:
             from_date = self.from_date
@@ -345,7 +346,7 @@ class SyncEntity(object):
         updated = error = False
         try:
             # get contribution in db
-            entity = Entity.get_record_by_pid(pid)
+            entity = RemoteEntity.get_record_by_pid(pid)
             if not entity:
                 raise Exception(f'ERROR MEF {pid} does not exists in db.')
             self.logger.debug(f'Processing {entity["type"]} MEF(pid: {pid})')
@@ -388,7 +389,7 @@ class SyncEntity(object):
                             f'{old_mef_pid} to {new_mef_pid} '
                             f'for {source} (pid:{old_entity_pid})'
                         )
-                        if Entity.get_record_by_pid(new_mef_pid):
+                        if RemoteEntity.get_record_by_pid(new_mef_pid):
                             # update the new MEF - recursion
                             self.logger.info(
                                 f'{entity["type"]} MEF(pid: {entity.pid}) '
@@ -402,7 +403,7 @@ class SyncEntity(object):
                         else:
                             # if the MEF record does not exist create it
                             if not self.dry_run:
-                                Entity.create(
+                                RemoteEntity.create(
                                     data=new_mef_data,
                                     dbcommit=True,
                                     reindex=True
@@ -416,14 +417,14 @@ class SyncEntity(object):
                         'content has been updated')
                     if not self.dry_run:
                         if old_mef_pid == new_mef_pid:
-                            Entity.get_record(entity.id).replace(
+                            RemoteEntity.get_record(entity.id).replace(
                                 new_mef_data, dbcommit=True, reindex=True)
                         else:
                             # as we have only the last mef but not the old one
                             # we need get it from the MEF server
                             # this is important as it can still be used by
                             # other entities
-                            Entity.get_record_by_pid(pid)\
+                            RemoteEntity.get_record_by_pid(pid)\
                                 .update_online(dbcommit=True, reindex=True)
                     updated = True
 
@@ -514,7 +515,7 @@ class SyncEntity(object):
             doc_pids = SyncEntity._get_documents_pids_from_mef(pid)
             if len(doc_pids) == 0:
                 # get the contribution for the database
-                entity = Entity.get_record_by_pid(pid)
+                entity = RemoteEntity.get_record_by_pid(pid)
                 if not self.dry_run:
                     # remove from the database and the index: no tombstone
                     entity.delete(True, True, True)

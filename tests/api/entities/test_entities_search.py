@@ -29,7 +29,7 @@ def test_unified_entity_search(client, entity_person, local_entity_person,
 
     # unified entity search
     list_url = url_for(
-        'invenio_records_rest.unient_list',
+        'invenio_records_rest.ent_list',
         q='"Loy, Georg"',
         simple='1'
     )
@@ -39,7 +39,7 @@ def test_unified_entity_search(client, entity_person, local_entity_person,
 
     # unified entity search organisation
     list_url = url_for(
-        'invenio_records_rest.unient_list',
+        'invenio_records_rest.ent_list',
         q='"Convegno internazionale di italianistica Craiova"',
         simple='1'
     )
@@ -49,7 +49,7 @@ def test_unified_entity_search(client, entity_person, local_entity_person,
 
     # empty search
     list_url = url_for(
-        'invenio_records_rest.unient_list',
+        'invenio_records_rest.ent_list',
         q='"Nebehay, Christian Michael"',
         simple='1'
     )

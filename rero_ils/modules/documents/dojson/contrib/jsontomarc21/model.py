@@ -26,7 +26,7 @@ from invenio_db import db
 
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
 from rero_ils.modules.documents.views import create_title_responsibilites
-from rero_ils.modules.entities.api import Entity
+from rero_ils.modules.entities.remote_entities.api import RemoteEntity
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
@@ -257,7 +257,7 @@ class ToMarc21Overdo(Underdo):
         contributions = blob.get('contribution', [])
         for contribution in contributions:
             if ref := contribution['entity'].get('$ref'):
-                agent, _ = Entity.get_record_by_ref(ref)
+                agent, _ = RemoteEntity.get_record_by_ref(ref)
                 if agent:
                     db.session.commit()
                     contribution['entity'] = agent
