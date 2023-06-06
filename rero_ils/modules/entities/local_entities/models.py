@@ -16,4 +16,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Unified entities Records."""
+"""Define relation between records and buckets."""
+
+from invenio_db import db
+from invenio_pidstore.models import RecordIdentifier
+from invenio_records.models import RecordMetadataBase
+
+
+class LocalEntityIdentifier(RecordIdentifier):
+    """Sequence generator for `Entity` identifiers."""
+
+    __tablename__ = 'local_entity_id'
+    __mapper_args__ = {'concrete': True}
+
+    recid = db.Column(
+        db.BigInteger().with_variant(db.Integer, 'sqlite'),
+        primary_key=True,
+        autoincrement=True,
+    )
+
+
+class LocalEntityMetadata(db.Model, RecordMetadataBase):
+    """Entity record metadata."""
+
+    __tablename__ = 'local_entity_metadata'

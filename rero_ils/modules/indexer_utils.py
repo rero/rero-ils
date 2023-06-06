@@ -41,8 +41,8 @@ def record_to_index(record):
 
     # authorities specific transformation
     if re.search(r'/mef/', schema):
-        schema = re.sub(r'/mef/', '/entities/', schema)
-        schema = re.sub(r'mef-contribution', 'entity', schema)
+        schema = re.sub(r'/mef/', '/remote_entities/', schema)
+        schema = re.sub(r'mef-contribution', 'remote_entity', schema)
     index, doc_type = schema_to_index(schema, index_names=index_names)
 
     if index and doc_type:

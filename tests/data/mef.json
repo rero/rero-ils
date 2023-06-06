@@ -1,6 +1,6 @@
 {
   "concept_1": {
-    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "type": "bf:Topic",
     "idref": {
       "$schema": "https://mef.rero.ch/schemas/concepts_idref/idref-concept-v0.0.1.json",

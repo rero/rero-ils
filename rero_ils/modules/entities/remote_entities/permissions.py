@@ -16,22 +16,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Tests UI view for entities."""
+"""Permissions for `Entity` records."""
+from invenio_records_permissions.generators import AnyUser
 
-from flask import url_for
-
-
-def test_entity_person_detailed_view(client, entity_person):
-    """Test entity person detailed view."""
-    res = client.get(url_for(
-        'entities.persons_proxy',
-        viewcode='global', pid=entity_person.pid))
-    assert res.status_code == 200
+from rero_ils.modules.permissions import RecordPermissionPolicy
 
 
-def test_entity_organisation_detailed_view(client, entity_organisation):
-    """Test entity organisation detailed view."""
-    res = client.get(url_for(
-        'entities.corporate_bodies_proxy',
-        viewcode='global', pid='ent_org'))
-    assert res.status_code == 200
+class RemoteEntityPermissionPolicy(RecordPermissionPolicy):
+    """Entity Permission Policy used by the CRUD operations.
+
+    Only search and read is allowed for all users.
+    Other operations are denied far anybody.
+    """
+
+    can_search = [AnyUser()]
+    can_read = [AnyUser()]

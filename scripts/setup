@@ -78,7 +78,7 @@ invert_warning_option() {
 
 
 DEPLOYMENT=false
-LOADENTITIES=false
+LOAD_REMOTE_ENTITIES=false
 CREATE_ITEMS_HOLDINGS_SMALL=false
 CREATE_ITEMS_HOLDINGS_BIG=false
 STOP_EXECUTION=true
@@ -117,7 +117,7 @@ do
       LOADEXTRAFILES=true
       ;;
     -E|--entities)
-      LOADENTITIES=true
+      LOAD_REMOTE_ENTITIES=true
       ;;
     -s|--create_items_holdings_small)
       CREATE_ITEMS_HOLDINGS_SMALL=true
@@ -340,33 +340,33 @@ eval ${PREFIX} invenio reroils index run --raise-on-error
 # export RERO_ILS_MEF_AGENTS_URL=https://mef.rero.ch/api/agents
 # invenio reroils utils marc21tojson -t rero ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
 # Save the entities after setup for later use.
-# invenio reroils utils export -t ent -o ${DATA_PATH}/entities_${SIZE}.json -v
+# invenio reroils utils export -t rement -o ${DATA_PATH}/remote_entities_${SIZE}.json -v
 
 if ${DEPLOYMENT}
 then
     DOCUMENTS=${DATA_PATH}/documents_big.json
     ITEMS=${DATA_PATH}/items_big.json
     HOLDINGS=${DATA_PATH}/holdings_big.json
-    ENTITIES=${DATA_PATH}/entities_big.json
+    REMOTE_ENTITIES=${DATA_PATH}/remote_entities_big.json
 else
     DOCUMENTS=${DATA_PATH}/documents_small.json
     ITEMS=${DATA_PATH}/items_small.json
     HOLDINGS=${DATA_PATH}/holdings_small.json
-    ENTITIES=${DATA_PATH}/entities_small.json
+    REMOTE_ENTITIES=${DATA_PATH}/remote_entities_small.json
 fi
 
 if ${LOADCONTRIBUTIONS}
 then
-    info_msg "- ENTITIES: ${ENTITIES} ${CREATE_LAZY} ${DONT_STOP}"
-    eval ${PREFIX} invenio reroils fixtures create --pid_type ent --schema 'https://bib.rero.ch/schemas/entities/entity-v0.0.1.json' ${ENTITIES} --append ${CREATE_LAZY} ${DONT_STOP}
+    info_msg "- REMOTE REMOTE_ENTITIES: ${REMOTE_ENTITIES} ${CREATE_LAZY} ${DONT_STOP}"
+    eval ${PREFIX} invenio reroils fixtures create --pid_type rement --schema 'https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json' ${REMOTE_ENTITIES} --append ${CREATE_LAZY} ${DONT_STOP}
     info_msg "Indexing Entities:"
-    eval ${PREFIX} invenio reroils index reindex -t ent --yes-i-know
+    eval ${PREFIX} invenio reroils index reindex -t rement --yes-i-know
     if [ ${INDEX_PARALLEL} -gt 0 ]; then
         eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
     fi
     eval ${PREFIX} invenio reroils index run --raise-on-error
     if [ ${INDEX_PARALLEL} -gt 0 ]; then
-        eval ${PREFIX} invenio reroils index reindex_missing -t ent -v
+        eval ${PREFIX} invenio reroils index reindex_missing -t rement -v
     fi
 # else
 #     info_msg "- Contributions from MEF: ${DOCUMENTS} ${CREATE_LAZY} ${ENQUEUE}"
@@ -439,13 +439,13 @@ fi
 
 # index entities
 # We have to reindex entities to get the organisations pids indexed correctly.
-eval ${PREFIX} invenio reroils index reindex -t ent --yes-i-know
+eval ${PREFIX} invenio reroils index reindex -t rement --yes-i-know
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error
 fi
 eval ${PREFIX} invenio reroils index run --raise-on-error
 if [ ${INDEX_PARALLEL} -gt 0 ]; then
-    eval ${PREFIX} invenio reroils index reindex_missing -t ent -v
+    eval ${PREFIX} invenio reroils index reindex_missing -t rement -v
 fi
 
 info_msg "- Local fields ${DATA_PATH}/local_fields.json ${CREATE_LAZY} ${DONT_STOP}"
