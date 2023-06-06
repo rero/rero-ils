@@ -22,7 +22,8 @@ from mock import mock
 from requests import RequestException
 from utils import mock_response
 
-from rero_ils.modules.entities.utils import get_mef_data_by_type
+from rero_ils.modules.entities.remote_entities.utils import \
+    get_mef_data_by_type
 
 
 @mock.patch('requests.Session.get')

@@ -26,7 +26,8 @@ from pkg_resources import resource_string
 from utils import get_schema
 
 from rero_ils.modules.patrons.api import Patron
-from rero_ils.modules.entities.api import Entity, EntitiesSearch
+from rero_ils.modules.entities.remote_entities.api import RemoteEntity, \
+    RemoteEntitiesSearch
 
 
 @pytest.fixture(scope='module')
@@ -215,8 +216,8 @@ def patron_martigny_data_tmp_with_id(patron_martigny_data_tmp):
 def entities_schema(monkeypatch):
     """Entity Jsonschema for records."""
     schema_in_bytes = resource_string(
-        'rero_ils.modules.entities.jsonschemas',
-        '/entities/entity-v0.0.1.json'
+        'rero_ils.modules.entities.remote_entities.jsonschemas',
+        '/remote_entities/remote_entity-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
 
@@ -302,7 +303,7 @@ def mef_record_with_idref_rero_data():
     """Mef record with idref rero."""
     return {
         '$schema': 'https://bib.rero.ch/schemas/'
-                   'entities/entity-v0.0.1.json',
+                   'remote_entities/remote_entity-v0.0.1.json',
         'idref': {
             '$schema': 'https://mef.rero.ch/schemas/'
                        'agents_idref/idref-agent-v0.0.1.json',
@@ -337,16 +338,16 @@ def mef_record_with_idref_rero_data():
 @pytest.fixture()
 def mef_record_with_idref_rero(mef_record_with_idref_rero_data):
     """Mef record with idref rero."""
-    if entity := Entity.get_record_by_pid(
+    if entity := RemoteEntity.get_record_by_pid(
             mef_record_with_idref_rero_data['pid']):
         return entity
-    entity = Entity.create(
+    entity = RemoteEntity.create(
         data=mef_record_with_idref_rero_data,
         dbcommit=True,
         reindex=True,
         delete_pid=False
     )
-    EntitiesSearch.flush_and_refresh()
+    RemoteEntitiesSearch.flush_and_refresh()
     return entity
 
 
@@ -355,7 +356,7 @@ def mef_record_with_idref_gnd_data():
     """Mef record with idref gnd."""
     return {
         '$schema': 'https://bib.rero.ch/schemas/'
-                   'entities/entity-v0.0.1.json',
+                   'remote_entities/remote_entity-v0.0.1.json',
         'gnd': {
             '$schema': 'https://mef.rero.ch/schemas/'
                        'agents_gnd/gnd-agent-v0.0.1.json',
@@ -439,16 +440,16 @@ def mef_record_with_idref_gnd_data():
 @pytest.fixture()
 def mef_record_with_idref_gnd(mef_record_with_idref_gnd_data):
     """Mef record with idref rero."""
-    if entity := Entity.get_record_by_pid(
+    if entity := RemoteEntity.get_record_by_pid(
             mef_record_with_idref_gnd_data['pid']):
         return entity
-    entity = Entity.create(
+    entity = RemoteEntity.create(
         data=mef_record_with_idref_gnd_data,
         dbcommit=True,
         reindex=True,
         delete_pid=False
     )
-    EntitiesSearch.flush_and_refresh()
+    RemoteEntitiesSearch.flush_and_refresh()
     return entity
 
 
@@ -457,7 +458,7 @@ def mef_record_with_idref_gnd_rero_data():
     """Mef record with idref gnd rero is conference."""
     return {
         '$schema': 'https://bib.rero.ch/schemas/'
-                   'entities/entity-v0.0.1.json',
+                   'remote_entities/remote_entity-v0.0.1.json',
         'gnd': {
             '$schema': 'https://mef.rero.ch/schemas/'
                        'agents_gnd/gnd-agent-v0.0.1.json',
@@ -539,14 +540,14 @@ def mef_record_with_idref_gnd_rero_data():
 @pytest.fixture()
 def mef_record_with_idref_gnd_rero(mef_record_with_idref_gnd_rero_data):
     """Mef record with idref rero."""
-    if entity := Entity.get_record_by_pid(
+    if entity := RemoteEntity.get_record_by_pid(
             mef_record_with_idref_gnd_rero_data['pid']):
         return entity
-    entity = Entity.create(
+    entity = RemoteEntity.create(
         data=mef_record_with_idref_gnd_rero_data,
         dbcommit=True,
         reindex=True,
         delete_pid=False
     )
-    EntitiesSearch.flush_and_refresh()
+    RemoteEntitiesSearch.flush_and_refresh()
     return entity

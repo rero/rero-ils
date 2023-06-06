@@ -10,7 +10,6 @@
     "circ_policies-*",
     "collections-*",
     "documents-*",
-    "entities-*",
     "holdings-*",
     "ill_requests-*",
     "item_types-*",
@@ -27,6 +26,7 @@
     "patron_transactions-*",
     "patron_types-*",
     "patrons-*",
+    "remote_entities-*",
     "stats-*",
     "templates-*",
     "vendors-*"

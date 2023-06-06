@@ -1,6 +1,6 @@
 {
   "aliases": {
-    "unified_entities": {}
+    "entities": {}
   },
   "settings": {
     "analysis": {
