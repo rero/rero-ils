@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 
 import mock
+from dojson.utils import GroupableOrderedDict
 
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
 
@@ -387,6 +388,154 @@ def test_physical_description_to_marc21(app, marc21_record):
     assert result == record
 
 
+def test_subjects_to_marc21(app, mef_agents_url, mef_concepts_url,
+                            marc21_record, mef_record_with_idref_gnd,
+                            mef_concept1):
+    """Test subjects to MARC21 transformation."""
+    record = {
+        'subjects': [{
+            'entity': {
+                'type': 'bf:Topic',
+                'source': 'rero',
+                'authorized_access_point': 'Roman pour la jeunesse'
+            }
+        }, {
+            'entity': {
+                '$ref': f'{mef_concepts_url}/api/concepts/idref/027828085',
+                'pid': '163554'
+            }
+        }, {
+            'entity': {
+                'date_of_birth': '1923',
+                'date_of_death': '1999',
+                'preferred_name': 'Fujimoto, Satoko',
+                'type': 'bf:Person'
+            },
+            'role': ['ctb', 'aut']
+        }, {
+            'entity': {
+                'conference': False,
+                'preferred_name': 'Université de Genève',
+                'type': 'bf:Organisation'
+            },
+            'role': ['ctb']
+        }, {
+            'entity': {
+                '$ref': f'{mef_agents_url}/api/agents/gnd/004058518',
+                'pid': '5890765',
+                'type': 'bf:Organisation'
+            },
+            'role': ['aut']
+        }, {
+            'entity': {
+                'conference': True,
+                'conference_date': '1989',
+                'numbering': '4',
+                'place': 'Lausanne',
+                'preferred_name': 'Congrès des animaux volants',
+                'type': 'bf:Organisation'
+            },
+            'role': ['aut']
+        }, {
+            'entity': {
+                'authorized_access_point':
+                    'Bases de donn\u00e9esi (Voltenauer, Marc)',
+                'type': 'bf:Work',
+                'identifiedBy': {
+                    'type': 'RERO',
+                    'value': 'A001234567',
+                    'source': 'rero'
+                }
+            }
+        }, {
+            'entity': {
+                'authorized_access_point': 'Suisse',
+                'identifiedBy': {
+                    'type': 'IdRef',
+                    'value': '027249654'
+                },
+                'source': 'rero',
+                'type': 'bf:Place'
+            }
+        }]
+    }
+    result = to_marc21.do(record)
+
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '650__', '650__', '6001_', '610__',
+                      '610__', '611__', '600__', '651__'),
+        '650__': (
+            GroupableOrderedDict({'a': 'Roman pour la jeunesse'}),
+            GroupableOrderedDict({'a': 'Antienzymes'})
+        ),
+        '6001_': (
+            GroupableOrderedDict({
+                'a': 'Fujimoto, Satoko',
+                'd': '1923 - 1999'
+            })
+        ),
+        '600__': (
+            GroupableOrderedDict({'t': 'Bases de donnéesi (Voltenauer, Marc)'})
+        ),
+        '610__': (
+            GroupableOrderedDict({'a': 'Université de Genève'}),
+            {
+                '__order__': ('a', '0', '0'),
+                'a': 'Université de Genève',
+                '0': ('(idref)02643136X', '(gnd)004058518')
+            }
+        ),
+        '611__': (
+            GroupableOrderedDict({
+                'a': 'Congrès des animaux volants',
+                'd': '1989'
+            })
+        ),
+        '651__': (
+            GroupableOrderedDict({'a': 'Suisse'})
+        )
+    })
+    assert result['__order__'] == record['__order__']
+    assert result['650__'] == record['650__']
+    assert result['600__'] == record['600__']
+    assert result['6001_'] == record['6001_']
+    assert result['610__'] == record['610__']
+    assert result['611__'] == record['611__']
+    assert result['651__'] == record['651__']
+
+
+def test_genre_form_to_marc21(app, mef_concepts_url, marc21_record,
+                              mef_concept1):
+    """Test contribution to MARC21 transformation."""
+    record = {
+        'genreForm': [{
+            'entity': {
+                'type': 'bf:Topic',
+                'source': 'rero',
+                'authorized_access_point': 'Roman pour la jeunesse'
+            }
+        }, {
+            'entity': {
+                '$ref': f'{mef_concepts_url}/api/concepts/idref/027828085',
+                'pid': '163554'
+            }
+        }]
+    }
+    result = to_marc21.do(record)
+
+    record = deepcopy(marc21_record)
+    record.update({
+        '__order__': ('leader', '008', '655__', '655__'),
+        '655__': (
+            GroupableOrderedDict({'a': 'Roman pour la jeunesse'}),
+            GroupableOrderedDict({'a': 'Antienzymes'})
+        )
+    })
+    assert result['__order__'] == record['__order__']
+    assert result['655__'] == record['655__']
+
+
 def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
                                 mef_record_with_idref_rero,
                                 mef_record_with_idref_gnd,
@@ -405,6 +554,7 @@ def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
             'entity': {
                 '$ref': f'{mef_agents_url}/idref/'
                         'mef_record_with_idref_rero',
+                'pid': '6627670',
                 'type': 'bf:Person'
             },
             'role': ['trl']
@@ -419,6 +569,7 @@ def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
             'entity': {
                 '$ref': f'{mef_agents_url}/api/agents/gnd/'
                         'mef_record_with_idref_gnd',
+                'pid': '5890765',
                 'type': 'bf:Organisation'
             },
             'role': ['aut']
@@ -436,6 +587,7 @@ def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
             'entity': {
                 '$ref': f'{mef_agents_url}/idref/'
                         'mef_record_with_idref_gnd_rero',
+                'pid': '5777972',
                 'type': 'bf:Organisation'
             },
             'role': ['aut']

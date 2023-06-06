@@ -20,12 +20,26 @@
 from copy import deepcopy
 
 import pytest
+from rero_ils.modules.entities.api import Entity, EntitiesSearch
 
 
 @pytest.fixture(scope="module")
 def mef_concept1_data(mef_entities):
     """Load MEF concept_1 data."""
     return deepcopy(mef_entities.get('concept_1'))
+
+
+@pytest.fixture(scope="module")
+def mef_concept1(mef_concept1_data):
+    """Load MEF concept_1 data."""
+    entity = Entity.create(
+        data=mef_concept1_data,
+        dbcommit=True,
+        reindex=True,
+        delete_pid=False
+    )
+    EntitiesSearch.flush_and_refresh()
+    return entity
 
 
 @pytest.fixture(scope="module")
