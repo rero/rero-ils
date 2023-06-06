@@ -22,11 +22,10 @@ from dojson import utils
 from dojson.contrib.to_marc21.model import Underdo
 from flask import current_app
 from flask_babelex import gettext as translate
-from invenio_db import db
 
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
 from rero_ils.modules.documents.views import create_title_responsibilites
-from rero_ils.modules.entities.api import Entity
+from rero_ils.modules.entities.api import Entity, EntitiesSearch
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
@@ -35,40 +34,170 @@ from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
 
 
+def set_value(data, old_data, key):
+    """Set new data value.
+
+    Adds key not present in old data from data to old data.
+
+    :param data: data with new values.
+    :param old_data: old data.
+    :param key: key to replace in old data from data.
+    :returns: modified old data
+    """
+    value = data.get(key)
+    if not old_data.get(key) and value:
+        old_data[key] = value
+    return old_data
+
+
 def replace_contribution_sources(contribution, source_order):
     """Prepare contributions data from sources.
 
     :param contribution: contribution to use.
-    :source_order: Source order to use to get the informations.
-    :returns: contribution agent with localized values.
+    :source_order: Source order to use to get the information.
+    :returns: contribution entity with localized values.
     """
-    def set_value(data, old_data, key):
-        """Set new data value."""
-        value = data.get(key)
-        if not old_data.get(key) and value:
-            old_data[key] = value
-        return old_data
-
     refs = []
-    agent = contribution.get('entity')
+    entity = contribution.get('entity')
     for source in source_order:
-        source_data = agent.get(source, {})
-        if source_data:
+        if source_data := entity.get(source):
             refs.append({
                 'source': source,
-                'pid': source_data.get("pid")
+                'pid': source_data['pid']
             })
             for key in ['bf:Agent', 'preferred_name', 'numeration',
                         'qualifier', 'date_of_birth', 'date_of_death',
                         'subordinate_unit', 'conference', 'conference_number',
                         'conference_date', 'conference_place']:
-                agent = set_value(source_data, agent, key)
-            agent.pop(source)
-    agent['refs'] = refs
-    if 'bf:Agent' in agent:
-        agent['type'] = agent.pop('bf:Agent')
-    contribution['entity'] = agent
+                entity = set_value(source_data, entity, key)
+            entity.pop(source)
+    entity['refs'] = refs
+    if 'bf:Agent' in entity:
+        entity['type'] = entity.pop('bf:Agent')
+    contribution['entity'] = entity
     return contribution
+
+
+def replace_concept_sources(concept, source_order):
+    """Prepare concept data from sources.
+
+    :param concept: concept to use.
+    :source_order: Source order to use to get the information.
+    :returns: concept entity with localized values.
+    """
+    refs = []
+    for source in source_order:
+        if source_data := concept.get(source):
+            refs.append({
+                'source': source,
+                'pid': source_data['pid']
+            })
+            for key in ['type', 'authorized_access_point']:
+                concept = set_value(source_data, concept, key)
+            concept.pop(source)
+    concept['refs'] = refs
+    return concept
+
+
+def do_contribution(contribution, source_order):
+    """Create contribution.
+
+    :param contribution: contribution to transform (replaces $ref with real
+        information dependent on language given in source_order).
+    :param source_order: list of sources to use dependent on language.
+    :returns: result marc dictionary,
+              entity type,
+              is it a surname,
+              is it a conference
+    :rtype: tuple(dict, str, bool, bool)
+    """
+    roles = contribution.get('role', [])
+    entity = contribution.get('entity')
+    if pid := entity.get('pid'):
+        # we have a $ref, get the real entity
+        ref = entity.get('$ref')
+        if entity_db := Entity.get_record_by_pid(pid):
+            contribution = replace_contribution_sources(
+                contribution={'entity': entity_db},
+                source_order=source_order
+            )
+            # We got an entity from db. Replace the used entity with this one.
+            entity = contribution['entity']
+        else:
+            current_app.logger.error(
+                f'No entity found for pid:{pid} {ref}')
+            return None, None, False, False
+    if not (preferred_name := entity.get('preferred_name')):
+        current_app.logger.warning(
+            f'JSON to MARC21 contribution no preferred_name: {entity}')
+        preferred_name = entity.get(
+            f'authorized_access_point_{to_marc21.language}')
+    result = {}
+    conference = False
+    surname = False
+    result = add_value(result, 'a', preferred_name)
+    entity_type = entity.get('type')
+    if entity_type == EntityType.PERSON:
+        if ',' in preferred_name:
+            surname = True
+        result = add_value(result, 'b', entity.get('numeration'))
+        result = add_value(result, 'c', entity.get('qualifier'))
+
+        dates = ' - '.join([
+            entity['date_of_birth'][:4] if len(
+                entity.get('date_of_birth', '')) > 3 else '',
+            entity['date_of_death'][:4] if len(
+                entity.get('date_of_death', '')) > 3 else ''
+        ])
+        if dates != ' - ':
+            result = add_value(result, 'd', dates)
+
+    elif entity_type == EntityType.ORGANISATION:
+        if entity.get('conference'):
+            conference = True
+        result = add_values(result, 'b', entity.get('subordinate_unit'))
+        result = add_value(result, 'n', entity.get('conference_number'))
+        result = add_value(result, 'd', entity.get('conference_date'))
+        result = add_value(result, 'c', entity.get('conference_place'))
+    result = add_values(result, '4', roles)
+    refs = entity.get('refs', [])
+    if refs:
+        result['0'] = []
+    for ref in refs:
+        result['__order__'].append('0')
+        result['0'].append(f'({ref["source"]}){ref["pid"]}')
+    return result, entity_type, surname, conference
+
+
+def do_concept(entity, source_order):
+    """Create concept.
+
+    :param entity: entity to transform.
+    :param source_order: source_order to use.
+    :returns: result marc dictionary
+    """
+    authorized_access_point = None
+    if pid := entity.get('pid'):
+        ref = entity.get('$ref')
+        # we have a $ref, get the real entity
+        if entity := Entity.get_record_by_pid(pid):
+            entity = replace_concept_sources(
+                concept=entity,
+                source_order=source_order
+            )
+            authorized_access_point = entity.get('authorized_access_point')
+        else:
+            current_app.logger.error(
+                f'No entity found for pid:{pid} {ref}')
+            return None
+    else:
+        authorized_access_point = entity.get(
+            f'authorized_access_point_{to_marc21.language}'
+        ) or entity.get('authorized_access_point')
+    result = {}
+    if authorized_access_point:
+        result = add_value(result, 'a', authorized_access_point)
+    return result
 
 
 def get_holdings_items(document_pid, organisation_pids=None, library_pids=None,
@@ -185,8 +314,8 @@ def get_holdings_items(document_pid, organisation_pids=None, library_pids=None,
 
 ORDER = ['leader', 'pid', 'fixed_length_data_elements',
          'identifiedBy', 'title_responsibility', 'provisionActivity',
-         'copyrightDate', 'physical_description', 'contribution', 'type',
-         'holdings_items']
+         'copyrightDate', 'physical_description', 'subjects', 'genreForm',
+         'contribution', 'type', 'holdings_items']
 LEADER = '00000cam a2200000zu 4500'
 
 
@@ -250,21 +379,10 @@ class ToMarc21Overdo(Underdo):
             }
         # Fix ContributionsSearch
         order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', [])
-        source_order = order.get(
+        self.source_order = order.get(
             self.language,
             order.get(order['fallback'], [])
         )
-        contributions = blob.get('contribution', [])
-        for contribution in contributions:
-            if ref := contribution['entity'].get('$ref'):
-                agent, _ = Entity.get_record_by_ref(ref)
-                if agent:
-                    db.session.commit()
-                    contribution['entity'] = agent
-                    replace_contribution_sources(
-                        contribution=contribution,
-                        source_order=source_order
-                    )
 
         if with_holdings_items:
             # add holdings items informations
@@ -339,7 +457,7 @@ class ToMarc21Overdo(Underdo):
             keys[key] += 1
         order = []
         for key in ORDER:
-            for count in range(0, keys.get(key, 0)):
+            for count in range(keys.get(key, 0)):
                 order.append(key)
         blob['__order__'] = order
         result = super().do(
@@ -361,7 +479,7 @@ def add_value(result, sub_tag, value):
 def add_values(result, sub_tag, values):
     """Add values with tag to result."""
     if values:
-        for count in range(len(values)):
+        for _ in range(len(values)):
             result.setdefault('__order__', []).append(sub_tag)
         result[sub_tag] = values
     return result
@@ -400,9 +518,7 @@ def reverse_identified_by(self, key, value):
     identified_by_value = value['value']
     result = {}
     if identified_by_type == 'bf:Isbn':
-        subfield = 'a'
-        if status:
-            subfield = 'z'
+        subfield = 'z' if status else 'a'
         result['__order__'] = [subfield]
         result[subfield] = identified_by_value
         if qualifier:
@@ -582,53 +698,93 @@ def reverse_physical_description(self, key, value):
     return result or None
 
 
+@to_marc21.over('6XX', '^subjects')
+@utils.reverse_for_each_value
+@utils.ignore_value
+def reverse_subjects(self, key, value):
+    """Reverse - subjects.
+
+    Sujet Personne > 600
+    Sujet Organisation > 610 OU 611 Conference
+    Sujet Concept > 650
+    """
+    if entity := value.get('entity'):
+        tag = None
+        entity_type = entity.get('type') or entity.get('bf:Agent')
+        if entity_pid := entity.get('pid'):
+            query = EntitiesSearch().filter('term', pid=entity_pid)
+            if query.count():
+                entity_type = next(query.source('type').scan()).type
+        if entity_type in [EntityType.PERSON, EntityType.ORGANISATION]:
+            result, entity_type, surname, conference = do_contribution(
+                contribution={'entity': entity},
+                source_order=to_marc21.source_order
+            )
+            if entity_type == EntityType.PERSON:
+                tag = '6001_' if surname else '6000_'
+            elif entity_type == EntityType.ORGANISATION:
+                tag = '611__' if conference else '610__'
+        elif entity_type == EntityType.TOPIC:
+            result = do_concept(
+                entity=entity,
+                source_order=to_marc21.source_order
+            )
+            tag = '650__'
+        elif entity_type == EntityType.WORK:
+            # TODO: to change in the future if $ref's are used.
+            if authorized_access_point := entity.get(
+                f'authorized_access_point_{to_marc21.language}'
+            ) or entity.get('authorized_access_point'):
+                result = {}
+                result = add_value(result, 't', authorized_access_point)
+                self.append(('600__', utils.GroupableOrderedDict(result)))
+            return
+        elif entity_type == EntityType.PLACE:
+            # TODO: to change in the future if $ref's are used.
+            if authorized_access_point := entity.get(
+                f'authorized_access_point_{to_marc21.language}'
+            ) or entity.get('authorized_access_point'):
+                result = {}
+                result = add_value(result, 'a', authorized_access_point)
+                self.append(('651__', utils.GroupableOrderedDict(result)))
+            return
+        else:
+            current_app.logger.error(f'No entity type found: {entity}')
+    if tag and result:
+        self.append((tag, utils.GroupableOrderedDict(result)))
+
+
+@to_marc21.over('655', '^genreForm')
+@utils.reverse_for_each_value
+@utils.ignore_value
+def reverse_genre_form(self, key, value):
+    """Reverse - genreForm.
+
+    Genre / Forme > 655 - Genre ou forme
+    """
+    if genre_form := value.get('entity'):
+        if result := do_concept(
+            entity=value.get('entity'), source_order=to_marc21.source_order
+        ):
+            self.append(('655__', utils.GroupableOrderedDict(result)))
+
+
 @to_marc21.over('7XX', '^contribution')
+@utils.reverse_for_each_value
 @utils.ignore_value
 def reverse_contribution(self, key, value):
     """Reverse - contribution."""
-    contributions = utils.force_list(value)
-    for contribution in contributions or []:
-        roles = contribution.get('role', {})
-        agent = contribution.get('entity', {})
-        agent_type = agent.get('type')
-        preferred_name = agent.get('preferred_name')
-        if not preferred_name:
-            current_app.logger.warning(f'JSON to MARC21 {key}: {value}')
-            break
-        result = {}
-        result = add_value(result, 'a', preferred_name)
-        if agent_type == EntityType.PERSON:
-            tag = '7000_'
-            if ',' in preferred_name:
-                tag = '7001_'
-            result = add_value(result, 'b', agent.get('numeration'))
-            result = add_value(result, 'c', agent.get('qualifier'))
-            date_of_birth = agent.get('date_of_birth', '')
-            date_of_birth = \
-                date_of_birth[:4] if len(date_of_birth) > 3 else ''
-            date_of_death = agent.get('date_of_death', '')
-            date_of_death = \
-                date_of_death[:4] if len(date_of_death) > 3 else ''
-            date = f'{date_of_birth} - {date_of_death}'
-            if date != ' - ':
-                result = add_value(result, 'd', date)
-        elif agent_type == EntityType.ORGANISATION:
-            tag = '710__'
-            if agent.get('conference'):
-                tag = '711__'
-            result = add_values(result, 'b', agent.get('subordinate_unit'))
-            result = add_value(result, 'n', agent.get('conference_number'))
-            result = add_value(result, 'd', agent.get('conference_date'))
-            result = add_value(result, 'c', agent.get('conference_place'))
-        result = add_values(result, '4', roles)
-        refs = agent.get('refs', [])
-        if refs:
-            result['0'] = []
-        for ref in refs:
-            result['__order__'].append('0')
-            result['0'].append(f'({ref["source"]}){ref["pid"]}')
+    result, entity_type, surname, conference = do_contribution(
+        contribution=value,
+        source_order=to_marc21.source_order
+    )
+    tag = None
+    if entity_type == EntityType.PERSON:
+        tag = '7001_' if surname else '7000_'
+    elif entity_type == EntityType.ORGANISATION:
+        tag = '711__' if conference else '710__'
+    if tag and result:
         self.append((tag, utils.GroupableOrderedDict(result)))
-    return None
 
 
 @to_marc21.over('900', '^type')
@@ -640,8 +796,7 @@ def reverse_type(self, key, value):
         '__order__': ['a'],
         'a': value.get('main_type')
     }
-    subtype_type = value.get('subtype')
-    if subtype_type:
+    if subtype_type := value.get('subtype'):
         result['__order__'] = ['a', 'b']
         result['b'] = subtype_type
     return result
@@ -670,11 +825,11 @@ def reverse_holdings_items(self, key, value):
     add_value(result, 'D', holdings.get('enumerationAndChronology'))
     uris = [data['uri'] for data in holdings.get('electronic_location')]
     add_values(result, 'E', uris)
-    notes = []
-    for note in holdings.get('notes', []):
-        if note['type'] in note_types_to_display:
-            notes.append(note['content'])
-    if notes:
+    if notes := [
+        note['content']
+        for note in holdings.get('notes', [])
+        if note['type'] in note_types_to_display
+    ]:
         add_values(result, 'F', notes)
     add_value(result, 'G', holdings.get('supplementaryContent'))
     add_value(result, 'H', holdings.get('index'))
@@ -685,11 +840,11 @@ def reverse_holdings_items(self, key, value):
     add_value(result, 'b', item.get('call_number'))
     add_value(result, 'c', item.get('enumerationAndChronology'))
     add_value(result, 'e', item.get('url'))
-    notes = []
-    for note in item.get('notes', []):
-        if note['type'] in note_types_to_display:
-            notes.append(note['content'])
-    if notes:
+    if notes := [
+        note['content']
+        for note in item.get('notes', [])
+        if note['type'] in note_types_to_display
+    ]:
         add_values(result, 'f', notes)
 
     return result

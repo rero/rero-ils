@@ -40,18 +40,18 @@ def test_sru_documents(client, document_ref, entity_person_data):
     res = client.get(api_url)
     assert res.status_code == 200
     xml_dict = get_xml_dict(res)
-    assert 'searchRetrieveResponse' in xml_dict
-    search_rr = xml_dict['searchRetrieveResponse']
-    assert search_rr.get('echoedSearchRetrieveRequest') == {
-        'maximumRecords': '100',
-        'query': 'al-Wajīz',
-        'query_es': 'al-Wajīz',
-        'recordPacking': 'XML',
-        'recordSchema': 'info:sru/schema/1/marcxml-v1.1-light',
-        'resultSetTTL': '0',
-        'startRecord': '1'
+    assert 'zs:searchRetrieveResponse' in xml_dict
+    search_rr = xml_dict['zs:searchRetrieveResponse']
+    assert search_rr.get('zs:echoedSearchRetrieveRequest') == {
+        'zs:maximumRecords': '100',
+        'zs:query': 'al-Wajīz',
+        'zs:query_es': 'al-Wajīz',
+        'zs:recordPacking': 'XML',
+        'zs:recordSchema': 'info:sru/schema/1/marcxml-v1.1-light',
+        'zs:resultSetTTL': '0',
+        'zs:startRecord': '1'
     }
-    assert search_rr.get('numberOfRecords') == str(Document.count())
+    assert search_rr.get('zs:numberOfRecords') == str(Document.count())
 
 
 def test_sru_documents_items(client, document_sion_items):
@@ -62,10 +62,11 @@ def test_sru_documents_items(client, document_sion_items):
     res = client.get(api_url)
     assert res.status_code == 200
     xml_dict = get_xml_dict(res)
-    assert 'searchRetrieveResponse' in xml_dict
-    ech_srr = xml_dict['searchRetrieveResponse']['echoedSearchRetrieveRequest']
-    assert ech_srr['query'] == '"La reine Berthe et son fils"'
-    assert ech_srr['query_es'] == '"La reine Berthe et son fils"'
+    assert 'zs:searchRetrieveResponse' in xml_dict
+    ech_srr = xml_dict['zs:searchRetrieveResponse'][
+        'zs:echoedSearchRetrieveRequest']
+    assert ech_srr['zs:query'] == '"La reine Berthe et son fils"'
+    assert ech_srr['zs:query_es'] == '"La reine Berthe et son fils"'
 
     api_url = url_for('api_sru.documents',
                       version='1.1', operation='searchRetrieve',
@@ -74,10 +75,11 @@ def test_sru_documents_items(client, document_sion_items):
     res = client.get(api_url)
     assert res.status_code == 200
     xml_dict = get_xml_dict(res)
-    assert 'searchRetrieveResponse' in xml_dict
-    ech_srr = xml_dict['searchRetrieveResponse']['echoedSearchRetrieveRequest']
-    assert ech_srr['query'] == '"La reine Berthe et son fils"'
-    assert ech_srr['query_es'] == '"La reine Berthe et son fils"'
+    assert 'zs:searchRetrieveResponse' in xml_dict
+    ech_srr = xml_dict['zs:searchRetrieveResponse'][
+        'zs:echoedSearchRetrieveRequest']
+    assert ech_srr['zs:query'] == '"La reine Berthe et son fils"'
+    assert ech_srr['zs:query_es'] == '"La reine Berthe et son fils"'
 
     api_url = url_for('api_sru.documents',
                       version='1.1', operation='searchRetrieve',

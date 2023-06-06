@@ -180,34 +180,34 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
     records due to high memory usage.
     """
 
-    MARC21_NS = "http://www.loc.gov/MARC21/slim"
+    MARC21_ZS = "http://www.loc.gov/zing/srw/"
+    MARC21_REC = "http://www.loc.gov/MARC21/slim"
     """MARCXML XML Schema"""
 
     def dumps_etree(self, total, records, sru, xslt_filename=None,
                     prefix=None):
         """Dump records into a etree."""
         element = ElementMaker(
-            namespace=self.MARC21_NS,
-            nsmap={prefix: self.MARC21_NS}
+            namespace=self.MARC21_ZS,
+            nsmap={'zs': self.MARC21_ZS}
         )
 
-        def dump_record(record):
+        def dump_record(record, idx):
             """Dump a single record."""
             rec_element = ElementMaker(
-                namespace=self.MARC21_NS,
-                nsmap={prefix: self.MARC21_NS}
+                namespace=self.MARC21_REC,
+                nsmap={prefix: self.MARC21_REC}
             )
+            data_element = ElementMaker()
             rec = element.record()
             rec.append(element.recordPacking('xml'))
             rec.append(element.recordSchema('marcxml'))
-            rec_record_data = element.recordData()
 
+            rec_record_data = element.recordData()
             rec_data = rec_element.record()
-            rec_data.attrib['xmlns'] = self.MARC21_NS
-            rec_data.attrib['type'] = "Bibliographic"
 
             if leader := record.get('leader'):
-                rec_data.append(element.leader(leader))
+                rec_data.append(data_element.leader(leader))
 
             if isinstance(record, GroupableOrderedDict):
                 items = record.iteritems(with_order=False, repeated=True)
@@ -218,12 +218,12 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                 # Control fields
                 if len(df) == 3:
                     if isinstance(subfields, string_types):
-                        controlfield = element.controlfield(subfields)
+                        controlfield = data_element.controlfield(subfields)
                         controlfield.attrib['tag'] = df[:3]
                         rec_data.append(controlfield)
                     elif isinstance(subfields, (list, tuple, set)):
                         for subfield in subfields:
-                            controlfield = element.controlfield(subfield)
+                            controlfield = data_element.controlfield(subfield)
                             controlfield.attrib['tag'] = df[:3]
                             rec_data.append(controlfield)
                 else:
@@ -240,7 +240,7 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                             subfield = [subfield]
 
                         for s in subfield:
-                            datafield = element.datafield()
+                            datafield = data_element.datafield()
                             datafield.attrib['tag'] = df[:3]
                             datafield.attrib['ind1'] = df[3]
                             datafield.attrib['ind2'] = df[4]
@@ -251,28 +251,29 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                             elif isinstance(s, dict):
                                 items = iteritems(s)
                             else:
-                                datafield.append(element.subfield(s))
+                                datafield.append(data_element.subfield(s))
 
                                 items = tuple()
 
                             for code, value in items:
                                 if isinstance(value, string_types):
-                                    datafield.append(element.subfield(
+                                    datafield.append(data_element.subfield(
                                         strip_chars(value), code=code)
                                     )
                                 else:
                                     for v in value:
                                         datafield.append(
-                                            element.subfield(
+                                            data_element.subfield(
                                                 strip_chars(v), code=code)
                                         )
                             rec_data.append(datafield)
                 rec_record_data.append(rec_data)
                 rec.append(rec_record_data)
+            rec.append(element.RecordPosition(str(idx)))
             return rec
 
         if isinstance(records, dict):
-            root = dump_record(records)
+            root = dump_record(records, 1)
         else:
             number_of_records = total['value']
             start_record = sru.get('start_record', 0)
@@ -286,8 +287,8 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             if next_record > 1 and next_record < number_of_records:
                 root.append(element.nextRecordPosition(str(next_record)))
             data = element.records()
-            for record in records:
-                data.append(dump_record(record))
+            for idx, record in enumerate(records, start_record):
+                data.append(dump_record(record, idx))
             root.append(data)
             echoed_search_rr = element.echoedSearchRetrieveRequest()
             if query:
