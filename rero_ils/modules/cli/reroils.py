@@ -25,7 +25,7 @@ import click
 from rero_ils.modules.acquisition.cli import acquisition
 from rero_ils.modules.apiharvester.cli import apiharvester
 from rero_ils.modules.ebooks.cli import oaiharvester
-from rero_ils.modules.entities.cli import entity
+from rero_ils.modules.entities.remote_entities.cli import entity
 from rero_ils.modules.monitoring.cli import monitoring
 from rero_ils.modules.notifications.cli import notifications
 from rero_ils.modules.stats.cli import stats
