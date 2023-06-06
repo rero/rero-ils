@@ -22,20 +22,20 @@ from flask_security.utils import login_user
 from invenio_accounts.testutils import login_user_via_session
 from utils import check_permission, get_json
 
-from rero_ils.modules.entities.permissions import EntityPermissionPolicy
+from rero_ils.modules.remote_entities.permissions import RemoteEntityPermissionPolicy
 
 
-def test_entity_permissions_api(client, patron_martigny,
+def test_remote_entity_permissions_api(client, patron_martigny,
                                 entity_person,
                                 librarian_martigny):
     """Test entities permissions api."""
     prs_permissions_url = url_for(
         'api_blueprint.permissions',
-        route_name='entities'
+        route_name='remote_entities'
     )
     prs_real_permission_url = url_for(
         'api_blueprint.permissions',
-        route_name='entities',
+        route_name='remote_entities',
         record_pid=entity_person.pid
     )
 
@@ -60,11 +60,11 @@ def test_entity_permissions_api(client, patron_martigny,
     assert not data['delete']['can']
 
 
-def test_entity_permissions(patron_martigny,
+def test_remote_entity_permissions(patron_martigny,
                             librarian_martigny,
                             system_librarian_martigny):
     """Test entity permissions class."""
-    permission_policy = EntityPermissionPolicy
+    permission_policy = RemoteEntityPermissionPolicy
 
     # Anonymous user
     #   - Allow search/read actions on any entity

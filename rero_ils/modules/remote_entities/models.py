@@ -25,10 +25,10 @@ from invenio_pidstore.models import RecordIdentifier
 from invenio_records.models import RecordMetadataBase
 
 
-class EntityIdentifier(RecordIdentifier):
-    """Sequence generator for `Entity` identifiers."""
+class RemoteEntityIdentifier(RecordIdentifier):
+    """Sequence generator for `Remote Entity` identifiers."""
 
-    __tablename__ = 'entity_id'
+    __tablename__ = 'remote_entity_id'
     __mapper_args__ = {'concrete': True}
 
     recid = db.Column(
@@ -38,10 +38,10 @@ class EntityIdentifier(RecordIdentifier):
     )
 
 
-class EntityMetadata(db.Model, RecordMetadataBase):
-    """Entity record metadata."""
+class RemoteEntityMetadata(db.Model, RecordMetadataBase):
+    """Remote Entity record metadata."""
 
-    __tablename__ = 'entity_metadata'
+    __tablename__ = 'remote_entity_metadata'
 
 
 class EntityType:

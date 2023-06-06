@@ -21,8 +21,8 @@ from dojson import Overdo, utils
 from flask_babelex import gettext as _
 
 from rero_ils.modules.documents.extensions import TitleExtension
-from rero_ils.modules.entities.models import EntityType
-from rero_ils.modules.entities.utils import get_entity_localized_value
+from rero_ils.modules.remote_entities.models import EntityType
+from rero_ils.modules.remote_entities.utils import get_entity_localized_value
 
 
 class DublinCoreOverdo(Overdo):

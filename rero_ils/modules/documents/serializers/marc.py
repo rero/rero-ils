@@ -31,7 +31,7 @@ from werkzeug.local import LocalProxy
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21.model import \
     replace_contribution_sources
-from rero_ils.modules.entities.api import EntitiesSearch
+from rero_ils.modules.remote_entities.api import RemoteEntitiesSearch
 from rero_ils.modules.serializers import JSONSerializer
 from rero_ils.modules.utils import strip_chars
 
@@ -114,7 +114,7 @@ class DocumentMARCXMLSerializer(JSONSerializer):
                 contribution_pid = contribution.get('entity', {}).get('pid')
                 if contribution_pid:
                     contribution_pids.append(contribution_pid)
-        search = EntitiesSearch() \
+        search = RemoteEntitiesSearch() \
             .filter('terms', pid=list(set(contribution_pids)))
         es_contributions = {}
         for hit in search.scan():

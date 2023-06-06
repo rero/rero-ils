@@ -18,11 +18,11 @@
 
 """Jinja2 filters tests."""
 
-from rero_ils.modules.entities.views import entity_label, \
+from rero_ils.modules.remote_entities.views import entity_label, \
     entity_merge_data_values
 
 
-def test_entity_label(app, entity_person_data):
+def test_remote_entity_label(app, entity_person_data):
     """Test entity label."""
     app.config['RERO_ILS_AGENTS_LABEL_ORDER'] = {
         'fallback': 'fr',
@@ -35,7 +35,7 @@ def test_entity_label(app, entity_person_data):
     assert label == 'Loy, Georg, 1885-19..'
 
 
-def test_entity_merge_data_values(app, entity_person_data):
+def test_remote_entity_merge_data_values(app, entity_person_data):
     """Test entities merge data."""
     app.config['RERO_ILS_AGENTS_SOURCES'] = ['idref', 'gnd', 'rero']
     data = entity_merge_data_values(entity_person_data)

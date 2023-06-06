@@ -24,7 +24,7 @@ from invenio_records.extensions import RecordExtension
 from rero_ils.dojson.utils import remove_trailing_punctuation
 
 from ..utils import display_alternate_graphic_first
-from ...entities.models import EntityType
+from ...remote_entities.models import EntityType
 
 
 class ProvisionActivitiesExtension(RecordExtension):

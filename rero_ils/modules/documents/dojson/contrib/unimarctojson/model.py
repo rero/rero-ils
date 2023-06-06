@@ -32,7 +32,7 @@ from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
     remove_trailing_punctuation
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.utils import create_authorized_access_point
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 
 _ISSUANCE_MAIN_TYPE_PER_BIB_LEVEL = {
     'a': 'rdami:1001',

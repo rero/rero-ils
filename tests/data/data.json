@@ -1498,7 +1498,7 @@
     ]
   },
   "ent_pers": {
-    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "gnd": {
       "$schema": "https://mef.test.rero.ch/schemas/gnd/gnd-contribution-v0.0.1.json",
       "bf:Agent": "bf:Person",
@@ -1555,7 +1555,7 @@
     "viaf_pid": "70119347"
   },
   "ent_org": {
-    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "gnd": {
       "$schema": "https://mef.rero.ch/schemas/gnd/gnd-contribution-v0.0.1.json",
       "bf:Agent": "bf:Organisation",
@@ -1587,7 +1587,7 @@
     "viaf_pid": "3117153063217219320007"
   },
   "ent_topic": {
-    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "idref": {
       "$schema": "https://mef.rero.ch/schemas/concepts_idref/idref-concept-v0.0.1.json",
       "authorized_access_point": "Swing (jazz)",

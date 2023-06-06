@@ -21,7 +21,7 @@
 from flask import url_for
 
 
-def test_entity_person_detailed_view(client, entity_person):
+def test_remote_entity_person_detailed_view(client, entity_person):
     """Test entity person detailed view."""
     res = client.get(url_for(
         'entities.persons_proxy',
@@ -29,7 +29,7 @@ def test_entity_person_detailed_view(client, entity_person):
     assert res.status_code == 200
 
 
-def test_entity_organisation_detailed_view(client, entity_organisation):
+def test_remote_entity_organisation_detailed_view(client, entity_organisation):
     """Test entity organisation detailed view."""
     res = client.get(url_for(
         'entities.corporate_bodies_proxy',

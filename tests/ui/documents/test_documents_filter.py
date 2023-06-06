@@ -21,7 +21,7 @@ from rero_ils.modules.documents.views import cartographic_attributes, \
     note_general, notes_except_general, part_of_format, provision_activity, \
     provision_activity_not_publication, provision_activity_original_date, \
     provision_activity_publication, title_variants, work_access_point
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 
 
 def test_note_general():

@@ -31,7 +31,7 @@ from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.utils import \
     do_language
 from rero_ils.modules.documents.utils import create_authorized_access_point
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 
 marc21 = ReroIlsMarc21Overdo()
 

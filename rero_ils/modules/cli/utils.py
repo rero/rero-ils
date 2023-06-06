@@ -59,7 +59,7 @@ from werkzeug.security import gen_salt
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
 from rero_ils.modules.documents.views import get_cover_art
-from rero_ils.modules.entities.api import Entity
+from rero_ils.modules.remote_entities.api import RemoteEntity
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.tasks import \
@@ -1580,7 +1580,7 @@ def export(verbose, pid_type, outfile_name, pidfile, indent, schema):
                     f'{count: <8} {pid_type} export {rec.pid}:{rec.id}')
             if not schema:
                 rec.pop('$schema', None)
-                if isinstance(rec, Entity):
+                if isinstance(rec, RemoteEntity):
                     for agent_source in agents_sources:
                         rec.get(agent_source, {}).pop('$schema', None)
             outfile.write(rec)

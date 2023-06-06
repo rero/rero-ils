@@ -37,8 +37,8 @@ from .utils import display_alternate_graphic_first, get_remote_cover, \
     title_format_text, title_format_text_alternate_graphic, \
     title_variant_format_text
 from ..collections.api import CollectionsSearch
-from ..entities.api import Entity
-from ..entities.models import EntityType
+from ..remote_entities.api import RemoteEntity
+from ..remote_entities.models import EntityType
 from ..holdings.models import HoldingNoteTypes
 from ..items.models import ItemCirculationAction
 from ..libraries.api import Library
@@ -263,7 +263,7 @@ def contribution_format(contributions, language, viewcode, with_roles=False):
     """
     output = []
     for contrib in filter(lambda c: c.get('entity'), contributions):
-        if entity := Entity.get_record_by_pid(contrib['entity'].get('pid')):
+        if entity := RemoteEntity.get_record_by_pid(contrib['entity'].get('pid')):
             text = entity.get_authorized_access_point(language=language)
             entity_type = 'persons'
             if entity.get('type') == EntityType.ORGANISATION:
@@ -296,7 +296,7 @@ def doc_entity_label(entity, language=None, part_separator=' - ') -> str:
     """
     parts = []
     if 'pid' in entity:
-        entity = Entity.get_record_by_pid(entity['pid'])
+        entity = RemoteEntity.get_record_by_pid(entity['pid'])
         parts.append(entity.get_authorized_access_point(language=language))
     else:
         default_key = 'authorized_access_point'

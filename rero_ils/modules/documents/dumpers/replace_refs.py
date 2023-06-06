@@ -20,7 +20,7 @@
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
-from rero_ils.modules.entities.utils import extract_data_from_mef_uri
+from rero_ils.modules.remote_entities.utils import extract_data_from_mef_uri
 
 
 class ReplaceRefsEntitiesDumperMixin(Dumper):
@@ -29,9 +29,9 @@ class ReplaceRefsEntitiesDumperMixin(Dumper):
     @staticmethod
     def _replace_entity(data):
         """Replace the `$ref` linked contributions."""
-        from rero_ils.modules.entities.api import Entity
-        if not (entity := Entity.get_record_by_pid(data['pid'])):
-            raise RecordNotFound(Entity, data['pid'])
+        from rero_ils.modules.remote_entities.api import RemoteEntity
+        if not (entity := RemoteEntity.get_record_by_pid(data['pid'])):
+            raise RecordNotFound(RemoteEntity, data['pid'])
         _, _type, _ = extract_data_from_mef_uri(data['$ref'])
         entity = entity.dumps_for_document()
         entity.update({
@@ -84,11 +84,11 @@ class ReplaceRefsEntitiesDumper(ReplaceRefsEntitiesDumperMixin):
         :return a dict with dumped data.
         """
         for field_name in self.field_names:
-            entities = []
+            remote_entities = []
             for entity in [d['entity'] for d in data.get(field_name, [])]:
                 if entity.get('$ref'):
                     entity = self._replace_entity(entity)
-                entities.append({'entity': entity})
-            if entities:
-                data[field_name] = entities
+                remote_entities.append({'entity': entity})
+            if remote_entities:
+                data[field_name] = remote_entities
         return data

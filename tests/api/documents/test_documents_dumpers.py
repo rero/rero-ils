@@ -24,7 +24,7 @@ from rero_ils.modules.commons.exceptions import RecordNotFound
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dumpers import document_replace_refs_dumper, \
     document_title_dumper
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 
 
 def test_document_dumpers(document, document_data):

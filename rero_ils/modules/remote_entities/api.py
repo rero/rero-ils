@@ -33,28 +33,28 @@ from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 from rero_ils.utils import get_i18n_supported_languages
 
-from .models import EntityIdentifier, EntityMetadata, EntityUpdateAction
+from .models import RemoteEntityIdentifier, RemoteEntityMetadata, EntityUpdateAction
 from .utils import extract_data_from_mef_uri, get_mef_data_by_type
 
 # provider
-EntityProvider = type(
+RemoteEntityProvider = type(
     'EntityProvider',
     (Provider,),
-    dict(identifier=EntityIdentifier, pid_type='ent')
+    dict(identifier=RemoteEntityIdentifier, pid_type='rement')
 )
 # minter
-entity_id_minter = partial(id_minter, provider=EntityProvider)
+remote_entity_id_minter = partial(id_minter, provider=RemoteEntityProvider)
 # fetcher
-entity_id_fetcher = partial(id_fetcher, provider=EntityProvider)
+remote_entity_id_fetcher = partial(id_fetcher, provider=RemoteEntityProvider)
 
 
-class EntitiesSearch(IlsRecordsSearch):
+class RemoteEntitiesSearch(IlsRecordsSearch):
     """Mef contribution search."""
 
     class Meta:
         """Meta class."""
 
-        index = 'entities'
+        index = 'remote_entities'
         doc_types = None
         fields = ('*', )
         facets = {}
@@ -62,13 +62,13 @@ class EntitiesSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class Entity(IlsRecord):
+class RemoteEntity(IlsRecord):
     """Mef contribution class."""
 
-    minter = entity_id_minter
-    fetcher = entity_id_fetcher
-    provider = EntityProvider
-    model_cls = EntityMetadata
+    minter = remote_entity_id_minter
+    fetcher = remote_entity_id_fetcher
+    provider = RemoteEntityProvider
+    model_cls = RemoteEntityMetadata
 
     @classmethod
     def get_entity(cls, ref_type, ref_pid):
@@ -81,7 +81,7 @@ class Entity(IlsRecord):
             es_filter = Q('term', viaf_pid=ref_pid)
 
         # in case of multiple results get the more recent
-        query = EntitiesSearch() \
+        query = RemoteEntitiesSearch() \
             .params(preserve_order=True) \
             .sort({'_created': {'order': 'desc'}})\
             .filter(es_filter)
@@ -113,7 +113,7 @@ class Entity(IlsRecord):
                 )):
                     raise Exception('NO DATA')
                 # Try to get the contribution from DB maybe it was not indexed.
-                if entity := Entity.get_record_by_pid(data['pid']):
+                if entity := RemoteEntity.get_record_by_pid(data['pid']):
                     entity = entity.replace(data)
                 else:
                     entity = cls.create(data)
@@ -290,14 +290,14 @@ class Entity(IlsRecord):
         return entity_types.get(self['type'])
 
 
-class EntitiesIndexer(IlsRecordsIndexer):
+class RemoteEntitiesIndexer(IlsRecordsIndexer):
     """Entity indexing class."""
 
-    record_cls = Entity
+    record_cls = RemoteEntity
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='ent')
+        super().bulk_index(record_id_iterator, doc_type='rement')

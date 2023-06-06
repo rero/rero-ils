@@ -23,7 +23,7 @@ from urllib.parse import quote_plus
 import requests
 from flask import abort, current_app, jsonify, request
 
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 from rero_ils.modules.utils import get_mef_url
 
 

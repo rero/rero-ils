@@ -27,7 +27,8 @@ from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from utils import flush_index, get_json
 
-from rero_ils.modules.entities.api import EntitiesSearch, Entity
+from rero_ils.modules.remote_entities.api import RemoteEntitiesSearch, \
+    RemoteEntity
 from rero_ils.modules.utils import get_timestamp, set_timestamp
 
 
@@ -47,7 +48,8 @@ def test_monitoring_es_db_counts(client):
             'budg': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'budgets'},
             'cipo': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'circ_policies'},
             'coll': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'collections'},
-            'ent': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'entities'},
+            'rement': {'db': 0, 'db-es': 0, 'es': 0,
+                       'index': 'remote_entities'},
             'doc': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'documents'},
             'hold': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'holdings'},
             'illr': {'db': 0, 'db-es': 0, 'es': 0, 'index': 'ill_requests'},
@@ -84,34 +86,34 @@ def test_monitoring_check_es_db_counts(app, client, entity_person_data,
     assert res.status_code == 200
     assert get_json(res) == {'data': {'status': 'green'}}
 
-    pers = Entity.create(
+    pers = RemoteEntity.create(
         data=entity_person_data,
         delete_pid=False,
         dbcommit=True,
         reindex=False)
-    flush_index(EntitiesSearch.Meta.index)
+    flush_index(RemoteEntitiesSearch.Meta.index)
     res = client.get(url_for('api_monitoring.check_es_db_counts', delay=0))
     assert res.status_code == 200
     assert get_json(res) == {
         'data': {'status': 'red'},
         'errors': [{
             'code': 'DB_ES_COUNTER_MISMATCH',
-            'details': 'There are 1 items from ent missing in ES.',
+            'details': 'There are 1 items from rement missing in ES.',
             'id': 'DB_ES_COUNTER_MISMATCH',
             'links': {
                 'about': 'http://localhost/monitoring/check_es_db_counts',
-                'ent': 'http://localhost/monitoring/missing_pids/ent'
+                'rement': 'http://localhost/monitoring/missing_pids/rement'
             },
             'title': "DB items counts don't match ES items count."
         }]
     }
 
     # this view is only accessible by monitoring
-    res = client.get(url_for('api_monitoring.missing_pids', doc_type='ent'))
+    res = client.get(url_for('api_monitoring.missing_pids', doc_type='rement'))
     assert res.status_code == 401
 
     login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(url_for('api_monitoring.missing_pids', doc_type='ent'))
+    res = client.get(url_for('api_monitoring.missing_pids', doc_type='rement'))
     assert res.status_code == 403
 
     # give user superuser admin rights
@@ -123,7 +125,7 @@ def test_monitoring_check_es_db_counts(app, client, entity_person_data,
     )
     db.session.commit()
     res = client.get(url_for(
-        'api_monitoring.missing_pids', doc_type='ent', delay=0))
+        'api_monitoring.missing_pids', doc_type='rement', delay=0))
     assert res.status_code == 200
     assert get_json(res) == {
         'data': {

@@ -24,7 +24,7 @@ from flask import current_app
 from requests import RequestException
 from requests import codes as requests_codes
 
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 from rero_ils.modules.utils import get_mef_url, requests_retry_session
 
 

@@ -32,9 +32,9 @@ from rero_ils.modules.documents.api import Document, DocumentsSearch, \
     document_id_fetcher
 from rero_ils.modules.documents.models import DocumentIdentifier
 from rero_ils.modules.ebooks.tasks import create_records
-from rero_ils.modules.entities.api import EntitiesSearch, Entity
-from rero_ils.modules.entities.models import EntityType
-from rero_ils.modules.entities.utils import extract_data_from_mef_uri
+from rero_ils.modules.remote_entities.api import RemoteEntitiesSearch, RemoteEntity
+from rero_ils.modules.remote_entities.models import EntityType
+from rero_ils.modules.remote_entities.utils import extract_data_from_mef_uri
 from rero_ils.modules.tasks import process_bulk_queue
 
 
@@ -82,7 +82,7 @@ def test_document_create_with_mef(
     mock_contributions_mef_get.return_value = mock_response(
         json_data=entity_person_response_data
     )
-    assert EntitiesSearch().count() == 0
+    assert RemoteEntitiesSearch().count() == 0
     doc = Document.create(
         data=deepcopy(document_data_ref),
         delete_pid=False, dbcommit=False, reindex=False)
@@ -94,15 +94,15 @@ def test_document_create_with_mef(
 
     assert hit['contribution'][0]['entity']['pid'] == entity_person_data['pid']
     assert hit['contribution'][0]['entity']['primary_source'] == 'rero'
-    assert EntitiesSearch().count() == 1
-    contrib = Entity.get_record_by_pid(entity_person_data['pid'])
+    assert RemoteEntitiesSearch().count() == 1
+    contrib = RemoteEntity.get_record_by_pid(entity_person_data['pid'])
     contrib.delete_from_index()
     doc.delete_from_index()
     db.session.rollback()
 
     assert not Document.get_record_by_pid(doc.get('pid'))
-    assert not Entity.get_record_by_pid(entity_person_data['pid'])
-    assert EntitiesSearch().count() == 0
+    assert not RemoteEntity.get_record_by_pid(entity_person_data['pid'])
+    assert RemoteEntitiesSearch().count() == 0
 
     with pytest.raises(ValidationError):
         doc = Document.create(
@@ -110,8 +110,8 @@ def test_document_create_with_mef(
             delete_pid=False, dbcommit=True, reindex=True)
 
     assert not Document.get_record_by_pid(doc.get('pid'))
-    assert not Entity.get_record_by_pid(entity_person_data['pid'])
-    assert EntitiesSearch().count() == 0
+    assert not RemoteEntity.get_record_by_pid(entity_person_data['pid'])
+    assert RemoteEntitiesSearch().count() == 0
     data = deepcopy(document_data_ref)
     contrib = data.pop('contribution')
     doc = Document.create(
@@ -125,15 +125,15 @@ def test_document_create_with_mef(
         doc.pop('type')
         doc.update(doc, commit=True, dbcommit=True, reindex=True)
     assert Document.get_record_by_pid(doc.get('pid'))
-    assert not Entity.get_record_by_pid(entity_person_data['pid'])
-    assert EntitiesSearch().count() == 0
+    assert not RemoteEntity.get_record_by_pid(entity_person_data['pid'])
+    assert RemoteEntitiesSearch().count() == 0
 
     data = deepcopy(document_data_ref)
     doc.update(data, commit=True, dbcommit=False, reindex=False)
     doc.reindex()
     assert Document.get_record_by_pid(doc.get('pid'))
-    assert Entity.get_record_by_pid(entity_person_data['pid'])
-    assert EntitiesSearch().count() == 1
+    assert RemoteEntity.get_record_by_pid(entity_person_data['pid'])
+    assert RemoteEntitiesSearch().count() == 1
 
     doc.delete_from_index()
     db.session.rollback()
@@ -161,10 +161,10 @@ def test_document_linked_subject(
     #    - Check if the entity has been created
     #    - Check if ES mapping is correct for this entity
     _, _type, _id = extract_data_from_mef_uri(entity_uri)
-    entity = Entity.get_entity(_type, _id)
+    entity = RemoteEntity.get_entity(_type, _id)
     assert _type in entity.get('sources')
 
-    es_record = EntitiesSearch().get_record_by_pid(entity.pid)
+    es_record = RemoteEntitiesSearch().get_record_by_pid(entity.pid)
     assert es_record['type'] == EntityType.TOPIC
     assert es_record[_type]['pid'] == _id
 

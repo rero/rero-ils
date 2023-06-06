@@ -33,7 +33,7 @@ from rero_ils.dojson.utils import _LANGUAGES, TitlePartList, add_note, \
     get_contribution_link, get_field_items, get_field_link_data, \
     not_repetitive, re_identified, remove_trailing_punctuation
 from rero_ils.modules.documents.utils import create_authorized_access_point
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 
 _DOCUMENT_RELATION_PER_TAG = {
     '770': 'supplement',

@@ -28,7 +28,7 @@ from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.theme.views import url_active
 
-from .api import Entity
+from .api import RemoteEntity
 from .models import EntityType
 from .proxy import MEFProxyFactory
 
@@ -54,7 +54,7 @@ def entity_proxy(viewcode, pid, entity_type):
     :param entity_type: type of the entity
     :returns: entity template
     """
-    entity = Entity.get_record_by_pid(pid)
+    entity = RemoteEntity.get_record_by_pid(pid)
     if not entity or entity.get('type') != entity_type:
         abort(404, 'Record not found')
     return entity_view_method(

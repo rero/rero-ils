@@ -442,7 +442,7 @@ def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
         }]
     }
     with mock.patch(
-        'rero_ils.modules.entities.api.Entity.get_entity',
+        'rero_ils.modules.remote_entities.api.Entity.get_entity',
         side_effect=[mef_record_with_idref_rero, mef_record_with_idref_gnd,
                      mef_record_with_idref_gnd_rero]
     ):

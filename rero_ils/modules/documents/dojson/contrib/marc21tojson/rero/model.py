@@ -30,7 +30,7 @@ from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
     get_field_items, not_repetitive, re_identified, \
     remove_trailing_punctuation
 from rero_ils.modules.documents.utils import create_authorized_access_point
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 
 from ..utils import _CONTRIBUTION_ROLE, do_abbreviated_title, \
     do_acquisition_terms_from_field_037, do_copyright_date, do_credits, \

@@ -22,10 +22,10 @@ import mock
 from flask import url_for
 from utils import get_json, mock_response, postdata, to_relative_url
 
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 
 
-def test_entities_permissions(client, entity_person, json_header):
+def test_remote_entities_permissions(client, entity_person, json_header):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.ent_item', pid_value='ent_pers')
     res = client.get(item_url)
@@ -44,7 +44,7 @@ def test_entities_permissions(client, entity_person, json_header):
     assert res.status_code == 401
 
 
-def test_entities_get(client, entity_person):
+def test_remote_entities_get(client, entity_person):
     """Test record retrieval."""
     item_url = url_for('invenio_records_rest.ent_item', pid_value='ent_pers')
 
@@ -92,7 +92,7 @@ def test_remote_search_proxy(
         json_data=mef_concept2_es_response)
 
     response = client.get(url_for(
-        'api_entities.remote_search_proxy',
+        'api_remote_entities.remote_search_proxy',
         entity_type='concepts-genreForm',
         term='side-car'
     ))
@@ -113,7 +113,7 @@ def test_remote_search_proxy(
     mock_es_concept_get.return_value = mock_response(
         json_data=mef_agents1_es_response)
     response = client.get(url_for(
-        'api_entities.remote_search_proxy',
+        'api_remote_entities.remote_search_proxy',
         entity_type='agents',
         term='UCLouvain'
     ))
@@ -127,7 +127,7 @@ def test_remote_search_proxy(
     #   raised a `ValueError` caught by flask to return an HTTP 400 response
     category = 'unknown_category'
     response = client.get(url_for(
-        'api_entities.remote_search_proxy',
+        'api_remote_entities.remote_search_proxy',
         entity_type=category,
         term='search_term'
     ))
@@ -139,7 +139,7 @@ def test_remote_search_proxy(
     #   Simulate than MEF call return an HTTP error and check the response.
     mock_es_concept_get.return_value = mock_response(status=404)
     response = client.get(url_for(
-        'api_entities.remote_search_proxy',
+        'api_remote_entities.remote_search_proxy',
         entity_type='agents',
         term='UCLouvain'
     ))

@@ -57,7 +57,7 @@ from rero_ils.modules.acquisition.budgets.listener import \
     budget_is_active_changed
 from rero_ils.modules.collections.listener import enrich_collection_data
 from rero_ils.modules.ebooks.receivers import publish_harvested_records
-from rero_ils.modules.entities.listener import enrich_entities_data
+from rero_ils.modules.remote_entities.listener import enrich_remote_entities_data
 from rero_ils.modules.holdings.listener import enrich_holding_data, \
     update_items_locations_and_types
 from rero_ils.modules.ill_requests.listener import enrich_ill_request_data
@@ -290,7 +290,7 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_acq_order_line_data, sender=app)
         before_record_index.connect(enrich_collection_data, sender=app)
         before_record_index.connect(enrich_loan_data, sender=app)
-        before_record_index.connect(enrich_entities_data, sender=app)
+        before_record_index.connect(enrich_remote_entities_data, sender=app)
         before_record_index.connect(enrich_item_data, sender=app)
         before_record_index.connect(enrich_patron_data, sender=app)
         before_record_index.connect(enrich_location_data, sender=app)

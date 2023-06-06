@@ -23,7 +23,7 @@ from flask import current_app
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, \
     build_string_from_subfields
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.remote_entities.models import EntityType
 
 from ..utils import do_abbreviated_title, \
     do_acquisition_terms_from_field_037, do_classification, do_contribution, \

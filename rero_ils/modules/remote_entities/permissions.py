@@ -22,7 +22,7 @@ from invenio_records_permissions.generators import AnyUser
 from rero_ils.modules.permissions import RecordPermissionPolicy
 
 
-class EntityPermissionPolicy(RecordPermissionPolicy):
+class RemoteEntityPermissionPolicy(RecordPermissionPolicy):
     """Entity Permission Policy used by the CRUD operations.
 
     Only search and read is allowed for all users.
