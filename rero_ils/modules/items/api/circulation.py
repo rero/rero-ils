@@ -1318,6 +1318,8 @@ class ItemCirculation(ItemRecord):
             return False
         if self.circulation_category.get('negative_availability'):
             return False
+        if self.temp_item_type_negative_availability:
+            return False
         if self.is_issue and self.issue_status != ItemIssueStatus.RECEIVED:
             return False
         return True
