@@ -36,6 +36,16 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
 
     def _postprocess_search_hit(self, hit: dict) -> None:
         """Post-process each hit of a search result."""
+        def _set_item_type_circulation_information(metadata, pid):
+            """Get Item type circulation information.
+
+            :param: metadata: The item record.
+            :param: pid: the item type pid.
+            """
+            record = self.get_resource(ItemTypesSearch(), pid) or {}
+            if circulation := record.get('circulation_information'):
+                metadata['item_type']['circulation_information'] = circulation
+
         metadata = hit.get('metadata', {})
         doc_pid = metadata.get('document').get('pid')
         document = self.get_resource(DocumentsSearch(), doc_pid)
@@ -77,6 +87,13 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         location_pid = metadata['location']['pid']
         location = self.get_resource(LocationsSearch(), location_pid)
         metadata['location']['name'] = location.get('name')
+
+        # Try to serialize circulation information from best possible
+        # related `ItemType` resource if exists.
+        if itty_pid := metadata.get('temporary_item_type', {}).get('pid'):
+            itty_rec = self.get_resource(ItemTypesSearch(), itty_pid) or {}
+            if circulation := itty_rec.get('circulation_information'):
+                metadata['item_type']['circulation_information'] = circulation
 
         super()._postprocess_search_hit(hit)
 
