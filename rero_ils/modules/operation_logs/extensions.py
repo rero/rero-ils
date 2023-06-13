@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@ from functools import partialmethod
 
 import pytz
 from deepdiff import DeepDiff
+from flask import request as flask_request
 from invenio_records.extensions import RecordExtension
 
 from rero_ils.modules.patrons.api import current_librarian
@@ -61,7 +62,7 @@ class OperationLogObserverExtension(RecordExtension):
             'user_name': 'system'  # default value, could be override
         }
         if current_librarian:
-            oplg.update({
+            oplg |= {
                 'user_name': current_librarian.formatted_name,
                 'user': {
                     'type': 'ptrn',
@@ -74,12 +75,25 @@ class OperationLogObserverExtension(RecordExtension):
                 'library': {
                     'type': 'lib',
                     'value': current_librarian.library_pid
+                },
+            }
+            if (lib_pid := flask_request.args.get('current_library')) \
+                    and lib_pid in current_librarian.manageable_library_pids:
+                oplg |= {
+                    'organisation': {
+                        'type': 'org',
+                        'value': current_librarian.organisation_pid
+                    },
+                    'library': {
+                        'type': 'lib',
+                        'value': lib_pid
+                    }
                 }
-            })
+
         # Allow additional informations for the operation log.
         #   Subclasses can override the ``additional_informations()`` method
         #   to add some data into the operation log dict
-        oplg.update(self.get_additional_informations(record) or {})
+        oplg |= (self.get_additional_informations(record) or {})
         return oplg
 
     def _create_operation_log(self, record, operation, **kwargs):
