@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -31,6 +31,7 @@ from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.utils import clean_text, get_remote_cover
 from rero_ils.modules.documents.views import can_request, \
     record_library_pickup_locations
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 
 
@@ -687,3 +688,45 @@ def test_document_identifiers_search(client, document):
 
     # RESET THE DOCUMENT
     document.update(original_data, dbcommit=True, reindex=True)
+
+
+def test_document_current_library_on_request_parameter(
+    app, db, client, system_librarian_martigny, lib_martigny,
+    lib_martigny_bourg, document, json_header
+):
+    """Test for library assignment if the current_library parameter
+    is present in the request."""
+    login_user_via_session(client, system_librarian_martigny.user)
+
+    # Assign library pid with current_librarian information
+    document['copyrightDate'] = ['© 2023']
+    doc_url = url_for('invenio_records_rest.doc_item', pid_value=document.pid)
+    res = client.put(doc_url, data=json.dumps(document), headers=json_header)
+    assert res.status_code == 200
+    flush_index(OperationLogsSearch.Meta.index)
+    oplg = next(OperationLogsSearch()
+                .filter('term', record__type='doc')
+                .filter('term', record__value=document.pid)
+                .params(preserve_order=True)
+                .sort({'date': 'desc'})
+                .scan())
+    assert oplg.library.value == lib_martigny.pid
+    db.session.rollback()
+
+    # Assign library pid with current_library request parameter
+    document['copyrightDate'] = ['© 1971']
+    doc_url = url_for(
+        'invenio_records_rest.doc_item',
+        pid_value=document.pid,
+        current_library=lib_martigny_bourg.pid)
+    res = client.put(doc_url, data=json.dumps(document), headers=json_header)
+    assert res.status_code == 200
+    flush_index(OperationLogsSearch.Meta.index)
+    oplg = next(OperationLogsSearch()
+                .filter('term', record__type='doc')
+                .filter('term', record__value=document.pid)
+                .params(preserve_order=True)
+                .sort({'date': 'desc'})
+                .scan())
+    assert oplg.library.value == lib_martigny_bourg.pid
+    db.session.rollback()
