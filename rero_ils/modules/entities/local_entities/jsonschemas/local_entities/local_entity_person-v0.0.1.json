@@ -1,0 +1,173 @@
+{
+  "type": "object",
+  "title": "Person",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "type",
+    "authorized_access_point",
+    "name"
+  ],
+  "propertiesOrder": [
+    "type",
+    "name",
+    "date_of_birth",
+    "date_of_death",
+    "numeration",
+    "qualifier",
+    "fuller_form_of_name",
+    "alternative_names",
+    "gender",
+    "source_catalog",
+    "identifier"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate local entity records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "readOnly": true,
+      "default": "bf:Person",
+      "const": "bf:Person",
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
+    },
+    "pid": {
+      "title": "Local entity PID",
+      "type": "string",
+      "minLength": 1
+    },
+    "deleted": {
+      "title": "Deletion date",
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: Miller, John"
+      }
+    },
+    "authorized_access_point": {
+      "title": "Authorized access point",
+      "type": "string",
+      "minLength": 1,
+      "readOnly": true,
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
+    },
+    "date_of_birth": {
+      "title": "Birth date",
+      "description": "Record only years.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 1955"
+      }
+    },
+    "date_of_death": {
+      "title": "Death date",
+      "description": "Record only years.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 2012"
+      }
+    },
+    "qualifier": {
+      "title": "Qualifier",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: physicist"
+      }
+    },
+    "numeration": {
+      "title": "Numeration",
+      "description": "Record only a number.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: XXIII"
+      }
+    },
+    "fuller_form_of_name": {
+      "title": "Fuller form of Name",
+      "description": "Used only for import. Fuller form of a name represented only by an initial, abbreviation, or other variant not included in the form chosen as the preferred name",
+      "type": "string",
+      "minLength": 1
+    },
+    "alternative_names": {
+      "title": "Alternative names",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Alternative name",
+        "type": "string",
+        "minLength": 1,
+        "form": {
+          "placeholder": "Example: Beyer, Adam"
+        }
+      }
+    },
+    "gender": {
+      "title": "Gender",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1,
+      "enum": [
+        "F",
+        "M",
+        "X"
+      ],
+      "form": {
+        "options": [
+          {
+            "value": "M",
+            "label": "male"
+          },
+          {
+            "value": "F",
+            "label": "female"
+          },
+          {
+            "value": "X",
+            "label": "other"
+          }
+        ],
+        "templateOptions": {
+          "itemCssClass": "col-lg-6"
+        }
+      }
+    },
+    "source_catalog": {
+      "title": "Source catalog",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: lcsh, mesh, rameau"
+      }
+    },
+    "identifier": {
+      "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
+    }
+  }
+}

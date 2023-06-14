@@ -355,7 +355,7 @@ else
     REMOTE_ENTITIES=${DATA_PATH}/remote_entities_small.json
 fi
 
-if ${LOADCONTRIBUTIONS}
+if ${LOAD_REMOTE_ENTITIES}
 then
     info_msg "- REMOTE REMOTE_ENTITIES: ${REMOTE_ENTITIES} ${CREATE_LAZY} ${DONT_STOP}"
     eval ${PREFIX} invenio reroils fixtures create --pid_type rement --schema 'https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json' ${REMOTE_ENTITIES} --append ${CREATE_LAZY} ${DONT_STOP}

@@ -1,27 +1,123 @@
 [
   {
     "pid": "1",
-    "preferred_name": "Shakespeare, William",
+    "name": "Shakespeare, William",
+    "date_of_birth": "1564",
+    "date_of_death": "1616",
+    "identifier": {
+      "source": "OCLC",
+      "type": "bf:Local",
+      "value": "https://id.oclc.org/worldcat/entity/E39PBJxx96qPfyhwWrJChP9kXd"
+    },
     "type": "bf:Person"
   },
   {
     "pid": "2",
-    "preferred_name": "Eiffel, Gustave",
+    "name": "Allies, Mary H.",
+    "date_of_birth": "1852",
+    "date_of_death": "1927",
+    "fuller_form_of_name": "Mary Helen",
     "type": "bf:Person"
   },
   {
     "pid": "3",
-    "preferred_name": "Jobs, Steve",
+    "name": "Frankel, Valerie Estelle",
+    "date_of_birth": "1980",
     "type": "bf:Person"
   },
   {
     "pid": "4",
-    "preferred_name": "Dylan, Bob",
+    "name": "Simberg, Hugo",
+    "date_of_birth": "1873",
+    "date_of_death": "1917",
+    "source_catalog": "lcsh",
     "type": "bf:Person"
   },
   {
     "pid": "5",
-    "preferred_name": "UCLouvain",
+    "name": "Vesalius, Andreas",
+    "date_of_birth": "1514",
+    "date_of_death": "1564",
+    "source_catalog": "lcsh",
+    "type": "bf:Person"
+  },
+  {
+    "pid": "6",
+    "name": "William",
+    "date_of_birth": "1650",
+    "date_of_death": "1702",
+    "numeration": "III",
+    "qualifier": "King of England",
+    "type": "bf:Person"
+  },
+  {
+    "pid": "7",
+    "name": "Medicine in Art.",
+    "source_catalog": "mesh",
+    "genreForm": false,
+    "type": "bf:Topic"
+  },
+  {
+    "pid": "8",
+    "name": "Medical Illustration.",
+    "genreForm": false,
+    "source_catalog": "mesh",
+    "type": "bf:Topic"
+  },
+  {
+    "pid": "9",
+    "name": "UCLouvain",
+    "conference": false,
     "type": "bf:Organisation"
+  },
+  {
+    "pid": "10",
+    "name": "Forum on Bilateral Conversation",
+    "conference_numbering": "5th",
+    "conference_date": "1990",
+    "conference_place": "Budapest, Hungary",
+    "conference": true,
+    "type": "bf:Organisation"
+  },
+  {
+    "pid": "11",
+    "name": "Catholic Church",
+    "subordinate_units": [
+      "Concilium Plenarium Americae Latinae"
+    ],
+    "conference_numbering": "5th",
+    "conference_date": "1899",
+    "conference_place": "Rome, Italy",
+    "conference": false,
+    "type": "bf:Organisation"
+  },
+  {
+    "pid": "12",
+    "title": "Chevalier au cygne",
+    "type": "bf:Work"
+  },
+  {
+    "pid": "13",
+    "title": "Sonnets",
+    "creator": "Shakespeare, William (1564-1616)",
+    "type": "bf:Work"
+  },
+  {
+    "pid": "14",
+    "title": "Preludes",
+    "creator": "Chopin, Fre\u0301de\u0301ric (1810-1849)",
+    "type": "bf:Work"
+  },
+  {
+    "pid": "15",
+    "name": "1800-1899",
+    "type": "bf:Temporal"
+  },
+  {
+    "pid": "16",
+    "name": "Personal correspondence",
+    "source_catalog": "lcgft",
+    "genreForm": true,
+    "type": "bf:Topic"
   }
 ]
