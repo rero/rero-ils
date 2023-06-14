@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -23,6 +23,7 @@ from invenio_records.dumpers import Dumper
 from rero_ils.modules.commons.dumpers import MultiDumper, ReplaceRefsDumper
 
 from .indexer import LocalEntityIndexerDumper
+from ...dumpers import LocalizedAuthorizedAccessPointDumper
 
 # replace linked data (seems not necessary at this time)
 replace_refs_dumper = MultiDumper(dumpers=[
@@ -36,5 +37,12 @@ indexer_dumper = MultiDumper(dumpers=[
     # make a fresh copy
     Dumper(),
     ReplaceRefsDumper(),
-    LocalEntityIndexerDumper()
+    LocalEntityIndexerDumper(),
+    LocalizedAuthorizedAccessPointDumper()
+])
+
+document_dumper = MultiDumper(dumpers=[
+    # make a fresh copy
+    Dumper(),
+    LocalizedAuthorizedAccessPointDumper(),
 ])

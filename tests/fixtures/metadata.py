@@ -424,9 +424,27 @@ def local_entity_person_data(data):
 
 
 @pytest.fixture(scope="module")
+def local_entity_person2_data(data):
+    """Load mef contribution person data."""
+    return deepcopy(data.get('locent_pers2'))
+
+
+@pytest.fixture(scope="module")
 def local_entity_org_data(data):
     """Load mef contribution person data."""
     return deepcopy(data.get('locent_org'))
+
+
+@pytest.fixture(scope="module")
+def local_entity_org2_data(data):
+    """Load mef contribution person data."""
+    return deepcopy(data.get('locent_org2'))
+
+
+@pytest.fixture(scope="module")
+def local_entity_work_data(data):
+    """Load mef contribution person data."""
+    return deepcopy(data.get('locent_work'))
 
 
 @pytest.fixture(scope="module")
@@ -442,10 +460,34 @@ def local_entity_person(app, local_entity_person_data):
 
 
 @pytest.fixture(scope="module")
+def local_entity_person2(app, local_entity_person2_data):
+    """Create mef person record."""
+    pers = LocalEntity.create(
+        data=local_entity_person2_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocalEntitiesSearch.Meta.index)
+    return pers
+
+
+@pytest.fixture(scope="module")
 def local_entity_org(app, local_entity_org_data):
     """Create mef person record."""
     org = LocalEntity.create(
         data=local_entity_org_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocalEntitiesSearch.Meta.index)
+    return org
+
+
+@pytest.fixture(scope="module")
+def local_entity_org2(app, local_entity_org2_data):
+    """Create mef person record."""
+    org = LocalEntity.create(
+        data=local_entity_org2_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)

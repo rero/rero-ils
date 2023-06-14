@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
-# Copyright (C) 2021 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,8 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Document record extension to add the MEF pid in the database."""
-
+"""Local entity extension to add authorized access point pid in the DB."""
 
 from invenio_records.extensions import RecordExtension
 
@@ -25,18 +24,27 @@ from invenio_records.extensions import RecordExtension
 class AuthorizedAccessPointExtension(RecordExtension):
     """Adds the authorized access point."""
 
-    def _generate_authorized_access_point(self, record, data):
-        """Generate authorized access point.
+    def _get_authorized_access_point(self, record):
+        """."""
+        # there is no language for local entities
+        language = None
+        return record.get_authorized_access_point(language)
 
-        :params record: dict - a document record.
+    def pre_create(self, record):
+        """Called before a record is created.
+
+        :param record: the record metadata.
         """
-        data.update({'authorized_access_point': record.get('preferred_name')})
+        record['authorized_access_point'] = \
+            self._get_authorized_access_point(record)
+        # required for validation
+        if record.model:
+            record.model.data = record
 
-    def pre_dump(self, record, data, dumper=None):
-        """Called before a record is dumped.
+    def pre_commit(self, record):
+        """Called before a record is committed.
 
-        :param record: the record to dump
-        :param data: the data to dump.
-        :param dumper: the dumper class used to dump the record.
+        :param record: the record metadata.
         """
-        return self._generate_authorized_access_point(record, data)
+        record['authorized_access_point'] = \
+            self._get_authorized_access_point(record)

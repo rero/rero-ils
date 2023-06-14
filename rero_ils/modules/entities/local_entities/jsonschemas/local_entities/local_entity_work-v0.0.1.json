@@ -1,0 +1,90 @@
+{
+  "type": "object",
+  "title": "Work",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "type",
+    "authorized_access_point",
+    "title"
+  ],
+  "propertiesOrder": [
+    "type",
+    "title",
+    "creator",
+    "identifier"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate local entity records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "readOnly": true,
+      "default": "bf:Work",
+      "const": "bf:Work",
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
+    },
+    "pid": {
+      "title": "Local entity PID",
+      "type": "string",
+      "minLength": 1
+    },
+    "deleted": {
+      "title": "Deletion date",
+      "type": "string",
+      "format": "date-time"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: Walk\u00fcre"
+      }
+    },
+    "creator": {
+      "title": "Creator",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: Wagner, Richard, 1813-1883"
+      }
+    },
+    "authorized_access_point": {
+      "title": "Authorized access point",
+      "type": "string",
+      "minLength": 1,
+      "readOnly": true,
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
+    },
+    "source_catalog": {
+      "title": "Source catalog",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: lcsh, mesh, rameau"
+      }
+    },
+    "identifier": {
+      "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
+    }
+  }
+}
