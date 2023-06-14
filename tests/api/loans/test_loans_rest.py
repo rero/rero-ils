@@ -532,7 +532,6 @@ def test_timezone_due_date(client, librarian_martigny,
     login_user_via_session(client, librarian_martigny.user)
 
     # Close the library all days. Except Monday.
-    del lib_martigny['opening_hours']
     del lib_martigny['exception_dates']
     lib_martigny['opening_hours'] = [
         {

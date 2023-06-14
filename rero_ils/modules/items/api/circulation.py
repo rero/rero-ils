@@ -17,6 +17,7 @@
 
 """API for manipulating item circulation transactions."""
 
+from contextlib import suppress
 from copy import deepcopy
 from datetime import datetime
 
@@ -45,6 +46,7 @@ from ...documents.api import Document
 from ...errors import NoCirculationAction
 from ...item_types.api import ItemType
 from ...libraries.api import Library
+from ...libraries.exceptions import LibraryNeverOpen
 from ...loans.api import Loan, get_last_transaction_loc_for_item, \
     get_request_by_item_pid_by_patron_pid
 from ...loans.models import LoanAction, LoanState
@@ -420,10 +422,13 @@ class ItemCirculation(ItemRecord):
                 transaction_library_pid = self.library_pid
             library = Library.get_record_by_pid(transaction_library_pid)
             if not library.is_open(action_params['end_date'], True):
-                new_end_date = library.next_open(action_params['end_date'])
-                new_end_date = new_end_date.astimezone()\
-                    .replace(microsecond=0).isoformat()
-                action_params['end_date'] = new_end_date
+                # If library has no open dates, keep the default due date
+                # to avoid circulation errors
+                with suppress(LibraryNeverOpen):
+                    new_end_date = library.next_open(action_params['end_date'])
+                    new_end_date = new_end_date.astimezone()\
+                        .replace(microsecond=0).isoformat()
+                    action_params['end_date'] = new_end_date
         # Call invenio_circulation for 'checkout' trigger
         loan = current_circulation.circulation.trigger(
             current_loan,

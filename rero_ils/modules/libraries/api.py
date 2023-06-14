@@ -25,6 +25,8 @@ import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 
+from flask_babelex import gettext as _
+
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.locations.api import LocationsSearch
@@ -75,6 +77,17 @@ class Library(IlsRecord):
             'org': 'organisation'
         }
     }
+
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        :return: reason for validation failure, otherwise True
+        """
+        for exception_date in self.get('exception_dates', []):
+            if exception_date['is_open'] and not exception_date.get('times'):
+                return _('Opening times must be specified for an open '
+                         'exception date.')
+        return True
 
     @property
     def online_location(self):
@@ -168,14 +181,17 @@ class Library(IlsRecord):
         return times_open
 
     def _has_is_open(self):
-        """Test if library has opening days."""
+        """Test if library has opening days in the future."""
         if opening_hours := self.get('opening_hours'):
             for opening_hour in opening_hours:
                 if opening_hour['is_open']:
                     return True
         if exception_dates := self.get('exception_dates'):
             for exception_date in exception_dates:
-                if exception_date['is_open']:
+                start_date = date_string_to_utc(exception_date['start_date'])
+                # avoid next_open infinite loop if an open exception date is
+                # in the past
+                if start_date > datetime.now(pytz.utc):
                     return True
         return False
 
@@ -241,7 +257,7 @@ class Library(IlsRecord):
         #   is into this periods (depending of `day_only` method argument).
         day_name = date.strftime("%A").lower()
         regular_rule = [
-            rule for rule in self['opening_hours']
+            rule for rule in self.get('opening_hours', [])
             if rule['day'] == day_name
         ]
         if regular_rule:
@@ -280,7 +296,9 @@ class Library(IlsRecord):
         """Get next open day."""
         date = date or datetime.now(pytz.utc)
         if not self._has_is_open():
-            raise LibraryNeverOpen
+            raise LibraryNeverOpen(
+                f'No open days found for library (pid: {self.pid})'
+                )
         if isinstance(date, str):
             date = parser.parse(date)
         add_day = -1 if previous else 1
