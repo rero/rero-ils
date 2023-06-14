@@ -1,0 +1,96 @@
+{
+  "type": "object",
+  "title": "Temporal",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "type",
+    "authorized_access_point",
+    "name"
+  ],
+  "propertiesOrder": [
+    "type",
+    "name",
+    "alternative_names",
+    "source_catalog",
+    "identifier"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate local entity records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "readOnly": true,
+      "default": "bf:Temporal",
+      "const": "bf:Temporal",
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
+    },
+    "pid": {
+      "title": "Local entity PID",
+      "type": "string",
+      "minLength": 1
+    },
+    "deleted": {
+      "title": "Deletion date",
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 21st century"
+      }
+    },
+    "authorized_access_point": {
+      "title": "Authorized access point",
+      "type": "string",
+      "minLength": 1,
+      "readOnly": true,
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
+    },
+    "alternative_names": {
+      "title": "Alternative names",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Alternative name",
+        "type": "string",
+        "minLength": 1,
+        "form": {
+          "placeholder": "Example: Beyer, Adam"
+        }
+      }
+    },
+    "source_catalog": {
+      "title": "Source catalog",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: lcsh, mesh, rameau"
+      }
+    },
+    "identifier": {
+      "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
+    }
+  }
+}

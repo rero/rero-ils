@@ -26,10 +26,11 @@ import requests
 from flask import current_app
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.entities.api import Entity
-from rero_ils.modules.entities.logger import create_logger
 from rero_ils.modules.utils import get_mef_url, get_timestamp, \
     requests_retry_session, set_timestamp
+
+from .api import RemoteEntity
+from ..logger import create_logger
 
 
 class ReplaceIdentifiedBy(object):
@@ -137,15 +138,15 @@ class ReplaceIdentifiedBy(object):
         :param mef_type: MEF type (agent, concept)
         :param mef_data: MEF data for entity.
         """
-        if not Entity.get_record_by_pid(mef_data['pid']):
+        if not RemoteEntity.get_record_by_pid(mef_data['pid']):
             if not self.dry_run:
                 new_mef_data = deepcopy(mef_data)
                 fields_to_remove = ['$schema', '_created', '_updated']
                 for field in fields_to_remove:
                     new_mef_data.pop(field, None)
                 # TODO: try to optimize with parent commit and reindex
-                # bulk operation
-                Entity.create(
+                #       bulk operation
+                RemoteEntity.create(
                     data=new_mef_data,
                     dbcommit=True,
                     reindex=True

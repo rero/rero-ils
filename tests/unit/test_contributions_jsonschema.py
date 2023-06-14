@@ -24,13 +24,13 @@ from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
 
-def test_required(entities_schema, entity_person_data_tmp):
+def test_required(remote_entities_schema, entity_person_data_tmp):
     '''Test required for patron jsonschemas.'''
-    validate(entity_person_data_tmp, entities_schema)
+    validate(entity_person_data_tmp, remote_entities_schema)
 
     with pytest.raises(ValidationError):
-        validate({}, entities_schema)
-        validate(entity_person_data_tmp, entities_schema)
+        validate({}, remote_entities_schema)
+        validate(entity_person_data_tmp, remote_entities_schema)
 
     with pytest.raises(ValidationError):
         validate({
@@ -39,8 +39,8 @@ def test_required(entities_schema, entity_person_data_tmp):
             'sources': [
                 'rero',
                 'gnd'
-            ]}, entities_schema)
-        validate(entity_person_data_tmp, entities_schema)
+            ]}, remote_entities_schema)
+        validate(entity_person_data_tmp, remote_entities_schema)
 
     with pytest.raises(ValidationError):
         validate({
@@ -50,8 +50,8 @@ def test_required(entities_schema, entity_person_data_tmp):
             'sources': [
                 'rero',
                 'gnd'
-            ]}, entities_schema)
-        validate(entity_person_data_tmp, entities_schema)
+            ]}, remote_entities_schema)
+        validate(entity_person_data_tmp, remote_entities_schema)
 
     with pytest.raises(ValidationError):
         validate({
@@ -59,5 +59,5 @@ def test_required(entities_schema, entity_person_data_tmp):
                        'remote_entity-v0.0.1.json',
             'pid': 'ent_pers',
             'viaf_pid': '56597999'
-        }, entities_schema)
-        validate(entity_person_data_tmp, entities_schema)
+        }, remote_entities_schema)
+        validate(entity_person_data_tmp, remote_entities_schema)

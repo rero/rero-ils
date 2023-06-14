@@ -213,11 +213,21 @@ def patron_martigny_data_tmp_with_id(patron_martigny_data_tmp):
 
 
 @pytest.fixture()
-def entities_schema(monkeypatch):
-    """Entity Jsonschema for records."""
+def remote_entities_schema(monkeypatch):
+    """Remote entity Jsonschema for records."""
     schema_in_bytes = resource_string(
         'rero_ils.modules.entities.remote_entities.jsonschemas',
         '/remote_entities/remote_entity-v0.0.1.json'
+    )
+    return get_schema(monkeypatch, schema_in_bytes)
+
+
+@pytest.fixture()
+def local_entities_schema(monkeypatch):
+    """Local entity Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.entities.local_entities.jsonschemas',
+        '/local_entities/local_entity-v0.0.1.json'
     )
     return get_schema(monkeypatch, schema_in_bytes)
 

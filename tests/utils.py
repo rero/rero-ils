@@ -267,15 +267,21 @@ def mocked_requests_get(*args, **kwargs):
             return self.json_data
 
     ref_split = args[0].split('/')
+    # TODO: find a better way to determine name and path.
     if ref_split[-2] == 'common':
         path = 'rero_ils.jsonschemas'
         name = 'common/{name}'.format(
             name=ref_split[-1]
         )
     else:
-        path = 'rero_ils.modules.{type}.jsonschemas'.format(
-            type=ref_split[-2]
-        )
+        if ref_split[-2] in ['remote_entities', 'local_entities']:
+            path = 'rero_ils.modules.entities.{type}.jsonschemas'.format(
+                type=ref_split[-2]
+            )
+        else:
+            path = 'rero_ils.modules.{type}.jsonschemas'.format(
+                type=ref_split[-2]
+            )
         name = '{type}/{name}'.format(
             type=ref_split[-2],
             name=ref_split[-1]
@@ -303,8 +309,8 @@ def get_schema(monkeypatch, schema_in_bytes):
     """
     # apply the monkeypatch for requests.get to mocked_requests_get
     monkeypatch.setattr(requests, "get", mocked_requests_get)
-
     schema = jsonref.loads(schema_in_bytes.decode('utf8'))
+
     # Replace all remaining $refs
     while schema != jsonref.loads(jsonref.dumps(schema)):
         schema = jsonref.loads(jsonref.dumps(schema))

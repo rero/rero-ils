@@ -1,0 +1,164 @@
+{
+  "type": "object",
+  "title": "Organisation",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "pid",
+    "type",
+    "authorized_access_point",
+    "name",
+    "conference"
+  ],
+  "propertiesOrder": [
+    "type",
+    "name",
+    "subordinate_units",
+    "conference",
+    "conference_place",
+    "conference_numbering",
+    "conference_date",
+    "start_date",
+    "end_date",
+    "alternative_names",
+    "source_catalog",
+    "identifier"
+  ],
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate local entity records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "type": {
+      "title": "Type",
+      "type": "string",
+      "readOnly": true,
+      "default": "bf:Organisation",
+      "const": "bf:Organisation",
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
+    },
+    "pid": {
+      "title": "Local entity PID",
+      "type": "string",
+      "minLength": 1
+    },
+    "deleted": {
+      "title": "Deletion date",
+      "type": "string",
+      "format": "date-time"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: Universit\u00e9 de Bordeaux III"
+      }
+    },
+    "authorized_access_point": {
+      "title": "Authorized access point",
+      "type": "string",
+      "minLength": 1,
+      "readOnly": true,
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "hide"
+          ]
+        }
+      }
+    },
+    "subordinate_units": {
+      "title": "Subordinate units",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Subordinate unit",
+        "type": "string",
+        "minLength": 1,
+        "form": {
+          "placeholder": "Example: Institut d'histoire"
+        }
+      }
+    },
+    "start_date": {
+      "title": "Start date",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 1955"
+      }
+    },
+    "end_date": {
+      "title": "End date",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 2015"
+      }
+    },
+    "conference": {
+      "title": "Conference",
+      "description": "Mark as conference if the access point is directly at the conference name and not at the corporate body name",
+      "type": "boolean",
+      "default": false
+    },
+    "conference_place": {
+      "title": "Location of conference",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: Paris",
+        "hideExpression": "!field?.parent?.model || !field.parent.model.conference || field.parent.model.conference == false"
+      }
+    },
+    "conference_numbering": {
+      "title": "Number of conference",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 23e",
+        "hideExpression": "!field?.parent?.model || !field.parent.model.conference || field.parent.model.conference == false"
+      }
+    },
+    "conference_date": {
+      "title": "Date of conference",
+      "description": "Record only years.",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: 2022",
+        "hideExpression": "!field?.parent?.model || !field.parent.model.conference || field.parent.model.conference == false"
+      }
+    },
+    "alternative_names": {
+      "title": "Alternative names",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "title": "Alternative name",
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_catalog": {
+      "title": "Source catalog",
+      "type": "string",
+      "minLength": 1,
+      "form": {
+        "placeholder": "Example: lcsh, mesh, rameau"
+      }
+    },
+    "identifier": {
+      "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
+    }
+  }
+}
