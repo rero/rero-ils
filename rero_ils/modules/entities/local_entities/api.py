@@ -27,9 +27,12 @@ from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 
-from .dumpers import replace_refs_dumper
-from .extensions import AuthorizedAccessPointExtension
+from .dumpers import indexer_dumper, replace_refs_dumper
+from .extensions import AuthorizedAccessPointExtension, \
+    LocalEntityFactoryExtension
 from .models import LocalEntityIdentifier, LocalEntityMetadata
+
+from ..api import Entity
 
 # provider
 LocalEntityProvider = type(
@@ -57,7 +60,7 @@ class LocalEntitiesSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class LocalEntity(IlsRecord):
+class LocalEntity(IlsRecord, Entity):
     """Local entity class."""
 
     minter = local_entity_id_minter
@@ -68,8 +71,14 @@ class LocalEntity(IlsRecord):
     enable_jsonref = False
 
     _extensions = [
+        LocalEntityFactoryExtension(),
         AuthorizedAccessPointExtension()
     ]
+
+    @property
+    def type(self):
+        """Shortcut for local entity type."""
+        return self.get('type')
 
     def resolve(self):
         """Resolve references data.
@@ -108,6 +117,8 @@ class LocalEntitiesIndexer(IlsRecordsIndexer):
     """Local entity indexing class."""
 
     record_cls = LocalEntity
+    # data dumper for indexing
+    record_dumper = indexer_dumper
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.

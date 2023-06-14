@@ -1846,14 +1846,47 @@
   "locent_pers": {
     "$schema": "https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json",
     "pid": "locent_pers",
-    "preferred_name": "Loy, Georg",
+    "name": "Loy, Georg",
+    "date_of_birth": "1881",
+    "date_of_death": "1968",
+    "type": "bf:Person"
+  },
+  "locent_pers2": {
+    "$schema": "https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json",
+    "pid": "locent_pers2",
+    "name": "William",
+    "date_of_birth": "1650",
+    "date_of_death": "1702",
+    "numeration": "III",
+    "qualifier": "King of England",
     "type": "bf:Person"
   },
   "locent_org": {
     "$schema": "https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json",
     "pid": "locent_org",
-    "preferred_name": "Convegno internazionale di Italianistica",
+    "name": "Convegno internazionale di Italianistica",
+    "conference": false,
     "type": "bf:Organisation"
+  },
+  "locent_org2": {
+    "$schema": "https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json",
+    "pid": "locent_org2",
+    "name": "Catholic Church",
+    "subordinate_units": [
+      "Concilium Plenarium Americae Latinae"
+    ],
+    "conference_numbering": "5th",
+    "conference_date": "1899",
+    "conference_place": "Rome, Italy",
+    "conference": false,
+    "type": "bf:Organisation"
+  },
+  "locent_work": {
+    "$schema": "https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json",
+    "pid": "locent_work",
+    "title": "Preludes",
+    "creator": "Chopin, Fre\u0301de\u0301ric (1810-1849)",
+    "type": "bf:Work"
   },
   "doc1": {
     "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",

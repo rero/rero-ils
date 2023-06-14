@@ -20,6 +20,7 @@
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
+from rero_ils.modules.entities.remote_entities.dumpers import document_dumper
 from rero_ils.modules.entities.remote_entities.utils import \
     extract_data_from_mef_uri
 
@@ -34,7 +35,7 @@ class ReplaceRefsEntitiesDumperMixin(Dumper):
         if not (entity := RemoteEntity.get_record_by_pid(data['pid'])):
             raise RecordNotFound(RemoteEntity, data['pid'])
         _, _type, _ = extract_data_from_mef_uri(data['$ref'])
-        entity = entity.dumps_for_document()
+        entity = entity.dumps(document_dumper)
         entity.update({
             'primary_source': _type,
             'pid': data['pid']
