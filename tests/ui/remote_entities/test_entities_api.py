@@ -29,7 +29,7 @@ from utils import flush_index, mock_response
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.remote_entities.api import \
     RemoteEntitiesSearch, RemoteEntity, remote_entity_id_fetcher
-from rero_ils.modules.entities.replace import ReplaceIdentifiedBy
+from rero_ils.modules.entities.remote_entities.replace import ReplaceIdentifiedBy
 from rero_ils.modules.entities.remote_entities.sync import SyncEntity
 
 

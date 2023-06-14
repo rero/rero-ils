@@ -1658,12 +1658,14 @@ RERO_ILS_DEFAULT_AGGREGATION_SIZE = 30
 RERO_ILS_AGGREGATION_SIZE = {
     'documents': 50,
     'organisations': 10,
-    'collections': 20
+    'collections': 20,
+    'entities': 20
 }
 
 DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('documents', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 PTRE_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('patron_transaction_events', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 ACQ_ORDER_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+ENTITIES_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('entities', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 
 FICTIONS_TERMS = ['Fictions', 'Films de fiction']
 
@@ -2032,22 +2034,63 @@ RECORDS_REST_FACETS = dict(
     ),
     entities=dict(
         aggs=dict(
-            sources=dict(
+            resource_type=dict(
                 terms=dict(
-                    field='sources',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'entity', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                    field='resource_type',
+                    size=ENTITIES_AGGREGATION_SIZE
                 )
             ),
             type=dict(
                 terms=dict(
                     field='type',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'entity', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                    size=ENTITIES_AGGREGATION_SIZE
+                )
+            ),
+            source_catalog=dict(
+                terms=dict(
+                    field='source_catalog',
+                    size=ENTITIES_AGGREGATION_SIZE
+                )
+            ),
+        ),
+        filters={
+            _('resource_type'): and_term_filter('resource_type'),
+            _('type'): and_term_filter('type'),
+            _('source_catalog'): and_term_filter('source_catalog'),
+        }
+    ),
+    remote_entities=dict(
+        aggs=dict(
+            sources=dict(
+                terms=dict(
+                    field='sources',
+                    size=ENTITIES_AGGREGATION_SIZE
+                )
+            ),
+            type=dict(
+                terms=dict(
+                    field='type',
+                    size=ENTITIES_AGGREGATION_SIZE
+                )
+            )
+        ),
+        filters={
+            _('sources'): and_term_filter('sources'),
+            _('type'): and_term_filter('type')
+        }
+    ),
+    local_entities=dict(
+        aggs=dict(
+            source_catalog=dict(
+                terms=dict(
+                    field='source_catalog',
+                    size=ENTITIES_AGGREGATION_SIZE
+                )
+            ),
+            type=dict(
+                terms=dict(
+                    field='type',
+                    size=ENTITIES_AGGREGATION_SIZE
                 )
             )
         ),
@@ -2381,23 +2424,21 @@ RECORDS_REST_SORT_OPTIONS['collections']['title'] = dict(
 RECORDS_REST_DEFAULT_SORT['collections'] = dict(
     query='bestmatch', noquery='start_date')
 
-# ------ CONTRIBUTIONS SORT
+# ------ ENTITIES SORT
 RECORDS_REST_SORT_OPTIONS['entities']['fr_name'] = dict(
-    fields=[
-        'idref_authorized_access_point_sort',
-        'rero_authorized_access_point_sort',
-        'gnd_authorized_access_point_sort',
-    ],
-    title='Collection french name',
+    fields=['authorized_access_point_fr.sort'],
     default_order='asc'
 )
 RECORDS_REST_SORT_OPTIONS['entities']['de_name'] = dict(
-    fields=[
-        'gnd_authorized_access_point_sort',
-        'idref_authorized_access_point_sort',
-        'rero_authorized_access_point_sort'
-    ],
-    title='Collection german name',
+    fields=['authorized_access_point_de.sort'],
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['entities']['en_name'] = dict(
+    fields=['authorized_access_point_en.sort'],
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['entities']['it_name'] = dict(
+    fields=['authorized_access_point_it.sort'],
     default_order='asc'
 )
 

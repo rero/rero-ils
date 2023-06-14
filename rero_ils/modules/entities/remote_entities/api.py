@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""API for manipulating entities."""
+"""API for manipulating remote entities."""
 
 import contextlib
 from functools import partial
@@ -31,13 +31,16 @@ from rero_ils.modules.documents.api import DocumentsIndexer, DocumentsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
-from rero_ils.utils import get_i18n_supported_languages
 
+from .dumpers import indexer_dumper
 from .models import RemoteEntityIdentifier, RemoteEntityMetadata, \
     EntityUpdateAction
 from .utils import extract_data_from_mef_uri, get_mef_data_by_type
 
 # provider
+from ..api import Entity
+from ..local_entities.dumpers import replace_refs_dumper
+
 RemoteEntityProvider = type(
     'EntityProvider',
     (Provider,),
@@ -63,13 +66,25 @@ class RemoteEntitiesSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class RemoteEntity(IlsRecord):
+class RemoteEntity(IlsRecord, Entity):
     """Mef contribution class."""
 
     minter = remote_entity_id_minter
     fetcher = remote_entity_id_fetcher
     provider = RemoteEntityProvider
     model_cls = RemoteEntityMetadata
+    # disable legacy replace refs
+    enable_jsonref = False
+
+    def resolve(self):
+        """Resolve references data.
+
+        Uses the dumper to do the job.
+        Mainly used by the `resolve=1` URL parameter.
+
+        :returns: a fresh copy of the resolved data.
+        """
+        return self.dumps(replace_refs_dumper)
 
     @classmethod
     def get_entity(cls, ref_type, ref_pid):
@@ -138,31 +153,6 @@ class RemoteEntity(IlsRecord):
             if value := self.get(source, {}).get(key, None):
                 return value
         return self.get(key, None)
-
-    def dumps_for_document(self):
-        """Transform the record into document contribution format."""
-        agent = {'pid': self.pid}
-        for agency in current_app.config['RERO_ILS_AGENTS_SOURCES']:
-            if field := self.get(agency):
-                agent['type'] = field.get('bf:Agent', self['type'])
-                agent[f'id_{agency}'] = self[agency]['pid']
-
-        for language in get_i18n_supported_languages():
-            value = self._get_mef_localized_value(
-                'authorized_access_point', language)
-            agent[f'authorized_access_point_{language}'] = value
-        variant_access_points = []
-        parallel_access_points = []
-        for source in self.get('sources'):
-            variant_access_points += self[source].get(
-                'variant_access_point', [])
-            parallel_access_points += self[source].get(
-                'parallel_access_point', [])
-        if variant_access_points:
-            agent['variant_access_point'] = variant_access_points
-        if parallel_access_points:
-            agent['parallel_access_point'] = parallel_access_points
-        return agent
 
     @property
     def organisation_pids(self):
@@ -295,6 +285,8 @@ class RemoteEntitiesIndexer(IlsRecordsIndexer):
     """Entity indexing class."""
 
     record_cls = RemoteEntity
+    # data dumper for indexing
+    record_dumper = indexer_dumper
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.

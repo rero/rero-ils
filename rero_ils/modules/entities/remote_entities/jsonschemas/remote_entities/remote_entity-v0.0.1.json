@@ -84,7 +84,8 @@
     },
     "deleted": {
       "title": "Deletion date",
-      "type": "string"
+      "type": "string",
+      "format": "date-time"
     }
   }
 }

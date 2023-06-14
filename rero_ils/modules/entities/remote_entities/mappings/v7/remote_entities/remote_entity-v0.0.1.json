@@ -36,22 +36,61 @@
         "analyzer": "autocomplete",
         "search_analyzer": "search_autocomplete"
       },
-      "gnd_authorized_access_point_sort": {
-        "type": "keyword",
-        "normalizer": "sort_normalizer"
+      "authorized_access_point_en": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "sort_normalizer"
+          }
+        }
       },
-      "idref_authorized_access_point_sort": {
-        "type": "keyword",
-        "normalizer": "sort_normalizer"
+      "authorized_access_point_fr": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "sort_normalizer"
+          }
+        }
       },
-      "rero_authorized_access_point_sort": {
-        "type": "keyword",
-        "normalizer": "sort_normalizer"
+      "authorized_access_point_de": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "sort_normalizer"
+          }
+        }
+      },
+      "authorized_access_point_it": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "sort_normalizer"
+          }
+        }
       },
       "$schema": {
         "type": "keyword"
       },
       "pid": {
+        "type": "keyword"
+      },
+      "resource_type": {
         "type": "keyword"
       },
       "type": {
@@ -120,8 +159,7 @@
           "authorized_access_point": {
             "type": "text",
             "copy_to": [
-              "autocomplete_name",
-              "gnd_authorized_access_point_sort"
+              "autocomplete_name"
             ]
           },
           "qualifier": {
@@ -331,8 +369,7 @@
           "authorized_access_point": {
             "type": "text",
             "copy_to": [
-              "autocomplete_name",
-              "idref_authorized_access_point_sort"
+              "autocomplete_name"
             ]
           },
           "qualifier": {
@@ -542,8 +579,7 @@
           "authorized_access_point": {
             "type": "text",
             "copy_to": [
-              "autocomplete_name",
-              "rero_authorized_access_point_sort"
+              "autocomplete_name"
             ]
           },
           "qualifier": {
