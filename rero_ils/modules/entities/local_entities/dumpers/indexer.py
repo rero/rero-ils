@@ -20,6 +20,8 @@
 
 from invenio_records.dumpers import Dumper
 
+from rero_ils.modules.entities.models import EntityResourceType
+
 
 class LocalEntityIndexerDumper(Dumper):
     """Local entity indexer."""
@@ -30,4 +32,5 @@ class LocalEntityIndexerDumper(Dumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
+        data['resource_type'] = EntityResourceType.LOCAL
         return data

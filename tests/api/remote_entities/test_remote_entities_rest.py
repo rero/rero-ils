@@ -23,6 +23,7 @@ from flask import url_for
 from utils import get_json, mock_response, postdata, to_relative_url
 
 from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.entities.remote_entities.dumpers import indexer_dumper
 
 
 def test_remote_entities_permissions(client, entity_person, json_header):
@@ -74,7 +75,8 @@ def test_remote_entities_get(client, entity_person):
     entity_person = entity_person.replace_refs()
     entity_person['organisations'] = entity_person.organisation_pids
     entity_person['type'] = EntityType.PERSON
-    assert data['hits']['hits'][0]['metadata'] == entity_person.replace_refs()
+    assert data['hits']['hits'][0]['metadata'] == \
+           entity_person.dumps(indexer_dumper)
 
 
 @mock.patch('rero_ils.modules.decorators.login_and_librarian',

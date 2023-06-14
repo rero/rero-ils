@@ -29,3 +29,10 @@ class EntityType:
     TEMPORAL = 'bf:Temporal'
     TOPIC = 'bf:Topic'
     WORK = 'bf:Work'
+
+
+class EntityResourceType:
+    """Class holding all available resource entity types."""
+
+    REMOTE = 'remote'
+    LOCAL = 'local'

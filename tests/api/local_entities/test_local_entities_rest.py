@@ -26,6 +26,7 @@ from utils import get_json, postdata, to_relative_url, \
 
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.entities.local_entities.api import LocalEntity
+from rero_ils.modules.entities.local_entities.dumpers import indexer_dumper
 
 
 def test_local_entities_permissions(client, roles, local_entity_person,
@@ -81,7 +82,8 @@ def test_local_entities_get(client, local_entity_person):
     data = get_json(res)
     entity_person = local_entity_person.replace_refs()
     entity_person['type'] = EntityType.PERSON
-    assert data['hits']['hits'][0]['metadata'] == entity_person.dumps()
+    assert data['hits']['hits'][0]['metadata'] == \
+           entity_person.dumps(dumper=indexer_dumper)
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -112,7 +114,7 @@ def test_local_entities_post_put_delete(client, local_entity_person_data,
 
     # Update record/PUT
     data = local_entity_data
-    data['preferred_name'] = 'Test Name'
+    data['name'] = 'Test Name'
     res = client.put(
         item_url,
         data=json.dumps(data),
@@ -122,19 +124,19 @@ def test_local_entities_post_put_delete(client, local_entity_person_data,
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['preferred_name'] == 'Test Name'
+    assert data['metadata']['name'] == 'Test Name'
 
+    # Check value from record API
     res = client.get(item_url)
     assert res.status_code == 200
-
     data = get_json(res)
-    assert data['metadata']['preferred_name'] == 'Test Name'
+    assert data['metadata']['name'] == 'Test Name'
 
+    # Check value from Elasticsearch
     res = client.get(list_url)
     assert res.status_code == 200
-
     data = get_json(res)['hits']['hits'][0]
-    assert data['metadata']['preferred_name'] == 'Test Name'
+    assert data['metadata']['name'] == 'Test Name'
 
     # Delete record/DELETE
     res = client.delete(item_url)
