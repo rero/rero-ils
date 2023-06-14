@@ -186,6 +186,7 @@
         "subtype": {
           "enum": [
             "cash",
+            "invoice",
             "debit_card",
             "credit_card",
             "paypal"
@@ -195,6 +196,10 @@
               {
                 "label": "cash",
                 "value": "cash"
+              },
+              {
+                "label": "invoice",
+                "value": "invoice"
               },
               {
                 "label": "debit_card",
