@@ -21,6 +21,7 @@ import json
 
 import mock
 import pytest
+from datetime import datetime, timedelta
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
@@ -151,8 +152,33 @@ def test_library_never_open(lib_sion):
     assert lib_sion.next_open()
 
     del lib_sion['opening_hours']
+    # add an exception date in the past
+    open_exception = {
+        'is_open': True,
+        'start_date': '2012-01-09',
+        'title': 'Ouverture exceptionnelle',
+        'times': [
+            {
+                'end_time': '16:00',
+                'start_time': '12:00'
+            }
+        ]
+    }
+
+    lib_sion['exception_dates'].append(open_exception)
     lib_sion.update(lib_sion, dbcommit=True, reindex=True)
 
+    # check that the exception in the past is not considered for next open date
+    with pytest.raises(LibraryNeverOpen):
+        assert lib_sion.next_open()
+
+    # compute a date in the future and add it as exception date
+    today = datetime.today()
+    future_date = (today + timedelta(days=14)).strftime('%Y-%m-%d')
+    open_exception['start_date'] = future_date
+    lib_sion.update(lib_sion, dbcommit=True, reindex=True)
+
+    # check that the exception in the future is considered as open date
     assert lib_sion._has_is_open()
 
     del lib_sion['exception_dates']

@@ -26,6 +26,7 @@ from flask import current_app
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.libraries.exceptions import LibraryNeverOpen
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_ref_for_pid
@@ -83,10 +84,14 @@ def get_default_loan_duration(loan, initial_loan):
     due_date_eve = now_in_library_timezone \
         + timedelta(days=policy.get('checkout_duration', 0)) \
         - timedelta(days=1)
-    next_open_date = library.next_open(date=due_date_eve)
+    try:
+        end_date = library.next_open(date=due_date_eve)
+    except LibraryNeverOpen:
+        # if the library has no open day, use standard loan duration from cipo
+        end_date = due_date_eve + timedelta(days=1)
     # all libraries are closed at 23h59
     # the next_open returns UTC.
-    end_date_in_library_timezone = next_open_date.astimezone(
+    end_date_in_library_timezone = end_date.astimezone(
         library.get_timezone()).replace(
             hour=23,
             minute=59,
@@ -152,11 +157,17 @@ def extend_loan_data_is_valid(end_date, renewal_duration, library_pid):
     renewal_duration = renewal_duration or 0
     end_date = ciso8601.parse_datetime(end_date)
     library = Library.get_record_by_pid(library_pid)
-    first_open_date = library.next_open(
-        date=datetime.now(timezone.utc)
+    try:
+        first_open_date = library.next_open(
+            date=datetime.now(timezone.utc)
+            + timedelta(days=renewal_duration)
+            - timedelta(days=1)
+        )
+    # if library has no open dates, use the default renewal duration
+    except LibraryNeverOpen:
+        first_open_date = datetime.now(timezone.utc)
         + timedelta(days=renewal_duration)
         - timedelta(days=1)
-    )
     return first_open_date.date() > end_date.date()
 
 

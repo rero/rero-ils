@@ -31,6 +31,106 @@ from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 
 
+def test_checkout_library_never_open(
+        circulation_policies,
+        patron_martigny,
+        lib_martigny,
+        item_lib_martigny,
+        loc_public_martigny,
+        librarian_martigny
+        ):
+    """Test checkout from a library without opening hours."""
+
+    # Test checkout if library has no open days but has exception days/hours
+    # in the past
+    lib_martigny['opening_hours'] = [
+        {
+            "day": "monday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "tuesday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "wednesday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "thursday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "friday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "saturday",
+            "is_open": False,
+            "times": []
+        },
+        {
+            "day": "sunday",
+            "is_open": False,
+            "times": []
+        }
+    ]
+    lib_martigny.commit()
+
+    data = deepcopy(item_lib_martigny)
+    data.pop('barcode')
+    data.setdefault('status', ItemStatus.ON_SHELF)
+    created_item = Item.create(
+        data=data, dbcommit=True, reindex=True, delete_pid=True)
+
+    params = {
+        'patron_pid': patron_martigny.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    onloan_item, actions = created_item.checkout(**params)
+    loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
+
+    # check that can_extend method does not raise exception
+    assert Loan.can_extend(onloan_item)[0] in [True, False]
+
+    # check loan is ITEM_ON_LOAN and item is ON_LOAN
+    assert onloan_item.status == ItemStatus.ON_LOAN
+    assert loan['state'] == LoanState.ITEM_ON_LOAN
+
+    # test checkout if library has no open days and no exception days/hours
+    del lib_martigny['exception_dates']
+    lib_martigny.commit()
+
+    data = deepcopy(item_lib_martigny)
+    data.pop('barcode')
+    data.setdefault('status', ItemStatus.ON_SHELF)
+    created_item = Item.create(
+        data=data, dbcommit=True, reindex=True, delete_pid=True)
+
+    params = {
+        'patron_pid': patron_martigny.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    onloan_item, actions = created_item.checkout(**params)
+    loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
+
+    # check loan is ITEM_ON_LOAN and item is ON_LOAN
+    assert onloan_item.status == ItemStatus.ON_LOAN
+    assert loan['state'] == LoanState.ITEM_ON_LOAN
+
+    from invenio_db import db
+    db.session.rollback()
+
+
 def test_checkout_on_item_on_shelf(
         circulation_policies,
         patron_martigny,
