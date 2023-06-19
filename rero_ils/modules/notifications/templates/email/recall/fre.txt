@@ -2,7 +2,8 @@ Document non prolongeable
 {%- include('email/_patron_address.txt') %}
 Chère lectrice, cher lecteur,
 
-Le document que vous avez emprunté vient d'être réservé par une autre personne. D'ores et déjà nous vous signalons que nous ne pourrons pas le prolonger et vous demandons de bien vouloir le restituer au plus tard à la date d'échéance.
+Le document que vous avez emprunté a été réservé par une autre personne.
+D'ores et déjà nous vous signalons que nous ne pourrons pas le prolonger et vous demandons de bien vouloir le restituer au plus tard à la date d'échéance.
 
 {%- for loan in loans %}
 
