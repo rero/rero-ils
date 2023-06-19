@@ -777,8 +777,7 @@ class Loan(IlsRecord):
 
         This function will check the loan and return all possible notifications
         to be created related to it. In some case, a notification must be
-        generated on an the basis of another loan than itself (in case of
-        request).
+        generated based on another loan than itself (in case of request).
 
         :param trigger: the fired action trigger (optional)
         :return a list of tuple. Each tuple represent a notification candidate.
@@ -805,22 +804,29 @@ class Loan(IlsRecord):
             ))
 
         # REQUEST & RECALL NOTIFICATION
-        #   When a request is created on a item, the system create a 'pending'
+        #   When a request is created on an item, the system create a 'pending'
         #   loan. If the corresponding item is checked-out, we can create a
         #   RECALL notification on it (ask the user to return the item because
         #   someone else requested it)
+
         if self.state == LoanState.PENDING and not has_request:
             # get the checked-out loan
             co_loan_pid = Item.get_loan_pid_with_item_on_loan(self.item_pid)
-            # is the item on loan
-            if co_loan_pid:
-                co_loan = Loan.get_record_by_pid(co_loan_pid)
+            # is the item on loan ?
+            if co_loan := Loan.get_record_by_pid(co_loan_pid):
                 if not co_loan.is_notified(NotificationType.RECALL):
                     candidates.append((co_loan, NotificationType.RECALL))
             elif not item.temp_item_type_negative_availability:
                 # We could create a REQUEST notification to notify librarian
                 # to prepare the item for a loan.
                 candidates.append((self, NotificationType.REQUEST))
+
+        # RECALL NOTIFICATION AT CHECKOUT
+        #   When an item is checkout and this item has pending request for
+        #   another patron, a RECALL notification could be created.
+        if trigger == LoanAction.CHECKOUT and has_request \
+           and not self.is_notified(NotificationType.RECALL):
+            candidates.append((self, NotificationType.RECALL))
 
         # TRANSIT
         #   When the current loan (item) goes to transit and doesn't have any

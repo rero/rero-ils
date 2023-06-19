@@ -326,11 +326,11 @@ def test_notifications_post_put_delete(
     notif.delete(dbcommit=True, delindex=True)
 
 
-def test_recall_notification(client, patron_sion, lib_sion,
-                             json_header, patron2_martigny,
-                             item_lib_sion, librarian_sion,
-                             circulation_policies, loc_public_sion,
-                             mailbox):
+def test_recall_notification(
+    client, patron_sion, lib_sion, json_header, patron2_martigny,
+    patron_martigny, item_lib_sion, librarian_sion, circulation_policies,
+    loc_public_sion, mailbox
+):
     """Test recall notification."""
     mailbox.clear()
     login_user_via_session(client, librarian_sion.user)
@@ -394,7 +394,7 @@ def test_recall_notification(client, patron_sion, lib_sion,
     )
     assert res.status_code == 200
 
-    # no new notification is send for the second time
+    # no new notification is sent for the second time
     res, _ = postdata(
         client,
         'api_item.librarian_request',
@@ -426,6 +426,65 @@ def test_recall_notification(client, patron_sion, lib_sion,
     mailbox.clear()
     for notification_type in NotificationType.ALL_NOTIFICATIONS:
         process_notifications(notification_type)
+
+
+def test_recall2_notifications(
+    client, librarian_martigny, item_lib_martigny, patron_martigny,
+    patron2_martigny, loc_public_martigny, circulation_policies, mailbox
+):
+    mailbox.clear()
+    login_user_via_session(client, librarian_martigny.user)
+    # - Create request for User#X
+    # - Create request for User#Y
+    # - Validate the User#X request
+    # - Checkout the requested item for User#X
+    # - Check a recall notification has been sent to User#X
+    item, actions = item_lib_martigny.request(
+        patron_pid=patron_martigny.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid
+    )
+    loan_request1 = Loan.get_record_by_pid(actions['request']['pid'])
+    item, actions = item_lib_martigny.request(
+        patron_pid=patron2_martigny.pid,
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid
+    )
+    loan_request2 = Loan.get_record_by_pid(actions['request']['pid'])
+    assert loan_request1.pid != loan_request2.pid
+
+    item_lib_martigny.validate_request(
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
+        pid=loan_request1.pid
+    )
+
+    # Checkout the first request, as another request already exists then a
+    # recall notification should be sent.
+    mailbox.clear()
+    item_lib_martigny.checkout(
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid,
+        pid=loan_request1.pid
+    )
+    process_notifications(NotificationType.RECALL)
+    flush_index(NotificationsSearch.Meta.index)
+    assert not loan_request1.is_notified(
+        notification_type=NotificationType.RECALL, counter=1)
+    assert len(mailbox) == 1
+
+    # RESET
+    #  - cancel loan_request2,
+    #  - checkin loan_request1
+    item_lib_martigny.cancel_item_request(
+        loan_request2.pid,
+        transaction_user_pid=patron2_martigny.pid,
+        transaction_location_pid=loc_public_martigny.pid
+    )
+    item_lib_martigny.checkin(
+        transaction_location_pid=loc_public_martigny.pid,
+        transaction_user_pid=librarian_martigny.pid
+    )
 
 
 def test_recall_notification_with_disabled_config(
