@@ -153,11 +153,9 @@ class StatsForPricing:
                 'number_of_renewals':
                     self.number_of_circ_operations(
                         lib.pid, ItemCirculationAction.EXTEND),
-                'number_of_satisfied_ill_request':
-                    self.number_of_satisfied_ill_request(
-                        lib.pid,
-                        [ILLRequestStatus.PENDING, ILLRequestStatus.VALIDATED,
-                         ILLRequestStatus.CLOSED]),
+                'number_of_validated_ill_requests':
+                    self.number_of_ill_requests_operations(
+                        lib.pid, [ILLRequestStatus.VALIDATED]),
                 'number_of_items': self.number_of_items(lib.pid),
                 'number_of_new_items': self.number_of_new_items(lib.pid),
                 'number_of_deleted_items': self.number_of_deleted_items(
@@ -261,8 +259,9 @@ class StatsForPricing:
             .filter('term', loan__item__library_pid=library_pid)\
             .count()
 
-    def number_of_satisfied_ill_request(self, library_pid, status):
-        """Number of ILL requests created during the specified timeframe.
+    def number_of_ill_requests_operations(self, library_pid, status):
+        """Number of ILL requests creation or update operations during the
+        specified timeframe.
 
         :param library_pid: string - the library to filter with
         :param status: list of status to filter with
@@ -271,7 +270,7 @@ class StatsForPricing:
         """
         query = RecordsSearch(index=LoanOperationLog.index_name)\
             .filter('term', record__type='illr')\
-            .filter('term', operation='create')\
+            .filter('terms', operation=['update', 'create'])\
             .filter('range', _created=self.date_range)\
             .filter('term', ill_request__library_pid=library_pid)\
             .filter('terms', ill_request__status=status)
