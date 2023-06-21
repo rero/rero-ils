@@ -12,28 +12,28 @@
     "$ref": {
       "title": "Agent",
       "type": "string",
-      "pattern": "^https://mef.rero.ch/api/agents/(gnd|idref|rero)/.*?$",
-      "form": {
-        "type": "remoteTypeahead",
-        "remoteTypeahead": {
-          "enableGroupField": true,
-          "type": "mef",
-          "filters": {
-            "default": "bf:Person",
-            "options": [
-              {
-                "label": "Person",
-                "value": "bf:Person"
-              },
-              {
-                "label": "bf:Organisation",
-                "value": "bf:Organisation"
-              }
+      "pattern": "^(https://mef.rero.ch/api/agents/(gnd|idref|rero)/.*|https://bib.rero.ch/api/local_entities/.*?)$",
+      "widget": {
+        "formlyConfig": {
+          "type": "entityTypeahead",
+          "templateOptions": {
+            "filters": {
+              "options": [
+                {
+                  "label": "Person",
+                  "value": "bf:Person"
+                },
+                {
+                  "label": "bf:Organisation",
+                  "value": "bf:Organisation"
+                }
+              ]
+            },
+            "itemCssClass": "col-12",
+            "wrappers": [
+              "form-field-horizontal"
             ]
           }
-        },
-        "templateOptions": {
-          "itemCssClass": "col-lg-12"
         }
       }
     },

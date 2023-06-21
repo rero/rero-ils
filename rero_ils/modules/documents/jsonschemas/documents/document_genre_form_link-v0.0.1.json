@@ -12,24 +12,24 @@
     "$ref": {
       "title": "Genre, form",
       "type": "string",
-      "pattern": "^https://mef.rero.ch/api/concepts/idref/.*?$",
-      "form": {
-        "type": "remoteTypeahead",
-        "remoteTypeahead": {
-          "enableGroupField": true,
-          "type": "mef",
-          "filters": {
-            "default": "concepts-genreForm",
-            "options": [
-              {
-                "label": "Genre, form",
-                "value": "concepts-genreForm"
-              }
+      "pattern": "^(https://mef.rero.ch/api/concepts/(gnd|idref|rero)/.*|https://bib.rero.ch/api/local_entities/.*?)$",
+      "widget": {
+        "formlyConfig": {
+          "type": "entityTypeahead",
+          "templateOptions": {
+            "filters": {
+              "options": [
+                {
+                  "label": "Genre, form",
+                  "value": "concepts-genreForm"
+                }
+              ]
+            },
+            "itemCssClass": "col-12",
+            "wrappers": [
+              "form-field-horizontal"
             ]
           }
-        },
-        "templateOptions": {
-          "itemCssClass": "col-lg-12"
         }
       }
     },

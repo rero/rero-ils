@@ -354,12 +354,12 @@ def entity_person_data_all(data):
 @pytest.fixture(scope="module")
 def entity_person_all(app, entity_person_data_all):
     """Load contribution person record."""
-    cont = Entity.create(
+    cont = RemoteEntity.create(
         data=entity_person_data_all,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(EntitiesSearch.Meta.index)
+    flush_index(RemoteEntitiesSearch.Meta.index)
     return cont
 
 
@@ -372,12 +372,12 @@ def entity_person_rero_data(data):
 @pytest.fixture(scope="module")
 def entity_person_rero(app, entity_person_rero_data):
     """Create mef person record."""
-    pers = Entity.create(
+    pers = RemoteEntity.create(
         data=entity_person_rero_data,
         delete_pid=False,
         dbcommit=True,
         reindex=True)
-    flush_index(EntitiesSearch.Meta.index)
+    flush_index(RemoteEntitiesSearch.Meta.index)
     return pers
 
 
