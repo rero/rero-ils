@@ -12,32 +12,33 @@
     "$ref": {
       "title": "Subject",
       "type": "string",
-      "pattern": "^https://mef.rero.ch/api/(agents|concepts)/(gnd|idref|rero)/.*?$",
-      "form": {
-        "type": "remoteTypeahead",
-        "remoteTypeahead": {
-          "enableGroupField": true,
-          "type": "mef",
-          "filters": {
-            "default": "bf:Topic",
-            "options": [
-              {
-                "label": "Topic",
-                "value": "bf:Topic"
-              },
-              {
-                "label": "Person",
-                "value": "bf:Person"
-              },
-              {
-                "label": "bf:Organisation",
-                "value": "bf:Organisation"
-              }
+      "pattern": "^(https://mef.rero.ch/api/(agents|concepts)/(gnd|idref|rero)/.*|https://bib.rero.ch/api/local_entities/.*?)$",
+      "widget": {
+        "formlyConfig": {
+          "type": "entityTypeahead",
+          "templateOptions": {
+            "filters": {
+              "default": "bf:Topic",
+              "options": [
+                {
+                  "label": "Topic",
+                  "value": "bf:Topic"
+                },
+                {
+                  "label": "Person",
+                  "value": "bf:Person"
+                },
+                {
+                  "label": "bf:Organisation",
+                  "value": "bf:Organisation"
+                }
+              ]
+            },
+            "itemCssClass": "col-12",
+            "wrappers": [
+              "form-field-horizontal"
             ]
           }
-        },
-        "templateOptions": {
-          "itemCssClass": "col-lg-12"
         }
       }
     },
