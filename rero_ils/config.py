@@ -432,7 +432,7 @@ CELERY_BEAT_SCHEDULE = {
         'enabled': False,
     },
     'replace-identified-by': {
-        'task': 'rero_ils.modules.entities.tasks.replace_identified_by',
+        'task': 'rero_ils.modules.entities.remote_entities.tasks.replace_identified_by',
         'schedule': crontab(minute=0, hour=3, day_of_week=6), # Every Saturday at 03:00 UTC,
         'enabled': False,
     },
