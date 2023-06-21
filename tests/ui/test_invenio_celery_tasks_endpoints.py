@@ -26,9 +26,10 @@ from invenio_records_rest.utils import obj_or_import_string
 def test_missing_invenio_celery_task_endpoints(app):
     """Test missing invenio_celery task endpoints."""
     celery_extension = app.extensions['invenio-celery']
-    celery_entpoints = []
-    for e in entry_points(group=celery_extension.entry_point_group):
-        celery_entpoints.append(e.value)
+    celery_entpoints = [
+        e.value
+        for e in entry_points(group=celery_extension.entry_point_group)
+    ]
 
     for task, data in app.config['CELERY_BEAT_SCHEDULE'].items():
         task_function = data['task']

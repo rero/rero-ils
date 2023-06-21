@@ -1580,7 +1580,7 @@
     "viaf_pid": "70119347"
   },
   "ent_pers2": {
-    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "pid": "ent_pers2",
     "rero": {
       "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
@@ -1725,7 +1725,7 @@
     ]
   },
   "ent_topic2": {
-    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "pid": "ent_topic2",
     "rero": {
       "$schema": "https://mef.rero.ch/schemas/concepts_rero/rero-concept-v0.0.1.json",
@@ -1766,7 +1766,7 @@
     ]
   },
   "ent_pers_all": {
-    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "type": "bf:Person",
     "gnd": {
       "$schema": "https://mef.rero.ch/schemas/agents_gnd/gnd-agent-v0.0.1.json",
@@ -1826,7 +1826,7 @@
     "viaf_pid": "108158722"
   },
   "ent_pers_rero": {
-    "$schema": "https://bib.rero.ch/schemas/entities/entity-v0.0.1.json",
+    "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "type": "bf:Person",
     "pid": "ent_pers_rero",
     "rero": {
