@@ -66,6 +66,10 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
         organisation = Organisation.get_record_by_viewcode(viewcode)
 
+    # hide masked documents from the public view
+    if record.get('_masked'):
+        abort(404)
+
     record['available'] = Document.is_available(record.pid, viewcode)
 
     # build provision activity

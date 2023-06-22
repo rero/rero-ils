@@ -19,6 +19,7 @@
 
 
 from flask import url_for
+from invenio_db import db
 
 
 def test_documents_detailed_view(client, loc_public_martigny, document):
@@ -30,6 +31,20 @@ def test_documents_detailed_view(client, loc_public_martigny, document):
         pid_value='doc1'
     ))
     assert res.status_code == 200
+
+
+def test_masked_document(client, loc_public_martigny, document):
+    """Test document detailed view."""
+    document["_masked"] = True
+    document.commit()
+
+    res = client.get(url_for(
+        'invenio_records_ui.doc',
+        viewcode='global',
+        pid_value='doc1'
+    ))
+    assert res.status_code == 404
+    db.session.rollback()
 
 
 def tests_document_item_filter_detailed_view(
