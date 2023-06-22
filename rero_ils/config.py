@@ -172,6 +172,7 @@ I18N_LANGUAGES = [
     ('fr', _('French')),
     ('de', _('German')),
     ('it', _('Italian')),
+    ('es', _('Spanish'))
 ]
 # Define the default system currency in used. Each organisation can override
 # this parameter using the 'default_currency' field

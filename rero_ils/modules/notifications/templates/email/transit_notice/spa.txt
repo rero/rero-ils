@@ -1,0 +1,13 @@
+Aviso de tránsito
+
+{% for loan in loans %}
+Fecha: {{ loan.creation_date }}
+Título: {{ loan.document.title_text }}
+Código de barras: {{ loan.document.barcode }}
+{%- if loan.document.call_numbers %}
+Clasificación: {{ loan.document.call_numbers | join(' | ') }}
+{%- endif %}
+Origen: {{ loan.transaction_library.name }}
+Destinación: {{ loan.document.library_name }}: {{ loan.document.location_name }}
+
+{% endfor %}

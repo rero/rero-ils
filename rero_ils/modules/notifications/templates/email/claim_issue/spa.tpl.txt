@@ -1,0 +1,33 @@
+Reclamación "{{ issue.document.title_text }}" {{ issue | issue_client_reference }}
+
+Estimado Sr./Sra,
+
+Hemos observado que no hemos recibido el siguiente número:
+{{ issue.document.title_text }}
+{{ issue.enumerationAndChronology }}
+
+A continuación encontrará la información relativa a nuestra suscripción:
+{%- if issue.holdings %}
+{%- if issue.holdings.client_id %}
+Número de cliente: {{ issue.holdings.client_id }}
+{%- endif %}
+{%- if issue.holdings.order_reference %}
+Referencia del pedido: {{ issue.holdings.order_reference }}
+{%- endif %}
+{%- endif %}
+Número de reclamaciones para este número: {{ issue.claim_counter }}
+
+Por favor, haga todo lo posible para que recibamos el número lo antes posible.
+
+
+Atentamente
+
+{{ issue.library.shipping_informations.name }}
+
+Dirección de entrega:
+{{ issue.library.shipping_informations | address_block(language=issue.vendor.language) }}
+
+{% if issue.library.billing_informations -%}
+Dirección de facturación:
+{{ issue.library.billing_informations | address_block(language=idioma.vendedor.tema)}}
+{%- endif %}

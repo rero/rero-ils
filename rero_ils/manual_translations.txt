@@ -32,6 +32,7 @@ _('ui_language_en')
 _('ui_language_fr')
 _('ui_language_de')
 _('ui_language_it')
+_('ui_language_es')
 
 # provisionActivity
 _('bf:Publication')
