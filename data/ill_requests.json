@@ -1,6 +1,7 @@
 [
   {
     "status": "pending",
+    "loan_status": "PENDING",
     "copy": false,
     "document": {
       "title": "Histoire d'\u00c9gypte",
@@ -16,6 +17,7 @@
   },
   {
     "status": "pending",
+    "loan_status": "PENDING",
     "copy": true,
     "document": {
       "title": "L'invention du pain",
@@ -41,6 +43,7 @@
   },
   {
     "status": "pending",
+    "loan_status": "PENDING",
     "copy": false,
     "document": {
       "title": "Python for dummies",
@@ -54,6 +57,7 @@
   },
   {
     "status": "pending",
+    "loan_status": "PENDING",
     "copy": true,
     "document": {
       "title": "Le grand roman des maths",

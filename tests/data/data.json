@@ -4717,6 +4717,7 @@
     "$schema": "https://bib.rero.ch/schemas/ill_requests/ill_request-v0.0.1.json",
     "pid": "illr1",
     "status": "pending",
+    "loan_status": "PENDING",
     "copy": false,
     "document": {
       "title": "Histoire d'\u00c9gypte",
@@ -4733,6 +4734,7 @@
     "$schema": "https://bib.rero.ch/schemas/ill_requests/ill_request-v0.0.1.json",
     "pid": "illr2",
     "status": "pending",
+    "loan_status": "PENDING",
     "copy": true,
     "document": {
       "title": "Python fr dummies."
@@ -4749,6 +4751,7 @@
     "$schema": "https://bib.rero.ch/schemas/ill_requests/ill_request-v0.0.1.json",
     "pid": "illr3",
     "status": "pending",
+    "loan_status": "PENDING",
     "copy": true,
     "document": {
       "title": "Python"
