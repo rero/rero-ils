@@ -19,6 +19,7 @@
     "$schema",
     "pid",
     "status",
+    "loan_status",
     "patron",
     "pickup_location",
     "copy",
@@ -110,6 +111,7 @@
         "ITEM_ON_LOAN",
         "ITEM_RETURNED"
       ],
+      "default": "PENDING",
       "form": {
         "placeholder": "Choose a status",
         "options": [
@@ -251,10 +253,6 @@
     "found_in": {
       "type": "object",
       "title": "Found in",
-      "required": [
-        "source",
-        "url"
-      ],
       "propertiesOrder": [
         "source",
         "url"
@@ -263,12 +261,7 @@
         "source": {
           "type": "string",
           "title": "Source",
-          "minLength": 3,
-          "form": {
-            "expressionProperties": {
-              "templateOptions.required": "field?.parent?.model && (field.parent.model.url !== undefined && field.parent.model.url !== '')"
-            }
-          }
+          "minLength": 3
         },
         "url": {
           "type": "string",
@@ -279,14 +272,22 @@
           "minLength": 7,
           "form": {
             "expressionProperties": {
-              "templateOptions.required": "field?.parent?.model && (field.parent.model.source !== undefined && field.parent.model.source !== '')"
+              "templateOptions.required": "true"
             },
+            "hideExpression": "!field?.parent?.model?.source || (field.parent.model.source == undefined || field.parent.model.source == '')",
             "validation": {
               "messages": {
                 "patternMessage": "Should be a valid URL format."
               }
             }
           }
+        }
+      },
+      "form": {
+        "templateOptions": {
+          "wrappers": [
+            "card"
+          ]
         }
       }
     },

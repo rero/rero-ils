@@ -194,6 +194,9 @@ class ILLRequestForm(FlaskForm):
                     'number': self.document.source.number.data,
                 }
             },
+            # the loan status is required by the jsonschema, it is always
+            # PENDING on ill request creation
+            'loan_status': "PENDING",
             'pickup_location': {
                 '$ref': get_ref_for_pid('locations', self.pickup_location.data)
             },
