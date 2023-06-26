@@ -41,7 +41,8 @@
             "item",
             "loan",
             "illr",
-            "notif"
+            "notif",
+            "locent"
           ]
         },
         "value": {

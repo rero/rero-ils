@@ -2889,7 +2889,8 @@ RERO_ILS_ENABLE_OPERATION_LOG = {
     'documents': 'doc',
     'holdings': 'hold',
     'items': 'item',
-    'ill_requests': 'illr'
+    'ill_requests': 'illr',
+    'local_entities': 'locent'
 }
 RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION = False
 

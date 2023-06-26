@@ -25,13 +25,14 @@ from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.utils import sorted_pids
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
+from rero_ils.modules.operation_logs.extensions import \
+    OperationLogObserverExtension
 from rero_ils.modules.providers import Provider
 
 from .dumpers import indexer_dumper, replace_refs_dumper
 from .extensions import AuthorizedAccessPointExtension, \
     LocalEntityFactoryExtension
 from .models import LocalEntityIdentifier, LocalEntityMetadata
-
 from ..api import Entity
 
 # provider
@@ -72,7 +73,8 @@ class LocalEntity(IlsRecord, Entity):
 
     _extensions = [
         LocalEntityFactoryExtension(),
-        AuthorizedAccessPointExtension()
+        AuthorizedAccessPointExtension(),
+        OperationLogObserverExtension()
     ]
 
     @property
