@@ -179,6 +179,7 @@ def item_lib_martigny_masked(
         item_type_standard_martigny):
     """Create item of martigny library."""
     data = deepcopy(item_lib_martigny_data)
+    data['barcode'] = 'masked'
     data['pid'] = f'maked-{data["pid"]}'
     data['_masked'] = True
     item = Item.create(

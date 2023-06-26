@@ -19,6 +19,7 @@
 from datetime import datetime, timezone
 
 import pytz
+from contextlib import suppress
 from elasticsearch_dsl.query import Q
 from flask_babelex import gettext as _
 
@@ -54,6 +55,8 @@ class ItemRecord(IlsRecord):
     def extended_validation(self, **kwargs):
         """Add additional record validation.
 
+        Ensures that barcode field is unique.
+
         Ensures that item of type issue is created only on
         holdings of type serials.
 
@@ -64,7 +67,8 @@ class ItemRecord(IlsRecord):
 
         Ensures that only one note of each type is present.
 
-        :return: False if
+        :return: Error message if
+            - barcode already exists
             - holdings type is not journal and item type is issue.
             - item type is journal and field issue exists.
             - item type is standard and field issue does not exists.
@@ -73,6 +77,17 @@ class ItemRecord(IlsRecord):
             - temporary_item_type isn't in the future (if specified)
 
         """
+        from . import ItemsSearch
+        if barcode := self.get('barcode'):
+            if (
+                ItemsSearch()
+                .exclude('term', pid=self.pid)
+                .filter('term', barcode=barcode)
+                .source('pid')
+                .count()
+            ):
+                return _(f'Barcode {barcode} is already taken.')
+
         from ...holdings.api import Holding
         holding_pid = extracted_data_from_ref(self.get('holding').get('$ref'))
         holding = Holding.get_record_by_pid(holding_pid)
@@ -351,7 +366,7 @@ class ItemRecord(IlsRecord):
             yield item_pid_to_object(item.pid)
 
     @classmethod
-    def get_item_by_barcode(cls, barcode, organisation_pid):
+    def get_item_by_barcode(cls, barcode, organisation_pid=None):
         """Get item by barcode.
 
         :param barcode: the item barcode.
@@ -362,15 +377,15 @@ class ItemRecord(IlsRecord):
         :rtype `rero_ils.modules.items.api.api.Item`
         """
         from . import ItemsSearch
+        filters = Q('term', barcode=barcode)
+        if organisation_pid:
+            filters &= Q('term', organisation__pid=organisation_pid)
         results = ItemsSearch()\
-            .filter('term', barcode=barcode)\
-            .filter('term', organisation__pid=organisation_pid)\
+            .filter(filters)\
             .source(includes='pid')\
             .scan()
-        try:
+        with suppress(StopIteration):
             return cls.get_record_by_pid(next(results).pid)
-        except StopIteration:
-            return None
 
     def get_organisation(self):
         """Shortcut to the organisation of the item location."""

@@ -23,7 +23,7 @@ from functools import partial
 
 from elasticsearch_dsl import Q
 from flask import current_app
-from flask_babelex import gettext as _
+from flask_babelex import ngettext, gettext as _
 from flask_login import current_user
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
@@ -121,6 +121,37 @@ class Patron(IlsRecord):
     _extensions = [
         UserDataExtension()
     ]
+
+    def extended_validation(self, **kwargs):
+        """Returns reasons for validation failures, otherwise True.
+
+        Ensures that barcode field is unique in the organisation.
+
+        :return: Error message if
+            - barcode already exists in organisation
+        """
+        org_pid = self.organisation_pid
+        if patron_barcodes := self.get('patron', {}).get('barcode', []):
+            results = PatronsSearch()\
+                .filter('terms', patron__barcode=patron_barcodes)\
+                .filter('term', organisation__pid=org_pid)\
+                .exclude('term', pid=self.pid)\
+                .source(['pid', 'patron.barcode']).scan()
+            taken_barcodes = []
+            for hit in results:
+                taken_barcodes.extend(
+                    barcode
+                    for barcode in hit.patron.barcode
+                    if barcode in patron_barcodes
+                )
+            if taken_barcodes:
+                return ngettext(
+                    f"Barcode {taken_barcodes[0]} is already taken",
+                    f"Barcodes {', '.join(taken_barcodes)} are already taken.",
+                    num=len(taken_barcodes),
+                )
+
+        return True
 
     # =========================================================================
     # CRUD METHODS
@@ -549,15 +580,13 @@ class Patron(IlsRecord):
             return cls.get_record_by_pid(pid)
 
     @classmethod
-    def get_patron_by_barcode(cls, barcode=None, org_pid=None):
+    def get_patron_by_barcode(cls, barcode, org_pid=None):
         """Get patron by barcode.
 
         :param barcode: the patron barcode.
         :param org_pid: filter patron belongs to this organisation pid.
         :return: The patron corresponding to this barcode.
         """
-        if not barcode:
-            return None
         filters = Q('term', patron__barcode=barcode)
         if org_pid:
             filters &= Q('term', organisation__pid=org_pid)

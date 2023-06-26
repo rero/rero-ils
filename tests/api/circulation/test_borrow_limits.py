@@ -254,6 +254,7 @@ def test_overdue_limit(
 
     tmp_item_data = deepcopy(item_lib_martigny_data)
     del tmp_item_data['pid']
+    del tmp_item_data['barcode']
     tmp_item_data['library']['$ref'] = get_ref_for_pid('lib', lib_saxon.pid)
     tmp_item_data['location']['$ref'] = \
         get_ref_for_pid('loc', loc_public_saxon.pid)

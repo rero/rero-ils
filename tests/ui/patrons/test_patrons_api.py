@@ -23,7 +23,6 @@ from copy import deepcopy
 
 import pytest
 from invenio_accounts.models import User
-from invenio_userprofiles import UserProfile
 from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
@@ -33,16 +32,71 @@ from rero_ils.modules.users.models import UserRole
 from rero_ils.utils import create_user_from_data
 
 
+def test_patron_extended_validation(app, patron_martigny,
+                                    patron_martigny_data_tmp, patron2_martigny,
+                                    patron_sion, patron_sion_data_tmp):
+    """Test that a patron barcode must be unique within organisation"""
+    ds = app.extensions['invenio-accounts'].datastore
+
+    # check that we cannot create a patron with an existing barcode
+    with pytest.raises(ValidationError) as err:
+        created_patron_martigny = create_user_from_data(
+            patron_martigny_data_tmp
+            )
+        Patron.create(
+            created_patron_martigny,
+            delete_pid=True
+        )
+    assert 'already taken' in str(err)
+
+    # check if resource update doesn't trigger validation error on own barcode
+    patron_martigny['patron']['barcode'].append('duplicate')
+    assert patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
+
+    # check that we cannot update a patron to an existing barcode
+    patron2_martigny['patron']['barcode'].append('duplicate')
+    with pytest.raises(ValidationError) as err:
+        patron2_martigny.update(patron2_martigny)
+    assert 'already taken' in str(err)
+
+    # check that we can create a patron even with existing barcode in another
+    # organisation
+    patron_sion_barcode = patron_sion['patron']['barcode']
+    created_patron_sion = \
+        create_user_from_data(patron_sion_data_tmp)
+    created_patron_sion['patron']['barcode']\
+        = [patron_martigny['patron']['barcode'][0]]
+    assert (created_user := Patron.create(created_patron_sion, dbcommit=True,
+                                          reindex=True, delete_pid=True))
+
+    # check that we can update a patron with existing barcode in another
+    # organisation
+    patron_sion['patron']['barcode'] = ['duplicate']
+    assert patron_sion.update(patron_sion)
+
+    # clean up fixtures
+    patron_sion['patron']['barcode'] = patron_sion_barcode
+    patron_martigny['patron']['barcode'].pop()
+    patron2_martigny['patron']['barcode'].pop()
+    patron_sion.update(
+        patron_sion, commit=True, dbcommit=True, reindex=True)
+    patron_martigny.update(
+        patron_martigny, commit=True, dbcommit=True, reindex=True)
+    patron2_martigny.update(
+        patron2_martigny, commit=True, dbcommit=True, reindex=True)
+
+    # clean up created user
+    created_user.delete(True, True, True)
+    user = created_user.user
+    ds.delete_user(user)
+
+
 def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
                        patron_type_adults_martigny, mailbox):
     """Test Patron creation."""
     ds = app.extensions['invenio-accounts'].datastore
     email = librarian_martigny_data_tmp.get('email')
 
-    # sanity checks
-    assert len(mailbox) == 0
-    assert User.query.count() == 0
-    assert UserProfile.query.count() == 0
     l_martigny_data_tmp = librarian_martigny_data_tmp
     librarian_martigny_data_tmp = create_user_from_data(
         librarian_martigny_data_tmp)
@@ -120,15 +174,14 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     #     r'Best regards', mailbox[0].body
     # )
     # assert ptrn.get('email') in mailbox[0].recipients
-    librarian_martigny_data_tmp['user_id'] = 1
+    librarian_martigny_data_tmp['user_id'] = ptrn.user.id
     assert ptrn == librarian_martigny_data_tmp
-    assert ptrn.get('pid') == 'ptrn2'
 
-    ptrn = Patron.get_record_by_pid('ptrn2')
+    ptrn = Patron.get_record_by_pid(ptrn.pid)
     # assert ptrn == librarian_martigny_data_tmp
 
     fetched_pid = patron_id_fetcher(ptrn.id, ptrn)
-    assert fetched_pid.pid_value == 'ptrn2'
+    assert fetched_pid.pid_value == ptrn.pid
     assert fetched_pid.pid_type == 'ptrn'
 
     # set librarian
