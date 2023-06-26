@@ -430,6 +430,7 @@ def patron_sion_without_email1(
     del data['email']
     data['pid'] = 'ptrn10wthoutemail'
     data['username'] = 'withoutemail'
+    data['patron']['barcode'] = ['18936287']
     data['patron']['communication_channel'] = CommunicationChannel.MAIL
     yield create_patron(data)
 
@@ -446,6 +447,7 @@ def patron_sion_with_additional_email(
     del data['email']
     data['pid'] = 'ptrn10additionalemail'
     data['username'] = 'additionalemail'
+    data['patron']['barcode'] = ['additionalemail']
     data['patron']['additional_communication_email'] = \
         'additional+jules@gmail.com'
     yield create_patron(data)

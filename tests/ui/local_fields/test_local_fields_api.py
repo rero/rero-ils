@@ -81,6 +81,7 @@ def test_local_fields(
     assert len(list(fields)) == 0
 
     # TEST#4 :: Same as previous but for item.
+    del item_lib_martigny_data['barcode']
     item = Item.create(item_lib_martigny_data, dbcommit=True, reindex=True)
     assert 'local_fields' not in item.get_links_to_me()
     lofi_data.pop('pid', None)

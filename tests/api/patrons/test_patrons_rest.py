@@ -259,6 +259,7 @@ def test_patrons_post_put_delete(
     list_url = url_for('invenio_records_rest.ptrn_list', q=f'pid:{pid_value}')
     patron_data = deepcopy(patron_martigny_data_tmp)
     patron_data['email'] = 'post_put_delete@test.ch'
+    patron_data['patron']['barcode'] = ['2384768231']
     patron_data['username'] = 'post_put_delete'
     patron_data = create_user_from_data(patron_data)
 
@@ -340,6 +341,7 @@ def test_patrons_post_without_email(
     patron_data = deepcopy(patron_martigny_data_tmp)
     patron_data['email'] = 'post_without_email@test.ch'
     patron_data['username'] = 'post_without_email'
+    patron_data['patron']['barcode'] = ['23841238231']
     del patron_data['pid']
     del patron_data['email']
     patron_data['patron']['communication_channel'] = CommunicationChannel.MAIL

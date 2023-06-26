@@ -132,6 +132,7 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
 
     # test when item has a dirty barcode
     item_lib_martigny_data['pid'] = '1'
+    item_lib_martigny_data['barcode'] = '123456'
     item_record_with_dirty_barcode = deepcopy(item_lib_martigny_data)
 
     item_record_with_dirty_barcode['barcode'] = ' {barcode} '.format(

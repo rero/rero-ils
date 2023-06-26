@@ -55,7 +55,6 @@ def test_documents_newacq_filters(app, client,
     new_acq1 = deepcopy(item_lib_martigny_data)
     new_acq1['pid'] = 'itemacq1'
     new_acq1['acquisition_date'] = today
-    del new_acq1['barcode']
     res, data = postdata(client, 'invenio_records_rest.item_list', new_acq1)
     assert res.status_code == 201
 
@@ -63,7 +62,6 @@ def test_documents_newacq_filters(app, client,
     new_acq2['pid'] = 'itemacq2'
     new_acq2['acquisition_date'] = future
     new_acq2['location']['$ref'] = get_ref_for_pid('loc', loc_public_saxon.pid)
-    del new_acq2['barcode']
     res, data = postdata(client, 'invenio_records_rest.item_list', new_acq2)
     assert res.status_code == 201
 

@@ -685,6 +685,9 @@ def test_holdings_items_to_marc21(app, marc21_record, document,
     assert result == record
 
     record = {'pid': document.pid}
+    item2_lib_sion_save_barcode = item2_lib_sion['barcode']
+    item2_lib_sion['barcode'] = '87121336'
+    item2_lib_sion.update(item2_lib_sion, dbcommit=True, reindex=True)
     result = to_marc21.do(record, with_holdings_items=True)
     record = deepcopy(marc21_record)
     record.update({
@@ -702,6 +705,10 @@ def test_holdings_items_to_marc21(app, marc21_record, document,
         })
     })
     assert result == record
+
+    # clean up modified data
+    item2_lib_sion['barcode'] = item2_lib_sion_save_barcode
+    item2_lib_sion.update(item2_lib_sion, dbcommit=True, reindex=True)
 
     record = {'pid': ebook_5.pid}
     result = to_marc21.do(record, with_holdings_items=True)

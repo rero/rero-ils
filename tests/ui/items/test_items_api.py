@@ -19,6 +19,9 @@
 
 from __future__ import absolute_import, print_function
 
+import pytest
+from jsonschema.exceptions import ValidationError
+
 from copy import deepcopy
 from datetime import datetime, timedelta
 
@@ -137,6 +140,29 @@ def test_item_extended_validation(client, holding_lib_martigny_w_patterns):
     # # can not create an issue item without issues on a serial holdings
     # with pytest.raises(ValidationError):
     #     Item.create(data, dbcommit=True, reindex=True, delete_pid=True)
+
+
+def test_extended_validation_unique_barcode(item_lib_martigny, item_lib_fully,
+                                            item_lib_martigny_data_tmp,
+                                            lib_martigny):
+    """Test that a barcode must be unique"""
+    # check that own barcode doesn't fail validation on item update
+    assert item_lib_martigny.update(item_lib_martigny)
+
+    # check that an item cannot be updated with an already existing barcode
+    item_lib_martigny['barcode'] = 'duplicate'
+    item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
+    item_lib_fully['barcode'] = 'duplicate'
+    with pytest.raises(ValidationError) as err:
+        item_lib_fully.update(item_lib_fully)
+    assert 'already taken' in str(err)
+
+    # check that an item with an already existing barcode cannot be created
+    item_lib_martigny_data_tmp = deepcopy(item_lib_martigny_data_tmp)
+    item_lib_martigny_data_tmp['barcode'] = 'duplicate'
+    with pytest.raises(ValidationError) as err:
+        Item.create(item_lib_martigny_data_tmp, delete_pid=True)
+    assert 'already taken' in str(err)
 
 
 def test_items_new_acquisition(item_lib_martigny):
