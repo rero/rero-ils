@@ -52,7 +52,7 @@ def upgrade():
                         place['country'] = new_country
                         LOGGER.info(
                             f'Doc {pid}: replacing {old_country} by'
-                            ' {new_country}')
+                            f' {new_country}')
             doc.replace(doc, commit=True, dbcommit=True, reindex=True)
 
     def fix_patrons(pids, old_country, new_country):
@@ -63,7 +63,7 @@ def upgrade():
                     address['country'] = new_country
                     LOGGER.info(
                         f'Patron {pid}: replacing {old_country} by'
-                        ' {new_country}')
+                        f' {new_country}')
             ptrn.replace(ptrn, commit=True, dbcommit=True, reindex=True)
 
     def fix_users(query, old_country, new_country):
@@ -72,7 +72,7 @@ def upgrade():
             db.session.merge(profile)
             LOGGER.info(
                 f'User {profile.last_name}, {profile.first_name}'
-                ': replacing {old_country} by {new_country}')
+                f': replacing {old_country} by {new_country}')
         db.session.commit()
 
     for old_country, new_country in _OBSOLETE_COUNTRIES_MAPPING.items():
