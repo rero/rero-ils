@@ -260,8 +260,7 @@ class StatsForPricing:
             .count()
 
     def number_of_ill_requests_operations(self, library_pid, status):
-        """Number of ILL requests creation or update operations during the
-        specified timeframe.
+        """Number of ILL requests creation or update operations.
 
         :param library_pid: string - the library to filter with
         :param status: list of status to filter with
