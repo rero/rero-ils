@@ -549,6 +549,27 @@ def get_record_class_from_schema_or_pid_type(schema=None, pid_type=None):
         .get(pid_type, {}).get('record_class'))
 
 
+def get_indexer_class_by_resource(resource):
+    """Get indexer class by resource name.
+
+    :param: resource name
+    :return: indexer class for resource name
+    """
+    endpoint = get_endpoint_configuration(resource)
+    if indexer_cls := endpoint.get('indexer_class'):
+        return obj_or_import_string(indexer_cls)
+
+
+def get_record_class_by_resource(resource):
+    """Get record class by resource name.
+
+    :param: resource name
+    :return: record class for resource name
+    """
+    if endpoint := get_endpoint_configuration(resource):
+        return obj_or_import_string(endpoint["record_class"])
+
+
 def get_pid_type_from_schema(schema):
     """Get the pid_type from a given schema or a pid type.
 
