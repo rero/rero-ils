@@ -339,13 +339,13 @@ CELERY_BEAT_SCHEDULE = {
     },
     'ebooks-harvester': {
         'task': 'invenio_oaiharvester.tasks.list_records_from_dates',
-        'schedule': timedelta(minutes=60),
+        'schedule': crontab(minute=22, hour=22),
         'kwargs': {'name': 'ebooks'},
         'enabled': False
     },
     'notification-creation': {
         'task': 'rero_ils.modules.notifications.tasks.create_notifications',
-        'schedule': crontab(minute=0, hour=5),  # Every day at 05:00 UTC,
+        'schedule': crontab(minute=0, hour=3),  # Every day at 05:00 UTC,
         'kwargs': {
             'types': [NotificationType.DUE_SOON, NotificationType.OVERDUE]
         },
