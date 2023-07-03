@@ -131,7 +131,6 @@ def logged_user():
             'language': current_i18n.locale.language,
             'globalView': config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'),
             'baseUrl': get_base_url(),
-            'agentAgentTypes': config.get('RERO_ILS_AGENTS_AGENT_TYPES', {}),
             'agentLabelOrder': config.get('RERO_ILS_AGENTS_LABEL_ORDER', {}),
             'agentSources': config.get('RERO_ILS_AGENTS_SOURCES', []),
             'operationLogs': config.get('RERO_ILS_ENABLE_OPERATION_LOG', []),

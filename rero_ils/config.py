@@ -3017,10 +3017,6 @@ RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 
 #: Entities
 RERO_ILS_AGENTS_SOURCES = ['idref', 'gnd', 'rero']
-RERO_ILS_AGENTS_AGENT_TYPES = {
-    'bf:Person': 'persons',
-    'bf:Organisation': 'corporate-bodies'
-}
 RERO_ILS_AGENTS_LABEL_ORDER = {
     'fallback': 'fr',
     'fr': ['idref', 'rero', 'gnd'],
