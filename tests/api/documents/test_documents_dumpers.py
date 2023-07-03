@@ -38,18 +38,18 @@ def test_document_dumpers(document, document_data):
     assert dump_data['title_text']
     assert dump_data['identifiers']
 
-    document['contribution'] = [{'entity': {'$ref': 'n/a', 'pid': 'n/a'}}]
+    entity_data = {
+        'entity': {
+            '$ref': 'https://mef.rero.ch/api/agents/idref/dummy_idref',
+            'pid': 'dummy_pid',
+            'type': EntityType.PERSON
+        }
+    }
+    document['contribution'] = [entity_data]
     with pytest.raises(RecordNotFound):
         document.dumps(dumper=document_replace_refs_dumper)
     document['contribution'] = document_data['contribution']
-    document['subjects'] = [{
-        'entity': {
-            '$ref': 'n/a',
-            'pid': 'n/a',
-            'type': EntityType.PERSON
-            }
-        }
-    ]
+    document['subjects'] = [entity_data]
     with pytest.raises(RecordNotFound):
         document.dumps(dumper=document_replace_refs_dumper)
 
