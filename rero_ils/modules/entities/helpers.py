@@ -17,6 +17,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Helpers for entities."""
+from rero_ils.modules.commons.exceptions import RecordNotFound
+from rero_ils.modules.entities.local_entities.api import LocalEntity
+from rero_ils.modules.entities.remote_entities.api import RemoteEntity
+from rero_ils.modules.utils import extracted_data_from_ref
 
 
 def str_builder(field_values, prefix='', suffix='', delimiter=''):
@@ -49,3 +53,21 @@ def str_builder(field_values, prefix='', suffix='', delimiter=''):
     if any(field_values):
         return f'{prefix}{delimiter.join(field_values)}{suffix}'
     return ''
+
+
+def get_entity_record_from_data(data):
+    """Retrieve entity record from data.
+
+    # todo: Add comments
+    """
+    # try to get entity record
+    if pid := data.get('pid'):
+        # remote entities have a pid in data
+        if entity := RemoteEntity.get_record_by_pid(pid):
+            return entity
+        raise RecordNotFound(RemoteEntity, data.get('pid'))
+    if ref := data.get('$ref'):
+        entity = extracted_data_from_ref(ref, 'record')
+        # check if local entity
+        if entity and isinstance(entity, LocalEntity):
+            return entity

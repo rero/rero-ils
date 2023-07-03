@@ -20,8 +20,7 @@
 
 from functools import partial
 
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.api import IlsRecord, IlsRecordsSearch
 from rero_ils.modules.utils import sorted_pids
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
@@ -29,11 +28,12 @@ from rero_ils.modules.operation_logs.extensions import \
     OperationLogObserverExtension
 from rero_ils.modules.providers import Provider
 
-from .dumpers import indexer_dumper, replace_refs_dumper
 from .extensions import AuthorizedAccessPointExtension, \
     LocalEntityFactoryExtension
 from .models import LocalEntityIdentifier, LocalEntityMetadata
 from ..api import Entity
+from ..dumpers import replace_refs_dumper
+from ..models import EntityResourceType
 
 # provider
 LocalEntityProvider = type(
@@ -76,6 +76,7 @@ class LocalEntity(IlsRecord, Entity):
         AuthorizedAccessPointExtension(),
         OperationLogObserverExtension()
     ]
+    resource_type = EntityResourceType.LOCAL
 
     @property
     def type(self):
@@ -98,8 +99,7 @@ class LocalEntity(IlsRecord, Entity):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        document_query = DocumentsSearch() \
-            .filter('term', local_entity__pid=self.pid)
+        document_query = self._search_documents()
         documents = sorted_pids(document_query) if get_pids \
             else document_query.count()
         links = {
@@ -113,18 +113,3 @@ class LocalEntity(IlsRecord, Entity):
         if links := self.get_links_to_me():
             cannot_delete['links'] = links
         return cannot_delete
-
-
-class LocalEntitiesIndexer(IlsRecordsIndexer):
-    """Local entity indexing class."""
-
-    record_cls = LocalEntity
-    # data dumper for indexing
-    record_dumper = indexer_dumper
-
-    def bulk_index(self, record_id_iterator):
-        """Bulk index records.
-
-        :param record_id_iterator: Iterator yielding record UUIDs.
-        """
-        super().bulk_index(record_id_iterator, doc_type='locent')

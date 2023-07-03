@@ -327,6 +327,9 @@
               "primary_source": {
                 "type": "keyword"
               },
+              "unique_key": {
+                "type": "keyword"
+              },
               "pid": {
                 "type": "keyword"
               },
@@ -850,6 +853,9 @@
               "pid": {
                 "type": "keyword"
               },
+              "unique_key": {
+                "type": "keyword"
+              },
               "id_gnd": {
                 "type": "keyword"
               },
@@ -972,6 +978,9 @@
         "type": "object",
         "properties": {
           "pid": {
+            "type": "keyword"
+          },
+          "unique_key": {
             "type": "keyword"
           },
           "sources": {
