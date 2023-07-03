@@ -1155,7 +1155,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='local_entity_id',
         search_class='rero_ils.modules.entities.local_entities.api:LocalEntitiesSearch',
         search_index='local_entities',
-        indexer_class='rero_ils.modules.entities.local_entities.api:LocalEntitiesIndexer',
+        indexer_class='rero_ils.modules.entities.local_entities.indexer:LocalEntitiesIndexer',
         search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
@@ -2997,6 +2997,8 @@ SECURITY_SEND_PASSWORD_CHANGE_EMAIL = False
 # Misc
 INDEXER_REPLACE_REFS = True
 INDEXER_RECORD_TO_INDEX = 'rero_ils.modules.indexer_utils.record_to_index'
+#: Trigger delay for celery tasks to index referenced records.
+RERO_ILS_INDEXER_TASK_DELAY = timedelta(seconds=2)
 
 RERO_ILS_APP_URL_SCHEME = 'https'
 RERO_ILS_APP_HOST = 'bib.rero.ch'

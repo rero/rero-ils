@@ -21,26 +21,25 @@
 import contextlib
 from functools import partial
 
-from elasticsearch_dsl import A
 from elasticsearch_dsl.query import Q
 from flask import current_app
 from invenio_db import db
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from rero_ils.modules.documents.api import DocumentsIndexer, DocumentsSearch
+from rero_ils.modules.documents.api import DocumentsIndexer
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 
-from .dumpers import indexer_dumper
 from .models import RemoteEntityIdentifier, RemoteEntityMetadata, \
     EntityUpdateAction
 from .utils import extract_data_from_mef_uri, get_mef_data_by_type
 
-# provider
 from ..api import Entity
-from ..local_entities.dumpers import replace_refs_dumper
+from ..dumpers import indexer_dumper, replace_refs_dumper
+from ..models import EntityResourceType
 
+# provider
 RemoteEntityProvider = type(
     'EntityProvider',
     (Provider,),
@@ -75,6 +74,8 @@ class RemoteEntity(IlsRecord, Entity):
     model_cls = RemoteEntityMetadata
     # disable legacy replace refs
     enable_jsonref = False
+
+    resource_type = EntityResourceType.REMOTE
 
     def resolve(self):
         """Resolve references data.
@@ -154,29 +155,6 @@ class RemoteEntity(IlsRecord, Entity):
                 return value
         return self.get(key, None)
 
-    @property
-    def organisation_pids(self):
-        """Get organisations pids."""
-        # TODO :: Should be linked also on other fields ?
-        #    ex: subjects, genre_form, ...
-        #    Seems only use to filer entities by viewcode.
-        search = DocumentsSearch()\
-            .filter('term', contribution__entity__pid=self.pid)
-        agg = A(
-            'terms',
-            field='holdings.organisation.organisation_pid',
-            min_doc_count=1,
-            size=current_app.config
-                            .get('RERO_ILS_AGGREGATION_SIZE')
-                            .get('organisations')
-        )
-        search.aggs.bucket('organisation', agg)
-        results = search.execute()
-        return list({
-            result.key
-            for result in results.aggregations.organisation.buckets
-        })
-
     def get_authorized_access_point(self, language):
         """Get localized authorized_access_point.
 
@@ -187,36 +165,6 @@ class RemoteEntity(IlsRecord, Entity):
             key='authorized_access_point',
             language=language
         )
-
-    def _search_documents(self, with_subjects=True,
-                          with_subjects_imported=True):
-        """Get documents pids."""
-        filters = Q('term', contribution__entity__pid=self.pid)
-        if with_subjects:
-            filters |= \
-                Q('term', subjects__pid=self.pid) & \
-                Q('terms', subjects__type=['bf:Person', 'bf:Organisation'])
-        if with_subjects_imported:
-            filters |= \
-                Q('term', subjects_imported__pid=self.pid) & \
-                Q('terms', subjects__type=['bf:Person', 'bf:Organisation'])
-        return DocumentsSearch().filter(filters)
-
-    def documents_pids(self, with_subjects=True, with_subjects_imported=True):
-        """Get documents pids."""
-        search = self._search_documents(
-            with_subjects=with_subjects,
-            with_subjects_imported=with_subjects_imported
-        ).source('pid')
-        return [hit.pid for hit in search.scan()]
-
-    def documents_ids(self, with_subjects=True, with_subjects_imported=True):
-        """Get documents ids."""
-        search = self._search_documents(
-            with_subjects=with_subjects,
-            with_subjects_imported=with_subjects_imported
-        ).source('pid')
-        return [hit.meta.id for hit in search.scan()]
 
     def update_online(
         self, dbcommit=False, reindex=False, verbose=False,
