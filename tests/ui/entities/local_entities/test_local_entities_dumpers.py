@@ -18,7 +18,7 @@
 
 """Items Record dumper tests."""
 
-from rero_ils.modules.entities.local_entities.dumpers import document_dumper
+from rero_ils.modules.entities.dumpers import document_dumper
 
 
 def test_local_entities_document_dumper(local_entity_person2):
@@ -27,7 +27,6 @@ def test_local_entities_document_dumper(local_entity_person2):
     dumped_record = local_entity_person2.dumps(dumper=document_dumper)
     authorized_access_point = 'William III, King of England (1650-1702)'
     for field in [
-        'authorized_access_point',
         'authorized_access_point_de',
         'authorized_access_point_en',
         'authorized_access_point_fr',

@@ -304,7 +304,6 @@ class SyncEntity(object):
                 raise Exception(f'ERROR MEF {pid} does not exists in db.')
             self.logger.debug(f'Processing {entity["type"]} MEF(pid: {pid})')
             # iterate over all entity sources: rero, gnd, idref
-            doc_pids = self._get_documents_pids_from_mef(entity.pid)
             pids_to_replace = {}
             for source in entity['sources']:
                 mef = self._get_latest(
@@ -382,10 +381,12 @@ class SyncEntity(object):
                     updated = True
 
             if updated:
-                # for each documents
+                # need to update each documents
+                doc_pids = entity.documents_pids()
                 self.logger.info(
                     f'MEF {entity["type"]} record(pid: {entity.pid}) '
                     f' try to update documents: {doc_pids}')
+
                 for doc_pid in doc_pids:
                     self._update_entities_in_document(
                         doc_pid=doc_pid,

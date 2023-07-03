@@ -26,7 +26,7 @@ from utils import get_json, postdata, to_relative_url, \
 
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.entities.local_entities.api import LocalEntity
-from rero_ils.modules.entities.local_entities.dumpers import indexer_dumper
+from rero_ils.modules.entities.dumpers import indexer_dumper
 
 
 def test_local_entities_permissions(client, roles, local_entity_person,

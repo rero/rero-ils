@@ -24,7 +24,8 @@ from typing import Optional
 
 import click
 from elasticsearch_dsl.query import Q
-from flask import Blueprint, abort, current_app, jsonify, render_template
+from flask import Blueprint, abort, current_app, jsonify, render_template, \
+    url_for
 from flask import request as flask_request
 from flask_babelex import gettext as _
 from flask_login import current_user
@@ -36,16 +37,17 @@ from .extensions import EditionStatementExtension, \
 from .utils import display_alternate_graphic_first, get_remote_cover, \
     title_format_text, title_format_text_alternate_graphic, \
     title_variant_format_text
-from ..collections.api import CollectionsSearch
+from rero_ils.modules.collections.api import CollectionsSearch
 from rero_ils.modules.entities.remote_entities.api import RemoteEntity
 from rero_ils.modules.entities.models import EntityType
-from ..holdings.models import HoldingNoteTypes
-from ..items.models import ItemCirculationAction
-from ..libraries.api import Library
-from ..locations.api import Location
-from ..organisations.api import Organisation
-from ..patrons.api import current_patrons
-from ..utils import cached, extracted_data_from_ref
+from rero_ils.modules.entities.helpers import get_entity_record_from_data
+from rero_ils.modules.holdings.models import HoldingNoteTypes
+from rero_ils.modules.items.models import ItemCirculationAction
+from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.locations.api import Location
+from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.patrons.api import current_patrons
+from rero_ils.modules.utils import cached, extracted_data_from_ref
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):
@@ -263,14 +265,16 @@ def contribution_format(contributions, language, viewcode, with_roles=False):
     """
     output = []
     for contrib in filter(lambda c: c.get('entity'), contributions):
-        if entity := RemoteEntity \
-                .get_record_by_pid(contrib['entity'].get('pid')):
+        if entity := get_entity_record_from_data(contrib['entity']):
             text = entity.get_authorized_access_point(language=language)
-            entity_type = 'persons'
-            if entity.get('type') == EntityType.ORGANISATION:
-                entity_type = 'corporate-bodies'
-            label = \
-                f'<a href="/{viewcode}/{entity_type}/{entity.pid}">{text}</a>'
+            args = {
+                'viewcode': viewcode,
+                'recordType': 'documents',
+                'q': f'contribution.entity.unique_key:{entity.unique_key}',
+                'simple': 0
+            }
+            url = url_for('rero_ils.search', **args)
+            label = f'<a href="{url}">{text}</a>'
         else:
             default_key = 'authorized_access_point'
             localized_key = f'{default_key}_{language}'

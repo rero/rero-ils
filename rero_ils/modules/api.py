@@ -724,3 +724,27 @@ class IlsRecordsIndexer(RecordIndexer):
             **kwargs
         )
         return data
+
+
+class ReferencedRecordsIndexer:
+    """Referenced records Indexer class."""
+
+    def index(self, indexer_class, referenced):
+        """Index record.
+
+        :param indexer_class: record indexer class.
+        :param referenced: referenced records to index. A list of dicts
+            containing `pid_type` and `record` keys of the records that will
+            be indexed.
+        """
+        indexer = indexer_class()
+        for r in referenced:
+            try:
+                record_to_index = r['record']
+                indexer.index(record_to_index)
+            except Exception as err:
+                pid_type = r['pid_type'],
+                pid_value = r['record']['pid']
+                current_app.logger.error(
+                    f'Record indexing error {pid_type} {pid_value}: {err}'
+                )

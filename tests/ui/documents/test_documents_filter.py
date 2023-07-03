@@ -406,7 +406,9 @@ def test_contribution_format(db, entity_organisation):
     contributions = [{
         'entity': {'pid': entity_organisation.pid}
     }]
-    link_part = f'/corporate-bodies/{entity_organisation.pid}'
+    link_part = f'/global/search/documents?q' \
+                f'=contribution.entity.unique_key%3A' \
+                f'{entity_organisation.unique_key}'
     assert link_part in contribution_format(contributions, 'en', 'global')
 
 

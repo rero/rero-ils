@@ -20,9 +20,11 @@
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
-from rero_ils.modules.entities.remote_entities.dumpers import document_dumper
+from rero_ils.modules.entities.dumpers import \
+    document_dumper
 from rero_ils.modules.entities.remote_entities.utils import \
     extract_data_from_mef_uri
+from rero_ils.modules.utils import extracted_data_from_ref
 
 
 class ReplaceRefsEntitiesDumperMixin(Dumper):
@@ -31,10 +33,20 @@ class ReplaceRefsEntitiesDumperMixin(Dumper):
     @staticmethod
     def _replace_entity(data):
         """Replace the `$ref` linked contributions."""
+        from rero_ils.modules.entities.local_entities.api import LocalEntity
         from rero_ils.modules.entities.remote_entities.api import RemoteEntity
+
+        # try to get entity record
+        entity = extracted_data_from_ref(data['$ref'], 'record')
+        # check if local entity
+        if entity and isinstance(entity, LocalEntity):
+            # internal resources will be resolved later (see ReplaceRefsDumper)
+            return entity.dumps(document_dumper)
+
+        _, _type, _ = extract_data_from_mef_uri(data['$ref'])
         if not (entity := RemoteEntity.get_record_by_pid(data['pid'])):
             raise RecordNotFound(RemoteEntity, data['pid'])
-        _, _type, _ = extract_data_from_mef_uri(data['$ref'])
+
         entity = entity.dumps(document_dumper)
         entity.update({
             'primary_source': _type,
