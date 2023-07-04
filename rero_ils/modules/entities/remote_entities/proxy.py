@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Entity proxies."""
+"""Remote entity proxies."""
 import json
 from urllib.parse import quote_plus
 
