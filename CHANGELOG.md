@@ -105,7 +105,7 @@
 * Circulation policy (can request) should take into account the temporary location [\#2885](https://github.com/rero/rero-ils/issues/2885) (by @zannkukai)
 * Enhance login security [\#3168](https://github.com/rero/rero-ils/issues/3168) (by @Garfield-fr, @PascalRepond)
 * Allow to edit expected date for received issues [\#2239](https://github.com/rero/rero-ils/issues/2239) (by @PascalRepond)
-* The canceled request is displayed in the history tab of the professional patron account [\#1516](https://github.com/rero/rero-ils/issues/1516)
+* The cancelled request is displayed in the history tab of the professional patron account [\#1516](https://github.com/rero/rero-ils/issues/1516)
 * security: enhance login [\#3223](https://github.com/rero/rero-ils/pull/3223) (by @Garfield-fr)
 
 **Fixes:**
@@ -681,7 +681,7 @@
 
 **Closed issues:**
 
-- Notification should be canceled if item is deleted [\#2410](https://github.com/rero/rero-ils/issues/2410)
+- Notification should be cancelled if item is deleted [\#2410](https://github.com/rero/rero-ils/issues/2410)
 - Document model : add "note" in the Languages field [\#1867](https://github.com/rero/rero-ils/issues/1867)
 
 **Merged pull requests:**

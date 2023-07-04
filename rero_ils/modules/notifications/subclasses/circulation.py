@@ -78,7 +78,7 @@ class CirculationNotification(Notification, ABC):
         return hashlib.md5(str(parts).encode()).hexdigest()
 
     def can_be_cancelled(self):
-        """Check if a notification can be canceled.
+        """Check if a notification can be cancelled.
 
         As notification process can be asynchronous, in some case, when the
         notification is processed, it's not anymore required to be sent.

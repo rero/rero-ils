@@ -1316,8 +1316,4 @@ class LoansIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='loan')
-
-    def _get_record_class(self, payload):
-        """Get the record class from payload."""
-        return self.record_cls
+        super().bulk_index(record_id_iterator, doc_type='loanid')

@@ -651,7 +651,7 @@ class IlsRecordsIndexer(RecordIndexer):
                 message.reject()
                 current_app.logger.error(
                     f"Failed to {payload['op']}"
-                    f" {indexer.record_cls.__name__} "
+                    f" {payload.get('doc_type'), 'rec'} "
                     f"{payload.get('pid')}:{payload.get('id')}",
                     exc_info=True
                 )

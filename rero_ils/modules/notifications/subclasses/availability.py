@@ -36,7 +36,7 @@ class AvailabilityCirculationNotification(CirculationNotification):
     """Availability circulation notifications class."""
 
     def can_be_cancelled(self):
-        """Check if a notification can be be canceled.
+        """Check if a notification can be be cancelled.
 
         An AVAILABILITY notification can be cancelled if the related item
         is already ON_LOAN. We need to call the loan to check all notification

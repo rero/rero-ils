@@ -47,7 +47,7 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
     """
 
     def can_be_cancelled(self):
-        """Check if a notification can be canceled.
+        """Check if a notification can be cancelled.
 
         An AT_DESK notification can be sent only if a request is done on the
         related item and this request is now in state ITEM_AT_DESK.
