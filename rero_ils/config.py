@@ -3044,7 +3044,6 @@ RERO_ILS_ENTITY_TYPES = {
     'bf:Organisation': 'agents',
     'bf:Topic': 'concepts'
 }
-RERO_ILS_MEF_RESULT_SIZE = 100
 
 # The absolute path to put the agent synchronization logs, default is the
 # instance  path
@@ -3064,6 +3063,7 @@ RERO_ILS_AGENTS_LABEL_ORDER = {
     'fr': ['idref', 'rero', 'gnd'],
     'de': ['gnd', 'idref', 'rero'],
 }
+RERO_ILS_DEFAULT_SUGGESTION_LIMIT = 10
 
 # =============================================================================
 # RERO_ILS PATRON ROLES MANAGEMENT
