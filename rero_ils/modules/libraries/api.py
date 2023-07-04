@@ -191,13 +191,16 @@ class Library(IlsRecord):
             for opening_hour in opening_hours:
                 if opening_hour['is_open']:
                     return True
-        if exception_dates := self.get('exception_dates'):
-            for exception_date in exception_dates:
-                start_date = date_string_to_utc(exception_date['start_date'])
-                # avoid next_open infinite loop if an open exception date is
-                # in the past
-                if start_date > datetime.now(pytz.utc):
-                    return True
+        current_timestamp = datetime.now(pytz.utc)
+        for exception_date in filter(
+            lambda d: d['is_open'],
+            self.get('exception_dates', [])
+        ):
+            start_date = date_string_to_utc(exception_date['start_date'])
+            # avoid next_open infinite loop if an open exception date is
+            # in the past
+            if start_date > current_timestamp:
+                return True
         return False
 
     def _get_exceptions_matching_date(self, date_to_check, day_only=False):

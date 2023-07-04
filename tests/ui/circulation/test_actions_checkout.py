@@ -18,6 +18,7 @@
 """Circulation tests."""
 
 from copy import deepcopy
+from datetime import date, timedelta
 
 import pytest
 from invenio_circulation.errors import ItemNotAvailableError, \
@@ -99,6 +100,37 @@ def test_checkout_library_never_open(
 
     # check that can_extend method does not raise exception
     assert Loan.can_extend(onloan_item)[0] in [True, False]
+
+    # check loan is ITEM_ON_LOAN and item is ON_LOAN
+    assert onloan_item.status == ItemStatus.ON_LOAN
+    assert loan['state'] == LoanState.ITEM_ON_LOAN
+
+    # test checkout if library has no open days but has exception closed day
+    # in the future
+    exception_date = (date.today() + timedelta(days=30)).isoformat()
+    lib_martigny['exception_dates'].append(
+        {
+            "title": "Closed",
+            "is_open": False,
+            "start_date": exception_date
+        }
+    )
+    lib_martigny.commit()
+
+    data = deepcopy(item_lib_martigny)
+    data.pop('barcode')
+    data.setdefault('status', ItemStatus.ON_SHELF)
+    created_item = Item.create(
+        data=data, dbcommit=True, reindex=True, delete_pid=True)
+
+    params = {
+        'patron_pid': patron_martigny.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid,
+        'pickup_location_pid': loc_public_martigny.pid
+    }
+    onloan_item, actions = created_item.checkout(**params)
+    loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
 
     # check loan is ITEM_ON_LOAN and item is ON_LOAN
     assert onloan_item.status == ItemStatus.ON_LOAN
