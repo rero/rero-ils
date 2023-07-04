@@ -490,6 +490,12 @@ def local_entity_work_data(data):
 
 
 @pytest.fixture(scope="module")
+def local_entity_genre_form_data(data):
+    """Load mef genreForm local entity data."""
+    return deepcopy(data.get('locent_genreForm'))
+
+
+@pytest.fixture(scope="module")
 def local_entity_person(app, local_entity_person_data):
     """Create mef person record."""
     pers = LocalEntity.create(
@@ -535,6 +541,18 @@ def local_entity_org2(app, local_entity_org2_data):
         reindex=True)
     flush_index(LocalEntitiesSearch.Meta.index)
     return org
+
+
+@pytest.fixture(scope="module")
+def local_entity_genre_form(app, local_entity_genre_form_data):
+    """Create mef person record."""
+    entity = LocalEntity.create(
+        data=local_entity_genre_form_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(LocalEntitiesSearch.Meta.index)
+    return entity
 
 
 @pytest.fixture(scope="module")
