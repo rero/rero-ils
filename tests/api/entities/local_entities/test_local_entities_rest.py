@@ -144,3 +144,46 @@ def test_local_entities_post_put_delete(client, local_entity_person_data,
 
     res = client.get(item_url)
     assert res.status_code == 410
+
+
+@mock.patch('rero_ils.modules.decorators.login_and_librarian',
+            mock.MagicMock())
+def test_local_search_by_proxy(
+    client, local_entity_genre_form, local_entity_org
+):
+    """Test local entity search proxy."""
+    response = client.get(url_for(
+        'api_local_entities.local_search_proxy',
+        entity_type='concepts-genreForm',
+        term='personal',
+        size='dummy_qs_arg'
+    ))
+    assert response.status_code == 200
+    assert len(response.json) == 1
+    assert response.json[0]['pid'] == local_entity_genre_form.pid
+
+    response = client.get(url_for(
+        'api_local_entities.local_search_proxy',
+        entity_type='concepts-genreForm',
+        term='personal',
+        size='0'
+    ))
+    assert response.status_code == 200
+    assert len(response.json) == 0
+
+    response = client.get(url_for(
+        'api_local_entities.local_search_proxy',
+        entity_type='concepts-genreForm',
+        term='dummy_key'
+    ))
+    assert response.status_code == 200
+    assert len(response.json) == 0
+
+    response = client.get(url_for(
+        'api_local_entities.local_search_proxy',
+        entity_type='bf:Organisation',
+        term='Convegno'
+    ))
+    assert response.status_code == 200
+    assert len(response.json) == 1
+    assert response.json[0]['pid'] == local_entity_org.pid
