@@ -40,7 +40,7 @@ class RecallCirculationNotification(CirculationNotification):
     """
 
     def can_be_cancelled(self):
-        """Check if a notification can be canceled.
+        """Check if a notification can be cancelled.
 
         A RECALL notification can be cancelled if the related item
         isn't ON_LOAN anymore.

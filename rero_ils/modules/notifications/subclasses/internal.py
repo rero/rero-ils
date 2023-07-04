@@ -40,7 +40,7 @@ class InternalCirculationNotification(CirculationNotification, ABC):
     """
 
     def can_be_cancelled(self):
-        """Check if a notification can be canceled.
+        """Check if a notification can be cancelled.
 
         We need to call the loan to check all notification candidates and
         check if the corresponding notification type is into candidates.

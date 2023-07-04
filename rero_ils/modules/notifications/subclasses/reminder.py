@@ -72,7 +72,7 @@ class ReminderCirculationNotification(CirculationNotification):
         return self._reminder
 
     def can_be_cancelled(self):
-        """Check if a notification can be canceled.
+        """Check if a notification can be cancelled.
 
         A REMINDER notification should be cancelled if a similar notification
         has already been sent or if the related circulation policy doesn't
