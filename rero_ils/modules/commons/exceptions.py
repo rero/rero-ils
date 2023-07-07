@@ -20,7 +20,7 @@
 
 
 class RecordNotFound(Exception):
-    """Record con't be found into Invenio."""
+    """Record can't be found into Invenio."""
 
     def __init__(self, record_cls, record_pid):
         """Initialization method.
@@ -31,6 +31,24 @@ class RecordNotFound(Exception):
         self.record_cls = record_cls
         self.record_pid = record_pid
 
-    def __str__(self):
+    def __repr__(self):
         """String representation of the exception."""
         return f'{self.record_cls.__name__}#{self.record_pid} not found'
+
+
+class MissingDataException(KeyError):
+    """Exception when a data is missing."""
+
+    def __init__(self, missing_data):
+        """Initialization method.
+
+        :param missing_data: list of missing data field names.
+        :type missing_data: str|list<str>
+        """
+        if not isinstance(missing_data, list):
+            missing_data = [missing_data]
+        self.missing_data = missing_data
+
+    def __repr__(self):
+        """String representation of the exception."""
+        return f'Missing data :: {", ".join(self.missing_data)}'

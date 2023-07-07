@@ -19,8 +19,14 @@
 """Items Record dumper tests."""
 from copy import deepcopy
 
+import pytest
+
+from rero_ils.modules.commons.exceptions import MissingDataException
 from rero_ils.modules.holdings.api import Holding
-from rero_ils.modules.items.dumpers import ItemCirculationDumper
+from rero_ils.modules.items.dumpers import ClaimIssueNotificationDumper, \
+    ItemCirculationDumper
+from rero_ils.modules.items.models import TypeOfItem
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_item_circulation_dumper(item_lib_martigny):
@@ -52,3 +58,21 @@ def test_item_circulation_dumper(item_lib_martigny):
 
     # RESET HOLDING RECORD
     holdings.update(original_holding_data, dbcommit=True, reindex=True)
+
+
+def test_claim_issue_dumper(item_lib_martigny):
+    """Test claim issue notification dumper."""
+    with pytest.raises(TypeError):
+        item_lib_martigny.dumps(dumper=ClaimIssueNotificationDumper())
+
+    item_lib_martigny['type'] = TypeOfItem.ISSUE
+    holding = item_lib_martigny.holding
+    holding.pop('vendor', None)
+    with pytest.raises(MissingDataException) as exc:
+        item_lib_martigny.dumps(dumper=ClaimIssueNotificationDumper())
+    assert 'item.holding.vendor' in str(exc)
+
+    item_lib_martigny['holding']['$ref'] = get_ref_for_pid('hold', 'dummy')
+    with pytest.raises(MissingDataException) as exc:
+        item_lib_martigny.dumps(dumper=ClaimIssueNotificationDumper())
+    assert 'item.holding' in str(exc)

@@ -20,6 +20,7 @@
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
+from rero_ils.modules.commons.exceptions import MissingDataException
 from rero_ils.modules.documents.dumpers import \
     TitleDumper as DocumentTitleDumper
 from rero_ils.modules.holdings.api import Holding
@@ -82,19 +83,23 @@ class ClaimIssueNotificationDumper(InvenioRecordsDumper):
 
     def dump(self, record, data):
         """Dump an item issue for claim notification generation."""
-        assert record.is_issue, 'record must be an `ItemIssue` resource'
-        assert (holding := record.holding), \
-            'record must be related to an existing `Holding`'
+        if not record.is_issue:
+            raise TypeError('record must be an `ItemIssue` resource')
+        if not (holding := record.holding):
+            raise MissingDataException('item.holding')
+        if not (vendor := holding.vendor):
+            raise MissingDataException('item.holding.vendor')
 
         data.update({
-            'vendor': holding.vendor.dumps(
+            'vendor': vendor.dumps(
                 dumper=VendorClaimIssueNotificationDumper()),
-            'document': holding.document.dumps(dumper=DocumentTitleDumper()),
+            'document': holding.document.dumps(
+                dumper=DocumentTitleDumper()),
             'library': holding.library.dumps(
                 dumper=LibrarySerialClaimNotificationDumper()),
-            'holdings': holding.dumps(dumper=ClaimIssueHoldingDumper()),
+            'holdings': holding.dumps(
+                dumper=ClaimIssueHoldingDumper()),
             'enumerationAndChronology': record.enumerationAndChronology,
             'claim_counter': record.claims_count
         })
-
         return {k: v for k, v in data.items() if v is not None}

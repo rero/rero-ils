@@ -20,6 +20,7 @@
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
+from rero_ils.modules.commons.exceptions import MissingDataException
 from rero_ils.modules.libraries.models import LibraryAddressType
 
 
@@ -55,6 +56,9 @@ class LibrarySerialClaimNotificationDumper(InvenioRecordsDumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
+        if 'serial_acquisition_settings' not in record:
+            raise MissingDataException('library.serial_acquisition_settings')
+
         data.update({
             'name': record.get('name'),
             'address': record.get_address(LibraryAddressType.MAIN_ADDRESS),
