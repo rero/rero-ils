@@ -23,8 +23,10 @@ from jinja2 import UndefinedError
 from utils import VerifyRecordPermissionPatch, flush_index, get_csv, \
     get_json, parse_csv, postdata
 
+from rero_ils.modules.commons.exceptions import MissingDataException
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.dumpers import ClaimIssueNotificationDumper
 from rero_ils.modules.notifications.api import Notification, \
     NotificationsSearch
 from rero_ils.modules.notifications.models import RecipientType
@@ -90,6 +92,7 @@ def test_issues_claim_notifications(
     #   1) call with unknown item --> return 404
     #   2) call with a standard item --> return 400
     #   3) simulate a template rendering error --> return 500
+    #   4) missing data --> return 500
     #   4) call with an issue item --> return 200
     for pid, ret_code in [('dummy_pid', 404), (item.pid, 400)]:
         url = url_for('api_item.claim_notification_preview', item_pid=pid)
@@ -103,6 +106,14 @@ def test_issues_claim_notifications(
         response = client.get(url)
         assert response.status_code == 500
         assert 'my_error' in response.json['message']
+
+    with mock.patch.object(
+        ClaimIssueNotificationDumper, 'dump',
+        mock.MagicMock(side_effect=MissingDataException('Test!'))
+    ):
+        response = client.get(url)
+        assert response.status_code == 500
+        assert 'Test!' in response.json['message']
 
     response = client.get(url)
     assert response.status_code == 200

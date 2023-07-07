@@ -52,6 +52,7 @@ from ..dumpers import ClaimIssueNotificationDumper
 from ..models import ItemCirculationAction
 from ..permissions import late_issue_management as late_issue_management_action
 from ..utils import get_recipient_suggestions, item_pid_to_object
+from ...commons.exceptions import MissingDataException
 
 api_blueprint = Blueprint(
     'api_item',
@@ -572,7 +573,11 @@ def claim_notification_preview(item_pid):
     if not record.is_issue:
         abort(400, 'Item isn\'t an issue')
 
-    issue_data = record.dumps(dumper=ClaimIssueNotificationDumper())
+    try:
+        issue_data = record.dumps(dumper=ClaimIssueNotificationDumper())
+    except (TypeError, MissingDataException) as exp:
+        abort(500, str(exp))
+
     # update the claims issue counter ::
     #   As this is preview for next claim, we need to add 1 to the returned
     #   claim counter

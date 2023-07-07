@@ -17,12 +17,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Library Record dumpers."""
+import pytest
+
+from rero_ils.modules.commons.exceptions import MissingDataException
 from rero_ils.modules.libraries.dumpers import \
     LibraryAcquisitionNotificationDumper, LibrarySerialClaimNotificationDumper
 
 
-def test_library_serial_claim_dumper(lib_martigny, lib_saxon):
-    """Test serial claim library dumper."""
+def test_library_serial_dumpers(lib_martigny, lib_saxon):
+    """Test serial library dumpers."""
 
     # Acquisition dumper
     dump_data = lib_martigny.dumps(LibraryAcquisitionNotificationDumper())
@@ -37,7 +40,6 @@ def test_library_serial_claim_dumper(lib_martigny, lib_saxon):
     assert data['address']
     assert data['shipping_informations']
     assert data['billing_informations']
-    data = lib_saxon.dumps(LibrarySerialClaimNotificationDumper())
-    assert data['address']
-    assert 'shipping_informations' not in data
-    assert 'billing_informations' not in data
+    with pytest.raises(MissingDataException) as exc:
+        lib_saxon.dumps(LibrarySerialClaimNotificationDumper())
+    assert 'library.serial_acquisition_settings' in str(exc)
