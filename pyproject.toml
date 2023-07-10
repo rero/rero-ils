@@ -186,7 +186,7 @@ rero-ils = "rero_ils.modules.ext:REROILSAPP"
 [tool.poetry.plugins."invenio_base.blueprints"]
 circ_policies = "rero_ils.modules.circ_policies.views:blueprint"
 collections = "rero_ils.modules.collections.views:blueprint"
-remote_entities = "rero_ils.modules.entities.remote_entities.views:blueprint"
+entities = "rero_ils.modules.entities.views:blueprint"
 documents = "rero_ils.modules.documents.views:blueprint"
 holdings = "rero_ils.modules.holdings.views:blueprint"
 ill_requests = "rero_ils.modules.ill_requests.views:blueprint"

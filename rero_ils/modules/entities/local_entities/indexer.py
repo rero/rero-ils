@@ -17,14 +17,15 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Local entity indexer APIs."""
-from celery import shared_task
 from datetime import datetime
 
+from celery import shared_task
 from flask import current_app
 
-from rero_ils.modules.utils import get_record_class_by_resource, \
-    get_indexer_class_by_resource
 from rero_ils.modules.api import IlsRecordsIndexer, ReferencedRecordsIndexer
+from rero_ils.modules.utils import get_indexer_class_by_resource, \
+    get_record_class_by_resource
+
 from .api import LocalEntity
 from ..dumpers import indexer_dumper
 

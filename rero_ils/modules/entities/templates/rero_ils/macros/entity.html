@@ -20,10 +20,10 @@
 
 {% macro dl(name, value, prefix) %}
   {% if value %}
-    <dt class="col-md-3 col-lg-3 rero-ils-term">
+    <dt class="col-md-3 col-lg-3 rero-ils-term mb-1">
       {{ name }}:
     </dt>
-    <dd class="col-md-9 col-lg-9">
+    <dd class="col-md-9 col-lg-9 mb-1">
       {% if value is string %}
         {% if prefix %}
           {{ _(prefix.format(v=value)) }}
@@ -56,31 +56,9 @@
       {{ name }}:
     </dt>
     <dd class="col-md-9 col-lg-9">
-      <i class="fa fa-check fa-lg"></i>
+      <i class="fa fa-check fa-lg text-success"></i>
     </dd>
   {% endif %}
-{% endmacro %}
-
-{% macro dl_permalink(name, record) %}
-  <dt class="col-md-3 col-lg-3 rero-ils-term">
-    {{ _(name) }}:
-  </dt>
-  <dd class="col-md-9 col-lg-9">
-    <ul class="list-unstyled rero-ils-entity">
-      {% for source in config.RERO_ILS_AGENTS_SOURCES %}
-        {% if record[source] %}
-        <li>
-          {% if source != 'rero' %}
-            <a href="{{ record[source].identifier }}">{{ record[source].pid }}</a>
-          {% else %}
-            {{ record[source].pid }}
-          {% endif %}
-            <small class="badge badge-secondary text-uppercase">{{ source }}</small>
-        </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
-  </dd>
 {% endmacro %}
 
 {% macro dl_permalink_by_source(name, data, source) %}

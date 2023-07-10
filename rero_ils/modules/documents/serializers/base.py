@@ -24,10 +24,10 @@ from flask import current_app
 
 from rero_ils.modules.commons.identifiers import IdentifierFactory, \
     IdentifierStatus, IdentifierType
+from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.utils import get_base_url
 
 from ..api import DocumentsSearch
-from rero_ils.modules.entities.models import EntityType
 
 CREATOR_ROLES = [
     'aut', 'cmp', 'cre', 'dub', 'pht', 'ape', 'aqt', 'arc', 'art', 'aus',

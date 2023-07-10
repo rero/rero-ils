@@ -22,8 +22,8 @@ import mock
 from flask import url_for
 from utils import get_json, mock_response, postdata, to_relative_url
 
-from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.entities.dumpers import indexer_dumper
+from rero_ils.modules.entities.models import EntityType
 
 
 def test_remote_entities_permissions(client, entity_person, json_header):

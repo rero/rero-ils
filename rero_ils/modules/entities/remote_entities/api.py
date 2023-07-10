@@ -32,10 +32,9 @@ from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 
-from .models import RemoteEntityIdentifier, RemoteEntityMetadata, \
-    EntityUpdateAction
+from .models import EntityUpdateAction, RemoteEntityIdentifier, \
+    RemoteEntityMetadata
 from .utils import extract_data_from_mef_uri, get_mef_data_by_type
-
 from ..api import Entity
 from ..dumpers import indexer_dumper, replace_refs_dumper
 from ..models import EntityResourceType

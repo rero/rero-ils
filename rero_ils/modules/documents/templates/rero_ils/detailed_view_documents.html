@@ -2,6 +2,7 @@
 
   RERO ILS
   Copyright (C) 2019-2023 RERO
+  Copyright (C) 2019-2023 UCLouvain
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
@@ -218,7 +219,18 @@
       {% for subject in record.subjects %}
         <span class="badge badge-secondary my-0" title="{{ _(subject.type) }}">
           {% if 'entity' in subject %}
-            <i class="fa fa-tag"></i> {{ subject.entity | doc_entity_label(language=current_i18n.language) }}
+            {% set type, value, label = subject.entity | doc_entity_label(language=current_i18n.language) %}
+            {% if 'textual' == type %}
+              {% set query = 'subjects.entity.authorized_access_point_' ~ current_i18n.language ~ ':"' ~ value ~ '"' %}
+            {% elif type in ['local', 'remote'] %}
+              {% set query = 'subjects.entity.pids.' ~ type ~ ':' ~ value %}
+            {% endif %}
+            <i class="fa fa-tag"></i>
+            {% if query %}
+              <a class="text-white" href="{{ url_for('rero_ils.search', viewcode=viewcode, recordType='documents', q=query, simple=0) }}">{{ label }}</a>
+            {% else %}
+              {{ label }}
+            {% endif %}
           {% endif %}
         </span>
       {% endfor %}
@@ -230,15 +242,24 @@
       <div class="pt-2">
         {% for genreForm in record.genreForm %}
           {% if 'entity' in genreForm %}
+          {% set type, value, label = genreForm.entity | doc_entity_label(language=current_i18n.language) %}
+          {% if 'textual' == type %}
+            {% set query = 'genreForm.entity.authorized_access_point_' ~ current_i18n.language ~ ':"' ~ value ~ '"' %}
+          {% elif type in ['local', 'remote'] %}
+            {% set query = 'genreForm.entity.pids.' ~ type ~ ':' ~ value %}
+          {% endif %}
           <span class="mr-1">
             <i class="fa fa-tag"></i>
-            {{ genreForm.entity | doc_entity_label(language=current_i18n.language) }}
+            {% if query %}
+              <a href="{{ url_for('rero_ils.search', viewcode=viewcode, recordType='documents', q=query, simple=0) }}">{{ label }}</a>
+            {% else %}
+              {{ label }}
+            {% endif %}
           </span>
           {% endif %}
         {% endfor %}
       </div>
     {% endif %}
-
 
     <!-- LINKED DOCUMENTS -->
     {% if linked_documents_count and linked_documents_count > 0 %}

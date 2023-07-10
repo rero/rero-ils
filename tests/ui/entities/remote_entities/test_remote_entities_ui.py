@@ -16,22 +16,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Tests UI view for entities."""
+"""Jinja2 filters tests."""
 
-from flask import url_for
-
-
-def test_remote_entity_person_detailed_view(client, entity_person):
-    """Test entity person detailed view."""
-    res = client.get(url_for(
-        'remote_entities.persons_proxy',
-        viewcode='global', pid=entity_person.pid))
-    assert res.status_code == 200
+from rero_ils.modules.entities.views import entity_label
 
 
-def test_remote_entity_organisation_detailed_view(client, entity_organisation):
-    """Test entity organisation detailed view."""
-    res = client.get(url_for(
-        'remote_entities.corporate_bodies_proxy',
-        viewcode='global', pid='ent_org'))
-    assert res.status_code == 200
+def test_remote_entity_label(app, entity_person_data):
+    """Test entity label."""
+    app.config['RERO_ILS_AGENTS_LABEL_ORDER'] = {
+        'fallback': 'fr',
+        'fr': ['rero', 'idref', 'gnd'],
+        'de': ['gnd', 'rero', 'idref'],
+    }
+    label = entity_label(entity_person_data, 'fr')
+    assert label == 'Loy, Georg, 1885-19..'
+    label = entity_label(entity_person_data, 'it')
+    assert label == 'Loy, Georg, 1885-19..'

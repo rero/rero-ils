@@ -20,8 +20,7 @@
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
-from rero_ils.modules.entities.dumpers import \
-    document_dumper
+from rero_ils.modules.entities.dumpers import document_dumper
 from rero_ils.modules.entities.remote_entities.utils import \
     extract_data_from_mef_uri
 from rero_ils.modules.utils import extracted_data_from_ref

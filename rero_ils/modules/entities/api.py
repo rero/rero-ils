@@ -20,15 +20,41 @@
 
 from abc import ABC, abstractmethod
 
-from elasticsearch_dsl import Q, A
+from elasticsearch_dsl import A
 from flask import current_app
 
-from rero_ils.modules.api import IlsRecord
+from rero_ils.modules.api import IlsRecord, IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.entities.remote_entities.utils import \
+    extract_data_from_mef_uri
+from rero_ils.modules.utils import extracted_data_from_ref, sorted_pids
+
+
+class EntitiesSearch(IlsRecordsSearch):
+    """Entities search class."""
+
+    class Meta:
+        """Meta class."""
+
+        index = 'entities'
+        doc_types = None
+        fields = ('*', )
+        facets = {}
+
+        default_filter = None
 
 
 class Entity(IlsRecord, ABC):
     """Entity class."""
+
+    @classmethod
+    def get_record_by_ref(cls, ref):
+        """."""
+        from .remote_entities.api import RemoteEntity
+        if entity := extracted_data_from_ref(ref, 'record'):
+            return entity
+        _, _type, _pid = extract_data_from_mef_uri(ref)
+        return RemoteEntity.get_entity(_type, _pid)
 
     @abstractmethod
     def get_authorized_access_point(self, language):
@@ -39,6 +65,30 @@ class Entity(IlsRecord, ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
+    def get_links_to_me(self, get_pids=False):
+        """Get links to other resources.
+
+        :param get_pids: related resource pids are included into response ;
+            otherwise the count of related resources are specified.
+        :returns: list of related resource to this entity.
+        :rtype: dict.
+        """
+        document_query = DocumentsSearch().by_entity(self)
+        documents = sorted_pids(document_query) if get_pids \
+            else document_query.count()
+        links = {
+            'documents': documents
+        }
+        return {k: v for k, v in links.items() if v}
+
+    def reasons_not_to_delete(self):
+        """Get reasons not to delete record."""
+        cannot_delete = {}
+        if links := self.get_links_to_me():
+            cannot_delete['links'] = links
+        return cannot_delete
+
     @property
     @abstractmethod
     def resource_type(self):
@@ -47,8 +97,8 @@ class Entity(IlsRecord, ABC):
 
     @property
     def organisation_pids(self):
-        """Get organisations pids."""
-        search = self._search_documents()
+        """Get organisation pids related with this entity."""
+        search = DocumentsSearch().by_entity(self)[:0]
         agg = A(
             'terms',
             field='holdings.organisation.organisation_pid',
@@ -64,39 +114,25 @@ class Entity(IlsRecord, ABC):
             for result in results.aggregations.organisation.buckets
         })
 
-    def _search_documents(
-        self, with_subjects=True, with_subjects_imported=True,
-        with_genre_forms=True
-    ):
-        """Get ES query to search documents containing this entity.
-
-        :param with_subjects: search also on `subjects` ?
-        :param with_subjects_imported: search also on `subject_imported` ?
-        :param with_genre_forms: search also on `genreForm` ?
-        """
-        contribution_key = f'contribution.entity.pids.{self.resource_type}'
-        filters = Q('term', **{contribution_key: self.pid})
-        if with_subjects:
-            search_field = f'subjects.entity.pids.{self.resource_type}'
-            filters |= Q('term', **{search_field: self.pid})
-        if with_subjects_imported:
-            search_field = f'subjects_imported.pids.{self.resource_type}'
-            filters |= Q('term', **{search_field: self.pid})
-        if with_genre_forms:
-            search_field = f'genreForm.entity.pids.{self.resource_type}'
-            filters |= Q('term', **{search_field: self.pid})
-
-        return DocumentsSearch().filter(filters)
-
     def documents_pids(
         self, with_subjects=True, with_subjects_imported=True,
         with_genre_forms=True
     ):
-        """Get documents pids."""
-        search = self._search_documents(
-            with_subjects=with_subjects,
-            with_subjects_imported=with_subjects_imported,
-            with_genre_forms=with_genre_forms
+        """Get documents pids related to this entity.
+
+        :param with_subjects: is the document `subject` field must be analyzed.
+        :param with_subjects_imported: is the document `subject_imported` field
+            must be analyzed.
+        :param with_genre_forms: is the document `genre_forms` field must be
+            analyzed.
+        :returns: document pids related to this entity.
+        :rtype: list<str>
+        """
+        search = DocumentsSearch().by_entity(
+            self,
+            subjects=with_subjects,
+            imported_subjects=with_subjects_imported,
+            genre_forms=with_genre_forms
         ).source('pid')
         return [hit.pid for hit in search.scan()]
 
@@ -104,10 +140,20 @@ class Entity(IlsRecord, ABC):
         self, with_subjects=True, with_subjects_imported=True,
         with_genre_forms=True
     ):
-        """Get documents ids."""
-        search = self._search_documents(
-            with_subjects=with_subjects,
-            with_subjects_imported=with_subjects_imported,
-            with_genre_forms=with_genre_forms
+        """Get document ID's/UUID related to this entity.
+
+        :param with_subjects: is the document `subject` field must be analyzed.
+        :param with_subjects_imported: is the document `subject_imported` field
+            must be analyzed.
+        :param with_genre_forms: is the document `genre_forms` field must be
+            analyzed.
+        :returns: document ID's/UUID related to this entity.
+        :rtype: list<str>
+        """
+        search = DocumentsSearch().by_entity(
+            self,
+            subjects=with_subjects,
+            imported_subjects=with_subjects_imported,
+            genre_forms=with_genre_forms
         ).source(False)
         return [hit.meta.id for hit in search.scan()]

@@ -1,0 +1,64 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2019-2023 RERO
+  Copyright (C) 2019-2023 UCLouvain
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{% from 'rero_ils/macros/entity.html' import dl, dl_bool, dl_permalink_by_source %}
+
+{% extends 'rero_ils/page.html' %}
+
+{% set pid = record.pid %}
+
+{%- block body %}
+<header class="row">
+  <div class="col-10">
+    <h1 class="mb-0">
+      <i class="fa {{ record['type'] | entity_icon }}" title="{{ _(record['type']) }}" aria-hidden="true"></i>
+      {{ record.authorized_access_point }}
+    </h1>
+    <small>{{ _('LOCAL ID') }}: {{ pid }}</small>
+  </div>
+  <div class="col-2 pt-2">
+    {% include 'rero_ils/_search_link.html' %}
+  </div>
+</header>
+<dl class="row mt-4">
+  {% if record['type'] == 'bf:Organisation' %}
+  {% include 'rero_ils/_local_organisation.html' %}
+  {% elif record['type'] == 'bf:Person' %}
+  {% include 'rero_ils/_local_person.html' %}
+  {% elif record['type'] == 'bf:Place' %}
+  {% include 'rero_ils/_local_place.html' %}
+  {% elif record['type'] == 'bf:Temporal' %}
+  {% include 'rero_ils/_local_temporal.html' %}
+  {% elif record['type'] == 'bf:Topic' %}
+  {% include 'rero_ils/_local_topic.html' %}
+  {% elif record['type'] == 'bf:Work' %}
+  {% include 'rero_ils/_local_work.html' %}
+  {% endif %}
+
+  <!-- Common fields for all types -->
+  {{ dl(_('Source catalog'), record.source_catalog) }}
+  {% if record.identifier %}
+  <dt>{{ _('Identifier') }}</dt>
+  <dd>
+    {{ _(record.identifier.type) }} - {{ record.identifier.value }}
+    {% if record.identifier.source %}({{ record.identifier.source }}){% endif %}
+  </dd>
+  {% endif %}
+</dl>
+{%- endblock body %}
