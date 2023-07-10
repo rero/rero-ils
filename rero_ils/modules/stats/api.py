@@ -398,7 +398,7 @@ class StatsForLibrarian(StatsForPricing):
                 'renewals':
                     self.renewals(lib.pid, [ItemCirculationAction.EXTEND]),
                 'validated_requests':
-                    self.validated_requests(lib.pid, ['validate']),
+                    self.validated_requests(lib.pid),
                 'items_by_document_type_and_subtype':
                     self.items_by_document_type_and_subtype(lib.pid),
                 'new_items_by_location':
@@ -582,20 +582,18 @@ class StatsForLibrarian(StatsForPricing):
             .filter('term', loan__item__library_pid=library_pid)\
             .count()
 
-    def validated_requests(self, library_pid, trigger):
+    def validated_requests(self, library_pid):
         """Number of validated requests.
 
         Number of validated requests per library for given time interval
         Match is done on the library of the librarian.
-        Note: trigger is 'validate' and not 'validate_request'
         :param library_pid: string - the library to filter with
-        :param trigger: string - action name validate
         :return: the number of matched documents
         :rtype: integer
         """
         return RecordsSearch(index=LoanOperationLog.index_name)\
             .filter('range', date=self.date_range)\
-            .filter('terms', loan__trigger=trigger)\
+            .filter('term', loan__trigger='validate_request')\
             .filter('term', library__value=library_pid)\
             .count()
 
