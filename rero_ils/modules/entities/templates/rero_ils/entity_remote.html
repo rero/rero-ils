@@ -1,0 +1,64 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2019-2023 RERO
+  Copyright (C) 2019-2023 UCLouvain
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+{% from 'rero_ils/macros/entity.html' import dl, dl_bool, dl_permalink_by_source %}
+
+{% extends 'rero_ils/page.html' %}
+
+{% set source, data = record|extract_data_from_remote_entity %}
+{% set pid = record.pid %}
+
+{%- block body %}
+<header class="row">
+  <div class="col-10">
+    <h1 class="mb-0">
+      <i class="fa {{ record['type'] | entity_icon }}" title="{{ _(record['type']) }}" aria-hidden="true"></i>
+      {{ record | entity_label(current_i18n.language) }}
+    </h1>
+    <small>MEF ID: {{ pid }}</small>
+  </div>
+  <div class="col-2 pt-2">
+    {% include 'rero_ils/_search_link.html' %}
+  </div>
+</header>
+<dl class="row mt-4">
+  {% if record['type'] == 'bf:Organisation' %}
+  {% include 'rero_ils/_remote_organisation.html' %}
+  {% elif record['type'] == 'bf:Person' %}
+  {% include 'rero_ils/_remote_person.html' %}
+  {% elif record['type'] == 'bf:Topic' %}
+  {% include 'rero_ils/_remote_topic.html' %}
+  {% endif %}
+  <!-- Common fields for all types -->
+  {% set links = record|sources_link %}
+  {% if links != {} %}
+  <dt class="col-md-3 col-lg-3 rero-ils-term mb-1">{{ _('Source(s)') }}</dt>
+  <dd class="col-md-9 col-lg-9 mb-1">
+    <ul class="list-inline">
+      {% for source, link in links.items() %}
+        <li class="list-inline-item mr-0">
+          <a class="rero-ils-external-link" href="{{ link }}" target="_blank">{{ source }}</a>
+          {{ "; " if not loop.last else "" }}
+        </li>
+      {% endfor %}
+    </ul>
+  </dd>
+  {% endif %}
+</dl>
+{%- endblock body %}

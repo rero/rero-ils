@@ -400,15 +400,26 @@ def test_contribution_format(db, entity_organisation):
             'authorized_access_point_fr': 'author_fr'
         }
     }]
-    assert contribution_format(contributions, 'en', 'global') == 'author_def'
-    assert contribution_format(contributions, 'fr', 'global') == 'author_fr'
-    assert contribution_format(contributions, 'zh', 'global') == 'author_def'
 
+    # ---- Textual contribution
+    # With english language
+    link_part = '/global/search/documents?q=' \
+                'contribution.entity.authorized_access_point_en%3A' \
+                '%22author_def%22'
+    assert link_part in contribution_format(contributions, 'en', 'global')
+
+    # With french language
+    link_part = '/global/search/documents?q=' \
+                'contribution.entity.authorized_access_point_fr%3A' \
+                '%22author_fr%22'
+    assert link_part in contribution_format(contributions, 'fr', 'global')
+
+    # ---- Remote contribution
     contributions = [{
         'entity': {'pid': entity.pid}
     }]
-    link_part = f'/global/search/documents?q' \
-                f'=contribution.entity.pids.{entity.resource_type}%3A' \
+    link_part = f'/global/search/documents?q=' \
+                f'contribution.entity.pids.{entity.resource_type}%3A' \
                 f'{entity.pid}'
     assert link_part in contribution_format(contributions, 'en', 'global')
 
@@ -550,46 +561,71 @@ def test_main_title_text():
     assert extract[0].get('_text') is not None
 
 
-def test_doc_entity_label_filter(entity_person):
+def test_doc_entity_label_filter(entity_person, local_entity_person):
     """Test entity label filter."""
+
+    # Remote entity
+    remote_pid = entity_person['idref']['pid']
     data = {
         'entity': {
-            'authorized_access_point': 'subject topic',
-            'type': EntityType.TOPIC
+            '$ref': f'https://mef.rero.ch/api/concepts/idref/{remote_pid}',
+            'pid': remote_pid
         }
     }
-    assert doc_entity_label(data['entity'], None) == 'subject topic'
-    assert doc_entity_label(data['entity'], 'fr') == 'subject topic'
+    entity_type, value, label = doc_entity_label(data['entity'], 'fr')
+    assert 'remote' == entity_type
+    assert 'ent_pers' == value
+    assert 'Loy, Georg, 1885-19..' == label
 
+    # Local entity
+    pid = local_entity_person['pid']
     data = {
         'entity': {
-            'authorized_access_point': 'topic_default',
-            'authorized_access_point_fr': 'topic_fr',
-            'type': EntityType.TOPIC
+            '$ref': f'https://bib.rero.ch/api/local_entities/{pid}'
         }
     }
-    assert doc_entity_label(data['entity'], 'fr') == 'topic_fr'
-    assert doc_entity_label(data['entity'], 'en') == 'topic_default'
-    assert doc_entity_label(data['entity'], None) == 'topic_default'
+    entity_type, value, label = doc_entity_label(data['entity'], 'fr')
+    assert 'local' == entity_type
+    assert 'locent_pers' == value
+    assert 'Loy, Georg (1881-1968)' == label
 
+    entity_type, value, label = doc_entity_label(data['entity'], 'en')
+    assert 'local' == entity_type
+    assert 'locent_pers' == value
+    assert 'Loy, Georg (1881-1968)' == label
+
+    # Textual
     data = {
         'entity': {
-            'authorized_access_point': 'topic_default',
-            'subdivisions': [{
-                'entity': {
-                    'authorized_access_point': 'sub_default',
-                    'authorized_access_point_fr': 'sub_fr'
-                }
-            }],
-            'type': EntityType.TOPIC
+            'authorized_access_point': 'subject topic'
         }
     }
-    assert doc_entity_label(data['entity'], 'fr') == 'topic_default - sub_fr'
-    assert doc_entity_label(
-        data['entity'], 'en') == 'topic_default - sub_default'
-    assert doc_entity_label(
-        data['entity'], None) == 'topic_default - sub_default'
+    entity_type, value, label = doc_entity_label(data['entity'], None)
+    assert 'textual' == entity_type
+    assert 'subject topic' == value
+    assert 'subject topic' == label
 
-    data = {'entity': {'pid': entity_person.pid}}
-    assert doc_entity_label(data['entity'], 'fr') == 'Loy, Georg, 1885-19..'
-    assert doc_entity_label(data['entity'], 'de') == 'Loy, Georg, 1885'
+    entity_type, value, label = doc_entity_label(data['entity'], 'fr')
+    assert 'textual' == entity_type
+    assert 'subject topic' == value
+    assert 'subject topic' == label
+
+    # Textual with subdivision
+    data['entity']['subdivisions'] = [
+        {
+            'entity': {
+                'authorized_access_point': 'Sub 1',
+                'type': EntityType.TOPIC
+            }
+        },
+        {
+            'entity': {
+                'authorized_access_point': 'Sub 2',
+                'type': EntityType.TOPIC
+            }
+        }
+    ]
+    entity_type, value, label = doc_entity_label(data['entity'], 'fr')
+    assert 'textual' == entity_type
+    assert 'subject topic' == value
+    assert 'subject topic - Sub 1 - Sub 2' == label

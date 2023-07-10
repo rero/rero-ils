@@ -27,12 +27,12 @@ import pytest
 from utils import flush_index, mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.entities.local_entities.api import LocalEntitiesSearch, \
+    LocalEntity
 from rero_ils.modules.entities.remote_entities.api import \
     RemoteEntitiesSearch, RemoteEntity
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
-from rero_ils.modules.entities.local_entities.api import LocalEntitiesSearch, \
-    LocalEntity
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
 from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.templates.api import Template, TemplatesSearch

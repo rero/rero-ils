@@ -21,7 +21,6 @@
 from functools import partial
 
 from rero_ils.modules.api import IlsRecordsSearch
-from rero_ils.modules.utils import sorted_pids
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.operation_logs.extensions import \
@@ -113,24 +112,3 @@ class LocalEntity(Entity):
         #   The links will be stored as a `$ref` and `replace_refs_dumper`
         #   will be used.
         return self.dumps(replace_refs_dumper)
-
-    def get_links_to_me(self, get_pids=False):
-        """Record links.
-
-        :param get_pids: if True list of linked pids
-                         if False count of linked records
-        """
-        document_query = self._search_documents()
-        documents = sorted_pids(document_query) if get_pids \
-            else document_query.count()
-        links = {
-            'documents': documents
-        }
-        return {k: v for k, v in links.items() if v}
-
-    def reasons_not_to_delete(self):
-        """Get reasons not to delete record."""
-        cannot_delete = {}
-        if links := self.get_links_to_me():
-            cannot_delete['links'] = links
-        return cannot_delete

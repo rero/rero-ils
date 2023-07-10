@@ -20,8 +20,10 @@
 from copy import deepcopy
 
 import pytest
-from rero_ils.modules.entities.remote_entities.api import RemoteEntity, \
-    RemoteEntitiesSearch
+
+from rero_ils.modules.entities.remote_entities.api import \
+    RemoteEntitiesSearch, RemoteEntity
+
 
 @pytest.fixture(scope="module")
 def mef_concept1_data(mef_entities):

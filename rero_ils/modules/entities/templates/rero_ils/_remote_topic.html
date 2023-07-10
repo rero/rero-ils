@@ -1,0 +1,71 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2019-2023 RERO
+  Copyright (C) 2019-2023 UCLouvain
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+
+<!-- BNF TYPE -->
+{% if data.bnf_type %}
+  {{ dl(_('Type'), data.bnf_type) }}
+{% endif %}
+<!-- VARIANT ACCESS POINT(S) -->
+{% if data.variant_access_point %}
+  {{ dl(_('Variant access point(s)'), data.variant_access_point) }}
+{% endif %}
+<!-- BROADER -->
+{% if data.broader %}
+  <dt class="col-md-3 col-lg-3 rero-ils-term mb-1">{{ _('Broader') }}</dt>
+  <dd class="col-md-9 col-lg-9 mb-1">
+    <ul class="list-unstyled rero-ils-entity mb-0">
+      {% for broader in data.broader %}
+      <li>{{ broader.authorized_access_point }}</li>
+      {% endfor %}
+    </ul>
+  </dd>
+{% endif %}
+<!-- RELATED -->
+{% if data.related %}
+  <dt class="col-md-3 col-lg-3 rero-ils-term mb-1">{{ _('Related') }}</dt>
+  <dd class="col-md-9 col-lg-9 mb-1">
+    <ul class="list-unstyled rero-ils-entity mb-0">
+      {% for related in data.related %}
+      <li>{{ related.authorized_access_point }}</li>
+      {% endfor %}
+    </ul>
+  </dd>
+{% endif %}
+<!-- CLASSIFICATION(S) -->
+{% if data.classification %}
+<dt class="col-md-3 col-lg-3 rero-ils-term mb-1">{{ _('Classification(s)') }}</dt>
+<dd class="col-md-9 col-lg-9 mb-1">
+  <ul class="list-unstyled rero-ils-entity mb-0">
+    {% for classification in data.classification %}
+    <li>
+      {% if classification.classificationPortion %}
+        <span class="mr-1">{{ classification.classificationPortion }}</span>
+      {% endif %}
+      {% if classification.name %}
+        <span class="mr-1">{{ classification.name }}</span>
+      {% endif %}
+      {% if classification.type %}
+        <span class="badge badge-secondary">{{ _(classification.type) }}</span>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</dd>
+{% endif %}

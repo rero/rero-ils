@@ -68,7 +68,7 @@ class Monitoring(object):
     times of selected functions.
     """
 
-    has_no_db = ['oplg']
+    has_no_db = ['oplg', 'ent']
 
     def __init__(self, time_delta=1):
         """Constructor.

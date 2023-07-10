@@ -42,7 +42,7 @@ from jsonschema.exceptions import ValidationError
 
 from rero_ils.filter import address_block, empty_data, format_date_filter, \
     get_record_by_ref, jsondumps, message_filter, node_assets, text_to_id, \
-    to_pretty_json
+    to_pretty_json, translate
 from rero_ils.modules.acquisition.acq_accounts.listener import \
     enrich_acq_account_data
 from rero_ils.modules.acquisition.acq_order_lines.listener import \
@@ -175,6 +175,7 @@ class REROILSAPP(object):
             app.add_template_filter(address_block)
             app.add_template_filter(message_filter, name='message')
             app.add_template_filter(issue_client_reference)
+            app.add_template_filter(translate)
             app.jinja_env.add_extension('jinja2.ext.do')
             app.jinja_env.globals['version'] = __version__
             self.register_signals(app)

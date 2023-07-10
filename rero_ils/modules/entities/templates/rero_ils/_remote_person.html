@@ -1,0 +1,44 @@
+{# -*- coding: utf-8 -*-
+
+  RERO ILS
+  Copyright (C) 2019-2023 RERO
+  Copyright (C) 2019-2023 UCLouvain
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#}
+
+<!-- DATE OF BIRTH -->
+{% if data.date_of_birth %}
+  {{ dl(_('Birth date'), data.date_of_birth | format_date(date_format='short', time_format=None)) }}
+{% endif %}
+<!-- DATE OF DEATH -->
+{% if data.date_of_death %}
+  {{ dl(_('Death date'), data.date_of_death | format_date(date_format='short', time_format=None)) }}
+{% endif %}
+<!-- LANGUAGE -->
+{% if data.language %}
+  {{ dl(_('Language'), data.language|translate('lang_')) }}
+{% endif %}
+<!-- GENDER -->
+{{ dl(_('Gender'), data.gender) }}
+<!-- BIBLIOGRAPHICAL INFORMATION -->
+{% if data.biographical_information %}
+{{ dl(_('Biographical information'), data.biographical_information | join('\n') | urlActive('_blank') | nl2br | safe ) }}
+{% endif %}
+<!-- NAME -->
+{{ dl(_('Name'), data.name) }}
+<!-- VARIANT ACCESS POINT -->
+{{ dl(_('Variant access point'), data.variant_access_point) }}
+<!-- AUTHORIZED ACCESS POINT -->
+{{ dl(_('Authorized access point'), data.authorized_access_point) }}

@@ -73,6 +73,30 @@ class DocumentsSearch(IlsRecordsSearch):
 
         default_filter = None
 
+    def by_entity(self, entity, subjects=True, imported_subjects=True,
+                  genre_forms=True):
+        """Build a search to get hits related to an entity.
+
+        :param entity: the entity record to search.
+        :param subjects: search on `subject` field.
+        :param imported_subjects: search on `imported_subject` field.
+        :param genre_forms: search on `genre_forms` field.
+        :returns: An ElasticSearch query to get hits related the entity.
+        :rtype: `elasticsearch_dsl.Search`
+        """
+        field = f'contribution.entity.pids.{entity.resource_type}'
+        filters = Q('term', **{field: entity.pid})
+        if subjects:
+            field = f'subjects.entity.pids.{entity.resource_type}'
+            filters |= Q('term', **{field: entity.pid})
+        if imported_subjects:
+            field = f'subjects_imported.pids.{entity.resource_type}'
+            filters |= Q('term', **{field: entity.pid})
+        if genre_forms:
+            field = f'genreForm.entity.pids.{entity.resource_type}'
+            filters |= Q('term', **{field: entity.pid})
+        return self.filter(filters)
+
 
 class Document(IlsRecord):
     """Document class."""
@@ -244,6 +268,7 @@ class Document(IlsRecord):
         """Index all attached contributions."""
         from rero_ils.modules.entities.remote_entities.api import \
             RemoteEntitiesIndexer, RemoteEntity
+
         from ..tasks import process_bulk_queue
         contributions_ids = []
         for contribution in self.get('contribution', []):

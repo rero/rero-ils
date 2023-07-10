@@ -24,23 +24,17 @@ from typing import Optional
 
 import click
 from elasticsearch_dsl.query import Q
-from flask import Blueprint, abort, current_app, jsonify, render_template, \
-    url_for
+from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
+from flask import url_for
 from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 
-from .api import Document, DocumentsSearch
-from .extensions import EditionStatementExtension, \
-    ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
-from .utils import display_alternate_graphic_first, get_remote_cover, \
-    title_format_text, title_format_text_alternate_graphic, \
-    title_variant_format_text
 from rero_ils.modules.collections.api import CollectionsSearch
-from rero_ils.modules.entities.remote_entities.api import RemoteEntity
-from rero_ils.modules.entities.models import EntityType
+from rero_ils.modules.entities.api import Entity
 from rero_ils.modules.entities.helpers import get_entity_record_from_data
+from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.holdings.models import HoldingNoteTypes
 from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.libraries.api import Library
@@ -48,6 +42,13 @@ from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patrons.api import current_patrons
 from rero_ils.modules.utils import cached, extracted_data_from_ref
+
+from .api import Document, DocumentsSearch
+from .extensions import EditionStatementExtension, \
+    ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
+from .utils import display_alternate_graphic_first, get_remote_cover, \
+    title_format_text, title_format_text_alternate_graphic, \
+    title_variant_format_text
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):
@@ -274,13 +275,19 @@ def contribution_format(contributions, language, viewcode, with_roles=False):
                      f'{entity.pid}',
                 'simple': 0
             }
-            url = url_for('rero_ils.search', **args)
-            label = f'<a href="{url}">{text}</a>'
         else:
             default_key = 'authorized_access_point'
-            localized_key = f'{default_key}_{language}'
-            label = contrib['entity'].get(localized_key) or \
+            localized_key = f'authorized_access_point_{language}'
+            text = contrib['entity'].get(localized_key) or \
                 contrib['entity'].get(default_key)
+            args = {
+                'viewcode': viewcode,
+                'recordType': 'documents',
+                'q': f'contribution.entity.{localized_key}:"{text}"',
+                'simple': 0
+            }
+        url = url_for('rero_ils.search', **args)
+        label = f'<a href="{url}">{text}</a>'
 
         if with_roles:
             if roles := [_(role) for role in contrib.get('role', [])]:
@@ -288,7 +295,7 @@ def contribution_format(contributions, language, viewcode, with_roles=False):
                 label += f'<span class="text-secondary"> ({roles_str})</span>'
         output.append(label)
 
-    return '&#8239;; '.join(output)
+    return ' ; '.join(output)
 
 
 @blueprint.app_template_filter()
@@ -301,20 +308,28 @@ def doc_entity_label(entity, language=None, part_separator=' - ') -> str:
     :returns: the best possible label to display.
     """
     parts = []
-    if 'pid' in entity:
-        entity = RemoteEntity.get_record_by_pid(entity['pid'])
-        parts.append(entity.get_authorized_access_point(language=language))
+    if '$ref' in entity:
+        # Local or remote entity
+        if entity := Entity.get_record_by_ref(entity['$ref']):
+            entity_type = entity.resource_type
+            value = entity.pid
+            parts.append(entity.get_authorized_access_point(language=language))
     else:
+        # Textual entity
+        entity_type = 'textual'
         default_key = 'authorized_access_point'
         localized_key = f'{default_key}_{language}'
-        parts.append(entity.get(localized_key) or entity.get(default_key))
+        value = entity.get(localized_key) or entity.get(default_key)
+        parts.append(value)
 
+    # Subdivisions (only for textual entity)
     for subdivision in entity.get('subdivisions', []):
         if sub_entity := subdivision.get('entity'):
-            parts.append(
-                doc_entity_label(sub_entity, language, part_separator))
+            _, _, label = doc_entity_label(
+                sub_entity, language, part_separator)
+            parts.append(label)
 
-    return part_separator.join(filter(None, parts))
+    return entity_type, value, part_separator.join(filter(None, parts))
 
 
 @blueprint.app_template_filter()

@@ -124,10 +124,16 @@
         "type": "text"
       },
       "alternative_names": {
-        "type": "text"
+        "type": "text",
+        "copy_to": [
+          "autocomplete_name"
+        ]
       },
       "fuller_form_of_name": {
-        "type": "text"
+        "type": "text",
+        "copy_to": [
+          "autocomplete_name"
+        ]
       },
       "gender": {
         "type": "keyword"
