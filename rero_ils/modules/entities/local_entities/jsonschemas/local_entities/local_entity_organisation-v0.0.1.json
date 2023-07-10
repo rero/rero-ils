@@ -14,10 +14,10 @@
     "type",
     "name",
     "subordinate_units",
-    "conference",
     "conference_numbering",
     "conference_date",
     "conference_place",
+    "conference",
     "start_date",
     "end_date",
     "alternative_names",
@@ -116,8 +116,7 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: Paris",
-        "hideExpression": "!field?.parent?.model || !field.parent.model.conference || field.parent.model.conference == false"
+        "placeholder": "Example: Paris"
       }
     },
     "conference_numbering": {
@@ -125,8 +124,7 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: 23e",
-        "hideExpression": "!field?.parent?.model || !field.parent.model.conference || field.parent.model.conference == false"
+        "placeholder": "Example: 23e"
       }
     },
     "conference_date": {
@@ -135,8 +133,7 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: 2022",
-        "hideExpression": "!field?.parent?.model || !field.parent.model.conference || field.parent.model.conference == false"
+        "placeholder": "Example: 2022"
       }
     },
     "alternative_names": {

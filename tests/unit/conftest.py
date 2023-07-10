@@ -25,9 +25,9 @@ import pytest
 from pkg_resources import resource_string
 from utils import get_schema
 
+from rero_ils.modules.entities.remote_entities.api import \
+    RemoteEntitiesSearch, RemoteEntity
 from rero_ils.modules.patrons.api import Patron
-from rero_ils.modules.entities.remote_entities.api import RemoteEntity, \
-    RemoteEntitiesSearch
 
 
 @pytest.fixture(scope='module')

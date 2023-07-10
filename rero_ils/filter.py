@@ -25,6 +25,7 @@ import re
 import dateparser
 from babel.dates import format_date, format_datetime, format_time
 from flask import current_app, render_template
+from flask_babelex import gettext as _
 from invenio_i18n.ext import current_i18n
 from jinja2 import TemplateNotFound
 from markupsafe import Markup
@@ -101,6 +102,10 @@ def format_date_filter(
     # TODO: Using the library or organisation timezone in the future
     if not locale:
         locale = current_i18n.locale.language
+
+    # Date formatting in GB English (DD/MM/YYYY)
+    if locale == 'en':
+        locale += '_GB'
 
     if timezone:
         tzinfo = timezone
@@ -184,3 +189,19 @@ def message_filter(key):
     :return: none or a json (check structure into the class Message).
     """
     return Message.get(key)
+
+
+def translate(data, prefix='', separator=', '):
+    """Translate data.
+
+    :param data: the data to translate
+    :param prefix: A prefix as a character string
+    :param separator: A character string separator.
+    :return: The translated string
+    """
+    if data:
+        if isinstance(data, list):
+            translated = [_(f'{prefix}{item}') for item in data]
+            return separator.join(translated)
+        elif isinstance(data, str):
+            return _(f'{prefix}{data}')

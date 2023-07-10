@@ -40,7 +40,7 @@ from invenio_circulation.transitions.transitions import CreatedToPending, \
     ItemOnLoanToItemReturned, PendingToItemAtDesk, \
     PendingToItemInTransitPickup, ToCancelled, ToItemOnLoan
 from invenio_records_rest.facets import range_filter, terms_filter
-from invenio_records_rest.utils import deny_all, allow_all
+from invenio_records_rest.utils import allow_all, deny_all
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount
 from rero_ils.modules.acquisition.acq_accounts.permissions import \
@@ -63,6 +63,12 @@ from rero_ils.modules.acquisition.acq_receipts.permissions import \
 from rero_ils.modules.acquisition.budgets.api import Budget
 from rero_ils.modules.acquisition.budgets.permissions import \
     BudgetPermissionPolicy
+from rero_ils.modules.entities.local_entities.api import LocalEntity
+from rero_ils.modules.entities.local_entities.permissions import \
+    LocalEntityPermissionPolicy
+from rero_ils.modules.entities.remote_entities.api import RemoteEntity
+from rero_ils.modules.entities.remote_entities.permissions import \
+    RemoteEntityPermissionPolicy
 
 from .modules.circ_policies.api import CircPolicy
 from .modules.circ_policies.permissions import \
@@ -73,9 +79,6 @@ from .modules.documents.api import Document
 from .modules.documents.permissions import DocumentPermissionPolicy
 from .modules.documents.query import acquisition_filter, \
     nested_identified_filter
-from rero_ils.modules.entities.remote_entities.api import RemoteEntity
-from rero_ils.modules.entities.remote_entities.permissions import \
-    RemoteEntityPermissionPolicy
 from .modules.holdings.api import Holding
 from .modules.holdings.models import HoldingCirculationAction
 from .modules.holdings.permissions import HoldingsPermissionPolicy
@@ -98,9 +101,6 @@ from .modules.loans.utils import can_be_requested, get_default_loan_duration, \
     get_extension_params, is_item_available_for_checkout, \
     loan_build_document_ref, loan_build_item_ref, loan_build_patron_ref, \
     validate_item_pickup_transaction_locations, validate_loan_duration
-from rero_ils.modules.entities.local_entities.api import LocalEntity
-from rero_ils.modules.entities.local_entities.permissions import \
-    LocalEntityPermissionPolicy
 from .modules.local_fields.api import LocalField
 from .modules.local_fields.permissions import LocalFieldPermissionPolicy
 from .modules.locations.api import Location
@@ -3060,6 +3060,7 @@ RERO_ILS_THUMBNAIL_SERVICE_URL = 'https://services.test.rero.ch/cover'
 
 #: Entities
 RERO_ILS_AGENTS_SOURCES = ['idref', 'gnd', 'rero']
+RERO_ILS_AGENTS_SOURCES_EXCLUDE_LINK = ['rero']
 RERO_ILS_AGENTS_LABEL_ORDER = {
     'fallback': 'fr',
     'fr': ['idref', 'rero', 'gnd'],

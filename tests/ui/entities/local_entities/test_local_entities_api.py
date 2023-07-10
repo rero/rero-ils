@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 
 import time
 from datetime import timedelta
+
 from utils import flush_index
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch

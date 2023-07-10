@@ -18,8 +18,8 @@
 
 """RERO Unified entities serialization."""
 
-from rero_ils.modules.serializers import RecordSchemaJSONV1, \
-    search_responsify
+from rero_ils.modules.serializers import RecordSchemaJSONV1, search_responsify
+
 from .base import EntityJSONSerializer
 
 # Serializers

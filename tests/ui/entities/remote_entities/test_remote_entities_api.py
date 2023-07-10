@@ -125,6 +125,10 @@ def test_sync_contribution(
     )
     flush_index(DocumentsSearch.Meta.index)
 
+    # Test that entity could not be deleted
+    assert pers.get_links_to_me(True)['documents'] == [doc.pid]
+    assert pers.reasons_not_to_delete()['links']['documents'] == 1
+
     # === nothing to update
     sync_entity._get_latest = mock.MagicMock(
         return_value=entity_person_data_tmp

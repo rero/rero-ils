@@ -18,24 +18,20 @@
 
 #}
 
-{% from 'rero_ils/macros/entity.html' import dl, dl_bool, dl_permalink_by_source %}
-
-{{ dl(_('Birth date'), data.date_of_birth) }}
-{{ dl(_('Death date'), data.date_of_death) }}
-{% if data.language %}
-  {{ dl(_('Language'), data.language|translat('lang_')) }}
-{% endif %}
-{{ dl(_('Gender'), data.gender) }}
-{{ dl(_('Biographical information'), data.biographical_information | join('\n') | urlActive('_blank') | nl2br | safe ) }}
-{{ dl(_('Qualifier'), data.qualifier) }}
-{{ dl(_('Numeration'), data.numeration) }}
+<!-- DATE OF ESTABLISHMENT -->
 {{ dl(_('Date establishment'), data.date_of_establishment) }}
+<!-- DATE OF TERMINATION -->
 {{ dl(_('Death termination'), data.date_of_termination) }}
-{{ dl_bool(_('Conference'), data.conference) }}
-{% if data.country_associated %}
-  {{ dl(_('Associated country'), data.country_associated|translat('country_')) }}
+<!-- LANGUAGE -->
+{% if data.language %}
+  {{ dl(_('Language'), data.language|translate('lang_')) }}
 {% endif %}
-{{ dl_permalink_by_source(_('ID'), data, source) }}
+<!-- COUNTRY ASSOCIATED -->
+{% if data.country_associated %}
+  {{ dl(_('Associated country'), data.country_associated|translate('country_')) }}
+{% endif %}
+<!-- AUTHORIZED ACCESS POINT -->
 {{ dl(_('Authorized access point'), data.authorized_access_point) }}
+<!-- VARIANT NAME -->
 {{ dl(_('Variant access point'), data.variant_access_point) }}
-{{ dl(_('Parallel access point'), data.parallel_access_point) }}
+

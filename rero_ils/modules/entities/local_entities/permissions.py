@@ -19,8 +19,8 @@
 """Permissions for `Local Entity` records."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import RecordPermissionPolicy, \
-    AllowedByAction
+from rero_ils.modules.permissions import AllowedByAction, \
+    RecordPermissionPolicy
 
 # Actions to control local entity policies for CRUD operations
 search_action = action_factory('locent-search')

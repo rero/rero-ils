@@ -19,15 +19,16 @@
 """Tests `LocalEntity` resource REST API."""
 
 import json
+
 import mock
 from flask import url_for
-from utils import get_json, postdata, to_relative_url, \
-    VerifyRecordPermissionPatch
+from utils import VerifyRecordPermissionPatch, get_json, postdata, \
+    to_relative_url
 
 from rero_ils.modules.documents.dumpers import document_replace_refs_dumper
-from rero_ils.modules.entities.models import EntityType
-from rero_ils.modules.entities.local_entities.api import LocalEntity
 from rero_ils.modules.entities.dumpers import indexer_dumper
+from rero_ils.modules.entities.local_entities.api import LocalEntity
+from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.utils import get_ref_for_pid
 
 

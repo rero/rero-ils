@@ -182,8 +182,9 @@ def test_document_linked_subject(
            in subject['entity']['variant_access_point']
 
     # reset fixtures
-    entity.delete()
+    doc.delete_from_index()
     doc.delete()
+    entity.delete()
 
 
 def test_document_add_cover_url(db, document):

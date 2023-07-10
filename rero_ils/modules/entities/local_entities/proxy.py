@@ -22,7 +22,6 @@ from elasticsearch_dsl import Q
 from .api import LocalEntitiesSearch
 from ..models import EntityType
 
-
 CATEGORY_FILTERS = {
     'agents': Q('terms', type=[EntityType.PERSON, EntityType.ORGANISATION]),
     'person': Q('term', type=EntityType.PERSON),
