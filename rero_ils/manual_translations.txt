@@ -91,7 +91,7 @@ _('multi_volume')
 _('Phone')
 _('Phones')
 _('Business')
-_('Home')
+_('Domicile')
 _('Mobile')
 
 

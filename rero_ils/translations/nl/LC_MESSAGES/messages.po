@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2023-05-23 16:29+0200\n"
+"POT-Creation-Date: 2023-07-13 15:09+0200\n"
 "PO-Revision-Date: 2022-03-10 17:56+0000\n"
 "Last-Translator: Nicolas Prongué <n.prongue@outlook.com>\n"
 "Language: nl\n"
@@ -59,270 +59,277 @@ msgstr "RERO ID wachtwoord opnieuw instellen"
 msgid "Your RERO ID password has been reset"
 msgstr "Uw RERO ID-wachtwoord is opnieuw ingesteld"
 
-#: rero_ils/config.py:1603
+#: rero_ils/config.py:1587
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 msgid "Global catalog"
 msgstr ""
 
-#: rero_ils/config.py:1698
+#: rero_ils/config.py:1682
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:79
 #, fuzzy
 msgid "online"
 msgstr "On-line"
 
-#: rero_ils/config.py:1702
+#: rero_ils/config.py:1686
 #, fuzzy
 msgid "not_online"
 msgstr "On-line"
 
-#: rero_ils/config.py:1705
+#: rero_ils/config.py:1689
 msgid "author"
 msgstr "auteur"
 
-#: rero_ils/config.py:1706
+#: rero_ils/config.py:1690
 #, fuzzy
 msgid "subject_fiction"
 msgstr "abonnement"
 
-#: rero_ils/config.py:1713
+#: rero_ils/config.py:1698
 #, fuzzy
 msgid "subject_no_fiction"
 msgstr "abonnement"
 
-#: rero_ils/config.py:1720
+#: rero_ils/config.py:1706
 #, fuzzy
 msgid "new_acquisition"
 msgstr "Aankoopvoorwaarden"
 
-#: rero_ils/config.py:1721
+#: rero_ils/config.py:1707
 #, fuzzy
 msgid "identifiers"
 msgstr "Identificator"
 
-#: rero_ils/config.py:1724 rero_ils/config.py:1725 rero_ils/config.py:1803
+#: rero_ils/config.py:1710 rero_ils/config.py:1711 rero_ils/config.py:1749
 msgid "document_type"
 msgstr "type van document"
 
-#: rero_ils/config.py:1726 rero_ils/config.py:1804
+#: rero_ils/config.py:1712 rero_ils/config.py:1750
 msgid "document_subtype"
 msgstr "Subtype van document"
 
-#: rero_ils/config.py:1728
+#: rero_ils/config.py:1714
 msgid "language"
 msgstr "taal"
 
-#: rero_ils/config.py:1729 rero_ils/config.py:1730
+#: rero_ils/config.py:1715 rero_ils/config.py:1716
 msgid "organisation"
 msgstr "organisatie"
 
-#: rero_ils/config.py:1733 rero_ils/config.py:1805 rero_ils/config.py:1953
-#: rero_ils/config.py:1975 rero_ils/config.py:2003 rero_ils/config.py:2116
-#: rero_ils/config.py:2156
+#: rero_ils/config.py:1719 rero_ils/config.py:1751 rero_ils/config.py:1898
+#: rero_ils/config.py:1920 rero_ils/config.py:1948 rero_ils/config.py:2061
+#: rero_ils/config.py:2101
 msgid "library"
 msgstr "bibliotheek"
 
-#: rero_ils/config.py:1734 rero_ils/config.py:1806
+#: rero_ils/config.py:1720 rero_ils/config.py:1752
 #, fuzzy
 msgid "location"
 msgstr "Locatie"
 
-#: rero_ils/config.py:1736 rero_ils/config.py:1810 rero_ils/config.py:1881
-#: rero_ils/config.py:1976 rero_ils/config.py:2006 rero_ils/config.py:2153
+#: rero_ils/config.py:1722 rero_ils/config.py:1756 rero_ils/config.py:1826
+#: rero_ils/config.py:1921 rero_ils/config.py:1951 rero_ils/config.py:2098
 msgid "status"
 msgstr "status"
 
-#: rero_ils/config.py:1737
+#: rero_ils/config.py:1723
 #, fuzzy
 msgid "genreForm"
 msgstr "Algemeen"
 
-#: rero_ils/config.py:1738
+#: rero_ils/config.py:1724
 msgid "intendedAudience"
 msgstr ""
 
-#: rero_ils/config.py:1739
+#: rero_ils/config.py:1725
 #, fuzzy
 msgid "year"
 msgstr "Zoeken"
 
-#: rero_ils/config.py:1807
+#: rero_ils/config.py:1753
 #, fuzzy
 msgid "item_type"
 msgstr "Type van exemplaar"
 
-#: rero_ils/config.py:1808
+#: rero_ils/config.py:1754
 #, fuzzy
 msgid "temporary_item_type"
 msgstr "Type van exemplaar"
 
-#: rero_ils/config.py:1809
+#: rero_ils/config.py:1755
 #, fuzzy
 msgid "temporary_location"
 msgstr "bibliothecaris"
 
-#: rero_ils/config.py:1811
-#, fuzzy
-msgid "issue_status"
-msgstr "Nummer status"
-
-#: rero_ils/config.py:1812 rero_ils/config.py:2004
+#: rero_ils/config.py:1757 rero_ils/config.py:1949
 #, fuzzy
 msgid "vendor"
 msgstr "Verkoper"
 
-#: rero_ils/config.py:1816
+#: rero_ils/config.py:1758
+msgid "or_issue_status"
+msgstr ""
+
+#: rero_ils/config.py:1759
+msgid "claims_count"
+msgstr ""
+
+#: rero_ils/config.py:1760
+msgid "claims_date"
+msgstr ""
+
+#: rero_ils/config.py:1761
 #, fuzzy
 msgid "current_requests"
 msgstr "Ontvangen"
 
-#: rero_ils/config.py:1875
+#: rero_ils/config.py:1820
 #, fuzzy
 msgid "owner_library"
 msgstr "bibliotheek"
 
-#: rero_ils/config.py:1876
+#: rero_ils/config.py:1821
 #, fuzzy
 msgid "owner_location"
 msgstr "Locatie"
 
-#: rero_ils/config.py:1877
+#: rero_ils/config.py:1822
 #, fuzzy
 msgid "pickup_library"
 msgstr "bibliotheek"
 
-#: rero_ils/config.py:1878
+#: rero_ils/config.py:1823
 #, fuzzy
 msgid "pickup_location"
 msgstr "is een afhaallocatie"
 
-#: rero_ils/config.py:1879
+#: rero_ils/config.py:1824
 #, fuzzy
 msgid "transaction_library"
 msgstr "E-mail van de bibliotheek."
 
-#: rero_ils/config.py:1880
+#: rero_ils/config.py:1825
 #, fuzzy
 msgid "transaction_location"
 msgstr "PID van de transactie van de locatie"
 
-#: rero_ils/config.py:1882
+#: rero_ils/config.py:1827
 #, fuzzy
 msgid "misc_status"
 msgstr "Nummer status"
 
-#: rero_ils/config.py:1883 rero_ils/config.py:1932
+#: rero_ils/config.py:1828 rero_ils/config.py:1877
 #, fuzzy
 msgid "patron_type"
 msgstr "Lezerstype"
 
-#: rero_ils/config.py:1884
+#: rero_ils/config.py:1829
 #, fuzzy
 msgid "request_expire_date"
 msgstr "Vervaldatum van de reservatie"
 
-#: rero_ils/config.py:1890
+#: rero_ils/config.py:1835
 #, fuzzy
 msgid "end_date"
 msgstr "Einddatum"
 
-#: rero_ils/config.py:1896
+#: rero_ils/config.py:1841
 #, fuzzy
 msgid "exclude_status"
 msgstr "Nummer status"
 
-#: rero_ils/config.py:1930
+#: rero_ils/config.py:1875
 msgid "roles"
 msgstr "rollen"
 
-#: rero_ils/config.py:1931
+#: rero_ils/config.py:1876
 #, fuzzy
 msgid "city"
 msgstr "Stad"
 
-#: rero_ils/config.py:1954 rero_ils/config.py:2008
+#: rero_ils/config.py:1899 rero_ils/config.py:1953
 msgid "budget"
 msgstr "begroting"
 
-#: rero_ils/config.py:2005 rero_ils/config.py:2046 rero_ils/config.py:2071
-#: rero_ils/config.py:2115
+#: rero_ils/config.py:1950 rero_ils/config.py:1991 rero_ils/config.py:2016
+#: rero_ils/config.py:2060
 #, fuzzy
 msgid "type"
 msgstr "Type"
 
-#: rero_ils/config.py:2007
+#: rero_ils/config.py:1952
 msgid "account"
 msgstr ""
 
-#: rero_ils/config.py:2009
+#: rero_ils/config.py:1954
 msgid "order_date"
 msgstr ""
 
-#: rero_ils/config.py:2015
+#: rero_ils/config.py:1960
 msgid "receipt_date"
 msgstr ""
 
-#: rero_ils/config.py:2045
+#: rero_ils/config.py:1990
 msgid "sources"
 msgstr "bron"
 
-#: rero_ils/config.py:2072
+#: rero_ils/config.py:2017
 #, fuzzy
 msgid "visibility"
 msgstr "beschikbaarheid"
 
-#: rero_ils/config.py:2117
+#: rero_ils/config.py:2062
 msgid "subject"
 msgstr "onderwerp"
 
-#: rero_ils/config.py:2118
+#: rero_ils/config.py:2063
 #, fuzzy
 msgid "teacher"
 msgstr "Andere"
 
-#: rero_ils/config.py:2154
+#: rero_ils/config.py:2099
 #, fuzzy
 msgid "loan_status"
 msgstr "Tataars"
 
-#: rero_ils/config.py:2155
+#: rero_ils/config.py:2100
 #, fuzzy
 msgid "requester"
 msgstr "Opgevraagd"
 
-#: rero_ils/config.py:2950 rero_ils/manual_translations.txt:70
+#: rero_ils/config.py:2895 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:102
 #, fuzzy
 msgid "This is a TEST VERSION."
 msgstr "Testversie"
 
-#: rero_ils/config.py:2951 rero_ils/manual_translations.txt:71
+#: rero_ils/config.py:2896 rero_ils/manual_translations.txt:71
 #: rero_ils/theme/templates/rero_ils/header.html:104
 #, fuzzy
 msgid "Go to the production site."
 msgstr "Code van de lokatie."
 
 #: rero_ils/manual_translations.txt:16
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:456
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:445
 msgid "on_loan"
 msgstr "in ontleen"
 
 #: rero_ils/manual_translations.txt:17
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:452
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:441
 msgid "on_shelf"
 msgstr "beschikbaar"
 
 #: rero_ils/manual_translations.txt:18
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:460
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:449
 msgid "missing"
 msgstr "vermist"
 
 #: rero_ils/manual_translations.txt:19
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:464
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:453
 msgid "in_transit"
 msgstr "in transit"
 
 #: rero_ils/manual_translations.txt:20
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:468
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:457
 msgid "at_desk"
 msgstr "bij het uitleenkantoor"
 
@@ -414,7 +421,7 @@ msgid "mv-cantook"
 msgstr "Toegang"
 
 #: rero_ils/manual_translations.txt:50
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:252
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:257
 #, fuzzy
 msgid "cancel"
 msgstr "Annuleer"
@@ -510,13 +517,13 @@ msgid "partially_received"
 msgstr "Ontvangen"
 
 #: rero_ils/manual_translations.txt:78
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:54
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:55
 #, fuzzy
 msgid "pending"
 msgstr "In afwachting"
 
 #: rero_ils/manual_translations.txt:79
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:330
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:329
 #, fuzzy
 msgid "received"
 msgstr "Ontvangen"
@@ -570,7 +577,7 @@ msgid "Business"
 msgstr ""
 
 #: rero_ils/manual_translations.txt:94
-msgid "Home"
+msgid "Domicile"
 msgstr ""
 
 #: rero_ils/manual_translations.txt:95
@@ -690,8 +697,7 @@ msgid "canton_zh"
 msgstr "Zürich"
 
 #: rero_ils/jsonschemas/common/countries-v0.0.1.json:3
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:258
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:317
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:316
 msgid "Country"
 msgstr "Land"
 
@@ -2689,7 +2695,7 @@ msgstr "Elamitisch"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:989
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:19
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:390
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:470
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:287
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:196
 msgid "lang_eng"
@@ -2749,7 +2755,7 @@ msgstr "Fon"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1046
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:15
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:386
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:466
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:283
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:192
 msgid "lang_fre"
@@ -2805,7 +2811,7 @@ msgstr "Georgisch"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1099
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:23
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:394
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:474
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:291
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:204
 msgid "lang_ger"
@@ -3017,7 +3023,7 @@ msgstr "Irokese talen"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:1308
 #: rero_ils/jsonschemas/common/ui-languages-v0.0.1.json:27
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:398
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:478
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:295
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:200
 msgid "lang_ita"
@@ -4158,14 +4164,14 @@ msgstr "Zaza"
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:65
 #: rero_ils/modules/entities/templates/rero_ils/_entity_by_source_data.html:26
 #: rero_ils/modules/entities/templates/rero_ils/_entity_unified.html:29
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:486
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:485
 msgid "Language"
 msgstr "Taal"
 
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2555
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2586
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:99
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:442
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:441
 msgid "Values"
 msgstr "Waarden"
 
@@ -4173,7 +4179,7 @@ msgstr "Waarden"
 #: rero_ils/jsonschemas/common/languages-v0.0.1.json:2602
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:69
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:115
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:447
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:446
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:48
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:69
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:188
@@ -4181,26 +4187,26 @@ msgstr "Waarden"
 msgid "Value"
 msgstr "Waarde"
 
-#: rero_ils/modules/utils.py:1235
+#: rero_ils/modules/utils.py:1228
 #, python-format
 msgid "Field must be at least %(num)d character long."
 msgid_plural "Field must be at least %(num)d characters long."
 msgstr[0] ""
 msgstr[1] ""
 
-#: rero_ils/modules/utils.py:1242
+#: rero_ils/modules/utils.py:1235
 msgid "The password must contain a lower case character."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1245
+#: rero_ils/modules/utils.py:1238
 msgid "The password must contain a upper case character."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1248
+#: rero_ils/modules/utils.py:1241
 msgid "The password must contain a number."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1251
+#: rero_ils/modules/utils.py:1244
 msgid "The password must contain a special character."
 msgstr ""
 
@@ -4213,7 +4219,7 @@ msgid "Not enough available money from source account."
 msgstr ""
 
 #: rero_ils/modules/acquisition/acq_accounts/extensions.py:42
-#: rero_ils/modules/acquisition/acq_order_lines/extensions.py:56
+#: rero_ils/modules/acquisition/acq_order_lines/extensions.py:63
 msgid "Parent account available amount too low"
 msgstr ""
 
@@ -4243,15 +4249,15 @@ msgstr "JSON-schema voor een account"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:32
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:75
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:15
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:41
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:30
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:43
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:31
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:25
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:39
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:107
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:187
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:14
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:17
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:30
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:96
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:133
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:15
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:16
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:16
@@ -4280,11 +4286,11 @@ msgstr "Account ID"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:210
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_organisation-v0.0.1.json:36
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:35
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:355
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:385
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:436
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:354
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:384
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:435
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:37
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:138
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:218
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:56
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:352
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
@@ -4373,8 +4379,8 @@ msgstr "Begroting URI"
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:202
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:358
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:202
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:105
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:511
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:107
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:500
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:140
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:85
@@ -4390,8 +4396,8 @@ msgstr "Bibliotheek"
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:191
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:210
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:210
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:109
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:515
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:111
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:504
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:144
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:89
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:121
@@ -4408,13 +4414,11 @@ msgstr "URI van de bibliotheek"
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:217
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:85
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:259
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:29
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:33
 #: rero_ils/modules/entities/templates/rero_ils/detailed_view_entity.html:26
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:90
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:92
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:216
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:496
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:118
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:485
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:198
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:136
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:29
 #: rero_ils/modules/local_fields/jsonschemas/local_fields/local_field-v0.0.1.json:37
@@ -4422,7 +4426,7 @@ msgstr "URI van de bibliotheek"
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:158
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:64
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:53
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:350
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:391
 msgid "Organisation"
 msgstr "Organisatie"
 
@@ -4435,15 +4439,15 @@ msgstr "Organisatie"
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:93
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:69
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:267
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:98
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:100
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:224
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:504
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:126
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:493
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:206
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:144
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:166
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:72
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:61
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:358
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:399
 msgid "Organisation URI"
 msgstr "URI van de organisatie"
 
@@ -4536,7 +4540,7 @@ msgid "in_progress"
 msgstr "In uitvoering"
 
 #: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:147
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:342
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:337
 #, fuzzy
 msgid "deleted"
 msgstr "Verwijderd"
@@ -4565,12 +4569,12 @@ msgstr "Selecteer een datum"
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:74
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:162
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:184
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:327
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:839
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:362
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:386
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:402
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:634
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:326
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:862
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:357
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:381
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:397
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:623
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:235
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:70
 msgid "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
@@ -4583,9 +4587,9 @@ msgstr "Moet in het volgende formaat zijn: 2022-12-31 (JJJJ-MM-DD)."
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:129
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:18
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:3
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:587
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:295
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:522
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:610
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:296
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:511
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:488
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:70
 msgid "Notes"
@@ -4644,31 +4648,31 @@ msgstr "Lijst van factuurlijnen"
 
 #: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:267
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:158
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:499
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:498
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:4
 msgid "Vendor"
 msgstr "Verkoper"
 
 #: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:274
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:166
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:506
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:505
 msgid "Vendor URI"
 msgstr "Verkoper URI"
 
 #: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:282
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:174
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:513
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:512
 msgid "Choose a vendor"
 msgstr "Kies een verkoper"
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:101
-#: rero_ils/modules/acquisition/acq_orders/api.py:106
-#: rero_ils/modules/holdings/api.py:180 rero_ils/modules/ill_requests/api.py:80
-#: rero_ils/modules/items/api/record.py:93 rero_ils/modules/vendors/api.py:83
+#: rero_ils/modules/acquisition/acq_orders/api.py:105
+#: rero_ils/modules/holdings/api.py:179 rero_ils/modules/ill_requests/api.py:91
+#: rero_ils/modules/items/api/record.py:107
 msgid "Can not have multiple notes of the same type."
 msgstr ""
 
-#: rero_ils/modules/acquisition/acq_order_lines/extensions.py:64
+#: rero_ils/modules/acquisition/acq_order_lines/extensions.py:71
 msgid "Cannot link to an harvested document"
 msgstr ""
 
@@ -4718,9 +4722,9 @@ msgstr "Wisselkoers"
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:46
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:196
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:592
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:298
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:527
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:615
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:299
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:516
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:80
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:495
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:76
@@ -4761,11 +4765,11 @@ msgstr "Nota"
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_types-v0.0.1.json:13
 #: rero_ils/modules/documents/jsonschemas/documents/document_usage_and_access_policy-v0.0.1.json:21
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:180
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:604
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:311
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:182
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:627
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:312
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:62
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:539
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:528
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:36
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:64
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:183
@@ -4787,9 +4791,9 @@ msgstr ""
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:117
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:153
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:157
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:624
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:325
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:587
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:647
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:326
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:576
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:521
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:133
 #, fuzzy
@@ -4801,9 +4805,9 @@ msgstr "staff nota"
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:165
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:165
 #: rero_ils/modules/documents/jsonschemas/documents/document_table_of_contents-v0.0.1.json:8
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:665
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:333
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:595
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:688
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:334
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:584
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:529
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:145
 msgid "Content"
@@ -4813,9 +4817,9 @@ msgstr "Inhoud"
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:152
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:196
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:196
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:691
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:360
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:624
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:714
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:361
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:613
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:556
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:172
 msgid "Only one note per type is allowed"
@@ -4862,7 +4866,7 @@ msgstr ""
 msgid "If checked this order line should be considered as cancelled."
 msgstr ""
 
-#: rero_ils/modules/acquisition/acq_orders/api.py:442
+#: rero_ils/modules/acquisition/acq_orders/api.py:440
 #, python-format
 msgid "Order status is %s"
 msgstr ""
@@ -4920,7 +4924,7 @@ msgid "Order line"
 msgstr ""
 
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:88
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:344
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:385
 msgid "VAT rate"
 msgstr "btw tarief"
 
@@ -5144,7 +5148,7 @@ msgid "Always per mail"
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:207
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:217
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:216
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:4
 #, fuzzy
 msgid "Template"
@@ -5256,7 +5260,7 @@ msgstr "Interne collectie PID"
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:479
 #: rero_ils/modules/ill_requests/forms.py:93
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:196
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:198
 msgid "Identifier"
 msgstr "Identificator"
 
@@ -5274,7 +5278,7 @@ msgstr "ID of code die lokaal voor deze collectie wordt gebruikt"
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:78
 #: rero_ils/modules/ill_requests/forms.py:64
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:176
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:178
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:467
 msgid "Title"
 msgstr "Titel"
@@ -5355,35 +5359,35 @@ msgid "Barcode"
 msgstr "Barcode"
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:75
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:53
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:55
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:416
 msgid "Call number"
 msgstr "Plaatskenmerk"
 
-#: rero_ils/modules/documents/views.py:334
+#: rero_ils/modules/documents/views.py:335
 msgid "Journal"
 msgstr "Tijdschrift"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:9
-#: rero_ils/modules/documents/views.py:336
+#: rero_ils/modules/documents/views.py:337
 msgid "Series"
 msgstr "Serie"
 
-#: rero_ils/modules/documents/views.py:338
+#: rero_ils/modules/documents/views.py:339
 #: rero_ils/modules/ill_requests/forms.py:100
 msgid "Published in"
 msgstr "Gepubliceerd in"
 
-#: rero_ils/modules/documents/views.py:354
+#: rero_ils/modules/documents/views.py:355
 msgid "vol"
 msgstr "vol"
 
-#: rero_ils/modules/documents/views.py:357
+#: rero_ils/modules/documents/views.py:358
 msgid "nr"
 msgstr "nr"
 
-#: rero_ils/modules/documents/views.py:360
+#: rero_ils/modules/documents/views.py:361
 msgid "p"
 msgstr "p"
 
@@ -5456,8 +5460,8 @@ msgstr ""
 "uitschakelen."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:317
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:972
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:766
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:995
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:749
 msgid "Masked"
 msgstr ""
 
@@ -5546,10 +5550,10 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:187
 #: rero_ils/modules/documents/jsonschemas/documents/document_identifier-v0.0.1.json:79
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:49
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:173
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:205
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:265
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:498
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:175
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:207
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:263
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:504
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:36
 msgid "Source"
 msgstr "Bron"
@@ -5822,7 +5826,7 @@ msgstr "audiodraadspoel"
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:670
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:687
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:860
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:923
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:946
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:159
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:90
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:98
@@ -6169,6 +6173,14 @@ msgstr "Agent"
 msgid "Person"
 msgstr "Persoon"
 
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:29
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:32
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:39
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:33
+#, fuzzy
+msgid "bf:Organisation"
+msgstr "organisatie"
+
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:37
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:45
@@ -6183,12 +6195,6 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:35
 msgid "bf:Person"
 msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:32
-#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:39
-#, fuzzy
-msgid "bf:Organisation"
-msgstr "organisatie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:40
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:63
@@ -7043,7 +7049,7 @@ msgid "Edition designation"
 msgstr "Edition designation"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:3
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:540
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:563
 msgid "Supplements"
 msgstr ""
 
@@ -7221,7 +7227,7 @@ msgid "Responsibility"
 msgstr "Verantwoordelijkheid"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:3
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:147
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:149
 msgid "Electronic locations"
 msgstr "Elektronische locaties"
 
@@ -7232,14 +7238,14 @@ msgstr ""
 "benaderen."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:9
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:152
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:154
 msgid "Electronic location"
 msgstr "Elektronische locatie"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:22
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:275
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:654
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:504
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:268
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:637
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:510
 msgid "URL"
 msgstr "URL"
 
@@ -7248,14 +7254,14 @@ msgid "Record a unique URL here."
 msgstr "Neem hier een unieke URL op."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:29
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:276
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:269
 msgid "Example: https://www.rero.ch/"
 msgstr "Voorbeeld: https://www.rero.ch/"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:35
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:167
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:286
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:661
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:169
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:280
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:644
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:64
 msgid "Should be a valid URL format."
 msgstr ""
@@ -7511,7 +7517,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:8
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:124
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:232
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:231
 msgid "Frequency"
 msgstr "Frequentie"
 
@@ -7698,9 +7704,9 @@ msgid "Examples: LCCN, PMID, DNB"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:203
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:42
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:43
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:109
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:126
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:163
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:147
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:39
 msgid "Status"
@@ -8212,7 +8218,7 @@ msgstr "Nummering"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:65
 #: rero_ils/modules/ill_requests/forms.py:79
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:191
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:193
 msgid "Year"
 msgstr ""
 
@@ -8222,7 +8228,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:80
 #: rero_ils/modules/ill_requests/forms.py:46
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:219
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:221
 msgid "Volume"
 msgstr ""
 
@@ -8233,7 +8239,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_part_of-v0.0.1.json:100
 #: rero_ils/modules/ill_requests/forms.py:145
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:243
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:245
 msgid "Pages"
 msgstr ""
 
@@ -9255,15 +9261,12 @@ msgid "JSON schema for a mef entity"
 msgstr ""
 
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:16
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:108
-#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
-#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:17
-msgid "Schema to validate organisation records against."
-msgstr "Schema om de organisatie tegen te valideren."
+msgid "Schema to validate entity records against."
+msgstr ""
 
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:21
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:25
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:114
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:194
 msgid "Library ID"
 msgstr "Bibliotheek ID"
 
@@ -9362,28 +9365,28 @@ msgstr ""
 msgid "Documents"
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:154
+#: rero_ils/modules/holdings/api.py:153
 msgid "Document does not exist {pid}."
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:161
+#: rero_ils/modules/holdings/api.py:160
 msgid "Must have next expected date for regular frequencies."
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:175
+#: rero_ils/modules/holdings/api.py:174
 msgid "{field} is allowed only for serial holdings"
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:409
+#: rero_ils/modules/holdings/api.py:423
 msgid "has {count} items with loan attached"
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:488
+#: rero_ils/modules/holdings/api.py:502
 msgid "Only serial holdings can be requested."
 msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:484
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:473
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:426
 msgid "Holding"
 msgstr "Holding"
@@ -9392,182 +9395,182 @@ msgstr "Holding"
 msgid "JSON schema for holdings."
 msgstr "JSON-schema voor holdings."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:42
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:44
 msgid "Schema to validate holdings records against."
 msgstr "Schema om holdings records tegen te valideren."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:48
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:50
 msgid "Persistant identifier"
 msgstr "Persistente identificator"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:57
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:59
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:86
 #, fuzzy
 msgid "Second call number"
 msgstr "Plaatskenmerk"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:68
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:70
 msgid "Circulation type"
 msgstr "Circulatie categorie"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:75
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:77
 #, fuzzy
 msgid "Circulation category URI"
 msgstr "Circulatie categorie"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:116
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:118
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:117
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:4
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:193
 msgid "Location"
 msgstr "Locatie"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:123
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:125
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:124
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:246
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:196
 msgid "Location URI"
 msgstr "Locatie URI"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:136
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:138
 msgid "Parent document"
 msgstr "Parent document"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:140
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:142
 msgid "Parent document URI"
 msgstr "Parent document URI"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:148
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:150
 msgid "Information needed to locate and access to an electronic resource."
 msgstr ""
 "Informatie die nodig is om een elektronische bron te lokaliseren en te "
 "benaderen."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:160
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:162
 msgid "URI"
 msgstr "URI"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:197
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:199
 #, fuzzy
 msgid "Predictions"
 msgstr "Productie"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:218
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:217
 msgid ""
 "This template define how a prediction is displayed. i.e. year 2020; "
 "vol.1, iss. 4. It should contains the variable field between {{}} with "
 "the corresponding pattern and level name."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:223
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:222
 #, fuzzy
 msgid "Example: Vol. {{numbering.volume}}, {{expected_date.year}}"
 msgstr "Vol. {{numbering.vol}}, {{chronology.year}}"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:226
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:225
 msgid "Should contains at least one variable between {{ }}."
 msgstr "Moet ten minste één variabele bevatten tussen {{ }}."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:256
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:255
 msgid "rdafr:1013"
 msgstr "jaarlijks"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:260
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:259
 msgid "rdafr:1014"
 msgstr "eens per twee jaar"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:264
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:263
 msgid "rdafr:1007"
 msgstr "eens per twee maanden"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:268
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:267
 msgid "rdafr:1003"
 msgstr "eens per twee weken"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:272
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:271
 msgid "rdafr:1001"
 msgstr "dagelijks"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:276
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:275
 msgid "rdafr:1016"
 msgstr "onregelmatig"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:280
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:279
 msgid "rdafr:1008"
 msgstr "maandelijks"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:284
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:283
 msgid "rdafr:1010"
 msgstr "eens per kwartaal"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:288
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:287
 msgid "rdafr:1012"
 msgstr "twee keer per jaar"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:292
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:291
 msgid "rdafr:1009"
 msgstr "twee keer per maand"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:296
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:295
 msgid "rdafr:1005"
 msgstr "twee keer per week"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:300
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:299
 msgid "rdafr:1006"
 msgstr "drie keer per maand"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:304
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:303
 msgid "rdafr:1002"
 msgstr "drie keer per week"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:308
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:307
 msgid "rdafr:1011"
 msgstr "drie keer per jaar"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:312
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:311
 msgid "rdafr:1015"
 msgstr "eens per drie jaar"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:316
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:315
 msgid "rdafr:1004"
 msgstr "wekelijks"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:325
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:324
 msgid "The expected date for the next issue"
 msgstr "De verwachte datum voor de volgende uitgave"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:338
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:337
 msgid "Prediction patterns"
 msgstr "Prediction patterns"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:342
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:341
 msgid "Prediction pattern"
 msgstr "Prediction pattern"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:357
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:356
 msgid "It should be used in the display template. i.e. chronology, enumeration."
 msgstr ""
 "Het moet worden gebruikt in de display template. d.w.z. chronologie, "
 "opsomming."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:360
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:359
 #, fuzzy
 msgid "Example: numbering"
 msgstr "nummering"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:364
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:363
 msgid "Chronology levels"
 msgstr "Chronologische niveaus"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:368
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:367
 msgid "Chronology level"
 msgstr "Chronologische niveau"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:372
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:371
 msgid "Number based prediction"
 msgstr "Number based prediction"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:387
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:386
 msgid ""
 "It should be used in the display template. i.e. year, month, volume, "
 "issue, etc."
@@ -9575,29 +9578,29 @@ msgstr ""
 "Het moet worden gebruikt in de display-template, d.w.z. jaar, maand, "
 "volume, uitgave, enz."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:390
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:389
 #, fuzzy
 msgid "Example: volume"
 msgstr "Voorbeeld: 22 cm"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:394
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:393
 msgid "Starting value"
 msgstr "Startwaarde"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:395
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:394
 msgid "First value of the sequence."
 msgstr "Eerste waarde van de reeks."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:399
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:398
 #, fuzzy
 msgid "Example: 1"
 msgstr "Voorbeeld: 1u50"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:403
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:402
 msgid "Completion of the values"
 msgstr "Voltooiing van de waarden"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:404
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:403
 msgid ""
 "Last value of the sequence. If it is not defined the sequence will "
 "continue until the infinity."
@@ -9605,30 +9608,30 @@ msgstr ""
 "Laatste waarde van de reeks. Als deze niet gedefinieerd is, gaat de reeks"
 " door tot in het oneindige."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:408
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:407
 #, fuzzy
 msgid "Example: 12"
 msgstr "Voorbeeld: 22 cm"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:412
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:454
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:411
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:453
 msgid "Next predicted value"
 msgstr "Volgende voorspelde waarde"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:413
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:412
 msgid "Can be used to correct the next current prediction."
 msgstr "Kan worden gebruikt om de volgende huidige voorspelling te corrigeren."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:417
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:416
 #, fuzzy
 msgid "Example: 3"
 msgstr "Voorbeeld: 1u50"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:423
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:422
 msgid "List based prediction (used for seasons, months...)"
 msgstr "Voorspelling op basis van een lijst (gebruikt voor seizoenen, maanden...)"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:437
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:436
 msgid ""
 "It should be used in the display template. i.e. year, month, volume, "
 "issue."
@@ -9636,309 +9639,325 @@ msgstr ""
 "Het moet worden gebruikt in de display-template, d.w.z. jaar, maand, "
 "volume, uitgave, enz."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:448
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:447
 msgid "Use a value instead of a number. i.e. january, 2nd, quarter."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:455
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:454
 msgid ""
 "Can be used to correct the next current prediction. The value is the "
 "current position of the value in the list."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:468
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:467
 #, fuzzy
 msgid "Maximum number of claims"
 msgstr "Maximaal aantal verlengingen"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:469
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:468
 msgid ""
 "After this number, no further claims will be sent. 0 means that no claims"
 " will be sent."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:474
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:473
 #, fuzzy
 msgid "Number of days before 1st claim"
 msgstr "Aantal dagen voor de vervaldatum."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:475
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:474
 msgid ""
 "If the item is not received, this defines the number of days from the "
 "expected date after which it is claimed."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:480
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:479
 #, fuzzy
 msgid "Number of days before next claims"
 msgstr "Aantal dagen voor de vervaldatum."
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:481
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:480
 msgid ""
 "If the item is not received, this defines the number of days from the "
 "last claim date after which it is claimed again."
 msgstr ""
 
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:527
+msgid "Client ID"
+msgstr ""
+
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:528
+msgid "The client reference ID at the vendor."
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:539
+msgid "Order reference"
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:540
+msgid "The vendor order reference."
+msgstr ""
+
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:551
 #, fuzzy
 msgid "Collection"
 msgstr "Collectie ID"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:529
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:552
 msgid "Textual description of the basic bibliographic unit of the holding."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:541
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:564
 msgid "Textual description of supplementary contents (special issues, etc.)."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:552
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:575
 msgid "Indexes"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:553
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:576
 #, fuzzy
 msgid "Textual description of the indexes."
 msgstr "Beschrijving van het lezerstype"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:564
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:587
 #, fuzzy
 msgid "Missing issues"
 msgstr "vermist"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:565
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:588
 #, fuzzy
 msgid "Textual description of the missing issues."
 msgstr "Beschrijving van het lezerstype"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:576
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:599
 msgid "Number of issues to be bound together"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:620
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:575
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:643
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:564
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:137
 #, fuzzy
 msgid "general_note"
 msgstr "Algemeen"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:628
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:651
 #, fuzzy
 msgid "conservation_note"
 msgstr "Kosten nota"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:632
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:655
 #, fuzzy
 msgid "reception_note"
 msgstr "checkin nota"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:636
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:659
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:109
 #, fuzzy
 msgid "claim_note"
 msgstr "openbare nota"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:640
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:663
 #, fuzzy
 msgid "routing_note"
 msgstr "checkout nota"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:644
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:559
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:667
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:548
 #, fuzzy
 msgid "binding_note"
 msgstr "Doorlopende order"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:648
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:555
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:671
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:544
 #, fuzzy
 msgid "acquisition_note"
 msgstr "Aankoopvoorwaarden"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:652
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:675
 #, fuzzy
 msgid "access_note"
 msgstr "checkin nota"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:697
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:720
 #, fuzzy
 msgid "Acquisition status"
 msgstr "Aankoopvoorwaarden"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:716
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:739
 msgid "not_currently_received"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:720
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:743
 #, fuzzy
 msgid "currently_received"
 msgstr "Ontvangen"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:724
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:747
 msgid "received_and_complete_or_ceased"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:728
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:751
 #, fuzzy
 msgid "on_order"
 msgstr "Geplande order"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:732
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:755
 msgid "other_receipt_or_acquisition_status"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:736
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:810
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:866
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:759
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:833
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:889
 #, fuzzy
 msgid "unknown"
 msgstr "Andere"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:746
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:769
 #, fuzzy
 msgid "Acquisition method"
 msgstr "Order"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:770
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:793
 #, fuzzy
 msgid "deposit"
 msgstr "Lening datum"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:774
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:797
 msgid "cooperative_or_consortial_purchase"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:778
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:801
 #, fuzzy
 msgid "exchange"
 msgstr "Wisselkoers"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:782
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:805
 #, fuzzy
 msgid "free"
 msgstr "Straat"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:786
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:809
 msgid "gift"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:790
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:813
 msgid "legal_deposit"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:794
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:817
 msgid "membership"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:798
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:821
 msgid "non_library_purchase"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:802
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:825
 msgid "purchase"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:806
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:829
 #, fuzzy
 msgid "lease"
 msgstr "Datum"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:814
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:837
 #, fuzzy
 msgid "other_method_of_acquisition"
 msgstr "Aankoopvoorwaarden"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:821
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:844
 #, fuzzy
 msgid "Expected acquisition end date"
 msgstr "Aankoopvoorwaarden"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:822
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:845
 msgid ""
 "Indicate an intent to cancel, the effective date of a cancellation, or "
 "the date of the last expected part of a multipart or serial item."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:845
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:868
 #, fuzzy
 msgid "General retention policy"
 msgstr "Circulatiebeleid"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:870
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:893
 msgid "other_general_retention_policy"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:874
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:897
 msgid "retained_except_as_replaced_by_updates"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:878
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:901
 msgid "sample_issue_retained"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:882
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:905
 msgid "retained_until_replaced_by_microform"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:886
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:909
 msgid "retained_until_replaced_by_cumulation_replacement_volume_or_revision"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:890
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:913
 msgid "retained_for_a_limited_period"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:894
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:917
 msgid "not_retained"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:898
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:921
 msgid "permanently_retained"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:905
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:928
 msgid "Completeness"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:906
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:929
 msgid "Estimation of the general extent of the holdings for a multipart."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:927
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:950
 #, fuzzy
 msgid "complete"
 msgstr "Type van exemplaar"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:931
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:954
 msgid "incomplete"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:935
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:958
 msgid "scattered"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:939
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:962
 #, fuzzy
 msgid "not_applicable"
 msgstr "niet beschikbaar"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:946
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:969
 msgid "Separate or composite copy report"
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:947
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:970
 msgid ""
 "A separate copy report contains holdings information for one "
 "copy/subscription of a serial. If the holdings describes more than one "
 "copy/subscription, choose composite."
 msgstr ""
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:961
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:984
 #, fuzzy
 msgid "separate"
 msgstr "lezers"
 
-#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:965
+#: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:988
 msgid "composite"
 msgstr ""
 
@@ -9947,13 +9966,13 @@ msgid "Journal or book title"
 msgstr ""
 
 #: rero_ils/modules/ill_requests/forms.py:50
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:228
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:230
 #, fuzzy
 msgid "Number"
 msgstr "nummering"
 
 #: rero_ils/modules/ill_requests/forms.py:71
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:181
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:183
 #, fuzzy
 msgid "Authors"
 msgstr "Auteurs"
@@ -9963,7 +9982,7 @@ msgid "author#1; author#2"
 msgstr ""
 
 #: rero_ils/modules/ill_requests/forms.py:86
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:186
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:188
 #, fuzzy
 msgid "Publisher"
 msgstr "uitgave opmerking"
@@ -9997,7 +10016,7 @@ msgid "Loan"
 msgstr "Lening"
 
 #: rero_ils/modules/ill_requests/forms.py:140
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:73
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:74
 #, fuzzy
 msgid "Copy"
 msgstr "Fotokopiëren"
@@ -10007,13 +10026,13 @@ msgid "Define if the request is for a copy or full document."
 msgstr ""
 
 #: rero_ils/modules/ill_requests/forms.py:149
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:253
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:255
 #, fuzzy
 msgid "Found in"
 msgstr "geluid"
 
 #: rero_ils/modules/ill_requests/forms.py:156
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:137
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:139
 #, fuzzy
 msgid "Pickup location"
 msgstr "is een afhaallocatie"
@@ -10044,98 +10063,98 @@ msgstr "reservatie"
 msgid "JSON schema for ill_request."
 msgstr "JSON schema voor het begroting."
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:31
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:32
 #, fuzzy
 msgid "Schema to validate ILL request records against."
 msgstr "Schema om begroting tegen te valideren."
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:37
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:38
 #, fuzzy
 msgid "ILL request ID"
 msgstr "Reservaties toelaten"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:58
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:59
 msgid "validated"
 msgstr ""
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:62
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:63
 #, fuzzy
 msgid "denied"
 msgstr "Identificator"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:66
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:67
 msgid "closed"
 msgstr ""
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:74
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:75
 msgid "Define if the request is for a copy or an actual document."
 msgstr ""
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:79
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:80
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:29
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:328
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:98
 msgid "Patron"
 msgstr "Lezer"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:86
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:87
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:33
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:106
 msgid "Patron URI"
 msgstr "Lezer URI"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:94
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:95
 msgid "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
 msgstr "Moet in het volgende formaat zijn: https://bib.rero.ch/api/patrons/<PID>."
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:106
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:107
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:157
 #, fuzzy
 msgid "Loan state"
 msgstr "Lening datum"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:114
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:116
 #, fuzzy
 msgid "Choose a status"
 msgstr "Nummer status"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:118
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:120
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:176
 msgid "PENDING"
 msgstr "in afwachting"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:122
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:124
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:196
 msgid "ITEM_AT_DESK"
 msgstr "Op het uitleenkantoor"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:126
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:128
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:180
 msgid "ITEM_ON_LOAN"
 msgstr "exemplaar op lening"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:130
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:132
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:184
 msgid "ITEM_RETURNED"
 msgstr "exemplaar teruggekeerd"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:144
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:146
 #, fuzzy
 msgid "Pickup location URI"
 msgstr "is een afhaallocatie"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:161
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:163
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:38
 #, fuzzy
 msgid "Document information"
 msgstr "Leveringsinformatie"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:214
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:216
 #, fuzzy
 msgid "Journal title"
 msgstr "tijdschrift"
 
-#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:321
+#: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:322
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:517
 #, fuzzy
 msgid "public_note"
@@ -10292,83 +10311,83 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:92
+#: rero_ils/modules/items/api/circulation.py:94
 msgid "No circulation action performed: validate_actions"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:112
+#: rero_ils/modules/items/api/circulation.py:114
 msgid "No circulation action performed: extend_loan_actions"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:212
+#: rero_ils/modules/items/api/circulation.py:214
 msgid "No circulation action performed: Item returned at owning library"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:216
+#: rero_ils/modules/items/api/circulation.py:218
 msgid "No circulation action performed: on shelf"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:226
-#: rero_ils/modules/items/api/circulation.py:254
+#: rero_ils/modules/items/api/circulation.py:228
+#: rero_ils/modules/items/api/circulation.py:256
 msgid "No circulation action performed: in transit added"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:244
+#: rero_ils/modules/items/api/circulation.py:246
 msgid "No circulation action performed: item at desk"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:278
+#: rero_ils/modules/items/api/circulation.py:280
 msgid "No circulation action performed: in transit for pickup"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:298
+#: rero_ils/modules/items/api/circulation.py:300
 msgid "No circulation action performed: in transit to house"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:345
+#: rero_ils/modules/items/api/circulation.py:347
 msgid "No circulation action performed: in transit"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:524
+#: rero_ils/modules/items/api/circulation.py:529
 msgid "No circulation action is possible: CHECKED_IN"
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:1033
+#: rero_ils/modules/items/api/circulation.py:1038
 msgid "Item status disallows the operation."
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:1037
+#: rero_ils/modules/items/api/circulation.py:1042
 msgid "Item and patron are not in the same organisation."
 msgstr ""
 
-#: rero_ils/modules/items/api/circulation.py:1042
+#: rero_ils/modules/items/api/circulation.py:1047
 #: rero_ils/modules/selfcheck/api.py:416
 msgid "Item is already checked-out or requested by patron."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:81
+#: rero_ils/modules/items/api/record.py:95
 msgid "Holding does not exist: {pid}."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:84
+#: rero_ils/modules/items/api/record.py:98
 msgid "Standard item can not have a issue field."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:87
+#: rero_ils/modules/items/api/record.py:101
 msgid "Issue item must have an issue field."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:89
+#: rero_ils/modules/items/api/record.py:103
 msgid "enumerationAndChronology field is required for an issue item"
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:98
+#: rero_ils/modules/items/api/record.py:112
 msgid ""
 "Temporary circulation category cannot be the same than default "
 "circulation category."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:103
+#: rero_ils/modules/items/api/record.py:117
 msgid "Temporary circulation category end date must be a date in the future."
 msgstr ""
 
@@ -10427,174 +10446,159 @@ msgstr ""
 msgid "Issue status"
 msgstr "Nummer status"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:334
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:333
 #, fuzzy
 msgid "late"
 msgstr "Datum"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:338
-msgid "claimed"
-msgstr ""
-
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:346
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:341
 msgid "expected"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:354
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:349
 #, fuzzy
 msgid "Status date"
 msgstr "Startdatum"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:359
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:354
 msgid "Date of reception"
 msgstr "Datum van ontvangst"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:383
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:378
 msgid "Expected date"
 msgstr "Verwachte datum"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:398
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:393
 #, fuzzy
 msgid "Sorting date"
 msgstr "Aanmaakdatum"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:399
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:394
 msgid ""
 "Date used to sort the issue from the holdings item list. If empty, the "
 "issue expected date will be used as sort key."
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:413
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:408
 msgid "Regularity"
 msgstr "Regelmatigheid"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:425
-msgid "Issue claims count"
-msgstr ""
-
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:437
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:426
 msgid "circulation status"
 msgstr "Circulatie status"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:472
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:461
 msgid "excluded"
 msgstr "uitgesloten"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:485
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:474
 msgid "Holding record for the item."
 msgstr "Holding record voor de exemplaar"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:489
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:478
 msgid "Holding URI"
 msgstr "Holding URI"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:563
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:552
 #, fuzzy
 msgid "checkin_note"
 msgstr "checkin nota"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:567
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:556
 #, fuzzy
 msgid "checkout_note"
 msgstr "checkout nota"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:571
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:560
 #, fuzzy
 msgid "condition_note"
 msgstr "Kosten nota"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:579
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:568
 msgid "patrimonial_note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:583
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:572
 msgid "provenance_note"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:631
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:620
 #, fuzzy
 msgid "Acquisition date"
 msgstr "Aankoopvoorwaarden"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:643
-#, fuzzy
-msgid "New acquisition"
-msgstr "Aankoopvoorwaarden"
-
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:644
-msgid ""
-"If this option is enabled, this item is going to appear in the new "
-"acquisition list of the library."
-msgstr ""
-
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:674
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:657
 #, fuzzy
 msgid "PAC code"
 msgstr "Postcode"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:675
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:658
 #, fuzzy
 msgid "Preservation and conservation policy."
 msgstr "Beschrijving van het circulatiebeleid."
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:688
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:671
 msgid "4_disposable"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:692
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:675
 msgid "3_consumable"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:696
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:679
 msgid "2_controlled_consumption"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:700
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:683
 #, fuzzy
 msgid "1_reserved"
 msgstr "Ontvangen"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:704
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:687
 #, fuzzy
 msgid "0_frozen_collection"
 msgstr "Locatie"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:718
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:701
 #, fuzzy
 msgid "Price"
 msgstr "Bron"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:732
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:715
 msgid "Virtua checkout count for item"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:738
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:721
 msgid "Virtua item circulation rules"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:743
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:726
 msgid "To use item specific rules or CIPO rules"
 msgstr ""
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:748
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:731
 #, fuzzy
 msgid "Loan duration in days"
 msgstr "Vernieuwingsduur in dagen"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:754
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:737
 #, fuzzy
 msgid "Allow requests"
 msgstr "Reservaties toelaten"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:759
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:742
 #, fuzzy
 msgid "Item floats"
 msgstr "bij het uitleenkantoor"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:768
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:751
 msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
+msgstr ""
+
+#: rero_ils/modules/libraries/api.py:93
+msgid "Opening times must be specified for an open exception date."
 msgstr ""
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
@@ -10625,8 +10629,7 @@ msgstr ""
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:84
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:78
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:127
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:236
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:301
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:283
 msgid "Street"
 msgstr "Straat"
 
@@ -10641,156 +10644,160 @@ msgstr ""
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:95
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:101
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:146
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:253
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:312
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:306
 msgid "City"
 msgstr "Stad"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:133
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:112
+msgid "Shipping informations"
+msgstr ""
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:122
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:157
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:269
+msgid "Contact person"
+msgstr "Contactpersoon"
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:127
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:162
+msgid "Contact email"
+msgstr ""
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:132
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:167
+msgid "Contact phone"
+msgstr ""
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:140
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:175
+msgid "Extra information"
+msgstr ""
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:141
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:176
+msgid "VAT number, note, ..."
+msgstr ""
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:148
+msgid "Billing informations"
+msgstr ""
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:188
+#: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:31
+#: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:17
+msgid "Schema to validate organisation records against."
+msgstr "Schema om de organisatie tegen te valideren."
+
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:213
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:41
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:39
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:58
 msgid "Code"
 msgstr "Code"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:134
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:214
 msgid "Code of the library."
 msgstr "Code van de bibliotheek"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:139
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:219
 msgid "Name of the library."
 msgstr "Naam van de bibliotheek."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:144
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:224
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:33
 msgid "Address"
 msgstr "Adres"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:145
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:225
 msgid "Address of the library."
 msgstr "Adres van de bibliotheek."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:150
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:230
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:241
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:268
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:327
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:342
 msgid "Email"
 msgstr "E-mail"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:151
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:231
 msgid "Email of the library."
 msgstr "E-mail van de bibliotheek."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:156
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:236
 msgid "Opening Hours"
 msgstr "Openingstijden"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:157
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:237
 msgid "Weekly opening hours"
 msgstr "Wekelijkse openingstijden"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:240
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:320
 msgid "Day"
 msgstr "Dag"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:241
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:321
 msgid "Weekday."
 msgstr "Weekdag."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:254
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:334
 msgid "Is open"
 msgstr "Is open"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:292
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:372
 msgid "Exception Hours"
 msgstr "Uitzonderingsuren"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:293
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:373
 msgid "Exception opening hours"
 msgstr "Uitzonderlijke openingstijden"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:359
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:439
 #, fuzzy
 msgid "Notification settings"
 msgstr "e-mail"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:374
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:454
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:271
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:178
 msgid "Communication language"
 msgstr "Communicatietaal"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:412
-msgid "Shipping informations"
-msgstr ""
-
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:422
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:457
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:230
-msgid "Contact person"
-msgstr "Contactpersoon"
-
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:427
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:462
-msgid "Contact email"
-msgstr ""
-
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:432
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:467
-msgid "Contact phone"
-msgstr ""
-
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:440
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:475
-msgid "Extra information"
-msgstr ""
-
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:441
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:476
-msgid "VAT number, note, ..."
-msgstr ""
-
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:448
-msgid "Billing informations"
-msgstr ""
-
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:485
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:491
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:56
 #, fuzzy
 msgid "Online harvested sources"
 msgstr "Online geoogste bron"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:486
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:492
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:57
 #, fuzzy
 msgid "Online harvested sources as configured in ebooks server."
 msgstr "Online geoogste bron zoals geconfigureerd in de ebookserver."
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:499
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:505
 #, fuzzy
 msgid "Name of online source."
 msgstr "Inhoudsopgave"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:505
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:511
 msgid "URL to online source."
 msgstr ""
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:522
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:528
 #, fuzzy
 msgid "Account transfer"
 msgstr "Surinam (sr)"
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:523
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:529
 msgid ""
 "This defines if and how the accounts are transferred into the next fiscal"
 " year."
 msgstr ""
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:534
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:540
 msgid "rollover_no_transfer"
 msgstr ""
 
-#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:538
+#: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:544
 #, fuzzy
 msgid "rollover_allocated_amount"
 msgstr "Toegewezen bedrag"
@@ -11010,7 +11017,7 @@ msgstr "Een andere online locatie bestaat in deze bibliotheek"
 msgid "Pickup location name field is required."
 msgstr "Pickup naam veld is verplicht."
 
-#: rero_ils/modules/locations/api.py:200
+#: rero_ils/modules/locations/api.py:205
 msgid "Record location disallows request."
 msgstr ""
 
@@ -11139,60 +11146,68 @@ msgstr "Meldingen"
 msgid "JSON schema for notifications."
 msgstr "JSON-schema voor de meldingen."
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:35
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:123
-msgid "Current reminder count"
-msgstr "Huidige telling van de herinneringen"
-
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:61
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:14
 msgid "Recipient email addresses"
 msgstr ""
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:65
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:157
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:18
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:195
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:131
 msgid "Recipient"
 msgstr ""
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:74
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:166
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:27
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:204
 msgid "Recipient type"
 msgstr ""
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:97
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:66
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:160
+msgid "Current reminder count"
+msgstr "Huidige telling van de herinneringen"
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:123
+msgid "Claim number"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:124
+msgid "Claim number sequence for this serial issue"
+msgstr ""
+
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:134
 msgid "Schema to validate notifications records against."
 msgstr "Schema om meldingen records tegen te valideren."
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:103
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:140
 msgid "Notification ID"
 msgstr "Meldingen URI"
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:110
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:147
 msgid "Notification creation date"
 msgstr "Aanmaakdatum van de kennisgeving"
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:115
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:152
 msgid "Notification processing date"
 msgstr "Verwerkingsdatum van de kennisgeving"
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:119
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:156
 msgid "Notification sent or not"
 msgstr ""
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:136
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:173
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:112
 msgid "Notification type"
 msgstr "Type van meldingen"
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:137
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:174
 msgid "The type of the notification."
 msgstr "Type van meldingen"
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:152
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:190
 msgid "Effective notification recipients"
 msgstr ""
 
-#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:153
+#: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:191
 msgid "Where the notification were really dispatched"
 msgstr ""
 
@@ -11334,8 +11349,7 @@ msgstr "Lening datum"
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:367
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:91
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:140
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:248
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:307
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:296
 msgid "Postal code"
 msgstr "Postcode"
 
@@ -11470,24 +11484,28 @@ msgstr "Affiche"
 msgid "payment"
 msgstr "Vermelden"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:196
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:197
 #, fuzzy
 msgid "cash"
 msgstr "Affiche"
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:200
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:201
+msgid "invoice"
+msgstr ""
+
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:205
 msgid "debit_card"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:204
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:209
 msgid "credit_card"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:208
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:213
 msgid "paypal"
 msgstr ""
 
-#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:231
+#: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:236
 #, fuzzy
 msgid "dispute"
 msgstr "Lening datum"
@@ -11567,7 +11585,7 @@ msgstr ""
 msgid "Only one specific limit by library if allowed."
 msgstr ""
 
-#: rero_ils/modules/patron_types/api.py:152 rero_ils/modules/patrons/api.py:479
+#: rero_ils/modules/patron_types/api.py:152 rero_ils/modules/patrons/api.py:510
 msgid "Checkout denied: the maximal number of overdue items is reached"
 msgstr ""
 
@@ -11740,39 +11758,39 @@ msgstr "Limiet per laattijdig exemplaar"
 msgid "Block the patron if the subscription is not paid"
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:381
+#: rero_ils/modules/patrons/api.py:412
 msgid "Your account is currently blocked."
 msgstr "Uw account is momenteel geblokkeerd."
 
-#: rero_ils/modules/patrons/api.py:382
+#: rero_ils/modules/patrons/api.py:413
 msgid "This patron is currently blocked."
 msgstr "Deze lezer is momenteel geblokkeerd."
 
-#: rero_ils/modules/patrons/api.py:386
+#: rero_ils/modules/patrons/api.py:417
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:365
 msgid "Reason"
 msgstr "Reden"
 
-#: rero_ils/modules/patrons/api.py:454
+#: rero_ils/modules/patrons/api.py:485
 msgid "Patron rights expired."
 msgstr ""
 
-#: rero_ils/modules/patrons/api.py:471
+#: rero_ils/modules/patrons/api.py:502
 msgid "Transactions denied: the maximal overdue fee amount is reached."
 msgstr ""
 "Weigering van transacties: het maximale bedrag aan laattijdige "
 "vergoedingen wordt bereikt."
 
-#: rero_ils/modules/patrons/api.py:589
+#: rero_ils/modules/patrons/api.py:618
 msgid "Patron account expired."
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:174
+#: rero_ils/modules/patrons/views.py:178
 #, fuzzy
 msgid "Patron Profile"
 msgstr "Lezerstype"
 
-#: rero_ils/modules/patrons/views.py:233
+#: rero_ils/modules/patrons/views.py:237
 msgid "You have a pending subscription fee."
 msgstr "U heeft nog een hangend abonnementsgeld."
 
@@ -12292,6 +12310,14 @@ msgstr "Wachtwoord vergeten?"
 msgid "Profile"
 msgstr "rollen"
 
+#: rero_ils/modules/vendors/api.py:84
+msgid "Can not have multiple contacts with the same type."
+msgstr ""
+
+#: rero_ils/modules/vendors/api.py:88
+msgid "Can not have multiple notes with the same type."
+msgstr ""
+
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "JSON schema for a vendor"
 msgstr "JSON schema voor een verkoper."
@@ -12333,39 +12359,48 @@ msgid "credit_note"
 msgstr ""
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:214
-msgid "Default contact details"
-msgstr "Standaard contactgegevens"
+msgid "Contacts"
+msgstr ""
 
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:231
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:218
+msgid "Contact"
+msgstr ""
+
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:236
+msgid "Contact type"
+msgstr ""
+
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:249
+msgid "Default contact "
+msgstr ""
+
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:253
+msgid "Order contact"
+msgstr ""
+
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:257
+msgid "Serial contact"
+msgstr ""
+
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:270
 msgid "Vendor contact person."
 msgstr "Contactpersoon"
 
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:237
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:302
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:284
 msgid "Street and number of the address, separated by a coma."
 msgstr "Straat en nummer van het adres, gescheiden door een coma."
 
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:263
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:322
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:329
 msgid "Phone number"
 msgstr "Telefoonnummer"
 
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:264
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:323
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:330
 msgid "Phone number with the international prefix, without spaces."
 msgstr "Telefoonnummer met internationaal kengetal, zonder spaties."
 
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:282
-msgid "Order contact details"
-msgstr "Order contactgegevens"
-
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:295
-msgid "Contact name"
-msgstr "Contactnaam"
-
-#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:296
-msgid "Name of the vendor contact person."
-msgstr "Naam van de contactpersoon"
+#: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:376
+msgid "Only one contact per type is allowed"
+msgstr ""
 
 #: rero_ils/theme/menus.py:53 rero_ils/theme/menus.py:54
 msgid "My Account"
