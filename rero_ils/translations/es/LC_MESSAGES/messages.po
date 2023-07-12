@@ -13,15 +13,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-05-23 16:29+0200\n"
-"PO-Revision-Date: 2023-05-11 11:24+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2023-06-29 08:50+0000\n"
+"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/es/>\n"
 "Language: es\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.1\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -4619,7 +4620,6 @@ msgid "Can not have multiple notes of the same type."
 msgstr "No puede tener múltiples notas del mismo tipo."
 
 #: rero_ils/modules/acquisition/acq_order_lines/extensions.py:64
-#, fuzzy
 msgid "Cannot link to an harvested document"
 msgstr "No se puede enlazar con un documento recopilado"
 
@@ -4654,7 +4654,6 @@ msgstr "Monto total"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:77
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:58
-#, fuzzy
 msgid "Exchange rate"
 msgstr "Tasa de intercambio"
 
@@ -5100,7 +5099,6 @@ msgid "Template"
 msgstr "Template"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:224
-#, fuzzy
 msgid "Overdue fees"
 msgstr "Tasas de demora"
 
@@ -5141,9 +5139,8 @@ msgid "Maximum number of renewals"
 msgstr "Número máximo de renovaciones"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:313
-#, fuzzy
 msgid "Enter 0 if renewal is not allowed."
-msgstr "Número máximo de renovaciones autorizadas."
+msgstr "Entra 0 si no se permite la renovación."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:322
 msgid "Renewal duration in days"
@@ -5464,7 +5461,6 @@ msgid "Abbreviated level"
 msgstr "Nivel abreviado"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:70
-#, fuzzy
 msgid "Core level"
 msgstr "Nivel básico"
 
@@ -5630,7 +5626,6 @@ msgstr "Ejemplo: Edición abreviada, 22"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:357
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:441
-#, fuzzy
 msgid "Assigning agency"
 msgstr "Agencia asignadora"
 
@@ -6114,7 +6109,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:13
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:13
 msgid "Link to an entity"
-msgstr ""
+msgstr "Enlace a una entidad"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:36
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:2
@@ -6122,11 +6117,11 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:30
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:30
 msgid "Entity (local)"
-msgstr ""
+msgstr "Entidad (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:2
 msgid "Link to an agent"
-msgstr ""
+msgstr "Enlace a un agente"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:13
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:29
@@ -6148,7 +6143,7 @@ msgstr "MEF ID"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:2
 msgid "Agent (local)"
-msgstr ""
+msgstr "Agente (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:28
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:35
@@ -7253,7 +7248,6 @@ msgid "extract"
 msgstr "extracto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:154
-#, fuzzy
 msgid "educationalSheet"
 msgstr "hoja educativa"
 
@@ -7381,11 +7375,11 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:13
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:25
 msgid "Genre, form"
-msgstr ""
+msgstr "Género, forma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:122
 msgid "Is this entity a genre, form ?"
-msgstr ""
+msgstr "Es esta entidad un género, forma ?"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_extent-v0.0.1.json:3
 msgid "Extent"
@@ -7456,15 +7450,15 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:2
 msgid "Link to a genre, form"
-msgstr ""
+msgstr "Enlace a un género, forma"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:2
 msgid "Genre, form (local)"
-msgstr ""
+msgstr "Género, forma (local)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:34
 msgid "Example: Electronic serials"
-msgstr ""
+msgstr "Ejemplo: periódicos electrónicos"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:42
 msgid "Source of the subject."
@@ -8505,7 +8499,7 @@ msgstr "(MARC 6XX)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:2
 msgid "Link to a subject"
-msgstr ""
+msgstr "Enlace a un sujeto"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:25
 msgid "Topic"
@@ -9258,9 +9252,8 @@ msgid "has {count} items with loan attached"
 msgstr "tiene {count} artículos con préstamo adjunto"
 
 #: rero_ils/modules/holdings/api.py:488
-#, fuzzy
 msgid "Only serial holdings can be requested."
-msgstr "Sólo se puede solicitar existencias de publicaciones seriadas."
+msgstr "Sólo se puede solicitar estados del fondo de periódicos."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:484
@@ -10123,9 +10116,8 @@ msgid "Displayed status"
 msgstr "Estado visualizado"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:106
-#, fuzzy
 msgid "Short text displayed in the interface, for instance \\"
-msgstr "Texto corto mostrado en la interfaz, por ejemplo \\"
+msgstr "Texto corto que aparece en la interfaz, por ejemplo \\"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:156
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:210
@@ -10318,13 +10310,12 @@ msgid "Sorting date"
 msgstr "Fecha de ordenación"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:399
-#, fuzzy
 msgid ""
 "Date used to sort the issue from the holdings item list. If empty, the "
 "issue expected date will be used as sort key."
 msgstr ""
-"Fecha utilizada para ordenar los ejemplares de la lista de existencias. "
-"Si está vacía, se utilizará la fecha prevista como clave de ordenación."
+"Fecha utilizada para ordenar los números de la lista. Si está vacía, se "
+"utilizará la fecha prevista como clave de ordenación."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:413
 msgid "Regularity"
@@ -10609,15 +10600,14 @@ msgstr "Información sobre facturación"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:485
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:56
-#, fuzzy
 msgid "Online harvested sources"
-msgstr "Fuente recolectada en línea"
+msgstr "Fuentes recolectadas en línea"
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:486
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:57
-#, fuzzy
 msgid "Online harvested sources as configured in ebooks server."
-msgstr "Fuente recolectada en línea como configurada en el servidor de ebooks."
+msgstr ""
+"Fuentes recolectadas en línea según lo configurado en el servidor de ebooks."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:499
 msgid "Name of online source."
@@ -10723,9 +10713,8 @@ msgid "Last end date of loan"
 msgstr "Última fecha de finalización del préstamo"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:123
-#, fuzzy
 msgid "Due Soon Date"
-msgstr "Fecha de la notificación de vencimiento"
+msgstr "Fecha del aviso de vencimiento"
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:127
 msgid "Request expire datetime"
@@ -10854,7 +10843,6 @@ msgid "Pickup location name field is required."
 msgstr "El campo del nombre de la recogida es obligatorio."
 
 #: rero_ils/modules/locations/api.py:200
-#, fuzzy
 msgid "Record location disallows request."
 msgstr "La ubicación del ejemplar no permite la solicitud."
 
@@ -11099,7 +11087,6 @@ msgid "Notification date"
 msgstr "Fecha de aviso"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:122
-#, fuzzy
 msgid "Sender library pid"
 msgstr "PID de la biblioteca remitente"
 
@@ -12388,4 +12375,3 @@ msgstr "Su biblioteca"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Se ha restablecido su contraseña correctamente."
-
