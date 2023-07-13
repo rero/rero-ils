@@ -3198,6 +3198,12 @@ CIRCULATION_POLICIES = dict(
     )
 )
 
+CIRCULATION_BASIC_OPERATIONS = [
+    'checkout',
+    'checkin',
+    'extend'
+]
+
 CIRCULATION_ACTIONS_VALIDATION = {
     ItemCirculationAction.REQUEST: [
         Location.can_request,

@@ -186,7 +186,7 @@ class ItemCirculation(ItemRecord):
             if transaction_library_pid is not None:
                 lib = Library.get_record_by_pid(transaction_library_pid)
                 kwargs['transaction_location_pid'] = \
-                    lib.get_transaction_location_pid()
+                    lib.transaction_location_pid
         # set the pickup_location_pid field if not found for loans that are
         # ready for checkout.
         if not kwargs.get('pickup_location_pid') and \

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -26,12 +26,34 @@ from flask import Blueprint, abort, jsonify, request
 
 from rero_ils.modules.decorators import check_logged_as_librarian
 from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.libraries.rest import \
+    LibraryCirculationRateStatisticsResource, \
+    LibraryCirculationStatisticsResource, \
+    LibraryDocumentTypeRepartitionResource
 from rero_ils.modules.utils import add_years, date_string_to_utc
 
 api_blueprint = Blueprint(
     'api_library',
     __name__,
     url_prefix='/library'
+)
+api_blueprint.add_url_rule(
+    '/<pid(lib, record_class="rero_ils.modules.libraries.api:Library")'
+    ':pid_value>/statistics/circulation',
+    view_func=LibraryCirculationStatisticsResource.as_view(
+        'circulation_statistics')
+)
+api_blueprint.add_url_rule(
+    '/<pid(lib, record_class="rero_ils.modules.libraries.api:Library")'
+    ':pid_value>/statistics/circulation_rate',
+    view_func=LibraryCirculationRateStatisticsResource.as_view(
+        'circulation_rate_statistics')
+)
+api_blueprint.add_url_rule(
+    '/<pid(lib, record_class="rero_ils.modules.libraries.api:Library")'
+    ':pid_value>/statistics/document_type_repartition',
+    view_func=LibraryDocumentTypeRepartitionResource.as_view(
+        'document_type_repartition_statistics')
 )
 
 

@@ -538,7 +538,7 @@ class ItemRecord(IlsRecord):
         :return location pid.
         """
         library = self.get_library()
-        return library.get_pickup_location_pid() or self.location_pid
+        return library.pickup_location_pid or self.location_pid
 
     @property
     def notes(self):

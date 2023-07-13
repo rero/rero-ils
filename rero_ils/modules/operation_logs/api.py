@@ -171,7 +171,7 @@ class OperationLog(RecordBase):
         """Retrieve the record by ID.
 
         Raise a database exception if the record does not exist.
-        :param id_: record ID.
+        :param _id: record ID.
         :returns: The :class:`Record` instance.
         """
         # here the elasticsearch get API cannot be used with an index alias

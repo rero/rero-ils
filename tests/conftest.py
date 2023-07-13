@@ -32,6 +32,7 @@ pytest_plugins = (
     'fixtures.metadata',
     'fixtures.organisations',
     'fixtures.acquisition',
+    'fixtures.logs',
     'fixtures.sip2',
     'fixtures.basics',
     'fixtures.mef'
@@ -98,6 +99,13 @@ def system_role_policies_data():
 def acquisition():
     """Load fixture acquisition file."""
     with open(join(dirname(__file__), 'data/acquisition.json')) as f:
+        return json.load(f)
+
+
+@pytest.fixture(scope="module")
+def operation_logs():
+    """Load fixture operation logs file."""
+    with open(join(dirname(__file__), 'data/operation_logs.json')) as f:
         return json.load(f)
 
 
