@@ -1,5 +1,49 @@
 # Changelog
 
+## [v1.18.0](https://github.com/rero/rero-ils/tree/v1.18.0) (2023-07-13)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.17.1...v1.18.0)
+
+**New features:**
+* Add claim mechanism for periodical issues [\#3376](https://github.com/rero/rero-ils/pull/3376) (by @zannkukai)
+* Update loans `end_date` when a closed date/period is added into library exceptions [\#2663](https://github.com/rero/rero-ils/issues/2663) (by @zannkukai)
+* Add import from SUDOC by SRU [\#3363](https://github.com/rero/rero-ils/issues/3363) (by @rerowep)
+* Add a way to set a default active library [\#3362](https://github.com/rero/rero-ils/issues/3362) (by @Garfield-fr)
+* Confirmation message when leaving a form without saving [\#2104](https://github.com/rero/rero-ils/issues/2104) (by @Garfield-fr)
+
+**Enhancements:**
+* Send `recall` notifications at checkout when items have a request for other persons [\#2673](https://github.com/rero/rero-ils/issues/2673) (by @zannkukai)
+* patron profile: show overdue preview fees [\#3343](https://github.com/rero/rero-ils/issues/3343) (by @Garfield-fr)
+* Display ILL request also in the professional patron account [\#2165](https://github.com/rero/rero-ils/issues/2165) (by @Garfield-fr)
+* Item editor: default date when activating `new_acquisition` is today [\#2777](https://github.com/rero/rero-ils/issues/2777) (by @Garfield-fr)
+* Correct replace identifiedBy [\#3364](https://github.com/rero/rero-ils/issues/3364) (by @rerowep)
+* sru: subjects and genreForm [\#3365](https://github.com/rero/rero-ils/pull/3365) (by @rerowep)
+* fees: add invoice payment method [\#3373](https://github.com/rero/rero-ils/pull/3373) (by @PascalRepond)
+
+**Fixes:**
+* claims: manage missing data for claim notification [\#3399](https://github.com/rero/rero-ils/issues/3399) (by @zannkukai)
+* stats: fix validated requests count [\#3402](https://github.com/rero/rero-ils/pull/3402) (by @PascalRepond)
+* ILL requests: some fields shouldn't be required, others should be [\#2027](https://github.com/rero/rero-ils/issues/2027) (by @PascalRepond)
+* Barcode fields should be unique [\#3386](https://github.com/rero/rero-ils/issues/3386) (by @PascalRepond)
+* Permissions linked to the serial holdings detail view [\#1705](https://github.com/rero/rero-ils/issues/1705)
+* stats for pricing: should not take into account ill requests with status `denied` [\#3359](https://github.com/rero/rero-ils/issues/3359) (by @PascalRepond)
+* Contributors not displaying in patron profile (public view) [\#3380](https://github.com/rero/rero-ils/issues/3380) (by @Garfield-fr)
+* Circulation info should take into account temporary item type in public view [\#2965](https://github.com/rero/rero-ils/issues/2965) (by @Garfield-fr)
+* users: library used for the operation logs is wrong [\#3310](https://github.com/rero/rero-ils/issues/3310) (by @Garfield-fr)
+* Error if an item from a library without opening hours is checked out [\#2419](https://github.com/rero/rero-ils/issues/2419) (by @PascalRepond)
+* With the English interface, sometimes dates are displayed in the US format [\#1469](https://github.com/rero/rero-ils/issues/1469)
+* circulation: fix has_is_open library method [\#3396](https://github.com/rero/rero-ils/pull/3396) (by @PascalRepond)
+* loan: fix LoansIndexer [\#3395](https://github.com/rero/rero-ils/pull/3395) (by @rerowep)
+* user: fix for invalid date of birth [\#3369](https://github.com/rero/rero-ils/pull/3369) (by @Garfield-fr)
+
+**Other changes:**
+* scheduler: change timings [\#3391](https://github.com/rero/rero-ils/pull/3391) (by @rerowep)
+* alembic: fix log output format [\#3387](https://github.com/rero/rero-ils/pull/3387) (by @lauren-d)
+* tests: fix vulnerabilities and pycodestyle [\#3390](https://github.com/rero/rero-ils/pull/3390) (by @PascalRepond)
+* rero+: update vs frontpage [\#3412](https://github.com/rero/rero-ils/pull/3412) (by @PascalRepond)
+* alembic: fix errors for the next release [\#3410](https://github.com/rero/rero-ils/pull/3410) (by @jma)
+* entities: fix replace identified by [\#3413](https://github.com/rero/rero-ils/pull/3413) (by @rerowep)
+
 ## [v1.17.1](https://github.com/rero/rero-ils/tree/v1.17.1) (2023-06-06)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.17.0...v1.17.1)
