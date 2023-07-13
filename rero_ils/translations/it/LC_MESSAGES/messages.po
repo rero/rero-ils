@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-07-13 10:14+0200\n"
-"PO-Revision-Date: 2023-05-11 11:24+0000\n"
+"PO-Revision-Date: 2023-07-13 10:32+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.0-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -161,15 +162,15 @@ msgstr "fornitore"
 
 #: rero_ils/config.py:1758
 msgid "or_issue_status"
-msgstr ""
+msgstr "Statuto del fascicolo (O)"
 
 #: rero_ils/config.py:1759
 msgid "claims_count"
-msgstr ""
+msgstr "Numero di reclami"
 
 #: rero_ils/config.py:1760
 msgid "claims_date"
-msgstr ""
+msgstr "Data de reclamo"
 
 #: rero_ils/config.py:1761
 msgid "current_requests"
@@ -536,7 +537,7 @@ msgstr "Affari"
 
 #: rero_ils/manual_translations.txt:94
 msgid "Home"
-msgstr "Casa"
+msgstr "Homepage"
 
 #: rero_ils/manual_translations.txt:95
 msgid "Mobile"
@@ -9136,7 +9137,7 @@ msgstr "JSON schema per un'entità MEF"
 
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:16
 msgid "Schema to validate entity records against."
-msgstr ""
+msgstr "Schema per convalidare i record delle entità."
 
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:21
 #: rero_ils/modules/entities/jsonschemas/entities/entity-v0.0.1.json:25
@@ -9558,19 +9559,19 @@ msgstr ""
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:527
 msgid "Client ID"
-msgstr ""
+msgstr "ID cliente"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:528
 msgid "The client reference ID at the vendor."
-msgstr ""
+msgstr "L'ID di riferimento del cliente presso il fornitore."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:539
 msgid "Order reference"
-msgstr ""
+msgstr "Riferimento dell'ordine"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:540
 msgid "The vendor order reference."
-msgstr ""
+msgstr "Il riferimento dell'ordine presso il fornitore."
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:551
 msgid "Collection"
@@ -10443,6 +10444,8 @@ msgstr ""
 #: rero_ils/modules/libraries/api.py:93
 msgid "Opening times must be specified for an open exception date."
 msgstr ""
+"Gli orari di apertura devono essere specificati per una data di eccezione "
+"aperta."
 
 #: rero_ils/modules/libraries/jsonschemas/libraries/library-v0.0.1.json:5
 msgid "JSON schema for a library"
@@ -10931,7 +10934,7 @@ msgstr "Il nome del punto di ritiro (presto interbibliotecario) à già utilizza
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:151
 msgid "Allow request"
-msgstr "Consentire le richieste"
+msgstr "Consentire la richiesta"
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:153
 msgid "If enabled, it allows requests for items linked to this location."
@@ -11006,11 +11009,11 @@ msgstr "Attuale conteggio dei richiami"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:123
 msgid "Claim number"
-msgstr ""
+msgstr "Numero di reclamo"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:124
 msgid "Claim number sequence for this serial issue"
-msgstr ""
+msgstr "Sequenza dei numeri di reclamo per questo fascicolo"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:134
 msgid "Schema to validate notifications records against."
@@ -11314,7 +11317,7 @@ msgstr "contanti"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:201
 msgid "invoice"
-msgstr ""
+msgstr "fatturato"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:205
 msgid "debit_card"
@@ -12114,11 +12117,11 @@ msgstr "Profilo"
 
 #: rero_ils/modules/vendors/api.py:84
 msgid "Can not have multiple contacts with the same type."
-msgstr ""
+msgstr "Non è possibile avere più contatti dello stesso tipo."
 
 #: rero_ils/modules/vendors/api.py:88
 msgid "Can not have multiple notes with the same type."
-msgstr ""
+msgstr "Non è possibile avere più note dello stesso tipo."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:5
 msgid "JSON schema for a vendor"
@@ -12162,27 +12165,27 @@ msgstr "nota per il credito"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:214
 msgid "Contacts"
-msgstr ""
+msgstr "Contatti"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:218
 msgid "Contact"
-msgstr ""
+msgstr "Contatto"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:236
 msgid "Contact type"
-msgstr ""
+msgstr "Tipo di contatto"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:249
 msgid "Default contact "
-msgstr ""
+msgstr "Contatto standard "
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:253
 msgid "Order contact"
-msgstr ""
+msgstr "Contatto per l'ordine"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:257
 msgid "Serial contact"
-msgstr ""
+msgstr "Contatto per seriale"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:270
 msgid "Vendor contact person."
@@ -12202,7 +12205,7 @@ msgstr "Numero di telefono con il prefisso internazionale, senza spazi."
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:376
 msgid "Only one contact per type is allowed"
-msgstr ""
+msgstr "È consentito solo un contatto per tipo"
 
 #: rero_ils/theme/menus.py:53 rero_ils/theme/menus.py:54
 msgid "My Account"
@@ -12416,4 +12419,3 @@ msgstr "La tua biblioteca"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "La tua password è stata reimposta con successo."
-
