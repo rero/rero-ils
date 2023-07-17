@@ -103,6 +103,8 @@ pydocstyle = ">=6.1.1,<6.2"
 # to solve: pytz
 setuptools = "<67.0.0"
 invenio-records-permissions = "^0.13.0"
+# needed for elasticsearch 7.13.4
+urllib3 = "<2.0.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
