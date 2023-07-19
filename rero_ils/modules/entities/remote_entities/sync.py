@@ -25,10 +25,10 @@ from itertools import islice
 
 import requests
 from deepdiff import DeepDiff
-from elasticsearch_dsl import Q
 from invenio_db import db
 
-from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.commons.exceptions import RecordNotFound
+from rero_ils.modules.documents.api import Document
 from rero_ils.modules.entities.remote_entities.api import \
     RemoteEntitiesSearch, RemoteEntity
 from rero_ils.modules.utils import get_mef_url, get_timestamp, \
@@ -36,7 +36,7 @@ from rero_ils.modules.utils import get_mef_url, get_timestamp, \
 from rero_ils.modules.entities.logger import create_logger
 
 
-class SyncEntity(object):
+class SyncEntity:
     """Entity MEF synchronization."""
 
     def __init__(self, dry_run=False, verbose=False, log_dir=None,
@@ -176,23 +176,6 @@ class SyncEntity(object):
         if not self.dry_run:
             doc.replace(doc, dbcommit=True, reindex=True)
 
-    @staticmethod
-    def _get_documents_pids_from_mef(pid):
-        """Retrieve all the linked documents to a MEF record.
-
-        :param pid: (string) a MEF identifier.
-        :returns: a list of identifiers.
-        :rtype: list of strings.
-        """
-        # the MEF link can be in contribution or subjects
-        es_query = DocumentsSearch()
-        filters = Q('term', contribution__entity__pid=pid)
-        filters |= Q('term', subjects__entity__pid=pid)
-        filters |= Q('term', genreForm__entity__pid=pid)
-        es_query = es_query.filter('bool', must=[filters]).source('pid')
-        # can be a list as it should not be too big
-        return [d.pid for d in es_query.params(scroll='30m').scan()]
-
     def get_entities_pids(self, query='*', from_date=None):
         """Get contributions identifiers.
 
@@ -294,15 +277,14 @@ class SyncEntity(object):
         :rtype: integer, boolean, x.
         """
         # close db session to prevent psycopg2.OperationalError.
-        # a new session will be opend automaticly.
+        # a new session will be open automatically.
         db.session.close()
         doc_updated = set()
         updated = error = False
         try:
-            # get contribution in db
-            entity = RemoteEntity.get_record_by_pid(pid)
-            if not entity:
-                raise Exception(f'ERROR MEF {pid} does not exists in db.')
+            if not (entity := RemoteEntity.get_record_by_pid(pid)):
+                raise RecordNotFound(RemoteEntity, pid)
+
             self.logger.debug(f'Processing {entity["type"]} MEF(pid: {pid})')
             # iterate over all entity sources: rero, gnd, idref
             pids_to_replace = {}
@@ -314,14 +296,14 @@ class SyncEntity(object):
                 )
                 # MEF sever failed to retrieve the latest MEF record
                 # for the given entity
-                if not mef.get('pid'):
+                if not (mef_pid := mef.get('pid')):
                     raise Exception(
                         f'Error cannot get latest for '
                         f'{entity["type"]} {source}:{entity[source]["pid"]}')
 
-                old_entity_pid = entity[source]["pid"]
+                old_entity_pid = entity[source]['pid']
                 new_entity_pid = mef[source]['pid']
-                new_mef_pid = mef.get('pid')
+                new_mef_pid = mef_pid
                 old_mef_pid = entity.pid
                 if old_entity_pid != new_entity_pid:
                     mef_url = f'{get_mef_url(entity.type)}/{source}'
@@ -427,7 +409,7 @@ class SyncEntity(object):
             n_mef_updated=n_mef_updated, errors=errors,
             start_timestamp=self.start_timestamp)
 
-    def sync(self, query="*", from_date=None, in_memory=False):
+    def sync(self, query='*', from_date=None, in_memory=False):
         """Updated the MEF records and the linked documents.
 
         :param query: (string) a query to select the MEF record to be updated.
@@ -463,28 +445,19 @@ class SyncEntity(object):
         """Removes MEF record if it is not linked to any documents.
 
         :param pid: (string) MEF identifier.
-        :returns: true if the record has been deleted, true if an error occurs.
-        :rtype: boolean, boolean
+        :returns: True if the record has been deleted
+        :rtype: bool
+        :raises Exception: If a deletion problem occurred
         """
-        try:
-            doc_pids = SyncEntity._get_documents_pids_from_mef(pid)
-            if len(doc_pids) == 0:
-                # get the contribution for the database
-                entity = RemoteEntity.get_record_by_pid(pid)
-                if not self.dry_run:
-                    # remove from the database and the index: no tombstone
-                    entity.delete(True, True, True)
-                self.logger.info(
-                    f'MEF {entity["type"]} record(pid: {entity.pid}) '
-                    'has been deleted.')
-                # removed, no error
-                return True, False
-        except Exception as err:
-            self.logger.error(f'MEF record(pid: {pid}) -> {err}')
-            # no removed, error
-            return False, True
-        # no removed, no error
-        return False, False
+        entity = RemoteEntity.get_record_by_pid(pid)
+        if not entity.documents_pids():
+            if not self.dry_run:
+                # remove from the database and the index: no tombstone
+                entity.delete(True, True, True)
+            self.logger.info(f'MEF {entity["type"]} record(pid: {entity.pid}) '
+                             'has been deleted.')
+            return True
+        return False
 
     @classmethod
     def get_errors(cls):
@@ -508,24 +481,23 @@ class SyncEntity(object):
         else:
             self.logger.info('--------- Starting cleaning ---------')
 
-    def remove_unused(self, query="*"):
+    def remove_unused(self, query='*'):
         """Removes MEF records that are not linked to any documents.
 
         :param query: (string) query to limit the record candidates.
-        :returns: the number of deleted records, the list of pid that
+        :returns: the number of deleted records; the list of pid that
             causes an error.
-        :rtype: integer, list of strings.
+        :rtype: integer, list<str>.
         """
         self.start_clean()
-        n_removed = 0
-        err_pids = []
+        removed_entity_counter = 0
+        error_entities = []
         pids, _ = self.get_entities_pids(query)
         for pid in pids:
-            removed, error = self.remove_unused_record(pid)
-            if removed:
-                n_removed += 1
-            if error:
-                err_pids.append(pid)
+            try:
+                removed_entity_counter += int(self.remove_unused_record(pid))
+            except Exception:
+                error_entities.append(pid)
             sys.stdout.flush()
-        self.logger.info(f'DONE: MEF deleted: {n_removed}')
-        return n_removed, err_pids
+        self.logger.info(f'DONE: MEF deleted: {removed_entity_counter}')
+        return removed_entity_counter, error_entities

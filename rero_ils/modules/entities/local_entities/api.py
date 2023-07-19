@@ -20,7 +20,7 @@
 
 from functools import partial
 
-from rero_ils.modules.api import IlsRecord, IlsRecordsSearch
+from rero_ils.modules.api import IlsRecordsSearch
 from rero_ils.modules.utils import sorted_pids
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
@@ -61,7 +61,7 @@ class LocalEntitiesSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class LocalEntity(IlsRecord, Entity):
+class LocalEntity(Entity):
     """Local entity class."""
 
     minter = local_entity_id_minter
@@ -76,12 +76,27 @@ class LocalEntity(IlsRecord, Entity):
         AuthorizedAccessPointExtension(),
         OperationLogObserverExtension()
     ]
-    resource_type = EntityResourceType.LOCAL
+
+    @property
+    def resource_type(self):
+        """Get entity type."""
+        return EntityResourceType.LOCAL
 
     @property
     def type(self):
         """Shortcut for local entity type."""
         return self.get('type')
+
+    def get_authorized_access_point(self, language):
+        """Get localized authorized_access_point.
+
+        For a local entity, no matters `language` parameter, the authorized
+        access point is always the `authorized_access_point` field content.
+
+        :param language: language for authorized access point.
+        :returns: authorized access point in given language.
+        """
+        return self.get('authorized_access_point')
 
     def resolve(self):
         """Resolve references data.
@@ -91,6 +106,12 @@ class LocalEntity(IlsRecord, Entity):
 
         :returns: a fresh copy of the resolved data.
         """
+        # DEV NOTES :: Why using `replace_refs_dumper`
+        #   Not really required now (because no $ref relation exists into an
+        #   entity resource) but in next development, links between entity will
+        #   be implemented.
+        #   The links will be stored as a `$ref` and `replace_refs_dumper`
+        #   will be used.
         return self.dumps(replace_refs_dumper)
 
     def get_links_to_me(self, get_pids=False):
