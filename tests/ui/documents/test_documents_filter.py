@@ -393,6 +393,7 @@ def test_work_access_point():
 
 def test_contribution_format(db, entity_organisation):
     """Test contribution format."""
+    entity = entity_organisation
     contributions = [{
         'entity': {
             'authorized_access_point': 'author_def',
@@ -404,11 +405,11 @@ def test_contribution_format(db, entity_organisation):
     assert contribution_format(contributions, 'zh', 'global') == 'author_def'
 
     contributions = [{
-        'entity': {'pid': entity_organisation.pid}
+        'entity': {'pid': entity.pid}
     }]
     link_part = f'/global/search/documents?q' \
-                f'=contribution.entity.unique_key%3A' \
-                f'{entity_organisation.unique_key}'
+                f'=contribution.entity.pids.{entity.resource_type}%3A' \
+                f'{entity.pid}'
     assert link_part in contribution_format(contributions, 'en', 'global')
 
 

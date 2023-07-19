@@ -270,7 +270,8 @@ def contribution_format(contributions, language, viewcode, with_roles=False):
             args = {
                 'viewcode': viewcode,
                 'recordType': 'documents',
-                'q': f'contribution.entity.unique_key:{entity.unique_key}',
+                'q': f'contribution.entity.pids.{entity.resource_type}:'
+                     f'{entity.pid}',
                 'simple': 0
             }
             url = url_for('rero_ils.search', **args)
