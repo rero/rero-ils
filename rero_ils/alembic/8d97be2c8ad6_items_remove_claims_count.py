@@ -26,7 +26,7 @@ from rero_ils.modules.items.api import Item, ItemsIndexer, ItemsSearch
 
 # revision identifiers, used by Alembic.
 revision = '8d97be2c8ad6'
-down_revision = 'e63e5dfa2416'
+down_revision = '64a5cc96f96e'
 branch_labels = ()
 depends_on = None
 
@@ -72,6 +72,6 @@ def _indexing_records(record_ids):
     total_indexed = 0
     for chuncked_ids in chunks:
         indexer.bulk_index(chuncked_ids)
-        count = indexer.process_bulk_queue()
-        total_indexed += count
+        _, count = indexer.process_bulk_queue()
+        total_indexed += count[0]
         LOGGER.info(f'{total_indexed}/{len(record_ids)} records indexed.')

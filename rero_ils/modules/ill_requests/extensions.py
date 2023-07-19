@@ -17,6 +17,9 @@
 
 """ILL request record extensions."""
 
+
+import contextlib
+
 from rero_ils.modules.operation_logs.extensions import \
     OperationLogObserverExtension
 
@@ -31,9 +34,12 @@ class IllRequestOperationLogObserverExtension(OperationLogObserverExtension):
         :return a dict with additional informations.
         """
         data = {'ill_request': {
-            'status': record.get('status'),
-            'library_pid': record.get_library().pid
+            'status': record.get('status')
         }}
+        # if the location or library doesn't exist anymore,
+        # we do not inject the library pid in the operation log
+        with contextlib.suppress(Exception):
+            data['ill_request']['library_pid'] = record.get_library().pid
         if loan_status := record.get('loan_status'):
             data['ill_request']['loan_status'] = loan_status
         return data
