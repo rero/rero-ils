@@ -34,18 +34,18 @@ class BaseDocumentEntityDumper(Dumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        # DEV NOTES: Why using `unique_key`
-        #  Unique key is used to avoid nested implementation in Elasticsearch
         data = {
-            'pid': record.pid,
             'type': record['type'],
-            'unique_key': record.unique_key
+            'pid': record.pid,
+            'pids': {
+                record.resource_type: record.pid
+            }
         }
         if record.resource_type == EntityResourceType.REMOTE:
             for agency in current_app.config['RERO_ILS_AGENTS_SOURCES']:
                 if field := record.get(agency):
                     data['type'] = field.get('bf:Agent', record['type'])
-                    data[f'id_{agency}'] = record[agency]['pid']
+                    data['pids'][agency] = record[agency]['pid']
 
             variant_access_points = []
             parallel_access_points = []
@@ -58,5 +58,4 @@ class BaseDocumentEntityDumper(Dumper):
                 data['variant_access_point'] = variant_access_points
             if parallel_access_points:
                 data['parallel_access_point'] = parallel_access_points
-
         return data

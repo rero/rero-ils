@@ -23,10 +23,11 @@ from abc import ABC, abstractmethod
 from elasticsearch_dsl import Q, A
 from flask import current_app
 
+from rero_ils.modules.api import IlsRecord
 from rero_ils.modules.documents.api import DocumentsSearch
 
 
-class Entity(ABC):
+class Entity(IlsRecord, ABC):
     """Entity class."""
 
     @abstractmethod
@@ -39,63 +40,22 @@ class Entity(ABC):
         raise NotImplementedError
 
     @property
-    def unique_key(self):
-        """Get the unique key.
-
-        As entity subclasses doesn't share pid generation sequence, pid
-        overlapping can occur. To prevent this, use `unique_key` to point
-        specific entity.
-
-        Example:
-            <RemoteEntity#1> => `remote_1`
-            <LocalEntity#1> => `local_1`
-        """
-        return f'{self.resource_type}_{self.pid}'
-
-    def _search_documents(self, with_subjects=True,
-                          with_subjects_imported=True):
-        """Get search documents."""
-        filters = Q('term', contribution__entity__unique_key=self.unique_key)
-
-        if with_subjects:
-            filters |= \
-                Q('term', subjects__entity__unique_key=self.unique_key)
-        if with_subjects_imported:
-            filters |= \
-                Q('term',
-                  subjects_imported__entity__unique_key=self.unique_key)
-        return DocumentsSearch().filter(filters)
-
-    def documents_pids(self, with_subjects=True, with_subjects_imported=True):
-        """Get documents pids."""
-        search = self._search_documents(
-            with_subjects=with_subjects,
-            with_subjects_imported=with_subjects_imported
-        ).source('pid')
-        return [hit.pid for hit in search.scan()]
-
-    def documents_ids(self, with_subjects=True, with_subjects_imported=True):
-        """Get documents ids."""
-        search = self._search_documents(
-            with_subjects=with_subjects,
-            with_subjects_imported=with_subjects_imported
-        ).source()
-        return [hit.meta.id for hit in search.scan()]
+    @abstractmethod
+    def resource_type(self):
+        """Get the entity type."""
+        raise NotImplementedError
 
     @property
     def organisation_pids(self):
         """Get organisations pids."""
-        # TODO :: Should be linked also on other fields ?
-        #    ex: subjects, genre_form, ...
-        #    Seems only use to filer entities by viewcode.
         search = self._search_documents()
         agg = A(
             'terms',
             field='holdings.organisation.organisation_pid',
             min_doc_count=1,
             size=current_app.config
-                            .get('RERO_ILS_AGGREGATION_SIZE')
-                            .get('organisations')
+                            .get('RERO_ILS_AGGREGATION_SIZE', {})
+                            .get('organisations', 10)
         )
         search.aggs.bucket('organisation', agg)
         results = search.execute()
@@ -103,3 +63,51 @@ class Entity(ABC):
             result.key
             for result in results.aggregations.organisation.buckets
         })
+
+    def _search_documents(
+        self, with_subjects=True, with_subjects_imported=True,
+        with_genre_forms=True
+    ):
+        """Get ES query to search documents containing this entity.
+
+        :param with_subjects: search also on `subjects` ?
+        :param with_subjects_imported: search also on `subject_imported` ?
+        :param with_genre_forms: search also on `genreForm` ?
+        """
+        contribution_key = f'contribution.entity.pids.{self.resource_type}'
+        filters = Q('term', **{contribution_key: self.pid})
+        if with_subjects:
+            search_field = f'subjects.entity.pids.{self.resource_type}'
+            filters |= Q('term', **{search_field: self.pid})
+        if with_subjects_imported:
+            search_field = f'subjects_imported.pids.{self.resource_type}'
+            filters |= Q('term', **{search_field: self.pid})
+        if with_genre_forms:
+            search_field = f'genreForm.entity.pids.{self.resource_type}'
+            filters |= Q('term', **{search_field: self.pid})
+
+        return DocumentsSearch().filter(filters)
+
+    def documents_pids(
+        self, with_subjects=True, with_subjects_imported=True,
+        with_genre_forms=True
+    ):
+        """Get documents pids."""
+        search = self._search_documents(
+            with_subjects=with_subjects,
+            with_subjects_imported=with_subjects_imported,
+            with_genre_forms=with_genre_forms
+        ).source('pid')
+        return [hit.pid for hit in search.scan()]
+
+    def documents_ids(
+        self, with_subjects=True, with_subjects_imported=True,
+        with_genre_forms=True
+    ):
+        """Get documents ids."""
+        search = self._search_documents(
+            with_subjects=with_subjects,
+            with_subjects_imported=with_subjects_imported,
+            with_genre_forms=with_genre_forms
+        ).source(False)
+        return [hit.meta.id for hit in search.scan()]
