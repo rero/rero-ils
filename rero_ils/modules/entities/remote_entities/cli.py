@@ -91,10 +91,9 @@ def clean(query, dry_run, verbose, log_dir):
         err_pids = []
         with click.progressbar(pids, length=total) as bar:
             for pid in bar:
-                updated, error = sync_entity.remove_unused_record(pid)
-                if updated:
-                    n_removed += 1
-                if error:
+                try:
+                    n_removed += int(sync_entity.remove_unused_record(pid))
+                except Exception:
                     err_pids.append(pid)
 
         click.secho(f'{n_removed} removed MEF records', fg='green')

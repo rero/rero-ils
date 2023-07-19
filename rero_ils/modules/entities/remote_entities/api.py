@@ -24,8 +24,9 @@ from functools import partial
 from elasticsearch_dsl.query import Q
 from flask import current_app
 from invenio_db import db
+from urllib3.exceptions import HTTPError
 
-from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
+from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsIndexer
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
@@ -65,44 +66,35 @@ class RemoteEntitiesSearch(IlsRecordsSearch):
         default_filter = None
 
 
-class RemoteEntity(IlsRecord, Entity):
+class RemoteEntity(Entity):
     """Mef contribution class."""
 
     minter = remote_entity_id_minter
     fetcher = remote_entity_id_fetcher
     provider = RemoteEntityProvider
     model_cls = RemoteEntityMetadata
-    # disable legacy replace refs
-    enable_jsonref = False
-
-    resource_type = EntityResourceType.REMOTE
-
-    def resolve(self):
-        """Resolve references data.
-
-        Uses the dumper to do the job.
-        Mainly used by the `resolve=1` URL parameter.
-
-        :returns: a fresh copy of the resolved data.
-        """
-        return self.dumps(replace_refs_dumper)
+    enable_jsonref = False  # disable legacy replace refs
 
     @classmethod
     def get_entity(cls, ref_type, ref_pid):
-        """Get contribution."""
+        """Get entity based on type and id.
+
+        In case of multiple entity, we will return the most recent created.
+
+        :param ref_type: the type of identifier (mef, viaf, ...)
+        :param ref_pid: the identifier to search.
+        :returns: the corresponding `Entity` if exists.
+        """
         if ref_type == 'mef':
             return cls.get_record_by_pid(ref_pid)
 
         es_filter = Q('term', **{f'{ref_type}.pid': ref_pid})
         if ref_type == 'viaf':
             es_filter = Q('term', viaf_pid=ref_pid)
-
-        # in case of multiple results get the more recent
         query = RemoteEntitiesSearch() \
             .params(preserve_order=True) \
-            .sort({'_created': {'order': 'desc'}})\
+            .sort({'_created': {'order': 'desc'}}) \
             .filter(es_filter)
-
         with contextlib.suppress(StopIteration):
             pid = next(query.source('pid').scan()).pid
             return cls.get_record_by_pid(pid)
@@ -114,46 +106,67 @@ class RemoteEntity(IlsRecord, Entity):
         If the record dos not exist get it from MEF and create it.
 
         :param ref: MEF URI
-        :returns: the corresponding `Entity` class instance
+        :returns: the corresponding `Entity` class instance ; if entity has
+            loaded from remote server.
+        :rtype: tuple(`Entity`, bool)
         """
         online = False
         entity_type, ref_type, ref_pid = extract_data_from_mef_uri(ref)
-        entity = cls.get_entity(ref_type, ref_pid)
-        if not entity:
-            # We dit not find the record in DB get it from MEF and create it.
-            nested = db.session.begin_nested()
-            try:
-                if not (data := get_mef_data_by_type(
-                    entity_type=entity_type,
-                    pid_type=ref_type,
-                    pid=ref_pid
-                )):
-                    raise Exception('NO DATA')
-                # Try to get the contribution from DB maybe it was not indexed.
-                if entity := RemoteEntity.get_record_by_pid(data['pid']):
-                    entity = entity.replace(data)
-                else:
-                    entity = cls.create(data)
-                online = True
-                nested.commit()
-                # TODO: reindex in the document indexing
-                entity.reindex()
-            except Exception as err:
-                nested.rollback()
-                current_app.logger.error(
-                    f'Get MEF record: {ref_type}:{ref_pid} >>{err}<<'
-                )
-                entity = None
+        if entity := cls.get_entity(ref_type, ref_pid):
+            return entity, online
+
+        # Corresponding entity isn't found into database.
+        #   1) Get it from remote MEF server
+        #   2) Create the entity from remote data
+        nested = db.session.begin_nested()
+        try:
+            data = get_mef_data_by_type(
+                entity_type=entity_type, pid_type=ref_type, pid=ref_pid)
+            if not data:
+                raise HTTPError('', 404, "Not found")
+            # Try to get the contribution from DB maybe it was not indexed.
+            if entity := RemoteEntity.get_record_by_pid(data['pid']):
+                entity = entity.replace(data)
+            else:
+                entity = cls.create(data)
+            online = True
+            nested.commit()
+            # TODO: reindex in the document indexing
+            entity.reindex()
+        except Exception as err:
+            nested.rollback()
+            current_app.logger.error(
+                f'Get MEF record: {ref_type}:{ref_pid} >>{err}<<'
+            )
+            entity = None
         return entity, online
 
-    def _get_mef_localized_value(self, key, language):
-        """Get the 1st localized value for given key among MEF source list."""
-        order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', [])
-        source_order = order.get(language, order.get(order['fallback'], []))
-        for source in source_order:
-            if value := self.get(source, {}).get(key, None):
-                return value
-        return self.get(key, None)
+    @property
+    def resource_type(self):
+        """Get entity type."""
+        return EntityResourceType.REMOTE
+
+    @property
+    def type(self):
+        """Get entity type."""
+        entity_types = current_app.config['RERO_ILS_ENTITY_TYPES']
+        return entity_types.get(self['type'])
+
+    def resolve(self):
+        """Resolve references data.
+
+        Uses the dumper to do the job.
+        Mainly used by the `resolve=1` URL parameter.
+
+        :returns: a fresh copy of the resolved data.
+        """
+        # DEV NOTES :: Why using `replace_refs_dumper`
+        #   Not really required now (because no $ref relation exists into an
+        #   entity resource) but in next development, links between entity will
+        #   be implemented.
+        #   The links will be stored as a `$ref` and `replace_refs_dumper`
+        #   will be used.
+        return self.dumps(replace_refs_dumper)
 
     def get_authorized_access_point(self, language):
         """Get localized authorized_access_point.
@@ -166,10 +179,8 @@ class RemoteEntity(IlsRecord, Entity):
             language=language
         )
 
-    def update_online(
-        self, dbcommit=False, reindex=False, verbose=False,
-        reindex_doc=True
-    ):
+    def update_online(self, dbcommit=False, reindex=False, verbose=False,
+                      reindex_doc=True):
         """Update record online.
 
         :param reindex: reindex record by record
@@ -222,18 +233,20 @@ class RemoteEntity(IlsRecord, Entity):
             if source in self
         }
 
-    @property
-    def type(self):
-        """Get entity type."""
-        entity_types = current_app.config['RERO_ILS_ENTITY_TYPES']
-        return entity_types.get(self['type'])
+    def _get_mef_localized_value(self, key, language):
+        """Get the 1st localized value for given key among MEF source list."""
+        order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', [])
+        source_order = order.get(language, order.get(order['fallback'], []))
+        for source in source_order:
+            if value := self.get(source, {}).get(key, None):
+                return value
+        return self.get(key, None)
 
 
 class RemoteEntitiesIndexer(IlsRecordsIndexer):
     """Entity indexing class."""
 
     record_cls = RemoteEntity
-    # data dumper for indexing
     record_dumper = indexer_dumper
 
     def bulk_index(self, record_id_iterator):

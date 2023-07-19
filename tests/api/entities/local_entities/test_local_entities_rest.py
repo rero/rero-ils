@@ -24,9 +24,11 @@ from flask import url_for
 from utils import get_json, postdata, to_relative_url, \
     VerifyRecordPermissionPatch
 
+from rero_ils.modules.documents.dumpers import document_replace_refs_dumper
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.entities.local_entities.api import LocalEntity
 from rero_ils.modules.entities.dumpers import indexer_dumper
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 def test_local_entities_permissions(client, roles, local_entity_person,
@@ -187,3 +189,32 @@ def test_local_search_by_proxy(
     assert response.status_code == 200
     assert len(response.json) == 1
     assert response.json[0]['pid'] == local_entity_org.pid
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_local_entities_resolve(
+    client, mef_agents_url, local_entity_person, document
+):
+    """Test local entity resolver"""
+
+    # LOCAL ENTITY RESOLVER ===================================================
+    res = client.get(url_for(
+        'invenio_records_rest.locent_item',
+        pid_value=local_entity_person.pid,
+        resolve='1'
+    ))
+    assert res.status_code == 200
+
+    # LOCAL ENTITY INTO A DOCUMENT RESOLVER ===================================
+    ent_ref = get_ref_for_pid('locent', local_entity_person.pid)
+    document.setdefault('contribution', []).append({
+        'entity': {'$ref': ent_ref},
+        'role': ['aut']
+    })
+    document = document.update(document, dbcommit=True, reindex=True)
+    data = document.dumps(dumper=document_replace_refs_dumper)
+    assert any(
+        contribution['entity'].get('pid') == local_entity_person.pid
+        for contribution in data['contribution']
+    )

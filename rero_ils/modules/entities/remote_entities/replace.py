@@ -92,12 +92,12 @@ class ReplaceIdentifiedBy(object):
         url = f'{self._get_base_url(entity_type)}/mef/latest/{source}:{pid}'
         res = requests_retry_session().get(url)
         if res.status_code == requests.codes.ok:
-            data = res.json()
             # TODO: could be deleted if MEF is updated.
-            if data_type := data.get('bf:Agent', data.get('type')):
-                data['type'] = data_type
-            elif entity_type == 'concepts':
-                data['type'] = 'bf:Topic'
+            if data := res.json():
+                if data_type := data.get('bf:Agent', data.get('type')):
+                    data['type'] = data_type
+                elif entity_type == 'concepts':
+                    data['type'] = 'bf:Topic'
             return data
         self.logger.warning(f'Problem get {url}: {res.status_code}')
         return {}

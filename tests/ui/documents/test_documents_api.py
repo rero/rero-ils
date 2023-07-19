@@ -175,7 +175,7 @@ def test_document_linked_subject(
     es_record = DocumentsSearch().get_record_by_pid(doc.pid)
     subject = es_record['subjects'][0]
     assert subject['entity']['primary_source'] == _type
-    assert _id in subject['entity'][f'id_{_type}']
+    assert _id in subject['entity']['pids'][_type]
     assert subject['entity']['authorized_access_point_fr'] == \
         'Antienzymes'
     assert 'Inhibiteurs enzymatiques' \

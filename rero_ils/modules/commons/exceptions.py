@@ -20,7 +20,7 @@
 
 
 class RecordNotFound(Exception):
-    """Record con't be found into Invenio."""
+    """Record can't be found into Invenio."""
 
     def __init__(self, record_cls, record_pid):
         """Initialization method.

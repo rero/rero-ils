@@ -743,8 +743,7 @@ class ReferencedRecordsIndexer:
                 record_to_index = r['record']
                 indexer.index(record_to_index)
             except Exception as err:
-                pid_type = r['pid_type'],
-                pid_value = r['record']['pid']
                 current_app.logger.error(
-                    f'Record indexing error {pid_type} {pid_value}: {err}'
+                    f'Record indexing error {r["pid_type"]} '
+                    f'{r["record"]["pid"]}: {str(err)}'
                 )
