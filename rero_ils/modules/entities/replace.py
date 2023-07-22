@@ -93,10 +93,12 @@ class ReplaceIdentifiedBy(object):
         if res.status_code == requests.codes.ok:
             data = res.json()
             # TODO: could be deleted if MEF is updated.
-            if data_type := data.get('bf:Agent', data.get('type')):
-                data['type'] = data_type
-            elif entity_type == 'concepts':
-                data['type'] = 'bf:Topic'
+            # If we have a latest record add type to the data.
+            if data:
+                if data_type := data.get('bf:Agent', data.get('type')):
+                    data['type'] = data_type
+                elif entity_type == 'concepts':
+                    data['type'] = 'bf:Topic'
             return data
         self.logger.warning(f'Problem get {url}: {res.status_code}')
         return {}
