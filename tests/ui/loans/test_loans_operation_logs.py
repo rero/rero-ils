@@ -111,5 +111,5 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
         log = log.to_dict()
         md5_hash = hashlib.md5(patron['pid'].encode()).hexdigest()
         assert log['loan']['patron']['hashed_pid'] == f'{md5_hash}'
-        assert not log['loan']['patron'].get('name')
-        assert not log['loan']['patron'].get('pid')
+        assert log['loan']['patron'].get('name') == 'anonymized'
+        assert log['loan']['patron'].get('pid') == 'anonymized'

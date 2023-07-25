@@ -120,6 +120,6 @@ class LoanOperationLog(AbstractSpecificOperationLog):
         """
         for log in cls.get_logs_by_record_pid(loan_pid):
             record = log.to_dict()
-            record['loan']['patron'].pop('name', None)
-            record['loan']['patron'].pop('pid', None)
+            record['loan']['patron']['name'] = 'anonymized'
+            record['loan']['patron']['pid'] = 'anonymized'
             cls.update(log.meta.id, log['date'], record)
