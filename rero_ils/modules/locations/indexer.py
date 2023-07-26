@@ -16,45 +16,36 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Documents dumpers."""
+"""Indexing method for `Location` resource."""
 
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.dumpers import MultiDumper, ReplaceRefsDumper
 
-from .indexer import IndexerDumper
-from .replace_refs import ReplaceRefsContributionsDumper, \
-    ReplaceRefsEntitiesDumper
-from .title import TitleDumper
 
-__all__ = (
-    'TitleDumper',
-    'ReplaceRefsContributionsDumper',
-    'ReplaceRefsEntitiesDumper',
-)
+class LocationIndexerDumper(Dumper):
+    """ElasticSearch indexer class for `Location` resource."""
 
-# replace linked data
-document_replace_refs_dumper = MultiDumper(dumpers=[
-    # make a fresh copy
+    def dump(self, record, data):
+        """Dump a `Location` instance with for ElasticSearch indexing.
+
+        :param record: The record to dump.
+        :param data: The initial dump data passed in by ``record.dumps()``.
+        """
+        data['organisation'] = {
+            'pid': record.organisation_pid,
+            'type': 'org'
+        }
+        return data
+
+
+location_replace_refs_dumper = MultiDumper(dumpers=[
     Dumper(),
-    ReplaceRefsContributionsDumper(),
-    ReplaceRefsEntitiesDumper('subjects', 'genreForm'),
     ReplaceRefsDumper()
 ])
 
-# create a string version of the complex title field
-document_title_dumper = MultiDumper(dumpers=[
-    # make a fresh copy
+location_indexer_dumper = MultiDumper(dumpers=[
     Dumper(),
-    TitleDumper()
-])
-
-# dumper used for indexing
-document_indexer_dumper = MultiDumper(dumpers=[
-    # make a fresh copy
-    Dumper(),
-    ReplaceRefsContributionsDumper(),
-    ReplaceRefsEntitiesDumper('subjects', 'genreForm'),
     ReplaceRefsDumper(),
-    IndexerDumper()
+    LocationIndexerDumper()
 ])

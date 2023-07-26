@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -46,19 +47,6 @@ def get_document_pid_by_rero_number(rero_control_number):
     return documents[0] if documents else None
 
 
-def get_location(library_pid):
-    """Get a location pid for the given library pid.
-
-    :param library_pid: a valid library pid.
-    :return: pid of location.
-    """
-    results = LocationsSearch()\
-        .filter('term', library__pid=library_pid) \
-        .source('pid')
-    locations = [location.pid for location in results.scan()]
-    return next(iter(locations or []), None)
-
-
 def get_circ_category(org_pid):
     """Get a random standard circulation category for an organisation pid."""
     results = ItemTypesSearch()\
@@ -69,18 +57,19 @@ def get_circ_category(org_pid):
     return next(iter(records or []), None)
 
 
-def get_random_location(org_pid):
+def get_random_location_pid(org_pid):
     """Return random location for an organisation pid."""
-    org = Organisation.get_record_by_pid(org_pid)
-    libraries = [library.pid for library in org.get_libraries()]
-    return get_location(next(iter(libraries or []), None))
+    results = LocationsSearch() \
+        .filter('term', organisation__pid=org_pid) \
+        .source('pid')
+    locations = [location.pid for location in results.scan()]
+    return next(iter(locations or []), None)
 
 
 def get_random_vendor(org_pid):
     """Return random vendor for an organisation pid."""
     org = Organisation.get_record_by_pid(org_pid)
-    vendors = [vendor.pid for vendor in org.get_vendors()]
-    if vendors:
+    if vendors := [vendor.pid for vendor in org.get_vendors()]:
         return next(iter(random.choices(vendors) or []), None)
 
 
@@ -91,7 +80,7 @@ def create_issues_from_holding(holding, min=3, max=9):
     :param min, max: the min and max range to randomly create number of issues.
     """
     count = 0
-    for issue_number in range(0, random.randint(min, max)):
+    for _ in range(random.randint(min, max)):
         # prepare some fields for the issue to ensure a variable recv dates.
         issue_display, expected_date = holding._get_next_issue_display_text(
                     holding.get('patterns'))
@@ -120,16 +109,10 @@ def create_patterns(infile, verbose, debug, lazy):
     """
     click.secho('Create serials patterns:', fg='green')
     journal_pids = Document.get_all_serial_pids()
-    if lazy:
-        # try to lazy read json file (slower, better memory management)
-        data = read_json_record(infile)
-    else:
-        # load everything in memory (faster, bad memory management)
-        data = json.load(infile)
+    data = read_json_record(infile) if lazy else json.load(infile)
     for record_index, record in enumerate(data):
         template_name = record.get('template_name')
-        rero_control_number = record.get('rero_control_number')
-        if rero_control_number:
+        if rero_control_number := record.get('rero_control_number'):
             document_pid = get_document_pid_by_rero_number(rero_control_number)
         else:
             try:
@@ -154,7 +137,7 @@ def create_patterns(infile, verbose, debug, lazy):
             'acquisition_expected_end_date')
         for org_pid in Organisation.get_all_pids():
             circ_category_pid = get_circ_category(org_pid)
-            location_pid = get_random_location(org_pid)
+            location_pid = get_random_location_pid(org_pid)
             vendor_pid = get_random_vendor(org_pid)
             holdings_record = create_holding(
                 document_pid=document_pid,

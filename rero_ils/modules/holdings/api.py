@@ -744,8 +744,7 @@ def create_holding(
     """
     if not (document_pid and location_pid and item_type_pid):
         raise MissingRequiredParameterError(
-            "One of the parameters 'document_pid' "
-            "or 'location_pid' or 'item_type_pid' is required."
+            "'document_pid', 'location_pid' and 'item_type_pid' are required."
         )
     data = {
         '$schema': get_schema_for_resource('hold'),
