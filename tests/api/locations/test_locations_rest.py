@@ -93,7 +93,9 @@ def test_location_pickup_locations(locations, patron_martigny,
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_locations_get(client, loc_public_martigny):
+def test_locations_get(
+    client, loc_public_martigny, lib_martigny, org_martigny
+):
     """Test record retrieval."""
     location = loc_public_martigny
     item_url = url_for('invenio_records_rest.loc_item', pid_value=location.pid)
@@ -102,13 +104,11 @@ def test_locations_get(client, loc_public_martigny):
     item_url_with_resolve = url_for(
         'invenio_records_rest.loc_item',
         pid_value=location.pid,
-        resolve=1,
-        sources=1
+        resolve=1
     )
 
     res = client.get(item_url)
     assert res.status_code == 200
-
     assert res.headers['ETag'] == f'"{location.revision_id}"'
 
     data = get_json(res)
@@ -127,16 +127,17 @@ def test_locations_get(client, loc_public_martigny):
     # check resolve
     res = client.get(item_url_with_resolve)
     assert res.status_code == 200
-    data = get_json(res)
-    assert location.replace_refs().dumps() == data['metadata']
+    resolved_data = res.json['metadata']
+    assert '$ref' not in resolved_data['library'] and \
+        lib_martigny.pid == resolved_data['library']['pid'] and \
+        'lib' in resolved_data['library']['type']
 
     res = client.get(list_url)
     assert res.status_code == 200
-    data = get_json(res)
-    result = data['hits']['hits'][0]['metadata']
+    hit = res.json['hits']['hits'][0]['metadata']
     # organisation has been added during the indexing
-    del (result['organisation'])
-    assert result == location.replace_refs()
+    assert {'pid': org_martigny.pid, 'type': 'org'} == hit.pop('organisation')
+    assert hit == resolved_data
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -174,7 +175,6 @@ def test_locations_post_put_delete(client, lib_martigny,
         headers=json_header
     )
     assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
 
     # Check that the returned record matches the given data
     data = get_json(res)

@@ -26,7 +26,7 @@ from invenio_db import db
 from invenio_oauth2server.cli import process_scopes, process_user
 from invenio_oauth2server.provider import get_token
 
-from rero_ils.modules.locations.api import search_location_by_pid
+from rero_ils.modules.locations.api import LocationsSearch
 
 from .models import SelfcheckTerminal
 
@@ -56,25 +56,18 @@ def create_terminal(name, user, location_pid, scopes, internal,
 
     # check if user exist:
     if not user:
-        click.secho(
-            f'ERROR user does not exist',
-            fg='red'
-        )
+        click.secho('ERROR user does not exist', fg='red')
         sys.exit(1)
     # check if name already exist
-    terminal = SelfcheckTerminal.find_terminal(name=name)
-    if terminal:
+    if SelfcheckTerminal.find_terminal(name=name):
         click.secho(
             f'ERROR terminal name already exist: {name}',
             fg='red'
         )
         sys.exit(1)
 
-    location = search_location_by_pid(location_pid)
-    if location:
-        # try:
-        token = get_token(access_token=access_token)
-        if not token:
+    if location := LocationsSearch().get_record_by_pid(location_pid):
+        if not (token := get_token(access_token=access_token)):
             click.secho(f'create token for: {user}', fg='blue')
             token = create_personal(
                 name, user.id, scopes=scopes, is_internal=internal,
@@ -122,29 +115,27 @@ def list_terminal():
 def update_terminal(name, enable, disable, location_pid, access_token,
                     comments):
     """Update the given terminal."""
-    terminal = SelfcheckTerminal.find_terminal(name=name)
-    if terminal:
-        if disable and not enable:
-            terminal.active = False
-        if enable and not disable:
-            terminal.active = True
-        if location_pid:
-            location = search_location_by_pid(location_pid)
-            if location:
-                terminal.organisation_pid = location.organisation['pid'],
-                terminal.library_pid = location.library['pid'],
-                terminal.location_pid = location_pid
-        if access_token:
-            token = get_token(access_token)
-            if token:
-                terminal.access_token = token.access_token
-            else:
-                click.secho(
-                    f'WARNING token is not valid or does not exist : '
-                    f'{access_token}',
-                    fg='yellow'
-                )
-        if comments:
-            terminal.comments = comments
-        db.session.merge(terminal)
-        click.secho(f'{name} updated', fg='green')
+    if not (terminal := SelfcheckTerminal.find_terminal(name=name)):
+        return
+    if disable and not enable:
+        terminal.active = False
+    if enable and not disable:
+        terminal.active = True
+    if location_pid:
+        if location := LocationsSearch().get_record_by_pid(location_pid):
+            terminal.organisation_pid = location.organisation['pid'],
+            terminal.library_pid = location.library['pid'],
+            terminal.location_pid = location_pid
+    if access_token:
+        if token := get_token(access_token):
+            terminal.access_token = token.access_token
+        else:
+            click.secho(
+                f'WARNING token is not valid or does not exist : '
+                f'{access_token}',
+                fg='yellow'
+            )
+    if comments:
+        terminal.comments = comments
+    db.session.merge(terminal)
+    click.secho(f'{name} updated', fg='green')

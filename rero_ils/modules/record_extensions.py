@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -24,6 +25,44 @@ from .locations.api import Location, LocationsSearch
 from .utils import extracted_data_from_ref, get_base_url
 
 
+def _add_org_and_lib(record):
+    """Build $ref for the organisation and library of the item.
+
+    :param record: the record metadata.
+    """
+    location_pid = extracted_data_from_ref(record.get('location'))
+    # try on the elasticsearch location index
+    try:
+        es_loc = next(
+            LocationsSearch()
+            .filter('term', pid=location_pid)
+            .source(['organisation', 'library'])
+            .scan()
+        )
+        organisation_pid = es_loc.organisation.pid
+        library_pid = es_loc.library.pid
+    except StopIteration:
+        # ok go to the db
+        library = Location.get_record_by_pid(location_pid).get_library()
+        library_pid = library.pid
+        organisation_pid = library.organisation_pid
+    url_api = '{base_url}/api/{doc_type}/{pid}'
+    org_ref = {
+        '$ref': url_api.format(
+            base_url=get_base_url(),
+            doc_type='organisations',
+            pid=organisation_pid)
+    }
+    record['organisation'] = org_ref
+    lib_ref = {
+        '$ref': url_api.format(
+            base_url=get_base_url(),
+            doc_type='libraries',
+            pid=library_pid)
+    }
+    record['library'] = lib_ref
+
+
 class OrgLibRecordExtension(RecordExtension):
     """Defines the methods needed by an extension."""
 
@@ -35,7 +74,7 @@ class OrgLibRecordExtension(RecordExtension):
         # do nothing if already exists
         if record.get('organisation') and record.get('library'):
             return
-        self._add_org_and_lib(record)
+        _add_org_and_lib(record)
         # required for validation
         if record.model:
             record.model.data = record
@@ -45,41 +84,4 @@ class OrgLibRecordExtension(RecordExtension):
 
         :param record: the record metadata.
         """
-        self._add_org_and_lib(record)
-
-    def _add_org_and_lib(cls, record):
-        """Build $ref for the organisation and library of the item.
-
-        :param record: the record metadata.
-        """
-        location_pid = extracted_data_from_ref(record.get('location'))
-        # try on the elasticsearch location index
-        try:
-            es_loc = next(
-                LocationsSearch()
-                .filter('term', pid=location_pid)
-                .source(['organisation', 'library'])
-                .scan()
-            )
-            organisation_pid = es_loc.organisation.pid
-            library_pid = es_loc.library.pid
-        except StopIteration:
-            # ok go to the db
-            library = Location.get_record_by_pid(location_pid).get_library()
-            library_pid = library.pid
-            organisation_pid = library.organisation_pid
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        org_ref = {
-            '$ref': url_api.format(
-                base_url=get_base_url(),
-                doc_type='organisations',
-                pid=organisation_pid)
-        }
-        record['organisation'] = org_ref
-        lib_ref = {
-            '$ref': url_api.format(
-                base_url=get_base_url(),
-                doc_type='libraries',
-                pid=library_pid)
-        }
-        record['library'] = lib_ref
+        _add_org_and_lib(record)

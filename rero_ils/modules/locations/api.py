@@ -23,13 +23,14 @@ from elasticsearch_dsl.query import Q
 from flask_babelex import gettext as _
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from rero_ils.modules.errors import MissingRequiredParameterError
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref, sorted_pids
+from .extensions import IsPickupToExtension
 
+from .indexer import location_indexer_dumper, location_replace_refs_dumper
 from .models import LocationIdentifier, LocationMetadata
 
 # provider
@@ -65,11 +66,16 @@ class Location(IlsRecord):
     fetcher = location_id_fetcher
     provider = LocationProvider
     model_cls = LocationMetadata
+    enable_jsonref = False
     pids_exist_check = {
         'required': {
             'lib': 'library'
         }
     }
+
+    _extensions = [
+        IsPickupToExtension()
+    ]
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.
@@ -155,6 +161,13 @@ class Location(IlsRecord):
         }
         return {k: v for k, v in links.items() if v}
 
+    def resolve(self):
+        """Resolve references data.
+
+        :returns: a fresh copy of the resolved data.
+        """
+        return self.dumps(location_replace_refs_dumper)
+
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
@@ -220,6 +233,7 @@ class LocationsIndexer(IlsRecordsIndexer):
     """Holdings indexing class."""
 
     record_cls = Location
+    record_dumper = location_indexer_dumper
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.
@@ -227,50 +241,3 @@ class LocationsIndexer(IlsRecordsIndexer):
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
         super().bulk_index(record_id_iterator, doc_type='loc')
-
-
-def search_locations_by_pid(organisation_pid=None, library_pid=None,
-                            is_online=False, is_pickup=False,
-                            sort_by_field='location_name', sort_order='asc',
-                            preserve_order=False):
-    """Retrieve locations attached to the given organisation or library.
-
-    :param organisation_pid: Organisation pid.
-    :param library_pid: Library pid.
-    :param is_online: Filter only on online location.
-    :param is_pickup: Filter only on pickup location.
-    :param sort_by_field: Location field used for sort.
-    :param sort_order: Sort order `asc` or `desc`.
-    :param preserve_order: Preserve order.
-    :returns: - A Search object.
-    """
-    search = LocationsSearch()
-
-    if organisation_pid:
-        search = search.filter('term', organisation__pid=organisation_pid)
-    elif library_pid:
-        search = search.filter('term', library__pid=library_pid)
-    else:
-        raise MissingRequiredParameterError(
-            "One of the parameters 'organisation_pid' "
-            "or 'library_pid' is required."
-        )
-
-    if is_online:
-        search = search.filter('term', is_online=is_online)
-
-    if is_pickup:
-        search = search.filter('term', is_pickup=is_pickup)
-
-    if sort_by_field:
-        search = search.sort({sort_by_field: {'order': sort_order}})
-        if preserve_order:
-            search = search.params(preserve_order=True)
-    return search
-
-
-def search_location_by_pid(loc_pid):
-    """Search location for the given location pid."""
-    loc_search = LocationsSearch().filter('term', pid=loc_pid)
-    for location in loc_search.scan():
-        return location

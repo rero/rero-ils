@@ -68,7 +68,6 @@ from rero_ils.modules.items.listener import enrich_item_data
 from rero_ils.modules.items.views.filters import issue_client_reference
 from rero_ils.modules.loans.listener import enrich_loan_data, \
     listener_loan_state_changed
-from rero_ils.modules.locations.listener import enrich_location_data
 from rero_ils.modules.normalizer_stop_words import NormalizerStopWords
 from rero_ils.modules.notifications.listener import enrich_notification_data
 from rero_ils.modules.patron_transaction_events.listener import \
@@ -294,7 +293,6 @@ class REROILSAPP(object):
         before_record_index.connect(enrich_entities_data, sender=app)
         before_record_index.connect(enrich_item_data, sender=app)
         before_record_index.connect(enrich_patron_data, sender=app)
-        before_record_index.connect(enrich_location_data, sender=app)
         before_record_index.connect(enrich_holding_data, sender=app)
         before_record_index.connect(enrich_notification_data, sender=app)
         before_record_index.connect(enrich_patron_transaction_event_data,
