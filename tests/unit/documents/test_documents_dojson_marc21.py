@@ -457,6 +457,14 @@ def test_subjects_to_marc21(app, mef_agents_url, mef_concepts_url,
                 'source': 'rero',
                 'type': 'bf:Place'
             }
+        }, {
+            'entity': {
+                'authorized_access_point': '2500 av. J.-C.-20e siècle',
+                'type': 'bf:Temporal',
+                'identifiedBy': {
+                    'type': 'RERO', 'value': 'A026984216'
+                }
+            }
         }]
     }
     result = to_marc21.do(record)
@@ -464,7 +472,7 @@ def test_subjects_to_marc21(app, mef_agents_url, mef_concepts_url,
     record = deepcopy(marc21_record)
     record.update({
         '__order__': ('leader', '008', '650__', '650__', '6001_', '610__',
-                      '610__', '611__', '600__', '651__'),
+                      '610__', '611__', '600__', '651__', '648_7'),
         '650__': (
             GroupableOrderedDict({'a': 'Roman pour la jeunesse'}),
             GroupableOrderedDict({'a': 'Antienzymes'})
@@ -476,7 +484,11 @@ def test_subjects_to_marc21(app, mef_agents_url, mef_concepts_url,
             })
         ),
         '600__': (
-            GroupableOrderedDict({'t': 'Bases de donnéesi (Voltenauer, Marc)'})
+            GroupableOrderedDict({
+                't': 'Bases de donnéesi (Voltenauer, Marc)',
+                '2': 'rero',
+                '0': 'A001234567'
+            })
         ),
         '610__': (
             GroupableOrderedDict({'a': 'Université de Genève'}),
@@ -493,7 +505,18 @@ def test_subjects_to_marc21(app, mef_agents_url, mef_concepts_url,
             })
         ),
         '651__': (
-            GroupableOrderedDict({'a': 'Suisse'})
+            GroupableOrderedDict({
+                'a': 'Suisse',
+                '2': 'idref',
+                '0': '027249654'
+            })
+        ),
+        '648_7': (
+            GroupableOrderedDict({
+                'a': '2500 av. J.-C.-20e siècle',
+                '2': 'rero',
+                '0': 'A026984216'
+            })
         )
     })
     assert result['__order__'] == record['__order__']
@@ -503,6 +526,7 @@ def test_subjects_to_marc21(app, mef_agents_url, mef_concepts_url,
     assert result['610__'] == record['610__']
     assert result['611__'] == record['611__']
     assert result['651__'] == record['651__']
+    assert result['648_7'] == record['648_7']
 
 
 def test_genre_form_to_marc21(app, mef_concepts_url, marc21_record,

@@ -945,10 +945,10 @@ class ReroIlsOverdo(Overdo):
         # extract accompanyingMaterial note from $e
         if value.get('e'):
             material_notes = []
-            if type(self) == ReroIlsMarc21Overdo:
+            if isinstance(self, ReroIlsMarc21Overdo):
                 material_note = utils.force_list(value.get('e', []))[0]
                 material_notes = material_note.split('+')
-            elif type(self) == ReroIlsUnimarcOverdo:
+            elif isinstance(self, ReroIlsUnimarcOverdo):
                 material_notes = utils.force_list(value.get('e', []))
             for material_note in material_notes:
                 if material_note:

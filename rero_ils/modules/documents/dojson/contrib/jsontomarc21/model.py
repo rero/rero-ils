@@ -708,6 +708,12 @@ def reverse_subjects(self, key, value):
     Sujet Organisation > 610 OU 611 Conference
     Sujet Concept > 650
     """
+    def add_identified_by(result, identified_by):
+        """Adds $2 and $0 to result."""
+        result = add_value(result, '2', identified_by['type'].lower())
+        result = add_value(result, '0', identified_by['value'])
+        return result
+
     if entity := value.get('entity'):
         tag = None
         entity_type = entity.get('type') or entity.get('bf:Agent')
@@ -737,6 +743,8 @@ def reverse_subjects(self, key, value):
             ) or entity.get('authorized_access_point'):
                 result = {}
                 result = add_value(result, 't', authorized_access_point)
+                if identified_by := entity.get('identifiedBy'):
+                    result = add_identified_by(result, identified_by)
                 self.append(('600__', utils.GroupableOrderedDict(result)))
             return
         elif entity_type == EntityType.PLACE:
@@ -746,7 +754,20 @@ def reverse_subjects(self, key, value):
             ) or entity.get('authorized_access_point'):
                 result = {}
                 result = add_value(result, 'a', authorized_access_point)
+                if identified_by := entity.get('identifiedBy'):
+                    result = add_identified_by(result, identified_by)
                 self.append(('651__', utils.GroupableOrderedDict(result)))
+            return
+        elif entity_type == EntityType.TEMPORAL:
+            # TODO: to change in the future if $ref's are used.
+            if authorized_access_point := entity.get(
+                f'authorized_access_point_{to_marc21.language}'
+            ) or entity.get('authorized_access_point'):
+                result = {}
+                result = add_value(result, 'a', authorized_access_point)
+                if identified_by := entity.get('identifiedBy'):
+                    result = add_identified_by(result, identified_by)
+                self.append(('648_7', utils.GroupableOrderedDict(result)))
             return
         else:
             current_app.logger.error(f'No entity type found: {entity}')
