@@ -31,6 +31,18 @@
                 {
                   "label": "bf:Organisation",
                   "value": "bf:Organisation"
+                },
+                {
+                  "label": "Place",
+                  "value": "bf:Place"
+                },
+                {
+                  "label": "Temporal",
+                  "value": "bf:Temporal"
+                },
+                {
+                  "label": "Work",
+                  "value": "bf:Work"
                 }
               ]
             },
