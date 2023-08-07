@@ -79,7 +79,7 @@
     "subordinate_units": {
       "title": "Subordinate units",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "title": "Subordinate unit",
         "type": "string",
@@ -142,7 +142,7 @@
     "alternative_names": {
       "title": "Alternative names",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "title": "Alternative name",
         "type": "string",
