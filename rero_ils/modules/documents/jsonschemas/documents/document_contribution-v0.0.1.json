@@ -1,18 +1,18 @@
 {
   "contribution": {
     "title": "Contribution",
-    "description": "Relationship to an agent associated with the document",
+    "description": "Relationship with an agent contributing to the document.",
     "type": "array",
     "minItems": 1,
     "items": {
       "title": "Contribution",
-      "description": "Person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+      "description": "Person, family or corporate body (including conferences) and their contributing role for the document.",
       "type": "object",
       "oneOf": [
         {
           "type": "object",
           "title": "Link to an entity",
-          "description": "Person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+          "description": "Link to a remote or local entity of type person, family or corporate body (including conferences).",
           "additionalProperties": false,
           "propertiesOrder": [
             "entity",
@@ -33,8 +33,8 @@
         },
         {
           "type": "object",
-          "title": "Entity (local)",
-          "description": "Person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+          "title": "Entity (textual)",
+          "description": "Textual description of a person, family or corporate body (including conferences). Usually used temporarily until a link to an entity can be established.",
           "additionalProperties": false,
           "propertiesOrder": [
             "entity",

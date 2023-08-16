@@ -1,5 +1,5 @@
 {
-  "title": "Entity (local)",
+  "title": "Entity (textual)",
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
@@ -89,8 +89,8 @@
       "uniqueItems": true,
       "items": {
         "type": "object",
-        "title": "Entity (local)",
-        "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+        "title": "Entity (textual)",
+        "description": "Textual description of a topic (including genre and forms), person, organisation (including conferences), place, temporal or work.",
         "additionalProperties": false,
         "propertiesOrder": [
           "entity"
