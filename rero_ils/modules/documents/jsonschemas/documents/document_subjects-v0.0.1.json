@@ -7,12 +7,12 @@
     "items": {
       "type": "object",
       "title": "Subject",
-      "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+      "description": "Topic, person, organisation (including conferences), place, temporal or work that is a subject of the document.",
       "oneOf": [
         {
           "title": "Link to an entity",
           "type": "object",
-          "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+          "description": "Link to a remote or local entity of type topic, person, organisation (including conferences), place, temporal or work.",
           "additionalProperties": false,
           "propertiesOrder": [
             "entity"
@@ -27,9 +27,9 @@
           }
         },
         {
-          "title": "Entity (local)",
+          "title": "Entity (textual)",
           "type": "object",
-          "description": "Topic (including genre/form), place, temporal, person, family or corporate body (including conferences). Always create a link to IdRef or GND, if possible.",
+          "description": "Textual description of a topic, person, organisation (including conferences), place, temporal or work. Usually used temporarily until a link to an entity can be established.",
           "additionalProperties": false,
           "propertiesOrder": [
             "entity"
