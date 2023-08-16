@@ -1,5 +1,5 @@
 {
-  "title": "Agent (local)",
+  "title": "Agent (textual)",
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [

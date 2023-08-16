@@ -7,12 +7,12 @@
     "items": {
       "title": "Genre, form",
       "type": "object",
-      "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
+      "description": "Genre or form of the document.",
       "oneOf": [
         {
           "title": "Link to an entity",
           "type": "object",
-          "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
+          "description": "Link to a remote or local entity of type topic accepted as a 'genre, form'.",
           "additionalProperties": false,
           "propertiesOrder": [
             "entity"
@@ -27,8 +27,8 @@
           }
         },
         {
-          "title": "Entity (local)",
-          "description": "Genre or form of the document. Always create a link to IdRef or GND, if possible.",
+          "title": "Entity (textual)",
+          "description": "Textual description of a genre or form. Usually used temporarily until a link to an entity can be established.",
           "type": "object",
           "additionalProperties": false,
           "propertiesOrder": [

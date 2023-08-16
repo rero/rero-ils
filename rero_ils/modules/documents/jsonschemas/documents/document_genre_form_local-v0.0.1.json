@@ -1,5 +1,5 @@
 {
-  "title": "Genre, form (local)",
+  "title": "Genre, form (textual)",
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
@@ -39,7 +39,7 @@
     },
     "source": {
       "title": "Source",
-      "description": "Source of the subject.",
+      "description": "Source of the genre or form.",
       "type": "string",
       "minLength": 3
     },
