@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import, print_function
 
+import typing
+
 from flask import Blueprint, abort, current_app, render_template
 from flask_babelex import gettext as translate
 from invenio_records_ui.signals import record_viewed
@@ -148,10 +150,11 @@ def entity_merge_data_values(data):
                 if isinstance(values, str):
                     values = [values]
                 for value in values:
-                    if value in result[key]:
-                        result[key][value].append(source)
-                    else:
-                        result[key][value] = [source]
+                    if isinstance(value, typing.Hashable):
+                        if value in result[key]:
+                            result[key][value].append(source)
+                        else:
+                            result[key][value] = [source]
     return result
 
 
