@@ -19,11 +19,11 @@
 
 from __future__ import absolute_import, print_function
 
-import pytest
-from jsonschema.exceptions import ValidationError
-
 from copy import deepcopy
 from datetime import datetime, timedelta
+
+import pytest
+from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.items.api import Item, ItemsSearch, item_id_fetcher

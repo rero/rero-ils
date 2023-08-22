@@ -22,7 +22,6 @@ from functools import partial
 
 from flask_babelex import gettext as _
 
-
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.locations.api import Location

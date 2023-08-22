@@ -28,8 +28,8 @@ from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref, sorted_pids
-from .extensions import IsPickupToExtension
 
+from .extensions import IsPickupToExtension
 from .indexer import location_indexer_dumper, location_replace_refs_dumper
 from .models import LocationIdentifier, LocationMetadata
 

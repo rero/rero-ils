@@ -20,9 +20,9 @@
 
 
 from copy import deepcopy
+from datetime import datetime, timezone
 
 import requests
-from datetime import timezone
 from flask import current_app
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
@@ -30,7 +30,6 @@ from rero_ils.modules.entities.api import Entity
 from rero_ils.modules.entities.logger import create_logger
 from rero_ils.modules.utils import get_mef_url, get_timestamp, \
     requests_retry_session, set_timestamp
-from datetime import datetime
 
 
 class ReplaceIdentifiedBy(object):

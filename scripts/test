@@ -98,7 +98,7 @@ function pretests () {
   info_msg "Test pydocstyle:"
   pydocstyle rero_ils tests docs
   info_msg "Test isort:"
-  isort --check-only --diff "${SCRIPT_PATH}"
+  isort --check-only --diff tests rero_ils
   info_msg "Test useless imports:"
   autoflake -c -r --remove-all-unused-imports --ignore-init-module-imports . &> /dev/null || {
     autoflake --remove-all-unused-imports -r --ignore-init-module-imports .

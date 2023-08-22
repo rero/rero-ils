@@ -16,10 +16,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating item records."""
+from contextlib import suppress
 from datetime import datetime, timezone
 
 import pytz
-from contextlib import suppress
 from elasticsearch_dsl.query import Q
 from flask_babelex import gettext as _
 

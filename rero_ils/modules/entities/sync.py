@@ -30,9 +30,9 @@ from invenio_db import db
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.api import EntitiesSearch, Entity
+from rero_ils.modules.entities.logger import create_logger
 from rero_ils.modules.utils import get_mef_url, get_timestamp, \
     requests_retry_session, set_timestamp
-from rero_ils.modules.entities.logger import create_logger
 
 
 class SyncEntity(object):
