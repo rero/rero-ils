@@ -41,6 +41,8 @@ from rero_ils.modules.errors import NoCirculationAction, \
     NoCirculationActionIsPermitted
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.dumpers import \
+    CirculationDumper as LoanCirculationDumper
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.operation_logs.permissions import \
     search_action as op_log_search_action
@@ -48,7 +50,7 @@ from rero_ils.modules.patrons.api import Patron, current_librarian
 from rero_ils.permissions import request_item_permission
 
 from ..api import Item
-from ..dumpers import ClaimIssueNotificationDumper
+from ..dumpers import CirculationActionDumper, ClaimIssueNotificationDumper
 from ..models import ItemCirculationAction
 from ..permissions import late_issue_management as late_issue_management_action
 from ..utils import get_recipient_suggestions, item_pid_to_object
@@ -144,10 +146,11 @@ def do_item_jsonify_action(func):
                 func(item, data, *args, **kwargs)
             for action, loan in action_applied.items():
                 if loan:
-                    action_applied[action] = loan.dumps_for_circulation()
+                    action_applied[action] = loan.dumps(
+                        LoanCirculationDumper())
 
             return jsonify({
-                'metadata': item_data.dumps_for_circulation(),
+                'metadata': item_data.dumps(CirculationActionDumper()),
                 'action_applied': action_applied
             })
         except NoCirculationAction as error:
@@ -422,8 +425,9 @@ def item(item_barcode):
         abort(404)
     loan = get_loan_for_item(item_pid_to_object(item.pid))
     if loan:
-        loan = Loan.get_record_by_pid(loan.get('pid')).dumps_for_circulation()
-    item_dumps = item.dumps_for_circulation()
+        loan = Loan.get_record_by_pid(
+            loan.get('pid')).dumps(LoanCirculationDumper())
+    item_dumps = item.dumps(CirculationActionDumper())
 
     if patron_pid := flask_request.args.get('patron_pid'):
         patron = Patron.get_record_by_pid(patron_pid)

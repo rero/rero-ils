@@ -42,7 +42,6 @@ from ..decorators import add_action_parameters_and_flush_indexes, \
 from ..models import ItemCirculationAction, ItemIssueStatus, ItemStatus
 from ..utils import item_pid_to_object
 from ...circ_policies.api import CircPolicy
-from ...documents.api import Document
 from ...errors import NoCirculationAction
 from ...item_types.api import ItemType
 from ...libraries.api import Library
@@ -853,32 +852,6 @@ class ItemCirculation(ItemRecord):
                 break
         return action_params, actions
 
-    def dumps_for_circulation(self, sort_by=None):
-        """Enhance item information for api_views."""
-        item = self.replace_refs()
-        data = item.dumps()
-
-        document = Document.get_record_by_pid(item['document']['pid'])
-        doc_data = document.dumps()
-        data['document']['title'] = doc_data['title']
-
-        location = Location.get_record_by_pid(item['location']['pid'])
-        loc_data = location.dumps()
-        data['location']['name'] = loc_data['name']
-        organisation = self.get_organisation()
-        data['location']['organisation'] = {
-            'pid': organisation.get('pid'),
-            'name': organisation.get('name')
-        }
-        data['actions'] = list(self.actions)
-        data['available'] = self.available
-
-        # data['number_of_requests'] = self.number_of_requests()
-        for loan in self.get_requests(sort_by=sort_by):
-            data.setdefault('pending_loans',
-                            []).append(loan.dumps_for_circulation())
-        return data
-
     @classmethod
     def get_loans_by_item_pid(cls, item_pid):
         """Return any loan loans for item."""
@@ -1314,13 +1287,13 @@ class ItemCirculation(ItemRecord):
         """
         if self.get('_masked', False):
             return False
-        if self.item_has_active_loan_or_request() > 0:
-            return False
         if self.circulation_category.get('negative_availability'):
             return False
         if self.temp_item_type_negative_availability:
             return False
         if self.is_issue and self.issue_status != ItemIssueStatus.RECEIVED:
+            return False
+        if self.item_has_active_loan_or_request() > 0:
             return False
         return True
 
