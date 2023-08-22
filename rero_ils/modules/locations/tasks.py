@@ -31,6 +31,7 @@ def remove_location_from_restriction(restricted_location):
     :type: dict
     """
     from .api import Location, LocationsSearch
+
     # If the location is defined as a pickup location, no need to remove it
     # from restriction; just stop the process.
     if restricted_location.get('is_pickup', False):

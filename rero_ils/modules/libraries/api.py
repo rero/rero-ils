@@ -24,7 +24,6 @@ from functools import partial
 import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
-
 from flask_babelex import gettext as _
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch

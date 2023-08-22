@@ -69,6 +69,7 @@ def calendar_changes_update_loans(record_data):
 
     from rero_ils.modules.loans.api import LoansIndexer, \
         get_on_loan_loans_for_library
+
     from .api import Library
 
     library = Library(record_data)

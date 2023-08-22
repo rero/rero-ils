@@ -18,10 +18,10 @@
 """Tests REST API libraries."""
 
 import json
+from datetime import datetime, timedelta
 
 import mock
 import pytest
-from datetime import datetime, timedelta
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \

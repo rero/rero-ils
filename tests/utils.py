@@ -31,7 +31,7 @@ from invenio_circulation.api import get_loan_for_item
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
 from invenio_search import current_search
-from mock import Mock, MagicMock
+from mock import MagicMock, Mock
 from pkg_resources import resource_string
 from six import StringIO
 from six.moves.urllib.parse import parse_qs, urlparse

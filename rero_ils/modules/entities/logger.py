@@ -20,10 +20,10 @@
 
 from __future__ import absolute_import, print_function
 
-
 import logging
 import os
 from logging.config import dictConfig
+
 from flask import current_app
 
 

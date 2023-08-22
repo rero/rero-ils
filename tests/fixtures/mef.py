@@ -20,7 +20,8 @@
 from copy import deepcopy
 
 import pytest
-from rero_ils.modules.entities.api import Entity, EntitiesSearch
+
+from rero_ils.modules.entities.api import EntitiesSearch, Entity
 
 
 @pytest.fixture(scope="module")

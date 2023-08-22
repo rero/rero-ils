@@ -25,8 +25,8 @@ import pytest
 from pkg_resources import resource_string
 from utils import get_schema
 
+from rero_ils.modules.entities.api import EntitiesSearch, Entity
 from rero_ils.modules.patrons.api import Patron
-from rero_ils.modules.entities.api import Entity, EntitiesSearch
 
 
 @pytest.fixture(scope='module')

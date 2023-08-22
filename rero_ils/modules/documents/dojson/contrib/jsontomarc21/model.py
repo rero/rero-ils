@@ -25,7 +25,7 @@ from flask_babelex import gettext as translate
 
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
 from rero_ils.modules.documents.views import create_title_responsibilites
-from rero_ils.modules.entities.api import Entity, EntitiesSearch
+from rero_ils.modules.entities.api import EntitiesSearch, Entity
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch

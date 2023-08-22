@@ -21,7 +21,8 @@ import pytest
 
 from rero_ils.modules.commons.exceptions import MissingDataException
 from rero_ils.modules.libraries.dumpers import \
-    LibraryAcquisitionNotificationDumper, LibrarySerialClaimNotificationDumper
+    LibraryAcquisitionNotificationDumper, \
+    LibrarySerialClaimNotificationDumper
 
 
 def test_library_serial_dumpers(lib_martigny, lib_saxon):
