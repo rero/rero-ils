@@ -724,44 +724,6 @@ class Loan(IlsRecord):
                 break
         return fees
 
-    def dumps_for_circulation(self):
-        """Dumps for circulation."""
-        loan = self.replace_refs()
-        data = loan.dumps()
-        data['creation_date'] = self.created
-        patron = Patron.get_record_by_pid(loan['patron_pid'])
-
-        # Add patron informations
-        ptrn_data = patron.dumps()
-        data['patron'] = {}
-        data['patron']['barcode'] = ptrn_data['patron']['barcode']
-        data['patron']['name'] = ', '.join((
-            ptrn_data['last_name'], ptrn_data['first_name']))
-        if loan.get('pickup_location_pid'):
-            location = Location.get_record_by_pid(loan['pickup_location_pid'])
-            data['pickup_location'] = {
-                'name': location.get('name'),
-                'library_name': location.get_library().get('name')
-            }
-
-        # Always add item destination readable information if item state is
-        # 'in transit' ; much easier to know these informations for UI !
-        item = self.item
-        data['rank'] = item.patron_request_rank(patron)
-        if item.status == ItemStatus.IN_TRANSIT:
-            destination_loc_pid = item.location_pid
-            if loan.get('state') == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
-                destination_loc_pid = self.get('pickup_location_pid')
-            destination_loc = Location.get_record_by_pid(destination_loc_pid)
-            destination_lib = destination_loc.get_library()
-            data['item_destination'] = {
-                'location_name': destination_loc.get('name'),
-                'location_code': destination_loc.get('code'),
-                'library_name': destination_lib.get('name'),
-                'library_code': destination_lib.get('code')
-            }
-        return data
-
     def is_notified(self, notification_type=None, counter=0):
         """Check if a notification already exists for a loan by type."""
         trans_date = ciso8601.parse_datetime(self.get('transaction_date'))
