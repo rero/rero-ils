@@ -17,16 +17,21 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Items dumpers."""
+from copy import deepcopy
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 from rero_ils.modules.commons.exceptions import MissingDataException
+from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dumpers import \
     TitleDumper as DocumentTitleDumper
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.dumpers import ClaimIssueHoldingDumper
 from rero_ils.modules.libraries.dumpers import \
     LibrarySerialClaimNotificationDumper
+from rero_ils.modules.loans.dumpers import \
+    CirculationDumper as LoanCirculationDumper
+from rero_ils.modules.locations.api import Location
 from rero_ils.modules.vendors.dumpers import VendorClaimIssueNotificationDumper
 
 
@@ -103,3 +108,32 @@ class ClaimIssueNotificationDumper(InvenioRecordsDumper):
             'claim_counter': record.claims_count
         })
         return {k: v for k, v in data.items() if v is not None}
+
+
+class CirculationActionDumper(InvenioRecordsDumper):
+    """Item issue dumper for circulation actions."""
+
+    def dump(self, record, data):
+        """Dump an item for circulation actions."""
+        item = record.replace_refs()
+        data = deepcopy(dict(item))
+        document = Document.get_record_by_pid(item['document']['pid'])
+        doc_data = document.dumps()
+        data['document']['title'] = doc_data['title']
+
+        location = Location.get_record_by_pid(item['location']['pid'])
+        loc_data = deepcopy(dict(location))
+        data['location']['name'] = loc_data['name']
+        # TODO: check if it is required
+        data['location']['organisation'] = {
+            'pid': record.organisation_pid
+        }
+        data['actions'] = list(record.actions)
+
+        # only the first request is used by the UI
+        requests = record.get_requests(sort_by='_created')
+        if first_request := next(requests, None):
+            data['pending_loans'] = [
+                first_request.dumps(LoanCirculationDumper())
+            ]
+        return data

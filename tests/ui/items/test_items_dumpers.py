@@ -20,13 +20,47 @@
 from copy import deepcopy
 
 import pytest
+from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.commons.exceptions import MissingDataException
 from rero_ils.modules.holdings.api import Holding
-from rero_ils.modules.items.dumpers import ClaimIssueNotificationDumper, \
-    ItemCirculationDumper
+from rero_ils.modules.items.dumpers import CirculationActionDumper, \
+    ClaimIssueNotificationDumper, ItemCirculationDumper
 from rero_ils.modules.items.models import TypeOfItem
+from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.utils import get_ref_for_pid
+
+
+def test_item_action_circulation_dumper(
+        item_lib_martigny, patron_martigny, loc_public_martigny,
+        librarian_martigny, circulation_policies):
+    """Test item circulation action dumper."""
+    params = {
+        'patron_pid': patron_martigny.pid,
+        'transaction_location_pid': loc_public_martigny.pid,
+        'transaction_user_pid': librarian_martigny.pid,
+        'pickup_location_pid': loc_public_martigny.pid,
+    }
+    item, _ = item_record_to_a_specific_loan_state(
+        item=item_lib_martigny, loan_state=LoanState.PENDING,
+        params=params, copy_item=True)
+    data = item.dumps(CirculationActionDumper())
+    # $ref resolution
+    assert data['library']['pid']
+
+    # document title
+    assert data['document']['title']
+
+    # location name
+    assert data['location']['name']
+
+    # organisation pid
+    assert data['location']['organisation']['pid']
+    # actions
+    assert data['actions']
+
+    # pending loans
+    assert len(data['pending_loans']) == 1
 
 
 def test_item_circulation_dumper(item_lib_martigny):
