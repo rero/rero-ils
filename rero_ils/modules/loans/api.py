@@ -72,6 +72,17 @@ class LoansSearch(IlsRecordsSearch):
 
         default_filter = None
 
+    def unavailable_query(self):
+        """Base query to compute item availability.
+
+        Unavailable if some active loans exists.
+
+        :returns: an elasticsearch query
+        """
+        states = [LoanState.PENDING] + \
+            current_app.config['CIRCULATION_STATES_LOAN_ACTIVE']
+        return self.filter('terms', state=states)
+
 
 class Loan(IlsRecord):
     """Loan class."""

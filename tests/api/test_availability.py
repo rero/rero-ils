@@ -202,8 +202,8 @@ def test_item_holding_document_availability(
     """Test item, holding and document availability."""
     assert item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny.user)
-    assert item_lib_martigny.available
-    assert holding_lib_martigny.available
+    assert item_lib_martigny.is_available()
+    assert holding_lib_martigny.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
     assert Document.is_available(document.pid, view_code='global')
     assert document_availability_status(
@@ -235,11 +235,11 @@ def test_item_holding_document_availability(
     assert res.status_code == 200
     actions = data.get('action_applied')
     loan_pid = actions[LoanAction.REQUEST].get('pid')
-    assert not item_lib_martigny.available
+    assert not item_lib_martigny.is_available()
     assert not item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny.user)
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
-    assert holding.available
+    assert holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
     assert Document.is_available(document.pid, 'global')
     assert document_availability_status(
@@ -257,12 +257,12 @@ def test_item_holding_document_availability(
         )
     )
     assert res.status_code == 200
-    assert not item_lib_martigny.available
+    assert not item_lib_martigny.is_available()
     assert not item_availablity_status(
         client, item_lib_martigny.pid, librarian_martigny.user)
-    assert not item_lib_martigny.available
+    assert not item_lib_martigny.is_available()
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
-    assert holding.available
+    assert holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
     assert Document.is_available(document.pid, 'global')
     assert document_availability_status(
@@ -280,13 +280,13 @@ def test_item_holding_document_availability(
         )
     )
     assert res.status_code == 200
-    assert not item_lib_martigny.available
+    assert not item_lib_martigny.is_available()
     assert not item_availablity_status(
         client, item_lib_martigny.pid, librarian_saxon.user)
     item = Item.get_record_by_pid(item_lib_martigny.pid)
-    assert not item.available
+    assert not item.is_available()
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
-    assert holding.available
+    assert holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
     assert Document.is_available(document.pid, 'global')
     assert document_availability_status(
@@ -305,20 +305,20 @@ def test_item_holding_document_availability(
     assert res.status_code == 200
 
     item = Item.get_record_by_pid(item_lib_martigny.pid)
-    assert not item.available
+    assert not item.is_available()
     assert not item_availablity_status(
         client, item.pid, librarian_martigny.user)
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
-    assert holding.available
+    assert holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
     assert Document.is_available(document.pid, 'global')
     assert document_availability_status(
         client, document.pid, librarian_martigny.user)
 
-    # masked item isn't available
+    # masked item isn't.is_available()
     item['_masked'] = True
     item = item.update(item, dbcommit=True, reindex=True)
-    assert not item.available
+    assert not item.is_available()
     del item['_masked']
     item.update(item, dbcommit=True, reindex=True)
 
@@ -367,11 +367,11 @@ def test_item_holding_document_availability(
         )
     )
     assert res.status_code == 200
-    assert not item2_lib_martigny.available
+    assert not item2_lib_martigny.is_available()
     assert not item_availablity_status(
         client, item2_lib_martigny.pid, librarian_martigny.user)
     holding = Holding.get_record_by_pid(holding_lib_martigny.pid)
-    assert not holding.available
+    assert not holding.is_available()
     assert holding_lib_martigny.get_holding_loan_conditions() == 'standard'
     assert not Document.is_available(document.pid, 'global')
     assert not document_availability_status(

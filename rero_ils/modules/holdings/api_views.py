@@ -315,6 +315,6 @@ def holding_availability(pid):
     """HTTP GET request for holding availability."""
     if holding := Holding.get_record_by_pid(pid):
         return jsonify({
-            'available': holding.available
+            'available': holding.is_available()
         })
     abort(404)

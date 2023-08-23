@@ -472,7 +472,7 @@ def item_availability(pid):
     item = Item.get_record_by_pid(pid)
     if not item:
         abort(404)
-    data = dict(available=item.available)
+    data = dict(available=item.is_available())
     if flask_request.args.get('more_info'):
         extra = {
             'status': item['status'],
