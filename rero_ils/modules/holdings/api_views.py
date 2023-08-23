@@ -308,3 +308,13 @@ def get_pickup_locations(holding_pid):
     return jsonify({
        'locations': locations
     })
+
+
+@api_blueprint.route('/<pid>/availability', methods=['GET'])
+def holding_availability(pid):
+    """HTTP GET request for holding availability."""
+    if holding := Holding.get_record_by_pid(pid):
+        return jsonify({
+            'available': holding.available
+        })
+    abort(404)

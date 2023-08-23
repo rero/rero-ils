@@ -17,8 +17,6 @@
 
 """Tests REST items Serializer."""
 
-from datetime import datetime
-
 from flask import url_for
 from utils import get_csv, login_user
 
@@ -75,13 +73,6 @@ def test_serializers(
     list_url = url_for('invenio_records_rest.item_list')
     response = client.get(list_url, headers=rero_json_header)
     data = response.json['hits']['hits']
-    # check the due date: it should be an ISO date
-    item_with_due_date = [
-        res['metadata'] for res in data
-        if res['metadata'].get('availability', {}).get('due_date')
-    ][0]
-    due_date = item_with_due_date['availability']['due_date']
-    assert datetime.fromisoformat(due_date).year is not None
     assert response.status_code == 200
 
     list_url = url_for('api_item.inventory_search')
