@@ -24,8 +24,7 @@ from typing import Optional
 
 import click
 from elasticsearch_dsl.query import Q
-from flask import Blueprint, abort, current_app, jsonify, render_template
-from flask import request as flask_request
+from flask import Blueprint, current_app, render_template
 from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
@@ -45,7 +44,7 @@ from ..libraries.api import Library
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import current_patrons
-from ..utils import cached, extracted_data_from_ref
+from ..utils import extracted_data_from_ref
 
 
 def doc_item_view_method(pid, record, template=None, **kwargs):
@@ -65,8 +64,6 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     organisation = None
     if viewcode != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
         organisation = Organisation.get_record_by_viewcode(viewcode)
-
-    record['available'] = Document.is_available(record.pid, viewcode)
 
     # build provision activity
     ProvisionActivitiesExtension().post_dump(record={}, data=record)
@@ -99,19 +96,6 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         current_patrons=current_patrons,
         linked_documents_count=linked_documents_count
     )
-
-
-api_blueprint = Blueprint(
-    'api_documents',
-    __name__
-)
-
-
-@api_blueprint.route('/cover/<isbn>')
-@cached(timeout=300, query_string=True)
-def cover(isbn):
-    """Document cover service."""
-    return jsonify(get_remote_cover(isbn))
 
 
 blueprint = Blueprint(
@@ -463,20 +447,6 @@ def work_access_point(work_access_point):
             agent_formatted += f"{work['date_of_work']}. "
         wap.append(agent_formatted.strip())
     return wap
-
-
-@api_blueprint.route('/availabilty/<document_pid>', methods=['GET'])
-def document_availability(document_pid):
-    """HTTP GET request for document availability."""
-    view_code = flask_request.args.get('view_code')
-    if not view_code:
-        view_code = 'global'
-    document = Document.get_record_by_pid(document_pid)
-    if not document:
-        abort(404)
-    return jsonify({
-        'availability': Document.is_available(document_pid, view_code)
-    })
 
 
 @blueprint.app_template_filter()
