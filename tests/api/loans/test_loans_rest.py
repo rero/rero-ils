@@ -209,7 +209,7 @@ def test_due_soon_loans(client, librarian_martigny,
     can, reasons = item.can_delete
     assert can
     assert reasons == {}
-    assert item.available
+    assert item.is_available()
     assert not get_last_transaction_loc_for_item(item_pid)
     assert not item.patron_has_an_active_loan_on_item(patron_martigny)
 
@@ -420,7 +420,7 @@ def test_checkout_item_transit(client, mailbox, item2_lib_martigny,
                                loc_public_martigny,
                                circulation_policies):
     """Test checkout of an item in transit."""
-    assert item2_lib_martigny.available
+    assert item2_lib_martigny.is_available()
     mailbox.clear()
 
     # request
@@ -447,7 +447,7 @@ def test_checkout_item_transit(client, mailbox, item2_lib_martigny,
     assert res.status_code == 200
     actions = data.get('action_applied')
     loan_pid = actions[LoanAction.REQUEST].get('pid')
-    assert not item2_lib_martigny.available
+    assert not item2_lib_martigny.is_available()
 
     assert len(mailbox) == 1
     assert mailbox[-1].recipients == [
@@ -477,9 +477,9 @@ def test_checkout_item_transit(client, mailbox, item2_lib_martigny,
         )
     )
     assert res.status_code == 200
-    assert not item2_lib_martigny.available
+    assert not item2_lib_martigny.is_available()
     item = Item.get_record_by_pid(item2_lib_martigny.pid)
-    assert not item.available
+    assert not item.is_available()
 
     loan = Loan.get_record_by_pid(loan_pid)
     assert loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
@@ -497,9 +497,9 @@ def test_checkout_item_transit(client, mailbox, item2_lib_martigny,
         )
     )
     assert res.status_code == 200
-    assert not item2_lib_martigny.available
+    assert not item2_lib_martigny.is_available()
     item = Item.get_record_by_pid(item2_lib_martigny.pid)
-    assert not item.available
+    assert not item.is_available()
 
     loan_before_checkout = get_loan_for_item(item_pid_to_object(item.pid))
     assert loan_before_checkout.get('state') == LoanState.ITEM_AT_DESK
@@ -640,7 +640,7 @@ def test_librarian_request_on_blocked_user(
         patron3_martigny_blocked,
         circulation_policies):
     """Librarian request on blocked user returns a specific 403 message."""
-    assert item_lib_martigny.available
+    assert item_lib_martigny.is_available()
 
     # request
     login_user_via_session(client, librarian_martigny.user)

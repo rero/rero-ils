@@ -89,7 +89,7 @@ def exists_available_item(items=None):
             item = Item.get_record_by_pid(item)
         if not isinstance(item, Item):
             raise ValueError('All items should be Item resource.')
-        if item.available:
+        if item.is_available():
             return True
     return False
 

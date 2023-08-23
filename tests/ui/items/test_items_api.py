@@ -246,13 +246,13 @@ def test_items_availability(item_type_missing_martigny,
     item = Item.create(item_data, dbcommit=True, reindex=True)
 
     # test the availability and availability_text
-    assert not item.available
+    assert not item.is_available()
     assert len(item.availability_text) == \
         len(item_type_missing_martigny.get('displayed_status', [])) + 1
 
     del item['temporary_item_type']
     item = item.update(item, dbcommit=True, reindex=True)
-    assert item.available
+    assert item.is_available()
     assert len(item.availability_text) == 1  # only default value
 
     # test availability and availability_text for an issue
@@ -265,12 +265,12 @@ def test_items_availability(item_type_missing_martigny,
         'expected_date': '1970-01-01'
     }
     item = item.update(item, dbcommit=True, reindex=True)
-    assert item.available
+    assert item.is_available()
     assert item.availability_text[0]['label'] == item.status
 
     item['issue']['status'] = ItemIssueStatus.LATE
     item = item.update(item, dbcommit=True, reindex=True)
-    assert not item.available
+    assert not item.is_available()
     assert item.availability_text[0]['label'] == ItemIssueStatus.LATE
 
     # delete the created item
