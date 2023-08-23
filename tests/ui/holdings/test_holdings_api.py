@@ -72,9 +72,10 @@ def test_holding_availability(holding_lib_sion_electronic,
                               holding_lib_martigny, item_lib_martigny):
     """Test holding availability."""
     # An electronic holding is always available despite if no item are linked
-    assert holding_lib_sion_electronic.available
+    assert holding_lib_sion_electronic.is_available()
     # The availability of other holdings type depends on children availability
-    assert holding_lib_martigny.available == item_lib_martigny.available
+    assert holding_lib_martigny.is_available() == \
+        item_lib_martigny.is_available()
 
 
 def test_holding_extended_validation(
@@ -162,4 +163,4 @@ def test_holdings_properties(holding_lib_martigny_w_patterns, vendor_martigny):
     assert holding.days_before_next_claim == 7
 
     holding['_masked'] = True
-    assert not holding.available
+    assert not holding.is_available()

@@ -42,7 +42,7 @@ def test_item_dumps(client, item_lib_martigny, org_martigny,
     assert res.status_code == 200
 
     item_es = Item(get_json(res).get('metadata'))
-    assert item_es.available
+    assert item_es.is_available()
     assert item_es.organisation_pid == org_martigny.pid
 
 
