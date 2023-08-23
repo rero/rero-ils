@@ -91,7 +91,6 @@ def test_holdings_get(
     assert res.status_code == 200
     data = get_json(res)
     hit = data['hits']['hits'][0]['metadata']
-    assert hit['available']
 
 
 def test_filtered_holdings_get(

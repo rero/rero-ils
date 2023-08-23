@@ -22,7 +22,6 @@ from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.extensions import TitleExtension
 from rero_ils.modules.item_types.api import ItemTypesSearch
 from rero_ils.modules.items.api import Item
-from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.organisations.api import OrganisationsSearch
@@ -53,17 +52,6 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             document['title'], with_subtitle=True)
 
         item = self.get_resource(Item, metadata.get('pid'))
-        metadata['available'] = item.available
-        metadata['availability'] = {
-            'available': metadata['available'],
-            'status': metadata['status'],
-            'display_text': item.availability_text,
-            'request': item.number_of_requests()
-        }
-        if not metadata['available'] \
-           and metadata['status'] == ItemStatus.ON_LOAN:
-            metadata['availability']['due_date'] = \
-                item.get_item_end_date(format=None)
 
         # Item in collection
         if collection := item.in_collection():

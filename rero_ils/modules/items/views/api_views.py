@@ -51,7 +51,7 @@ from rero_ils.permissions import request_item_permission
 
 from ..api import Item
 from ..dumpers import CirculationActionDumper, ClaimIssueNotificationDumper
-from ..models import ItemCirculationAction
+from ..models import ItemCirculationAction, ItemStatus
 from ..permissions import late_issue_management as late_issue_management_action
 from ..utils import get_recipient_suggestions, item_pid_to_object
 from ...commons.exceptions import MissingDataException
@@ -61,6 +61,7 @@ api_blueprint = Blueprint(
     __name__,
     url_prefix='/item'
 )
+
 blueprint = Blueprint(
     'items',
     __name__
@@ -464,15 +465,24 @@ def item(item_barcode):
     })
 
 
-@api_blueprint.route('/<item_pid>/availability', methods=['GET'])
-@check_authentication
+@api_blueprint.route('/<pid>/availability', methods=['GET'])
 @jsonify_error
-def item_availability(item_pid):
+def item_availability(pid):
     """HTTP GET request for item availability."""
-    record = Item.get_record_by_pid(item_pid)
-    if not record:
+    item = Item.get_record_by_pid(pid)
+    if not item:
         abort(404)
-    return jsonify({'availability': record.available})
+    data = dict(available=item.available)
+    if flask_request.args.get('more_info'):
+        extra = {
+            'status': item['status'],
+            'circulation_message': item.availability_text,
+            'number_of_request': item.number_of_requests()
+        }
+        if not data['available'] and extra['status'] == ItemStatus.ON_LOAN:
+            extra['due_date'] = item.get_item_end_date(format=None)
+        data |= extra
+    return jsonify(data)
 
 
 @api_blueprint.route('/<item_pid>/can_request', methods=['GET'])
