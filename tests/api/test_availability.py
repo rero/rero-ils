@@ -384,12 +384,12 @@ def item_availablity_status(client, pid, user):
     res = client.get(
         url_for(
             'api_item.item_availability',
-            item_pid=pid,
+            pid=pid,
         )
     )
     assert res.status_code == 200
     data = get_json(res)
-    return data.get('availability')
+    return data.get('available')
 
 
 def document_availability_status(client, pid, user):
@@ -398,13 +398,13 @@ def document_availability_status(client, pid, user):
     res = client.get(
         url_for(
             'api_documents.document_availability',
-            document_pid=pid,
+            pid=pid,
             view_code='global'
         )
     )
     assert res.status_code == 200
     data = get_json(res)
-    return data.get('availability')
+    return data.get('available')
 
 
 def test_availability_cipo_allow_request(
@@ -442,7 +442,7 @@ def test_document_availability_failed(client, librarian2_martigny):
     res = client.get(
         url_for(
             'api_documents.document_availability',
-            document_pid='dummy_pid'
+            pid='dummy_pid'
         )
     )
     assert res.status_code == 404
@@ -454,7 +454,48 @@ def test_item_availability_failed(client, librarian2_martigny):
     res = client.get(
         url_for(
             'api_item.item_availability',
-            item_pid='dummy_pid'
+            pid='dummy_pid'
         )
     )
     assert res.status_code == 404
+
+
+def test_item_availability_extra(client, item_lib_sion):
+    """Test item availability with an extra parameters."""
+    res = client.get(
+        url_for(
+            'api_item.item_availability',
+            pid=item_lib_sion.pid
+        )
+    )
+    assert list(res.json.keys()) == ['available']
+
+    res = client.get(
+        url_for(
+            'api_item.item_availability',
+            pid=item_lib_sion.pid,
+            more_info=1
+        )
+    )
+    assert list(res.json.keys()) == \
+        ['available', 'circulation_message', 'number_of_request', 'status']
+
+
+def test_holding_availability(client, holding_lib_martigny):
+    """Test holding availability endpoint."""
+    res = client.get(
+        url_for(
+            'api_holding.holding_availability',
+            pid='dummy_pid'
+        )
+    )
+    assert res.status_code == 404
+
+    res = client.get(
+        url_for(
+            'api_holding.holding_availability',
+            pid=holding_lib_martigny.pid
+        )
+    )
+    assert res.status_code == 200
+    assert 'available' in res.json

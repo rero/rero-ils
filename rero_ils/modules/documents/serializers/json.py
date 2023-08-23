@@ -21,7 +21,6 @@
 from flask import current_app, json, request, stream_with_context
 from werkzeug.local import LocalProxy
 
-from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.utils import process_i18n_literal_fields
 from rero_ils.modules.documents.views import create_title_alternate_graphic, \
     create_title_responsibilites, create_title_variants
@@ -80,7 +79,6 @@ class DocumentJSONSerializer(JSONSerializer):
         metadata = hit.get('metadata', {})
         pid = metadata.get('pid')
 
-        metadata['available'] = Document.is_available(pid, view_code)
         titles = metadata.get('title', [])
         if text_title := TitleExtension.format_text(
             titles, with_subtitle=False
