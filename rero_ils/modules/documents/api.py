@@ -151,27 +151,125 @@ class Document(IlsRecord):
         return json
 
     @classmethod
-    def is_available(cls, pid, view_code, raise_exception=False):
-        """Get availability for document."""
-        from ..holdings.api import Holding
+    def get_n_available_holdings(cls, pid, org_pid=None):
+        """Get the number of available and electronic holdings.
+
+        :param pid: str - the document pid.
+        :param org_pid: str - the organisation pid.
+        :returns: int, int - the number of available and electronic holdings.
+        """
+        from rero_ils.modules.holdings.api import HoldingsSearch
+
+        # create the holding search query
+        holding_query = HoldingsSearch().available_query()
+
+        # filter by the current document
+        filters = Q('term', document__pid=pid)
+
+        # filter by organisation
+        if org_pid:
+            filters &= Q('term', organisation__pid=org_pid)
+        holding_query = holding_query.filter(filters)
+
+        # get the number of electronic holdings
+        n_electronic_holdings = holding_query\
+            .filter('term', holdings_type='electronic')
+
+        return holding_query.count(), n_electronic_holdings.count()
+
+    @classmethod
+    def get_available_item_pids(cls, pid, org_pid=None):
+        """Get the list of the available item pids.
+
+        :param pid: str - the document pid.
+        :param org_pid: str - the organisation pid.
+        :returns: [str] - the list of the available item pids.
+        """
+        from rero_ils.modules.items.api import ItemsSearch
+
+        # create the item query
+        items_query = ItemsSearch().available_query()
+
+        # filter by the current document
+        filters = Q('term', document__pid=pid)
+
+        # filter by organisation
+        if org_pid:
+            filters &= Q('term', organisation__pid=org_pid)
+
+        return [
+            hit.pid for hit in items_query.filter(filters).source('pid').scan()
+        ]
+
+    @classmethod
+    def get_item_pids_with_active_loan(cls, pid, org_pid=None):
+        """Get the list of items pids that have active loans.
+
+        :param pid: str - the document pid.
+        :param org_pid: str - the organisation pid.
+        :returns: [str] - the list of the item pids having active loans.
+        """
+        from rero_ils.modules.loans.api import LoansSearch
+
+        loan_query = LoansSearch().unavailable_query()
+
+        # filter by the current document
+        filters = Q('term', document_pid=pid)
+
+        # filter by organisation
+        if org_pid:
+            filters &= Q('term', organisation__pid=org_pid)
+
+        loan_query = loan_query.filter(filters)
+
+        return [
+            hit.item_pid.value for hit in loan_query.source('item_pid').scan()
+        ]
+
+    @classmethod
+    def is_available(cls, pid, view_code=None):
+        """Get availability for document.
+
+        Note: if the logic has to be changed here please check also for items
+        and holdings availability.
+
+        :param pid: str - document pid value.
+        :param view_code: str - the view code.
+        """
+        # get the organisation pid corresponding to the view code
+        org_pid = None
         if view_code != current_app.config.get(
                 'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
-            view_id = Organisation.get_record_by_viewcode(view_code)['pid']
-            holding_pids = Holding.get_holdings_pid_by_document_pid_by_org(
-                    pid, view_id)
-        else:
-            holding_pids = Holding.get_holdings_pid_by_document_pid(pid)
-        for holding_pid in holding_pids:
-            if holding := Holding.get_record_by_pid(holding_pid):
-                if holding.available:
-                    return True
-            else:
-                msg = f'No holding: {holding_pid} in DB ' \
-                      f'for document: {pid}'
-                current_app.logger.error(msg)
-                if raise_exception:
-                    raise ValueError(msg)
-        return False
+            org_pid = Organisation.get_record_by_viewcode(view_code)['pid']
+
+        # -------------- Holdings --------------------
+        # get the number of available and electronic holdings
+        n_available_holdings, n_electronic_holdings = \
+            cls.get_n_available_holdings(pid, org_pid)
+
+        # available if an electronic holding exists
+        if n_electronic_holdings:
+            return True
+
+        # unavailable if no holdings exists
+        if not n_available_holdings:
+            return False
+
+        # -------------- Items --------------------
+        # get the available item pids
+        available_item_pids = cls.get_available_item_pids(pid, org_pid)
+
+        # unavailable if no items exists
+        if not available_item_pids:
+            return False
+
+        # --------------- Loans -------------------
+        # get item pids that have active loans
+        unavailable_item_pids = \
+            cls.get_item_pids_with_active_loan(pid, org_pid)
+
+        # available if at least one item don't have active loan
+        return bool(set(available_item_pids) - set(unavailable_item_pids))
 
     @property
     def harvested(self):

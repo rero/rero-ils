@@ -40,21 +40,6 @@ from rero_ils.modules.entities.remote_entities.utils import \
 from rero_ils.modules.tasks import process_bulk_queue
 
 
-def test_document_properties(document):
-    """Test document properties."""
-    # As no item/holding are loaded into this test, `is_available` should
-    # return false/raise an error.
-    assert not Document.is_available(document.pid, 'global')
-
-    with mock.patch(
-        'rero_ils.modules.holdings.api.Holding.'
-        'get_holdings_pid_by_document_pid',
-        mock.MagicMock(return_value=['not_exists'])
-    ):
-        with pytest.raises(ValueError):
-            Document.is_available(document.pid, 'global', raise_exception=True)
-
-
 def test_document_create(db, document_data_tmp):
     """Test document creation."""
     ptty = Document.create(document_data_tmp, delete_pid=True)

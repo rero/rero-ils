@@ -1276,26 +1276,23 @@ class ItemCirculation(ItemRecord):
             ]).params(preserve_order=True).source(['state'])
         return list(dict.fromkeys([result.state for result in search.scan()]))
 
-    @property
-    def available(self):
+    def is_available(self):
         """Get availability for item.
 
-        An item is 'available' if there are no related request/active_loan and
-        if the related circulation category doesn't specify a negative
-        availability.
-        All masked items are considered as unavailable.
+        Note: if the logic has to be changed here please check also for
+        documents and holdings availability.
         """
-        if self.get('_masked', False):
+        from ..api import ItemsSearch
+
+        items_query = ItemsSearch().available_query()
+
+        # check item availability
+        if not items_query.filter('term', pid=self.pid).count():
             return False
-        if self.circulation_category.get('negative_availability'):
-            return False
-        if self.temp_item_type_negative_availability:
-            return False
-        if self.is_issue and self.issue_status != ItemIssueStatus.RECEIVED:
-            return False
-        if self.item_has_active_loan_or_request() > 0:
-            return False
-        return True
+
+        # --------------- Loans -------------------
+        # unavailable if the current item has active loans
+        return not self.item_has_active_loan_or_request()
 
     @property
     def availability_text(self):

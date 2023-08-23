@@ -24,9 +24,7 @@ from typing import Optional
 
 import click
 from elasticsearch_dsl.query import Q
-from flask import Blueprint, current_app, render_template
-from flask import url_for
-from flask import Blueprint, current_app, render_template
+from flask import Blueprint, current_app, render_template, url_for
 from flask_babelex import gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
@@ -41,7 +39,7 @@ from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patrons.api import current_patrons
-from rero_ils.modules.utils import cached, extracted_data_from_ref
+from rero_ils.modules.utils import extracted_data_from_ref
 
 from .api import Document, DocumentsSearch
 from .extensions import EditionStatementExtension, \

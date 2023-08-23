@@ -21,12 +21,14 @@ from datetime import datetime, timezone
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
+from elasticsearch_dsl import Q
 from invenio_search import current_search_client
 
 from rero_ils.modules.api import IlsRecordError, IlsRecordsIndexer, \
     IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.fetchers import id_fetcher
+from rero_ils.modules.item_types.api import ItemTypesSearch
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patrons.api import current_librarian
@@ -61,6 +63,37 @@ class ItemsSearch(IlsRecordsSearch):
         facets = {}
 
         default_filter = None
+
+    def available_query(self):
+        """Base elasticsearch query to compute availability.
+
+        :returns: elasticsearch query.
+        """
+        must_not_filters = [
+            # should not be masked
+            Q('term', _masked=True),
+            # if issue the status should be received
+            Q('exists', field='issue') & ~Q('term', issue__status='received')
+        ]
+
+        # negative availability item types
+        not_available_item_types = [
+            hit.pid for hit in ItemTypesSearch()
+            .source('pid')
+            .filter('term', negative_availability=True)
+            .scan()
+        ]
+        if not_available_item_types:
+            # negative availability item type and not temporary item types
+            has_items_filters = \
+                Q('terms', item_type__pid=not_available_item_types)
+            has_items_filters &= ~Q('exists', field='temporary_item_type')
+            # temporary item types with negative availability
+            has_items_filters |= Q(
+                'terms', temporary_item_type__pid=not_available_item_types)
+            # add to the must not filters
+            must_not_filters.append(has_items_filters)
+        return self.filter(Q('bool', must_not=must_not_filters))
 
 
 class Item(ItemCirculation, ItemIssue):

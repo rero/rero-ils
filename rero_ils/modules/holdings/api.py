@@ -84,6 +84,14 @@ class HoldingsSearch(IlsRecordsSearch):
 
         default_filter = None
 
+    def available_query(self):
+        """Base query for holding availability.
+
+        :returns: a filtered Elasticsearch query.
+        """
+        # should not masked
+        return self.exclude('term', _masked=True)
+
 
 class Holding(IlsRecord):
     """Holding class."""
@@ -260,14 +268,65 @@ class Holding(IlsRecord):
         if self.get('vendor'):
             return extracted_data_from_ref(self.get('vendor'), data='record')
 
-    @property
-    def available(self):
-        """Get availability for holding."""
-        if self.is_electronic:
-            return True
+    def get_available_item_pids(self):
+        """Get the list of the available item pids.
+
+        :returns: [str] - the list of the available item pids.
+        """
+        from rero_ils.modules.items.api import ItemsSearch
+        items_query = ItemsSearch().available_query()
+        filters = Q('term', holding__pid=self.pid)
+        return [
+            hit.pid for hit in items_query.filter(filters).source('pid').scan()
+        ]
+
+    def get_item_pids_with_active_loan(self, item_pids):
+        """Get the list of items pids that have active loans.
+
+        :param item_pids: [str] - the list of the item pids.
+        :returns: the list of the item pids having active loans.
+        """
+        from rero_ils.modules.loans.api import LoansSearch
+
+        loan_query = LoansSearch().unavailable_query()
+
+        # the loans corresponding to the given item pids
+        loan_query = loan_query.filter(Q('terms', item_pid__value=item_pids))
+
+        return [
+            hit.item_pid.value for hit in loan_query.source('item_pid').scan()
+        ]
+
+    def is_available(self):
+        """Get availability for the current holding.
+
+        Note: if the logic has to be changed here please check also for items
+        and documents availability.
+        """
+        # -------------- Holdings --------------------
+        # unavailable if masked
         if self.get('_masked', False):
             return False
-        return self._exists_available_child()
+
+        # available if the holding is electronic
+        if self.is_electronic:
+            return True
+
+        # -------------- Items --------------------
+        # get available item pids
+        available_item_pids = self.get_available_item_pids()
+
+        # unavailable if no item exists
+        if not available_item_pids:
+            return False
+
+        # --------------- Loans -------------------
+        # get item pids that have active loans
+        unavailable_item_pids = \
+            self.get_item_pids_with_active_loan(available_item_pids)
+
+        # available if at least one item don't have active loan
+        return bool(set(available_item_pids) - set(unavailable_item_pids))
 
     @property
     def max_number_of_claims(self):
@@ -302,14 +361,6 @@ class Holding(IlsRecord):
         notes = [note.get('content') for note in self.notes
                  if note.get('type') == note_type]
         return next(iter(notes), None)
-
-    def _exists_available_child(self):
-        """Check if at least one child of this holding is available."""
-        for pid in Item.get_items_pid_by_holding_pid(self.pid):
-            item = Item.get_record_by_pid(pid)
-            if item.available:
-                return True
-        return False
 
     @property
     def get_items_count_by_holding_pid(self):
