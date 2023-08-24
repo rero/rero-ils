@@ -31,6 +31,7 @@ from rero_ils.modules.organisations.api import OrganisationsSearch
 from rero_ils.modules.serializers import JSONSerializer
 
 from ..dumpers import document_replace_refs_dumper
+from ..dumpers.indexer import IndexerDumper
 from ..extensions import TitleExtension
 
 GLOBAL_VIEW_CODE = LocalProxy(lambda: current_app.config.get(
@@ -54,6 +55,7 @@ class DocumentJSONSerializer(JSONSerializer):
         """Prepare a record and persistent identifier for serialization."""
         rec = record
 
+        # TODO: uses dumpers
         # build responsibility data for display purpose
         responsibility_statement = rec.get('responsibilityStatement', [])
         if responsibilities := create_title_responsibilites(
@@ -71,8 +73,18 @@ class DocumentJSONSerializer(JSONSerializer):
 
         if variant_titles := create_title_variants(titles):
             rec['ui_title_variants'] = variant_titles
-        return super().preprocess_record(
+
+        data = super().preprocess_record(
             pid=pid, record=rec, links_factory=links_factory, kwargs=kwargs)
+        metadata = data['metadata']
+        resolve = request.args.get(
+            'resolve',
+            default=False,
+            type=lambda v: v.lower() in ['true', '1']
+        )
+        if request and resolve:
+            IndexerDumper()._process_host_document(None, metadata)
+        return data
 
     def _postprocess_search_hit(self, hit: dict) -> None:
         """Post-process each hit of a search result."""
