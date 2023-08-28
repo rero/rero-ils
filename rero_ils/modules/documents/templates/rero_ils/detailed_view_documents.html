@@ -60,18 +60,6 @@
           <li>{{ document_type }}</li>
         {% endfor %}
       </ul>
-      {% if 'genreForm' in record %}
-        <ul class="list-unstyled mb-0">
-           {% for genreForm in record.genreForm %}
-             {% if 'entity' in genreForm %}
-               <li class="figure-caption">
-                 <i class="fa fa-tag mr-1"></i>
-                 {{ genreForm.entity | doc_entity_label(language=current_i18n.language) }}
-               </li>
-             {% endif %}
-           {% endfor %}
-        </ul>
-      {% endif %}
     </figcaption>
   </figure>
   <div class="col-sm-10">
@@ -236,6 +224,21 @@
       {% endfor %}
       </div>
     {% endif %}
+
+    <!-- GENRE FORM -->
+    {% if 'genreForm' in record %}
+      <div class="pt-2">
+        {% for genreForm in record.genreForm %}
+          {% if 'entity' in genreForm %}
+          <span class="mr-1">
+            <i class="fa fa-tag"></i>
+            {{ genreForm.entity | doc_entity_label(language=current_i18n.language) }}
+          </span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
 
     <!-- LINKED DOCUMENTS -->
     {% if linked_documents_count and linked_documents_count > 0 %}
