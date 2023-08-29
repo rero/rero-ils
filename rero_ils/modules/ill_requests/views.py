@@ -56,7 +56,8 @@ def ill_request_form(viewcode):
     # pickup locations selection are based on app context then the choices
     # can't be "calculated" on the form creation (context free).
     form.pickup_location.choices = [
-        *form.pickup_location.choices, *list(get_pickup_location_options())]
+        *form.pickup_location.choices, *list(sorted(
+            get_pickup_location_options(), key=lambda pickup: pickup[1]))]
 
     # Extraction of the pids organizations from the connected patron
     org_pids = ','.join(

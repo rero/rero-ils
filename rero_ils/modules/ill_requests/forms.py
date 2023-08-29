@@ -18,6 +18,7 @@
 """Forms definitions about ILL request in public view."""
 
 from flask_babelex import gettext as _
+from flask_babelex import lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import FormField, IntegerField, RadioField, SelectField, \
     StringField, TextAreaField, validators
@@ -156,7 +157,7 @@ class ILLRequestForm(FlaskForm):
         label=_('Pickup location'),
         # Choices will be loaded dynamically because they should
         # be given inside app_context
-        choices=[('', _('Select…'))],
+        choices=[('', lazy_gettext('Select…'))],
         description=_('Select the location where this request will be '
                       'operated'),
         validators=[
