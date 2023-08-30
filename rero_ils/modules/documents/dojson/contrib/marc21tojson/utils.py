@@ -1811,6 +1811,7 @@ def do_scale_and_cartographic(data, marc21, key, value):
     """
     fields_034 = marc21.get_fields(tag='034')
 
+    index = 0
     if value.get('a'):
         scales = data.get('scale', [])
         index = len(scales)
