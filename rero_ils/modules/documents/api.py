@@ -149,7 +149,7 @@ class Document(IlsRecord):
 
         # get the number of electronic holdings
         n_electronic_holdings = holding_query\
-            .filter('term', holding_type='electronic')
+            .filter('term', holdings_type='electronic')
 
         return holding_query.count(), n_electronic_holdings.count()
 
