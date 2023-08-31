@@ -166,10 +166,10 @@ class StatsForPricing:
                     lib.organisation.pid),
                 'number_of_checkins':
                     self.number_of_circ_operations(
-                        lib.pid,  ItemCirculationAction.CHECKIN),
+                        lib.pid, ItemCirculationAction.CHECKIN),
                 'number_of_requests':
                     self.number_of_circ_operations(
-                        lib.pid,  ItemCirculationAction.REQUEST)
+                        lib.pid, ItemCirculationAction.REQUEST)
             })
         return stats
 
@@ -223,6 +223,7 @@ class StatsForPricing:
         date_range = {'gte': _from, 'lte': _to}
         for res in RecordsSearch(index=LoanOperationLog.index_name)\
                 .filter('range', date=date_range)\
+                .filter('term', record__type='loan')\
                 .filter(
                     'terms',
                     loan__trigger=[ItemCirculationAction.CHECKOUT,
@@ -246,15 +247,16 @@ class StatsForPricing:
             .filter('term', library__pid=library_pid).count()
 
     def number_of_circ_operations(self, library_pid, trigger):
-        """Number of circulation operation  during the specified timeframe.
+        """Number of circulation operations during the specified timeframe.
 
         :param library_pid: string - the library to filter with
         :param trigger: string - action name
-        :return: the number of matched circulation operation
+        :return: the number of matched circulation operations
         :rtype: integer
         """
         return RecordsSearch(index=LoanOperationLog.index_name)\
             .filter('range', date=self.date_range)\
+            .filter('term', record__type='loan')\
             .filter('term', loan__trigger=trigger)\
             .filter('term', loan__item__library_pid=library_pid)\
             .count()
@@ -372,31 +374,23 @@ class StatsForLibrarian(StatsForPricing):
                     'name': lib.name
                 },
                 'checkouts_for_transaction_library':
-                    self.checkouts_for_transaction_library(
-                        lib.pid,
-                        [ItemCirculationAction.CHECKOUT]),
+                    self.checkouts_for_transaction_library(lib.pid),
                 'checkouts_for_owning_library':
-                    self.checkouts_for_owning_library(
+                    self.circ_operations_for_owning_library(
                         lib.pid,
-                        [ItemCirculationAction.CHECKOUT]),
+                        ItemCirculationAction.CHECKOUT),
                 'active_patrons_by_postal_code':
-                    self.active_patrons_by_postal_code(
-                        lib.pid,
-                        [ItemCirculationAction.REQUEST,
-                         ItemCirculationAction.CHECKIN,
-                         ItemCirculationAction.CHECKOUT]),
+                    self.active_patrons_by_postal_code(lib.pid),
                 'new_active_patrons_by_postal_code':
-                    self.new_active_patrons_by_postal_code(
-                        lib.pid,
-                        [ItemCirculationAction.REQUEST,
-                         ItemCirculationAction.CHECKIN,
-                         ItemCirculationAction.CHECKOUT]),
+                    self.new_active_patrons_by_postal_code(lib.pid),
                 'new_documents':
                     self.new_documents(lib.pid),
                 'new_items':
                     self.number_of_new_items(lib.pid),
                 'renewals':
-                    self.renewals(lib.pid, [ItemCirculationAction.EXTEND]),
+                    self.circ_operations_for_owning_library(
+                        lib.pid,
+                        ItemCirculationAction.EXTEND),
                 'validated_requests':
                     self.validated_requests(lib.pid),
                 'items_by_document_type_and_subtype':
@@ -406,9 +400,7 @@ class StatsForLibrarian(StatsForPricing):
                 'loans_of_transaction_library_by_item_location':
                     self.loans_of_transaction_library_by_item_location(
                         libraries_map,
-                        lib.pid,
-                        [ItemCirculationAction.CHECKIN,
-                         ItemCirculationAction.CHECKOUT])
+                        lib.pid)
             })
         return stats
 
@@ -436,55 +428,64 @@ class StatsForLibrarian(StatsForPricing):
         location = next(location_search)
         return f'{location.code} - {location.name}'
 
-    def checkouts_for_transaction_library(self, library_pid, trigger):
-        """Number of circulation operation during the specified timeframe.
+    def checkouts_for_transaction_library(self, library_pid):
+        """Number of checkout operations in the specified library.
 
-        Number of loans of items when transaction location is equal to
-        any of the library locations
+        Number of loan operations of type checkout performed in the library,
+        within the given timeframe.
+
         :param library_pid: string - the library to filter with
-        :param trigger: string - action name (checkout)
-        :return: the number of matched circulation operation
+        :return: the number of matched circulation operations
         :rtype: integer
         """
         location_pids = self._get_locations_pid(library_pid)
 
         return RecordsSearch(index=LoanOperationLog.index_name)\
             .filter('range', date=self.date_range)\
-            .filter('terms', loan__trigger=trigger)\
+            .filter('term', record__type='loan')\
+            .filter('term', loan__trigger=ItemCirculationAction.CHECKOUT)\
             .filter('terms', loan__transaction_location__pid=location_pids)\
             .count()
 
-    def checkouts_for_owning_library(self, library_pid, trigger):
-        """Number of circulation operation during the specified timeframe.
+    def circ_operations_for_owning_library(self, library_pid, trigger):
+        """Number of checkouts on items belonging to the library.
 
-        Number of loans of items per library when the item is owned by
-        the library
+        Number of loan operations of given type performed on items
+        belonging to the library within the given timeframe.
+
         :param library_pid: string - the library to filter with
-        :param trigger: string - action name (checkout)
-        :return: the number of matched circulation operation
+        :param trigger: string - circulation action name
+        :return: the number of matched circulation operations
         :rtype: integer
         """
         return RecordsSearch(index=LoanOperationLog.index_name)\
             .filter('range', date=self.date_range)\
-            .filter('terms', loan__trigger=trigger)\
+            .filter('term', record__type='loan')\
+            .filter('term', loan__trigger=trigger)\
             .filter('term', loan__item__library_pid=library_pid)\
             .count()
 
-    def active_patrons_by_postal_code(self, library_pid, trigger):
-        """Number of circulation operation during the specified timeframe.
+    def active_patrons_by_postal_code(self, library_pid):
+        """Number of active library patrons distributed by postal code.
 
-        Number of patrons per library and CAP when transaction location
-        is equal to any of the library locations
+        Number of patrons, distributed by their postal codes, that performed
+        any circulation operation (request, checkin, checkout) in the library
+        within the given timeframe.
+
         :param library_pid: string - the library to filter with
-        :param trigger: string - action name (request, checkin, checkout)
-        :return: the number of matched circulation operation
+        :return: a dictionnary of patron postal codes with the corresponding
+        number of matched circulation operations
         :rtype: dict
         """
         location_pids = self._get_locations_pid(library_pid)
 
         search = RecordsSearch(index=LoanOperationLog.index_name)\
             .filter('range', date=self.date_range)\
-            .filter('terms', loan__trigger=trigger)\
+            .filter('term', record__type='loan')\
+            .filter('terms', loan__trigger=[
+                ItemCirculationAction.REQUEST,
+                ItemCirculationAction.CHECKIN,
+                ItemCirculationAction.CHECKOUT])\
             .filter('terms', loan__transaction_location__pid=location_pids)\
             .scan()
 
@@ -506,21 +507,27 @@ class StatsForLibrarian(StatsForPricing):
             patron_pids.add(patron_pid)
         return stats
 
-    def new_active_patrons_by_postal_code(self, library_pid, trigger):
-        """Number of circulation operation during the specified timeframe.
+    def new_active_patrons_by_postal_code(self, library_pid):
+        """Number of new active library patrons distributed by postal code.
 
-        Number of new patrons per library and CAP when transaction location
-        is equal to any of the library locations
+        Number of patrons, distributed by their postal codes, that performed
+        any circulation operation (request, checkin, checkout) in the library
+        AND that were created within the given timeframe.
+
         :param library_pid: string - the library to filter with
-        :param trigger: string - action name (request, checkin, checkout)
-        :return: the number of matched circulation operation
+        :return: a dictionnary of patron postal codes with the corresponding
+        number of matched circulation operations
         :rtype: dict
         """
         location_pids = self._get_locations_pid(library_pid)
 
         search = RecordsSearch(index=LoanOperationLog.index_name)\
             .filter('range', date=self.date_range)\
-            .filter('terms', loan__trigger=trigger)\
+            .filter('term', record__type='loan')\
+            .filter('terms', loan__trigger=[
+                ItemCirculationAction.REQUEST,
+                ItemCirculationAction.CHECKIN,
+                ItemCirculationAction.CHECKOUT])\
             .filter('terms', loan__transaction_location__pid=location_pids)\
             .scan()
 
@@ -567,32 +574,19 @@ class StatsForLibrarian(StatsForPricing):
             .filter('term', library__value=library_pid)\
             .count()
 
-    def renewals(self, library_pid, trigger):
-        """Number of items with loan extended.
-
-        Number of items with loan extended per library for given time interval
-        :param library_pid: string - the library to filter with
-        :param trigger: string - action name extend
-        :return: the number of matched documents
-        :rtype: integer
-        """
-        return RecordsSearch(index=LoanOperationLog.index_name)\
-            .filter('range', date=self.date_range)\
-            .filter('terms', loan__trigger=trigger)\
-            .filter('term', loan__item__library_pid=library_pid)\
-            .count()
-
     def validated_requests(self, library_pid):
         """Number of validated requests.
 
-        Number of validated requests per library for given time interval
-        Match is done on the library of the librarian.
+        Number of request validations by the library within the given
+        timeframe.
+
         :param library_pid: string - the library to filter with
         :return: the number of matched documents
         :rtype: integer
         """
         return RecordsSearch(index=LoanOperationLog.index_name)\
             .filter('range', date=self.date_range)\
+            .filter('term', record__type='loan')\
             .filter('term', loan__trigger='validate_request')\
             .filter('term', library__value=library_pid)\
             .count()
@@ -649,22 +643,24 @@ class StatsForLibrarian(StatsForPricing):
 
     def loans_of_transaction_library_by_item_location(self,
                                                       libraries_map,
-                                                      library_pid,
-                                                      trigger):
-        """Number of circulation operation during the specified timeframe.
+                                                      library_pid):
+        """Number of operations in the library distributed by item location.
 
-        Number of loans of items by location when transaction location
-        is equal to any of the library locations
+        Number of checkins and checkouts performed in the library
+        within the given timeframe, distributed by item location.
+
         :param libraries_map: dict - map of library pid and name
         :param library_pid: string - the library to filter with
-        :param trigger: string - action name (checkin, checkout)
-        :return: the number of matched circulation operation
+        :return: a dictionnary of locations with the corresponding number of
+        matched circulation operations
         :rtype: dict
         """
         location_pids = self._get_locations_pid(library_pid)
         search = RecordsSearch(index=LoanOperationLog.index_name)\
             .filter('range', date=self.date_range)\
-            .filter('terms', loan__trigger=trigger)\
+            .filter('terms', loan__trigger=[
+                ItemCirculationAction.CHECKIN,
+                ItemCirculationAction.CHECKOUT])\
             .filter('terms', loan__transaction_location__pid=location_pids)\
             .source('loan').scan()
 
