@@ -18,7 +18,7 @@
 
 """Replace identifiedBy with $ref from MEF."""
 
-
+import contextlib
 from copy import deepcopy
 from datetime import datetime, timezone
 
@@ -171,32 +171,46 @@ class ReplaceIdentifiedBy(object):
                 new_source, new_source_pid = self._find_other_source(
                     source, source_pid, mef_data)
                 if new_source:
-                    self._create_entity(mef_type, mef_data)
-                    authorized_access_point = entity[
-                        "entity"]["authorized_access_point"]
-                    mef_authorized_access_point = mef_data[
-                        new_source]["authorized_access_point"]
-                    self.logger.info(
-                        f'Replace document:{doc_pid} '
-                        f'{self.field} "{authorized_access_point}" - '
-                        f'({mef_type}|{doc_entity_type}) '
-                        f'{new_source}:{new_source_pid} '
-                        f'"{mef_authorized_access_point}"'
-                    )
-                    entity['entity'] = {
-                        '$ref': (
-                            f'{self._get_base_url(mef_type)}'
-                            f'/{new_source}/{new_source_pid}'
-                        ),
-                        'pid': mef_data['pid']
-                    }
-                    changed = True
+                    mef_entity_type = mef_data.get('type')
+                    # verify local and MEF type are the same
+                    if mef_entity_type == doc_entity_type:
+                        self._create_entity(mef_type, mef_data)
+                        authorized_access_point = entity[
+                            "entity"]["authorized_access_point"]
+                        mef_authorized_access_point = mef_data[
+                            new_source]["authorized_access_point"]
+                        self.logger.info(
+                            f'Replace document:{doc_pid} '
+                            f'{self.field} "{authorized_access_point}" - '
+                            f'({mef_type}) {new_source}:{new_source_pid} '
+                            f'"{mef_authorized_access_point}"'
+                        )
+                        entity['entity'] = {
+                            '$ref': (
+                                f'{self._get_base_url(mef_type)}'
+                                f'/{new_source}/{new_source_pid}'
+                            ),
+                            'pid': mef_data['pid']
+                        }
+                        changed = True
+                    else:
+                        authorized_access_point = mef_data.get(
+                            source, {}).get('authorized_access_point')
+                        info = (
+                            f'{doc_entity_type} != {mef_entity_type} '
+                            f': "{authorized_access_point}"'
+                        )
+                        self.rero_only[identifier] = info
+                        self.logger.warning(
+                            f'Type differ:{doc_pid} '
+                            f'{self.field} - ({mef_type}) {identifier} {info}'
+                        )
                 else:
                     authorized_access_point = mef_data.get(
                         source, {}).get('authorized_access_point')
                     info = f'{doc_entity_type}: {authorized_access_point}'
                     self.rero_only[identifier] = info
-                    self.logger.warning(
+                    self.logger.info(
                         f'No other source found for document:{doc_pid} '
                         f'{self.field} - ({mef_type}|{doc_entity_type}) '
                         f'{identifier} "{info}"'
@@ -206,7 +220,7 @@ class ReplaceIdentifiedBy(object):
                     'entity']['authorized_access_point']
                 info = f'{doc_entity_type}: {authorized_access_point}'
                 self.not_found[identifier] = info
-                self.logger.warning(
+                self.logger.info(
                     f'No MEF found for document:{doc_pid} '
                     f' - ({mef_type}) {identifier} "{info}"'
                 )
@@ -218,20 +232,21 @@ class ReplaceIdentifiedBy(object):
         :param doc_id: (string) document id
         """
         changed = False
-        doc = Document.get_record(doc_id)
-        entities_to_update = filter(
-            lambda c: c.get('entity', {}).get('identifiedBy'),
-            doc.get(self.field, {})
-        )
-        for entity in entities_to_update:
-            try:
-                changed = self._do_entity(entity, doc.pid)
-            except Exception as err:
-                self.logger.error(
-                    f'Error document:{doc.pid} {entity} {err}"'
-                )
-        if changed:
-            return doc
+        with contextlib.suppress(Exception):
+            doc = Document.get_record(doc_id)
+            entities_to_update = filter(
+                lambda c: c.get('entity', {}).get('identifiedBy'),
+                doc.get(self.field, {})
+            )
+            for entity in entities_to_update:
+                try:
+                    changed = self._do_entity(entity, doc.pid) or changed
+                except Exception as err:
+                    self.logger.error(
+                        f'Error document:{doc.pid} {entity} {err}"'
+                    )
+            if changed:
+                return doc
 
     def run(self):
         """Replace identifiedBy with $ref."""
