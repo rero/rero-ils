@@ -24,6 +24,7 @@ from datetime import datetime, timezone
 
 import requests
 from flask import current_app
+from invenio_db import db
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.api import Entity
@@ -202,7 +203,7 @@ class ReplaceIdentifiedBy(object):
                         source, {}).get('authorized_access_point')
                     info = f'{doc_entity_type}: {authorized_access_point}'
                     self.rero_only[identifier] = info
-                    self.logger.warning(
+                    self.logger.info(
                         f'No other source found for document:{doc_pid} '
                         f'{self.field} - ({mef_type}) {identifier} "{info}"'
                     )
@@ -211,7 +212,7 @@ class ReplaceIdentifiedBy(object):
                     'entity']['authorized_access_point']
                 info = f'{doc_entity_type}: {authorized_access_point}'
                 self.not_found[identifier] = info
-                self.logger.warning(
+                self.logger.info(
                     f'No MEF found for document:{doc_pid} '
                     f'{self.parent} - ({mef_type}) {identifier} "{info}"'
                 )

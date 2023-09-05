@@ -112,11 +112,14 @@ class Entity(IlsRecord):
                     pid=ref_pid
                 )):
                     raise Exception('NO DATA')
-                # Try to get the contribution from DB maybe it was not indexed.
-                if entity := Entity.get_record_by_pid(data['pid']):
-                    entity = entity.replace(data)
-                else:
-                    entity = cls.create(data)
+                # Try to get the contribution from DB.
+                entity = Entity.get_record_by_pid(data['pid'])
+                if entity:
+                    # TODO: find a way to safely update the old entity
+                    raise Exception(
+                        f'OLD DATA: MEF({data["pid"]}) DB({entity.pid})'
+                    )
+                entity = cls.create(data)
                 online = True
                 nested.commit()
                 # TODO: reindex in the document indexing
