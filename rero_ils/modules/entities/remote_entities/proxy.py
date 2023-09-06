@@ -83,13 +83,18 @@ class MEFProxyFactory:
             'concepts-genreForm': {
                 'class': MefConceptsGenreFormProxy,
                 'entities': (EntityType.TOPIC,)
-            }
+            },
+            'places': {
+                'class': MefPlacesProxy,
+                'entities': (EntityType.PLACE, )
+            },
         }
         # Create proxy configuration aliases
         proxy_config[EntityType.PERSON] = proxy_config['person']
         proxy_config[EntityType.ORGANISATION] = proxy_config['organisation']
         proxy_config[EntityType.TOPIC] = proxy_config['topics']
         proxy_config[EntityType.TEMPORAL] = proxy_config['temporals']
+        proxy_config[EntityType.PLACE] = proxy_config['places']
 
         # Try to create the proxy, otherwise raise a ValueError
         if data := proxy_config.get(category):
@@ -322,3 +327,9 @@ class MefConceptsGenreFormProxy(MefConceptsProxy):
     """Proxy on RERO-MEF authority system for specific `genreForm` concepts."""
 
     mef_entrypoint = 'concepts-genreForm'
+
+
+class MefPlacesProxy(MEFProxyMixin):
+    """Proxy on RERO-MEF authority system when searching for `places`."""
+
+    mef_entrypoint = 'places'

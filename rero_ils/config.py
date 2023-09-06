@@ -3037,15 +3037,20 @@ RERO_ILS_MEF_CONFIG = {
         'base_url': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts'),
         'sources': ['idref'],
         'filters': [
-            {'idref.bnf_type': 'genre/forme Rameau'}
+            {'idref.bnf_type': 'genre/forme Rameau'} 
         ]
-    }
+    },
+    'places': {
+        'base_url': os.environ.get('RERO_ILS_MEF_PLACES_URL', 'https://mef.rero.ch/api/places'),
+        'sources': ['idref']
+    },
 }
 RERO_ILS_ENTITY_TYPES = {
     'bf:Person': 'agents',
     'bf:Organisation': 'agents',
     'bf:Topic': 'concepts',
-    'bf:Temporal': 'concepts'
+    'bf:Temporal': 'concepts',
+    'bf:Place': 'places'
 }
 
 # The absolute path to put the agent synchronization logs, default is the

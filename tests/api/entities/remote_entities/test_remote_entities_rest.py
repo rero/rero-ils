@@ -84,7 +84,7 @@ def test_remote_entities_get(client, entity_person):
 @mock.patch('requests.request')
 def test_remote_search_proxy(
     mock_es_concept_get, app, client,
-    mef_concept2_es_response, mef_agents1_es_response
+    mef_concept2_es_response, mef_agents1_es_response, mef_places1_es_response
 ):
     """Test entities search on remote servers."""
     # TEST#1 :: Concepts
@@ -120,7 +120,21 @@ def test_remote_search_proxy(
     assert identifier == response.json['hits']['hits'][0][
         'metadata']['idref']['identifiedBy'][0]['value']
 
-    # TEST#3 :: Unknown MEF search type
+    # TEST#3 :: Places
+    #   All result must include a `identifiedBy` object if a root
+    mock_es_concept_get.return_value = mock_response(
+        json_data=mef_places1_es_response)
+    response = client.get(url_for(
+        'api_remote_entities.remote_search_proxy',
+        entity_type='places',
+        term='Rouen'
+    ))
+    authorized_access_point = mef_places1_es_response['hits']['hits'][0][
+        'metadata']['idref']['authorized_access_point']
+    assert authorized_access_point == response.json['hits']['hits'][0][
+        'metadata']['idref']['authorized_access_point']
+
+    # TEST#4 :: Unknown MEF search type
     #   Try to execute a search on a not-configured MEF category. It should be
     #   raised a `ValueError` caught by flask to return an HTTP 400 response
     category = 'unknown_category'

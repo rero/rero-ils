@@ -355,6 +355,7 @@ def test_remote_entity_properties(
 def test_replace_identified_by(
     app, entity_organisation, entity_person_rero, person2_data,
     entity_person_all, entity_topic_data_2, entity_topic_data_temporal,
+    entity_place_data,
     document, document_sion_items, export_document
 ):
     """Test replace identified by with $ref."""
@@ -419,18 +420,24 @@ def test_replace_identified_by(
         side_effect=[
             mock_response(json_data=entity_person_all),
             mock_response(json_data=entity_topic_data_temporal),
+            mock_response(json_data=entity_place_data),
             mock_response(json_data=person2_data),
+            mock_response(json_data={'rero': {
+                'authorized_access_point': 'Europe occidentale',
+                'type': 'bf:Place'
+            }}),
             mock_response(json_data=entity_topic_data_2)
         ]
     ):
         changed, not_found, rero_only = replace_identified_by.run()
         assert changed == 1
         assert not_found == 0
-        assert rero_only == 2
+        assert rero_only == 3
         assert dict(sorted(replace_identified_by.rero_only.items())) == {
             'rero:A009963344':
                 'bf:Person: Athenagoras (patriarche oecuménique ; 1)',
-            'rero:A021039750': 'bf:Topic: Bases de données déductives'
+            'rero:A021039750': 'bf:Topic: Bases de données déductives',
+            'rero:A009975209': 'bf:Place: Europe occidentale'
         }
 
 

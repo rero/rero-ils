@@ -220,13 +220,17 @@ def app_config(app_config):
             'base_url': 'https://mef.rero.ch/api/concepts',
             'sources': ['idref']
         },
-        'concepts-rameau': {
+        'concepts-genreForm': {
             'base_url': 'https://mef.rero.ch/api/concepts',
             'sources': ['idref'],
             'filters': [
                 {'idref.bnf_type': 'sujet Rameau'}
             ]
-        }
+        },
+        'places': {
+            'base_url': 'https://mef.rero.ch/api/places',
+            'sources': ['idref']
+        },
     }
     return app_config
 
