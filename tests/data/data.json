@@ -1765,6 +1765,90 @@
       "rero"
     ]
   },
+  "ent_topic_temporal": {
+    "$schema": "https://mef.rero.ch/schemas/concepts_mef/mef-concept-v0.0.1.json",
+    "idref": {
+      "$schema": "https://mef.rero.ch/schemas/concepts_idref/idref-concept-v0.0.1.json",
+      "authorized_access_point": "1945-....",
+      "bnf_type": "sujet Rameau",
+      "broader": [
+        {
+          "authorized_access_point": "1800-...."
+        }
+      ],
+      "classification": [
+        {
+          "classificationPortion": "900",
+          "name": "Histoire",
+          "type": "bf:ClassificationDdc"
+        }
+      ],
+      "identifiedBy": [
+        {
+          "source": "IDREF",
+          "type": "uri",
+          "value": "http://www.idref.fr/033472890"
+        },
+        {
+          "source": "BNF",
+          "type": "uri",
+          "value": "http://catalogue.bnf.fr/ark:/12148/cb12433520g"
+        }
+      ],
+      "md5": "834a06398eb0d971e6df7a0095deeaef",
+      "narrower": [
+        {
+          "authorized_access_point": "1945-1990"
+        },
+        {
+          "authorized_access_point": "1970-...."
+        }
+      ],
+      "note": [
+        {
+          "label": [
+            "Dict. encyclop\u00e9dique d'histoire / M. Mourre, 1996"
+          ],
+          "noteType": "dataSource"
+        },
+        {
+          "label": [
+            "Laval RVM (en ligne), 2012-10-16"
+          ],
+          "noteType": "dataNotFound"
+        },
+        {
+          "label": [
+            "2 septembre 1945 : fin de la Seconde guerre mondiale",
+            "S'emploie uniquement en subdivision chronologique [sans subd. g\u00e9ogr.] \u00e0 tous sujets noms communs et noms propres, \u00e0 l'exception des personnes et des sujets pour lesquels il existe un d\u00e9coupage chronologique sp\u00e9cifique, par ex. : Paris (France) -- 1944-"
+          ],
+          "noteType": "general"
+        }
+      ],
+      "pid": "033472890",
+      "related": [
+        {
+          "authorized_access_point": "20e si\u00e8cle"
+        },
+        {
+          "authorized_access_point": "Histoire universelle - 1945-...."
+        }
+      ],
+      "relation_pid": {
+        "type": "redirect_from",
+        "value": "033467404"
+      },
+      "type": "bf:Temporal",
+      "variant_access_point": [
+        "1945-.... (subdivision)"
+      ]
+    },
+    "pid": "16705461",
+    "sources": [
+      "idref"
+    ],
+    "type": "bf:Temporal"
+  },
   "ent_pers_all": {
     "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "type": "bf:Person",
@@ -2054,6 +2138,16 @@
           "identifiedBy": {
             "type": "RERO",
             "value": "A003633163"
+          }
+        }
+      },
+      {
+        "entity": {
+          "authorized_access_point": "1945-....",
+          "type": "bf:Temporal",
+          "identifiedBy": {
+            "type": "IdRef",
+            "value": "033472890"
           }
         }
       }

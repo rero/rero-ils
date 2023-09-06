@@ -31,7 +31,8 @@
       "enum": [
         "bf:Organisation",
         "bf:Person",
-        "bf:Topic"
+        "bf:Topic",
+        "bf:Temporal"
       ]
     },
     "viaf_pid": {

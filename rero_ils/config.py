@@ -3044,7 +3044,8 @@ RERO_ILS_MEF_CONFIG = {
 RERO_ILS_ENTITY_TYPES = {
     'bf:Person': 'agents',
     'bf:Organisation': 'agents',
-    'bf:Topic': 'concepts'
+    'bf:Topic': 'concepts',
+    'bf:Temporal': 'concepts'
 }
 
 # The absolute path to put the agent synchronization logs, default is the

@@ -232,7 +232,8 @@
             "pid": "124363",
             "sources": [
               "idref"
-            ]
+            ],
+            "type": "bf:Topic"
           },
           "updated": "2022-09-20T08:58:39.434153+00:00"
         },
@@ -263,6 +264,7 @@
               "$schema": "https://mef.rero.ch/schemas/agents_idref/idref-agent-v0.0.1.json",
               "authorized_access_point": "Universit\u00e9 catholique de Louvain",
               "bf:Agent": "bf:Organisation",
+              "type": "bf:Organisation",
               "conference": false,
               "country_associated": "be",
               "identifier": "http://www.idref.fr/258289333",
