@@ -32,7 +32,8 @@
         "bf:Organisation",
         "bf:Person",
         "bf:Topic",
-        "bf:Temporal"
+        "bf:Temporal",
+        "bf:Place"
       ]
     },
     "viaf_pid": {

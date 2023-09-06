@@ -1849,6 +1849,69 @@
     ],
     "type": "bf:Temporal"
   },
+  "ent_place": {
+    "$schema": "https://mef.rero.ch/schemas/places_mef/mef-place-v0.0.1.json",
+    "idref": {
+      "$schema": "https://mef.rero.ch/schemas/places_idref/idref-place-v0.0.1.json",
+      "authorized_access_point": "Suisse",
+      "bnf_type": "sujet Rameau",
+      "broader": [
+        {
+          "authorized_access_point": "Europe centrale"
+        }
+      ],
+      "identifiedBy": [
+        {
+          "source": "IDREF",
+          "type": "uri",
+          "value": "http://www.idref.fr/027249654"
+        },
+        {
+          "source": "BNF",
+          "type": "uri",
+          "value": "http://catalogue.bnf.fr/ark:/12148/cb15241146v"
+        },
+        {
+          "source": "BNF",
+          "type": "uri",
+          "value": "http://catalogue.bnf.fr/ark:/12148/cb11933332n"
+        }
+      ],
+      "md5": "87df11402bcbdfd147ee23a612e5ed69",
+      "note": [
+        {
+          "label": [
+            "IFLA, Names of states, 1981. GLU, 1991",
+            "Laval RVM, 1997-02"
+          ],
+          "noteType": "dataSource"
+        },
+        {
+          "label": [
+            "Voir aussi la subdivision Et la Suisse aux personnes et collectivit\u00e9s"
+          ],
+          "noteType": "seeReference"
+        }
+      ],
+      "pid": "027249654",
+      "type": "bf:Place",
+      "variant_access_point": [
+        "Conf\u00e9d\u00e9ration helv\u00e9tique",
+        "Confederazione svizzera",
+        "Helvetia",
+        "Helv\u00e9tie",
+        "Schweiz",
+        "Schweizerische Eidgenossenschaft",
+        "Svizra",
+        "Svizzera"
+      ]
+    },
+    "pid": "16788252",
+    "sources": [
+      "idref"
+    ],
+    "type": "bf:Place"
+  },
   "ent_pers_all": {
     "$schema": "https://bib.rero.ch/schemas/remote_entities/remote_entity-v0.0.1.json",
     "type": "bf:Person",
@@ -2148,6 +2211,16 @@
           "identifiedBy": {
             "type": "IdRef",
             "value": "033472890"
+          }
+        }
+      },
+      {
+        "entity": {
+          "authorized_access_point": "Suisse",
+          "type": "bf:Place",
+          "identifiedBy": {
+            "type": "IdRef",
+            "value": "027249654"
           }
         }
       }

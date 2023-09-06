@@ -295,5 +295,62 @@
       ],
       "total": 1
     }
+  },
+  "es_places_1": {
+    "hits": {
+      "hits": [
+        {
+          "created": "2023-09-06T08:24:41.125695+00:00",
+          "id": "16684460",
+          "links": {
+            "self": "https://mef.rero.ch/api/places/mef/16684460"
+          },
+          "metadata": {
+            "$schema": "https://mef.rero.ch/schemas/places_mef/mef-place-v0.0.1.json",
+            "idref": {
+              "$schema": "https://mef.rero.ch/schemas/places_idref/idref-place-v0.0.1.json",
+              "authorized_access_point": "Rouen (Seine-Maritime) - Tour Jeanne d'Arc",
+              "bnf_type": "sujet Rameau",
+              "broader": [
+                {
+                  "authorized_access_point": "Rouen(Seine-Maritime) - Ch\u00e2teau"
+                }
+              ],
+              "identifiedBy": [
+                {
+                  "source": "IDREF",
+                  "type": "uri",
+                  "value": "http://www.idref.fr/085544434"
+                }
+              ],
+              "md5": "18a0a5d11d1a149449544d2f258690d5",
+              "note": [
+                {
+                  "label": [
+                    "Le ch\u00e2teau de Rouen et son donjon dit la Tour Jeanne d'Arc / [texte de Dominique L\u00e9ost], 2004"
+                  ],
+                  "noteType": "dataSource"
+                },
+                {
+                  "label": [
+                    "Donjon constituant le dernier vestige du ch\u00e2teau construit par Philippe Auguste en 1204"
+                  ],
+                  "noteType": "general"
+                }
+              ],
+              "pid": "085544434",
+              "type": "bf:Place"
+            },
+            "pid": "16684460",
+            "sources": [
+              "idref"
+            ],
+            "type": "bf:Place"
+          },
+          "updated": "2023-09-06T08:24:41.125700+00:00"
+        }
+      ],
+      "total": 1
+    }
   }
 }

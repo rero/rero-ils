@@ -282,6 +282,12 @@ def entity_topic_data_temporal(data):
 
 
 @pytest.fixture(scope="module")
+def entity_place_data(data):
+    """Load mef place data."""
+    return deepcopy(data.get('ent_place'))
+
+
+@pytest.fixture(scope="module")
 def entity_person_response_data(entity_topic_data):
     """Load mef concept topic response data."""
     return {

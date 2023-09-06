@@ -12,7 +12,7 @@
     "$ref": {
       "title": "Subject",
       "type": "string",
-      "pattern": "^(https://mef.rero.ch/api/(agents|concepts)/(gnd|idref|rero)/.*|https://bib.rero.ch/api/local_entities/.*?)$",
+      "pattern": "^(https://mef.rero.ch/api/(agents|concepts|places)/(gnd|idref|rero)/.*|https://bib.rero.ch/api/local_entities/.*?)$",
       "widget": {
         "formlyConfig": {
           "type": "entityTypeahead",
