@@ -99,6 +99,7 @@ def test_remote_search_proxy(
         term='side-car'
     ))
     assert response.status_code == 200
+
     assert all(
         hit.get('metadata', {}).get('type') == EntityType.TOPIC
         for hit in response.json['hits']['hits']

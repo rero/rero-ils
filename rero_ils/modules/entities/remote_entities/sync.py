@@ -119,11 +119,7 @@ class SyncEntity:
         url = f'{base_url}/mef/latest/{source}:{pid}'
         res = requests_retry_session().get(url)
         if res.status_code == requests.codes.ok:
-            data = res.json()
-            if entity_type == 'concepts' and not data.get('type'):
-                # TODO: delete for MEF v0.12.0
-                data['type'] = 'bf:Topic'
-            return data
+            return res.json()
         self.logger.debug(f'Problem get {url}: {res.status_code}')
         return {}
 

@@ -91,13 +91,7 @@ class ReplaceIdentifiedBy(object):
         url = f'{self._get_base_url(entity_type)}/mef/latest/{source}:{pid}'
         res = requests_retry_session().get(url)
         if res.status_code == requests.codes.ok:
-            # TODO: could be deleted if MEF is updated.
-            if data := res.json():
-                if data_type := data.get('bf:Agent', data.get('type')):
-                    data['type'] = data_type
-                elif entity_type == 'concepts':
-                    data['type'] = 'bf:Topic'
-            return data
+            return res.json()
         self.logger.warning(f'Problem get {url}: {res.status_code}')
         return {}
 
@@ -185,7 +179,8 @@ class ReplaceIdentifiedBy(object):
                     self.logger.info(
                         f'Replace document:{doc_pid} '
                         f'{self.field} "{authorized_access_point}" - '
-                        f'({mef_type}) {new_source}:{new_source_pid} '
+                        f'({mef_type}|{doc_entity_type}) '
+                        f'{new_source}:{new_source_pid} '
                         f'"{mef_authorized_access_point}"'
                     )
                     entity['entity'] = {
@@ -203,7 +198,8 @@ class ReplaceIdentifiedBy(object):
                     self.rero_only[identifier] = info
                     self.logger.warning(
                         f'No other source found for document:{doc_pid} '
-                        f'{self.field} - ({mef_type}) {identifier} "{info}"'
+                        f'{self.field} - ({mef_type}|{doc_entity_type}) '
+                        f'{identifier} "{info}"'
                     )
             else:
                 authorized_access_point = entity[
@@ -212,7 +208,7 @@ class ReplaceIdentifiedBy(object):
                 self.not_found[identifier] = info
                 self.logger.warning(
                     f'No MEF found for document:{doc_pid} '
-                    f'{self.parent} - ({mef_type}) {identifier} "{info}"'
+                    f' - ({mef_type}) {identifier} "{info}"'
                 )
         return changed
 

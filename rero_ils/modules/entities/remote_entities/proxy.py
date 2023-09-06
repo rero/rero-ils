@@ -70,7 +70,15 @@ class MEFProxyFactory:
             },
             'concepts': {
                 'class': MefConceptsProxy,
+                'entities': (EntityType.TOPIC, EntityType.TEMPORAL)
+            },
+            'topics': {
+                'class': MefConceptsProxy,
                 'entities': (EntityType.TOPIC,)
+            },
+            'temporals': {
+                'class': MefConceptsProxy,
+                'entities': (EntityType.TEMPORAL, )
             },
             'concepts-genreForm': {
                 'class': MefConceptsGenreFormProxy,
@@ -80,7 +88,8 @@ class MEFProxyFactory:
         # Create proxy configuration aliases
         proxy_config[EntityType.PERSON] = proxy_config['person']
         proxy_config[EntityType.ORGANISATION] = proxy_config['organisation']
-        proxy_config[EntityType.TOPIC] = proxy_config['concepts']
+        proxy_config[EntityType.TOPIC] = proxy_config['topics']
+        proxy_config[EntityType.TEMPORAL] = proxy_config['temporals']
 
         # Try to create the proxy, otherwise raise a ValueError
         if data := proxy_config.get(category):
@@ -276,6 +285,25 @@ class MefConceptsProxy(MEFProxyMixin):
 
     mef_entrypoint = 'concepts'
 
+    def _get_query_params(self, term):
+        """Get all parameters to use to build the MEF query.
+
+        :param term: the searched term
+        :type term: str
+        :returns: a list of query parameters to build the `q` parameter to send
+           to the remote MEF server to filter the response. All these params
+           will be joined by 'AND' condition.
+        :rtype: list<str>
+        """
+        params = super()._get_query_params(term)
+        if self.entity_types:
+            ent_types = []
+            for _type in self.entity_types:
+                _type = _type.replace(":", "\\:")
+                ent_types.append(f'type:{_type}')
+            params += [f'({" OR ".join(ent_types)})']
+        return params
+
     def _post_process_result_hit(self, hit):
         """Modify a MEF hit response to return a standardized hit.
 
@@ -287,7 +315,6 @@ class MefConceptsProxy(MEFProxyMixin):
         """
         if not (metadata := hit.get('metadata', {})):
             return
-        metadata['type'] = EntityType.TOPIC
         super()._post_process_result_hit(hit)
 
 

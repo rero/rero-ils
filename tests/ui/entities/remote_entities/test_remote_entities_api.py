@@ -354,7 +354,7 @@ def test_remote_entity_properties(
 
 def test_replace_identified_by(
     app, entity_organisation, entity_person_rero, person2_data,
-    entity_person_all, entity_topic_data_2,
+    entity_person_all, entity_topic_data_2, entity_topic_data_temporal,
     document, document_sion_items, export_document
 ):
     """Test replace identified by with $ref."""
@@ -418,6 +418,7 @@ def test_replace_identified_by(
         'requests.Session.get',
         side_effect=[
             mock_response(json_data=entity_person_all),
+            mock_response(json_data=entity_topic_data_temporal),
             mock_response(json_data=person2_data),
             mock_response(json_data=entity_topic_data_2)
         ]
