@@ -26,8 +26,8 @@ from dojson import utils
 from flask import current_app
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
-    build_identifier, build_string_from_subfields, get_contribution_link, \
-    get_field_items, remove_trailing_punctuation
+    build_identifier, build_string_from_subfields, get_field_items, \
+    get_mef_link, remove_trailing_punctuation
 from rero_ils.modules.entities.models import EntityType
 
 from ..utils import do_abbreviated_title, \
@@ -603,18 +603,17 @@ def marc21_to_subjects_6XX(self, key, value):
                     value, subfield_code_per_tag[creator_tag_key]), '.', '.')
         field_key = 'genreForm' if tag_key == '655' else config_field_key
 
-        if data_type in [EntityType.PERSON,
-                         EntityType.ORGANISATION]:
-            if ref := get_contribution_link(
-                bibid=marc21.bib_id,
-                reroid=marc21.bib_id,
-                ids=utils.force_list(value.get('0')),
-                key=key
-            ):
-                subject = {
-                    '$ref': ref
-                }
-        if not subject.get('$ref'):
+        if field_key != 'subjects_imported' and (ref := get_mef_link(
+            bibid=marc21.bib_id,
+            reroid=marc21.bib_id,
+            entity_type=data_type,
+            ids=utils.force_list(value.get('0')),
+            key=key
+        )):
+            subject = {
+                '$ref': ref
+            }
+        else:
             identifier = build_identifier(value)
             if identifier:
                 subject['identifiedBy'] = identifier

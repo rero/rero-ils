@@ -19,7 +19,6 @@
 
 
 import contextlib
-import os
 import re
 import sys
 import traceback
@@ -30,6 +29,7 @@ import jsonref
 import requests
 import xmltodict
 from dojson import Overdo, utils
+from flask import current_app
 from pkg_resources import resource_string
 
 _UNIMARC_LANGUAGES_SCRIPTS = {
@@ -419,11 +419,12 @@ def remove_special_characters(value, chars=['\u0098', '\u009C']):
     return value
 
 
-def get_contribution_link(bibid, reroid, ids, key):
+def get_mef_link(bibid, reroid, entity_type, ids, key):
     """Get MEF contribution link.
 
     :params bibid: Bib id from the record.
     :params reroid: RERO id from the record.
+    :params entity_type: Entity type.
     :params id: $0 from the marc field.
     :params key: Tag from the marc field.
     :returns: MEF url.
@@ -435,9 +436,13 @@ def get_contribution_link(bibid, reroid, ids, key):
     # https://mef.test.rero.ch/api/agents/mef/?q=rero.rero_pid:A012327677
     if not ids:
         return
-    mef_url = os.environ.get(
-        'RERO_ILS_MEF_AGENTS_URL',
-        'https://mef.rero.ch/api/agents')
+    entity_types = current_app.config.get('RERO_ILS_ENTITY_TYPES', {})
+    entity_type = entity_types.get(entity_type)
+    mef_config = current_app.config.get('RERO_ILS_MEF_CONFIG')
+    mef_url = mef_config.get(entity_type, {}).get('base_url')
+    if not mef_url:
+        return
+    sources = mef_config.get(entity_type, {}).get('sources')
     has_no_de_101 = True
     for id_ in ids:
         # see if we have a $0 with (DE-101)
@@ -460,7 +465,7 @@ def get_contribution_link(bibid, reroid, ids, key):
             elif match_type == 'de-588' and has_no_de_101:
                 match_type = 'gnd'
                 match_value = get_gnd_de_101(match_value)
-            if match_type in ['idref', 'gnd']:
+            if match_type and match_type in sources:
                 url = f'{mef_url}/mef/latest/{match_type}:{match_value}'
                 response = requests_retry_session().get(url)
                 status_code = response.status_code
@@ -468,7 +473,7 @@ def get_contribution_link(bibid, reroid, ids, key):
                 if status_code == requests.codes.ok:
                     if value := response.json().get(match_type, {}).get('pid'):
                         if match_value != value:
-                            error_print('INFO GET MEF CONTRIBUTION:',
+                            error_print(f'INFO GET MEF {entity_type}:',
                                         bibid, reroid, key, id_, 'NEW',
                                         f'({match_type.upper()}){value}')
                         return f'{mef_url}/{match_type}/{value}'
@@ -727,10 +732,9 @@ class ReroIlsOverdo(Overdo):
         fields = []
         items = get_field_items(self._blob_record)
         for blob_key, blob_value in items:
-            field_data = {}
-            tag_value = blob_key[0:3]
+            tag_value = blob_key[:3]
             if (tag_value == tag) or not tag:
-                field_data['tag'] = tag_value
+                field_data = {'tag': tag_value}
                 if len(blob_key) == 3:  # if control field
                     field_data['data'] = blob_value.rstrip()
                 else:
@@ -753,9 +757,11 @@ class ReroIlsOverdo(Overdo):
         """Get all subfields having the given subfield code value."""
         if int(field['tag']) < 10:
             raise ValueError('data field expected (tag >= 01x)')
-        items = get_field_items(field['subfields'])
-        return [subfield_data for subfield_code, subfield_data in items
-                if (subfield_code == code) or not code]
+        items = get_field_items(field.get('subfields', {}))
+        return [
+            subfield_data for subfield_code, subfield_data in items
+            if (subfield_code == code) or not code
+        ]
 
     def build_value_with_alternate_graphic(
             self, tag, code, label, index, link,
@@ -800,7 +806,7 @@ class ReroIlsOverdo(Overdo):
         else:
             error_print('WARNING NO VALUE:', self.bib_id, self.rero_id, tag,
                         code, label)
-        try:
+        with contextlib.suppress(Exception):
             alt_gr = self.alternate_graphic[tag][link]
             subfield = self.get_subfields(alt_gr['field'])[index]
             value = clean_punctuation(subfield, punct, spaced_punct)
@@ -809,8 +815,6 @@ class ReroIlsOverdo(Overdo):
                     'value': value,
                     'language': self.get_language_script(alt_gr['script'])
                 })
-        except Exception as err:
-            pass
         return data or None
 
     def extract_description_from_marc_field(self, key, value, data):
@@ -1256,13 +1260,11 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         """Initialization country (008 and 044)."""
         self.country = None
         self.cantons = []
-        fields_044 = self.get_fields(tag='044')
-        if fields_044:
+        if fields_044 := self.get_fields(tag='044'):
             field_044 = fields_044[0]
             for cantons_code in self.get_subfields(field_044, 'c'):
                 try:
-                    canton = cantons_code.split('-')[1].strip()
-                    if canton:
+                    if canton := cantons_code.split('-')[1].strip():
                         if canton in _CANTON:
                             self.cantons.append(canton)
                         else:
@@ -1275,10 +1277,8 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 self.country = 'sz'
         # We did not find a country in 044 trying 008.
         if not self.country:
-            try:
+            with contextlib.suppress(Exception):
                 self.country = self.field_008_data[15:18].rstrip()
-            except Exception as err:
-                pass
         # Use equivalent if country code is obsolete
         if self.country in _OBSOLETE_COUNTRIES_MAPPING:
             self.country = _OBSOLETE_COUNTRIES_MAPPING[self.country]
@@ -1338,7 +1338,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         3. get dates from 773 $g
         4. set start_date to 2050
         """
-        if (self.date_type_from_008 == 'q' or self.date_type_from_008 == 'n'):
+        if self.date_type_from_008 in ['q', 'n']:
             self.date['note'] = 'Date(s) uncertain or unknown'
         start_date = make_year(self.date1_from_008)
         if not (start_date and start_date >= -9999 and start_date <= 2050):
@@ -1348,8 +1348,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             for ind2 in ['1', '0', '2', '4', '3']:
                 for field_264 in fields_264:
                     if ind2 == field_264['ind2']:
-                        subfields_c = self.get_subfields(field_264, 'c')
-                        if subfields_c:
+                        if subfields_c := self.get_subfields(field_264, 'c'):
                             year = re.search(r"(-?\d{1,4})", subfields_c[0])
                             if year:
                                 year = int(year.group(0))
@@ -1364,8 +1363,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         if not start_date:
             fields_773 = self.get_fields('773')
             for field_773 in fields_773:
-                subfields_g = self.get_subfields(field_773, 'g')
-                if subfields_g:
+                if subfields_g := self.get_subfields(field_773, 'g'):
                     year = re.search(r"(-?\d{4})", subfields_g[0])
                     if year:
                         year = int(year.group(0))
@@ -1399,7 +1397,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             if asian:
                 default_script = 'hani'
                 script_per_lang = _SCRIPT_PER_LANG_ASIA
-            script = script_per_lang.get(self.lang_from_008, None)
+            script = script_per_lang.get(self.lang_from_008)
             if not script:
                 for lang in self.langs_from_041_a:
                     if lang in script_per_lang:
@@ -1476,8 +1474,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         for field_246 in fields_246:
             variant_data = {}
             subfield_246_a = ''
-            subfields_246_a = self.get_subfields(field_246, 'a')
-            if subfields_246_a:
+            if subfields_246_a := self.get_subfields(field_246, 'a'):
                 subfield_246_a = subfields_246_a[0]
             subfield_246_a_cleaned = remove_trailing_punctuation(
                                         subfield_246_a, ',.', ':;/-=')
@@ -1498,37 +1495,44 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                             subfield_a_parts = blob_value.split(':')
                             part_index = 0
                             for subfield_a_part in subfield_a_parts:
-                                value_data = self. \
-                                    build_value_with_alternate_graphic(
-                                        '246', blob_key, subfield_a_part,
-                                        index, link, ',.', ':;/-=')
+                                value_data = \
+                                    self.build_value_with_alternate_graphic(
+                                        '246',
+                                        blob_key,
+                                        subfield_a_part,
+                                        index,
+                                        link,
+                                        ',.',
+                                        ':;/-=',
+                                    )
                                 if value_data:
                                     if part_index == 0:
                                         variant_data['type'] = \
-                                            'bf:VariantTitle'
+                                                'bf:VariantTitle'
                                         variant_data['mainTitle'] = value_data
                                     else:
                                         variant_data['subtitle'] = value_data
                                     part_index += 1
                         elif blob_key in ['n', 'p']:
-                            value_data = self. \
-                                build_value_with_alternate_graphic(
-                                    '246', blob_key, blob_value,
-                                    index, link, ',.', ':;/-=')
+                            value_data = \
+                                self.build_value_with_alternate_graphic(
+                                    '246',
+                                    blob_key,
+                                    blob_value,
+                                    index,
+                                    link,
+                                    ',.',
+                                    ':;/-=',
+                                )
                             if value_data:
                                 part_list.update_part(
                                     value_data, blob_key, blob_value)
                     if blob_key != '__order__':
                         index += 1
-                the_part_list = part_list.get_part_list()
-                if the_part_list:
+                if the_part_list := part_list.get_part_list():
                     variant_data['part'] = the_part_list
                 if variant_data:
                     variant_list.append(variant_data)
-            else:
-                pass
-                # for showing the variant title skipped for debugging purpose
-                # print('variant skipped', subfield_246_a_cleaned)
         return variant_list
 
     def init_content_media_carrier_type(self):
@@ -1550,16 +1554,14 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             type_key = content_media_carrier_type_per_tag[tag]
             fields = self.get_fields(tag=tag)
             for field in fields:
-                subfields_8 = self.get_subfields(field, '8')
-                if not subfields_8:
-                    subfields_8 = ['0']
+                subfields_8 = self.get_subfields(field, '8') or ['0']
                 for subfield_b in self.get_subfields(field, 'b'):
                     type_found = False
                     for link in subfields_8:
                         linked_data = content_media_carrier_type.get(link, {})
                         if tag == '336':
                             linked_data_type_value = \
-                                linked_data.get(type_key, [])
+                                        linked_data.get(type_key, [])
                             type_value = \
                                 content_media_carrier_map_per_tag[tag].get(
                                     subfield_b, None)
@@ -1575,21 +1577,18 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                                         subfield_b, None)
                             linked_data_type_value = \
                                 linked_data.get(type_key, '')
-                            type_value = \
-                                content_media_carrier_map_per_tag[tag].get(
-                                    subfield_b, None)
-                            if type_value:
+                            if type_value := content_media_carrier_map_per_tag[
+                                tag
+                            ].get(subfield_b, None):
                                 linked_data_type_value = type_value
                                 linked_data[type_key] = linked_data_type_value
                                 type_found = True
                                 if tag == '338':
-                                    # extract mediaType for the fist char of $b
                                     media_type_from_338 = \
-                                        _MEDIA_TYPE_MAPPING.get(
-                                            subfield_b[0], None)
+                                        _MEDIA_TYPE_MAPPING.get(subfield_b[0])
                                     if media_type_from_338:
                                         linked_data['mediaTypeFrom338'] = \
-                                            media_type_from_338
+                                                    media_type_from_338
                         if type_found:
                             content_media_carrier_type[link] = linked_data
                     break  # subfield $b in not repetitive
@@ -1655,9 +1654,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
             except Exception as err:
                 self.bib_id = '???'
 
-            # get the language code
-            fields_101 = self.get_fields(tag='101')
-            if fields_101:
+            if fields_101 := self.get_fields(tag='101'):
                 field_101_a = self.get_subfields(fields_101[0], 'a')
                 field_101_g = self.get_subfields(fields_101[0], 'g')
                 if field_101_a:
@@ -1665,23 +1662,18 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                 if field_101_g:
                     self.lang_from_101 = field_101_g[0]
 
-            # get the type of continuing ressource
-            fields_110 = self.get_fields(tag='110')
-            if fields_110:
+            if fields_110 := self.get_fields(tag='110'):
                 field_110_a = self.get_subfields(fields_110[0], 'a')
                 if field_110_a and len(field_110_a[0]) > 0:
                     self.serial_type = field_110_a[0][0]
 
-            self.admin_meta_data = {}
-            enc_level = ''
-            if self.leader:
-                enc_level = self.leader[17]  # LDR 17
-            if enc_level in _ENCODING_LEVEL_MAPPING:
-                encoding_level = _ENCODING_LEVEL_MAPPING[enc_level]
-            else:
-                encoding_level = _ENCODING_LEVEL_MAPPING['u']
-            self.admin_meta_data['encodingLevel'] = encoding_level
-
+            enc_level = self.leader[17] if self.leader else ''
+            encoding_level = (
+                _ENCODING_LEVEL_MAPPING[enc_level]
+                if enc_level in _ENCODING_LEVEL_MAPPING
+                else _ENCODING_LEVEL_MAPPING['u']
+            )
+            self.admin_meta_data = {'encodingLevel': encoding_level}
             result = super().do(
                 blob,
                 ignore_missing=ignore_missing,
@@ -1710,8 +1702,8 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
         """
         if unimarc_script_code in _UNIMARC_LANGUAGES_SCRIPTS:
             script_code = _UNIMARC_LANGUAGES_SCRIPTS[unimarc_script_code]
-            lang = self.lang_from_101
             if script_code in _LANGUAGES_SCRIPTS:
+                lang = self.lang_from_101
                 if lang in _LANGUAGES_SCRIPTS[script_code]:
                     return '-'.join([self.lang_from_101, script_code])
                 error_print('WARNING LANGUAGE SCRIPTS:', self.bib_id,
@@ -1732,7 +1724,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
         items = get_field_items(self._blob_record)
         for blob_key, blob_value in items:
             field_data = {}
-            tag_value = blob_key[0:3]
+            tag_value = blob_key[:3]
             if (tag_value == tag) or not tag:
                 field_data['tag'] = tag_value
                 if len(blob_key) == 3:  # if control field
@@ -1908,12 +1900,15 @@ def extract_subtitle_and_parallel_titles_from_field_245_b(
         if index == 0 and not field_245_a_end_with_equal:
             if data_std.rstrip():
                 main_subtitle.append({'value': data_std.rstrip()})
-                if lang and index < len(data_lang_items):
-                    if data_lang_items[index].rstrip():
-                        main_subtitle.append({
-                            'value': data_lang_items[index].rstrip(),
-                            'language': lang
-                        })
+                if (
+                    lang
+                    and index < len(data_lang_items)
+                    and data_lang_items[index].rstrip()
+                ):
+                    main_subtitle.append({
+                        'value': data_lang_items[index].rstrip(),
+                        'language': lang
+                    })
         else:
             main_title = []
             subtitle = []

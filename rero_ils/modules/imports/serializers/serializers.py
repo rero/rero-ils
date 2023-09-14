@@ -122,23 +122,25 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
             titles, responsibility, with_subtitle=False)
         if text_title:
             metadata['ui_title_text_responsibility'] = text_title
-        contributions = metadata.get('contribution', [])
-        new_contributions = []
-        for contribution in contributions:
-            agent = contribution['entity']
-            # convert a MEF link into a local entity
-            if agent_data := JsonRef.replace_refs(agent, loader=None).get(
-                'metadata'
-            ):
-                agent = {
-                    local_value: agent_data[local_key]
-                    for local_key, local_value in self.entity_mapping.items()
-                    if agent_data.get(local_key)
-                }
-            new_contributions.append({'entity': agent})
-        if new_contributions:
-            metadata['contribution'] = \
-                        process_i18n_literal_fields(new_contributions)
+        for entity_type in ['contribution', 'subjects', 'genreForm']:
+            entities = metadata.get(entity_type, [])
+            new_entities = []
+            for entity in entities:
+                ent = entity['entity']
+                # convert a MEF link into a local entity
+                if entity_data := JsonRef.replace_refs(ent, loader=None).get(
+                    'metadata'
+                ):
+                    ent = {
+                        local_value: entity_data[local_key]
+                        for local_key, local_value
+                        in self.entity_mapping.items()
+                        if entity_data.get(local_key)
+                    }
+                new_entities.append({'entity': ent})
+            if new_entities:
+                metadata[entity_type] = \
+                            process_i18n_literal_fields(new_entities)
         return metadata
 
 

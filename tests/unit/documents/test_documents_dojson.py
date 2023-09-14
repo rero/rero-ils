@@ -19,8 +19,6 @@
 
 from __future__ import absolute_import, print_function
 
-import os
-
 import mock
 from dojson.contrib.marc21.utils import create_record
 from utils import mock_response
@@ -28,9 +26,10 @@ from utils import mock_response
 from rero_ils.dojson.utils import not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero.model import \
-    get_contribution_link
+    get_mef_link
 from rero_ils.modules.documents.views import create_publication_statement, \
     get_cover_art, get_other_accesses
+from rero_ils.modules.entities.models import EntityType
 
 
 def test_not_repetetive(capsys):
@@ -5598,28 +5597,27 @@ def test_marc21_to_identified_by_from_930():
 
 
 @mock.patch('requests.Session.get')
-def test_get_contribution_link(mock_get, capsys):
+def test_get_mef_link(mock_get, capsys):
     """Test get mef contribution link"""
-
-    os.environ[
-      'RERO_ILS_MEF_AGENTS_URL'] = 'https://mef.xxx.rero.ch/api/agents'
 
     mock_get.return_value = mock_response(json_data={
         'pid': 'test',
         'idref': {'pid': '003945843'}
     })
-    mef_url = get_contribution_link(
+    mef_url = get_mef_link(
         bibid='1',
         reroid='1',
+        entity_type=EntityType.PERSON,
         ids=['(IdRef)003945843'],
         key='100..'
     )
-    assert mef_url == 'https://mef.xxx.rero.ch/api/agents/idref/003945843'
+    assert mef_url == 'https://mef.rero.ch/api/agents/idref/003945843'
 
     mock_get.return_value = mock_response(status=404)
-    mef_url = get_contribution_link(
+    mef_url = get_mef_link(
         bibid='1',
         reroid='1',
+        entity_type=EntityType.PERSON,
         ids=['(IdRef)123456789'],
         key='100..'
     )
@@ -5627,14 +5625,15 @@ def test_get_contribution_link(mock_get, capsys):
     out, err = capsys.readouterr()
     assert out == (
         'WARNING GET MEF CONTRIBUTION:\t1\t1\t100..\t(IdRef)123456789\t'
-        'https://mef.xxx.rero.ch/api/agents/mef/latest/'
+        'https://mef.rero.ch/api/agents/mef/latest/'
         'idref:123456789\t404\t0\t\n'
     )
 
     mock_get.return_value = mock_response(status=400)
-    mef_url = get_contribution_link(
+    mef_url = get_mef_link(
         bibid='1',
         reroid='1',
+        entity_type=EntityType.PERSON,
         ids=['X123456789'],
         key='100..'
     )

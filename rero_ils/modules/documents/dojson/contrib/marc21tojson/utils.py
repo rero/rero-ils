@@ -30,8 +30,8 @@ from iso639 import find
 from rero_ils.dojson.utils import _LANGUAGES, TitlePartList, add_note, \
     build_identifier, build_responsibility_data, build_string_from_subfields, \
     error_print, extract_subtitle_and_parallel_titles_from_field_245_b, \
-    get_contribution_link, get_field_items, get_field_link_data, \
-    not_repetitive, re_identified, remove_trailing_punctuation
+    get_field_items, get_field_link_data, get_mef_link, not_repetitive, \
+    re_identified, remove_trailing_punctuation
 from rero_ils.modules.documents.utils import create_authorized_access_point
 from rero_ils.modules.entities.models import EntityType
 
@@ -600,9 +600,10 @@ def do_contribution(data, marc21, key, value):
         return None
 
     agent = {}
-    if ref := get_contribution_link(
+    if ref := get_mef_link(
         bibid=marc21.bib_id,
         reroid=marc21.rero_id,
+        entity_type=EntityType.PERSON,
         ids=utils.force_list(value.get('0')),
         key=key
     ):
