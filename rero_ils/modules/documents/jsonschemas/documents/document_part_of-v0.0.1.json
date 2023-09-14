@@ -78,8 +78,8 @@
               },
               "volume": {
                 "title": "Volume",
-                "type": "integer",
-                "minimum": 1,
+                "type": "string",
+                "minLength": 1,
                 "form": {
                   "templateOptions": {
                     "itemCssClass": "col-lg-6"
@@ -88,8 +88,8 @@
               },
               "issue": {
                 "title": "Issue",
-                "type": "integer",
-                "minimum": 1,
+                "type": "string",
+                "minLength": 1,
                 "form": {
                   "templateOptions": {
                     "itemCssClass": "col-lg-6"

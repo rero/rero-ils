@@ -1491,12 +1491,13 @@ def do_part_of(data, marc21, key, value):
             self._numbering = {}
             self._year_regexp = re.compile(r'^\d{4}')
             self._integer_regexp = re.compile(r'^\d+$')
+            self._string_regexp = re.compile(r'^.+$')
             self._pages_regexp = re.compile(r'^\d+(-\d+)?$')
             self._pattern_per_key = {
                 'year': self._year_regexp,
                 'pages': self._pages_regexp,
-                'issue': self._integer_regexp,
-                'volume': self._integer_regexp
+                'issue': self._string_regexp,
+                'volume': self._string_regexp
             }
 
         def add_numbering_value(self, key, value):
@@ -1511,12 +1512,7 @@ def do_part_of(data, marc21, key, value):
             :type value: str
             """
             if self._pattern_per_key[key].search(value):
-                if key in ('issue', 'volume'):
-                    value = int(value)
-                    if value > 0:
-                        self._numbering[key] = value
-                else:
-                    self._numbering[key] = value
+                self._numbering[key] = value
             elif key != 'year':
                 self._numbering['discard'] = True
 

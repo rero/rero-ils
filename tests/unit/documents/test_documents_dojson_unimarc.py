@@ -1412,7 +1412,7 @@ def test_unimarc_partOf_with_link(document_with_issn):
     assert data['partOf'] == [{
         'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
         'numbering': [{
-            'volume': 24,
+            'volume': "24",
             'year': 2024
         }]
     }]
@@ -1432,11 +1432,11 @@ def test_unimarc_partOf_with_link(document_with_issn):
     assert data['partOf'] == [{
         'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
         'numbering': [{
-            'volume': 3,
+            'volume': "3",
             'pages': '11-15',
             'year': 2024
         }, {
-            'volume': 4,
+            'volume': "4",
             'pages': '11-15',
             'year': 2024
         }]
@@ -1457,27 +1457,27 @@ def test_unimarc_partOf_with_link(document_with_issn):
     assert data['partOf'] == [{
         'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
         'numbering': [{
-            'volume': 3,
+            'volume': "3",
             'pages': '11-15',
             'year': 1867
         }, {
-            'volume': 4,
+            'volume': "4",
             'pages': '11-15',
             'year': 1867
         }, {
-            'volume': 3,
+            'volume': "3",
             'pages': '11-15',
             'year': 1868
         }, {
-            'volume': 4,
+            'volume': "4",
             'pages': '11-15',
             'year': 1868
         }, {
-            'volume': 3,
+            'volume': "3",
             'pages': '11-15',
             'year': 1869
         }, {
-            'volume': 4,
+            'volume': "4",
             'pages': '11-15',
             'year': 1869
         }]

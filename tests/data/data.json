@@ -3193,15 +3193,15 @@
         },
         "numbering": [
           {
-            "issue": 5,
+            "issue": "5",
             "pages": "22-928",
-            "volume": 3,
+            "volume": "3",
             "year": "1988"
           },
           {
-            "issue": 8,
+            "issue": "8",
             "pages": "42",
-            "volume": 6,
+            "volume": "6",
             "year": "1998"
           }
         ]

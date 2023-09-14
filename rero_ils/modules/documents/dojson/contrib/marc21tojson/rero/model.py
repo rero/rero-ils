@@ -856,12 +856,7 @@ def marc21_to_part_of(self, key, value):
             :type value: str
             """
             if self._pattern_per_key[key].search(value):
-                if key in ('issue', 'volume'):
-                    value = int(value)
-                    if value > 0:
-                        self._numbering[key] = value
-                else:
-                    self._numbering[key] = value
+                self._numbering[key] = value
             elif key != 'year':
                 self._numbering['discard'] = True
 
@@ -969,7 +964,7 @@ def marc21_to_part_of(self, key, value):
             for subfield_v in utils.force_list(value.get('v', [])):
                 numbering = Numbering()
                 if subfield_v:
-                    numbering.add_numbering_value('volume', subfield_v)
+                    numbering.add_numbering_value('volume', str(subfield_v))
                 if numbering.is_valid():
                     numbering_list.append(numbering.get())
         if 'document' in part_of:

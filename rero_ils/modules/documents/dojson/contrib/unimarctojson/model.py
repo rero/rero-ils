@@ -491,11 +491,8 @@ def marc21_to_part_of(self, key, value):
             volumes = volumes_pages[0].split('-')
             pages = volumes_pages[1] if len(volumes_pages) > 1 else None
             with contextlib.suppress(ValueError):
-                volumes = range(int(volumes[0]), int(volumes[1]) + 1) \
-                    if len(volumes) > 1 else [int(volumes[0])]
-                # TODO: save volume ranges as string ex: 3-4
-                for volume in volumes:
-                    numbering.append({'volume': volume})
+                if volumes:
+                    numbering.append({'volume': f'{"-".join(volumes)}'})
                     if pages:
                         numbering[-1]['pages'] = pages
         if subfield_d := utils.force_list(value.get('d')):
