@@ -23,8 +23,7 @@ from dojson import utils
 from flask import current_app
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
-    build_string_from_subfields, get_contribution_link, \
-    remove_trailing_punctuation
+    build_string_from_subfields, get_mef_link, remove_trailing_punctuation
 from rero_ils.modules.entities.models import EntityType
 
 from ..utils import do_abbreviated_title, \
@@ -394,21 +393,24 @@ def marc21_to_subjects_6XX(self, key, value):
             subject['conference'] = conference_per_tag[tag_key]
         elif tag_key in ['600t', '610t', '611t']:
             creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
-            subject['creator'] = remove_trailing_punctuation(
+            creator = remove_trailing_punctuation(
                 build_string_from_subfields(
                     value, subfield_code_per_tag[creator_tag_key]), '.', '.')
+            if creator:
+                subject['authorized_access_point'] = \
+                    f'{creator}. {subject["authorized_access_point"]}'
         field_key = 'genreForm' if tag_key == '655' else config_field_key
-        if data_type in [EntityType.PERSON, EntityType.ORGANISATION]:
-            if ref := get_contribution_link(
-                bibid=marc21.bib_id,
-                reroid=marc21.rero_id,
-                ids=utils.force_list(value.get('0')),
-                key=key
-            ):
-                subject = {
-                    '$ref': ref
-                }
-        if not subject.get('$ref'):
+        if field_key != 'subjects_imported' and (ref := get_mef_link(
+            bibid=marc21.bib_id,
+            reroid=marc21.rero_id,
+            entity_type=data_type,
+            ids=utils.force_list(value.get('0')),
+            key=key
+        )):
+            subject = {
+                '$ref': ref
+            }
+        else:
             if identifier := build_identifier(value):
                 sub_2 = next(iter(utils.force_list(value.get('2') or [])), '')
                 if data_type == EntityType.TOPIC and sub_2.lower() == 'rero':

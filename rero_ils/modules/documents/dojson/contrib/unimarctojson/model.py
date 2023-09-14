@@ -32,7 +32,7 @@ from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
     remove_trailing_punctuation
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.utils import \
-    get_contribution_link
+    get_mef_link
 from rero_ils.modules.documents.utils import create_authorized_access_point
 from rero_ils.modules.entities.models import EntityType
 
@@ -655,9 +655,10 @@ def unimarc_to_contribution(self, key, value):
 
     ids = utils.force_list(value.get('3')) or []
     ids = [f'(idref){id_}' for id_ in ids]
-    if ids and (ref := get_contribution_link(
+    if ids and (ref := get_mef_link(
         bibid=unimarc.bib_id,
         reroid=unimarc.rero_id,
+        entity_type=EntityType.PERSON,
         ids=ids,
         key=key
     )):

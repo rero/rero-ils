@@ -26,9 +26,8 @@ from dojson import utils
 from dojson.utils import GroupableOrderedDict
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
-    build_string_from_subfields, error_print, get_contribution_link, \
-    get_field_items, not_repetitive, re_identified, \
-    remove_trailing_punctuation
+    build_string_from_subfields, error_print, get_field_items, get_mef_link, \
+    not_repetitive, re_identified, remove_trailing_punctuation
 from rero_ils.modules.documents.utils import create_authorized_access_point
 from rero_ils.modules.entities.models import EntityType
 
@@ -123,9 +122,10 @@ def marc21_to_contribution(self, key, value):
             self['work_access_point'].append(work_access_point)
         return None
     agent = {}
-    if ref := get_contribution_link(
+    if ref := get_mef_link(
         bibid=marc21.bib_id,
         reroid=marc21.rero_id,
+        entity_type=EntityType.PERSON,
         ids=utils.force_list(value.get('0')),
         key=key
     ):
@@ -573,18 +573,17 @@ def marc21_to_subjects(self, key, value):
             ) + '. ' + subject['authorized_access_point']
         field_key = 'genreForm' if tag_key == '655' else 'subjects'
         subfields_0 = utils.force_list(value.get('0'))
-        if (data_type in [EntityType.PERSON, EntityType.ORGANISATION]
-                and subfields_0):
-            if ref := get_contribution_link(
-                bibid=marc21.bib_id,
-                reroid=marc21.rero_id,
-                ids=subfields_0,
-                key=key
-            ):
-                subject = {
-                    '$ref': ref,
-                }
-        if not subject.get('$ref'):
+        if field_key != 'subjects_imported' and (ref := get_mef_link(
+            bibid=marc21.bib_id,
+            reroid=marc21.rero_id,
+            entity_type=data_type,
+            ids=utils.force_list(subfields_0),
+            key=key
+        )):
+            subject = {
+                '$ref': ref,
+            }
+        else:
             if identifier := build_identifier(value):
                 subject['identifiedBy'] = identifier
             if field_key != 'genreForm':
