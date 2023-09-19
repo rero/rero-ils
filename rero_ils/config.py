@@ -127,7 +127,7 @@ from .modules.patrons.api import Patron
 from .modules.patrons.models import CommunicationChannel
 from .modules.patrons.permissions import PatronPermissionPolicy
 from .modules.selfcheck.permissions import seflcheck_permission_factory
-from .modules.stats.api import Stat
+from .modules.stats.api.api import Stat
 from .modules.stats.permissions import StatisticsPermissionPolicy
 from .modules.templates.permissions import TemplatePermissionPolicy
 from .modules.users.api import get_profile_countries, \
@@ -773,9 +773,9 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_type='stat',
         pid_minter='stat_id',
         pid_fetcher='stat_id',
-        search_class='rero_ils.modules.stats.api:StatsSearch',
+        search_class='rero_ils.modules.stats.api.api:StatsSearch',
         search_index='stats',
-        indexer_class='rero_ils.modules.stats.api:StatsIndexer',
+        indexer_class='rero_ils.modules.stats.api.api:StatsIndexer',
         search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -792,8 +792,8 @@ RECORDS_REST_ENDPOINTS = dict(
         record_loaders={
             'application/json': lambda: Stat(request.get_json()),
         },
-        record_class='rero_ils.modules.stats.api:Stat',
-        item_route='/stats/<pid(stat, record_class="rero_ils.modules.stats.api:Stat"):pid_value>',
+        record_class='rero_ils.modules.stats.api.api:Stat',
+        item_route='/stats/<pid(stat, record_class="rero_ils.modules.stats.api.api:Stat"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
         list_permission_factory_imp=lambda record: StatisticsPermissionPolicy('search', record=record),
@@ -2829,7 +2829,7 @@ RECORDS_UI_ENDPOINTS = {
         pid_type='stat',
         route='/stats/<pid_value>',
         template='rero_ils/detailed_view_stats.html',
-        record_class='rero_ils.modules.stats.api:Stat',
+        record_class='rero_ils.modules.stats.api.api:Stat',
         view_imp='rero_ils.modules.stats.views.stats_view_method',
         permission_factory_imp='rero_ils.modules.stats.permissions:stats_ui_permission_factory',
     )
@@ -2897,7 +2897,7 @@ RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION = False
 # Statistics Configuration
 # ========================
 # Compute the stats with a timeframe given in monthes
-RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHES = 3
+RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHS = 3
 
 
 # =============================================================================

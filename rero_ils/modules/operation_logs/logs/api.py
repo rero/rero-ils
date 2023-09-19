@@ -21,12 +21,11 @@
 import hashlib
 
 from rero_ils.modules.locations.api import Location
-from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
-class AbstractSpecificOperationLog(OperationLog):
-    """Abstract Specific Operation log."""
+class SpecificOperationLog():
+    """Specific Operation log."""
 
     @classmethod
     def _get_patron_data(cls, patron):

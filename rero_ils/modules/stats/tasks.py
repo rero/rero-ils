@@ -20,7 +20,9 @@
 from celery import shared_task
 from flask import current_app
 
-from .api import Stat, StatsForLibrarian, StatsForPricing
+from .api.api import Stat
+from .api.librarian import StatsForLibrarian
+from .api.pricing import StatsForPricing
 
 
 @shared_task()

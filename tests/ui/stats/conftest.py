@@ -20,30 +20,17 @@
 import arrow
 import pytest
 
-from rero_ils.modules.stats.api.api import Stat
 from rero_ils.modules.stats.api.librarian import StatsForLibrarian
 from rero_ils.modules.stats.api.pricing import StatsForPricing
 
 
 @pytest.fixture(scope='module')
-def stats(item_lib_martigny, item_lib_fully, item_lib_sion,
-          ill_request_martigny):
-    """Stats fixture."""
-    stats = StatsForPricing(to_date=arrow.utcnow())
-    yield Stat.create(
-        dict(values=stats.collect()), dbcommit=True, reindex=True)
+def stat_for_pricing(document, lib_martigny):
+    """Stats for Pricing."""
+    yield StatsForPricing(to_date=arrow.utcnow())
 
 
 @pytest.fixture(scope='module')
-def stats_librarian(item_lib_martigny, item_lib_fully, item_lib_sion):
-    """Stats fixture for librarian."""
-    stats_librarian = StatsForLibrarian()
-    date_range = {
-        'from': stats_librarian.date_range['gte'],
-        'to': stats_librarian.date_range['lte']
-    }
-    stats_values = stats_librarian.collect()
-    yield Stat.create(
-        dict(type='librarian', date_range=date_range,  values=stats_values),
-        dbcommit=True, reindex=True
-    )
+def stat_for_librarian(document, lib_martigny):
+    """Stats for Librarian."""
+    yield StatsForLibrarian(to_date=arrow.utcnow())

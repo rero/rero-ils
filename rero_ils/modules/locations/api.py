@@ -58,6 +58,16 @@ class LocationsSearch(IlsRecordsSearch):
 
         default_filter = None
 
+    def location_pids(self, library_pid, source='pid'):
+        """Locations pid for given library.
+
+        :param library_pid: string - the library to filter with
+        :return: list of pid locations
+        :rtype: list
+        """
+        return [location.pid for location in self.filter(
+                'term', library__pid=library_pid).source(source).scan()]
+
 
 class Location(IlsRecord):
     """Location class."""

@@ -18,13 +18,13 @@
 
 """Notification logs API."""
 
-from rero_ils.modules.operation_logs.logs.api import \
-    AbstractSpecificOperationLog
+from rero_ils.modules.operation_logs.api import OperationLog
+from rero_ils.modules.operation_logs.logs.api import SpecificOperationLog
 
 from ..models import RecipientType
 
 
-class NotificationOperationLog(AbstractSpecificOperationLog):
+class NotificationOperationLog(OperationLog, SpecificOperationLog):
     """Operation log for notification."""
 
     @classmethod
