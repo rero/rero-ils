@@ -56,7 +56,14 @@
         }
       },
       "enumerationAndChronology": {
-        "type": "keyword"
+        "type": "keyword",
+        "fields": {
+          "sort": {
+            "type": "icu_collation_keyword",
+            "index": false,
+            "numeric": true
+          }
+        }
       },
       "location": {
         "properties": {
