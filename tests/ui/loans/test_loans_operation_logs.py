@@ -23,7 +23,8 @@ from copy import deepcopy
 from invenio_jsonschemas import current_jsonschemas
 from utils import flush_index, login_user_for_view
 
-from rero_ils.modules.loans.logs.api import LoanOperationLog
+from rero_ils.modules.loans.logs.api import LoanOperationLog, \
+    LoanOperationLogsSearch
 from rero_ils.modules.patrons.api import Patron
 
 
@@ -97,7 +98,7 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
 
     flush_index(LoanOperationLog.index_name)
 
-    logs = LoanOperationLog.get_logs_by_record_pid(loan['pid'])
+    logs = LoanOperationLogsSearch().get_logs_by_record_pid(loan['pid'])
     assert len(logs) == 3
     for log in logs:
         assert log['loan']['patron']['pid'] == patron['pid']
@@ -105,7 +106,7 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
 
     loan.anonymize(loan)
 
-    logs = LoanOperationLog.get_logs_by_record_pid(loan['pid'])
+    logs = LoanOperationLogsSearch().get_logs_by_record_pid(loan['pid'])
     assert len(logs) == 3
     for log in logs:
         log = log.to_dict()

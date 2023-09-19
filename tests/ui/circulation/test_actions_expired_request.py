@@ -25,7 +25,8 @@ from utils import flush_index
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan, LoansSearch, get_expired_request
-from rero_ils.modules.loans.logs.api import LoanOperationLog
+from rero_ils.modules.loans.logs.api import LoanOperationLog, \
+    LoanOperationLogsSearch
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.loans.tasks import cancel_expired_request_task
 
@@ -97,7 +98,7 @@ def test_expired_request_with_transit(
     assert loan.state == LoanState.ITEM_IN_TRANSIT_TO_HOUSE
 
     flush_index(LoanOperationLog.index_name)
-    logs = LoanOperationLog.get_logs_by_record_pid(loan.pid)
+    logs = LoanOperationLogsSearch().get_logs_by_record_pid(loan.pid)
     logs_trigger = [hit.loan.trigger for hit in logs]
     assert 'cancel' in logs_trigger
 

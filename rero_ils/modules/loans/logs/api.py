@@ -17,16 +17,32 @@
 
 """Loans logs API."""
 
-from invenio_search import RecordsSearch
 
-from rero_ils.modules.operation_logs.logs.api import \
-    AbstractSpecificOperationLog
+from rero_ils.modules.operation_logs.api import OperationLog, \
+    OperationLogsSearch
+from rero_ils.modules.operation_logs.logs.api import SpecificOperationLog
 
 from ...items.api import Item
 from ...patrons.api import Patron, current_librarian
 
 
-class LoanOperationLog(AbstractSpecificOperationLog):
+class LoanOperationLogsSearch(OperationLogsSearch):
+    """RecordsSearch for LoanOperationLogs."""
+
+    def get_logs_by_trigger(self, triggers, date_range=None):
+        """Get the operation logs base es search.
+
+        :param triggers: list[str] - loan triggers value to filter
+        :return: an elasticsearch dsl search query
+        """
+        query = self.filter('term', record__type='loan')\
+            .filter('terms', loan__trigger=triggers)
+        if date_range:
+            query = query.filter('range', date=date_range)
+        return query
+
+
+class LoanOperationLog(OperationLog, SpecificOperationLog):
     """Operation log for loans."""
 
     @classmethod
@@ -98,27 +114,12 @@ class LoanOperationLog(AbstractSpecificOperationLog):
         return super().create(log, index_refresh=index_refresh)
 
     @classmethod
-    def get_logs_by_record_pid(cls, pid):
-        """Get all logs for a given record PID.
-
-        :param str pid: record PID.
-        :returns: List of logs.
-        """
-        return list(
-            RecordsSearch(index=cls.index_name).filter(
-                'bool', must={
-                    'exists': {
-                        'field': 'loan'
-                    }
-                }).filter('term', record__value=pid).scan())
-
-    @classmethod
     def anonymize_logs(cls, loan_pid):
         """Anonymize all logs corresponding to the given loan.
 
         :param loan_pid: Loan PID.
         """
-        for log in cls.get_logs_by_record_pid(loan_pid):
+        for log in OperationLogsSearch().get_logs_by_record_pid(loan_pid):
             record = log.to_dict()
             record['loan']['patron']['name'] = 'anonymized'
             record['loan']['patron']['pid'] = 'anonymized'

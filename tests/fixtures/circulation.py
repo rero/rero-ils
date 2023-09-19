@@ -20,6 +20,7 @@
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
+import mock
 import pytest
 from invenio_circulation.search.api import LoansSearch
 from invenio_db import db
@@ -31,6 +32,7 @@ from rero_ils.modules.cli.fixtures import load_role_policies, \
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 from rero_ils.modules.items.api import ItemsSearch
 from rero_ils.modules.loans.api import Loan
+from rero_ils.modules.loans.logs.api import LoanOperationLog
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
@@ -627,18 +629,23 @@ def loan_validated_sion(
 
     loan = list(item2_lib_sion.get_loans_by_item_pid(
         item_pid=item2_lib_sion.pid))[0]
-    item2_lib_sion.validate_request(
-        pid=loan.pid,
-        patron_pid=patron_sion.pid,
-        transaction_location_pid=loc_public_sion.pid,
-        transaction_user_pid=librarian_sion.pid,
-        transaction_date=transaction_date,
-        pickup_location_pid=loc_public_sion.pid,
-        document_pid=item2_lib_sion.replace_refs()['document']['pid']
-    )
+    with mock.patch(
+        'rero_ils.modules.loans.logs.api.current_librarian',
+        librarian_sion
+    ):
+        item2_lib_sion.validate_request(
+            pid=loan.pid,
+            patron_pid=patron_sion.pid,
+            transaction_location_pid=loc_public_sion.pid,
+            transaction_user_pid=librarian_sion.pid,
+            transaction_date=transaction_date,
+            pickup_location_pid=loc_public_sion.pid,
+            document_pid=item2_lib_sion.replace_refs()['document']['pid']
+        )
     flush_index(ItemsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
     flush_index(NotificationsSearch.Meta.index)
+    flush_index(LoanOperationLog.index_name)
     loan = list(item2_lib_sion.get_loans_by_item_pid(
         item_pid=item2_lib_sion.pid))[0]
     return loan
@@ -712,6 +719,7 @@ def loan_due_soon_martigny(
     )
     flush_index(ItemsSearch.Meta.index)
     flush_index(LoansSearch.Meta.index)
+    flush_index(LoanOperationLog.index_name)
     loan_pid = item.get_loan_pid_with_item_on_loan(item.pid)
     loan = Loan.get_record_by_pid(loan_pid)
 

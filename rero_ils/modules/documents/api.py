@@ -97,6 +97,16 @@ class DocumentsSearch(IlsRecordsSearch):
             filters |= Q('term', **{field: entity.pid})
         return self.filter(filters)
 
+    def by_library_pid(self, library_pid):
+        """Build a search to get hits related to a library pid.
+
+        :param library_pid: string - the library pid to filter with
+        :returns: An ElasticSearch query to get hits related the entity.
+        :rtype: `elasticsearch_dsl.Search`
+        """
+        return self.filter(
+            'term', holdings__organisation__library_pid=library_pid)
+
 
 class Document(IlsRecord):
     """Document class."""

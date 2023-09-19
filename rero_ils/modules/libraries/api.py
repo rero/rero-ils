@@ -64,6 +64,15 @@ class LibrariesSearch(IlsRecordsSearch):
 
         default_filter = None
 
+    def by_organisation_id(self, organisation_pid):
+        """Build a search to get hits related to an organisation pid.
+
+        :param organisation_pid: string - the organisation pid to filter with
+        :returns: An ElasticSearch query to get hits related the entity.
+        :rtype: `elasticsearch_dsl.Search`
+        """
+        return self.filter('term', organisation__pid=organisation_pid)
+
 
 class Library(IlsRecord):
     """Library class."""

@@ -26,7 +26,9 @@ from dateutil.relativedelta import relativedelta
 from flask import current_app
 from flask.cli import with_appcontext
 
-from rero_ils.modules.stats.api import Stat, StatsForLibrarian, StatsForPricing
+from .api.api import Stat
+from .api.librarian import StatsForLibrarian
+from .api.pricing import StatsForPricing
 
 
 @click.group()
