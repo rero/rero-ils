@@ -2495,8 +2495,8 @@ RECORDS_REST_SORT_OPTIONS['items']['issue_sort_date'] = dict(
     default_order='asc'
 )
 RECORDS_REST_SORT_OPTIONS['items']['enumeration_chronology'] = dict(
-    fields=['-enumerationAndChronology'], title='Enumeration and Chronology',
-    default_order='desc'
+    fields=['enumerationAndChronology.sort'], title='Enumeration and Chronology',
+    default_order='asc'
 )
 RECORDS_REST_SORT_OPTIONS['items']['library'] = dict(
     fields=['library.pid'], title='Library',
@@ -2509,7 +2509,7 @@ RECORDS_REST_SORT_OPTIONS['items']['current_requests'] = dict(
 )
 
 RECORDS_REST_DEFAULT_SORT['items'] = dict(
-    query='bestmatch', noquery='enum_chronology')
+    query='bestmatch', noquery='enumeration_chronology')
 
 # ------ ITEM TYPES SORT
 RECORDS_REST_SORT_OPTIONS['item_types']['name'] = dict(
