@@ -350,6 +350,16 @@ class AcqOrder(AcquisitionIlsRecord):
         :param includes: a list of statuses to include order lines.
         :return a generator of related order lines (or length).
         """
+
+        def preserve_order(query):
+            """Keep results in order.
+
+            :param: query: the es query.
+            :return the es query.
+            """
+            return query.params(preserve_order=True) \
+                .sort({'pid': {"order": "asc"}})
+
         query = AcqOrderLinesSearch().filter('term', acq_order__pid=self.pid)
         if includes:
             query = query.filter('terms', status=includes)
@@ -357,9 +367,9 @@ class AcqOrder(AcquisitionIlsRecord):
         if output == 'count':
             return query.count()
         elif output == 'query':
-            return query
+            return preserve_order(query)
         else:
-            return get_objects(AcqOrderLine, query)
+            return get_objects(AcqOrderLine, preserve_order(query))
 
     def get_order_provisional_total_amount(self):
         """Get provisional total amount of this order."""
