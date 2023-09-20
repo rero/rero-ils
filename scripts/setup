@@ -249,6 +249,7 @@ eval ${PREFIX} "invenio roles create -d 'Professional: User manager' pro_user_ma
 eval ${PREFIX} "invenio roles create -d 'Professional: Entity manager' pro_entity_manager"
 eval ${PREFIX} "invenio roles create -d 'Documentation Editor' editor"
 eval ${PREFIX} "invenio roles create -d 'Document Importing' document_importer"
+eval ${PREFIX} "invenio roles create -d 'Professional: Statistics manager' pro_statistics_manager"
 
 info_msg "Create action roles policies"
 eval ${PREFIX} "invenio reroils fixtures import_system_role_policies data/system_role_policies.json"
@@ -328,6 +329,10 @@ eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v 
 info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
 eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
 eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
+
+info_msg "- Statistics configurations: ${DATA_PATH}/stats_cfg.json"
+eval ${PREFIX} invenio reroils fixtures create --pid_type stacfg ${DATA_PATH}/stats_cfg.json --append ${CREATE_LAZY} ${DONT_STOP}
+eval ${PREFIX} invenio reroils index reindex -t stacfg --yes-i-know
 
 info_msg "- Local entities ${DATA_PATH}/local_entities.json ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type locent --schema 'https://bib.rero.ch/schemas/local_entities/local_entity-v0.0.1.json' ${DATA_PATH}/local_entities.json --append ${CREATE_LAZY} ${DONT_STOP}

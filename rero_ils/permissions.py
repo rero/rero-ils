@@ -35,6 +35,7 @@ librarian_permission = Permission(
     RoleNeed(UserRole.CATALOG_MANAGER),
     RoleNeed(UserRole.CIRCULATION_MANAGER),
     RoleNeed(UserRole.USER_MANAGER),
+    RoleNeed(UserRole.STATISTICS_MANAGER),
     RoleNeed(UserRole.LIBRARY_ADMINISTRATOR),
     RoleNeed(UserRole.ACQUISITION_MANAGER),
     RoleNeed(UserRole.FULL_PERMISSIONS)
