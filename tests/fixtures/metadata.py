@@ -35,6 +35,8 @@ from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
 from rero_ils.modules.operation_logs.api import OperationLog
+from rero_ils.modules.stats_cfg.api import StatConfiguration, \
+    StatsConfigurationSearch
 from rero_ils.modules.templates.api import Template, TemplatesSearch
 
 
@@ -1453,3 +1455,46 @@ def operation_log_data(data):
 def operation_log(operation_log_data, item_lib_sion):
     """Load operation log record."""
     return OperationLog.create(operation_log_data, index_refresh=True)
+
+
+# --- Statistics configurations
+@pytest.fixture(scope="module")
+def stats_cfg_martigny_data(data):
+    """Load statistics configuration of martigny organisation."""
+    return deepcopy(data.get('stats_cfg1'))
+
+
+@pytest.fixture(scope="module")
+def stats_cfg_martigny(
+        app,
+        stats_cfg_martigny_data,
+        system_librarian_martigny):
+    """Create stats_cfg of martigny organisation."""
+    stats_cfg = StatConfiguration.create(
+        data=stats_cfg_martigny_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(StatsConfigurationSearch.Meta.index)
+    yield stats_cfg
+
+
+@pytest.fixture(scope="module")
+def stats_cfg_sion_data(data):
+    """Load statistics configuration of sion organisation."""
+    return deepcopy(data.get('stats_cfg2'))
+
+
+@pytest.fixture(scope="module")
+def stats_cfg_sion(
+        app,
+        stats_cfg_sion_data,
+        system_librarian_sion):
+    """Create stats_cfg of sion organisation."""
+    stats_cfg = StatConfiguration.create(
+        data=stats_cfg_sion_data,
+        delete_pid=False,
+        dbcommit=True,
+        reindex=True)
+    flush_index(StatsConfigurationSearch.Meta.index)
+    yield stats_cfg
