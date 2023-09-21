@@ -20,6 +20,7 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import current_app
 from werkzeug.utils import cached_property
 
 from rero_ils.modules.acquisition.acq_orders.dumpers import \
@@ -111,7 +112,10 @@ class AcquisitionOrderNotification(Notification):
         """Get the language to use for dispatching the notification."""
         # By default, the language to use to build the notification is defined
         # in the vendor setting. Override this method if needed in the future.
-        return self.order.vendor.get('communication_language')
+        return self.order.vendor.get(
+            'communication_language',
+            current_app.config.get('RERO_ILS_APP_DEFAULT_LANGUAGE', 'eng')
+        )
 
     def get_template_path(self):
         """Get the template to use to render the notification."""
