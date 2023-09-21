@@ -75,7 +75,9 @@ def order_notification_preview(order_pid):
               f'"{language}" language'
         current_app.logger.error(msg)
         response['message'] = [{'type': 'error', 'content': msg}]
-        tmpl_file = 'rero_ils/vendor_order_mail/eng.tpl.txt'
+        language = current_app.config.get(
+            'RERO_ILS_APP_DEFAULT_LANGUAGE', 'eng')
+        tmpl_file = f'rero_ils/vendor_order_mail/{language}.tpl.txt'
         response['preview'] = render_template(tmpl_file, order=order_data)
 
     return jsonify(response)

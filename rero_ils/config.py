@@ -170,6 +170,7 @@ RATELIMIT_ENABLED = False
 # ====
 #: Default language
 BABEL_DEFAULT_LANGUAGE = 'en'
+RERO_ILS_APP_DEFAULT_LANGUAGE = 'eng'
 #: Default time zone
 BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 #: Other supported languages (do not include the default language in list).
