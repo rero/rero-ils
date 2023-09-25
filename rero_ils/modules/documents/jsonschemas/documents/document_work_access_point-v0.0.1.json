@@ -1,7 +1,7 @@
 {
   "work_access_point": {
     "title": "Work access point",
-    "description": "(MARC 655)",
+    "description": "(MARC 130, 700, 710, 730)",
     "type": "array",
     "minItems": 1,
     "items": {
