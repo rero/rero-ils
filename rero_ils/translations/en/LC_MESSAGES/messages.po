@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-07-13 15:09+0200\n"
-"PO-Revision-Date: 2023-07-13 10:32+0000\n"
+"PO-Revision-Date: 2023-09-25 12:03+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.1-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -289,7 +290,7 @@ msgstr "on loan"
 #: rero_ils/manual_translations.txt:17
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:441
 msgid "on_shelf"
-msgstr "available"
+msgstr "on shelf"
 
 #: rero_ils/manual_translations.txt:18
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:449
@@ -400,7 +401,7 @@ msgstr "cancel"
 
 #: rero_ils/manual_translations.txt:51
 msgid "checkin"
-msgstr "checkin"
+msgstr "check-in"
 
 #: rero_ils/manual_translations.txt:52
 msgid "checkout"
@@ -10319,7 +10320,7 @@ msgstr "Holding URI"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:552
 msgid "checkin_note"
-msgstr "Checkin note"
+msgstr "Check-in note"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:556
 msgid "checkout_note"
@@ -10351,23 +10352,23 @@ msgstr "Preservation and conservation policy."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:671
 msgid "4_disposable"
-msgstr "4_disposable"
+msgstr "Level 4: no preservation (disposable)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:675
 msgid "3_consumable"
-msgstr "3_consumable"
+msgstr "Level 3: short-term conservation (consumable)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:679
 msgid "2_controlled_consumption"
-msgstr "2_controlled_consumption"
+msgstr "Level 2: medium-term conservation (controlled consumption)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:683
 msgid "1_reserved"
-msgstr "1_reserved"
+msgstr "Level 1: long-term preservation"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:687
 msgid "0_frozen_collection"
-msgstr "0_frozen_collection"
+msgstr "Level 0: unlimited conservation (frozen collection)"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:701
 msgid "Price"
@@ -12345,4 +12346,3 @@ msgstr "Your library"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Your password has been successfully reset."
-
