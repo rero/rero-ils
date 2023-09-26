@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-07-13 15:09+0200\n"
-"PO-Revision-Date: 2023-07-25 09:05+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2023-09-26 13:01+0000\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -285,7 +285,7 @@ msgstr "en préstamo"
 #: rero_ils/manual_translations.txt:17
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:441
 msgid "on_shelf"
-msgstr "disponible"
+msgstr "en estante"
 
 #: rero_ils/manual_translations.txt:18
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:449
