@@ -19,7 +19,7 @@
 import csv
 import json
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import jsonref
 import requests
@@ -447,3 +447,12 @@ def create_selfcheck_terminal(data):
     selfcheck_terminal = SelfcheckTerminal(**data)
     db.session.add(selfcheck_terminal)
     return selfcheck_terminal
+
+
+def patch_expiration_date(data):
+    """Patch expiration date for patrons."""
+    if data.get('patron', {}).get('expiration_date'):
+        # expiration date in one year
+        data['patron']['expiration_date'] = \
+            (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d')
+    return data
