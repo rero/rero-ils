@@ -25,7 +25,7 @@ import pytest
 from invenio_circulation.search.api import LoansSearch
 from invenio_db import db
 from utils import create_patron, flush_index, \
-    item_record_to_a_specific_loan_state
+    item_record_to_a_specific_loan_state, patch_expiration_date
 
 from rero_ils.modules.cli.fixtures import load_role_policies, \
     load_system_role_policies
@@ -231,13 +231,13 @@ def librarian_fully(
 @pytest.fixture(scope="module")
 def patron_martigny_data(data):
     """Load Martigny patron data."""
-    return deepcopy(data.get('ptrn6'))
+    return deepcopy(patch_expiration_date(data.get('ptrn6')))
 
 
 @pytest.fixture(scope="function")
 def patron_martigny_data_tmp(data):
     """Load Martigny patron data scope function."""
-    return deepcopy(data.get('ptrn6'))
+    return deepcopy(patch_expiration_date(data.get('ptrn6')))
 
 
 @pytest.fixture(scope="module")
@@ -274,7 +274,7 @@ def librarian_patron_martigny(
 @pytest.fixture(scope="module")
 def patron2_martigny_data(data):
     """Load Martigny patron data."""
-    return deepcopy(data.get('ptrn7'))
+    return deepcopy(patch_expiration_date(data.get('ptrn7')))
 
 
 @pytest.fixture(scope="module")
@@ -293,7 +293,7 @@ def patron2_martigny(
 @pytest.fixture(scope="module")
 def patron3_martigny_blocked_data(data):
     """Load Martigny blocked patron data."""
-    return deepcopy(data.get('ptrn11'))
+    return deepcopy(patch_expiration_date(data.get('ptrn11')))
 
 
 @pytest.fixture(scope="module")
@@ -312,7 +312,7 @@ def patron3_martigny_blocked(
 @pytest.fixture(scope="module")
 def patron4_martigny_data(data):
     """Load Martigny patron data."""
-    return deepcopy(data.get('ptrn12'))
+    return deepcopy(patch_expiration_date((data.get('ptrn12'))))
 
 
 @pytest.fixture(scope="module")
@@ -373,13 +373,13 @@ def librarian_sion(
 @pytest.fixture(scope="module")
 def patron_sion_data(data):
     """Load Sion patron data."""
-    return deepcopy(data.get('ptrn10'))
+    return deepcopy(patch_expiration_date(data.get('ptrn10')))
 
 
 @pytest.fixture(scope="function")
 def patron_sion_data_tmp(data):
     """Load Sion patron data scope function."""
-    return deepcopy(data.get('ptrn10'))
+    return deepcopy(patch_expiration_date(data.get('ptrn10')))
 
 
 @pytest.fixture(scope="module")

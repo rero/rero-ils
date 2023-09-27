@@ -540,7 +540,8 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
         'fullname':
         'Roduit, Louis',
         'patron_types': [{
-            'expiration_date': '2023-10-07T00:00:00',
+            'expiration_date':
+                patron_martigny['patron']['expiration_date']+'T00:00:00',
             'institution': 'org1',
             'patron_type': 'patron-code'
         }]
