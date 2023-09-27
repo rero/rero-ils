@@ -47,14 +47,13 @@ class CirculationDumper(InvenioRecordsDumper):
             data['patron']['name'] = ', '.join((
                 ptrn_data.last_name, ptrn_data.first_name))
 
-        # only for pending requests
-        if record.get('pickup_location_pid') \
-                and record.get('state') == LoanState.PENDING:
+        if record.get('pickup_location_pid'):
             location = Location.get_record_by_pid(
                 record.get('pickup_location_pid'))
             data['pickup_location'] = {
                 'name': location.get('name'),
-                'library_name': location.get_library().get('name')
+                'library_name': location.get_library().get('name'),
+                'pickup_name': location.pickup_name
             }
 
         # Always add item destination readable information if item state is

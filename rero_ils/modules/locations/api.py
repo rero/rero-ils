@@ -211,6 +211,12 @@ class Location(IlsRecord):
             for restrict_pickup_to in self.get('restrict_pickup_to', [])
         ]
 
+    @property
+    def pickup_name(self):
+        """Get pickup name for location."""
+        return self['pickup_name'] if 'pickup_name' in self \
+            else f"{self.library['code']}: {self['name']}"
+
     @classmethod
     def can_request(cls, record, **kwargs):
         """Check if a record can be requested regarding its location.
