@@ -29,7 +29,7 @@ import pytz
 from elasticsearch_dsl import Q
 from flask import Blueprint, abort, make_response, render_template, request
 
-from .api.api import Stat
+from .api.api import Stat, StatsSearch
 from .api.pricing import StatsForPricing
 from .permissions import check_logged_as_admin, check_logged_as_librarian
 from .serializers import StatCSVSerializer
