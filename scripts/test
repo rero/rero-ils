@@ -92,8 +92,9 @@ function pretests () {
   # | cryptography               | 39.0.2    | >=0.8, <41.0.3           | 60224    |
   # | cryptography               | 39.0.2    | >=0.8, <41.0.3           | 60225    |
   # | cryptography               | 39.0.2    | >=0.8,<41.0.3            | 60223    |
+  # | pillow                     | 9.5.0     | <10.0.1                  | 61489    |
   # +==============================================================================+
-  safety check -i 45183 -i 44501 -i 51668 -i 42194 -i 42852 -i 53325 -i 53326 -i 54456 -i 42498 -i 43738 -i 47833 -i 51457 -i 51358 -i 59473 -i 55261 -i 53812 -i 59956 -i 59062 -i 59473 -i 60224 -i 60225 -i 60223
+  safety check -i 45183 -i 44501 -i 51668 -i 42194 -i 42852 -i 53325 -i 53326 -i 54456 -i 42498 -i 43738 -i 47833 -i 51457 -i 51358 -i 59473 -i 55261 -i 53812 -i 59956 -i 59062 -i 59473 -i 60224 -i 60225 -i 60223 -i 61489
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
