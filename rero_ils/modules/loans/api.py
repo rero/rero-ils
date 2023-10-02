@@ -424,7 +424,7 @@ class Loan(IlsRecord):
                     patron_data = patron_by_pid(loan_data['patron_pid'],
                                                 patrons)
                     loan_data['patron'] = {
-                        'barcode': patron_data['patron']['barcode'],
+                        'barcode': patron_data['patron']['barcode'][0],
                         'name': f'{patron_data["last_name"]}, '
                                 f'{patron_data["first_name"]}'
                     }
