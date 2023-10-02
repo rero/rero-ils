@@ -31,6 +31,8 @@ from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
     get_field_link_data, make_year, not_repetitive, \
     remove_trailing_punctuation
 from rero_ils.modules.documents.api import Document
+from rero_ils.modules.documents.dojson.contrib.marc21tojson.utils import \
+    get_contribution_link
 from rero_ils.modules.documents.utils import create_authorized_access_point
 from rero_ils.modules.entities.models import EntityType
 
@@ -651,13 +653,27 @@ def unimarc_to_contribution(self, key, value):
     if not roles:
         roles = ['aut']
 
-    return {
-        'entity': {
-            'authorized_access_point': create_authorized_access_point(agent),
-            'type': agent['type']
-        },
-        'role': roles
-    }
+    ids = utils.force_list(value.get('3')) or []
+    ids = [f'(idref){id_}' for id_ in ids]
+    if ids and (ref := get_contribution_link(
+        bibid=unimarc.bib_id,
+        reroid=unimarc.rero_id,
+        ids=ids,
+        key=key
+    )):
+        return {
+            'entity': {'$ref': ref},
+            'role': roles
+        }
+    else:
+        return {
+            'entity': {
+                'authorized_access_point':
+                    create_authorized_access_point(agent),
+                'type': agent['type']
+            },
+            'role': roles
+        }
 
 
 @unimarc.over('editionStatement', '^205..')
