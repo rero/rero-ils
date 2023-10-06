@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-10-04 09:26+0200\n"
-"PO-Revision-Date: 2023-08-18 09:47+0000\n"
+"PO-Revision-Date: 2023-10-06 08:22+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.1-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -248,11 +249,11 @@ msgstr "Empfangsdatum"
 
 #: rero_ils/config.py:2058
 msgid "resource_type"
-msgstr ""
+msgstr "Ressource Typ"
 
 #: rero_ils/config.py:2060
 msgid "source_catalog"
-msgstr ""
+msgstr "Quellekatalog"
 
 #: rero_ils/config.py:2079 rero_ils/config.py:2099
 msgid "sources"
@@ -5754,7 +5755,7 @@ msgstr "Inhalts-, Media-, Datenträgertypen"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:7
 msgid "Media type"
-msgstr ""
+msgstr "Medientyp"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:11
 msgid "unknown media"
@@ -6167,13 +6168,15 @@ msgstr "Gesprochenes Wort"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:4
 msgid "Relationship with an agent contributing to the document."
-msgstr ""
+msgstr "Beziehung zu einem Akteuren, der zum Dokument beiträgt."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:9
 msgid ""
 "Person, family or corporate body (including conferences) and their "
 "contributing role for the document."
 msgstr ""
+"Person, Familie oder Körperschaft (einschließlich Konferenzen) und ihre "
+"Rolle bei der Erstellung des Dokuments."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:14
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:13
@@ -6186,6 +6189,8 @@ msgid ""
 "Link to a remote or local entity of type person, family or corporate body"
 " (including conferences)."
 msgstr ""
+"Link zu einer entfernten oder lokalen Entität des Typs Person, Familie oder "
+"Körperschaft (einschließlich Konferenzen)."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:36
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:2
@@ -6193,7 +6198,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:30
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:30
 msgid "Entity (textual)"
-msgstr ""
+msgstr "Entität (textuell)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:37
 msgid ""
@@ -6201,6 +6206,9 @@ msgid ""
 "conferences). Usually used temporarily until a link to an entity can be "
 "established."
 msgstr ""
+"Textliche Beschreibung einer Person, Familie oder Körperschaft ("
+"einschließlich Konferenzen). Wird in der Regel temporär verwendet, bis einer "
+"Link zu einer Entität hergestellt werden kann."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:2
 msgid "Link to an agent"
@@ -6233,7 +6241,7 @@ msgstr "MEF ID"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:2
 msgid "Agent (textual)"
-msgstr ""
+msgstr "Akteur (textuell)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:28
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:35
@@ -7469,6 +7477,9 @@ msgid ""
 "Textual description of a topic (including genre and forms), person, "
 "organisation (including conferences), place, temporal or work."
 msgstr ""
+"Textliche Beschreibung eines Themas (einschließlich Genre und Form), einer "
+"Person, einer Körperschaft (einschließlich Konferenzen), eines Ortes, einer "
+"Zeitraum oder eines Werks."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:121
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
@@ -7540,19 +7551,23 @@ msgstr "(MARC 655)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:10
 msgid "Genre or form of the document."
-msgstr ""
+msgstr "Genre oder Form des Dokuments."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:15
 msgid ""
 "Link to a remote or local entity of type topic accepted as a 'genre, "
 "form'."
 msgstr ""
+"Link zu einer entfernten oder lokalen Entität vom Typ Thema, die als \"Genre"
+", Form\" akzeptiert wird."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:31
 msgid ""
 "Textual description of a genre or form. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
+"Textliche Beschreibung eines Genres oder Form. Wird in der Regel temporär "
+"verwendet, bis einer Link zu einer Entität hergestellt werden kann."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:2
 msgid "Link to a genre, form"
@@ -7560,7 +7575,7 @@ msgstr "Link zu einem Genre, Form"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:2
 msgid "Genre, form (textual)"
-msgstr ""
+msgstr "Genre, Form (textuell)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:34
 msgid "Example: Electronic serials"
@@ -7568,7 +7583,7 @@ msgstr "Beispiel: Elektronische Zeitschriften"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:42
 msgid "Source of the genre or form."
-msgstr ""
+msgstr "Quelle des Genres oder der Form."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:3
 msgid "Identifiers"
@@ -8594,12 +8609,16 @@ msgid ""
 "Topic, person, organisation (including conferences), place, temporal or "
 "work that is a subject of the document."
 msgstr ""
+"Thema, Person, Organisation (einschließlich Konferenzen), Ort, Zeitraum oder "
+"Werk, das Gegenstand des Dokuments ist."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 msgid ""
 "Link to a remote or local entity of type topic, person, organisation "
 "(including conferences), place, temporal or work."
 msgstr ""
+"Link zu einer entfernten oder lokalen Entität vom Typ Thema, Person, "
+"Körperschaft (einschließlich Konferenzen), Ort, Zeitraum oder Werk."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:32
 msgid ""
@@ -8607,6 +8626,10 @@ msgid ""
 "conferences), place, temporal or work. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
+"Textliche Beschreibung eines Themas, einer Person, einer Körperschaft ("
+"einschließlich Konferenzen), eines Ortes, eines Zeitraums oder eines Werks. "
+"Wird in der Regel temporär verwendet, bis einer Link zu einer Entität "
+"hergestellt werden kann."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:2
 msgid "Link to a subject"
@@ -8620,7 +8643,7 @@ msgstr "Thema"
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:40
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_temporal-v0.0.1.json:3
 msgid "Temporal"
-msgstr ""
+msgstr "Zeitraum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:44
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:108
@@ -9094,7 +9117,7 @@ msgstr "Sucheinstieg des Werks"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:4
 msgid "(MARC 130, 700, 710, 730)"
-msgstr ""
+msgstr "(MARC 130, 700, 710, 730)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_work_access_point-v0.0.1.json:46
 msgid "Date of work"
@@ -9242,15 +9265,15 @@ msgstr "Exportformate"
 
 #: rero_ils/modules/entities/views.py:49
 msgid "Entity not found."
-msgstr ""
+msgstr "Entität nicht gefunden."
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity-v0.0.1.json:3
 msgid "Local entity"
-msgstr ""
+msgstr "Lokale Entität"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity-v0.0.1.json:4
 msgid "JSON schema for a local entity"
-msgstr ""
+msgstr "JSON Schema für eine lokale Entität"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:30
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:28
@@ -9259,7 +9282,7 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:24
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:21
 msgid "Schema to validate local entity records against."
-msgstr ""
+msgstr "Schema, anhand dessen Lokalentitätsdatensätze validiert werden."
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:49
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:47
@@ -9268,7 +9291,7 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:43
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:40
 msgid "Local entity PID"
-msgstr ""
+msgstr "Lokale Entität PID"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:54
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:52
@@ -9284,7 +9307,7 @@ msgstr "Löschdatum"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:63
 msgid "Example: Universit\\u00e9 de Bordeaux III"
-msgstr ""
+msgstr "Beispiel: Université de Bordeaux III"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:67
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:65
@@ -9299,23 +9322,23 @@ msgstr "Normierter Sucheinstieg"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:88
 msgid "Example: Institut d'histoire"
-msgstr ""
+msgstr "Beispiel: Institut für Geschichte"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:105
 msgid "Example: 2015"
-msgstr ""
+msgstr "Beispiel: 2015"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:119
 msgid "Example: Paris"
-msgstr ""
+msgstr "Beispiel: Paris"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:127
 msgid "Example: 23e"
-msgstr ""
+msgstr "Beispiel: 23."
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:136
 msgid "Example: 2022"
-msgstr ""
+msgstr "Beispiel: 2022"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:140
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:119
@@ -9328,7 +9351,7 @@ msgstr ""
 #: rero_ils/modules/entities/templates/rero_ils/_local_temporal.html:21
 #: rero_ils/modules/entities/templates/rero_ils/_local_topic.html:22
 msgid "Alternative names"
-msgstr ""
+msgstr "Alternative Namen"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:144
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:123
@@ -9336,7 +9359,7 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_temporal-v0.0.1.json:76
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:83
 msgid "Alternative name"
-msgstr ""
+msgstr "Alternative Name"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:150
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:162
@@ -9346,7 +9369,7 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:79
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:55
 msgid "Source catalog"
-msgstr ""
+msgstr "Quellekatalog"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:154
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:166
@@ -9355,12 +9378,12 @@ msgstr ""
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:96
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:83
 msgid "Example: lcsh, mesh, rameau"
-msgstr ""
+msgstr "Beispiel: lcsh, mesh, rameau"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:127
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_temporal-v0.0.1.json:80
 msgid "Example: Beyer, Adam"
-msgstr ""
+msgstr "Beispiel: Beyer, Adam"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:132
 #: rero_ils/modules/entities/templates/rero_ils/_remote_person.html:34
@@ -9381,32 +9404,32 @@ msgstr "Frau"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_place-v0.0.1.json:55
 msgid "Example: Parc Natural de l'Albufera (Spain)"
-msgstr ""
+msgstr "Beispiel: Parc Natural de l'Albufera (Spanien)"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_place-v0.0.1.json:80
 msgid "Example: Albufera, Parc Natural de l' (Spain)"
-msgstr ""
+msgstr "Beispiel: Albufera, Parc Natural de l' (Spanien)"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_temporal-v0.0.1.json:55
 msgid "Example: 21st century"
-msgstr ""
+msgstr "Beispiel: 21. Jahrhundert"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:57
 msgid "Example: Industrial archaeology"
-msgstr ""
+msgstr "Beispiel: Industrielle Archäologie"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:74
 #: rero_ils/modules/entities/templates/rero_ils/_local_topic.html:21
 msgid "Genre form"
-msgstr ""
+msgstr "Genre, Form"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_topic-v0.0.1.json:87
 msgid "Example: Antiquities, Industrial"
-msgstr ""
+msgstr "Beispiel: Antiquitäten, Industrie"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:54
 msgid "Example: Walk\\u00fcre"
-msgstr ""
+msgstr "Beispiel: Walküre"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:58
 #: rero_ils/modules/entities/templates/rero_ils/_local_work.html:21
@@ -9416,7 +9439,7 @@ msgstr "Ersteller"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:62
 msgid "Example: Wagner, Richard, 1813-1883"
-msgstr ""
+msgstr "Beispiel: Wagner, Richard, 1813-1883"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:4
 msgid "Mef entity"
@@ -9462,19 +9485,19 @@ msgstr "IdRef-Autoritäten"
 
 #: rero_ils/modules/entities/templates/rero_ils/_local_organisation.html:22
 msgid "Conference place"
-msgstr ""
+msgstr "Konferenz Ort"
 
 #: rero_ils/modules/entities/templates/rero_ils/_local_organisation.html:23
 msgid "Conference numbering"
-msgstr ""
+msgstr "Konferenznummer"
 
 #: rero_ils/modules/entities/templates/rero_ils/_local_organisation.html:24
 msgid "Conference date"
-msgstr ""
+msgstr "Konferenz Datum"
 
 #: rero_ils/modules/entities/templates/rero_ils/_local_person.html:25
 msgid "Fuller form of name"
-msgstr ""
+msgstr "Vollständigere Namensform"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_organisation.html:22
 msgid "Date establishment"
@@ -9499,31 +9522,31 @@ msgstr "Biografische Angaben"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_topic.html:27
 msgid "Variant access point(s)"
-msgstr ""
+msgstr "Zusätzliche Sucheinstiege"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_topic.html:31
 msgid "Broader"
-msgstr ""
+msgstr "Oberbegriffe"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_topic.html:42
 msgid "Related"
-msgstr ""
+msgstr "Nahestehende Entitäten"
 
 #: rero_ils/modules/entities/templates/rero_ils/_remote_topic.html:53
 msgid "Classification(s)"
-msgstr ""
+msgstr "Klassifikation(en)"
 
 #: rero_ils/modules/entities/templates/rero_ils/_search_link.html:23
 msgid "Search documents"
-msgstr ""
+msgstr "Dokumente Suche"
 
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:33
 msgid "LOCAL ID"
-msgstr ""
+msgstr "LOKAL ID"
 
 #: rero_ils/modules/entities/templates/rero_ils/entity_remote.html:51
 msgid "Source(s)"
-msgstr ""
+msgstr "Quelle(n)"
 
 #: rero_ils/modules/holdings/api.py:161
 msgid "Document does not exist {pid}."
@@ -12104,7 +12127,7 @@ msgstr "professionell: Bibliotheksverwaltung"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:482
 msgid "pro_entity_manager"
-msgstr ""
+msgstr "professionell: Entitätsverwaltung"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:494
 msgid "The public note is visible for the patron in his/her account."
@@ -12759,4 +12782,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Select…"
 #~ msgstr "Wählen…"
-
