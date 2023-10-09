@@ -2311,6 +2311,20 @@ RECORDS_REST_FACETS = dict(
                 'subtype': terms_filter('subtype')
             }
         }
+    ),
+    stats_cfg=dict(
+        aggs=dict(
+            category=dict(
+                terms=dict(
+                    field='category.type',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'stats_cfg', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
+        ),
+        filters={
+            _('category'): and_term_filter('category.type')
+        }
     )
 )
 
@@ -3082,7 +3096,7 @@ RERO_ILS_MEF_CONFIG = {
         'base_url': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts'),
         'sources': ['idref'],
         'filters': [
-            {'idref.bnf_type': 'genre/forme Rameau'} 
+            {'idref.bnf_type': 'genre/forme Rameau'}
         ]
     },
     'places': {
