@@ -2311,6 +2311,20 @@ RECORDS_REST_FACETS = dict(
                 'subtype': terms_filter('subtype')
             }
         }
+    ),
+    stats_cfg=dict(
+        aggs=dict(
+            category=dict(
+                terms=dict(
+                    field='category.type',
+                    size=RERO_ILS_AGGREGATION_SIZE.get(
+                        'stats_cfg', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                )
+            )
+        ),
+        filters={
+            _('category'): and_term_filter('category.type')
+        }
     )
 )
 
