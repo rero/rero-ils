@@ -255,7 +255,7 @@ def patron_martigny(
 @pytest.fixture(scope="module")
 def librarian_patron_martigny_data(data):
     """Load Martigny librarian patron data."""
-    return deepcopy(data.get('ptrn14'))
+    return deepcopy(patch_expiration_date(data.get('ptrn14')))
 
 
 @pytest.fixture(scope="module")

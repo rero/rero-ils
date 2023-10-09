@@ -54,7 +54,7 @@ isbnlib = ">=3.9.1"
 requests = ">=2.20.0"
 polib = "*"
 xmltodict = "*"
-redisbeat = "*"
+redisbeat = "<1.2.5"
 jsonpickle = ">=1.4.1"
 ciso8601 = "*"
 # TODO: to be removed when the thumbnail will be refactored

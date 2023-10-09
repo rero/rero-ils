@@ -98,7 +98,7 @@
     "country": "it",
     "keep_history": true,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "blocked": false,
       "barcode": [
         "2050124311"
@@ -135,7 +135,7 @@
     "street": "Panoramica Collinare, 47",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "2030124287"
       ],
@@ -187,7 +187,7 @@
     "street": "Rue du Nord 7",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "reroils1"
       ],
@@ -215,7 +215,7 @@
     "street": "520 Scott Blvd",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "2000000001"
       ],
@@ -243,7 +243,7 @@
     "street": "Route du Village 6",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "10000001"
       ],
@@ -271,7 +271,7 @@
     "street": "Piazza Collegiata 12",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "2050124312"
       ],
@@ -299,7 +299,7 @@
     "street": "Gare 45",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "kad001"
       ],
@@ -327,7 +327,7 @@
     "street": "Vignettes 25",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "kad002"
       ],
@@ -375,7 +375,7 @@
     "street": "Magic Street 3",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "3050124311"
       ],
@@ -402,7 +402,7 @@
     "street": "Diagon Alley 72",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "3050124312"
       ],
@@ -836,7 +836,7 @@
     "street": "Faubourg du Lac 6",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920001"
       ],
@@ -864,7 +864,7 @@
     "street": "Rue du Tr\u00e9sor 9",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920002"
       ],
@@ -892,7 +892,7 @@
     "street": "Rue de l'Industrie 46",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920003"
       ],
@@ -920,7 +920,7 @@
     "street": "Avenue Max-Huber 2",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920004"
       ],
@@ -948,7 +948,7 @@
     "street": "Rue de Montsalvens 3",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920005"
       ],
@@ -976,7 +976,7 @@
     "street": "Rue du Vieux-Pont 3",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920006"
       ],
@@ -1004,7 +1004,7 @@
     "street": "Seefeldstrasse 37",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920007"
       ],
@@ -1032,7 +1032,7 @@
     "street": "In Stierwisen 98",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920008"
       ],
@@ -1060,7 +1060,7 @@
     "street": "Im Wingert 117",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920009"
       ],
@@ -1088,7 +1088,7 @@
     "street": "Werkstrasse 136",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920010"
       ],
@@ -1116,7 +1116,7 @@
     "street": "L\u00fctzelfl\u00fchstrasse 120",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920011"
       ],
@@ -1144,7 +1144,7 @@
     "street": "\u00dcerklisweg 55",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920012"
       ],
@@ -1172,7 +1172,7 @@
     "street": "Via Verbano 109",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920013"
       ],
@@ -1199,7 +1199,7 @@
     "street": "Quadra 93",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920014"
       ],
@@ -1227,7 +1227,7 @@
     "street": "Via Camischolas sura 63",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920015"
       ],
@@ -1255,7 +1255,7 @@
     "street": "Lungolago 118",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "920016"
       ],
@@ -1283,7 +1283,7 @@
     "street": "Ranftweg 1",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "999999"
       ],
@@ -1356,7 +1356,7 @@
     "street": "Galaxy street",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "cypress-1"
       ],
@@ -1384,7 +1384,7 @@
     "street": "Milky Way street",
     "keep_history": false,
     "patron": {
-      "expiration_date": "2023-10-07",
+      "expiration_date": "2100-10-07",
       "barcode": [
         "cypress-2"
       ],
@@ -1412,7 +1412,7 @@
     "street": "Via Croix Noire 3",
     "keep_history": true,
     "patron": {
-      "expiration_date": "2024-10-07",
+      "expiration_date": "2100-10-07",
       "blocked": false,
       "barcode": [
         "2100154311"
