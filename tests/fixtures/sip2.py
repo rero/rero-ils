@@ -21,13 +21,14 @@
 from copy import deepcopy
 
 import pytest
-from utils import create_patron, create_selfcheck_terminal, create_user_token
+from utils import create_patron, create_selfcheck_terminal, \
+    create_user_token, patch_expiration_date
 
 
 @pytest.fixture(scope="module")
 def selfcheck_librarian_martigny_data(data):
     """Load Martigny librarian data."""
-    return deepcopy(data.get('ptrn2'))
+    return deepcopy(patch_expiration_date(data.get('ptrn2')))
 
 
 @pytest.fixture(scope="module")
@@ -62,7 +63,7 @@ def selfcheck_termial_martigny_data(data):
 @pytest.fixture(scope="module")
 def selfcheck_patron_martigny_data(data):
     """Load Martigny librarian data."""
-    return deepcopy(data.get('ptrn6'))
+    return deepcopy(patch_expiration_date(data.get('ptrn6')))
 
 
 @pytest.fixture(scope="module")
