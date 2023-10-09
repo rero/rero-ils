@@ -42,7 +42,7 @@
   {% include 'rero_ils/_remote_organisation.html' %}
   {% elif record['type'] == 'bf:Person' %}
   {% include 'rero_ils/_remote_person.html' %}
-  {% elif record['type'] == 'bf:Topic' %}
+  {% elif record['type'] in ['bf:Place', 'bf:Temporal', 'bf:Topic'] %}
   {% include 'rero_ils/_remote_topic.html' %}
   {% endif %}
   <!-- Common fields for all types -->
