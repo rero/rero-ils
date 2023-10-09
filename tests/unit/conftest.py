@@ -561,3 +561,13 @@ def mef_record_with_idref_gnd_rero(mef_record_with_idref_gnd_rero_data):
     )
     RemoteEntitiesSearch.flush_and_refresh()
     return entity
+
+
+@pytest.fixture()
+def stats_cfg_schema(monkeypatch):
+    """Template Jsonschema for records."""
+    schema_in_bytes = resource_string(
+        'rero_ils.modules.stats_cfg.jsonschemas',
+        'stats_cfg/stat_cfg-v0.0.1.json',
+    )
+    return get_schema(monkeypatch, schema_in_bytes)
