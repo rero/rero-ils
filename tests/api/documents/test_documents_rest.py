@@ -728,3 +728,71 @@ def test_document_current_library_on_request_parameter(
                 .scan())
     assert oplg.library.value == lib_martigny_bourg.pid
     db.session.rollback()
+
+
+def test_document_advanced_search_config(app, db, client,
+                                         system_librarian_martigny, document):
+    """Test for advanced search config."""
+    def check_field_data(key, field_data, data):
+        """Check content of the field data."""
+        field_data = field_data.get(key, [])
+        assert 0 < len(field_data)
+        assert data == field_data[0]
+
+    config_url = url_for('api_documents.advanced_search_config')
+
+    res = client.get(config_url)
+    assert res.status_code == 401
+
+    login_user_via_session(client, system_librarian_martigny.user)
+
+    res = client.get(config_url)
+    assert res.status_code == 200
+
+    json = res.json
+    assert 'fieldsConfig' in json
+    assert 'fieldsData' in json
+
+    fields_config_data = json.get('fieldsConfig')
+    assert 0 < len(fields_config_data)
+    assert {
+        'field': 'title.*',
+        'label': 'Title',
+        'value': 'title',
+        'options': {
+            'search_type': [
+                {'label': 'contains', 'value': 'contains'},
+                {'label': 'phrase', 'value': 'phrase'},
+            ]
+        }} \
+        == fields_config_data[0]
+
+    # Country: Only Phrase on search type options.
+    assert {
+        'field': 'provisionActivity.place.country',
+        'label': 'Country',
+        'value': 'country',
+        'options': {
+            'search_type': [
+                {'label': 'phrase', 'value': 'phrase'},
+            ]
+        }} \
+        == fields_config_data[3]
+
+    field_data = json.get('fieldsData')
+    data_keys = [
+        'canton', 'country', 'rdaCarrierType',
+        'rdaContentType', 'rdaMediaType'
+    ]
+    assert data_keys == list(field_data.keys())
+
+    check_field_data('canton', field_data,
+                     {'label': 'canton_ag', 'value': 'ag'})
+    check_field_data('country', field_data,
+                     {'label': 'country_aa', 'value': 'aa'})
+    check_field_data('rdaCarrierType', field_data,
+                     {'label': 'rdact:1002', 'value': 'rdact:1002'})
+    check_field_data('rdaContentType', field_data,
+                     {'label': 'rdaco:1002', 'value': 'rdaco:1002'})
+    check_field_data('rdaMediaType', field_data,
+                     {'label': 'rdamt:1001', 'value': 'rdamt:1001'})
