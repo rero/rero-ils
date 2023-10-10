@@ -1,5 +1,71 @@
 # Changelog
 
+## [v1.19.0](https://github.com/rero/rero-ils/tree/v1.19.0) (2023-10-10)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.18.0...v1.19.0)
+
+**New features:**
+* Add local entities management [\#3458](https://github.com/rero/rero-ils/pull/3458) (by @zannkukai)
+* entities: add place [\#3456](https://github.com/rero/rero-ils/pull/3456) (by @rerowep)
+* entities: add temporal [\#3455](https://github.com/rero/rero-ils/pull/3455) (by @rerowep)
+* entity: add display for new types [\#3483](https://github.com/rero/rero-ils/pull/3483) (by @Garfield-fr)
+* Circulation UI: display pickup location for at_desk check-in [\#3433](https://github.com/rero/rero-ils/issues/3433) (by @Garfield-fr)
+
+**Enhancements:**
+* entity: better replace_identified_by [\#3497](https://github.com/rero/rero-ils/issues/3497) (by @rerowep)
+* entity: use in memory for sync task [\#3494](https://github.com/rero/rero-ils/pull/3494) (by @rerowep)
+* cli: create_documents_with_items_lofis [\#3486](https://github.com/rero/rero-ils/issues/3486) (by @rerowep)
+* Fix item sorting for standard holdings [\#2243](https://github.com/rero/rero-ils/issues/2243) (by @Garfield-fr)
+* pro document detailed view: optimize item loading [\#3400](https://github.com/rero/rero-ils/issues/3400) (by @Garfield-fr)
+* Improve global performance [\#3447](https://github.com/rero/rero-ils/pull/3447) (by @jma)
+* circulation: optimize operations performance [\#3415](https://github.com/rero/rero-ils/issues/3415) (by @jma)
+* ILL requests: order pickup locations by name in public form [\#3432](https://github.com/rero/rero-ils/issues/3432) (by @PascalRepond)
+* Transaction history: change unclear "location" label [\#3440](https://github.com/rero/rero-ils/issues/3440) (by @PascalRepond)
+* ILL requests: improve display in pro circulation UI [\#3419](https://github.com/rero/rero-ils/issues/3419) (by @zannkukai)
+* admin interface: The status of the item is not updated after a request [\#2314](https://github.com/rero/rero-ils/issues/2314) (by @Garfield-fr)
+* Order lines in the notifications are not in the same sequence than in the order detailed view [\#2653](https://github.com/rero/rero-ils/issues/2653) (by @Garfield-fr)
+* document: improved display of genre form field [\#3444](https://github.com/rero/rero-ils/pull/3444) (by @Garfield-fr)
+* acquisition: exclude harvested documents [\#3471](https://github.com/rero/rero-ils/pull/3471) (by @Garfield-fr)
+* entity: better replace identifiedBy [\#3454](https://github.com/rero/rero-ils/pull/3454) (by @rerowep)
+* stats: add tests [\#3462](https://github.com/rero/rero-ils/pull/3462) (by @jma)
+
+**Fixes:**
+* pricing stats: fix number of ill requests [\#3499](https://github.com/rero/rero-ils/pull/3499) (by @PascalRepond)
+* notifications: fix availability delay [\#3491](https://github.com/rero/rero-ils/pull/3491) (by @PascalRepond)
+* import: better contribution for SUDOC [\#3495](https://github.com/rero/rero-ils/pull/3495) (by @rerowep)
+* Document import: subject `creator` is unexpected [\#3468](https://github.com/rero/rero-ils/issues/3468) (by @rerowep)
+* Loans are displayed twice in the loan history [\#3469](https://github.com/rero/rero-ils/issues/3469) (by @Garfield-fr)
+* IdRef links not created when import from Sudoc [\#3473](https://github.com/rero/rero-ils/issues/3473) (by @rerowep)
+* Error sending an order when the language template is not configured [\#2714](https://github.com/rero/rero-ils/issues/2714) (by @Garfield-fr)
+* Public view: The layout should change after expanding the result to global view [\#3136](https://github.com/rero/rero-ils/issues/3136) (by @Garfield-fr)
+* Keyboard shortcut for `help` is hardlinked to the test instance [\#2825](https://github.com/rero/rero-ils/issues/2825) (by @Garfield-fr)
+* stats: some circulation stats are incorrect because they also count notifications [\#3435](https://github.com/rero/rero-ils/issues/3435) (by @jma)
+* UI: certain texts get unselected on keystroke [\#3276](https://github.com/rero/rero-ils/issues/3276) (by @Garfield-fr)
+* Manual fees UI: problems with manual fees of type `overdue` [\#3438](https://github.com/rero/rero-ils/issues/3438)
+* Request: Location with pickup location option disabled, still displayed as a pickup location [\#3404](https://github.com/rero/rero-ils/issues/3404) (by @zannkukai)
+* Serial issue with status `expected` should not appear as available [\#3370](https://github.com/rero/rero-ils/issues/3370) (by @zannkukai)
+* Checkin view: location and call number not displayed [transit item] [\#3319](https://github.com/rero/rero-ils/issues/3319) (by @zannkukai)
+* loan: fix for the patron barcode [\#3476](https://github.com/rero/rero-ils/pull/3476) (by @Garfield-fr)
+* stats: add missing import for StatsSearch [\#3472](https://github.com/rero/rero-ils/pull/3472) (by @Garfield-fr)
+* entities: fix for not-hashable value [\#3434](https://github.com/rero/rero-ils/pull/3434) (by @Garfield-fr)
+* tests: fix failing tests [\#3481](https://github.com/rero/rero-ils/pull/3481) (by @PascalRepond)
+* fix MARC equivalency for work_access_point [\#3466](https://github.com/rero/rero-ils/pull/3466) (by @PascalRepond)
+* dependencies: fix security issues [\#3474](https://github.com/rero/rero-ils/pull/3474) (by @jma)
+* tests: fix patron expiration date [\#3470](https://github.com/rero/rero-ils/pull/3470) (by @jma)
+* import: fix SLSP scale and cartographic [\#3446](https://github.com/rero/rero-ils/pull/3446) (by @rerowep)
+* dependencies: fix security issues [\#3452](https://github.com/rero/rero-ils/pull/3452) (by @PascalRepond)
+* editor: correct label for Media Type [\#3429](https://github.com/rero/rero-ils/pull/3429) (by @PascalRepond)
+* tests: fix imports [\#3437](https://github.com/rero/rero-ils/pull/3437) (by @jma)
+* operation logs: anonymization respects jsonschema [\#3416](https://github.com/rero/rero-ils/pull/3416) (by @PascalRepond)
+* ILL request: update patron circulation statistics [\#3421](https://github.com/rero/rero-ils/pull/3421) (by @zannkukai)
+* Update README.md: Louvain (≠ Leuven) [\#3418](https://github.com/rero/rero-ils/pull/3418) (by @sbibauw)
+* SRU: correct unnecessary log for bf:Temporal transformation [\#3425](https://github.com/rero/rero-ils/pull/3425) (by @rerowep)
+* dependencies: fix security issues [\#3422](https://github.com/rero/rero-ils/pull/3422) (by @rerowep)
+
+**Other changes:**
+
+* chore: update github templates [\#3492](https://github.com/rero/rero-ils/pull/3492) (by @PascalRepond)
+
 ## [v1.18.0](https://github.com/rero/rero-ils/tree/v1.18.0) (2023-07-13)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.17.1...v1.18.0)
