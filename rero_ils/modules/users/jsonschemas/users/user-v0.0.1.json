@@ -149,7 +149,18 @@
       "maxLength": 255
     },
     "country": {
-      "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+      "allOf": [
+        {
+          "form": {
+            "templateOptions": {
+              "itemCssClass": "col-lg-12"
+            }
+          }
+        },
+        {
+          "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
+        }
+      ]
     },
     "home_phone": {
       "title": "Home phone number",
