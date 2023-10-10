@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-10-04 09:26+0200\n"
-"PO-Revision-Date: 2023-10-04 09:42+0000\n"
+"PO-Revision-Date: 2023-10-10 09:58+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -127,7 +127,7 @@ msgstr "bibliothèque"
 
 #: rero_ils/config.py:1788 rero_ils/config.py:1820
 msgid "location"
-msgstr "Localisation"
+msgstr "localisation"
 
 #: rero_ils/config.py:1790 rero_ils/config.py:1824 rero_ils/config.py:1894
 #: rero_ils/config.py:1989 rero_ils/config.py:2019 rero_ils/config.py:2207
@@ -160,7 +160,7 @@ msgstr "Localisation temporaire"
 
 #: rero_ils/config.py:1825 rero_ils/config.py:2017
 msgid "vendor"
-msgstr "Fournisseur"
+msgstr "fournisseur"
 
 #: rero_ils/config.py:1826
 msgid "or_issue_status"
@@ -511,7 +511,7 @@ msgstr "monographie"
 #: rero_ils/manual_translations.txt:83
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:59
 msgid "serial"
-msgstr "série"
+msgstr "publication en série"
 
 #: rero_ils/manual_translations.txt:84
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:63
@@ -7303,7 +7303,7 @@ msgstr "Type de lien"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:55
 msgid "resource"
-msgstr "Ressource"
+msgstr "ressource"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_electronic_locator-v0.0.1.json:59
 msgid "versionOfResource"
@@ -11632,7 +11632,7 @@ msgstr "en espèces"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:201
 msgid "invoice"
-msgstr "facturé"
+msgstr "facture"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:205
 msgid "debit_card"
@@ -12275,7 +12275,7 @@ msgstr "exemplaires"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:132
 msgid "holdings"
-msgstr "états de collection"
+msgstr "état de collection"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:143
 msgid "Template json data"

@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-10-04 09:26+0200\n"
-"PO-Revision-Date: 2023-10-08 04:01+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2023-10-10 09:58+0000\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -379,7 +379,7 @@ msgstr "Producción"
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:177
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:151
 msgid "bf:Place"
-msgstr "Ubicación"
+msgstr "Lugar"
 
 #: rero_ils/manual_translations.txt:42
 msgid "Date(s) uncertain or unknown"
@@ -420,7 +420,7 @@ msgstr "recibir"
 
 #: rero_ils/manual_translations.txt:55
 msgid "request"
-msgstr "reservar"
+msgstr "reservación"
 
 #: rero_ils/manual_translations.txt:56
 msgid "validate_request"
@@ -6379,7 +6379,7 @@ msgstr "Ejemplo: XXIII"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:93
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:113
 msgid "Fuller form of Name"
-msgstr "Forma más completa del nombre"
+msgstr "Forma completa del nombre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:94
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:114
@@ -8775,7 +8775,7 @@ msgstr "Títulos principales"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:66
 msgid "Main title"
-msgstr "Título"
+msgstr "Título principal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:71
 msgid "Subtitle"
