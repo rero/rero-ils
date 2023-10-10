@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-10-04 09:26+0200\n"
-"PO-Revision-Date: 2023-10-06 07:49+0000\n"
-"Last-Translator: ManaDeweerdt <anne-marie.deweerdt@uclouvain.be>\n"
+"PO-Revision-Date: 2023-10-08 04:01+0000\n"
+"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/es/>\n"
 "Language: es\n"
@@ -379,7 +379,7 @@ msgstr "Producción"
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:177
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:151
 msgid "bf:Place"
-msgstr "Lugar"
+msgstr "Ubicación"
 
 #: rero_ils/manual_translations.txt:42
 msgid "Date(s) uncertain or unknown"
