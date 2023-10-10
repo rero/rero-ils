@@ -165,6 +165,9 @@ RERO_ILS_ILL_REQUEST_ON_GLOBAL_VIEW = True
 RERO_ILS_ILL_DEFAULT_SOURCE = 'RERO +'
 RERO_ILS_ILL_HIDE_MONTHS = 6
 
+# DOCUMENT ADVANCED SEARCH
+RERO_ILS_APP_DOCUMENT_ADVANCED_SEARCH = True
+
 # Rate limiting
 # =============
 #: Storage for ratelimiter.
@@ -3808,3 +3811,184 @@ RERO_ILS_PASSWORD_MIN_LENGTH = 8
 RERO_ILS_PASSWORD_SPECIAL_CHAR = False
 RERO_ILS_PASSWORD_GENERATOR = 'rero_ils.modules.utils:password_generator'
 RERO_ILS_PASSWORD_VALIDATOR = 'rero_ils.modules.utils:password_validator'
+
+# ADVANCED SEARCH CONFIG
+# ======================
+def search_type(field):
+    """Search type options.
+
+    :param: field: the field key.
+    :return: a list of options.
+    """
+    output = [];
+    if field not in [
+        'canton', 'country', 'rdaCarrierType', 'rdaContentType',
+        'rdaMediaType'
+    ]:
+        output.append({'label': _('contains'), 'value': 'contains'})
+    if field not in ['identifiedBy', 'isbn', 'issn']:
+        output.append({'label': _('phrase'), 'value': 'phrase'})
+    return output
+
+RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
+    {
+        'label': 'Title',
+        'value': 'title',
+        'field': 'title.*',
+        'options': {
+            'search_type': search_type('title')
+        }
+    },
+    {
+        'label': 'Responsibility statement',
+        'value': 'responsibilityStatement',
+        'field': 'responsibilityStatement.value',
+        'options': {
+            'search_type': search_type('responsibilityStatement')
+        }
+    },
+    {
+        'label': 'Contribution',
+        'value': 'contribution',
+        'field': 'contribution.entity.*',
+        'options': {
+            'search_type': search_type('contribution')
+        }
+    },
+    {
+        'label': 'Country',
+        'value': 'country',
+        'field': 'provisionActivity.place.country',
+        'options': {
+            'search_type': search_type('country')
+        }
+    },
+    {
+        'label': 'Canton',
+        'value': 'canton',
+        'field': 'provisionActivity.place.canton',
+        'options': {
+            'search_type': search_type('canton')
+        }
+    },
+    {
+        'label': 'Provision activity statement',
+        'value': 'provisionActivityStatement',
+        'field': 'provisionActivity._text.value',
+        'options': {
+            'search_type': search_type('provisionActivityStatement')
+        }
+    },
+    {
+        'label': 'Series statement',
+        'value': 'seriesStatement',
+        'field': 'seriesStatement.*',
+        'options': {
+            'search_type': search_type('seriesStatement')
+        }
+    },
+    {
+        'label': 'Identifier',
+        'value': 'identifiedBy',
+        'field': 'identifiedBy.value',
+        'options': {
+            'search_type': search_type('identifiedBy')
+        }
+    },
+    {
+        'label': 'ISBN',
+        'value': 'isbn',
+        'field': 'isbn',
+        'options': {
+            'search_type': search_type('isbn')
+        }
+    },
+    {
+        'label': 'ISSN',
+        'value': 'issn',
+        'field': 'issn',
+        'options': {
+            'search_type': search_type('issn')
+        }
+    },
+    {
+        'label': 'Genre, form',
+        'value': 'genreForm',
+        'field': 'genreForm.entity.*',
+        'options': {
+            'search_type': search_type('genreForm')
+        }
+    },
+    {
+        'label': 'Subject',
+        'value': 'subjects',
+        'field': 'subjects.entity.*',
+        'options': {
+            'search_type': search_type('subjects')
+        }
+    },
+    {
+        'label': 'Call number',
+        'value': 'callNumber',
+        'field': 'call_numbers',
+        'options': {
+            'search_type': search_type('callNumber')
+        }
+    },
+    {
+        'label': 'Local fields (document)',
+        'value': 'documentLocalFields',
+        'field': 'local_fields.*',
+        'options': {
+            'search_type': search_type('documentLocalFields')
+        }
+    },
+    {
+        'label': 'Local fields (holdings)',
+        'value': 'holdingsLocalFields',
+        'field': 'holdings.local_fields.*',
+        'options': {
+            'search_type': search_type('holdingsLocalFields')
+        }
+    },
+    {
+        'label': 'Local fields (items)',
+        'value': 'itemLocalFields',
+        'field': 'holdings.items.local_fields.*',
+        'options': {
+            'search_type': search_type('itemLocalFields')
+        }
+    },
+    {
+        'label': 'Classification',
+        'value': 'classification',
+        'field': 'classification.*',
+        'options': {
+            'search_type': search_type('classification')
+        }
+    },
+    {
+        'label': 'RDA content type',
+        'value': 'rdaContentType',
+        'field': 'contentMediaCarrier.contentType',
+        'options': {
+            'search_type': search_type('rdaContentType')
+        }
+    },
+    {
+        'label': 'RDA media type',
+        'value': 'rdaMediaType',
+        'field': 'contentMediaCarrier.mediaType',
+        'options': {
+            'search_type': search_type('rdaMediaType')
+        }
+    },
+    {
+        'label': 'RDA carrier type',
+        'value': 'rdaCarrierType',
+        'field': 'contentMediaCarrier.carrierType',
+        'options': {
+            'search_type': search_type('rdaCarrierType')
+        }
+    },
+]

@@ -134,6 +134,8 @@ def logged_user():
             'agentLabelOrder': config.get('RERO_ILS_AGENTS_LABEL_ORDER', {}),
             'agentSources': config.get('RERO_ILS_AGENTS_SOURCES', []),
             'operationLogs': config.get('RERO_ILS_ENABLE_OPERATION_LOG', []),
+            'documentAdvancedSearch': config.get(
+                'RERO_ILS_APP_DOCUMENT_ADVANCED_SEARCH', False),
             'userProfile': {
                 'readOnly': config.get(
                     'RERO_PUBLIC_USERPROFILES_READONLY', False),
