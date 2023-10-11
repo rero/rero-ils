@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2023-10-04 09:26+0200\n"
+"POT-Creation-Date: 2023-10-11 09:42+0200\n"
 "PO-Revision-Date: 2023-09-26 13:01+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language: nl\n"
@@ -4482,7 +4482,7 @@ msgid "Account URI"
 msgstr ""
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:99
-msgid "Choose a parent account\\u2026"
+msgid "Choose a parent account"
 msgstr ""
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:109
@@ -6364,7 +6364,6 @@ msgid "Birth date"
 msgstr "Geboortedatum"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
-#: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:97
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:83
 #, fuzzy
 msgid "Example: 1955"
@@ -9403,7 +9402,7 @@ msgid "Deletion date"
 msgstr "Verwijderingsdatum"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:63
-msgid "Example: Universit\\u00e9 de Bordeaux III"
+msgid "Example: University of Cambridge"
 msgstr ""
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:67
@@ -9418,7 +9417,11 @@ msgid "Authorized access point"
 msgstr ""
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:88
-msgid "Example: Institut d'histoire"
+msgid "Example: Faculty of Philosophy"
+msgstr ""
+
+#: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:97
+msgid "Example: 1848"
 msgstr ""
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:105
@@ -9527,7 +9530,7 @@ msgid "Example: Antiquities, Industrial"
 msgstr ""
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:54
-msgid "Example: Walk\\u00fcre"
+msgid "Example: The Lord of the Rings"
 msgstr ""
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:58
@@ -9538,7 +9541,7 @@ msgid "Creator"
 msgstr "Operator"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:62
-msgid "Example: Wagner, Richard, 1813-1883"
+msgid "Example: Tolkien, John Ronald Reuel, 1892-1973"
 msgstr ""
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:4
@@ -12938,4 +12941,3 @@ msgstr ""
 
 #~ msgid "Select…"
 #~ msgstr ""
-

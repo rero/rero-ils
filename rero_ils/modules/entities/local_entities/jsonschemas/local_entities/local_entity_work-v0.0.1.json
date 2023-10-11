@@ -51,7 +51,7 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: Walk\u00fcre"
+        "placeholder": "Example: The Lord of the Rings"
       }
     },
     "creator": {
@@ -59,7 +59,7 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: Wagner, Richard, 1813-1883"
+        "placeholder": "Example: Tolkien, John Ronald Reuel, 1892-1973"
       }
     },
     "authorized_access_point": {

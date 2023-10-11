@@ -96,7 +96,7 @@
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/acq_accounts/.*?$",
           "form": {
-            "placeholder": "Choose a parent account\u2026",
+            "placeholder": "Choose a parent account",
             "type": "account-select",
             "templateOptions": {
               "label": ""

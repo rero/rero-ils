@@ -20,17 +20,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2023-10-04 09:26+0200\n"
+"POT-Creation-Date: 2023-10-11 09:42+0200\n"
 "PO-Revision-Date: 2023-10-04 09:42+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/fr/>\n"
 "Language: fr\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/fr/>\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -4447,7 +4446,7 @@ msgid "Account URI"
 msgstr "URI du compte"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:99
-msgid "Choose a parent account\\u2026"
+msgid "Choose a parent account"
 msgstr "Choisir un compte parent"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:109
@@ -6173,8 +6172,8 @@ msgid ""
 "Person, family or corporate body (including conferences) and their "
 "contributing role for the document."
 msgstr ""
-"Personne, famille ou collectivité (y compris les conférences) et son rôle de "
-"contribution au document."
+"Personne, famille ou collectivité (y compris les conférences) et son rôle"
+" de contribution au document."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:14
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:13
@@ -6204,9 +6203,9 @@ msgid ""
 "conferences). Usually used temporarily until a link to an entity can be "
 "established."
 msgstr ""
-"Description textuelle d'une personne, d'une famille ou d'une collectivité (y "
-"compris conférences). Généralement temporaire, jusqu'à ce qu'un lien à une "
-"entité puisse être établi."
+"Description textuelle d'une personne, d'une famille ou d'une collectivité"
+" (y compris conférences). Généralement temporaire, jusqu'à ce qu'un lien "
+"à une entité puisse être établi."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:2
 msgid "Link to an agent"
@@ -6340,7 +6339,6 @@ msgid "Birth date"
 msgstr "Date de naissance"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:51
-#: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:97
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:83
 msgid "Example: 1955"
 msgstr "Exemple : 1955"
@@ -7477,8 +7475,8 @@ msgid ""
 "organisation (including conferences), place, temporal or work."
 msgstr ""
 "Description textuelle d'un thème (y compris genre et formes), d'une "
-"personne, d'une collectivité (y compris conférences), d'un lieu, d'un laps "
-"de temps ou d'une œuvre."
+"personne, d'une collectivité (y compris conférences), d'un lieu, d'un "
+"laps de temps ou d'une œuvre."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:121
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
@@ -7557,16 +7555,16 @@ msgid ""
 "Link to a remote or local entity of type topic accepted as a 'genre, "
 "form'."
 msgstr ""
-"Lien vers une entité distante ou locale de type thème acceptée comme 'genre, "
-"forme'."
+"Lien vers une entité distante ou locale de type thème acceptée comme "
+"'genre, forme'."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:31
 msgid ""
 "Textual description of a genre or form. Usually used temporarily until a "
 "link to an entity can be established."
 msgstr ""
-"Description textuelle d'un genre ou forme. Généralement temporaire, jusqu'à "
-"ce qu'un lien à une entité puisse être établi."
+"Description textuelle d'un genre ou forme. Généralement temporaire, "
+"jusqu'à ce qu'un lien à une entité puisse être établi."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:2
 msgid "Link to a genre, form"
@@ -8607,8 +8605,8 @@ msgid ""
 "Topic, person, organisation (including conferences), place, temporal or "
 "work that is a subject of the document."
 msgstr ""
-"Thème, personne, collectivité (y compris conférences), lieu, laps de temps "
-"ou œuvre qui est un sujet du document."
+"Thème, personne, collectivité (y compris conférences), lieu, laps de "
+"temps ou œuvre qui est un sujet du document."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 msgid ""
@@ -9303,7 +9301,7 @@ msgid "Deletion date"
 msgstr "Date de suppression"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:63
-msgid "Example: Universit\\u00e9 de Bordeaux III"
+msgid "Example: University of Cambridge"
 msgstr "Exemple : Université de Bordeaux III"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:67
@@ -9318,8 +9316,12 @@ msgid "Authorized access point"
 msgstr "Point d'accès autorisé"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:88
-msgid "Example: Institut d'histoire"
-msgstr "Exemple : Institut d'histoire"
+msgid "Example: Faculty of Philosophy"
+msgstr "Exemple :Institut d'Histoire"
+
+#: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:97
+msgid "Example: 1848"
+msgstr "Exemple : 1848"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_organisation-v0.0.1.json:105
 msgid "Example: 2015"
@@ -9425,8 +9427,8 @@ msgid "Example: Antiquities, Industrial"
 msgstr "Exemple : Antiquités, Industriel"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:54
-msgid "Example: Walk\\u00fcre"
-msgstr "Exemple : Walküre"
+msgid "Example: The Lord of the Rings"
+msgstr "Exemple : Le seigneur des anneaux"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:58
 #: rero_ils/modules/entities/templates/rero_ils/_local_work.html:21
@@ -9435,8 +9437,8 @@ msgid "Creator"
 msgstr "Créateur"
 
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_work-v0.0.1.json:62
-msgid "Example: Wagner, Richard, 1813-1883"
-msgstr "Exemple : Wagner, Richard, 1813-1883"
+msgid "Example: Tolkien, John Ronald Reuel, 1892-1973"
+msgstr "Exemple : Tolkien, John Ronald Reuel, 1892-1973"
 
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:4
 msgid "Mef entity"
