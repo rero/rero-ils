@@ -60,7 +60,7 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: Universit\u00e9 de Bordeaux III"
+        "placeholder": "Example: University of Cambridge"
       }
     },
     "authorized_access_point": {
@@ -85,7 +85,7 @@
         "type": "string",
         "minLength": 1,
         "form": {
-          "placeholder": "Example: Institut d'histoire"
+          "placeholder": "Example: Faculty of Philosophy"
         }
       }
     },
@@ -94,7 +94,7 @@
       "type": "string",
       "minLength": 1,
       "form": {
-        "placeholder": "Example: 1955"
+        "placeholder": "Example: 1848"
       }
     },
     "end_date": {
