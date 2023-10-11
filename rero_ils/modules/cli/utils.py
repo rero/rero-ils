@@ -422,7 +422,7 @@ def create_documents_with_items_lofis(infile, dont_stop_on_error,
             if debug:
                 traceback.print_exc()
             if save_errors:
-                error_file_lofi.write(record)
+                error_file_lofi.write(local_field_rec)
             if not dont_stop_on_error:
                 sys.exit(1)
         return counts
@@ -543,7 +543,7 @@ def create_documents_with_items_lofis(infile, dont_stop_on_error,
                     if debug:
                         traceback.print_exc()
                     if save_errors:
-                        error_file_item.write(record)
+                        error_file_item.write(item_rec)
                     if not dont_stop_on_error:
                         sys.exit(1)
                 # Local fields for items
