@@ -43,7 +43,7 @@
         "validation": {
           "validators": {
             "valueAlreadyExists": {
-              "term": "vendor_name"
+              "term": "name.raw"
             }
           },
           "messages": {

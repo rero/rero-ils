@@ -44,9 +44,12 @@ class AcqReceiptLineESDumper(InvenioRecordsDumper):
         if notes := record.get('notes', []):
             data['notes'] = [note['content'] for note in notes]
 
+        order_line = record.order_line
+        # Add acq_account information's: pid
+        data['acq_account'] = {'pid': order_line.account_pid}
         # Add document information's: pid, formatted title and ISBN identifiers
         # (remove None values from document metadata)
-        document = record.order_line.document
+        document = order_line.document
         identifiers = document.get_identifiers(
             filters=[IdentifierType.ISBN],
             with_alternatives=True
