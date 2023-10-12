@@ -126,7 +126,7 @@ msgstr "bibliothèque"
 
 #: rero_ils/config.py:1788 rero_ils/config.py:1820
 msgid "location"
-msgstr "Localisation"
+msgstr "localisation"
 
 #: rero_ils/config.py:1790 rero_ils/config.py:1824 rero_ils/config.py:1894
 #: rero_ils/config.py:1989 rero_ils/config.py:2019 rero_ils/config.py:2207
@@ -510,7 +510,7 @@ msgstr "monographie"
 #: rero_ils/manual_translations.txt:83
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:59
 msgid "serial"
-msgstr "série"
+msgstr "publication en série"
 
 #: rero_ils/manual_translations.txt:84
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:63
@@ -5646,7 +5646,7 @@ msgstr "Classification CDU"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:179
 msgid "bf:ClassificationDdc"
-msgstr "Classification CDD"
+msgstr "Classification décimale de Dewey (CDD)"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:224
 msgid "classification_brunetparguez"
@@ -8787,7 +8787,7 @@ msgstr "Titres principaux"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:66
 msgid "Main title"
-msgstr "Titre"
+msgstr "Titre principal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:71
 msgid "Subtitle"
@@ -11634,7 +11634,7 @@ msgstr "en espèces"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:201
 msgid "invoice"
-msgstr "facturé"
+msgstr "facture"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:205
 msgid "debit_card"
