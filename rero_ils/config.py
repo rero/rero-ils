@@ -1516,6 +1516,7 @@ RECORDS_REST_ENDPOINTS = dict(
         },
         record_serializers_aliases={
             'json': 'application/json',
+            'rero': 'application/rero+json'
         },
         search_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_search',
@@ -2016,7 +2017,6 @@ RECORDS_REST_FACETS = dict(
             _('library'): and_term_filter('library.pid'),
             _('vendor'): and_term_filter('vendor.pid'),
             _('type'): and_term_filter('type'),
-            _('status'): and_term_filter('status'),
             _('account'): and_term_filter('order_lines.account.pid'),
             _('budget'): and_term_filter('budget.pid'),
             _('order_date'): range_filter(
@@ -2032,6 +2032,9 @@ RECORDS_REST_FACETS = dict(
                 end_date_math='/d'
             )
         },
+        post_filters={
+            _('status'): terms_filter('status'),
+        }
     ),
     entities=dict(
         aggs=dict(
@@ -2365,6 +2368,22 @@ RECORDS_REST_SORT_OPTIONS['acq_orders']['receipt_date'] = dict(
     fields=['-receipts.receipt_date'], title='Receipt date',
     default_order='desc'
 )
+RECORDS_REST_SORT_OPTIONS['acq_orders']['order_date_new'] = dict(
+    fields=['-order_date'], title='Order date (newest)',
+    default_order='desc'
+)
+RECORDS_REST_SORT_OPTIONS['acq_orders']['order_date_old'] = dict(
+    fields=['order_date'], title='Order date (oldest)',
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['acq_orders']['reference_asc'] = dict(
+    fields=['reference.sort'], title='Reference (asc)',
+    default_order='asc'
+)
+RECORDS_REST_SORT_OPTIONS['acq_orders']['reference_desc'] = dict(
+    fields=['-reference.sort'], title='Reference (desc)',
+    default_order='desc'
+)
 RECORDS_REST_DEFAULT_SORT['acq_orders'] = dict(
     query='bestmatch', noquery='receipt_date')
 
@@ -2590,12 +2609,16 @@ RECORDS_REST_DEFAULT_SORT['templates'] = dict(
     query='bestmatch', noquery='name')
 
 # ------ VENDORS SORT
-RECORDS_REST_SORT_OPTIONS['vendors']['name'] = dict(
-    fields=['vendor_name'], title='Vendor name',
+RECORDS_REST_SORT_OPTIONS['vendors']['name_asc'] = dict(
+    fields=['name.sort'], title='Vendor name (asc)',
     default_order='asc'
 )
+RECORDS_REST_SORT_OPTIONS['vendors']['name_desc'] = dict(
+    fields=['-name.sort'], title='Vendor name (desc)',
+    default_order='desc'
+)
 RECORDS_REST_DEFAULT_SORT['vendors'] = dict(
-    query='bestmatch', noquery='name')
+    query='bestmatch', noquery='name_asc')
 
 # ------ PATRON TRANSACTION SORT
 RECORDS_REST_SORT_OPTIONS['patron_transaction_events']['created'] = dict(
@@ -3038,7 +3061,7 @@ RERO_ILS_MEF_CONFIG = {
         'base_url': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts'),
         'sources': ['idref'],
         'filters': [
-            {'idref.bnf_type': 'genre/forme Rameau'} 
+            {'idref.bnf_type': 'genre/forme Rameau'}
         ]
     },
     'places': {
