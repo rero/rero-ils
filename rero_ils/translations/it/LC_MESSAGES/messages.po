@@ -124,7 +124,7 @@ msgstr "biblioteca"
 
 #: rero_ils/config.py:1788 rero_ils/config.py:1820
 msgid "location"
-msgstr "Localizzazione"
+msgstr "localizzazione"
 
 #: rero_ils/config.py:1790 rero_ils/config.py:1824 rero_ils/config.py:1894
 #: rero_ils/config.py:1989 rero_ils/config.py:2019 rero_ils/config.py:2207
@@ -9529,7 +9529,7 @@ msgstr "Classificazione(i)"
 
 #: rero_ils/modules/entities/templates/rero_ils/_search_link.html:23
 msgid "Search documents"
-msgstr "ricerca dei documenti"
+msgstr "Ricerca dei documenti"
 
 #: rero_ils/modules/entities/templates/rero_ils/entity_local.html:33
 msgid "LOCAL ID"
@@ -11613,7 +11613,7 @@ msgstr "contanti"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:201
 msgid "invoice"
-msgstr "fatturato"
+msgstr "fattura"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:205
 msgid "debit_card"

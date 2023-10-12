@@ -419,7 +419,7 @@ msgstr "recibir"
 
 #: rero_ils/manual_translations.txt:55
 msgid "request"
-msgstr "reservar"
+msgstr "reservación"
 
 #: rero_ils/manual_translations.txt:56
 msgid "validate_request"
@@ -6377,7 +6377,7 @@ msgstr "Ejemplo: XXIII"
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:93
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:113
 msgid "Fuller form of Name"
-msgstr "Forma más completa del nombre"
+msgstr "Forma completa del nombre"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:94
 #: rero_ils/modules/entities/local_entities/jsonschemas/local_entities/local_entity_person-v0.0.1.json:114
@@ -8773,7 +8773,7 @@ msgstr "Títulos principales"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:66
 msgid "Main title"
-msgstr "Título"
+msgstr "Título principal"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_title-v0.0.1.json:71
 msgid "Subtitle"
@@ -11615,7 +11615,7 @@ msgstr "dinero efectivo"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:201
 msgid "invoice"
-msgstr "facturado"
+msgstr "factura"
 
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:205
 msgid "debit_card"
