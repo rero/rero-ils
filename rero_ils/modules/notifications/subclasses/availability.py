@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -92,10 +92,11 @@ class AvailabilityCirculationNotification(CirculationNotification):
             'delay': 0
         }
         # Availability notification could be sent with a delay. We need to find
-        # this delay into the library notifications settings.
+        # this delay into the library notifications settings and convert it
+        # from minutes to seconds.
         for setting in library.get('notification_settings', []):
             if setting['type'] == NotificationType.AVAILABILITY:
-                context['delay'] = setting.get('delay', 0)
+                context['delay'] = setting.get('delay', 0)*60
         # Add metadata for any ``notification.loan`` of the notifications list
         item_dumper = ItemNotificationDumper()
         for notification in notifications:
