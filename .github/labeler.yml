@@ -26,7 +26,7 @@ translations:
   - rero_ils/modules/documents/jsonschemas/**/*
   - rero_ils/modules/documents/utils.py
   - rero_ils/modules/items/jsonschemas/**/*
-  - rero_ils/modules/contributions/jsonschemas/**/*
+  - rero_ils/modules/entities/**/jsonschemas/**/*
   - rero_ils/modules/local_fields/jsonschemas/**/*
   - rero_ils/dojson/**/*
   - rero_ils/modules/**/dojson/**/*
