@@ -1,9 +1,0 @@
-[main]
-host = https://www.transifex.com
-
-[reroils.rero-ils-translations-messages-pot--dev]
-file_filter = rero_ils/translations/<lang>/LC_MESSAGES/messages.po
-source_file = rero_ils/translations/messages.pot
-source_lang = en_US
-type = PO
-
