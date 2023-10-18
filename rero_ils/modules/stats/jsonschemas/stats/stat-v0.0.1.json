@@ -22,7 +22,8 @@
       "type": "string",
       "enum": [
         "billing",
-        "librarian"
+        "librarian",
+        "report"
       ]
     },
     "date_range": {
@@ -33,6 +34,9 @@
       "title": "Stat ID.",
       "type": "string",
       "minLength": 1
+    },
+    "config": {
+      "$ref": "https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json"
     },
     "values": {
       "title": "Statistics",

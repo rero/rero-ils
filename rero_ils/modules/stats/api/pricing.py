@@ -18,6 +18,8 @@
 
 """To compute the statistics for pricing."""
 
+from datetime import datetime
+
 import arrow
 from dateutil.relativedelta import relativedelta
 from flask import current_app
@@ -46,6 +48,8 @@ class StatsForPricing:
 
         :param to_date: end date of the statistics date range
         """
+        if to_date and isinstance(to_date, datetime):
+            to_date = arrow.Arrow.fromdatetime(to_date)
         to_date = to_date or arrow.utcnow() - relativedelta(days=1)
         self.months_delta = current_app.config.get(
             'RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHS'
@@ -151,7 +155,7 @@ class StatsForPricing:
         :return: the number of matched libraries
         :rtype: integer
         """
-        return LibrariesSearch().by_organisation_id(organisation_pid).count()
+        return LibrariesSearch().by_organisation_pid(organisation_pid).count()
 
     def number_of_librarians(self, library_pid):
         """Number of users with a librarian role.

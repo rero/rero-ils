@@ -20,6 +20,7 @@
 
 
 import hashlib
+from datetime import datetime
 
 import arrow
 from dateutil.relativedelta import relativedelta
@@ -48,6 +49,8 @@ class StatsForLibrarian(StatsForPricing):
 
         :param to_date: end date of the statistics date range
         """
+        if to_date and isinstance(to_date, datetime):
+            to_date = arrow.Arrow.fromdatetime(to_date)
         to_date = to_date or arrow.utcnow() - relativedelta(days=1)
         # Get statistics per month
         _from = f'{to_date.year}-{to_date.month:02d}-01T00:00:00'
