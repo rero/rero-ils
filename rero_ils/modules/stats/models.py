@@ -46,3 +46,4 @@ class StatType:
 
     BILLING = 'billing'
     LIBRARIAN = 'librarian'
+    REPORT = 'report'
