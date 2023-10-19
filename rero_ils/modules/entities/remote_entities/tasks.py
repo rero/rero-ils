@@ -52,7 +52,8 @@ def delete_records(records, verbose=False):
 
 
 @shared_task(ignore_result=True)
-def sync_entities(from_last_date=True, verbose=0, dry_run=False):
+def sync_entities(
+        from_last_date=True, verbose=0, dry_run=False, in_memory=True):
     """Synchronize the entities within the MEF server.
 
     :param from_last_date: (boolean) if True try to consider agent modified
@@ -62,7 +63,8 @@ def sync_entities(from_last_date=True, verbose=0, dry_run=False):
     """
     sync_entity = SyncEntity(
         from_last_date=from_last_date, verbose=verbose, dry_run=dry_run)
-    n_doc_updated, n_mef_updated, sync_mef_errors = sync_entity.sync()
+    n_doc_updated, n_mef_updated, sync_mef_errors = sync_entity.sync(
+        in_memory=in_memory)
     n_mef_removed, clean_mef_errors = sync_entity.remove_unused()
     return {
         'n_doc_updated': n_doc_updated,
