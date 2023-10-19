@@ -306,7 +306,7 @@ _ENCODING_LEVEL_MAPPING = {
 }
 
 _CONTRIBUTION_TAGS = ['100', '600', '610', '611', '630', '650', '651',
-                      '655', '700', '710', '711']
+                      '655', '700', '701', '702', '703', '710', '711', '712']
 
 schema_in_bytes = resource_string(
     'rero_ils.jsonschemas',
@@ -2028,8 +2028,9 @@ def get_gnd_de_101(de_588):
     response = requests_retry_session().get(url)
     if response.status_code == requests.codes.ok:
         result = xmltodict.parse(response.text)
-        return result['searchRetrieveResponse']['records']['record'][
-            'recordData']['dc']['dc:identifier']['#text']
+        with contextlib.suppress(Exception):
+            return result['searchRetrieveResponse']['records']['record'][
+                'recordData']['dc']['dc:identifier']['#text']
 
 
 def build_identifier(data):
