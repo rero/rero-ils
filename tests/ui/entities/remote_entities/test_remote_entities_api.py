@@ -380,9 +380,13 @@ def test_replace_identified_by(
         assert not_found == 2
         assert rero_only == 0
         assert replace_identified_by.not_found == {
-            'gnd:1161956409': 'bf:Organisation: Convegno internazionale '
-                              'di italianistica Craiova',
-            'rero:A003633163': 'bf:Person: Nebehay, Christian Michael'
+            'bf:Organisation': {
+                'gnd:1161956409': 'Convegno internazionale '
+                                  'di italianistica Craiova'
+            },
+            'bf:Person': {
+                    'rero:A003633163': 'Nebehay, Christian Michael'
+            }
         }
         replace_identified_by.set_timestamp()
         data = replace_identified_by.get_timestamp()
@@ -404,7 +408,9 @@ def test_replace_identified_by(
         assert not_found == 0
         assert rero_only == 1
         assert replace_identified_by.rero_only == {
-            'rero:A003633163': 'bf:Person: Nebehay, Christian Michael'
+            'bf:Person': {
+                'rero:A003633163': 'Nebehay, Christian Michael'
+            }
         }
     # with MEF response for concepts in subjects
     replace_identified_by = ReplaceIdentifiedBy(
@@ -434,10 +440,15 @@ def test_replace_identified_by(
         assert not_found == 0
         assert rero_only == 3
         assert dict(sorted(replace_identified_by.rero_only.items())) == {
-            'rero:A009963344':
-                'bf:Person: Athenagoras (patriarche oecuménique ; 1)',
-            'rero:A021039750': 'bf:Topic: Bases de données déductives',
-            'rero:A009975209': 'bf:Place: Europe occidentale'
+            'bf:Person': {
+                'rero:A009963344': 'Athenagoras (patriarche oecuménique ; 1)'
+            },
+            'bf:Topic': {
+                'rero:A021039750': 'Bases de données déductives'
+            },
+            'bf:Place': {
+                'rero:A009975209': 'Europe occidentale'
+            }
         }
 
 
