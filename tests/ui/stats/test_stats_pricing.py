@@ -35,7 +35,7 @@ def test_stats_pricing_collect(stat_for_pricing):
         'library', 'number_of_documents', 'number_of_libraries',
         'number_of_librarians', 'number_of_active_patrons',
         'number_of_order_lines', 'number_of_checkouts', 'number_of_renewals',
-        'number_of_validated_ill_requests', 'number_of_items',
+        'number_of_ill_requests', 'number_of_items',
         'number_of_new_items', 'number_of_deleted_items', 'number_of_patrons',
         'number_of_new_patrons', 'number_of_checkins', 'number_of_requests']
 
@@ -95,19 +95,19 @@ def test_stats_pricing_number_of_circ_operations(
             lib_martigny.pid, ItemCirculationAction.CHECKOUT) == 1
 
 
-def test_stats_pricing_number_of_ill_requests_operations(
+def test_stats_pricing_number_of_ill_requests(
         stat_for_pricing, ill_request_martigny, lib_martigny):
-    """Test the number of ILL requests creation or update operations."""
+    """Test the number of ILL requests."""
     assert stat_for_pricing\
-        .number_of_ill_requests_operations(
-            'foo', [ILLRequestStatus.VALIDATED]) == 0
+        .number_of_ill_requests(
+            'foo', [ILLRequestStatus.DENIED]) == 0
     lib_pid = lib_martigny.pid
     assert stat_for_pricing\
-        .number_of_ill_requests_operations(
-            lib_pid, [ILLRequestStatus.CLOSED]) == 0
+        .number_of_ill_requests(
+            lib_pid, [ILLRequestStatus.DENIED]) == 1
     assert stat_for_pricing\
-        .number_of_ill_requests_operations(
-            lib_pid, [ILLRequestStatus.PENDING]) == 1
+        .number_of_ill_requests(
+            lib_pid, [ILLRequestStatus.PENDING]) == 0
 
 
 def test_stats_pricing_number_of_items(
