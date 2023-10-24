@@ -26,13 +26,13 @@ from invenio_search.api import RecordsSearch
 from rero_ils.modules.acquisition.acq_order_lines.api import \
     AcqOrderLinesSearch
 from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.ill_requests.api import ILLRequestsSearch
 from rero_ils.modules.ill_requests.models import ILLRequestStatus
 from rero_ils.modules.items.api import ItemsSearch
 from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.loans.logs.api import LoanOperationLogsSearch
-from rero_ils.modules.operation_logs.api import OperationLog, \
-    OperationLogsSearch
+from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.patrons.api import PatronsSearch
 from rero_ils.modules.stats.api.api import StatsSearch
 from rero_ils.modules.users.models import UserRole
@@ -114,9 +114,9 @@ class StatsForPricing:
             'number_of_renewals':
                 self.number_of_circ_operations(
                     library.pid, ItemCirculationAction.EXTEND),
-            'number_of_validated_ill_requests':
-                self.number_of_ill_requests_operations(
-                    library.pid, [ILLRequestStatus.VALIDATED]),
+            'number_of_ill_requests':
+                self.number_of_ill_requests(
+                    library.pid, [ILLRequestStatus.DENIED]),
             'number_of_items': self.number_of_items(library.pid),
             'number_of_new_items': self.number_of_new_items(library.pid),
             'number_of_deleted_items': self.number_of_deleted_items(
@@ -209,20 +209,18 @@ class StatsForPricing:
             ).filter('term', loan__item__library_pid=library_pid)\
             .count()
 
-    def number_of_ill_requests_operations(self, library_pid, status):
-        """Number of ILL requests creation or update operations.
+    def number_of_ill_requests(self, library_pid, exclude_status):
+        """Number of existing ILL requests for a time range and a library.
 
         :param library_pid: string - the library to filter with
-        :param status: list of status to filter with
-        :return: the number of matched inter library loan request
+        :param exclude_status: list of statuses to exclude from the count
+        :return: the number of matched inter library loan requests
         :rtype: integer
         """
-        query = OperationLogsSearch()\
-            .filter('term', record__type='illr')\
-            .filter('terms', operation=['update', 'create'])\
+        query = ILLRequestsSearch()\
             .filter('range', _created=self.date_range)\
-            .filter('term', ill_request__library_pid=library_pid)\
-            .filter('terms', ill_request__status=status)
+            .filter('term', library__pid=library_pid)\
+            .exclude('terms', status=exclude_status)
         return query.count()
 
     # -------- optional -----------
