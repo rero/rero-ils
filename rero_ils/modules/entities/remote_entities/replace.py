@@ -24,6 +24,7 @@ from datetime import datetime, timezone
 
 import requests
 from flask import current_app
+from sqlalchemy.orm.exc import NoResultFound
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.utils import get_mef_url, get_timestamp, \
@@ -157,13 +158,15 @@ class ReplaceIdentifiedBy(object):
         """
         changed = False
         doc_entity_type = entity['entity']['type']
+        self.not_found.setdefault(doc_entity_type, {})
+        self.rero_only.setdefault(doc_entity_type, {})
         if mef_type := self.entity_types.get(doc_entity_type):
             source_pid = entity['entity']['identifiedBy']['value']
             source = entity['entity']['identifiedBy']['type'].lower()
             identifier = f'{source}:{source_pid}'
             if (
-                identifier in self.not_found or
-                identifier in self.rero_only
+                identifier in self.not_found[doc_entity_type] or
+                identifier in self.rero_only[doc_entity_type]
             ):
                 # MEF was not found previously. Do not try it again.
                 return None
@@ -200,7 +203,7 @@ class ReplaceIdentifiedBy(object):
                             f'{doc_entity_type} != {mef_entity_type} '
                             f': "{authorized_access_point}"'
                         )
-                        self.rero_only[identifier] = info
+                        self.rero_only[doc_entity_type][identifier] = info
                         self.logger.warning(
                             f'Type differ:{doc_pid} '
                             f'{self.field} - ({mef_type}) {identifier} {info}'
@@ -208,8 +211,8 @@ class ReplaceIdentifiedBy(object):
                 else:
                     authorized_access_point = mef_data.get(
                         source, {}).get('authorized_access_point')
-                    info = f'{doc_entity_type}: {authorized_access_point}'
-                    self.rero_only[identifier] = info
+                    info = f'{authorized_access_point}'
+                    self.rero_only[doc_entity_type][identifier] = info
                     self.logger.info(
                         f'No other source found for document:{doc_pid} '
                         f'{self.field} - ({mef_type}|{doc_entity_type}) '
@@ -218,12 +221,14 @@ class ReplaceIdentifiedBy(object):
             else:
                 authorized_access_point = entity[
                     'entity']['authorized_access_point']
-                info = f'{doc_entity_type}: {authorized_access_point}'
-                self.not_found[identifier] = info
+                info = f'{authorized_access_point}'
+                self.not_found[doc_entity_type][identifier] = info
                 self.logger.info(
                     f'No MEF found for document:{doc_pid} '
                     f' - ({mef_type}) {identifier} "{info}"'
                 )
+        self.not_found = {k: v for k, v in self.not_found.items() if v}
+        self.rero_only = {k: v for k, v in self.rero_only.items() if v}
         return changed
 
     def _replace_entities_in_document(self, doc_id):
@@ -232,7 +237,7 @@ class ReplaceIdentifiedBy(object):
         :param doc_id: (string) document id
         """
         changed = False
-        with contextlib.suppress(Exception):
+        with contextlib.suppress(NoResultFound):
             doc = Document.get_record(doc_id)
             entities_to_update = filter(
                 lambda c: c.get('entity', {}).get('identifiedBy'),
@@ -248,6 +253,10 @@ class ReplaceIdentifiedBy(object):
             if changed:
                 return doc
 
+    def _error_count(self, counter_dict):
+        """Summ of error count."""
+        return sum(len(values) for values in counter_dict.values())
+
     def run(self):
         """Replace identifiedBy with $ref."""
         self.changed = 0
@@ -256,16 +265,17 @@ class ReplaceIdentifiedBy(object):
         self.logger.info(
                 f'Found {self.field} identifiedBy: {self.count()}')
         query = self.query \
-            .params(preserve_order=True) \
-            .sort({'_created': {'order': 'asc'}}) \
-            .source(['pid', self.field])
+                    .params(preserve_order=True) \
+                    .sort({'_created': {'order': 'asc'}}) \
+                    .source(['pid', self.field])
         for hit in list(query.scan()):
             if doc := self._replace_entities_in_document(hit.meta.id):
                 self.changed += 1
                 if not self.dry_run:
                     doc.update(data=doc, dbcommit=True, reindex=True)
         self.set_timestamp()
-        return self.changed, len(self.not_found), len(self.rero_only)
+        return self.changed, self._error_count(self.not_found), \
+            self._error_count(self.rero_only)
 
     def get_timestamp(self):
         """Get time stamp."""
@@ -287,8 +297,8 @@ class ReplaceIdentifiedBy(object):
         # rero only: entity was found but has only `rero` as source.
         data[self.field] = {
             'changed': self.changed,
-            'not found': len(self.not_found),
-            'rero only': len(self.rero_only),
+            'not found': self._error_count(self.not_found),
+            'rero only': self._error_count(self.rero_only),
             'time': datetime.now(timezone.utc),
         }
         set_timestamp(self.timestamp_name, **data)

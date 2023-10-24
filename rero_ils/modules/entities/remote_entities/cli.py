@@ -135,11 +135,15 @@ def replace_identified_by_cli(field, dry_run, verbose, log_dir):
             fg='green'
         )
         if verbose:
-            if replace_identified_by.not_found:
+            if replace_identified_by._error_count(
+                    replace_identified_by.not_found):
                 click.secho('Not found:', fg='yellow')
-                for pid, data in replace_identified_by.not_found.items():
-                    click.echo(f'\t{pid}: {data}')
-            if replace_identified_by.rero_only:
+                for etype, values in replace_identified_by.not_found.items():
+                    for pid, data in values.items():
+                        click.echo(f'\t{etype} {pid}: {data}')
+            if replace_identified_by._error_count(
+                    replace_identified_by.rero_only):
                 click.secho('RERO only:', fg='yellow')
-                for pid, data in replace_identified_by.rero_only.items():
-                    click.echo(f'\t{pid}: {data}')
+                for etype, values in replace_identified_by.rero_only.items():
+                    for pid, data in values.items():
+                        click.echo(f'\t{pid}: {data}')
