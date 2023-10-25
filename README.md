@@ -11,6 +11,7 @@ Number](https://img.shields.io/github/tag/rero/rero-ils.svg)](https://github.com
 room](https://img.shields.io/gitter/room/rero/reroils.svg)](https://gitter.im/rero/reroils)
 [![Translation
 status](https://hosted.weblate.org/widgets/rero_plus/-/rero-ils/svg-badge.svg)](https://hosted.weblate.org/engage/rero_plus/?utm_source=widget)
+[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://python-poetry.org/)
 
 
 <!-- PROJECT LOGO -->
