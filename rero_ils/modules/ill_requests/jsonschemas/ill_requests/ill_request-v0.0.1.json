@@ -40,7 +40,7 @@
     },
     "status": {
       "type": "string",
-      "title": "Status",
+      "title": "Request status",
       "enum": [
         "pending",
         "validated",
@@ -109,7 +109,8 @@
         "PENDING",
         "ITEM_AT_DESK",
         "ITEM_ON_LOAN",
-        "ITEM_RETURNED"
+        "ITEM_RETURNED",
+        "CANCELLED"
       ],
       "default": "PENDING",
       "form": {
@@ -130,6 +131,10 @@
           {
             "value": "ITEM_RETURNED",
             "label": "ITEM_RETURNED"
+          },
+          {
+            "value": "CANCELLED",
+            "label": "CANCELLED"
           }
         ]
       }
