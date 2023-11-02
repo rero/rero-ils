@@ -45,8 +45,13 @@ editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))
 monitoring_permission = Permission(RoleNeed('monitoring'))
 
 
+def admin_permission_factory(record, *args, **kwargs):
+    """User has admin role."""
+    return admin_permission
+
+
 def librarian_permission_factory(record, *args, **kwargs):
-    """User has editor role."""
+    """User has librarian role."""
     return librarian_permission
 
 

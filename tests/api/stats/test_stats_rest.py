@@ -73,7 +73,23 @@ def test_stats_librarian_data(
     params = dict(pid_value=stats_librarian.pid)
     item_url = url_for('invenio_records_rest.stat_item', **params)
 
+    # system librarian could view all libraries stats for its own organisation
+    login_user_via_session(client, system_librarian_martigny.user)
+    res = client.get(item_url)
+    data = res.get_json()
+    filtered_stat_libs = {
+        value['library']['pid'] for value in data['metadata']['values']
+    }
+    manageable_libs = set(system_librarian_martigny.manageable_library_pids)
+
+    assert not filtered_stat_libs.difference(manageable_libs)
+
+    # Check filtered librarian stats by libraries
+    librarian_martigny['roles'].append('pro_statistic_manager')
+    librarian_martigny.update(
+        librarian_martigny, dbcommit=False, reindex=False)
     login_user_via_session(client, librarian_martigny.user)
+
     res = client.get(item_url)
     data = res.get_json()
 
@@ -83,7 +99,7 @@ def test_stats_librarian_data(
 
     # Check that response contains only stats for the manageable libraries.
     # This filter is applied by the 'pre_dump' resource extension
-    manageable_libs = set(librarian_martigny.library_pids)
+    manageable_libs = set(librarian_martigny.manageable_library_pids)
     initial_stat_libs = {
         value['library']['pid'] for value in stats_librarian['values']
     }
@@ -92,13 +108,5 @@ def test_stats_librarian_data(
     }
     assert initial_stat_libs.difference(manageable_libs)
     assert not filtered_stat_libs.difference(manageable_libs)
-
-    # system librarian could view all libraries stats for its own organisation
-    login_user_via_session(client, system_librarian_martigny.user)
-    res = client.get(item_url)
-    data = res.get_json()
-    filtered_stat_libs = {
-        value['library']['pid'] for value in data['metadata']['values']
-    }
-    manageable_libs = set(librarian_martigny.organisation.get_libraries_pids())
-    assert not filtered_stat_libs.difference(manageable_libs)
+    from invenio_db import db
+    db.session.rollback()

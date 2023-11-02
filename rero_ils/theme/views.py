@@ -197,6 +197,7 @@ def schemaform(document_type):
     doc_type = document_type
     doc_type = re.sub('ies$', 'y', doc_type)
     doc_type = re.sub('s$', '', doc_type)
+    doc_type = re.sub('s_cfg$', '_cfg', doc_type)
     data = {}
     schema = None
     schema_name = None

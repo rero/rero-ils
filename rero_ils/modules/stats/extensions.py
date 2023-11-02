@@ -22,6 +22,8 @@ from invenio_records.extensions import RecordExtension
 
 from rero_ils.modules.patrons.api import current_librarian
 
+from .models import StatType
+
 
 class StatisticsDumperExtension(RecordExtension):
     """Statistics extension defining record dumping behavior."""
@@ -38,14 +40,16 @@ class StatisticsDumperExtension(RecordExtension):
         :param data: the data to dump.
         :param dumper: the dumper class used to dump the record.
         """
+        # to filter the search list results
+        if org := record.get('config', {}).get('organisation'):
+            record['organisation'] = org
+
         if not current_librarian:
             return
 
-        library_pids = current_librarian.library_pids
-        if current_librarian.has_full_permissions:
-            library_pids = current_librarian.organisation.get_libraries_pids()
-
-        record['values'] = list(filter(
-            lambda lib: lib['library']['pid'] in library_pids,
-            record['values']
-        ))
+        if record['type'] == StatType.LIBRARIAN:
+            library_pids = current_librarian.manageable_library_pids
+            record['values'] = list(filter(
+                lambda lib: lib['library']['pid'] in library_pids,
+                record['values']
+            ))

@@ -40,7 +40,7 @@ def test_stats_report_number_of_items(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [[0]]
+    assert StatsReport(cfg).collect() == [[0]]
 
     # fixtures
     es.index(index='items', id='1', body={
@@ -85,7 +85,7 @@ def test_stats_report_number_of_items(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [[3]]
+    assert StatsReport(cfg).collect() == [[3]]
 
     # one distrubtions
     cfg = {
@@ -100,7 +100,7 @@ def test_stats_report_number_of_items(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
         [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 2]
     ]
@@ -118,7 +118,7 @@ def test_stats_report_number_of_items(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['', '2023-02', '2024-01'],
         [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 0, 1],
         [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 2, 0]
@@ -137,7 +137,7 @@ def test_stats_report_number_of_items(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
@@ -160,7 +160,7 @@ def test_stats_report_number_of_items(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
@@ -183,7 +183,7 @@ def test_stats_report_number_of_items(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
@@ -214,7 +214,7 @@ def test_stats_report_number_of_items(
     label_loc_pub_martigny_bourg = f'{lib_martigny_bourg["name"]} / '\
         f'{loc_public_martigny_bourg["name"]} '\
         f'({loc_public_martigny_bourg.pid})'
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             label_loc_pub_martigny_bourg,

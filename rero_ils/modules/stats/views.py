@@ -31,6 +31,7 @@ from flask import Blueprint, abort, make_response, render_template, request
 
 from .api.api import Stat, StatsSearch
 from .api.pricing import StatsForPricing
+from .models import StatType
 from .permissions import check_logged_as_admin, check_logged_as_librarian
 from .serializers import StatCSVSerializer
 
@@ -69,13 +70,13 @@ def stats_billing():
 
     Note: includes old statistics where the field type was absent.
     """
-    f = ~Q('exists', field='type') | Q('term', type='billing')
+    f = ~Q('exists', field='type') | Q('term', type=StatType.BILLING)
     search = StatsSearch().filter('bool', must=[f]).sort('-_created')\
         .source(['pid', '_created'])
     hits = search[0:100].execute().to_dict()
     return render_template(
         'rero_ils/stats_list.html', records=hits['hits']['hits'],
-        type='billing')
+        type=StatType.BILLING)
 
 
 @blueprint.route('/live', methods=['GET'])
@@ -93,7 +94,8 @@ def live_stats_billing():
 @check_logged_as_librarian
 def stats_librarian():
     """Show the list of the first 100 items on the librarian stats list."""
-    search = StatsSearch().filter('term', type='librarian').sort('-_created')\
+    search = StatsSearch()\
+        .filter('term', type=StatType.LIBRARIAN).sort('-_created')\
         .source(['pid', '_created', 'date_range'])
     hits = search[0:100].execute().to_dict()
     return render_template(

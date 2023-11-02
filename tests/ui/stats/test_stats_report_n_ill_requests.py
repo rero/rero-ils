@@ -50,7 +50,7 @@ def test_stats_report_number_of_ill_requests(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [[0]]
+    assert StatsReport(cfg).collect() == [[0]]
 
     # fixtures
     es.index(index='ill_requests', id='1', body={
@@ -91,7 +91,7 @@ def test_stats_report_number_of_ill_requests(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [[3]]
+    assert StatsReport(cfg).collect() == [[3]]
     cfg = {
         "organisation": {
             "$ref": "https://bib.rero.ch/api/organisations/org1"
@@ -109,7 +109,7 @@ def test_stats_report_number_of_ill_requests(
         'rero_ils.modules.stats.api.report.datetime'
     ) as mock_datetime:
         mock_datetime.now.return_value = datetime(year=2024, month=1, day=1)
-        assert StatsReport(cfg).compute() == [[2]]
+        assert StatsReport(cfg).collect() == [[2]]
     # one distrubtions
     cfg = {
         "organisation": {
@@ -123,7 +123,7 @@ def test_stats_report_number_of_ill_requests(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [label_loc_pub_martigny_bourg, 1],
         [label_loc_pub_martigny, 1],
         [label_loc_rest_martigny, 1]
@@ -142,7 +142,7 @@ def test_stats_report_number_of_ill_requests(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['', '2023-02', '2024-01'],
         [label_loc_pub_martigny_bourg, 0, 1],
         [label_loc_pub_martigny, 1, 0],
@@ -162,7 +162,7 @@ def test_stats_report_number_of_ill_requests(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             label_loc_pub_martigny_bourg,
@@ -186,7 +186,7 @@ def test_stats_report_number_of_ill_requests(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             label_loc_pub_martigny_bourg,
@@ -210,7 +210,7 @@ def test_stats_report_number_of_ill_requests(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             label_loc_pub_martigny_bourg,
