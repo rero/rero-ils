@@ -680,43 +680,39 @@
   ],
   "stat-access": [
     "pro_full_permissions",
-    "pro_library_administrator"
+    "pro_statistic_manager"
   ],
   "stat-search": [
-    "admin",
-    "monitoring",
-    "pro_read_only",
-    "pro_full_permissions"
+    "pro_full_permissions",
+    "pro_statistic_manager"
   ],
   "stat-read": [
-    "admin",
-    "monitoring",
-    "pro_read_only",
-    "pro_full_permissions"
+    "pro_full_permissions",
+    "pro_statistic_manager"
   ],
   "stat_cfg-access": [
     "pro_full_permissions",
-    "pro_statistics_manager"
+    "pro_statistic_manager"
   ],
   "stat_cfg-search": [
     "pro_full_permissions",
-    "pro_statistics_manager"
+    "pro_statistic_manager"
   ],
   "stat_cfg-read": [
     "pro_full_permissions",
-    "pro_statistics_manager"
+    "pro_statistic_manager"
   ],
   "stat_cfg-create": [
     "pro_full_permissions",
-    "pro_statistics_manager"
+    "pro_statistic_manager"
   ],
   "stat_cfg-update": [
     "pro_full_permissions",
-    "pro_statistics_manager"
+    "pro_statistic_manager"
   ],
   "stat_cfg-delete": [
     "pro_full_permissions",
-    "pro_statistics_manager"
+    "pro_statistic_manager"
   ],
   "tmpl-access": [
     "pro_full_permissions",

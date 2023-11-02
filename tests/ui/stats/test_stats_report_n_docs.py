@@ -78,7 +78,7 @@ def test_stats_report_number_of_documents(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [[2]]
+    assert StatsReport(cfg).collect() == [[2]]
 
     # one distrubtions
     cfg = {
@@ -93,7 +93,7 @@ def test_stats_report_number_of_documents(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
         [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1]
     ]
@@ -111,7 +111,7 @@ def test_stats_report_number_of_documents(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['', '2023-02', '2024-01'],
         [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 0, 1],
         [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1, 0]
@@ -130,7 +130,7 @@ def test_stats_report_number_of_documents(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
@@ -153,7 +153,7 @@ def test_stats_report_number_of_documents(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
@@ -176,7 +176,7 @@ def test_stats_report_number_of_documents(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['', 'imported', 'not imported'],
         [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 0, 1],
         [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1, 0]
@@ -195,7 +195,7 @@ def test_stats_report_number_of_documents(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',

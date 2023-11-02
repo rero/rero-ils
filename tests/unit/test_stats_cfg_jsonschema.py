@@ -36,8 +36,8 @@ def test_valid_configuration(stats_cfg_schema, stats_cfg_martigny_data):
     validate(stats_cfg_martigny_data, stats_cfg_schema)
 
 
-def test_valid_catalogue_category(stats_cfg_schema):
-    """Test valid catalogue category field."""
+def test_valid_circulation_n_docs(stats_cfg_schema):
+    """Test number of documents."""
     data = {
         '$schema':
             'https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json',
@@ -51,47 +51,183 @@ def test_valid_catalogue_category(stats_cfg_schema):
         'category': {
             'type': 'catalogue',
             'indicator': {
-                'type': 'number_of_documents',
-                'distributions': [
-                    'time_range_month'
-                ],
-                'filter': 'foo=bar'
+                'type': 'number_of_documents'
             }
         },
         'is_active': True
     }
-    validate(data, stats_cfg_schema)
+    for dist in ['created_month', 'created_year', 'imported', 'library']:
+        data['category']['indicator']['distributions'] = [dist]
+        validate(data, stats_cfg_schema)
 
-
-def test_invalid_catalogue_category(stats_cfg_schema):
-    """Test valid catalogue category field."""
-    data = {
-        '$schema':
-            'https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json',
-        'pid': 'statcfg1',
-        'name': 'foo',
-        'description': 'bar',
-        'frequency': 'month',
-        'organisation': {
-            '$ref': 'https://bib.rero.ch/api/organisations/org1'
-        },
-        'category': {
-            'type': 'catalogue',
-            'indicator': {
-                'type': 'number_of_documents',
-                'distributions': [
-                    'item_location'
-                ]
-            }
-        },
-        'is_active': True
-    }
+    data['category']['indicator']['distributions'] = ["foo"]
     with pytest.raises(ValidationError):
         validate(data, stats_cfg_schema)
 
 
-def test_valid_circulation_category(stats_cfg_schema):
-    """Test valid circulation category field."""
+def test_valid_circulation_n_serial_holdings(stats_cfg_schema):
+    """Test number of serial holdings."""
+    data = {
+        '$schema':
+            'https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json',
+        'pid': 'statcfg1',
+        'name': 'foo',
+        'description': 'bar',
+        'frequency': 'month',
+        'organisation': {
+            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        },
+        'category': {
+            'type': 'catalogue',
+            'indicator': {
+                'type': 'number_of_serial_holdings'
+            }
+        },
+        'is_active': True
+    }
+    for dist in ['created_month', 'created_year', 'library']:
+        data['category']['indicator']['distributions'] = [dist]
+        validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['distributions'] = ["foo"]
+    with pytest.raises(ValidationError):
+        validate(data, stats_cfg_schema)
+
+
+def test_valid_circulation_n_items(stats_cfg_schema):
+    """Test number of items."""
+    data = {
+        '$schema':
+            'https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json',
+        'pid': 'statcfg1',
+        'name': 'foo',
+        'description': 'bar',
+        'frequency': 'month',
+        'organisation': {
+            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        },
+        'category': {
+            'type': 'catalogue',
+            'indicator': {
+                'type': 'number_of_items'
+            }
+        },
+        'is_active': True
+    }
+    for dist in [
+        'created_month', 'created_year', 'library', 'location', 'type'
+    ]:
+        data['category']['indicator']['distributions'] = [dist]
+        validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['distributions'] = ["foo"]
+    with pytest.raises(ValidationError):
+        validate(data, stats_cfg_schema)
+
+
+def test_valid_circulation_n_patrons(stats_cfg_schema):
+    """Test number of patrons."""
+    data = {
+        '$schema':
+            'https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json',
+        'pid': 'statcfg1',
+        'name': 'foo',
+        'description': 'bar',
+        'frequency': 'month',
+        'organisation': {
+            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        },
+        'category': {
+            'type': 'user_management',
+            'indicator': {
+                'type': 'number_of_patrons'
+            }
+        },
+        'is_active': True
+    }
+    for dist in [
+        'created_month', 'created_year', 'postal_code', 'type', 'gender',
+        'birth_year', 'role'
+    ]:
+        data['category']['indicator']['distributions'] = [dist]
+        validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['distributions'] = ["foo"]
+    with pytest.raises(ValidationError):
+        validate(data, stats_cfg_schema)
+
+
+def test_valid_circulation_n_active_patrons(stats_cfg_schema):
+    """Test number of active patrons."""
+    data = {
+        '$schema':
+            'https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json',
+        'pid': 'statcfg1',
+        'name': 'foo',
+        'description': 'bar',
+        'frequency': 'month',
+        'organisation': {
+            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        },
+        'category': {
+            'type': 'user_management',
+            'indicator': {
+                'type': 'number_of_active_patrons'
+            }
+        },
+        'is_active': True
+    }
+    for period in ['year', 'month']:
+        data['category']['indicator']['period'] = period
+        for dist in [
+            'created_month', 'created_year', 'postal_code', 'type', 'gender',
+            'birth_year', 'role'
+        ]:
+            data['category']['indicator']['distributions'] = [dist]
+            validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['distributions'] = ["foo"]
+    with pytest.raises(ValidationError):
+        validate(data, stats_cfg_schema)
+
+
+def test_valid_circulation_n_deleted_items(stats_cfg_schema):
+    """Test number of deleted items."""
+    data = {
+        '$schema':
+            'https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json',
+        'pid': 'statcfg1',
+        'name': 'foo',
+        'description': 'bar',
+        'frequency': 'month',
+        'organisation': {
+            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        },
+        'category': {
+            'type': 'catalogue',
+            'indicator': {
+                'type': 'number_of_deleted_items'
+            }
+        },
+        'is_active': True
+    }
+    for period in ['year', 'month']:
+        data['category']['indicator']['period'] = period
+        for dist in ['action_month', 'action_year', 'library']:
+            data['category']['indicator']['distributions'] = [dist]
+            validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['distributions'] = ["foo"]
+    with pytest.raises(ValidationError):
+        validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['period'] = 'day'
+    with pytest.raises(ValidationError):
+        validate(data, stats_cfg_schema)
+
+
+def test_valid_circulation_n_ill_requests(stats_cfg_schema):
+    """Test number of ill requests."""
     data = {
         '$schema':
             'https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json',
@@ -105,22 +241,30 @@ def test_valid_circulation_category(stats_cfg_schema):
         'category': {
             'type': 'circulation',
             'indicator': {
-                'type': 'number_of_checkins',
-                'distributions': [
-                    'time_range_month',
-                    'library'
-                ],
-                'period': 'month',
-                'filter': 'foo=bar'
+                'type': 'number_of_ill_requests'
             }
         },
         'is_active': True
     }
-    validate(data, stats_cfg_schema)
+    for period in ['year', 'month']:
+        data['category']['indicator']['period'] = period
+        for dist in [
+            'created_month', 'created_year', 'pickup_location', 'status'
+        ]:
+            data['category']['indicator']['distributions'] = [dist]
+            validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['distributions'] = ["foo"]
+    with pytest.raises(ValidationError):
+        validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['period'] = 'day'
+    with pytest.raises(ValidationError):
+        validate(data, stats_cfg_schema)
 
 
-def test_invalid_circulation_category_period(stats_cfg_schema):
-    """Test invalid period field."""
+def test_valid_circulation_n_circulations(stats_cfg_schema):
+    """Test number of ill requests."""
     data = {
         '$schema':
             'https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json',
@@ -134,16 +278,29 @@ def test_invalid_circulation_category_period(stats_cfg_schema):
         'category': {
             'type': 'circulation',
             'indicator': {
-                'type': 'number_of_checkins',
-                'distributions': [
-                    'time_range_month',
-                    'library'
-                ],
-                'period': 'day',
-                'filter': 'foo=bar'
             }
         },
         'is_active': True
     }
+    for trigger in [
+        'checkin'
+    ]:
+        data['category']['indicator']['type'] = f'number_of_{trigger}s'
+        for period in ['year', 'month']:
+            data['category']['indicator']['period'] = period
+            for dist in [
+                'transaction_month', 'transaction_year',
+                'transaction_location', 'patron_type', 'patron_age',
+                'patron_postal_code', 'document_type', 'transaction_channel',
+                'owning_library'
+            ]:
+                data['category']['indicator']['distributions'] = [dist]
+                validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['distributions'] = ["foo"]
+    with pytest.raises(ValidationError):
+        validate(data, stats_cfg_schema)
+
+    data['category']['indicator']['period'] = 'day'
     with pytest.raises(ValidationError):
         validate(data, stats_cfg_schema)

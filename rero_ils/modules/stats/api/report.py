@@ -276,7 +276,8 @@ class StatsReport:
                             ItemCirculationAction.CHECKOUT
                         ],
                         date_range=range_period)
-                    .filter('term', organisation__value=self.org_pid).scan()
+                    .filter(
+                        'terms', loan__item__library_pid=self.lib_pids).scan()
                 ]
                 return base_query.filter('terms', pid=active_patron_pids)
 
@@ -294,7 +295,7 @@ class StatsReport:
             # 0 if not period else 1 as a boolean is an integer
             'query': lambda: (
                 s := RecordsSearch(index=LoanOperationLog.index_name)[:0]
-                .filter('term', organisation__value=self.org_pid)
+                .filter('terms', loan__item__library_pid=self.lib_pids)
                 .filter('term', record__type='loan')
                 .filter('term', loan__trigger=trigger),
                 s.filter('range', date=self._get_range_period(self.period))
@@ -400,7 +401,7 @@ class StatsReport:
             data.append(values)
         return data
 
-    def compute(self, force=False):
+    def collect(self, force=False):
         """Collect data for report.
 
         :param force: compute even if the configuration is not active.

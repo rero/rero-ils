@@ -22,26 +22,40 @@ from datetime import datetime
 
 import mock
 
+from rero_ils.modules.stats.api.api import Stat
 from rero_ils.modules.stats.api.report import StatsReport
 
 
-def test_stats_report_create(org_martigny):
+def test_stats_report_create(org_martigny, document):
     """Test the stat report creation."""
     cfg = {
+        "$schema":
+            "https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json",
         "organisation": {
             "$ref": "https://bib.rero.ch/api/organisations/org1"
         },
         "is_active": True,
+        "pid": "1",
+        "name": "foo",
+        "frequency": "month",
         "category": {
+            "type": "catalogue",
             "indicator": {
                 "type": "number_of_documents",
-                "distributions": ["library"]
+                "distributions": ['library']
             }
         }
     }
     assert StatsReport(cfg)
     cfg['is_active'] = False
-    assert not StatsReport(cfg).compute()
+    assert not StatsReport(cfg).collect()
+
+    res = StatsReport(cfg).collect()
+    assert Stat.create(data=dict(
+        type='report',
+        config=cfg,
+        values=[dict(results=res)]
+    ))
 
 
 def test_stats_report_range(app):
