@@ -5206,7 +5206,7 @@
       "indicator": {
         "type": "number_of_documents",
         "distributions": [
-          "time_range_month",
+          "created_month",
           "library"
         ]
       }
@@ -5227,7 +5227,7 @@
       "indicator": {
         "type": "number_of_documents",
         "distributions": [
-          "time_range_month",
+          "created_month",
           "library"
         ]
       }

@@ -24,7 +24,7 @@
       "indicator": {
         "type": "number_of_checkouts",
         "distributions": [
-          "time_range_month"
+          "transaction_month"
         ]
       }
     },
@@ -43,7 +43,7 @@
       "indicator": {
         "type": "number_of_checkouts",
         "distributions": [
-          "library"
+          "owning_library"
         ]
       }
     },
@@ -139,7 +139,7 @@
       "indicator": {
         "type": "number_of_checkouts",
         "distributions": [
-          "time_range_month"
+          "transaction_month"
         ]
       }
     },
@@ -158,7 +158,7 @@
       "indicator": {
         "type": "number_of_checkouts",
         "distributions": [
-          "library"
+          "owning_library"
         ]
       }
     },

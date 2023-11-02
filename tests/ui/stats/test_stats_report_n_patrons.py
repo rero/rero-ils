@@ -27,8 +27,9 @@ from rero_ils.modules.stats.api.report import StatsReport
 
 
 def test_stats_report_number_of_patrons(
-        org_martigny, org_sion, patron_type_children_martigny,
-        patron_type_adults_martigny, patron_type_youngsters_sion
+        org_martigny, lib_martigny, org_sion,
+        patron_type_children_martigny, patron_type_adults_martigny,
+        patron_type_youngsters_sion
 ):
     """Test the number of patrons and active patrons."""
     # no data
@@ -43,7 +44,7 @@ def test_stats_report_number_of_patrons(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [[0]]
+    assert StatsReport(cfg).collect() == [[0]]
 
     # fixtures
     es.index(index='patrons', id='1', body={
@@ -100,7 +101,7 @@ def test_stats_report_number_of_patrons(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [[2]]
+    assert StatsReport(cfg).collect() == [[2]]
 
     # gender
     cfg = {
@@ -115,7 +116,7 @@ def test_stats_report_number_of_patrons(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['female', 1],
         ['male', 1]
     ]
@@ -132,7 +133,7 @@ def test_stats_report_number_of_patrons(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['1994', 1],
         ['2004', 1]
     ]
@@ -153,7 +154,7 @@ def test_stats_report_number_of_patrons(
         f'({patron_type_children_martigny.pid})'
     label_ptrn_type_adult = f'{patron_type_adults_martigny["name"]} '\
         f'({patron_type_adults_martigny.pid})'
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [label_ptrn_type_adult, 1],
         [label_ptrn_type_children, 1]
     ]
@@ -170,7 +171,7 @@ def test_stats_report_number_of_patrons(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['1907', 1],
         ['1920', 1]
     ]
@@ -187,7 +188,7 @@ def test_stats_report_number_of_patrons(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['librarian', 1],
         ['patron', 2]
     ]
@@ -204,7 +205,7 @@ def test_stats_report_number_of_patrons(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['', '2023-02', '2024-01'],
         [f'female', 1, 0],
         [f'male', 0, 1]
@@ -224,7 +225,7 @@ def test_stats_report_number_of_patrons(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             'female',
@@ -236,13 +237,13 @@ def test_stats_report_number_of_patrons(
 
     es.index(index='operation_logs-2020', id='1', body={
         "date": "2023-01-01",
-        "organisation": {
-          "value": org_martigny.pid
-        },
         "loan": {
             "trigger": "checkin",
             "patron": {
                 "pid": '1'
+            },
+            "item": {
+                "library_pid": lib_martigny.pid
             }
         },
         "record": {
@@ -267,4 +268,4 @@ def test_stats_report_number_of_patrons(
     ) as mock_datetime:
         mock_datetime.now.return_value = datetime(year=2024, month=1, day=1)
 
-    assert StatsReport(cfg).compute() == [[1]]
+    assert StatsReport(cfg).collect() == [[1]]

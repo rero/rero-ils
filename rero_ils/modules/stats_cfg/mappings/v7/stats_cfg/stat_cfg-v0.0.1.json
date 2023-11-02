@@ -54,9 +54,6 @@
               },
               "period": {
                 "type": "keyword"
-              },
-              "filter": {
-                "type": "keyword"
               }
             }
           }

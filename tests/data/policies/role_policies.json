@@ -562,32 +562,32 @@
     "pro_circulation_manager"
   ],
   "stat-search": [
-    "pro_read_only",
+    "pro_statistic_manager",
     "pro_full_permissions"
   ],
   "stat-read": [
-    "pro_read_only",
+    "pro_statistic_manager",
     "pro_full_permissions"
   ],
   "stat_cfg-search": [
-    "pro_statistics_manager",
+    "pro_statistic_manager",
     "pro_full_permissions"
   ],
   "stat_cfg-read": [
-    "pro_statistics_manager",
+    "pro_statistic_manager",
     "pro_full_permissions"
   ],
   "stat_cfg-create": [
     "pro_full_permissions",
-    "pro_statistics_manager"
+    "pro_statistic_manager"
   ],
   "stat_cfg-update": [
     "pro_full_permissions",
-    "pro_statistics_manager"
+    "pro_statistic_manager"
   ],
   "stat_cfg-delete": [
     "pro_full_permissions",
-    "pro_statistics_manager"
+    "pro_statistic_manager"
   ],
   "tmpl-search": [
     "pro_full_permissions",

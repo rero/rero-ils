@@ -24,6 +24,7 @@ from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref
 
 from ..extensions import StatisticsDumperExtension
 from ..models import StatIdentifier, StatMetadata
@@ -70,6 +71,12 @@ class Stat(IlsRecord):
         """Update data for record."""
         super().update(data, commit, dbcommit, reindex)
         return self
+
+    @property
+    def organisation_pid(self):
+        """Get organisation pid from the config for report."""
+        if ref := self.get('config', {}).get('organisation', {}).get('$ref'):
+            return extracted_data_from_ref(ref)
 
 
 class StatsIndexer(IlsRecordsIndexer):

@@ -37,18 +37,27 @@ def test_stats_cfg_permissions(
     )
     check_permission(StatisticsConfigurationPermissionPolicy, {
         'search': False,
-        'read': False
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
     }, None)
     check_permission(StatisticsConfigurationPermissionPolicy, {
         'search': False,
-        'read': False
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
     }, stats_cfg_martigny)
     login_user(patron_martigny.user)
     check_permission(StatisticsConfigurationPermissionPolicy,
                      {'create': False}, {})
     check_permission(StatisticsConfigurationPermissionPolicy, {
         'search': False,
-        'read': False
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
     }, stats_cfg_martigny)
 
     # Librarian with specific role
@@ -56,7 +65,10 @@ def test_stats_cfg_permissions(
     login_user(librarian_martigny.user)
     check_permission(StatisticsConfigurationPermissionPolicy, {
         'search': False,
-        'read': False
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
     }, stats_cfg_martigny)
 
     # System librarian with specific role
@@ -72,5 +84,8 @@ def test_stats_cfg_permissions(
 
     check_permission(StatisticsConfigurationPermissionPolicy, {
         'search': True,
-        'read': False
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
     }, stats_cfg_sion)

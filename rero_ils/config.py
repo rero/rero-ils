@@ -799,6 +799,7 @@ RECORDS_REST_ENDPOINTS = dict(
         record_class='rero_ils.modules.stats.api.api:Stat',
         item_route='/stats/<pid(stat, record_class="rero_ils.modules.stats.api.api:Stat"):pid_value>',
         default_media_type='application/json',
+        search_factory_imp='rero_ils.query:organisation_search_factory',
         max_result_window=MAX_RESULT_WINDOW,
         list_permission_factory_imp=lambda record: StatisticsPermissionPolicy('search', record=record),
         read_permission_factory_imp=lambda record: StatisticsPermissionPolicy('read', record=record),
@@ -2892,7 +2893,7 @@ RECORDS_UI_ENDPOINTS = {
         template='rero_ils/detailed_view_stats.html',
         record_class='rero_ils.modules.stats.api.api:Stat',
         view_imp='rero_ils.modules.stats.views.stats_view_method',
-        permission_factory_imp='rero_ils.modules.stats.permissions:stats_ui_permission_factory',
+        permission_factory_imp='rero_ils.permissions.admin_permission_factory',
     )
 }
 

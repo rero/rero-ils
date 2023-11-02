@@ -26,6 +26,7 @@ from rero_ils.modules.stats.permissions import StatisticsPermissionPolicy
 
 def test_stats_permissions(
     patron_martigny, stats_librarian, librarian_martigny,
+    system_librarian_martigny
 ):
     """Test stat permissions class."""
 
@@ -61,6 +62,15 @@ def test_stats_permissions(
     #     - search/read: any items
     #     - create/update/delete: always disallowed
     login_user(librarian_martigny.user)
+    check_permission(StatisticsPermissionPolicy, {
+        'search': False,
+        'read': False,
+        'create': False,
+        'update': False,
+        'delete': False
+    }, stats_librarian)
+
+    login_user(system_librarian_martigny.user)
     check_permission(StatisticsPermissionPolicy, {
         'search': True,
         'read': True,

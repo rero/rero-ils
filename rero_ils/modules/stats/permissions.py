@@ -20,15 +20,14 @@
 
 from functools import wraps
 
-from flask import abort
+from flask import abort, g
 from flask_login import current_user
 from invenio_access import action_factory, any_user
-from invenio_records_permissions.generators import Generator
+from invenio_records_permissions.generators import Disable
 
-from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import AllowedByAction, \
+from rero_ils.modules.permissions import AllowedByAction, OrganisationNeed, \
     RecordPermissionPolicy
-from rero_ils.permissions import admin_permission, librarian_permission
+from rero_ils.permissions import admin_permission
 
 from .models import StatType
 
@@ -38,34 +37,67 @@ read_action = action_factory('stat-read')
 access_action = action_factory('stat-access')
 
 
-class RestrictStatisticsForLibrarian(Generator):
-    """Staff member can only show 'librarian' statistics records."""
+class RestrictStatistics(AllowedByAction):
+    """Allow if the user and the record have the same organisation."""
 
-    def excludes(self, record=None):
+    def excludes(self, record=None, **kwargs):
         """Disallow operation check.
 
         :param record; the record to check.
+        :param kwargs: extra named arguments.
         :returns: a list of Needs to disable access.
         """
-        record = record or {}
-        if current_librarian and record.get('type') != StatType.LIBRARIAN:
+        if (
+            record
+            and record.get('type') == StatType.BILLING
+            and not admin_permission.require().can()
+        ):
             return [any_user]
         return []
+
+    def needs(self, record=None, *args, **kwargs):
+        """Allows the given action.
+
+        :param record: the record to check.
+        :param args: extra arguments.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to validate access.
+        """
+        if record and record.get('type') == StatType.REPORT:
+            # Check if the record organisation match an ``OrganisationNeed``
+            required_need = OrganisationNeed(record.organisation_pid)
+            if required_need not in g.identity.provides:
+                return []
+        return super().needs(record, **kwargs)
 
 
 class StatisticsPermissionPolicy(RecordPermissionPolicy):
     """Statistics permission policy used by the CRUD operations."""
 
-    can_search = [AllowedByAction(search_action)]
+    can_search = [
+        AllowedByAction(search_action)
+    ]
     can_read = [
-        AllowedByAction(read_action),
-        RestrictStatisticsForLibrarian()
+        RestrictStatistics(read_action),
+        AllowedByAction(search_action)
+    ]
+    can_create = [Disable()]
+    can_update = [Disable()]
+    can_delete = [Disable()]
+
+
+class StatisticsUIPermissionPolicy(RecordPermissionPolicy):
+    """Statistics permission policy used by the CRUD operations."""
+
+    can_read = [
+        RestrictStatistics(read_action),
+        AllowedByAction(read_action)
     ]
 
 
 def stats_ui_permission_factory(record, *args, **kwargs):
     """Permission for stats detailed view."""
-    return StatisticsPermissionPolicy('read', record=record)
+    return StatisticsUIPermissionPolicy('read', record=record)
 
 
 # DECORATORS ==================================================================
@@ -97,7 +129,7 @@ def check_logged_as_librarian(fn):
     def wrapper(*args, **kwargs):
         if not current_user.is_authenticated:
             abort(401)
-        if not librarian_permission.require().can():
+        if not StatisticsUIPermissionPolicy('read').require().can():
             abort(403)
         return fn(*args, **kwargs)
     return wrapper
