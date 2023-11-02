@@ -249,7 +249,7 @@ eval ${PREFIX} "invenio roles create -d 'Professional: User manager' pro_user_ma
 eval ${PREFIX} "invenio roles create -d 'Professional: Entity manager' pro_entity_manager"
 eval ${PREFIX} "invenio roles create -d 'Documentation Editor' editor"
 eval ${PREFIX} "invenio roles create -d 'Document Importing' document_importer"
-eval ${PREFIX} "invenio roles create -d 'Professional: Statistics manager' pro_statistics_manager"
+eval ${PREFIX} "invenio roles create -d 'Professional: Statistics manager' pro_statistic_manager"
 
 info_msg "Create action roles policies"
 eval ${PREFIX} "invenio reroils fixtures import_system_role_policies data/system_role_policies.json"

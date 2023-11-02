@@ -36,9 +36,6 @@ def test_stats_report_circulation_trigger(
     ]:
         es.index(index='operation_logs-2020', id='1', body={
             "date": "2023-01-01",
-            "organisation": {
-                "value": org_martigny.pid
-            },
             "loan": {
                 "trigger": trigger,
                 "item": {
@@ -73,7 +70,7 @@ def test_stats_report_circulation_trigger(
                 }
             }
         }
-        assert StatsReport(cfg).compute() == [[1]]
+        assert StatsReport(cfg).collect() == [[1]]
 
 
 def test_stats_report_number_of_checkins(
@@ -90,9 +87,6 @@ def test_stats_report_number_of_checkins(
     # fixtures
     es.index(index='operation_logs-2020', id='1', body={
         "date": "2023-01-01",
-        "organisation": {
-          "value": org_martigny.pid
-        },
         "loan": {
             "trigger": "checkin",
             "item": {
@@ -119,9 +113,6 @@ def test_stats_report_number_of_checkins(
 
     es.index(index='operation_logs-2020', id='2', body={
         "date": "2024-01-01",
-        "organisation": {
-          "value": org_martigny.pid
-        },
         "loan": {
             "trigger": "checkin",
             "item": {
@@ -148,9 +139,6 @@ def test_stats_report_number_of_checkins(
 
     es.index(index='operation_logs-2020', id='3', body={
         "date": "2023-01-01",
-        "organisation": {
-          "value": org_sion.pid
-        },
         "loan": {
             "trigger": "checkin",
             "item": {
@@ -174,9 +162,6 @@ def test_stats_report_number_of_checkins(
 
     es.index(index='operation_logs-2020', id='4', body={
         "date": "2023-01-01",
-        "organisation": {
-          "value": org_martigny.pid
-        },
         "loan": {
             "trigger": "checkin",
             "item": {
@@ -201,9 +186,6 @@ def test_stats_report_number_of_checkins(
 
     es.index(index='operation_logs-2020', id='5', body={
         "date": "2023-01-01",
-        "organisation": {
-          "value": org_martigny.pid
-        },
         "loan": {
             "trigger": "checkout",
             "item": {
@@ -237,7 +219,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [[2]]
+    assert StatsReport(cfg).collect() == [[2]]
 
     # limit by period
     cfg = {
@@ -256,7 +238,7 @@ def test_stats_report_number_of_checkins(
         'rero_ils.modules.stats.api.report.datetime'
     ) as mock_datetime:
         mock_datetime.now.return_value = datetime(year=2024, month=1, day=1)
-        assert StatsReport(cfg).compute() == [[1]]
+        assert StatsReport(cfg).collect() == [[1]]
 
     # one distrubtions
     cfg = {
@@ -271,7 +253,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [label_loc_pub_martigny_bourg, 1],
         [label_loc_pub_martigny, 1]
     ]
@@ -288,7 +270,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['', '2023-01', '2024-01'],
         [label_loc_pub_martigny_bourg, 0, 1],
         [label_loc_pub_martigny, 1, 0]
@@ -307,7 +289,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             label_loc_pub_martigny_bourg,
@@ -330,7 +312,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [
             '',
             label_loc_pub_martigny_bourg,
@@ -353,7 +335,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['Usager.ère moins de 14 ans', 1],
         ['Usager.ère plus de 18 ans', 1]
     ]
@@ -371,7 +353,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [13, 1],
         [30, 1]
     ]
@@ -389,7 +371,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['1920', 1],
         ['1930', 1]
     ]
@@ -407,7 +389,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['Usager.ère moins de 14 ans', 1],
         ['Usager.ère plus de 18 ans', 1]
     ]
@@ -425,7 +407,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['docsubtype_other_book', 1],
         ['ebook', 1]
     ]
@@ -443,7 +425,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         ['sip2', 1],
         ['system', 1]
     ]
@@ -461,7 +443,7 @@ def test_stats_report_number_of_checkins(
             }
         }
     }
-    assert StatsReport(cfg).compute() == [
+    assert StatsReport(cfg).collect() == [
         [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
         [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1]
     ]

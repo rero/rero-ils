@@ -23,6 +23,7 @@ from flask import current_app
 from .api.api import Stat
 from .api.librarian import StatsForLibrarian
 from .api.pricing import StatsForPricing
+from .models import StatType
 
 
 @shared_task()
@@ -31,7 +32,7 @@ def collect_stats_billing():
     stats_pricing = StatsForPricing().collect()
     with current_app.app_context():
         stat = Stat.create(
-            dict(type='billing', values=stats_pricing),
+            dict(type=StatType.BILLING, values=stats_pricing),
             dbcommit=True, reindex=True)
         return f'New statistics of type {stat["type"]} has\
             been created with a pid of: {stat.pid}'
@@ -46,7 +47,7 @@ def collect_stats_librarian():
     stats_values = stats_librarian.collect()
     with current_app.app_context():
         stat = Stat.create(
-            dict(type='librarian', date_range=date_range,
+            dict(type=StatType.LIBRARIAN, date_range=date_range,
                  values=stats_values),
             dbcommit=True, reindex=True)
         return f'New statistics of type {stat["type"]} has\

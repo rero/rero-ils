@@ -31,7 +31,7 @@ class UserRole:
     LIBRARY_ADMINISTRATOR = 'pro_library_administrator'
     USER_MANAGER = 'pro_user_manager'
     PRO_ENTITY_MANAGER = 'pro_entity_manager'
-    STATISTICS_MANAGER = 'pro_statistics_manager'
+    STATISTICS_MANAGER = 'pro_statistic_manager'
 
     LIBRARIAN_ROLES = [
         PROFESSIONAL_READ_ONLY, ACQUISITION_MANAGER,
