@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-10-11 09:42+0200\n"
-"PO-Revision-Date: 2023-10-16 08:44+0000\n"
+"PO-Revision-Date: 2023-11-04 10:34+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.1-dev\n"
+"X-Generator: Weblate 5.2-dev\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -6589,7 +6589,7 @@ msgstr "Gericht"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:357
 msgid "cre"
-msgstr "Schöpfer"
+msgstr "Urheber"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_role-v0.0.1.json:361
 msgid "crt"
