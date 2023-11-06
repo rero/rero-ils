@@ -96,17 +96,16 @@ class ReplaceIdentifiedBy(object):
         self.logger.warning(f'Problem get {url}: {res.status_code}')
         return {}
 
-    def _find_other_source(self, source, source_pid, mef_data):
+    def _find_other_source(self, source, mef_data):
         """Find other soure.
 
         If source is 'rero' try to find other source in mef_data.
         :params source: source type
-        :params source_pid: source pid.
         :params mef_data: mef data to find other source
         :returns: found source and source pid
         """
         if source in ('idref', 'gnd'):
-            return source, source_pid
+            return source, mef_data[source]['pid']
         elif source == 'rero':
             for new_source in ('idref', 'gnd'):
                 if source_data := mef_data.get(new_source):
@@ -172,7 +171,9 @@ class ReplaceIdentifiedBy(object):
                 return None
             if mef_data := self._get_latest(mef_type, source, source_pid):
                 new_source, new_source_pid = self._find_other_source(
-                    source, source_pid, mef_data)
+                    source=source,
+                    mef_data=mef_data
+                )
                 if new_source:
                     mef_entity_type = mef_data.get('type')
                     # verify local and MEF type are the same
@@ -185,7 +186,8 @@ class ReplaceIdentifiedBy(object):
                         self.logger.info(
                             f'Replace document:{doc_pid} '
                             f'{self.field} "{authorized_access_point}" - '
-                            f'({mef_type}) {new_source}:{new_source_pid} '
+                            f'({mef_type}:{mef_data["pid"]}) '
+                            f'{new_source}:{new_source_pid} '
                             f'"{mef_authorized_access_point}"'
                         )
                         entity['entity'] = {
