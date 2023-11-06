@@ -66,6 +66,7 @@
           "description": "Sending how many minutes after the item is available.",
           "type": "number",
           "minimum": 0,
+          "maximum": 720,
           "default": 0
         }
       }
