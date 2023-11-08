@@ -2948,6 +2948,8 @@ RERO_ILS_DEFAULT_JSON_SCHEMA = {
 
 # Operation Log Configuration
 # ===================
+# TODO: this can be removed as it is used only for the UI as it has been
+# refactored using extensions
 RERO_ILS_ENABLE_OPERATION_LOG = {
     'documents': 'doc',
     'holdings': 'hold',
