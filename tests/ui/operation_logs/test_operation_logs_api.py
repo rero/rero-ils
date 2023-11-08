@@ -22,8 +22,10 @@ from datetime import datetime
 
 import pytest
 from invenio_search import current_search
+from utils import flush_index
 
-from rero_ils.modules.operation_logs.api import OperationLog
+from rero_ils.modules.operation_logs.api import OperationLog, \
+    OperationLogsSearch
 
 
 def test_operation_create(client, es_clear, operation_log_data):
@@ -78,7 +80,7 @@ def test_operation_bulk_index(client, es_clear, operation_log_data):
     assert OperationLog.delete_indices()
 
 
-def test_update(app, es_clear, operation_log_data, monkeypatch):
+def test_operation_update(app, es_clear, operation_log_data, monkeypatch):
     """Test update log."""
     operation_log = OperationLog.create(deepcopy(operation_log_data),
                                         index_refresh='wait_for')
@@ -98,3 +100,52 @@ def test_update(app, es_clear, operation_log_data, monkeypatch):
     with pytest.raises(Exception) as exception:
         OperationLog.update(log_data.id, log_data['date'], log_data)
         assert str(exception) == 'Operation log cannot be updated.'
+
+
+def test_operation_record_create(document, item_lib_martigny,
+                                 local_entity_person, ill_request_martigny):
+    """Test update log."""
+    flush_index(OperationLog.index_name)
+    records = [
+        ('doc', {'record': dict(type='doc', value=document.pid)}),
+        ('hold',  {
+            'record': dict(
+                type='hold',
+                value='1',
+                library_pid='lib1',
+                organisation_pid='org1')}),
+        ('item',  {
+            'record': dict(
+                type='item',
+                value=item_lib_martigny.pid,
+                library_pid='lib1',
+                organisation_pid='org1')}),
+        ('locent',  {
+            'record': dict(
+                type='locent', value=local_entity_person.pid)}),
+        ('illr', {
+            'ill_request': {
+                'status': 'pending',
+                'library_pid': 'lib1',
+                'loan_status': 'PENDING'
+            },
+            'record': dict(
+                type='illr',
+                value=ill_request_martigny.pid,
+                organisation_pid='org1')})
+    ]
+    for (rec_type, extra) in records:
+        res = next(
+            OperationLogsSearch()
+            .filter('term', record__type=rec_type)
+            .filter('term', operation='create')
+            .scan()
+        ).to_dict()
+        assert set(res.keys()) == set([
+            'date', 'record', 'operation', 'user_name', '_created', 'pid',
+            '_updated', '$schema'
+        ] + list(extra))
+        assert res['operation'] == 'create'
+        assert res['user_name'] == 'system'
+        for key, value in extra.items():
+            assert res[key] == value

@@ -61,6 +61,13 @@ class OperationLogObserverExtension(RecordExtension):
             'operation': operation,
             'user_name': 'system'  # default value, could be override
         }
+        if (
+            hasattr(record, 'organisation_pid')
+            and (org_pid := record.organisation_pid)
+        ):
+            oplg['record']['organisation_pid'] = org_pid
+        if hasattr(record, 'library_pid') and (org_pid := record.library_pid):
+            oplg['record']['library_pid'] = org_pid
         if current_librarian:
             oplg |= {
                 'user_name': current_librarian.formatted_name,
