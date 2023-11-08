@@ -49,6 +49,16 @@
           "title": "Value",
           "type": "string",
           "minLength": 1
+        },
+        "organisation_pid": {
+          "title": "Organisation Pid",
+          "type": "string",
+          "minLength": 1
+        },
+        "library_pid": {
+          "title": "Library Pid",
+          "type": "string",
+          "minLength": 1
         }
       }
     },
