@@ -1017,8 +1017,8 @@ def unimarc_identifier_isbn(self, key, value):
             "type": "bf:Isbn",
             "value": value.get('a').replace('-', '')
         }
-        if value.get('b'):
-            isbn['qualifier'] = value.get('b')
+        if qualifiers := utils.force_list(value.get('b')):
+            isbn['qualifier'] = ', '.join(qualifiers)
         identifiers.append(isbn)
 
     if value.get('z'):
