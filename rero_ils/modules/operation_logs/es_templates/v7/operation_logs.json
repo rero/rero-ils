@@ -19,6 +19,12 @@
           },
           "value": {
             "type": "keyword"
+          },
+          "organisation_pid": {
+            "type": "keyword"
+          },
+          "library_pid": {
+            "type": "keyword"
           }
         }
       },
