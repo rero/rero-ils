@@ -21,7 +21,7 @@
 from __future__ import absolute_import, print_function
 
 from abc import ABC, abstractmethod
-from datetime import datetime
+from datetime import datetime, timezone
 from functools import partial
 
 from flask import current_app
@@ -284,7 +284,7 @@ class Notification(IlsRecord, ABC):
         :param status: the new notification status.
         :return the updated notification.
         """
-        self['process_date'] = datetime.utcnow().isoformat()
+        self['process_date'] = datetime.now(timezone.utc).isoformat()
         self['notification_sent'] = sent
         self['status'] = status
         return self.update(
