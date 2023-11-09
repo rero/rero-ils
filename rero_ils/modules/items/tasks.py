@@ -25,7 +25,7 @@ from flask import current_app
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.holdings.api import Holding
-from rero_ils.modules.holdings.utils import receive_next_late_expected_issues
+from rero_ils.modules.holdings.utils import create_next_late_expected_issues
 from rero_ils.modules.utils import extracted_data_from_ref, set_timestamp
 
 from .api import Item
@@ -73,7 +73,7 @@ def process_late_issues(dbcommit=True, reindex=True):
     :return: number of modified or created issues.
     """
     # Perform serial type holding with passed `next_expected_date`
-    counter = receive_next_late_expected_issues(
+    counter = create_next_late_expected_issues(
         dbcommit=dbcommit, reindex=reindex)
     # Perform already created issue with passed `next_expected_date`
     counter += update_late_expected_issue(dbcommit=dbcommit, reindex=reindex)

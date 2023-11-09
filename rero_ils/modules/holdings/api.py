@@ -678,19 +678,21 @@ class Holding(IlsRecord):
         return {'issue': issue, 'expected_date': expected_date}
 
     def _prepare_issue_record(
-            self, item=None, issue_display=None, expected_date=None):
+            self, status, item=None, issue_display=None, expected_date=None):
         """Prepare the issue record before creating the item."""
         data = {
             'issue': {
-                'status': ItemIssueStatus.RECEIVED,
+                'status': status,
                 'status_date': datetime.now(timezone.utc).isoformat(),
-                'received_date': datetime.now().strftime('%Y-%m-%d'),
                 'expected_date': expected_date,
                 'regular': True
             },
             'enumerationAndChronology': issue_display,
             'status': 'on_shelf'
         }
+        if status == ItemIssueStatus.RECEIVED:
+            data['issue'][
+                'received_date'] = datetime.now().strftime('%Y-%m-%d')
         if item:
             if issue := item.pop('issue', None):
                 data['issue'].update(issue)
@@ -710,7 +712,8 @@ class Holding(IlsRecord):
         data.update(forced_data)
         return data
 
-    def receive_regular_issue(self, item=None, dbcommit=False, reindex=False):
+    def create_regular_issue(self, status, item=None, dbcommit=False,
+                             reindex=False):
         """Receive the next expected regular issue for the holdings record."""
         # receive is allowed only on holdings of type serials with a regular
         # frequency
@@ -721,6 +724,7 @@ class Holding(IlsRecord):
         issue_display, expected_date = self._get_next_issue_display_text(
                     self.get('patterns'))
         data = self._prepare_issue_record(
+            status=status,
             item=item,
             issue_display=issue_display,
             expected_date=expected_date

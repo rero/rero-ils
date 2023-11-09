@@ -82,7 +82,11 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
     """Test holdings receive regular issues."""
     holding = holding_lib_martigny_w_patterns
     assert holding.is_serial
-    issue = holding.receive_regular_issue(dbcommit=True, reindex=True)
+    issue = holding.create_regular_issue(
+        status=ItemIssueStatus.RECEIVED,
+        dbcommit=True,
+        reindex=True
+    )
     # test holdings call number inheriting
     assert issue.issue_inherited_first_call_number == \
         holding.get('call_number')
@@ -106,16 +110,21 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
     # test change status_date with status changes
     issue.expected_date = tomorrow.strftime('%Y-%m-%d')
     issue.issue_status = ItemIssueStatus.LATE
-    new_issues = issue.update(issue, dbcommit=True, reindex=True)
+    new_issue = issue.update(issue, dbcommit=True, reindex=True)
+    assert not new_issue.received_date
     # As we choose a future expected date, the issue status should be
     # automatically changed to `expected`
-    assert new_issues.issue_status == ItemIssueStatus.EXPECTED
+    assert new_issue.issue_status == ItemIssueStatus.EXPECTED
     new_issue_status_date = ciso8601.parse_datetime(
-        new_issues.issue_status_date)
+        new_issue.issue_status_date)
     assert new_issue_status_date > issue_status_date
 
     holding = Holding.get_record_by_pid(holding.pid)
-    issue = holding.receive_regular_issue(dbcommit=True, reindex=True)
+    issue = holding.create_regular_issue(
+        status=ItemIssueStatus.RECEIVED,
+        dbcommit=True,
+        reindex=True
+    )
     assert issue.get('issue', {}).get('regular')
     assert issue.issue_status == ItemIssueStatus.RECEIVED
     assert issue.expected_date == '2020-06-01'
@@ -132,8 +141,12 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
         'enumerationAndChronology': 'free_text'
     }
     holding = Holding.get_record_by_pid(holding.pid)
-    issue = holding.receive_regular_issue(
-        item=record, dbcommit=True, reindex=True)
+    issue = holding.create_regular_issue(
+        status=ItemIssueStatus.RECEIVED,
+        item=record,
+        dbcommit=True,
+        reindex=True
+    )
     assert issue.get('issue', {}).get('regular')
     assert issue.issue_status == ItemIssueStatus.RECEIVED
     assert issue.expected_date == datetime.now().strftime('%Y-%m-%d')
@@ -596,7 +609,11 @@ def test_regular_issue_creation_update_delete_api(
     holding = holding_lib_martigny_w_patterns
     issue_display, expected_date = holding._get_next_issue_display_text(
                         holding.get('patterns'))
-    issue = holding.receive_regular_issue(dbcommit=True, reindex=True)
+    issue = holding.create_regular_issue(
+        status=ItemIssueStatus.RECEIVED,
+        dbcommit=True,
+        reindex=True
+    )
     issue_pid = issue.pid
     assert holding.delete(dbcommit=True, delindex=True)
     assert not Item.get_record_by_pid(issue_pid)
