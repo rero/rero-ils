@@ -3038,7 +3038,7 @@ RERO_ILS_MEF_CONFIG = {
         'base_url': os.environ.get('RERO_ILS_MEF_CONCEPTS_URL', 'https://mef.rero.ch/api/concepts'),
         'sources': ['idref'],
         'filters': [
-            {'idref.bnf_type': 'genre/forme Rameau'} 
+            {'idref.bnf_type': 'genre/forme Rameau'}
         ]
     },
     'places': {
@@ -3427,6 +3427,13 @@ RERO_IMPORT_REST_ENDPOINTS = dict(
         import_class='rero_ils.modules.imports.api:SUDOCImport',
         import_size=50,
         label='SUDOC',
+        weight=20
+    ),
+    renouvaud=dict(
+        key='renouvaud',
+        import_class='rero_ils.modules.imports.api:RenouvaudImport',
+        import_size=50,
+        label='Renouvaud',
         weight=20
     ),
 )

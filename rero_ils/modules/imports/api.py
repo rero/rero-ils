@@ -775,3 +775,41 @@ class KULImport(Import):
                 'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
         }
         return url_for('api_imports.import_kul_record', **args)
+
+
+class RenouvaudImport(Import):
+    """Import class for Renouvaud."""
+
+    name = 'Renouvaud'
+    url = 'https://renouvaud.primo.exlibrisgroup.com'
+    url_api = '{url}/view/sru/41BCULAUSA_NETWORK?'\
+              'version=1.2&operation=searchRetrieve'\
+              '&recordSchema=marcxml&maximumRecords={max_results}'\
+              '&startRecord=1&query={where} {relation} "{what}"'
+    # https://slsp.ch/fr/metadata
+    # https://developers.exlibrisgroup.com/alma/integrations/sru/
+    search = {
+        'anywhere': 'alma.all_for_ui',
+        'author': 'alma.author',
+        'title': 'alma.title',
+        'recordid': 'alma.all_for_ui',
+        'isbn': 'alma.isbn',
+        'issn': 'alma.issn',
+        'date': 'alma.date'
+    }
+
+    to_json_processor = marc21_slsp.do
+
+    def get_marc21_link(self, id):
+        """Get direct link to marc21 record.
+
+        :param id: id to use for the link
+        :return: url for id
+        """
+        args = {
+            'id': id,
+            '_external': True,
+            current_app.config.get(
+                'REST_MIMETYPE_QUERY_ARG_NAME', 'format'): 'marc'
+        }
+        return url_for('api_imports.import_renouvaud_record', **args)
