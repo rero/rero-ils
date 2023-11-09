@@ -27,9 +27,10 @@ from rero_ils.modules.stats.api.report import StatsReport
 
 
 def test_stats_report_number_of_patrons(
-        org_martigny, lib_martigny, org_sion,
+        org_martigny, lib_martigny, org_sion, lib_martigny_bourg,
         patron_type_children_martigny, patron_type_adults_martigny,
-        patron_type_youngsters_sion
+        patron_type_youngsters_sion, loc_public_martigny,
+        loc_public_martigny_bourg
 ):
     """Test the number of patrons and active patrons."""
     # no data
@@ -63,6 +64,7 @@ def test_stats_report_number_of_patrons(
     })
     es.index(index='patrons', id='2', body={
         '_created': "2024-01-01",
+        'pid': '2',
         'organisation': {'pid': org_martigny.pid},
         'birth_date': '1994-01-01',
         'roles': ['patron', 'librarian'],
@@ -218,9 +220,9 @@ def test_stats_report_number_of_patrons(
         },
         "is_active": True,
         "category": {
-            "period": "year",
             "indicator": {
                 "type": "number_of_patrons",
+                "period": "year",
                 "distributions": ["created_year", "gender"]
             }
         }
@@ -244,6 +246,28 @@ def test_stats_report_number_of_patrons(
             },
             "item": {
                 "library_pid": lib_martigny.pid
+            },
+            "transaction_location": {
+                "pid": loc_public_martigny.pid
+            }
+        },
+        "record": {
+          "type": "loan",
+        }
+    }, refresh=True)
+
+    es.index(index='operation_logs-2020', id='2', body={
+        "date": "2023-01-01",
+        "loan": {
+            "trigger": "checkin",
+            "patron": {
+                "pid": '2'
+            },
+            "item": {
+                "library_pid": lib_martigny_bourg.pid
+            },
+            "transaction_location": {
+                "pid": loc_public_martigny_bourg.pid
             }
         },
         "record": {
@@ -259,7 +283,8 @@ def test_stats_report_number_of_patrons(
         "is_active": True,
         "category": {
             "indicator": {
-                "type": "number_of_active_patrons"
+                "type": "number_of_active_patrons",
+                "period": "year",
             }
         }
     }
@@ -268,4 +293,28 @@ def test_stats_report_number_of_patrons(
     ) as mock_datetime:
         mock_datetime.now.return_value = datetime(year=2024, month=1, day=1)
 
-    assert StatsReport(cfg).collect() == [[1]]
+        assert StatsReport(cfg).collect() == [[2]]
+
+    # active patrons
+    lib_pid = lib_martigny_bourg.pid
+    cfg = {
+        "organisation": {
+            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        },
+        "is_active": True,
+        "filter_by_libraries": [{
+            '$ref':
+                f'https://bib.rero.ch/api/libraries/{lib_pid}'}],
+        "category": {
+            "indicator": {
+                "type": "number_of_active_patrons",
+                "period": "year",
+            }
+        }
+    }
+    with mock.patch(
+        'rero_ils.modules.stats.api.report.datetime'
+    ) as mock_datetime:
+        mock_datetime.now.return_value = datetime(year=2024, month=1, day=1)
+
+        assert StatsReport(cfg).collect() == [[1]]
