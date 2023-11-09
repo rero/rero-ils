@@ -4,10 +4,11 @@
   "title": "Statistics configuration",
   "additionalProperties": false,
   "propertiesOrder": [
-    "is_active",
     "name",
     "description",
+    "is_active",
     "frequency",
+    "filter_by_libraries",
     "category"
   ],
   "required": [
@@ -82,6 +83,30 @@
       "description": "Is the configuration active.",
       "type": "boolean",
       "default": true
+    },
+    "filter_by_libraries": {
+      "title": "Filter numbers by libraries",
+      "description": "If enabled, calculate stats only for the resources belonging to the selected libraries. If disabled, stats are calculated for the whole organisation.",
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 0,
+      "items": {
+        "title": "Library",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "$ref"
+        ],
+        "properties": {
+          "$ref": {
+            "type": "string",
+            "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
+            "form": {
+              "fieldMap": "libraries"
+            }
+          }
+        }
+      }
     },
     "organisation": {
       "title": "Organisation",

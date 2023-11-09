@@ -37,6 +37,13 @@
           }
         }
       },
+      "filter_by_libraries": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
       "category": {
         "type": "object",
         "properties": {

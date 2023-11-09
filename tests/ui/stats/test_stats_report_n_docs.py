@@ -80,6 +80,24 @@ def test_stats_report_number_of_documents(
     }
     assert StatsReport(cfg).collect() == [[2]]
 
+    # no distributions with filters
+    lib_pid = lib_martigny_bourg.pid
+    cfg = {
+        "organisation": {
+            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        },
+        "is_active": True,
+        "filter_by_libraries": [{
+            '$ref':
+                f'https://bib.rero.ch/api/libraries/{lib_pid}'}],
+        "category": {
+            "indicator": {
+                "type": "number_of_documents"
+            }
+        }
+    }
+    assert StatsReport(cfg).collect() == [[1]]
+
     # one distrubtions
     cfg = {
         "organisation": {
