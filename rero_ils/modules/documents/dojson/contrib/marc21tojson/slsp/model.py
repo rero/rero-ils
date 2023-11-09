@@ -389,9 +389,10 @@ def marc21_to_subjects_6XX(self, key, value):
             '610': False,
             '611': True
         }
-        if tag_key in ['610', '611']:
-            subject['conference'] = conference_per_tag[tag_key]
-        elif tag_key in ['600t', '610t', '611t']:
+        # if tag_key in ['610', '611']:
+        #     subject['conference'] = conference_per_tag[tag_key]
+        # elif tag_key in ['600t', '610t', '611t']:
+        if tag_key in ['600t', '610t', '611t']:
             creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
             creator = remove_trailing_punctuation(
                 build_string_from_subfields(
