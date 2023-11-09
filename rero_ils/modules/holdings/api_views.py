@@ -37,7 +37,7 @@ from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.errors import NoCirculationActionIsPermitted, \
     RegularReceiveNotAllowed
 from rero_ils.modules.items.api import Item
-from rero_ils.modules.items.models import ItemStatus
+from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.items.views.api_views import \
     check_authentication_for_request, check_logged_user_authentication
 from rero_ils.modules.libraries.api import Library
@@ -141,8 +141,12 @@ def receive_regular_issue(holding_pid):
         abort(401)
     item = data.get('item', {})
     try:
-        issue = holding.receive_regular_issue(
-            item=item, dbcommit=True, reindex=True)
+        issue = holding.create_regular_issue(
+            status=ItemIssueStatus.RECEIVED,
+            item=item,
+            dbcommit=True,
+            reindex=True
+        )
     except RegularReceiveNotAllowed:
         # receive allowed only on holding of type serials and regular frequency
         abort(400)

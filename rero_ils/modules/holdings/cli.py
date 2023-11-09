@@ -89,7 +89,12 @@ def create_issues_from_holding(holding, min=3, max=9):
                 'received_date': expected_date,
             },
         }
-        holding.receive_regular_issue(item=item, dbcommit=True, reindex=True)
+        holding.create_regular_issue(
+            status=ItemIssueStatus.RECEIVED,
+            item=item,
+            dbcommit=True,
+            reindex=True
+        )
         holding = Holding.get_record_by_pid(holding.pid)
         count += 1
     return count

@@ -50,7 +50,7 @@ def get_late_serial_holdings():
         yield Holding.get_record(hit.meta.id)
 
 
-def receive_next_late_expected_issues(dbcommit=False, reindex=False):
+def create_next_late_expected_issues(dbcommit=False, reindex=False):
     """Receive the next late expected issue for all holdings.
 
     :param reindex: reindex record by record.
@@ -60,8 +60,11 @@ def receive_next_late_expected_issues(dbcommit=False, reindex=False):
     counter = 0
     for holding in get_late_serial_holdings():
         try:
-            issue = holding.receive_regular_issue(
-                dbcommit=dbcommit, reindex=reindex)
+            issue = holding.create_regular_issue(
+                status=ItemIssueStatus.LATE,
+                dbcommit=dbcommit,
+                reindex=reindex
+            )
             issue.issue_status = ItemIssueStatus.LATE
             issue.update(issue, dbcommit=dbcommit, reindex=reindex)
             counter += 1
