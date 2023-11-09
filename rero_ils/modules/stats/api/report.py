@@ -21,21 +21,15 @@
 from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
-from elasticsearch_dsl.aggs import A
-from invenio_search.api import RecordsSearch
 
-from rero_ils.modules.documents.api import DocumentsSearch
-from rero_ils.modules.holdings.api import HoldingsSearch
-from rero_ils.modules.ill_requests.api import ILLRequestsSearch
-from rero_ils.modules.items.api import ItemsSearch
-from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.libraries.api import LibrariesSearch
-from rero_ils.modules.loans.logs.api import LoanOperationLog, \
-    LoanOperationLogsSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.patron_types.api import PatronTypesSearch
-from rero_ils.modules.patrons.api import PatronsSearch
 from rero_ils.modules.utils import extracted_data_from_ref
+
+from .indicators import NumberOfActivePatronsCfg, NumberOfCirculationCfg, \
+    NumberOfDeletedItemsCfg, NumberOfDocumentsCfg, NumberOfILLRequests, \
+    NumberOfItemsCfg, NumberOfPatronsCfg, NumberOfSerialHoldingsCfg
 
 
 class StatsReport:
@@ -53,6 +47,9 @@ class StatsReport:
         self.distributions = config[
             'category']['indicator'].get('distributions', [])
         self.org_pid = extracted_data_from_ref(config['organisation'])
+        self.filter_by_libraries = []
+        for library in config.get('filter_by_libraries', []):
+            self.filter_by_libraries.append(extracted_data_from_ref(library))
         self.libraries = {
             hit.pid: hit.name for hit in LibrariesSearch().by_organisation_pid(
                 self.org_pid).source(['pid', 'name']).scan()
@@ -69,290 +66,41 @@ class StatsReport:
             PatronTypesSearch().by_organisation_pid(
                 self.org_pid).source(['pid', 'name']).scan()
         }
+
         self.loc_pids = list(self.locations.keys())
         self.aggs_size = 10000
-        self.es_config = {
-            'number_of_documents': {
-                'query': lambda: DocumentsSearch()[:0].filter(
-                    'term',
-                    holdings__organisation__organisation_pid=self.org_pid
-                ),
-                'aggs': {
-                    'library': lambda: A(
-                        'terms', field='holdings.organisation.library_pid',
-                        size=self.aggs_size, include=self.lib_pids
-                    ),
-                    'created_month': lambda: A(
-                        'date_histogram', field='_created',
-                        calendar_interval='month', format='yyyy-MM'
-                    ),
-                    'created_year': lambda: A(
-                        'date_histogram', field='_created',
-                        calendar_interval='year', format='yyyy'
-                    ),
-                    'imported': lambda: A(
-                        'filters', other_bucket_key="not imported",
-                        filters={'imported': {
-                            'exists': {'field': 'adminMetadata.source'}}}
-                    )
-                },
-                'get_key': {
-                    'library': lambda bucket:
-                        f'{self.libraries[bucket.key]} ({bucket.key})',
-                    'created_month': lambda bucket: bucket.key_as_string,
-                    'created_year': lambda bucket: bucket.key_as_string,
-                    'imported': lambda bucket: bucket
-                }
-            },
-            'number_of_serial_holdings': {
-                'query': lambda: HoldingsSearch()[:0]
-                .filter('term', holdings_type='serial')
-                .filter('term', organisation__pid=self.org_pid),
-                'aggs': {
-                    'library': lambda: A(
-                        'terms', field='library.pid', size=self.aggs_size,
-                        include=self.lib_pids),
-                    'created_month': lambda: A(
-                        'date_histogram', field='_created',
-                        calendar_interval='month', format='yyyy-MM'),
-                    'created_year': lambda: A(
-                        'date_histogram', field='_created',
-                        calendar_interval='year', format='yyyy')
-                },
-                'get_key': {
-                    'library': lambda bucket:
-                    f'{self.libraries[bucket.key]} ({bucket.key})',
-                    'created_month': lambda bucket: bucket.key_as_string,
-                    'created_year': lambda bucket: bucket.key_as_string
-                }
-            },
-            'number_of_items': {
-                'query': lambda: ItemsSearch()[:0].filter(
-                    'term', organisation__pid=self.org_pid
-                ),
-                'aggs': {
-                    'library': lambda: A(
-                        'terms', field='library.pid', size=self.aggs_size,
-                        include=self.lib_pids),
-                    'location': lambda: A(
-                        'terms', field='location.pid', size=self.aggs_size,
-                        include=self.loc_pids),
-                    'type': lambda: A(
-                        'terms', field='type', size=self.aggs_size),
-                    'created_month': lambda: A(
-                        'date_histogram', field='_created',
-                        calendar_interval='month', format='yyyy-MM'),
-                    'created_year': lambda: A(
-                        'date_histogram', field='_created',
-                        calendar_interval='year', format='yyyy')
-                },
-                'get_key': {
-                    'library': lambda bucket:
-                    f'{self.libraries[bucket.key]} ({bucket.key})',
-                    'location': lambda bucket:
-                    f'{self.locations[bucket.key]} ({bucket.key})',
-                    'type': lambda bucket: bucket.key,
-                    'created_month': lambda bucket:
-                    bucket.key_as_string,
-                    'created_year': lambda bucket:
-                    bucket.key_as_string
-                },
-            },
-            'number_of_ill_requests': {
-                'query': lambda: (s := ILLRequestsSearch()[:0].filter(
-                    'term', organisation__pid=self.org_pid),
-                    s.filter(
-                        'range', _created=self._get_range_period(self.period))
-                    )[self.period is not None],
-                'aggs': {
-                    'pickup_location': lambda: A(
-                        'terms', field='pickup_location.pid',
-                        size=self.aggs_size),
-                    'status': lambda: A(
-                        'terms', field='status', size=self.aggs_size),
-                    'created_month': lambda: A(
-                        'date_histogram', field='_created',
-                        calendar_interval='month', format='yyyy-MM'),
-                    'created_year': lambda: A(
-                        'date_histogram', field='_created',
-                        calendar_interval='year', format='yyyy')
-                },
-                'get_key': {
-                    'pickup_location': lambda bucket:
-                    f'{self.locations[bucket.key]} ({bucket.key})',
-                    'status': lambda bucket: bucket.key,
-                    'created_month': lambda bucket:
-                    bucket.key_as_string,
-                    'created_year': lambda bucket:
-                    bucket.key_as_string
-                }
-            },
-            'number_of_deleted_items': {
-                'query': lambda: (
-                    s := RecordsSearch(index=LoanOperationLog.index_name)[:0]
-                    .filter('term', organisation__value=self.org_pid)
-                    .filter('term', record__type='item')
-                    .filter('term', operation='delete'),
-                    s.filter('range', date=self._get_range_period(self.period))
-                )[self.period is not None],
-                'aggs': {
-                    'library': lambda: A(
-                        'terms', field='library.value', size=self.aggs_size),
-                    'action_month': lambda: A(
-                        'date_histogram', field='date',
-                        calendar_interval='month', format='yyyy-MM'),
-                    'action_year': lambda: A(
-                        'date_histogram', field='date',
-                        calendar_interval='year', format='yyyy')
-                },
-                'get_key': {
-                    'library': lambda bucket:
-                    f'{self.libraries[bucket.key]} ({bucket.key})',
-                    'action_month': lambda bucket: bucket.key_as_string,
-                    'action_year': lambda bucket: bucket.key_as_string
-                }
-            },
-            'number_of_checkins': self._circulation_config('checkin'),
-            'number_of_checkouts': self._circulation_config('checkout'),
-            'number_of_extends': self._circulation_config('extend'),
-            'number_of_requests': self._circulation_config('request'),
-            'number_of_validate_requests':
-            self._circulation_config('validate_request'),
-            'number_of_patrons': self._patron_config(active=False),
-            'number_of_active_patrons': self._patron_config(active=True),
+
+    @property
+    def indicator_cfg(self):
+        """Indicator configuration.
+
+        :returns: the current indicator configuration.
+        :rtype: IndicatorCfg instance.
+        """
+        cfg = {
+            'number_of_documents': NumberOfDocumentsCfg(self),
+            'number_of_serial_holdings': NumberOfSerialHoldingsCfg(self),
+            'number_of_items': NumberOfItemsCfg(self),
+            'number_of_deleted_items': NumberOfDeletedItemsCfg(self),
+            'number_of_ill_requests': NumberOfILLRequests(self),
+            'number_of_checkins': NumberOfCirculationCfg(self, 'checkin'),
+            'number_of_checkouts': NumberOfCirculationCfg(self, 'checkout'),
+            'number_of_extends': NumberOfCirculationCfg(self, 'extend'),
+            'number_of_requests': NumberOfCirculationCfg(self, 'request'),
+            'number_of_validate_requests': NumberOfCirculationCfg(
+                self, 'validate_request'),
+            'number_of_patrons': NumberOfPatronsCfg(self),
+            'number_of_active_patrons': NumberOfActivePatronsCfg(self)
         }
-
-    def _patron_config(self, active):
-        """The es configuration for patron indicators."""
-        patron_cfg = {
-            'aggs': {
-                'created_month': lambda: A(
-                    'date_histogram', field='_created',
-                    calendar_interval='month', format='yyyy-MM'
-                ),
-                'created_year': lambda: A(
-                    'date_histogram', field='_created',
-                    calendar_interval='year', format='yyyy'
-                ),
-                'birth_year': lambda: A(
-                    'date_histogram', field='birth_date',
-                    calendar_interval='year', format='yyyy'
-                ),
-                'postal_code': lambda: A(
-                    'terms', field='postal_code', size=self.aggs_size),
-                'gender': lambda: A(
-                    'terms', field='gender', size=self.aggs_size),
-                'role': lambda: A(
-                    'terms', field='roles', size=self.aggs_size),
-                'type': lambda: A(
-                    'terms', field='patron.type.pid', size=self.aggs_size),
-            },
-            'get_key': {
-                'created_month': lambda bucket: bucket.key_as_string,
-                'created_year': lambda bucket: bucket.key_as_string,
-                'type': lambda bucket:
-                f'{self.patron_types[bucket.key]} ({bucket.key})',
-                'birth_year': lambda bucket: bucket.key_as_string,
-                'gender': lambda bucket: bucket.key,
-                'postal_code': lambda bucket: bucket.key,
-                'role': lambda bucket: bucket.key,
-            }
-        }
-        base_query = PatronsSearch()[:0].filter(
-            'term', organisation__pid=self.org_pid)
-
-        if active:
-            def active_patron_query():
-                """The based patron query and filter by active pid."""
-                range_period = self._get_range_period(self.period)
-                active_patron_pids = [
-                    hit.loan.patron.pid for hit in LoanOperationLogsSearch()
-                    .source('loan.patron.pid')
-                    .get_logs_by_trigger(
-                        triggers=[
-                            ItemCirculationAction.EXTEND,
-                            ItemCirculationAction.REQUEST,
-                            ItemCirculationAction.CHECKIN,
-                            ItemCirculationAction.CHECKOUT
-                        ],
-                        date_range=range_period)
-                    .filter(
-                        'terms', loan__item__library_pid=self.lib_pids).scan()
-                ]
-                return base_query.filter('terms', pid=active_patron_pids)
-
-            patron_cfg['query'] = active_patron_query
-        else:
-            patron_cfg['query'] = lambda: base_query
-        return patron_cfg
-
-    def _circulation_config(self, trigger):
-        """The es configuration for circulation indicators."""
-        return {
-            # here two cases should be considered depending of the existence of
-            # self.period, the lambda function create a tuple of two values and
-            # return the first or the second based on the index of the tuple
-            # 0 if not period else 1 as a boolean is an integer
-            'query': lambda: (
-                s := RecordsSearch(index=LoanOperationLog.index_name)[:0]
-                .filter('terms', loan__item__library_pid=self.lib_pids)
-                .filter('term', record__type='loan')
-                .filter('term', loan__trigger=trigger),
-                s.filter('range', date=self._get_range_period(self.period))
-            )[self.period is not None],
-            'aggs': {
-                'transaction_location': lambda: A(
-                    'terms', field='loan.transaction_location.pid',
-                    size=self.aggs_size),
-                'transaction_month': lambda: A(
-                    'date_histogram', field='date',
-                    calendar_interval='month', format='yyyy-MM'),
-                'transaction_year': lambda: A(
-                    'date_histogram', field='date',
-                    calendar_interval='year', format='yyyy'),
-                'patron_type': lambda: A(
-                    'terms', field='loan.patron.type', size=self.aggs_size),
-                'patron_age': lambda: A(
-                    'terms', field='loan.patron.age', size=self.aggs_size),
-                'patron_type': lambda: A(
-                    'terms', field='loan.patron.type', size=self.aggs_size),
-                'patron_postal_code': lambda: A(
-                    'terms', field='loan.patron.postal_code',
-                    size=self.aggs_size),
-                'document_type': lambda: A(
-                    'terms', field='loan.item.document.type',
-                    size=self.aggs_size),
-                'transaction_channel': lambda: A(
-                    'terms', field='loan.transaction_channel',
-                    size=self.aggs_size),
-                'owning_library': lambda: A(
-                    'terms', field='loan.item.library_pid',
-                    size=self.aggs_size)
-            },
-            'get_key': {
-                'transaction_location': lambda bucket:
-                f'{self.locations[bucket.key]} ({bucket.key})',
-                'transaction_month': lambda bucket: bucket.key_as_string,
-                'transaction_year': lambda bucket: bucket.key_as_string,
-                'patron_type': lambda bucket: bucket.key,
-                'patron_age': lambda bucket: bucket.key,
-                'document_type': lambda bucket: bucket.key,
-                'patron_postal_code': lambda bucket: bucket.key,
-                'transaction_channel': lambda bucket: bucket.key,
-                'owning_library': lambda bucket:
-                f'{self.libraries[bucket.key]} ({bucket.key})'
-            }
-        }
+        return cfg[self.indicator]
 
     def _process_aggregations(self, es_results):
         """Process the es aggregations structures."""
-        cfg = self.es_config.get(self.indicator)
         results = {}
         y_keys = set()
         iter_distrib = iter(self.distributions)
         if distrib1 := next(iter_distrib, None):
             distrib2 = next(iter_distrib, None)
-            get_key1 = cfg['get_key'][distrib1]
             for dist1 in es_results.aggs[distrib1].buckets:
                 if isinstance(dist1, str):
                     key1 = dist1
@@ -361,20 +109,19 @@ class StatsReport:
                         es_results.aggs[distrib1].buckets[key1].doc_count
                 else:
                     parent_dist = dist1
-                    key1 = get_key1(dist1)
+                    key1 = self.indicator_cfg.label(distrib1, dist1)
                     doc_count = dist1.doc_count
                 if not doc_count:
                     continue
                 results[key1] = dict(count=doc_count)
                 values = {}
                 if distrib2:
-                    get_key2 = cfg['get_key'][distrib2]
                     for dist2 in parent_dist[distrib2].buckets:
                         if isinstance(dist2, str):
                             key2 = dist2
                             doc_count = dist1[distrib2].buckets[key2].doc_count
                         else:
-                            key2 = get_key2(dist2)
+                            key2 = self.indicator_cfg.label(distrib2, dist2)
                             doc_count = dist2.doc_count
                         values[key2] = doc_count
                         y_keys.add(key2)
@@ -409,9 +156,8 @@ class StatsReport:
         """
         if not self.is_active and not force:
             return
-        cfg = self.es_config.get(self.indicator)
         # base query
-        search = cfg['query']()
+        search = self.indicator_cfg.query
         # no distributions returns the count
         if not self.distributions:
             return [[search.count()]]
@@ -421,7 +167,7 @@ class StatsReport:
 
         # compute distributions using aggregations
         for dist in self.distributions:
-            aggs = aggs.bucket(dist, cfg['aggs'][dist]())
+            aggs = aggs.bucket(dist, self.indicator_cfg.aggregation(dist))
 
         # compute the aggregations using es
         results = search.execute()

@@ -33,67 +33,47 @@ def test_stats_report_number_of_deleted_items(
     # fixtures
     es.index(index='operation_logs-2020', id='1', body={
         "date": "2023-01-01",
-        "library": {
-          "value": lib_martigny.pid
-        },
         "operation": "delete",
-        "organisation": {
-          "value": org_martigny.pid
-        },
         "record": {
           "type": "item",
+          "library_pid": lib_martigny.pid,
+          "organisation_pid": org_martigny.pid
         }
     }, refresh=True)
     es.index(index='operation_logs-2020', id='2', body={
         "date": "2023-01-01",
-        "library": {
-          "value": lib_martigny.pid
-        },
         "operation": "create",
-        "organisation": {
-          "value": org_martigny.pid
-        },
         "record": {
           "type": "item",
+          "library_pid": lib_martigny.pid,
+          "organisation_pid": org_martigny.pid
         }
     }, refresh=True)
     es.index(index='operation_logs-2020', id='3', body={
         "date": "2023-01-01",
-        "library": {
-          "value": lib_martigny.pid
-        },
         "operation": "delete",
-        "organisation": {
-          "value": org_martigny.pid
-        },
         "record": {
           "type": "holding",
+          "library_pid": lib_martigny.pid,
+          "organisation_pid": org_martigny.pid
         }
     }, refresh=True)
     es.index(index='operation_logs-2020', id='4', body={
         "date": "2023-01-01",
-        "library": {
-          "value": lib_sion.pid
-        },
         "operation": "delete",
-        "organisation": {
-          "value": org_sion.pid
-        },
         "record": {
           "type": "holding",
+          "library_pid": lib_sion.pid,
+          "organisation_pid": org_sion.pid
         }
     }, refresh=True)
     es.index(index='operation_logs-2020', id='5', body={
         "date": "2024-01-01",
-        "library": {
-          "value": lib_martigny_bourg.pid
-        },
         "operation": "delete",
-        "organisation": {
-          "value": org_martigny.pid
-        },
         "record": {
           "type": "item",
+          "library_pid": lib_martigny_bourg.pid,
+          "organisation_pid": org_martigny.pid
         }
     }, refresh=True)
     # no distributions
@@ -109,6 +89,24 @@ def test_stats_report_number_of_deleted_items(
         }
     }
     assert StatsReport(cfg).collect() == [[2]]
+
+    # no distributions with filters
+    lib_pid = lib_martigny_bourg.pid
+    cfg = {
+        "organisation": {
+            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        },
+        "is_active": True,
+        "filter_by_libraries": [{
+            '$ref':
+                f'https://bib.rero.ch/api/libraries/{lib_pid}'}],
+        "category": {
+            "indicator": {
+                "type": "number_of_deleted_items"
+            }
+        }
+    }
+    assert StatsReport(cfg).collect() == [[1]]
 
     # one distrubtions
     cfg = {

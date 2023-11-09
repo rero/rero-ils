@@ -45,5 +45,5 @@ def live_stats_reports(pid):
     cfg = StatConfiguration.get_record_by_pid(pid)
     if not cfg:
         abort(404, f'Configuration not found for pid {pid}.')
-    res = StatsReport(cfg).collect()
+    res = StatsReport(cfg).collect(force=True)
     return jsonify(res)
