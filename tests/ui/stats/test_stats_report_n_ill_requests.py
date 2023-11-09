@@ -27,7 +27,7 @@ from rero_ils.modules.stats.api.report import StatsReport
 
 
 def test_stats_report_number_of_ill_requests(
-        org_martigny, org_sion, lib_martigny, lib_martigny_bourg,
+        org_martigny, org_sion, lib_martigny, lib_martigny_bourg, lib_sion,
         loc_public_martigny, loc_restricted_martigny,
         loc_public_martigny_bourg, loc_public_sion):
     """Test the number of ill requests."""
@@ -57,24 +57,28 @@ def test_stats_report_number_of_ill_requests(
         '_created': "2023-02-01",
         'status': 'pending',
         'organisation': {'pid': org_martigny.pid},
+        'library': {'pid': lib_martigny.pid},
         'pickup_location': {'pid': loc_public_martigny.pid}
     })
     es.index(index='ill_requests', id='2', body={
         '_created': "2023-02-01",
         'status': 'validated',
         'organisation': {'pid': org_martigny.pid},
+        'library': {'pid': lib_martigny.pid},
         'pickup_location': {'pid': loc_restricted_martigny.pid}
     })
     es.index(index='ill_requests', id='3', body={
         '_created': "2024-01-01",
         'status': 'closed',
         'organisation': {'pid': org_martigny.pid},
+        'library': {'pid': lib_martigny_bourg.pid},
         'pickup_location': {'pid': loc_public_martigny_bourg.pid}
     })
     es.index(index='ill_requests', id='4', body={
         '_created': "2024-01-01",
         'status': 'denied',
         'organisation': {'pid': org_sion.pid},
+        'library': {'pid': lib_sion.pid},
         'pickup_location': {'pid': loc_public_sion.pid}
     })
     es.indices.refresh(index='ill_requests')
@@ -92,6 +96,25 @@ def test_stats_report_number_of_ill_requests(
         }
     }
     assert StatsReport(cfg).collect() == [[3]]
+
+    # no distributions with filters
+    lib_pid = lib_martigny_bourg.pid
+    cfg = {
+        "organisation": {
+            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        },
+        "is_active": True,
+        "filter_by_libraries": [{
+            '$ref':
+                f'https://bib.rero.ch/api/libraries/{lib_pid}'}],
+        "category": {
+            "indicator": {
+                "type": "number_of_ill_requests"
+            }
+        }
+    }
+    assert StatsReport(cfg).collect() == [[1]]
+
     cfg = {
         "organisation": {
             "$ref": "https://bib.rero.ch/api/organisations/org1"

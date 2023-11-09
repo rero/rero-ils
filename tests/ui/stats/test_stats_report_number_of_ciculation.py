@@ -59,11 +59,53 @@ def test_stats_report_circulation_trigger(
                 "type": "loan",
             }
         }, refresh=True)
+        es.index(index='operation_logs-2020', id='2', body={
+            "date": "2023-01-01",
+            "loan": {
+                "trigger": trigger,
+                "item": {
+                    "document": {
+                        "type": "docsubtype_other_book"
+                    },
+                    "library_pid": lib_martigny.pid,
+                    "holding": {
+                        "location_name": loc_public_martigny["name"]
+                    }
+                },
+                "transaction_location": {"pid": loc_public_martigny_bourg.pid},
+                "transaction_channel": "sip2",
+                "patron": {
+                    "age": 13,
+                    "type": "Usager.ère moins de 14 ans",
+                    "postal_code": "1920"
+                }
+            },
+            "record": {
+                "type": "loan",
+            }
+        }, refresh=True)
+
         cfg = {
             "organisation": {
                 "$ref": "https://bib.rero.ch/api/organisations/org1"
             },
             "is_active": True,
+            "category": {
+                "indicator": {
+                    "type": f"number_of_{trigger}s"
+                }
+            }
+        }
+        assert StatsReport(cfg).collect() == [[2]]
+        lib_pid = lib_martigny_bourg.pid
+        cfg = {
+            "organisation": {
+                "$ref": "https://bib.rero.ch/api/organisations/org1"
+            },
+            "is_active": True,
+            "filter_by_libraries": [{
+                '$ref':
+                    f'https://bib.rero.ch/api/libraries/{lib_pid}'}],
             "category": {
                 "indicator": {
                     "type": f"number_of_{trigger}s"
