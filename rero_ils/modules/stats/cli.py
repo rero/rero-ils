@@ -227,17 +227,24 @@ def collect(pid):
         click.secho(f'Configuration does not exists.', fg='red')
     else:
         stat_report = StatsReport(cfg)
-        res = stat_report.collect()
-        data = dict(
-            type=StatType.REPORT,
-            config=cfg.dumps(),
-            values=[dict(results=res)]
-        )
-        if stat_report.period:
-            range = stat_report._get_range_period(stat_report.period)
-            data['date_range'] = {
-                'from': range['gte'],
-                'to': range['lte']
-            }
+        values = stat_report.collect()
+        stat_report.create_stat(values)
 
-        Stat.create(data, dbcommit=True, reindex=True)
+
+@report.command()
+@click.argument('frequency', type=click.Choice(['month', 'year']))
+@click.option('--delayed', '-d', is_flag=True,
+              help='Run indexing in background.')
+@with_appcontext
+def collect_all(frequency, delayed):
+    """Extract the stats report values and store it.
+
+    :param pid: pid value of the configuration to use.
+    """
+    from .tasks import collect_stats_reports
+    if delayed:
+        res = collect_stats_reports.delay(frequency)
+        click.secho(f'Generated reports delayed, task id: {res}', fg='green')
+    else:
+        res = collect_stats_reports(frequency)
+        click.secho(f'Generated {len(res)} reports.', fg='green')
