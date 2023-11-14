@@ -30,6 +30,8 @@ from rero_ils.modules.utils import extracted_data_from_ref
 from .indicators import NumberOfActivePatronsCfg, NumberOfCirculationCfg, \
     NumberOfDeletedItemsCfg, NumberOfDocumentsCfg, NumberOfILLRequests, \
     NumberOfItemsCfg, NumberOfPatronsCfg, NumberOfSerialHoldingsCfg
+from ..api.api import Stat
+from ..models import StatType
 
 
 class StatsReport:
@@ -174,7 +176,7 @@ class StatsReport:
 
         return self._process_aggregations(results)
 
-    def _get_range_period(self, period):
+    def get_range_period(self, period):
         """Get the range period for elasticsearch date range aggs."""
         if period == 'month':
             # now - 1 month
@@ -193,3 +195,24 @@ class StatsReport:
             _from = f'{previous_year}-01-01T00:00:00'
             _to = f'{previous_year}-12-31T23:59:59'
             return dict(gte=_from, lte=_to)
+
+    def create_stat(self, values, dbcommit=True, reindex=True):
+        """Create a stat report.
+
+        :params values: array - value computed by the StatReport class.
+        :param dbcommit: bool - if True commit the database transaction.
+        :param reindex: bool - if True index the document.
+        :returns: the create report.
+        """
+        data = dict(
+                type=StatType.REPORT,
+                config=self.config.dumps(),
+                values=[dict(results=values)]
+            )
+        if self.period:
+            range = self.get_range_period(self.period)
+            data['date_range'] = {
+                'from': range['gte'],
+                'to': range['lte']
+            }
+        return Stat.create(data, dbcommit=dbcommit, reindex=reindex)
