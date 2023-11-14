@@ -121,7 +121,7 @@ class NumberOfActivePatronsCfg(NumberOfPatronsCfg):
         :returns: an elasticsearch query object
         """
         es_query = super().query
-        range_period = self.cfg._get_range_period(self.cfg.period)
+        range_period = self.cfg.get_range_period(self.cfg.period)
         op_query = LoanOperationLogsSearch()\
             .source('loan.patron.pid')\
             .get_logs_by_trigger(
