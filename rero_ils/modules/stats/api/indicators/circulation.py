@@ -51,7 +51,7 @@ class NumberOfCirculationCfg(IndicatorCfg):
             .filter('term', loan__trigger=self.trigger)
         if period := self.cfg.period:
             es_query = es_query.filter(
-                'range', date=self.cfg._get_range_period(period))
+                'range', date=self.cfg.get_range_period(period))
         if lib_pids := self.cfg.filter_by_libraries:
             loc_pids = [
                 hit.pid for hit in LocationsSearch().filter(

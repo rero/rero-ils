@@ -252,7 +252,7 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
             .filter('term', operation='delete')
         if period := self.cfg.period:
             es_query = es_query.filter(
-                'range', date=self.cfg._get_range_period(period))
+                'range', date=self.cfg.get_range_period(period))
         if pids := self.cfg.filter_by_libraries:
             es_query = es_query.filter(
                 'terms', record__library_pid=pids)
@@ -315,7 +315,7 @@ class NumberOfILLRequests(IndicatorCfg):
             'term', organisation__pid=self.cfg.org_pid)
         if period := self.cfg.period:
             es_query = es_query.filter(
-                'range', _created=self.cfg._get_range_period(period))
+                'range', _created=self.cfg.get_range_period(period))
         if pids := self.cfg.filter_by_libraries:
             es_query = es_query.filter(
                 'terms', library__pid=pids)
