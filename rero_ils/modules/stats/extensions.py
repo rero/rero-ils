@@ -20,7 +20,9 @@
 
 from invenio_records.extensions import RecordExtension
 
+from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.patrons.api import current_librarian
+from rero_ils.modules.utils import extracted_data_from_ref
 
 from .models import StatType
 
@@ -41,8 +43,14 @@ class StatisticsDumperExtension(RecordExtension):
         :param dumper: the dumper class used to dump the record.
         """
         # to filter the search list results
-        if org := record.get('config', {}).get('organisation'):
-            record['organisation'] = org
+        if lib := record.get('config', {}).get('library'):
+            lib_pid = (
+                lib.get('pid')
+                or extracted_data_from_ref(lib.get('$ref')))
+            org_pid = Library.get_record_by_pid(lib_pid).organisation_pid
+            record['organisation'] = {
+                'pid': org_pid
+            }
 
         if not current_librarian:
             return

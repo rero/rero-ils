@@ -195,7 +195,12 @@
                     "type": "keyword"
                   },
                   "location_name": {
-                    "type": "text"
+                    "type": "text",
+                    "fields": {
+                      "raw": {
+                        "type": "keyword"
+                      }
+                    }
                   }
                 }
               },

@@ -35,8 +35,8 @@ def test_stats_report_number_of_patrons(
     """Test the number of patrons and active patrons."""
     # no data
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -93,8 +93,8 @@ def test_stats_report_number_of_patrons(
 
     # no distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -107,8 +107,8 @@ def test_stats_report_number_of_patrons(
 
     # gender
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -124,8 +124,8 @@ def test_stats_report_number_of_patrons(
     ]
     # birth year
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -141,8 +141,8 @@ def test_stats_report_number_of_patrons(
     ]
     # patron type
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -162,8 +162,8 @@ def test_stats_report_number_of_patrons(
     ]
     # postal code
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -179,8 +179,8 @@ def test_stats_report_number_of_patrons(
     ]
     # role
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -196,8 +196,8 @@ def test_stats_report_number_of_patrons(
     ]
     # gender month
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -215,8 +215,8 @@ def test_stats_report_number_of_patrons(
 
     # gender year
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -277,8 +277,8 @@ def test_stats_report_number_of_patrons(
 
     # active patrons
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -298,8 +298,8 @@ def test_stats_report_number_of_patrons(
     # active patrons
     lib_pid = lib_martigny_bourg.pid
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "filter_by_libraries": [{

@@ -110,3 +110,33 @@ def test_stats_librarian_data(
     assert not filtered_stat_libs.difference(manageable_libs)
     from invenio_db import db
     db.session.rollback()
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_stats_report_get(client, stats_report_martigny, csv_header):
+    """Test record retrieval."""
+    item_url = url_for(
+        'invenio_records_rest.stat_item', pid_value=stats_report_martigny.pid)
+    res = client.get(item_url)
+    assert res.status_code == 200
+    assert res.headers['ETag']
+    data = get_json(res)
+    for k in ['created', 'updated', 'metadata', 'links']:
+        assert k in data
+    # Check self links
+    res = client.get(to_relative_url(data['links']['self']))
+    assert res.status_code == 200
+
+    # CSV format
+    params = {'pid_value': stats_report_martigny.pid, 'format': 'csv'}
+    item_url = url_for('invenio_records_rest.stat_item', **params)
+    res = client.get(item_url, headers=csv_header)
+    assert res.status_code == 200
+    data = get_csv(res)
+    assert data
+    list_url = url_for('invenio_records_rest.stat_list')
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['hits']

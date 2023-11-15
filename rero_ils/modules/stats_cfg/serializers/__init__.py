@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
-# Copyright (C) 2019-2023 UCLouvain
+# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,10 +16,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Indicator Configurations."""
+"""Stat configuration serialization."""
 
-from .base import *
-from .circulation import *
-from .others import *
-from .patron import *
-from .requests import *
+
+from rero_ils.modules.serializers import RecordSchemaJSONV1, search_responsify
+
+from .json import StatsCfgJSONSerializer
+
+__all__ = [
+    'json_search'
+]
+
+"""JSON serializer."""
+_json = StatsCfgJSONSerializer(RecordSchemaJSONV1)
+json_search = search_responsify(_json, 'application/rero+json')

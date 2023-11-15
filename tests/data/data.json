@@ -4381,7 +4381,8 @@
       "pro_read_only",
       "pro_catalog_manager",
       "pro_circulation_manager",
-      "pro_user_manager"
+      "pro_user_manager",
+      "pro_statistic_manager"
     ],
     "password": "Pw123456"
   },
@@ -5196,8 +5197,8 @@
     "pid": "stats_cfg1",
     "name": "Statistics configuration for organisation 1",
     "description": "test",
-    "organisation": {
-      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
     },
     "frequency": "month",
     "is_active": true,
@@ -5207,7 +5208,7 @@
         "type": "number_of_documents",
         "distributions": [
           "created_month",
-          "library"
+          "owning_library"
         ]
       }
     }
@@ -5217,8 +5218,8 @@
     "pid": "stats_cfg2",
     "name": "Statistics configuration for organisation 2",
     "description": "test",
-    "organisation": {
-      "$ref": "https://bib.rero.ch/api/organisations/org2"
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib4"
     },
     "frequency": "month",
     "is_active": true,
@@ -5228,7 +5229,7 @@
         "type": "number_of_documents",
         "distributions": [
           "created_month",
-          "library"
+          "owning_library"
         ]
       }
     }

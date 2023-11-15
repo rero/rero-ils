@@ -78,8 +78,8 @@ def test_stats_report_number_of_deleted_items(
     }, refresh=True)
     # no distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -93,8 +93,8 @@ def test_stats_report_number_of_deleted_items(
     # no distributions with filters
     lib_pid = lib_martigny_bourg.pid
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "filter_by_libraries": [{
@@ -110,14 +110,14 @@ def test_stats_report_number_of_deleted_items(
 
     # one distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_deleted_items",
-                "distributions": ["library"]
+                "distributions": ["owning_library"]
             }
         }
     }
@@ -128,14 +128,14 @@ def test_stats_report_number_of_deleted_items(
 
     # two distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_deleted_items",
-                "distributions": ["library", "action_month"]
+                "distributions": ["owning_library", "action_month"]
             }
         }
     }
@@ -147,14 +147,14 @@ def test_stats_report_number_of_deleted_items(
 
     # reverse distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_deleted_items",
-                "distributions": ["action_month", "library"]
+                "distributions": ["action_month", "owning_library"]
             }
         }
     }
@@ -170,14 +170,14 @@ def test_stats_report_number_of_deleted_items(
 
     # year
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_deleted_items",
-                "distributions": ["action_year", "library"]
+                "distributions": ["action_year", "owning_library"]
             }
         }
     }
@@ -193,15 +193,15 @@ def test_stats_report_number_of_deleted_items(
 
     # limit by period
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_deleted_items",
                 "period": "year",
-                "distributions": ["library"]
+                "distributions": ["owning_library"]
             }
         }
     }

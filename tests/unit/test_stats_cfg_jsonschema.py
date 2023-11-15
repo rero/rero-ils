@@ -45,8 +45,8 @@ def test_valid_circulation_n_docs(stats_cfg_schema):
         'name': 'foo',
         'description': 'bar',
         'frequency': 'month',
-        'organisation': {
-            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
             'type': 'catalogue',
@@ -56,7 +56,8 @@ def test_valid_circulation_n_docs(stats_cfg_schema):
         },
         'is_active': True
     }
-    for dist in ['created_month', 'created_year', 'imported', 'library']:
+    for dist in ['created_month', 'created_year', 'imported',
+                 'owning_library']:
         data['category']['indicator']['distributions'] = [dist]
         validate(data, stats_cfg_schema)
 
@@ -74,8 +75,8 @@ def test_valid_circulation_n_serial_holdings(stats_cfg_schema):
         'name': 'foo',
         'description': 'bar',
         'frequency': 'month',
-        'organisation': {
-            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
             'type': 'catalogue',
@@ -85,7 +86,7 @@ def test_valid_circulation_n_serial_holdings(stats_cfg_schema):
         },
         'is_active': True
     }
-    for dist in ['created_month', 'created_year', 'library']:
+    for dist in ['created_month', 'created_year', 'owning_library']:
         data['category']['indicator']['distributions'] = [dist]
         validate(data, stats_cfg_schema)
 
@@ -103,8 +104,8 @@ def test_valid_circulation_n_items(stats_cfg_schema):
         'name': 'foo',
         'description': 'bar',
         'frequency': 'month',
-        'organisation': {
-            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
             'type': 'catalogue',
@@ -114,9 +115,8 @@ def test_valid_circulation_n_items(stats_cfg_schema):
         },
         'is_active': True
     }
-    for dist in [
-        'created_month', 'created_year', 'library', 'location', 'type'
-    ]:
+    for dist in ['created_month', 'created_year', 'owning_library',
+                 'owning_location', 'type']:
         data['category']['indicator']['distributions'] = [dist]
         validate(data, stats_cfg_schema)
 
@@ -134,8 +134,8 @@ def test_valid_circulation_n_patrons(stats_cfg_schema):
         'name': 'foo',
         'description': 'bar',
         'frequency': 'month',
-        'organisation': {
-            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
             'type': 'user_management',
@@ -166,8 +166,8 @@ def test_valid_circulation_n_active_patrons(stats_cfg_schema):
         'name': 'foo',
         'description': 'bar',
         'frequency': 'month',
-        'organisation': {
-            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
             'type': 'user_management',
@@ -200,8 +200,8 @@ def test_valid_circulation_n_deleted_items(stats_cfg_schema):
         'name': 'foo',
         'description': 'bar',
         'frequency': 'month',
-        'organisation': {
-            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
             'type': 'catalogue',
@@ -213,7 +213,7 @@ def test_valid_circulation_n_deleted_items(stats_cfg_schema):
     }
     for period in ['year', 'month']:
         data['category']['indicator']['period'] = period
-        for dist in ['action_month', 'action_year', 'library']:
+        for dist in ['action_month', 'action_year', 'owning_library']:
             data['category']['indicator']['distributions'] = [dist]
             validate(data, stats_cfg_schema)
 
@@ -234,9 +234,9 @@ def test_valid_circulation_n_ill_requests(stats_cfg_schema):
         'pid': 'statcfg1',
         'name': 'foo',
         'description': 'bar',
-        'frequency': 'month',
-        'organisation': {
-            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        "frequency": "month",
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
             'type': 'circulation',
@@ -246,19 +246,13 @@ def test_valid_circulation_n_ill_requests(stats_cfg_schema):
         },
         'is_active': True
     }
-    for period in ['year', 'month']:
-        data['category']['indicator']['period'] = period
-        for dist in [
-            'created_month', 'created_year', 'pickup_location', 'status'
-        ]:
-            data['category']['indicator']['distributions'] = [dist]
-            validate(data, stats_cfg_schema)
-
-    data['category']['indicator']['distributions'] = ["foo"]
-    with pytest.raises(ValidationError):
+    for dist in [
+        'created_month', 'created_year', 'pickup_location', 'status'
+    ]:
+        data['category']['indicator']['distributions'] = [dist]
         validate(data, stats_cfg_schema)
 
-    data['category']['indicator']['period'] = 'day'
+    data['category']['indicator']['distributions'] = ["foo"]
     with pytest.raises(ValidationError):
         validate(data, stats_cfg_schema)
 
@@ -272,8 +266,8 @@ def test_valid_circulation_n_circulations(stats_cfg_schema):
         'name': 'foo',
         'description': 'bar',
         'frequency': 'month',
-        'organisation': {
-            '$ref': 'https://bib.rero.ch/api/organisations/org1'
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
             'type': 'circulation',

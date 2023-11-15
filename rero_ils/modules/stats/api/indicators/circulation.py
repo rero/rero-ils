@@ -118,6 +118,11 @@ class NumberOfCirculationCfg(IndicatorCfg):
                 'terms',
                 field='loan.item.library_pid',
                 size=self.cfg.aggs_size
+            ),
+            'owning_location': A(
+                'terms',
+                field='loan.item.holding.location_name.raw',
+                size=self.cfg.aggs_size
             )
         }
         return cfg[distribution]
@@ -141,6 +146,7 @@ class NumberOfCirculationCfg(IndicatorCfg):
             'patron_postal_code': lambda: bucket.key,
             'transaction_channel': lambda: bucket.key,
             'owning_library': lambda:
-                f'{self.cfg.libraries[bucket.key]} ({bucket.key})'
+                f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
+            'owning_location': lambda: bucket.key,
         }
         return cfg[distribution]()

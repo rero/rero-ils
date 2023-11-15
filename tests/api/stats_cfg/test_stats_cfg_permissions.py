@@ -27,7 +27,7 @@ from rero_ils.modules.stats_cfg.permissions import \
 
 def test_stats_cfg_permissions(
     patron_martigny, stats_cfg_martigny, stats_cfg_sion,
-    librarian_martigny, system_librarian_martigny
+    librarian_martigny, system_librarian_martigny, librarian_saxon, lib_saxon
 ):
     """Test statistics configuration permissions class."""
 
@@ -69,6 +69,32 @@ def test_stats_cfg_permissions(
         'create': False,
         'update': False,
         'delete': False
+    }, stats_cfg_martigny)
+
+    # Librarian with the right role
+    # cannot update or delete a config of an other lib
+    login_user(librarian_saxon.user)
+    check_permission(StatisticsConfigurationPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': False,
+        'delete': False
+    }, stats_cfg_martigny)
+
+    # Librarian with the right role
+    # can update or delete a config of this library
+    stats_cfg_martigny.update(
+        dict(
+            library={
+                '$ref': f'https://bib.test.rero.ch/libraries/{lib_saxon.pid}'
+            }))
+    check_permission(StatisticsConfigurationPermissionPolicy, {
+        'search': True,
+        'read': True,
+        'create': True,
+        'update': True,
+        'delete': True
     }, stats_cfg_martigny)
 
     # System librarian with specific role

@@ -68,8 +68,8 @@ def test_stats_report_number_of_documents(
 
     # no distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -83,8 +83,8 @@ def test_stats_report_number_of_documents(
     # no distributions with filters
     lib_pid = lib_martigny_bourg.pid
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "filter_by_libraries": [{
@@ -100,14 +100,14 @@ def test_stats_report_number_of_documents(
 
     # one distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_documents",
-                "distributions": ["library"]
+                "distributions": ["owning_library"]
             }
         }
     }
@@ -118,14 +118,14 @@ def test_stats_report_number_of_documents(
 
     # two distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_documents",
-                "distributions": ["library", "created_month"]
+                "distributions": ["owning_library", "created_month"]
             }
         }
     }
@@ -137,14 +137,14 @@ def test_stats_report_number_of_documents(
 
     # reverse distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_documents",
-                "distributions": ["created_month", "library"]
+                "distributions": ["created_month", "owning_library"]
             }
         }
     }
@@ -160,14 +160,14 @@ def test_stats_report_number_of_documents(
 
     # by year
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_documents",
-                "distributions": ["created_year", "library"]
+                "distributions": ["created_year", "owning_library"]
             }
         }
     }
@@ -183,14 +183,14 @@ def test_stats_report_number_of_documents(
 
     # imported
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_documents",
-                "distributions": ["library", "imported"]
+                "distributions": ["owning_library", "imported"]
             }
         }
     }
@@ -202,14 +202,14 @@ def test_stats_report_number_of_documents(
 
     # reverse imported
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_documents",
-                "distributions": ["imported", "library"]
+                "distributions": ["imported", "owning_library"]
             }
         }
     }

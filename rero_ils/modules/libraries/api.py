@@ -24,6 +24,7 @@ from functools import partial
 import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
+from elasticsearch_dsl import Q
 from flask_babelex import gettext as _
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -31,6 +32,7 @@ from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
+from rero_ils.modules.stats_cfg.api import StatsConfigurationSearch
 from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import date_string_to_utc, \
     extracted_data_from_ref, sorted_pids, strtotime
@@ -377,6 +379,11 @@ class Library(IlsRecord):
             AcqReceiptsSearch
         from rero_ils.modules.patrons.api import PatronsSearch
         links = {}
+        stat_cfg_query = StatsConfigurationSearch()\
+            .filter(
+                Q('term', library__pid=self.pid) |
+                Q('term', filter_by_libraries__pid=self.pid)
+            )
         location_query = LocationsSearch() \
             .filter('term', library__pid=self.pid)
         patron_query = PatronsSearch() \
@@ -388,16 +395,20 @@ class Library(IlsRecord):
             locations = sorted_pids(location_query)
             librarians = sorted_pids(patron_query)
             receipts = sorted_pids(receipt_query)
+            stats_cfg = sorted_pids(stat_cfg_query)
         else:
             locations = location_query.count()
             librarians = patron_query.count()
             receipts = receipt_query.count()
+            stats_cfg = stat_cfg_query.count()
         if locations:
             links['locations'] = locations
         if librarians:
             links['patrons'] = librarians
         if receipts:
             links['acq_receipts'] = receipts
+        if stats_cfg:
+            links['stats_cfg'] = stats_cfg
         return links
 
     def reasons_not_to_delete(self):
