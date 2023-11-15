@@ -34,11 +34,11 @@ def test_patrons_jsonresolver(system_librarian_martigny):
     # deleted record
     system_librarian_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'patron': {'$ref': 'https://bib.rero.ch/api/patrons/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

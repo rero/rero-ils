@@ -34,7 +34,7 @@ def test_vendors_jsonresolver(app, vendor_martigny):
     # deleted record
     vendor_martigny.delete()
     with pytest.raises(Exception):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
@@ -42,5 +42,5 @@ def test_vendors_jsonresolver(app, vendor_martigny):
     })
 
     with pytest.raises(JsonRefError) as error:
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
     assert 'PIDDoesNotExistError' in str(error)

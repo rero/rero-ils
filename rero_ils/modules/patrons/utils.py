@@ -20,6 +20,8 @@ from flask import current_app
 from flask_login import current_user
 from marshmallow import ValidationError
 
+from rero_ils.modules.users.api import User
+
 
 def user_has_patron(user=current_user):
     """Test if user has a patron."""
@@ -68,3 +70,40 @@ def validate_role_changes(user, changes, raise_exc=True):
             return False
     # No problems were detected
     return True
+
+
+def create_user_from_data(data, send_email=False):
+    """Create a user and set the profile fields from a data.
+
+    :param data: A dict containing a mix of patron and user data.
+    :param send_email - send the reset password email to the user
+    :returns: The modified dict.
+    """
+    user = User.get_by_username(data.get('username'))
+    if not user:
+        user = User.create(data, send_email)
+        user_id = user.id
+    else:
+        user_id = user.user.id
+    data['user_id'] = user_id
+
+    return User.remove_fields(data)
+
+
+def create_patron_from_data(
+    data, dbcommit=True, reindex=True, send_email=False
+):
+    """Create a patron and a user from a data dict.
+
+    :param data - dictionary representing a library user
+    :param send_email - send the reset password email to the user
+    :returns: - A `Patron` instance
+    """
+    from .api import Patron
+    data = create_user_from_data(data, send_email)
+    ptrn = Patron.create(
+        data=data,
+        delete_pid=False,
+        dbcommit=dbcommit,
+        reindex=reindex)
+    return ptrn

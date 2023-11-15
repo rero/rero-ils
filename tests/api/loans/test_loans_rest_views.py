@@ -30,7 +30,6 @@ def test_loan_can_extend(client, patron_martigny, item_lib_martigny,
                          loc_public_martigny, librarian_martigny,
                          circulation_policies, json_header):
     """Test is loan can extend."""
-    login_user(client, patron_martigny)
     params = {
         'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
@@ -43,6 +42,7 @@ def test_loan_can_extend(client, patron_martigny, item_lib_martigny,
 
     list_url = url_for(
         'api_loan.can_extend', loan_pid=loan.pid)
+    login_user(client, patron_martigny)
     response = client.get(list_url, headers=json_header)
     assert response.status_code == 200
     assert get_json(response) == {

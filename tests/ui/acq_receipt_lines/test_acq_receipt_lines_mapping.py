@@ -23,10 +23,11 @@ from rero_ils.modules.acquisition.acq_receipt_lines.api import \
     AcqReceiptLine, AcqReceiptLinesSearch
 
 
-def test_acq_receipt_lines_es_mapping(es, db, lib_martigny, vendor_martigny,
-                                      acq_receipt_line_1_fiction_martigny,
-                                      acq_receipt_line_1_fiction_martigny_data
-                                      ):
+def test_acq_receipt_lines_es_mapping(
+    search, db, lib_martigny, vendor_martigny,
+    acq_receipt_line_1_fiction_martigny,
+    acq_receipt_line_1_fiction_martigny_data
+):
     """Test acquisition receipt lines elasticsearch mapping."""
     search = AcqReceiptLinesSearch()
     mapping = get_mapping(search.Meta.index)

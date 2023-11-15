@@ -24,6 +24,8 @@ from datetime import datetime
 from celery import shared_task
 from flask import current_app
 
+from rero_ils.modules.users.api import User
+
 from .api import Patron
 from ..patron_types.api import PatronType
 from ..utils import add_years, set_timestamp
@@ -56,7 +58,7 @@ def clean_obsolete_subscriptions():
         #     `create_subscription_patron_transaction`. This listener will
         #     create a new subscription if needed
         patron.update(
-            Patron.remove_user_data(patron.dumps()),
+            User.remove_fields(patron.dumps()),
             dbcommit=True,
             reindex=True
         )

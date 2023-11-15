@@ -62,7 +62,7 @@ def stats_librarian(item_lib_martigny, item_lib_fully, item_lib_sion):
 
 
 @pytest.fixture(scope='module')
-def stats_report_martigny(stats_cfg_martigny):
+def stats_report_martigny(stats_cfg_martigny, item_lib_martigny):
     """Stats fixture for librarian."""
     stat_report = StatsReport(stats_cfg_martigny)
     values = stat_report.collect()

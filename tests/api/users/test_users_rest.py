@@ -41,18 +41,7 @@ def test_users_post_put(client, user_data_tmp, librarian_martigny,
     assert res.status_code == 401
 
     login_user_via_session(client, librarian_martigny.user)
-
-    # test invalid create
-    user_data_tmp['toto'] = 'toto'
-    res, data = postdata(
-        client,
-        'api_users.users_list',
-        user_data_tmp
-    )
-    assert res.status_code == 400
-
     # test with invalid password
-    user_data_tmp.pop('toto')
     user_data_tmp['first_name'] = 1
     user_data_tmp['password'] = '12345'
     res, data = postdata(

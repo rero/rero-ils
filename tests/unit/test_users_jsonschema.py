@@ -40,7 +40,6 @@ def test_user_all_jsonschema_keys_values(
         {'key': 'last_name', 'value': 25},
         {'key': 'birth_date', 'value': 25},
         {'key': 'gender', 'value': 25},
-        {'key': 'username', 'value': 25},
         {'key': 'street', 'value': 25},
         {'key': 'postal_code', 'value': 25},
         {'key': 'city', 'value': 25},

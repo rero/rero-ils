@@ -33,10 +33,10 @@ def test_acq_receipts_jsonresolver(acq_receipt_fiction_martigny):
     # deleted record
     acq_receipt_fiction_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     data = {'$ref': 'https://bib.rero.ch/api/acq_receipts/n_e'}
     rec = Record.create({'acq_receipt': data})
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

@@ -34,11 +34,11 @@ def test_ill_requests_jsonresolver(ill_request_martigny):
     # deleted record
     ill_request_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'ill_request': {'$ref': 'https://bib.rero.ch/api/ill_requests/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

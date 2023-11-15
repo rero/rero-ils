@@ -23,13 +23,10 @@ import json
 import os
 import sys
 import traceback
-from datetime import datetime
 
 import click
 from flask import current_app
 from flask.cli import with_appcontext
-from flask_security.confirmable import confirm_user
-from invenio_accounts.ext import hash_password
 from invenio_db import db
 from invenio_jsonschemas.proxies import current_jsonschemas
 from jsonmerge import Merger
@@ -38,8 +35,9 @@ from jsonschema.exceptions import ValidationError
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.patrons.models import CommunicationChannel
+from rero_ils.modules.users.api import User
 
-from .api import User, create_patron_from_data
+from .utils import create_patron_from_data
 from ..patrons.api import Patron, PatronProvider
 from ..providers import append_fixtures_new_identifiers
 from ..utils import JsonWriter, get_schema_for_resource, read_json_record
@@ -83,34 +81,7 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
     pids = []
     error_records = []
     for count, patron_data in enumerate(data, 1):
-        password = patron_data.get('password', password)
-        username = patron_data['username']
-        if password:
-            patron_data.pop('password', None)
-        if verbose:
-            user_record = User.get_by_username(username)
-            if not user_record:
-                click.secho('{count: <8} Creating user: {username}'.format(
-                    count=count,
-                    username=username
-                    )
-                )
-            else:
-                user = user_record.user
-                for field in profile_fields:
-                    value = patron_data.get(field)
-                    if value is not None:
-                        if field == 'birth_date':
-                            value = datetime.strptime(value, '%Y-%m-%d')
-                        setattr(user.profile, field, value)
-                db.session.merge(user)
-                db.session.commit()
-                click.secho('{count: <8} User updated: {username}'.format(
-                        count=count,
-                        username=username
-                    ),
-                    fg='yellow'
-                )
+
         try:
             # patron creation
             patron = None
@@ -120,22 +91,14 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
             if not patron:
                 patron = create_patron_from_data(
                     data=patron_data,
-                    dbcommit=False,
-                    reindex=False
+                    dbcommit=True,
+                    reindex=True
                 )
-                user = patron.user
-                user.password = hash_password(password)
-                user.active = True
-                db.session.merge(user)
-                db.session.commit()
-                confirm_user(user)
-                patron.reindex()
                 pids.append(patron.pid)
             else:
                 # remove profile fields from patron record
-                for field in profile_fields:
-                    patron_data.pop(field, None)
-                patron.update(data=patron_data, dbcommit=True, reindex=True)
+                patron.update(
+                    data=User.remove_fields(data), dbcommit=True, reindex=True)
                 if verbose:
                     click.secho('{count: <8} Patron updated: {username}'
                                 .format(count=count, username=username),

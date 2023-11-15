@@ -105,7 +105,6 @@ def test_operation_log_on_item(
     item_lib_martigny
 ):
     """Test operation log on Item."""
-    login_user_via_session(client, librarian_martigny.user)
 
     # Get the operation log index
     fake_data = {'date': datetime.now().isoformat()}
@@ -119,6 +118,7 @@ def test_operation_log_on_item(
 
     q = f'record.type:item AND record.value:{item.pid}'
     es_url = url_for('invenio_records_rest.oplg_list', q=q, sort='mostrecent')
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(es_url)
     data = get_json(res)
     assert data['hits']['total']['value'] == 1

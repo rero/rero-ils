@@ -1,6 +1,6 @@
 
-{%- if user.profile.first_name and user.profile.last_name %}
-<p>{{ _('Dear') }} {{ user.profile.first_name }} {{ user.profile.last_name }},</p>
+{%- if user.user_profile.first_name and user.user_profile.last_name %}
+<p>{{ _('Dear') }} {{ user.user_profile.first_name }} {{ user.user_profile.last_name }},</p>
 {%- else %}
 <p>{{ _('Dear patron') }},</p>
 {%- endif %}

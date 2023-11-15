@@ -34,11 +34,11 @@ def test_patron_types_jsonresolver(app, patron_type_tmp):
     # deleted record
     patron_type_tmp.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'patron_type': {'$ref': 'https://bib.rero.ch/api/patron_types/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

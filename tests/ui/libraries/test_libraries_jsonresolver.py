@@ -33,11 +33,11 @@ def test_libraries_jsonresolver(lib_martigny):
     # deleted record
     library.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'library': {'$ref': 'https://bib.rero.ch/api/libraries/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

@@ -32,7 +32,7 @@ from rero_ils.modules.holdings.tasks import \
     delete_standard_holdings_having_no_items
 
 
-def test_holding_create(db, es, document, org_martigny,
+def test_holding_create(db, search, document, org_martigny,
                         loc_public_martigny, item_type_standard_martigny,
                         holding_lib_martigny_data):
     """Test holding creation."""

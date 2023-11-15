@@ -27,7 +27,7 @@ from rero_ils.modules.templates.api import template_id_fetcher as fetcher
 from rero_ils.modules.utils import get_ref_for_pid
 
 
-def test_template_create(db, es, templ_doc_public_martigny_data,
+def test_template_create(db, search, templ_doc_public_martigny_data,
                          org_martigny, system_librarian_martigny):
     """Test template creation."""
     templ_doc_public_martigny_data['toto'] = 'toto'

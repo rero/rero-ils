@@ -21,7 +21,7 @@ from __future__ import absolute_import, print_function
 
 from flask import Blueprint, current_app, flash, redirect, render_template, \
     request, url_for
-from flask_babelex import gettext as _
+from flask_babel import lazy_gettext as _
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.views import create_title_text

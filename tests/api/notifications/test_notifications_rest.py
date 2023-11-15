@@ -784,11 +784,11 @@ def test_request_notifications_temp_item_type(
 ):
     """Test request notifications with item type with negative availability."""
     mailbox.clear()
-    login_user_via_session(client, librarian_martigny.user)
     item_lib_martigny['temporary_item_type'] = {
-        '$ref': get_ref_for_pid('itty', item_type_missing_martigny.pid)
+       '$ref': get_ref_for_pid('itty', item_type_missing_martigny.pid)
     }
     item_lib_martigny.update(item_lib_martigny, dbcommit=True, reindex=True)
+    login_user_via_session(client, librarian_martigny.user)
 
     res, data = postdata(
         client,

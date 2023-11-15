@@ -22,7 +22,7 @@ from copy import deepcopy
 from datetime import datetime
 from functools import partial
 
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from werkzeug.utils import cached_property
 
 from rero_ils.modules.acquisition.api import AcquisitionIlsRecord

@@ -35,11 +35,11 @@ def test_holdings_jsonresolver(holding_lib_martigny):
     # deleted record
     holding_lib_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'holding': {'$ref': 'https://bib.rero.ch/api/holdings/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

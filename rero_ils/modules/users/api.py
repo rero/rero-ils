@@ -18,23 +18,20 @@
 
 """API for manipulating users."""
 
-from datetime import datetime
 
 from flask import current_app, url_for
-from flask_babelex import lazy_gettext as _
+from flask_babel import lazy_gettext as _
 from flask_login import current_user
 from flask_security.confirmable import confirm_user
 from flask_security.recoverable import send_reset_password_instructions
-from invenio_accounts.ext import hash_password
+from flask_security.utils import hash_password
 from invenio_accounts.models import User as BaseUser
 from invenio_db import db
 from invenio_jsonschemas import current_jsonschemas
-from invenio_records.validators import PartialDraft4Validator
 from invenio_records_rest.utils import obj_or_import_string
-from invenio_userprofiles.models import UserProfile
+from jsonschema import Draft4Validator
 from jsonschema.exceptions import ValidationError
 from sqlalchemy import func
-from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.local import LocalProxy
 
 from ..api import ils_record_format_checker
@@ -86,8 +83,11 @@ class User(object):
 
     profile_fields = [
         'first_name', 'last_name', 'street', 'postal_code', 'gender',
-        'city', 'birth_date', 'username', 'home_phone', 'business_phone',
+        'city', 'birth_date', 'home_phone', 'business_phone',
         'mobile_phone', 'other_phone', 'keep_history', 'country'
+    ]
+    user_fields = [
+        'email', 'username', 'password'
     ]
 
     def __init__(self, user):
@@ -100,37 +100,34 @@ class User(object):
         return self.user.id
 
     @classmethod
-    def create(cls, data, **kwargs):
+    def create(cls, data, send_email=True, **kwargs):
         """User record creation.
 
         :param cls - class object
         :param data - dictionary representing a user record
+        :param send_email - send the reset password email to the user
         """
         with db.session.begin_nested():
-            email = data.pop('email', None)
-            data.pop('roles', None)
             # Generate password if not present
-            password = data.pop('password', None)
-            if not password:
-                password = password_generator()
-            cls._validate(data=data)
+            profile = {
+                k: v for k, v in data.items()
+                if k in cls.profile_fields
+            }
+            if profile:
+                cls._validate(profile)
+            password = data.get('password', password_generator())
+            cls._validate_password(password=password)
             user = BaseUser(
+                username=data.get('username'),
                 password=hash_password(password),
-                profile=data, active=True)
+                user_profile=profile, active=True)
             db.session.add(user)
-            profile = user.profile
-            for field in cls.profile_fields:
-                value = data.get(field)
-                if value is not None:
-                    if field == 'birth_date':
-                        value = datetime.strptime(value, '%Y-%m-%d')
-                    setattr(profile, field, value)
             # send the reset password notification for new users
-            if email:
+            if email := data.get('email'):
                 user.email = email
             db.session.merge(user)
         db.session.commit()
-        if user.email:
+        if data.get('email') and send_email:
             send_reset_password_instructions(user)
         confirm_user(user)
         return cls(user)
@@ -141,49 +138,40 @@ class User(object):
         :param data - dictionary representing a user record to update
         """
         from ..patrons.listener import update_from_profile
-        data.pop('roles', None)
-        self._validate(data=data)
-        email = data.pop('email', None)
-        password = data.pop('password', None)
+        profile = {k: v for k, v in data.items() if k in self.profile_fields}
+        if profile:
+            self._validate(profile)
+        if password := data.get('password'):
+            self._validate_password(password=password)
+
         user = self.user
         with db.session.begin_nested():
-            if user.profile is None:
-                user.profile = UserProfile(user_id=user.id)
-            profile = user.profile
-            for field in self.profile_fields:
-                if field == 'birth_date':
-                    setattr(
-                        profile, field,
-                        datetime.strptime(data.get(field), '%Y-%m-%d'))
-                else:
-                    setattr(profile, field, data.get(field, ''))
             if password:
                 user.password = hash_password(password)
-
-            if email and email != user.email:
+            user.username = data.get('username')
+            if email := data.get('email'):
                 user.email = email
-            # remove the email from user data
-            elif not email and user.email:
-                user.email = None
+            else:
+                user._email = None
+            user.user_profile = profile
             db.session.merge(user)
         db.session.commit()
         confirm_user(user)
-        update_from_profile('user', self.user.profile)
+        update_from_profile('user', self.user)
         return self
 
     @classmethod
     def _validate(cls, data, **kwargs):
         """Validate user record against schema."""
-        if 'password' in data:
-            cls._validate_password(data['password'])
-        default_user_schema = get_schema_for_resource('user')
-        if schema := data.pop('$schema', default_user_schema):
-            _records_state.validate(
-                data,
-                schema,
-                format_checker=ils_record_format_checker,
-                cls=PartialDraft4Validator
-            )
+        schema = get_schema_for_resource('user')
+        data['$schema'] = schema
+        _records_state.validate(
+            data,
+            schema,
+            format_checker=ils_record_format_checker,
+            cls=Draft4Validator
+        )
+        data.pop('$schema')
         return data
 
     @classmethod
@@ -193,6 +181,17 @@ class User(object):
             password_validator(password)
         except PasswordValidatorException as e:
             raise ValidationError(str(e)) from e
+
+    @classmethod
+    @property
+    def fields(cls):
+        """Validate password."""
+        return cls.profile_fields + cls.user_fields
+
+    @classmethod
+    def remove_fields(cls, data):
+        """."""
+        return {k: v for k, v in data.items() if k not in cls.fields}
 
     @classmethod
     def get_record(cls, user_id):
@@ -225,14 +224,11 @@ class User(object):
         metadata = {
             'roles': [r.name for r in self.user.roles]
         }
-        if self.user.profile:
-            for field in self.profile_fields:
-                if value := getattr(self.user.profile, field):
-                    if field == 'birth_date':
-                        value = datetime.strftime(value, '%Y-%m-%d')
-                    metadata[field] = value
+        metadata.update(self.user.user_profile)
         if self.user.email:
             metadata['email'] = self.user.email
+        if self.user.username:
+            metadata['username'] = self.user.username
         if dump_patron:
             for patron in Patron.get_patrons_by_user(self.user):
                 metadata.setdefault('patrons', []).append({
@@ -251,11 +247,8 @@ class User(object):
         :param username - the user name
         :return: the user record
         """
-        try:
-            profile = UserProfile.get_by_username(username)
-            return cls(profile.user)
-        except NoResultFound:
-            return None
+        if base_user := BaseUser.query.filter_by(username=username).first():
+            return cls(base_user)
 
     @classmethod
     def get_by_email(cls, email):

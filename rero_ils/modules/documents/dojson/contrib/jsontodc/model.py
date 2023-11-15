@@ -18,7 +18,7 @@
 """RERO-ILS Dublin Core model definition."""
 
 from dojson import Overdo, utils
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 
 from rero_ils.modules.documents.extensions import TitleExtension
 from rero_ils.modules.entities.models import EntityType

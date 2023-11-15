@@ -38,7 +38,6 @@ def test_operation_logs_serializers(
     lib_martigny_data
 ):
     """Test serializers for operation logs."""
-    login_user(client, patron_martigny)
     params = {
         'patron_pid': patron_martigny.pid,
         'transaction_location_pid': loc_public_martigny.pid,
@@ -51,6 +50,7 @@ def test_operation_logs_serializers(
     # Force update ES index
     flush_index(OperationLogsSearch.Meta.index)
     list_url = url_for('invenio_records_rest.oplg_list')
+    login_user(client, patron_martigny)
     response = client.get(list_url, headers=rero_json_header)
     assert response.status_code == 200
     data = get_json(response)
@@ -132,7 +132,6 @@ def test_loans_serializers(
     circulation_policies
 ):
     """Test serializers for loans."""
-    login_user(client, patron_martigny)
     # create somes loans on same item with different state
     params = {
         'patron_pid': patron_martigny.pid,
@@ -162,6 +161,7 @@ def test_loans_serializers(
         params=params, copy_item=True)
 
     list_url = url_for('invenio_records_rest.loanid_list')
+    login_user(client, patron_martigny)
     response = client.get(list_url, headers=rero_json_header)
     assert response.status_code == 200
     data = get_json(response)

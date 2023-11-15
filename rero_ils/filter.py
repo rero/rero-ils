@@ -25,7 +25,7 @@ import re
 import dateparser
 from babel.dates import format_date, format_datetime, format_time
 from flask import current_app, render_template
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_i18n.ext import current_i18n
 from jinja2 import TemplateNotFound
 from markupsafe import Markup

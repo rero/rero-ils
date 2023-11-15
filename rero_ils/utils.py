@@ -17,19 +17,11 @@
 
 """Utilities functions for rero-ils."""
 
-from copy import deepcopy
-from datetime import datetime
 
 import iso639
 from flask import current_app
-from flask_babelex import gettext
-from flask_security.confirmable import confirm_user
-from invenio_accounts.ext import hash_password
-from invenio_accounts.models import User as BaseUser
-from invenio_db import db
+from flask_babel import gettext
 from invenio_i18n.ext import current_i18n
-
-from rero_ils.modules.utils import password_generator
 
 
 def unique_list(data):
@@ -39,8 +31,7 @@ def unique_list(data):
 
 def get_current_language():
     """Return the current selected locale."""
-    loc = current_i18n.locale
-    return loc.language
+    return current_i18n.locale.language
 
 
 def get_i18n_supported_languages():
@@ -67,62 +58,6 @@ def remove_empties_from_dict(a_dict):
         if v:
             new_dict[k] = v
     return new_dict or None
-
-
-def create_user_from_data(data):
-    """Create a user and set the profile fields from a data.
-
-    :param data: A dict containing a mix of patron and user data.
-    :returns: The modified dict.
-    """
-    from .modules.users.api import User
-    data = deepcopy(data)
-    profile_fields = [
-        'first_name', 'last_name', 'street', 'postal_code', 'gender',
-        'city', 'birth_date', 'username', 'home_phone', 'business_phone',
-        'mobile_phone', 'other_phone', 'keep_history', 'country', 'email',
-        'password'
-    ]
-    user = User.get_by_username(data.get('username'))
-    if not user:
-        with db.session.begin_nested():
-            # create the user
-            password = data.get('password')
-            if not password:
-                length = current_app.config.get(
-                    'RERO_ILS_PASSWORD_MIN_LENGTH', 8)
-                special_char = current_app.config.get(
-                    'RERO_ILS_PASSWORD_SPECIAL_CHAR')
-                password = password_generator(
-                    length=length, special_char=special_char)
-            password = hash_password(password)
-            user = BaseUser(password=password, profile=dict(), active=True)
-            db.session.add(user)
-            # set the user fields
-            if data.get('email') is not None:
-                user.email = data['email']
-            profile = user.profile
-            # set the profile
-            for field in profile_fields:
-                value = data.get(field)
-                if value is not None:
-                    if field == 'birth_date':
-                        value = datetime.strptime(value, '%Y-%m-%d')
-                    setattr(profile, field, value)
-            db.session.merge(user)
-        db.session.commit()
-        confirm_user(user)
-        user_id = user.id
-    else:
-        user_id = user.user.id
-    # remove the user fields from the data
-    for field in profile_fields:
-        try:
-            del data[field]
-        except KeyError:
-            pass
-    data['user_id'] = user_id
-    return data
 
 
 def language_iso639_2to1(lang):

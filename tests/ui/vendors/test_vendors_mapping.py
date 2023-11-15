@@ -21,7 +21,7 @@ from utils import get_mapping
 from rero_ils.modules.vendors.api import Vendor, VendorsSearch
 
 
-def test_budgets_es_mapping(es, db, org_martigny, vendor_martigny_data):
+def test_budgets_es_mapping(search, db, org_martigny, vendor_martigny_data):
     """Test vendors elasticsearch mapping."""
     search = VendorsSearch()
     mapping = get_mapping(search.Meta.index)

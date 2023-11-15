@@ -34,11 +34,11 @@ def test_organisations_jsonresolver(app, organisation_temp):
     # deleted record
     organisation_temp.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'organisation': {'$ref': 'https://bib.rero.ch/api/organisations/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

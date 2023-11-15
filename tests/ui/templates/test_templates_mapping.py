@@ -22,7 +22,7 @@ from utils import get_mapping
 from rero_ils.modules.templates.api import Template, TemplatesSearch
 
 
-def test_template_es_mapping(es, db, templ_doc_public_martigny_data,
+def test_template_es_mapping(search, db, templ_doc_public_martigny_data,
                              org_martigny, system_librarian_martigny,
                              librarian_martigny):
     """Test template elasticsearch mapping."""

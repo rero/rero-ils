@@ -23,8 +23,8 @@ from functools import partial
 
 from elasticsearch_dsl import Q
 from flask import current_app
-from flask_babelex import gettext as _
-from flask_babelex import ngettext
+from flask_babel import gettext as _
+from flask_babel import ngettext
 from flask_login import current_user
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db
@@ -48,7 +48,6 @@ from rero_ils.modules.users.api import User
 from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import extracted_data_from_ref, \
     get_patron_from_arguments, get_ref_for_pid, sorted_pids
-from rero_ils.utils import create_user_from_data
 
 from .extensions import UserDataExtension
 from .models import CommunicationChannel, PatronIdentifier, PatronMetadata
@@ -65,24 +64,6 @@ current_patrons = LocalProxy(lambda: [
     for patron in Patron.get_patrons_by_user(current_user)
     if UserRole.PATRON in patron.get('roles', [])
 ])
-
-
-def create_patron_from_data(data, delete_pid=False, dbcommit=False,
-                            reindex=False):
-    """Create a patron and a user from a data dict.
-
-    :param data - dictionary representing a library user
-    :param dbcommit - commit the changes in the db after the creation
-    :param reindex - index the record after the creation
-    :returns: - A `Patron` instance
-    """
-    data = create_user_from_data(data)
-    return Patron.create(
-        data=data,
-        delete_pid=delete_pid,
-        dbcommit=dbcommit,
-        reindex=reindex)
-
 
 # provider
 PatronProvider = type(
@@ -520,9 +501,12 @@ class Patron(IlsRecord):
         :param dbcommit - commit the changes
         :param reindex - index the changes
         """
-        self.user.profile.keep_history = keep_history
+        user = self._get_user_by_user_id(self.get('user_id'))
+        profile = user.user_profile
+        profile['keep_history'] = keep_history
+        user.user_profile = profile
+        db.session.merge(user)
         if dbcommit:
-            db.session.merge(self.user)
             db.session.commit()
             if reindex:
                 self.reindex()
@@ -748,10 +732,10 @@ class Patron(IlsRecord):
     @property
     def formatted_name(self):
         """Return the best possible human-readable patron name."""
-        profile = self.user.profile
+        profile = self.user.user_profile
         name_parts = [
-            profile.last_name.strip(),
-            profile.first_name.strip()
+            profile.get('last_name', '').strip(),
+            profile.get('first_name', '').strip()
         ]
         return ', '.join(filter(None, name_parts))
 
@@ -880,7 +864,8 @@ class Patron(IlsRecord):
 
         :returns: Age of the patron as ``int``
         """
-        birth_date = self.user.profile.birth_date
+        birth_date = self.user.user_profile['birth_date']
+        birth_date = datetime.strptime(birth_date, '%Y-%m-%d')
         today = date.today()
         return today.year - birth_date.year - (
             (today.month, today.day) < (birth_date.month, birth_date.day))

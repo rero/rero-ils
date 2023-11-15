@@ -32,11 +32,11 @@ def test_documents_jsonresolver(document):
     # deleted record
     document.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'document': {'$ref': 'https://bib.rero.ch/api/documents/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

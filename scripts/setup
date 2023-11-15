@@ -653,6 +653,10 @@ eval ${PREFIX} invenio reroils stats collect librarian
 eval ${PREFIX} invenio reroils stats report collect-all month
 eval ${PREFIX} invenio reroils stats report collect-all year
 
+info_msg "Initialize wiki search"
+eval ${PREFIX} invenio flask_wiki init-index
+eval ${PREFIX} invenio flask_wiki index
+
 date
 success_msg "Perfect ${PROGRAM}! See you soon…"
 exit 0

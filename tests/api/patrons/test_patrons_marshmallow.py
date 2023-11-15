@@ -24,8 +24,8 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
 
 from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.patrons.utils import create_user_from_data
 from rero_ils.modules.users.models import UserRole
-from rero_ils.utils import create_user_from_data
 
 
 def test_patrons_marshmallow_loaders(
@@ -38,6 +38,8 @@ def test_patrons_marshmallow_loaders(
     #   Using 'console' commands, no matter connected user, all operations are
     #   allowed on a Patron, even changes any roles.
     user_data = create_user_from_data(system_librarian_martigny_data_tmp)
+    from rero_ils.modules.users.api import User
+    user_data = User.remove_fields(user_data)
     patron = Patron.create(user_data, dbcommit=True, reindex=True)
     assert patron and patron['roles'] == [UserRole.FULL_PERMISSIONS]
 

@@ -32,11 +32,11 @@ def test_locations_jsonresolver(loc_public_martigny):
     # deleted record
     loc_public_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'location': {'$ref': 'https://bib.rero.ch/api/locations/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

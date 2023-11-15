@@ -19,7 +19,7 @@
 """Marshmallow schema for JSON representation of `Template` resources."""
 from functools import partial
 
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_records_rest.schemas import StrictKeysMixin
 from invenio_records_rest.schemas.fields import GenFunction, SanitizedUnicode
 from marshmallow import ValidationError, fields, validates, validates_schema

@@ -37,7 +37,6 @@ from invenio_oaiharvester.signals import oaiharvest_finished
 from invenio_records.signals import after_record_insert, after_record_update, \
     before_record_update
 from invenio_records_rest.errors import JSONSchemaValidationError
-from invenio_userprofiles.signals import after_profile_update
 from jsonschema.exceptions import ValidationError
 
 from rero_ils.filter import address_block, empty_data, format_date_filter, \
@@ -75,8 +74,7 @@ from rero_ils.modules.patron_transactions.listener import \
     enrich_patron_transaction_data
 from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.patrons.listener import \
-    create_subscription_patron_transaction, enrich_patron_data, \
-    update_from_profile
+    create_subscription_patron_transaction, enrich_patron_data
 from rero_ils.modules.permissions import LibraryNeed, OrganisationNeed, \
     OwnerNeed
 from rero_ils.modules.sru.views import SRUDocumentsSearch
@@ -310,9 +308,6 @@ class REROILSAPP(object):
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
 
         oaiharvest_finished.connect(publish_harvested_records, weak=False)
-
-        # invenio-userprofiles signal
-        after_profile_update.connect(update_from_profile)
 
         # store the username in the session
         user_logged_in.connect(set_user_name)

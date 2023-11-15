@@ -17,8 +17,8 @@
 
 """Forms definitions about ILL request in public view."""
 
-from flask_babelex import gettext as _
-from flask_babelex import lazy_gettext
+from flask_babel import gettext as _
+from flask_babel import lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import FormField, IntegerField, RadioField, SelectField, \
     StringField, TextAreaField, validators
@@ -118,7 +118,7 @@ class ILLRequestSourceForm(FlaskForm):
         render_kw={'placeholder': 'https://...'}
     )
 
-    def validate(self):
+    def validate(self, **kwargs):
         """Custom validation for this form."""
         if self.url.data:
             self.origin.validators = [
@@ -129,7 +129,7 @@ class ILLRequestSourceForm(FlaskForm):
                 validators.DataRequired(),
                 validators.URL(require_tld=False)
             ]
-        return super().validate()
+        return super().validate(kwargs)
 
 
 class ILLRequestForm(FlaskForm):
@@ -165,9 +165,9 @@ class ILLRequestForm(FlaskForm):
         ]
     )
 
-    def validate(self):
+    def validate(self, **kwargs):
         """Add custom validation on the form."""
-        form_validate = super().validate()
+        form_validate = super().validate(kwargs)
 
         # if 'copy' is set to True, then 'pages' is required field
         custom_validate = True

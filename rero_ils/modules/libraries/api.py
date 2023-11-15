@@ -25,7 +25,7 @@ import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
 from elasticsearch_dsl import Q
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher

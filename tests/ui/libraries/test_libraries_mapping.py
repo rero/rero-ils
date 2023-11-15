@@ -22,7 +22,7 @@ from utils import get_mapping
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
 
 
-def test_library_es_mapping(es, db, lib_martigny_data, org_martigny):
+def test_library_es_mapping(search, db, lib_martigny_data, org_martigny):
     """Test library elasticsearch mapping."""
     search = LibrariesSearch()
     mapping = get_mapping(search.Meta.index)

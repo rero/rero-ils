@@ -79,7 +79,6 @@ def test_extend_loan(
         item_on_loan_martigny_patron_and_loan_on_loan,
         yesterday):
     """Test frontend extend action."""
-    login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
     # Update loan `end_date` to play with "extend" function without problem
     loan['end_date'] = loan['start_date']
@@ -98,6 +97,7 @@ def test_extend_loan(
         transaction_location_pid=loc_public_martigny.pid
     )
 
+    login_user_via_session(client, librarian_martigny.user)
     res, _ = postdata(client, 'api_item.extend_loan', params)
     assert res.status_code == 403
 

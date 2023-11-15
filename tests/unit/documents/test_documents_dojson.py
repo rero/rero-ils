@@ -5448,7 +5448,7 @@ def test_marc21_to_identified_by_from_035():
 
 
 @mock.patch('requests.Session.get')
-def test_marc21_to_electronicLocator_from_856(mock_cover_get):
+def test_marc21_to_electronicLocator_from_856(mock_cover_get, app):
     """Test dojson electronicLocator from 856."""
 
     marc21xml = """
@@ -5475,7 +5475,7 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get):
         {
             'url': 'http://reader.digitale-s.de/r/d/XXX.html',
             'type': 'versionOfResource',
-            'content': 'fullText',
+            'content': 'full text',
             'public_note': 'Vol. 1'
         }
     ]
@@ -5597,7 +5597,7 @@ def test_marc21_to_identified_by_from_930():
 
 
 @mock.patch('requests.Session.get')
-def test_get_mef_link(mock_get, capsys):
+def test_get_mef_link(mock_get, capsys, app):
     """Test get mef contribution link"""
 
     mock_get.return_value = mock_response(json_data={

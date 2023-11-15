@@ -21,7 +21,7 @@ from utils import get_mapping
 from rero_ils.modules.collections.api import Collection, CollectionsSearch
 
 
-def test_collections_es_mapping(es, db, org_martigny, coll_martigny_1_data,
+def test_collections_es_mapping(search, db, org_martigny, coll_martigny_1_data,
                                 item_lib_martigny, item2_lib_martigny):
     """Test collections elasticsearch mapping."""
     search = CollectionsSearch()

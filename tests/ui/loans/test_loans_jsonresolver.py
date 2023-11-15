@@ -32,11 +32,11 @@ def test_loans_jsonresolver(loan_pending_martigny):
     # deleted record
     loan_pending_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'loan': {'$ref': 'https://bib.rero.ch/api/loans/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

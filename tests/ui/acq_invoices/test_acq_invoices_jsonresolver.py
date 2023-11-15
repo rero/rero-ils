@@ -33,11 +33,11 @@ def test_acq_invoices_jsonresolver(acq_invoice_fiction_martigny):
     # deleted record
     acq_invoice_fiction_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'acq_invoice': {'$ref': 'https://bib.rero.ch/api/acq_invoices/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

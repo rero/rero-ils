@@ -97,7 +97,7 @@ def test_register_form(client, app):
     }
     res = client.post(url_for('security.register'), data=form_data)
     assert res.status_code == 302
-    assert res.location == 'http://localhost/'
+    assert res.location == '/'
 
     form_data = {
         'email': 'foo@bar.com',
@@ -106,11 +106,12 @@ def test_register_form(client, app):
     }
     res = client.post(url_for('security.register'), data=form_data)
     assert res.status_code == 302
-    assert res.location == 'http://localhost/'
+    assert res.location == '/'
 
 
 @mock.patch('flask_security.views.reset_password_token_status',
-            mock.MagicMock(return_value=[False, False, {}]))
+            mock.MagicMock(
+                return_value=[False, False, {'email': 'foo@foo.com'}]))
 @mock.patch('flask_security.views.update_password',
             mock.MagicMock())
 def test_reset_password_form(client, app):

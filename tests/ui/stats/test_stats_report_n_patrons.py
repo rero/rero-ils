@@ -55,7 +55,7 @@ def test_stats_report_number_of_patrons(
     }
     assert StatsReport(cfg).collect() == [[0]]
 
-    from rero_ils.modules.patrons.api import create_patron_from_data
+    from rero_ils.modules.patrons.utils import create_patron_from_data
 
     patron_martigny = create_patron_from_data(
         data={k: v for k, v in patron_martigny_data.items() if k != 'pid'},
