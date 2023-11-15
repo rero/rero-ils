@@ -29,8 +29,8 @@ def test_stats_report_number_of_serial_holdings(
     """Test the number of serials."""
     # no data
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -70,8 +70,8 @@ def test_stats_report_number_of_serial_holdings(
 
     # no distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -85,8 +85,8 @@ def test_stats_report_number_of_serial_holdings(
     # no distributions with filters
     lib_pid = lib_martigny_bourg.pid
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "filter_by_libraries": [{
@@ -102,14 +102,14 @@ def test_stats_report_number_of_serial_holdings(
 
     # one distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_serial_holdings",
-                "distributions": ["library"]
+                "distributions": ["owning_library"]
             }
         }
     }
@@ -120,14 +120,14 @@ def test_stats_report_number_of_serial_holdings(
 
     # two distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_serial_holdings",
-                "distributions": ["library", "created_month"]
+                "distributions": ["owning_library", "created_month"]
             }
         }
     }
@@ -139,14 +139,14 @@ def test_stats_report_number_of_serial_holdings(
 
     # reverse distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_serial_holdings",
-                "distributions": ["created_month", "library"]
+                "distributions": ["created_month", "owning_library"]
             }
         }
     }
@@ -162,14 +162,14 @@ def test_stats_report_number_of_serial_holdings(
 
     # reverse distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_serial_holdings",
-                "distributions": ["created_year", "library"]
+                "distributions": ["created_year", "owning_library"]
             }
         }
     }

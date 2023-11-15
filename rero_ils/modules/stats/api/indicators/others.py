@@ -55,7 +55,7 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'library': A(
+            'owning_library': A(
                 'terms',
                 field='holdings.organisation.library_pid',
                 size=self.cfg.aggs_size,
@@ -91,7 +91,7 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'library': lambda:
+            'owning_library': lambda:
                 f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
             'created_month': lambda: bucket.key_as_string,
             'created_year': lambda: bucket.key_as_string,
@@ -124,7 +124,7 @@ class NumberOfSerialHoldingsCfg(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'library': A(
+            'owning_library': A(
                 'terms',
                 field='library.pid',
                 size=self.cfg.aggs_size,
@@ -154,7 +154,7 @@ class NumberOfSerialHoldingsCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'library': lambda:
+            'owning_library': lambda:
                 f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
             'created_month': lambda: bucket.key_as_string,
             'created_year': lambda: bucket.key_as_string
@@ -185,13 +185,13 @@ class NumberOfItemsCfg(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'library': A(
+            'owning_library': A(
                 'terms',
                 field='library.pid',
                 size=self.cfg.aggs_size,
                 include=self.cfg.lib_pids
             ),
-            'location': A(
+            'owning_location': A(
                 'terms',
                 field='location.pid',
                 size=self.cfg.aggs_size,
@@ -200,6 +200,16 @@ class NumberOfItemsCfg(IndicatorCfg):
             'type': A(
                 'terms',
                 field='type',
+                size=self.cfg.aggs_size
+            ),
+            'document_type': A(
+                'terms',
+                field='document.document_type.main_type',
+                size=self.cfg.aggs_size
+            ),
+            'document_subtype': A(
+                'terms',
+                field='document.document_type.subtype',
                 size=self.cfg.aggs_size
             ),
             'created_month': A(
@@ -226,11 +236,13 @@ class NumberOfItemsCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'library': lambda:
+            'owning_library': lambda:
                 f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
-            'location': lambda:
+            'owning_location': lambda:
                 f'{self.cfg.locations[bucket.key]} ({bucket.key})',
             'type': lambda: bucket.key,
+            'document_type': lambda: bucket.key,
+            'document_subtype': lambda: bucket.key,
             'created_month': lambda: bucket.key_as_string,
             'created_year': lambda: bucket.key_as_string
         }
@@ -265,7 +277,7 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'library': A(
+            'owning_library': A(
                 'terms',
                 field='record.library_pid',
                 size=self.cfg.aggs_size
@@ -294,7 +306,7 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'library': lambda:
+            'owning_library': lambda:
                 f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
             'action_month': lambda: bucket.key_as_string,
             'action_year': lambda: bucket.key_as_string

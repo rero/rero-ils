@@ -23,6 +23,7 @@ import pytest
 from rero_ils.modules.stats.api.api import Stat
 from rero_ils.modules.stats.api.librarian import StatsForLibrarian
 from rero_ils.modules.stats.api.pricing import StatsForPricing
+from rero_ils.modules.stats.api.report import StatsReport
 
 
 @pytest.fixture(scope='module')
@@ -58,3 +59,11 @@ def stats_librarian(item_lib_martigny, item_lib_fully, item_lib_sion):
         dbcommit=True,
         reindex=True
     )
+
+
+@pytest.fixture(scope='module')
+def stats_report_martigny(stats_cfg_martigny):
+    """Stats fixture for librarian."""
+    stat_report = StatsReport(stats_cfg_martigny)
+    values = stat_report.collect()
+    yield stat_report.create_stat(values)

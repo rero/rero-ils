@@ -18,9 +18,7 @@
 
 """Stats Report tests for number of ill requests."""
 
-from datetime import datetime
 
-import mock
 from invenio_search import current_search_client as es
 
 from rero_ils.modules.stats.api.report import StatsReport
@@ -40,8 +38,8 @@ def test_stats_report_number_of_ill_requests(
         f'({loc_public_martigny_bourg.pid})'
     # no data
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -85,8 +83,8 @@ def test_stats_report_number_of_ill_requests(
 
     # no distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -100,8 +98,8 @@ def test_stats_report_number_of_ill_requests(
     # no distributions with filters
     lib_pid = lib_martigny_bourg.pid
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "filter_by_libraries": [{
@@ -115,28 +113,10 @@ def test_stats_report_number_of_ill_requests(
     }
     assert StatsReport(cfg).collect() == [[1]]
 
-    cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
-        },
-        "is_active": True,
-        "category": {
-            "indicator": {
-                "period": "year",
-                "type": "number_of_ill_requests"
-            }
-        }
-    }
-
-    with mock.patch(
-        'rero_ils.modules.stats.api.report.datetime'
-    ) as mock_datetime:
-        mock_datetime.now.return_value = datetime(year=2024, month=1, day=1)
-        assert StatsReport(cfg).collect() == [[2]]
     # one distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -154,8 +134,8 @@ def test_stats_report_number_of_ill_requests(
 
     # two distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -174,8 +154,8 @@ def test_stats_report_number_of_ill_requests(
 
     # reverse distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -198,8 +178,8 @@ def test_stats_report_number_of_ill_requests(
 
     # year
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -222,8 +202,8 @@ def test_stats_report_number_of_ill_requests(
 
     # type
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {

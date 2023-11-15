@@ -29,6 +29,14 @@
       "organisation": {
         "type": "object",
         "properties": {
+          "pid": {
+            "type": "keyword"
+          }
+        }
+      },
+      "library": {
+        "type": "object",
+        "properties": {
           "type": {
             "type": "keyword"
           },

@@ -140,7 +140,8 @@ class NumberOfActivePatronsCfg(NumberOfPatronsCfg):
                     "terms", library__pid=lib_pids).source('pid').scan()]
             op_query = op_query.filter(
                 'terms', loan__transaction_location__pid=loc_pids)
-        active_patron_pids = [
+        # make the list unique
+        active_patron_pids = list({
             hit.loan.patron.pid for hit in op_query.scan()
-        ]
+        })
         return es_query.filter('terms', pid=active_patron_pids)

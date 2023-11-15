@@ -86,8 +86,8 @@ def test_stats_report_circulation_trigger(
         }, refresh=True)
 
         cfg = {
-            "organisation": {
-                "$ref": "https://bib.rero.ch/api/organisations/org1"
+            "library": {
+                "$ref": "https://bib.rero.ch/api/libraries/lib1"
             },
             "is_active": True,
             "category": {
@@ -99,8 +99,8 @@ def test_stats_report_circulation_trigger(
         assert StatsReport(cfg).collect() == [[2]]
         lib_pid = lib_martigny_bourg.pid
         cfg = {
-            "organisation": {
-                "$ref": "https://bib.rero.ch/api/organisations/org1"
+            "library": {
+                "$ref": "https://bib.rero.ch/api/libraries/lib1"
             },
             "is_active": True,
             "filter_by_libraries": [{
@@ -251,8 +251,8 @@ def test_stats_report_number_of_checkins(
 
     # no distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -265,8 +265,8 @@ def test_stats_report_number_of_checkins(
 
     # limit by period
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -284,8 +284,8 @@ def test_stats_report_number_of_checkins(
 
     # one distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -301,8 +301,8 @@ def test_stats_report_number_of_checkins(
     ]
     # two distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -320,8 +320,8 @@ def test_stats_report_number_of_checkins(
 
     # reverse distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -343,8 +343,8 @@ def test_stats_report_number_of_checkins(
 
     # year
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -366,8 +366,8 @@ def test_stats_report_number_of_checkins(
 
     # patron type
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -384,8 +384,8 @@ def test_stats_report_number_of_checkins(
 
     # patron age
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -402,8 +402,8 @@ def test_stats_report_number_of_checkins(
 
     # postal code
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -420,8 +420,8 @@ def test_stats_report_number_of_checkins(
 
     # patron type
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -438,8 +438,8 @@ def test_stats_report_number_of_checkins(
 
     # patron type
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -456,8 +456,8 @@ def test_stats_report_number_of_checkins(
 
     # transaction channel
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -474,8 +474,8 @@ def test_stats_report_number_of_checkins(
 
     # owning library
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -488,4 +488,106 @@ def test_stats_report_number_of_checkins(
     assert StatsReport(cfg).collect() == [
         [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
         [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1]
+    ]
+
+    # owning location
+    cfg = {
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
+        },
+        "is_active": True,
+        "category": {
+            "indicator": {
+                "type": "number_of_checkins",
+                "distributions": ["owning_location"]
+            }
+        }
+    }
+    assert StatsReport(cfg).collect() == [
+        [loc_public_martigny_bourg['name'], 1],
+        [loc_public_martigny['name'], 1]
+    ]
+
+
+def test_stats_report_number_of_requests(
+        lib_martigny, lib_martigny_bourg, loc_public_martigny,
+        loc_public_martigny_bourg):
+    """Test the number of circulation checkins operations."""
+    label_loc_pub_martigny = f'{lib_martigny["name"]} / '\
+        f'{loc_public_martigny["name"]} ({loc_public_martigny.pid})'
+    label_loc_pub_martigny_bourg = f'{lib_martigny_bourg["name"]} / '\
+        f'{loc_public_martigny_bourg["name"]} '\
+        f'({loc_public_martigny_bourg.pid})'
+
+    # fixtures
+    es.index(index='operation_logs-2020', id='1', body={
+        "date": "2023-01-01",
+        "loan": {
+            "trigger": "request",
+            "item": {
+                "document": {
+                    "type": "docsubtype_other_book"
+                },
+                "library_pid": lib_martigny.pid,
+                "holding": {
+                    "location_name": loc_public_martigny["name"]
+                }
+            },
+            "transaction_location": {"pid": loc_public_martigny.pid},
+            "pickup_location": {"pid": loc_public_martigny.pid},
+            "transaction_channel": "sip2",
+            "patron": {
+                "age": 13,
+                "type": "Usager.ère moins de 14 ans",
+                "postal_code": "1920"
+            }
+        },
+        "record": {
+          "type": "loan",
+        }
+    }, refresh=True)
+
+    es.index(index='operation_logs-2020', id='2', body={
+        "date": "2024-01-01",
+        "loan": {
+            "trigger": "request",
+            "item": {
+                "document": {
+                    "type": "ebook"
+                },
+                "library_pid": lib_martigny_bourg.pid,
+                "holding": {
+                    "location_name": loc_public_martigny_bourg["name"]
+                }
+            },
+            "transaction_location": {"pid": loc_public_martigny_bourg.pid},
+            "pickup_location": {"pid": loc_public_martigny_bourg.pid},
+            "transaction_channel": "system",
+            "patron": {
+                "age": 30,
+                "type": "Usager.ère plus de 18 ans",
+                "postal_code": "1930"
+            }
+        },
+        "record": {
+          "type": "loan",
+        }
+    }, refresh=True)
+
+    # pickup location
+    cfg = {
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
+        },
+        "is_active": True,
+        "category": {
+            "indicator": {
+                "type": "number_of_requests",
+                "distributions": ["pickup_location"]
+            }
+        }
+    }
+    assert StatsReport(cfg).collect() == [
+        [label_loc_pub_martigny_bourg, 1],
+        [label_loc_pub_martigny, 1]
     ]

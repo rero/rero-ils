@@ -649,6 +649,7 @@ fi
 
 info_msg "Collect statistics"
 eval ${PREFIX} invenio reroils stats collect billing
+eval ${PREFIX} invenio reroils stats collect librarian
 eval ${PREFIX} invenio reroils stats report collect-all month
 eval ${PREFIX} invenio reroils stats report collect-all year
 

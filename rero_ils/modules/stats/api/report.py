@@ -25,11 +25,13 @@ from dateutil.relativedelta import relativedelta
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.patron_types.api import PatronTypesSearch
+from rero_ils.modules.stats_cfg.api import StatConfiguration
 from rero_ils.modules.utils import extracted_data_from_ref
 
 from .indicators import NumberOfActivePatronsCfg, NumberOfCirculationCfg, \
     NumberOfDeletedItemsCfg, NumberOfDocumentsCfg, NumberOfILLRequests, \
-    NumberOfItemsCfg, NumberOfPatronsCfg, NumberOfSerialHoldingsCfg
+    NumberOfItemsCfg, NumberOfPatronsCfg, NumberOfRequestsCfg, \
+    NumberOfSerialHoldingsCfg
 from ..api.api import Stat
 from ..models import StatType
 
@@ -42,13 +44,15 @@ class StatsReport:
 
         Set variables to create report.
         """
+        if not isinstance(config, StatConfiguration):
+            config = StatConfiguration(data=config)
         self.config = config
         self.is_active = config.get('is_active', False)
         self.indicator = config['category']['indicator']['type']
         self.period = config['category']['indicator'].get('period')
         self.distributions = config[
             'category']['indicator'].get('distributions', [])
-        self.org_pid = extracted_data_from_ref(config['organisation'])
+        self.org_pid = config.organisation_pid
         self.filter_by_libraries = []
         for library in config.get('filter_by_libraries', []):
             self.filter_by_libraries.append(extracted_data_from_ref(library))
@@ -88,8 +92,8 @@ class StatsReport:
             'number_of_checkins': NumberOfCirculationCfg(self, 'checkin'),
             'number_of_checkouts': NumberOfCirculationCfg(self, 'checkout'),
             'number_of_extends': NumberOfCirculationCfg(self, 'extend'),
-            'number_of_requests': NumberOfCirculationCfg(self, 'request'),
-            'number_of_validate_requests': NumberOfCirculationCfg(
+            'number_of_requests': NumberOfRequestsCfg(self, 'request'),
+            'number_of_validate_requests': NumberOfRequestsCfg(
                 self, 'validate_request'),
             'number_of_patrons': NumberOfPatronsCfg(self),
             'number_of_active_patrons': NumberOfActivePatronsCfg(self)

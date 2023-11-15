@@ -26,13 +26,13 @@ from rero_ils.modules.stats.api.api import Stat
 from rero_ils.modules.stats.api.report import StatsReport
 
 
-def test_stats_report_create(org_martigny, document):
+def test_stats_report_create(lib_martigny, document):
     """Test the stat report creation."""
     cfg = {
         "$schema":
             "https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json",
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": f"https://bib.rero.ch/api/libraries/{lib_martigny.pid}"
         },
         "is_active": True,
         "pid": "1",
@@ -42,7 +42,7 @@ def test_stats_report_create(org_martigny, document):
             "type": "catalogue",
             "indicator": {
                 "type": "number_of_documents",
-                "distributions": ['library']
+                "distributions": ['owning_library']
             }
         }
     }
@@ -58,16 +58,16 @@ def test_stats_report_create(org_martigny, document):
     ))
 
 
-def test_stats_report_range(app):
+def test_stats_report_range(app, lib_martigny):
     """Test the report range period."""
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": f"https://bib.rero.ch/api/libraries/{lib_martigny.pid}"
         },
         "category": {
             "indicator": {
                 "type": "number_of_documents",
-                "distributions": ["library"]
+                "distributions": ["owning_library"]
             }
         }
     }

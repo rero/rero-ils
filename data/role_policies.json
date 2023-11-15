@@ -680,39 +680,48 @@
   ],
   "stat-access": [
     "pro_full_permissions",
-    "pro_statistic_manager"
+    "pro_statistic_manager",
+    "pro_library_administrator"
   ],
   "stat-search": [
     "pro_full_permissions",
-    "pro_statistic_manager"
+    "pro_statistic_manager",
+    "pro_library_administrator"
   ],
   "stat-read": [
     "pro_full_permissions",
-    "pro_statistic_manager"
+    "pro_statistic_manager",
+    "pro_library_administrator"
   ],
   "stat_cfg-access": [
     "pro_full_permissions",
-    "pro_statistic_manager"
+    "pro_statistic_manager",
+    "pro_library_administrator"
   ],
   "stat_cfg-search": [
     "pro_full_permissions",
-    "pro_statistic_manager"
+    "pro_statistic_manager",
+    "pro_library_administrator"
   ],
   "stat_cfg-read": [
     "pro_full_permissions",
-    "pro_statistic_manager"
+    "pro_statistic_manager",
+    "pro_library_administrator"
   ],
   "stat_cfg-create": [
     "pro_full_permissions",
-    "pro_statistic_manager"
+    "pro_statistic_manager",
+    "pro_library_administrator"
   ],
   "stat_cfg-update": [
     "pro_full_permissions",
-    "pro_statistic_manager"
+    "pro_statistic_manager",
+    "pro_library_administrator"
   ],
   "stat_cfg-delete": [
     "pro_full_permissions",
-    "pro_statistic_manager"
+    "pro_statistic_manager",
+    "pro_library_administrator"
   ],
   "tmpl-access": [
     "pro_full_permissions",
@@ -831,14 +840,17 @@
   ],
   "locent-update": [
     "pro_full_permissions",
-    "pro_entity_manager"
+    "pro_entity_manager",
+    "pro_library_administrator"
   ],
   "locent-create": [
     "pro_full_permissions",
-    "pro_entity_manager"
+    "pro_entity_manager",
+    "pro_library_administrator"
   ],
   "locent-delete": [
     "pro_full_permissions",
-    "pro_entity_manager"
+    "pro_entity_manager",
+    "pro_library_administrator"
   ]
 }

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
-# Copyright (C) 2019-2023 UCLouvain
+# Copyright (C) 2023 RERO
+# Copyright (C) 2023 UCL
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,10 +16,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Indicator Configurations."""
+"""Stats Report tests celery tasks."""
 
-from .base import *
-from .circulation import *
-from .others import *
-from .patron import *
-from .requests import *
+from rero_ils.modules.stats.tasks import collect_stats_reports
+
+
+def test_stats_task_report(stats_cfg_martigny):
+    """Test stat task reports generation."""
+    res = collect_stats_reports('year')
+    assert not res
+
+    res = collect_stats_reports('month')
+    assert len(res) > 0
