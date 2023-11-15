@@ -30,8 +30,8 @@ def test_stats_report_number_of_items(
     """Test the number of items."""
     # no data
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -48,35 +48,62 @@ def test_stats_report_number_of_items(
         'type': 'standard',
         'organisation': {'pid': org_martigny.pid},
         'library': {'pid': lib_martigny.pid},
-        'location': {'pid': loc_public_martigny.pid}
+        'location': {'pid': loc_public_martigny.pid},
+        'document': {
+            'document_type': [{
+                'main_type': 'docmaintype_book',
+                'subtype': 'docsubtype_other_book'
+            }]
+        }
     })
     es.index(index='items', id='2', body={
         '_created': "2023-02-01",
         'type': 'issue',
         'organisation': {'pid': org_martigny.pid},
         'library': {'pid': lib_martigny.pid},
-        'location': {'pid': loc_restricted_martigny.pid}
+        'location': {'pid': loc_restricted_martigny.pid},
+        'document': {
+            'document_type': [{
+                'main_type': 'docmaintype_book',
+                'subtype': 'docsubtype_other_book'
+            }]
+        }
+
     })
     es.index(index='items', id='3', body={
         '_created': "2024-01-01",
         'type': 'provisional',
         'organisation': {'pid': org_martigny.pid},
         'library': {'pid': lib_martigny_bourg.pid},
-        'location': {'pid': loc_public_martigny_bourg.pid}
+        'location': {'pid': loc_public_martigny_bourg.pid},
+        'document': {
+            'document_type': [{
+                'main_type': 'docmaintype_book',
+                'subtype': 'docsubtype_other_book'
+            }]
+        }
+
     })
     es.index(index='items', id='4', body={
         '_created': "2024-01-01",
         'type': 'standard',
         'organisation': {'pid': org_sion.pid},
         'library': {'pid': lib_sion.pid},
-        'location': {'pid': loc_public_sion.pid}
+        'location': {'pid': loc_public_sion.pid},
+        'document': {
+            'document_type': [{
+                'main_type': 'docmaintype_book',
+                'subtype': 'docsubtype_other_book'
+            }]
+        }
+
     })
     es.indices.refresh(index='items')
 
     # no distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
@@ -90,8 +117,8 @@ def test_stats_report_number_of_items(
     # no distributions with filters
     lib_pid = lib_martigny_bourg.pid
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "filter_by_libraries": [{
@@ -107,14 +134,14 @@ def test_stats_report_number_of_items(
 
     # one distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_items",
-                "distributions": ["library"]
+                "distributions": ["owning_library"]
             }
         }
     }
@@ -125,14 +152,14 @@ def test_stats_report_number_of_items(
 
     # two distributions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_items",
-                "distributions": ["library", "created_month"]
+                "distributions": ["owning_library", "created_month"]
             }
         }
     }
@@ -144,14 +171,14 @@ def test_stats_report_number_of_items(
 
     # reverse distrubtions
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_items",
-                "distributions": ["created_month", "library"]
+                "distributions": ["created_month", "owning_library"]
             }
         }
     }
@@ -167,14 +194,14 @@ def test_stats_report_number_of_items(
 
     # year
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_items",
-                "distributions": ["created_year", "library"]
+                "distributions": ["created_year", "owning_library"]
             }
         }
     }
@@ -190,14 +217,14 @@ def test_stats_report_number_of_items(
 
     # type
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_items",
-                "distributions": ["type", "library"]
+                "distributions": ["type", "owning_library"]
             }
         }
     }
@@ -214,14 +241,14 @@ def test_stats_report_number_of_items(
 
     # location/type
     cfg = {
-        "organisation": {
-            "$ref": "https://bib.rero.ch/api/organisations/org1"
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         "is_active": True,
         "category": {
             "indicator": {
                 "type": "number_of_items",
-                "distributions": ["type", "location"]
+                "distributions": ["type", "owning_location"]
             }
         }
     }
@@ -242,4 +269,38 @@ def test_stats_report_number_of_items(
         ['issue', 0, 0, 1],
         ['provisional', 1, 0, 0],
         ['standard', 0, 1, 0]
+    ]
+
+    # doc types
+    cfg = {
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
+        },
+        "is_active": True,
+        "category": {
+            "indicator": {
+                "type": "number_of_items",
+                "distributions": ["document_type"]
+            }
+        }
+    }
+    assert StatsReport(cfg).collect() == [
+        ['docmaintype_book', 3]
+    ]
+
+    # doc subtypes
+    cfg = {
+        "library": {
+            "$ref": "https://bib.rero.ch/api/libraries/lib1"
+        },
+        "is_active": True,
+        "category": {
+            "indicator": {
+                "type": "number_of_items",
+                "distributions": ["document_subtype"]
+            }
+        }
+    }
+    assert StatsReport(cfg).collect() == [
+        ['docsubtype_other_book', 3]
     ]

@@ -22,7 +22,9 @@ from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
+from rero_ils.modules.utils import extracted_data_from_ref
 
+from .dumpers import indexer_dumper
 from .models import StatCfgIdentifier, StatCfgMetadata
 
 # provider
@@ -58,6 +60,7 @@ class StatConfiguration(IlsRecord):
     fetcher = stat_cfg_id_fetcher
     provider = StatCfgProvider
     model_cls = StatCfgMetadata
+    enable_jsonref = False
 
     def get_links_to_me(self, get_pids=False):
         """Record links.
@@ -92,16 +95,28 @@ class StatConfiguration(IlsRecord):
         """
         cannot_delete = {}
         # It is not possible to delete configuration if there are reports.
-        links = self.get_links_to_me(self.pid)
+        links = self.get_links_to_me()
         if links:
             cannot_delete['links'] = links
         return cannot_delete
+
+    @property
+    def organisation_pid(self):
+        """Shortcut for organisation pid."""
+        library = extracted_data_from_ref(self.get('library'), data='record')
+        return library.organisation_pid
+
+    @property
+    def library_pid(self):
+        """Shortcut for library pid."""
+        return extracted_data_from_ref(self.get('library'))
 
 
 class StatsConfigurationIndexer(IlsRecordsIndexer):
     """Indexing stats configuration in Elasticsearch."""
 
     record_cls = StatConfiguration
+    record_dumper = indexer_dumper
 
     def bulk_index(self, record_id_iterator):
         """Bulk index records.

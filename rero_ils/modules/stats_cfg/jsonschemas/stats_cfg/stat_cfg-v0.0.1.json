@@ -17,7 +17,7 @@
     "name",
     "frequency",
     "is_active",
-    "organisation",
+    "library",
     "category"
   ],
   "properties": {
@@ -68,11 +68,11 @@
           "options": [
             {
               "value": "month",
-              "label": "month"
+              "label": "monthly"
             },
             {
               "value": "year",
-              "label": "year"
+              "label": "yearly"
             }
           ]
         }
@@ -80,13 +80,13 @@
     },
     "is_active": {
       "title": "Active",
-      "description": "Is the configuration active.",
+      "description": "Is the configuration active?",
       "type": "boolean",
       "default": true
     },
     "filter_by_libraries": {
       "title": "Filter numbers by libraries",
-      "description": "If enabled, calculate stats only for the resources belonging to the selected libraries. If disabled, stats are calculated for the whole organisation.",
+      "description": "If disabled, stats are calculated for the whole organisation. If enabled, calculate stats only for the resources belonging to the selected libraries.",
       "type": "array",
       "uniqueItems": true,
       "minItems": 0,
@@ -106,11 +106,13 @@
             }
           }
         }
+      },
+      "form": {
+        "hideExpression": "field?.parent?.model?.category?.indicator?.type == 'number_of_patrons'"
       }
     },
-    "organisation": {
-      "title": "Organisation",
-      "description": "The system librarian's organisation.",
+    "library": {
+      "title": "Library",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -118,9 +120,9 @@
       ],
       "properties": {
         "$ref": {
-          "title": "Organisation URI",
+          "title": "Library URI",
           "type": "string",
-          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
+          "pattern": "^https://bib.rero.ch/api/libraries/.*?$"
         }
       }
     },
@@ -195,7 +197,7 @@
                             "enum": [
                               "created_month",
                               "created_year",
-                              "library",
+                              "owning_library",
                               "imported"
                             ]
                           },
@@ -215,8 +217,8 @@
                                   "label": "created_year"
                                 },
                                 {
-                                  "value": "library",
-                                  "label": "library"
+                                  "value": "owning_library",
+                                  "label": "owning_library"
                                 },
                                 {
                                   "value": "imported",
@@ -267,7 +269,7 @@
                             "enum": [
                               "created_month",
                               "created_year",
-                              "library"
+                              "owning_library"
                             ]
                           },
                           "widget": {
@@ -286,8 +288,8 @@
                                   "label": "created_year"
                                 },
                                 {
-                                  "value": "library",
-                                  "label": "library"
+                                  "value": "owning_library",
+                                  "label": "owning_library"
                                 }
                               ]
                             }
@@ -334,8 +336,10 @@
                             "enum": [
                               "created_month",
                               "created_year",
-                              "library",
-                              "location",
+                              "document_type",
+                              "document_subtype",
+                              "owning_library",
+                              "owning_location",
                               "type"
                             ]
                           },
@@ -355,16 +359,24 @@
                                   "label": "created_year"
                                 },
                                 {
-                                  "value": "library",
-                                  "label": "library"
+                                  "value": "document_type",
+                                  "label": "document_type"
                                 },
                                 {
-                                  "value": "location",
-                                  "label": "location"
+                                  "value": "document_subtype",
+                                  "label": "document_subtype"
+                                },
+                                {
+                                  "value": "owning_library",
+                                  "label": "owning_library"
+                                },
+                                {
+                                  "value": "owning_location",
+                                  "label": "owning_location"
                                 },
                                 {
                                   "value": "type",
-                                  "label": "type"
+                                  "label": "type (standard/issue)"
                                 }
                               ]
                             }
@@ -378,8 +390,8 @@
                   "additionalProperties": false,
                   "propertiesOrder": [
                     "type",
-                    "period",
-                    "distributions"
+                    "distributions",
+                    "period"
                   ],
                   "required": [
                     "type"
@@ -412,7 +424,9 @@
                             "enum": [
                               "action_month",
                               "action_year",
-                              "library"
+                              "owning_library",
+                              "owning_location",
+                              "type"
                             ]
                           },
                           "widget": {
@@ -431,16 +445,16 @@
                                   "label": "action_year"
                                 },
                                 {
-                                  "value": "library",
-                                  "label": "library"
+                                  "value": "owning_library",
+                                  "label": "owning_library"
                                 },
                                 {
-                                  "value": "item_location",
-                                  "label": "item_location"
+                                  "value": "owning_location",
+                                  "label": "owning_location"
                                 },
                                 {
                                   "value": "type",
-                                  "label": "type"
+                                  "label": "type (standard/issue)"
                                 }
                               ]
                             }
@@ -490,8 +504,7 @@
                   "additionalProperties": false,
                   "propertiesOrder": [
                     "type",
-                    "distributions",
-                    "period"
+                    "distributions"
                   ],
                   "required": [
                     "type"
@@ -548,16 +561,13 @@
                                 },
                                 {
                                   "value": "status",
-                                  "label": "status"
+                                  "label": "request_status"
                                 }
                               ]
                             }
                           }
                         }
                       ]
-                    },
-                    "period": {
-                      "$ref": "#/definitions/period"
                     }
                   }
                 },
@@ -686,7 +696,7 @@
                       }
                     },
                     "distributions": {
-                      "$ref": "#/definitions/circulation_distributions"
+                      "$ref": "#/definitions/request_distributions"
                     },
                     "period": {
                       "$ref": "#/definitions/period"
@@ -719,7 +729,7 @@
                       }
                     },
                     "distributions": {
-                      "$ref": "#/definitions/circulation_distributions"
+                      "$ref": "#/definitions/request_distributions"
                     },
                     "period": {
                       "$ref": "#/definitions/period"
@@ -831,6 +841,7 @@
   "definitions": {
     "distributions": {
       "title": "Distributions",
+      "description": "Up to 2 filters by which to distribute the data in the generated tables. The first value is the lines; the second value is the columns.",
       "type": "array",
       "minItems": 0,
       "default": [],
@@ -839,7 +850,7 @@
     },
     "period": {
       "title": "Period",
-      "description": "Time range of data used to calculate the statistics report.",
+      "description": "The time range to filter the data relevant to a specific period: latest month or latest year. Leave empty to not filter the data. Example: process the number of checkouts performed in the last month.",
       "type": "string",
       "enum": [
         "month",
@@ -873,6 +884,7 @@
               "transaction_month",
               "transaction_year",
               "owning_library",
+              "owning_location",
               "transaction_location",
               "patron_type",
               "patron_age",
@@ -893,12 +905,16 @@
                   "label": "transaction_month"
                 },
                 {
-                  "value": "transaction_yaer",
-                  "label": "transaction_yaer"
+                  "value": "transaction_year",
+                  "label": "transaction_year"
                 },
                 {
                   "value": "owning_library",
                   "label": "owning_library"
+                },
+                {
+                  "value": "owning_location",
+                  "label": "owning_location"
                 },
                 {
                   "value": "transaction_location",
@@ -923,6 +939,81 @@
                 {
                   "value": "transaction_channel",
                   "label": "transaction_channel"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "request_distributions": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/distributions"
+        },
+        {
+          "items": {
+            "title": "distributions",
+            "type": "string",
+            "enum": [
+              "transaction_month",
+              "transaction_year",
+              "owning_library",
+              "owning_location",
+              "patron_type",
+              "patron_age",
+              "patron_postal_code",
+              "document_type",
+              "transaction_channel",
+              "pickup_location"
+            ]
+          },
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "templateOptions": {
+                "sort": false
+              },
+              "options": [
+                {
+                  "value": "transaction_month",
+                  "label": "transaction_month"
+                },
+                {
+                  "value": "transaction_year",
+                  "label": "transaction_year"
+                },
+                {
+                  "value": "owning_library",
+                  "label": "owning_library"
+                },
+                {
+                  "value": "owning_location",
+                  "label": "owning_location"
+                },
+                {
+                  "value": "patron_type",
+                  "label": "patron_type"
+                },
+                {
+                  "value": "patron_age",
+                  "label": "patron_age"
+                },
+                {
+                  "value": "patron_postal_code",
+                  "label": "patron_postal_code"
+                },
+                {
+                  "value": "document_type",
+                  "label": "document_type"
+                },
+                {
+                  "value": "transaction_channel",
+                  "label": "transaction_channel"
+                },
+                {
+                  "value": "pickup_location",
+                  "label": "pickup_location"
                 }
               ]
             }
@@ -958,7 +1049,7 @@
               "options": [
                 {
                   "value": "created_month",
-                  "label": "create_month"
+                  "label": "created_month"
                 },
                 {
                   "value": "created_year",
@@ -970,7 +1061,7 @@
                 },
                 {
                   "value": "type",
-                  "label": "type"
+                  "label": "patron_type"
                 },
                 {
                   "value": "postal_code",

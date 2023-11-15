@@ -839,10 +839,12 @@ RECORDS_REST_ENDPOINTS = dict(
             'json': 'application/json'
         },
         search_serializers_aliases={
-            'json': 'application/json'
+            'json': 'application/json',
+            'rero+json': 'application/json',
         },
         search_serializers={
-            'application/json': 'rero_ils.modules.serializers:json_v1_search'
+            'application/json': 'rero_ils.modules.serializers:json_v1_search',
+            'application/rero+json': 'rero_ils.modules.stats_cfg.serializers:json_search'
         },
         list_route='/stats_cfg/',
         record_loaders={
@@ -2336,11 +2338,23 @@ RECORDS_REST_FACETS = dict(
                     field='category.type',
                     size=RERO_ILS_AGGREGATION_SIZE.get(
                         'stats_cfg', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                ),
+                 aggs=dict(
+                    indicator=dict(terms=dict(field='category.indicator.type', size=DOCUMENTS_AGGREGATION_SIZE))
                 )
-            )
+            ),
+            frequency=dict(
+                terms=dict(field='frequency', size=DOCUMENTS_AGGREGATION_SIZE),
+
+            ),
+            library=dict(terms=dict(field='library.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE))
         ),
         filters={
-            _('category'): and_term_filter('category.type')
+            _('category'): and_term_filter('category.type'),
+            _('indicator'): and_term_filter('category.indicator.type'),
+            _('frequency'): and_term_filter('frequency'),
+            _('library'): and_term_filter('library.pid'),
+            _('active'): and_term_filter('is_active')
         }
     )
 )
@@ -2909,7 +2923,7 @@ RECORDS_UI_ENDPOINTS = {
         template='rero_ils/detailed_view_stats.html',
         record_class='rero_ils.modules.stats.api.api:Stat',
         view_imp='rero_ils.modules.stats.views.stats_view_method',
-        permission_factory_imp='rero_ils.permissions.admin_permission_factory',
+        permission_factory_imp='rero_ils.modules.stats.permissions:stats_ui_permission_factory',
     )
 }
 
