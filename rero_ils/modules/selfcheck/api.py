@@ -21,7 +21,7 @@
 from datetime import datetime, timezone
 
 from flask import current_app
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_circulation.errors import CirculationException, \
     ItemNotAvailableError
 

@@ -19,7 +19,7 @@
 """Utility functions about PatronTransactions."""
 from datetime import datetime, timezone
 
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 
 from .api import PatronTransaction, PatronTransactionsSearch
 from ..utils import get_ref_for_pid

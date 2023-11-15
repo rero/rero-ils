@@ -20,7 +20,7 @@
 from flask import abort, after_this_request, current_app
 from flask import request as flask_request
 from flask.views import MethodView
-from flask_babelex import gettext as _
+from flask_babel import lazy_gettext as _
 from flask_security.confirmable import requires_confirmation
 from flask_security.utils import get_message, verify_and_update_password
 from invenio_accounts.utils import change_user_password

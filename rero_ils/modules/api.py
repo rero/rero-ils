@@ -32,15 +32,14 @@ from flask import current_app
 from invenio_db import db
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
-from invenio_indexer.utils import _es7_expand_action
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.api import Record
 from invenio_records_rest.utils import obj_or_import_string
 from invenio_search import current_search
+from invenio_search.engine import search
 from invenio_search.api import RecordsSearch
 from jsonschema import FormatChecker
-from jsonschema.compat import str_types
 from jsonschema.exceptions import ValidationError
 from kombu.compat import Consumer
 from sqlalchemy import text
@@ -56,7 +55,7 @@ ils_record_format_checker = FormatChecker()
 @ils_record_format_checker.checks('idn-email')
 def _strong_email_validation(instance) -> bool:
     """Allow to validate an email address (only email format, not DNS)."""
-    if not isinstance(instance, str_types):
+    if not isinstance(instance, str):
         return False
     # DEV NOTE : If this regexp changes, you also need to alter the regexp
     # into `email.validator.ts` file into @rero/ng-core. The best solution
@@ -579,19 +578,18 @@ class IlsRecordsIndexer(RecordIndexer):
         """
         return super().delete(record, refresh='true')
 
-    def bulk_index(self, record_id_iterator, doc_type=None, index=None):
+    def bulk_index(self, record_id_iterator, doc_type=None):
         """Bulk index records.
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
         self._bulk_op(
-            record_id_iterator, op_type='index', doc_type=doc_type,
-            index=index)
+            record_id_iterator, op_type='index', doc_type=doc_type)
 
-    def process_bulk_queue(self, es_bulk_kwargs=None, stats_only=True):
+    def process_bulk_queue(self, search_bulk_kwargs=None, stats_only=True):
         """Process bulk indexing queue.
 
-        :param dict es_bulk_kwargs: Passed to
+        :param dict search_bulk_kwargs: Passed to
             :func:`elasticsearch:elasticsearch.helpers.bulk`.
         :param boolean stats_only: if `True` only report number of
             successful/failed operations instead of just number of
@@ -604,19 +602,18 @@ class IlsRecordsIndexer(RecordIndexer):
                 exchange=self.mq_exchange.name,
                 routing_key=self.mq_routing_key,
             )
+
             req_timeout = current_app.config['INDEXER_BULK_REQUEST_TIMEOUT']
 
-            es_bulk_kwargs = es_bulk_kwargs or {}
+            search_bulk_kwargs = search_bulk_kwargs or {}
+
             count = bulk(
                 self.client,
                 self._actionsiter(consumer.iterqueue()),
                 stats_only=stats_only,
                 request_timeout=req_timeout,
-                expand_action_callback=(
-                    _es7_expand_action if ES_VERSION[0] >= 7
-                    else default_expand_action
-                ),
-                **es_bulk_kwargs
+                expand_action_callback=search.helpers.expand_action,
+                **search_bulk_kwargs
             )
 
             consumer.close()
@@ -630,6 +627,32 @@ class IlsRecordsIndexer(RecordIndexer):
         # take the first defined doc type for finding the class
         pid_type = payload.get('doc_type', 'rec')
         return get_record_class_from_schema_or_pid_type(pid_type=pid_type)
+
+    #
+    # Low-level implementation
+    #
+    def _bulk_op(self, record_id_iterator, op_type, index=None, doc_type=None):
+        """Index record in the search engine asynchronously.
+
+        :param record_id_iterator: dIterator that yields record UUIDs.
+        :param op_type: Indexing operation (one of ``index``, ``create``,
+            ``delete`` or ``update``).
+        :param index: The search engine index. (Default: ``None``)
+        :param doc_type: The Elasticsearch doc_type. (Default: ``None``)
+        """
+        with self.create_producer() as producer:
+            for rec in record_id_iterator:
+                data = dict(
+                    id=str(rec),
+                    op=op_type,
+                    index=index,
+                    doc_type=doc_type
+                )
+                producer.publish(
+                    data,
+                    declare=[self.mq_queue],
+                    **self.mq_publish_kwargs,
+                )
 
     def _actionsiter(self, message_iterator):
         """Iterate bulk actions.
@@ -662,30 +685,30 @@ class IlsRecordsIndexer(RecordIndexer):
         :param payload: Decoded message body.
         :return: Dictionary defining an Elasticsearch bulk 'index' action.
         """
-        with db.session.begin_nested():
-            record = self.record_cls.get_record(payload['id'])
-        index, doc_type = self.record_to_index(record)
+        record = self.record_cls.get_record(payload['id'])
+        index = self.record_to_index(record)
 
         arguments = {}
         index = payload.get('index') or index
-        body = self._prepare_record(record, index, doc_type, arguments)
-        return {
+        body = self._prepare_record(record, index, arguments)
+        action = {
             '_op_type': 'index',
             '_index': index,
-            '_type': doc_type,
             '_id': str(record.id),
             '_version': record.revision_id,
             '_version_type': self._version_type,
             '_source': body
-        } | arguments
+        }
+        action.update(arguments)
+
+        return action
 
     def _prepare_record(
-            self, record, index, doc_type, arguments=None, **kwargs):
+            self, record, index, arguments=None, **kwargs):
         """Prepare record data for indexing.
 
         :param record: The record to prepare.
         :param index: The Elasticsearch index.
-        :param doc_type: The Elasticsearch document type.
         :param arguments: The arguments to send to Elasticsearch upon indexing.
         :param **kwargs: Extra parameters.
         :return: The record metadata.
@@ -693,20 +716,20 @@ class IlsRecordsIndexer(RecordIndexer):
         if not getattr(record, 'enable_jsonref', True):
             # If dumper is None, dumps() will use the default configured dumper
             # on the Record class.
-            data = record.dumps(dumper=self.record_dumper)
+            return record.dumps(dumper=self.record_dumper)
+
+        # Old-style dumping - the old style will still if
+        # INDEXER_REPLACE_REFS is False use the Record.dumps(), however the
+        # default implementation is backward compatible for new-style
+        # records. Also, we're adding extra information into the record
+        # like _created and _updated afterwards, which the Record.dumps()
+        # have no control over.
+        if current_app.config.get('INDEXER_REPLACE_REFS'):
+            data = record.replace_refs().dumps()
+            # Original code
+            # data = copy.deepcopy(record.replace_refs())
         else:
-            # Old-style dumping - the old style will still if
-            # INDEXER_REPLACE_REFS is False use the Record.dumps(), however the
-            # default implementation is backward compatible for new-style
-            # records. Also, we're adding extra information into the record
-            # like _created and _updated afterwards, which the Record.dumps()
-            # have no control over.
-            if current_app.config.get('INDEXER_REPLACE_REFS'):
-                data = record.replace_refs().dumps()
-                # Original code
-                # data = copy.deepcopy(record.replace_refs())
-            else:
-                data = record.dumps()
+            data = record.dumps()
 
         data['_created'] = pytz.utc.localize(record.created).isoformat() \
             if record.created else None
@@ -719,7 +742,6 @@ class IlsRecordsIndexer(RecordIndexer):
             json=data,
             record=record,
             index=index,
-            doc_type=doc_type,
             arguments={} if arguments is None else arguments,
             **kwargs
         )

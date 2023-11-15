@@ -23,7 +23,7 @@ from copy import deepcopy
 from datetime import datetime
 
 import pytest
-from invenio_accounts.ext import hash_password
+from flask_security.utils import hash_password
 from invenio_accounts.models import User
 from utils import flush_index
 

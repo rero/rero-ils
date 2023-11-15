@@ -25,7 +25,6 @@ import polib
 import requests
 from flask import Blueprint, abort, current_app, jsonify, make_response, \
     request
-from flask_babelex import get_domain
 
 from rero_ils.modules.utils import cached, get_all_roles
 
@@ -153,15 +152,16 @@ def translations(ln):
 
     :param ln: language ISO 639-1 Code (two chars).
     """
-    domain = get_domain()
-    paths = domain.paths
+
+    babel = current_app.extensions['babel']
+    paths = babel.default_directories
     try:
         path = next(p for p in paths if p.find('rero_ils') > -1)
     except StopIteration:
         current_app.logger.error(f'translations for {ln} does not exist')
         abort(404)
 
-    po_file_name = f'{path}/{ln}/LC_MESSAGES/{domain.domain}.po'
+    po_file_name = f'{path}/{ln}/LC_MESSAGES/{babel.default_domain}.po'
     if not os.path.isfile(po_file_name):
         abort(404)
     try:

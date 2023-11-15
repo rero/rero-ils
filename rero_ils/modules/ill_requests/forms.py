@@ -17,8 +17,8 @@
 
 """Forms definitions about ILL request in public view."""
 
-from flask_babelex import gettext as _
-from flask_babelex import lazy_gettext
+from flask_babel import gettext as _
+from flask_babel import lazy_gettext
 from flask_wtf import FlaskForm
 from wtforms import FormField, IntegerField, RadioField, SelectField, \
     StringField, TextAreaField, validators

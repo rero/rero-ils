@@ -22,7 +22,7 @@ from utils import get_mapping
 from rero_ils.modules.locations.api import Location, LocationsSearch
 
 
-def test_location_es_mapping(es, db, loc_public_martigny_data,
+def test_location_es_mapping(search, db, loc_public_martigny_data,
                              lib_martigny, org_martigny):
     """Test library elasticsearch mapping."""
     search = LocationsSearch()

@@ -28,11 +28,11 @@ from invenio_search import current_search
 def record_to_index(record):
     """Get index/doc_type given a record.
 
-    It tries to extract from `record['$schema']` the index and doc_type.
+    It tries to extract from `record['$schema']` the index.
     If it fails, return the default values.
 
     :param record: The record object.
-    :return: Tuple (index, doc_type).
+    :return: index.
     """
     index_names = current_search.mappings.keys()
     schema = record.get('$schema', '')
@@ -43,10 +43,8 @@ def record_to_index(record):
     if re.search(r'/mef/', schema):
         schema = re.sub(r'/mef/', '/remote_entities/', schema)
         schema = re.sub(r'mef-contribution', 'remote_entity', schema)
-    index, doc_type = schema_to_index(schema, index_names=index_names)
 
-    if index and doc_type:
-        return index, doc_type
+    if index := schema_to_index(schema, index_names=index_names):
+        return index
     else:
-        return (current_app.config['INDEXER_DEFAULT_INDEX'],
-                current_app.config['INDEXER_DEFAULT_DOC_TYPE'])
+        return current_app.config['INDEXER_DEFAULT_INDEX']

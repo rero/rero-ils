@@ -22,7 +22,7 @@ from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, \
     AcqOrdersSearch
 
 
-def test_acq_orders_es_mapping(es, db, lib_martigny, vendor_martigny,
+def test_acq_orders_es_mapping(search, db, lib_martigny, vendor_martigny,
                                acq_order_fiction_martigny_data):
     """Test acquisition orders elasticsearch mapping."""
     search = AcqOrdersSearch()

@@ -21,7 +21,7 @@
 from datetime import datetime
 
 import pytest
-from invenio_accounts.ext import hash_password
+from flask_security.utils import hash_password
 from invenio_accounts.models import User
 from invenio_search import current_search_client
 

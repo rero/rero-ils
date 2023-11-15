@@ -25,7 +25,7 @@ from typing import Optional
 import click
 from elasticsearch_dsl.query import Q
 from flask import Blueprint, current_app, render_template, url_for
-from flask_babelex import gettext as _
+from flask_babel import lazy_gettext as _
 from flask_login import current_user
 from invenio_records_ui.signals import record_viewed
 

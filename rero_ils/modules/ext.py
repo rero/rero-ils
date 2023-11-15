@@ -37,7 +37,8 @@ from invenio_oaiharvester.signals import oaiharvest_finished
 from invenio_records.signals import after_record_insert, after_record_update, \
     before_record_update
 from invenio_records_rest.errors import JSONSchemaValidationError
-from invenio_userprofiles.signals import after_profile_update
+# TODO: FLASK2
+# from invenio_userprofiles.signals import after_profile_update
 from jsonschema.exceptions import ValidationError
 
 from rero_ils.filter import address_block, empty_data, format_date_filter, \
@@ -311,8 +312,9 @@ class REROILSAPP(object):
 
         oaiharvest_finished.connect(publish_harvested_records, weak=False)
 
+        # TODO: FLASK2
         # invenio-userprofiles signal
-        after_profile_update.connect(update_from_profile)
+        # after_profile_update.connect(update_from_profile)
 
         # store the username in the session
         user_logged_in.connect(set_user_name)

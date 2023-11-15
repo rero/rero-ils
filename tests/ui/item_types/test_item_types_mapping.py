@@ -24,7 +24,7 @@ from utils import get_mapping
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 
 
-def test_item_type_es_mapping(es, db, org_martigny, item_type_data_tmp):
+def test_item_type_es_mapping(search, db, org_martigny, item_type_data_tmp):
     """Test item type elasticsearch mapping."""
     search = ItemTypesSearch()
     mapping = get_mapping(search.Meta.index)

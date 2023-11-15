@@ -39,7 +39,7 @@ pytest_plugins = (
 
 
 @pytest.fixture(scope='module')
-def es(appctx):
+def search(appctx):
     """Setup and teardown all registered Elasticsearch indices.
 
     Scope: module

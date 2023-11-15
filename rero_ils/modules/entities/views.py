@@ -18,7 +18,7 @@
 
 """Blueprint used for entities."""
 from flask import Blueprint, abort, current_app, render_template
-from flask_babelex import gettext as _
+from flask_babel import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
 
 from rero_ils.modules.entities.models import EntityType

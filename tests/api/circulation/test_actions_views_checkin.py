@@ -19,7 +19,7 @@
 from datetime import date, datetime, timedelta, timezone
 
 from flask import url_for
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 

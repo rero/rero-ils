@@ -23,8 +23,8 @@ from functools import partial
 
 from elasticsearch_dsl import Q
 from flask import current_app
-from flask_babelex import gettext as _
-from flask_babelex import ngettext
+from flask_babel import gettext as _
+from flask_babel import ngettext
 from flask_login import current_user
 from invenio_circulation.proxies import current_circulation
 from invenio_db import db

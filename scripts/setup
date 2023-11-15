@@ -323,12 +323,13 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index reindex_missing -t org -t lib -t loc -t itty -t ptty -t cipo -t vndr -v
 fi
 
-info_msg "- Users: ${DATA_PATH}/users.json"
-eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v --append ${CREATE_LAZY} ${DONT_STOP}
+# TODO: FLASK2
+# info_msg "- Users: ${DATA_PATH}/users.json"
+# eval ${PREFIX} invenio reroils fixtures import_users ${DATA_PATH}/users.json -v --append ${CREATE_LAZY} ${DONT_STOP}
 
-info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
-eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
-eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
+# info_msg "- ILL requests: ${DATA_PATH}/ill_request.json"
+# eval ${PREFIX} invenio reroils fixtures create_ill_requests -f ${DATA_PATH}/ill_requests.json
+# eval ${PREFIX} invenio reroils index reindex -t illr --yes-i-know
 
 info_msg "- Statistics configurations: ${DATA_PATH}/stats_cfg.json"
 eval ${PREFIX} invenio reroils fixtures create --pid_type stacfg ${DATA_PATH}/stats_cfg.json --append ${CREATE_LAZY} ${DONT_STOP}
@@ -556,8 +557,9 @@ if ${LOADEXTRAFILES}
 
 
 # create circulation transactions
-info_msg "Circulation transactions: ${DATA_PATH}/loans.json ${CREATE_LAZY} ${DONT_STOP}"
-eval ${PREFIX} invenio reroils fixtures create_loans ${DATA_PATH}/loans.json -v
+# TODO: FLASK2
+# info_msg "Circulation transactions: ${DATA_PATH}/loans.json ${CREATE_LAZY} ${DONT_STOP}"
+#meval ${PREFIX} invenio reroils fixtures create_loans ${DATA_PATH}/loans.json -v
 
 # process notifications
 eval ${PREFIX} invenio reroils notifications process

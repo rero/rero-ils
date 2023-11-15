@@ -161,7 +161,7 @@ def stats_librarian_queries(record_pid):
 
 # JINJA FILTERS ===============================================================
 
-@jinja2.contextfilter
+@jinja2.pass_context
 @blueprint.app_template_filter()
 def yearmonthfilter(context, value, format="%Y-%m-%dT%H:%M:%S"):
     """Convert datetime in local timezone.
@@ -177,7 +177,7 @@ def yearmonthfilter(context, value, format="%Y-%m-%dT%H:%M:%S"):
     return f"{month_name} {value.year}"
 
 
-@jinja2.contextfilter
+@jinja2.pass_context
 @blueprint.app_template_filter()
 def stringtodatetime(context, value, format="%Y-%m-%dT%H:%M:%S"):
     """Convert string to datetime.
@@ -188,7 +188,7 @@ def stringtodatetime(context, value, format="%Y-%m-%dT%H:%M:%S"):
     return datetime.datetime.strptime(value, format)
 
 
-@jinja2.contextfilter
+@jinja2.pass_context
 @blueprint.app_template_filter()
 def sort_dict_by_key(context, dictionary):
     """Sort dict by dict of keys.
@@ -200,7 +200,7 @@ def sort_dict_by_key(context, dictionary):
     return StatCSVSerializer.sort_dict_by_key(dictionary)
 
 
-@jinja2.contextfilter
+@jinja2.pass_context
 @blueprint.app_template_filter()
 def sort_dict_by_library(context, dictionary):
     """Sort dict by library name.
@@ -212,7 +212,7 @@ def sort_dict_by_library(context, dictionary):
     return sorted(dictionary, key=lambda v: v['library']['name'])
 
 
-@jinja2.contextfilter
+@jinja2.pass_context
 @blueprint.app_template_filter()
 def process_data(context, value):
     """Process data.

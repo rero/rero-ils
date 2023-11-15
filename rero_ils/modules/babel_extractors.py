@@ -20,7 +20,7 @@
 import re
 
 import six
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 
 KEY_VAL_REGEX = re.compile(r'"(.*?)"\s*:\s*"(.*?)"')
 

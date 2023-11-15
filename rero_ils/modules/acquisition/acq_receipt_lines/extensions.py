@@ -18,7 +18,7 @@
 """Acquisition Receipt line record extensions."""
 from datetime import datetime
 
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
 from sqlalchemy.orm.exc import NoResultFound

@@ -20,7 +20,7 @@
 
 from functools import partial
 
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher

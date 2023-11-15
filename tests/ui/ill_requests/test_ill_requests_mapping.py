@@ -21,7 +21,7 @@ from utils import get_mapping
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
 
 
-def test_ill_request_es_mapping(es, db, loc_public_martigny, patron_martigny,
+def test_ill_request_es_mapping(search, db, loc_public_martigny, patron_martigny,
                                 ill_request_martigny_data):
     """Test ill request elasticsearch mapping."""
     search = ILLRequestsSearch()
