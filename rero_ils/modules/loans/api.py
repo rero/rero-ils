@@ -25,7 +25,7 @@ import ciso8601
 from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl import A, Q
 from flask import current_app
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_circulation.errors import MissingRequiredParameterError
 from invenio_circulation.pidstore.fetchers import loan_pid_fetcher
 from invenio_circulation.pidstore.minters import loan_pid_minter
@@ -999,7 +999,7 @@ class Loan(IlsRecord):
         patron = patron or Patron.get_record_by_pid(patron_pid)
         keep_history = True
         if patron:
-            keep_history = patron.user.profile.keep_history
+            keep_history = patron.user.user_profile.get('keep_history', True)
         else:
             msg = f'Can not anonymize loan: {loan_data.get("pid")} ' \
                   f'no patron: {loan_data.get("patron_pid")}'

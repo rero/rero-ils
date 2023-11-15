@@ -65,14 +65,14 @@ def create_subscription_patron_transaction(sender, record=None, **kwargs):
             record.add_subscription(ptty, start_date, end_date)
 
 
-def update_from_profile(sender, profile=None, **kwargs):
+def update_from_profile(sender, user, **kwargs):
     """Update the patron linked with the user profile data.
 
     :param profile - the rero user profile
     """
-    for patron in Patron.get_patrons_by_user(profile.user):
+    for patron in Patron.get_patrons_by_user(user):
         patron.reindex()
         if patron.is_patron:
             from ..loans.api import anonymize_loans
-            if not profile.keep_history:
+            if not user.user_profile.get('keep_history', True):
                 anonymize_loans(patron=patron, dbcommit=True, reindex=True)

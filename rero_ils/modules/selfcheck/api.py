@@ -21,7 +21,7 @@
 from datetime import datetime, timezone
 
 from flask import current_app
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_circulation.errors import CirculationException, \
     ItemNotAvailableError
 
@@ -96,7 +96,7 @@ def authorize_patron(barcode, password, **kwargs):
     if patron and patron.is_patron:
         # User email is an optional field. When User hasn't email address,
         # we take his username as login.
-        user_login = patron.user.email or patron.user.profile.username
+        user_login = patron.user.email or patron.user.username
         return authorize_selfckeck_user(user_login, password)
     return False
 

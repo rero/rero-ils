@@ -34,11 +34,11 @@ def test_stats_cfg_jsonresolver(stats_cfg_martigny):
     # deleted record
     stats_cfg_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'stats_cfg': {'$ref': 'https://bib.rero.ch/api/stats_cfg/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

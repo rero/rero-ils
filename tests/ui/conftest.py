@@ -17,11 +17,8 @@
 
 """Common pytest fixtures and plugins."""
 
-
-from datetime import datetime
-
 import pytest
-from invenio_accounts.ext import hash_password
+from flask_security.utils import hash_password
 from invenio_accounts.models import User
 from invenio_search import current_search_client
 
@@ -30,20 +27,20 @@ from invenio_search import current_search_client
 def user_with_profile(db, default_user_password):
     """Create a simple invenio user with a profile."""
     with db.session.begin_nested():
+        profile = dict(
+            birth_date='1990-01-01',
+            first_name='User',
+            last_name='With Profile',
+            city='Nowhere'
+        )
         user = User(
             email='user_with_profile@test.com',
+            username='user_with_profile',
             password=hash_password(default_user_password),
-            profile={},
+            user_profile=profile,
             active=True,
         )
         db.session.add(user)
-        profile = user.profile
-        profile.birth_date = datetime(1990, 1, 1)
-        profile.first_name = 'User'
-        profile.last_name = 'With Profile'
-        profile.city = 'Nowhere'
-        profile.username = 'user_with_profile'
-        db.session.merge(user)
     db.session.commit()
     user.password_plaintext = default_user_password
     return user
@@ -53,19 +50,19 @@ def user_with_profile(db, default_user_password):
 def user_without_email(db, default_user_password):
     """Create a simple invenio user without email."""
     with db.session.begin_nested():
+        profile = dict(
+            birth_date='1990-01-01',
+            first_name='User',
+            last_name='With Profile',
+            city='Nowhere'
+        )
         user = User(
             password=hash_password(default_user_password),
-            profile={},
+            user_profile=profile,
+            username='user_without_email',
             active=True,
         )
         db.session.add(user)
-        profile = user.profile
-        profile.birth_date = datetime(1990, 1, 1)
-        profile.first_name = 'User'
-        profile.last_name = 'With Profile'
-        profile.city = 'Nowhere'
-        profile.username = 'user_without_email'
-        db.session.merge(user)
     db.session.commit()
     user.password_plaintext = default_user_password
     return user

@@ -31,7 +31,7 @@ from flask.cli import with_appcontext
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.models import RecordMetadata
 from invenio_records_rest.utils import obj_or_import_string
-from invenio_search.cli import es_version_check, index
+from invenio_search.cli import index, search_version_check
 from invenio_search.proxies import current_search, current_search_client
 from jsonpatch import make_patch
 from kombu import Queue
@@ -95,7 +95,7 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
             'kwargs': {
                 'version_type': version_type,
                 'queue': queue,
-                'es_bulk_kwargs': {'raise_on_error': raise_on_error},
+                'search_bulk_kwargs': {'raise_on_error': raise_on_error},
                 'stats_only': not with_stats
             }
         }
@@ -118,7 +118,7 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
             routing_key=queue,
         )
         name, count = indexer.process_bulk_queue(
-                es_bulk_kwargs={'raise_on_error': raise_on_error},
+                search_bulk_kwargs={'raise_on_error': raise_on_error},
                 stats_only=(not with_stats)
             )
         click.secho(
@@ -133,17 +133,15 @@ def run(delayed, concurrency, with_stats, version_type=None, queue=None,
 @click.option('-f', '--from_date', 'from_date')
 @click.option('-u', '--until_date', 'until_date')
 @click.option('-d', '--direct', 'direct', is_flag=True, default=False)
-@click.option('-i', '--index', 'index')
 @click.option('-q', '--queue', 'queue', default='indexer')
 @with_appcontext
-def reindex(pid_types, from_date, until_date, direct, index, queue):
+def reindex(pid_types, from_date, until_date, direct, queue):
     """Reindex records.
 
     :param pid_type: Pid type.
     :param from_date: Index records from date.
     :param until_date: Index records until date.
     :param direct: Use record class for indexing.
-    :param index: Index name to index.
     :param queue: Queue name to use.
     """
     endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
@@ -196,7 +194,7 @@ def reindex(pid_types, from_date, until_date, direct, index, queue):
                     indxer = IlsRecordsIndexer(
                         queue=simple_queue, routing_key=queue)
                     indxer.bulk_index(
-                        (x[0] for x in query), doc_type=pid_type, index=index)
+                        (x[0] for x in query), doc_type=pid_type)
             else:
                 click.echo('Can not index by date.')
         else:
@@ -254,7 +252,7 @@ def reindex_missing(pid_types, verbose):
 @index.command()
 @click.option('--force', is_flag=True, default=False)
 @with_appcontext
-@es_version_check
+@search_version_check
 def init(force):
     """Initialize registered templates, aliases and mappings."""
     # TODO: to remove once it is fixed in invenio-search module
@@ -274,7 +272,7 @@ def init(force):
 
 @index.command('switch_index')
 @with_appcontext
-@es_version_check
+@search_version_check
 @click.argument('old')
 @click.argument('new')
 def switch_index(old, new):
@@ -293,7 +291,7 @@ def switch_index(old, new):
 
 @index.command('create_index')
 @with_appcontext
-@es_version_check
+@search_version_check
 @click.option(
     '-t', '--templates/--no-templates', 'templates', is_flag=True,
     default=True)
@@ -335,7 +333,7 @@ def create_index(resource, index, verbose, templates):
 @click.option(
     '-s', '--settings/--no-settings', 'settings', is_flag=True, default=False)
 @with_appcontext
-@es_version_check
+@search_version_check
 def update_mapping(aliases, settings):
     """Update the mapping of a given alias."""
     if not aliases:

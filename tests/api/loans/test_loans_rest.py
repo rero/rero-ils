@@ -528,8 +528,6 @@ def test_timezone_due_date(client, librarian_martigny,
                            circ_policy_short_martigny,
                            lib_martigny):
     """Test that timezone affects due date regarding library location."""
-    # Login to perform action
-    login_user_via_session(client, librarian_martigny.user)
 
     # Close the library all days. Except Monday.
     del lib_martigny['exception_dates']
@@ -596,6 +594,8 @@ def test_timezone_due_date(client, librarian_martigny,
         dbcommit=True,
         reindex=True
     )
+    # Login to perform action
+    login_user_via_session(client, librarian_martigny.user)
 
     # Checkout the item
     res, data = postdata(

@@ -20,7 +20,7 @@
 
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.form.fields import DateTimeField
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from werkzeug.local import LocalProxy
 from wtforms.fields import SelectField
 from wtforms.validators import DataRequired

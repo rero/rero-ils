@@ -23,7 +23,7 @@ from copy import deepcopy
 from datetime import datetime
 
 import pytest
-from invenio_accounts.ext import hash_password
+from flask_security.utils import hash_password
 from invenio_accounts.models import User
 from utils import flush_index
 
@@ -42,12 +42,14 @@ def user_with_profile(db, default_user_password):
             active=True,
         )
         db.session.add(user)
-        profile = user.profile
-        profile.birth_date = datetime(1990, 1, 1)
-        profile.first_name = 'User'
-        profile.last_name = 'With Profile'
-        profile.city = 'Nowhere'
+        profile = dict(
+            birth_date=datetime(1990, 1, 1),
+            first_name='User',
+            last_name='With Profile',
+            city='Nowhere'
+        )
         profile.username = 'user_with_profile'
+        user.user_profile = profile
         db.session.merge(user)
     db.session.commit()
     return user

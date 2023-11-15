@@ -908,7 +908,6 @@ def test_requested_loans_to_validate(
         item_type_standard_martigny, item2_lib_martigny, json_header,
         item_type_missing_martigny, patron_sion, circulation_policies):
     """Test requested loans to validate."""
-    login_user_via_session(client, librarian_martigny.user)
 
     holding_pid = item2_lib_martigny.holding_pid
     holding = Holding.get_record_by_pid(holding_pid)
@@ -933,6 +932,7 @@ def test_requested_loans_to_validate(
 
     library_pid = librarian_martigny.replace_refs()['libraries'][0]['pid']
 
+    login_user_via_session(client, librarian_martigny.user)
     res, _ = postdata(
         client,
         'api_item.librarian_request',

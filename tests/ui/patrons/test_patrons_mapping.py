@@ -23,7 +23,7 @@ from rero_ils.modules.patrons.api import PatronsSearch
 
 
 def test_patron_es_mapping(
-        roles, es, lib_martigny, librarian_martigny_data_tmp):
+        roles, search, lib_martigny, librarian_martigny_data_tmp):
     """Test patron elasticsearch mapping."""
     search = PatronsSearch()
     mapping = get_mapping(search.Meta.index)

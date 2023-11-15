@@ -121,14 +121,14 @@ def test_additional_email(app, patron_martigny):
     user = patron_martigny.user
 
     original_user_email = user.email
-    user.email = None
+    user._email = None
     patron_martigny['patron']['communication_channel'] = 'email'
     with pytest.raises(ValidationError) as e:
         Patron.validate(patron_martigny)
     assert 'At least one email should be defined for an email ' \
            'communication channel' in str(e)
 
-    user.email = original_user_email
+    user._email = original_user_email
 
 
 def test_phone(patron_schema, patron_martigny_data_tmp_with_id):

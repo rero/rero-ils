@@ -339,6 +339,7 @@ class SyncEntity:
                                     dbcommit=True,
                                     reindex=True
                                 )
+                                RemoteEntitiesSearch.flush_and_refresh()
                             self.logger.info(
                                 f'Create a new MEF {entity["type"]} '
                                 f'record(pid: {new_mef_pid})')

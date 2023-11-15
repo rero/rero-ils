@@ -37,11 +37,11 @@ def test_local_entities_jsonresolver(local_entity_person2):
     # deleted record
     local_entity_person2.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'local_entity': {'$ref': 'https://bib.rero.ch/api/local_entities/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

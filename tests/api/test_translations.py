@@ -16,7 +16,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test translations API."""
-import mock
 from flask import url_for
 from utils import get_json
 
@@ -46,17 +45,13 @@ def test_translations_exceptions(client, app):
     #   ... class FakeDomain(object):
     #   ...     paths = []
     #
-    magic_mock = mock.MagicMock(return_value=type(
-        'FakeDomain', (object,), dict(paths=[])
-    ))
-    with mock.patch('rero_ils.modules.views.get_domain', magic_mock):
-        res = client.get(
-            url_for(
-                'api_blueprint.translations',
-                ln='dummy_language'
-            )
+    res = client.get(
+        url_for(
+            'api_blueprint.translations',
+            ln='dummy_language'
         )
-        assert res.status_code == 404
+    )
+    assert res.status_code == 404
 
     res = client.get(
         url_for(

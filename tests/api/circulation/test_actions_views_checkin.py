@@ -19,7 +19,7 @@
 from datetime import date, datetime, timedelta, timezone
 
 from flask import url_for
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json, postdata
 
@@ -128,7 +128,6 @@ def test_checkin_overdue_item(
         item_on_loan_martigny_patron_and_loan_on_loan):
     """Test a checkin for an overdue item with incremental fees."""
 
-    login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # Update the circulation policy corresponding to the loan
@@ -155,6 +154,7 @@ def test_checkin_overdue_item(
 
     # Check overdues preview API and check result
     url = url_for('api_loan.preview_loan_overdue', loan_pid=loan.pid)
+    login_user_via_session(client, librarian_martigny.user)
     res = client.get(url)
     data = get_json(res)
     assert res.status_code == 200

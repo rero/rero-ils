@@ -20,7 +20,7 @@
 from datetime import datetime, timezone
 from functools import partial
 
-from flask_babelex import gettext as _
+from flask_babel import gettext as _
 from invenio_records_rest.utils import obj_or_import_string
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine, \

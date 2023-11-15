@@ -355,6 +355,11 @@ def test_document_indexing(document, export_document):
     ]
     assert record.partOf[0].document.title == parent_titles.pop()
 
+    # check updated created should exists
+    record = next(s.source(['_updated', '_created']).scan())
+    assert record._updated
+    assert record._created
+
     # restore initial data
     document['title'].pop(-1)
     document['title'][0]['mainTitle'][1]['value'] = orig_title

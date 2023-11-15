@@ -21,11 +21,14 @@
 from logging import getLogger
 
 from invenio_db import db
-from invenio_userprofiles.models import UserProfile
 
 from rero_ils.dojson.utils import _OBSOLETE_COUNTRIES_MAPPING
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
+
+# TODO: Flask2
+# from invenio_userprofiles.models import UserProfile
+
 
 # revision identifiers, used by Alembic.
 revision = 'add75cbcad66'
@@ -94,10 +97,10 @@ def upgrade():
             LOGGER.info(f'Found {len(ptrn_pids)} patrons with {old_country}.')
             fix_patrons(ptrn_pids, old_country, new_country)
 
-        query = UserProfile.query.filter_by(country=old_country)
-        if query.count() > 0:
-            LOGGER.info(f'Found {query.count()} users with {old_country}.')
-            fix_users(query, old_country, new_country)
+        # query = UserProfile.query.filter_by(country=old_country)
+        # if query.count() > 0:
+        #     LOGGER.info(f'Found {query.count()} users with {old_country}.')
+        #     fix_users(query, old_country, new_country)
 
 
 def downgrade():

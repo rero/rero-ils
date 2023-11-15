@@ -28,8 +28,8 @@ from jsonschema.exceptions import ValidationError
 from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
     patron_id_fetcher
 from rero_ils.modules.patrons.models import CommunicationChannel
+from rero_ils.modules.patrons.utils import create_user_from_data
 from rero_ils.modules.users.models import UserRole
-from rero_ils.utils import create_user_from_data
 
 
 def test_patron_extended_validation(app, patron_martigny,
@@ -157,9 +157,10 @@ def test_patron_create(app, roles, lib_martigny, librarian_martigny_data_tmp,
     user = User.query.filter_by(id=ptrn.get('user_id')).first()
     assert user and user.active
     for field in ['first_name', 'last_name', 'street', 'postal_code', 'city',
-                  'username', 'home_phone']:
-        assert getattr(user.profile, field) == l_martigny_data_tmp.get(field)
-    assert user.profile.birth_date.strftime('%Y-%m-%d') == \
+                  'home_phone']:
+        assert user.user_profile.get(field) == l_martigny_data_tmp.get(field)
+    assert user.username == l_martigny_data_tmp.get('username')
+    assert user.user_profile.get('birth_date') == \
            l_martigny_data_tmp.get('birth_date')
     user_roles = [r.name for r in user.roles]
     assert set(user_roles) == set(ptrn.get('roles'))
@@ -237,6 +238,8 @@ def test_patron_create_without_email(app, roles, patron_type_children_martigny,
 
     patron_martigny_data_tmp = \
         create_user_from_data(patron_martigny_data_tmp)
+    from rero_ils.modules.users.api import User
+    patron_martigny_data_tmp = User.remove_fields(patron_martigny_data_tmp)
 
     # communication channel require at least one email
     patron_martigny_data_tmp['patron']['communication_channel'] = 'email'

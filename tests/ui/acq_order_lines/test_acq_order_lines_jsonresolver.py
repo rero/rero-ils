@@ -36,7 +36,7 @@ def test_acq_order_lines_jsonresolver(
     # deleted record
     acq_order_line_fiction_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
@@ -45,4 +45,4 @@ def test_acq_order_lines_jsonresolver(
         }
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

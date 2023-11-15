@@ -59,23 +59,23 @@ def test_record_to_index(app):
     assert record_to_index({
         '$schema': 'https://bib.rero.ch/schemas/'
         'documents/document-v0.0.1.json'
-    }) == ('documents-document-v0.0.1', '_doc')
+    }) == 'documents-document-v0.0.1'
     assert record_to_index({
         '$schema': 'https://bib.rero.ch/schemas/'
         'documents/document-v0.0.1.json'
-    }) == ('documents-document-v0.0.1', '_doc')
+    }) == 'documents-document-v0.0.1'
 
     # for mef-mef-contributions
     assert record_to_index({
         '$schema': 'https://mef.rero.ch/schemas/'
         'mef/mef-contribution-v0.0.1.json'
-    }) == ('remote_entities-remote_entity-v0.0.1', '_doc')
+    }) == 'remote_entities-remote_entity-v0.0.1'
 
     # for others
     assert record_to_index({
         '$schema': 'https://bib.rero.ch/schemas/'
         'organisations/organisation-v0.0.1.json'
-    }) == ('organisations-organisation-v0.0.1', '_doc')
+    }) == 'organisations-organisation-v0.0.1'
 
 
 def test_get_resource_from_ES(document):

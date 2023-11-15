@@ -34,11 +34,11 @@ def test_budgets_jsonresolver(budget_2017_martigny):
     # deleted record
     budget_2017_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'budget': {'$ref': 'https://bib.rero.ch/api/budgets/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

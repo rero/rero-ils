@@ -27,7 +27,7 @@ import pytest
 from dotenv import load_dotenv
 
 pytest_plugins = (
-    # 'celery.contrib.pytest',
+    'celery.contrib.pytest',
     'fixtures.circulation',
     'fixtures.metadata',
     'fixtures.organisations',
@@ -39,7 +39,7 @@ pytest_plugins = (
 
 
 @pytest.fixture(scope='module')
-def es(appctx):
+def search(appctx):
     """Setup and teardown all registered Elasticsearch indices.
 
     Scope: module

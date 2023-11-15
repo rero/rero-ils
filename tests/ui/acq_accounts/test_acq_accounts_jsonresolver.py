@@ -34,11 +34,11 @@ def test_acq_accounts_jsonresolver(acq_account_fiction_martigny):
     # deleted record
     acq_account_fiction_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'acq_account': {'$ref': 'https://bib.rero.ch/api/acq_accounts/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

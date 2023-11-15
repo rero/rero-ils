@@ -38,8 +38,8 @@ import requests
 import sqlalchemy
 from dateutil import parser
 from flask import current_app, session
-from flask_babelex import gettext as _
-from flask_babelex import ngettext
+from flask_babel import gettext as _
+from flask_babel import ngettext
 from flask_login import current_user
 from invenio_accounts.models import Role
 from invenio_cache import current_cache

@@ -34,11 +34,11 @@ def test_item_types_jsonresolver(item_type_standard_martigny):
     # deleted record
     item_type_standard_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'item_type': {'$ref': 'https://bib.rero.ch/api/item_types/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

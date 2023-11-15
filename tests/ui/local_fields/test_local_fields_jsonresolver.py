@@ -35,11 +35,11 @@ def test_local_field_jsonresolver(local_field_martigny):
     # deleted record
     local_field.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create({
         'local_fields': {'$ref': 'https://bib.rero.ch/api/local_fields/n_e'}
     })
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

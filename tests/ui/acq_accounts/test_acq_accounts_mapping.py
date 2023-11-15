@@ -22,7 +22,7 @@ from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, \
     AcqAccountsSearch
 
 
-def test_acq_accounts_es_mapping(es, db, acq_account_fiction_martigny_data,
+def test_acq_accounts_es_mapping(search, db, acq_account_fiction_martigny_data,
                                  budget_2020_martigny, lib_martigny):
     """Test acquisition account elasticsearch mapping."""
     search = AcqAccountsSearch()

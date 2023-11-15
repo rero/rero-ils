@@ -85,7 +85,8 @@ class PatronMetadataSchemaV1(StrictKeysMixin):
         :return Data cleared from user profile information.
         """
         data = data if many else [data]
-        profile_fields = set(User.profile_fields + ['username', 'email'])
+        profile_fields = set(
+            User.profile_fields + ['username', 'email',  'password'])
         for record in data:
             for field in profile_fields:
                 record.pop(field, None)

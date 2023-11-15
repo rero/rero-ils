@@ -22,7 +22,6 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
 import jsonref
-import requests
 import xmltodict
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session, \
@@ -49,8 +48,8 @@ from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.patron_types.api import PatronType
-from rero_ils.modules.patrons.api import Patron, PatronsSearch, \
-    create_patron_from_data
+from rero_ils.modules.patrons.api import Patron, PatronsSearch
+from rero_ils.modules.patrons.utils import create_patron_from_data
 from rero_ils.modules.selfcheck.models import SelfcheckTerminal
 
 
@@ -246,27 +245,9 @@ def check_timezone_date(timezone, date, expected=None):
     assert tocheck_date.hour == hour, error_msg
 
 
-def mocked_requests_get(*args, **kwargs):
+def jsonloader(uri, **kwargs):
     """This method will be used by the mock to replace requests.get."""
-    class MockResponse:
-        """Mock response class.
-
-        This class will get a json schema directly from the source file.
-        Examples:
-        https://bib.rero.ch/schemas/documents/document-v0.0.1.json ->
-            rero_ils.modules.documents.jsonschemas.document-v0.0.1.json
-        https://bib.rero.ch/schemas/common/languages-v0.0.1.json ->
-            rero_ils.jsonschemas.common.languages-v0.0.1.json
-        """
-
-        def __init__(self, json_data, status_code):
-            self.json_data = json_data
-            self.status_code = status_code
-
-        def json(self):
-            return self.json_data
-
-    ref_split = args[0].split('/')
+    ref_split = uri.split('/')
     # TODO: find a better way to determine name and path.
     if ref_split[-2] == 'common':
         path = 'rero_ils.jsonschemas'
@@ -288,32 +269,25 @@ def mocked_requests_get(*args, **kwargs):
         )
 
     schema_in_bytes = resource_string(path, name)
-    if not schema_in_bytes:
-        return MockResponse({}, 404)
     schema = json.loads(schema_in_bytes.decode('utf8'))
-    if not schema:
-        return MockResponse({}, 404)
 
-    return MockResponse(schema, 200)
+    return schema
 
 
-def get_schema(monkeypatch, schema_in_bytes):
+def get_schema(schema_in_bytes):
     """Get json schema and replace $refs.
 
     For the resolving of the $ref we have to catch the request.get and
     get the referenced json schema directly from the resource.
 
-    :param monkeypatch: https://docs.pytest.org/en/stable/monkeypatch.html
     :schema_in_bytes: schema in bytes.
     :returns: resolved json schema.
     """
-    # apply the monkeypatch for requests.get to mocked_requests_get
-    monkeypatch.setattr(requests, "get", mocked_requests_get)
-    schema = jsonref.loads(schema_in_bytes.decode('utf8'))
+    schema = jsonref.loads(schema_in_bytes.decode('utf8'), loader=jsonloader)
 
     # Replace all remaining $refs
-    while schema != jsonref.loads(jsonref.dumps(schema)):
-        schema = jsonref.loads(jsonref.dumps(schema))
+    while schema != jsonref.loads(jsonref.dumps(schema), loader=jsonloader):
+        schema = jsonref.loads(jsonref.dumps(schema), loader=jsonloader)
     return schema
 
 
@@ -403,11 +377,7 @@ def create_patron(data):
     :param data: - A dict containing a mix of user and patron data.
     :returns: - A freshly created Patron instance.
     """
-    ptrn = create_patron_from_data(
-        data=data,
-        delete_pid=False,
-        dbcommit=True,
-        reindex=True)
+    ptrn = create_patron_from_data(data=data)
     flush_index(PatronsSearch.Meta.index)
     return ptrn
 

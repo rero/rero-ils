@@ -38,7 +38,7 @@ def test_patron_transaction_event_jsonresolver(
     # deleted record
     patron_transaction_overdue_event_saxon.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create(
@@ -48,4 +48,4 @@ def test_patron_transaction_event_jsonresolver(
                     'https://bib.rero.ch/api/patron_transaction_events/n_e'}}
     )
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

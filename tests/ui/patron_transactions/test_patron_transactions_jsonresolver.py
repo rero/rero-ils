@@ -40,7 +40,7 @@ def test_patron_transaction_jsonresolver(patron_transaction_overdue_martigny):
     # deleted record
     patron_transaction_overdue_martigny.delete()
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
     rec = Record.create(
@@ -49,4 +49,4 @@ def test_patron_transaction_jsonresolver(patron_transaction_overdue_martigny):
                 '$ref': 'https://bib.rero.ch/api/patron_transactions/n_e'}}
     )
     with pytest.raises(JsonRefError):
-        rec.replace_refs().dumps()
+        type(rec)(rec.replace_refs()).dumps()

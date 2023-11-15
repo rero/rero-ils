@@ -25,7 +25,6 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 def test_serializers(
     client,
-    db,
     item_lib_martigny,  # on shelf
     document,
     item_lib_fully,  # on loan
@@ -122,11 +121,6 @@ def test_serializers(
     data = get_csv(response)
     assert data
 
-    document['provisionActivity'][0]['type'] = 'bf:Publication'
-    db.session.rollback()
-    # restore initial item on Elasticsearch
-    item.reindex()
-
     # with temporary_item_type
     item_type = item_type_on_site_martigny
     circulation = [
@@ -143,13 +137,8 @@ def test_serializers(
     }
     item.commit()
     item.reindex()
-
     list_url = url_for('invenio_records_rest.item_list', q=f'pid:{item.pid}')
     response = client.get(list_url, headers=rero_json_header)
     data = response.json['hits']['hits']
     assert circulation == \
         data[0]['metadata']['item_type']['circulation_information']
-
-    db.session.rollback()
-    item_type.reindex()
-    item.reindex()

@@ -25,9 +25,9 @@ import re
 
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
-from flask_babelex import format_currency
-from flask_babelex import gettext as _
-from flask_babelex import lazy_gettext
+from flask_babel import format_currency
+from flask_babel import lazy_gettext
+from flask_babel import lazy_gettext as _
 from flask_breadcrumbs import register_breadcrumb
 from flask_login import current_user, login_required
 from flask_menu import register_menu
@@ -361,7 +361,7 @@ def info():
 
     # Birthdate
     if 'birthdate' in token_scopes:
-        data['birthdate'] = current_user.profile.birth_date.isoformat()
+        data['birthdate'] = current_user.user_profile.get('birth_date')
 
     # Patron types
     if 'patron_types' in token_scopes:

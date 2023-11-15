@@ -147,6 +147,7 @@ from .query import and_i18n_term_filter, and_term_filter, \
     exclude_terms_filter, i18n_terms_filter, or_terms_filter_by_criteria
 from .utils import TranslatedList, get_current_language
 
+APP_THEME = ['bootstrap3']
 
 def _(x):
     """Identity function used to trigger string extraction."""
@@ -285,6 +286,9 @@ ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 ACCOUNTS_USERINFO_HEADERS = False
 
 #: User profile
+from rero_ils.modules.users.schemas import UserProfile
+
+ACCOUNTS_USER_PROFILE_SCHEMA = UserProfile
 RERO_PUBLIC_USERPROFILES_READONLY = False
 RERO_PUBLIC_USERPROFILES_READONLY_FIELDS = [
     'first_name',
@@ -608,7 +612,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='collection_id',
         search_class='rero_ils.modules.collections.api:CollectionsSearch',
         search_index='collections',
-        search_type=None,
         indexer_class='rero_ils.modules.collections.api:CollectionsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
@@ -638,7 +641,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='document_id',
         search_class='rero_ils.modules.documents.api:DocumentsSearch',
         search_index='documents',
-        search_type=None,
         indexer_class='rero_ils.modules.documents.api:DocumentsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -696,7 +698,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='ill_request_id',
         search_class='rero_ils.modules.ill_requests.api:ILLRequestsSearch',
         search_index='ill_requests',
-        search_type=None,
         indexer_class='rero_ils.modules.ill_requests.api:ILLRequestsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -731,7 +732,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='item_id',
         search_class='rero_ils.modules.items.api:ItemsSearch',
         search_index='items',
-        search_type=None,
         indexer_class='rero_ils.modules.items.api:ItemsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -769,7 +769,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.item_types.api:ItemTypesSearch',
         search_index='item_types',
         indexer_class='rero_ils.modules.item_types.api:ItemTypesIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -802,7 +801,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.stats.api.api:StatsSearch',
         search_index='stats',
         indexer_class='rero_ils.modules.stats.api.api:StatsIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
             'text/csv': 'rero_ils.modules.stats.serializers:csv_v1_response',
@@ -837,7 +835,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_index='stats_cfg',
         indexer_class=\
             'rero_ils.modules.stats_cfg.api:StatsConfigurationIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -875,7 +872,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.holdings.api:HoldingsSearch',
         search_index='holdings',
         indexer_class='rero_ils.modules.holdings.api:HoldingsIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -907,7 +903,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='local_field_id',
         search_class='rero_ils.modules.local_fields.api:LocalFieldsSearch',
         search_index='local_fields',
-        search_type=None,
         indexer_class='rero_ils.modules.local_fields.api:LocalFieldsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
@@ -940,7 +935,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.patrons.api:PatronsSearch',
         search_index='patrons',
         indexer_class='rero_ils.modules.patrons.api:PatronsIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -973,7 +967,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='patron_transaction_id',
         search_class='rero_ils.modules.patron_transactions.api:PatronTransactionsSearch',
         search_index='patron_transactions',
-        search_type=None,
         indexer_class='rero_ils.modules.patron_transactions.api:PatronTransactionsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
@@ -1012,7 +1005,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class=('rero_ils.modules.patron_transaction_events.api:'
                       'PatronTransactionEventsSearch'),
         search_index='patron_transaction_events',
-        search_type=None,
         indexer_class='rero_ils.modules.patron_transaction_events.api:PatronTransactionEventsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
@@ -1050,7 +1042,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='patron_type_id',
         search_class='rero_ils.modules.patron_types.api:PatronTypesSearch',
         search_index='patron_types',
-        search_type=None,
         indexer_class='rero_ils.modules.patron_types.api:PatronTypesIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
@@ -1086,7 +1077,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_index='organisations',
         indexer_class=('rero_ils.modules.organisations.api:'
                        'OrganisationsIndexer'),
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -1118,7 +1108,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.libraries.api:LibrariesSearch',
         search_index='libraries',
         indexer_class='rero_ils.modules.libraries.api:LibrariesIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -1150,7 +1139,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.locations.api:LocationsSearch',
         search_index='locations',
         indexer_class='rero_ils.modules.locations.api:LocationsIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -1187,7 +1175,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.entities.remote_entities.api:RemoteEntitiesSearch',
         search_index='remote_entities',
         indexer_class='rero_ils.modules.entities.remote_entities.api:RemoteEntitiesIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -1222,7 +1209,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.entities.local_entities.api:LocalEntitiesSearch',
         search_index='local_entities',
         indexer_class='rero_ils.modules.entities.local_entities.indexer:LocalEntitiesIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -1282,7 +1268,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.circ_policies.api:CircPoliciesSearch',
         search_index='circ_policies',
         indexer_class='rero_ils.modules.circ_policies.api:CircPoliciesIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -1317,7 +1302,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_index='notifications',
         indexer_class=('rero_ils.modules.notifications.api:'
                        'NotificationsIndexer'),
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -1350,7 +1334,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='vendor_id',
         search_class='rero_ils.modules.vendors.api:VendorsSearch',
         search_index='vendors',
-        search_type=None,
         indexer_class='rero_ils.modules.vendors.api:VendorsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -1385,7 +1368,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='acq_account_id',
         search_class='rero_ils.modules.acquisition.acq_accounts.api:AcqAccountsSearch',
         search_index='acq_accounts',
-        search_type=None,
         indexer_class='rero_ils.modules.acquisition.acq_accounts.api:AcqAccountsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -1425,7 +1407,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='budget_id',
         search_class='rero_ils.modules.acquisition.budgets.api:BudgetsSearch',
         search_index='budgets',
-        search_type=None,
         indexer_class='rero_ils.modules.acquisition.budgets.api:BudgetsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -1460,7 +1441,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='acq_order_id',
         search_class='rero_ils.modules.acquisition.acq_orders.api:AcqOrdersSearch',
         search_index='acq_orders',
-        search_type=None,
         indexer_class='rero_ils.modules.acquisition.acq_orders.api:AcqOrdersIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -1500,7 +1480,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='acq_order_line_id',
         search_class='rero_ils.modules.acquisition.acq_order_lines.api:AcqOrderLinesSearch',
         search_index='acq_order_lines',
-        search_type=None,
         indexer_class=('rero_ils.modules.acquisition.acq_order_lines.api:'
                        'AcqOrderLinesIndexer'),
         record_serializers={
@@ -1537,7 +1516,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='acq_receipt_id',
         search_class='rero_ils.modules.acquisition.acq_receipts.api:AcqReceiptsSearch',
         search_index='acq_receipts',
-        search_type=None,
         indexer_class='rero_ils.modules.acquisition.acq_receipts.api:AcqReceiptsIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -1573,7 +1551,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='acq_receipt_line_id',
         search_class='rero_ils.modules.acquisition.acq_receipt_lines.api:AcqReceiptLinesSearch',
         search_index='acq_receipt_lines',
-        search_type=None,
         indexer_class='rero_ils.modules.acquisition.acq_receipt_lines.api:AcqReceiptLinesIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -1614,7 +1591,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher='acq_invoice_id',
         search_class='rero_ils.modules.acquisition.acq_invoices.api:AcquisitionInvoicesSearch',
         search_index='acq_invoices',
-        search_type=None,
         indexer_class='rero_ils.modules.acquisition.acq_invoices.api:AcquisitionInvoicesIndexer',
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response',
@@ -1651,7 +1627,6 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class='rero_ils.modules.templates.api:TemplatesSearch',
         search_index='templates',
         indexer_class='rero_ils.modules.templates.api:TemplatesIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -1682,7 +1657,6 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_minter='recid',
         pid_fetcher='operation_log_id',
         search_index='operation_logs',
-        search_type=None,
         record_serializers={
             'application/json': 'rero_ils.modules.serializers:json_v1_response'
         },
@@ -3137,6 +3111,9 @@ SECURITY_LOGIN_WITHOUT_CONFIRMATION = True
 # address
 SECURITY_SEND_PASSWORD_CHANGE_EMAIL = False
 
+# flask-security 3.3.3
+SECURITY_PASSWORD_SINGLE_HASH = True
+
 # Misc
 INDEXER_REPLACE_REFS = True
 INDEXER_RECORD_TO_INDEX = 'rero_ils.modules.indexer_utils.record_to_index'
@@ -3340,7 +3317,6 @@ CIRCULATION_REST_ENDPOINTS = dict(
         search_class=LoansSearch,
         search_index='loans',
         indexer_class='rero_ils.modules.loans.api:LoansIndexer',
-        search_type=None,
         record_serializers={
             'application/json': 'invenio_records_rest.serializers:json_v1_response',
         },
@@ -3524,8 +3500,14 @@ HOLDING_CIRCULATION_ACTIONS_VALIDATION = {
 # WIKI
 # ====
 WIKI_CONTENT_DIR = './wiki'
+WIKI_INDEX_DIR = './wiki/_index'
 WIKI_URL_PREFIX = '/help'
-WIKI_LANGUAGES = ['en', 'fr', 'de', 'it']
+WIKI_LANGUAGES = {
+    'en': 'English',
+    'fr': 'French',
+    'de': 'German',
+    'it': 'Italian'
+}
 WIKI_CURRENT_LANGUAGE = get_current_language
 WIKI_UPLOAD_FOLDER = os.path.join(WIKI_CONTENT_DIR, 'files')
 WIKI_BASE_TEMPLATE = 'rero_ils/page_wiki.html'

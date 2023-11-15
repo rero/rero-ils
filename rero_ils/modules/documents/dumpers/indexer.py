@@ -240,6 +240,12 @@ class IndexerDumper(Dumper):
         self._process_sort_title(record, data)
         self._process_host_document(record, data)
         self._process_provision_activity(record, data)
+        # import pytz
+        # from datetime import datetime
+        # iso_now = pytz.utc.localize(datetime.utcnow()).isoformat()
+        # for date_field in ['_created', '_updated']:
+        #     if not data.get(date_field):
+        #         data[date_field] = iso_now
 
         # TODO: compare record with those in DB to check which authors have
         #       to be deleted from index

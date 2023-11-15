@@ -18,7 +18,7 @@
 
 """Blueprint used for entities."""
 from flask import Blueprint, abort, current_app, render_template
-from flask_babelex import gettext as _
+from flask_babel import lazy_gettext as _
 from invenio_i18n.ext import current_i18n
 
 from rero_ils.modules.entities.models import EntityType
@@ -35,7 +35,7 @@ blueprint = Blueprint(
 )
 
 
-@blueprint.route('/<any("local", "remote"):type>/<string:pid>')
+@blueprint.route('/<string:type>/<string:pid>')
 def entity_detailed_view(viewcode, type, pid):
     """Display entity view (local or remote).
 
@@ -44,6 +44,8 @@ def entity_detailed_view(viewcode, type, pid):
     :param: pid: Resource PID.
     :returns: The html rendering of the resource.
     """
+    if type not in ['local', 'remote']:
+        abort(404)
     entity_class = LocalEntity if type == 'local' else RemoteEntity
     if not (record := entity_class.get_record_by_pid(pid)):
         abort(404, _('Entity not found.'))

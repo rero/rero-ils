@@ -32,8 +32,8 @@ from utils import VerifyRecordPermissionPatch, get_json, postdata, \
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.models import CommunicationChannel
+from rero_ils.modules.patrons.utils import create_user_from_data
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
-from rero_ils.utils import create_user_from_data
 
 
 def test_patrons_shortcuts(

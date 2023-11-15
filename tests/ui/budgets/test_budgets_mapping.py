@@ -21,7 +21,9 @@ from utils import get_mapping
 from rero_ils.modules.acquisition.budgets.api import Budget, BudgetsSearch
 
 
-def test_budgets_es_mapping(es, db, org_martigny, budget_2017_martigny_data):
+def test_budgets_es_mapping(
+        search, db, org_martigny, budget_2017_martigny_data
+):
     """Test acquisition budget elasticsearch mapping."""
     search = BudgetsSearch()
     mapping = get_mapping(search.Meta.index)
