@@ -1744,7 +1744,20 @@ RECORDS_REST_FACETS = dict(
             ),
             status=dict(terms=dict(field='holdings.items.status', size=DOCUMENTS_AGGREGATION_SIZE)),
             intendedAudience=dict(terms=dict(field='intendedAudience.value', size=DOCUMENTS_AGGREGATION_SIZE)),
-            year=dict(date_histogram=dict(field='provisionActivity.startDate', interval='year', format='yyyy'))
+            year=dict(
+                filter=dict(bool=dict(filter=[])),
+                aggs=dict(
+                    year_min=dict(min=dict(field='provisionActivity.startDate')),
+                    year_max=dict(max=dict(field='provisionActivity.startDate'))
+                )
+            ),
+            acquisition=dict(
+                nested=dict(path='holdings.items.acquisition'),
+                aggs=dict(
+                    date_min=dict(min=dict(field='holdings.items.acquisition.date', format='yyyy-MM-dd')),
+                    date_max=dict(max=dict(field='holdings.items.acquisition.date', format='yyyy-MM-dd'))
+                )
+            )
         ),
         filters={
             _('online'): or_terms_filter_by_criteria({
@@ -1771,6 +1784,10 @@ RECORDS_REST_FACETS = dict(
                     'facet_genre_form_en': FICTIONS_TERMS}
                 ]
             ),
+            # This filter is used with timestamp
+            _('acquisition'): acquisition_filter(),
+            # This filter is only used for constructed queries
+            # --> Ex: &new_acquisition=2020-01-01:2021-01-01
             _('new_acquisition'): acquisition_filter(),
             _('identifiers'): nested_identified_filter()
         },

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,6 +17,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO Document JSON serialization."""
+
+from datetime import datetime
 
 from flask import current_app, json, request, stream_with_context
 from werkzeug.local import LocalProxy
@@ -117,11 +119,51 @@ class DocumentJSONSerializer(JSONSerializer):
         # format the results of the facet 'year' to be displayed
         # as range
         if aggregations.get('year'):
-            aggregations['year']['type'] = 'range'
-            aggregations['year']['config'] = {
-                'min': -9999,
-                'max': 9999,
-                'step': 1
+            def extract_year(key, default):
+                """Extract year from year aggregation.
+
+                :param: key: the dict key.
+                :param: default: the default year.
+                :return: the year in yyyy format.
+                """
+                return aggregations['year'][key].get('value', default)
+
+            # transform aggregation to send configuration
+            # for ng-core range widget.
+            # this allows you to fill in the fields on the frontend.
+            aggregations['year'] = {
+                'type': 'range',
+                'config': {
+                    'min': extract_year('year_min', -9999),
+                    'max': extract_year('year_max', 9999),
+                    'step': 1
+                }
+            }
+
+        if aggregations.get('acquisition'):
+            # format the results of facet 'acquisition' to be displayed
+            # as date range with min and max date (limit)
+            def extract_acquisition_date(key, default):
+                """Exact date from acquisition aggregation.
+
+                :param: key: the dict key.
+                :param: default: the default date.
+                :return: the date in yyyy-MM-dd format.
+                """
+                return aggregations['acquisition'][key].get(
+                    'value_as_string', aggregations['acquisition'][key].get(
+                        'value', default))
+
+            # transform aggregation to send configuration
+            # for ng-core date-range widget.
+            # this allows you to fill in the fields on the frontend.
+            aggregations['acquisition'] = {
+                'type': 'date-range',
+                'config': {
+                    'min': extract_acquisition_date('date_min', '1900-01-01'),
+                    'max': extract_acquisition_date(
+                        'date_max', datetime.now().strftime('%Y-%m-%d'))
+                }
             }
 
         if aggr_org := aggregations.get('organisation', {}).get('buckets', []):

@@ -44,14 +44,24 @@ def test_documents_newacq_filters(app, client,
                                   ):
     login_user_via_session(client, system_librarian_martigny.user)
 
+    def datetime_delta(**args):
+        """Apply delta on date time."""
+        return datetime.now() + timedelta(**args)
+
+    def datetime_milliseconds(date):
+        """datetime get milliseconds."""
+        return round(date.timestamp() * 1000)
+
     # compute useful date
-    today = datetime.today()
-    past = (today - timedelta(days=1)).strftime('%Y-%m-%d')
-    future = (today + timedelta(days=10)).strftime('%Y-%m-%d')
-    future_1 = (today + timedelta(days=11)).strftime('%Y-%m-%d')
+    today = datetime.now()
+    past = datetime_delta(days=-1).strftime('%Y-%m-%d')
+    future = datetime_delta(days=10).strftime('%Y-%m-%d')
+    future_1 = datetime_delta(days=11).strftime('%Y-%m-%d')
+    acq_past_timestamp = datetime_milliseconds(datetime_delta(days=-30))
+    acq_future_timestamp = datetime_milliseconds(datetime_delta(days=1))
     today = today.strftime('%Y-%m-%d')
 
-    # Add a new items with acq_date
+    # # Add a new items with acq_date
     new_acq1 = deepcopy(item_lib_martigny_data)
     new_acq1['pid'] = 'itemacq1'
     new_acq1['acquisition_date'] = today
@@ -135,6 +145,18 @@ def test_documents_newacq_filters(app, client,
     data = get_json(res)
     assert data['hits']['total']['value'] == 0
 
+    # check new_acquisition filters with -- separator and timestamp
+    # Ex: 1696111200000--1700089200000
+    doc_list = url_for(
+        'invenio_records_rest.doc_list',
+        view='global',
+        acquisition='{0}--{1}'.format(
+            acq_past_timestamp, acq_future_timestamp),
+    )
+    res = client.get(doc_list, headers=rero_json_header)
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 1
+
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
@@ -150,7 +172,7 @@ def test_documents_facets(
     facet_keys = [
         'document_type', 'author', 'language', 'subject_no_fiction',
         'subject_fiction', 'genreForm', 'intendedAudience',
-        'year', 'status'
+        'year', 'status', 'acquisition'
     ]
     assert all(key in data['aggregations'] for key in facet_keys)
 
