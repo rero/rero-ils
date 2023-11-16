@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -18,6 +18,7 @@
 
 """Query factories for Document REST API."""
 import re
+from datetime import datetime
 
 from elasticsearch_dsl import Q
 from flask import request
@@ -36,7 +37,7 @@ def acquisition_filter():
         #        this date will be included into the search result ('<=').
         #        if not specified the '*' value will be used
         #   2) until_date (optional) : the upper limit range acquisition_date.
-        #        this date will be excluded from the search result ('>').
+        #        this date will be included from the search result ('>=').
         #        if not specified the current timestamp value will be used
         #  !!! Other filters could be used to restrict data result : This
         #      function will check for 'organisation' and/or 'library' and/or
@@ -45,15 +46,27 @@ def acquisition_filter():
         #   SOME EXAMPLES :
         #     * ?new_acquisition=2020-01-01&organisation=1
         #       --> all new acq for org with pid=1 from 2020-01-01 to now
-        #     * ?library=3&new_acquisition=2020-01-01:2021-01-01
+        #     * ?library=3&new_acquisition=2020-01-01:2020-12-31
         #       --> all new acq for library with pid=3 for the 2020 year
-        #     * ?location=17&library=2&new_acquisition=:2020-01-01
+        #     * ?location=17&library=2&new_acquisition=:2019-12-31
         #       --> all new acq for (location with pid=17 and library with
         #           pid=2) until Jan, 1 2020
 
         # build acquisition date range query
-        values = dict(zip(['from', 'to'], values.pop().split(':')))
-        range_acquisition_dates = {'lt': values.get('to') or 'now/d'}
+        range_values = values.pop()
+        if '--' in range_values:
+            # NG-Core's widget for a date range sends timestamps
+            # We transform the timestamp into a date
+            values = dict(zip(['from', 'to'], range_values.split('--')))
+            if 'from' in values:
+                values['from'] = datetime.fromtimestamp(
+                    float(values['from'])/1000).strftime('%Y-%m-%d')
+            if 'to' in values:
+                values['to'] = datetime.fromtimestamp(
+                    float(values['to'])/1000).strftime('%Y-%m-%d')
+        else:
+            values = dict(zip(['from', 'to'], range_values.split(':')))
+        range_acquisition_dates = {'lte': values.get('to') or 'now/d'}
         if values.get('from'):
             range_acquisition_dates['gte'] = values.get('from')
 
