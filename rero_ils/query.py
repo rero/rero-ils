@@ -21,7 +21,9 @@
 from __future__ import absolute_import, print_function
 
 import re
+from datetime import datetime, timezone
 
+from dateutil.relativedelta import *
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_i18n.ext import current_i18n
@@ -280,10 +282,17 @@ def ill_request_search_factory(self, search, query_parser=None):
         search = search.filter(
             'terms',
             patron__pid=[ptrn.pid for ptrn in current_patrons])
-    # exclude to_anonymize records
-    search = search.filter('bool', must_not=[Q('term', to_anonymize=True)])
 
-    return search, urlkwargs
+    months = current_app.config.get('RERO_ILS_ILL_HIDE_MONTHS', 6)
+    date_delta = datetime.now(timezone.utc) - relativedelta(months=months)
+    filters = Q(
+        'range',
+        _created={'lte': 'now', 'gte': date_delta}
+    )
+    filters |= Q('term', status='pending')
+
+    return search.filter(
+        filters).exclude(Q('term', to_anonymize=True)), urlkwargs
 
 
 def circulation_search_factory(self, search, query_parser=None):

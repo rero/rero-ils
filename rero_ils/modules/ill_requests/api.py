@@ -18,8 +18,12 @@
 
 """API for manipulating ill_requests."""
 
+from datetime import datetime, timezone
 from functools import partial
 
+from dateutil.relativedelta import *
+from elasticsearch_dsl.query import Q
+from flask import current_app
 from flask_babelex import gettext as _
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -31,7 +35,7 @@ from rero_ils.modules.utils import extracted_data_from_ref
 
 from .extensions import IllRequestOperationLogObserverExtension
 from .models import ILLRequestIdentifier, ILLRequestMetadata, \
-    ILLRequestNoteStatus
+    ILLRequestNoteStatus, ILLRequestStatus
 
 # provider
 ILLRequestProvider = type(
@@ -55,12 +59,22 @@ class ILLRequestsSearch(IlsRecordsSearch):
         doc_types = None
 
     def get_ill_requests_total_for_patron(self, patron_pid):
-        """Get total of ill requests linked to a patron.
+        """Get the total number of ill requests filtered by date for a patron.
+
+        Months defined in config.py.
 
         :param patron_pid: the patron pid being searched.
         :return: return total of ill requests.
         """
-        return self.filter('term', patron__pid=patron_pid).count()
+        months = current_app.config.get('RERO_ILS_ILL_HIDE_MONTHS', 6)
+        date_delta = datetime.now(timezone.utc) - relativedelta(months=months)
+        filters = Q(
+            'range',
+            _created={'lte': 'now', 'gte': date_delta}
+        )
+        filters |= Q('term', status=ILLRequestStatus.PENDING)
+        filters &= Q('term', patron__pid=patron_pid)
+        return self.filter(filters).count()
 
 
 class ILLRequest(IlsRecord):
