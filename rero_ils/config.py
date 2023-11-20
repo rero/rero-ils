@@ -161,6 +161,7 @@ RERO_ILS_PRIVACY_POLICY_URL = 'https://www.rero.ch/legal/privacy/declaration_pro
 # ILL Request config
 RERO_ILS_ILL_REQUEST_ON_GLOBAL_VIEW = True
 RERO_ILS_ILL_DEFAULT_SOURCE = 'RERO +'
+RERO_ILS_ILL_HIDE_MONTHS = 6
 
 # Rate limiting
 # =============

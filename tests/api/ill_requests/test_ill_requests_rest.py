@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,12 +19,17 @@
 
 import json
 from copy import deepcopy
+from datetime import datetime
 
 import mock
+from dateutil.relativedelta import *
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
+
+from rero_ils.modules.ill_requests.api import ILLRequest
+from rero_ils.modules.ill_requests.models import ILLRequestStatus
 
 
 def test_ill_requests_permissions(client, ill_request_martigny, json_header):
@@ -236,3 +241,77 @@ def test_ill_request_secure_api_delete(client, ill_request_martigny,
     )
     res = client.delete(record_url)
     assert res.status_code == 403
+
+
+def test_filtered_ill_requests_get_pending_months_filters(
+        client, app, db, librarian_martigny, ill_request_martigny):
+    """Test ill_requests filter by pending and months."""
+
+    def date_delta(months):
+        """Date delta."""
+        return datetime.now() - relativedelta(months=months)
+
+    def db_commit_reindex(record):
+        """DB commit and reindex."""
+        db.session.merge(record.model)
+        db.session.commit()
+        record.reindex()
+
+    login_user_via_session(client, librarian_martigny.user)
+
+    # Initial status is pending
+    list_url = url_for(
+        'invenio_records_rest.illr_list',
+        q='pid:'+ill_request_martigny['pid']
+    )
+    res = client.get(list_url)
+    result = res.json
+    assert result['hits']['total']['value'] == 1
+
+    # Change created date
+    initial_create = ill_request_martigny.model.created
+    ill_request_martigny.model.created = date_delta(7)
+    db_commit_reindex(ill_request_martigny)
+
+    list_url = url_for(
+        'invenio_records_rest.illr_list',
+        q='pid:'+ill_request_martigny['pid']
+    )
+    res = client.get(list_url)
+    result = res.json
+    assert result['hits']['total']['value'] == 1
+
+    # closed 7 months
+    ill_request_martigny = ILLRequest\
+        .get_record_by_pid(ill_request_martigny.pid)
+    ill_request_martigny['status'] = ILLRequestStatus.CLOSED
+    ill_request_martigny.update(
+        ill_request_martigny, dbcommit=True, reindex=True)
+
+    list_url = url_for(
+        'invenio_records_rest.illr_list',
+        q='pid:'+ill_request_martigny['pid']
+    )
+    res = client.get(list_url)
+    result = res.json
+    assert result['hits']['total']['value'] == 0
+
+    # Change delta
+    app.config['RERO_ILS_ILL_HIDE_MONTHS'] = 8
+
+    list_url = url_for(
+        'invenio_records_rest.illr_list',
+        q='pid:'+ill_request_martigny['pid']
+    )
+    res = client.get(list_url)
+    result = res.json
+    assert result['hits']['total']['value'] == 1
+
+    # Initial state
+    ill_request_martigny.model.created = initial_create
+    db_commit_reindex(ill_request_martigny)
+    ill_request_martigny = ILLRequest\
+        .get_record_by_pid(ill_request_martigny.pid)
+    ill_request_martigny['status'] = ILLRequestStatus.PENDING
+    ill_request_martigny.update(
+        ill_request_martigny, dbcommit=True, reindex=True)
