@@ -1,5 +1,33 @@
 # Changelog
 
+## [v1.20.0](https://github.com/rero/rero-ils/tree/v1.20.0) (2023-11-21)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.19.0...v1.20.0)
+
+**New features:**
+* Statistics configurations module [\#3532](https://github.com/rero/rero-ils/pull/3532) (by @jma)
+* Import: add Renouvaud SRU import [\#3518](https://github.com/rero/rero-ils/issues/3518) (by @rerowep)
+
+**Enhancements:**
+* ill requests: improve status display [\#3503](https://github.com/rero/rero-ils/pull/3503) (by @PascalRepond)
+
+**Fixes:**
+* entity: Add verbose to sync-errors cli [\#3536](https://github.com/rero/rero-ils/pull/3536) (by @rerowep)
+* Serials: items that are not received should not have a received_date [\#3457](https://github.com/rero/rero-ils/issues/3457) (by @rerowep)
+* import: SLSP [\#3517](https://github.com/rero/rero-ils/pull/3517) (by @rerowep)
+* user: fix size of country field on form [\#3484](https://github.com/rero/rero-ils/pull/3484) (by @Garfield-fr)
+* notifications: set a maximum delay [\#3510](https://github.com/rero/rero-ils/pull/3510) (by @PascalRepond)
+* import: fix BNF qualifier [\#3514](https://github.com/rero/rero-ils/pull/3514) (by @rerowep)
+* remote_entities: fix ReplaceIdentifiedBy [\#3511](https://github.com/rero/rero-ils/pull/3511) (by @rerowep)
+* General note label displayed even if the field doesn't exist [\#3523](https://github.com/rero/rero-ils/issues/3523) (by @Garfield-fr)
+* notifications: process date has no timezone [\#3296](https://github.com/rero/rero-ils/issues/3296) (by @rerowep)
+* Check-in view: patron information is not displayed anymore [\#3509](https://github.com/rero/rero-ils/issues/3509) (by @PascalRepond)
+* Login location not displayed if only one affiliation [\#3477](https://github.com/rero/rero-ils/issues/3477) (by @Garfield-fr)
+* dependencies: fix vulnerabilites [\#3515](https://github.com/rero/rero-ils/pull/3515) (by @rerowep)
+* dependencies: fix security issues [\#3506](https://github.com/rero/rero-ils/pull/3506) (by @jma)
+* dependencies: unlock redisbeat version [\#3500](https://github.com/rero/rero-ils/pull/3500) (by @PascalRepond)
+* translations: fix untranslated strings [\#3502](https://github.com/rero/rero-ils/pull/3502) (by @PascalRepond)
+
 ## [v1.19.0](https://github.com/rero/rero-ils/tree/v1.19.0) (2023-10-10)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.18.0...v1.19.0)
