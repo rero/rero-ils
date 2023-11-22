@@ -65,16 +65,18 @@
       ],
       "widget": {
         "formlyConfig": {
-          "options": [
-            {
-              "value": "month",
-              "label": "monthly"
-            },
-            {
-              "value": "year",
-              "label": "yearly"
-            }
-          ]
+          "templateOptions": {
+            "options": [
+              {
+                "value": "month",
+                "label": "monthly"
+              },
+              {
+                "value": "year",
+                "label": "yearly"
+              }
+            ]
+          }
         }
       }
     },
@@ -141,13 +143,13 @@
             "type",
             "indicator"
           ],
-          "title": "Catalogue",
+          "title": "Catalog",
           "properties": {
             "type": {
               "title": "Type",
               "type": "string",
-              "const": "catalogue",
-              "default": "catalogue",
+              "const": "catalog",
+              "default": "catalog",
               "widget": {
                 "formlyConfig": {
                   "wrappers": [
@@ -205,26 +207,26 @@
                             "formlyConfig": {
                               "type": "selectWithSort",
                               "templateOptions": {
-                                "sort": false
-                              },
-                              "options": [
-                                {
-                                  "value": "created_month",
-                                  "label": "created_month"
-                                },
-                                {
-                                  "value": "created_year",
-                                  "label": "created_year"
-                                },
-                                {
-                                  "value": "owning_library",
-                                  "label": "owning_library"
-                                },
-                                {
-                                  "value": "imported",
-                                  "label": "imported"
-                                }
-                              ]
+                                "sort": false,
+                                "options": [
+                                  {
+                                    "value": "created_month",
+                                    "label": "created_month"
+                                  },
+                                  {
+                                    "value": "created_year",
+                                    "label": "created_year"
+                                  },
+                                  {
+                                    "value": "owning_library",
+                                    "label": "owning_library"
+                                  },
+                                  {
+                                    "value": "imported",
+                                    "label": "imported"
+                                  }
+                                ]
+                              }
                             }
                           }
                         }
@@ -276,22 +278,22 @@
                             "formlyConfig": {
                               "type": "selectWithSort",
                               "templateOptions": {
-                                "sort": false
-                              },
-                              "options": [
-                                {
-                                  "value": "created_month",
-                                  "label": "created_month"
-                                },
-                                {
-                                  "value": "created_year",
-                                  "label": "created_year"
-                                },
-                                {
-                                  "value": "owning_library",
-                                  "label": "owning_library"
-                                }
-                              ]
+                                "sort": false,
+                                "options": [
+                                  {
+                                    "value": "created_month",
+                                    "label": "created_month"
+                                  },
+                                  {
+                                    "value": "created_year",
+                                    "label": "created_year"
+                                  },
+                                  {
+                                    "value": "owning_library",
+                                    "label": "owning_library"
+                                  }
+                                ]
+                              }
                             }
                           }
                         }
@@ -347,38 +349,38 @@
                             "formlyConfig": {
                               "type": "selectWithSort",
                               "templateOptions": {
-                                "sort": false
-                              },
-                              "options": [
-                                {
-                                  "value": "created_month",
-                                  "label": "created_month"
-                                },
-                                {
-                                  "value": "created_year",
-                                  "label": "created_year"
-                                },
-                                {
-                                  "value": "document_type",
-                                  "label": "document_type"
-                                },
-                                {
-                                  "value": "document_subtype",
-                                  "label": "document_subtype"
-                                },
-                                {
-                                  "value": "owning_library",
-                                  "label": "owning_library"
-                                },
-                                {
-                                  "value": "owning_location",
-                                  "label": "owning_location"
-                                },
-                                {
-                                  "value": "type",
-                                  "label": "type (standard/issue)"
-                                }
-                              ]
+                                "sort": false,
+                                "options": [
+                                  {
+                                    "value": "created_month",
+                                    "label": "created_month"
+                                  },
+                                  {
+                                    "value": "created_year",
+                                    "label": "created_year"
+                                  },
+                                  {
+                                    "value": "document_type",
+                                    "label": "document_type"
+                                  },
+                                  {
+                                    "value": "document_subtype",
+                                    "label": "document_subtype"
+                                  },
+                                  {
+                                    "value": "owning_library",
+                                    "label": "owning_library"
+                                  },
+                                  {
+                                    "value": "owning_location",
+                                    "label": "owning_location"
+                                  },
+                                  {
+                                    "value": "type",
+                                    "label": "type (standard/issue)"
+                                  }
+                                ]
+                              }
                             }
                           }
                         }
@@ -425,38 +427,33 @@
                               "action_month",
                               "action_year",
                               "owning_library",
-                              "owning_location",
-                              "type"
+                              "operator_library"
                             ]
                           },
                           "widget": {
                             "formlyConfig": {
                               "type": "selectWithSort",
                               "templateOptions": {
-                                "sort": false
-                              },
-                              "options": [
-                                {
-                                  "value": "action_month",
-                                  "label": "action_month"
-                                },
-                                {
-                                  "value": "action_year",
-                                  "label": "action_year"
-                                },
-                                {
-                                  "value": "owning_library",
-                                  "label": "owning_library"
-                                },
-                                {
-                                  "value": "owning_location",
-                                  "label": "owning_location"
-                                },
-                                {
-                                  "value": "type",
-                                  "label": "type (standard/issue)"
-                                }
-                              ]
+                                "sort": false,
+                                "options": [
+                                  {
+                                    "value": "action_month",
+                                    "label": "action_month"
+                                  },
+                                  {
+                                    "value": "action_year",
+                                    "label": "action_year"
+                                  },
+                                  {
+                                    "value": "owning_library",
+                                    "label": "owning_library"
+                                  },
+                                  {
+                                    "value": "operator_library",
+                                    "label": "operator_library"
+                                  }
+                                ]
+                              }
                             }
                           }
                         }
@@ -544,26 +541,26 @@
                             "formlyConfig": {
                               "type": "selectWithSort",
                               "templateOptions": {
-                                "sort": false
-                              },
-                              "options": [
-                                {
-                                  "value": "created_month",
-                                  "label": "created_month"
-                                },
-                                {
-                                  "value": "created_year",
-                                  "label": "created_year"
-                                },
-                                {
-                                  "value": "pickup_location",
-                                  "label": "pickup_location"
-                                },
-                                {
-                                  "value": "status",
-                                  "label": "request_status"
-                                }
-                              ]
+                                "sort": false,
+                                "options": [
+                                  {
+                                    "value": "created_month",
+                                    "label": "created_month"
+                                  },
+                                  {
+                                    "value": "created_year",
+                                    "label": "created_year"
+                                  },
+                                  {
+                                    "value": "pickup_location",
+                                    "label": "pickup_location"
+                                  },
+                                  {
+                                    "value": "status",
+                                    "label": "request_status"
+                                  }
+                                ]
+                              }
                             }
                           }
                         }
@@ -806,7 +803,8 @@
                     "period"
                   ],
                   "required": [
-                    "type"
+                    "type",
+                    "period"
                   ],
                   "title": "Number of active patrons",
                   "properties": {
@@ -858,16 +856,18 @@
       ],
       "widget": {
         "formlyConfig": {
-          "options": [
-            {
-              "value": "month",
-              "label": "month"
-            },
-            {
-              "value": "year",
-              "label": "year"
-            }
-          ]
+          "templateOptions": {
+            "options": [
+              {
+                "value": "month",
+                "label": "month"
+              },
+              {
+                "value": "year",
+                "label": "year"
+              }
+            ]
+          }
         }
       }
     },
@@ -897,50 +897,50 @@
             "formlyConfig": {
               "type": "selectWithSort",
               "templateOptions": {
-                "sort": false
-              },
-              "options": [
-                {
-                  "value": "transaction_month",
-                  "label": "transaction_month"
-                },
-                {
-                  "value": "transaction_year",
-                  "label": "transaction_year"
-                },
-                {
-                  "value": "owning_library",
-                  "label": "owning_library"
-                },
-                {
-                  "value": "owning_location",
-                  "label": "owning_location"
-                },
-                {
-                  "value": "transaction_location",
-                  "label": "transaction_location"
-                },
-                {
-                  "value": "patron_type",
-                  "label": "patron_type"
-                },
-                {
-                  "value": "patron_age",
-                  "label": "patron_age"
-                },
-                {
-                  "value": "patron_postal_code",
-                  "label": "patron_postal_code"
-                },
-                {
-                  "value": "document_type",
-                  "label": "document_type"
-                },
-                {
-                  "value": "transaction_channel",
-                  "label": "transaction_channel"
-                }
-              ]
+                "sort": false,
+                "options": [
+                  {
+                    "value": "transaction_month",
+                    "label": "transaction_month"
+                  },
+                  {
+                    "value": "transaction_year",
+                    "label": "transaction_year"
+                  },
+                  {
+                    "value": "owning_library",
+                    "label": "owning_library"
+                  },
+                  {
+                    "value": "owning_location",
+                    "label": "owning_location"
+                  },
+                  {
+                    "value": "transaction_location",
+                    "label": "transaction_location"
+                  },
+                  {
+                    "value": "patron_type",
+                    "label": "patron_type"
+                  },
+                  {
+                    "value": "patron_age",
+                    "label": "patron_age"
+                  },
+                  {
+                    "value": "patron_postal_code",
+                    "label": "patron_postal_code"
+                  },
+                  {
+                    "value": "document_type",
+                    "label": "document_type"
+                  },
+                  {
+                    "value": "transaction_channel",
+                    "label": "transaction_channel"
+                  }
+                ]
+              }
             }
           }
         }
@@ -972,50 +972,50 @@
             "formlyConfig": {
               "type": "selectWithSort",
               "templateOptions": {
-                "sort": false
-              },
-              "options": [
-                {
-                  "value": "transaction_month",
-                  "label": "transaction_month"
-                },
-                {
-                  "value": "transaction_year",
-                  "label": "transaction_year"
-                },
-                {
-                  "value": "owning_library",
-                  "label": "owning_library"
-                },
-                {
-                  "value": "owning_location",
-                  "label": "owning_location"
-                },
-                {
-                  "value": "patron_type",
-                  "label": "patron_type"
-                },
-                {
-                  "value": "patron_age",
-                  "label": "patron_age"
-                },
-                {
-                  "value": "patron_postal_code",
-                  "label": "patron_postal_code"
-                },
-                {
-                  "value": "document_type",
-                  "label": "document_type"
-                },
-                {
-                  "value": "transaction_channel",
-                  "label": "transaction_channel"
-                },
-                {
-                  "value": "pickup_location",
-                  "label": "pickup_location"
-                }
-              ]
+                "sort": false,
+                "options": [
+                  {
+                    "value": "transaction_month",
+                    "label": "transaction_month"
+                  },
+                  {
+                    "value": "transaction_year",
+                    "label": "transaction_year"
+                  },
+                  {
+                    "value": "owning_library",
+                    "label": "owning_library"
+                  },
+                  {
+                    "value": "owning_location",
+                    "label": "owning_location"
+                  },
+                  {
+                    "value": "patron_type",
+                    "label": "patron_type"
+                  },
+                  {
+                    "value": "patron_age",
+                    "label": "patron_age"
+                  },
+                  {
+                    "value": "patron_postal_code",
+                    "label": "patron_postal_code"
+                  },
+                  {
+                    "value": "document_type",
+                    "label": "document_type"
+                  },
+                  {
+                    "value": "transaction_channel",
+                    "label": "transaction_channel"
+                  },
+                  {
+                    "value": "pickup_location",
+                    "label": "pickup_location"
+                  }
+                ]
+              }
             }
           }
         }
@@ -1044,38 +1044,38 @@
             "formlyConfig": {
               "type": "selectWithSort",
               "templateOptions": {
-                "sort": false
-              },
-              "options": [
-                {
-                  "value": "created_month",
-                  "label": "created_month"
-                },
-                {
-                  "value": "created_year",
-                  "label": "created_year"
-                },
-                {
-                  "value": "gender",
-                  "label": "gender"
-                },
-                {
-                  "value": "type",
-                  "label": "patron_type"
-                },
-                {
-                  "value": "postal_code",
-                  "label": "postal_code"
-                },
-                {
-                  "value": "birth_year",
-                  "label": "birth_year"
-                },
-                {
-                  "value": "role",
-                  "label": "role"
-                }
-              ]
+                "sort": false,
+                "options": [
+                  {
+                    "value": "created_month",
+                    "label": "created_month"
+                  },
+                  {
+                    "value": "created_year",
+                    "label": "created_year"
+                  },
+                  {
+                    "value": "gender",
+                    "label": "gender"
+                  },
+                  {
+                    "value": "type",
+                    "label": "patron_type"
+                  },
+                  {
+                    "value": "postal_code",
+                    "label": "postal_code"
+                  },
+                  {
+                    "value": "birth_year",
+                    "label": "birth_year"
+                  },
+                  {
+                    "value": "role",
+                    "label": "role"
+                  }
+                ]
+              }
             }
           }
         }

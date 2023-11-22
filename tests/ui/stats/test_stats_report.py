@@ -39,7 +39,7 @@ def test_stats_report_create(lib_martigny, document):
         "name": "foo",
         "frequency": "month",
         "category": {
-            "type": "catalogue",
+            "type": "catalog",
             "indicator": {
                 "type": "number_of_documents",
                 "distributions": ['owning_library']

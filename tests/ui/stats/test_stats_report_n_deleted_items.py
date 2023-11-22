@@ -31,82 +31,121 @@ def test_stats_report_number_of_deleted_items(
         lib_sion):
     """Test the number of deleted items."""
     # fixtures
-    es.index(index='operation_logs-2020', id='1', body={
-        "date": "2023-01-01",
-        "operation": "delete",
-        "record": {
-          "type": "item",
-          "library_pid": lib_martigny.pid,
-          "organisation_pid": org_martigny.pid
-        }
-    }, refresh=True)
-    es.index(index='operation_logs-2020', id='2', body={
-        "date": "2023-01-01",
-        "operation": "create",
-        "record": {
-          "type": "item",
-          "library_pid": lib_martigny.pid,
-          "organisation_pid": org_martigny.pid
-        }
-    }, refresh=True)
-    es.index(index='operation_logs-2020', id='3', body={
-        "date": "2023-01-01",
-        "operation": "delete",
-        "record": {
-          "type": "holding",
-          "library_pid": lib_martigny.pid,
-          "organisation_pid": org_martigny.pid
-        }
-    }, refresh=True)
-    es.index(index='operation_logs-2020', id='4', body={
-        "date": "2023-01-01",
-        "operation": "delete",
-        "record": {
-          "type": "holding",
-          "library_pid": lib_sion.pid,
-          "organisation_pid": org_sion.pid
-        }
-    }, refresh=True)
-    es.index(index='operation_logs-2020', id='5', body={
-        "date": "2024-01-01",
-        "operation": "delete",
-        "record": {
-          "type": "item",
-          "library_pid": lib_martigny_bourg.pid,
-          "organisation_pid": org_martigny.pid
-        }
-    }, refresh=True)
+    # created by the system user
+    es.index(
+        index="operation_logs-2020",
+        id="1",
+        body={
+            "date": "2023-01-01",
+            "operation": "delete",
+            "record": {
+                "type": "item",
+                "library_pid": lib_martigny.pid,
+                "organisation_pid": org_martigny.pid,
+            },
+            "user_name": "system",
+        },
+        refresh=True,
+    )
+    # legacy record do not contains record
+    es.index(
+        index="operation_logs-2020",
+        id="2",
+        body={
+            "date": "2023-01-01",
+            "operation": "create",
+            "user_name": "Doe, John",
+            "library": {
+                "type": "lib",
+                "value": lib_martigny.pid
+            },
+            "organisation": {
+                "type": "org",
+                "value": org_martigny.pid
+            }
+        },
+        refresh=True,
+    )
+    es.index(
+        index="operation_logs-2020",
+        id="3",
+        body={
+            "date": "2023-01-01",
+            "operation": "delete",
+            "library": {"type": "lib", "value": lib_martigny.pid},
+            "record": {
+                "type": "holding",
+                "library_pid": lib_martigny.pid,
+                "organisation_pid": org_martigny.pid,
+            },
+        },
+        refresh=True,
+    )
+    es.index(
+        index="operation_logs-2020",
+        id="4",
+        body={
+            "date": "2023-01-01",
+            "operation": "delete",
+            "library": {"type": "lib", "value": lib_sion.pid},
+            "record": {
+                "type": "holding",
+                "library_pid": lib_sion.pid,
+                "organisation_pid": org_sion.pid,
+            },
+        },
+        refresh=True,
+    )
+    es.index(
+        index="operation_logs-2020",
+        id="5",
+        body={
+            "date": "2024-01-01",
+            "operation": "delete",
+            "library": {"type": "lib", "value": lib_martigny_bourg.pid},
+            "record": {
+                "type": "item",
+                "library_pid": lib_martigny_bourg.pid,
+                "organisation_pid": org_martigny.pid,
+            },
+        },
+        refresh=True,
+    )
     # no distributions
     cfg = {
-        "library": {
-            "$ref": "https://bib.rero.ch/api/libraries/lib1"
-        },
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "category": {
-            "indicator": {
-                "type": "number_of_deleted_items"
-            }
-        }
+        "category": {"indicator": {"type": "number_of_deleted_items"}},
     }
     assert StatsReport(cfg).collect() == [[2]]
 
     # no distributions with filters
     lib_pid = lib_martigny_bourg.pid
     cfg = {
-        "library": {
-            "$ref": "https://bib.rero.ch/api/libraries/lib1"
-        },
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
         "is_active": True,
-        "filter_by_libraries": [{
-            '$ref':
-                f'https://bib.rero.ch/api/libraries/{lib_pid}'}],
-        "category": {
-            "indicator": {
-                "type": "number_of_deleted_items"
-            }
-        }
+        "filter_by_libraries": [
+            {"$ref": f"https://bib.rero.ch/api/libraries/{lib_pid}"}
+        ],
+        "category": {"indicator": {"type": "number_of_deleted_items"}},
     }
     assert StatsReport(cfg).collect() == [[1]]
+
+    # one distrubtions
+    cfg = {
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
+        "is_active": True,
+        "category": {
+            "indicator": {
+                "type": "number_of_deleted_items",
+                "distributions": ["owning_library"],
+            }
+        },
+    }
+    assert StatsReport(cfg).collect() == [
+        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
+        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1],
+    ]
 
     # one distrubtions
     cfg = {
@@ -117,13 +156,13 @@ def test_stats_report_number_of_deleted_items(
         "category": {
             "indicator": {
                 "type": "number_of_deleted_items",
-                "distributions": ["owning_library"]
+                "distributions": ["operator_library"]
             }
         }
     }
+    # do not contains system
     assert StatsReport(cfg).collect() == [
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
-        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1]
+        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1]
     ]
 
     # two distributions

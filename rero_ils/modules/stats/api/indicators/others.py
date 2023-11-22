@@ -19,6 +19,7 @@
 """Indicator Report Configurations."""
 
 
+from elasticsearch_dsl import Q
 from elasticsearch_dsl.aggs import A
 
 from rero_ils.modules.documents.api import DocumentsSearch
@@ -92,7 +93,8 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         """
         cfg = {
             'owning_library': lambda:
-                f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
+                f'{self.cfg.libraries.get(bucket.key, self.label_na_msg)} '
+                f'({bucket.key})',
             'created_month': lambda: bucket.key_as_string,
             'created_year': lambda: bucket.key_as_string,
             'imported': lambda: bucket
@@ -155,7 +157,8 @@ class NumberOfSerialHoldingsCfg(IndicatorCfg):
         """
         cfg = {
             'owning_library': lambda:
-                f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
+                f'{self.cfg.libraries.get(bucket.key, self.label_na_msg)} '
+                f'({bucket.key})',
             'created_month': lambda: bucket.key_as_string,
             'created_year': lambda: bucket.key_as_string
         }
@@ -237,9 +240,11 @@ class NumberOfItemsCfg(IndicatorCfg):
         """
         cfg = {
             'owning_library': lambda:
-                f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
+                f'{self.cfg.libraries.get(bucket.key, self.label_na_msg)} '
+                f'({bucket.key})',
             'owning_location': lambda:
-                f'{self.cfg.locations[bucket.key]} ({bucket.key})',
+                f'{self.cfg.locations.get(bucket.key, self.label_na_msg)} '
+                f'({bucket.key})',
             'type': lambda: bucket.key,
             'document_type': lambda: bucket.key,
             'document_subtype': lambda: bucket.key,
@@ -258,16 +263,23 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
 
         :returns: an elasticsearch query object
         """
-        es_query = LoanOperationLogsSearch()[:0]\
-            .filter('term', record__organisation_pid=self.cfg.org_pid)\
-            .filter('term', record__type='item')\
-            .filter('term', operation='delete')
+        es_query = (
+            LoanOperationLogsSearch()[:0]
+            .filter(
+                Q("term", record__organisation_pid=self.cfg.org_pid)
+                | Q("term", organisation__value=self.cfg.org_pid)
+            )
+            .filter("term", record__type="item")
+            .filter("term", operation="delete")
+        )
         if period := self.cfg.period:
             es_query = es_query.filter(
-                'range', date=self.cfg.get_range_period(period))
+                "range", date=self.cfg.get_range_period(period))
         if pids := self.cfg.filter_by_libraries:
             es_query = es_query.filter(
-                'terms', record__library_pid=pids)
+                Q("terms", record__library_pid=pids)
+                | Q("terms", library__value=pids)
+            )
         return es_query
 
     def aggregation(self, distribution):
@@ -282,18 +294,23 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
                 field='record.library_pid',
                 size=self.cfg.aggs_size
             ),
-            'action_month': A(
-                'date_histogram',
-                field='date',
-                calendar_interval='month',
-                format='yyyy-MM'
+            "operator_library": A(
+                "terms",
+                field="library.value",
+                size=self.cfg.aggs_size
             ),
-            'action_year': A(
-                'date_histogram',
-                field='date',
-                calendar_interval='year',
-                format='yyyy'
-            )
+            "action_month": A(
+                "date_histogram",
+                field="date",
+                calendar_interval="month",
+                format="yyyy-MM",
+            ),
+            "action_year": A(
+                "date_histogram",
+                field="date",
+                calendar_interval="year",
+                format="yyyy"
+            ),
         }
         return cfg[distribution]
 
@@ -306,10 +323,14 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'owning_library': lambda:
-                f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
-            'action_month': lambda: bucket.key_as_string,
-            'action_year': lambda: bucket.key_as_string
+            "owning_library": lambda:
+                f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
+                f"({bucket.key})",
+            "operator_library": lambda:
+                f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
+                f"({bucket.key})",
+            "action_month": lambda: bucket.key_as_string,
+            "action_year": lambda: bucket.key_as_string,
         }
         return cfg[distribution]()
 
@@ -375,7 +396,8 @@ class NumberOfILLRequests(IndicatorCfg):
         """
         cfg = {
             'pickup_location': lambda:
-                f'{self.cfg.locations[bucket.key]} ({bucket.key})',
+                f'{self.cfg.locations.get(bucket.key, self.label_na_msg)} '
+                f'({bucket.key})',
             'status': lambda: bucket.key,
             'created_month': lambda: bucket.key_as_string,
             'created_year': lambda: bucket.key_as_string
