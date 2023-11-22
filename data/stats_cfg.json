@@ -119,7 +119,7 @@
     "name": "library 5, no distributions",
     "description": "Statistics configuration with no distributions",
     "category": {
-      "type": "catalogue",
+      "type": "catalog",
       "indicator": {
         "type": "number_of_documents"
       }

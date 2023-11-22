@@ -97,3 +97,24 @@ _('Mobile')
 
 # Login screen
 _('Hide password')
+
+# OneOf in the stats JSONschema
+
+## categories
+_('catalog')
+_('circulation')
+_('user_management')
+
+## indicators
+_('number_of_documents')
+_('number_of_serial_holdings')
+_('number_of_items')
+_('number_of_deleted_items')
+_('number_of_ill_requests')
+_('number_of_checkins')
+_('number_of_checkouts')
+_('number_of_extends')
+_('number_of_requests')
+_('number_of_validated_requests')
+_('number_of_patrons')
+_('number_of_active_patrons')

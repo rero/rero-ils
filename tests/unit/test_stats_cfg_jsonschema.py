@@ -49,7 +49,7 @@ def test_valid_circulation_n_docs(stats_cfg_schema):
             "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
-            'type': 'catalogue',
+            'type': 'catalog',
             'indicator': {
                 'type': 'number_of_documents'
             }
@@ -79,7 +79,7 @@ def test_valid_circulation_n_serial_holdings(stats_cfg_schema):
             "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
-            'type': 'catalogue',
+            'type': 'catalog',
             'indicator': {
                 'type': 'number_of_serial_holdings'
             }
@@ -108,7 +108,7 @@ def test_valid_circulation_n_items(stats_cfg_schema):
             "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
-            'type': 'catalogue',
+            'type': 'catalog',
             'indicator': {
                 'type': 'number_of_items'
             }
@@ -205,7 +205,7 @@ def test_valid_circulation_n_deleted_items(stats_cfg_schema):
             "$ref": "https://bib.rero.ch/api/libraries/lib1"
         },
         'category': {
-            'type': 'catalogue',
+            'type': 'catalog',
             'indicator': {
                 'type': 'number_of_deleted_items'
             }
@@ -214,8 +214,8 @@ def test_valid_circulation_n_deleted_items(stats_cfg_schema):
     }
     for period in ['year', 'month']:
         data['category']['indicator']['period'] = period
-        for dist in ['action_month', 'action_year', 'owning_library', 'type',
-                     'owning_location']:
+        for dist in ['action_month', 'action_year', 'owning_library',
+                     'operator_library']:
             data['category']['indicator']['distributions'] = [dist]
             validate(data, stats_cfg_schema)
 

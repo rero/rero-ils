@@ -18,6 +18,7 @@
 
 """Stats Report tests for number of patrons."""
 
+import hashlib
 from datetime import datetime
 
 import mock
@@ -29,8 +30,10 @@ from rero_ils.modules.stats.api.report import StatsReport
 def test_stats_report_number_of_patrons(
         org_martigny, lib_martigny, org_sion, lib_martigny_bourg,
         patron_type_children_martigny, patron_type_adults_martigny,
-        patron_type_youngsters_sion, loc_public_martigny,
-        loc_public_martigny_bourg
+        patron_type_grown_sion, loc_public_martigny,
+        loc_public_martigny_bourg,
+        patron_martigny_data,
+        patron2_martigny_data, patron_sion_data, roles
 ):
     """Test the number of patrons and active patrons."""
     # no data
@@ -47,48 +50,23 @@ def test_stats_report_number_of_patrons(
     }
     assert StatsReport(cfg).collect() == [[0]]
 
-    # fixtures
-    es.index(index='patrons', id='1', body={
-        '_created': "2023-02-01",
-        'pid': '1',
-        'organisation': {'pid': org_martigny.pid},
-        'birth_date': '2004-01-01',
-        'roles': ['patron'],
-        'patron': {
-            'type': {
-                'pid': patron_type_children_martigny.pid
-            }
-        },
-        'gender': 'female',
-        'postal_code': '1920'
-    })
-    es.index(index='patrons', id='2', body={
-        '_created': "2024-01-01",
-        'pid': '2',
-        'organisation': {'pid': org_martigny.pid},
-        'birth_date': '1994-01-01',
-        'roles': ['patron', 'librarian'],
-        'patron': {
-            'type': {
-                'pid': patron_type_adults_martigny.pid
-            }
-        },
-        'gender': 'male',
-        'postal_code': '1907'
-    })
-    es.index(index='patrons', id='3', body={
-        '_created': "2023-02-01",
-        'birth_date': '1994-10-01',
-        'organisation': {'pid': org_sion.pid},
-        'roles': ['patron', 'librarian'],
-        'patron': {
-            'type': {
-                'pid': patron_type_youngsters_sion.pid
-            }
-        },
-        'gender': 'male',
-        'postal_code': '1907'
-    })
+    from rero_ils.modules.patrons.api import create_patron_from_data
+
+    patron_martigny = create_patron_from_data(
+        data=patron_martigny_data,
+        delete_pid=True,
+        dbcommit=True,
+        reindex=True)
+    patron2_martigny = create_patron_from_data(
+        data=patron2_martigny_data,
+        delete_pid=True,
+        dbcommit=True,
+        reindex=True)
+    patron_sion = create_patron_from_data(
+        data=patron_sion_data,
+        delete_pid=True,
+        dbcommit=True,
+        reindex=True)
     es.indices.refresh(index='patrons')
 
     # no distributions
@@ -136,8 +114,8 @@ def test_stats_report_number_of_patrons(
         }
     }
     assert StatsReport(cfg).collect() == [
-        ['1994', 1],
-        ['2004', 1]
+        ['1947', 1],
+        ['1967', 1]
     ]
     # patron type
     cfg = {
@@ -174,8 +152,7 @@ def test_stats_report_number_of_patrons(
         }
     }
     assert StatsReport(cfg).collect() == [
-        ['1907', 1],
-        ['1920', 1]
+        ['1920', 2]
     ]
     # role
     cfg = {
@@ -191,7 +168,6 @@ def test_stats_report_number_of_patrons(
         }
     }
     assert StatsReport(cfg).collect() == [
-        ['librarian', 1],
         ['patron', 2]
     ]
     # gender month
@@ -208,9 +184,9 @@ def test_stats_report_number_of_patrons(
         }
     }
     assert StatsReport(cfg).collect() == [
-        ['', '2023-02', '2024-01'],
-        [f'female', 1, 0],
-        [f'male', 0, 1]
+        ['', '2023-11'],
+        ['female', 1],
+        ['male', 1]
     ]
 
     # gender year
@@ -228,13 +204,8 @@ def test_stats_report_number_of_patrons(
         }
     }
     assert StatsReport(cfg).collect() == [
-        [
-            '',
-            'female',
-            'male'
-        ],
-        ['2023', 1, 0],
-        ['2024', 0, 1]
+       ['', 'female', 'male'],
+       ['2023', 1, 1]
     ]
 
     es.index(index='operation_logs-2020', id='1', body={
@@ -242,7 +213,9 @@ def test_stats_report_number_of_patrons(
         "loan": {
             "trigger": "checkin",
             "patron": {
-                "pid": '1'
+                "pid": patron_martigny.pid,
+                "hashed_pid": hashlib.md5(
+                    patron_martigny.pid.encode()).hexdigest()
             },
             "item": {
                 "library_pid": lib_martigny.pid
@@ -261,7 +234,9 @@ def test_stats_report_number_of_patrons(
         "loan": {
             "trigger": "checkin",
             "patron": {
-                "pid": '2'
+                "pid": patron2_martigny.pid,
+                "hashed_pid": hashlib.md5(
+                    patron2_martigny.pid.encode()).hexdigest()
             },
             "item": {
                 "library_pid": lib_martigny_bourg.pid

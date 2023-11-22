@@ -137,7 +137,8 @@ class NumberOfCirculationCfg(IndicatorCfg):
         """
         cfg = {
             'transaction_location': lambda:
-                f'{self.cfg.locations[bucket.key]} ({bucket.key})',
+                f'{self.cfg.locations.get(bucket.key, self.label_na_msg)} '
+                f'({bucket.key})',
             'transaction_month': lambda: bucket.key_as_string,
             'transaction_year': lambda: bucket.key_as_string,
             'patron_type': lambda: bucket.key,
@@ -146,7 +147,8 @@ class NumberOfCirculationCfg(IndicatorCfg):
             'patron_postal_code': lambda: bucket.key,
             'transaction_channel': lambda: bucket.key,
             'owning_library': lambda:
-                f'{self.cfg.libraries[bucket.key]} ({bucket.key})',
+                f'{self.cfg.libraries.get(bucket.key, self.label_na_msg)} '
+                f'({bucket.key})',
             'owning_location': lambda: bucket.key,
         }
         return cfg[distribution]()

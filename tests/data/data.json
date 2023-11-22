@@ -4416,6 +4416,7 @@
     "pid": "ptrn6",
     "first_name": "Louis",
     "last_name": "Roduit",
+    "gender": "male",
     "street": "Avenue Leopold-Robert, 13",
     "postal_code": "1920",
     "city": "Martigny",
@@ -4466,6 +4467,7 @@
     "pid": "ptrn7",
     "first_name": "Louise",
     "last_name": "Moret",
+    "gender": "female",
     "street": "Avenue de la Gare, 13",
     "postal_code": "1920",
     "city": "Martigny",
@@ -5203,7 +5205,7 @@
     "frequency": "month",
     "is_active": true,
     "category": {
-      "type": "catalogue",
+      "type": "catalog",
       "indicator": {
         "type": "number_of_documents",
         "distributions": [
@@ -5224,7 +5226,7 @@
     "frequency": "month",
     "is_active": true,
     "category": {
-      "type": "catalogue",
+      "type": "catalog",
       "indicator": {
         "type": "number_of_documents",
         "distributions": [

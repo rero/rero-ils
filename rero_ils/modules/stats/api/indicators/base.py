@@ -30,6 +30,7 @@ class IndicatorCfg:
         :param report_cfg: StatsReport - the given report configuration
         """
         self.cfg = report_cfg
+        self.label_na_msg = 'not available'
 
     @property
     @abstractmethod
