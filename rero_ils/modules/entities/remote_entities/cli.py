@@ -103,11 +103,14 @@ def clean(query, dry_run, verbose, log_dir):
 
 @entity.command()
 @click.option('-c', '--clear', is_flag=True, default=False)
+@click.option('-v', '--verbose', count=True, default=0)
 @with_appcontext
-def sync_errors(clear):
+def sync_errors(clear, verbose):
     """Removes errors in the cache information."""
+    errors = SyncEntity.get_errors()
+    if verbose:
+        click.echo(f'Errors MEF pids: {errors}')
     if clear:
-        errors = SyncEntity.get_errors()
         SyncEntity.clear_errors()
         click.secho(f'Removed {len(errors)} errors', fg='yellow')
 
