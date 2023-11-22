@@ -36,3 +36,11 @@ class EntityResourceType:
 
     REMOTE = 'remote'
     LOCAL = 'local'
+
+
+class EntityFieldWithRef:
+    """Class to define field with $ref."""
+
+    CONTRIBUTION = 'contribution'
+    GENRE_FORM = 'genreForm'
+    SUBJECTS = 'subjects'

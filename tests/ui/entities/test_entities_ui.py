@@ -120,18 +120,21 @@ def test_sources_link(app):
     assert {} == sources_link({})
 
 
-def test_search_link(app, entity_organisation, local_entity_org):
+def test_search_link(app, entity_organisation, local_entity_org, entity_topic):
     """Search link test."""
 
     # test remote link
     link = search_link(entity_organisation)
     assert link == 'contribution.entity.pids.rero:A027711299 ' \
-        'OR subjects.entity.pids.rero:A027711299 ' \
-        'OR genreForm.entity.pids.rero:A027711299' \
+        'OR subjects.entity.pids.rero:A027711299' \
         '&simple=0'
     # test local link
     link = search_link(local_entity_org)
     assert link == 'contribution.entity.pids.local:locent_org ' \
-        'OR subjects.entity.pids.local:locent_org ' \
-        'OR genreForm.entity.pids.local:locent_org' \
+        'OR subjects.entity.pids.local:locent_org' \
+        '&simple=0'
+    # test Topic
+    link = search_link(entity_topic)
+    assert link == 'subjects.entity.pids.idref:030752787 ' \
+        'OR genreForm.entity.pids.idref:030752787' \
         '&simple=0'

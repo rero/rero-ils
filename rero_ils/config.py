@@ -66,6 +66,7 @@ from rero_ils.modules.acquisition.budgets.permissions import \
 from rero_ils.modules.entities.local_entities.api import LocalEntity
 from rero_ils.modules.entities.local_entities.permissions import \
     LocalEntityPermissionPolicy
+from rero_ils.modules.entities.models import EntityFieldWithRef, EntityType
 from rero_ils.modules.entities.remote_entities.api import RemoteEntity
 from rero_ils.modules.entities.remote_entities.permissions import \
     RemoteEntityPermissionPolicy
@@ -3212,6 +3213,36 @@ RERO_ILS_AGENTS_LABEL_ORDER = {
     'de': ['gnd', 'idref', 'rero'],
 }
 RERO_ILS_DEFAULT_SUGGESTION_LIMIT = 10
+
+RERO_ILS_APP_ENTITIES_FIELDS_REF = [
+    EntityFieldWithRef.CONTRIBUTION,
+    EntityFieldWithRef.GENRE_FORM,
+    EntityFieldWithRef.SUBJECTS
+]
+
+RERO_ILS_APP_ENTITIES_TYPES_FIELDS = {
+    EntityType.ORGANISATION: [
+        EntityFieldWithRef.CONTRIBUTION,
+        EntityFieldWithRef.SUBJECTS
+    ],
+    EntityType.PERSON: [
+        EntityFieldWithRef.CONTRIBUTION,
+        EntityFieldWithRef.SUBJECTS
+    ],
+    EntityType.PLACE: [
+        EntityFieldWithRef.SUBJECTS
+    ],
+    EntityType.TEMPORAL: [
+        EntityFieldWithRef.SUBJECTS
+    ],
+    EntityType.TOPIC: [
+        EntityFieldWithRef.SUBJECTS,
+        EntityFieldWithRef.GENRE_FORM
+    ],
+    EntityType.WORK: [
+        EntityFieldWithRef.SUBJECTS
+    ]
+}
 
 # =============================================================================
 # RERO_ILS PATRON ROLES MANAGEMENT
