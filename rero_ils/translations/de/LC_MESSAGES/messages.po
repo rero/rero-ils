@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-11-23 16:09+0100\n"
-"PO-Revision-Date: 2023-11-21 11:42+0000\n"
+"PO-Revision-Date: 2023-11-23 15:27+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.2.1-rc\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -581,63 +582,63 @@ msgstr "Passwort verstecken"
 
 #: rero_ils/manual_translations.txt:104
 msgid "catalog"
-msgstr ""
+msgstr "Katalog"
 
 #: rero_ils/manual_translations.txt:105
 msgid "circulation"
-msgstr ""
+msgstr "Ausleihe"
 
 #: rero_ils/manual_translations.txt:106
 msgid "user_management"
-msgstr ""
+msgstr "Benutzerverwaltung"
 
 #: rero_ils/manual_translations.txt:109
 msgid "number_of_documents"
-msgstr ""
+msgstr "Anzahl der Dokumente"
 
 #: rero_ils/manual_translations.txt:110
 msgid "number_of_serial_holdings"
-msgstr ""
+msgstr "Anzahl der Bestände (Serien)"
 
 #: rero_ils/manual_translations.txt:111
 msgid "number_of_items"
-msgstr ""
+msgstr "Anzahl der Exemplare"
 
 #: rero_ils/manual_translations.txt:112
 msgid "number_of_deleted_items"
-msgstr ""
+msgstr "Anzahl der gelöschten Exemplare"
 
 #: rero_ils/manual_translations.txt:113
 msgid "number_of_ill_requests"
-msgstr ""
+msgstr "Anzahl der Fernleihbestellungen"
 
 #: rero_ils/manual_translations.txt:114
 msgid "number_of_checkins"
-msgstr ""
+msgstr "Anzahl der Rückgaben"
 
 #: rero_ils/manual_translations.txt:115
 msgid "number_of_checkouts"
-msgstr ""
+msgstr "Anzahl der Ausleihen"
 
 #: rero_ils/manual_translations.txt:116
 msgid "number_of_extends"
-msgstr ""
+msgstr "Anzahl der Verlängerungen"
 
 #: rero_ils/manual_translations.txt:117
 msgid "number_of_requests"
-msgstr ""
+msgstr "Anzahl der Bestellungen"
 
 #: rero_ils/manual_translations.txt:118
 msgid "number_of_validated_requests"
-msgstr ""
+msgstr "Anzahl der validierten Bestellungen"
 
 #: rero_ils/manual_translations.txt:119
 msgid "number_of_patrons"
-msgstr ""
+msgstr "Anzahl der Kunden"
 
 #: rero_ils/manual_translations.txt:120
 msgid "number_of_active_patrons"
-msgstr ""
+msgstr "Anzahl der aktiven Kunden"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -12408,7 +12409,7 @@ msgstr "Kategorie der Konfiguration."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:146
 msgid "Catalog"
-msgstr ""
+msgstr "Katalog"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:162
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:497
@@ -12492,7 +12493,7 @@ msgstr "Jahr der Aktion"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:453
 msgid "operator_library"
-msgstr ""
+msgstr "Bibliothek des Operators"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:481
 msgid "Circulation"
@@ -13105,4 +13106,3 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Catalogue"
 #~ msgstr "Katalog"
-

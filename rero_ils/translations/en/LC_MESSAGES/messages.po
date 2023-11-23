@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2023-11-23 16:09+0100\n"
-"PO-Revision-Date: 2023-11-21 11:42+0000\n"
+"PO-Revision-Date: 2023-11-23 15:27+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.2.1-rc\n"
 "Generated-By: Babel 2.12.1\n"
 
 #: rero_ils/accounts_views.py:60
@@ -582,63 +583,63 @@ msgstr "Hide password"
 
 #: rero_ils/manual_translations.txt:104
 msgid "catalog"
-msgstr ""
+msgstr "Catalog"
 
 #: rero_ils/manual_translations.txt:105
 msgid "circulation"
-msgstr ""
+msgstr "Circulation"
 
 #: rero_ils/manual_translations.txt:106
 msgid "user_management"
-msgstr ""
+msgstr "User management"
 
 #: rero_ils/manual_translations.txt:109
 msgid "number_of_documents"
-msgstr ""
+msgstr "Number of documents"
 
 #: rero_ils/manual_translations.txt:110
 msgid "number_of_serial_holdings"
-msgstr ""
+msgstr "Number of serial holdings"
 
 #: rero_ils/manual_translations.txt:111
 msgid "number_of_items"
-msgstr ""
+msgstr "Number of items"
 
 #: rero_ils/manual_translations.txt:112
 msgid "number_of_deleted_items"
-msgstr ""
+msgstr "Number of deleted items"
 
 #: rero_ils/manual_translations.txt:113
 msgid "number_of_ill_requests"
-msgstr ""
+msgstr "Number of ILL requests"
 
 #: rero_ils/manual_translations.txt:114
 msgid "number_of_checkins"
-msgstr ""
+msgstr "Number of checkins"
 
 #: rero_ils/manual_translations.txt:115
 msgid "number_of_checkouts"
-msgstr ""
+msgstr "Number of checkouts"
 
 #: rero_ils/manual_translations.txt:116
 msgid "number_of_extends"
-msgstr ""
+msgstr "Number of renewals"
 
 #: rero_ils/manual_translations.txt:117
 msgid "number_of_requests"
-msgstr ""
+msgstr "Number of requests"
 
 #: rero_ils/manual_translations.txt:118
 msgid "number_of_validated_requests"
-msgstr ""
+msgstr "Number of validated requests"
 
 #: rero_ils/manual_translations.txt:119
 msgid "number_of_patrons"
-msgstr ""
+msgstr "Number of patrons"
 
 #: rero_ils/manual_translations.txt:120
 msgid "number_of_active_patrons"
-msgstr ""
+msgstr "Number of active patrons"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -12328,7 +12329,7 @@ msgstr "Category of the configuration."
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:146
 msgid "Catalog"
-msgstr ""
+msgstr "Catalog"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:162
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:497
@@ -12357,7 +12358,7 @@ msgstr "distributions"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:548
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1051
 msgid "created_month"
-msgstr "Creation month"
+msgstr "creation month"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:218
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:289
@@ -12365,7 +12366,7 @@ msgstr "Creation month"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:552
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1055
 msgid "created_year"
-msgstr "Creation year"
+msgstr "creation year"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:222
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:293
@@ -12374,11 +12375,11 @@ msgstr "Creation year"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:912
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:987
 msgid "owning_library"
-msgstr "Owning library"
+msgstr "owning library"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:226
 msgid "imported"
-msgstr "Imported"
+msgstr "imported"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:246
 msgid "Number of serial holdings"
@@ -12392,11 +12393,11 @@ msgstr "Number of items"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:916
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:991
 msgid "owning_location"
-msgstr "Owning location"
+msgstr "owning location"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:380
 msgid "type (standard/issue)"
-msgstr "Type (standard/issue)"
+msgstr "type (standard/issue)"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:401
 msgid "Number of deleted items"
@@ -12404,15 +12405,15 @@ msgstr "Number of deleted items"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:441
 msgid "action_month"
-msgstr "Action month"
+msgstr "action month"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:445
 msgid "action_year"
-msgstr "Action year"
+msgstr "action year"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:453
 msgid "operator_library"
-msgstr ""
+msgstr "operator library"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:481
 msgid "Circulation"
@@ -12491,43 +12492,43 @@ msgstr "month"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:904
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:979
 msgid "transaction_month"
-msgstr "Transaction month"
+msgstr "transaction month"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:908
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:983
 msgid "transaction_year"
-msgstr "Transaction year"
+msgstr "transaction year"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:928
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:999
 msgid "patron_age"
-msgstr "Patron age"
+msgstr "patron age"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:932
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1003
 msgid "patron_postal_code"
-msgstr "Patron postal code"
+msgstr "patron postal code"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:940
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1011
 msgid "transaction_channel"
-msgstr "Transaction channel"
+msgstr "transaction channel"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1059
 msgid "gender"
-msgstr "Gender"
+msgstr "gender"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1067
 msgid "postal_code"
-msgstr "Postal code"
+msgstr "postal code"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1071
 msgid "birth_year"
-msgstr "Birth year"
+msgstr "birth year"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1075
 msgid "role"
-msgstr "Role"
+msgstr "role"
 
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:5
 msgid "JSON schema for templates."
@@ -13020,4 +13021,3 @@ msgstr "Your password has been successfully reset."
 
 #~ msgid "Catalogue"
 #~ msgstr "Catalog"
-
