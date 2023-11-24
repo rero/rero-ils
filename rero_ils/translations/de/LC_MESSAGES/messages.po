@@ -16,18 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2023-11-23 16:09+0100\n"
+"POT-Creation-Date: 2023-11-24 08:40+0100\n"
 "PO-Revision-Date: 2023-11-23 15:27+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/de/>\n"
 "Language: de\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/de/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.2.1-rc\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: rero_ils/accounts_views.py:60
 msgid "The 2 passwords are not identical."
@@ -629,7 +628,7 @@ msgid "number_of_requests"
 msgstr "Anzahl der Bestellungen"
 
 #: rero_ils/manual_translations.txt:118
-msgid "number_of_validated_requests"
+msgid "number_of_validate_requests"
 msgstr "Anzahl der validierten Bestellungen"
 
 #: rero_ils/manual_translations.txt:119
@@ -13106,3 +13105,4 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #~ msgid "Catalogue"
 #~ msgstr "Katalog"
+

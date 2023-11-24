@@ -4,7 +4,7 @@
     "name": "library 1, no distributions",
     "description": "Statistics configuration with no distributions",
     "category": {
-      "type": "catalogue",
+      "type": "catalog",
       "indicator": {
         "type": "number_of_documents"
       }

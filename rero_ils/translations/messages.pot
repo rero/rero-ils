@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 1.19.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2023-11-23 16:09+0100\n"
+"POT-Creation-Date: 2023-11-24 08:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.12.1\n"
+"Generated-By: Babel 2.13.1\n"
 
 #: rero_ils/accounts_views.py:60
 msgid "The 2 passwords are not identical."
@@ -617,7 +617,7 @@ msgid "number_of_requests"
 msgstr ""
 
 #: rero_ils/manual_translations.txt:118
-msgid "number_of_validated_requests"
+msgid "number_of_validate_requests"
 msgstr ""
 
 #: rero_ils/manual_translations.txt:119

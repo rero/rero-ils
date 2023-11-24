@@ -93,7 +93,7 @@ class StatsReport:
             'number_of_checkouts': NumberOfCirculationCfg(self, 'checkout'),
             'number_of_extends': NumberOfCirculationCfg(self, 'extend'),
             'number_of_requests': NumberOfRequestsCfg(self, 'request'),
-            'number_of_validated_requests': NumberOfRequestsCfg(
+            'number_of_validate_requests': NumberOfRequestsCfg(
                 self, 'validate_request'),
             'number_of_patrons': NumberOfPatronsCfg(self),
             'number_of_active_patrons': NumberOfActivePatronsCfg(self)
