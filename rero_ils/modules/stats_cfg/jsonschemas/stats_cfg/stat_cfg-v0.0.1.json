@@ -715,8 +715,8 @@
                     "type": {
                       "title": "Type",
                       "type": "string",
-                      "const": "number_of_validated_requests",
-                      "default": "number_of_validated_requests",
+                      "const": "number_of_validate_requests",
+                      "default": "number_of_validate_requests",
                       "widget": {
                         "formlyConfig": {
                           "wrappers": [
