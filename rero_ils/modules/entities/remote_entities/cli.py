@@ -116,7 +116,7 @@ def sync_errors(clear, verbose):
 
 
 @entity.command('replace-identified-by')
-@click.option('-f', '--field', multiple=True)
+@click.option('-f', '--field', multiple=True, default=None)
 @click.option('-n', '--dry-run', is_flag=True, default=False)
 @click.option('-v', '--verbose', count=True, default=0)
 @click.option('-l', '--log-dir', default=None)
