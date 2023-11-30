@@ -569,3 +569,45 @@ def test_patrons_search(client, librarian_martigny):
     res = client.get(list_url)
     hits = get_json(res)['hits']
     assert hits['total']['value'] == 1
+
+
+def test_patrons_expired(client, librarian_martigny, patron_martigny):
+    """Test patron expired filter."""
+    login_user_via_session(client, librarian_martigny.user)
+    list_url = url_for('invenio_records_rest.ptrn_list', simple='1')
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 6
+
+    original_expiration_date = patron_martigny['patron']['expiration_date']
+    patron_martigny['patron']['barcode'] = ['4098124352']
+
+    new_expiration_date = datetime.now() - timedelta(days=10)
+    patron_martigny['patron']['expiration_date'] = new_expiration_date \
+        .strftime("%Y-%m-%d")
+    patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
+
+    list_url = url_for(
+        'invenio_records_rest.ptrn_list', expired='true', simple='1')
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
+
+    patron_martigny['patron']['expiration_date'] = original_expiration_date
+    patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
+
+
+def test_patrons_blocked(client, librarian_martigny, patron_martigny,
+                         patron3_martigny_blocked):
+    """Test patron blocked filter."""
+    login_user_via_session(client, librarian_martigny.user)
+    list_url = url_for('invenio_records_rest.ptrn_list', simple='1')
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 6
+
+    list_url = url_for(
+        'invenio_records_rest.ptrn_list', blocked='true', simple='1')
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1

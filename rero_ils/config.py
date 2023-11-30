@@ -126,6 +126,7 @@ from .modules.patron_types.permissions import PatronTypePermissionPolicy
 from .modules.patrons.api import Patron
 from .modules.patrons.models import CommunicationChannel
 from .modules.patrons.permissions import PatronPermissionPolicy
+from .modules.patrons.query import patron_expired
 from .modules.selfcheck.permissions import seflcheck_permission_factory
 from .modules.stats.api.api import Stat
 from .modules.stats.permissions import StatisticsPermissionPolicy
@@ -2001,7 +2002,9 @@ RECORDS_REST_FACETS = dict(
         filters={
             _('roles'): and_term_filter('roles'),
             _('city'): and_term_filter('facet_city'),
-            _('patron_type'): and_term_filter('patron.type.pid')
+            _('patron_type'): and_term_filter('patron.type.pid'),
+            _('blocked'): and_term_filter('patron.blocked'),
+            _('expired'): patron_expired()
         },
     ),
     acq_accounts=dict(
