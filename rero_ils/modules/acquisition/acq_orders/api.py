@@ -457,14 +457,13 @@ class AcqOrder(AcquisitionIlsRecord):
         """Send an acquisition order to list of recipients.
 
         Creates an acquisition_order notification from order and dispatch it.
-        If the notification is well dispatched, then update the related
-        order_lines to ORDERED status, then reindex the order to obtain the
-        ORDERED status on it if necessary.
+        Then update the related order_lines to ORDERED status, then
+        reindex the order to obtain the ORDERED status on it if necessary.
 
         :param emails: list of recipients emails.
         :return: the list of created notifications
         """
-        # Create the notification and dispatch it synchronously.
+        # Create the notification
         record = {
             'creation_date': datetime.now(timezone.utc).isoformat(),
             'notification_type': NotificationType.ACQUISITION_ORDER,
@@ -474,20 +473,24 @@ class AcqOrder(AcquisitionIlsRecord):
             }
         }
         notif = Notification.create(data=record, dbcommit=True, reindex=True)
+
+        # As soon as the notification is created, update the order_lines
+        # status and reindex myself, so that I can create receipt lines.
+        order_date = datetime.now().strftime('%Y-%m-%d')
+        order_lines = self.get_order_lines(
+            includes=[AcqOrderLineStatus.APPROVED])
+        for order_line in order_lines:
+            order_line['order_date'] = order_date
+            order_line.update(order_line, dbcommit=True, reindex=True)
+        self.reindex()
+
+        # Dispatch the notification
         dispatcher_result = Dispatcher.dispatch_notifications(
             notification_pids=[notif.get('pid')])
 
-        # If the dispatcher result is correct, update the order_lines status
-        # and reindex myself. Reload the notification to obtain the right
-        # notification metadata (status, process_date, ...)
+        # Only when the dispatch was successful, reload the notification to
+        # get the right notification metadata (status, process_date, ...)
         if dispatcher_result.get('sent', 0):
-            order_date = datetime.now().strftime('%Y-%m-%d')
-            order_lines = self.get_order_lines(
-                includes=[AcqOrderLineStatus.APPROVED])
-            for order_line in order_lines:
-                order_line['order_date'] = order_date
-                order_line.update(order_line, dbcommit=True, reindex=True)
-            self.reindex()
             notif = Notification.get_record(notif.id)
 
         return notif
