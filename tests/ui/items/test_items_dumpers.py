@@ -56,6 +56,10 @@ def test_item_action_circulation_dumper(
 
     # organisation pid
     assert data['location']['organisation']['pid']
+
+    # library and location name
+    assert data['library_location_name']
+
     # actions
     assert data['actions']
 

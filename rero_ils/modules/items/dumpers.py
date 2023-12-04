@@ -128,6 +128,12 @@ class CirculationActionDumper(InvenioRecordsDumper):
         data['location']['organisation'] = {
             'pid': record.organisation_pid
         }
+
+        # add library and location name on same field (used for sorting)
+        library = location.get_library()
+        data['library_location_name'] = \
+            f'{library["name"]}: {data["location"]["name"]}'
+
         data['actions'] = list(record.actions)
 
         # only the first request is used by the UI
