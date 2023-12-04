@@ -28,7 +28,7 @@ from rero_ils.modules.stats.api.report import StatsReport
 
 
 def test_stats_report_number_of_patrons(
-        org_martigny, lib_martigny, org_sion, lib_martigny_bourg,
+        db, org_martigny, lib_martigny, org_sion, lib_martigny_bourg,
         patron_type_children_martigny, patron_type_adults_martigny,
         patron_type_grown_sion, loc_public_martigny,
         loc_public_martigny_bourg,
@@ -36,6 +36,11 @@ def test_stats_report_number_of_patrons(
         patron2_martigny_data, patron_sion_data, roles
 ):
     """Test the number of patrons and active patrons."""
+    def patch_creation_date(patron, date):
+        patron.model.created = date
+        db.session.merge(patron.model)
+        patron.reindex()
+
     # no data
     cfg = {
         "library": {
@@ -53,20 +58,21 @@ def test_stats_report_number_of_patrons(
     from rero_ils.modules.patrons.api import create_patron_from_data
 
     patron_martigny = create_patron_from_data(
-        data=patron_martigny_data,
-        delete_pid=True,
+        data={k: v for k, v in patron_martigny_data.items() if k != 'pid'},
         dbcommit=True,
         reindex=True)
     patron2_martigny = create_patron_from_data(
-        data=patron2_martigny_data,
-        delete_pid=True,
+        data={k: v for k, v in patron2_martigny_data.items() if k != 'pid'},
         dbcommit=True,
         reindex=True)
     patron_sion = create_patron_from_data(
-        data=patron_sion_data,
-        delete_pid=True,
+        data={k: v for k, v in patron_sion_data.items() if k != 'pid'},
         dbcommit=True,
         reindex=True)
+    date = datetime(year=2023, month=11, day=1)
+    patch_creation_date(patron_martigny, date)
+    patch_creation_date(patron2_martigny, date)
+    patch_creation_date(patron_sion, date)
     es.indices.refresh(index='patrons')
 
     # no distributions
