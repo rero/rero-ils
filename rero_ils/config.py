@@ -424,7 +424,7 @@ CELERY_BEAT_SCHEDULE = {
         'task': ('rero_ils.modules.stats.tasks.collect_stats_reports'),
         'schedule': crontab(minute=0, hour=1, day_of_month='1'),  # First day of the month at 01:30 UTC,
         'kwargs': {
-            'types': 'month'
+            'frequency': 'month'
         },
         'enabled': False
     },
@@ -432,7 +432,7 @@ CELERY_BEAT_SCHEDULE = {
         'task': ('rero_ils.modules.stats.tasks.collect_stats_reports'),
         'schedule': crontab(minute=0, hour=1, day_of_month='1', month_of_year='1'),  # First day of the month at 01:30 UTC,
         'kwargs': {
-            'types': 'year'
+            'frequency': 'year'
         },
         'enabled': False
     },
