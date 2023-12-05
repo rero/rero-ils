@@ -1,98 +1,129 @@
 # Add documentation label to the following files and folders
 "dev: documentation":
-  - Authors.rst
-  - CHANGES.md
-  - CONTRIBUTING.rst
-  - INSTALL.rst
-  - README.rst
-  - RELEASE-NOTES.rst
-  - .github/**/*
-  - rero_ils/theme/templates/rero_ils/page_wiki.html
-  - doc/**/*
-  - docs/**/*
-  - wiki/**/*
+  - changed-files:
+    - any-glob-to-any-file: [
+      'Authors.rst',
+      'CHANGES.md',
+      'CONTRIBUTING.rst',
+      'INSTALL.rst',
+      'README.rst',
+      'RELEASE-NOTES.rst',
+      '.github/**/*',
+      'rero_ils/theme/templates/rero_ils/page_wiki.html',
+      'doc/**/*',
+      'docs/**/*',
+      'wiki/**/*'
+    ]
+
 
 # Add translations label to any changes within translations folders and subfolders
 translations:
-  - babel.ini
-  - rero_ils/manual_translations.txt
-  - rero_ils/translations/**/*
+  - changed-files:
+    - any-glob-to-any-file: [
+      'babel.ini',
+      'rero_ils/manual_translations.txt',
+      'rero_ils/translations/**/*'
+    ]
 
 # Add data label to any changes in document and item jsonschemas folders,
 # in DOJSON folders, templates folders, dojson, json to dublin core or to
 # MARC21 folders and in the SRU module:
 "f: data":
-  - rero_ils/jsonschemas/**/*
-  - rero_ils/modules/documents/jsonschemas/**/*
-  - rero_ils/modules/documents/utils.py
-  - rero_ils/modules/items/jsonschemas/**/*
-  - rero_ils/modules/entities/**/jsonschemas/**/*
-  - rero_ils/modules/local_fields/jsonschemas/**/*
-  - rero_ils/dojson/**/*
-  - rero_ils/modules/**/dojson/**/*
-  - rero_ils/modules/templates/**/*
-  - rero_ils/modules/documents/dojson/contrib/jsontodc/**/*
-  - rero_ils/modules/documents/dojson/contrib/jsontomarc21/**/*
-  - rero_ils/modules/sru/**/*
+  - changed-files:
+    - any-glob-to-any-file: [
+      'rero_ils/jsonschemas/**/*',
+      'rero_ils/modules/documents/jsonschemas/**/*',
+      'rero_ils/modules/documents/utils.py',
+      'rero_ils/modules/items/jsonschemas/**/*',
+      'rero_ils/modules/entities/**/jsonschemas/**/*',
+      'rero_ils/modules/local_fields/jsonschemas/**/*',
+      'rero_ils/dojson/**/*',
+      'rero_ils/modules/**/dojson/**/*',
+      'rero_ils/modules/templates/**/*',
+      'rero_ils/modules/documents/dojson/contrib/jsontodc/**/*',
+      'rero_ils/modules/documents/dojson/contrib/jsontomarc21/**/*',
+      'rero_ils/modules/sru/**/*'
+    ]
 
 # Add data-migration label to any changes that may need migration effort for
 # deployment of a new release
 "f: data migration":
-  - rero_ils/es_templates/**
-  - rero_ils/jsonschemas/**
-  - rero_ils/**/jsonschemas/**
-  - rero_ils/**/mappings/**
-  - rero_ils/**/models.py
+  - changed-files:
+    - any-glob-to-any-file: [
+      'rero_ils/es_templates/**',
+      'rero_ils/jsonschemas/**',
+      'rero_ils/**/jsonschemas/**',
+      'rero_ils/**/mappings/**',
+      'rero_ils/**/models.py'
+    ]
 
 # Add search label to any changes in mappings files
 "f: search":
-  - rero_ils/**/mappings/**/*json
-  - rero_ils/es_templates/v7/record.json
+  - changed-files:
+    - any-glob-to-any-file: [
+      'rero_ils/**/mappings/**/*json',
+      'rero_ils/es_templates/v7/record.json'
+    ]
 
 # Add circulation label to any changes in circulation API, circulation
 # policies, item types and loans folders and subfolders
 "f: circulation":
-  - rero_ils/modules/items/api/circulation.py
-  - rero_ils/modules/circ_policies/**/*
-  - rero_ils/modules/item_types/**/*
-  - rero_ils/modules/items/utils.py
-  - rero_ils/modules/loans/**/*
-  - rero_ils/modules/ill_requests/**/*
-  - rero_ils/modules/patron_types/**/*
-  - rero_ils/modules/selfcheck/**/*
+  - changed-files:
+    - any-glob-to-any-file: [
+      'rero_ils/modules/items/api/circulation.py',
+      'rero_ils/modules/circ_policies/**/*',
+      'rero_ils/modules/item_types/**/*',
+      'rero_ils/modules/items/utils.py',
+      'rero_ils/modules/loans/**/*',
+      'rero_ils/modules/ill_requests/**/*',
+      'rero_ils/modules/patron_types/**/*',
+      'rero_ils/modules/selfcheck/**/*'
+    ]
 
 # Add 'user management' label to any changes in users or patrons folders and
 # subfolders
 "f: user management":
-  - rero_ils/modules/users/**/*
-  - rero_ils/modules/patrons/**/*
-  - rero_ils/modules/patron_types/**/*
+  - changed-files:
+    - any-glob-to-any-file: [
+      'rero_ils/modules/users/**/*',
+      'rero_ils/modules/patrons/**/*',
+      'rero_ils/modules/patron_types/**/*'
+    ]
 
 # Add acquisition label to any changes in acquisition related folders and
 # subfolders
 "f: acquisitions":
-  - rero_ils/acquisition/**/*
-  - rero_ils/modules/acq_accounts/**/*
-  - rero_ils/modules/acq_invoices/**/*
-  - rero_ils/modules/acq_order_lines/**/*
-  - rero_ils/modules/acq_orders/**/*
-  - rero_ils/modules/budgets/**/*
+  - changed-files:
+    - any-glob-to-any-file: [
+      'rero_ils/acquisition/**/*',
+      'rero_ils/modules/acq_accounts/**/*',
+      'rero_ils/modules/acq_invoices/**/*',
+      'rero_ils/modules/acq_order_lines/**/*',
+      'rero_ils/modules/acq_orders/**/*',
+      'rero_ils/modules/budgets/**/*'
+    ]
 
 # Add permissions label to any changes in a permissions.py files
 "f: permissions":
-  - rero_ils/**/*/permissions.py
+  - changed-files:
+    - any-glob-to-any-file: ['rero_ils/**/*/permissions.py']
 
 # Add fixtures label to any changes in data folder or subfolders
 "dev: fixtures":
-  - data/**/*
+  - changed-files:
+    - any-glob-to-any-file: ['data/**/*']
 
 # Add serials label to any changes in the following files or folders
 "f: serials":
-  - rero_ils/modules/items/api/issue.py
+  - changed-files:
+    - any-glob-to-any-file: ['rero_ils/modules/items/api/issue.py']
 
 "f: activity-logs":
-  - rero_ils/modules/loans/logs/api.py
-  - rero_ils/modules/operation_logs/**/*
+  - changed-files:
+    - any-glob-to-any-file: [
+      'rero_ils/modules/loans/logs/api.py',
+      'rero_ils/modules/operation_logs/**/*'
+    ]
 
 developers:
   - scripts/**/*
@@ -104,7 +135,13 @@ developers:
   - rero_ils/modules/notifications/**/*
 
 "f: public ui":
-  - any: ['rero_ils/**/templates/**/*', 'rero_ils/theme/**/*', 'rero_ils/**/views.py', '!rero_ils/modules/templates/**/*']
+  - changed-files:
+    - any-glob-to-any-file: [
+      'rero_ils/**/templates/**/*',
+      'rero_ils/theme/**/*',
+      'rero_ils/**/views.py',
+      '!rero_ils/modules/templates/**/*'
+      ]
 
 "f: statistics":
   - rero_ils/modules/stats/**/*
