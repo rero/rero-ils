@@ -76,21 +76,30 @@ def sync_entities(
 
 
 @shared_task(ignore_result=True)
-def replace_identified_by(field, verbose=0, dry_run=False):
+def replace_identified_by(
+    fields=['concepts', 'subjects', 'genreForm'], verbose=0, dry_run=False
+):
     """Replace identifiedBy with $ref.
 
-    :param entity_type: Entity type to replace (concepts, subjects, genreForm)
+    :param fields: Entity type to replace (concepts, subjects, genreForm)
     :param verbose: (boolean|integer) verbose level
     :param dry_run: (boolean) if true the data are not modified
     """
-    replace = ReplaceIdentifiedBy(field=field, verbose=verbose,
-                                  dry_run=dry_run)
-    changed, not_found, rero_only = replace.run()
-    replace.set_timestamp()
-    return {
-        field: {
-            'changed': changed,
-            'not_found': not_found,
-            'rero_only': rero_only
-        }
-    }
+    result = {}
+    for field in fields:
+        try:
+            replace = ReplaceIdentifiedBy(
+                field=field,
+                verbose=verbose,
+                dry_run=dry_run
+            )
+            changed, not_found, rero_only = replace.run()
+            replace.set_timestamp()
+            result[field] = {
+                'changed': changed,
+                'not_found': not_found,
+                'rero_only': rero_only
+            }
+        except Exception as err:
+            result[field] = {'error': err}
+    return result
