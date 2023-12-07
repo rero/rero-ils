@@ -77,7 +77,7 @@ def sync_entities(
 
 @shared_task(ignore_result=True)
 def replace_identified_by(
-    fields=['concepts', 'subjects', 'genreForm'], verbose=0, dry_run=False
+    fields=None, verbose=0, dry_run=False
 ):
     """Replace identifiedBy with $ref.
 
@@ -85,6 +85,7 @@ def replace_identified_by(
     :param verbose: (boolean|integer) verbose level
     :param dry_run: (boolean) if true the data are not modified
     """
+    fields = fields or ['contribution', 'subjects', 'genreForm']
     result = {}
     for field in fields:
         try:
