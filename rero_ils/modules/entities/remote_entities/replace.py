@@ -28,7 +28,8 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.utils import get_mef_url, get_timestamp, \
-    requests_retry_session, set_timestamp
+    requests_retry_session
+from rero_ils.modules.utils import set_timestamp as utils_set_timestamp
 
 from .api import RemoteEntity
 from ..logger import create_logger
@@ -303,4 +304,4 @@ class ReplaceIdentifiedBy(object):
             'rero only': self._error_count(self.rero_only),
             'time': datetime.now(timezone.utc),
         }
-        set_timestamp(self.timestamp_name, **data)
+        utils_set_timestamp(self.timestamp_name, **data)

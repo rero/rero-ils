@@ -76,4 +76,5 @@ def delete_record(record_uuid):
 @shared_task(ignore_result=True)
 def scheduler_timestamp():
     """Writes a time stamp to current cache."""
-    set_timestamp('scheduler')
+    time = set_timestamp('scheduler')
+    return {'scheduler': time}
