@@ -25,6 +25,8 @@ import ciso8601
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier
 from utils import VerifyRecordPermissionPatch, flush_index, get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch
@@ -35,6 +37,34 @@ from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.loans.utils import get_extension_params
 from rero_ils.modules.utils import get_ref_for_pid
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_orphean_pids(
+    client, document, loc_public_martigny, item_type_standard_martigny,
+    item_lib_martigny_data_tmp, json_header
+):
+    """Test record retrieval."""
+
+    item_data = item_lib_martigny_data_tmp
+    item_data.pop('pid', None)
+    item_data['foo'] = 'foo'
+    n_item_pids = PersistentIdentifier.query.filter_by(pid_type='item').count()
+    n_holdings = Holding.count()
+    res, _ = postdata(
+        client,
+        'invenio_records_rest.item_list',
+        item_data
+    )
+    # close the session as it is shared with the client
+    db.session.close()
+    assert res.status_code == 400
+    # no holding has been created
+    assert Holding.count() == n_holdings
+    # no orphean pids
+    assert PersistentIdentifier.query.filter_by(pid_type='item').count() \
+        == n_item_pids
 
 
 def test_items_permissions(client, item_lib_martigny,
