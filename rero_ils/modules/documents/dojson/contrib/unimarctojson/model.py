@@ -663,7 +663,10 @@ def unimarc_to_contribution(self, key, value):
         key=key
     )):
         return {
-            'entity': {'$ref': ref},
+            'entity': {
+                '$ref': ref,
+                '_text': create_authorized_access_point(agent)
+            },
             'role': roles
         }
     else:

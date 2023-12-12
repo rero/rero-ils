@@ -426,3 +426,14 @@ def patch_expiration_date(data):
         data['patron']['expiration_date'] = \
             (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d')
     return data
+
+
+def clean_text(data):
+    """Delete all _text from data."""
+    if isinstance(data, list):
+        data = [clean_text(val) for val in data]
+    elif isinstance(data, dict):
+        if '_text' in data:
+            del data['_text']
+        data = {key: clean_text(val) for key, val in data.items()}
+    return data

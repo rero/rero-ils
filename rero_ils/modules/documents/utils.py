@@ -70,17 +70,6 @@ def filter_document_type_buckets(buckets):
                 ]
 
 
-def clean_text(data):
-    """Delete all _text from data."""
-    if isinstance(data, list):
-        data = [clean_text(val) for val in data]
-    elif isinstance(data, dict):
-        if '_text' in data:
-            del data['_text']
-        data = {key: clean_text(val) for key, val in data.items()}
-    return data
-
-
 def display_alternate_graphic_first(language):
     """Display alternate graphic first.
 

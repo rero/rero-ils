@@ -34,9 +34,9 @@ from redis import Redis
 from requests.exceptions import Timeout
 from six import BytesIO
 
-from ..documents.dojson.contrib.marc21tojson import marc21_dnb, marc21_kul, \
-    marc21_loc, marc21_slsp, marc21_ugent
-from ..documents.dojson.contrib.unimarctojson import unimarc
+from rero_ils.modules.documents.dojson.contrib.marc21tojson import \
+    marc21_dnb, marc21_kul, marc21_loc, marc21_slsp, marc21_ugent
+from rero_ils.modules.documents.dojson.contrib.unimarctojson import unimarc
 
 
 class Import(object):
@@ -178,10 +178,14 @@ class Import(object):
             date = provision_activity.get('startDate')
             self.calculate_aggregations_add('year', date, id)
 
-        contribution = record.get('contribution', [])
-        for agent in contribution:
-            name = agent.get('entity', {}).get('authorized_access_point')
-            self.calculate_aggregations_add('author', name, id)
+        for agent in record.get('contribution', []):
+            if authorized_access_point := agent.get(
+                    'entity', {}).get('authorized_access_point'):
+                name = authorized_access_point
+            elif text := agent.get('entity', {}).get('_text'):
+                name = text
+            if name:
+                self.calculate_aggregations_add('author', name, id)
 
         languages = record.get('language', [])
         for language in languages:
@@ -469,7 +473,7 @@ class Import(object):
                 self.status_code = 200
         except Timeout as error:
             current_app.logger.warning(f'{self.name}: {error}')
-            abort(503, description='Timeout')
+            # abort(503, description='Timeout')
         except Exception as error:
             current_app.logger.error(
                 f'{type(error).__name__} {self.name}: {error}')

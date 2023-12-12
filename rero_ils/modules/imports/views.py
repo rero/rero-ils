@@ -76,7 +76,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
         )
 
     def get(self, **kwargs):
-        """Implement the GET /test."""
+        """Implement the GET."""
         no_cache = True if flask_request.args.get('no_cache') else False
         query = flask_request.args.get('q')
         try:
