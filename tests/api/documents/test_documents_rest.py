@@ -23,12 +23,12 @@ from datetime import datetime, timedelta
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, flush_index, get_json, \
-    mock_response, postdata
+from utils import VerifyRecordPermissionPatch, clean_text, flush_index, \
+    get_json, mock_response, postdata
 
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.api import DocumentsSearch
-from rero_ils.modules.documents.utils import clean_text, get_remote_cover
+from rero_ils.modules.documents.utils import get_remote_cover
 from rero_ils.modules.documents.views import can_request, \
     record_library_pickup_locations
 from rero_ils.modules.operation_logs.api import OperationLogsSearch

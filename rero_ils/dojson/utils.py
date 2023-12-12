@@ -2025,12 +2025,15 @@ def get_gnd_de_101(de_588):
         f'&operation=searchRetrieve&query=identifier%3D{de_588}'
         '&recordSchema=oai_dc'
     )
-    response = requests_retry_session().get(url)
-    if response.status_code == requests.codes.ok:
-        result = xmltodict.parse(response.text)
-        with contextlib.suppress(Exception):
-            return result['searchRetrieveResponse']['records']['record'][
-                'recordData']['dc']['dc:identifier']['#text']
+    try:
+        response = requests_retry_session().get(url)
+        if response.status_code == requests.codes.ok:
+            result = xmltodict.parse(response.text)
+            with contextlib.suppress(Exception):
+                return result['searchRetrieveResponse']['records']['record'][
+                    'recordData']['dc']['dc:identifier']['#text']
+    except Exception as err:
+        current_app.logger.warning(f'get_gnd_de_101 de_588: {de_588} | {err}')
 
 
 def build_identifier(data):

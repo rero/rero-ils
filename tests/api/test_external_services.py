@@ -23,8 +23,8 @@
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, mock_response, \
-    to_relative_url
+from utils import VerifyRecordPermissionPatch, clean_text, get_json, \
+    mock_response, to_relative_url
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.imports.api import LoCImport
@@ -426,6 +426,7 @@ def test_documents_import_dnb_isbn(mock_get, client, dnb_isbn_123,
     data.update({
         "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"
     })
+    data = clean_text(data)
     assert Document.create(data)
     marc21_link = res_j.get('hits').get('hits')[0].get('links').get('marc21')
 

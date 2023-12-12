@@ -600,48 +600,51 @@ def do_contribution(data, marc21, key, value):
         return None
 
     agent = {}
-    if ref := get_mef_link(
-        bibid=marc21.bib_id,
-        reroid=marc21.rero_id,
-        entity_type=EntityType.PERSON,
-        ids=utils.force_list(value.get('0')),
-        key=key
-    ):
-        agent['$ref'] = ref
+    if value.get('a'):
+        agent_data = build_agent(marc21=marc21, key=key, value=value)[0]
 
-    # we do not have a $ref
-    if not agent.get('$ref') and value.get('a'):
-        agent = build_agent(marc21=marc21, key=key, value=value)[0]
+        if ref := get_mef_link(
+            bibid=marc21.bib_id,
+            reroid=marc21.rero_id,
+            entity_type=EntityType.PERSON,
+            ids=utils.force_list(value.get('0')),
+            key=key
+        ):
+            agent = {
+                '$ref': ref,
+                '_text':  agent_data['authorized_access_point']
+            }
+        else:
+            agent = agent_data
 
-    if value.get('4'):
-        roles = set()
-        for role in utils.force_list(value.get('4')):
-            role = role.split('/')[-1].lower()
-            if len(role) != 3:
-                error_print('WARNING CONTRIBUTION ROLE LENGTH:',
-                            marc21.bib_id, marc21.rero_id, role)
-            if role == 'sce':
-                error_print('WARNING CONTRIBUTION ROLE SCE:',
-                            marc21.bib_id, marc21.rero_id,
-                            'sce --> aus')
-                role = 'aus'
-            if role not in _CONTRIBUTION_ROLE:
-                error_print('WARNING CONTRIBUTION ROLE DEFINITION:',
-                            marc21.bib_id, marc21.rero_id, role)
-                role = 'ctb'
-            roles.add(role)
-    elif key[:3] == '100':
-        roles = ['cre']
-    elif key[:3] == '711':
-        roles = ['aut']
-    else:
-        roles = ['ctb']
-    if agent:
-        return {
-            'entity': agent,
-            'role': list(roles)
-        }
-    return None
+        if value.get('4'):
+            roles = set()
+            for role in utils.force_list(value.get('4')):
+                role = role.split('/')[-1].lower()
+                if len(role) != 3:
+                    error_print('WARNING CONTRIBUTION ROLE LENGTH:',
+                                marc21.bib_id, marc21.rero_id, role)
+                if role == 'sce':
+                    error_print('WARNING CONTRIBUTION ROLE SCE:',
+                                marc21.bib_id, marc21.rero_id,
+                                'sce --> aus')
+                    role = 'aus'
+                if role not in _CONTRIBUTION_ROLE:
+                    error_print('WARNING CONTRIBUTION ROLE DEFINITION:',
+                                marc21.bib_id, marc21.rero_id, role)
+                    role = 'ctb'
+                roles.add(role)
+        elif key[:3] == '100':
+            roles = ['cre']
+        elif key[:3] == '711':
+            roles = ['aut']
+        else:
+            roles = ['ctb']
+        if agent:
+            return {
+                'entity': agent,
+                'role': list(roles)
+            }
 
 
 def do_specific_document_relation(data, marc21, key, value):
