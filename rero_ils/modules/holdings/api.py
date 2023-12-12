@@ -838,9 +838,9 @@ def create_holding(
         data['patterns'] = patterns
     return Holding.create(
         data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
+        dbcommit=False,
+        reindex=False,
+        delete_pid=False
     )
 
 

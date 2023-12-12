@@ -23,7 +23,7 @@ from invenio_oaiharvester.models import OAIHarvestConfig
 
 from rero_ils.modules.locations.api import Location
 
-from ..documents.api import Document, DocumentsSearch
+from ..documents.api import Document
 from ..holdings.api import Holding, HoldingsSearch, create_holding, \
     get_holding_pid_by_doc_location_item_type
 from ..organisations.api import Organisation
@@ -80,16 +80,16 @@ def create_document_holding(record):
     """Create a document and a holding for a harvested ebook."""
     harvested_sources = get_harvested_sources(record)
     new_record = None
+    holdings = []
     for harvested_source in harvested_sources:
         if org := Organisation.get_record_by_online_harvested_source(
                 source=harvested_source['source']):
             if not new_record:
                 new_record = Document.create(
                     data=record,
-                    dbcommit=True,
-                    reindex=True
+                    dbcommit=False,
+                    reindex=False
                 )
-                DocumentsSearch.flush_and_refresh()
             if new_record:
                 item_type_pid = org.online_circulation_category()
                 location_pids = org.get_online_locations()
@@ -107,11 +107,17 @@ def create_document_holding(record):
                         item_type_pid=item_type_pid,
                         electronic_location=harvested_source,
                         holdings_type='electronic')
-                HoldingsSearch.flush_and_refresh()
+                    holdings.append(hold)
         else:
             current_app.logger.warning(
                 f"create document holding no org: {harvested_source['source']}"
             )
+    db.session.commit()
+    for hold in holdings:
+        hold.reindex()
+    # the document has been reindexed by the holdings
+    if not holdings and new_record:
+        new_record.reindex()
     return new_record
 
 
@@ -122,11 +128,12 @@ def update_document_holding(record, pid):
     existing_record = Document.get_record_by_pid(pid)
     new_record = existing_record.replace(
         data=record,
-        dbcommit=True,
-        reindex=True
+        dbcommit=False,
+        reindex=False
     )
     # Save all source uris to find holdings we can delete later
     source_uris = []
+    holdings = []
     for harvested_source in harvested_sources:
         if org := Organisation.get_record_by_online_harvested_source(
                 source=harvested_source['source']):
@@ -148,15 +155,21 @@ def update_document_holding(record, pid):
                 if not get_holding_pid_by_doc_location_item_type(
                     new_record.pid, location_pid, item_type_pid, 'electronic'
                 ):
-                    create_holding(
+                    hold = create_holding(
                         document_pid=new_record.pid,
                         location_pid=location_pid,
                         item_type_pid=item_type_pid,
                         electronic_location=harvested_source,
                         holdings_type='electronic'
                     )
-            HoldingsSearch.flush_and_refresh()
-
+                    holdings.append(hold)
+    db.session.commit()
+    for hold in holdings:
+        hold.reindex()
+    # the document has been reindexed by the holdings
+    if not holdings and new_record:
+        new_record.reindex()
+    HoldingsSearch.flush_and_refresh()
     # delete all double holdings and holdings without valid source uri
     seen_uris = []
     for holding_pid in Holding.get_holdings_pid_by_document_pid(pid):
