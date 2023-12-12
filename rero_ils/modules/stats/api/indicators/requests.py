@@ -54,7 +54,8 @@ class NumberOfRequestsCfg(NumberOfCirculationCfg):
         """
         cfg = {
             'pickup_location': lambda:
-                f'{self.cfg.locations[bucket.key]} ({bucket.key})'
+                f'{self.cfg.locations.get(bucket.key, self.label_na_msg)} '
+                f'({bucket.key})'
         }
         if label_fn := cfg.get(distribution):
             return label_fn()
