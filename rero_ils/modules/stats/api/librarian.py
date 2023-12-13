@@ -163,8 +163,8 @@ class StatsForLibrarian(StatsForPricing):
             for p in search_patron:
                 hashed_pid = hashlib.md5(p.pid.encode()).hexdigest()
                 new_patron_hashed_pids.add(hashed_pid)
-            search.filter(
-                'terms', loan__patron__hashed_pid=new_patron_hashed_pids)
+            search = search.filter(
+                'terms', loan__patron__hashed_pid=list(new_patron_hashed_pids))
         stats = {}
         patron_pids = set()
         # Main postal code from user profile
