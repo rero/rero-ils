@@ -21,6 +21,7 @@
 # from utils import get_json, to_relative_url
 
 import mock
+import requests
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, clean_text, get_json, \
@@ -858,3 +859,54 @@ def test_documents_import_kul_isbn(mock_get, client, kul_anywhere_123,
     ))
     assert res.status_code == 200
     assert get_json(res).get('metadata', {}).get('ui_title_text')
+
+
+@mock.patch('requests.get')
+@mock.patch('rero_ils.permissions.login_and_librarian', mock.MagicMock())
+def test_documents_import_bnf_errors(mock_get, client):
+    """Test document import from bnf."""
+
+    mock_get.return_value = mock_response(
+        content=b''
+    )
+    res = client.get(url_for(
+        'api_imports.import_bnf',
+        q='ean:any',
+        no_cache=1
+    ))
+    assert res.status_code == 200
+    data = get_json(res)
+    assert not data.get('metadata')
+
+    mock_get.return_value = mock_response(
+        content=b'',
+        status=429
+    )
+    res = client.get(url_for(
+        'api_imports.import_bnf',
+        q='ean:any:123',
+        no_cache=1
+    ))
+    assert res.status_code == 429
+    data = get_json(res)
+    assert data.get('errors')
+
+    err_msg = 'error'
+    err_code = 555
+    error = requests.exceptions.HTTPError(err_msg)
+    error.response = mock.MagicMock()
+    error.response.status_code = err_code
+    error.response.content = 'Error Code'
+    mock_get.return_value = mock_response(
+        content=b'',
+        status=555,
+        raise_for_status=error
+    )
+    res = client.get(url_for(
+        'api_imports.import_bnf',
+        q='ean:any:123',
+        no_cache=1
+    ))
+    data = get_json(res)
+    assert res.status_code == err_code
+    assert data['errors']['message'] == err_msg

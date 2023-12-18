@@ -22,16 +22,16 @@
 from __future__ import absolute_import, print_function
 
 import pickle
+import traceback
 from datetime import timedelta
 from operator import itemgetter
 
 import requests
 from dojson.contrib.marc21.utils import create_record
 from dojson.utils import GroupableOrderedDict
-from flask import abort, current_app, jsonify, url_for
+from flask import current_app, jsonify, url_for
 from lxml import etree
 from redis import Redis
-from requests.exceptions import Timeout
 from six import BytesIO
 
 from rero_ils.modules.documents.dojson.contrib.marc21tojson import \
@@ -48,6 +48,7 @@ class Import(object):
     search = {}
     to_json_processor = None
     status_code = 444
+    status_msg = ''
     max_results = 50
     timeout_connect = 5
     timeout_request = 60
@@ -370,11 +371,28 @@ class Import(object):
         :param max_results: maximum records to search
         :param no_cache: do not use cache if true
         """
+        def _split_stream(stream):
+            """Yield record elements from given XML stream."""
+            try:
+                for _, element in etree.iterparse(
+                        stream,
+                        tag='{http://www.loc.gov/zing/srw/}'
+                            'record'):
+                    yield element
+            except Exception:
+                current_app.logger.error(
+                    f'Import: {self.name} '
+                    'error: XML SPLIT '
+                    f'url: {url_api}'
+                )
+                return []
+
         if max_results == 0:
             max_results = self.max_results
         if self.name == 'LOC' and relation == "all":
             relation = "="
         self.init_results()
+        url_api = 'Not yet set'
         if not what:
             return self.results, 200
         try:
@@ -384,6 +402,7 @@ class Import(object):
                 cache_data = pickle.loads(cache)
                 self.results['hits'] = cache_data['hits']
                 self.data = cache_data['data']
+                self.status_code = 200
             else:
                 url_api = self._create_sru_url(
                     what=what,
@@ -395,89 +414,77 @@ class Import(object):
                     url_api,
                     timeout=(self.timeout_connect, self.timeout_request)
                 )
-                if not response.ok:
-                    self.status_code = 502
-                    response = {
-                        'metadata': {},
-                        'errors': {
-                            'code': self.status_code,
-                            'title': f'{self.name}: Bad status code!',
-                            'detail': f'Status code: {response.status_code}'
+                self.status_code = response.status_code
+                self.status_msg = 'Request error.'
+                response.raise_for_status()
+
+                for xml_record in _split_stream(BytesIO(response.content)):
+                    # convert xml in marc json
+                    json_data = self.clean_marc(create_record(xml_record))
+                    # Some BNF records are empty hmm...
+                    if not json_data.values():
+                        continue
+
+                    # convert marc json to local json format
+                    record = self.to_json_processor(json_data)
+
+                    id_ = self.get_id(json_data)
+                    if record and id_:
+                        data = {
+                            'id': id_,
+                            'links': {
+                                'self': self.get_link(id_),
+                                'marc21': self.get_marc21_link(id_)
+                            },
+                            'metadata': record,
+                            'source': self.name
                         }
+                        self.data.append(json_data)
+                        self.results['hits']['hits'].append(data)
+                        self.results['hits']['remote_total'] = int(
+                            etree.parse(BytesIO(response.content))
+                            .find('{*}numberOfRecords').text
+                        )
+                # save to cache if we have hits
+                if self.results['hits']['hits']:
+                    cache_data = {
+                        'hits': self.results['hits'],
+                        'data': self.data
                     }
-                    current_app.logger.error(
-                        '{title}: {detail}'.format(
-                            title=response.get('title'),
-                            detail=response.get('detail')))
-
-                else:
-                    def _split_stream(stream):
-                        """Yield record elements from given stream."""
-                        for _, element in etree.iterparse(
-                                stream,
-                                tag='{http://www.loc.gov/zing/srw/}'
-                                    'record'):
-                            yield element
-
-                    xml_records = _split_stream(BytesIO(response.content))
-
-                    for xml_record in xml_records:
-                        # convert xml in marc json
-                        json_data = create_record(xml_record)
-                        json_data = self.clean_marc(json_data)
-                        # Some BNF records are empty hmm...
-                        if not json_data.values():
-                            continue
-
-                        # convert marc json to local json format
-                        record = self.to_json_processor(json_data)
-
-                        id_ = self.get_id(json_data)
-                        if record and id_:
-                            data = {
-                                'id': id_,
-                                'links': {
-                                    'self': self.get_link(id_),
-                                    'marc21': self.get_marc21_link(id_)
-                                },
-                                'metadata': record,
-                                'source': self.name
-                            }
-                            self.data.append(json_data)
-                            self.results['hits']['hits'].append(data)
-                            self.results['hits']['remote_total'] = int(
-                                etree.parse(BytesIO(response.content))
-                                .find('{*}numberOfRecords').text
-                            )
-
+                    self.cache.setex(
+                        cache_key,
+                        timedelta(minutes=self.cache_expire),
+                        value=pickle.dumps(cache_data)
+                    )
             self.results['hits']['total']['value'] = len(
                 self.results['hits']['hits'])
-            if self.results['hits']['total']['value'] == 0:
-                self.status_code = 404
-                self.results['errors'] = {
-                    'code': self.status_code,
-                    'title': f'{self.name}: Not found: '
-                             f'{where} {relation} {what}'
-                    }
-            else:
-                cache_data = {
-                    'hits': self.results['hits'],
-                    'data': self.data
-                }
-                self.cache.setex(
-                    cache_key,
-                    timedelta(minutes=self.cache_expire),
-                    value=pickle.dumps(cache_data)
-                )
-                self.create_aggregations(self.results)
-                self.status_code = 200
-        except Timeout as error:
-            current_app.logger.warning(f'{self.name}: {error}')
-            # abort(503, description='Timeout')
+            self.create_aggregations(self.results)
+        except requests.exceptions.ConnectionError as error:
+            self.status_code = 433
+            self.status_msg = str(error)
+        except requests.exceptions.HTTPError as error:
+            current_app.logger.error(f'{type(error)} {error}')
+            self.status_code = error.response.status_code
+            self.status_msg = str(error)
+            current_app.logger.error(f'HTTPError: {traceback.format_exc()}')
         except Exception as error:
+            self.status_code = 500
+            self.status_msg = str(error)
+            current_app.logger.error(f'Exception: {traceback.format_exc()}')
+        if self.status_code > 400:
+            # TODO: enable error logging only for 500
+            # if self.status_code == 500:
             current_app.logger.error(
-                f'{type(error).__name__} {self.name}: {error}')
-            abort(500, description='Error')
+                f'Import: {self.name} '
+                f'code: {self.status_code} '
+                f'error: {self.status_msg} '
+                f'url: {url_api}'
+            )
+            self.results['errors'] = {
+                'code': self.status_code,
+                'message': self.status_msg,
+                'url': url_api
+            }
         return self.results, self.status_code
 
 
@@ -485,7 +492,7 @@ class BnfImport(Import):
     """Import class for BNF."""
 
     name = 'BNF'
-    url = 'http://catalogue.bnf.fr'
+    url = 'https://catalogue.bnf.fr'
     url_api = '{url}/api/SRU?'\
               'version=1.2&operation=searchRetrieve'\
               '&recordSchema=unimarcxchange-anl&maximumRecords={max_results}'\
