@@ -90,14 +90,13 @@ class ImportsListResource(ContentNegotiatedMethodView):
             what = query
         size = flask_request.args.get('size', self.import_size)
         do_import = self.import_class()
-        do_import.search_records(
+        results, status_code = do_import.search_records(
             what=what,
             relation=relation,
             where=where,
             max_results=size,
             no_cache=no_cache
         )
-        results = do_import.results
         filter_year = flask_request.args.get('year')
         if filter_year:
             ids = do_import.get_ids_for_aggregation(
@@ -140,7 +139,10 @@ class ImportsListResource(ContentNegotiatedMethodView):
                 key=filter_language
             )
             results = do_import.filter_records(results, ids)
-        return None, results
+        # return None, results
+        response = self.make_response(pid_fetcher=None, search_result=results)
+        response.status_code = status_code
+        return response
 
 
 class ImportsResource(ContentNegotiatedMethodView):

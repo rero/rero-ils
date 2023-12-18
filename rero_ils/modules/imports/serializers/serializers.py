@@ -65,6 +65,8 @@ class ImportsSearchSerializer(JSONSerializer):
             ),
             aggregations=search_result.get('aggregations', dict()),
         )
+        if errors := search_result.get('errors'):
+            results['errors'] = errors
         # TODO: If we have multiple types for a document we have to Correct
         # the document type buckets here.
         return json.dumps(results, **self._format_args())
