@@ -2235,7 +2235,7 @@ RECORDS_REST_FACETS = dict(
     ),
     ill_requests=dict(
         aggs=dict(
-            status=dict(
+            request_status=dict(
                 terms=dict(
                     field='status',
                     size=RERO_ILS_AGGREGATION_SIZE.get(
