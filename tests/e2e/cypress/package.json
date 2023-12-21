@@ -31,6 +31,6 @@
   ],
   "license": "AGPL-3.0-only",
   "devDependencies": {
-    "cypress": "^6.1.0"
+    "cypress": "^13.6.1"
   }
 }
