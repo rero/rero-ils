@@ -4057,8 +4057,8 @@ def test_marc21_to_part_of():
                 },
                 {
                     'year': '2020',
-                    'volume': 1,
-                    'issue': 2,
+                    'volume': "1",
+                    'issue': "2",
                     'pages': '300'
                 }]
         }]
@@ -4078,8 +4078,8 @@ def test_marc21_to_part_of():
             'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
             'numbering': [
                 {
-                    'volume': 1,
-                    'issue': 2,
+                    'volume': "1",
+                    'issue': "2",
                     'pages': '300'
                 }]
         }]
@@ -4118,8 +4118,8 @@ def test_marc21_to_part_of():
                     'pages': '411'
                 },
                 {
-                    'volume': 1,
-                    'issue': 2
+                    'volume': "1",
+                    'issue': "2"
                 }]
         }]
 
@@ -4152,7 +4152,7 @@ def test_marc21_to_part_of():
     assert data.get('partOf') == [{
             'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
             'numbering': [{
-                    'volume': 256
+                    'volume': "256"
                 }]
         }]
 
@@ -4483,7 +4483,7 @@ def test_marc21_to_part_of_with_multiple_800():
     assert data.get('partOf') == [{
             'document': {'$ref': 'https://bib.rero.ch/api/documents/780067'},
             'numbering': [{
-                    'volume': 3
+                    'volume': "3"
                 }]
         }]
     # the seriesStatement is generated form 490 and not from the 800

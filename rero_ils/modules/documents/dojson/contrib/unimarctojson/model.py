@@ -487,38 +487,28 @@ def marc21_to_part_of(self, key, value):
         }}
         numbering = []
         if subfield_v := utils.force_list(value.get('v')):
-            # get volumes and pages split
-            volumes_pages = subfield_v[0].split(',')
-            # get a volume range
-            volumes = volumes_pages[0].split('-')
-            pages = volumes_pages[1] if len(volumes_pages) > 1 else None
             with contextlib.suppress(ValueError):
-                volumes = range(int(volumes[0]), int(volumes[1]) + 1) \
-                    if len(volumes) > 1 else [int(volumes[0])]
-                # TODO: save volume ranges as string ex: 3-4
-                for volume in volumes:
-                    numbering.append({'volume': volume})
-                    if pages:
-                        numbering[-1]['pages'] = pages
+                numbering.append({'volume': str(subfield_v[0])})
         if subfield_d := utils.force_list(value.get('d')):
             # get a years range
             years = subfield_d[0].split('-')
             with contextlib.suppress(ValueError):
-                years = range(int(years[0]), int(years[1]) + 1) \
-                    if len(years) > 1 else [int(years[0])]
-                if len(years) > 0:
-                    for number in numbering:
-                        number['year'] = years[0]
-                numbering_years = deepcopy(numbering)
-                # TODO: save year ranges as string ex: 2022-2024
-                # if we have a year range add the same numbering data for
-                # every year
-                for year in years[1:]:
-                    for number in numbering:
-                        number_year = deepcopy(number)
-                        number_year['year'] = year
-                        numbering_years.append(number_year)
-                numbering = numbering_years
+                if numbering:
+                    numbering[0]['year'] = str(years[0])
+                else:
+                    numbering.append({'year': str(years[0])})
+                if len(years) > 1:
+                    if years := range(int(years[0]), int(years[1]) + 1):
+                        numbering_years = deepcopy(numbering)
+                        # TODO: save year ranges as string ex: 2022-2024
+                        # if we have a year range add the same numbering data
+                        # for every year
+                        for year in years[1:]:
+                            if numbering:
+                                number_year = deepcopy(numbering[0])
+                            number_year['year'] = str(year)
+                            numbering_years.append(number_year)
+                        numbering = numbering_years
         if numbering:
             part_of['numbering'] = numbering
 
