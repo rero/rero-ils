@@ -704,7 +704,7 @@ def marc21_to_classification(self, key, value):
         classification_type = None
         subdivision_subfield_codes = None
         for key in classification_type_per_tag_980_2:
-            regexp = re.compile(r'{key}'.format(key=key), re.IGNORECASE)
+            regexp = re.compile(fr'{key}', re.IGNORECASE)
             if regexp.search(subfield_2):
                 classification_type = classification_type_per_tag_980_2[key]
                 if key in subdivision_subfield_codes_per_tag_980_2:

@@ -47,11 +47,10 @@ class EditionStatementExtension(RecordExtension):
 
         edition_text = []
         for key, value in designation_output.items():
+            designation = designation_output.get(key)
+            responsibility = responsibility_output.get(key, '')
             value = remove_trailing_punctuation(
-                '{designation} / {responsibility}'.format(
-                    designation=designation_output.get(key),
-                    responsibility=responsibility_output.get(key, ''),
-                )
+                f'{designation} / {responsibility}'
             )
             if display_alternate_graphic_first(key):
                 edition_text.insert(0, {'value': value, 'language': key})

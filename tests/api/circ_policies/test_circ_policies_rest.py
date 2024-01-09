@@ -36,7 +36,7 @@ def test_circ_policies_get(client, circ_policy_default_martigny):
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(circ_policy.revision_id)
+    assert res.headers['ETag'] == f'"{circ_policy.revision_id}"'
 
     data = get_json(res)
     assert circ_policy.dumps() == data['metadata']
@@ -118,7 +118,7 @@ def test_circ_policies_post_put_delete(client, org_martigny,
         headers=json_header
     )
     assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
+    # assert res.headers['ETag'] != f'"{librarie.revision_id}"'
 
     # Check that the returned policy matches the given data
     data = get_json(res)

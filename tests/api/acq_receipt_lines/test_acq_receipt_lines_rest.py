@@ -40,7 +40,7 @@ def test_acq_receipt_lines_get(client, acq_receipt_line_1_fiction_martigny):
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(acq_receipt_line.revision_id)
+    assert res.headers['ETag'] == f'"{acq_receipt_line.revision_id}"'
 
     data = get_json(res)
     assert acq_receipt_line.dumps() == data['metadata']

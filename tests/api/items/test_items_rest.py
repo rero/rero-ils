@@ -165,9 +165,8 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
     item_lib_martigny_data['barcode'] = '123456'
     item_record_with_dirty_barcode = deepcopy(item_lib_martigny_data)
 
-    item_record_with_dirty_barcode['barcode'] = ' {barcode} '.format(
-                barcode=item_record_with_dirty_barcode.get('barcode')
-            )
+    barcode = item_record_with_dirty_barcode.get('barcode')
+    item_record_with_dirty_barcode['barcode'] = f' {barcode} '
     res, data = postdata(
         client,
         'invenio_records_rest.item_list',
@@ -193,7 +192,7 @@ def test_items_post_put_delete(client, document, loc_public_martigny,
         headers=json_header
     )
     assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
+    # assert res.headers['ETag'] != f'"{librarie.revision_id}"'
 
     # Check that the returned record matches the given data
     data = get_json(res)

@@ -23,7 +23,7 @@ from __future__ import absolute_import, print_function
 import re
 from datetime import datetime, timezone
 
-from dateutil.relativedelta import *
+from dateutil.relativedelta import relativedelta
 from elasticsearch_dsl.query import Q
 from flask import current_app, request
 from invenio_i18n.ext import current_i18n
@@ -55,7 +55,7 @@ def and_term_filter(field, **kwargs):
         )
         for value in kwargs.get('must', []):
             _filter &= Q(**value)
-        for value in kwargs.get('must_not') or []:
+        for value in kwargs.get('must_not', []):
             _filter &= ~Q(**value)
         return _filter
     return inner
@@ -79,7 +79,7 @@ def and_i18n_term_filter(field, **kwargs):
 
         for value in kwargs.get('must', []):
             _filter &= Q(**value)
-        for value in kwargs.get('must_not') or []:
+        for value in kwargs.get('must_not', []):
             _filter &= ~Q(**value)
         return _filter
     return inner
@@ -474,12 +474,13 @@ def search_factory(self, search, query_parser=None):
 
     try:
         search = search.query(query_parser(query_string, query_boosting))
-    except SyntaxError:
+    except SyntaxError as err:
+        query = request.values.get('q', '')
         current_app.logger.debug(
-            'Failed parsing query: {0}'.format(request.values.get('q', '')),
+            f'Failed parsing query: {query}',
             exc_info=True,
         )
-        raise InvalidQueryRESTError()
+        raise InvalidQueryRESTError() from err
 
     search, urlkwargs = default_facets_factory(search, search_index)
     search, sortkwargs = default_sorter_factory(search, search_index)

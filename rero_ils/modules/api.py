@@ -238,11 +238,8 @@ class IlsRecord(Record):
         elif pid:
             if test_rec := cls.get_record_by_pid(pid):
                 raise IlsRecordError.PidAlreadyUsed(
-                    'PidAlreadyUsed {pid_type} {pid} {uuid}'.format(
-                        pid_type=cls.provider.pid_type,
-                        pid=test_rec.pid,
-                        uuid=test_rec.id
-                    )
+                    f'PidAlreadyUsed {cls.provider.pid_type} '
+                    f'{test_rec.pid} {test_rec.id}'
                 )
         if not id_:
             id_ = uuid4()

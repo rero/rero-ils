@@ -92,7 +92,7 @@ class ItemRecord(IlsRecord):
         holding_pid = extracted_data_from_ref(self.get('holding').get('$ref'))
         holding = Holding.get_record_by_pid(holding_pid)
         if not holding:
-            return _('Holding does not exist: {pid}.'.format(pid=holding_pid))
+            return _(f'Holding does not exist: {holding_pid}')
 
         if self.get('issue') and self.get('type') == TypeOfItem.STANDARD:
             return _('Standard item can not have a issue field.')

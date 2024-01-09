@@ -216,10 +216,12 @@ def test_patrons_get(client, librarian_martigny):
     patron = librarian_martigny
     item_url = url_for(
         'invenio_records_rest.ptrn_item',
-        pid_value=librarian_martigny.pid)
+        pid_value=librarian_martigny.pid
+    )
     list_url = url_for(
         'invenio_records_rest.ptrn_list',
-        q='pid:{pid}'.format(pid=librarian_martigny.pid))
+        q=f'pid:{librarian_martigny.pid}'
+    )
 
     res = client.get(item_url)
     assert res.status_code == 200
@@ -303,7 +305,7 @@ def test_patrons_post_put_delete(
         headers=json_header
     )
     assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(ptrnrarie.revision_id)
+    # assert res.headers['ETag'] != f'"{ptrnrarie.revision_id}"'
 
     # Check that the returned record matches the given data
     data = get_json(res)
@@ -373,9 +375,7 @@ def test_patrons_post_without_email(
 def test_patrons_dirty_barcode(client, patron_martigny, librarian_martigny):
     """Test patron update with dirty barcode."""
     barcode = patron_martigny.get('patron', {}).get('barcode')[0]
-    patron_martigny['patron']['barcode'] = [' {barcode} '.format(
-                barcode=barcode
-            )]
+    patron_martigny['patron']['barcode'] = [f' {barcode} ']
     patron_martigny.update(
         patron_martigny, dbcommit=True, reindex=True)
     patron = Patron.get_record_by_pid(patron_martigny.pid)

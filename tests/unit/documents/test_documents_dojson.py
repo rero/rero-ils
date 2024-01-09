@@ -45,9 +45,7 @@ def test_not_repetetive(capsys):
     assert data == 'first'
     out, err = capsys.readouterr()
     assert out == \
-        'WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{data}\t\n'.format(
-            data=str(data_dict)
-        )
+        f'WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{str(data_dict)}\t\n'
     data = {'sub': 'only'}
     data = not_repetitive(
         bibid='pid1',
@@ -1202,8 +1200,8 @@ def test_marc21_to_title_245_with_parallel_title_and_246():
 # languages: 008 and 041 [$a, repetitive]
 def test_marc21_to_language():
     """Test dojson marc21languages."""
-
-    marc21xml = """
+    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    marc21xml = f"""
     <record>
       <controlfield tag="008">{field_008}</controlfield>
       <datafield tag="041" ind1=" " ind2=" ">
@@ -1211,9 +1209,7 @@ def test_marc21_to_language():
         <subfield code="a">eng</subfield>
       </datafield>
     </record>
-    """.format(
-        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
-    )
+    """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
 
@@ -1227,8 +1223,8 @@ def test_marc21_to_language():
             'value': 'eng'
         }
     ]
-
-    marc21xml = """
+    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    marc21xml = f"""
     <record>
       <controlfield tag="008">{field_008}</controlfield>
       <datafield tag="041" ind1=" " ind2=" ">
@@ -1238,9 +1234,7 @@ def test_marc21_to_language():
         <subfield code="a">fre</subfield>
       </datafield>
     </record>
-    """.format(
-        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
-    )
+    """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('language') == [
@@ -1256,17 +1250,15 @@ def test_marc21_to_language():
             'value': 'fre'
         }
     ]
-
-    marc21xml = """
+    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    marc21xml = f"""
     <record>
       <datafield tag="041" ind1=" " ind2=" ">
       <subfield code="a">eng</subfield>
     </datafield>
     <controlfield tag="008">{field_008}</controlfield>
     </record>
-    """.format(
-        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
-    )
+    """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
 
@@ -1280,8 +1272,8 @@ def test_marc21_to_language():
           'value': 'eng'
         }
     ]
-
-    marc21xml = """
+    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    marc21xml = f"""
     <record>
       <controlfield tag="008">{field_008}</controlfield>
       <datafield tag="041" ind1=" " ind2=" ">
@@ -1289,9 +1281,7 @@ def test_marc21_to_language():
         <subfield code="a">rus</subfield>
       </datafield>
     </record>
-    """.format(
-        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
-    )
+    """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('language') == [
@@ -1308,17 +1298,15 @@ def test_marc21_to_language():
             'value': 'rus'
         }
     ]
-
-    marc21xml = """
+    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    marc21xml = f"""
     <record>
       <controlfield tag="008">{field_008}</controlfield>
       <datafield tag="546">
         <subfield code="a">LANGUAGE NOTE</subfield>
       </datafield>
     </record>
-    """.format(
-        field_008='881005s1984    xxu|||||| ||||00|| |ara d'
-    )
+    """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     assert data.get('language') == [

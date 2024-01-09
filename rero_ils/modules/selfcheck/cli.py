@@ -86,7 +86,7 @@ def create_terminal(name, user, location_pid, scopes, internal,
             db.session.commit()
 
         click.secho(f'login: {name}', fg='green')
-        click.secho(f'token: {access_token}', fg='green')
+        click.secho(access_token, fg='green')
 
 
 @click.command('list_terminal')

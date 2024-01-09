@@ -60,14 +60,11 @@ def node_assets(package, patterns=[
     def to_html(value):
         value = re.sub(r'(.*?)\/static', '/static', value)
         # default: js
-        html_code = '<script {tags} src="{value}"></script>'
+        html_code = f'<script {tags} src="{value}"></script>'
         # styles
         if _type == 'css':
-            html_code = '<link {tags} href="{value}" rel="stylesheet">'
-        return html_code.format(
-                value=value,
-                tags=tags
-            )
+            html_code = f'<link {tags} href="{value}" rel="stylesheet">'
+        return html_code
     output_files = []
     for pattern in patterns:
         files = glob.glob(os.path.join(package_path, pattern))
@@ -151,7 +148,7 @@ def empty_data(data, replacement_string='No data'):
     if data:
         return data
     else:
-        msg = '<em class="no-data">{0}</em>'.format(replacement_string)
+        msg = f'<em class="no-data">{replacement_string}</em>'
         return Markup(msg)
 
 

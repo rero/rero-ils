@@ -117,19 +117,17 @@ def load_virtua_transactions(
         records = read_json_record(infile)
     else:
         file_data = json.load(infile)
-    text = 'Loading Virtua transactions of type {transaction_type}'.format(
-            transaction_type=transaction_type
-        )
-    click.secho(text, fg='green')
+    click.secho(
+        f'Loading Virtua transactions of type {transaction_type}',
+        fg='green'
+    )
 
     for counter, transaction in enumerate(file_data, 1):
         missing_fields = check_missing_fields(transaction, transaction_type)
         if missing_fields:
-            text = '\ntransaction # {counter} missing fields: {fields}'.format(
-                    fields=missing_fields,
-                    counter=counter
-                )
-            click.secho(text, fg='red')
+            click.secho(
+                f'\ntransaction # {counter} missing fields: {missing_fields}',
+                fg='red')
             if save_errors:
                 error_file.write(transaction)
             continue
@@ -138,9 +136,10 @@ def load_virtua_transactions(
             patron_pid = extracted_data_from_ref(transaction.get('patron'))
             patron = Patron.get_record_by_pid(patron_pid)
             if not patron:
-                text = '\ntransaction # {counter} patron not in db'.format(
-                        counter=counter)
-                click.secho(text, fg='red')
+                click.secho(
+                    f'\ntransaction # {counter} patron not in db',
+                    fg='red'
+                )
                 if save_errors:
                     error_file.write(transaction)
                 continue
@@ -149,17 +148,14 @@ def load_virtua_transactions(
                 PatronTransaction.create(
                     transaction, dbcommit=True, reindex=True)
                 click.secho(
-                    '\ntransaction # {counter} created'.format(
-                        counter=counter
-                    ),
+                    f'\ntransaction # {counter} created',
                     fg='green'
                 )
             except Exception as error:
-                text = 'transaction# {counter} failed creation {error}'.format(
-                        counter=counter,
-                        error=error
-                    )
-                click.secho(text, fg='red')
+                click.secho(
+                    f'transaction# {counter} failed creation {error}',
+                    fg='red'
+                )
                 if save_errors:
                     error_file.write(transaction)
 
@@ -167,10 +163,10 @@ def load_virtua_transactions(
             item = Item.get_record_by_pid(transaction.get('item_pid'))
             patron = Patron.get_record_by_pid(transaction.get('patron_pid'))
             if not (item and patron):
-                text = '\ntransaction# {counter} item/patron not in db'.format(
-                        counter=counter
-                    )
-                click.secho(text, fg='red')
+                click.secho(
+                    f'\ntransaction# {counter} item/patron not in db',
+                    fg='red'
+                )
                 if save_errors:
                     error_file.write(transaction)
                     continue
@@ -182,17 +178,14 @@ def load_virtua_transactions(
                 elif transaction_type == 'checkout':
                     item.checkout(**transaction)
                 click.secho(
-                    '\ntransaction # {counter} created'.format(
-                        counter=counter
-                    ),
+                    f'\ntransaction # {counter} created',
                     fg='green'
                 )
             except Exception as error:
-                text = 'transaction# {counter} failed creation {error}'.format(
-                        counter=counter,
-                        error=error
-                    )
-                click.secho(text, fg='red')
+                click.secho(
+                    f'transaction# {counter} failed creation {error}',
+                    fg='red'
+                )
                 if save_errors:
                     error_file.write(transaction)
 

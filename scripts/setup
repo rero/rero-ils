@@ -76,6 +76,15 @@ invert_warning_option() {
   fi
 }
 
+create_token() {
+  if [ -z ${3} ]
+  then
+      eval ${PREFIX} invenio reroils utils token-create -n ${1} -u ${2}
+  else
+      eval ${PREFIX} invenio reroils utils token-create -n ${1} -u ${2} -t ${3}
+  fi
+}
+
 
 DEPLOYMENT=false
 LOAD_REMOTE_ENTITIES=false
@@ -257,17 +266,10 @@ eval ${PREFIX} "invenio reroils fixtures import_role_policies data/role_policies
 
 # create users
 info_msg "Create users"
-eval ${PREFIX} invenio users create -a admin@rero.ch --password administrator
-eval ${PREFIX} invenio users create -a editor@rero.ch --password editor
-eval ${PREFIX} invenio users create -a monitoring@rero.ch --password monitor
-eval ${PREFIX} invenio users create -a gipi@ngscan.com --password ngscan
-
-# confirm users
-info_msg "Confirm users"
-eval ${PREFIX} invenio reroils users confirm admin@rero.ch
-eval ${PREFIX} invenio reroils users confirm editor@rero.ch
-eval ${PREFIX} invenio reroils users confirm monitoring@rero.ch
-eval ${PREFIX} invenio reroils users confirm gipi@ngscan.com
+eval ${PREFIX} invenio users create --active --confirm --password administrator admin@rero.ch
+eval ${PREFIX} invenio users create --active --confirm --password editor editor@rero.ch
+eval ${PREFIX} invenio users create --active --confirm --password monitor monitoring@rero.ch
+eval ${PREFIX} invenio users create --active --confirm --password ngscan gipi@ngscan.com
 
 # grant accesses to action roles
 info_msg "Grant access to action roles"
@@ -283,6 +285,13 @@ eval ${PREFIX} invenio roles add admin@rero.ch monitoring
 eval ${PREFIX} invenio roles add editor@rero.ch editor
 eval ${PREFIX} invenio roles add monitoring@rero.ch monitoring
 eval ${PREFIX} invenio roles add gipi@ngscan.com document_importer
+
+# create token access for monitoring
+info_msg "Create token for: monitoring@rero.ch"
+create_token monitoring monitoring@rero.ch ${INVENIO_RERO_ACCESS_TOKEN_MONITORING}
+# create token access for ngscan (ezpump)
+info_msg "Create token for: gipi@ngscan.com"
+create_token ezpump gipi@ngscan.com ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
 
 # Generate fixtures
 info_msg "Generate fixtures:"
@@ -564,46 +573,9 @@ eval ${PREFIX} invenio reroils notifications process
 
 # create token access for system librarians
 info_msg "create an access token for all system librarians"
-if [ -z ${INVENIO_RERO_ACCESS_TOKEN_AOSTA_LIBRARIAN} ]
-then
-    eval ${PREFIX} invenio reroils utils tokens_create -n organisation_aosta_token -u reroilstest@gmail.com
-else
-    eval ${PREFIX} invenio reroils utils tokens_create -n organisation_aosta_token -u reroilstest@gmail.com -t ${INVENIO_RERO_ACCESS_TOKEN_AOSTA_LIBRARIAN}
-fi
-if [ -z ${INVENIO_RERO_ACCESS_TOKEN_SCOLAND_LIBRARIAN} ]
-then
-    eval ${PREFIX} invenio reroils utils tokens_create -n organisation_scotland_token -u reroilstest+irma@gmail.com
-else
-    eval ${PREFIX} invenio reroils utils tokens_create -n organisation_scotland_token -u reroilstest+irma@gmail.com -t ${INVENIO_RERO_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
-fi
-if [ -z ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN} ]
-then
-    eval ${PREFIX} invenio reroils utils tokens_create -n organisation_fictive_token -u reroilstest+imagination@gmail.com
-else
-    eval ${PREFIX} invenio reroils utils tokens_create -n organisation_fictive_token -u reroilstest+imagination@gmail.com -t ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
-fi
-
-# create token access for monitoring
-# if the environement variable INVENIO_RERO_ACCESS_TOKEN_MONITORING is not set
-# a new token will be generated
-info_msg "Create token for: monitoring@rero.ch"
-if [ -z ${INVENIO_RERO_ACCESS_TOKEN_MONITORING} ]
-then
-    eval ${PREFIX} invenio reroils utils tokens_create -n monitoring -u monitoring@rero.ch
-else
-    eval ${PREFIX} invenio reroils utils tokens_create -n monitoring -u monitoring@rero.ch -t ${INVENIO_RERO_ACCESS_TOKEN_MONITORING}
-fi
-
-# create token access for ngscan (ezpump)
-# if the environement variable INVENIO_RERO_ACCESS_TOKEN_NGSCAN is not set a new
-# token will be generated
-info_msg "Create token for: gipi@ngscan.com"
-if [ -z ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN} ]
-then
-    eval ${PREFIX} invenio reroils utils tokens_create -n ezpump -u gipi@ngscan.com
-else
-    eval ${PREFIX} invenio reroils utils tokens_create -n ezpump -u gipi@ngscan.com -t ${INVENIO_RERO_ACCESS_TOKEN_NGSCAN}
-fi
+token_create organisation_aosta_token reroilstest@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_AOSTA_LIBRARIAN}
+token_create organisation_scotland_token reroilstest+irma@gmail.com  ${INVENIO_RERO_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
+token_create organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
 
 # # OAI configuration
 info_msg "OAI configuration: ${DATA_PATH}/oaisources.yml"

@@ -68,7 +68,7 @@ def test_patron_types_get(client, patron_type_children_martigny):
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(patron_type.revision_id)
+    assert res.headers['ETag'] == f'"{patron_type.revision_id}"'
 
     data = get_json(res)
     assert patron_type.dumps() == data['metadata']
@@ -127,7 +127,7 @@ def test_patron_types_post_put_delete(client, org_martigny,
         headers=json_header
     )
     assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
+    # assert res.headers['ETag'] != f'"{librarie.revision_id}"'
 
     # Check that the returned record matches the given data
     data = get_json(res)

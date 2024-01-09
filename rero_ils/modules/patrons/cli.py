@@ -100,16 +100,15 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                 patron.update(
                     data=User.remove_fields(data), dbcommit=True, reindex=True)
                 if verbose:
-                    click.secho('{count: <8} Patron updated: {username}'
-                                .format(count=count, username=username),
-                                fg='yellow')
+                    click.secho(
+                        f'{count:<8} Patron updated: '
+                        f'{patron.patron.user_name}',
+                        fg='yellow'
+                    )
         except Exception as err:
             error_records.append(patron_data)
             click.secho(
-                '{count: <8} User create error: {err}'.format(
-                    count=count,
-                    err=err
-                ),
+                f'{count:<8} User create error: {err}',
                 fg='red'
             )
             if debug:

@@ -191,6 +191,9 @@ def create_subscription_for_patron(
     """
     record = {}
     if patron_type.is_subscription_required:
+        name = patron_type.get('name'),
+        start = start_date.strftime('%Y-%m-%d'),
+        end = end_date.strftime('%Y-%m-%d')
         data = {
             'patron': {
                 '$ref': get_ref_for_pid('ptrn', patron.pid)
@@ -202,12 +205,7 @@ def create_subscription_for_patron(
             'creation_date': datetime.now(timezone.utc).isoformat(),
             'type': 'subscription',
             'status': 'open',
-            'note': _("Subscription for '{name}' from {start} to {end}")
-            .format(
-                name=patron_type.get('name'),
-                start=start_date.strftime('%Y-%m-%d'),
-                end=end_date.strftime('%Y-%m-%d')
-            )
+            'note': _(f"Subscription for '{name}' from {start} to {end}")
         }
         record = PatronTransaction.create(
             data,

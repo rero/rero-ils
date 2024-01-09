@@ -68,12 +68,12 @@ def jsonify_error(func):
             raise error
         except (TemplateSyntaxError, UndefinedError) as error:
             return jsonify(
-                {'status': 'error: {error}'.format(error=error)}), 400
+                {'status': f'error: {error}'}), 400
         except Exception as error:
             current_app.logger.error(str(error))
             db.session.rollback()
             return jsonify(
-                {'status': 'error: {error}'.format(error=error)}), 500
+                {'status': f'error: {error}'}), 500
     return decorated_view
 
 

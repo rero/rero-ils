@@ -100,13 +100,12 @@ def locations_form_options():
             .sort({'code': {'order': 'asc'}}) \
             .params(preserve_order=True)
         for location in query.scan():
+            org_name = org.get('name'),
+            loc_code = location.code,
+            loc_name = location.name
             location_opts.append({
                 'location_pid': location.pid,
-                'location_name': '{org} - {loc_code} ({loc_name})'.format(
-                    org=org.get('name'),
-                    loc_code=location.code,
-                    loc_name=location.name
-                )
+                'location_name': f'{org_name} - {loc_code} ({loc_name})'
             })
     return location_opts
 

@@ -410,11 +410,11 @@ def get_schema_for_resource(resource):
         resource = resource.provider.pid_type
     schemas = current_app.config.get('RERO_ILS_DEFAULT_JSON_SCHEMA')
     if resource in schemas:
-        return '{scheme}://{url}{endpoint}{schema}'.format(
-            scheme=current_app.config.get('JSONSCHEMAS_URL_SCHEME'),
-            url=current_app.config.get('JSONSCHEMAS_HOST'),
-            endpoint=current_app.config.get('JSONSCHEMAS_ENDPOINT'),
-            schema=schemas[resource]
+        return (
+            f'{current_app.config.get("JSONSCHEMAS_URL_SCHEME")}://'
+            f'{current_app.config.get("JSONSCHEMAS_HOST")}'
+            f'{current_app.config.get("JSONSCHEMAS_ENDPOINT")}'
+            f'{schemas[resource]}'
         )
 
 
@@ -475,12 +475,8 @@ def pids_exists_in_data(info, data, required=None, not_required=None):
                             pid=data_pid
                         ):
                             return_value.append(
-                                '{info}: {text} {pid_type} {pid}'.format(
-                                    info=info,
-                                    text='Pid does not exist:',
-                                    pid_type=pid_type,
-                                    pid=data_pid
-                                )
+                                f'{info}: Pid does not exist: '
+                                f'{pid_type} {data_pid}'
                             )
                 if is_required and not data_to_test_list:
                     return_value.append(
@@ -507,9 +503,9 @@ def pids_exists_in_data(info, data, required=None, not_required=None):
 
 def get_base_url():
     """Get base url."""
-    return '{scheme}://{host}'.format(
-        scheme=current_app.config.get('RERO_ILS_APP_URL_SCHEME'),
-        host=current_app.config.get('RERO_ILS_APP_HOST')
+    return (
+        f'{current_app.config.get("RERO_ILS_APP_URL_SCHEME")}://'
+        f'{current_app.config.get("RERO_ILS_APP_HOST")}'
     )
 
 
@@ -524,11 +520,7 @@ def get_ref_for_pid(module, pid):
     if module == 'loans':
         configuration = {'list_route': '/loans/'}
     if configuration and configuration.get('list_route'):
-        return '{url}/api{route}{pid}'.format(
-            url=get_base_url(),
-            route=configuration.get('list_route'),
-            pid=pid
-        )
+        return f'{get_base_url()}/api{configuration.get("list_route")}{pid}'
 
 
 def get_record_class_from_schema_or_pid_type(schema=None, pid_type=None):
@@ -686,11 +678,10 @@ def timeit(func):
     def wrapped(*args, **kwargs):
         start_time = datetime.now()
         result = func(*args, **kwargs)
-        click.echo('\t>> timeit: {time} {func_name} {args}'.format(
-            time=datetime.now() - start_time,
-            func_name=func,
-            args=type(args[0])
-        ))
+        click.echo(
+            f'\t>> timeit: {datetime.now() - start_time} '
+            f'{func} {type(args[0])}'
+        )
         return result
     return wrapped
 
@@ -766,7 +757,7 @@ def db_copy_from(buffer, table, columns, raise_exception=True):
         if raise_exception:
             raise psycopg2.DataError(error)
         else:
-            current_app.logger.error('data load error: {0}'.format(error))
+            current_app.logger.error('data load error: {error}')
     connection.close()
 
 
@@ -786,8 +777,8 @@ def db_copy_to(filehandle, table, columns, raise_exception=True):
         if raise_exception:
             raise psycopg2.DataError(error)
         else:
-            current_app.logger.error('data load error: {0}'.format(error))
-    cursor.execute('VACUUM ANALYSE {table}'.format(table=table))
+            current_app.logger.error(f'data load error: {error}')
+    cursor.execute(f'VACUUM ANALYSE {table}')
     cursor.close()
     connection.close()
 
@@ -816,11 +807,8 @@ def bulk_load(pid_type, data, table, columns, bulk_count=0, verbose=False,
                     diff_time = end_time - start_time
                     start_time = end_time
                     click.echo(
-                        '{pid_type} copy from file: {count} {time}s'.format(
-                            pid_type=pid_type,
-                            count=count,
-                            time=diff_time.seconds
-                        ),
+                        f'{pid_type} copy from file: {count} '
+                        f'{diff_time.seconds}s',
                         nl=False
                     )
                 db_copy_from(buffer=buffer, table=table, columns=columns)
@@ -838,11 +826,7 @@ def bulk_load(pid_type, data, table, columns, bulk_count=0, verbose=False,
             end_time = datetime.now()
             diff_time = end_time - start_time
             click.echo(
-                '{pid_type} copy from file: {count} {time}s'.format(
-                    pid_type=pid_type,
-                    count=count,
-                    time=diff_time.seconds
-                ),
+                f'{pid_type} copy from file: {count} {diff_time.seconds}s',
                 nl=False
             )
         buffer.flush()
@@ -940,10 +924,7 @@ def bulk_save(pid_type, file_name, table, columns, verbose=False):
 def bulk_save_metadata(pid_type, file_name, verbose=False):
     """Bulk save pid_type data from metadata table."""
     if verbose:
-        click.echo('Save {pid_type} metadata to file: {filename}'.format(
-            pid_type=pid_type,
-            filename=file_name
-        ))
+        click.echo(f'Save {pid_type} metadata to file: {file_name}')
     record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
     metadata, identifier = record_class.get_metadata_identifier_names()
     columns = (
@@ -965,10 +946,7 @@ def bulk_save_metadata(pid_type, file_name, verbose=False):
 def bulk_save_pidstore(pid_type, file_name, file_name_tmp, verbose=False):
     """Bulk save pid_type data from pids table."""
     if verbose:
-        click.echo('Save {pid_type} pidstore to file: {filename}'.format(
-            pid_type=pid_type,
-            filename=file_name
-        ))
+        click.echo(f'Save {pid_type} pidstore to file: {file_name}')
     if not os.path.isfile(file_name_tmp):
         table = 'pidstore_pid'
         columns = (
@@ -1001,10 +979,7 @@ def bulk_save_pidstore(pid_type, file_name, file_name_tmp, verbose=False):
 def bulk_save_pids(pid_type, file_name, verbose=False):
     """Bulk save pid_type data from id table."""
     if verbose:
-        click.echo('Save {pid_type} ids to file: {filename}'.format(
-            pid_type=pid_type,
-            filename=file_name
-        ))
+        click.echo(f'Save {pid_type} ids to file: {file_name}')
     record_class = get_record_class_from_schema_or_pid_type(pid_type=pid_type)
     metadata, identifier = record_class.get_metadata_identifier_names()
     columns = ('recid', )

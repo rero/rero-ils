@@ -81,20 +81,19 @@ def collection_view_method(pid, record, template=None, **kwargs):
 
 def _start_end_date(start_date, end_date):
     """Format date."""
-    return '{start} - {end}'.format(
-        start=format_date_filter(
-            start_date,
-            date_format='short',
-            time_format=None,
-            locale='fr'
-        ),
-        end=format_date_filter(
-            end_date,
-            date_format='short',
-            time_format=None,
-            locale='fr'
-        )
+    start = format_date_filter(
+        start_date,
+        date_format='short',
+        time_format=None,
+        locale='fr'
     )
+    end = format_date_filter(
+        end_date,
+        date_format='short',
+        time_format=None,
+        locale='fr'
+    )
+    return f'{start} - {end}'
 
 
 @blueprint.app_template_filter()

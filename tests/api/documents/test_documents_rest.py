@@ -61,7 +61,7 @@ def test_documents_newacq_filters(app, client,
     acq_future_timestamp = datetime_milliseconds(datetime_delta(days=1))
     today = today.strftime('%Y-%m-%d')
 
-    # # Add a new items with acq_date
+    # add a new item with acq_date
     new_acq1 = deepcopy(item_lib_martigny_data)
     new_acq1['pid'] = 'itemacq1'
     new_acq1['acquisition_date'] = today
@@ -104,7 +104,7 @@ def test_documents_newacq_filters(app, client,
     doc_list = url_for(
         'invenio_records_rest.doc_list',
         view='global',
-        new_acquisition='{0}:{1}'.format(past, future_1),
+        new_acquisition=f'{past}:{future_1}',
         organisation='org1'
     )
     res = client.get(doc_list, headers=rero_json_header)
@@ -116,7 +116,7 @@ def test_documents_newacq_filters(app, client,
     doc_list = url_for(
         'invenio_records_rest.doc_list',
         view='global',
-        new_acquisition='{0}:{1}'.format(past, future_1),
+        new_acquisition=f'{past}:{future_1}',
         library='lib2'
     )
     res = client.get(doc_list, headers=rero_json_header)
@@ -127,7 +127,7 @@ def test_documents_newacq_filters(app, client,
     doc_list = url_for(
         'invenio_records_rest.doc_list',
         view='global',
-        new_acquisition='{0}:{1}'.format(past, future_1),
+        new_acquisition=f'{past}:{future_1}',
         location='loc3'
     )
     res = client.get(doc_list, headers=rero_json_header)
@@ -138,7 +138,7 @@ def test_documents_newacq_filters(app, client,
     doc_list = url_for(
         'invenio_records_rest.doc_list',
         view='global',
-        new_acquisition='{0}:{1}'.format(past, today),
+        new_acquisition=f'{past}:{today}',
         location='loc3'
     )
     res = client.get(doc_list, headers=rero_json_header)
@@ -150,8 +150,7 @@ def test_documents_newacq_filters(app, client,
     doc_list = url_for(
         'invenio_records_rest.doc_list',
         view='global',
-        acquisition='{0}--{1}'.format(
-            acq_past_timestamp, acq_future_timestamp),
+        acquisition=f'{acq_past_timestamp}--{acq_future_timestamp}'
     )
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
@@ -398,7 +397,7 @@ def test_documents_post_put_delete(
         headers=rero_json_header
     )
     assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
+    # assert res.headers['ETag'] != f'"{librarie.revision_id}"'
 
     # Check that the returned record matches the given data
     data = get_json(res)

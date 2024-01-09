@@ -60,7 +60,7 @@ def test_documents_get(client, document):
     item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
     res = client.get(item_url)
     assert res.status_code == 200
-    assert res.headers['ETag'] == '"{}"'.format(document.revision_id)
+    assert res.headers['ETag'] == f'"{document.revision_id}"'
     data = get_json(res)
     # DEV NOTES : Why removing `identifiedBy` key
     #   During the ES enrichment process, we complete the original identifiers

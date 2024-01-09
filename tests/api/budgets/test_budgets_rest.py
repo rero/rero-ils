@@ -60,7 +60,7 @@ def test_budgets_get(client, budget_2020_martigny):
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(budget.revision_id)
+    assert res.headers['ETag'] == f'"{budget.revision_id}"'
 
     data = get_json(res)
     assert budget.dumps() == data['metadata']
@@ -118,7 +118,7 @@ def test_budgets_post_put_delete(client,
         headers=json_header
     )
     assert res.status_code == 200
-    # assert res.headers['ETag'] != '"{}"'.format(librarie.revision_id)
+    # assert res.headers['ETag'] != f'"librarie.revision_id}"'
 
     # Check that the returned record matches the given data
     data = get_json(res)
