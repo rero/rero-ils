@@ -33,12 +33,13 @@ def test_vendors_get(client, librarian_martigny, vendor_martigny):
         pid_value=vendor_martigny.pid)
     list_url = url_for(
         'invenio_records_rest.vndr_list',
-        q='pid:{pid}'.format(pid=vendor_martigny.pid))
+        q=f'pid:{vendor_martigny.pid}'
+    )
 
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(vendor_martigny.revision_id)
+    assert res.headers['ETag'] == f'"{vendor_martigny.revision_id}"'
 
     data = get_json(res)
     assert vendor_martigny.dumps() == data['metadata']

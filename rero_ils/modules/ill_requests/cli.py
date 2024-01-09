@@ -63,10 +63,10 @@ def create_ill_requests(input_file):
                     dbcommit=True,
                     reindex=True
                 )
-                click.echo('\tRequest: #{pid}  \tfor org#{org_id}'.format(
-                    pid=request.pid,
-                    org_id=request.organisation_pid
-                ))
+                click.echo(
+                    f'\tRequest: #{request.pid}  \t'
+                    f'for org#{request.organisation_pid}'
+                )
 
 
 def get_locations():

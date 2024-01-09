@@ -54,18 +54,15 @@ def publish_harvested_records(sender=None, records=None, max_results=None,
             converted_records.append(rec)
     if converted_records:
         current_app.logger.info(
-            'publish_harvester: received {count} records to create'
-            .format(count=len(converted_records))
+            f'publish_harvester: received {len(converted_records)} '
+            'records to create'
         )
         create_records(converted_records)
     if deleted_records:
         current_app.logger.info(
-            'publish_harvester: received {count} records to delete'
-            .format(count=len(deleted_records))
+            f'publish_harvester: received {len(deleted_records)} '
+            'records to delete'
         )
         delete_records(deleted_records)
-    msg = 'deleted: {delete_count}, created: {create_count}'.format(
-        delete_count=len(deleted_records),
-        create_count=len(converted_records)
-    )
+    msg = f'deleted: {len(deleted_records)}, created: {len(converted_records)}'
     set_timestamp('ebooks-harvester', msg=msg)

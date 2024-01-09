@@ -158,7 +158,7 @@ class Holding(IlsRecord):
             self.get('document').get('$ref'))
         document = Document.get_record_by_pid(document_pid)
         if not document:
-            return _('Document does not exist {pid}.'.format(pid=document_pid))
+            return _(f'Document does not exist {document_pid}.')
 
         if self.is_serial:
             patterns = self.get('patterns', {})
@@ -179,8 +179,7 @@ class Holding(IlsRecord):
             ]
             for field in fields:
                 if self.get(field):
-                    msg = _('{field} is allowed only for serial holdings')
-                    return _(msg.format(field=field))
+                    return _(f'{field} is allowed only for serial holdings')
         # No multiple notes with same type
         note_types = [note.get('type') for note in self.get('notes', [])]
         if len(note_types) != len(set(note_types)):
@@ -471,8 +470,8 @@ class Holding(IlsRecord):
             if not_deleteable_items:
                 count = len(not_deleteable_items)
                 cannot_delete['others'] = {
-                    _('has {count} items with loan attached'.format(
-                        count=count)): count}
+                    _(f'has {count} items with loan attached'): count
+                }
         else:
             links = self.get_links_to_me()
             # local_fields isn't a reason to block holding suppression
@@ -500,9 +499,9 @@ class Holding(IlsRecord):
                 patron.patron_type_pid,
                 self.circulation_category_pid
             )
-            text = '{0} {1} days'.format(
-                _(cipo.get('name')), cipo.get('checkout_duration'))
-            return text
+            name = _(cipo.get("name"))
+            checkout_duration = cipo.get("checkout_duration")
+            return f'{name} {checkout_duration} days'
         else:
             return ItemType.get_record_by_pid(
                 self.circulation_category_pid).get('name')

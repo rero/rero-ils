@@ -69,7 +69,6 @@ def acquisition_filter():
         range_acquisition_dates = {'lte': values.get('to') or 'now/d'}
         if values.get('from'):
             range_acquisition_dates['gte'] = values.get('from')
-
         # build general 'match' query (including acq date range query)
         must_queries = [Q(
             'range',
@@ -80,7 +79,7 @@ def acquisition_filter():
         # needed
         for level in ['location', 'library', 'organisation']:
             if arg := request.args.get(level):
-                field = 'holdings__items__acquisition__{0}_pid'.format(level)
+                field = f'holdings__items__acquisition__{level}_pid'
                 must_queries.append(Q('match', **{field: arg}))
 
         return Q(

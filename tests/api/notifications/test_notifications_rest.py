@@ -126,11 +126,8 @@ def test_notification_secure_api(client, json_header,
 
     # test notification creation
     notif = deepcopy(dummy_notification)
-    notif_data = {
-        'loan_url': 'https://bib.rero.ch/api/loans/',
-        'pid': loan_validated_martigny.get('pid')
-    }
-    loan_ref = '{loan_url}{pid}'.format(**notif_data)
+    loan_pid = loan_validated_martigny.get('pid')
+    loan_ref = f'https://bib.rero.ch/api/loans/{loan_pid}'
     notif['context']['loan'] = {"$ref": loan_ref}
     res, _ = postdata(
         client,
@@ -211,7 +208,7 @@ def test_notifications_get(
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(record.revision_id)
+    assert res.headers['ETag'] == f'"{record.revision_id}"'
 
     data = get_json(res)
     assert record.dumps() == data['metadata']

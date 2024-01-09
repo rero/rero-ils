@@ -22,7 +22,7 @@ from os.path import dirname, join
 from click.testing import CliRunner
 
 from rero_ils.modules.cli.utils import check_validate, extract_from_xml, \
-    tokens_create
+    token_create
 
 
 def test_cli_validate(app, script_info):
@@ -46,7 +46,7 @@ def test_cli_access_token(app, script_info, patron_martigny):
     """Test access token cli."""
     runner = CliRunner()
     res = runner.invoke(
-        tokens_create,
+        token_create,
         ['-n', 'test', '-u', patron_martigny.dumps().get('email'),
          '-t', 'my_token'],
         obj=script_info

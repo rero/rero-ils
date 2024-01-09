@@ -146,8 +146,7 @@ def to_relative_url(url):
     """
     parsed = urlparse(url)
     return parsed.path + '?' + '&'.join([
-        '{0}={1}'.format(param, val[0]) for
-        param, val in parse_qs(parsed.query).items()
+        f'{param}={val[0]}' for param, val in parse_qs(parsed.query).items()
     ])
 
 
@@ -251,22 +250,13 @@ def jsonloader(uri, **kwargs):
     # TODO: find a better way to determine name and path.
     if ref_split[-2] == 'common':
         path = 'rero_ils.jsonschemas'
-        name = 'common/{name}'.format(
-            name=ref_split[-1]
-        )
+        name = f'common/{ref_split[-1]}'
     else:
         if ref_split[-2] in ['remote_entities', 'local_entities']:
-            path = 'rero_ils.modules.entities.{type}.jsonschemas'.format(
-                type=ref_split[-2]
-            )
+            path = f'rero_ils.modules.entities.{ref_split[-2]}.jsonschemas'
         else:
-            path = 'rero_ils.modules.{type}.jsonschemas'.format(
-                type=ref_split[-2]
-            )
-        name = '{type}/{name}'.format(
-            type=ref_split[-2],
-            name=ref_split[-1]
-        )
+            path = f'rero_ils.modules.{ref_split[-2]}.jsonschemas'
+        name = f'{ref_split[-2]}/{ref_split[-1]}'
 
     schema_in_bytes = resource_string(path, name)
     schema = json.loads(schema_in_bytes.decode('utf8'))

@@ -70,7 +70,7 @@ def test_acq_accounts_get(client, acq_account_fiction_martigny):
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == '"{}"'.format(acq_account.revision_id)
+    assert res.headers['ETag'] == f'"{acq_account.revision_id}"'
 
     data = get_json(res)
     assert acq_account.dumps() == data['metadata']

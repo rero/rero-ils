@@ -122,15 +122,11 @@ class AcquisitionInvoice(AcquisitionIlsRecord):
         if not library_pid:
             library_pid = data.get('library').get(
                 '$ref').split('libraries/')[1]
-        org_pid = Library.get_record_by_pid(library_pid).organisation_pid
-        url_api = '{base_url}/api/{doc_type}/{pid}'
-        org_ref = {
-            '$ref': url_api.format(
-                base_url=get_base_url(),
-                doc_type='organisations',
-                pid=org_pid or cls.organisation_pid)
+        org_pid = Library.get_record_by_pid(library_pid).organisation_pid \
+            or cls.organisation_pid
+        data['organisation'] = {
+            '$ref': f'{get_base_url()}/api/organisations/{org_pid}'
         }
-        data['organisation'] = org_ref
 
     @property
     def organisation_pid(self):

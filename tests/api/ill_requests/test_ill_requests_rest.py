@@ -68,7 +68,7 @@ def test_ill_requests_get(client, ill_request_martigny):
     item_url = url_for('invenio_records_rest.illr_item', pid_value='illr1')
     res = client.get(item_url)
     assert res.status_code == 200
-    assert res.headers['ETag'] == '"{}"'.format(ill_request.revision_id)
+    assert res.headers['ETag'] == f'"{ill_request.revision_id}"'
 
     data = get_json(res)
     assert ill_request.dumps() == data['metadata']

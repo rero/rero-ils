@@ -394,11 +394,7 @@ class Patron(IlsRecord):
         main = _('Your account is currently blocked.') if public \
             else _('This patron is currently blocked.')
         if self.is_blocked:
-            return '{main} {reason_str}: {reason}'.format(
-                main=main,
-                reason_str=_('Reason'),
-                reason=self.patron.get('blocked_note')
-            )
+            return f'{main} {_("Reason")}: {self.patron.get("blocked_note")}'
 
     def add_subscription(self, patron_type, start_date, end_date,
                          dbcommit=True, reindex=True, delete_pids=False):

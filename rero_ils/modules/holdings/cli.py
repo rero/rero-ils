@@ -168,19 +168,10 @@ def create_patterns(infile, verbose, debug, lazy):
             # create minimum 3 and max 9 received issues for this holdings
             count = create_issues_from_holding(holding=holdings_record,
                                                min=3, max=9)
-            text = '> created {count} received issues for holdings: '.format(
-                count=count
-            )
             click.echo(
-                '{ptr_str}{template}{hld_str} {holding} {doc_str} {document}'
-                .format(
-                    ptr_str='Pattern <',
-                    template=template_name,
-                    hld_str=text,
-                    holding=holdings_record.pid,
-                    doc_str='and document: ',
-                    document=document_pid
-                )
+                f'Pattern <{template_name}> created {count} '
+                f'received issues for holdings:  {holdings_record.pid} '
+                f'and document: {document_pid}'
             )
         record_index = record_index + 1
     # create some late issues.

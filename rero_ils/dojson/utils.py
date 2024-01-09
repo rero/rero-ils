@@ -403,7 +403,7 @@ def remove_trailing_punctuation(
             re.sub(r'([\.\[\]\^\\-])', r'\\\1', spaced_punctuation)
 
     return re.sub(
-        r'([{0}]|\s+[{1}])$'.format(punctuation, spaced_punctuation),
+        fr'([{punctuation}]|\s+[{spaced_punctuation}])$',
         '',
         data.rstrip()).rstrip()
 
@@ -590,15 +590,14 @@ class BookFormatExtraction(object):
             """
             # generic regexp valid for all values
             regexp = \
-                r'(^|[^\d]){val}\s?[°⁰º]|in(-|-gr\.)*\s*{val}($|[^\d])'.format(
-                    val=value)
+                fr'(^|[^\d]){value}\s?[°⁰º]|in(-|-gr\.)*\s*{value}($|[^\d])'
             # add specific value regexp
             if value in self._specific_for_1248:
                 regexp = '|'.join([regexp, self._specific_for_1248[value]])
             else:
-                additional = r'[^\d]{val}mo|^{val}mo'.format(val=value)
+                additional = fr'[^\d]{value}mo|^{value}mo'
                 regexp = '|'.join([regexp, additional])
-            return '({regexp})'.format(regexp=regexp)
+            return f'({regexp})'
 
         def _populate_regexp():
             """Populate all the expression patterns."""
@@ -855,12 +854,13 @@ class ReroIlsOverdo(Overdo):
             if not data['extent']:
                 data.pop('extent')
             # extract the duration
+            circa_env = r'\s*(ca\.?|env\.?)?\s*\d+'
+            hour_min = r'(h|St(d|\.|u)|[mM]in)'
             regexp = re.compile(
-                r'(\((\[?{circa_env}\]?\s*{hour_min}.*?)\))|'
-                r'(\[({circa_env}\s*{hour_min}.*?)\])'.format(
-                        circa_env=r'\s*(ca\.?|env\.?)?\s*\d+',
-                        hour_min=r'(h|St(d|\.|u)|[mM]in)'),
-                re.IGNORECASE)
+                fr'(\((\[?{circa_env}\]?\s*{hour_min}.*?)\))|'
+                fr'(\[({circa_env}\s*{hour_min}.*?)\])',
+                re.IGNORECASE
+            )
             match = regexp.search(extent)
             if match and match.group(1):
                 duration = match.group(1).strip('()')
@@ -1032,13 +1032,12 @@ class ReroIlsOverdo(Overdo):
                 index += 1
 
         error_msg = ''
-        regexp = re.compile(r'^[^{}]'.format(series_title_subfield_code))
+        regexp = re.compile(fr'^[^{series_title_subfield_code}]')
         if regexp.search(subfield_visited):
-            error_msg = \
-                'missing leading subfield ${code} in field {tag}'.format(
-                    code=series_title_subfield_code,
-                    tag=tag
-                )
+            error_msg = (
+                f'missing leading subfield ${series_title_subfield_code} '
+                f'in field {tag}'
+            )
             error_print('ERROR BAD FIELD FORMAT:', self.bib_id, self.rero_id,
                         error_msg)
         else:

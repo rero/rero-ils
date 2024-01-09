@@ -161,7 +161,7 @@ class ImportsMarcSearchSerializer(JSONSerializer):
             for key, value in ordered_dict.items():
                 if key != '__order__':
                     if len(key) == 5:
-                        key = '{tag} {ind}'.format(tag=key[:3], ind=key[3:])
+                        key = f'{key[:3]} {key[3:]}'
                     if isinstance(value, dict):
                         res.append([key, sort_ordered_dict(value)])
                     else:

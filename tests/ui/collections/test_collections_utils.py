@@ -34,4 +34,5 @@ def test_start_end_date(db, coll_martigny_1_data):
     coll = Collection.create(coll_martigny_1_data, delete_pid=True)
     assert _start_end_date(
         coll.get('start_date'),
-        coll.get('end_date')) == result
+        coll.get('end_date')
+    ) == result

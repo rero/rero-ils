@@ -21,7 +21,7 @@
 from click.testing import CliRunner
 from utils import login_user_via_session, postdata
 
-from rero_ils.modules.cli.utils import tokens_create
+from rero_ils.modules.cli.utils import token_create
 
 
 def test_marcxml_documents_create(
@@ -65,7 +65,7 @@ def test_marcxml_documents_create_with_a_token(
     """Test post of marcxml document with an access token."""
     runner = CliRunner()
     res = runner.invoke(
-        tokens_create,
+        token_create,
         ['-n', 'test', '-u', librarian_martigny.dumps().get('email'),
          '-t', 'my_token'],
         obj=script_info

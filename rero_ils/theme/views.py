@@ -156,10 +156,7 @@ def url_active(string, target):
         if link:
             string = string.replace(
                 link,
-                '<a href="{url}" target="{target}">{url}</a>'.format(
-                    url=link,
-                    target=target
-                )
+                f'<a href="{link}" target="{target}">{link}</a>'
             )
     return string
 

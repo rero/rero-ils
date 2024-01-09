@@ -1637,7 +1637,7 @@ def create_personal(
     return token
 
 
-@utils.command('tokens_create')
+@utils.command()
 @click.option('-n', '--name', required=True)
 @click.option(
     '-u', '--user', required=True, callback=process_user,
@@ -1649,13 +1649,16 @@ def create_personal(
     '-t', '--access_token', 'access_token', required=False,
     help='personalized access_token.')
 @with_appcontext
-def tokens_create(name, user, scopes, internal, access_token):
+def token_create(name, user, scopes, internal, access_token):
     """Create a personal OAuth token."""
-    token = create_personal(
-        name, user.id, scopes=scopes, is_internal=internal,
-        access_token=access_token)
-    db.session.commit()
-    click.secho(token.access_token, fg='blue')
+    if user:
+        token = create_personal(
+            name, user.id, scopes=scopes, is_internal=internal,
+            access_token=access_token)
+        db.session.commit()
+        click.secho(token.access_token, fg='blue')
+    else:
+        click.secho('No user found', fg='red')
 
 
 @utils.command('add_cover_urls')

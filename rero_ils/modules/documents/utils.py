@@ -266,9 +266,7 @@ def create_authorized_access_point(agent):
         if place := agent.get('place'):
             conference_data.append(place)
         if conference_data:
-            authorized_access_point += ' ({conference})'.format(
-                conference=' : '.join(conference_data)
-            )
+            authorized_access_point += f' ({" : ".join(conference_data)})'
     return authorized_access_point
 
 

@@ -46,21 +46,13 @@ def _add_org_and_lib(record):
         library = Location.get_record_by_pid(location_pid).get_library()
         library_pid = library.pid
         organisation_pid = library.organisation_pid
-    url_api = '{base_url}/api/{doc_type}/{pid}'
-    org_ref = {
-        '$ref': url_api.format(
-            base_url=get_base_url(),
-            doc_type='organisations',
-            pid=organisation_pid)
+    base_url = get_base_url()
+    record['organisation'] = {
+        '$ref': f'{base_url}/api/organisations/{organisation_pid}'
     }
-    record['organisation'] = org_ref
-    lib_ref = {
-        '$ref': url_api.format(
-            base_url=get_base_url(),
-            doc_type='libraries',
-            pid=library_pid)
+    record['library'] = {
+        '$ref': f'{base_url}/api/libraries/{library_pid}'
     }
-    record['library'] = lib_ref
 
 
 class OrgLibRecordExtension(RecordExtension):

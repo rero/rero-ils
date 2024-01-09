@@ -41,7 +41,7 @@ class TextWithIcon():
 
     def __html__(self):
         """Jinja call this method during the rendering."""
-        return '{icon} {text}'.format(icon=self.icon, text=_(self.text))
+        return f'{self.icon} {_(self.text)}'
 
 
 class UserName():
@@ -67,11 +67,8 @@ class CurrentLanguage():
 
     def __html__(self):
         """Jinja call this method during the rendering."""
-        ui_language = 'ui_language_{lang}'.format(
-            lang=current_i18n.language)
-        return '{icon} {text}'.format(
-            icon='<i class="fa fa-language"></i>',
-            text=_(ui_language))
+        ui_language = f'ui_language_{current_i18n.language}'
+        return f'<i class="fa fa-language"></i> {_(ui_language)}'
 
 
 def rero_register(
@@ -228,10 +225,8 @@ def init_menu_lang():
         return current_i18n.language != lang
 
     for language_item in current_i18n.get_locales():
-        item = current_menu.submenu(
-            'main.menu.lang_{language}'.format(
-                language=language_item.language))
-        ui_language = 'ui_language_{lang}'.format(lang=language_item.language)
+        item = current_menu.submenu(f'main.menu.lang_{language_item.language}')
+        ui_language = f'ui_language_{language_item.language}'
         rero_register(
             item,
             endpoint='invenio_i18n.set_lang',
@@ -243,8 +238,8 @@ def init_menu_lang():
             ),
             visible_when=partial(hide_language, language_item.language),
             order=order,
-            id='language-menu-{language}'.format(
-                language=language_item.language))
+            id=f'language-menu-{language_item.language}'
+        )
         order += 1
 
 
@@ -297,15 +292,14 @@ def init_menu_profile():
     )
 
     item = current_menu.submenu('main.profile.logout')
+    viewcode = request.view_args.get(
+        'viewcode',
+        current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE')
+    )
     rero_register(
         item,
         endpoint='security.logout',
-        endpoint_arguments_constructor=lambda: dict(
-            next='/{viewcode}'.format(viewcode=request.view_args.get(
-                'viewcode', current_app.config.get(
-                    'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
-            )
-        ),
+        endpoint_arguments_constructor=lambda: dict(next=f'/{viewcode}'),
         visible_when=lambda: current_user.is_authenticated,
         text=TextWithIcon(
             icon='<i class="fa fa-sign-out"></i>',
