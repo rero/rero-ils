@@ -136,7 +136,9 @@ class CirculationActionDumper(InvenioRecordsDumper):
 
         data['actions'] = list(record.actions)
 
-        # only the first request is used by the UI
+        # add the current pending requests count
+        data['current_pending_requests'] = record.get_requests(output='count')
+        # add metadata of the first pending request
         requests = record.get_requests(sort_by='_created')
         if first_request := next(requests, None):
             data['pending_loans'] = [
