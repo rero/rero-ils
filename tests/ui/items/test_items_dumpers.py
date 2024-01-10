@@ -66,6 +66,9 @@ def test_item_action_circulation_dumper(
     # pending loans
     assert len(data['pending_loans']) == 1
 
+    # number of pending requests
+    assert data['current_pending_requests'] == 1
+
 
 def test_item_circulation_dumper(item_lib_martigny):
     """Test item circulation dumper."""
