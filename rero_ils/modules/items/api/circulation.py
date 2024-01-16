@@ -474,28 +474,32 @@ class ItemCirculation(ItemRecord):
             self.status_update(
                 self, dbcommit=True, reindex=True, forceindex=True)
             actions.update({LoanAction.UPDATE: loan})
-            item = self
         elif actions_to_execute.get('validate_first_pending'):
             pending = self.get_first_loan_by_state(state=LoanState.PENDING)
-            # When the loan to cancel is ITEM_IN_TRANSIT_FOR_PICKUP, we need
-            # virtually to undo the last transaction and restart from the last
-            # location and validate the first pending request.
-            # to achieve this, we pass the cancelled loan pickup_location_pid
-            # as a transaction_location_pid for the validation of the next
-            # pending loan. This way the validation logic is not modified.
-            cancelled_loan_pickup_pid = None
-            if loan.get('state') == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
-                cancelled_loan_pickup_pid = loan.get('pickup_location_pid')
-            item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
-            if cancelled_loan_pickup_pid and \
-               pending['pickup_location_pid'] != cancelled_loan_pickup_pid:
-                kwargs['transaction_location_pid'] = cancelled_loan_pickup_pid
+            loan_pickup = loan.get('pickup_location_pid', None)
+            pending_pickup = pending.get('pickup_location_pid', None)
+            # If the item is at_desk at the same location as the next loan
+            # pickup we can validate the next loan so that it becomes at desk
+            # for the next patron.
+            if loan.get('state') == LoanState.ITEM_AT_DESK\
+                    and loan_pickup == pending_pickup:
+                item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
+                kwargs['transaction_location_pid'] = loan_pickup
                 kwargs.pop('transaction_library_pid', None)
-            item, validate_actions = self.validate_request(
-                pid=pending.pid, **kwargs)
-            actions.update(validate_actions)
-        else:
-            item = self
+                item, validate_actions = self.validate_request(
+                    pid=pending.pid,
+                    **kwargs)
+                actions.update(validate_actions)
+            # Otherwise, we simply change the state of the next loan and it
+            # will be validated at the next checkin at the pickup location.
+            else:
+                pending['state'] = LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
+                pending.update(pending, dbcommit=True, reindex=True)
+                item, actions = self.cancel_loan(pid=loan.pid, **kwargs)
+                self.status_update(self, dbcommit=True,
+                                   reindex=True, forceindex=True)
+                actions.update({LoanAction.UPDATE: loan})
+        item = self
         return item, actions
 
     def checks_before_a_cancel_item_request(self, loan, **kwargs):
@@ -532,6 +536,9 @@ class ItemCirculation(ItemRecord):
                 # and the loan becomes ITEM_IN_TRANSIT_TO_HOUSE.
                 actions_to_execute['loan_update']['state'] = \
                     LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                # Mark the loan to be cancelled to create an
+                # OperationLog about this cancellation.
+                actions_to_execute['cancel_loan'] = True
             elif loan['state'] == LoanState.ITEM_AT_DESK:
                 if not libraries['item_pickup_libraries']:
                     # CANCEL_REQUEST_2_1_1_1: when item library and pickup
@@ -553,8 +560,9 @@ class ItemCirculation(ItemRecord):
             actions_to_execute['validate_first_pending'] = True
         elif loan['state'] == LoanState.ITEM_IN_TRANSIT_TO_HOUSE and \
                 LoanState.PENDING in states:
-            # CANCEL_REQUEST_5_1_2: when item at desk with pending loan, cancel
-            # the loan triggers an automatic validation of first pending loan.
+            # CANCEL_REQUEST_5_1_2: when item in_transit with pending loan,
+            # cancelling the loan triggers an automatic validation of first
+            # pending loan.
             actions_to_execute['validate_first_pending'] = True
         elif loan['state'] == LoanState.PENDING and \
             any(state in states for state in [
