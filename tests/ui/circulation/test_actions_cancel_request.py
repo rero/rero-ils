@@ -18,6 +18,8 @@
 """Test item circulation cancel request actions."""
 
 
+from copy import deepcopy
+
 import pytest
 from utils import item_record_to_a_specific_loan_state
 
@@ -26,6 +28,47 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanState
+
+
+def test_cancel_item_request_in_transit_for_pickup_with_requests_same_lib(
+        client, item3_in_transit_martigny_patron_and_loan_for_pickup,
+        loc_public_martigny, librarian_martigny, librarian_fully,
+        loc_public_fully, patron2_martigny):
+    """Test cancel requests on an in_transit for pickup item with requests."""
+    item, patron, loan = item3_in_transit_martigny_patron_and_loan_for_pickup
+    origin_loan = deepcopy(loan)
+    # the following tests a special case of the circulation action
+    # CANCEL_REQUEST_4_1_2 an item in_transit for pickup with
+    # other pending loans and the pickup locations are the same.
+
+    params = {
+        'patron_pid': patron2_martigny.pid,
+        'transaction_location_pid': loc_public_fully.pid,
+        'transaction_user_pid': librarian_fully.pid,
+        'pickup_location_pid': loc_public_fully.pid
+    }
+    item, requested_loan = item_record_to_a_specific_loan_state(
+        item=item, loan_state=LoanState.PENDING,
+        params=params, copy_item=False)
+    assert requested_loan['state'] == LoanState.PENDING
+
+    params = {
+        'pid': loan.pid,
+        'transaction_location_pid': loc_public_fully.pid,
+        'transaction_user_pid': librarian_fully.pid
+    }
+    item.cancel_item_request(**params)
+    item = Item.get_record_by_pid(item.pid)
+    loan = Loan.get_record_by_pid(loan.pid)
+    requested_loan = Loan.get_record_by_pid(requested_loan.pid)
+    assert item.status == ItemStatus.IN_TRANSIT
+    assert loan['state'] == LoanState.CANCELLED
+    assert requested_loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
+
+    # Clean created data
+    requested_loan.delete(force=True, dbcommit=True, delindex=True)
+    loan.replace(origin_loan, True, True, True)
+    Item.status_update(item=item, on_shelf=False, dbcommit=True, reindex=True)
 
 
 def test_cancel_request_on_item_on_shelf(
@@ -412,9 +455,9 @@ def test_cancel_request_on_item_in_transit_to_house_with_requests(
     item = Item.get_record_by_pid(item.pid)
     loan = Loan.get_record_by_pid(loan.pid)
     requested_loan = Loan.get_record_by_pid(requested_loan.pid)
-    assert item.status == ItemStatus.AT_DESK
+    assert item.status == ItemStatus.IN_TRANSIT
     assert loan['state'] == LoanState.CANCELLED
-    assert requested_loan['state'] == LoanState.ITEM_AT_DESK
+    assert requested_loan['state'] == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP
 
 
 def test_cancel_pending_on_item_in_transit_to_house(

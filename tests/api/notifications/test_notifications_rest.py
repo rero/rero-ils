@@ -1199,6 +1199,7 @@ def test_booking_notifications(client, patron_martigny, patron_sion,
     }
     item_lib_martigny.cancel_item_request(
         request_loan_pid,
+        transaction_user_pid=librarian_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid)
     item_lib_martigny.receive(**params)
 
