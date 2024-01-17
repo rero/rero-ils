@@ -37,7 +37,7 @@ from rero_ils.modules.utils import extracted_data_from_ref
 
 from .circulation import ItemCirculation
 from .issue import ItemIssue
-from ..models import ItemIdentifier, ItemMetadata
+from ..models import ItemIdentifier, ItemMetadata, ItemStatus
 
 # provider
 ItemProvider = type(
@@ -72,21 +72,22 @@ class ItemsSearch(IlsRecordsSearch):
         must_not_filters = [
             # should not be masked
             Q('term', _masked=True),
+            # should not be in_transit (even without loan)
+            Q('term', status=ItemStatus.IN_TRANSIT),
             # if issue the status should be received
             Q('exists', field='issue') & ~Q('term', issue__status='received')
         ]
 
-        # negative availability item types
-        not_available_item_types = [
-            hit.pid for hit in ItemTypesSearch()
+        if not_available_item_types := [
+            hit.pid
+            for hit in ItemTypesSearch()
             .source('pid')
             .filter('term', negative_availability=True)
             .scan()
-        ]
-        if not_available_item_types:
+        ]:
             # negative availability item type and not temporary item types
             has_items_filters = \
-                Q('terms', item_type__pid=not_available_item_types)
+                    Q('terms', item_type__pid=not_available_item_types)
             has_items_filters &= ~Q('exists', field='temporary_item_type')
             # temporary item types with negative availability
             has_items_filters |= Q(
