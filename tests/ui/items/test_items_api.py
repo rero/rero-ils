@@ -255,6 +255,17 @@ def test_items_availability(item_type_missing_martigny,
     assert item.is_available()
     assert len(item.availability_text) == 1  # only default value
 
+    # test availabilty by item status
+    item['status'] = ItemStatus.IN_TRANSIT
+    item = item.update(item, dbcommit=True, reindex=True)
+    assert not item.is_available()
+    assert item.availability_text[0]['label'] == ItemStatus.IN_TRANSIT
+
+    item['status'] = ItemStatus.ON_SHELF
+    item = item.update(item, dbcommit=True, reindex=True)
+    assert item.is_available()
+    assert len(item.availability_text) == 1  # only default value
+
     # test availability and availability_text for an issue
     item['type'] = TypeOfItem.ISSUE
     item['enumerationAndChronology'] = 'dummy'
