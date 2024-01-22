@@ -593,14 +593,18 @@ def marc21_to_subjects_6XX(self, key, value):
             string_build = re.sub(r'^\[(.*)\]$', r'\1', string_build)
         subject['authorized_access_point'] = string_build
 
-        if tag_key in ['610', '611']:
-            subject['conference'] = conference_per_tag[tag_key]
-
+        # if tag_key in ['610', '611']:
+        #     subject['conference'] = conference_per_tag[tag_key]
+        # elif tag_key in ['600t', '610t', '611t']:
         if tag_key in ['600t', '610t', '611t']:
             creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
-            subject['creator'] = remove_trailing_punctuation(
+            creator = remove_trailing_punctuation(
                 build_string_from_subfields(
                     value, subfield_code_per_tag[creator_tag_key]), '.', '.')
+            if creator:
+                subject['authorized_access_point'] = \
+                    f'{creator}. {subject["authorized_access_point"]}'
+
         field_key = 'genreForm' if tag_key == '655' else config_field_key
 
         if field_key != 'subjects_imported' and (ref := get_mef_link(
