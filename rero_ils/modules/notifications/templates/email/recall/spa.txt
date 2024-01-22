@@ -1,0 +1,21 @@
+Documento no renovable
+{%- include('email/_patron_address.txt') %}
+Estimado Sr./Sra,
+
+El documento que ha tomado en préstamo acaba de ser reservado por otra persona.
+Le informamos de que no podremos prorrogar su préstamo y le rogamos que lo devuelva
+a más tardar en la fecha de vencimiento.
+
+{%- for loan in loans %}
+
+Título: {{ loan.document.title_text }}
+Fecha de vencimiento: {{ loan.end_date }}
+Nota: No renovable
+{%- endfor %}
+
+Puede consultar su cuenta en: {{ patron.profile_url }}
+
+Atentamente
+
+{{ library.name }}
+{{ library.address }}
