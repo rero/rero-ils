@@ -81,6 +81,7 @@ services:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "discovery.type=single-node"
       - "indices.query.bool.max_clause_count=3000"
+      - path.repo="snaps"
     ulimits:
       memlock:
         soft: -1
