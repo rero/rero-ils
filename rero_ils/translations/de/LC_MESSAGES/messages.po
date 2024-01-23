@@ -12964,7 +12964,9 @@ msgstr "Ihr Konto ist abgelaufen."
 
 #: rero_ils/theme/templates/rero_ils/_patron_info_message_data.html:24
 msgid "Please contact your library."
-msgstr "Bitte wenden Sie sich an Ihre Bibliothek."
+msgstr ""
+"Bitte wenden Sie sich an Ihre Bibliothek, um deren Dienste weiterhin nutzen "
+"zu können."
 
 #: rero_ils/theme/templates/rero_ils/footer.html:22
 msgid "Powered by"
