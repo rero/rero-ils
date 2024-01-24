@@ -97,14 +97,19 @@ class ImportsListResource(ContentNegotiatedMethodView):
             max_results=size,
             no_cache=no_cache
         )
-        filter_year = flask_request.args.get('year')
-        if filter_year:
-            ids = do_import.get_ids_for_aggregation(
-                results=results,
-                aggregation='year',
-                key=int(filter_year)
-            )
-            results = do_import.filter_records(results, ids)
+        if filter_years := flask_request.args.get('year'):
+            values = dict(zip(['from', 'to'], filter_years.split('--')))
+            values.setdefault('from', 1900)
+            values.setdefault('to', 2555)
+            ids = []
+            for year in range(int(values['from']), int(values['to'])):
+                year_ids = do_import.get_ids_for_aggregation(
+                    results=results,
+                    aggregation='year',
+                    key=int(year)
+                )
+                ids += year_ids
+            results = do_import.filter_records(results, list(set(ids)))
         filter_type = flask_request.args.get('document_type')
         if filter_type:
             sub_filter_type = flask_request.args.get('document_subtype')

@@ -126,7 +126,10 @@ class DocumentJSONSerializer(JSONSerializer):
                 :param: default: the default year.
                 :return: the year in yyyy format.
                 """
-                return aggregations['year'][key].get('value', default)
+                # default could be None
+                if year := aggregations['year'][key].get('value'):
+                    return float(year)
+                return default
 
             # transform aggregation to send configuration
             # for ng-core range widget.
@@ -134,8 +137,8 @@ class DocumentJSONSerializer(JSONSerializer):
             aggregations['year'] = {
                 'type': 'range',
                 'config': {
-                    'min': extract_year('year_min', -9999),
-                    'max': extract_year('year_max', 9999),
+                    'min': extract_year('year_min', 0.0),
+                    'max': extract_year('year_max', 9999.9),
                     'step': 1
                 }
             }
@@ -162,7 +165,8 @@ class DocumentJSONSerializer(JSONSerializer):
                 'config': {
                     'min': extract_acquisition_date('date_min', '1900-01-01'),
                     'max': extract_acquisition_date(
-                        'date_max', datetime.now().strftime('%Y-%m-%d'))
+                        'date_max', datetime.now().strftime('%Y-%m-%d')
+                    )
                 }
             }
 
