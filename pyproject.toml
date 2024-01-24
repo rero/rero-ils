@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rero-ils"
-version = "1.20.0"
+version = "1.21.0"
 description = "Invenio digital library framework."
 authors = ["RERO <software@rero.ch>"]
 license = "GNU Affero General Public License v3.0"

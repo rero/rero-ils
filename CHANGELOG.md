@@ -1,5 +1,53 @@
 # Changelog
 
+## [v1.21.0](https://github.com/rero/rero-ils/tree/v1.21.0) (2024-01-24)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.20.0...v1.21.0)
+
+**New features:**
+* document: advanced search config and endpoint [\#3496](https://github.com/rero/rero-ils/pull/3496) (by @Garfield-fr)
+* Add a `new_acquisition` facet in the document search [\#3525](https://github.com/rero/rero-ils/issues/3525) (by @Garfield-fr)
+* Show item information on check-in with no active loan [\#3512](https://github.com/rero/rero-ils/issues/3512) (by @Garfield-fr)
+* Patron search: add an new facet status 'active/expired'. [\#2715](https://github.com/rero/rero-ils/issues/2715) (by @Garfield-fr)
+* Circulation-loans: add a sort by location and a toggle 'collapse details' [\#2616](https://github.com/rero/rero-ils/issues/2616) (by @Garfield-fr)
+
+**Enhancements:**
+* PartOf: some numbering fields should be strings instead of integers [\#3570](https://github.com/rero/rero-ils/issues/3570) (by @PascalRepond)
+* Document import: infinite loading when a remote repository is down [\#3564](https://github.com/rero/rero-ils/issues/3564) (by @rerowep & @Garfield-fr)
+* Upgrade to Flask>2.0.0 [\#3441](https://github.com/rero/rero-ils/issues/3441) (by @jma)
+* Improve entities navigation and links [\#3513](https://github.com/rero/rero-ils/issues/3513) (by @Garfield-fr)
+* entities: improve search link generation [\#3537](https://github.com/rero/rero-ils/pull/3537) (by @Garfield-fr)
+* Hide ILL requests older than 6 months in the patron views [\#3527](https://github.com/rero/rero-ils/issues/3527) (by @Garfield-fr)
+* acquisition: improve sorting for vendors and orders [\#3490](https://github.com/rero/rero-ils/pull/3490) (by @lauren-d)
+* user: create token cli [\#3575](https://github.com/rero/rero-ils/pull/3575) (by @rerowep)
+
+**Fixes:**
+* Operation log `cancel_request` is not created if the request has already been validated [\#3569](https://github.com/rero/rero-ils/issues/3569) (by @PascalRepond)
+* Circulation: item in transit can wrongfully become at_desk [\#3403](https://github.com/rero/rero-ils/issues/3403) (by @PascalRepond)
+* Bibliographic record : display of the host document's numbering [\#1818](https://github.com/rero/rero-ils/issues/1818) (by @PascalRepond)
+* Item in transit sometimes marked as available [\#2827](https://github.com/rero/rero-ils/issues/2827) (by @PascalRepond)
+* Patron view: total number of requests is incorrect [\#3568](https://github.com/rero/rero-ils/issues/3568) (by @PascalRepond)
+* JSONschema editors: form `addons` are not translated [\#3547](https://github.com/rero/rero-ils/issues/3547) (by @Garfield-fr)
+* It is possible to create a double barcode item [\#3540](https://github.com/rero/rero-ils/issues/3540) (by @Garfield-fr)
+* Change password view: problem with certain characters [\#3405](https://github.com/rero/rero-ils/issues/3405) (by @jma)
+* Pro patron history: checkout and renewal info missing [\#3529](https://github.com/rero/rero-ils/issues/3529) (by @Garfield-fr)
+* Acquisition default date is not saved on item creation [\#3530](https://github.com/rero/rero-ils/issues/3530) (by @Garfield-fr)
+* import: fix DNB subject [\#3584](https://github.com/rero/rero-ils/pull/3584) (by @rerowep)
+* chore(translations): fix jinja2 extraction [\#3583](https://github.com/rero/rero-ils/pull/3583) (by @PascalRepond)
+* import: fix SUDOC authors facette [\#3559](https://github.com/rero/rero-ils/pull/3559) (by @rerowep)
+* ill requests: adapt facet label [\#3567](https://github.com/rero/rero-ils/pull/3567) (by @PascalRepond)
+* scheduler: better timestamp [\#3562](https://github.com/rero/rero-ils/pull/3562) (by @rerowep)
+* librarian stats: fix incorrect new active patrons [\#3561](https://github.com/rero/rero-ils/pull/3561) (by @PascalRepond)
+* remote_entity: fix replace_identified_by task [\#3556](https://github.com/rero/rero-ils/pull/3556) (by @rerowep)
+* remote entities: fix replace-identified-by task [\#3555](https://github.com/rero/rero-ils/pull/3555) (by @rerowep)
+* items: fix orphean pid for invalidate records [\#3557](https://github.com/rero/rero-ils/pull/3557) (by @jma)
+* stats: fix number of requests report [\#3558](https://github.com/rero/rero-ils/pull/3558) (by @jma)
+* item: add library name on the circulation dump [\#3549](https://github.com/rero/rero-ils/pull/3549) (by @Garfield-fr)
+
+**Other changes:**
+* chore(dependencies): fix safety conflict [\#3581](https://github.com/rero/rero-ils/pull/3581) (by @PascalRepond)
+* homepages: update rero+ clients homepages [\#3563](https://github.com/rero/rero-ils/pull/3563) (by @PascalRepond)
+
 ## [v1.20.0](https://github.com/rero/rero-ils/tree/v1.20.0) (2023-11-21)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.19.0...v1.20.0)

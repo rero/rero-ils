@@ -151,7 +151,7 @@ then
   info_msg "Install RERO-ILS-UI from tgz: ${tgz_file}"
   npm install --no-save --only=prod --no-fund --no-audit  "${tgz_file}" --prefix "${static_folder}"
 else
-  npm install --no-save --only=prod --no-fund --no-audit  @rero/rero-ils-ui@14.6.0 --prefix "${static_folder}"
+  npm install --no-save --only=prod --no-fund --no-audit  @rero/rero-ils-ui@14.7.0 --prefix "${static_folder}"
 fi
 
 # build the web assets
