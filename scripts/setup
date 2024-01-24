@@ -573,9 +573,9 @@ eval ${PREFIX} invenio reroils notifications process
 
 # create token access for system librarians
 info_msg "create an access token for all system librarians"
-token_create organisation_aosta_token reroilstest@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_AOSTA_LIBRARIAN}
-token_create organisation_scotland_token reroilstest+irma@gmail.com  ${INVENIO_RERO_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
-token_create organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
+create_token organisation_aosta_token reroilstest@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_AOSTA_LIBRARIAN}
+create_token organisation_scotland_token reroilstest+irma@gmail.com  ${INVENIO_RERO_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
+create_token organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
 
 # # OAI configuration
 info_msg "OAI configuration: ${DATA_PATH}/oaisources.yml"
