@@ -23,8 +23,7 @@ from __future__ import absolute_import, print_function
 
 import pickle
 import traceback
-from datetime import timedelta
-from operator import itemgetter
+from datetime import datetime, timedelta
 
 import requests
 from dojson.contrib.marc21.utils import create_record
@@ -175,9 +174,14 @@ class Import(object):
             )
 
         provision_activitys = record.get('provisionActivity', [])
+        year_min = int(datetime.now().strftime('%Y'))
+        year_max = 1400
         for provision_activity in provision_activitys:
-            date = provision_activity.get('startDate')
-            self.calculate_aggregations_add('year', date, id)
+            if date := provision_activity.get('startDate'):
+                self.calculate_aggregations_add('year', date, id)
+                int_date = int(date)
+                year_min = min(int_date, year_min)
+                year_max = max(int_date, year_max)
 
         for agent in record.get('contribution', []):
             if authorized_access_point := agent.get(
@@ -193,6 +197,8 @@ class Import(object):
             lang = language.get('value')
             self.calculate_aggregations_add('language', lang, id)
 
+        return year_min, year_max + 1
+
     def create_aggregations(self, results):
         """Create aggregations.
 
@@ -205,12 +211,24 @@ class Import(object):
             'year': {},
             'language': {}
         }
-        results['aggregations'] = {}
+        if year_config := results.get(
+                'aggregations', {}).get('year', {}).get('config'):
+            results['aggregations'] = {
+                'year': {
+                    'config': year_config
+                }
+            }
+        else:
+            results['aggregations'] = {}
+        year_min = int(datetime.now().strftime('%Y'))
+        year_max = 1400
         for data in results['hits']['hits']:
-            self.calculate_aggregations(
+            y_min, y_max = self.calculate_aggregations(
                 data['metadata'],
                 data['id']
             )
+            year_min = min(y_min, year_min)
+            year_max = max(y_max, year_max)
         for agg, values in self.aggregations_creation.items():
             buckets = []
             for key, value in values.items():
@@ -236,12 +254,17 @@ class Import(object):
                             'buckets': sub_buckets
                         }
                 buckets.append(bucket_data)
-            if agg == 'year':
-                buckets.sort(key=itemgetter('key'), reverse=True)
-            else:
-                buckets.sort(key=lambda e: (-e['doc_count'], e['key']))
+            buckets.sort(key=lambda e: (-e['doc_count'], e['key']))
             if buckets:
                 results['aggregations'][agg] = {'buckets': buckets}
+        results['aggregations'].setdefault('year', {})
+        if 'config' not in results['aggregations']['year']:
+            results['aggregations']['year']['config'] = {
+                'max': year_max,
+                'min': year_min,
+                'step': 1
+            }
+        results['aggregations']['year']['type'] = 'range'
         results['hits']['total']['value'] = len(results['hits']['hits'])
         return results
 

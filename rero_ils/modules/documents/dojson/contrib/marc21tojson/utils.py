@@ -810,7 +810,6 @@ def do_provision_activity(data, marc21, key, value):
             publication['endDate'] = marc21.date['end_date']
         if 'note' in marc21.date:
             publication['note'] = marc21.date['note']
-        publication['startDate'] = marc21.date['start_date']
 
         places = []
         place = marc21.build_place()
