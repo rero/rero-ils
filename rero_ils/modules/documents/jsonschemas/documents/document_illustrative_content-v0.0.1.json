@@ -8,14 +8,22 @@
       "title": "Illustrative content",
       "type": "string",
       "minLength": 3,
-      "form": {
-        "placeholder": "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "RDA recommended terms: illustrations, maps, photographs, portraits, ..."
+          }
+        }
       }
     },
-    "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true,
+          "navigation": {
+            "essential": true
+          }
+        }
       }
     }
   }

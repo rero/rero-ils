@@ -31,8 +31,8 @@
       "readOnly": true,
       "default": "bf:Topic",
       "const": "bf:Topic",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -53,8 +53,12 @@
       "title": "Name",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Industrial archaeology"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: Industrial archaeology"
+          }
+        }
       }
     },
     "authorized_access_point": {
@@ -62,8 +66,8 @@
       "type": "string",
       "minLength": 1,
       "readOnly": true,
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -83,8 +87,12 @@
         "title": "Alternative name",
         "type": "string",
         "minLength": 1,
-        "form": {
-          "placeholder": "Example: Antiquities, Industrial"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "placeholder": "Example: Antiquities, Industrial"
+            }
+          }
         }
       }
     },
@@ -92,8 +100,12 @@
       "title": "Source catalog",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: lcsh, mesh, rameau"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: lcsh, mesh, rameau"
+          }
+        }
       }
     },
     "identifier": {

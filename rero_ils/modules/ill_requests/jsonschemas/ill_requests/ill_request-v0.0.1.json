@@ -48,25 +48,29 @@
         "closed"
       ],
       "default": "pending",
-      "form": {
-        "options": [
-          {
-            "value": "pending",
-            "label": "pending"
-          },
-          {
-            "value": "validated",
-            "label": "validated"
-          },
-          {
-            "value": "denied",
-            "label": "denied"
-          },
-          {
-            "value": "closed",
-            "label": "closed"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "options": [
+              {
+                "value": "pending",
+                "label": "pending"
+              },
+              {
+                "value": "validated",
+                "label": "validated"
+              },
+              {
+                "value": "denied",
+                "label": "denied"
+              },
+              {
+                "value": "closed",
+                "label": "closed"
+              }
+            ]
           }
-        ]
+        }
       }
     },
     "copy": {
@@ -86,17 +90,19 @@
           "type": "string",
           "title": "Patron URI",
           "pattern": "^https://bib.rero.ch/api/patrons/.*?$",
-          "form": {
-            "remoteTypeahead": {
-              "type": "patrons"
-            },
-            "validation": {
-              "messages": {
-                "patternMessage": "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hideLabel": true,
+                "validation": {
+                  "messages": {
+                    "patternMessage": "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
+                  }
+                },
+                "remoteTypeahead": {
+                  "type": "patrons"
+                }
               }
-            },
-            "templateOptions": {
-              "label": ""
             }
           }
         }
@@ -113,30 +119,34 @@
         "CANCELLED"
       ],
       "default": "PENDING",
-      "form": {
-        "placeholder": "Choose a status",
-        "options": [
-          {
-            "value": "PENDING",
-            "label": "PENDING"
-          },
-          {
-            "value": "ITEM_AT_DESK",
-            "label": "ITEM_AT_DESK"
-          },
-          {
-            "value": "ITEM_ON_LOAN",
-            "label": "ITEM_ON_LOAN"
-          },
-          {
-            "value": "ITEM_RETURNED",
-            "label": "ITEM_RETURNED"
-          },
-          {
-            "value": "CANCELLED",
-            "label": "CANCELLED"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "options": [
+              {
+                "value": "PENDING",
+                "label": "PENDING"
+              },
+              {
+                "value": "ITEM_AT_DESK",
+                "label": "ITEM_AT_DESK"
+              },
+              {
+                "value": "ITEM_ON_LOAN",
+                "label": "ITEM_ON_LOAN"
+              },
+              {
+                "value": "ITEM_RETURNED",
+                "label": "ITEM_RETURNED"
+              },
+              {
+                "value": "CANCELLED",
+                "label": "CANCELLED"
+              }
+            ],
+            "placeholder": "Choose a status"
           }
-        ]
+        }
       }
     },
     "pickup_location": {
@@ -150,14 +160,16 @@
           "type": "string",
           "title": "Pickup location URI",
           "pattern": "^https://bib.rero.ch/api/locations/.+?$",
-          "form": {
-            "remoteOptions": {
-              "type": "locations",
-              "query": "is_ill_pickup:true",
-              "labelField": "ill_pickup_name"
-            },
-            "templateOptions": {
-              "label": ""
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hideLabel": true,
+                "remoteOptions": {
+                  "type": "locations",
+                  "query": "is_ill_pickup:true",
+                  "labelField": "ill_pickup_name"
+                }
+              }
             }
           }
         }
@@ -201,9 +213,11 @@
         "identifier": {
           "type": "string",
           "title": "Identifier",
-          "form": {
-            "templateOptions": {
-              "doNotSubmitOnEnter": true
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "doNotSubmitOnEnter": true
+              }
             }
           }
         },
@@ -224,9 +238,11 @@
             "volume": {
               "type": "string",
               "title": "Volume",
-              "form": {
-                "templateOptions": {
-                  "itemCssClass": "col-md-3 p-0"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-md-3 p-0"
+                  }
                 }
               }
             },
@@ -237,8 +253,8 @@
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
           ]
@@ -248,10 +264,12 @@
     "pages": {
       "type": "string",
       "title": "Pages",
-      "form": {
-        "hideExpression": "model && model.copy === false",
-        "expressionProperties": {
-          "templateOptions.required": "model && model.copy === true"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": "model?.copy === true",
+            "hide": "model?.copy === false"
+          }
         }
       }
     },
@@ -275,21 +293,25 @@
           "format": "uri",
           "pattern": "^(ftps?|https?)://.*$",
           "minLength": 7,
-          "form": {
-            "expressionProperties": {
-              "templateOptions.required": "true"
-            },
-            "hideExpression": "!field?.parent?.model?.source || (field.parent.model.source == undefined || field.parent.model.source == '')",
-            "validation": {
-              "messages": {
-                "patternMessage": "Should be a valid URL format."
+          "widget": {
+            "formlyConfig": {
+              "expressions": {
+                "props.required": true,
+                "hide": "field?.parent?.model?.source == undefined || field?.parent?.model?.source == ''"
+              },
+              "props": {
+                "validation": {
+                  "messages": {
+                    "patternMessage": "Should be a valid URL format."
+                  }
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
           ]
@@ -320,18 +342,22 @@
               "staff_note"
             ],
             "default": "public_note",
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "label": "public_note",
-                  "value": "public_note"
-                },
-                {
-                  "label": "staff_note",
-                  "value": "staff_note"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "options": [
+                    {
+                      "label": "public_note",
+                      "value": "public_note"
+                    },
+                    {
+                      "label": "staff_note",
+                      "value": "staff_note"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "content": {
@@ -339,31 +365,35 @@
             "title": "Content",
             "maxLength": 2000,
             "minLength": 3,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "rows": 3
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "rows": 3
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
-          ]
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+          ],
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+              }
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
       }

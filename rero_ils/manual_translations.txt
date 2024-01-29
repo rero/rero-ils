@@ -118,3 +118,8 @@ _('number_of_requests')
 _('number_of_validate_requests')
 _('number_of_patrons')
 _('number_of_active_patrons')
+
+## Permissions
+_('any_user')
+_('authenticated_user')
+_('document_importer')

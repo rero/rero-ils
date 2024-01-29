@@ -69,7 +69,7 @@
               "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
             }
           },
-          "templateOptions": {
+          "props": {
             "placeholder": "Example: 1985-12-29"
           }
         }
@@ -83,25 +83,29 @@
         "other",
         "no_information"
       ],
-      "form": {
-        "options": [
-          {
-            "label": "male",
-            "value": "male"
-          },
-          {
-            "label": "female",
-            "value": "female"
-          },
-          {
-            "label": "other",
-            "value": "other"
-          },
-          {
-            "label": "no_information",
-            "value": "no_information"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "options": [
+              {
+                "label": "male",
+                "value": "male"
+              },
+              {
+                "label": "female",
+                "value": "female"
+              },
+              {
+                "label": "other",
+                "value": "other"
+              },
+              {
+                "label": "no_information",
+                "value": "no_information"
+              }
+            ]
           }
-        ]
+        }
       }
     },
     "username": {
@@ -131,10 +135,12 @@
       "type": "string",
       "minLength": 1,
       "maxLength": 255,
-      "form": {
-        "type": "textarea",
-        "templateOptions": {
-          "rows": 2
+      "widget": {
+        "formlyConfig": {
+          "type": "textarea",
+          "props": {
+            "rows": 2
+          }
         }
       }
     },
@@ -153,9 +159,11 @@
     "country": {
       "allOf": [
         {
-          "form": {
-            "templateOptions": {
-              "itemCssClass": "col-lg-12"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-12"
+              }
             }
           }
         },
@@ -178,7 +186,7 @@
               "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
             }
           },
-          "templateOptions": {
+          "props": {
             "placeholder": "Example: +41791231212"
           }
         }
@@ -198,7 +206,7 @@
               "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
             }
           },
-          "templateOptions": {
+          "props": {
             "placeholder": "Example: +41791231212"
           }
         }
@@ -218,7 +226,7 @@
               "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
             }
           },
-          "templateOptions": {
+          "props": {
             "placeholder": "Example: +41791231212"
           }
         }
@@ -238,7 +246,7 @@
               "patternMessage": "Phone number with the international prefix, without spaces, ie +41221234567."
             }
           },
-          "templateOptions": {
+          "props": {
             "placeholder": "Example: +41791231212"
           }
         }
@@ -272,7 +280,7 @@
       "widget": {
         "formlyConfig": {
           "type": "passwordGenerator",
-          "templateOptions": {
+          "props": {
             "api": "/api/user/password/generate"
           }
         }
@@ -281,7 +289,7 @@
   },
   "widget": {
     "formlyConfig": {
-      "templateOptions": {
+      "props": {
         "hideLabel": true
       }
     }

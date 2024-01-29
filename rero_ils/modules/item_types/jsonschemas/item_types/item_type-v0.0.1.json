@@ -38,16 +38,20 @@
       "description": "Name of the ItemType.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "focus": true,
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "item_type_name"
+      "widget": {
+        "formlyConfig": {
+          "focus": true,
+          "props": {
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {
+                  "term": "item_type_name"
+                }
+              },
+              "messages": {
+                "alreadyTakenMessage": "The item type name is already taken."
+              }
             }
-          },
-          "messages": {
-            "alreadyTakenMessage": "The item type name is already taken."
           }
         }
       }
@@ -67,29 +71,33 @@
         "online",
         "standard"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "value": "standard",
-            "label": "standard"
-          },
-          {
-            "value": "online",
-            "label": "online"
-          }
-        ],
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "remoteRecordType": "item_types",
-              "limitToValues": [
-                "online"
-              ]
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "value": "standard",
+                "label": "standard"
+              },
+              {
+                "value": "online",
+                "label": "online"
+              }
+            ],
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {
+                  "remoteRecordType": "item_types",
+                  "limitToValues": [
+                    "online"
+                  ]
+                }
+              },
+              "messages": {
+                "alreadyTakenMessage": "Another online item type exists in this organisation."
+              }
             }
-          },
-          "messages": {
-            "alreadyTakenMessage": "Another online item type exists in this organisation."
           }
         }
       }
@@ -103,7 +111,7 @@
     "displayed_status": {
       "title": "Displayed status",
       "type": "array",
-      "description": "Short text displayed in the interface, for instance \"in acquisition\" or \"missing\".",
+      "description": "Short text displayed in the interface, for instance 'in acquisition' or 'missing'.",
       "minItems": 1,
       "items": {
         "title": "Status",
@@ -126,34 +134,42 @@
             "type": "string",
             "maxLength": 90,
             "minLength": 3,
-            "form": {
-              "templateOptions": {
-                "itemCssClass": "col-lg-10"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-10"
+                }
               }
             }
           }
         },
-        "form": {
-          "templateOptions": {
-            "containerCssClass": "row"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "row"
+            }
           }
         }
       },
-      "form": {
-        "hideExpression": "field?.parent?.model && !field.parent.model.negative_availability",
-        "expressionProperties": {
-          "templateOptions.required": "field?.parent?.model && field.parent.model.negative_availability"
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "language"
-              ]
-            }
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": "field?.parent?.model && field.parent.model.negative_availability",
+            "hide": "field?.parent?.model && !field.parent.model.negative_availability"
           },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one label per language is allowed."
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "language"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one label per language is allowed."
+              }
+            }
           }
         }
       }
@@ -161,7 +177,7 @@
     "circulation_information": {
       "title": "Circulation information",
       "type": "array",
-      "description": "This optional text is displayed in the public interface, for instance \"On-site consultation\"",
+      "description": "This optional text is displayed in the public interface, for instance 'On-site consultation'",
       "minItems": 0,
       "items": {
         "type": "object",
@@ -184,30 +200,38 @@
             "type": "string",
             "maxLength": 90,
             "minLength": 3,
-            "form": {
-              "templateOptions": {
-                "itemCssClass": "col-lg-10"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-10"
+                }
               }
             }
           }
         },
-        "form": {
-          "templateOptions": {
-            "containerCssClass": "row"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "row"
+            }
           }
         }
       },
-      "form": {
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "language"
-              ]
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "language"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one label per language is allowed."
+              }
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one label per language is allowed."
           }
         }
       }

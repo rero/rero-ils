@@ -24,8 +24,8 @@
       "readOnly": true,
       "default": "bf:Organisation",
       "const": "bf:Organisation",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -36,10 +36,12 @@
       "title": "Name",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Miller, John",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: Miller, John"
+          }
         }
       }
     },
@@ -51,13 +53,19 @@
         "title": "Subordinate unit",
         "type": "string",
         "minLength": 1,
-        "form": {
-          "placeholder": "Example: Office for Culture"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "placeholder": "Example: Office for Culture"
+            }
+          }
         }
       },
-      "form": {
-        "templateOptions": {
-          "itemCssClass": "col-lg-12"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-12"
+          }
         }
       }
     },
@@ -66,9 +74,11 @@
       "description": "Mark as conference if the access point is directly at the conference name and not at the corporate body name",
       "type": "boolean",
       "default": false,
-      "form": {
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6"
+          }
         }
       }
     },
@@ -76,10 +86,12 @@
       "title": "Location of conference",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Lausanne",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: Lausanne"
+          }
         }
       }
     },
@@ -87,10 +99,12 @@
       "title": "Number of conference",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 4",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: 4"
+          }
         }
       }
     },
@@ -99,19 +113,23 @@
       "description": "Record only years.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 1989",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: 1989"
+          }
         }
       }
     },
     "identifiedBy": {
       "allOf": [
         {
-          "form": {
-            "templateOptions": {
-              "itemCssClass": "col-12"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-12"
+              }
             }
           }
         },
@@ -121,9 +139,11 @@
       ]
     }
   },
-  "form": {
-    "templateOptions": {
-      "containerCssClass": "row"
+  "widget": {
+    "formlyConfig": {
+      "props": {
+        "containerCssClass": "row"
+      }
     }
   }
 }

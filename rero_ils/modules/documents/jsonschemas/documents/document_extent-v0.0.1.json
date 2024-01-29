@@ -4,14 +4,16 @@
     "description": "Record the number of units and the type of unit. For the type of unit, use RDA recommended terms.",
     "type": "string",
     "minLength": 1,
-    "form": {
-      "placeholder": "Example: 355 pages",
-      "navigation": {
-        "essential": true
-      },
-      "hide": true,
-      "templateOptions": {
-        "cssClass": "w-md-50"
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "cssClass": "w-md-50",
+          "hide": true,
+          "navigation": {
+            "essential": true
+          },
+          "placeholder": "Example: 355 pages"
+        }
       }
     }
   }

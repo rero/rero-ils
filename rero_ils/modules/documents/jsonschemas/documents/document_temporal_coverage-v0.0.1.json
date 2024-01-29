@@ -28,8 +28,8 @@
               "readOnly": true,
               "default": "time",
               "const": "time",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -41,8 +41,12 @@
               "description": "Enter a date in the format (+/-)yyyy. You can add the month, day or time as follows: (+/-)yyyy-mm-ddTHH-MM-SS.",
               "type": "string",
               "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2})?(T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
-              "form": {
-                "placeholder": "Example: +1945-05-08"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "placeholder": "Example: +1945-05-08"
+                  }
+                }
               }
             },
             "period_code": {
@@ -71,8 +75,8 @@
               "readOnly": true,
               "default": "period",
               "const": "period",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -84,8 +88,12 @@
               "description": "Enter a date in the format (+/-)yyyy. You can add the month, day or time as follows: (+/-)yyyy-mm-ddTHH-MM-SS.",
               "type": "string",
               "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2})?(T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
-              "form": {
-                "placeholder": "Example: +1945-05-08"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "placeholder": "Example: +1945-05-08"
+                  }
+                }
               }
             },
             "end_date": {
@@ -93,8 +101,12 @@
               "description": "Enter a date in the format (+/-)yyyy. You can add the month, day or time as follows: (+/-)yyyy-mm-ddTHH-MM-SS.",
               "type": "string",
               "pattern": "^(\\+|\\-)\\d+(-\\d{2}-\\d{2})?(T[0-2][0-9]-[0-6][0-9]-[0-2][0-9])?$",
-              "form": {
-                "placeholder": "Example: +1945-05-08"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "placeholder": "Example: +1945-05-08"
+                  }
+                }
               }
             },
             "period_code": {
@@ -104,8 +116,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "definitions": {
@@ -118,8 +134,12 @@
         "description": "Enter a 4 character code from the MARC time period table.",
         "type": "string",
         "pattern": "^([a-z][0-9-]){2}$",
-        "form": {
-          "placeholder": "Example: x1x4"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "placeholder": "Example: x1x4"
+            }
+          }
         }
       }
     }

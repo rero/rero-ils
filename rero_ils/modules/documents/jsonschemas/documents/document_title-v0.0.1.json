@@ -29,32 +29,34 @@
             "bf:AbbreviatedTitle",
             "bf:KeyTitle"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "bf:Title",
-                "value": "bf:Title"
-              },
-              {
-                "label": "bf:ParallelTitle",
-                "value": "bf:ParallelTitle"
-              },
-              {
-                "label": "bf:VariantTitle",
-                "value": "bf:VariantTitle"
-              },
-              {
-                "label": "bf:AbbreviatedTitle",
-                "value": "bf:AbbreviatedTitle"
-              },
-              {
-                "label": "bf:KeyTitle",
-                "value": "bf:KeyTitle"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "cssClass": "w-md-50",
+                "options": [
+                  {
+                    "label": "bf:Title",
+                    "value": "bf:Title"
+                  },
+                  {
+                    "label": "bf:ParallelTitle",
+                    "value": "bf:ParallelTitle"
+                  },
+                  {
+                    "label": "bf:VariantTitle",
+                    "value": "bf:VariantTitle"
+                  },
+                  {
+                    "label": "bf:AbbreviatedTitle",
+                    "value": "bf:AbbreviatedTitle"
+                  },
+                  {
+                    "label": "bf:KeyTitle",
+                    "value": "bf:KeyTitle"
+                  }
+                ]
               }
-            ],
-            "templateOptions": {
-              "cssClass": "w-md-50"
             }
           }
         },
@@ -74,8 +76,12 @@
           "items": {
             "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
           },
-          "form": {
-            "hide": true
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hide": true
+              }
+            }
           }
         },
         "part": {
@@ -110,19 +116,27 @@
               }
             }
           },
-          "form": {
-            "hide": true
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hide": true
+              }
+            }
           }
         }
       }
     },
-    "form": {
-      "validation": {
-        "validators": {
-          "numberOfSpecificValuesInObject": {
-            "min": 1,
-            "keys": {
-              "type": "bf:Title"
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "validation": {
+            "validators": {
+              "numberOfSpecificValuesInObject": {
+                "min": 1,
+                "keys": {
+                  "type": "bf:Title"
+                }
+              }
             }
           }
         }

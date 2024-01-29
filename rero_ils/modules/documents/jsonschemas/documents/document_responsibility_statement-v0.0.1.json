@@ -12,10 +12,14 @@
         "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
       }
     },
-    "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true,
+          "navigation": {
+            "essential": true
+          }
+        }
       }
     }
   }

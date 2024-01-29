@@ -12,8 +12,10 @@
     ],
     "default": "CHF",
     "pattern": "^[A-Z]{3}$",
-    "form": {
-      "type": "selectWithSort"
+    "widget": {
+      "formlyConfig": {
+        "type": "selectWithSort"
+      }
     }
   }
 }

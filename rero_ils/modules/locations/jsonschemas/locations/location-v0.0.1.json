@@ -41,13 +41,17 @@
       "title": "Code",
       "description": "Code of the location.",
       "type": "string",
-      "form": {
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {}
-          },
-          "messages": {
-            "alreadyTakenMessage": "The code is already taken."
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {}
+              },
+              "messages": {
+                "alreadyTakenMessage": "The code is already taken."
+              }
+            }
           }
         }
       }
@@ -57,8 +61,10 @@
       "description": "Name of the location.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "focus": true
+      "widget": {
+        "formlyConfig": {
+          "focus": true
+        }
       }
     },
     "is_pickup": {
@@ -78,18 +84,22 @@
       "type": "boolean",
       "default": false,
       "description": "Qualify this location as an online location.",
-      "form": {
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "limitToValues": [
-                true
-              ],
-              "filter": "'library.pid:' + model.library.pid"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {
+                  "limitToValues": [
+                    true
+                  ],
+                  "filter": "'library.pid:' + model.library.pid"
+                }
+              },
+              "messages": {
+                "alreadyTakenMessage": "There is already one online location in this library."
+              }
             }
-          },
-          "messages": {
-            "alreadyTakenMessage": "There is already one online location in this library."
           }
         }
       }
@@ -98,19 +108,23 @@
       "title": "Pickup location name",
       "type": "string",
       "description": "Displayed pickup location name, if different from the location name.",
-      "form": {
-        "hideExpression": "model && model.is_pickup === false",
-        "expressionProperties": {
-          "templateOptions.required": "model && model.is_pickup === true"
-        },
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "filter": "'library.pid:' + model.library.pid"
-            }
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": "model && model.is_pickup === true",
+            "hide": "model && model.is_pickup === false"
           },
-          "messages": {
-            "alreadyTakenMessage": "The pickup location name is already taken."
+          "props": {
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {
+                  "filter": "'library.pid:' + model.library.pid"
+                }
+              },
+              "messages": {
+                "alreadyTakenMessage": "The pickup location name is already taken."
+              }
+            }
           }
         }
       }
@@ -119,19 +133,23 @@
       "title": "ILL Pickup location name",
       "type": "string",
       "description": "Displayed ILL pickup location name, if different from the location name.",
-      "form": {
-        "hideExpression": "model && model.is_ill_pickup === false",
-        "expressionProperties": {
-          "templateOptions.required": "model && model.is_ill_pickup === true"
-        },
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "filter": "'library.pid:' + model.library.pid"
-            }
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": "model?.is_ill_pickup === true",
+            "hide": "model?.is_ill_pickup === false"
           },
-          "messages": {
-            "alreadyTakenMessage": "The ILL pickup location name is already taken."
+          "props": {
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {
+                  "filter": "'library.pid:' + model.library.pid"
+                }
+              },
+              "messages": {
+                "alreadyTakenMessage": "The ILL pickup location name is already taken."
+              }
+            }
           }
         }
       }
@@ -158,10 +176,12 @@
       "description": "Send a email notification when an item of the location has been requested.",
       "type": "boolean",
       "default": false,
-      "form": {
-        "hideExpression": "model && model.allow_request === false",
-        "expressionProperties": {
-          "templateOptions.required": "model && model.allow_request === true"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": "model?.allow_request === true",
+            "hide": "model?.allow_request === false"
+          }
         }
       }
     },
@@ -170,14 +190,16 @@
       "description": "Specify a generic email address used for notification.",
       "type": "string",
       "format": "email",
-      "form": {
-        "hideExpression": "model && (model.allow_request === false || model.send_notification === false)",
-        "expressionProperties": {
-          "templateOptions.required": "model && (model.send_notification === true && model.allow_request === true)"
-        },
-        "templateOptions": {
-          "addonLeft": {
-            "class": "fa fa-at"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": "model?.send_notification === true && model?.allow_request === true",
+            "hide": "model?.allow_request === false || model?.send_notification === false"
+          },
+          "props": {
+            "addonLeft": [
+              "<i class=\"fa fa-at\"></i>"
+            ]
           }
         }
       }
@@ -196,26 +218,34 @@
             "title": "Location URI",
             "type": "string",
             "pattern": "^https://bib.rero.ch/api/locations/.*?$",
-            "form": {
-              "remoteOptions": {
-                "type": "locations",
-                "query": "is_pickup:true",
-                "labelField": "pickup_name"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "remoteOptions": {
+                    "type": "locations",
+                    "query": "is_pickup:true",
+                    "labelField": "pickup_name"
+                  }
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "hideExpression": "field?.parent?.model && field.parent.model.allow_request === false",
-        "templateOptions": {
-          "label": "",
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "hide": "field?.parent?.model?.allow_request === false"
+          },
           "wrappers": [
             "toggle-switch"
           ],
-          "toggle-switch": {
-            "label": "Restrict pickup to",
-            "description": "If enabled, restrict pickup to specific pickup locations."
+          "props": {
+            "hideLabel": true,
+            "toggle-switch": {
+              "label": "Restrict pickup to",
+              "description": "If enabled, restrict pickup to specific pickup locations."
+            }
           }
         }
       }

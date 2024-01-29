@@ -22,22 +22,26 @@
             "Angular scale",
             "Other"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "Linear scale",
-                "value": "Linear scale"
-              },
-              {
-                "label": "Angular scale",
-                "value": "Angular scale"
-              },
-              {
-                "label": "Other",
-                "value": "Other"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "options": [
+                  {
+                    "label": "Linear scale",
+                    "value": "Linear scale"
+                  },
+                  {
+                    "label": "Angular scale",
+                    "value": "Angular scale"
+                  },
+                  {
+                    "label": "Other",
+                    "value": "Other"
+                  }
+                ]
               }
-            ]
+            }
           }
         },
         "ratio_linear_horizontal": {
@@ -45,8 +49,12 @@
           "description": "Enter only the denominator.",
           "type": "integer",
           "minimum": 1,
-          "form": {
-            "placeholder": "Example: 25000"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "placeholder": "Example: 25000"
+              }
+            }
           }
         },
         "ratio_linear_vertical": {
@@ -54,8 +62,12 @@
           "description": "Enter only the denominator.",
           "type": "integer",
           "minimum": 1,
-          "form": {
-            "placeholder": "Example: 250"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "placeholder": "Example: 250"
+              }
+            }
           }
         },
         "label": {
@@ -63,14 +75,22 @@
           "description": "Scale designation (MARC 255$a)",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "placeholder": "Example: Scale 1:25 000"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "placeholder": "Example: Scale 1:25 000"
+              }
+            }
           }
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "cartographicAttributes": {
@@ -107,8 +127,12 @@
               "description": "Enter one value, or two values (westernmost then easternmost) separated by a space.",
               "type": "string",
               "pattern": "^[EW0-9.+-]+(\\s[EW0-9.+-]+)?",
-              "form": {
-                "placeholder": "Example: W1800000 E1800000"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "placeholder": "Example: W1800000 E1800000"
+                  }
+                }
               }
             },
             "latitude": {
@@ -116,8 +140,12 @@
               "description": "Enter one value, or two values (northernmost then southernmost) separated by a space.",
               "type": "string",
               "pattern": "^[NS0-9.+-]+(\\s[NS0-9.+-]+)?",
-              "form": {
-                "placeholder": "Example: N0251500 N0221000"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "placeholder": "Example: N0251500 N0221000"
+                  }
+                }
               }
             },
             "declination": {
@@ -125,8 +153,12 @@
               "description": "Use the format hdddmmss (hemisphere-degrees-minutes-seconds). Enter one value, or two values separated by a space.",
               "type": "string",
               "pattern": "^((N|S)\\d{7})(\\s(N|S)\\d{7})?",
-              "form": {
-                "placeholder": "Example: N0300000"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "placeholder": "Example: N0300000"
+                  }
+                }
               }
             },
             "rightAscension": {
@@ -134,8 +166,12 @@
               "description": "Use the format hhmmss (hour-minute-seconds). Enter one value, or two values separated by a space.",
               "type": "string",
               "pattern": "^\\d{6}(\\s\\d{6})?",
-              "form": {
-                "placeholder": "Example: 021800"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "placeholder": "Example: 021800"
+                  }
+                }
               }
             }
           }
@@ -144,8 +180,12 @@
           "title": "Projection",
           "type": "string",
           "minLength": 3,
-          "form": {
-            "placeholder": "Chamberlin trimetric projection"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "placeholder": "Chamberlin trimetric projection"
+              }
+            }
           }
         },
         "equinox": {
@@ -153,14 +193,22 @@
           "description": "Enter only a year (yyyy) or year and month (yyyy.mm).",
           "type": "string",
           "pattern": "^\\d{4}(\\.\\d\\d)?",
-          "form": {
-            "placeholder": "Example: 1950"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "placeholder": "Example: 1950"
+              }
+            }
           }
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

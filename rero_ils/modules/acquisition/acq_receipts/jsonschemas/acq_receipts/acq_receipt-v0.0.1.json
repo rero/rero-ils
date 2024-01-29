@@ -48,9 +48,13 @@
       "title": "Reference",
       "type": "string",
       "minLength": 3,
-      "form": {
-        "navigation": {
-          "essential": "true"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -59,10 +63,14 @@
       "type": "number",
       "exclusiveMinimum": 0,
       "default": 1,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -105,12 +113,14 @@
                 "title": "Acquisition account URI",
                 "type": "string",
                 "pattern": "^https://bib.rero.ch/api/acq_accounts/.*?$",
-                "form": {
-                  "focus": true,
-                  "type": "account-select",
-                  "placeholder": "Select an account",
-                  "templateOptions": {
-                    "label": ""
+                "widget": {
+                  "formlyConfig": {
+                    "type": "account-select",
+                    "hideLabel": true,
+                    "focus": true,
+                    "props": {
+                      "placeholder": "Select an account"
+                    }
                   }
                 }
               }
@@ -118,10 +128,14 @@
           }
         }
       },
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -150,14 +164,18 @@
               "staff_note"
             ],
             "default": "staff_note",
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "label": "staff_note",
-                  "value": "staff_note"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "options": [
+                    {
+                      "label": "staff_note",
+                      "value": "staff_note"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "content": {
@@ -165,35 +183,39 @@
             "title": "Content",
             "maxLength": 2000,
             "minLength": 1,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "rows": 3
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "rows": 3
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
-          ]
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+          ],
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+              }
+            },
+            "hide": true,
+            "navigation": {
+              "essential": true
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
       }

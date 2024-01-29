@@ -35,16 +35,20 @@
       "description": "The name of the patron type",
       "type": "string",
       "minLength": 2,
-      "form": {
-        "focus": true,
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "patron_type_name"
+      "widget": {
+        "formlyConfig": {
+          "focus": true,
+          "props": {
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {
+                  "term": "patron_type_name"
+                }
+              },
+              "messages": {
+                "alreadyTakenMessage": "The patron type name is already taken."
+              }
             }
-          },
-          "messages": {
-            "alreadyTakenMessage": "The patron type name is already taken."
           }
         }
       }
@@ -80,15 +84,17 @@
       "description": "Yearly amount due by patrons linked to this patron type.",
       "type": "number",
       "exclusiveMinimum": 0,
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "toggle-switch",
             "form-field"
           ],
-          "toggle-switch": {
-            "label": "Yearly subscription",
-            "description": "Activation of subscription fees for patrons linked to this type."
+          "props": {
+            "toggle-switch": {
+              "label": "Yearly subscription",
+              "description": "Activation of subscription fees for patrons linked to this type."
+            }
           }
         }
       }
@@ -153,9 +159,13 @@
                         "title": "Library URI",
                         "type": "string",
                         "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
-                        "form": {
-                          "remoteOptions": {
-                            "type": "libraries"
+                        "widget": {
+                          "formlyConfig": {
+                            "props": {
+                              "remoteOptions": {
+                                "type": "libraries"
+                              }
+                            }
                           }
                         }
                       }
@@ -168,19 +178,25 @@
                   }
                 }
               },
-              "form": {
-                "hideExpression": "!field?.parent?.model || !field.parent.model.library_limit || field.parent.model.library_limit == 0"
+              "widget": {
+                "formlyConfig": {
+                  "expressions": {
+                    "hide": "field?.parent?.model?.library_limit == 0"
+                  }
+                }
               }
             }
           },
-          "form": {
-            "templateOptions": {
+          "widget": {
+            "formlyConfig": {
               "wrappers": [
                 "toggle-switch",
                 "form-field"
               ],
-              "toggle-switch": {
-                "label": "Limit by checkouts"
+              "props": {
+                "toggle-switch": {
+                  "label": "Limit by checkouts"
+                }
               }
             }
           }
@@ -199,14 +215,16 @@
               "minimum": 0
             }
           },
-          "form": {
-            "templateOptions": {
+          "widget": {
+            "formlyConfig": {
               "wrappers": [
                 "toggle-switch",
                 "form-field"
               ],
-              "toggle-switch": {
-                "label": "Limit by overdue fee amount"
+              "props": {
+                "toggle-switch": {
+                  "label": "Limit by overdue fee amount"
+                }
               }
             }
           }
@@ -225,14 +243,16 @@
               "minimum": 1
             }
           },
-          "form": {
-            "templateOptions": {
+          "widget": {
+            "formlyConfig": {
               "wrappers": [
                 "toggle-switch",
                 "form-field"
               ],
-              "toggle-switch": {
-                "label": "Limit by overdue items"
+              "props": {
+                "toggle-switch": {
+                  "label": "Limit by overdue items"
+                }
               }
             }
           }
@@ -241,8 +261,12 @@
           "type": "boolean",
           "title": "Block the patron if the subscription is not paid",
           "default": true,
-          "form": {
-            "hideExpression": "field?.parent?.parent?.model && (!field.parent.parent.model.hasOwnProperty('subscription_amount') || field.parent.parent.model.subscription_amount <= 0)"
+          "widget": {
+            "formlyConfig": {
+              "expressions": {
+                "hide": "field?.parent?.parent?.model?.subscription_amount <= 0"
+              }
+            }
           }
         }
       }

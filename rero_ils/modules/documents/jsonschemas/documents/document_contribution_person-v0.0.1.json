@@ -23,8 +23,8 @@
       "readOnly": true,
       "default": "bf:Person",
       "const": "bf:Person",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -35,10 +35,12 @@
       "title": "Name",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Miller, John",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: Miller, John"
+          }
         }
       }
     },
@@ -47,10 +49,12 @@
       "description": "Record only years.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 1955",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: 1955"
+          }
         }
       }
     },
@@ -59,10 +63,12 @@
       "description": "Record only years.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 2012",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: 2012"
+          }
         }
       }
     },
@@ -70,10 +76,12 @@
       "title": "Qualifier",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: physicist",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: physicist"
+          }
         }
       }
     },
@@ -82,10 +90,12 @@
       "description": "Record only a number.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: XXIII",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: XXIII"
+          }
         }
       }
     },
@@ -94,9 +104,11 @@
       "description": "Used only for import. Fuller form of a name represented only by an initial, abbreviation, or other variant not included in the form chosen as the preferred name",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6"
+          }
         }
       }
     },
@@ -104,9 +116,11 @@
       "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
     }
   },
-  "form": {
-    "templateOptions": {
-      "containerCssClass": "row"
+  "widget": {
+    "formlyConfig": {
+      "props": {
+        "containerCssClass": "row"
+      }
     }
   }
 }

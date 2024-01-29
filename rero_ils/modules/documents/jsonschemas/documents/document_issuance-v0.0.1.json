@@ -26,27 +26,29 @@
               "privateFile",
               "privateSubfile"
             ],
-            "form": {
-              "options": [
-                {
-                  "label": "article",
-                  "value": "article"
-                },
-                {
-                  "label": "materialUnit",
-                  "value": "materialUnit"
-                },
-                {
-                  "label": "privateFile",
-                  "value": "privateFile"
-                },
-                {
-                  "label": "privateSubfile",
-                  "value": "privateSubfile"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-6",
+                  "options": [
+                    {
+                      "label": "article",
+                      "value": "article"
+                    },
+                    {
+                      "label": "materialUnit",
+                      "value": "materialUnit"
+                    },
+                    {
+                      "label": "privateFile",
+                      "value": "privateFile"
+                    },
+                    {
+                      "label": "privateSubfile",
+                      "value": "privateSubfile"
+                    }
+                  ]
                 }
-              ],
-              "templateOptions": {
-                "itemCssClass": "col-lg-6"
               }
             }
           },
@@ -56,8 +58,8 @@
             "readOnly": true,
             "default": "rdami:1001",
             "const": "rdami:1001",
-            "form": {
-              "templateOptions": {
+            "widget": {
+              "formlyConfig": {
                 "wrappers": [
                   "hide"
                 ]
@@ -65,9 +67,11 @@
             }
           }
         },
-        "form": {
-          "templateOptions": {
-            "containerCssClass": "row"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "row"
+            }
           }
         }
       },
@@ -93,23 +97,25 @@
               "partIndependentTitle",
               "partDependantTitle"
             ],
-            "form": {
-              "options": [
-                {
-                  "label": "Set",
-                  "value": "set"
-                },
-                {
-                  "label": "partIndependentTitle",
-                  "value": "partIndependentTitle"
-                },
-                {
-                  "label": "partDependantTitle",
-                  "value": "partDependantTitle"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-6",
+                  "options": [
+                    {
+                      "label": "Set",
+                      "value": "set"
+                    },
+                    {
+                      "label": "partIndependentTitle",
+                      "value": "partIndependentTitle"
+                    },
+                    {
+                      "label": "partDependantTitle",
+                      "value": "partDependantTitle"
+                    }
+                  ]
                 }
-              ],
-              "templateOptions": {
-                "itemCssClass": "col-lg-6"
               }
             }
           },
@@ -119,8 +125,8 @@
             "readOnly": true,
             "default": "rdami:1002",
             "const": "rdami:1002",
-            "form": {
-              "templateOptions": {
+            "widget": {
+              "formlyConfig": {
                 "wrappers": [
                   "hide"
                 ]
@@ -128,9 +134,11 @@
             }
           }
         },
-        "form": {
-          "templateOptions": {
-            "containerCssClass": "row"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "row"
+            }
           }
         }
       },
@@ -156,23 +164,25 @@
               "monographicSeries",
               "periodical"
             ],
-            "form": {
-              "options": [
-                {
-                  "label": "serialInSerial",
-                  "value": "serialInSerial"
-                },
-                {
-                  "label": "monographicSeries",
-                  "value": "monographicSeries"
-                },
-                {
-                  "label": "periodical",
-                  "value": "periodical"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-6",
+                  "options": [
+                    {
+                      "label": "serialInSerial",
+                      "value": "serialInSerial"
+                    },
+                    {
+                      "label": "monographicSeries",
+                      "value": "monographicSeries"
+                    },
+                    {
+                      "label": "periodical",
+                      "value": "periodical"
+                    }
+                  ]
                 }
-              ],
-              "templateOptions": {
-                "itemCssClass": "col-lg-6"
               }
             }
           },
@@ -182,8 +192,8 @@
             "readOnly": true,
             "default": "rdami:1003",
             "const": "rdami:1003",
-            "form": {
-              "templateOptions": {
+            "widget": {
+              "formlyConfig": {
                 "wrappers": [
                   "hide"
                 ]
@@ -191,9 +201,11 @@
             }
           }
         },
-        "form": {
-          "templateOptions": {
-            "containerCssClass": "row"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "row"
+            }
           }
         }
       },
@@ -218,19 +230,21 @@
               "updatingWebsite",
               "updatingLoose-leaf"
             ],
-            "form": {
-              "options": [
-                {
-                  "label": "updatingWebsite",
-                  "value": "updatingWebsite"
-                },
-                {
-                  "label": "updatingLoose-leaf",
-                  "value": "updatingLoose-leaf"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-6",
+                  "options": [
+                    {
+                      "label": "updatingWebsite",
+                      "value": "updatingWebsite"
+                    },
+                    {
+                      "label": "updatingLoose-leaf",
+                      "value": "updatingLoose-leaf"
+                    }
+                  ]
                 }
-              ],
-              "templateOptions": {
-                "itemCssClass": "col-lg-6"
               }
             }
           },
@@ -240,8 +254,8 @@
             "readOnly": true,
             "default": "rdami:1004",
             "const": "rdami:1004",
-            "form": {
-              "templateOptions": {
+            "widget": {
+              "formlyConfig": {
                 "wrappers": [
                   "hide"
                 ]
@@ -249,9 +263,11 @@
             }
           }
         },
-        "form": {
-          "templateOptions": {
-            "containerCssClass": "row"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "row"
+            }
           }
         }
       }

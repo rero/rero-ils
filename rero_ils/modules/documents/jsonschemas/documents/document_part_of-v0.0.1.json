@@ -31,14 +31,18 @@
               "title": "Document link",
               "type": "string",
               "pattern": "^https://bib.rero.ch/api/documents/.*?$",
-              "form": {
-                "remoteTypeahead": {
-                  "type": "documents",
-                  "filter": "NOT harvested:true"
-                },
-                "validation": {
-                  "messages": {
-                    "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "validation": {
+                      "messages": {
+                        "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
+                      }
+                    },
+                    "remoteTypeahead": {
+                      "type": "documents",
+                      "filter": "NOT harvested:true"
+                    }
                   }
                 }
               }
@@ -65,14 +69,16 @@
                 "title": "Year",
                 "type": "string",
                 "pattern": "^\\d{4}$",
-                "form": {
-                  "validation": {
-                    "messages": {
-                      "patternMessage": "Should be in the following format: AAAA (2020)."
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "col-lg-6",
+                      "validation": {
+                        "messages": {
+                          "patternMessage": "Should be in the following format: AAAA (2020)."
+                        }
+                      }
                     }
-                  },
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-6"
                   }
                 }
               },
@@ -80,9 +86,11 @@
                 "title": "Volume",
                 "type": "string",
                 "minimum": 1,
-                "form": {
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-6"
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "col-lg-6"
+                    }
                   }
                 }
               },
@@ -90,9 +98,11 @@
                 "title": "Issue",
                 "type": "string",
                 "minimum": 1,
-                "form": {
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-6"
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "col-lg-6"
+                    }
                   }
                 }
               },
@@ -100,32 +110,40 @@
                 "title": "Pages",
                 "type": "string",
                 "pattern": "^\\d+(-\\d+)?$",
-                "form": {
-                  "placeholder": "Ex: 135, 5-27, ...",
-                  "validation": {
-                    "messages": {
-                      "patternMessage": "Should be in the following format: 135 or 5-27."
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "col-lg-6",
+                      "validation": {
+                        "messages": {
+                          "patternMessage": "Should be in the following format: 135 or 5-27."
+                        }
+                      },
+                      "placeholder": "Ex: 135, 5-27, ..."
                     }
-                  },
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-6"
                   }
                 }
               }
             },
-            "form": {
-              "templateOptions": {
-                "containerCssClass": "row"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "containerCssClass": "row"
+                }
               }
             }
           }
         }
       }
     },
-    "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true,
+          "navigation": {
+            "essential": true
+          }
+        }
       }
     }
   }

@@ -66,9 +66,13 @@
       "type": "integer",
       "default": 1,
       "minimum": 1,
-      "form": {
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -77,10 +81,14 @@
       "type": "number",
       "default": 0,
       "minimum": 0,
-      "form": {
-        "fieldMap": "amount",
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "navigation": {
+              "essential": true
+            },
+            "fieldMap": "amount"
+          }
         }
       }
     },
@@ -91,13 +99,15 @@
       "minimum": 0,
       "maximum": 100,
       "default": 0,
-      "form": {
-        "navigation": {
-          "essential": true
-        },
-        "templateOptions": {
-          "addonRight": {
-            "text": "%"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "addonRight": [
+              "%"
+            ],
+            "navigation": {
+              "essential": true
+            }
           }
         }
       }
@@ -107,16 +117,20 @@
       "type": "string",
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "type": "datepicker",
-        "placeholder": "Select a date",
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+              }
+            },
+            "navigation": {
+              "essential": true
+            },
+            "placeholder": "Select a date"
           }
-        },
-        "navigation": {
-          "essential": true
         }
       }
     },
@@ -146,18 +160,22 @@
               "receipt_note"
             ],
             "default": "staff_note",
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "label": "staff_note",
-                  "value": "staff_note"
-                },
-                {
-                  "label": "receipt_note",
-                  "value": "receipt_note"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "options": [
+                    {
+                      "label": "staff_note",
+                      "value": "staff_note"
+                    },
+                    {
+                      "label": "receipt_note",
+                      "value": "receipt_note"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "content": {
@@ -165,35 +183,39 @@
             "title": "Content",
             "maxLength": 2000,
             "minLength": 1,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "rows": 3
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "rows": 3
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
-          ]
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+          ],
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+              }
+            },
+            "hide": true,
+            "navigation": {
+              "essential": true
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
       }

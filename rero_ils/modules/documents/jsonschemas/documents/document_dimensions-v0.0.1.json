@@ -8,15 +8,21 @@
       "title": "Dimensions",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 22 cm",
-        "templateOptions": {
-          "cssClass": "w-md-50"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "w-md-50",
+            "placeholder": "Example: 22 cm"
+          }
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

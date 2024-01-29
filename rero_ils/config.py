@@ -537,6 +537,7 @@ APP_DEFAULT_SECURE_HEADERS = {
         ],
         'style-src': [
             '*',
+            "'self'",
             "'unsafe-inline'"
         ],
         'script-src': [

@@ -24,9 +24,11 @@
           "type": "string",
           "minLength": 1
         },
-        "form": {
-          "templateOptions": {
-            "itemCssClass": "col-lg-12"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "itemCssClass": "col-lg-12"
+            }
           }
         }
       },
@@ -47,52 +49,54 @@
           "Unknown",
           "Not applicable"
         ],
-        "form": {
-          "type": "selectWithSort",
-          "options": [
-            {
-              "label": "Full level",
-              "value": "Full level"
-            },
-            {
-              "label": "Full level, material not examined",
-              "value": "Full level, material not examined"
-            },
-            {
-              "label": "Less-than-full level, material not examined",
-              "value": "Less-than-full level, material not examined"
-            },
-            {
-              "label": "Abbreviated level",
-              "value": "Abbreviated level"
-            },
-            {
-              "label": "Core level",
-              "value": "Core level"
-            },
-            {
-              "label": "Partial (preliminary) level",
-              "value": "Partial (preliminary) level"
-            },
-            {
-              "label": "Minimal level",
-              "value": "Minimal level"
-            },
-            {
-              "label": "Prepublication level",
-              "value": "Prepublication level"
-            },
-            {
-              "label": "Unknown",
-              "value": "Unknown"
-            },
-            {
-              "label": "Not applicable",
-              "value": "Not applicable"
+        "widget": {
+          "formlyConfig": {
+            "type": "selectWithSort",
+            "props": {
+              "itemCssClass": "col-lg-6",
+              "options": [
+                {
+                  "label": "Full level",
+                  "value": "Full level"
+                },
+                {
+                  "label": "Full level, material not examined",
+                  "value": "Full level, material not examined"
+                },
+                {
+                  "label": "Less-than-full level, material not examined",
+                  "value": "Less-than-full level, material not examined"
+                },
+                {
+                  "label": "Abbreviated level",
+                  "value": "Abbreviated level"
+                },
+                {
+                  "label": "Core level",
+                  "value": "Core level"
+                },
+                {
+                  "label": "Partial (preliminary) level",
+                  "value": "Partial (preliminary) level"
+                },
+                {
+                  "label": "Minimal level",
+                  "value": "Minimal level"
+                },
+                {
+                  "label": "Prepublication level",
+                  "value": "Prepublication level"
+                },
+                {
+                  "label": "Unknown",
+                  "value": "Unknown"
+                },
+                {
+                  "label": "Not applicable",
+                  "value": "Not applicable"
+                }
+              ]
             }
-          ],
-          "templateOptions": {
-            "itemCssClass": "col-lg-6"
           }
         }
       },
@@ -101,9 +105,11 @@
         "description": "Original cataloging agency",
         "type": "string",
         "minLength": 1,
-        "form": {
-          "templateOptions": {
-            "itemCssClass": "col-lg-4"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "itemCssClass": "col-lg-4"
+            }
           }
         }
       },
@@ -117,9 +123,11 @@
           "type": "string",
           "minLength": 1
         },
-        "form": {
-          "templateOptions": {
-            "itemCssClass": "col-lg-4"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "itemCssClass": "col-lg-4"
+            }
           }
         }
       },
@@ -133,9 +141,11 @@
             "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language"
           },
           {
-            "form": {
-              "templateOptions": {
-                "itemCssClass": "col-lg-4"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-4"
+                }
               }
             }
           }
@@ -151,9 +161,11 @@
           "type": "string",
           "minLength": 1
         },
-        "form": {
-          "templateOptions": {
-            "itemCssClass": "col-lg-4"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "itemCssClass": "col-lg-4"
+            }
           }
         }
       }

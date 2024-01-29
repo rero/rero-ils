@@ -34,16 +34,20 @@
       "description": "Name of the budget.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "focus": true,
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "name"
+      "widget": {
+        "formlyConfig": {
+          "focus": true,
+          "props": {
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {
+                  "term": "name"
+                }
+              },
+              "messages": {
+                "alreadyTakenMessage": "The budget name is already taken."
+              }
             }
-          },
-          "messages": {
-            "alreadyTakenMessage": "The budget name is already taken."
           }
         }
       }
@@ -53,11 +57,15 @@
       "format": "date",
       "title": "Start date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "type": "datepicker",
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+              }
+            }
           }
         }
       }
@@ -67,11 +75,15 @@
       "format": "date",
       "title": "End date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "type": "datepicker",
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+              }
+            }
           }
         }
       }

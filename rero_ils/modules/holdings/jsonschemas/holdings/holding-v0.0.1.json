@@ -58,11 +58,14 @@
     "second_call_number": {
       "title": "Second call number",
       "type": "string",
-      "hide": true,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -77,12 +80,14 @@
           "title": "Circulation category URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/item_types/.*?$",
-          "form": {
-            "remoteOptions": {
-              "type": "item_types"
-            },
-            "templateOptions": {
-              "label": ""
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hideLabel": true,
+                "remoteOptions": {
+                  "type": "item_types"
+                }
+              }
             }
           }
         }
@@ -125,10 +130,12 @@
           "title": "Location URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/locations/.+?$",
-          "form": {
-            "fieldMap": "location",
-            "templateOptions": {
-              "label": ""
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hideLabel": true,
+                "fieldMap": "location"
+              }
             }
           }
         }
@@ -163,10 +170,14 @@
             "type": "string",
             "format": "uri",
             "pattern": "^(ftps?|https?)://.*$",
-            "form": {
-              "validation": {
-                "messages": {
-                  "patternMessage": "Should be a valid URL format."
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "validation": {
+                    "messages": {
+                      "patternMessage": "Should be a valid URL format."
+                    }
+                  }
                 }
               }
             }
@@ -187,8 +198,8 @@
         "electronic",
         "serial"
       ],
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -218,11 +229,15 @@
           "type": "string",
           "minLength": 3,
           "pattern": ".*?\\{\\{.*?\\}\\}.*?",
-          "form": {
-            "placeholder": "Example: Vol. {{numbering.volume}}, {{expected_date.year}}",
-            "validation": {
-              "messages": {
-                "patternMessage": "Should contains at least one variable between {{ }}."
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "validation": {
+                  "messages": {
+                    "patternMessage": "Should contains at least one variable between {{ }}."
+                  }
+                },
+                "placeholder": "Example: Vol. {{numbering.volume}}, {{expected_date.year}}"
               }
             }
           }
@@ -248,74 +263,78 @@
             "rdafr:1015",
             "rdafr:1016"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "rdafr:1013",
-                "value": "rdafr:1013"
-              },
-              {
-                "label": "rdafr:1014",
-                "value": "rdafr:1014"
-              },
-              {
-                "label": "rdafr:1007",
-                "value": "rdafr:1007"
-              },
-              {
-                "label": "rdafr:1003",
-                "value": "rdafr:1003"
-              },
-              {
-                "label": "rdafr:1001",
-                "value": "rdafr:1001"
-              },
-              {
-                "label": "rdafr:1016",
-                "value": "rdafr:1016"
-              },
-              {
-                "label": "rdafr:1008",
-                "value": "rdafr:1008"
-              },
-              {
-                "label": "rdafr:1010",
-                "value": "rdafr:1010"
-              },
-              {
-                "label": "rdafr:1012",
-                "value": "rdafr:1012"
-              },
-              {
-                "label": "rdafr:1009",
-                "value": "rdafr:1009"
-              },
-              {
-                "label": "rdafr:1005",
-                "value": "rdafr:1005"
-              },
-              {
-                "label": "rdafr:1006",
-                "value": "rdafr:1006"
-              },
-              {
-                "label": "rdafr:1002",
-                "value": "rdafr:1002"
-              },
-              {
-                "label": "rdafr:1011",
-                "value": "rdafr:1011"
-              },
-              {
-                "label": "rdafr:1015",
-                "value": "rdafr:1015"
-              },
-              {
-                "label": "rdafr:1004",
-                "value": "rdafr:1004"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "options": [
+                  {
+                    "label": "rdafr:1013",
+                    "value": "rdafr:1013"
+                  },
+                  {
+                    "label": "rdafr:1014",
+                    "value": "rdafr:1014"
+                  },
+                  {
+                    "label": "rdafr:1007",
+                    "value": "rdafr:1007"
+                  },
+                  {
+                    "label": "rdafr:1003",
+                    "value": "rdafr:1003"
+                  },
+                  {
+                    "label": "rdafr:1001",
+                    "value": "rdafr:1001"
+                  },
+                  {
+                    "label": "rdafr:1016",
+                    "value": "rdafr:1016"
+                  },
+                  {
+                    "label": "rdafr:1008",
+                    "value": "rdafr:1008"
+                  },
+                  {
+                    "label": "rdafr:1010",
+                    "value": "rdafr:1010"
+                  },
+                  {
+                    "label": "rdafr:1012",
+                    "value": "rdafr:1012"
+                  },
+                  {
+                    "label": "rdafr:1009",
+                    "value": "rdafr:1009"
+                  },
+                  {
+                    "label": "rdafr:1005",
+                    "value": "rdafr:1005"
+                  },
+                  {
+                    "label": "rdafr:1006",
+                    "value": "rdafr:1006"
+                  },
+                  {
+                    "label": "rdafr:1002",
+                    "value": "rdafr:1002"
+                  },
+                  {
+                    "label": "rdafr:1011",
+                    "value": "rdafr:1011"
+                  },
+                  {
+                    "label": "rdafr:1015",
+                    "value": "rdafr:1015"
+                  },
+                  {
+                    "label": "rdafr:1004",
+                    "value": "rdafr:1004"
+                  }
+                ]
               }
-            ]
+            }
           }
         },
         "next_expected_date": {
@@ -324,11 +343,15 @@
           "title": "The expected date for the next issue",
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
-          "form": {
-            "type": "datepicker",
-            "validation": {
-              "messages": {
-                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+          "widget": {
+            "formlyConfig": {
+              "type": "datepicker",
+              "props": {
+                "validation": {
+                  "messages": {
+                    "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+                  }
+                }
               }
             }
           }
@@ -355,8 +378,12 @@
                 "type": "string",
                 "description": "It should be used in the display template. i.e. chronology, enumeration.",
                 "minLength": 1,
-                "form": {
-                  "placeholder": "Example: numbering"
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "placeholder": "Example: numbering"
+                    }
+                  }
                 }
               },
               "levels": {
@@ -385,8 +412,12 @@
                           "type": "string",
                           "description": "It should be used in the display template. i.e. year, month, volume, issue, etc.",
                           "minLength": 1,
-                          "form": {
-                            "placeholder": "Example: volume"
+                          "widget": {
+                            "formlyConfig": {
+                              "props": {
+                                "placeholder": "Example: volume"
+                              }
+                            }
                           }
                         },
                         "starting_value": {
@@ -394,8 +425,12 @@
                           "description": "First value of the sequence.",
                           "type": "integer",
                           "minimum": 1,
-                          "form": {
-                            "placeholder": "Example: 1"
+                          "widget": {
+                            "formlyConfig": {
+                              "props": {
+                                "placeholder": "Example: 1"
+                              }
+                            }
                           }
                         },
                         "completion_value": {
@@ -403,8 +438,12 @@
                           "description": "Last value of the sequence. If it is not defined the sequence will continue until the infinity.",
                           "type": "integer",
                           "minimum": 1,
-                          "form": {
-                            "placeholder": "Example: 12"
+                          "widget": {
+                            "formlyConfig": {
+                              "props": {
+                                "placeholder": "Example: 12"
+                              }
+                            }
                           }
                         },
                         "next_value": {
@@ -412,8 +451,12 @@
                           "description": "Can be used to correct the next current prediction.",
                           "type": "integer",
                           "minimum": 1,
-                          "form": {
-                            "placeholder": "Example: 3"
+                          "widget": {
+                            "formlyConfig": {
+                              "props": {
+                                "placeholder": "Example: 3"
+                              }
+                            }
                           }
                         }
                       }
@@ -487,10 +530,14 @@
           "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language"
         }
       },
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -505,21 +552,27 @@
           "title": "Vendor URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/vendors/.*?$",
-          "form": {
-            "remoteOptions": {
-              "type": "vendors"
-            },
-            "placeholder": "Choose a vendor",
-            "templateOptions": {
-              "label": ""
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hideLabel": true,
+                "placeholder": "Choose a vendor",
+                "remoteOptions": {
+                  "type": "vendors"
+                }
+              }
             }
           }
         }
       },
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -528,10 +581,14 @@
       "description": "The client reference ID at the vendor.",
       "type": "string",
       "minLength": 2,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -540,10 +597,14 @@
       "description": "The vendor order reference.",
       "type": "string",
       "minLength": 2,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -552,10 +613,12 @@
       "description": "Textual description of the basic bibliographic unit of the holding.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "type": "textarea",
-        "templateOptions": {
-          "rows": 2
+      "widget": {
+        "formlyConfig": {
+          "type": "textarea",
+          "props": {
+            "rows": 2
+          }
         }
       }
     },
@@ -564,10 +627,14 @@
       "description": "Textual description of supplementary contents (special issues, etc.).",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -576,10 +643,14 @@
       "description": "Textual description of the indexes.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -588,10 +659,14 @@
       "description": "Textual description of the missing issues.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -599,10 +674,14 @@
       "title": "Number of issues to be bound together",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -636,49 +715,51 @@
               "acquisition_note",
               "access_note"
             ],
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "label": "general_note",
-                  "value": "general_note"
-                },
-                {
-                  "label": "staff_note",
-                  "value": "staff_note"
-                },
-                {
-                  "label": "conservation_note",
-                  "value": "conservation_note"
-                },
-                {
-                  "label": "reception_note",
-                  "value": "reception_note"
-                },
-                {
-                  "label": "claim_note",
-                  "value": "claim_note"
-                },
-                {
-                  "label": "routing_note",
-                  "value": "routing_note"
-                },
-                {
-                  "label": "binding_note",
-                  "value": "binding_note"
-                },
-                {
-                  "label": "acquisition_note",
-                  "value": "acquisition_note"
-                },
-                {
-                  "label": "access_note",
-                  "value": "access_note"
-                }
-              ],
-              "templateOptions": {
-                "selectWithSortOptions": {
-                  "order": "label"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "selectWithSortOptions": {
+                    "order": "label"
+                  },
+                  "options": [
+                    {
+                      "label": "general_note",
+                      "value": "general_note"
+                    },
+                    {
+                      "label": "staff_note",
+                      "value": "staff_note"
+                    },
+                    {
+                      "label": "conservation_note",
+                      "value": "conservation_note"
+                    },
+                    {
+                      "label": "reception_note",
+                      "value": "reception_note"
+                    },
+                    {
+                      "label": "claim_note",
+                      "value": "claim_note"
+                    },
+                    {
+                      "label": "routing_note",
+                      "value": "routing_note"
+                    },
+                    {
+                      "label": "binding_note",
+                      "value": "binding_note"
+                    },
+                    {
+                      "label": "acquisition_note",
+                      "value": "acquisition_note"
+                    },
+                    {
+                      "label": "access_note",
+                      "value": "access_note"
+                    }
+                  ]
                 }
               }
             }
@@ -688,30 +769,36 @@
             "title": "Content",
             "maxLength": 10000,
             "minLength": 1,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "rows": 3
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "rows": 3
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+              }
+            },
+            "hide": true,
+            "navigation": {
+              "essential": true
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
       }
@@ -728,40 +815,44 @@
         "currently_received",
         "not_currently_received"
       ],
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "not_currently_received",
-            "value": "not_currently_received"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "expressions": {
+            "props.required": "model && model.holdings_type === 'serial'"
           },
-          {
-            "label": "currently_received",
-            "value": "currently_received"
-          },
-          {
-            "label": "received_and_complete_or_ceased",
-            "value": "received_and_complete_or_ceased"
-          },
-          {
-            "label": "on_order",
-            "value": "on_order"
-          },
-          {
-            "label": "other_receipt_or_acquisition_status",
-            "value": "other_receipt_or_acquisition_status"
-          },
-          {
-            "label": "unknown",
-            "value": "unknown"
+          "props": {
+            "options": [
+              {
+                "label": "not_currently_received",
+                "value": "not_currently_received"
+              },
+              {
+                "label": "currently_received",
+                "value": "currently_received"
+              },
+              {
+                "label": "received_and_complete_or_ceased",
+                "value": "received_and_complete_or_ceased"
+              },
+              {
+                "label": "on_order",
+                "value": "on_order"
+              },
+              {
+                "label": "other_receipt_or_acquisition_status",
+                "value": "other_receipt_or_acquisition_status"
+              },
+              {
+                "label": "unknown",
+                "value": "unknown"
+              }
+            ],
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
           }
-        ],
-        "expressionProperties": {
-          "templateOptions.required": "model && model.holdings_type === 'serial'"
         }
       }
     },
@@ -782,62 +873,66 @@
         "unknown",
         "other_method_of_acquisition"
       ],
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "deposit",
-            "value": "deposit"
-          },
-          {
-            "label": "cooperative_or_consortial_purchase",
-            "value": "cooperative_or_consortial_purchase"
-          },
-          {
-            "label": "exchange",
-            "value": "exchange"
-          },
-          {
-            "label": "free",
-            "value": "free"
-          },
-          {
-            "label": "gift",
-            "value": "gift"
-          },
-          {
-            "label": "legal_deposit",
-            "value": "legal_deposit"
-          },
-          {
-            "label": "membership",
-            "value": "membership"
-          },
-          {
-            "label": "non_library_purchase",
-            "value": "non_library_purchase"
-          },
-          {
-            "label": "purchase",
-            "value": "purchase"
-          },
-          {
-            "label": "lease",
-            "value": "lease"
-          },
-          {
-            "label": "unknown",
-            "value": "unknown"
-          },
-          {
-            "label": "other_method_of_acquisition",
-            "value": "other_method_of_acquisition"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "label": "deposit",
+                "value": "deposit"
+              },
+              {
+                "label": "cooperative_or_consortial_purchase",
+                "value": "cooperative_or_consortial_purchase"
+              },
+              {
+                "label": "exchange",
+                "value": "exchange"
+              },
+              {
+                "label": "free",
+                "value": "free"
+              },
+              {
+                "label": "gift",
+                "value": "gift"
+              },
+              {
+                "label": "legal_deposit",
+                "value": "legal_deposit"
+              },
+              {
+                "label": "membership",
+                "value": "membership"
+              },
+              {
+                "label": "non_library_purchase",
+                "value": "non_library_purchase"
+              },
+              {
+                "label": "purchase",
+                "value": "purchase"
+              },
+              {
+                "label": "lease",
+                "value": "lease"
+              },
+              {
+                "label": "unknown",
+                "value": "unknown"
+              },
+              {
+                "label": "other_method_of_acquisition",
+                "value": "other_method_of_acquisition"
+              }
+            ],
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
           }
-        ]
+        }
       }
     },
     "acquisition_expected_end_date": {
@@ -846,20 +941,22 @@
       "type": "string",
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "type": "datepicker",
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
           "wrappers": [
             "form-field"
-          ]
-        },
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+          ],
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+              }
+            },
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
           }
         }
       }
@@ -878,50 +975,54 @@
         "not_retained",
         "permanently_retained"
       ],
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "unknown",
-            "value": "unknown"
-          },
-          {
-            "label": "other_general_retention_policy",
-            "value": "other_general_retention_policy"
-          },
-          {
-            "label": "retained_except_as_replaced_by_updates",
-            "value": "retained_except_as_replaced_by_updates"
-          },
-          {
-            "label": "sample_issue_retained",
-            "value": "sample_issue_retained"
-          },
-          {
-            "label": "retained_until_replaced_by_microform",
-            "value": "retained_until_replaced_by_microform"
-          },
-          {
-            "label": "retained_until_replaced_by_cumulation_replacement_volume_or_revision",
-            "value": "retained_until_replaced_by_cumulation_replacement_volume_or_revision"
-          },
-          {
-            "label": "retained_for_a_limited_period",
-            "value": "retained_for_a_limited_period"
-          },
-          {
-            "label": "not_retained",
-            "value": "not_retained"
-          },
-          {
-            "label": "permanently_retained",
-            "value": "permanently_retained"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "label": "unknown",
+                "value": "unknown"
+              },
+              {
+                "label": "other_general_retention_policy",
+                "value": "other_general_retention_policy"
+              },
+              {
+                "label": "retained_except_as_replaced_by_updates",
+                "value": "retained_except_as_replaced_by_updates"
+              },
+              {
+                "label": "sample_issue_retained",
+                "value": "sample_issue_retained"
+              },
+              {
+                "label": "retained_until_replaced_by_microform",
+                "value": "retained_until_replaced_by_microform"
+              },
+              {
+                "label": "retained_until_replaced_by_cumulation_replacement_volume_or_revision",
+                "value": "retained_until_replaced_by_cumulation_replacement_volume_or_revision"
+              },
+              {
+                "label": "retained_for_a_limited_period",
+                "value": "retained_for_a_limited_period"
+              },
+              {
+                "label": "not_retained",
+                "value": "not_retained"
+              },
+              {
+                "label": "permanently_retained",
+                "value": "permanently_retained"
+              }
+            ],
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
           }
-        ]
+        }
       }
     },
     "completeness": {
@@ -935,34 +1036,38 @@
         "scattered",
         "not_applicable"
       ],
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "other",
-            "value": "other"
-          },
-          {
-            "label": "complete",
-            "value": "complete"
-          },
-          {
-            "label": "incomplete",
-            "value": "incomplete"
-          },
-          {
-            "label": "scattered",
-            "value": "scattered"
-          },
-          {
-            "label": "not_applicable",
-            "value": "not_applicable"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "label": "other",
+                "value": "other"
+              },
+              {
+                "label": "complete",
+                "value": "complete"
+              },
+              {
+                "label": "incomplete",
+                "value": "incomplete"
+              },
+              {
+                "label": "scattered",
+                "value": "scattered"
+              },
+              {
+                "label": "not_applicable",
+                "value": "not_applicable"
+              }
+            ],
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
           }
-        ]
+        }
       }
     },
     "composite_copy_report": {
@@ -973,22 +1078,26 @@
         "separate",
         "composite"
       ],
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "separate",
-            "value": "separate"
-          },
-          {
-            "label": "composite",
-            "value": "composite"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "label": "separate",
+                "value": "separate"
+              },
+              {
+                "label": "composite",
+                "value": "composite"
+              }
+            ],
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
           }
-        ]
+        }
       }
     },
     "_masked": {

@@ -8,15 +8,21 @@
       "title": "Duration",
       "type": "string",
       "minLength": 2,
-      "form": {
-        "placeholder": "Example: 1h50",
-        "templateOptions": {
-          "cssClass": "w-md-50"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "w-md-50",
+            "placeholder": "Example: 1h50"
+          }
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

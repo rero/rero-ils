@@ -17,7 +17,7 @@
 
 #}
 {%- if current_user.is_anonymous %}
-<a class="btn btn-primary btn-sm" href="{{ url_for_security('login', next=request.path) }}">
+<a class="btn btn-primary btn-sm my-2" href="{{ url_for_security('login', next=request.path) }}">
   <i class="fa fa-sign-in"></i> {{ _('Log in (to see request options)') }}
 </a>
 {%- endif %}

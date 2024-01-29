@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 
 import pytest
+from flask_babel import gettext as _
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
@@ -142,7 +143,7 @@ def test_circ_policy_reminders(circ_policy_schema,
     due_soon_reminder = {
         'type': DUE_SOON_REMINDER_TYPE,
         'days_delay': 3,
-        'communication_channel': 'patron_setting',
+        'communication_channel': _('patron_setting'),
         'template': 'email/due_soon/'
     }
     cipo['reminders'].append(due_soon_reminder)
@@ -160,7 +161,7 @@ def test_circ_policy_reminders(circ_policy_schema,
     overdue_reminder = {
         'type': OVERDUE_REMINDER_TYPE,
         'days_delay': 2,
-        'communication_channel': 'mail',
+        'communication_channel': _('mail'),
         'template': 'email/overdue'
     }
     with pytest.raises(ValidationError):
@@ -169,7 +170,7 @@ def test_circ_policy_reminders(circ_policy_schema,
         overdue_reminder2['template'] = 'email/overdue'
         cipo['reminders'].extend([overdue_reminder1, overdue_reminder2])
         validate(cipo, circ_policy_schema)  # valid for JSON schema
-        cipo.validate()  # invalid against extented_validation rules
+        cipo.validate()  # invalid against extended_validation rules
     del cipo['reminders']
 
 

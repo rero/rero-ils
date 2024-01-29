@@ -7,12 +7,20 @@
     "items": {
       "title": "Note on statement of responsibility",
       "type": "string",
-      "form": {
-        "placeholder": "Example: Additional collaborators: Bernard Levrat, Eric Wehrli"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: Additional collaborators: Bernard Levrat, Eric Wehrli"
+          }
+        }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

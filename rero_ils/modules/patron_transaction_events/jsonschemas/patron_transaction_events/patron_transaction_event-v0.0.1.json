@@ -125,13 +125,17 @@
           "enum": [
             "fee"
           ],
-          "form": {
-            "options": [
-              {
-                "label": "fee",
-                "value": "fee"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "options": [
+                  {
+                    "label": "fee",
+                    "value": "fee"
+                  }
+                ]
               }
-            ]
+            }
           }
         },
         "subtype": {
@@ -141,25 +145,29 @@
             "lost",
             "other"
           ],
-          "form": {
-            "options": [
-              {
-                "label": "overdue",
-                "value": "overdue"
-              },
-              {
-                "label": "damaged",
-                "value": "damaged"
-              },
-              {
-                "label": "lost",
-                "value": "lost"
-              },
-              {
-                "label": "other",
-                "value": "other"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "options": [
+                  {
+                    "label": "overdue",
+                    "value": "overdue"
+                  },
+                  {
+                    "label": "damaged",
+                    "value": "damaged"
+                  },
+                  {
+                    "label": "lost",
+                    "value": "lost"
+                  },
+                  {
+                    "label": "other",
+                    "value": "other"
+                  }
+                ]
               }
-            ]
+            }
           }
         }
       },
@@ -174,13 +182,17 @@
           "enum": [
             "payment"
           ],
-          "form": {
-            "options": [
-              {
-                "label": "payment",
-                "value": "payment"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "options": [
+                  {
+                    "label": "payment",
+                    "value": "payment"
+                  }
+                ]
               }
-            ]
+            }
           }
         },
         "subtype": {
@@ -191,29 +203,33 @@
             "credit_card",
             "paypal"
           ],
-          "form": {
-            "options": [
-              {
-                "label": "cash",
-                "value": "cash"
-              },
-              {
-                "label": "invoice",
-                "value": "invoice"
-              },
-              {
-                "label": "debit_card",
-                "value": "debit_card"
-              },
-              {
-                "label": "credit_card",
-                "value": "credit_card"
-              },
-              {
-                "label": "paypal",
-                "value": "paypal"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "options": [
+                  {
+                    "label": "cash",
+                    "value": "cash"
+                  },
+                  {
+                    "label": "invoice",
+                    "value": "invoice"
+                  },
+                  {
+                    "label": "debit_card",
+                    "value": "debit_card"
+                  },
+                  {
+                    "label": "credit_card",
+                    "value": "credit_card"
+                  },
+                  {
+                    "label": "paypal",
+                    "value": "paypal"
+                  }
+                ]
               }
-            ]
+            }
           }
         }
       },
@@ -230,13 +246,17 @@
             "dispute"
           ]
         },
-        "form": {
-          "options": [
-            {
-              "label": "dispute",
-              "value": "dispute"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "options": [
+                {
+                  "label": "dispute",
+                  "value": "dispute"
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "required": [
@@ -251,13 +271,17 @@
             "cancel"
           ]
         },
-        "form": {
-          "options": [
-            {
-              "label": "cancel",
-              "value": "cancel"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "options": [
+                {
+                  "label": "cancel",
+                  "value": "cancel"
+                }
+              ]
             }
-          ]
+          }
         }
       },
       "required": [

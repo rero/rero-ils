@@ -30,8 +30,8 @@
               "readOnly": true,
               "default": "docmaintype_archives",
               "const": "docmaintype_archives",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -39,9 +39,11 @@
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -62,8 +64,8 @@
               "readOnly": true,
               "default": "docmaintype_article",
               "const": "docmaintype_article",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -71,9 +73,11 @@
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -96,8 +100,8 @@
               "readOnly": true,
               "default": "docmaintype_audio",
               "const": "docmaintype_audio",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -114,34 +118,38 @@
                 "docsubtype_audio_book",
                 "docsubtype_recorded_words"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_music",
-                    "value": "docsubtype_music"
-                  },
-                  {
-                    "label": "docsubtype_sound",
-                    "value": "docsubtype_sound"
-                  },
-                  {
-                    "label": "docsubtype_audio_book",
-                    "value": "docsubtype_audio_book"
-                  },
-                  {
-                    "label": "docsubtype_recorded_words",
-                    "value": "docsubtype_recorded_words"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "docsubtype_music",
+                        "value": "docsubtype_music"
+                      },
+                      {
+                        "label": "docsubtype_sound",
+                        "value": "docsubtype_sound"
+                      },
+                      {
+                        "label": "docsubtype_audio_book",
+                        "value": "docsubtype_audio_book"
+                      },
+                      {
+                        "label": "docsubtype_recorded_words",
+                        "value": "docsubtype_recorded_words"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -164,8 +172,8 @@
               "readOnly": true,
               "default": "docmaintype_book",
               "const": "docmaintype_book",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -186,50 +194,54 @@
                 "docsubtype_microform",
                 "docsubtype_pictorial_book"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_other_book",
-                    "value": "docsubtype_other_book"
-                  },
-                  {
-                    "label": "docsubtype_large_print_book",
-                    "value": "docsubtype_large_print_book"
-                  },
-                  {
-                    "label": "docsubtype_braille_book",
-                    "value": "docsubtype_braille_book"
-                  },
-                  {
-                    "label": "docsubtype_manuscript",
-                    "value": "docsubtype_manuscript"
-                  },
-                  {
-                    "label": "docsubtype_thesis",
-                    "value": "docsubtype_thesis"
-                  },
-                  {
-                    "label": "docsubtype_e-book",
-                    "value": "docsubtype_e-book"
-                  },
-                  {
-                    "label": "docsubtype_microform",
-                    "value": "docsubtype_microform"
-                  },
-                  {
-                    "label": "docsubtype_pictorial_book",
-                    "value": "docsubtype_pictorial_book"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "docsubtype_other_book",
+                        "value": "docsubtype_other_book"
+                      },
+                      {
+                        "label": "docsubtype_large_print_book",
+                        "value": "docsubtype_large_print_book"
+                      },
+                      {
+                        "label": "docsubtype_braille_book",
+                        "value": "docsubtype_braille_book"
+                      },
+                      {
+                        "label": "docsubtype_manuscript",
+                        "value": "docsubtype_manuscript"
+                      },
+                      {
+                        "label": "docsubtype_thesis",
+                        "value": "docsubtype_thesis"
+                      },
+                      {
+                        "label": "docsubtype_e-book",
+                        "value": "docsubtype_e-book"
+                      },
+                      {
+                        "label": "docsubtype_microform",
+                        "value": "docsubtype_microform"
+                      },
+                      {
+                        "label": "docsubtype_pictorial_book",
+                        "value": "docsubtype_pictorial_book"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -250,8 +262,8 @@
               "readOnly": true,
               "default": "docmaintype_children",
               "const": "docmaintype_children",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -259,9 +271,11 @@
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -284,8 +298,8 @@
               "readOnly": true,
               "default": "docmaintype_comic",
               "const": "docmaintype_comic",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -300,26 +314,30 @@
                 "docsubtype_comic",
                 "docsubtype_manga"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_comic",
-                    "value": "docsubtype_comic"
-                  },
-                  {
-                    "label": "docsubtype_manga",
-                    "value": "docsubtype_manga"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "docsubtype_comic",
+                        "value": "docsubtype_comic"
+                      },
+                      {
+                        "label": "docsubtype_manga",
+                        "value": "docsubtype_manga"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -342,8 +360,8 @@
               "readOnly": true,
               "default": "docmaintype_electronic",
               "const": "docmaintype_electronic",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -358,23 +376,29 @@
                 "docsubtype_cdrom_dvdrom",
                 "docsubtype_other_electronic_carrier"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_cdrom_dvdrom",
-                    "value": "docsubtype_cdrom_dvdrom"
-                  },
-                  {
-                    "label": "docsubtype_other_electronic_carrier",
-                    "value": "docsubtype_other_electronic_carrier"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "options": [
+                      {
+                        "label": "docsubtype_cdrom_dvdrom",
+                        "value": "docsubtype_cdrom_dvdrom"
+                      },
+                      {
+                        "label": "docsubtype_other_electronic_carrier",
+                        "value": "docsubtype_other_electronic_carrier"
+                      }
+                    ]
                   }
-                ]
+                }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -397,8 +421,8 @@
               "readOnly": true,
               "default": "docmaintype_game",
               "const": "docmaintype_game",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -415,34 +439,38 @@
                 "docsubtype_role-playing_game",
                 "docsubtype_board_game"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_other_game",
-                    "value": "docsubtype_other_game"
-                  },
-                  {
-                    "label": "docsubtype_video_game",
-                    "value": "docsubtype_video_game"
-                  },
-                  {
-                    "label": "docsubtype_role-playing_game",
-                    "value": "docsubtype_role-playing_game"
-                  },
-                  {
-                    "label": "docsubtype_board_game",
-                    "value": "docsubtype_board_game"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "docsubtype_other_game",
+                        "value": "docsubtype_other_game"
+                      },
+                      {
+                        "label": "docsubtype_video_game",
+                        "value": "docsubtype_video_game"
+                      },
+                      {
+                        "label": "docsubtype_role-playing_game",
+                        "value": "docsubtype_role-playing_game"
+                      },
+                      {
+                        "label": "docsubtype_board_game",
+                        "value": "docsubtype_board_game"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -465,8 +493,8 @@
               "readOnly": true,
               "default": "docmaintype_image",
               "const": "docmaintype_image",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -486,46 +514,50 @@
                 "docsubtype_other_image",
                 "docsubtype_projected_image"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_poster",
-                    "value": "docsubtype_poster"
-                  },
-                  {
-                    "label": "docsubtype_postcard",
-                    "value": "docsubtype_postcard"
-                  },
-                  {
-                    "label": "docsubtype_photography",
-                    "value": "docsubtype_photography"
-                  },
-                  {
-                    "label": "docsubtype_print_engraving",
-                    "value": "docsubtype_print_engraving"
-                  },
-                  {
-                    "label": "docsubtype_calendar",
-                    "value": "docsubtype_calendar"
-                  },
-                  {
-                    "label": "docsubtype_other_image",
-                    "value": "docsubtype_other_image"
-                  },
-                  {
-                    "label": "docsubtype_projected_image",
-                    "value": "docsubtype_projected_image"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "docsubtype_poster",
+                        "value": "docsubtype_poster"
+                      },
+                      {
+                        "label": "docsubtype_postcard",
+                        "value": "docsubtype_postcard"
+                      },
+                      {
+                        "label": "docsubtype_photography",
+                        "value": "docsubtype_photography"
+                      },
+                      {
+                        "label": "docsubtype_print_engraving",
+                        "value": "docsubtype_print_engraving"
+                      },
+                      {
+                        "label": "docsubtype_calendar",
+                        "value": "docsubtype_calendar"
+                      },
+                      {
+                        "label": "docsubtype_other_image",
+                        "value": "docsubtype_other_image"
+                      },
+                      {
+                        "label": "docsubtype_projected_image",
+                        "value": "docsubtype_projected_image"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -546,8 +578,8 @@
               "readOnly": true,
               "default": "docmaintype_language_method",
               "const": "docmaintype_language_method",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -555,9 +587,11 @@
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -578,8 +612,8 @@
               "readOnly": true,
               "default": "docmaintype_leaf",
               "const": "docmaintype_leaf",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -587,9 +621,11 @@
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -612,8 +648,8 @@
               "readOnly": true,
               "default": "docmaintype_map",
               "const": "docmaintype_map",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -628,23 +664,29 @@
                 "docsubtype_map",
                 "docsubtype_atlas"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_map",
-                    "value": "docsubtype_map"
-                  },
-                  {
-                    "label": "docsubtype_atlas",
-                    "value": "docsubtype_atlas"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "options": [
+                      {
+                        "label": "docsubtype_map",
+                        "value": "docsubtype_map"
+                      },
+                      {
+                        "label": "docsubtype_atlas",
+                        "value": "docsubtype_atlas"
+                      }
+                    ]
                   }
-                ]
+                }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -667,8 +709,8 @@
               "readOnly": true,
               "default": "docmaintype_movie_series",
               "const": "docmaintype_movie_series",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -684,30 +726,34 @@
                 "docsubtype_series",
                 "docsubtype_documentary"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_movie",
-                    "value": "docsubtype_movie"
-                  },
-                  {
-                    "label": "docsubtype_series",
-                    "value": "docsubtype_series"
-                  },
-                  {
-                    "label": "docsubtype_documentary",
-                    "value": "docsubtype_documentary"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "docsubtype_movie",
+                        "value": "docsubtype_movie"
+                      },
+                      {
+                        "label": "docsubtype_series",
+                        "value": "docsubtype_series"
+                      },
+                      {
+                        "label": "docsubtype_documentary",
+                        "value": "docsubtype_documentary"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -730,8 +776,8 @@
               "readOnly": true,
               "default": "docmaintype_object",
               "const": "docmaintype_object",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -747,30 +793,34 @@
                 "docsubtype_tablet",
                 "docsubtype_other_object"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_kamishibai",
-                    "value": "docsubtype_kamishibai"
-                  },
-                  {
-                    "label": "docsubtype_tablet",
-                    "value": "docsubtype_tablet"
-                  },
-                  {
-                    "label": "docsubtype_other_object",
-                    "value": "docsubtype_other_object"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "docsubtype_kamishibai",
+                        "value": "docsubtype_kamishibai"
+                      },
+                      {
+                        "label": "docsubtype_tablet",
+                        "value": "docsubtype_tablet"
+                      },
+                      {
+                        "label": "docsubtype_other_object",
+                        "value": "docsubtype_other_object"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -791,8 +841,8 @@
               "readOnly": true,
               "default": "docmaintype_other",
               "const": "docmaintype_other",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -800,9 +850,11 @@
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -825,8 +877,8 @@
               "readOnly": true,
               "default": "docmaintype_score",
               "const": "docmaintype_score",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -842,30 +894,34 @@
                 "docsubtype_music_method",
                 "docsubtype_manuscript_score"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_printed_score",
-                    "value": "docsubtype_printed_score"
-                  },
-                  {
-                    "label": "docsubtype_music_method",
-                    "value": "docsubtype_music_method"
-                  },
-                  {
-                    "label": "docsubtype_manuscript_score",
-                    "value": "docsubtype_manuscript_score"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "docsubtype_printed_score",
+                        "value": "docsubtype_printed_score"
+                      },
+                      {
+                        "label": "docsubtype_music_method",
+                        "value": "docsubtype_music_method"
+                      },
+                      {
+                        "label": "docsubtype_manuscript_score",
+                        "value": "docsubtype_manuscript_score"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -886,8 +942,8 @@
               "readOnly": true,
               "default": "docmaintype_serial",
               "const": "docmaintype_serial",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -895,9 +951,11 @@
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -918,8 +976,8 @@
               "readOnly": true,
               "default": "docmaintype_series",
               "const": "docmaintype_series",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -927,9 +985,11 @@
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         },
@@ -952,8 +1012,8 @@
               "readOnly": true,
               "default": "docmaintype_teaching_material",
               "const": "docmaintype_teaching_material",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -971,46 +1031,52 @@
                 "docsubtype_official_material",
                 "docsubtype_guided_reading"
               ],
-              "form": {
-                "options": [
-                  {
-                    "label": "docsubtype_reading_kit",
-                    "value": "docsubtype_reading_kit"
-                  },
-                  {
-                    "label": "docsubtype_experimentation_kit",
-                    "value": "docsubtype_experimentation_kit"
-                  },
-                  {
-                    "label": "docsubtype_thematic_kit",
-                    "value": "docsubtype_thematic_kit"
-                  },
-                  {
-                    "label": "docsubtype_official_material",
-                    "value": "docsubtype_official_material"
-                  },
-                  {
-                    "label": "docsubtype_guided_reading",
-                    "value": "docsubtype_guided_reading"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "docsubtype_reading_kit",
+                        "value": "docsubtype_reading_kit"
+                      },
+                      {
+                        "label": "docsubtype_experimentation_kit",
+                        "value": "docsubtype_experimentation_kit"
+                      },
+                      {
+                        "label": "docsubtype_thematic_kit",
+                        "value": "docsubtype_thematic_kit"
+                      },
+                      {
+                        "label": "docsubtype_official_material",
+                        "value": "docsubtype_official_material"
+                      },
+                      {
+                        "label": "docsubtype_guided_reading",
+                        "value": "docsubtype_guided_reading"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "containerCssClass": "row"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "containerCssClass": "row"
+              }
             }
           }
         }
       ]
     },
-    "form": {
-      "templateOptions": {
-        "cssClass": "w-md-50"
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "cssClass": "w-md-50"
+        }
       }
     }
   }

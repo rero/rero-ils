@@ -51,21 +51,23 @@
       "title": "Barcode",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "focus": true,
-        "templateOptions": {
-          "labelClasses": "col-2 text-right",
-          "doNotSubmitOnEnter": true
-        },
-        "navigation": {
-          "essential": true
-        },
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {}
-          },
-          "messages": {
-            "alreadyTakenMessage": "The barcode is already taken."
+      "widget": {
+        "formlyConfig": {
+          "focus": true,
+          "props": {
+            "labelClasses": "col-2 text-right",
+            "doNotSubmitOnEnter": true,
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {}
+              },
+              "messages": {
+                "alreadyTakenMessage": "The barcode is already taken."
+              }
+            },
+            "navigation": {
+              "essential": true
+            }
           }
         }
       }
@@ -73,25 +75,29 @@
     "call_number": {
       "title": "Call number",
       "type": "string",
-      "form": {
-        "navigation": {
-          "essential": true
-        },
-        "templateOptions": {
-          "labelClasses": "col-2 text-right"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "labelClasses": "col-2 text-right",
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
     "second_call_number": {
       "title": "Second call number",
       "type": "string",
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "templateOptions": {
-          "labelClasses": "col-2 text-right"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "labelClasses": "col-2 text-right",
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -100,16 +106,18 @@
       "type": "string",
       "minLength": 1,
       "description": "Numbering, enumeration, or other indication associated with the item.",
-      "form": {
-        "navigation": {
-          "essential": true
-        },
-        "templateOptions": {
-          "labelClasses": "col-2 text-right px-0"
-        },
-        "placeholder": "Example: Volume 1",
-        "expressionProperties": {
-          "templateOptions.required": "model && model.type === 'issue'"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": "model && model.type === 'issue'"
+          },
+          "props": {
+            "labelClasses": "col-2 text-right px-0",
+            "navigation": {
+              "essential": true
+            },
+            "placeholder": "Example: Volume 1"
+          }
         }
       }
     },
@@ -124,19 +132,25 @@
           "title": "Location URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/locations/.+?$",
-          "form": {
-            "templateOptions": {
-              "hideLabel": true
-            },
-            "fieldMap": "location"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hideLabel": true,
+                "fieldMap": "location"
+              }
+            }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "hideExpression": "field?.parent?.model && field.parent.model.type === 'issue'"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "hide": "field?.parent?.model && field.parent.model.type === 'issue'"
+          },
+          "props": {
+            "cssClass": "editor-title"
+          }
+        }
       }
     },
     "document": {
@@ -162,21 +176,27 @@
           "title": "Item Type URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/item_types/.+?$",
-          "form": {
-            "templateOptions": {
-              "hideLabel": true
-            },
-            "remoteOptions": {
-              "type": "item_types"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hideLabel": true,
+                "remoteOptions": {
+                  "type": "item_types"
+                }
+              }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "hideExpression": "field?.parent?.model && field.parent.model.type === 'issue'"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "hide": "field?.parent?.model && field.parent.model.type === 'issue'"
+          },
+          "props": {
+            "cssClass": "editor-title"
+          }
+        }
       }
     },
     "temporary_item_type": {
@@ -195,12 +215,14 @@
           "title": "Item Type URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/item_types/.+?$",
-          "form": {
-            "templateOptions": {
-              "hideLabel": true
-            },
-            "remoteOptions": {
-              "type": "item_types"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hideLabel": true,
+                "remoteOptions": {
+                  "type": "item_types"
+                }
+              }
             }
           }
         },
@@ -209,24 +231,32 @@
           "type": "string",
           "format": "date",
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-          "form": {
-            "hideExpression": "false",
-            "type": "datepicker",
-            "validation": {
-              "messages": {
-                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+          "widget": {
+            "formlyConfig": {
+              "type": "datepicker",
+              "expressions": {
+                "hide": "false"
+              },
+              "props": {
+                "validation": {
+                  "messages": {
+                    "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+                  }
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "editor-title",
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -246,11 +276,13 @@
           "title": "Location URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/locations/.+?$",
-          "form": {
-            "templateOptions": {
-              "hideLabel": true
-            },
-            "fieldMap": "location"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hideLabel": true,
+                "fieldMap": "location"
+              }
+            }
           }
         },
         "end_date": {
@@ -258,23 +290,29 @@
           "type": "string",
           "format": "date",
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-          "form": {
-            "type": "datepicker",
-            "validation": {
-              "messages": {
-                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+          "widget": {
+            "formlyConfig": {
+              "type": "datepicker",
+              "props": {
+                "validation": {
+                  "messages": {
+                    "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+                  }
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "editor-title",
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -287,8 +325,8 @@
         "provisional"
       ],
       "default": "standard",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -322,26 +360,30 @@
             "deleted",
             "expected"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "received",
-                "value": "received"
-              },
-              {
-                "label": "late",
-                "value": "late"
-              },
-              {
-                "label": "deleted",
-                "value": "deleted"
-              },
-              {
-                "label": "expected",
-                "value": "expected"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "options": [
+                  {
+                    "label": "received",
+                    "value": "received"
+                  },
+                  {
+                    "label": "late",
+                    "value": "late"
+                  },
+                  {
+                    "label": "deleted",
+                    "value": "deleted"
+                  },
+                  {
+                    "label": "expected",
+                    "value": "expected"
+                  }
+                ]
               }
-            ]
+            }
           }
         },
         "status_date": {
@@ -355,20 +397,22 @@
           "type": "string",
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
-          "form": {
-            "type": "datepicker",
-            "expressionProperties": {
-              "templateOptions.required": "field?.parent?.model && field.parent.model.status === 'received'"
-            },
-            "hideExpression": "field?.parent?.model && field.parent.model.status !== 'received'",
-            "templateOptions": {
+          "widget": {
+            "formlyConfig": {
+              "type": "datepicker",
+              "expressions": {
+                "props.required": "field?.parent?.model?.status === 'received'",
+                "hide": "field?.parent?.model?.status !== 'received'"
+              },
               "wrappers": [
                 "form-field"
-              ]
-            },
-            "validation": {
-              "messages": {
-                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+              ],
+              "props": {
+                "validation": {
+                  "messages": {
+                    "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+                  }
+                }
               }
             }
           }
@@ -379,11 +423,15 @@
           "type": "string",
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
-          "form": {
-            "type": "datepicker",
-            "validation": {
-              "messages": {
-                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+          "widget": {
+            "formlyConfig": {
+              "type": "datepicker",
+              "props": {
+                "validation": {
+                  "messages": {
+                    "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+                  }
+                }
               }
             }
           }
@@ -395,11 +443,15 @@
           "type": "string",
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
-          "form": {
-            "type": "datepicker",
-            "validation": {
-              "messages": {
-                "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+          "widget": {
+            "formlyConfig": {
+              "type": "datepicker",
+              "props": {
+                "validation": {
+                  "messages": {
+                    "pattern": "Should be in the ISO 8601, YYYY-MM-DD."
+                  }
+                }
               }
             }
           }
@@ -408,17 +460,22 @@
           "title": "Regularity",
           "type": "boolean",
           "default": true,
-          "form": {
-            "templateOptions": {
+          "widget": {
+            "formlyConfig": {
               "wrappers": [
                 "hide"
-              ]
+              ],
+              "props": {}
             }
           }
         }
       },
-      "form": {
-        "hideExpression": "field?.parent?.model && field.parent.model.type !== 'issue'"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "hide": "field?.parent?.model?.type !== 'issue'"
+          }
+        }
       }
     },
     "status": {
@@ -434,38 +491,40 @@
         "at_desk",
         "excluded"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "on_shelf",
-            "value": "on_shelf"
-          },
-          {
-            "label": "on_loan",
-            "value": "on_loan"
-          },
-          {
-            "label": "missing",
-            "value": "missing"
-          },
-          {
-            "label": "in_transit",
-            "value": "in_transit"
-          },
-          {
-            "label": "at_desk",
-            "value": "at_desk"
-          },
-          {
-            "label": "excluded",
-            "value": "excluded"
-          }
-        ],
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
           "wrappers": [
             "hide"
-          ]
+          ],
+          "props": {
+            "options": [
+              {
+                "label": "on_shelf",
+                "value": "on_shelf"
+              },
+              {
+                "label": "on_loan",
+                "value": "on_loan"
+              },
+              {
+                "label": "missing",
+                "value": "missing"
+              },
+              {
+                "label": "in_transit",
+                "value": "in_transit"
+              },
+              {
+                "label": "at_desk",
+                "value": "at_desk"
+              },
+              {
+                "label": "excluded",
+                "value": "excluded"
+              }
+            ]
+          }
         }
       }
     },
@@ -537,46 +596,50 @@
               "provenance_note",
               "staff_note"
             ],
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "label": "acquisition_note",
-                  "value": "acquisition_note"
-                },
-                {
-                  "label": "binding_note",
-                  "value": "binding_note"
-                },
-                {
-                  "label": "checkin_note",
-                  "value": "checkin_note"
-                },
-                {
-                  "label": "checkout_note",
-                  "value": "checkout_note"
-                },
-                {
-                  "label": "condition_note",
-                  "value": "condition_note"
-                },
-                {
-                  "label": "general_note",
-                  "value": "general_note"
-                },
-                {
-                  "label": "patrimonial_note",
-                  "value": "patrimonial_note"
-                },
-                {
-                  "label": "provenance_note",
-                  "value": "provenance_note"
-                },
-                {
-                  "label": "staff_note",
-                  "value": "staff_note"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "options": [
+                    {
+                      "label": "acquisition_note",
+                      "value": "acquisition_note"
+                    },
+                    {
+                      "label": "binding_note",
+                      "value": "binding_note"
+                    },
+                    {
+                      "label": "checkin_note",
+                      "value": "checkin_note"
+                    },
+                    {
+                      "label": "checkout_note",
+                      "value": "checkout_note"
+                    },
+                    {
+                      "label": "condition_note",
+                      "value": "condition_note"
+                    },
+                    {
+                      "label": "general_note",
+                      "value": "general_note"
+                    },
+                    {
+                      "label": "patrimonial_note",
+                      "value": "patrimonial_note"
+                    },
+                    {
+                      "label": "provenance_note",
+                      "value": "provenance_note"
+                    },
+                    {
+                      "label": "staff_note",
+                      "value": "staff_note"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "content": {
@@ -584,33 +647,37 @@
             "title": "Content",
             "maxLength": 2000,
             "minLength": 1,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "rows": 3
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "rows": 3
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "hide": true,
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "navigation": {
-          "essential": true
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "editor-title",
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+              }
+            },
+            "hide": true,
+            "navigation": {
+              "essential": true
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
       }
@@ -621,14 +688,16 @@
       "type": "string",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
-      "form": {
-        "type": "datepicker",
-        "templateOptions": {
-          "hideLabel": true,
-          "defaultValueExpression": "new Date().toISOString().split('T')[0]"
-        },
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
+          "props": {
+            "hideLabel": true,
+            "defaultValueExpression": "new Date().toISOString().split('T')[0]",
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -638,18 +707,20 @@
       "format": "uri",
       "pattern": "^(rtsp?|ftp?|http[s]?)://.*$",
       "minLength": 7,
-      "form": {
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be a valid URL format."
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "editor-title",
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be a valid URL format."
+              }
+            },
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
           }
-        },
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "hide": true,
-        "navigation": {
-          "essential": true
         }
       }
     },
@@ -664,36 +735,38 @@
         "3_consumable",
         "4_disposable"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "4_disposable",
-            "value": "4_disposable"
-          },
-          {
-            "label": "3_consumable",
-            "value": "3_consumable"
-          },
-          {
-            "label": "2_controlled_consumption",
-            "value": "2_controlled_consumption"
-          },
-          {
-            "label": "1_reserved",
-            "value": "1_reserved"
-          },
-          {
-            "label": "0_frozen_collection",
-            "value": "0_frozen_collection"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "cssClass": "editor-title",
+            "options": [
+              {
+                "label": "4_disposable",
+                "value": "4_disposable"
+              },
+              {
+                "label": "3_consumable",
+                "value": "3_consumable"
+              },
+              {
+                "label": "2_controlled_consumption",
+                "value": "2_controlled_consumption"
+              },
+              {
+                "label": "1_reserved",
+                "value": "1_reserved"
+              },
+              {
+                "label": "0_frozen_collection",
+                "value": "0_frozen_collection"
+              }
+            ],
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
           }
-        ],
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "hide": true,
-        "navigation": {
-          "essential": true
         }
       }
     },
@@ -701,13 +774,15 @@
       "title": "Price",
       "type": "number",
       "minimum": 0,
-      "form": {
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "editor-title",
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -750,13 +825,15 @@
       "type": "boolean",
       "description": "A masked item is visible in the professional interface, but not in the public interface.",
       "default": false,
-      "form": {
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "editor-title",
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     }

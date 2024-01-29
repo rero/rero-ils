@@ -460,26 +460,30 @@
         "fre",
         "ita"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "lang_fre",
-            "value": "fre"
-          },
-          {
-            "label": "lang_eng",
-            "value": "eng"
-          },
-          {
-            "label": "lang_ger",
-            "value": "ger"
-          },
-          {
-            "label": "lang_ita",
-            "value": "ita"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "label": "lang_fre",
+                "value": "fre"
+              },
+              {
+                "label": "lang_eng",
+                "value": "eng"
+              },
+              {
+                "label": "lang_ger",
+                "value": "ger"
+              },
+              {
+                "label": "lang_ita",
+                "value": "ita"
+              }
+            ]
           }
-        ]
+        }
       }
     },
     "acquisition_settings": {
@@ -534,18 +538,22 @@
             "rollover_no_transfer",
             "rollover_allocated_amount"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "rollover_no_transfer",
-                "value": "rollover_no_transfer"
-              },
-              {
-                "label": "rollover_allocated_amount",
-                "value": "rollover_allocated_amount"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "options": [
+                  {
+                    "label": "rollover_no_transfer",
+                    "value": "rollover_no_transfer"
+                  },
+                  {
+                    "label": "rollover_allocated_amount",
+                    "value": "rollover_allocated_amount"
+                  }
+                ]
               }
-            ]
+            }
           }
         }
       }

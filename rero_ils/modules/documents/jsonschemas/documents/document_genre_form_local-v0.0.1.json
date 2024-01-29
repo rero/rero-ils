@@ -18,8 +18,8 @@
       "type": "string",
       "default": "bf:Topic",
       "const": "bf:Topic",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -30,10 +30,12 @@
       "title": "Access Point",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Electronic serials",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: Electronic serials"
+          }
         }
       }
     },
@@ -47,9 +49,11 @@
       "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
     }
   },
-  "form": {
-    "templateOptions": {
-      "containerCssClass": "row"
+  "widget": {
+    "formlyConfig": {
+      "props": {
+        "containerCssClass": "row"
+      }
     }
   }
 }

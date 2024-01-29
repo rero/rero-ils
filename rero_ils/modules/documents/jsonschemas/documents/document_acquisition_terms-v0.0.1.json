@@ -7,12 +7,20 @@
     "items": {
       "title": "Term of availability",
       "type": "string",
-      "form": {
-        "placeholder": "Example: CHF 68.-"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: CHF 68.-"
+          }
+        }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }
