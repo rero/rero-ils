@@ -222,7 +222,8 @@
       "properties": {
         "$ref": {
           "title": "Organisation URI",
-          "type": "string"
+          "type": "string",
+          "pattern": "^https://bib.rero.ch/api/organisations/.*?$"
         }
       }
     }
