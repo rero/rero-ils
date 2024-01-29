@@ -35,8 +35,12 @@
             "title": "Numbering",
             "$ref": "#/definitions/numbering_script"
           },
-          "form": {
-            "hide": true
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hide": true
+              }
+            }
           }
         },
         "subseriesStatement": {
@@ -72,14 +76,22 @@
                   "title": "Numbering",
                   "$ref": "#/definitions/numbering_script"
                 },
-                "form": {
-                  "hide": true
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "hide": true
+                    }
+                  }
                 }
               }
             }
           },
-          "form": {
-            "hide": true
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hide": true
+              }
+            }
           }
         },
         "identifiedBy": {
@@ -87,10 +99,14 @@
         }
       }
     },
-    "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true,
+          "navigation": {
+            "essential": true
+          }
+        }
       }
     }
   },
@@ -105,27 +121,35 @@
       "required": [
         "value"
       ],
-      "form": {
-        "templateOptions": {
-          "containerCssClass": "row"
-        }
-      },
       "properties": {
         "value": {
           "title": "Value",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "placeholder": "Example: vol.3",
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "placeholder": "Example: vol.3"
+              }
             }
           }
         },
         "language": {
           "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script_code",
-          "form": {
-            "hide": true
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hide": true
+              }
+            }
+          }
+        }
+      },
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "containerCssClass": "row"
           }
         }
       }

@@ -7,12 +7,20 @@
     "items": {
       "title": "Supplementary content",
       "type": "string",
-      "form": {
-        "placeholder": "Example: Bibliography: pages 323-346"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: Bibliography: pages 323-346"
+          }
+        }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

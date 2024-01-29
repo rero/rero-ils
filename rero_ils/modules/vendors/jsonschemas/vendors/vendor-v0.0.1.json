@@ -38,16 +38,20 @@
       "title": "Name",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "focus": true,
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "name.raw"
+      "widget": {
+        "formlyConfig": {
+          "focus": true,
+          "props": {
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {
+                  "term": "name.raw"
+                }
+              },
+              "messages": {
+                "alreadyTakenMessage": "The vendor name is already taken."
+              }
             }
-          },
-          "messages": {
-            "alreadyTakenMessage": "The vendor name is already taken."
           }
         }
       }
@@ -58,10 +62,14 @@
       "format": "uri",
       "pattern": "^(ftps?|https?)://.*$",
       "minLength": 4,
-      "form": {
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be a valid URL format."
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be a valid URL format."
+              }
+            }
           }
         }
       }
@@ -98,46 +106,50 @@
               "general_note"
             ],
             "default": "general_note",
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "label": "order_note",
-                  "value": "order_note"
-                },
-                {
-                  "label": "claim_note",
-                  "value": "claim_note"
-                },
-                {
-                  "label": "return_note",
-                  "value": "return_note"
-                },
-                {
-                  "label": "invoice_note",
-                  "value": "invoice_note"
-                },
-                {
-                  "label": "payment_note",
-                  "value": "payment_note"
-                },
-                {
-                  "label": "receipt_note",
-                  "value": "receipt_note"
-                },
-                {
-                  "label": "credit_note",
-                  "value": "credit_note"
-                },
-                {
-                  "label": "staff_note",
-                  "value": "staff_note"
-                },
-                {
-                  "label": "general_note",
-                  "value": "general_note"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "options": [
+                    {
+                      "label": "order_note",
+                      "value": "order_note"
+                    },
+                    {
+                      "label": "claim_note",
+                      "value": "claim_note"
+                    },
+                    {
+                      "label": "return_note",
+                      "value": "return_note"
+                    },
+                    {
+                      "label": "invoice_note",
+                      "value": "invoice_note"
+                    },
+                    {
+                      "label": "payment_note",
+                      "value": "payment_note"
+                    },
+                    {
+                      "label": "receipt_note",
+                      "value": "receipt_note"
+                    },
+                    {
+                      "label": "credit_note",
+                      "value": "credit_note"
+                    },
+                    {
+                      "label": "staff_note",
+                      "value": "staff_note"
+                    },
+                    {
+                      "label": "general_note",
+                      "value": "general_note"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "content": {
@@ -145,31 +157,35 @@
             "title": "Content",
             "maxLength": 2000,
             "minLength": 1,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "rows": 3
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "rows": 3
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
-          ]
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+          ],
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+              }
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
       }
@@ -184,30 +200,34 @@
         "ger",
         "spa"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "value": "fre",
-            "label": "lang_fre"
-          },
-          {
-            "value": "eng",
-            "label": "lang_eng"
-          },
-          {
-            "value": "ita",
-            "label": "lang_ita"
-          },
-          {
-            "value": "ger",
-            "label": "lang_ger"
-          },
-          {
-            "value": "spa",
-            "label": "lang_spa"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "value": "fre",
+                "label": "lang_fre"
+              },
+              {
+                "value": "eng",
+                "label": "lang_eng"
+              },
+              {
+                "value": "ita",
+                "label": "lang_ita"
+              },
+              {
+                "value": "ger",
+                "label": "lang_ger"
+              },
+              {
+                "value": "spa",
+                "label": "lang_spa"
+              }
+            ]
           }
-        ]
+        }
       }
     },
     "contacts": {
@@ -241,26 +261,28 @@
               "order",
               "serial"
             ],
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "value": "default",
-                  "label": "Default contact "
-                },
-                {
-                  "value": "order",
-                  "label": "Order contact"
-                },
-                {
-                  "value": "serial",
-                  "label": "Serial contact"
-                }
-              ],
-              "templateOptions": {
-                "itemCssClass": "col-lg-12",
-                "selectWithSortOptions": {
-                  "order": "label"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "itemCssClass": "col-lg-12",
+                  "selectWithSortOptions": {
+                    "order": "label"
+                  },
+                  "options": [
+                    {
+                      "value": "default",
+                      "label": "Default contact "
+                    },
+                    {
+                      "value": "order",
+                      "label": "Order contact"
+                    },
+                    {
+                      "value": "serial",
+                      "label": "Serial contact"
+                    }
+                  ]
                 }
               }
             }
@@ -270,11 +292,13 @@
             "description": "Vendor contact person.",
             "type": "string",
             "minLength": 4,
-            "form": {
-              "templateOptions": {
-                "itemCssClass": "col-lg-12",
-                "addonLeft": {
-                  "class": "fa fa-user"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-12",
+                  "addonLeft": [
+                    "<i class=\"fa fa-user\"></i>"
+                  ]
                 }
               }
             }
@@ -284,11 +308,13 @@
             "description": "Street and number of the address, separated by a coma.",
             "type": "string",
             "minLength": 4,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "itemCssClass": "col-lg-12",
-                "rows": 2
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "itemCssClass": "col-lg-12",
+                  "rows": 2
+                }
               }
             }
           },
@@ -296,9 +322,11 @@
             "title": "Postal code",
             "type": "string",
             "minLength": 4,
-            "form": {
-              "templateOptions": {
-                "itemCssClass": "col-lg-4"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-4"
+                }
               }
             }
           },
@@ -306,9 +334,11 @@
             "title": "City",
             "type": "string",
             "minLength": 2,
-            "form": {
-              "templateOptions": {
-                "itemCssClass": "col-lg-8"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-8"
+                }
               }
             }
           },
@@ -316,11 +346,13 @@
             "title": "Country",
             "type": "string",
             "minLength": 2,
-            "form": {
-              "templateOptions": {
-                "itemCssClass": "col-lg-12",
-                "addonLeft": {
-                  "class": "fa fa-globe"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-12",
+                  "addonLeft": [
+                    "<i class=\"fa fa-globe\"></i>"
+                  ]
                 }
               }
             }
@@ -329,11 +361,13 @@
             "title": "Phone number",
             "description": "Phone number with the international prefix, without spaces.",
             "type": "string",
-            "form": {
-              "templateOptions": {
-                "itemCssClass": "col-lg-12",
-                "addonLeft": {
-                  "class": "fa fa-phone"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-12",
+                  "addonLeft": [
+                    "<i class=\"fa fa-phone\"></i>"
+                  ]
                 }
               }
             }
@@ -342,38 +376,44 @@
             "title": "Email",
             "type": "string",
             "format": "email",
-            "form": {
-              "templateOptions": {
-                "itemCssClass": "col-lg-12",
-                "addonLeft": {
-                  "class": "fa fa-at"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "itemCssClass": "col-lg-12",
+                  "addonLeft": [
+                    "<i class=\"fa fa-at\"></i>"
+                  ]
                 }
               }
             }
           }
         },
-        "form": {
-          "templateOptions": {
-            "containerCssClass": "row"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "row"
+            }
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
-          ]
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+          ],
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one contact per type is allowed"
+              }
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one contact per type is allowed"
           }
         }
       }

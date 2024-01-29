@@ -35,28 +35,30 @@
             "bf:Distribution",
             "bf:Production"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "bf:Publication",
-                "value": "bf:Publication"
-              },
-              {
-                "label": "bf:Manufacture",
-                "value": "bf:Manufacture"
-              },
-              {
-                "label": "bf:Distribution",
-                "value": "bf:Distribution"
-              },
-              {
-                "label": "bf:Production",
-                "value": "bf:Production"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "itemcCssClass": "col",
+                "options": [
+                  {
+                    "label": "bf:Publication",
+                    "value": "bf:Publication"
+                  },
+                  {
+                    "label": "bf:Manufacture",
+                    "value": "bf:Manufacture"
+                  },
+                  {
+                    "label": "bf:Distribution",
+                    "value": "bf:Distribution"
+                  },
+                  {
+                    "label": "bf:Production",
+                    "value": "bf:Production"
+                  }
+                ]
               }
-            ],
-            "templateOptions": {
-              "itemcCssClass": "col"
             }
           }
         },
@@ -80,9 +82,11 @@
               "country": {
                 "allOf": [
                   {
-                    "form": {
-                      "templateOptions": {
-                        "itemCssClass": "col-lg-12"
+                    "widget": {
+                      "formlyConfig": {
+                        "props": {
+                          "itemCssClass": "col-lg-12"
+                        }
                       }
                     }
                   },
@@ -97,9 +101,11 @@
               "identifiedBy": {
                 "allOf": [
                   {
-                    "form": {
-                      "templateOptions": {
-                        "itemCssClass": "col-lg-12"
+                    "widget": {
+                      "formlyConfig": {
+                        "props": {
+                          "itemCssClass": "col-lg-12"
+                        }
                       }
                     }
                   },
@@ -110,12 +116,14 @@
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "itemCssClass": "col-lg-12"
-            },
-            "expressionProperties": {
-              "templateOptions.required": "field?.parent?.model && field.parent.model.type === 'bf:Publication'"
+          "widget": {
+            "formlyConfig": {
+              "expressions": {
+                "props.required": "field?.parent?.model && field.parent.model.type === 'bf:Publication'"
+              },
+              "props": {
+                "itemCssClass": "col-lg-12"
+              }
             }
           }
         },
@@ -144,24 +152,26 @@
                   "bf:Agent",
                   "Date"
                 ],
-                "form": {
-                  "type": "selectWithSort",
-                  "options": [
-                    {
-                      "label": "bf:Place",
-                      "value": "bf:Place"
-                    },
-                    {
-                      "label": "bf:Agent",
-                      "value": "bf:Agent"
-                    },
-                    {
-                      "label": "Date",
-                      "value": "Date"
+                "widget": {
+                  "formlyConfig": {
+                    "type": "selectWithSort",
+                    "props": {
+                      "itemCssClass": "col-lg-4",
+                      "options": [
+                        {
+                          "label": "bf:Place",
+                          "value": "bf:Place"
+                        },
+                        {
+                          "label": "bf:Agent",
+                          "value": "bf:Agent"
+                        },
+                        {
+                          "label": "Date",
+                          "value": "Date"
+                        }
+                      ]
                     }
-                  ],
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-4"
                   }
                 }
               },
@@ -173,22 +183,28 @@
                   "title": "Label",
                   "$ref": "https://bib.rero.ch/schemas/common/languages-v0.0.1.json#/language_script"
                 },
-                "form": {
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-8"
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "col-lg-8"
+                    }
                   }
                 }
               }
             },
-            "form": {
-              "templateOptions": {
-                "containerCssClass": "row"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "containerCssClass": "row"
+                }
               }
             }
           },
-          "form": {
-            "templateOptions": {
-              "itemCssClass": "col-lg-12"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-12"
+              }
             }
           }
         },
@@ -196,10 +212,12 @@
           "title": "Note",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "hide": true,
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "hide": true
+              }
             }
           }
         },
@@ -209,12 +227,14 @@
           "type": "integer",
           "minimum": -9999,
           "maximum": 9999,
-          "form": {
-            "expressionProperties": {
-              "templateOptions.required": "model.type === 'bf:Publication'"
-            },
-            "templateOptions": {
-              "itemCssClass": "col-lg-4"
+          "widget": {
+            "formlyConfig": {
+              "expressions": {
+                "props.required": "model.type === 'bf:Publication'"
+              },
+              "props": {
+                "itemCssClass": "col-lg-4"
+              }
             }
           }
         },
@@ -224,10 +244,12 @@
           "type": "integer",
           "minimum": -9999,
           "maximum": 9999,
-          "form": {
-            "hide": true,
-            "templateOptions": {
-              "itemCssClass": "col-lg-4"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-4",
+                "hide": true
+              }
             }
           }
         },
@@ -237,17 +259,21 @@
           "type": "integer",
           "minimum": -9999,
           "maximum": 2050,
-          "form": {
-            "hide": true,
-            "templateOptions": {
-              "itemCssClass": "col-lg-4"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-4",
+                "hide": true
+              }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "containerCssClass": "row"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "containerCssClass": "row"
+          }
         }
       }
     }

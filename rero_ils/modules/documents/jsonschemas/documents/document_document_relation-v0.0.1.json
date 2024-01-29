@@ -16,8 +16,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "supplementTo": {
@@ -37,8 +41,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "otherEdition": {
@@ -58,8 +66,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "otherPhysicalFormat": {
@@ -79,8 +91,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "issuedWith": {
@@ -100,8 +116,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "precededBy": {
@@ -121,8 +141,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "succeededBy": {
@@ -142,8 +166,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "relatedTo": {
@@ -163,8 +191,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "hasReproduction": {
@@ -184,8 +216,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "reproductionOf": {
@@ -205,8 +241,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   },
   "definitions": {
@@ -224,17 +264,21 @@
         "$ref": {
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/documents/.*?$",
-          "form": {
-            "remoteTypeahead": {
-              "type": "documents",
-              "filter": "NOT harvested:true"
-            },
-            "validation": {
-              "messages": {
-                "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "validation": {
+                  "messages": {
+                    "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
+                  }
+                },
+                "remoteTypeahead": {
+                  "type": "documents",
+                  "filter": "NOT harvested:true"
+                },
+                "placeholder": "Example: https://bib.rero.ch/api/documents/66"
               }
-            },
-            "placeholder": "Example: https://bib.rero.ch/api/documents/66"
+            }
           }
         }
       }

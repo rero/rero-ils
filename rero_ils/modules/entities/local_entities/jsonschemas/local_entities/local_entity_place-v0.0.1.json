@@ -29,8 +29,8 @@
       "readOnly": true,
       "default": "bf:Place",
       "const": "bf:Place",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -51,8 +51,12 @@
       "title": "Name",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Parc Natural de l'Albufera (Spain)"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: Parc Natural de l'Albufera (Spain)"
+          }
+        }
       }
     },
     "authorized_access_point": {
@@ -60,8 +64,8 @@
       "type": "string",
       "minLength": 1,
       "readOnly": true,
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -76,8 +80,12 @@
         "title": "Alternative name",
         "type": "string",
         "minLength": 1,
-        "form": {
-          "placeholder": "Example: Albufera, Parc Natural de l' (Spain)"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "placeholder": "Example: Albufera, Parc Natural de l' (Spain)"
+            }
+          }
         }
       }
     },
@@ -85,8 +93,12 @@
       "title": "Source catalog",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: lcsh, mesh, rameau"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: lcsh, mesh, rameau"
+          }
+        }
       }
     },
     "identifier": {

@@ -37,8 +37,8 @@
       "readOnly": true,
       "default": "bf:Organisation",
       "const": "bf:Organisation",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -59,8 +59,12 @@
       "title": "Name",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: University of Cambridge"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: University of Cambridge"
+          }
+        }
       }
     },
     "authorized_access_point": {
@@ -68,8 +72,8 @@
       "type": "string",
       "minLength": 1,
       "readOnly": true,
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -84,8 +88,12 @@
         "title": "Subordinate unit",
         "type": "string",
         "minLength": 1,
-        "form": {
-          "placeholder": "Example: Faculty of Philosophy"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "placeholder": "Example: Faculty of Philosophy"
+            }
+          }
         }
       }
     },
@@ -93,16 +101,24 @@
       "title": "Start date",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 1848"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: 1848"
+          }
+        }
       }
     },
     "end_date": {
       "title": "End date",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 2015"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: 2015"
+          }
+        }
       }
     },
     "conference": {
@@ -115,16 +131,24 @@
       "title": "Location of conference",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Paris"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: Paris"
+          }
+        }
       }
     },
     "conference_numbering": {
       "title": "Number of conference",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 23e"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: 23e"
+          }
+        }
       }
     },
     "conference_date": {
@@ -132,8 +156,12 @@
       "description": "Record only years.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 2022"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: 2022"
+          }
+        }
       }
     },
     "alternative_names": {
@@ -150,8 +178,12 @@
       "title": "Source catalog",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: lcsh, mesh, rameau"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: lcsh, mesh, rameau"
+          }
+        }
       }
     },
     "identifier": {

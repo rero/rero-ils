@@ -28,8 +28,8 @@
       "readOnly": true,
       "default": "bf:Work",
       "const": "bf:Work",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -50,16 +50,24 @@
       "title": "Title",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: The Lord of the Rings"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: The Lord of the Rings"
+          }
+        }
       }
     },
     "creator": {
       "title": "Creator",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Tolkien, John Ronald Reuel, 1892-1973"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: Tolkien, John Ronald Reuel, 1892-1973"
+          }
+        }
       }
     },
     "authorized_access_point": {
@@ -67,8 +75,8 @@
       "type": "string",
       "minLength": 1,
       "readOnly": true,
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -79,8 +87,12 @@
       "title": "Source catalog",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: lcsh, mesh, rameau"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: lcsh, mesh, rameau"
+          }
+        }
       }
     },
     "identifier": {

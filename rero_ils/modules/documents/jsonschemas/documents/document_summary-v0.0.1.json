@@ -32,10 +32,12 @@
                 "title": "value",
                 "type": "string",
                 "minLength": 1,
-                "form": {
-                  "type": "textarea",
-                  "templateOptions": {
-                    "rows": 3
+                "widget": {
+                  "formlyConfig": {
+                    "type": "textarea",
+                    "props": {
+                      "rows": 3
+                    }
                   }
                 }
               },
@@ -50,17 +52,25 @@
           "type": "string",
           "description": "Provider of the summary (MARC 520$c and 520$9)",
           "minLength": 1,
-          "form": {
-            "hide": true,
-            "placeholder": "Example: Internet Movie Database"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "hide": true,
+                "placeholder": "Example: Internet Movie Database"
+              }
+            }
           }
         }
       }
     },
-    "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true,
+          "navigation": {
+            "essential": true
+          }
+        }
       }
     }
   }

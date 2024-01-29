@@ -20,19 +20,21 @@
         "bf:Person",
         "bf:Organisation"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "templateOptions": {
-          "options": [
-            {
-              "label": "bf:Person",
-              "value": "bf:Person"
-            },
-            {
-              "label": "bf:Organisation",
-              "value": "bf:Organisation"
-            }
-          ]
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "label": "bf:Person",
+                "value": "bf:Person"
+              },
+              {
+                "label": "bf:Organisation",
+                "value": "bf:Organisation"
+              }
+            ]
+          }
         }
       }
     },
@@ -40,10 +42,12 @@
       "title": "Access Point",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Musset, Alfred de, 1810-1857",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "placeholder": "Example: Musset, Alfred de, 1810-1857"
+          }
         }
       }
     },
@@ -51,9 +55,11 @@
       "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
     }
   },
-  "form": {
-    "templateOptions": {
-      "containerCssClass": "row"
+  "widget": {
+    "formlyConfig": {
+      "props": {
+        "containerCssClass": "row"
+      }
     }
   }
 }

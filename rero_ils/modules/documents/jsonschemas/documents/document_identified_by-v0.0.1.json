@@ -48,100 +48,102 @@
             "bf:VideoRecordingNumber",
             "uri"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "bf:AudioIssueNumber",
-                "value": "bf:AudioIssueNumber"
-              },
-              {
-                "label": "bf:Doi",
-                "value": "bf:Doi"
-              },
-              {
-                "label": "bf:Ean",
-                "value": "bf:Ean"
-              },
-              {
-                "label": "bf:Gtin14Number",
-                "value": "bf:Gtin14Number"
-              },
-              {
-                "label": "bf:Identifier",
-                "value": "bf:Identifier"
-              },
-              {
-                "label": "bf:Isan",
-                "value": "bf:Isan"
-              },
-              {
-                "label": "bf:Isbn",
-                "value": "bf:Isbn"
-              },
-              {
-                "label": "bf:Ismn",
-                "value": "bf:Ismn"
-              },
-              {
-                "label": "bf:Isrc",
-                "value": "bf:Isrc"
-              },
-              {
-                "label": "bf:Issn",
-                "value": "bf:Issn"
-              },
-              {
-                "label": "bf:IssnL",
-                "value": "bf:IssnL"
-              },
-              {
-                "label": "bf:Lccn",
-                "value": "bf:Lccn"
-              },
-              {
-                "label": "bf:Local",
-                "value": "bf:Local"
-              },
-              {
-                "label": "bf:MatrixNumber",
-                "value": "bf:MatrixNumber"
-              },
-              {
-                "label": "bf:MusicDistributorNumber",
-                "value": "bf:MusicDistributorNumber"
-              },
-              {
-                "label": "bf:MusicPlate",
-                "value": "bf:MusicPlate"
-              },
-              {
-                "label": "bf:MusicPublisherNumber",
-                "value": "bf:MusicPublisherNumber"
-              },
-              {
-                "label": "bf:PublisherNumber",
-                "value": "bf:PublisherNumber"
-              },
-              {
-                "label": "bf:Upc",
-                "value": "bf:Upc"
-              },
-              {
-                "label": "bf:Urn",
-                "value": "bf:Urn"
-              },
-              {
-                "label": "bf:VideoRecordingNumber",
-                "value": "bf:VideoRecordingNumber"
-              },
-              {
-                "label": "uri",
-                "value": "uri"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "options": [
+                  {
+                    "label": "bf:AudioIssueNumber",
+                    "value": "bf:AudioIssueNumber"
+                  },
+                  {
+                    "label": "bf:Doi",
+                    "value": "bf:Doi"
+                  },
+                  {
+                    "label": "bf:Ean",
+                    "value": "bf:Ean"
+                  },
+                  {
+                    "label": "bf:Gtin14Number",
+                    "value": "bf:Gtin14Number"
+                  },
+                  {
+                    "label": "bf:Identifier",
+                    "value": "bf:Identifier"
+                  },
+                  {
+                    "label": "bf:Isan",
+                    "value": "bf:Isan"
+                  },
+                  {
+                    "label": "bf:Isbn",
+                    "value": "bf:Isbn"
+                  },
+                  {
+                    "label": "bf:Ismn",
+                    "value": "bf:Ismn"
+                  },
+                  {
+                    "label": "bf:Isrc",
+                    "value": "bf:Isrc"
+                  },
+                  {
+                    "label": "bf:Issn",
+                    "value": "bf:Issn"
+                  },
+                  {
+                    "label": "bf:IssnL",
+                    "value": "bf:IssnL"
+                  },
+                  {
+                    "label": "bf:Lccn",
+                    "value": "bf:Lccn"
+                  },
+                  {
+                    "label": "bf:Local",
+                    "value": "bf:Local"
+                  },
+                  {
+                    "label": "bf:MatrixNumber",
+                    "value": "bf:MatrixNumber"
+                  },
+                  {
+                    "label": "bf:MusicDistributorNumber",
+                    "value": "bf:MusicDistributorNumber"
+                  },
+                  {
+                    "label": "bf:MusicPlate",
+                    "value": "bf:MusicPlate"
+                  },
+                  {
+                    "label": "bf:MusicPublisherNumber",
+                    "value": "bf:MusicPublisherNumber"
+                  },
+                  {
+                    "label": "bf:PublisherNumber",
+                    "value": "bf:PublisherNumber"
+                  },
+                  {
+                    "label": "bf:Upc",
+                    "value": "bf:Upc"
+                  },
+                  {
+                    "label": "bf:Urn",
+                    "value": "bf:Urn"
+                  },
+                  {
+                    "label": "bf:VideoRecordingNumber",
+                    "value": "bf:VideoRecordingNumber"
+                  },
+                  {
+                    "label": "uri",
+                    "value": "uri"
+                  }
+                ]
               }
-            ],
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -149,13 +151,15 @@
           "title": "Identifier value",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "templateOptions": {
-              "itemCssClass": "col-lg-6",
-              "doNotSubmitOnEnter": true,
+          "widget": {
+            "formlyConfig": {
               "wrappers": [
                 "identifiedby-value"
-              ]
+              ],
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "doNotSubmitOnEnter": true
+              }
             }
           }
         },
@@ -163,10 +167,12 @@
           "title": "Note",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "hide": true,
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "hide": true
+              }
             }
           }
         },
@@ -175,11 +181,13 @@
           "description": "Qualification if the resource has more than one identifier of the same, to enter if considered important for identification.",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "placeholder": "Example: volume 1",
-            "hide": true,
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "hide": true,
+                "placeholder": "Example: volume 1"
+              }
             }
           }
         },
@@ -188,14 +196,16 @@
           "description": "The source is entered only for local identifiers, it indicates the system or agency responsible for the identifier.",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "placeholder": "Examples: LCCN, PMID, DNB",
-            "hideExpression": "field?.parent?.model && field.parent.model.type !== 'bf:Local'",
-            "expressionProperties": {
-              "templateOptions.required": "field?.parent?.model && field.parent.model.type === 'bf:Local'"
-            },
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
+          "widget": {
+            "formlyConfig": {
+              "expressions": {
+                "props.required": "field?.parent?.model?.type === 'bf:Local'",
+                "hide": "field?.parent?.model?.type !== 'bf:Local'"
+              },
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "placeholder": "Examples: LCCN, PMID, DNB"
+              }
             }
           }
         },
@@ -207,24 +217,32 @@
             "cancelled",
             "invalid or cancelled"
           ],
-          "form": {
-            "hide": true,
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "hide": true
+              }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "containerCssClass": "row"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "containerCssClass": "row"
+          }
         }
       }
     },
-    "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true,
+          "navigation": {
+            "essential": true
+          }
+        }
       }
     }
   }

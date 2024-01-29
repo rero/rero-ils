@@ -1,7 +1,7 @@
 /*
 
   RERO ILS
-  Copyright (C) 2019 RERO
+  Copyright (C) 2019-2024 RERO
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as published by
@@ -20,3 +20,23 @@
 body {
   height: 100vh;      // With block page body div to flex-grow-1
 }                     // push the footer to the bottom
+
+// FIELDS FORMAT -----------------------
+ng-core-formly-field-primeng-input > input,
+formly-field > input {
+  width: 100%;
+  border: 1px solid #ced4da;
+}
+
+ng-core-formly-field-primeng-input > input:read-only {
+  background: #e9ecef;
+}
+
+.p-inputgroup-addon,
+input {
+  padding: 0.375em 0.75rem;
+}
+
+label {
+  align-items: baseline;
+}

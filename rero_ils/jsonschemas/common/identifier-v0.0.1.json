@@ -23,11 +23,13 @@
         "$ref": "#/definitions/source"
       }
     },
-    "form": {
-      "hide": true,
-      "templateOptions": {
-        "containerCssClass": "row",
-        "itemCssClass": "col-lg-12"
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "containerCssClass": "row",
+          "itemCssClass": "col-lg-12",
+          "hide": true
+        }
       }
     }
   },
@@ -41,27 +43,29 @@
         "GND",
         "RERO"
       ],
-      "form": {
-        "options": [
-          {
-            "value": "bf:Local",
-            "label": "bf:local"
-          },
-          {
-            "value": "IdRef",
-            "label": "IdRef"
-          },
-          {
-            "value": "GND",
-            "label": "GND"
-          },
-          {
-            "value": "RERO",
-            "label": "RERO"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "options": [
+              {
+                "value": "bf:Local",
+                "label": "bf:local"
+              },
+              {
+                "value": "IdRef",
+                "label": "IdRef"
+              },
+              {
+                "value": "GND",
+                "label": "GND"
+              },
+              {
+                "value": "RERO",
+                "label": "RERO"
+              }
+            ]
           }
-        ],
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -69,9 +73,11 @@
       "title": "Value",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6"
+          }
         }
       }
     },
@@ -80,14 +86,16 @@
       "description": "Source in case of a local identifier.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
-        },
-        "expressionProperties": {
-          "templateOptions.required": "true"
-        },
-        "hideExpression": "!field?.parent?.model || (field.parent.model && field.parent.model.type !== 'bf:Local')"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": true,
+            "hide": "field?.parent?.model?.type !== 'bf:Local'"
+          },
+          "props": {
+            "itemCssClass": "col-lg-6"
+          }
+        }
       }
     }
   }

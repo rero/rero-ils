@@ -42,10 +42,12 @@
         "open",
         "closed"
       ],
-      "form": {
-        "type": "selectWithSort"
-      },
-      "default": "open"
+      "default": "open",
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort"
+        }
+      }
     },
     "type": {
       "title": "Patron transaction type",
@@ -59,40 +61,44 @@
         "interlibrary_loan",
         "other"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "overdue",
-            "value": "overdue"
-          },
-          {
-            "label": "photocopy",
-            "value": "photocopy"
-          },
-          {
-            "label": "subscription",
-            "value": "subscription"
-          },
-          {
-            "label": "lost",
-            "value": "lost"
-          },
-          {
-            "label": "damaged",
-            "value": "damaged"
-          },
-          {
-            "label": "interlibrary_loan",
-            "value": "interlibrary_loan"
-          },
-          {
-            "label": "other",
-            "value": "other"
+      "default": "overdue",
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "label": "overdue",
+                "value": "overdue"
+              },
+              {
+                "label": "photocopy",
+                "value": "photocopy"
+              },
+              {
+                "label": "subscription",
+                "value": "subscription"
+              },
+              {
+                "label": "lost",
+                "value": "lost"
+              },
+              {
+                "label": "damaged",
+                "value": "damaged"
+              },
+              {
+                "label": "interlibrary_loan",
+                "value": "interlibrary_loan"
+              },
+              {
+                "label": "other",
+                "value": "other"
+              }
+            ]
           }
-        ]
-      },
-      "default": "overdue"
+        }
+      }
     },
     "patron": {
       "title": "Patron",

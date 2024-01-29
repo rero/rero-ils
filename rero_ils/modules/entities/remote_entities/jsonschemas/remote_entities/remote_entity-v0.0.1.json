@@ -53,22 +53,26 @@
           "gnd",
           "idref"
         ],
-        "form": {
-          "type": "selectWithSort",
-          "options": [
-            {
-              "label": "rero",
-              "value": "rero"
-            },
-            {
-              "label": "gnd",
-              "value": "gnd"
-            },
-            {
-              "label": "idref",
-              "value": "idref"
+        "widget": {
+          "formlyConfig": {
+            "type": "selectWithSort",
+            "props": {
+              "options": [
+                {
+                  "label": "rero",
+                  "value": "rero"
+                },
+                {
+                  "label": "gnd",
+                  "value": "gnd"
+                },
+                {
+                  "label": "idref",
+                  "value": "idref"
+                }
+              ]
             }
-          ]
+          }
         }
       }
     },

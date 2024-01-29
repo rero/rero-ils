@@ -42,10 +42,12 @@
       "title": "Description",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "type": "textarea",
-        "templateOptions": {
-          "rows": 3
+      "widget": {
+        "formlyConfig": {
+          "type": "textarea",
+          "props": {
+            "rows": 3
+          }
         }
       }
     },
@@ -84,22 +86,24 @@
         "public",
         "private"
       ],
-      "form": {
-        "fieldMap": "visibility",
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "public",
-            "value": "public"
-          },
-          {
-            "label": "private",
-            "value": "private"
-          }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "selectWithSortOptions": {
+              "order": "label"
+            },
+            "options": [
+              {
+                "label": "public",
+                "value": "public"
+              },
+              {
+                "label": "private",
+                "value": "private"
+              }
+            ],
+            "fieldMap": "visibility"
           }
         }
       }
@@ -113,30 +117,32 @@
         "holdings",
         "patrons"
       ],
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
-          ]
-        },
-        "options": [
-          {
-            "label": "documents",
-            "value": "documents"
-          },
-          {
-            "label": "items",
-            "value": "items"
-          },
-          {
-            "label": "holdings",
-            "value": "holdings"
-          },
-          {
-            "label": "patrons",
-            "value": "patrons"
+          ],
+          "props": {
+            "options": [
+              {
+                "label": "documents",
+                "value": "documents"
+              },
+              {
+                "label": "items",
+                "value": "items"
+              },
+              {
+                "label": "holdings",
+                "value": "holdings"
+              },
+              {
+                "label": "patrons",
+                "value": "patrons"
+              }
+            ]
           }
-        ]
+        }
       }
     },
     "data": {

@@ -254,10 +254,12 @@
           }
         }
       },
-      "form": {
-        "hide": true,
-        "templateOptions": {
-          "cssClass": "editor-title"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "editor-title",
+            "hide": true
+          }
         }
       }
     },
@@ -283,10 +285,12 @@
           }
         }
       },
-      "form": {
-        "hide": true,
-        "templateOptions": {
-          "cssClass": "editor-title"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "editor-title",
+            "hide": true
+          }
         }
       }
     },
@@ -305,8 +309,8 @@
       "title": "Draft",
       "description": "Document is a draft record or not, will disable record validation.",
       "type": "boolean",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -317,11 +321,13 @@
       "title": "Masked",
       "type": "boolean",
       "description": "A masked document is visible in the professional interface, but not in the public interface.",
-      "form": {
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "hide": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "editor-title",
+            "hide": true
+          }
+        }
       }
     }
   }

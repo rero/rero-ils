@@ -54,8 +54,8 @@
       "title": "Personal informations",
       "description": "",
       "type": "number",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "form-field",
             "user-id"
@@ -79,11 +79,13 @@
           "description": "Street and number of the address.",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "type": "textarea",
-            "templateOptions": {
-              "itemCssClass": "col-lg-12",
-              "rows": 2
+          "widget": {
+            "formlyConfig": {
+              "type": "textarea",
+              "props": {
+                "itemCssClass": "col-lg-12",
+                "rows": 2
+              }
             }
           }
         },
@@ -91,9 +93,11 @@
           "title": "Postal code",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-6"
+              }
             }
           }
         },
@@ -101,9 +105,11 @@
           "title": "City",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-6"
+              }
             }
           }
         },
@@ -113,19 +119,25 @@
               "$ref": "https://bib.rero.ch/schemas/common/countries-v0.0.1.json#/country"
             },
             {
-              "form": {
-                "hideExpression": "field?.parent?.model && !(field.parent.model && field.parent.model.city)"
+              "widget": {
+                "formlyConfig": {
+                  "expressions": {
+                    "hide": "!field?.parent?.model?.city"
+                  }
+                }
               }
             }
           ]
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
           ],
-          "containerCssClass": "row"
+          "props": {
+            "containerCssClass": "row"
+          }
         }
       }
     },
@@ -163,9 +175,13 @@
             "$ref": {
               "type": "string",
               "pattern": "^https://bib.rero.ch/api/patron_types/.*?$",
-              "form": {
-                "remoteOptions": {
-                  "type": "patron_types"
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "remoteOptions": {
+                      "type": "patron_types"
+                    }
+                  }
                 }
               }
             }
@@ -181,18 +197,20 @@
             "title": "Patron's barcode or card number",
             "type": "string",
             "minLength": 6,
-            "form": {
-              "templateOptions": {
-                "doNotSubmitOnEnter": true
-              },
-              "validation": {
-                "validators": {
-                  "valueAlreadyExists": {
-                    "term": "barcode"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "doNotSubmitOnEnter": true,
+                  "validation": {
+                    "validators": {
+                      "valueAlreadyExists": {
+                        "term": "barcode"
+                      }
+                    },
+                    "messages": {
+                      "alreadyTakenMessage": "The barcode is already taken."
+                    }
                   }
-                },
-                "messages": {
-                  "alreadyTakenMessage": "The barcode is already taken."
                 }
               }
             }
@@ -215,8 +233,12 @@
               "$ref": {
                 "type": "string",
                 "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
-                "form": {
-                  "fieldMap": "libraries"
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "fieldMap": "libraries"
+                    }
+                  }
                 }
               }
             }
@@ -227,12 +249,16 @@
           "type": "string",
           "format": "date",
           "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
-          "form": {
-            "type": "datepicker",
-            "placeholder": "Select a date",
-            "validation": {
-              "messages": {
-                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+          "widget": {
+            "formlyConfig": {
+              "type": "datepicker",
+              "props": {
+                "validation": {
+                  "messages": {
+                    "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+                  }
+                },
+                "placeholder": "Select a date"
               }
             }
           }
@@ -245,26 +271,34 @@
             "email",
             "mail"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "email",
-                "value": "email"
-              },
-              {
-                "label": "mail",
-                "value": "mail"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "options": [
+                  {
+                    "label": "email",
+                    "value": "email"
+                  },
+                  {
+                    "label": "mail",
+                    "value": "mail"
+                  }
+                ]
               }
-            ]
+            }
           }
         },
         "additional_communication_email": {
           "title": "Additional communication email",
           "type": "string",
           "format": "email",
-          "form": {
-            "hideExpression": "field?.parent?.model && field.parent.model.communication_channel !== 'email'"
+          "widget": {
+            "formlyConfig": {
+              "expressions": {
+                "hide": "field?.parent?.model?.communication_channel !== 'email'"
+              }
+            }
           }
         },
         "communication_language": {
@@ -276,26 +310,30 @@
             "fre",
             "ita"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "lang_fre",
-                "value": "fre"
-              },
-              {
-                "label": "lang_eng",
-                "value": "eng"
-              },
-              {
-                "label": "lang_ger",
-                "value": "ger"
-              },
-              {
-                "label": "lang_ita",
-                "value": "ita"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "options": [
+                  {
+                    "label": "lang_fre",
+                    "value": "fre"
+                  },
+                  {
+                    "label": "lang_eng",
+                    "value": "eng"
+                  },
+                  {
+                    "label": "lang_ger",
+                    "value": "ger"
+                  },
+                  {
+                    "label": "lang_ita",
+                    "value": "ita"
+                  }
+                ]
               }
-            ]
+            }
           }
         },
         "subscriptions": {
@@ -365,23 +403,26 @@
           "title": "Reason",
           "type": "string",
           "description": "The reason is displayed in the circulation module and is visible by the patron in his account.",
-          "form": {
-            "hideExpression": "field?.parent?.model &&  field.parent.model.blocked !== true",
-            "expressionProperties": {
-              "templateOptions.required": "true"
+          "widget": {
+            "formlyConfig": {
+              "expressions": {
+                "props.required": true,
+                "hide": "field?.parent?.model?.blocked !== true"
+              }
             }
           }
         }
       },
-      "form": {
-        "hideExpression": "field?.parent?.model && !field.parent.model.roles.some(v => v === 'patron')",
-        "expressionProperties": {
-          "templateOptions.required": "true"
-        },
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": true,
+            "hide": "!field?.parent?.model?.roles.includes('patron')"
+          },
           "wrappers": [
             "card"
-          ]
+          ],
+          "props": {}
         }
       }
     },
@@ -403,19 +444,23 @@
             "title": "Library URI",
             "type": "string",
             "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
-            "form": {
-              "fieldMap": "libraries",
-              "templateOptions": {
-                "label": ""
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "label": "",
+                  "fieldMap": "libraries"
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "hideExpression": "field?.parent?.model && !field.parent.model.roles.some(v => (v !== 'patron'))",
-        "expressionProperties": {
-          "templateOptions.required": "field?.parent?.model && field.parent.model.roles.some(v => (v !== 'patron'))"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": "field?.parent?.model?.roles.some(v => (v !== 'patron'))",
+            "hide": "!field?.parent?.model?.roles.some(v => (v !== 'patron'))"
+          }
         }
       }
     },
@@ -443,54 +488,56 @@
           "pro_statistic_manager"
         ]
       },
-      "form": {
-        "type": "multicheckbox",
-        "templateOptions": {
-          "options": [
-            {
-              "label": "patron",
-              "value": "patron"
-            },
-            {
-              "label": "pro_full_permissions",
-              "value": "pro_full_permissions"
-            },
-            {
-              "label": "pro_read_only",
-              "value": "pro_read_only"
-            },
-            {
-              "label": "pro_catalog_manager",
-              "value": "pro_catalog_manager"
-            },
-            {
-              "label": "pro_circulation_manager",
-              "value": "pro_circulation_manager"
-            },
-            {
-              "label": "pro_user_manager",
-              "value": "pro_user_manager"
-            },
-            {
-              "label": "pro_acquisition_manager",
-              "value": "pro_acquisition_manager"
-            },
-            {
-              "label": "pro_library_administrator",
-              "value": "pro_library_administrator"
-            },
-            {
-              "label": "pro_entity_manager",
-              "value": "pro_entity_manager"
-            },
-            {
-              "label": "pro_statistic_manager",
-              "value": "pro_statistic_manager"
-            }
-          ],
+      "widget": {
+        "formlyConfig": {
+          "type": "multicheckbox",
           "wrappers": [
             "card"
-          ]
+          ],
+          "props": {
+            "options": [
+              {
+                "label": "patron",
+                "value": "patron"
+              },
+              {
+                "label": "pro_full_permissions",
+                "value": "pro_full_permissions"
+              },
+              {
+                "label": "pro_read_only",
+                "value": "pro_read_only"
+              },
+              {
+                "label": "pro_catalog_manager",
+                "value": "pro_catalog_manager"
+              },
+              {
+                "label": "pro_circulation_manager",
+                "value": "pro_circulation_manager"
+              },
+              {
+                "label": "pro_user_manager",
+                "value": "pro_user_manager"
+              },
+              {
+                "label": "pro_acquisition_manager",
+                "value": "pro_acquisition_manager"
+              },
+              {
+                "label": "pro_library_administrator",
+                "value": "pro_library_administrator"
+              },
+              {
+                "label": "pro_entity_manager",
+                "value": "pro_entity_manager"
+              },
+              {
+                "label": "pro_statistic_manager",
+                "value": "pro_statistic_manager"
+              }
+            ]
+          }
         }
       }
     },
@@ -520,18 +567,22 @@
               "staff_note"
             ],
             "default": "public_note",
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "label": "public_note",
-                  "value": "public_note"
-                },
-                {
-                  "label": "staff_note",
-                  "value": "staff_note"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "options": [
+                    {
+                      "label": "public_note",
+                      "value": "public_note"
+                    },
+                    {
+                      "label": "staff_note",
+                      "value": "staff_note"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "content": {
@@ -539,31 +590,35 @@
             "title": "Content",
             "maxLength": 2000,
             "minLength": 1,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "rows": 3
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "rows": 3
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
-          ]
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+          ],
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+              }
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
       }

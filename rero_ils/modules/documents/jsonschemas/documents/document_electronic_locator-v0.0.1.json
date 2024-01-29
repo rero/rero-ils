@@ -25,14 +25,16 @@
           "format": "uri",
           "pattern": "^(rtsp?|ftps?|https?)://.*$",
           "minLength": 7,
-          "form": {
-            "placeholder": "Example: https://www.rero.ch/",
-            "templateOptions": {
-              "itemCssClass": "col-lg-12"
-            },
-            "validation": {
-              "messages": {
-                "patternMessage": "Should be a valid URL format."
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-12",
+                "validation": {
+                  "messages": {
+                    "patternMessage": "Should be a valid URL format."
+                  }
+                },
+                "placeholder": "Example: https://www.rero.ch/"
               }
             }
           }
@@ -48,32 +50,34 @@
             "hiddenUrl",
             "noInfo"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "resource",
-                "value": "resource"
-              },
-              {
-                "label": "versionOfResource",
-                "value": "versionOfResource"
-              },
-              {
-                "label": "relatedResource",
-                "value": "relatedResource"
-              },
-              {
-                "label": "hiddenUrl",
-                "value": "hiddenUrl"
-              },
-              {
-                "label": "noInfo",
-                "value": "noInfo"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "options": [
+                  {
+                    "label": "resource",
+                    "value": "resource"
+                  },
+                  {
+                    "label": "versionOfResource",
+                    "value": "versionOfResource"
+                  },
+                  {
+                    "label": "relatedResource",
+                    "value": "relatedResource"
+                  },
+                  {
+                    "label": "hiddenUrl",
+                    "value": "hiddenUrl"
+                  },
+                  {
+                    "label": "noInfo",
+                    "value": "noInfo"
+                  }
+                ]
               }
-            ],
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -111,124 +115,126 @@
             "fullText",
             "video"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "poster",
-                "value": "poster"
-              },
-              {
-                "label": "audio",
-                "value": "audio"
-              },
-              {
-                "label": "postcard",
-                "value": "postcard"
-              },
-              {
-                "label": "addition",
-                "value": "addition"
-              },
-              {
-                "label": "debriefing",
-                "value": "debriefing"
-              },
-              {
-                "label": "exhibitionDocumentation",
-                "value": "exhibitionDocumentation"
-              },
-              {
-                "label": "erratum",
-                "value": "erratum"
-              },
-              {
-                "label": "bookplate",
-                "value": "bookplate"
-              },
-              {
-                "label": "extract",
-                "value": "extract"
-              },
-              {
-                "label": "educationalSheet",
-                "value": "educationalSheet"
-              },
-              {
-                "label": "illustrations",
-                "value": "illustrations"
-              },
-              {
-                "label": "coverImage",
-                "value": "coverImage"
-              },
-              {
-                "label": "deliveryInformation",
-                "value": "deliveryInformation"
-              },
-              {
-                "label": "biographicalInformation",
-                "value": "biographicalInformation"
-              },
-              {
-                "label": "introductionPreface",
-                "value": "introductionPreface"
-              },
-              {
-                "label": "classReading",
-                "value": "classReading"
-              },
-              {
-                "label": "teachersKit",
-                "value": "teachersKit"
-              },
-              {
-                "label": "publishersNote",
-                "value": "publishersNote"
-              },
-              {
-                "label": "noteOnContent",
-                "value": "noteOnContent"
-              },
-              {
-                "label": "titlePage",
-                "value": "titlePage"
-              },
-              {
-                "label": "photography",
-                "value": "photography"
-              },
-              {
-                "label": "summarization",
-                "value": "summarization"
-              },
-              {
-                "label": "onlineResourceViaRERODOC",
-                "value": "onlineResourceViaRERODOC"
-              },
-              {
-                "label": "pressReview",
-                "value": "pressReview"
-              },
-              {
-                "label": "webSite",
-                "value": "webSite"
-              },
-              {
-                "label": "tableOfContents",
-                "value": "tableOfContents"
-              },
-              {
-                "label": "fullText",
-                "value": "fullText"
-              },
-              {
-                "label": "video",
-                "value": "video"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "itemCssClass": "col-lg-6",
+                "options": [
+                  {
+                    "label": "poster",
+                    "value": "poster"
+                  },
+                  {
+                    "label": "audio",
+                    "value": "audio"
+                  },
+                  {
+                    "label": "postcard",
+                    "value": "postcard"
+                  },
+                  {
+                    "label": "addition",
+                    "value": "addition"
+                  },
+                  {
+                    "label": "debriefing",
+                    "value": "debriefing"
+                  },
+                  {
+                    "label": "exhibitionDocumentation",
+                    "value": "exhibitionDocumentation"
+                  },
+                  {
+                    "label": "erratum",
+                    "value": "erratum"
+                  },
+                  {
+                    "label": "bookplate",
+                    "value": "bookplate"
+                  },
+                  {
+                    "label": "extract",
+                    "value": "extract"
+                  },
+                  {
+                    "label": "educationalSheet",
+                    "value": "educationalSheet"
+                  },
+                  {
+                    "label": "illustrations",
+                    "value": "illustrations"
+                  },
+                  {
+                    "label": "coverImage",
+                    "value": "coverImage"
+                  },
+                  {
+                    "label": "deliveryInformation",
+                    "value": "deliveryInformation"
+                  },
+                  {
+                    "label": "biographicalInformation",
+                    "value": "biographicalInformation"
+                  },
+                  {
+                    "label": "introductionPreface",
+                    "value": "introductionPreface"
+                  },
+                  {
+                    "label": "classReading",
+                    "value": "classReading"
+                  },
+                  {
+                    "label": "teachersKit",
+                    "value": "teachersKit"
+                  },
+                  {
+                    "label": "publishersNote",
+                    "value": "publishersNote"
+                  },
+                  {
+                    "label": "noteOnContent",
+                    "value": "noteOnContent"
+                  },
+                  {
+                    "label": "titlePage",
+                    "value": "titlePage"
+                  },
+                  {
+                    "label": "photography",
+                    "value": "photography"
+                  },
+                  {
+                    "label": "summarization",
+                    "value": "summarization"
+                  },
+                  {
+                    "label": "onlineResourceViaRERODOC",
+                    "value": "onlineResourceViaRERODOC"
+                  },
+                  {
+                    "label": "pressReview",
+                    "value": "pressReview"
+                  },
+                  {
+                    "label": "webSite",
+                    "value": "webSite"
+                  },
+                  {
+                    "label": "tableOfContents",
+                    "value": "tableOfContents"
+                  },
+                  {
+                    "label": "fullText",
+                    "value": "fullText"
+                  },
+                  {
+                    "label": "video",
+                    "value": "video"
+                  }
+                ]
               }
-            ],
-            "templateOptions": {
-              "itemCssClass": "col-lg-6"
             }
           }
         },
@@ -241,25 +247,37 @@
             "title": "Public note",
             "type": "string",
             "minLength": 1,
-            "form": {
-              "placeholder": "Example: Access only from the library"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "placeholder": "Example: Access only from the library"
+                }
+              }
             }
           },
-          "form": {
-            "templateOptions": {
-              "itemCssClass": "col-lg-12"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-12"
+              }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "containerCssClass": "row"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "containerCssClass": "row"
+          }
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

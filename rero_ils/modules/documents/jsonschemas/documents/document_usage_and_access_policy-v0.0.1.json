@@ -22,8 +22,8 @@
           "type": "string",
           "default": "bf:UsageAndAccessPolicy",
           "const": "bf:UsageAndAccessPolicy",
-          "form": {
-            "templateOptions": {
+          "widget": {
+            "formlyConfig": {
               "wrappers": [
                 "hide"
               ]
@@ -34,22 +34,30 @@
           "title": "Label",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "placeholder": "Example: Copy not allowed",
-            "templateOptions": {
-              "itemCssClass": "col-lg-12"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-12",
+                "placeholder": "Example: Copy not allowed"
+              }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "containerCssClass": "row"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "containerCssClass": "row"
+          }
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

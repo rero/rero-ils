@@ -20,8 +20,12 @@
           "title": "Label",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "placeholder": "RDA recommended terms: monthly, weekly, daily, ..."
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "placeholder": "RDA recommended terms: monthly, weekly, daily, ..."
+              }
+            }
           }
         },
         "date": {
@@ -29,14 +33,22 @@
           "description": "Required if a former frequency is indicated",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "placeholder": "Example: 1953-1988"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "placeholder": "Example: 1953-1988"
+              }
+            }
           }
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

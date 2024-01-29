@@ -105,15 +105,19 @@
       "title": "Invoice number",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "validation": {
-          "validators": {
-            "valueAlreadyExists": {
-              "term": "invoice_number"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "validation": {
+              "validators": {
+                "valueAlreadyExists": {
+                  "term": "invoice_number"
+                }
+              },
+              "messages": {
+                "alreadyTakenMessage": "The invoice number is already taken."
+              }
             }
-          },
-          "messages": {
-            "alreadyTakenMessage": "The invoice number is already taken."
           }
         }
       }
@@ -131,25 +135,27 @@
         "deleted"
       ],
       "default": "in progress",
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "value": "in_progress",
-            "label": "in_progress"
-          },
-          {
-            "value": "approved",
-            "label": "approved"
-          },
-          {
-            "value": "deleted",
-            "label": "deleted"
-          }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "selectWithSortOptions": {
+              "order": "label"
+            },
+            "options": [
+              {
+                "value": "in_progress",
+                "label": "in_progress"
+              },
+              {
+                "value": "approved",
+                "label": "approved"
+              },
+              {
+                "value": "deleted",
+                "label": "deleted"
+              }
+            ]
           }
         }
       }
@@ -159,12 +165,16 @@
       "type": "string",
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "type": "datepicker",
-        "placeholder": "Select a date",
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+              }
+            },
+            "placeholder": "Select a date"
           }
         }
       }
@@ -194,25 +204,27 @@
               "state_taxes",
               "miscellaneous"
             ],
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "value": "shipping_and_handling",
-                  "label": "shipping_and_handling"
-                },
-                {
-                  "value": "state_taxes",
-                  "label": "state_taxes"
-                },
-                {
-                  "value": "miscellaneous",
-                  "label": "miscellaneous"
-                }
-              ],
-              "templateOptions": {
-                "selectWithSortOptions": {
-                  "order": "label"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "selectWithSortOptions": {
+                    "order": "label"
+                  },
+                  "options": [
+                    {
+                      "value": "shipping_and_handling",
+                      "label": "shipping_and_handling"
+                    },
+                    {
+                      "value": "state_taxes",
+                      "label": "state_taxes"
+                    },
+                    {
+                      "value": "miscellaneous",
+                      "label": "miscellaneous"
+                    }
+                  ]
                 }
               }
             }
@@ -274,14 +286,16 @@
           "title": "Vendor URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/vendors/.*?$",
-          "form": {
-            "focus": true,
-            "remoteOptions": {
-              "type": "vendors"
-            },
-            "placeholder": "Choose a vendor",
-            "templateOptions": {
-              "label": ""
+          "widget": {
+            "formlyConfig": {
+              "focus": true,
+              "props": {
+                "hideLabel": true,
+                "placeholder": "Choose a vendor",
+                "remoteOptions": {
+                  "type": "vendors"
+                }
+              }
             }
           }
         }

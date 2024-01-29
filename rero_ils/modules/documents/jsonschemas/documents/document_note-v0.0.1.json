@@ -26,28 +26,30 @@
             "otherPhysicalDetails",
             "cited_by"
           ],
-          "form": {
-            "type": "selectWithSort",
-            "options": [
-              {
-                "label": "accompanyingMaterial",
-                "value": "accompanyingMaterial"
-              },
-              {
-                "label": "general",
-                "value": "general"
-              },
-              {
-                "label": "otherPhysicalDetails",
-                "value": "otherPhysicalDetails"
-              },
-              {
-                "label": "cited_by",
-                "value": "cited_by"
+          "widget": {
+            "formlyConfig": {
+              "type": "selectWithSort",
+              "props": {
+                "itemCssClass": "col-lg-12",
+                "options": [
+                  {
+                    "label": "accompanyingMaterial",
+                    "value": "accompanyingMaterial"
+                  },
+                  {
+                    "label": "general",
+                    "value": "general"
+                  },
+                  {
+                    "label": "otherPhysicalDetails",
+                    "value": "otherPhysicalDetails"
+                  },
+                  {
+                    "label": "cited_by",
+                    "value": "cited_by"
+                  }
+                ]
               }
-            ],
-            "templateOptions": {
-              "itemCssClass": "col-lg-12"
             }
           }
         },
@@ -55,23 +57,31 @@
           "title": "Label",
           "type": "string",
           "minLength": 1,
-          "form": {
-            "templateOptions": {
-              "itemCssClass": "col-lg-12"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-lg-12"
+              }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "containerCssClass": "row"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "containerCssClass": "row"
+          }
         }
       }
     },
-    "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true,
+          "navigation": {
+            "essential": true
+          }
+        }
       }
     }
   }

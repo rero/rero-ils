@@ -45,10 +45,14 @@
       "minimum": 0,
       "maximum": 5,
       "default": 0,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -63,8 +67,13 @@
       "type": "number",
       "default": 0,
       "minimum": 0,
-      "form": {
-        "fieldMap": "amount"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hideLabel": true,
+            "fieldMap": "amount"
+          }
+        }
       }
     },
     "total_amount": {
@@ -77,10 +86,15 @@
       "title": "Exchange rate",
       "type": "number",
       "minimum": 0,
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hideLabel": true,
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -110,18 +124,22 @@
               "vendor_note"
             ],
             "default": "staff_note",
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "label": "vendor_note",
-                  "value": "vendor_note"
-                },
-                {
-                  "label": "staff_note",
-                  "value": "staff_note"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "options": [
+                    {
+                      "label": "vendor_note",
+                      "value": "vendor_note"
+                    },
+                    {
+                      "label": "staff_note",
+                      "value": "staff_note"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "content": {
@@ -129,35 +147,39 @@
             "title": "Content",
             "maxLength": 2000,
             "minLength": 1,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "rows": 3
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "rows": 3
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
-        },
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
-          ]
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+          ],
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+              }
+            },
+            "hide": true,
+            "navigation": {
+              "essential": true
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
       }
@@ -167,16 +189,20 @@
       "type": "string",
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "hideExpression": "field?.parent?.model && field.parent.model.status !== 'ordered' && field.parent.model.status !== 'received'",
-        "expressionProperties": {
-          "templateOptions.required": "field?.parent?.model && (field.parent.model.status === 'ordered' || field.parent.model.status === 'received')"
-        },
-        "type": "datepicker",
-        "placeholder": "Select a date",
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
+          "expressions": {
+            "props.required": "field?.parent?.model?.status === 'ordered' || field?.parent?.model?.status === 'received'",
+            "hide": "field?.parent?.model?.status !== 'ordered' && field?.parent?.model?.status !== 'received'"
+          },
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+              }
+            },
+            "placeholder": "Select a date"
           }
         }
       }
@@ -186,16 +212,20 @@
       "type": "string",
       "format": "date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "hideExpression": "field?.parent?.model && field.parent.model.status !== 'received'",
-        "expressionProperties": {
-          "templateOptions.required": "field?.parent?.model && field.parent.model.status === 'received'"
-        },
-        "type": "datepicker",
-        "placeholder": "Select a date",
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
+          "expressions": {
+            "props.required": "field?.parent?.model?.status === 'received'",
+            "hide": "field?.parent?.model?.status !== 'received'"
+          },
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+              }
+            },
+            "placeholder": "Select a date"
           }
         }
       }
@@ -211,12 +241,14 @@
           "title": "Acquisition account URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/acq_accounts/.*?$",
-          "form": {
-            "focus": true,
-            "type": "account-select",
-            "placeholder": "Select an account",
-            "templateOptions": {
-              "label": ""
+          "widget": {
+            "formlyConfig": {
+              "hideLabel": true,
+              "type": "account-select",
+              "focus": true,
+              "props": {
+                "placeholder": "Select an account"
+              }
             }
           }
         }
@@ -244,18 +276,19 @@
           "title": "Document URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/documents/.+?$",
-          "form": {
-            "remoteTypeahead": {
-              "type": "documents",
-              "filter": "NOT harvested:true"
-            },
-            "validation": {
-              "messages": {
-                "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "validation": {
+                  "messages": {
+                    "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
+                  }
+                },
+                "remoteTypeahead": {
+                  "type": "documents",
+                  "filter": "NOT harvested:true"
+                }
               }
-            },
-            "templateOptions": {
-              "label": ""
             }
           }
         }

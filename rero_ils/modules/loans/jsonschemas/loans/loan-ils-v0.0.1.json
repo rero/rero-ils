@@ -165,42 +165,46 @@
         "ITEM_AT_DESK",
         "CANCELLED"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "CREATED",
-            "value": "CREATED"
-          },
-          {
-            "label": "PENDING",
-            "value": "PENDING"
-          },
-          {
-            "label": "ITEM_ON_LOAN",
-            "value": "ITEM_ON_LOAN"
-          },
-          {
-            "label": "ITEM_RETURNED",
-            "value": "ITEM_RETURNED"
-          },
-          {
-            "label": "ITEM_IN_TRANSIT_FOR_PICKUP",
-            "value": "ITEM_IN_TRANSIT_FOR_PICKUP"
-          },
-          {
-            "label": "ITEM_IN_TRANSIT_TO_HOUSE",
-            "value": "ITEM_IN_TRANSIT_TO_HOUSE"
-          },
-          {
-            "label": "ITEM_AT_DESK",
-            "value": "ITEM_AT_DESK"
-          },
-          {
-            "label": "CANCELLED",
-            "value": "CANCELLED"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "label": "CREATED",
+                "value": "CREATED"
+              },
+              {
+                "label": "PENDING",
+                "value": "PENDING"
+              },
+              {
+                "label": "ITEM_ON_LOAN",
+                "value": "ITEM_ON_LOAN"
+              },
+              {
+                "label": "ITEM_RETURNED",
+                "value": "ITEM_RETURNED"
+              },
+              {
+                "label": "ITEM_IN_TRANSIT_FOR_PICKUP",
+                "value": "ITEM_IN_TRANSIT_FOR_PICKUP"
+              },
+              {
+                "label": "ITEM_IN_TRANSIT_TO_HOUSE",
+                "value": "ITEM_IN_TRANSIT_TO_HOUSE"
+              },
+              {
+                "label": "ITEM_AT_DESK",
+                "value": "ITEM_AT_DESK"
+              },
+              {
+                "label": "CANCELLED",
+                "value": "CANCELLED"
+              }
+            ]
           }
-        ]
+        }
       }
     },
     "trigger": {

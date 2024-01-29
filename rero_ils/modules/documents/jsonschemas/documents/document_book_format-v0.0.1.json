@@ -24,14 +24,20 @@
         "96\u1d52",
         "128\u1d52"
       ],
-      "form": {
-        "templateOptions": {
-          "cssClass": "w-md-50"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "w-md-50"
+          }
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

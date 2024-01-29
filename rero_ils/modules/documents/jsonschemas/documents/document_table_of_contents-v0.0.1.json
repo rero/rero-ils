@@ -7,14 +7,22 @@
     "items": {
       "title": "Content",
       "type": "string",
-      "form": {
-        "placeholder": "Example: 1. Fundamentals / ed. by A. Miller"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: 1. Fundamentals / ed. by A. Miller"
+          }
+        }
       }
     },
-    "form": {
-      "hide": true,
-      "navigation": {
-        "essential": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true,
+          "navigation": {
+            "essential": true
+          }
+        }
       }
     }
   }

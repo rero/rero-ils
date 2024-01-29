@@ -47,34 +47,38 @@
         "multi_volume"
       ],
       "default": "monograph",
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "value": "monograph",
-            "label": "monograph"
-          },
-          {
-            "value": "serial",
-            "label": "serial"
-          },
-          {
-            "value": "standing_order",
-            "label": "standing_order"
-          },
-          {
-            "value": "monographic_set",
-            "label": "monographic_set"
-          },
-          {
-            "value": "planned_order",
-            "label": "planned_order"
-          },
-          {
-            "value": "multi_volume",
-            "label": "multi_volume"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "options": [
+              {
+                "value": "monograph",
+                "label": "monograph"
+              },
+              {
+                "value": "serial",
+                "label": "serial"
+              },
+              {
+                "value": "standing_order",
+                "label": "standing_order"
+              },
+              {
+                "value": "monographic_set",
+                "label": "monographic_set"
+              },
+              {
+                "value": "planned_order",
+                "label": "planned_order"
+              },
+              {
+                "value": "multi_volume",
+                "label": "multi_volume"
+              }
+            ]
           }
-        ]
+        }
       }
     },
     "currency": {
@@ -106,18 +110,22 @@
               "vendor_note"
             ],
             "default": "staff_note",
-            "form": {
-              "type": "selectWithSort",
-              "options": [
-                {
-                  "label": "vendor_note",
-                  "value": "vendor_note"
-                },
-                {
-                  "label": "staff_note",
-                  "value": "staff_note"
+            "widget": {
+              "formlyConfig": {
+                "type": "selectWithSort",
+                "props": {
+                  "options": [
+                    {
+                      "label": "vendor_note",
+                      "value": "vendor_note"
+                    },
+                    {
+                      "label": "staff_note",
+                      "value": "staff_note"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "content": {
@@ -125,31 +133,35 @@
             "title": "Content",
             "maxLength": 2000,
             "minLength": 1,
-            "form": {
-              "type": "textarea",
-              "templateOptions": {
-                "rows": 3
+            "widget": {
+              "formlyConfig": {
+                "type": "textarea",
+                "props": {
+                  "rows": 3
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
-          ]
-        },
-        "validation": {
-          "validators": {
-            "uniqueValueKeysInObject": {
-              "keys": [
-                "type"
-              ]
+          ],
+          "props": {
+            "validation": {
+              "validators": {
+                "uniqueValueKeysInObject": {
+                  "keys": [
+                    "type"
+                  ]
+                }
+              },
+              "messages": {
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+              }
             }
-          },
-          "messages": {
-            "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
           }
         }
       }
@@ -166,14 +178,16 @@
           "title": "Vendor URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/vendors/.*?$",
-          "form": {
-            "focus": true,
-            "remoteOptions": {
-              "type": "vendors"
-            },
-            "placeholder": "Choose a vendor",
-            "templateOptions": {
-              "label": ""
+          "widget": {
+            "formlyConfig": {
+              "focus": true,
+              "props": {
+                "hideLabel": true,
+                "placeholder": "Choose a vendor",
+                "remoteOptions": {
+                  "type": "vendors"
+                }
+              }
             }
           }
         }

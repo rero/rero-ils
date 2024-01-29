@@ -16,7 +16,10 @@
       "widget": {
         "formlyConfig": {
           "type": "entityTypeahead",
-          "templateOptions": {
+          "wrappers": [
+            "form-field-horizontal"
+          ],
+          "props": {
             "filters": {
               "options": [
                 {
@@ -29,10 +32,7 @@
                 }
               ]
             },
-            "itemCssClass": "col-12",
-            "wrappers": [
-              "form-field-horizontal"
-            ]
+            "itemCssClass": "col-12"
           }
         }
       }
@@ -43,9 +43,11 @@
       "minLength": 1
     }
   },
-  "form": {
-    "templateOptions": {
-      "containerCssClass": "row"
+  "widget": {
+    "formlyConfig": {
+      "props": {
+        "containerCssClass": "row"
+      }
     }
   }
 }

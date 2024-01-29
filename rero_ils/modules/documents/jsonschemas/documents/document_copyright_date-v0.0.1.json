@@ -7,15 +7,21 @@
       "type": "string",
       "title": "Copyright date",
       "minLength": 4,
-      "form": {
-        "placeholder": "Example: cop. 2010",
-        "templateOptions": {
-          "cssClass": "w-md-50"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "cssClass": "w-md-50",
+            "placeholder": "Example: cop. 2010"
+          }
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

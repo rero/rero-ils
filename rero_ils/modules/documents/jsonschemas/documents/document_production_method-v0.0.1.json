@@ -29,97 +29,103 @@
         "rdapm:1020",
         "rdapm:1021"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "rdapm:1001",
-            "value": "rdapm:1001"
-          },
-          {
-            "label": "rdapm:1002",
-            "value": "rdapm:1002"
-          },
-          {
-            "label": "rdapm:1003",
-            "value": "rdapm:1003"
-          },
-          {
-            "label": "rdapm:1004",
-            "value": "rdapm:1004"
-          },
-          {
-            "label": "rdapm:1005",
-            "value": "rdapm:1005"
-          },
-          {
-            "label": "rdapm:1006",
-            "value": "rdapm:1006"
-          },
-          {
-            "label": "rdapm:1007",
-            "value": "rdapm:1007"
-          },
-          {
-            "label": "rdapm:1008",
-            "value": "rdapm:1008"
-          },
-          {
-            "label": "rdapm:1009",
-            "value": "rdapm:1009"
-          },
-          {
-            "label": "rdapm:1010",
-            "value": "rdapm:1010"
-          },
-          {
-            "label": "rdapm:1011",
-            "value": "rdapm:1011"
-          },
-          {
-            "label": "rdapm:1012",
-            "value": "rdapm:1012"
-          },
-          {
-            "label": "rdapm:1014",
-            "value": "rdapm:1014"
-          },
-          {
-            "label": "rdapm:1015",
-            "value": "rdapm:1015"
-          },
-          {
-            "label": "rdapm:1016",
-            "value": "rdapm:1016"
-          },
-          {
-            "label": "rdapm:1017",
-            "value": "rdapm:1017"
-          },
-          {
-            "label": "rdapm:1018",
-            "value": "rdapm:1018"
-          },
-          {
-            "label": "rdapm:1019",
-            "value": "rdapm:1019"
-          },
-          {
-            "label": "rdapm:1020",
-            "value": "rdapm:1020"
-          },
-          {
-            "label": "rdapm:1021",
-            "value": "rdapm:1021"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "cssClass": "w-md-50",
+            "options": [
+              {
+                "label": "rdapm:1001",
+                "value": "rdapm:1001"
+              },
+              {
+                "label": "rdapm:1002",
+                "value": "rdapm:1002"
+              },
+              {
+                "label": "rdapm:1003",
+                "value": "rdapm:1003"
+              },
+              {
+                "label": "rdapm:1004",
+                "value": "rdapm:1004"
+              },
+              {
+                "label": "rdapm:1005",
+                "value": "rdapm:1005"
+              },
+              {
+                "label": "rdapm:1006",
+                "value": "rdapm:1006"
+              },
+              {
+                "label": "rdapm:1007",
+                "value": "rdapm:1007"
+              },
+              {
+                "label": "rdapm:1008",
+                "value": "rdapm:1008"
+              },
+              {
+                "label": "rdapm:1009",
+                "value": "rdapm:1009"
+              },
+              {
+                "label": "rdapm:1010",
+                "value": "rdapm:1010"
+              },
+              {
+                "label": "rdapm:1011",
+                "value": "rdapm:1011"
+              },
+              {
+                "label": "rdapm:1012",
+                "value": "rdapm:1012"
+              },
+              {
+                "label": "rdapm:1014",
+                "value": "rdapm:1014"
+              },
+              {
+                "label": "rdapm:1015",
+                "value": "rdapm:1015"
+              },
+              {
+                "label": "rdapm:1016",
+                "value": "rdapm:1016"
+              },
+              {
+                "label": "rdapm:1017",
+                "value": "rdapm:1017"
+              },
+              {
+                "label": "rdapm:1018",
+                "value": "rdapm:1018"
+              },
+              {
+                "label": "rdapm:1019",
+                "value": "rdapm:1019"
+              },
+              {
+                "label": "rdapm:1020",
+                "value": "rdapm:1020"
+              },
+              {
+                "label": "rdapm:1021",
+                "value": "rdapm:1021"
+              }
+            ]
           }
-        ],
-        "templateOptions": {
-          "cssClass": "w-md-50"
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

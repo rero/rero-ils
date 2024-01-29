@@ -160,613 +160,615 @@
       "wst"
     ]
   },
-  "form": {
-    "type": "selectWithSort",
-    "options": [
-      {
-        "value": "aut",
-        "label": "aut",
-        "preferred": true
-      },
-      {
-        "value": "cmp",
-        "label": "cmp",
-        "preferred": true
-      },
-      {
-        "value": "ctb",
-        "label": "ctb",
-        "preferred": true
-      },
-      {
-        "value": "edt",
-        "label": "edt",
-        "preferred": true
-      },
-      {
-        "value": "hnr",
-        "label": "hnr",
-        "preferred": true
-      },
-      {
-        "value": "ill",
-        "label": "ill",
-        "preferred": true
-      },
-      {
-        "value": "pht",
-        "label": "pht",
-        "preferred": true
-      },
-      {
-        "value": "prf",
-        "label": "prf",
-        "preferred": true
-      },
-      {
-        "value": "trl",
-        "label": "trl",
-        "preferred": true
-      },
-      {
-        "value": "abr",
-        "label": "abr"
-      },
-      {
-        "value": "act",
-        "label": "act"
-      },
-      {
-        "value": "adi",
-        "label": "adi"
-      },
-      {
-        "value": "adp",
-        "label": "adp"
-      },
-      {
-        "value": "aft",
-        "label": "aft"
-      },
-      {
-        "value": "anm",
-        "label": "anm"
-      },
-      {
-        "value": "ann",
-        "label": "ann"
-      },
-      {
-        "value": "ape",
-        "label": "ape"
-      },
-      {
-        "value": "apl",
-        "label": "apl"
-      },
-      {
-        "value": "aqt",
-        "label": "aqt"
-      },
-      {
-        "value": "arc",
-        "label": "arc"
-      },
-      {
-        "value": "arr",
-        "label": "arr"
-      },
-      {
-        "value": "art",
-        "label": "art"
-      },
-      {
-        "value": "ato",
-        "label": "ato"
-      },
-      {
-        "value": "auc",
-        "label": "auc"
-      },
-      {
-        "value": "aui",
-        "label": "aui"
-      },
-      {
-        "value": "aus",
-        "label": "aus"
-      },
-      {
-        "value": "bkd",
-        "label": "bkd"
-      },
-      {
-        "value": "bnd",
-        "label": "bnd"
-      },
-      {
-        "value": "brd",
-        "label": "brd"
-      },
-      {
-        "value": "brl",
-        "label": "brl"
-      },
-      {
-        "value": "bsl",
-        "label": "bsl"
-      },
-      {
-        "value": "cas",
-        "label": "cas"
-      },
-      {
-        "value": "chr",
-        "label": "chr"
-      },
-      {
-        "value": "cll",
-        "label": "cll"
-      },
-      {
-        "value": "clr",
-        "label": "clr"
-      },
-      {
-        "value": "clt",
-        "label": "clt"
-      },
-      {
-        "value": "cwt",
-        "label": "cwt"
-      },
-      {
-        "value": "cmm",
-        "label": "cmm"
-      },
-      {
-        "value": "cnd",
-        "label": "cnd"
-      },
-      {
-        "value": "cng",
-        "label": "cng"
-      },
-      {
-        "value": "cns",
-        "label": "cns"
-      },
-      {
-        "value": "col",
-        "label": "col"
-      },
-      {
-        "value": "com",
-        "label": "com"
-      },
-      {
-        "value": "cor",
-        "label": "cor"
-      },
-      {
-        "value": "cou",
-        "label": "cou"
-      },
-      {
-        "value": "cre",
-        "label": "cre"
-      },
-      {
-        "value": "crt",
-        "label": "crt"
-      },
-      {
-        "value": "csl",
-        "label": "csl"
-      },
-      {
-        "value": "cst",
-        "label": "cst"
-      },
-      {
-        "value": "ctg",
-        "label": "ctg"
-      },
-      {
-        "value": "ctr",
-        "label": "ctr"
-      },
-      {
-        "value": "cur",
-        "label": "cur"
-      },
-      {
-        "value": "dfd",
-        "label": "dfd"
-      },
-      {
-        "value": "dgg",
-        "label": "dgg"
-      },
-      {
-        "value": "dgs",
-        "label": "dgs"
-      },
-      {
-        "value": "dnc",
-        "label": "dnc"
-      },
-      {
-        "value": "dnr",
-        "label": "dnr"
-      },
-      {
-        "value": "dpt",
-        "label": "dpt"
-      },
-      {
-        "value": "drm",
-        "label": "drm"
-      },
-      {
-        "value": "drt",
-        "label": "drt"
-      },
-      {
-        "value": "dsr",
-        "label": "dsr"
-      },
-      {
-        "value": "dst",
-        "label": "dst"
-      },
-      {
-        "value": "dte",
-        "label": "dte"
-      },
-      {
-        "value": "dto",
-        "label": "dto"
-      },
-      {
-        "value": "dub",
-        "label": "dub"
-      },
-      {
-        "value": "edm",
-        "label": "edm"
-      },
-      {
-        "value": "egr",
-        "label": "egr"
-      },
-      {
-        "value": "enj",
-        "label": "enj"
-      },
-      {
-        "value": "etr",
-        "label": "etr"
-      },
-      {
-        "value": "exp",
-        "label": "exp"
-      },
-      {
-        "value": "fac",
-        "label": "fac"
-      },
-      {
-        "value": "fds",
-        "label": "fds"
-      },
-      {
-        "value": "fmd",
-        "label": "fmd"
-      },
-      {
-        "value": "fmk",
-        "label": "fmk"
-      },
-      {
-        "value": "fmo",
-        "label": "fmo"
-      },
-      {
-        "value": "fmp",
-        "label": "fmp"
-      },
-      {
-        "value": "his",
-        "label": "his"
-      },
-      {
-        "value": "hst",
-        "label": "hst"
-      },
-      {
-        "value": "ilu",
-        "label": "ilu"
-      },
-      {
-        "value": "ins",
-        "label": "ins"
-      },
-      {
-        "value": "inv",
-        "label": "inv"
-      },
-      {
-        "value": "isb",
-        "label": "isb"
-      },
-      {
-        "value": "itr",
-        "label": "itr"
-      },
-      {
-        "value": "ive",
-        "label": "ive"
-      },
-      {
-        "value": "ivr",
-        "label": "ivr"
-      },
-      {
-        "value": "jud",
-        "label": "jud"
-      },
-      {
-        "value": "jug",
-        "label": "jug"
-      },
-      {
-        "value": "lbt",
-        "label": "lbt"
-      },
-      {
-        "value": "lgd",
-        "label": "lgd"
-      },
-      {
-        "value": "lsa",
-        "label": "lsa"
-      },
-      {
-        "value": "ltg",
-        "label": "ltg"
-      },
-      {
-        "value": "lyr",
-        "label": "lyr"
-      },
-      {
-        "value": "med",
-        "label": "med"
-      },
-      {
-        "value": "mfr",
-        "label": "mfr"
-      },
-      {
-        "value": "mod",
-        "label": "mod"
-      },
-      {
-        "value": "msd",
-        "label": "msd"
-      },
-      {
-        "value": "mtk",
-        "label": "mtk"
-      },
-      {
-        "value": "mus",
-        "label": "mus"
-      },
-      {
-        "value": "nrt",
-        "label": "nrt"
-      },
-      {
-        "value": "orm",
-        "label": "orm"
-      },
-      {
-        "value": "osp",
-        "label": "osp"
-      },
-      {
-        "value": "oth",
-        "label": "oth"
-      },
-      {
-        "value": "own",
-        "label": "own"
-      },
-      {
-        "value": "pan",
-        "label": "pan"
-      },
-      {
-        "value": "pat",
-        "label": "pat"
-      },
-      {
-        "value": "pbd",
-        "label": "pbd"
-      },
-      {
-        "value": "pbl",
-        "label": "pbl"
-      },
-      {
-        "value": "plt",
-        "label": "plt"
-      },
-      {
-        "value": "ppm",
-        "label": "ppm"
-      },
-      {
-        "value": "ppt",
-        "label": "ppt"
-      },
-      {
-        "value": "pra",
-        "label": "pra"
-      },
-      {
-        "value": "pre",
-        "label": "pre"
-      },
-      {
-        "value": "prg",
-        "label": "prg"
-      },
-      {
-        "value": "prm",
-        "label": "prm"
-      },
-      {
-        "value": "prn",
-        "label": "prn"
-      },
-      {
-        "value": "pro",
-        "label": "pro"
-      },
-      {
-        "value": "prs",
-        "label": "prs"
-      },
-      {
-        "value": "prt",
-        "label": "prt"
-      },
-      {
-        "value": "ptf",
-        "label": "ptf"
-      },
-      {
-        "value": "rcd",
-        "label": "rcd"
-      },
-      {
-        "value": "rce",
-        "label": "rce"
-      },
-      {
-        "value": "rcp",
-        "label": "rcp"
-      },
-      {
-        "value": "rdd",
-        "label": "rdd"
-      },
-      {
-        "value": "res",
-        "label": "res"
-      },
-      {
-        "value": "rpc",
-        "label": "rpc"
-      },
-      {
-        "value": "rsp",
-        "label": "rsp"
-      },
-      {
-        "value": "rsr",
-        "label": "rsr"
-      },
-      {
-        "value": "scl",
-        "label": "scl"
-      },
-      {
-        "value": "sds",
-        "label": "sds"
-      },
-      {
-        "value": "sgd",
-        "label": "sgd"
-      },
-      {
-        "value": "sll",
-        "label": "sll"
-      },
-      {
-        "value": "sng",
-        "label": "sng"
-      },
-      {
-        "value": "spk",
-        "label": "spk"
-      },
-      {
-        "value": "spn",
-        "label": "spn"
-      },
-      {
-        "value": "srv",
-        "label": "srv"
-      },
-      {
-        "value": "stl",
-        "label": "stl"
-      },
-      {
-        "value": "tch",
-        "label": "tch"
-      },
-      {
-        "value": "tld",
-        "label": "tld"
-      },
-      {
-        "value": "tlp",
-        "label": "tlp"
-      },
-      {
-        "value": "trc",
-        "label": "trc"
-      },
-      {
-        "value": "vac",
-        "label": "vac"
-      },
-      {
-        "value": "vdg",
-        "label": "vdg"
-      },
-      {
-        "value": "wac",
-        "label": "wac"
-      },
-      {
-        "value": "wal",
-        "label": "wal"
-      },
-      {
-        "value": "wat",
-        "label": "wat"
-      },
-      {
-        "value": "win",
-        "label": "win"
-      },
-      {
-        "value": "wpr",
-        "label": "wpr"
-      },
-      {
-        "value": "wst",
-        "label": "wst"
+  "widget": {
+    "formlyConfig": {
+      "type": "selectWithSort",
+      "props": {
+        "itemCssClass": "col-lg-6",
+        "options": [
+          {
+            "value": "aut",
+            "label": "aut",
+            "preferred": true
+          },
+          {
+            "value": "cmp",
+            "label": "cmp",
+            "preferred": true
+          },
+          {
+            "value": "ctb",
+            "label": "ctb",
+            "preferred": true
+          },
+          {
+            "value": "edt",
+            "label": "edt",
+            "preferred": true
+          },
+          {
+            "value": "hnr",
+            "label": "hnr",
+            "preferred": true
+          },
+          {
+            "value": "ill",
+            "label": "ill",
+            "preferred": true
+          },
+          {
+            "value": "pht",
+            "label": "pht",
+            "preferred": true
+          },
+          {
+            "value": "prf",
+            "label": "prf",
+            "preferred": true
+          },
+          {
+            "value": "trl",
+            "label": "trl",
+            "preferred": true
+          },
+          {
+            "value": "abr",
+            "label": "abr"
+          },
+          {
+            "value": "act",
+            "label": "act"
+          },
+          {
+            "value": "adi",
+            "label": "adi"
+          },
+          {
+            "value": "adp",
+            "label": "adp"
+          },
+          {
+            "value": "aft",
+            "label": "aft"
+          },
+          {
+            "value": "anm",
+            "label": "anm"
+          },
+          {
+            "value": "ann",
+            "label": "ann"
+          },
+          {
+            "value": "ape",
+            "label": "ape"
+          },
+          {
+            "value": "apl",
+            "label": "apl"
+          },
+          {
+            "value": "aqt",
+            "label": "aqt"
+          },
+          {
+            "value": "arc",
+            "label": "arc"
+          },
+          {
+            "value": "arr",
+            "label": "arr"
+          },
+          {
+            "value": "art",
+            "label": "art"
+          },
+          {
+            "value": "ato",
+            "label": "ato"
+          },
+          {
+            "value": "auc",
+            "label": "auc"
+          },
+          {
+            "value": "aui",
+            "label": "aui"
+          },
+          {
+            "value": "aus",
+            "label": "aus"
+          },
+          {
+            "value": "bkd",
+            "label": "bkd"
+          },
+          {
+            "value": "bnd",
+            "label": "bnd"
+          },
+          {
+            "value": "brd",
+            "label": "brd"
+          },
+          {
+            "value": "brl",
+            "label": "brl"
+          },
+          {
+            "value": "bsl",
+            "label": "bsl"
+          },
+          {
+            "value": "cas",
+            "label": "cas"
+          },
+          {
+            "value": "chr",
+            "label": "chr"
+          },
+          {
+            "value": "cll",
+            "label": "cll"
+          },
+          {
+            "value": "clr",
+            "label": "clr"
+          },
+          {
+            "value": "clt",
+            "label": "clt"
+          },
+          {
+            "value": "cwt",
+            "label": "cwt"
+          },
+          {
+            "value": "cmm",
+            "label": "cmm"
+          },
+          {
+            "value": "cnd",
+            "label": "cnd"
+          },
+          {
+            "value": "cng",
+            "label": "cng"
+          },
+          {
+            "value": "cns",
+            "label": "cns"
+          },
+          {
+            "value": "col",
+            "label": "col"
+          },
+          {
+            "value": "com",
+            "label": "com"
+          },
+          {
+            "value": "cor",
+            "label": "cor"
+          },
+          {
+            "value": "cou",
+            "label": "cou"
+          },
+          {
+            "value": "cre",
+            "label": "cre"
+          },
+          {
+            "value": "crt",
+            "label": "crt"
+          },
+          {
+            "value": "csl",
+            "label": "csl"
+          },
+          {
+            "value": "cst",
+            "label": "cst"
+          },
+          {
+            "value": "ctg",
+            "label": "ctg"
+          },
+          {
+            "value": "ctr",
+            "label": "ctr"
+          },
+          {
+            "value": "cur",
+            "label": "cur"
+          },
+          {
+            "value": "dfd",
+            "label": "dfd"
+          },
+          {
+            "value": "dgg",
+            "label": "dgg"
+          },
+          {
+            "value": "dgs",
+            "label": "dgs"
+          },
+          {
+            "value": "dnc",
+            "label": "dnc"
+          },
+          {
+            "value": "dnr",
+            "label": "dnr"
+          },
+          {
+            "value": "dpt",
+            "label": "dpt"
+          },
+          {
+            "value": "drm",
+            "label": "drm"
+          },
+          {
+            "value": "drt",
+            "label": "drt"
+          },
+          {
+            "value": "dsr",
+            "label": "dsr"
+          },
+          {
+            "value": "dst",
+            "label": "dst"
+          },
+          {
+            "value": "dte",
+            "label": "dte"
+          },
+          {
+            "value": "dto",
+            "label": "dto"
+          },
+          {
+            "value": "dub",
+            "label": "dub"
+          },
+          {
+            "value": "edm",
+            "label": "edm"
+          },
+          {
+            "value": "egr",
+            "label": "egr"
+          },
+          {
+            "value": "enj",
+            "label": "enj"
+          },
+          {
+            "value": "etr",
+            "label": "etr"
+          },
+          {
+            "value": "exp",
+            "label": "exp"
+          },
+          {
+            "value": "fac",
+            "label": "fac"
+          },
+          {
+            "value": "fds",
+            "label": "fds"
+          },
+          {
+            "value": "fmd",
+            "label": "fmd"
+          },
+          {
+            "value": "fmk",
+            "label": "fmk"
+          },
+          {
+            "value": "fmo",
+            "label": "fmo"
+          },
+          {
+            "value": "fmp",
+            "label": "fmp"
+          },
+          {
+            "value": "his",
+            "label": "his"
+          },
+          {
+            "value": "hst",
+            "label": "hst"
+          },
+          {
+            "value": "ilu",
+            "label": "ilu"
+          },
+          {
+            "value": "ins",
+            "label": "ins"
+          },
+          {
+            "value": "inv",
+            "label": "inv"
+          },
+          {
+            "value": "isb",
+            "label": "isb"
+          },
+          {
+            "value": "itr",
+            "label": "itr"
+          },
+          {
+            "value": "ive",
+            "label": "ive"
+          },
+          {
+            "value": "ivr",
+            "label": "ivr"
+          },
+          {
+            "value": "jud",
+            "label": "jud"
+          },
+          {
+            "value": "jug",
+            "label": "jug"
+          },
+          {
+            "value": "lbt",
+            "label": "lbt"
+          },
+          {
+            "value": "lgd",
+            "label": "lgd"
+          },
+          {
+            "value": "lsa",
+            "label": "lsa"
+          },
+          {
+            "value": "ltg",
+            "label": "ltg"
+          },
+          {
+            "value": "lyr",
+            "label": "lyr"
+          },
+          {
+            "value": "med",
+            "label": "med"
+          },
+          {
+            "value": "mfr",
+            "label": "mfr"
+          },
+          {
+            "value": "mod",
+            "label": "mod"
+          },
+          {
+            "value": "msd",
+            "label": "msd"
+          },
+          {
+            "value": "mtk",
+            "label": "mtk"
+          },
+          {
+            "value": "mus",
+            "label": "mus"
+          },
+          {
+            "value": "nrt",
+            "label": "nrt"
+          },
+          {
+            "value": "orm",
+            "label": "orm"
+          },
+          {
+            "value": "osp",
+            "label": "osp"
+          },
+          {
+            "value": "oth",
+            "label": "oth"
+          },
+          {
+            "value": "own",
+            "label": "own"
+          },
+          {
+            "value": "pan",
+            "label": "pan"
+          },
+          {
+            "value": "pat",
+            "label": "pat"
+          },
+          {
+            "value": "pbd",
+            "label": "pbd"
+          },
+          {
+            "value": "pbl",
+            "label": "pbl"
+          },
+          {
+            "value": "plt",
+            "label": "plt"
+          },
+          {
+            "value": "ppm",
+            "label": "ppm"
+          },
+          {
+            "value": "ppt",
+            "label": "ppt"
+          },
+          {
+            "value": "pra",
+            "label": "pra"
+          },
+          {
+            "value": "pre",
+            "label": "pre"
+          },
+          {
+            "value": "prg",
+            "label": "prg"
+          },
+          {
+            "value": "prm",
+            "label": "prm"
+          },
+          {
+            "value": "prn",
+            "label": "prn"
+          },
+          {
+            "value": "pro",
+            "label": "pro"
+          },
+          {
+            "value": "prs",
+            "label": "prs"
+          },
+          {
+            "value": "prt",
+            "label": "prt"
+          },
+          {
+            "value": "ptf",
+            "label": "ptf"
+          },
+          {
+            "value": "rcd",
+            "label": "rcd"
+          },
+          {
+            "value": "rce",
+            "label": "rce"
+          },
+          {
+            "value": "rcp",
+            "label": "rcp"
+          },
+          {
+            "value": "rdd",
+            "label": "rdd"
+          },
+          {
+            "value": "res",
+            "label": "res"
+          },
+          {
+            "value": "rpc",
+            "label": "rpc"
+          },
+          {
+            "value": "rsp",
+            "label": "rsp"
+          },
+          {
+            "value": "rsr",
+            "label": "rsr"
+          },
+          {
+            "value": "scl",
+            "label": "scl"
+          },
+          {
+            "value": "sds",
+            "label": "sds"
+          },
+          {
+            "value": "sgd",
+            "label": "sgd"
+          },
+          {
+            "value": "sll",
+            "label": "sll"
+          },
+          {
+            "value": "sng",
+            "label": "sng"
+          },
+          {
+            "value": "spk",
+            "label": "spk"
+          },
+          {
+            "value": "spn",
+            "label": "spn"
+          },
+          {
+            "value": "srv",
+            "label": "srv"
+          },
+          {
+            "value": "stl",
+            "label": "stl"
+          },
+          {
+            "value": "tch",
+            "label": "tch"
+          },
+          {
+            "value": "tld",
+            "label": "tld"
+          },
+          {
+            "value": "tlp",
+            "label": "tlp"
+          },
+          {
+            "value": "trc",
+            "label": "trc"
+          },
+          {
+            "value": "vac",
+            "label": "vac"
+          },
+          {
+            "value": "vdg",
+            "label": "vdg"
+          },
+          {
+            "value": "wac",
+            "label": "wac"
+          },
+          {
+            "value": "wal",
+            "label": "wal"
+          },
+          {
+            "value": "wat",
+            "label": "wat"
+          },
+          {
+            "value": "win",
+            "label": "win"
+          },
+          {
+            "value": "wpr",
+            "label": "wpr"
+          },
+          {
+            "value": "wst",
+            "label": "wst"
+          }
+        ]
       }
-    ],
-    "templateOptions": {
-      "itemCssClass": "col-lg-6"
     }
   }
 }

@@ -26,36 +26,38 @@
         "bf:Place",
         "bf:Temporal"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6",
-          "options": [
-            {
-              "label": "bf:Person",
-              "value": "bf:Person"
-            },
-            {
-              "label": "bf:Organisation",
-              "value": "bf:Organisation"
-            },
-            {
-              "label": "bf:Work",
-              "value": "bf:Work"
-            },
-            {
-              "label": "bf:Topic",
-              "value": "bf:Topic"
-            },
-            {
-              "label": "bf:Place",
-              "value": "bf:Place"
-            },
-            {
-              "label": "bf:Temporal",
-              "value": "bf:Temporal"
-            }
-          ]
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "options": [
+              {
+                "label": "bf:Person",
+                "value": "bf:Person"
+              },
+              {
+                "label": "bf:Organisation",
+                "value": "bf:Organisation"
+              },
+              {
+                "label": "bf:Work",
+                "value": "bf:Work"
+              },
+              {
+                "label": "bf:Topic",
+                "value": "bf:Topic"
+              },
+              {
+                "label": "bf:Place",
+                "value": "bf:Place"
+              },
+              {
+                "label": "bf:Temporal",
+                "value": "bf:Temporal"
+              }
+            ]
+          }
         }
       }
     },
@@ -63,9 +65,11 @@
       "title": "Access Point",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "templateOptions": {
-          "itemCssClass": "col-lg-12"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-12"
+          }
         }
       }
     },
@@ -77,9 +81,11 @@
       "description": "Source catalog where the subject was imported from.",
       "type": "string",
       "minLength": 3,
-      "form": {
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6"
+          }
         }
       }
     },
@@ -122,8 +128,12 @@
                 "description": "Is this entity a genre, form ?",
                 "type": "boolean",
                 "default": false,
-                "form": {
-                  "hideExpression": "!field?.parent?.model || (field.parent.model && field.parent.model.type !== 'bf:Topic')"
+                "widget": {
+                  "formlyConfig": {
+                    "expressions": {
+                      "hide": "field?.parent?.model?.type !== 'bf:Topic'"
+                    }
+                  }
                 }
               },
               "authorized_access_point": {
@@ -133,25 +143,24 @@
                 "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
               }
             },
-            "form": {
-              "templateOptions": {
-                "containerCssClass": "row"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "containerCssClass": "row"
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "hide": true,
-        "templateOptions": {
-          "itemCssClass": "col-lg-12"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-12",
+            "hide": true
+          }
         }
       }
-    }
-  },
-  "form": {
-    "templateOptions": {
-      "containerCssClass": "row"
     }
   },
   "definitions": {
@@ -164,25 +173,34 @@
         "bf:Place",
         "bf:Temporal"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "templateOptions": {
-          "itemCssClass": "col-lg-6",
-          "options": [
-            {
-              "label": "bf:Topic",
-              "value": "bf:Topic"
-            },
-            {
-              "label": "bf:Place",
-              "value": "bf:Place"
-            },
-            {
-              "label": "bf:Temporal",
-              "value": "bf:Temporal"
-            }
-          ]
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "options": [
+              {
+                "label": "bf:Topic",
+                "value": "bf:Topic"
+              },
+              {
+                "label": "bf:Place",
+                "value": "bf:Place"
+              },
+              {
+                "label": "bf:Temporal",
+                "value": "bf:Temporal"
+              }
+            ]
+          }
         }
+      }
+    }
+  },
+  "widget": {
+    "formlyConfig": {
+      "props": {
+        "containerCssClass": "row"
       }
     }
   }

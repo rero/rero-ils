@@ -35,8 +35,8 @@
       "readOnly": true,
       "default": "bf:Person",
       "const": "bf:Person",
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -57,8 +57,12 @@
       "title": "Name",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: Miller, John"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: Miller, John"
+          }
+        }
       }
     },
     "authorized_access_point": {
@@ -66,8 +70,8 @@
       "type": "string",
       "minLength": 1,
       "readOnly": true,
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -79,8 +83,12 @@
       "description": "Record only years.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 1955"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: 1955"
+          }
+        }
       }
     },
     "date_of_death": {
@@ -88,16 +96,24 @@
       "description": "Record only years.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: 2012"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: 2012"
+          }
+        }
       }
     },
     "qualifier": {
       "title": "Qualifier",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: physicist"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: physicist"
+          }
+        }
       }
     },
     "numeration": {
@@ -105,8 +121,12 @@
       "description": "Record only a number.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: XXIII"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: XXIII"
+          }
+        }
       }
     },
     "fuller_form_of_name": {
@@ -123,8 +143,12 @@
         "title": "Alternative name",
         "type": "string",
         "minLength": 1,
-        "form": {
-          "placeholder": "Example: Beyer, Adam"
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "placeholder": "Example: Beyer, Adam"
+            }
+          }
         }
       }
     },
@@ -138,23 +162,25 @@
         "M",
         "X"
       ],
-      "form": {
-        "options": [
-          {
-            "value": "M",
-            "label": "male"
-          },
-          {
-            "value": "F",
-            "label": "female"
-          },
-          {
-            "value": "X",
-            "label": "other"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-lg-6",
+            "options": [
+              {
+                "value": "M",
+                "label": "male"
+              },
+              {
+                "value": "F",
+                "label": "female"
+              },
+              {
+                "value": "X",
+                "label": "other"
+              }
+            ]
           }
-        ],
-        "templateOptions": {
-          "itemCssClass": "col-lg-6"
         }
       }
     },
@@ -162,8 +188,12 @@
       "title": "Source catalog",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "placeholder": "Example: lcsh, mesh, rameau"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "placeholder": "Example: lcsh, mesh, rameau"
+          }
+        }
       }
     },
     "identifier": {

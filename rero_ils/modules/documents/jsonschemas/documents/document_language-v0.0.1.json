@@ -25,18 +25,20 @@
           "enum": [
             "bf:Language"
           ],
-          "form": {
-            "templateOptions": {
+          "widget": {
+            "formlyConfig": {
               "wrappers": [
                 "hide"
-              ]
-            },
-            "options": [
-              {
-                "label": "bf:Language",
-                "value": "bf:Language"
+              ],
+              "props": {
+                "options": [
+                  {
+                    "label": "bf:Language",
+                    "value": "bf:Language"
+                  }
+                ]
               }
-            ]
+            }
           }
         },
         "value": {
@@ -45,19 +47,23 @@
         "note": {
           "title": "Note",
           "type": "string",
-          "form": {
-            "type": "textarea",
-            "templateOptions": {
-              "itemCssClass": "col-lg-12",
-              "rows": 3,
-              "hide": true
+          "widget": {
+            "formlyConfig": {
+              "type": "textarea",
+              "props": {
+                "itemCssClass": "col-lg-12",
+                "rows": 3,
+                "hide": true
+              }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
-          "containerCssClass": "row"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "containerCssClass": "row"
+          }
         }
       }
     }

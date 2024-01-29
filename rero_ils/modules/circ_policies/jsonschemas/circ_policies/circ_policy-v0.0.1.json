@@ -44,17 +44,21 @@
       "title": "Name",
       "type": "string",
       "minLength": 2,
-      "form": {
-        "focus": true
+      "widget": {
+        "formlyConfig": {
+          "focus": true
+        }
       }
     },
     "description": {
       "title": "Description",
       "type": "string",
-      "form": {
-        "type": "textarea",
-        "templateOptions": {
-          "rows": 3
+      "widget": {
+        "formlyConfig": {
+          "type": "textarea",
+          "props": {
+            "rows": 3
+          }
         }
       }
     },
@@ -77,21 +81,23 @@
       "description": "Remove this field to disable the checkout. Enter 0 to allow the checkout until the end of the day.",
       "type": "integer",
       "minimum": 0,
-      "form": {
-        "templateOptions": {
-          "addonRight": {
-            "text": "day(s)"
-          },
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "toggle-switch",
             "card"
           ],
-          "toggle-switch": {
-            "label": "Allow checkout",
-            "description": "Checkouts are allowed or not."
-          },
-          "navigation": {
-            "essential": true
+          "props": {
+            "addonRight": [
+              "day(s)"
+            ],
+            "toggle-switch": {
+              "label": "Allow checkout",
+              "description": "Checkouts are allowed or not."
+            },
+            "navigation": {
+              "essential": true
+            }
           }
         }
       }
@@ -106,11 +112,15 @@
       "description": "Number of day(s) after which a not-picked up validated request will be cancelled. Keep empty to specify infinite duration.",
       "type": "integer",
       "minimum": 1,
-      "form": {
-        "hideExpression": "model && !model.allow_requests",
-        "templateOptions": {
-          "addonRight": {
-            "text": "day(s)"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "hide": "model && !model.allow_requests"
+          },
+          "props": {
+            "addonRight": [
+              "day(s)"
+            ]
           }
         }
       }
@@ -146,17 +156,21 @@
               "due_soon",
               "overdue"
             ],
-            "form": {
-              "options": [
-                {
-                  "label": "due_soon",
-                  "value": "due_soon"
-                },
-                {
-                  "label": "overdue",
-                  "value": "overdue"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "options": [
+                    {
+                      "label": "due_soon",
+                      "value": "due_soon"
+                    },
+                    {
+                      "label": "overdue",
+                      "value": "overdue"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "days_delay": {
@@ -164,10 +178,12 @@
             "description": "Number of days before the due date (for loan expiry notices) or after the due date (for reminders). This number defines when the notification is sent.",
             "title": "Delay",
             "minimum": 1,
-            "form": {
-              "templateOptions": {
-                "addonRight": {
-                  "text": "day(s)"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "addonRight": [
+                    "day(s)"
+                  ]
                 }
               }
             }
@@ -177,9 +193,13 @@
             "title": "Amount",
             "exclusiveMinimum": 0,
             "multipleOf": 0.01,
-            "form": {
-              "hide": true,
-              "fieldMap": "amount"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "hide": true,
+                  "fieldMap": "amount"
+                }
+              }
             }
           },
           "communication_channel": {
@@ -189,33 +209,45 @@
               "patron_setting",
               "mail"
             ],
-            "form": {
-              "options": [
-                {
-                  "label": "According to the patron's settings",
-                  "value": "patron_setting"
-                },
-                {
-                  "label": "Always per mail",
-                  "value": "mail"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "options": [
+                    {
+                      "label": "According to the patron's settings",
+                      "value": "patron_setting"
+                    },
+                    {
+                      "label": "Always per mail",
+                      "value": "mail"
+                    }
+                  ]
                 }
-              ]
+              }
             }
           },
           "template": {
             "type": "string",
             "title": "Template",
             "minLength": 2,
-            "form": {
-              "fieldMap": "notification_template"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "fieldMap": "notification_template"
+                }
+              }
             }
           }
         }
       },
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -248,19 +280,16 @@
               "to",
               "fee_amount"
             ],
-            "form": {
-              "templateOptions": {
-                "containerCssClass": "row"
-              }
-            },
             "properties": {
               "from": {
                 "type": "integer",
                 "title": "From",
                 "minimum": 1,
-                "form": {
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-3"
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "col-lg-3"
+                    }
                   }
                 }
               },
@@ -268,9 +297,11 @@
                 "type": "integer",
                 "title": "To",
                 "minimum": 1,
-                "form": {
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-3"
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "col-lg-3"
+                    }
                   }
                 }
               },
@@ -279,12 +310,21 @@
                 "title": "Amount",
                 "exclusiveMinimum": 0,
                 "multipleOf": 0.01,
-                "form": {
-                  "fieldMap": "fee_amount",
-                  "templateOptions": {
-                    "itemCssClass": "col-lg-4",
-                    "label": ""
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "col-lg-4",
+                      "hideLabel": true,
+                      "fieldMap": "fee_amount"
+                    }
                   }
+                }
+              }
+            },
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "containerCssClass": "row"
                 }
               }
             }
@@ -296,15 +336,23 @@
           "title": "Maximum total amount",
           "exclusiveMinimum": 0,
           "multipleOf": 0.01,
-          "form": {
-            "fieldMap": "amount"
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "fieldMap": "amount"
+              }
+            }
           }
         }
       },
-      "form": {
-        "hide": true,
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "hide": true,
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     },
@@ -314,19 +362,27 @@
       "type": "integer",
       "minimum": 0,
       "default": 0,
-      "form": {
-        "hideExpression": "model && model.checkout_duration <= 0"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "hide": "model && model.checkout_duration <= 0"
+          }
+        }
       }
     },
     "renewal_duration": {
       "title": "Renewal duration in days",
       "type": "integer",
       "minimum": 1,
-      "form": {
-        "hideExpression": "model && (!model.hasOwnProperty('number_renewals') || model.number_renewals <= 0)",
-        "templateOptions": {
-          "addonRight": {
-            "text": "day(s)"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "hide": "model && (!model.hasOwnProperty('number_renewals') || model.number_renewals <= 0)"
+          },
+          "props": {
+            "addonRight": [
+              "day(s)"
+            ]
           }
         }
       }
@@ -335,8 +391,8 @@
       "title": "Mark as default policy",
       "type": "boolean",
       "default": false,
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "hide"
           ]
@@ -364,14 +420,22 @@
           "$ref": {
             "type": "string",
             "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
-            "form": {
-              "fieldMap": "library"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "fieldMap": "library"
+                }
+              }
             }
           }
         }
       },
-      "form": {
-        "hideExpression": "field?.parent?.model && field.parent.model.policy_library_level !== true"
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "hide": "field?.parent?.model?.policy_library_level !== true"
+          }
+        }
       }
     },
     "settings": {
@@ -418,13 +482,15 @@
           }
         }
       },
-      "form": {
-        "type": "cipo-pt-it",
-        "templateOptions": {
-          "cssClass": "editor-title"
-        },
-        "navigation": {
-          "essential": true
+      "widget": {
+        "formlyConfig": {
+          "type": "cipo-pt-it",
+          "props": {
+            "cssClass": "editor-title",
+            "navigation": {
+              "essential": true
+            }
+          }
         }
       }
     }

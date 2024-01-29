@@ -58,24 +58,26 @@
         "course",
         "exhibition"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "course",
-            "value": "course"
-          },
-          {
-            "label": "exhibition",
-            "value": "exhibition"
-          }
-        ],
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
           "wrappers": [
             "form-field"
           ],
-          "selectWithSortOptions": {
-            "order": "label"
+          "props": {
+            "selectWithSortOptions": {
+              "order": "label"
+            },
+            "options": [
+              {
+                "label": "course",
+                "value": "course"
+              },
+              {
+                "label": "exhibition",
+                "value": "exhibition"
+              }
+            ]
           }
         }
       }
@@ -101,15 +103,15 @@
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "props.required": true,
+            "hide": "field?.parent?.model?.collection_type !== 'course'"
+          },
           "wrappers": [
             "card"
           ]
-        },
-        "hideExpression": "field?.parent?.model && field.parent.model.collection_type !== 'course'",
-        "expressionProperties": {
-          "templateOptions.required": "true"
         }
       }
     },
@@ -131,8 +133,8 @@
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
           ]
@@ -143,10 +145,12 @@
       "title": "Description",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "type": "textarea",
-        "templateOptions": {
-          "rows": 5
+      "widget": {
+        "formlyConfig": {
+          "type": "textarea",
+          "props": {
+            "rows": 5
+          }
         }
       }
     },
@@ -155,18 +159,22 @@
       "format": "date",
       "title": "Start date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "type": "datepicker",
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
-            "dateMustBeLessThan": "The start date must be less than the end date."
-          },
-          "validators": {
-            "dateMustBeLessThan": {
-              "startDate": "start_date",
-              "endDate": "end_date",
-              "strict": true
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+                "dateMustBeLessThan": "The start date must be less than the end date."
+              },
+              "validators": {
+                "dateMustBeLessThan": {
+                  "startDate": "start_date",
+                  "endDate": "end_date",
+                  "strict": true
+                }
+              }
             }
           }
         }
@@ -177,18 +185,22 @@
       "format": "date",
       "title": "End date",
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "form": {
-        "type": "datepicker",
-        "validation": {
-          "messages": {
-            "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
-            "datesMustBeGreaterThan": "The end date must be greater than the start date."
-          },
-          "validators": {
-            "dateMustBeGreaterThan": {
-              "startDate": "start_date",
-              "endDate": "end_date",
-              "strict": true
+      "widget": {
+        "formlyConfig": {
+          "type": "datepicker",
+          "props": {
+            "validation": {
+              "messages": {
+                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
+                "datesMustBeGreaterThan": "The end date must be greater than the start date."
+              },
+              "validators": {
+                "dateMustBeGreaterThan": {
+                  "startDate": "start_date",
+                  "endDate": "end_date",
+                  "strict": true
+                }
+              }
             }
           }
         }
@@ -210,14 +222,18 @@
             "title": "Name",
             "type": "string",
             "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
-            "form": {
-              "fieldMap": "library"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "fieldMap": "library"
+                }
+              }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
           ]
@@ -239,16 +255,20 @@
             "title": "Item",
             "type": "string",
             "pattern": "^https://bib.rero.ch/api/items/.*?$",
-            "form": {
-              "remoteTypeahead": {
-                "type": "items"
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "remoteTypeahead": {
+                    "type": "items"
+                  }
+                }
               }
             }
           }
         }
       },
-      "form": {
-        "templateOptions": {
+      "widget": {
+        "formlyConfig": {
           "wrappers": [
             "card"
           ]
@@ -273,7 +293,7 @@
     "published": {
       "type": "boolean",
       "title": "Published",
-      "description": "\"Published\" indicates that the collection appears in the public interface.",
+      "description": "'Published' indicates that the collection appears in the public interface.",
       "default": true
     }
   }

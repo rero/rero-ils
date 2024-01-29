@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
-# Copyright (C) 2019-2023 UCLouvain
+# Copyright (C) 2019-2024 RERO
+# Copyright (C) 2019-2024 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -93,17 +93,20 @@ def advanced_search_config():
             data = rda_type.get('title')
             media_types.append({'label': data, 'value': data})
         if rda_type := item.get('properties', {}).get('carrierType', {}):
-            for option in rda_type.get('form', {}).get('options'):
+            for option in rda_type.get('widget', {}).get('formlyConfig', {})\
+                    .get('props', []).get('options'):
                 if option not in carrier_types:
                     carrier_types.append(option)
     return jsonify({
         'fieldsConfig': current_app.config.get(
             'RERO_ILS_APP_ADVANCED_SEARCH_CONFIG', []),
         'fieldsData': {
-            'country': countries['country']['form']['options'],
-            'canton': cantons['canton']['form']['options'],
+            'country': countries['country']['widget']['formlyConfig']
+            ['props']['options'],
+            'canton': cantons['canton']['widget']['formlyConfig']
+            ['props']['options'],
             'rdaContentType': medias['definitions']['contentType']['items']
-            ['form']['options'],
+            ['widget']['formlyConfig']['props']['options'],
             'rdaMediaType': sorted(media_types, key=cmp_to_key(sort_medias)),
             'rdaCarrierType': sorted(
                 carrier_types, key=cmp_to_key(sort_medias))

@@ -26,8 +26,8 @@
               "readOnly": true,
               "default": "understanding_level",
               "const": "understanding_level",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -67,116 +67,118 @@
                 "target_understanding_parents",
                 "target_understanding_caregivers"
               ],
-              "form": {
-                "type": "selectWithSort",
-                "options": [
-                  {
-                    "label": "target_understanding_children",
-                    "value": "target_understanding_children"
-                  },
-                  {
-                    "label": "target_understanding_children_0_3",
-                    "value": "target_understanding_children_0_3"
-                  },
-                  {
-                    "label": "target_understanding_children_3_6",
-                    "value": "target_understanding_children_3_6"
-                  },
-                  {
-                    "label": "target_understanding_children_6_9",
-                    "value": "target_understanding_children_6_9"
-                  },
-                  {
-                    "label": "target_understanding_children_9_12",
-                    "value": "target_understanding_children_9_12"
-                  },
-                  {
-                    "label": "target_understanding_teenagers",
-                    "value": "target_understanding_teenagers"
-                  },
-                  {
-                    "label": "target_understanding_teenagers_12_15",
-                    "value": "target_understanding_teenagers_12_15"
-                  },
-                  {
-                    "label": "target_understanding_teenagers_15_18",
-                    "value": "target_understanding_teenagers_15_18"
-                  },
-                  {
-                    "label": "target_understanding_secondary_level_2",
-                    "value": "target_understanding_secondary_level_2"
-                  },
-                  {
-                    "label": "target_understanding_tertiary",
-                    "value": "target_understanding_tertiary"
-                  },
-                  {
-                    "label": "target_understanding_apprentices",
-                    "value": "target_understanding_apprentices"
-                  },
-                  {
-                    "label": "target_understanding_bachelor_students",
-                    "value": "target_understanding_bachelor_students"
-                  },
-                  {
-                    "label": "target_understanding_master_students",
-                    "value": "target_understanding_master_students"
-                  },
-                  {
-                    "label": "target_understanding_doctoral_students",
-                    "value": "target_understanding_doctoral_students"
-                  },
-                  {
-                    "label": "target_understanding_beginners",
-                    "value": "target_understanding_beginners"
-                  },
-                  {
-                    "label": "target_understanding_intermediaries",
-                    "value": "target_understanding_intermediaries"
-                  },
-                  {
-                    "label": "target_understanding_advanced",
-                    "value": "target_understanding_advanced"
-                  },
-                  {
-                    "label": "target_understanding_specialists",
-                    "value": "target_understanding_specialists"
-                  },
-                  {
-                    "label": "target_understanding_adults",
-                    "value": "target_understanding_adults"
-                  },
-                  {
-                    "label": "target_understanding_allophone_adults",
-                    "value": "target_understanding_allophone_adults"
-                  },
-                  {
-                    "label": "target_understanding_all_audience",
-                    "value": "target_understanding_all_audience"
-                  },
-                  {
-                    "label": "target_understanding_teachers_harmos_degree",
-                    "value": "target_understanding_teachers_harmos_degree"
-                  },
-                  {
-                    "label": "target_understanding_teachers_secondary_level_2",
-                    "value": "target_understanding_teachers_secondary_level_2"
-                  },
-                  {
-                    "label": "target_understanding_hep_trainers",
-                    "value": "target_understanding_hep_trainers"
-                  },
-                  {
-                    "label": "target_understanding_parents",
-                    "value": "target_understanding_parents"
-                  },
-                  {
-                    "label": "target_understanding_caregivers",
-                    "value": "target_understanding_caregivers"
+              "widget": {
+                "formlyConfig": {
+                  "type": "selectWithSort",
+                  "props": {
+                    "itemCssClass": "col-lg-6",
+                    "options": [
+                      {
+                        "label": "target_understanding_children",
+                        "value": "target_understanding_children"
+                      },
+                      {
+                        "label": "target_understanding_children_0_3",
+                        "value": "target_understanding_children_0_3"
+                      },
+                      {
+                        "label": "target_understanding_children_3_6",
+                        "value": "target_understanding_children_3_6"
+                      },
+                      {
+                        "label": "target_understanding_children_6_9",
+                        "value": "target_understanding_children_6_9"
+                      },
+                      {
+                        "label": "target_understanding_children_9_12",
+                        "value": "target_understanding_children_9_12"
+                      },
+                      {
+                        "label": "target_understanding_teenagers",
+                        "value": "target_understanding_teenagers"
+                      },
+                      {
+                        "label": "target_understanding_teenagers_12_15",
+                        "value": "target_understanding_teenagers_12_15"
+                      },
+                      {
+                        "label": "target_understanding_teenagers_15_18",
+                        "value": "target_understanding_teenagers_15_18"
+                      },
+                      {
+                        "label": "target_understanding_secondary_level_2",
+                        "value": "target_understanding_secondary_level_2"
+                      },
+                      {
+                        "label": "target_understanding_tertiary",
+                        "value": "target_understanding_tertiary"
+                      },
+                      {
+                        "label": "target_understanding_apprentices",
+                        "value": "target_understanding_apprentices"
+                      },
+                      {
+                        "label": "target_understanding_bachelor_students",
+                        "value": "target_understanding_bachelor_students"
+                      },
+                      {
+                        "label": "target_understanding_master_students",
+                        "value": "target_understanding_master_students"
+                      },
+                      {
+                        "label": "target_understanding_doctoral_students",
+                        "value": "target_understanding_doctoral_students"
+                      },
+                      {
+                        "label": "target_understanding_beginners",
+                        "value": "target_understanding_beginners"
+                      },
+                      {
+                        "label": "target_understanding_intermediaries",
+                        "value": "target_understanding_intermediaries"
+                      },
+                      {
+                        "label": "target_understanding_advanced",
+                        "value": "target_understanding_advanced"
+                      },
+                      {
+                        "label": "target_understanding_specialists",
+                        "value": "target_understanding_specialists"
+                      },
+                      {
+                        "label": "target_understanding_adults",
+                        "value": "target_understanding_adults"
+                      },
+                      {
+                        "label": "target_understanding_allophone_adults",
+                        "value": "target_understanding_allophone_adults"
+                      },
+                      {
+                        "label": "target_understanding_all_audience",
+                        "value": "target_understanding_all_audience"
+                      },
+                      {
+                        "label": "target_understanding_teachers_harmos_degree",
+                        "value": "target_understanding_teachers_harmos_degree"
+                      },
+                      {
+                        "label": "target_understanding_teachers_secondary_level_2",
+                        "value": "target_understanding_teachers_secondary_level_2"
+                      },
+                      {
+                        "label": "target_understanding_hep_trainers",
+                        "value": "target_understanding_hep_trainers"
+                      },
+                      {
+                        "label": "target_understanding_parents",
+                        "value": "target_understanding_parents"
+                      },
+                      {
+                        "label": "target_understanding_caregivers",
+                        "value": "target_understanding_caregivers"
+                      }
+                    ]
                   }
-                ],
-                "templateOptions": {
-                  "itemCssClass": "col-lg-6"
                 }
               }
             }
@@ -200,8 +202,8 @@
               "readOnly": true,
               "default": "school_level",
               "const": "school_level",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -229,70 +231,74 @@
                 "target_school_bachelor",
                 "target_school_master"
               ],
-              "form": {
-                "type": "selectWithSort",
-                "options": [
-                  {
-                    "label": "target_school_harmos1",
-                    "value": "target_school_harmos1"
-                  },
-                  {
-                    "label": "target_school_harmos2",
-                    "value": "target_school_harmos2"
-                  },
-                  {
-                    "label": "target_school_harmos3",
-                    "value": "target_school_harmos3"
-                  },
-                  {
-                    "label": "target_school_harmos4",
-                    "value": "target_school_harmos4"
-                  },
-                  {
-                    "label": "target_school_harmos5",
-                    "value": "target_school_harmos5"
-                  },
-                  {
-                    "label": "target_school_harmos6",
-                    "value": "target_school_harmos6"
-                  },
-                  {
-                    "label": "target_school_harmos7",
-                    "value": "target_school_harmos7"
-                  },
-                  {
-                    "label": "target_school_harmos8",
-                    "value": "target_school_harmos8"
-                  },
-                  {
-                    "label": "target_school_harmos9",
-                    "value": "target_school_harmos9"
-                  },
-                  {
-                    "label": "target_school_harmos10",
-                    "value": "target_school_harmos10"
-                  },
-                  {
-                    "label": "target_school_harmos11",
-                    "value": "target_school_harmos11"
-                  },
-                  {
-                    "label": "target_school_upper_secondary",
-                    "value": "target_school_upper_secondary"
-                  },
-                  {
-                    "label": "target_school_tertiary",
-                    "value": "target_school_tertiary"
-                  },
-                  {
-                    "label": "target_school_bachelor",
-                    "value": "target_school_bachelor"
-                  },
-                  {
-                    "label": "target_school_master",
-                    "value": "target_school_master"
+              "widget": {
+                "formlyConfig": {
+                  "type": "selectWithSort",
+                  "props": {
+                    "options": [
+                      {
+                        "label": "target_school_harmos1",
+                        "value": "target_school_harmos1"
+                      },
+                      {
+                        "label": "target_school_harmos2",
+                        "value": "target_school_harmos2"
+                      },
+                      {
+                        "label": "target_school_harmos3",
+                        "value": "target_school_harmos3"
+                      },
+                      {
+                        "label": "target_school_harmos4",
+                        "value": "target_school_harmos4"
+                      },
+                      {
+                        "label": "target_school_harmos5",
+                        "value": "target_school_harmos5"
+                      },
+                      {
+                        "label": "target_school_harmos6",
+                        "value": "target_school_harmos6"
+                      },
+                      {
+                        "label": "target_school_harmos7",
+                        "value": "target_school_harmos7"
+                      },
+                      {
+                        "label": "target_school_harmos8",
+                        "value": "target_school_harmos8"
+                      },
+                      {
+                        "label": "target_school_harmos9",
+                        "value": "target_school_harmos9"
+                      },
+                      {
+                        "label": "target_school_harmos10",
+                        "value": "target_school_harmos10"
+                      },
+                      {
+                        "label": "target_school_harmos11",
+                        "value": "target_school_harmos11"
+                      },
+                      {
+                        "label": "target_school_upper_secondary",
+                        "value": "target_school_upper_secondary"
+                      },
+                      {
+                        "label": "target_school_tertiary",
+                        "value": "target_school_tertiary"
+                      },
+                      {
+                        "label": "target_school_bachelor",
+                        "value": "target_school_bachelor"
+                      },
+                      {
+                        "label": "target_school_master",
+                        "value": "target_school_master"
+                      }
+                    ]
                   }
-                ]
+                }
               }
             }
           }
@@ -315,8 +321,8 @@
               "readOnly": true,
               "default": "pegi_level",
               "const": "pegi_level",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -334,30 +340,34 @@
                 "pegi_16",
                 "pegi_18"
               ],
-              "form": {
-                "type": "selectWithSort",
-                "options": [
-                  {
-                    "label": "pegi_3",
-                    "value": "pegi_3"
-                  },
-                  {
-                    "label": "pegi_7",
-                    "value": "pegi_7"
-                  },
-                  {
-                    "label": "pegi_12",
-                    "value": "pegi_12"
-                  },
-                  {
-                    "label": "pegi_16",
-                    "value": "pegi_16"
-                  },
-                  {
-                    "label": "pegi_18",
-                    "value": "pegi_18"
+              "widget": {
+                "formlyConfig": {
+                  "type": "selectWithSort",
+                  "props": {
+                    "options": [
+                      {
+                        "label": "pegi_3",
+                        "value": "pegi_3"
+                      },
+                      {
+                        "label": "pegi_7",
+                        "value": "pegi_7"
+                      },
+                      {
+                        "label": "pegi_12",
+                        "value": "pegi_12"
+                      },
+                      {
+                        "label": "pegi_16",
+                        "value": "pegi_16"
+                      },
+                      {
+                        "label": "pegi_18",
+                        "value": "pegi_18"
+                      }
+                    ]
                   }
-                ]
+                }
               }
             }
           }
@@ -380,8 +390,8 @@
               "readOnly": true,
               "default": "filmage_ch",
               "const": "filmage_ch",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -402,42 +412,46 @@
                 "from the age of 5",
                 "from the age of 2"
               ],
-              "form": {
-                "type": "selectWithSort",
-                "options": [
-                  {
-                    "label": "from the age of 18",
-                    "value": "from the age of 18"
-                  },
-                  {
-                    "label": "from the age of 16",
-                    "value": "from the age of 16"
-                  },
-                  {
-                    "label": "from the age of 14",
-                    "value": "from the age of 14"
-                  },
-                  {
-                    "label": "from the age of 12",
-                    "value": "from the age of 12"
-                  },
-                  {
-                    "label": "from the age of 10",
-                    "value": "from the age of 10"
-                  },
-                  {
-                    "label": "from the age of 7",
-                    "value": "from the age of 7"
-                  },
-                  {
-                    "label": "from the age of 5",
-                    "value": "from the age of 5"
-                  },
-                  {
-                    "label": "from the age of 2",
-                    "value": "from the age of 2"
+              "widget": {
+                "formlyConfig": {
+                  "type": "selectWithSort",
+                  "props": {
+                    "options": [
+                      {
+                        "label": "from the age of 18",
+                        "value": "from the age of 18"
+                      },
+                      {
+                        "label": "from the age of 16",
+                        "value": "from the age of 16"
+                      },
+                      {
+                        "label": "from the age of 14",
+                        "value": "from the age of 14"
+                      },
+                      {
+                        "label": "from the age of 12",
+                        "value": "from the age of 12"
+                      },
+                      {
+                        "label": "from the age of 10",
+                        "value": "from the age of 10"
+                      },
+                      {
+                        "label": "from the age of 7",
+                        "value": "from the age of 7"
+                      },
+                      {
+                        "label": "from the age of 5",
+                        "value": "from the age of 5"
+                      },
+                      {
+                        "label": "from the age of 2",
+                        "value": "from the age of 2"
+                      }
+                    ]
                   }
-                ]
+                }
               }
             }
           }
@@ -460,8 +474,8 @@
               "readOnly": true,
               "default": "undefined",
               "const": "undefined",
-              "form": {
-                "templateOptions": {
+              "widget": {
+                "formlyConfig": {
                   "wrappers": [
                     "hide"
                   ]
@@ -477,8 +491,12 @@
         }
       ]
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

@@ -11,28 +11,34 @@
         "rdacc:1002",
         "rdacc:1003"
       ],
-      "form": {
-        "type": "selectWithSort",
-        "options": [
-          {
-            "label": "rdacc:1002",
-            "value": "rdacc:1002"
-          },
-          {
-            "label": "rdacc:1003",
-            "value": "rdacc:1003"
+      "widget": {
+        "formlyConfig": {
+          "type": "selectWithSort",
+          "props": {
+            "selectWithSortOptions": {
+              "order": "label"
+            },
+            "cssClass": "w-md-50",
+            "options": [
+              {
+                "label": "rdacc:1002",
+                "value": "rdacc:1002"
+              },
+              {
+                "label": "rdacc:1003",
+                "value": "rdacc:1003"
+              }
+            ]
           }
-        ],
-        "templateOptions": {
-          "selectWithSortOptions": {
-            "order": "label"
-          },
-          "cssClass": "w-md-50"
         }
       }
     },
-    "form": {
-      "hide": true
+    "widget": {
+      "formlyConfig": {
+        "props": {
+          "hide": true
+        }
+      }
     }
   }
 }

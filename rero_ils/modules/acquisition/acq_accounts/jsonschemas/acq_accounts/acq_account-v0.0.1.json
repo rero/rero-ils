@@ -37,8 +37,10 @@
       "description": "Common name of the acquisition account.",
       "type": "string",
       "minLength": 1,
-      "form": {
-        "focus": true
+      "widget": {
+        "formlyConfig": {
+          "focus": true
+        }
       }
     },
     "number": {
@@ -53,8 +55,12 @@
       "type": "number",
       "minimum": 0,
       "default": 0,
-      "form": {
-        "fieldMap": "amount"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "fieldMap": "amount"
+          }
+        }
       }
     },
     "encumbrance_exceedance": {
@@ -64,10 +70,12 @@
       "minimum": 0,
       "maximum": 100,
       "default": 0,
-      "form": {
-        "templateOptions": {
-          "addonRight": {
-            "text": "%"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "addonRight": [
+              "%"
+            ]
           }
         }
       }
@@ -79,10 +87,12 @@
       "minimum": 0,
       "maximum": 100,
       "default": 0,
-      "form": {
-        "templateOptions": {
-          "addonRight": {
-            "text": "%"
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "addonRight": [
+              "%"
+            ]
           }
         }
       }
@@ -95,11 +105,13 @@
           "title": "Account URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/acq_accounts/.*?$",
-          "form": {
-            "placeholder": "Choose a parent account",
-            "type": "account-select",
-            "templateOptions": {
-              "label": ""
+          "widget": {
+            "formlyConfig": {
+              "hideLabel": true,
+              "type": "account-select",
+              "props": {
+                "placeholder": "Choose a parent account"
+              }
             }
           }
         }
