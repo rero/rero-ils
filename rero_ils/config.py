@@ -3814,7 +3814,7 @@ def search_type(field):
 
 RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
     {
-        'label': 'Title',
+        'label': _('Title'),
         'value': 'title',
         'field': 'title.*',
         'options': {
@@ -3822,7 +3822,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Responsibility statement',
+        'label': _('Responsibility statement'),
         'value': 'responsibilityStatement',
         'field': 'responsibilityStatement.value',
         'options': {
@@ -3830,7 +3830,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Contribution',
+        'label': _('Contribution'),
         'value': 'contribution',
         'field': 'contribution.entity.*',
         'options': {
@@ -3838,7 +3838,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Country',
+        'label': _('Country'),
         'value': 'country',
         'field': 'provisionActivity.place.country',
         'options': {
@@ -3846,7 +3846,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Canton',
+        'label': _('Canton'),
         'value': 'canton',
         'field': 'provisionActivity.place.canton',
         'options': {
@@ -3854,7 +3854,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Provision activity statement',
+        'label': _('Provision activity statement'),
         'value': 'provisionActivityStatement',
         'field': 'provisionActivity._text.value',
         'options': {
@@ -3862,7 +3862,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Series statement',
+        'label': _('Series statement'),
         'value': 'seriesStatement',
         'field': 'seriesStatement.*',
         'options': {
@@ -3870,7 +3870,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Identifier',
+        'label': _('Identifier'),
         'value': 'identifiedBy',
         'field': 'identifiedBy.value',
         'options': {
@@ -3878,7 +3878,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'ISBN',
+        'label': _('ISBN'),
         'value': 'isbn',
         'field': 'isbn',
         'options': {
@@ -3886,7 +3886,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'ISSN',
+        'label': _('ISSN'),
         'value': 'issn',
         'field': 'issn',
         'options': {
@@ -3894,7 +3894,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Genre, form',
+        'label': _('Genre, form'),
         'value': 'genreForm',
         'field': 'genreForm.entity.*',
         'options': {
@@ -3902,7 +3902,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Subject',
+        'label': _('Subject'),
         'value': 'subjects',
         'field': 'subjects.entity.*',
         'options': {
@@ -3910,7 +3910,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Call number',
+        'label': _('Call number'),
         'value': 'callNumber',
         'field': 'call_numbers',
         'options': {
@@ -3918,7 +3918,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Local fields (document)',
+        'label': _('Local fields (document)'),
         'value': 'documentLocalFields',
         'field': 'local_fields.*',
         'options': {
@@ -3926,7 +3926,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Local fields (holdings)',
+        'label': _('Local fields (holdings)'),
         'value': 'holdingsLocalFields',
         'field': 'holdings.local_fields.*',
         'options': {
@@ -3934,7 +3934,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Local fields (items)',
+        'label': _('Local fields (items)'),
         'value': 'itemLocalFields',
         'field': 'holdings.items.local_fields.*',
         'options': {
@@ -3942,7 +3942,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'Classification',
+        'label': _('Classification'),
         'value': 'classification',
         'field': 'classification.*',
         'options': {
@@ -3950,7 +3950,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'RDA content type',
+        'label': _('RDA content type'),
         'value': 'rdaContentType',
         'field': 'contentMediaCarrier.contentType',
         'options': {
@@ -3958,7 +3958,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'RDA media type',
+        'label': _('RDA media type'),
         'value': 'rdaMediaType',
         'field': 'contentMediaCarrier.mediaType',
         'options': {
@@ -3966,7 +3966,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
     {
-        'label': 'RDA carrier type',
+        'label': _('RDA carrier type'),
         'value': 'rdaCarrierType',
         'field': 'contentMediaCarrier.carrierType',
         'options': {
