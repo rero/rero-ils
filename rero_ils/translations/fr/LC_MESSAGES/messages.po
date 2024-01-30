@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-01-30 13:26+0100\n"
-"PO-Revision-Date: 2024-01-23 13:07+0000\n"
+"PO-Revision-Date: 2024-01-30 12:48+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.4-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: rero_ils/accounts_views.py:60
@@ -359,7 +360,7 @@ msgstr "Titre"
 
 #: rero_ils/config.py:3825
 msgid "Responsibility statement"
-msgstr ""
+msgstr "Mention de responsabilité"
 
 #: rero_ils/config.py:3833
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:61
@@ -375,11 +376,11 @@ msgstr "Pays"
 
 #: rero_ils/config.py:3849
 msgid "Canton"
-msgstr ""
+msgstr "Canton"
 
 #: rero_ils/config.py:3857
 msgid "Provision activity statement"
-msgstr ""
+msgstr "Mention de publication"
 
 #: rero_ils/config.py:3865
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
@@ -399,11 +400,11 @@ msgstr "Identifiant"
 
 #: rero_ils/config.py:3881
 msgid "ISBN"
-msgstr ""
+msgstr "ISBN"
 
 #: rero_ils/config.py:3889
 msgid "ISSN"
-msgstr ""
+msgstr "ISSN"
 
 #: rero_ils/config.py:3897
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:121
@@ -430,15 +431,15 @@ msgstr "Cote"
 
 #: rero_ils/config.py:3921
 msgid "Local fields (document)"
-msgstr ""
+msgstr "Champs locaux (document)"
 
 #: rero_ils/config.py:3929
 msgid "Local fields (holdings)"
-msgstr ""
+msgstr "Champs locaux (états de collection)"
 
 #: rero_ils/config.py:3937
 msgid "Local fields (items)"
-msgstr ""
+msgstr "Champs locaux (exemplaires)"
 
 #: rero_ils/config.py:3945
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
@@ -448,15 +449,15 @@ msgstr "Classification"
 
 #: rero_ils/config.py:3953
 msgid "RDA content type"
-msgstr ""
+msgstr "Type de contenu RDA"
 
 #: rero_ils/config.py:3961
 msgid "RDA media type"
-msgstr ""
+msgstr "Type de média RDA"
 
 #: rero_ils/config.py:3969
 msgid "RDA carrier type"
-msgstr ""
+msgstr "Type de support RDA"
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:445
@@ -13142,4 +13143,3 @@ msgstr "Votre bibliothèque"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Votre mot de passe a été réinitialisé avec succès."
-
