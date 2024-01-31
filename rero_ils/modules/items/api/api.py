@@ -94,7 +94,7 @@ class ItemsSearch(IlsRecordsSearch):
                 'terms', temporary_item_type__pid=not_available_item_types)
             # add to the must not filters
             must_not_filters.append(has_items_filters)
-        return self.filter(Q('bool', must_not=must_not_filters))
+        return self.exclude(must_not_filters)
 
 
 class Item(ItemCirculation, ItemIssue):

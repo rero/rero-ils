@@ -41,9 +41,7 @@ def upgrade():
     """
     query = RecordsSearch(index=LoanOperationLog.index_name) \
         .filter('term', record__type='illr') \
-        .filter('bool', must_not=[
-            Q('exists', field='ill_request.library_pid')
-        ])
+        .exclude('exists', field='ill_request.library_pid')
     pids = [hit.pid for hit in query.source('pid').scan()]
     LOGGER.info(f'Upgrade operation logs illr :: {len(pids)}')
     errors = 0

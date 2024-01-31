@@ -1707,73 +1707,209 @@ RERO_ILS_DEFAULT_AGGREGATION_SIZE = 30
 
 # Number of aggregation by index name
 RERO_ILS_AGGREGATION_SIZE = {
-    'documents': 50,
-    'organisations': 10,
-    'collections': 20,
-    'entities': 20
+    'documents': {
+        'default': 50,
+        'organisations': 10,
+        'libraries': 100,
+        'locations': 2000,
+        'language': 10
+    },
+    'items': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE,
+        'documents': 50,
+        'libraries': 100,
+        'locations': 2000,
+    },
+    'loans': {
+        'default': 50,
+        'libraries': 100,
+        'locations': 2000,
+    },
+    'patrons': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE
+    },
+    'acq_accounts': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE
+    },
+    'acq_invoices': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE
+    },
+    'acq_orders': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE
+    },
+    'entities': {
+        'default':  20
+    },
+    'remote_entities': {
+        'default':  20
+    },
+    'local_entities': {
+        'default':  20
+    },
+    'templates': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE
+    },
+    'collections': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE
+    },
+    'ill_requests': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE
+    },
+    'patron_transactions': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE
+    },
+    'patron_transactions_events': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE
+    },
+    'stats_cfg': {
+        'default': RERO_ILS_DEFAULT_AGGREGATION_SIZE,
+        'category_indicator_types': 50,
+        'frequencies': 50
+    }
 }
 
-DOCUMENTS_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('documents', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-PTRE_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('patron_transaction_events', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-ACQ_ORDER_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-ENTITIES_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('entities', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+
+def aggregation_size(facet, aggregation_type=None):
+    """Get aggregation size from RERO_ILS_AGGREGATION_SIZE.
+
+    :param facet: facet type
+    :param aggregation_type: aggregation type to get size for
+                             default = facet['default]
+    :returns: size
+    """
+    facet_data = RERO_ILS_AGGREGATION_SIZE.get(facet, {})
+    default = facet_data.get('default', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+    return facet_data.get(aggregation_type, default)
+
 
 RECORDS_REST_FACETS = dict(
     documents=dict(
         i18n_aggs=dict(
             author=dict(
-                en=dict(terms=dict(field='facet_contribution_en', size=DOCUMENTS_AGGREGATION_SIZE)),
-                fr=dict(terms=dict(field='facet_contribution_fr', size=DOCUMENTS_AGGREGATION_SIZE)),
-                de=dict(terms=dict(field='facet_contribution_de', size=DOCUMENTS_AGGREGATION_SIZE)),
-                it=dict(terms=dict(field='facet_contribution_it', size=DOCUMENTS_AGGREGATION_SIZE)),
+                en=dict(terms=dict(
+                    field='facet_contribution_en',
+                    size=aggregation_size('documents', 'contribution')
+                )),
+                fr=dict(terms=dict(
+                    field='facet_contribution_fr',
+                    size=aggregation_size('documents', 'contribution')
+                )),
+                de=dict(terms=dict(
+                    field='facet_contribution_de',
+                    size=aggregation_size('documents', 'contribution')
+                )),
+                it=dict(terms=dict(
+                    field='facet_contribution_it',
+                    size=aggregation_size('documents', 'contribution')
+                )),
             ),
             subject=dict(
-                en=dict(terms=dict(field='facet_subject_en', size=DOCUMENTS_AGGREGATION_SIZE)),
-                fr=dict(terms=dict(field='facet_subject_fr', size=DOCUMENTS_AGGREGATION_SIZE)),
-                de=dict(terms=dict(field='facet_subject_de', size=DOCUMENTS_AGGREGATION_SIZE)),
-                it=dict(terms=dict(field='facet_subject_it', size=DOCUMENTS_AGGREGATION_SIZE)),
+                en=dict(terms=dict(
+                    field='facet_subject_en',
+                    size=aggregation_size('documents', 'subjects'))
+                ),
+                fr=dict(terms=dict(
+                    field='facet_subject_fr',
+                    size=aggregation_size('documents', 'subjects'))
+                ),
+                de=dict(terms=dict(
+                    field='facet_subject_de',
+                    size=aggregation_size('documents', 'subjects'))
+                ),
+                it=dict(terms=dict(
+                    field='facet_subject_it',
+                    size=aggregation_size('documents', 'subjects'))
+                ),
             ),
             genreForm=dict(
-                en=dict(terms=dict(field='facet_genre_form_en', size=DOCUMENTS_AGGREGATION_SIZE)),
-                fr=dict(terms=dict(field='facet_genre_form_fr', size=DOCUMENTS_AGGREGATION_SIZE)),
-                de=dict(terms=dict(field='facet_genre_form_de', size=DOCUMENTS_AGGREGATION_SIZE)),
-                it=dict(terms=dict(field='facet_genre_form_it', size=DOCUMENTS_AGGREGATION_SIZE)),
+                en=dict(terms=dict(
+                    field='facet_genre_form_en',
+                    size=aggregation_size('documents', 'genre_forms'))
+                ),
+                fr=dict(terms=dict(
+                    field='facet_genre_form_fr',
+                    size=aggregation_size('documents', 'genre_forms'))
+                ),
+                de=dict(terms=dict(
+                    field='facet_genre_form_de',
+                    size=aggregation_size('documents', 'genre_forms'))
+                ),
+                it=dict(terms=dict(
+                    field='facet_genre_form_it',
+                    size=aggregation_size('documents', 'genre_forms'))
+                ),
             ),
         ),
         aggs=dict(
-            # The organisation or library facet is defined dynamically during the query (query.py)
             document_type=dict(
-                terms=dict(field='type.main_type', size=DOCUMENTS_AGGREGATION_SIZE),
-                aggs=dict(
-                    document_subtype=dict(terms=dict(field='type.subtype', size=DOCUMENTS_AGGREGATION_SIZE))
+                terms=dict(
+                    field='type.main_type',
+                    size=aggregation_size('documents', 'main_type')
+                ),
+                aggs=dict(document_subtype=dict(terms=dict(
+                    field='type.subtype',
+                    size=aggregation_size('documents', 'sub_type')))
                 )
             ),
-            language=dict(terms=dict(field='language.value', size=DOCUMENTS_AGGREGATION_SIZE)),
+            language=dict(
+                terms=dict(
+                    field='language.value',
+                    size=aggregation_size('documents', 'language')
+                )
+            ),
+            # The organisation or library facet is defined dynamically during the query (query.py)
             organisation=dict(
-                terms=dict(field='holdings.organisation.organisation_pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
-                aggs=dict(
-                    library=dict(
-                        terms=dict(field='holdings.organisation.library_pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
-                        aggs=dict(
-                            location=dict(terms=dict(field='holdings.location.pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0))
+                terms=dict(
+                    field='holdings.organisation.organisation_pid',
+                    size=aggregation_size('documents', 'organisations')
+                ),
+                aggs=dict(library=dict(
+                    terms=dict(
+                        field='holdings.organisation.library_pid',
+                        size=aggregation_size('documents', 'libraries')
+                    ),
+                    aggs=dict(location=dict(
+                        terms=dict(
+                            field='holdings.location.pid',
+                            size=aggregation_size('documents', 'locations')
                         )
-                    )
+                    ))
+                ))
+            ),
+            status=dict(
+                terms=dict(
+                    field='holdings.items.status',
+                    size=aggregation_size('documents')
                 )
             ),
-            status=dict(terms=dict(field='holdings.items.status', size=DOCUMENTS_AGGREGATION_SIZE)),
-            intendedAudience=dict(terms=dict(field='intendedAudience.value', size=DOCUMENTS_AGGREGATION_SIZE)),
+            intendedAudience=dict(
+                terms=dict(
+                    field='intendedAudience.value',
+                    size=aggregation_size('documents')
+                )
+            ),
             year=dict(
                 filter=dict(bool=dict(filter=[])),
                 aggs=dict(
-                    year_min=dict(min=dict(field='provisionActivity.startDate')),
-                    year_max=dict(max=dict(field='provisionActivity.startDate'))
+                    year_min=dict(min=dict(
+                        field='provisionActivity.startDate'
+                    )),
+                    year_max=dict(max=dict(
+                        field='provisionActivity.startDate'
+                    ))
                 )
             ),
             acquisition=dict(
                 nested=dict(path='holdings.items.acquisition'),
                 aggs=dict(
-                    date_min=dict(min=dict(field='holdings.items.acquisition.date', format='yyyy-MM-dd')),
-                    date_max=dict(max=dict(field='holdings.items.acquisition.date', format='yyyy-MM-dd'))
+                    date_min=dict(min=dict(
+                        field='holdings.items.acquisition.date',
+                        format='yyyy-MM-dd'
+                    )),
+                    date_max=dict(max=dict(
+                        field='holdings.items.acquisition.date',
+                        format='yyyy-MM-dd'
+                    ))
                 )
             ),
             fiction=dict(
@@ -1821,21 +1957,55 @@ RECORDS_REST_FACETS = dict(
     items=dict(
         aggs=dict(
             document_type=dict(
-                terms=dict(field='document.document_type.main_type', size=DOCUMENTS_AGGREGATION_SIZE),
-                aggs=dict(
-                    document_subtype=dict(terms=dict(field='document.document_type.subtype', size=DOCUMENTS_AGGREGATION_SIZE))
-                )
+                terms=dict(
+                    field='document.document_type.main_type',
+                    size=aggregation_size('items', 'documents')
+                ),
+                aggs=dict(document_subtype=dict(terms=dict(
+                    field='document.document_type.subtype',
+                    size=aggregation_size('items', 'documents')
+                )))
             ),
-            library=dict(terms=dict(field='library.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
-            location=dict(terms=dict(field='location.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
-            item_type=dict(terms=dict(field='item_type.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
-            temporary_location=dict(terms=dict(field='temporary_location.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
-            temporary_item_type=dict(terms=dict(field='temporary_item_type.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
-            status=dict(terms=dict(field='status', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
-            vendor=dict(terms=dict(field='vendor.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
-            claims_count=dict(terms=dict(field='issue.claims.counter', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE)),
-            claims_date=dict(date_histogram=dict(field='issue.claims.dates', calendar_interval='1d', format='yyyy-MM-dd')),
-            current_requests=dict(max=dict(field='current_pending_requests'))
+            library=dict(terms=dict(
+                field='library.pid',
+                size=aggregation_size('items', 'libraries')
+            )),
+            location=dict(terms=dict(
+                field='location.pid',
+                size=aggregation_size('items', 'locations')
+            )),
+            item_type=dict(terms=dict(
+                field='item_type.pid',
+                size=aggregation_size('items', 'item_types')
+            )),
+            temporary_location=dict(terms=dict(
+                field='temporary_location.pid',
+                size=aggregation_size('items', 'locations')
+            )),
+            temporary_item_type=dict(terms=dict(
+                field='temporary_item_type.pid',
+                size=aggregation_size('items', 'item_types')
+            )),
+            status=dict(terms=dict(
+                field='status',
+                size=aggregation_size('items', 'status')
+            )),
+            vendor=dict(terms=dict(
+                field='vendor.pid',
+                size=aggregation_size('items', 'vendor')
+            )),
+            claims_count=dict(terms=dict(
+                field='issue.claims.counter',
+                size=aggregation_size('items', 'claims')
+            )),
+            claims_date=dict(date_histogram=dict(
+                field='issue.claims.dates',
+                calendar_interval='1d',
+                format='yyyy-MM-dd'
+            )),
+            current_requests=dict(max=dict(
+                field='current_pending_requests')
+            )
         ),
         filters={
             _('document_type'): and_term_filter('document.document_type.main_type'),
@@ -1856,40 +2026,54 @@ RECORDS_REST_FACETS = dict(
     loans=dict(
         aggs=dict(
             owner_library=dict(
-                terms=dict(field='library_pid', size=DOCUMENTS_AGGREGATION_SIZE),
-                aggs=dict(
-                    owner_location=dict(
-                        terms=dict(field='location_pid', size=DOCUMENTS_AGGREGATION_SIZE)
-                    )
-                )
+                terms=dict(
+                    field='library_pid',
+                    size=aggregation_size('loans', 'libraries')
+                ),
+                aggs=dict(owner_location=dict(terms=dict(
+                    field='location_pid',
+                    size=aggregation_size('loans', 'locations')
+                )))
             ),
             pickup_library=dict(
-                terms=dict(field='pickup_library_pid', size=DOCUMENTS_AGGREGATION_SIZE),
-                aggs=dict(
-                    pickup_location=dict(
-                        terms=dict(field='pickup_location_pid', size=DOCUMENTS_AGGREGATION_SIZE)
-                    )
-                )
+                terms=dict(
+                    field='pickup_library_pid',
+                    size=aggregation_size('loans', 'pickup_librar')
+                ),
+                aggs=dict(pickup_location=dict(terms=dict(
+                    field='pickup_location_pid',
+                    size=aggregation_size('loans', 'pickup_locations')
+                )))
             ),
             transaction_library=dict(
-                terms=dict(field='transaction_library_pid', size=DOCUMENTS_AGGREGATION_SIZE),
-                aggs=dict(
-                    transaction_location=dict(
-                        terms=dict(field='transaction_location_pid', size=DOCUMENTS_AGGREGATION_SIZE)
-                    )
-                )
+                terms=dict(
+                    field='transaction_library_pid',
+                    size=aggregation_size('loans', 'transaction_libraries')
+                ),
+                aggs=dict(transaction_location=dict(terms=dict(
+                    field='transaction_location_pid',
+                    size=aggregation_size('loans', 'transaction_locations')
+                )))
             ),
             patron_type=dict(
-                terms=dict(field='patron_type_pid', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(
+                    field='patron_type_pid',
+                    size=aggregation_size('loans', 'patron_types')
+                )
             ),
             status=dict(
-                terms=dict(field='state', size=DOCUMENTS_AGGREGATION_SIZE)
+                terms=dict(
+                    field='state',
+                    size=aggregation_size('loans', 'status')
+                )
             ),
             misc_status=dict(
                 filters=dict(
                     filters=dict(
                         overdue=dict(range=dict(end_date=dict(lt='now/d'))),
-                        expired_request=dict(range=dict(request_expire_date=dict(lt='now/d')))
+                        expired_request=dict(
+                            range=dict(request_expire_date=dict(lt='now/d'))
+                        )
                     )
                 )
             ),
@@ -1935,33 +2119,18 @@ RECORDS_REST_FACETS = dict(
     ),
     patrons=dict(
         aggs=dict(
-            roles=dict(
-                terms=dict(
-                    field='roles',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'patrons', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            city=dict(
-                terms=dict(
-                    field='facet_city',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'facet_city', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            patron_type=dict(
-                terms=dict(
-                    field='patron.type.pid',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'patron__type', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            )
+            roles=dict(terms=dict(
+                field='roles',
+                size=aggregation_size('patrons', 'roles')
+            )),
+            city=dict(terms=dict(
+                field='facet_city',
+                size=aggregation_size('patrons', 'cities')
+            )),
+            patron_type=dict(terms=dict(
+                field='patron.type.pid',
+                size=aggregation_size('patrons', 'patron_types')
+            ))
         ),
         filters={
             _('roles'): and_term_filter('roles'),
@@ -1973,20 +2142,12 @@ RECORDS_REST_FACETS = dict(
     ),
     acq_accounts=dict(
         aggs=dict(
-            library=dict(
-                terms=dict(
-                    field='library.pid',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'acq_accounts', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            budget=dict(
-                terms=dict(
-                    field='budget',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'budget', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            )
+            library=dict(terms=dict(
+                field='library.pid', size=aggregation_size('acq_accounts', 'libraries')
+            )),
+            budget=dict(terms=dict(
+                field='budget', size=aggregation_size('acq_accounts', 'budgets')
+            ))
         ),
         filters={
             _('library'): and_term_filter('library.pid'),
@@ -1995,20 +2156,12 @@ RECORDS_REST_FACETS = dict(
     ),
     acq_invoices=dict(
         aggs=dict(
-            library=dict(
-                terms=dict(
-                    field='library.pid',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'acq_invoices', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            status=dict(
-                terms=dict(
-                    field='invoice_status',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'acq_invoices', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            )
+            library=dict(terms=dict(
+                field='library.pid', size=aggregation_size('acq_invoices', 'libraries')
+            )),
+            status=dict(terms=dict(
+                field='invoice_status', size=aggregation_size('acq_invoices', 'status')
+            ))
         ),
         filters={
             _('library'): and_term_filter('library.pid'),
@@ -2017,12 +2170,30 @@ RECORDS_REST_FACETS = dict(
     ),
     acq_orders=dict(
         aggs=dict(
-            library=dict(terms=dict(field='library.pid', size=ACQ_ORDER_AGGREGATION_SIZE)),
-            vendor=dict(terms=dict(field='vendor.pid',size=ACQ_ORDER_AGGREGATION_SIZE)),
-            type=dict(terms=dict(field='type', size=ACQ_ORDER_AGGREGATION_SIZE)),
-            status=dict(terms=dict(field='status', size=ACQ_ORDER_AGGREGATION_SIZE)),
-            account=dict(terms=dict(field='order_lines.account.pid', size=ACQ_ORDER_AGGREGATION_SIZE)),
-            budget=dict(terms=dict(field='budget.pid', size=ACQ_ORDER_AGGREGATION_SIZE)),
+            library=dict(terms=dict(
+                field='library.pid',
+                size=aggregation_size('acq_orders', 'libraries')
+            )),
+            vendor=dict(terms=dict(
+                field='vendor.pid',
+                size=aggregation_size('acq_orders', 'vendors')
+            )),
+            type=dict(terms=dict(
+                field='type',
+                size=aggregation_size('acq_orders', 'types')
+            )),
+            status=dict(terms=dict(
+                field='status',
+                size=aggregation_size('acq_orders', 'status')
+            )),
+            account=dict(terms=dict(
+                field='order_lines.account.pid',
+                size=aggregation_size('acq_orders', 'accounts')
+            )),
+            budget=dict(terms=dict(
+                field='budget.pid',
+                size=aggregation_size('acq_orders', 'budgets')
+            )),
             order_date=dict(
                 date_histogram=dict(
                     field='order_lines.order_date',
@@ -2063,24 +2234,18 @@ RECORDS_REST_FACETS = dict(
     ),
     entities=dict(
         aggs=dict(
-            resource_type=dict(
-                terms=dict(
-                    field='resource_type',
-                    size=ENTITIES_AGGREGATION_SIZE
-                )
-            ),
-            type=dict(
-                terms=dict(
-                    field='type',
-                    size=ENTITIES_AGGREGATION_SIZE
-                )
-            ),
-            source_catalog=dict(
-                terms=dict(
-                    field='source_catalog',
-                    size=ENTITIES_AGGREGATION_SIZE
-                )
-            ),
+            resource_type=dict(terms=dict(
+                field='resource_type',
+                size=aggregation_size('entities', 'resource_types')
+            )),
+            type=dict(terms=dict(
+                field='type',
+                size=aggregation_size('entities', 'types')
+            )),
+            source_catalog=dict(terms=dict(
+                field='source_catalog',
+                size=aggregation_size('entities', 'source_catalogs')
+            )),
         ),
         filters={
             _('resource_type'): and_term_filter('resource_type'),
@@ -2090,18 +2255,14 @@ RECORDS_REST_FACETS = dict(
     ),
     remote_entities=dict(
         aggs=dict(
-            sources=dict(
-                terms=dict(
-                    field='sources',
-                    size=ENTITIES_AGGREGATION_SIZE
-                )
-            ),
-            type=dict(
-                terms=dict(
-                    field='type',
-                    size=ENTITIES_AGGREGATION_SIZE
-                )
-            )
+            sources=dict(terms=dict(
+                field='sources',
+                size=aggregation_size('remote_entities', 'sources')
+            )),
+            type=dict(terms=dict(
+                field='type',
+                size=aggregation_size('remote_entities', 'types')
+            ))
         ),
         filters={
             _('sources'): and_term_filter('sources'),
@@ -2110,18 +2271,14 @@ RECORDS_REST_FACETS = dict(
     ),
     local_entities=dict(
         aggs=dict(
-            source_catalog=dict(
-                terms=dict(
-                    field='source_catalog',
-                    size=ENTITIES_AGGREGATION_SIZE
-                )
-            ),
-            type=dict(
-                terms=dict(
-                    field='type',
-                    size=ENTITIES_AGGREGATION_SIZE
-                )
-            )
+            source_catalog=dict(terms=dict(
+                field='source_catalog',
+                size=aggregation_size('local_entities', 'source_catalogs')
+            )),
+            type=dict(terms=dict(
+                field='type',
+                size=aggregation_size('local_entities', 'types')
+            ))
         ),
         filters={
             _('sources'): and_term_filter('sources'),
@@ -2130,24 +2287,15 @@ RECORDS_REST_FACETS = dict(
     ),
     templates=dict(
         aggs=dict(
-            type=dict(
-                terms=dict(
-                    field='template_type',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'templates', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            visibility=dict(
-                terms=dict(
-                    field='visibility',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'visibility', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
+            type=dict(terms=dict(
+                field='template_type',
+                size=aggregation_size('templates', 'types')
             )
+            ),
+            visibility=dict(terms=dict(
+                field='visibility',
+                size=aggregation_size('templates', 'visibilities')
+            ))
         ),
         filters={
             _('type'): and_term_filter('template_type'),
@@ -2156,42 +2304,22 @@ RECORDS_REST_FACETS = dict(
     ),
     collections=dict(
         aggs=dict(
-            type=dict(
-                terms=dict(
-                    field='collection_type',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'collections', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            library=dict(
-                terms=dict(
-                    field='libraries.pid',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'collections', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            subject=dict(
-                terms=dict(
-                    field='subjects.name',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'collections', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            teacher=dict(
-                terms=dict(
-                    field='teachers.facet',
-                    # This does not take into account
-                    # env variable or instance config file
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'collections', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            )
+            type=dict(terms=dict(
+                field='collection_type',
+                size=aggregation_size('collections', 'types')
+            )),
+            library=dict(terms=dict(
+                field='libraries.pid',
+                size=aggregation_size('collections', 'libraries')
+            )),
+            subject=dict(terms=dict(
+                field='subjects.name',
+                size=aggregation_size('collections', 'subjects')
+            )),
+            teacher=dict(terms=dict(
+                field='teachers.facet',
+                size=aggregation_size('collections', 'teachers')
+            ))
         ),
         filters={
             _('type'): and_term_filter('collection_type'),
@@ -2202,34 +2330,22 @@ RECORDS_REST_FACETS = dict(
     ),
     ill_requests=dict(
         aggs=dict(
-            request_status=dict(
-                terms=dict(
-                    field='status',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'ill_requests', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            loan_status=dict(
-                terms=dict(
-                    field='loan_status',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'ill_requests', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            requester=dict(
-                terms=dict(
-                    field='patron.facet',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'ill_requests', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            ),
-            library=dict(
-                terms=dict(
-                    field='library.pid',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'ill_requests', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
-                )
-            )
+            request_status=dict(terms=dict(
+                field='status',
+                size=aggregation_size('ill_requests', 'request_status')
+            )),
+            loan_status=dict(terms=dict(
+                field='loan_status',
+                size=aggregation_size('ill_requests', 'loan_status')
+            )),
+            requester=dict(terms=dict(
+                field='patron.facet',
+                size=aggregation_size('ill_requests', 'requesters')
+            )),
+            library=dict(terms=dict(
+                field='library.pid',
+                size=aggregation_size('ill_requests', 'libraries')
+            ))
         ),
         filters={
             _('request_status'): and_term_filter('status'),
@@ -2239,28 +2355,40 @@ RECORDS_REST_FACETS = dict(
         }
     ),
     patron_transactions=dict(
-        aggs=dict(
-            total=dict(
-                sum=dict(
-                    field='total_amount'
-                )
-            )
-        )
+        aggs=dict(total=dict(sum=dict(field='total_amount')))
     ),
     patron_transaction_events=dict(
         aggs=dict(
-            category=dict(terms=dict(field='category', size=PTRE_AGGREGATION_SIZE)),
+            category=dict(terms=dict(
+                field='category',
+                size=aggregation_size('patron_transaction_events')
+            )),
             owning_library=dict(
-                terms=dict(field='owning_library.pid', size=PTRE_AGGREGATION_SIZE),
-                aggs=dict(owning_location=dict(terms=dict(field='owning_location.pid', size=PTRE_AGGREGATION_SIZE)))
+                terms=dict(
+                    field='owning_library.pid',
+                    size=aggregation_size('patron_transaction_events', 'owning_libraries')
+                ),
+                aggs=dict(owning_location=dict(terms=dict(
+                    field='owning_location.pid',
+                    size=aggregation_size('patron_transaction_events', 'owning_locations')
+                )))
             ),
-            patron_type=dict(terms=dict(field='patron_type.pid', size=PTRE_AGGREGATION_SIZE)),
+            patron_type=dict(terms=dict(
+                field='patron_type.pid',
+                size=aggregation_size('patron_transaction_events', 'patron_types')
+            )),
             total=dict(
                 filter=total_facet_filter_builder,
                 aggs=dict(
-                    payment=dict(sum=dict(field='amount', script=dict(source='Math.round(_value*100)/100.00'))),
+                    payment=dict(sum=dict(
+                        field='amount',
+                        script=dict(source='Math.round(_value*100)/100.00')
+                    )),
                     subtype=dict(
-                        terms=dict(field='subtype', size=PTRE_AGGREGATION_SIZE),
+                        terms=dict(
+                            field='subtype',
+                            size=aggregation_size('patron_transaction_events')
+                        ),
                         aggs=dict(subtotal=dict(sum=dict(
                             field='amount',
                             script=dict(source='Math.round(_value*100)/100.00')
@@ -2269,12 +2397,22 @@ RECORDS_REST_FACETS = dict(
                 )
             ),
             transaction_date=dict(
-                date_histogram=dict(field='creation_date', calendar_interval='1d', format='yyyy-MM-dd')
+                date_histogram=dict(
+                    field='creation_date',
+                    calendar_interval='1d',
+                    format='yyyy-MM-dd'
+                )
             ),
-            transaction_library=dict(terms=dict(field='library.pid', size=PTRE_AGGREGATION_SIZE)),
+            transaction_library=dict(
+                terms=dict(
+    field='library.pid', size=aggregation_size('patron_transaction_events'))
+            ),
             type=dict(
-                terms=dict(field='type', size=PTRE_AGGREGATION_SIZE),
-                aggs=dict(subtype=dict(terms=dict(field='subtype', size=PTRE_AGGREGATION_SIZE)))
+                terms=dict(
+    field='type', size=aggregation_size('patron_transaction_events')),
+                aggs=dict(subtype=dict(
+    terms=dict(
+    field='subtype', size=aggregation_size('patron_transaction_events'))))
             )
         ),
         filters={
@@ -2305,18 +2443,21 @@ RECORDS_REST_FACETS = dict(
             category=dict(
                 terms=dict(
                     field='category.type',
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        'stats_cfg', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
+                    size=aggregation_size('stats_cfg', 'category_types')
                 ),
-                 aggs=dict(
-                    indicator=dict(terms=dict(field='category.indicator.type', size=DOCUMENTS_AGGREGATION_SIZE))
-                )
+                aggs=dict(indicator=dict(terms=dict(
+                    field='category.indicator.type',
+                    size=aggregation_size('stats_cfg', 'category_indicator_types')
+                )))
             ),
-            frequency=dict(
-                terms=dict(field='frequency', size=DOCUMENTS_AGGREGATION_SIZE),
-
-            ),
-            library=dict(terms=dict(field='library.pid', size=RERO_ILS_DEFAULT_AGGREGATION_SIZE))
+            frequency=dict(terms=dict(
+                field='frequency',
+                size=aggregation_size('stats_cfg', 'frequencies')
+            )),
+            library=dict(terms=dict(
+                field='library.pid',
+                size=aggregation_size('stats_cfg', 'libraries')
+            ))
         ),
         filters={
             _('category'): and_term_filter('category.type'),
@@ -3761,6 +3902,7 @@ RERO_ILS_PASSWORD_SPECIAL_CHAR = False
 RERO_ILS_PASSWORD_GENERATOR = 'rero_ils.modules.utils:password_generator'
 RERO_ILS_PASSWORD_VALIDATOR = 'rero_ils.modules.utils:password_validator'
 
+
 # ADVANCED SEARCH CONFIG
 # ======================
 def search_type(field):
@@ -3769,7 +3911,7 @@ def search_type(field):
     :param: field: the field key.
     :return: a list of options.
     """
-    output = [];
+    output = []
     if field not in [
         'canton', 'country', 'rdaCarrierType', 'rdaContentType',
         'rdaMediaType'
@@ -3778,6 +3920,7 @@ def search_type(field):
     if field not in ['identifiedBy', 'isbn', 'issn']:
         output.append({'label': _('phrase'), 'value': 'phrase'})
     return output
+
 
 RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
     {

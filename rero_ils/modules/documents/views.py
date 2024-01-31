@@ -84,7 +84,7 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
     from ..holdings.api import HoldingsSearch
     query = HoldingsSearch()\
         .filter('term', document__pid=pid.pid_value)
-    query = query.filter('bool', must_not=[Q('term', _masked=True)])
+    query = query.exclude('term', _masked=True)
     if organisation:
         query = query.filter('term', organisation__pid=organisation.pid)
     holdings_count = query.count()
@@ -713,7 +713,7 @@ def online_holdings(document_pid, viewcode='global'):
         organisation = Organisation.get_record_by_viewcode(viewcode)
     query = HoldingsSearch()\
         .filter('term', document__pid=document_pid)\
-        .filter('bool', must_not=[Q('term', _masked=True)])
+        .exclude('term', _masked=True)
 
     if organisation:
         query = query.filter('term', organisation__pid=organisation.pid)

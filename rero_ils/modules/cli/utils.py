@@ -1669,8 +1669,7 @@ def add_cover_urls(verbose):
     click.secho('Add cover urls.', fg='green')
     search = DocumentsSearch() \
         .filter('term', identifiedBy__type='bf:Isbn') \
-        .filter('bool', must_not=[
-            Q('term', electronicLocator__content='coverImage')]) \
+        .exclude('term', electronicLocator__content='coverImage') \
         .params(preserve_order=True) \
         .sort({'pid': {"order": "asc"}}) \
         .source('pid')

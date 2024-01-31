@@ -300,8 +300,7 @@ class ItemRecord(IlsRecord):
             .sort({'pid': {"order": "asc"}}) \
             .source(['pid'])
         if not with_masked:
-            es_query = es_query.filter(
-                'bool', must_not=[Q('term', _masked=True)])
+            es_query = es_query.exclude('term', _masked=True)
         for item in es_query.scan():
             yield item.pid
 
@@ -579,5 +578,4 @@ class ItemRecord(IlsRecord):
         """
         from . import ItemsSearch
         query = ItemsSearch().filter('term', holding__pid=holding_pid)
-        return query.filter('bool', must_not=[Q('term', _masked=True)]) \
-            .source(['pid']).count()
+        return query.exclude('term', _masked=True).source(['pid']).count()

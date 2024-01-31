@@ -168,9 +168,9 @@ def documents_search_factory(self, search, query_parser=None):
                 'term', holdings__organisation__organisation_pid=org['pid']
             )
         # exclude masked documents
-        search = search.filter('bool', must_not=[Q('term', _masked=True)])
+        search = search.exclude('term', _masked=True)
     # exclude draft documents
-    search = search.filter('bool', must_not=[Q('term', _draft=True)])
+    search = search.exclude('term', _draft=True)
     return search, urlkwargs
 
 
@@ -188,7 +188,7 @@ def viewcode_patron_search_factory(self, search, query_parser=None):
             'term', organisation__pid=current_librarian.organisation_pid
         )
     # exclude draft records
-    search = search.filter('bool', must_not=[Q('term', _draft=True)])
+    search = search.exclude('term', _draft=True)
     return search, urlkwargs
 
 
@@ -219,10 +219,9 @@ def search_factory_for_holdings_and_items(view, search):
             org = Organisation.get_record_by_viewcode(view)
             search = search.filter('term', organisation__pid=org['pid'])
         # masked records are hidden for all public interfaces
-        search = search.filter('bool', must_not=[Q('term', _masked=True)])
+        search = search.exclude('term', _masked=True)
         # PROVISIONAL records are hidden for all public interfaces
-        search = search.filter(
-            'bool', must_not=[Q('term', type=TypeOfItem.PROVISIONAL)])
+        search = search.exclude(('term', type=TypeOfItem.PROVISIONAL)
     return search
 
 
@@ -262,7 +261,7 @@ def organisation_search_factory(self, search, query_parser=None):
         'view', current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))
     search, urlkwargs = search_factory(self, search)
     if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
-        search = search.filter('bool', must_not=[Q('term', _masked=True)])
+        search = search.exclude('term', _masked=True)
 
     return search, urlkwargs
 
@@ -348,7 +347,7 @@ def circulation_search_factory(self, search, query_parser=None):
         search = search.filter('bool', must=[filters])
 
     # exclude to_anonymize records
-    search = search.filter('bool', must_not=[Q('term', to_anonymize=True)])
+    search = search.exclude('term', to_anonymize=True)
 
     return search, urlkwargs
 

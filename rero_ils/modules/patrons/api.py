@@ -651,10 +651,8 @@ class Patron(IlsRecord):
                 .source(includes='pid')
 
         mail_query = basic_query(CommunicationChannel.EMAIL) \
-            .filter('bool', must_not=[
-                Q('exists', field='patron.additional_communication_email'),
-                Q('exists', field='email')
-            ])
+            .exclude('exists', field='patron.additional_communication_email') \
+            .exclude('exists', field='email')
         to_mail_pids = [[hit['pid'], CommunicationChannel.MAIL, hit.meta.id]
                         for hit in mail_query.scan()]
         email_query = basic_query(CommunicationChannel.MAIL) \
