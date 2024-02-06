@@ -19,6 +19,7 @@
 """Indexing dumper."""
 
 from flask import current_app
+from invenio_access.permissions import system_identity
 from invenio_records.dumpers import Dumper
 
 from ..extensions import TitleExtension
@@ -227,6 +228,36 @@ class IndexerDumper(Dumper):
             data['sort_date_new'] = end_date or start_date
             data['sort_date_old'] = start_date
 
+    def _process_files(self, record, data):
+        """Add full text from files."""
+        ext = current_app.extensions['rero-invenio-files']
+        sfr = ext.records_service
+        search = sfr.search_request(
+            system_identity, dict(size=1), sfr.record_cls, sfr.config.search
+        )
+        search = search.source('uuid')\
+            .filter('term', metadata__links=f'doc_{record.pid}')
+        files = []
+        for rec in search.scan():
+            record_file = sfr.record_cls.get_record(rec.uuid)
+            for file_name in record_file.files:
+                file = record_file.files[file_name]
+                metadata = file.get('metadata', {})
+                if metadata.get('type') == 'fulltext':
+                    file_data = dict(
+                        file_name=metadata.get('fulltext_for', file_name),
+                        text=file.get_stream('r').read(),
+                        rec_id=record_file.pid.pid_value
+                    )
+                    if (
+                        collections := record_file.get(
+                            'metadata', {}).get('collections')
+                    ):
+                        file_data['collections'] = collections
+                    files.append(file_data)
+        if files:
+            data['files'] = files
+
     def dump(self, record, data):
         """Dump a document instance with basic document information's.
 
@@ -240,6 +271,7 @@ class IndexerDumper(Dumper):
         self._process_sort_title(record, data)
         self._process_host_document(record, data)
         self._process_provision_activity(record, data)
+        self._process_files(record, data)
         # import pytz
         # from datetime import datetime
         # iso_now = pytz.utc.localize(datetime.utcnow()).isoformat()
