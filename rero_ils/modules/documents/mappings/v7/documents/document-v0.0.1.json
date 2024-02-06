@@ -31,12 +31,63 @@
   "mappings": {
     "date_detection": false,
     "numeric_detection": false,
+    "_source": {
+      "excludes": [
+        "files.text"
+      ]
+    },
     "properties": {
       "$schema": {
         "type": "keyword"
       },
       "pid": {
         "type": "keyword"
+      },
+      "files": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "text",
+            "index": false,
+            "copy_to": "fulltext"
+          },
+          "file_name": {
+            "type": "keyword"
+          },
+          "rec_id": {
+            "type": "keyword"
+          },
+          "collections": {
+            "type": "text",
+            "fields": {
+              "raw": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "fulltext": {
+        "type": "text",
+        "fields": {
+          "eng": {
+            "type": "text",
+            "analyzer": "english"
+          },
+          "fre": {
+            "type": "text",
+            "analyzer": "french"
+          },
+          "ger": {
+            "type": "text",
+            "analyzer": "german"
+          },
+          "ita": {
+            "type": "text",
+            "analyzer": "italian"
+          }
+        }
       },
       "title": {
         "type": "object",
