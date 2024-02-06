@@ -39,6 +39,7 @@ from jsonschema import validate
 from werkzeug.local import LocalProxy
 
 from ..collections.cli import create_collections
+from ..files.cli import create_files
 from ..holdings.cli import create_patterns
 from ..ill_requests.cli import create_ill_requests
 from ..items.cli import create_items, reindex_items
@@ -66,6 +67,7 @@ fixtures.add_command(import_users)
 fixtures.add_command(create_items)
 fixtures.add_command(reindex_items)
 fixtures.add_command(create_loans)
+fixtures.add_command(create_files)
 fixtures.add_command(load_virtua_transactions)
 fixtures.add_command(create_patterns)
 fixtures.add_command(create_ill_requests)

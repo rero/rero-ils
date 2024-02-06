@@ -100,6 +100,7 @@ INDEX_PARALLEL=0
 LOADEXTRAFILES=false
 # Permit user to set it with system var. Default is true.
 ENABLE_WARNINGS=${ENABLE_WARNINGS:=true}
+FILES_PATH="${INVENIO_RERO_ILS_FILES_FOLDER:=data/files}"
 
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
@@ -234,6 +235,10 @@ eval ${PREFIX} invenio reroils index queue init
 # Delete invenio_circulations index
 info_msg "Delete invenio_circulations index"
 eval ${PREFIX} invenio index delete loans-loan-v1.0.0 --force --yes-i-know
+
+info_msg "Initialize files location to ${FILES_PATH}."
+eval rm -fr ${FILES_PATH}
+eval ${PREFIX} invenio files location create --default fixtures ${FILES_PATH}
 
 if ${ES_MAPPING}
 then
@@ -420,6 +425,9 @@ eval ${PREFIX} invenio reroils fixtures create --pid_type hold --schema 'https:/
 
 info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type item --schema 'https://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
+
+info_msg "- Generate files"
+eval ${PREFIX} invenio reroils fixtures create-files 50
 
 # index items
 eval ${PREFIX} invenio reroils index reindex -t item --yes-i-know
