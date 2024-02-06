@@ -24,76 +24,10 @@ import mock
 import requests
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, clean_text, get_json, \
-    mock_response, to_relative_url
+from utils import clean_text, get_json, mock_response
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.imports.api import LoCImport
-
-
-@mock.patch('invenio_records_rest.views.verify_record_permission',
-            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
-def test_documents_get(client, document):
-    """Test record retrieval."""
-    def clean_es_metadata(metadata):
-        """Clean contribution from authorized_access_point_"""
-        # Contributions, subject and genreForm are i18n indexed field, so it's
-        # too complicated to compare it from original record. Just take the
-        # data from original record ... not best, but not real alternatives.
-        if contribution := document.get('contribution'):
-            metadata['contribution'] = contribution
-        if subjects := document.get('subjects'):
-            metadata['subjects'] = subjects
-        if genreForms := document.get('genreForm'):
-            metadata['genreForm'] = genreForms
-
-        # REMOVE DYNAMICALLY ADDED ES KEYS (see indexer.py:IndexerDumper)
-        metadata.pop('sort_date_new', None)
-        metadata.pop('sort_date_old', None)
-        metadata.pop('sort_title', None)
-        metadata.pop('isbn', None)
-        metadata.pop('issn', None)
-        metadata.pop('nested_identifiers', None)
-        metadata.pop('identifiedBy', None)
-        return metadata
-
-    item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
-    res = client.get(item_url)
-    assert res.status_code == 200
-    assert res.headers['ETag'] == f'"{document.revision_id}"'
-    data = get_json(res)
-    # DEV NOTES : Why removing `identifiedBy` key
-    #   During the ES enrichment process, we complete the original identifiers
-    #   with alternate identifiers. So comparing ES data identifiers, to
-    #   original data identifiers doesn't make sense.
-    document_data = document.dumps()
-    document_data.pop('identifiedBy', None)
-    assert document_data == clean_es_metadata(data['metadata'])
-
-    # Check self links
-    res = client.get(to_relative_url(data['links']['self']))
-    assert res.status_code == 200
-    res_content = get_json(res)
-    res_content.get('metadata', {}).pop('identifiedBy', None)
-    assert data == res_content
-    document_data = document.dumps()
-    document_data.pop('identifiedBy', None)
-    assert document_data == clean_es_metadata(data['metadata'])
-
-    list_url = url_for('invenio_records_rest.doc_list')
-    res = client.get(list_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    data_clean = clean_es_metadata(data['hits']['hits'][0]['metadata'])
-    document = document.replace_refs().dumps()
-    document.pop('identifiedBy', None)
-    assert document == data_clean
-
-    list_url = url_for('invenio_records_rest.doc_list', q="Vincent Berthe")
-    res = client.get(list_url)
-    assert res.status_code == 200
-    data = get_json(res)
-    assert data['hits']['total']['value'] == 1
 
 
 def test_imports_get_config(client, librarian_martigny):

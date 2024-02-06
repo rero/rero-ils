@@ -296,7 +296,7 @@
 {%- block record_body %}
 <section>
   <article class="mt-4">
-    {% if holdings_count < 1 %}
+    {% if not(holdings_count > 0  or es_record.files) %}
     <header>
       <nav>
         <ul class="nav nav-tabs" role="tablist">
@@ -329,7 +329,7 @@
     <header>
       <nav>
         <ul class="nav nav-tabs" role="tablist">
-          {% if holdings_count > 0 %}
+          {% if holdings_count > 0  or es_record.files%}
           <li class="nav-item">
             <a class="nav-link active" href="#documents-get" data-toggle="tab"
                id="documents-get-tab" title="{{ _('Get') }}" role="tab"
@@ -358,9 +358,11 @@
       </nav>
     </header>
     <article class="tab-content">
-      {% if holdings_count > 0 %}
+      {% if holdings_count > 0 or es_record.files %}
       <section class="tab-pane show active p-1" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab">
+        {% if holdings_count > 0 %}
         {% include('rero_ils/_anonymous_button.html') %}
+        {% endif %}
         {% if record.harvested %}
           {% include('rero_ils/_document_online.html') %}
         {% else %}
@@ -370,7 +372,9 @@
           ></public-search-holdings>
         {% endif %}
         <!-- ILL REQUEST ON GLOBAL VIEW-->
+        {% if holdings_count > 0 %}
         {% include('rero_ils/_ill_request_button.html') %}
+        {% endif %}
       </section>
       {% endif %}
       <section class="tab-pane container" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
