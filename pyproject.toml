@@ -115,6 +115,7 @@ jsonresolver = "*"
 urllib3 = "<2.0.0"
 pyparsing = "^3.1.1"
 flask-wiki = "^0.3.1"
+rero-invenio-files = {git = "https://github.com/rero/rero-invenio-files.git"}
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)

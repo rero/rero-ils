@@ -50,6 +50,13 @@ from lxml import etree
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
+from werkzeug.local import LocalProxy
+
+# jsonschema resolver
+# SEE: RECORDS_REFRESOLVER_STORE for more details
+refresolver_store = LocalProxy(
+    lambda: current_app.extensions['rero-ils'].jsonschema_store
+)
 
 
 def get_mef_url(entity_type):

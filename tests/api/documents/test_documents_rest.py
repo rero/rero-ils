@@ -24,7 +24,7 @@ import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, clean_text, flush_index, \
-    get_json, mock_response, postdata
+    get_json, mock_response, postdata, to_relative_url
 
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.api import DocumentsSearch
@@ -33,6 +33,79 @@ from rero_ils.modules.documents.views import can_request, \
     record_library_pickup_locations
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_documents_get(client, document_with_files):
+    """Test record retrieval."""
+    document = document_with_files
+
+    def clean_es_metadata(metadata):
+        """Clean contribution from authorized_access_point_"""
+        # Contributions, subject and genreForm are i18n indexed field, so it's
+        # too complicated to compare it from original record. Just take the
+        # data from original record ... not best, but not real alternatives.
+        if contribution := document.get('contribution'):
+            metadata['contribution'] = contribution
+        if subjects := document.get('subjects'):
+            metadata['subjects'] = subjects
+        if genreForms := document.get('genreForm'):
+            metadata['genreForm'] = genreForms
+
+        # REMOVE DYNAMICALLY ADDED ES KEYS (see indexer.py:IndexerDumper)
+        metadata.pop('sort_date_new', None)
+        metadata.pop('sort_date_old', None)
+        metadata.pop('sort_title', None)
+        metadata.pop('isbn', None)
+        metadata.pop('issn', None)
+        metadata.pop('nested_identifiers', None)
+        metadata.pop('identifiedBy', None)
+        metadata.pop('files', None)
+        return metadata
+
+    item_url = url_for('invenio_records_rest.doc_item', pid_value='doc1')
+    res = client.get(item_url)
+    assert res.status_code == 200
+    assert res.headers['ETag'] == f'"{document.revision_id}"'
+    data = get_json(res)
+    # DEV NOTES : Why removing `identifiedBy` key
+    #   During the ES enrichment process, we complete the original identifiers
+    #   with alternate identifiers. So comparing ES data identifiers, to
+    #   original data identifiers doesn't make sense.
+    document_data = document.dumps()
+    document_data.pop('identifiedBy', None)
+    assert document_data == clean_es_metadata(data['metadata'])
+
+    # Check self links
+    res = client.get(to_relative_url(data['links']['self']))
+    assert res.status_code == 200
+    res_content = get_json(res)
+    res_content.get('metadata', {}).pop('identifiedBy', None)
+    assert data == res_content
+    document_data = document.dumps()
+    document_data.pop('identifiedBy', None)
+    assert document_data == clean_es_metadata(data['metadata'])
+
+    list_url = url_for('invenio_records_rest.doc_list',
+                       q=f'pid:{document.pid}')
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    metadata = data['hits']['hits'][0]['metadata']
+    files = metadata['files']
+    assert len(files) == 1
+    assert set(files[0].keys()) == set(('file_name', 'rec_id', 'collections'))
+    data_clean = clean_es_metadata(metadata)
+    document = document.replace_refs().dumps()
+    document.pop('identifiedBy', None)
+    assert document == data_clean
+
+    list_url = url_for('invenio_records_rest.doc_list', q="Vincent Berthe")
+    res = client.get(list_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert data['hits']['total']['value'] == 1
 
 
 def test_documents_newacq_filters(app, client,
@@ -160,8 +233,8 @@ def test_documents_newacq_filters(app, client,
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_documents_facets(
-    client, document, document2_ref, ebook_1, ebook_2, ebook_3, ebook_4,
-    item_lib_martigny, rero_json_header
+    client, document_with_files, document2_ref, ebook_1, ebook_2, ebook_3,
+    ebook_4, item_lib_martigny, rero_json_header
 ):
     """Test record retrieval."""
     # STEP#1 :: CHECK FACETS ARE PRESENT INTO SEARCH RESULT
@@ -217,6 +290,8 @@ def test_documents_facets(
           'author': 'Nebehay, Christian Michael, 1909-2003', 'lang': 'de'}, 0),
         ({'view': 'global',
           'author': 'Nebehay, Christian Michael', 'lang': 'thl'}, 1),
+        ({'view': 'global',
+          'online': 'true'}, 1),
     ]
     for params, value in checks:
         url = url_for('invenio_records_rest.doc_list', **params)
@@ -482,13 +557,15 @@ def test_document_can_request_view(
     assert len(picks) == 3
 
 
-def test_document_boosting(client, ebook_1, ebook_4):
+def test_document_boosting(client, roles, ebook_1, ebook_4):
     """Test document boosting."""
     list_url = url_for(
         'invenio_records_rest.doc_list',
         q='maison'
     )
     res = client.get(list_url)
+    from pprint import pprint
+    pprint(get_json(res))
     hits = get_json(res)['hits']
     assert hits['total']['value'] == 2
     data = hits['hits'][0]['metadata']
@@ -817,3 +894,93 @@ def test_document_advanced_search_config(app, db, client,
                      {'label': 'rdaco:1002', 'value': 'rdaco:1002'})
     check_field_data('rdaMediaType', field_data,
                      {'label': 'rdamt:1001', 'value': 'rdamt:1001'})
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_document_fulltext(client, document_with_files, document_with_issn):
+    """Test document boosting."""
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=f'fulltext:"Document ({document_with_files.pid})"',
+        fulltext='true'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
+    data = hits['hits'][0]['metadata']
+    assert data['pid'] == document_with_files.pid
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=f'"Document ({document_with_files.pid})"',
+        fulltext='true'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
+    data = hits['hits'][0]['metadata']
+    assert data['pid'] == document_with_files.pid
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=f'"Document ({document_with_files.pid})"'
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 0
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=f'"Document ({document_with_files.pid})"',
+        fulltext=0
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 0
+
+    # fulltext is not included by default but it can be accessed if it is
+    # explicit
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=f'fulltext:"Document ({document_with_files.pid})"',
+        fulltext=0
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
+
+
+@mock.patch('invenio_records_rest.views.verify_record_permission',
+            mock.MagicMock(return_value=VerifyRecordPermissionPatch))
+def test_document_files(
+    client, document_with_files, document_with_issn, org_martigny
+):
+    """Test document files."""
+
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=f'_exists_:files',
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
+
+    # check for collections
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=f'_exists_:files.collections',
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
+
+    # check for collections
+    list_url = url_for(
+        'invenio_records_rest.doc_list',
+        q=f'_exists_:files',
+        view=org_martigny.pid
+    )
+    res = client.get(list_url)
+    hits = get_json(res)['hits']
+    assert hits['total']['value'] == 1
