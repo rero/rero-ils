@@ -7,6 +7,7 @@
   "propertiesOrder": [
     "first_name",
     "last_name",
+    "username",
     "email",
     "password",
     "street",
@@ -101,6 +102,27 @@
             "value": "no_information"
           }
         ]
+      }
+    },
+    "username": {
+      "title": "Username",
+      "description": "Login username for the web interface.",
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9-_]{2,255}$",
+      "minLength": 3,
+      "maxLength": 255,
+      "widget": {
+        "formlyConfig": {
+          "expressionProperties": {
+            "templateOptions.required": "true"
+          },
+          "validation": {
+            "messages": {
+              "patternMessage": "Username must start with a letter or a number, be at least three characters long and only contain alphanumeric characters, dashes and underscores.",
+              "uniqueUsernameMessage": "This username is already taken."
+            }
+          }
+        }
       }
     },
     "street": {

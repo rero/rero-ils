@@ -114,7 +114,8 @@ class User(object):
                 if k in cls.profile_fields
             }
             if profile:
-                cls._validate(profile)
+                cls._validate_profile(profile)
+            cls._validate_data(data=data)
             password = data.get('password', password_generator())
             cls._validate_password(password=password)
             user = BaseUser(
@@ -140,9 +141,10 @@ class User(object):
         from ..patrons.listener import update_from_profile
         profile = {k: v for k, v in data.items() if k in self.profile_fields}
         if profile:
-            self._validate(profile)
+            self._validate_profile(profile)
         if password := data.get('password'):
             self._validate_password(password=password)
+        self._validate_data(data)
 
         user = self.user
         with db.session.begin_nested():
@@ -161,18 +163,25 @@ class User(object):
         return self
 
     @classmethod
-    def _validate(cls, data, **kwargs):
+    def _validate_data(cls, data):
+        """Additional user record validations."""
+        if not data.get('email') and not data.get('username'):
+            raise ValidationError(
+                _('A username or email is required.')
+            )
+
+    @classmethod
+    def _validate_profile(cls, profile, **kwargs):
         """Validate user record against schema."""
         schema = get_schema_for_resource('user')
-        data['$schema'] = schema
+        profile['$schema'] = schema
         _records_state.validate(
-            data,
+            profile,
             schema,
             format_checker=ils_record_format_checker,
             cls=Draft4Validator
         )
-        data.pop('$schema')
-        return data
+        profile.pop('$schema')
 
     @classmethod
     def _validate_password(cls, password):

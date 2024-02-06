@@ -33,6 +33,18 @@ def test_user_profile_updates(
         client, patron_martigny, system_librarian_martigny, json_header,
         mailbox):
     """Test users profile updates."""
+    # if none of email nor username is provided the request should failed
+    login_user_via_session(client, patron_martigny.user)
+    user_metadata = User.get_record(patron_martigny.user.id).dumps_metadata()
+    user_metadata.pop('email', None)
+    user_metadata.pop('username', None)
+    res = client.put(
+        url_for('api_users.users_item', id=patron_martigny.user.id),
+        data=json.dumps(user_metadata),
+        headers=json_header
+    )
+    assert res.status_code == 400
+    assert not (len(mailbox))
     # login with a patron has only the patron role, this means we are logging
     # into the public interface
     assert patron_martigny.patron['communication_channel'] == \
