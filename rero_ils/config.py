@@ -284,6 +284,15 @@ ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 #: proxies) removes these headers again before sending the response to the
 #: client. Set to False, in case of doubt.
 ACCOUNTS_USERINFO_HEADERS = False
+#: The regular expression used for validating usernames
+#: Note: should support barcode .
+ACCOUNTS_USERNAME_REGEX = r"^[a-zA-Z0-9-_]{2,255}$"
+#: Description of username validation rules.
+ACCOUNTS_USERNAME_RULES_TEXT = _(
+    "Username must start with a letter or a number, be at least three"
+    " characters long and only contain alphanumeric characters, dashes"
+    " and underscores."
+)
 
 #: User profile
 from rero_ils.modules.users.schemas import UserProfile
