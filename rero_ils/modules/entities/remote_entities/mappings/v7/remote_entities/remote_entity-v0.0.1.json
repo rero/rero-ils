@@ -111,7 +111,7 @@
           "pid": {
             "type": "keyword"
           },
-          "bf:Agent": {
+          "type": {
             "type": "keyword"
           },
           "md5": {
@@ -216,7 +216,7 @@
           "pid": {
             "type": "keyword"
           },
-          "bf:Agent": {
+          "type": {
             "type": "keyword"
           },
           "identifiedBy": {
@@ -426,7 +426,7 @@
           "pid": {
             "type": "keyword"
           },
-          "bf:Agent": {
+          "type": {
             "type": "keyword"
           },
           "identifiedBy": {
