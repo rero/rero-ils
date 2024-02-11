@@ -100,7 +100,7 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
     entity_mapping = {
        'authorized_access_point': 'authorized_access_point',
        'identifiedBy': 'identifiedBy',
-       'bf:Agent': 'type'
+       'type': 'type'
     }
 
     def post_process(self, metadata):

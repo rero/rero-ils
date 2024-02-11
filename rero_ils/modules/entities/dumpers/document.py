@@ -44,7 +44,7 @@ class BaseDocumentEntityDumper(Dumper):
         if record.resource_type == EntityResourceType.REMOTE:
             for agency in current_app.config['RERO_ILS_AGENTS_SOURCES']:
                 if field := record.get(agency):
-                    data['type'] = field.get('bf:Agent', record['type'])
+                    data['type'] = field.get('type', record['type'])
                     data['pids'][agency] = record[agency]['pid']
 
             variant_access_points = []
