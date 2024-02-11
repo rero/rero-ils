@@ -66,15 +66,13 @@ def replace_contribution_sources(contribution, source_order):
                 'source': source,
                 'pid': source_data['pid']
             })
-            for key in ['bf:Agent', 'preferred_name', 'numeration',
+            for key in ['type', 'preferred_name', 'numeration',
                         'qualifier', 'date_of_birth', 'date_of_death',
                         'subordinate_unit', 'conference', 'conference_number',
                         'conference_date', 'conference_place']:
                 entity = set_value(source_data, entity, key)
             entity.pop(source)
     entity['refs'] = refs
-    if 'bf:Agent' in entity:
-        entity['type'] = entity.pop('bf:Agent')
     contribution['entity'] = entity
     return contribution
 
@@ -717,7 +715,7 @@ def reverse_subjects(self, key, value):
 
     if entity := value.get('entity'):
         tag = None
-        entity_type = entity.get('type') or entity.get('bf:Agent')
+        entity_type = entity.get('type')
         if entity_pid := entity.get('pid'):
             query = RemoteEntitiesSearch().filter('term', pid=entity_pid)
             if query.count():
