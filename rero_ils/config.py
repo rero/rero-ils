@@ -2274,7 +2274,7 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
-            _('status'): and_term_filter('status'),
+            _('request_status'): and_term_filter('status'),
             _('loan_status'): and_term_filter('loan_status'),
             _('requester'): and_term_filter('patron.facet'),
             _('library'): and_term_filter('library.pid')
