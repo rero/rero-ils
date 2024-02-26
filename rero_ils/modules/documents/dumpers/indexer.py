@@ -238,8 +238,7 @@ class IndexerDumper(Dumper):
         search = search.source('uuid')\
             .filter('term', metadata__links=f'doc_{record.pid}')
         files = []
-        for rec in search.scan():
-            record_file = sfr.record_cls.get_record(rec.uuid)
+        for record_file in record.get_records_files():
             for file_name in record_file.files:
                 file = record_file.files[file_name]
                 metadata = file.get('metadata', {})

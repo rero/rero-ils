@@ -2815,6 +2815,12 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     'rero_ils.modules.documents.permissions:create_action',
     'rero_ils.modules.documents.permissions:update_action',
     'rero_ils.modules.documents.permissions:delete_action',
+    'rero_ils.modules.files.permissions:access_action',
+    'rero_ils.modules.files.permissions:search_action',
+    'rero_ils.modules.files.permissions:read_action',
+    'rero_ils.modules.files.permissions:create_action',
+    'rero_ils.modules.files.permissions:update_action',
+    'rero_ils.modules.files.permissions:delete_action',
     'rero_ils.modules.entities.local_entities.permissions.access_action',
     'rero_ils.modules.entities.local_entities.permissions.search_action',
     'rero_ils.modules.entities.local_entities.permissions.read_action',
@@ -4001,6 +4007,11 @@ FILES_REST_STORAGE_CLASS_LIST = {
     "L": "Local"
 }
 
+MAX_CONTENT_LENGTH = 500 * 1024 * 1024
+
 FILES_REST_DEFAULT_STORAGE_CLASS = "L"
 RECORDS_REFRESOLVER_CLS = "invenio_records.resolver.InvenioRefResolver"
 RECORDS_REFRESOLVER_STORE = "rero_ils.modules.utils.refresolver_store"
+
+RERO_FILES_RECORD_SERVICE_CONFIG = "rero_ils.modules.files.services.RecordServiceConfig"
+RERO_FILES_RECORD_FILE_SERVICE_CONFIG = "rero_ils.modules.files.services.RecordFileServiceConfig"
