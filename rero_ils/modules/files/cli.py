@@ -21,7 +21,7 @@ from io import BytesIO
 from random import choice, randrange, shuffle
 
 import click
-from flask import current_app
+from flask import current_app, g
 from flask.cli import with_appcontext
 from invenio_access.permissions import system_identity
 from invenio_db import db
@@ -58,11 +58,14 @@ def create_pdf_file(document):
     return generator.output()
 
 
-def create_pdf_record_files(document, metadata, flush=False):
+def create_pdf_record_files(document, metadata, flush=False,
+                            file_name_suffix=None):
     """Creates and attach a pdf file to a given document.
 
     :param document: Document - the document record.
     :param metadata: dict - file metadata.
+    :param flush: boolean - flush the es index.
+    :param file_name_suffix: str - a suffix to add to the file name.
     """
     # add document link
     metadata.setdefault("links", [f"doc_{document.pid}"])
@@ -73,15 +76,26 @@ def create_pdf_record_files(document, metadata, flush=False):
     # generate the PDF file
     stream = BytesIO(create_pdf_file(document))
     # create the record file
-    record = record_service.record_cls.create(data={"metadata": metadata})
-    record.commit()
+    try:
+        record = next(document.get_records_files(lib_pids=metadata['owners']))
+    except StopIteration:
+        record = record_service.record_cls.create(data={"metadata": metadata})
+        record.commit()
+        # index the file record
+        record_service.indexer.index_by_id(record.id)
+        if flush:
+            current_search.flush_and_refresh(
+                record_service.record_cls.index._name)
     recid = record["id"]
-    # index the file record
-    record_service.indexer.index_by_id(record.id)
-    if flush:
-        current_search.flush_and_refresh(record_service.record_cls.index._name)
     # attach the file record to the document
-    file_name = f"doc_{document.pid}.pdf"
+    if file_name_suffix:
+        file_name = f"doc_{document.pid}_{file_name_suffix}.pdf"
+    else:
+        file_name = f"doc_{document.pid}.pdf"
+    # Required for the permission policies
+    # TODO: find a cleaner approach i.e. create a permission to allow boolean
+    #       operators
+    g.identity = system_identity
     file_service.init_files(system_identity, recid, [{"key": file_name}])
     file_service.set_file_content(system_identity, recid, file_name, stream)
     file_service.commit_file(system_identity, recid, file_name)
@@ -90,28 +104,32 @@ def create_pdf_record_files(document, metadata, flush=False):
 
 @click.command()
 @click.argument("number", type=int)
+@click.option('-c', '--collections', multiple=True,
+              default=["col1", "col2", "col3"])
 @with_appcontext
-def create_files(number):
+def create_files(number, collections):
     """Create attached files.
 
-    :param number: integer - number of the files to generate
+    :param number: integer - number of the files to generate.
+    :param collections: list of str - the list of collection codes.
     """
-    collections = ["col1", "col2", "col3"]
     doc_pids = list(Document.get_all_pids())
     lib_pids = list(Library.get_all_pids())
+    # for fixtures we want to add file to a random document
     shuffle(doc_pids)
+    doc_pids = doc_pids[0:number]
 
-    for _ in range(0, number):
-        pid = choice(doc_pids)
+    for pid in doc_pids:
         doc = Document.get_record_by_pid(pid)
-        while doc.get('harvested'):
-            pid = choice(doc_pids)
-            doc = Document.get_record_by_pid(pid)
+        if doc.get('harvested'):
+            continue
         click.echo(f"Create file for {pid}")
         lib_pid = choice(lib_pids)
         metadata = dict(
             collections=[choice(collections)],
             owners=[f"lib_{lib_pid}"]
         )
-        for _ in range(randrange(10)):
-            create_pdf_record_files(document=doc, metadata=metadata)
+        for i in range(1, randrange(10)):
+            create_pdf_record_files(
+                document=doc, metadata=metadata, flush=True,
+                file_name_suffix=i)
