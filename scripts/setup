@@ -427,7 +427,7 @@ info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type item --schema 'https://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
 
 info_msg "- Generate files"
-eval ${PREFIX} invenio reroils fixtures create-files 50
+eval ${PREFIX} invenio reroils fixtures create-files 75
 
 # index items
 eval ${PREFIX} invenio reroils index reindex -t item --yes-i-know
