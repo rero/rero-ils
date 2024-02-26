@@ -19,55 +19,16 @@
 
 from __future__ import absolute_import, print_function
 
-import shutil
-import tempfile
 from copy import deepcopy
 from datetime import datetime
 
 import pytest
 from flask_security.utils import hash_password
 from invenio_accounts.models import User
-from invenio_files_rest.models import Location
 from utils import flush_index
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
-from rero_ils.modules.files.cli import create_pdf_record_files
 from rero_ils.modules.items.api import Item, ItemsSearch
-
-
-@pytest.fixture(scope="module")
-def file_location(database):
-    """Creates a simple default location for a test.
-
-    Scope: function
-
-    Use this fixture if your test requires a `files location <https://invenio-
-    files-rest.readthedocs.io/en/latest/api.html#invenio_files_rest.models.
-    Location>`_. The location will be a default location with the name
-    ``pytest-location``.
-    """
-    uri = tempfile.mkdtemp()
-    location_obj = Location(name="pytest-location", uri=uri, default=True)
-
-    database.session.add(location_obj)
-    database.session.commit()
-
-    yield location_obj
-
-    shutil.rmtree(uri)
-
-
-@pytest.fixture(scope='module')
-def document_with_files(document, lib_martigny, file_location):
-    """Create a document with a pdf file attached."""
-    metadata = dict(
-        owners=[f'lib_{lib_martigny.pid}'],
-        collections=['col1', 'col2']
-    )
-    create_pdf_record_files(document, metadata, flush=True)
-    document.reindex()
-    flush_index(DocumentsSearch.Meta.index)
-    yield document
 
 
 @pytest.fixture(scope='function')
