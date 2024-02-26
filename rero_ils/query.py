@@ -482,7 +482,6 @@ def search_factory(self, search, query_parser=None):
     ):
         query_boosting = \
             [v for v in query_boosting if not v.startswith('fulltext')]
-    print(query_boosting)
     try:
         search = search.query(query_parser(query_string, query_boosting))
     except SyntaxError as err:

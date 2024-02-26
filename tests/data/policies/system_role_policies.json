@@ -11,6 +11,12 @@
   "doc-read": [
     "any_user"
   ],
+  "file-search": [
+    "any_user"
+  ],
+  "file-read": [
+    "any_user"
+  ],
   "hold-search": [
     "any_user"
   ],
