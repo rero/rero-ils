@@ -490,6 +490,16 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
         _redirect_uris='')
 
     # token with all scopes
+    librarian_token = Token(
+        client=oauth_client,
+        user=librarian_martigny.user,
+        token_type='bearer',
+        access_token='test_librarian_access',
+        expires=None,
+        is_personal=False,
+        is_internal=False,
+        _scopes=' '.join(scopes))
+
     token = Token(
         client=oauth_client,
         user=patron_martigny.user,
@@ -511,7 +521,9 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
         is_internal=False)
 
     db.session.add(oauth_client)
+    db.session.add(librarian_token)
     db.session.add(token)
+    db.session.add(no_scope_token)
     db.session.commit()
 
     # denied with a wrong token
@@ -545,6 +557,17 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
             'institution': 'org1',
             'patron_type': 'patron-code'
         }]
+    }
+
+    # librarian information with all scopes
+    res = client.get(
+        url_for('api_patrons.info', access_token=librarian_token.access_token))
+    assert res.status_code == 200
+    assert res.json == {
+        'birthdate':
+        '1965-02-07',
+        'fullname':
+        'Pedronni, Marie'
     }
 
 
