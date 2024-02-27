@@ -485,7 +485,7 @@ def do_title(data, marc21, value):
                         title_data['subtitle'] = subtitle
                 elif value_data:
                     title_data['subtitle'] = value_data
-            elif blob_key == 'c':
+            elif blob_key == 'c' and value_data:
                 responsibility = build_responsibility_data(value_data)
             elif blob_key in ['n', 'p']:
                 part_list.update_part(value_data, blob_key, blob_value)
