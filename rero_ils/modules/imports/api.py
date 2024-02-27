@@ -674,7 +674,7 @@ class SLSPImport(Import):
         'anywhere': 'alma.all_for_ui',
         'author': 'alma.author',
         'title': 'alma.title',
-        'recordid': 'alma.all_for_ui',
+        'recordid': 'alma.mms_id',
         'isbn': 'alma.isbn',
         'issn': 'alma.issn',
         'date': 'alma.date'
@@ -765,7 +765,7 @@ class KULImport(Import):
         'anywhere': 'alma.all_for_ui',
         'author': 'alma.creator',
         'title': 'alma.title',
-        'recordid': 'alma.all_for_ui',
+        'recordid': 'alma.mms_id',
         'isbn': 'alma.isbn',
         'issn': 'alma.issn',
         'date': 'alma.date'
@@ -803,7 +803,7 @@ class RenouvaudImport(Import):
         'anywhere': 'alma.all_for_ui',
         'author': 'alma.author',
         'title': 'alma.title',
-        'recordid': 'alma.all_for_ui',
+        'recordid': 'alma.mms_id',
         'isbn': 'alma.isbn',
         'issn': 'alma.issn',
         'date': 'alma.date'
