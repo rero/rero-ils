@@ -339,6 +339,8 @@ def info():
         # TODO: make this non rero specific using a configuration
         return institution['code'] if institution['code'] != 'nj' else 'rbnj'
 
+    user = User.get_record(current_user.id).dumps_metadata()
+
     # Process for all patrons
     patrons = copy.deepcopy(current_patrons)
     for patron in patrons:
@@ -346,23 +348,29 @@ def info():
         patron['patron']['type'] = PatronType.get_record_by_pid(
             extracted_data_from_ref(patron['patron']['type']['$ref']))
 
-    # Stores the main patron
-    patron = get_main_patron(patrons)
-
+    # Birthdate
     data = {}
+    birthdate = current_user.user_profile.get('birth_date')
+    if 'birthdate' in token_scopes and birthdate:
+        data['birthdate'] = birthdate
+    # Full name
+    name_parts = [
+        current_user.user_profile.get('last_name', '').strip(),
+        current_user.user_profile.get('first_name', '').strip()
+    ]
+    fullname = ', '.join(filter(None, name_parts))
+    if 'fullname' in token_scopes and fullname:
+        data['fullname'] = fullname
 
+    # No patrons found for user
+    if not patrons:
+        return jsonify(data)
+
+    # Get the main patron
+    patron = get_main_patron(patrons)
     # Barcode
     if patron.get('patron', {}).get('barcode'):
         data['barcode'] = patron['patron']['barcode'][0]
-
-    # Full name
-    if 'fullname' in token_scopes:
-        data['fullname'] = patron.formatted_name
-
-    # Birthdate
-    if 'birthdate' in token_scopes:
-        data['birthdate'] = current_user.user_profile.get('birth_date')
-
     # Patron types
     if 'patron_types' in token_scopes:
         patron_types = []
