@@ -123,7 +123,7 @@ def test_marc21_to_admin_metadata():
     <record>
         <leader>00501naa a2200133 a 4500</leader>
         <controlfield tag=
-            "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+          "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
     </record>
     """
     marc21json = create_record(marc21xml)
@@ -136,7 +136,7 @@ def test_marc21_to_admin_metadata():
     <record>
         <leader>00501naa a22001332a 4500</leader>
         <controlfield tag=
-            "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+          "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
         <datafield tag="019" ind1=" " ind2=" ">
           <subfield code="a">Société de publications romanes</subfield>
           <subfield code="9">pf/08.05.1985</subfield>
@@ -6007,3 +6007,26 @@ def test_temporal_coverage(app, marc21_record):
         'date': '+1972',
         'type': 'time'
     }]
+
+
+def test_marc21_to_fiction():
+    """Test dojson marc21 fiction."""
+
+    marc21xml = """
+    <record>
+      <controlfield tag=
+        "008">160315s2015    cc ||| |  ||||00|  |chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert not data.get('fiction')
+    marc21xml = """
+    <record>
+      <controlfield tag=
+        "008">160315s2015    cc ||| |  ||||00| 1|chi d</controlfield>
+    </record>
+    """
+    marc21json = create_record(marc21xml)
+    data = marc21.do(marc21json)
+    assert data.get('fiction')

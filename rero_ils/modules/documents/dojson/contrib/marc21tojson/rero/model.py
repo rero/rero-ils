@@ -45,7 +45,33 @@ from ..utils import _CONTRIBUTION_ROLE, do_abbreviated_title, \
     do_usage_and_access_policy_from_field_506_540, do_work_access_point, \
     perform_subdivisions
 
-marc21 = ReroIlsMarc21Overdo()
+
+class MyReroIlsMarc21Overdo(ReroIlsMarc21Overdo):
+    """Class MyReroIlsMarc21Overdo.
+
+    Adds fiction for records with genre form.
+    """
+
+    def do(self, blob, ignore_missing=True, exception_handlers=None):
+        """Translate blob values and instantiate new model instance."""
+        result = super().do(blob, ignore_missing, exception_handlers)
+        # add fiction
+        if 'genreForm' in result and 'harvested' not in result:
+            fiction = False
+            for genre_form in result.get('genreForm', []):
+                entity = genre_form['entity']
+                if (
+                    entity['type'] == 'bf:Topic' and
+                    entity['authorized_access_point'] in
+                    ['Fictions', 'Films de fiction']
+                ):
+                    result['fiction'] = True
+            if 'fiction' not in result and 'subjects' in result:
+                result['fiction'] = False
+        return result
+
+
+marc21 = MyReroIlsMarc21Overdo()
 
 _CONTAINS_FACTUM_REGEXP = re.compile(r'factum')
 
@@ -98,6 +124,11 @@ def marc21_to_language(self, key, value):
     # if not language:
     #     error_print('ERROR LANGUAGE:', marc21.bib_id, 'set to "und"')
     #     language = [{'value': 'und', 'type': 'bf:Language'}]
+    # is fiction
+    if value[33] in ['1', 'd', 'f', 'j', 'p']:
+        self['fiction'] = True
+    elif value[33] in ['0', 'e', 'h', 'i', 's']:
+        self['fiction'] = False
     return language or None
 
 

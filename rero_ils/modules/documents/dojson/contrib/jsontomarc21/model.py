@@ -17,12 +17,12 @@
 
 """RERO-ILS to MARC21 model definition."""
 
-
 from dojson import utils
 from dojson.contrib.to_marc21.model import Underdo
 from flask import current_app
 from flask_babel import gettext as translate
 
+from rero_ils.dojson.utils import error_print
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
 from rero_ils.modules.documents.views import create_title_responsibilites
 from rero_ils.modules.entities.models import EntityType
@@ -123,12 +123,11 @@ def do_contribution(contribution, source_order):
             # We got an entity from db. Replace the used entity with this one.
             entity = contribution['entity']
         else:
-            current_app.logger.error(
-                f'No entity found for pid:{pid} {ref}')
+            error_print(f'No entity found for pid:{pid} {ref}')
             return None, None, False, False
     if not (preferred_name := entity.get('preferred_name')):
-        current_app.logger.warning(
-            f'JSON to MARC21 contribution no preferred_name: {entity}')
+        error_print(
+                f'JSON to MARC21 contribution no preferred_name: {entity}')
         preferred_name = entity.get(
             f'authorized_access_point_{to_marc21.language}')
     result = {}
@@ -186,8 +185,7 @@ def do_concept(entity, source_order):
             )
             authorized_access_point = entity.get('authorized_access_point')
         else:
-            current_app.logger.error(
-                f'No entity found for pid:{pid} {ref}')
+            error_print(f'No entity found for pid:{pid} {ref}')
             return None
     else:
         authorized_access_point = entity.get(
@@ -352,6 +350,10 @@ class ToMarc21Overdo(Underdo):
         # create fixed_length_data_elements for 008
         # TODO: add 008/00-05  Date entered on file
         fixed_data = '000000|||||||||xx#|||||||||||||||||||||c'
+        if fiction := blob.get('fiction'):
+            fixed_data[33] = 1
+        elif fiction is False:
+            fixed_data[33] = 0
         provision_activity = blob.get('provisionActivity', [])
         for p_activity in provision_activity:
             if p_activity.get('type') == 'bf:Publication':
@@ -377,7 +379,13 @@ class ToMarc21Overdo(Underdo):
                 ))
             }
         # Fix ContributionsSearch
-        order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', [])
+        # Try to get RERO_ILS_AGENTS_LABEL_ORDER from current app
+        # In the dojson cli is no current app and we have to get the value
+        # directly from config.py
+        try:
+            order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', [])
+        except Exception:
+            from rero_ils.config import RERO_ILS_AGENTS_LABEL_ORDER as order
         self.source_order = order.get(
             self.language,
             order.get(order['fallback'], [])
@@ -632,7 +640,7 @@ def reverse_title(self, key, value):
 @to_marc21.over('264', '^(provisionActivity|copyrightDate)')
 @utils.reverse_for_each_value
 @utils.ignore_value
-def reverse_title(self, key, value):
+def reverse_provision_activity(self, key, value):
     """Reverse - provisionActivity."""
     # Pour chaque objet de "provisionActivity" (répétitif), créer une 264 :
     # * si type=bf:Publication, ind2=1
@@ -769,7 +777,7 @@ def reverse_subjects(self, key, value):
                 self.append(('648_7', utils.GroupableOrderedDict(result)))
             return
         else:
-            current_app.logger.error(f'No entity type found: {entity}')
+            error_print(f'No entity type found: {entity}')
     if tag and result:
         self.append((tag, utils.GroupableOrderedDict(result)))
 
@@ -782,7 +790,7 @@ def reverse_genre_form(self, key, value):
 
     Genre / Forme > 655 - Genre ou forme
     """
-    if genre_form := value.get('entity'):
+    if value.get('entity'):
         if result := do_concept(
             entity=value.get('entity'), source_order=to_marc21.source_order
         ):
