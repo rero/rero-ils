@@ -169,8 +169,8 @@ def test_documents_facets(
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
     facet_keys = [
-        'document_type', 'author', 'language', 'subject_no_fiction',
-        'subject_fiction', 'genreForm', 'intendedAudience',
+        'document_type', 'author', 'language', 'subject',
+        'fiction', 'genreForm', 'intendedAudience',
         'year', 'status', 'acquisition'
     ]
     assert all(key in data['aggregations'] for key in facet_keys)

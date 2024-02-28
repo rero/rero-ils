@@ -143,7 +143,7 @@ from .modules.vendors.permissions import VendorPermissionPolicy
 from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory, librarian_update_permission_factory, \
     wiki_edit_ui_permission, wiki_edit_view_permission
-from .query import and_i18n_term_filter, and_term_filter, \
+from .query import and_i18n_term_filter, and_term_filter, bool_filter, \
     exclude_terms_filter, i18n_terms_filter, or_terms_filter_by_criteria
 from .utils import TranslatedList, get_current_language
 
@@ -1718,8 +1718,6 @@ PTRE_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('patron_transaction_events
 ACQ_ORDER_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('acq_orders', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 ENTITIES_AGGREGATION_SIZE = RERO_ILS_AGGREGATION_SIZE.get('entities', RERO_ILS_DEFAULT_AGGREGATION_SIZE)
 
-FICTIONS_TERMS = ['Fictions', 'Films de fiction']
-
 RECORDS_REST_FACETS = dict(
     documents=dict(
         i18n_aggs=dict(
@@ -1729,41 +1727,11 @@ RECORDS_REST_FACETS = dict(
                 de=dict(terms=dict(field='facet_contribution_de', size=DOCUMENTS_AGGREGATION_SIZE)),
                 it=dict(terms=dict(field='facet_contribution_it', size=DOCUMENTS_AGGREGATION_SIZE)),
             ),
-            subject_fiction=dict(
-                en=dict(
-                    terms=dict(field='facet_subject_en', size=DOCUMENTS_AGGREGATION_SIZE),
-                    filter=dict(bool=dict(must=[dict(terms=dict(facet_genre_form_en=FICTIONS_TERMS))]))
-                ),
-                fr=dict(
-                    terms=dict(field='facet_subject_fr', size=DOCUMENTS_AGGREGATION_SIZE),
-                    filter=dict(bool=dict(must=[dict(terms=dict(facet_genre_form_fr=FICTIONS_TERMS))]))
-                ),
-                de=dict(
-                    terms=dict(field='facet_subject_de', size=DOCUMENTS_AGGREGATION_SIZE),
-                    filter=dict(bool=dict(must=[dict(terms=dict(facet_genre_form_de=FICTIONS_TERMS))]))
-                ),
-                it=dict(
-                    terms=dict(field='facet_subject_it', size=DOCUMENTS_AGGREGATION_SIZE),
-                    filter=dict(bool=dict(must=[dict(terms=dict(facet_genre_form_it=FICTIONS_TERMS))]))
-                ),
-            ),
-            subject_no_fiction=dict(
-                en=dict(
-                    terms=dict(field='facet_subject_en', size=DOCUMENTS_AGGREGATION_SIZE),
-                    filter=dict(bool=dict(must_not=[dict(terms=dict(facet_genre_form_en=FICTIONS_TERMS))]))
-                ),
-                fr=dict(
-                    terms=dict(field='facet_subject_fr', size=DOCUMENTS_AGGREGATION_SIZE),
-                    filter=dict(bool=dict(must_not=[dict(terms=dict(facet_genre_form_fr=FICTIONS_TERMS))]))
-                ),
-                de=dict(
-                    terms=dict(field='facet_subject_de', size=DOCUMENTS_AGGREGATION_SIZE),
-                    filter=dict(bool=dict(must_not=[dict(terms=dict(facet_genre_form_de=FICTIONS_TERMS))]))
-                ),
-                it=dict(
-                    terms=dict(field='facet_subject_it', size=DOCUMENTS_AGGREGATION_SIZE),
-                    filter=dict(bool=dict(must_not=[dict(terms=dict(facet_genre_form_it=FICTIONS_TERMS))]))
-                ),
+            subject=dict(
+                en=dict(terms=dict(field='facet_subject_en', size=DOCUMENTS_AGGREGATION_SIZE)),
+                fr=dict(terms=dict(field='facet_subject_fr', size=DOCUMENTS_AGGREGATION_SIZE)),
+                de=dict(terms=dict(field='facet_subject_de', size=DOCUMENTS_AGGREGATION_SIZE)),
+                it=dict(terms=dict(field='facet_subject_it', size=DOCUMENTS_AGGREGATION_SIZE)),
             ),
             genreForm=dict(
                 en=dict(terms=dict(field='facet_genre_form_en', size=DOCUMENTS_AGGREGATION_SIZE)),
@@ -1807,7 +1775,10 @@ RECORDS_REST_FACETS = dict(
                     date_min=dict(min=dict(field='holdings.items.acquisition.date', format='yyyy-MM-dd')),
                     date_max=dict(max=dict(field='holdings.items.acquisition.date', format='yyyy-MM-dd'))
                 )
-            )
+            ),
+            fiction=dict(
+                terms=dict(field="fiction", size=DOCUMENTS_AGGREGATION_SIZE)
+            ),
         ),
         filters={
             _('online'): or_terms_filter_by_criteria({
@@ -1818,28 +1789,14 @@ RECORDS_REST_FACETS = dict(
                 'holdings.holdings_type': ['standard', 'serial']
             }),
             _('author'): and_i18n_term_filter('facet_contribution'),
-            _('subject_fiction'): and_i18n_term_filter(
-                'facet_subject',
-                must=[{
-                    'name_or_query': 'terms',
-                    # TODO: If we have translated concepts we have to addapt this filter.
-                    'facet_genre_form_en': FICTIONS_TERMS
-                }]
-            ),
-            _('subject_no_fiction'): and_i18n_term_filter(
-                'facet_subject',
-                must_not=[{
-                    'name_or_query': 'terms',
-                    # TODO: If we have translated concepts we have to addapt this filter.
-                    'facet_genre_form_en': FICTIONS_TERMS}
-                ]
-            ),
+            _('subject'): and_i18n_term_filter('facet_subject'),
             # This filter is used with timestamp
             _('acquisition'): acquisition_filter(),
             # This filter is only used for constructed queries
             # --> Ex: &new_acquisition=2020-01-01:2021-01-01
             _('new_acquisition'): acquisition_filter(),
-            _('identifiers'): nested_identified_filter()
+            _('identifiers'): nested_identified_filter(),
+            _('fiction'): bool_filter('fiction'),
         },
         post_filters={
             _('document_type'): {

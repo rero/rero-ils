@@ -75,7 +75,7 @@ def test_pid_to_marc21(app, marc21_record):
     assert result == record
 
 
-def test_identified_by(app, marc21_record):
+def test_identified_by_to_marc21(app, marc21_record):
     """Test identifiedBy to MARC21 transformation."""
     record = {
         "identifiedBy": [{

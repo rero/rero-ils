@@ -1652,7 +1652,6 @@ def test_unimarc_to_electronicLocator_from_856():
         <subfield
             code="u">http://gallica.bnf.fr/ark:/12148/btv1b550017355</subfield>
       </datafield>
-
     </record>
     """
     unimarcjson = create_record(unimarcxml)
@@ -1661,3 +1660,31 @@ def test_unimarc_to_electronicLocator_from_856():
         'url': 'http://gallica.bnf.fr/ark:/12148/btv1b550017355',
         'type': 'resource',
     }]
+
+
+def test_unimarc_to_isFiktion_from_105():
+    """Test dojson isFiktion from 105."""
+
+    unimarcxml = """
+    <record>
+      <datafield tag="105" ind1=" " ind2=" ">
+        <subfield
+            code="a">y   z   00|||</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert not data.get('fiction')
+
+    unimarcxml = """
+    <record>
+      <datafield tag="105" ind1=" " ind2=" ">
+        <subfield
+            code="a">y   z   00|a|</subfield>
+      </datafield>
+    </record>
+    """
+    unimarcjson = create_record(unimarcxml)
+    data = unimarc.do(unimarcjson)
+    assert data.get('fiction')

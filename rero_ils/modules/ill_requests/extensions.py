@@ -17,7 +17,6 @@
 
 """ILL request record extensions."""
 
-
 import contextlib
 
 from rero_ils.modules.operation_logs.extensions import \
