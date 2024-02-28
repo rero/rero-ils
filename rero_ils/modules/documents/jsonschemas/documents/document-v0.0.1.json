@@ -15,6 +15,7 @@
   "propertiesOrder": [
     "identifiedBy",
     "type",
+    "fiction",
     "contentMediaCarrier",
     "issuance",
     "genreForm",
@@ -304,6 +305,14 @@
       "title": "Harvested",
       "description": "Document is harvested or not, will disable record edition or similar.",
       "type": "boolean"
+    },
+    "fiction": {
+      "title": "Fiction",
+      "description": "Document is fiction.",
+      "type": "boolean",
+      "form": {
+        "hide": true
+      }
     },
     "_draft": {
       "title": "Draft",

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """rero-ils UNIMARC model definition."""
+
 import contextlib
 from copy import deepcopy
 
@@ -1149,10 +1150,17 @@ def unimarc_subjects(self, key, value):
     subjects: 6xx [duplicates could exist between several vocabularies,
         if possible deduplicate]
     """
-    config_field_key = current_app.config.get(
-        'RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE',
-        'subjects_imported'
-    )
+    # Try to get RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE from current app
+    # In the dojson cli is no current app and we have to get the value directly
+    # from config.py
+    try:
+        config_field_key = current_app.config.get(
+            'RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE',
+            'subjects_imported'
+        )
+    except Exception:
+        from rero_ils.config import \
+            RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE as config_field_key
     to_return = value.get('a') or ''
     if value.get('b'):
         to_return += ', ' + ', '.join(utils.force_list(value.get('b')))
@@ -1177,8 +1185,23 @@ def unimarc_subjects(self, key, value):
 @unimarc.over('electronicLocator', '^8564.')
 @utils.for_each_value
 @utils.ignore_value
-def marc21_to_electronicLocator_from_field_856(self, key, value):
+def unimarc_electronicLocator_from_field_856(self, key, value):
     """Get electronicLocator from field 856."""
     return (
         {'url': value.get('u'), 'type': 'resource'} if value.get('u') else None
     )
+
+
+@unimarc.over('fiction', '^105..')
+@utils.ignore_value
+def unimarc_fiction(self, key, value):
+    """Get fiction from field 105 $a 11.
+
+    codes for fiction=True : a, b, f, g, i
+    codes for fiction=False : c, d, e, h, y
+    """
+    if subfield_a := value.get('a'):
+        if subfield_a[11] in ['a', 'b', 'f', 'g', 'i']:
+            return True
+        if subfield_a[11] in ['c', 'd', 'e', 'h', 'y']:
+            return False

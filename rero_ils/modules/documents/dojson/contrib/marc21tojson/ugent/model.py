@@ -59,6 +59,11 @@ def marc21_to_language(self, key, value):
     languages: 008 and 041 [$a, repetitive]
     """
     language = do_language(self, marc21)
+    # is fiction
+    if value[33] in ['1', 'd', 'f', 'j', 'p']:
+        self['fiction'] = True
+    elif value[33] in ['0', 'e', 'h', 'i', 's']:
+        self['fiction'] = False
     return language or None
 
 
@@ -331,12 +336,17 @@ def marc21_to_subjects_6XX(self, key, value):
     tag_key = key[:3]
     subfields_2 = utils.force_list(value.get('2'))
     subfield_2 = subfields_2[0] if subfields_2 else None
-
-    config_field_key = \
-        current_app.config.get(
+    # Try to get RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE from current app
+    # In the dojson cli is no current app and we have to get the value directly
+    # from config.py
+    try:
+        config_field_key = current_app.config.get(
             'RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE',
             'subjects_imported'
         )
+    except Exception:
+        from rero_ils.config import \
+            RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE as config_field_key
 
     if subfield_2 == 'lcsh' or indicator_2 in ['0', '2', '7']:
         term_string = build_string_from_subfields(

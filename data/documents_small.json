@@ -164,7 +164,8 @@
           "value": "Hrsg.: Sozialistisches B\u00fcro"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "10",
@@ -883,7 +884,8 @@
           "value": "hrsg. von Arthur Henkel und Albrecht Sch\u00f6ne"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "104",
@@ -1295,7 +1297,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "106",
@@ -1768,7 +1771,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "109",
@@ -1949,7 +1953,8 @@
           "value": "[Mitarb. Hans W. Albert...et al.]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "11",
@@ -2130,7 +2135,8 @@
           "value": "unter Mitwirk. von Fritz Peter Knapp (Mittelalter) hrsg. von Herbert Zeman"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "110",
@@ -2647,7 +2653,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "114",
@@ -3611,7 +3618,8 @@
           "value": "PoiPoi"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "120",
@@ -4218,7 +4226,8 @@
           "value": "herausgegeben von Georg Sigrist"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "124",
@@ -5505,7 +5514,8 @@
           "value": "[Texte: Dolores Denaro... et al.]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "132",
@@ -6022,7 +6032,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "135",
@@ -6153,7 +6164,8 @@
           "value": "von Rudolf Brun"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "136",
@@ -6625,7 +6637,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "14",
@@ -6947,7 +6960,8 @@
           "value": "bearb. und hrsg. von Friedrich Wilhelm Bautz"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "140",
@@ -7258,7 +7272,8 @@
           "value": "Christian Binet"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "142",
@@ -8635,7 +8650,8 @@
           "value": "Fotos: Marco Volken ... [et al.]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "150",
@@ -8890,7 +8906,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "152",
@@ -11993,7 +12010,8 @@
           "value": "Franck Krebs"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "171",
@@ -12732,7 +12750,8 @@
           "value": "Stephen King"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "176",
@@ -15104,7 +15123,8 @@
           "language": "rus-cyrl"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "19",
@@ -15221,7 +15241,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "190",
@@ -15742,7 +15763,8 @@
           "value": "Stephen King"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "193",
@@ -16683,7 +16705,8 @@
           "value": "Ruth Scheffbuch"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "199",
@@ -17001,7 +17024,8 @@
           "value": "Tabea und Simon Schild"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "20",
@@ -17627,7 +17651,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000002",
@@ -17893,7 +17918,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000004",
@@ -18712,7 +18738,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000009",
@@ -18844,7 +18871,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000010",
@@ -19769,7 +19797,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000015",
@@ -19927,7 +19956,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000016",
@@ -22128,7 +22158,8 @@
           "value": "comp. by A.C. Leslie"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000028",
@@ -22334,7 +22365,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000030",
@@ -22912,7 +22944,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000035",
@@ -23092,7 +23125,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000036",
@@ -23305,7 +23339,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000038",
@@ -23436,7 +23471,8 @@
           "value": "publ. by the Faculty of St. Vladimir's Orthodox Theological Seminary"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000039",
@@ -23741,7 +23777,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000041",
@@ -23879,7 +23916,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000042",
@@ -24066,7 +24104,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000043",
@@ -24219,7 +24258,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000044",
@@ -24883,7 +24923,8 @@
           "value": "Schweizerische Gesellschaft f\u00fcr Theaterkultur = Annuaire du th\u00e9\u00e2tre suisse / Soci\u00e9t\u00e9 suisse du th\u00e9\u00e2tre = Annuario del teatro svizzero / Societ\u00e0 svizzera di studi teatrali"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000048",
@@ -25022,7 +25063,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000049",
@@ -25158,7 +25200,8 @@
           "value": "PoiPoi"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000050",
@@ -25871,7 +25914,8 @@
           "value": "Alfred Bertholet, Jean-Louis Petignat"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000056",
@@ -26212,7 +26256,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000058",
@@ -26505,7 +26550,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000061",
@@ -26928,7 +26974,8 @@
           "value": "sotto la dir. di Giuseppe Felloni"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000064",
@@ -27971,7 +28018,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000069",
@@ -28555,7 +28603,8 @@
           "value": "hrsg. von Herbert Zeman"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000074",
@@ -29279,7 +29328,8 @@
           "value": "organe de la Soci\u00e9t\u00e9 suisse d'h\u00e9raldique = Schweizer Archiv f\u00fcr Heraldik. Jahrbuch / Organ der Schweizerischen heraldischen Gesellschaft = Archivio araldico svizzero. [Annuario] / [ed. dalla Societ\u00e0 svizzera di araldica]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000078",
@@ -29834,7 +29884,8 @@
           "value": "con la collab. di Giuliano Castellani e Axel Leuthold"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000081",
@@ -30374,7 +30425,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000085",
@@ -30549,7 +30601,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000086",
@@ -30815,7 +30868,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000088",
@@ -31110,7 +31164,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000090",
@@ -31436,7 +31491,8 @@
           "value": "\u00e9d. par la Soci\u00e9t\u00e9 suisse d'h\u00e9raldique = Schweizer Archiv f\u00fcr Heraldik / hrsg. von der Schweizerischen Heraldischen Gesellschaft = Archivio araldico svizzero / ed. dalla Societ\u00e0 svizzera di araldica = Archivum heraldicum"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000092",
@@ -31673,7 +31729,8 @@
           "value": "publ. par Maurice Tripet"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000093",
@@ -32261,7 +32318,8 @@
           "value": "hrsg. v. Lutherischen Weltbund"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000097",
@@ -32684,7 +32742,8 @@
           "value": "publ. of the Lutheran World Federation"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000100",
@@ -32844,7 +32903,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000101",
@@ -33267,7 +33327,8 @@
           "value": "publ. by the Faculty of St. Vladimir's Orthodox Theological Seminary"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000105",
@@ -33443,7 +33504,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000106",
@@ -34041,7 +34103,8 @@
           "value": "Lutheran World Federation"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000111",
@@ -34251,7 +34314,8 @@
           "value": "The Lutheran World Federation, Department of Communication, Publication Office"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000112",
@@ -34429,7 +34493,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000113",
@@ -34868,7 +34933,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000116",
@@ -35076,7 +35142,8 @@
           "value": "organe de la Soci\u00e9t\u00e9 suisse d'h\u00e9raldique, de l'Acad\u00e9mie internationale d'h\u00e9raldique, de la Soci\u00e9t\u00e9 fran\u00e7aise d'h\u00e9raldique et de sigillographie"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000117",
@@ -35226,7 +35293,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000118",
@@ -35977,7 +36045,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000124",
@@ -36170,7 +36239,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000125",
@@ -36337,7 +36407,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000126",
@@ -36575,7 +36646,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000127",
@@ -36839,7 +36911,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000128",
@@ -37151,7 +37224,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000130",
@@ -37340,7 +37414,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000131",
@@ -37496,7 +37571,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000132",
@@ -37612,7 +37688,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000133",
@@ -37912,7 +37989,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000135",
@@ -38077,7 +38155,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000136",
@@ -38381,7 +38460,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000138",
@@ -38580,7 +38660,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000139",
@@ -38898,7 +38979,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000141",
@@ -39090,7 +39172,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000142",
@@ -39283,7 +39366,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000143",
@@ -39478,7 +39562,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000144",
@@ -39626,7 +39711,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000145",
@@ -39785,7 +39871,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000146",
@@ -40091,7 +40178,8 @@
           "value": "par plusieurs jurisconsultes"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000148",
@@ -40228,7 +40316,8 @@
           "value": "par plusieurs jurisconsultes"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "2000149",
@@ -40358,7 +40447,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "201",
@@ -40958,7 +41048,8 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "205",
@@ -41427,7 +41518,8 @@
           "value": "[curador-geral Nelson Aguilar]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "208",
@@ -43402,7 +43494,8 @@
           "value": "Anita Margulies (Hrsg.) ... [et al.]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "219",
@@ -44244,7 +44337,8 @@
           "value": "pr\u00e9sentation: \u00c9ric M\u00e9choulan"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "223",
@@ -44566,7 +44660,8 @@
           "value": "660 restaurants choisis, visit\u00e9s, d\u00e9crits et not\u00e9s par Claude Lebey"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "225",
@@ -44917,7 +45012,8 @@
           "value": "r\u00e9al. [par] Andr\u00e9 Vallana"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "227",
@@ -45137,6 +45233,7 @@
         }
       }
     ],
+    "fiction": true,
     "genreForm": [
       {
         "entity": {
@@ -45430,7 +45527,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "23",
@@ -45603,7 +45701,8 @@
           "value": "Association romande pour la protection des eaux et de l'air"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "230",
@@ -46170,7 +46269,8 @@
           "value": "[curador-geral Nelson Aguilar]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "233",
@@ -47940,7 +48040,8 @@
           "value": "Redaktion.: Manfred Kappeler ... [und viele weitere]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "244",
@@ -49056,7 +49157,8 @@
           "value": "hrsg. von Paul Imhof"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "250",
@@ -49252,7 +49354,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "251",
@@ -49443,7 +49546,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "252",
@@ -49653,7 +49757,8 @@
           "value": "Gelesen von Sabine Falkenberg"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "253",
@@ -50429,7 +50534,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "258",
@@ -50966,7 +51072,8 @@
           "value": "Robert E. Hall, John B. Taylor"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "260",
@@ -51404,7 +51511,8 @@
           "language": "rus-cyrl"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "262",
@@ -51576,7 +51684,8 @@
           "value": "Nathalie Chanine... [et al.]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "263",
@@ -51918,7 +52027,8 @@
           "value": "avec la participation d'Agn\u00e8s Chalapoutov"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "265",
@@ -53156,7 +53266,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "273",
@@ -54027,7 +54138,8 @@
           "value": "Daniel Dabit, Pierre Boidin"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "279",
@@ -54478,7 +54590,8 @@
           "language": "heb-hebr"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "28",
@@ -54841,7 +54954,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "281",
@@ -55121,7 +55235,8 @@
           "value": "Farin Urlaub"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "282",
@@ -55982,7 +56097,8 @@
           "value": "[r\u00e9d. Jean-Daniel Sallin... et al.]"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "286",
@@ -57286,7 +57402,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "31",
@@ -57857,7 +57974,8 @@
           "language": "ara-arab"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "33",
@@ -58473,7 +58591,8 @@
           "value": "Vita et Pax Foundation"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "37",
@@ -58828,7 +58947,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "39",
@@ -59006,7 +59126,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "4",
@@ -59339,7 +59460,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "41",
@@ -60564,7 +60686,8 @@
           "value": "par Danielle Le Gall"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "49",
@@ -61161,7 +61284,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "52",
@@ -61760,7 +61884,8 @@
           "value": "Christian Jacq"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "56",
@@ -61904,7 +62029,8 @@
     ],
     "supplementaryContent": [
       "Bibliogr.: p. 100-101"
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "57",
@@ -62747,7 +62873,8 @@
           "value": "Ralf Gantzhorn, Moritz Attenberger"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "63",
@@ -63383,7 +63510,8 @@
           "value": "trad., introd. et notes par M.-F. Berrouard"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "68",
@@ -63975,7 +64103,8 @@
           "value": "a cura di Marina Regni e Piera Giovanna Tordella"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "70",
@@ -64941,7 +65070,8 @@
           "value": "Silvano Zeiter"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "77",
@@ -65335,7 +65465,8 @@
           "value": "Mizuki Shigeru"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "79",
@@ -65477,7 +65608,8 @@
       {
         "$ref": "https://bib.rero.ch/api/documents/79"
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "8",
@@ -66170,6 +66302,7 @@
         "value": "eng"
       }
     ],
+    "fiction": true,
     "genreForm": [
       {
         "entity": {
@@ -67552,7 +67685,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "92",
@@ -67720,7 +67854,8 @@
           "value": "Frank Bonkowski"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "93",
@@ -68686,7 +68821,8 @@
           "value": "trad. du n\u00e9erlandais par J.M. Delanghe"
         }
       ]
-    ]
+    ],
+    "fiction": false
   },
   {
     "pid": "98",

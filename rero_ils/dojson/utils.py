@@ -436,9 +436,16 @@ def get_mef_link(bibid, reroid, entity_type, ids, key):
     # https://mef.test.rero.ch/api/agents/mef/?q=rero.rero_pid:A012327677
     if not ids:
         return
-    entity_types = current_app.config.get('RERO_ILS_ENTITY_TYPES', {})
+    try:
+        entity_types = current_app.config.get('RERO_ILS_ENTITY_TYPES', {})
+        mef_config = current_app.config.get('RERO_ILS_MEF_CONFIG')
+    # Try to get RERO_ILS_ENTITY_TYPES and RERO_ILS_MEF_CONFIG from current app
+    # In the dojson cli is no current app and we have to get the value directly
+    # from config.py
+    except Exception:
+        from rero_ils.config import RERO_ILS_ENTITY_TYPES as entity_types
+        from rero_ils.config import RERO_ILS_MEF_CONFIG as mef_config
     entity_type = entity_types.get(entity_type)
-    mef_config = current_app.config.get('RERO_ILS_MEF_CONFIG')
     mef_url = mef_config.get(entity_type, {}).get('base_url')
     if not mef_url:
         return
