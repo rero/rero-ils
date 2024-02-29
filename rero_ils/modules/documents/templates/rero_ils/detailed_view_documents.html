@@ -1,7 +1,7 @@
 {# -*- coding: utf-8 -*-
 
   RERO ILS
-  Copyright (C) 2019-2023 RERO
+  Copyright (C) 2019-2024 RERO
   Copyright (C) 2019-2023 UCLouvain
 
   This program is free software: you can redistribute it and/or modify
@@ -20,9 +20,14 @@
 {%- extends 'rero_ils/page.html' %}
 {% from 'rero_ils/macros/macro.html' import div, dict_values, div_list, dl, dl_row, dl_dict, dl_list, div_json %}
 
+{% set isbn = record|get_first_isbn %}
+
 {%- block css %}
   {{ super() }}
   {{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items', ['styles.*css'], 'css') }}
+  {% if viewcode | babeltheque_enabled_view %}
+  {{ webpack['babeltheque.css'] }}
+  {% endif %}
 {%- endblock css %}
 
 {%- block body %}
@@ -278,6 +283,15 @@
     {% endif %}
   </div>
 </div>
+{% if viewcode | babeltheque_enabled_view and isbn is not none %}
+    <!-- BABELTHEQUE -->
+    <input id="BW_id_isbn" class="d-none" value="{{ isbn }}"></input>
+    <!-- Hidden on XS and SM screens -->
+    <div class="babelio-block d-none d-md-flex d-lg-flex d-xl-flex d-xxl-flex">
+      <div id="BW_suggestions"></div>
+      <div id="BW_etiquettes"></div>
+    </div>
+  {% endif %}
 
 {%- block record_body %}
 <section>
@@ -293,6 +307,15 @@
               <i class="fa fa-bars"></i> {{ _('Description') }}
             </a>
           </li>
+          {% if viewcode | babeltheque_enabled_view and isbn is not none %}
+          <li class="nav-item">
+            <a class="nav-link" href="#documents-more-infos" data-toggle="tab"
+               id="documents-more-infos-tab" title="Babelio" role="tab"
+               aria-controls="documents-description" aria-selected="false">
+              <i class="fa fa-bars"></i> Babelio
+            </a>
+          </li>
+          {% endif %}
         </ul>
       </nav>
     </header>
@@ -322,6 +345,15 @@
               <i class="fa fa-bars"></i> {{ _('Description') }}
             </a>
           </li>
+          {% if viewcode | babeltheque_enabled_view and isbn is not none %}
+          <li class="nav-item">
+            <a class="nav-link" href="#documents-more-infos" data-toggle="tab"
+               id="documents-more-infos-tab" title="Babelio" role="tab"
+               aria-controls="documents-more-infos" aria-selected="false">
+              <i class="fa fa-bars"></i> Babelio
+            </a>
+          </li>
+          {% endif %}
         </ul>
       </nav>
     </header>
@@ -344,6 +376,25 @@
       <section class="tab-pane container" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
         {% include('rero_ils/_documents_description.html') %}
       </section>
+      {% if viewcode | babeltheque_enabled_view %}
+      <section class="tab-pane container" id="documents-more-infos" role="tabpanel" aria-labelledby="documents-more-infos-tab">
+        <!-- BABELTHEQUE -->
+        <div class="babelio-block mt-3">
+          <div>
+            <div id="BW_critiques"></div>
+            <div id="BW_notes">{{ _('No additionnal information yet.') }}</div>
+          </div>
+          <div id="BW_citations"></div>
+          <div id="BW_critiques_pro"></div>
+          <div id="BW_prix_litt"></div>
+        </div>
+        <div id="BW_bio_auteur"></div>
+        <div class="babelio-block mt-3">
+          <div id="BW_videos"></div>
+          <div id="BW_podcasts"></div>
+        </div>
+      </section>
+      {% endif %}
     </article>
     {% endif %}
   </article>
@@ -370,6 +421,9 @@
 {%- endblock body %}
 
 {%- block javascript %}
-{{ super() }}
-{{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items', tags='defer') }}
+  {{ super() }}
+  {{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items', tags='defer') }}
+  {% if viewcode | babeltheque_enabled_view and isbn is not none %}
+    <script type="text/javascript" src="https://www.babelio.com/bw_330.js"></script>
+  {% endif %}
 {% endblock javascript %}

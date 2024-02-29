@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -16,9 +16,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Document filters tests."""
-from rero_ils.modules.documents.views import cartographic_attributes, \
-    contribution_format, doc_entity_label, identified_by, main_title_text, \
-    note_general, notes_except_general, part_of_format, provision_activity, \
+
+import mock
+
+from rero_ils.modules.documents.views import babeltheque_enabled_view, \
+    cartographic_attributes, contribution_format, doc_entity_label, \
+    get_first_isbn, identified_by, main_title_text, note_general, \
+    notes_except_general, part_of_format, provision_activity, \
     provision_activity_not_publication, provision_activity_original_date, \
     provision_activity_publication, title_variants, work_access_point
 from rero_ils.modules.entities.models import EntityType
@@ -629,3 +633,25 @@ def test_doc_entity_label_filter(entity_person, local_entity_person):
     assert 'textual' == entity_type
     assert 'subject topic' == value
     assert 'subject topic - Sub 1 - Sub 2' == label
+
+
+def test_babeltheque_enabled_view():
+    """Check enabled view for babeltheque."""
+    class CurrentApp:
+        """Current app mock."""
+        config = {'RERO_ILS_APP_BABELTHEQUE_ENABLED_VIEWS': ['global']}
+    with mock.patch(
+            'rero_ils.modules.documents.views.current_app', CurrentApp):
+        assert babeltheque_enabled_view('global')
+        assert not babeltheque_enabled_view('foo')
+
+
+def test_get_first_isbn():
+    """Get the first isbn on identifiedBy field."""
+    record = {'identifiedBy': [
+        {'type': 'bf:Isbn', 'value': '9782501053006'},
+        {'type': 'bf:Isbn', 'value': '9782501033671'}
+    ]}
+    assert '9782501053006' == get_first_isbn(record)
+    record = {'identifiedBy': []}
+    assert None is get_first_isbn(record)

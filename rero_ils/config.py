@@ -551,7 +551,8 @@ APP_DEFAULT_SECURE_HEADERS = {
             'https://www.google-analytics.com',
             'https://services.test.rero.ch',
             'https://services.rero.ch',
-            'https://cdn.jsdelivr.net'
+            'https://cdn.jsdelivr.net',
+            'https://www.babelio.com'
         ]
     },
     'content_security_policy_report_uri': None,
@@ -3943,3 +3944,7 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
 ]
+
+# Babeltheque Configuration
+# =========================
+RERO_ILS_APP_BABELTHEQUE_ENABLED_VIEWS = []
