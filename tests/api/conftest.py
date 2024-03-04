@@ -32,13 +32,28 @@ from rero_ils.modules.items.api import Item, ItemsSearch
 
 
 @pytest.fixture(scope='function')
+def user_without_profile(db, default_user_password):
+    """Create a simple invenio user with a profile."""
+    with db.session.begin_nested():
+        user = User(
+            email='user_without_profile@test.com',
+            password=hash_password(default_user_password),
+            user_profile=None,
+            active=True,
+        )
+        db.session.add(user)
+    db.session.commit()
+    return user
+
+
+@pytest.fixture(scope='function')
 def user_with_profile(db, default_user_password):
     """Create a simple invenio user with a profile."""
     with db.session.begin_nested():
         user = User(
             email='user_with_profile@test.com',
             password=hash_password(default_user_password),
-            profile={},
+            user_profile={},
             active=True,
         )
         db.session.add(user)

@@ -170,7 +170,7 @@ class UsersCreateResource(ContentNegotiatedMethodView):
     @check_user_list_permission
     def get(self):
         """Get user info for the professionnal view."""
-        email_or_username = request.args.get('q', None).strip()
+        email_or_username = request.args.get('q', '').strip()
         hits = {
             'hits': {
                 'hits': [],

@@ -134,7 +134,8 @@ def test_users_post_put(client, user_data_tmp, librarian_martigny,
     assert res.status_code == 200
 
 
-def test_users_search_api(client, librarian_martigny, patron_martigny):
+def test_users_search_api(
+        client, librarian_martigny, patron_martigny, user_without_profile):
     """Test users search REST API."""
     l_martigny = librarian_martigny
     librarian_martigny = librarian_martigny.dumps()
@@ -151,6 +152,16 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
 
     login_user_via_session(client, l_martigny.user)
     # empty query => no result
+    res = client.get(
+        url_for(
+            'api_users.users_list'
+        )
+    )
+    assert res.status_code == 200
+    hits = get_json(res)
+    assert hits['hits']['hits'] == []
+    assert hits['hits']['total']['value'] == 0
+
     res = client.get(
         url_for(
             'api_users.users_list',
@@ -212,6 +223,19 @@ def test_users_search_api(client, librarian_martigny, patron_martigny):
     hits = get_json(res)
     assert hits['hits']['hits'][0]['metadata']['username'] == \
         patron_martigny['username']
+    assert hits['hits']['total']['value'] == 1
+
+    # non patron by email
+    res = client.get(
+        url_for(
+            'api_users.users_list',
+            q='email:' + user_without_profile.email
+        )
+    )
+    assert res.status_code == 200
+    hits = get_json(res)
+    assert hits['hits']['hits'][0]['metadata']['email'] == \
+        user_without_profile.email
     assert hits['hits']['total']['value'] == 1
 
     # by uppercase email

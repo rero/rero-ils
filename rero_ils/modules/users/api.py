@@ -233,7 +233,8 @@ class User(object):
         metadata = {
             'roles': [r.name for r in self.user.roles]
         }
-        metadata.update(self.user.user_profile)
+        if user_profile := self.user.user_profile:
+            metadata.update(user_profile)
         if self.user.email:
             metadata['email'] = self.user.email
         if self.user.username:
