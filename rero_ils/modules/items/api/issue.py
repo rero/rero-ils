@@ -116,6 +116,18 @@ class ItemIssue(ItemRecord):
             holding = Holding.get_record_by_pid(self.holding_pid)
             return holding.get('call_number')
 
+    @property
+    def issue_inherited_second_call_number(self):
+        """Get issue inherited second call number.
+
+        When the issue second call number is missing,
+        it returns the parent holdings second call number if exists.
+        """
+        from rero_ils.modules.holdings.api import Holding
+        if self.is_issue and not self.get('second_call_number'):
+            holding = Holding.get_record_by_pid(self.holding_pid)
+            return holding.get('second_call_number')
+
     @classmethod
     def get_issues_pids_by_status(cls, issue_status, holdings_pid=None):
         """Return issues pids by status optionally filtered by holdings_pid.

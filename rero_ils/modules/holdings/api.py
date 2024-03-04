@@ -420,7 +420,6 @@ class Holding(IlsRecord):
             return [item for item in items if item.organisation_pid == org_pid]
         return items
 
-    @property
     def get_items(self):
         """Return standard items and received issues for a holding record."""
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
@@ -429,8 +428,12 @@ class Holding(IlsRecord):
                         item.issue_status == ItemIssueStatus.RECEIVED:
                     # inherit holdings first call#
                     # for issues with no 1st call#.
-                    if call_number := item.issue_inherited_first_call_number:
-                        item['call_number'] = call_number
+                    if first_call_number := \
+                            item.issue_inherited_first_call_number:
+                        item['call_number'] = first_call_number
+                    if second_call_number := \
+                            item.issue_inherited_second_call_number:
+                        item['second_call_number'] = second_call_number
                     yield item
 
     def get_all_items(self):
@@ -465,7 +468,8 @@ class Holding(IlsRecord):
         if self.is_serial:
             # Find out if we can delete all items
             not_deleteable_items = [
-                item for item in self.get_items if item.reasons_not_to_delete()
+                item for item in self.get_items()
+                if item.reasons_not_to_delete()
             ]
             if not_deleteable_items:
                 count = len(not_deleteable_items)

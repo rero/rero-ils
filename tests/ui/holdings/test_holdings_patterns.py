@@ -31,7 +31,7 @@ from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.models import HoldingNoteTypes
-from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 
 
@@ -87,10 +87,25 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
         dbcommit=True,
         reindex=True
     )
+    # ItemsSearch.flush_and_refresh()
+
     # test holdings call number inheriting
     assert issue.issue_inherited_first_call_number == \
         holding.get('call_number')
-    assert list(holding.get_items)[0].get('pid') == issue.pid
+    assert issue.issue_inherited_second_call_number == \
+        holding.get('second_call_number')
+    assert ItemsSearch() \
+        .filter('term', issue__inherited_first_call_number__raw='h00005') \
+        .count() == 1
+    assert ItemsSearch() \
+        .filter('term', issue__inherited_second_call_number__raw='h00005_2') \
+        .count() == 1
+    assert ItemsSearch() \
+        .filter('term', call_numbers__raw='h00005').count() == 1
+    assert ItemsSearch() \
+        .filter('term', call_numbers__raw='h00005_2').count() == 1
+
+    assert list(holding.get_items())[0].get('pid') == issue.pid
 
     assert issue.location_pid == holding.location_pid
     assert issue.item_type_pid == holding.circulation_category_pid
