@@ -261,6 +261,7 @@ class Loan(IlsRecord):
 
         :param library_pid: the library pid.
         """
+        # TODO: Refactor this with a dump
         from ..item_types.api import ItemTypesSearch
         from ..items.api import ItemsSearch
 
@@ -364,7 +365,7 @@ class Loan(IlsRecord):
             fields = ['pid', 'barcode', 'call_number',
                       'second_call_number', 'library', 'location',
                       'temporary_item_type', 'holding',
-                      'enumerationAndChronology']
+                      'enumerationAndChronology', 'temporary_location']
             if pid not in known_items:
                 results = ItemsSearch()\
                     .filter('term', pid=pid)\
@@ -421,6 +422,13 @@ class Loan(IlsRecord):
                         item_data['location']['pid'],
                         locations
                     )['name']
+                    if 'temporary_location' in item_data:
+                        location = location_by_pid(
+                            item_data['temporary_location']['pid'],
+                            locations
+                        )
+                        item_data['temporary_location']['name'] = \
+                            location.get('name')
                     patron_data = patron_by_pid(loan_data['patron_pid'],
                                                 patrons)
                     loan_data['patron'] = {
