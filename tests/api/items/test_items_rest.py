@@ -904,8 +904,9 @@ def test_items_notes(client, librarian_martigny, item_lib_martigny,
 
 def test_requested_loans_to_validate(
         client, librarian_martigny, loc_public_martigny,
-        item_type_standard_martigny, item2_lib_martigny, json_header,
-        item_type_missing_martigny, patron_sion, circulation_policies):
+        loc_restricted_martigny, item_type_standard_martigny,
+        item2_lib_martigny, json_header, item_type_missing_martigny,
+        patron_sion, circulation_policies):
     """Test requested loans to validate."""
 
     holding_pid = item2_lib_martigny.holding_pid
@@ -924,6 +925,9 @@ def test_requested_loans_to_validate(
     }
     item2_lib_martigny['temporary_item_type'] = {
         '$ref': get_ref_for_pid('itty', item_type_standard_martigny.pid)
+    }
+    item2_lib_martigny['temporary_location'] = {
+        '$ref': get_ref_for_pid('loc', loc_restricted_martigny.pid)
     }
 
     holding.update(holding, dbcommit=True, reindex=True)
@@ -956,8 +960,11 @@ def test_requested_loans_to_validate(
     assert LoanState.PENDING == requested_loan['loan']['state']
     assert patron_sion.pid == requested_loan['loan']['patron_pid']
 
+    assert requested_loan['item']['temporary_location']['name']
+
     # RESET - the item
     del item2_lib_martigny['temporary_item_type']
+    del item2_lib_martigny['temporary_location']
     holding.update(original_holding, dbcommit=True, reindex=True)
     item2_lib_martigny.update(original_item, dbcommit=True, reindex=True)
 
