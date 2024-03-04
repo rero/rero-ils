@@ -63,6 +63,9 @@ def enrich_item_data(sender, json=None, record=None, index=None,
         # inherited_first_call_number to issue
         if call_number := record.issue_inherited_first_call_number:
             json['issue']['inherited_first_call_number'] = call_number
+        # inherited_second_call_number to issue
+        if call_number := record.issue_inherited_second_call_number:
+            json['issue']['inherited_second_call_number'] = call_number
         # inject vendor pid
         if vendor_pid := record.vendor_pid:
             json['vendor'] = {'pid': vendor_pid, 'type': 'vndr'}
