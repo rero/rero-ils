@@ -145,7 +145,7 @@
       "widget": {
         "formlyConfig": {
           "expressions": {
-            "hide": "field?.parent?.model && field.parent.model.type === 'issue'"
+            "hide": "field?.parent?.model.type === 'issue'"
           },
           "props": {
             "cssClass": "editor-title"
@@ -191,7 +191,7 @@
       "widget": {
         "formlyConfig": {
           "expressions": {
-            "hide": "field?.parent?.model && field.parent.model.type === 'issue'"
+            "hide": "field?.parent?.model.type === 'issue'"
           },
           "props": {
             "cssClass": "editor-title"

@@ -84,17 +84,12 @@
       "widget": {
         "formlyConfig": {
           "wrappers": [
-            "toggle-switch",
             "card"
           ],
           "props": {
             "addonRight": [
               "day(s)"
             ],
-            "toggle-switch": {
-              "label": "Allow checkout",
-              "description": "Checkouts are allowed or not."
-            },
             "navigation": {
               "essential": true
             }
