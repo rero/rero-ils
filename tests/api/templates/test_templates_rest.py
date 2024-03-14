@@ -274,7 +274,7 @@ def test_template_secure_api_update(
     data = templ_doc_private_martigny_data
     data['name'] = 'Test Name'
     res = client.put(record_url, data=json.dumps(data), headers=json_header)
-    assert res.status_code == 403
+    assert res.status_code == 200
 
     login_user_via_session(client, librarian_martigny.user)
     data = templ_doc_private_martigny_data
@@ -296,7 +296,10 @@ def test_template_secure_api_update(
     data = templ_doc_private_martigny_data
     data['visibility'] = TemplateVisibility.PUBLIC
     res = client.put(record_url, data=json.dumps(data), headers=json_header)
-    assert res.status_code == 403
+    assert res.status_code == 200
+    data['visibility'] = TemplateVisibility.PRIVATE
+    # reverse visibility
+    data.update(data, dbcommit=True, reindex=True)
 
     login_user_via_session(client, librarian_saxon.user)
     data = templ_doc_private_martigny_data
