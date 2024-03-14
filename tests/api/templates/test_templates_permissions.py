@@ -219,11 +219,8 @@ def test_template_permissions(
     }, templ_doc_private_sion)
 
     # Librarian with classic 'full-permissions' role:
-    #   * public template:
-    #     - all operations about templates for its own organisation
-    #   * private templates :
-    #     - read: all templates linked to its own organisation
-    #     - other operations available only for its own templates.
+    #   * public and private templates:
+    #     - all operations for templates in their own organisation
     librarian_martigny['roles'] = ['pro_full_permissions']
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
     flush_index(PatronsSearch.Meta.index)
@@ -260,9 +257,9 @@ def test_template_permissions(
     check_permission(TemplatePermissionPolicy, {
         'search': True,
         'read': True,
-        'create': False,
-        'update': False,
-        'delete': False
+        'create': True,
+        'update': True,
+        'delete': True
     }, templ_doc_private_saxon)
     check_permission(TemplatePermissionPolicy, {
         'search': True,

@@ -19,6 +19,7 @@
 """Templates permissions."""
 
 from flask import g
+from flask_principal import RoleNeed
 from invenio_access import action_factory
 
 from rero_ils.modules.patrons.api import current_librarian
@@ -106,28 +107,23 @@ class AllowedByActionTemplateWriteRestriction(AllowedByAction):
         if not record:
             return required_needs
 
-        # if current logged user isn't a staff member then protect the template
-        # by only its owner. If permission matrix is correctly build, it should
-        # never happen.
+        # If user is 'full_permissions', allow write to
+        # any template (private or public) in their own organisation.
+        needs = {
+            OrganisationNeed(record.organisation_pid),
+            RoleNeed(UserRole.FULL_PERMISSIONS)
+        }
+        if needs.issubset(g.identity.provides):
+            return required_needs
+
+        # If the template is private and it belongs to the user,
+        # allow write according to required_needs
         owner_need = OwnerNeed(record.creator_pid)
-        if not current_librarian and owner_need not in g.identity.provides:
-            return []  # empty array == disable operation
+        if record.is_private and owner_need in g.identity.provides:
+            return required_needs
 
-        # * If template is public, only 'full_permission' user can perform
-        #   create/update/delete operations on such record for record of its
-        #   own organisation.
-        # * If template is private, only owner can perform create/update/delete
-        #   operations on such record.
-        user_roles = current_librarian.get('roles', [])
-        if record.is_public:
-            org_need = OrganisationNeed(record.organisation_pid)
-            if UserRole.FULL_PERMISSIONS not in user_roles or \
-               org_need not in g.identity.provides:
-                return []  # empty array == disable operation
-        elif record.is_private and owner_need not in g.identity.provides:
-            return []  # empty array == disable operation
-
-        return required_needs
+        # Any other case, disallow operation
+        return []
 
 
 class TemplatePermissionPolicy(RecordPermissionPolicy):
