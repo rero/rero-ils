@@ -24,9 +24,11 @@ from datetime import datetime, timedelta, timezone
 import click
 from celery import shared_task
 
-from ..items.api import Item
-from ..loans.api import Loan, LoansSearch, get_expired_request
-from ..utils import set_timestamp
+from rero_ils.modules.items.api import Item
+from rero_ils.modules.utils import set_timestamp
+
+from .api import Loan, LoansSearch, get_expired_request, get_loans_by_due_date
+from .utils import get_circ_policy
 
 
 @shared_task(ignore_result=True)
@@ -45,6 +47,23 @@ def loan_anonymizer(dbcommit=True, reindex=True):
 
     set_timestamp('anonymize-loans', count=counter)
     return counter
+
+
+@shared_task(ignore_result=True)
+def automatic_renewal(tstamp=None):
+    """Extend all loans with an automatic renewal policy."""
+    loans_to_extend = []
+    extended_loans_count = 0
+    for loan in get_loans_by_due_date(tstamp):
+        policy = get_circ_policy(loan)
+        if policy['automatic_renewal']:
+            item = Item.get_record(loan.item_pid)
+            loans_to_extend.append({"loan": loan, "item": item})
+    for loan_item in loans_to_extend:
+        renewal = Item.extend_loan(loan_item['item'], loan_item['loan'])
+        if renewal:
+            extended_loans_count += 1
+    return extended_loans_count
 
 
 @shared_task(ignore_result=True)

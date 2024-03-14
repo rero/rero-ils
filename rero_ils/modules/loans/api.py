@@ -1251,6 +1251,40 @@ def get_overdue_loans(patron_pid=None, tstamp=None):
         yield Loan.get_record_by_pid(pid)
 
 
+def get_loans_pids_by_due_date(tstamp=None):
+    """Return the pids of all loans that are due on a given date.
+
+    :param tstamp: a timestamp to define the due date to filter by. Default is
+    now.
+    :return: a generator of loan pids.
+    """
+    end_date = tstamp or datetime.now(timezone.utc)
+    end_date = end_date.strftime('%Y-%m-%d')
+    query = current_circulation.loan_search_cls() \
+        .filter('term', state=LoanState.ITEM_ON_LOAN) \
+        .filter('match', end_date=end_date)
+    results = query\
+        .params(preserve_order=True) \
+        .sort({'_created': {'order': 'asc'}}) \
+        .source(['pid']).scan()
+    # We will return all pids here to prevent folowing error during long
+    # operations:
+    #  elasticsearch.helpers.errors.ScanError:
+    #  Scroll request has only succeeded on X (+0 skipped) shards out of Y.
+    return [hit.pid for hit in results]
+
+
+def get_loans_by_due_date(tstamp=None):
+    """Return the all loans that are due on a given date.
+
+    :param tstamp: a timestamp to define the due date to filter by. Default is
+    now.
+    :return: a generator of loan pids.
+    """
+    for pid in get_loans_pids_by_due_date(tstamp):
+        yield Loan.get_record_by_pid(pid)
+
+
 def get_non_anonymized_loans(patron=None, org_pid=None):
     """Search all loans for non anonymized loans.
 
