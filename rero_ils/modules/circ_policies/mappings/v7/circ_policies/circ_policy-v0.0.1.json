@@ -83,6 +83,9 @@
       "renewal_duration": {
         "type": "integer"
       },
+      "automatic_renewal": {
+        "type": "boolean"
+      },
       "is_default": {
         "type": "boolean"
       },

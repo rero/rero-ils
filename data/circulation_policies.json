@@ -26,6 +26,7 @@
     ],
     "number_renewals": 3,
     "renewal_duration": 30,
+    "automatic_renewal": true,
     "policy_library_level": false,
     "is_default": true
   },
@@ -86,6 +87,7 @@
     ],
     "number_renewals": 1,
     "renewal_duration": 7,
+    "automatic_renewal": true,
     "policy_library_level": true,
     "is_default": false,
     "libraries": [
@@ -131,6 +133,7 @@
     ],
     "number_renewals": 1,
     "renewal_duration": 14,
+    "automatic_renewal": true,
     "policy_library_level": false,
     "is_default": false,
     "settings": [
@@ -179,6 +182,7 @@
     ],
     "number_renewals": 3,
     "renewal_duration": 28,
+    "automatic_renewal": true,
     "policy_library_level": false,
     "is_default": false,
     "settings": [
@@ -219,6 +223,7 @@
     "pickup_hold_duration": 10,
     "number_renewals": 3,
     "renewal_duration": 84,
+    "automatic_renewal": true,
     "policy_library_level": false,
     "is_default": false,
     "settings": [
