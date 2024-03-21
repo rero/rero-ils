@@ -47,8 +47,7 @@ class RequestCirculationNotification(InternalCirculationNotification):
         # Request notification will be sent to the item location if a location
         # ``notification_email`` attribute is defined, otherwise to the library
         # address.
-        loc_email = self.location.get('notification_email')
-        if loc_email:
+        if loc_email := self.location.get('notification_email'):
             return [loc_email]
         return super().get_recipients_to()
 
@@ -72,9 +71,8 @@ class RequestCirculationNotification(InternalCirculationNotification):
                 dumper=document_title_dumper)
             doc_data = {**item_data, **doc_data}
             # pickup location name
-            pickup_location = notification.pickup_location
-            if not pickup_location:
-                pickup_location = notification.transaction_location
+            pickup_location = notification.pickup_location or \
+                notification.transaction_location
 
             loan_context = {
                 'creation_date': creation_date,
