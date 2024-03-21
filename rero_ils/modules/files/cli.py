@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,14 +17,15 @@
 
 """Click command-line interface for item record management."""
 
+import os
 from io import BytesIO
-from random import choice, randrange, shuffle
+from random import choice, randint, shuffle
 
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 from invenio_access.permissions import system_identity
-from invenio_db import db
+from invenio_records_resources.services.uow import UnitOfWork
 from invenio_search import current_search
 from rero_invenio_files.pdf import PDFGenerator
 
@@ -59,7 +60,7 @@ def create_pdf_file(document):
 
 
 def create_pdf_record_files(document, metadata, flush=False,
-                            file_name_suffix=None):
+                            number_of_files=1):
     """Creates and attach a pdf file to a given document.
 
     :param document: Document - the document record.
@@ -74,10 +75,10 @@ def create_pdf_record_files(document, metadata, flush=False,
     record_service = ext.records_service
     file_service = ext.records_files_service
     # generate the PDF file
-    stream = BytesIO(create_pdf_file(document))
+    content = create_pdf_file(document)
     # create the record file
     try:
-        record = next(document.get_records_files(lib_pids=metadata['owners']))
+        record = next(document.get_records_files(lib_pids=metadata["owners"]))
     except StopIteration:
         record = record_service.record_cls.create(data={"metadata": metadata})
         record.commit()
@@ -87,24 +88,89 @@ def create_pdf_record_files(document, metadata, flush=False,
             current_search.flush_and_refresh(
                 record_service.record_cls.index._name)
     recid = record["id"]
-    # attach the file record to the document
-    if file_name_suffix:
-        file_name = f"doc_{document.pid}_{file_name_suffix}.pdf"
-    else:
-        file_name = f"doc_{document.pid}.pdf"
+    g.identity = system_identity
+    with UnitOfWork() as uow:
+        # attach the file record to the document
+        for i in range(1, number_of_files + 1):
+            file_name = f"doc_{document.pid}_{i}.pdf"
+            # Required for the permission policies
+            # TODO: find a cleaner approach i.e. create a permission to allow
+            # boolean operators
+            file_service.init_files(
+                identity=system_identity,
+                id_=recid,
+                data=[{"key": file_name}],
+                uow=uow
+            )
+            file_service.set_file_content(
+                identity=system_identity,
+                id_=recid,
+                file_key=file_name,
+                stream=BytesIO(content),
+                uow=uow,
+            )
+            file_service.commit_file(
+                identity=system_identity,
+                id_=recid,
+                file_key=file_name,
+                uow=uow
+            )
+        uow.commit()
+
+
+def load_files_for_document(document, metadata, files):
+    """Attach existing files to a document.
+
+    :param document: record - document record.
+    :param metadata: dict - record metadata.
+    :param files: list of str - file paths.
+    """
+    metadata.setdefault("links", [f"doc_{document.pid}"])
+    ext = current_app.extensions["rero-invenio-files"]
+    # get services
+    record_service = ext.records_service
+    file_service = ext.records_files_service
+    try:
+        record = next(document.get_records_files(lib_pids=metadata["owners"]))
+    except StopIteration:
+        record = record_service.record_cls.create(data={"metadata": metadata})
+        record.commit()
+        # index the file record
+        record_service.indexer.index_by_id(record.id)
+    recid = record["id"]
     # Required for the permission policies
     # TODO: find a cleaner approach i.e. create a permission to allow boolean
     #       operators
     g.identity = system_identity
-    file_service.init_files(system_identity, recid, [{"key": file_name}])
-    file_service.set_file_content(system_identity, recid, file_name, stream)
-    file_service.commit_file(system_identity, recid, file_name)
-    db.session.commit()
+    with UnitOfWork() as uow:
+        for file_path in files:
+            # attach the file record to the document
+            file_name = os.path.basename(file_path)
+            stream = open(file_path, "rb")
+            file_service.init_files(
+                identity=system_identity,
+                id_=recid,
+                data=[{"key": file_name}],
+                uow=uow
+            )
+            file_service.set_file_content(
+                identity=system_identity,
+                id_=recid,
+                file_key=file_name,
+                stream=stream,
+                uow=uow
+            )
+            file_service.commit_file(
+                identity=system_identity,
+                id_=recid,
+                file_key=file_name,
+                uow=uow)
+        uow.commit()
 
 
 @click.command()
 @click.argument("number", type=int)
-@click.option('-c', '--collections', multiple=True,
+@click.option("-c", "--collections", multiple=True,
               default=["col1", "col2", "col3"])
 @with_appcontext
 def create_files(number, collections):
@@ -121,15 +187,35 @@ def create_files(number, collections):
 
     for pid in doc_pids:
         doc = Document.get_record_by_pid(pid)
-        if doc.get('harvested'):
+        if doc.get("harvested"):
             continue
-        click.echo(f"Create file for {pid}")
+        number_of_files = randint(1, 10)
+        click.echo(f"Create {number_of_files} files for {pid}")
         lib_pid = choice(lib_pids)
         metadata = dict(
-            collections=[choice(collections)],
-            owners=[f"lib_{lib_pid}"]
+            collections=[choice(collections)], owners=[f"lib_{lib_pid}"])
+        create_pdf_record_files(
+            document=doc, metadata=metadata, flush=True,
+            number_of_files=number_of_files
         )
-        for i in range(1, randrange(10)):
-            create_pdf_record_files(
-                document=doc, metadata=metadata, flush=True,
-                file_name_suffix=i)
+
+
+@click.command()
+@click.argument("document_pid", type=str)
+@click.argument("library_pid", type=str)
+@click.argument("files", nargs=-1)
+@click.option("-c", "--collections", multiple=True, default=[])
+@with_appcontext
+def load_files(document_pid, library_pid, files, collections):
+    """Create attached files.
+
+    :param number: integer - number of the files to generate.
+    :param collections: list of str - the list of collection codes.
+    """
+    doc = Document.get_record_by_pid(document_pid)
+    metadata = dict(
+        links=[f"doc_{document_pid}"], owners=[f"lib_{library_pid}"])
+    if collections:
+        metadata["collections"] = collections
+    click.secho(f"Loading {len(files)} files...", fg="green")
+    load_files_for_document(document=doc, metadata=metadata, files=files)
