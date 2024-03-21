@@ -60,6 +60,7 @@ from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
 from rero_ils.modules.documents.views import get_cover_art
 from rero_ils.modules.entities.remote_entities.api import RemoteEntity
+from rero_ils.modules.files.cli import load_files
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.tasks import \
@@ -118,6 +119,7 @@ def utils():
 
 
 utils.add_command(users_validate)
+utils.add_command(load_files)
 utils.add_command(create_terminal)
 utils.add_command(list_terminal)
 utils.add_command(update_terminal)
