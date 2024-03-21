@@ -237,25 +237,28 @@ class IndexerDumper(Dumper):
         )
         search = search.source('uuid')\
             .filter('term', metadata__links=f'doc_{record.pid}')
-        files = []
+        files = {}
         for record_file in record.get_records_files():
+            collections = record_file.get('metadata', {}).get('collections')
             for file_name in record_file.files:
                 file = record_file.files[file_name]
                 metadata = file.get('metadata', {})
+                if metadata.get('type') == 'thumbnail':
+                    # no useful information here
+                    continue
                 if metadata.get('type') == 'fulltext':
-                    file_data = dict(
-                        file_name=metadata.get('fulltext_for', file_name),
-                        text=file.get_stream('r').read(),
-                        rec_id=record_file.pid.pid_value
-                    )
-                    if (
-                        collections := record_file.get(
-                            'metadata', {}).get('collections')
-                    ):
-                        file_data['collections'] = collections
-                    files.append(file_data)
+                    # get the fulltext
+                    stream = file.get_stream('r')
+                    files.setdefault(
+                        metadata['fulltext_for'], {})['text'] = stream.read()
+                    continue
+                # other information from the main file
+                files.setdefault(file_name, {})['file_name'] = file_name
+                files[file_name]['rec_id'] = record_file.pid.pid_value
+                if collections:
+                    files[file_name]['collections'] = collections
         if files:
-            data['files'] = files
+            data['files'] = list(files.values())
 
     def dump(self, record, data):
         """Dump a document instance with basic document information's.
