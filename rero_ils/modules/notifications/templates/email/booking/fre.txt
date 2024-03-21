@@ -8,6 +8,10 @@ Localisation: {{ loan.document.library_name }} / {{ loan.document.location_name 
 {%- if loan.document.call_numbers %}
 Cote: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}
+Type d'exemplaire: {{loan.document.item_type}}
+{%- if loan.document.temporary_item_type %}
+Type d'exemplaire temporaire: {{ loan.document.temporary_item_type }}
+{%- endif %}
 
 Lieu de retrait: {{ loan.pickup_name }}
 Lecteur: {{ loan.patron.first_name }} {{ loan.patron.last_name }}

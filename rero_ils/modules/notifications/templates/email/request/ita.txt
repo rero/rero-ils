@@ -11,6 +11,10 @@ Segnatura: {{ loan.document.call_numbers | join(' | ') }}
 {%- if loan.document.enumerationAndChronology %}
 Unità: {{ loan.document.enumerationAndChronology }}
 {%- endif %}
+Tipo di esemplare: {{loan.document.item_type}}
+{%- if loan.document.temporary_item_type %}
+Tipo di esemplare temporanea: {{ loan.document.temporary_item_type }}
+{%- endif %}
 
 Punto di ritiro: {{ loan.pickup_name }}
 Lettore: {{ loan.patron.first_name }} {{ loan.patron.last_name }}

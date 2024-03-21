@@ -72,8 +72,7 @@ class BookingCirculationNotification(CirculationNotification):
     def get_recipients_to(self):
         """Get notification email addresses for 'TO' recipient type."""
         # Booking notification will be sent to the loan transaction library.
-        recipient = self.transaction_library.get_email(self.type)
-        if recipient:
+        if recipient := self.transaction_library.get_email(self.type):
             return [recipient]
 
     @classmethod
@@ -99,9 +98,8 @@ class BookingCirculationNotification(CirculationNotification):
             # on notif.loan
             request_loan = notification.request_loan
             pickup_location = Location.get_record_by_pid(
-                request_loan.get('pickup_location_pid'))
-            if not pickup_location:
-                pickup_location = Location.get_record_by_pid(
+                request_loan.get('pickup_location_pid')) or \
+                Location.get_record_by_pid(
                     request_loan.get('transaction_location_pid'))
             # request_patron
             request_patron = Patron.get_record_by_pid(
