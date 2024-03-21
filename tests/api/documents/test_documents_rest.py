@@ -94,7 +94,7 @@ def test_documents_get(client, document_with_files):
     data = get_json(res)
     metadata = data['hits']['hits'][0]['metadata']
     files = metadata['files']
-    assert len(files) == 1
+    assert len(files) == 2
     assert set(files[0].keys()) == set(('file_name', 'rec_id', 'collections'))
     data_clean = clean_es_metadata(metadata)
     document = document.replace_refs().dumps()
@@ -910,6 +910,16 @@ def test_document_fulltext(client, document_with_files, document_with_issn):
     assert hits['total']['value'] == 1
     data = hits['hits'][0]['metadata']
     assert data['pid'] == document_with_files.pid
+    # the document index should contains files informations
+    metadata_files = data['files']
+    # required fields
+    for field in ['collections', 'file_name', 'rec_id']:
+        assert field in list(metadata_files[0].keys())
+    # check the file names
+    assert {res['file_name'] for res in metadata_files} == \
+        set(('doc_doc1_1.pdf', 'logo_rero_ils.png'))
+    # text should not be on the es sources
+    assert not [res['text'] for res in metadata_files if res.get('text')]
 
     list_url = url_for(
         'invenio_records_rest.doc_list',

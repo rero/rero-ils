@@ -15,29 +15,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+"""Celery tasks for documents."""
 
-"""Files services."""
+from celery import shared_task
 
-from rero_invenio_files.records.services import FileServiceConfig, \
-    RecordServiceConfig
-
-from .components import DocumentReindexComponent
-from .permissions import FilePermissionPolicy
+from rero_ils.modules.documents.api import Document
 
 
-class RecordServiceConfig(RecordServiceConfig):
-    """File record service."""
+@shared_task(ignore_result=True)
+def reindex_document(pid):
+    """Reindex a document.
 
-    permission_policy_cls = FilePermissionPolicy
-
-
-class RecordFileServiceConfig(FileServiceConfig):
-    """Files service configuration."""
-
-    permission_policy_cls = FilePermissionPolicy
-
-    # maximum files per buckets
-    max_files_count = 1000
-
-    # reindex a document after files operations
-    components = FileServiceConfig.components + [DocumentReindexComponent]
+    :param pid: str - pid value of the document to reindex.
+    """
+    Document.get_record_by_pid(pid).reindex()
