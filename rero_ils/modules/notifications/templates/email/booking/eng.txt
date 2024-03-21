@@ -8,6 +8,10 @@ Location: {{ loan.document.library_name }} / {{ loan.document.location_name }}
 {%- if loan.document.call_numbers %}
 Call number: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}
+Item type: {{loan.document.item_type}}
+{%- if loan.document.temporary_item_type %}
+Temporary item type: {{ loan.document.temporary_item_type }}
+{%- endif %}
 
 Pick up location: {{ loan.pickup_name }}
 Patron: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
