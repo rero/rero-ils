@@ -33,7 +33,8 @@ from rero_ils.modules.entities.local_entities.api import LocalEntitiesSearch, \
     LocalEntity
 from rero_ils.modules.entities.remote_entities.api import \
     RemoteEntitiesSearch, RemoteEntity
-from rero_ils.modules.files.cli import create_pdf_record_files
+from rero_ils.modules.files.cli import create_pdf_record_files, \
+    load_files_for_document
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
@@ -198,7 +199,9 @@ def document_with_files(document, lib_martigny, file_location):
         collections=['col1', 'col2']
     )
     create_pdf_record_files(document, metadata, flush=True)
-    document.reindex()
+    file_path = join(dirname(__file__), '../data/help/files/logo_rero_ils.png')
+    load_files_for_document(
+        document=document, metadata=metadata, files=[file_path])
     flush_index(DocumentsSearch.Meta.index)
     yield document
 
