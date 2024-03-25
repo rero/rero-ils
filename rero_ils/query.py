@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2024 RERO
 # Copyright (C) 2020 UCLOUVAIN
 #
 # This program is free software: you can redistribute it and/or modify
@@ -29,6 +29,8 @@ from flask import current_app, request
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.errors import InvalidQueryRESTError
 from werkzeug.datastructures import ImmutableMultiDict, MultiDict
+
+from rero_ils.modules.ill_requests.models import ILLRequestStatus
 
 from .facets import default_facets_factory
 from .modules.items.models import TypeOfItem
@@ -283,16 +285,23 @@ def ill_request_search_factory(self, search, query_parser=None):
             'terms',
             patron__pid=[ptrn.pid for ptrn in current_patrons])
 
+    search = search.exclude(Q('term', to_anonymize=True))
+
+    if not request.args.get('remove_archived'):
+        return search, urlkwargs
+
     months = current_app.config.get('RERO_ILS_ILL_HIDE_MONTHS', 6)
     date_delta = datetime.now(timezone.utc) - relativedelta(months=months)
     filters = Q(
         'range',
         _created={'lte': 'now', 'gte': date_delta}
     )
-    filters |= Q('term', status='pending')
+    filters |= Q('terms', status=[
+        ILLRequestStatus.PENDING,
+        ILLRequestStatus.VALIDATED
+    ])
 
-    return search.filter(
-        filters).exclude(Q('term', to_anonymize=True)), urlkwargs
+    return search.filter(filters), urlkwargs
 
 
 def circulation_search_factory(self, search, query_parser=None):
