@@ -115,6 +115,8 @@ jsonresolver = "*"
 urllib3 = "<2.0.0"
 pyparsing = "^3.1.1"
 flask-wiki = "^0.3.1"
+dnspython = ">2.4.2"
+cryptography = ">41.0.7"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
