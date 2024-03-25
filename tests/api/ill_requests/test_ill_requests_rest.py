@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -262,7 +262,33 @@ def test_filtered_ill_requests_get_pending_months_filters(
     # Initial status is pending
     list_url = url_for(
         'invenio_records_rest.illr_list',
-        q='pid:'+ill_request_martigny['pid']
+        q=f'pid:{ill_request_martigny["pid"]}'
+    )
+    res = client.get(list_url)
+    result = res.json
+    assert result['hits']['total']['value'] == 1
+
+    # Closed record
+    ill_request_martigny = ILLRequest\
+        .get_record_by_pid(ill_request_martigny.pid)
+    ill_request_martigny['status'] = ILLRequestStatus.CLOSED
+    ill_request_martigny.update(
+        ill_request_martigny, dbcommit=True, reindex=True)
+
+    # Without filter (show record)
+    list_url = url_for(
+        'invenio_records_rest.illr_list',
+        q=f'pid:{ill_request_martigny["pid"]}'
+    )
+    res = client.get(list_url)
+    result = res.json
+    assert result['hits']['total']['value'] == 1
+
+    # With filter (hide record)
+    list_url = url_for(
+        'invenio_records_rest.illr_list',
+        q=f'pid:{ill_request_martigny["pid"]}',
+        remove_archived='1'
     )
     res = client.get(list_url)
     result = res.json
@@ -273,35 +299,46 @@ def test_filtered_ill_requests_get_pending_months_filters(
     ill_request_martigny.model.created = date_delta(7)
     db_commit_reindex(ill_request_martigny)
 
+    # Without filter (show record)
     list_url = url_for(
         'invenio_records_rest.illr_list',
-        q='pid:'+ill_request_martigny['pid']
+        q=f'pid:{ill_request_martigny["pid"]}'
     )
     res = client.get(list_url)
     result = res.json
     assert result['hits']['total']['value'] == 1
 
-    # closed 7 months
-    ill_request_martigny = ILLRequest\
-        .get_record_by_pid(ill_request_martigny.pid)
-    ill_request_martigny['status'] = ILLRequestStatus.CLOSED
-    ill_request_martigny.update(
-        ill_request_martigny, dbcommit=True, reindex=True)
-
+    # With filter (show record)
     list_url = url_for(
         'invenio_records_rest.illr_list',
-        q='pid:'+ill_request_martigny['pid']
+        q=f'pid:{ill_request_martigny["pid"]}',
+        remove_archived='1'
     )
     res = client.get(list_url)
     result = res.json
     assert result['hits']['total']['value'] == 0
 
-    # Change delta
-    app.config['RERO_ILS_ILL_HIDE_MONTHS'] = 8
+    # Make record to pending status
+    ill_request_martigny = ILLRequest\
+        .get_record_by_pid(ill_request_martigny.pid)
+    ill_request_martigny['status'] = ILLRequestStatus.PENDING
+    ill_request_martigny.update(
+        ill_request_martigny, dbcommit=True, reindex=True)
 
+    # Without filter (show record)
     list_url = url_for(
         'invenio_records_rest.illr_list',
-        q='pid:'+ill_request_martigny['pid']
+        q=f'pid:{ill_request_martigny["pid"]}'
+    )
+    res = client.get(list_url)
+    result = res.json
+    assert result['hits']['total']['value'] == 1
+
+    # With filter (show record)
+    list_url = url_for(
+        'invenio_records_rest.illr_list',
+        q=f'pid:{ill_request_martigny["pid"]}',
+        remove_archived='1'
     )
     res = client.get(list_url)
     result = res.json
