@@ -228,6 +228,7 @@
     "$schema": "https://bib.rero.ch/schemas/holdings/holding-v0.0.1.json",
     "pid": "holding5",
     "call_number": "h00005",
+    "second_call_number": "h00005_2",
     "document": {
       "$ref": "https://bib.rero.ch/api/documents/doc4"
     },

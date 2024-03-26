@@ -18,12 +18,9 @@
 """Test item collections."""
 
 
-from rero_ils.modules.collections.api import Collection
-
-
 def test_get_items(
                    item_lib_martigny, item2_lib_martigny,
                    coll_martigny_1):
     """Test get items for a collection"""
-    assert Collection.get_items(coll_martigny_1) == \
+    assert coll_martigny_1.get_items() == \
         [item_lib_martigny, item2_lib_martigny]

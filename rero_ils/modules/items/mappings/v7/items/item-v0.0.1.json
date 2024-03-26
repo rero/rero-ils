@@ -39,8 +39,17 @@
         "analyzer": "autocomplete",
         "search_analyzer": "standard"
       },
+      "call_numbers": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
+      },
       "call_number": {
         "type": "text",
+        "copy_to": "call_numbers",
         "fields": {
           "raw": {
             "type": "keyword"
@@ -49,6 +58,7 @@
       },
       "second_call_number": {
         "type": "text",
+        "copy_to": "call_numbers",
         "fields": {
           "raw": {
             "type": "keyword"
@@ -211,7 +221,22 @@
             "type": "keyword"
           },
           "inherited_first_call_number": {
-            "type": "text"
+            "type": "text",
+            "copy_to": "call_numbers",
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            }
+          },
+          "inherited_second_call_number": {
+            "type": "text",
+            "copy_to": "call_numbers",
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            }
           },
           "status_date": {
             "type": "date"
