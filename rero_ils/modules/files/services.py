@@ -21,23 +21,30 @@
 from rero_invenio_files.records.services import FileServiceConfig, \
     RecordServiceConfig
 
-from .components import DocumentReindexComponent
+from .components import DocumentReindexComponent, OperationLogsComponent, \
+    OperationLogsFileComponent
 from .permissions import FilePermissionPolicy
 
 
 class RecordServiceConfig(RecordServiceConfig):
     """File record service."""
 
+    # Common configuration
     permission_policy_cls = FilePermissionPolicy
+
+    # Service components
+    components = RecordServiceConfig.components + [OperationLogsComponent]
 
 
 class RecordFileServiceConfig(FileServiceConfig):
     """Files service configuration."""
 
+    # Common configuration
     permission_policy_cls = FilePermissionPolicy
 
     # maximum files per buckets
     max_files_count = 1000
 
-    # reindex a document after files operations
-    components = FileServiceConfig.components + [DocumentReindexComponent]
+    # Service components
+    components = FileServiceConfig.components + [
+        DocumentReindexComponent, OperationLogsFileComponent]

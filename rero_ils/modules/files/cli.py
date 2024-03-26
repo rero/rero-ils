@@ -80,7 +80,9 @@ def create_pdf_record_files(document, metadata, flush=False,
     try:
         record = next(document.get_records_files(lib_pids=metadata["owners"]))
     except StopIteration:
-        record = record_service.record_cls.create(data={"metadata": metadata})
+        item = record_service.create(
+            identity=system_identity, data={"metadata": metadata})
+        record = item._record
         record.commit()
         # index the file record
         record_service.indexer.index_by_id(record.id)
@@ -116,6 +118,7 @@ def create_pdf_record_files(document, metadata, flush=False,
                 uow=uow
             )
         uow.commit()
+    return record
 
 
 def load_files_for_document(document, metadata, files):
@@ -133,7 +136,9 @@ def load_files_for_document(document, metadata, files):
     try:
         record = next(document.get_records_files(lib_pids=metadata["owners"]))
     except StopIteration:
-        record = record_service.record_cls.create(data={"metadata": metadata})
+        item = record_service.create(
+            identity=system_identity, data={"metadata": metadata})
+        record = item._record
         record.commit()
         # index the file record
         record_service.indexer.index_by_id(record.id)

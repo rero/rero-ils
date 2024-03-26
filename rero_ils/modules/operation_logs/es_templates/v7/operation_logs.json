@@ -144,6 +144,28 @@
               }
             }
           },
+          "file": {
+            "type": "object",
+            "properties": {
+              "document": {
+                "type": "object",
+                "properties": {
+                  "pid": {
+                    "type": "keyword"
+                  },
+                  "title": {
+                    "type": "text"
+                  },
+                  "type": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "recid": {
+                "type": "keyword"
+              }
+            }
+          },
           "patron": {
             "type": "object",
             "properties": {
