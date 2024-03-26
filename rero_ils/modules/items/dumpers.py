@@ -27,6 +27,7 @@ from rero_ils.modules.documents.dumpers import \
     TitleDumper as DocumentTitleDumper
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.dumpers import ClaimIssueHoldingDumper
+from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.libraries.dumpers import \
     LibrarySerialClaimNotificationDumper
 from rero_ils.modules.loans.dumpers import \
@@ -54,6 +55,13 @@ class ItemNotificationDumper(InvenioRecordsDumper):
             'library_name': location.get_library().get('name'),
             'enumerationAndChronology': record.get('enumerationAndChronology')
         }
+        if item_type_pid := record.item_type_pid:
+            if item_type := ItemType.get_record_by_pid(item_type_pid):
+                data['item_type'] = item_type['name']
+        if temporary_item_type_pid := record.temporary_item_type_pid:
+            if temporary_item_type := ItemType.get_record_by_pid(
+                    temporary_item_type_pid):
+                data['temporary_item_type'] = temporary_item_type['name']
         data = {k: v for k, v in data.items() if v}
         return data
 

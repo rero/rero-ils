@@ -8,6 +8,10 @@ Standort: {{ loan.document.library_name }} / {{ loan.document.location_name }}
 {%- if loan.document.call_numbers %}
 Signatur: {{ loan.document.call_numbers | join(' | ') }}
 {%- endif %}
+Exemplar Typ: {{loan.document.item_type}}
+{%- if loan.document.temporary_item_type %}
+Temporärer Exemplar Typ: {{ loan.document.temporary_item_type }}
+{%- endif %}
 
 Abholort: {{ loan.pickup_name }}
 Kunde: {{ loan.patron.first_name }} {{ loan.patron.last_name }}

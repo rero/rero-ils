@@ -11,6 +11,10 @@ Call number: {{ loan.document.call_numbers | join(' | ') }}
 {%- if loan.document.enumerationAndChronology %}
 Unit: {{ loan.document.enumerationAndChronology }}
 {%- endif %}
+Item type: {{loan.document.item_type}}
+{%- if loan.document.temporary_item_type %}
+Temporary item type: {{ loan.document.temporary_item_type }}
+{%- endif %}
 
 Pick up location: {{ loan.pickup_name }}
 Patron: {{ loan.patron.first_name }} {{ loan.patron.last_name }}
