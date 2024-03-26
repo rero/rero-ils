@@ -38,7 +38,9 @@
           "enum": [
             "doc",
             "hold",
+            "recid",
             "item",
+            "file",
             "loan",
             "illr",
             "notif",
@@ -220,6 +222,40 @@
           "title": "Value",
           "type": "string",
           "minLength": 1
+        }
+      }
+    },
+    "file": {
+      "recid": {
+        "title": "File Record Pid",
+        "type": "string",
+        "minLength": 1
+      },
+      "document": {
+        "title": "Document",
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "pid",
+          "type",
+          "title"
+        ],
+        "properties": {
+          "pid": {
+            "title": "Document PID",
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "minLength": 1
+          }
         }
       }
     },
