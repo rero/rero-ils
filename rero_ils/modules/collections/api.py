@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,6 +17,7 @@
 
 """API for manipulating collections."""
 
+from datetime import datetime, timezone
 from functools import partial
 
 from rero_ils.modules.items.api import Item
@@ -48,6 +49,17 @@ class CollectionsSearch(IlsRecordsSearch):
 
         index = 'collections'
         doc_types = None
+
+    def active_by_item_pid(self, item_pid):
+        """Search for active collections by item pid.
+
+        :param item_pid: string - the item to filter with.
+        :return: An ElasticSearch query to get hits related the entity.
+        """
+        return self \
+            .filter('term', items__pid=item_pid) \
+            .filter('range', end_date={'gte': datetime.now(timezone.utc)}) \
+            .sort({'end_date': {'order': 'asc'}})
 
 
 class Collection(IlsRecord):
