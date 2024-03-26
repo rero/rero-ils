@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2024 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@ from copy import deepcopy
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
+from rero_ils.modules.collections.api import CollectionsSearch
 from rero_ils.modules.commons.exceptions import MissingDataException
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dumpers import \
@@ -152,4 +153,15 @@ class CirculationActionDumper(InvenioRecordsDumper):
             data['pending_loans'] = [
                 first_request.dumps(LoanCirculationDumper())
             ]
+        # add temporary location name
+        if temporary_location_pid := item.get('temporary_location', {}).get(
+            'pid'
+        ):
+            data['temporary_location']['name'] = Location.get_record_by_pid(
+                temporary_location_pid).get('name')
+        # add collections
+        results = CollectionsSearch().active_by_item_pid(item['pid'])\
+            .params(preserve_order=True).source('title').scan()
+        if collections := [collection.title for collection in results]:
+            data['collections'] = collections
         return data
