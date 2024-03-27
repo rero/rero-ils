@@ -128,6 +128,24 @@ def or_terms_filter_by_criteria(criteria):
     return inner
 
 
+def bool_filter(field, **kwargs):
+    """Create a bool filter.
+
+    :param field: Field name.
+    :param kwargs: additional sub-filters to apply on (allowed keys are 'must'
+        or 'must_not')
+    :return: Function that returns a boolean query.
+    """
+    def inner(values):
+        _filter = Q('term', **{field: bool(int(values[0]))})
+        for value in kwargs.get('must', []):
+            _filter &= Q(**value)
+        for value in kwargs.get('must_not', []):
+            _filter &= ~Q(**value)
+        return _filter
+    return inner
+
+
 def documents_search_factory(self, search, query_parser=None):
     """Search factory with view code parameter."""
     view = request.args.get('view')

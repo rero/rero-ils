@@ -2116,6 +2116,9 @@
       "status": {
         "type": "keyword"
       },
+      "fiction": {
+        "type": "boolean"
+      },
       "harvested": {
         "type": "boolean"
       },

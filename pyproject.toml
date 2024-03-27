@@ -150,9 +150,14 @@ reverse = "rero_ils.dojson.cli:reverse"
 pjson = "rero_ils.dojson.cli:pretty_json_dump"
 
 [tool.poetry.plugins."dojson.cli.rule"]
-marc21toebooks = "rero_ils.modules.ebooks.dojson.contrib.marc21:marc21"
-marc21tojson = "rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21tojson"
-unimarctojson = "rero_ils.modules.documents.dojson.contrib.unimarctojson:unimarc"
+marc21_ebooks_to_json = "rero_ils.modules.ebooks.dojson.contrib.marc21:marc21"
+marc21_dnb_to_json = "rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_dnb"
+marc21_kul_to_json = "rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_kul"
+marc21_loc_to_json = "rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_loc"
+marc21_rero_to_json = "rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_rero"
+marc21_slsp_to_json = "rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_slsp"
+marc21_ugent_to_json = "rero_ils.modules.documents.dojson.contrib.marc21tojson:marc21_ugent"
+unimarc_to_json = "rero_ils.modules.documents.dojson.contrib.unimarctojson:unimarc"
 
 [tool.poetry.plugins."flask.commands"]
 reroils = "rero_ils.modules.cli.reroils:reroils"

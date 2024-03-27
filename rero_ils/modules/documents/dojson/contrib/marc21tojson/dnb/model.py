@@ -56,6 +56,11 @@ def marc21_to_language(self, key, value):
     languages: 008 and 041 [$a, repetitive]
     """
     language = do_language(self, marc21)
+    # is fiction
+    if value[33] in ['1', 'd', 'f', 'j', 'p']:
+        self['fiction'] = True
+    elif value[33] in ['0', 'e', 'h', 'i', 's']:
+        self['fiction'] = False
     return language or None
 
 
