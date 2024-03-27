@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
+# Copyright (C) 2022-2024 RERO
 # Copyright (C) 2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,10 +18,13 @@
 
 """Items Record dumper tests."""
 from copy import deepcopy
+from datetime import date
 
 import pytest
+from dateutil.relativedelta import relativedelta
 from utils import item_record_to_a_specific_loan_state
 
+from rero_ils.modules.collections.api import Collection
 from rero_ils.modules.commons.exceptions import MissingDataException
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.dumpers import CirculationActionDumper, \
@@ -33,7 +36,8 @@ from rero_ils.modules.utils import get_ref_for_pid
 
 def test_item_action_circulation_dumper(
         item_lib_martigny, patron_martigny, loc_public_martigny,
-        librarian_martigny, circulation_policies):
+        librarian_martigny, circulation_policies, loc_public_martigny_bourg,
+        coll_martigny_1):
     """Test item circulation action dumper."""
     params = {
         'patron_pid': patron_martigny.pid,
@@ -43,7 +47,8 @@ def test_item_action_circulation_dumper(
     }
     item, _ = item_record_to_a_specific_loan_state(
         item=item_lib_martigny, loan_state=LoanState.PENDING,
-        params=params, copy_item=True)
+        params=params, copy_item=False)
+
     data = item.dumps(CirculationActionDumper())
     # $ref resolution
     assert data['library']['pid']
@@ -68,6 +73,33 @@ def test_item_action_circulation_dumper(
 
     # number of pending requests
     assert data['current_pending_requests'] == 1
+
+    # not temporary location
+    assert 'temporary_location' not in data
+
+    # not collections
+    assert 'collections' not in data
+
+    # update end date on the collection
+    collection = Collection.get_record_by_pid(coll_martigny_1["pid"])
+    next_end_date = date.today() + relativedelta(months=2)
+    collection["end_date"] = next_end_date.strftime("%Y-%m-%d")
+    collection.update(collection, dbcommit=True, reindex=True)
+
+    # add temporary location data
+    item["temporary_location"] = {
+        "pid": "loc15",
+        "type": "loc"
+    }
+
+    data = item.dumps(CirculationActionDumper())
+
+    # temporary location name
+    assert data['temporary_location']['name'] == loc_public_martigny_bourg\
+        .get('name')
+
+    # Collection title
+    assert data['collections'][0] == coll_martigny_1.get('title')
 
 
 def test_item_circulation_dumper(item_lib_martigny):
