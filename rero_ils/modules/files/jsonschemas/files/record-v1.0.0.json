@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Names vocabulary.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "title": "Schema",
+      "description": "Schema to validate user records against.",
+      "type": "string",
+      "minLength": 9
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "collections": {
+          "title": "Collections",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "Collection Name",
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "owners": {
+          "title": "Owners",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "Owner",
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "links": {
+          "title": "Links",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "title": "Link",
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "id": {
+      "$ref": "local://definitions-v1.0.0.json#/identifier"
+    },
+    "pid": {
+      "$ref": "local://definitions-v2.0.0.json#/internal-pid"
+    },
+    "files": {
+      "$ref": "local://definitions-v2.0.0.json#/files"
+    }
+  }
+}
