@@ -1,0 +1,74 @@
+{
+  "mappings": {
+    "properties": {
+      "$schema": {
+        "type": "keyword",
+        "index": "false"
+      },
+      "created": {
+        "type": "date"
+      },
+      "updated": {
+        "type": "date"
+      },
+      "files": {
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "bucket_id": {
+        "type": "text"
+      },
+      "uuid": {
+        "type": "keyword"
+      },
+      "version_id": {
+        "type": "integer"
+      },
+      "indexed_at": {
+        "type": "date"
+      },
+      "pid": {
+        "properties": {
+          "obj_type": {
+            "type": "keyword"
+          },
+          "pid_type": {
+            "type": "keyword"
+          },
+          "pk": {
+            "type": "long"
+          },
+          "status": {
+            "type": "keyword"
+          }
+        }
+      },
+      "metadata": {
+        "type": "object",
+        "properties": {
+          "owners": {
+            "type": "keyword"
+          },
+          "collections": {
+            "type": "keyword"
+          },
+          "links": {
+            "type": "keyword"
+          },
+          "n_files": {
+            "type": "long"
+          },
+          "file_size": {
+            "type": "long"
+          }
+        }
+      },
+      "id": {
+        "type": "keyword"
+      }
+    }
+  }
+}
