@@ -306,6 +306,7 @@ stats_cfg = "rero_ils.modules.stats_cfg.jsonschemas"
 templates = "rero_ils.modules.templates.jsonschemas"
 users = "rero_ils.modules.users.jsonschemas"
 vendors = "rero_ils.modules.vendors.jsonschemas"
+files = "rero_ils.modules.files.jsonschemas"
 
 [tool.poetry.plugins."invenio_oauth2server.scopes"]
 birthdate = "rero_ils.oauth.scopes:birthdate"
@@ -440,6 +441,7 @@ stats = "rero_ils.modules.stats.mappings"
 stats_cfg = "rero_ils.modules.stats_cfg.mappings"
 templates = "rero_ils.modules.templates.mappings"
 vendors = "rero_ils.modules.vendors.mappings"
+files = "rero_ils.modules.files.mappings"
 
 [tool.poetry.plugins."invenio_search.templates"]
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
