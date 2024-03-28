@@ -1812,7 +1812,8 @@ RECORDS_REST_FACETS = dict(
         filters={
             _('online'): or_terms_filter_by_criteria({
                 'electronicLocator.type': ['versionOfResource', 'resource'],
-                'holdings.holdings_type': ['electronic']
+                'holdings.holdings_type': ['electronic'],
+                '_exists_': 'files'
             }),
             _('not_online'): or_terms_filter_by_criteria({
                 'holdings.holdings_type': ['standard', 'serial']
@@ -2373,19 +2374,29 @@ RECORDS_REST_FACETS = dict(
 
 # Elasticsearch fields boosting by index
 RERO_ILS_QUERY_BOOSTING = {
-    'documents': {
-        'autocomplete_title': 3,
-        'title\.*': 3,
-        'contribution.entity.authorized_access_point_*': 2,
-        'contribution.entity.authorized_access_point': 2,
-        'publicationYearText': 2,
-        'freeFormedPublicationDate': 2,
-        'subjects.term': 2,
-        'notes.label.*': 1
-    },
-    'patrons': {
-        'barcode': 3
-    }
+    'documents': [
+        'autocomplete_title^3',
+        'title.*^3',
+        # the fulltext fields are removed by default
+        'fulltext^6',
+        'fulltext.*^6',
+        'contribution.entity.authorized_access_point_fr*^2',
+        'contribution.entity.authorized_access_point_en*^2',
+        'contribution.entity.authorized_access_point_de*^2',
+        'contribution.entity.authorized_access_point_it*^2',
+        'contribution.entity.authorized_access_point^2',
+        'subjects.entity.authorized_access_point_fr*^2',
+        'subjects.entity.authorized_access_point_en*^2',
+        'subjects.entity.authorized_access_point_de*^2',
+        'subjects.entity.authorized_access_point_it*^2',
+        'subjects.entity.authorized_access_point^2',
+        'provisionActivity.startDate^2',
+        '*'
+    ],
+    'patrons': [
+        'barcode^3',
+        '*'
+    ]
 }
 
 # sort options
@@ -2804,6 +2815,12 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     'rero_ils.modules.documents.permissions:create_action',
     'rero_ils.modules.documents.permissions:update_action',
     'rero_ils.modules.documents.permissions:delete_action',
+    'rero_ils.modules.files.permissions:access_action',
+    'rero_ils.modules.files.permissions:search_action',
+    'rero_ils.modules.files.permissions:read_action',
+    'rero_ils.modules.files.permissions:create_action',
+    'rero_ils.modules.files.permissions:update_action',
+    'rero_ils.modules.files.permissions:delete_action',
     'rero_ils.modules.entities.local_entities.permissions.access_action',
     'rero_ils.modules.entities.local_entities.permissions.search_action',
     'rero_ils.modules.entities.local_entities.permissions.read_action',
@@ -3984,3 +4001,17 @@ RERO_ILS_APP_ADVANCED_SEARCH_CONFIG = [
         }
     },
 ]
+
+
+FILES_REST_STORAGE_CLASS_LIST = {
+    "L": "Local"
+}
+
+MAX_CONTENT_LENGTH = 500 * 1024 * 1024
+
+FILES_REST_DEFAULT_STORAGE_CLASS = "L"
+RECORDS_REFRESOLVER_CLS = "invenio_records.resolver.InvenioRefResolver"
+RECORDS_REFRESOLVER_STORE = "rero_ils.modules.utils.refresolver_store"
+
+RERO_FILES_RECORD_SERVICE_CONFIG = "rero_ils.modules.files.services.RecordServiceConfig"
+RERO_FILES_RECORD_FILE_SERVICE_CONFIG = "rero_ils.modules.files.services.RecordFileServiceConfig"

@@ -56,24 +56,6 @@ def process_bulk_queue(version_type=None, queue=None, search_bulk_kwargs=None,
 
 
 @shared_task(ignore_result=True)
-def index_record(record_uuid):
-    """Index a single record.
-
-    :param record_uuid: The record UUID.
-    """
-    IlsRecordsIndexer().index_by_id(record_uuid)
-
-
-@shared_task(ignore_result=True)
-def delete_record(record_uuid):
-    """Delete a single record.
-
-    :param record_uuid: The record UUID.
-    """
-    IlsRecordsIndexer().delete_by_id(record_uuid)
-
-
-@shared_task(ignore_result=True)
 def scheduler_timestamp():
     """Writes a time stamp to current cache."""
     time = set_timestamp('scheduler')

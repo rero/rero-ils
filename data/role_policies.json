@@ -291,6 +291,21 @@
     "pro_catalog_manager",
     "pro_library_administrator"
   ],
+  "file-create": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "file-update": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
+  "file-delete": [
+    "pro_full_permissions",
+    "pro_catalog_manager",
+    "pro_library_administrator"
+  ],
   "hold-create": [
     "pro_full_permissions",
     "pro_catalog_manager",

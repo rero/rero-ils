@@ -31,8 +31,8 @@ from .models import OperationLogOperation
 from ..utils import extracted_data_from_ref
 
 
-class OperationLogObserverExtension(RecordExtension):
-    """Observe a resource and build operation log when it changes."""
+class OperationLogFactory:
+    """Factory to create CURD operation logs."""
 
     def get_additional_informations(self, record):
         """Get some informations to add into the operation log.
@@ -103,26 +103,30 @@ class OperationLogObserverExtension(RecordExtension):
         oplg |= (self.get_additional_informations(record) or {})
         return oplg
 
-    def _create_operation_log(self, record, operation, **kwargs):
+    def create_operation_log(self, record, operation, **kwargs):
         """Build and register an operation log."""
         from .api import OperationLog
         data = self._build_operation_log(record, operation)
         OperationLog.create(data)
 
+
+class OperationLogObserverExtension(RecordExtension, OperationLogFactory):
+    """Observe a resource and build operation log when it changes."""
+
     post_create = partialmethod(
-        _create_operation_log,
+        OperationLogFactory.create_operation_log,
         operation=OperationLogOperation.CREATE
     )
     """Called after a record is created."""
 
     pre_commit = partialmethod(
-        _create_operation_log,
+        OperationLogFactory.create_operation_log,
         operation=OperationLogOperation.UPDATE
     )
     """Called before a record is committed."""
 
     post_delete = partialmethod(
-        _create_operation_log,
+        OperationLogFactory.create_operation_log,
         operation=OperationLogOperation.DELETE
     )
     """Called after a record is deleted."""

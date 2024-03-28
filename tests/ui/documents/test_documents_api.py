@@ -189,11 +189,20 @@ def test_document_add_cover_url(db, document):
     }]
 
 
-def test_document_can_not_delete(document, item_lib_martigny):
+def test_document_with_item_can_not_delete(document, item_lib_martigny):
     """Test can not delete."""
     can, reasons = document.can_delete
     assert not can
     assert reasons['links']['items']
+
+
+def test_document_with_files_can_not_delete(document_with_files):
+    """Test can not delete."""
+    links_to_me = document_with_files.get_links_to_me(True)
+    assert len(links_to_me['files']) > 0
+    can, reasons = document_with_files.can_delete
+    assert not can
+    assert reasons['links']['files']
 
 
 def test_document_can_delete(app, document_data_tmp):

@@ -27,6 +27,7 @@ from utils import get_json, mock_response, postdata
 from rero_ils.modules.acquisition.budgets.permissions import \
     search_action as budget_search_action
 from rero_ils.modules.permissions import PermissionContext, can_use_debug_mode
+from rero_ils.modules.receivers import process_boosting
 from rero_ils.modules.users.models import UserRole
 from rero_ils.permissions import librarian_delete_permission_factory
 
@@ -203,3 +204,17 @@ def test_proxy(mock_get, client):
         url='http://mocked.url')
     )
     assert response.status_code == 418
+
+
+def test_boosting_fields(app):
+    """Test the boosting configuration."""
+    # the configuration should exists
+    assert app.config.get('RERO_ILS_QUERY_BOOSTING')
+
+    # several cases of configurations
+    assert process_boosting('documents', ['title.*']) == ['title.*']
+    assert 'title.*' in process_boosting('documents', ['*'])
+    assert 'title.*^2' in process_boosting('documents', ['title.*^2', '*'])
+    # test fields
+    assert 'fulltext' in process_boosting('documents', ['*'])
+    assert 'fulltext.*' in process_boosting('documents', ['*'])

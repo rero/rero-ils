@@ -125,7 +125,13 @@ def record_permissions(record_pid=None, route_name=None):
                 'update': {'can': True},
                 'delete': {'can': True}
             })
-            record = rec_class.get_record_by_pid(record_pid)
+
+            if hasattr(rec_class, 'get_record_by_pid'):
+                # standard ILS case
+                record = rec_class.get_record_by_pid(record_pid)
+            else:
+                # invenio records resources case
+                record = rec_class.pid.resolve(record_pid)
             if not record:
                 return jsonify({'status': 'error: Record not found.'}), 404
 
@@ -141,15 +147,22 @@ def record_permissions(record_pid=None, route_name=None):
             # before ; either the `delete_permissions_factory` for this record
             # should be called. If this call send 'False' then the
             # reason_not_to_delete should be "permission denied"
-            can_delete, reasons = record.can_delete
-            permissions['delete']['can'] = \
-                can_delete and \
-                record_permissions_factory['delete'](record=record).can()
-            if not permissions['delete']['can'] and not reasons:
-                # in this case, it's because config delete factory return
-                # `False`, so the reason is 'Permission denied'
-                reasons = {'others': {'permission': 'permission denied'}}
-            permissions['delete']['reasons'] = reasons
+            if hasattr(record, 'can_delete'):
+                # standard ILS case
+                can_delete, reasons = record.can_delete
+                permissions['delete']['can'] = \
+                    can_delete and \
+                    record_permissions_factory['delete'](record=record).can()
+                if not permissions['delete']['can'] and not reasons:
+                    # in this case, it's because config delete factory return
+                    # `False`, so the reason is 'Permission denied'
+                    reasons = {'others': {'permission': 'permission denied'}}
+                permissions['delete']['reasons'] = reasons
+            else:
+                # invenio records resource case
+                permissions['delete']['can'] = \
+                    record_permissions_factory['delete'](record=record).can()
+
         return jsonify(permissions)
     except Exception as error:
         # uncomment this line when you have troubles with permissions API

@@ -45,6 +45,17 @@ files = [
 vine = ">=5.0.0,<6.0.0"
 
 [[package]]
+name = "appdirs"
+version = "1.4.4"
+description = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
+optional = false
+python-versions = "*"
+files = [
+    {file = "appdirs-1.4.4-py2.py3-none-any.whl", hash = "sha256:a841dacd6b99318a741b166adb07e19ee71a274450e68237b4650ca1055ab128"},
+    {file = "appdirs-1.4.4.tar.gz", hash = "sha256:7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41"},
+]
+
+[[package]]
 name = "appnope"
 version = "0.1.3"
 description = "Disable App Nap on macOS >= 10.9"
@@ -150,6 +161,26 @@ files = [
 
 [package.extras]
 dev = ["freezegun (>=1.0,<2.0)", "pytest (>=6.0)", "pytest-cov"]
+
+[[package]]
+name = "babel-edtf"
+version = "1.1.4"
+description = "Localization of Extended Date Time Format level 0 strings."
+optional = false
+python-versions = "*"
+files = [
+    {file = "babel-edtf-1.1.4.tar.gz", hash = "sha256:728d6d4b787356cdfcca61980a8b9b41b00edf96cec66fb2ee1035196b9c9643"},
+    {file = "babel_edtf-1.1.4-py2.py3-none-any.whl", hash = "sha256:93c80d6b5c227f6da5a5b8ae8b8a2f18a60706b18a0dbd00f28a609437db3295"},
+]
+
+[package.dependencies]
+Babel = ">=2.12"
+edtf = ">=4.0.1"
+
+[package.extras]
+all = ["Sphinx (>=5,<6)", "check-manifest (>=0.42)", "coverage (>=5.3,<6)", "pytest (>=7,<8)", "pytest-cov (>=2.10.1)", "pytest-isort (>=1.2.0)", "pytest-pycodestyle (>=2.2.0)", "pytest-pydocstyle (>=2.3.2)"]
+docs = ["Sphinx (>=5,<6)"]
+tests = ["check-manifest (>=0.42)", "coverage (>=5.3,<6)", "pytest (>=7,<8)", "pytest-cov (>=2.10.1)", "pytest-isort (>=1.2.0)", "pytest-pycodestyle (>=2.2.0)", "pytest-pydocstyle (>=2.3.2)"]
 
 [[package]]
 name = "base32-lib"
@@ -606,6 +637,23 @@ files = [
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
+name = "click-default-group"
+version = "1.2.4"
+description = "click_default_group"
+optional = false
+python-versions = ">=2.7"
+files = [
+    {file = "click_default_group-1.2.4-py2.py3-none-any.whl", hash = "sha256:9b60486923720e7fc61731bdb32b617039aba820e22e1c88766b1125592eaa5f"},
+    {file = "click_default_group-1.2.4.tar.gz", hash = "sha256:eb3f3c99ec0d456ca6cd2a7f08f7d4e91771bef51b01bdd9580cc6450fe1251e"},
+]
+
+[package.dependencies]
+click = "*"
+
+[package.extras]
+test = ["pytest"]
+
+[[package]]
 name = "click-didyoumean"
 version = "0.3.0"
 description = "Enables git-like *did-you-mean* feature in click"
@@ -664,6 +712,22 @@ files = [
     {file = "colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
     {file = "colorama-0.4.6.tar.gz", hash = "sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44"},
 ]
+
+[[package]]
+name = "counter-robots"
+version = "2018.6"
+description = "Library for COUNTER-compliant detection of machines and robots."
+optional = false
+python-versions = "*"
+files = [
+    {file = "counter-robots-2018.6.tar.gz", hash = "sha256:6c231604a4bfa9b93d47d484e7e38219f231bdd15436561b0f4a2afc8a9f5b42"},
+    {file = "counter_robots-2018.6-py2.py3-none-any.whl", hash = "sha256:b4f4c4a0ce854fd4f012934084f8d5060ef9b2008e4e90d96cc79265dc93e7a9"},
+]
+
+[package.extras]
+all = ["Sphinx (>=1.5.1)", "Sphinx (>=1.5.1)", "check-manifest (>=0.25)", "check-manifest (>=0.25)", "coverage (>=4.0)", "coverage (>=4.0)", "isort (>=4.3.3)", "isort (>=4.3.3)", "pydocstyle (>=1.0.0)", "pydocstyle (>=1.0.0)", "pytest (>=2.8.0)", "pytest (>=2.8.0)", "pytest-cov (>=1.8.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest-pep8 (>=1.0.6)"]
+docs = ["Sphinx (>=1.5.1)"]
+tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.3)", "pydocstyle (>=1.0.0)", "pytest (>=2.8.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)"]
 
 [[package]]
 name = "coverage"
@@ -856,6 +920,17 @@ ordered-set = ">=4.1.0,<4.2.0"
 cli = ["clevercsv (==0.7.1)", "click (==8.0.3)", "pyyaml (==5.4.1)", "toml (==0.10.2)"]
 
 [[package]]
+name = "defusedxml"
+version = "0.7.1"
+description = "XML bomb protection for Python stdlib modules"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+files = [
+    {file = "defusedxml-0.7.1-py2.py3-none-any.whl", hash = "sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61"},
+    {file = "defusedxml-0.7.1.tar.gz", hash = "sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69"},
+]
+
+[[package]]
 name = "dictdiffer"
 version = "0.9.0"
 description = "Dictdiffer is a library that helps you to diff and patch dictionaries."
@@ -970,6 +1045,25 @@ tomli = {version = "*", markers = "python_version < \"3.11\""}
 [package.extras]
 conda = ["pyyaml"]
 pipenv = ["pipenv (<=2022.12.19)"]
+
+[[package]]
+name = "edtf"
+version = "4.0.1"
+description = "Python implementation of Library of Congress EDTF (Extended Date Time Format) specification"
+optional = false
+python-versions = "*"
+files = [
+    {file = "edtf-4.0.1-py2.py3-none-any.whl", hash = "sha256:744135d392774c636425d8ed6dc9182093f2c0174ca9f3f7968588b0168d826c"},
+    {file = "edtf-4.0.1.tar.gz", hash = "sha256:4f4a7425a4a32862f5870de4facecc9050f01a57e19394eb9739fb970cab810e"},
+]
+
+[package.dependencies]
+pyparsing = "*"
+python-dateutil = "*"
+six = "*"
+
+[package.extras]
+test = ["django", "nose", "tox"]
 
 [[package]]
 name = "elasticsearch"
@@ -1350,6 +1444,25 @@ blinker = "*"
 Flask = "*"
 
 [[package]]
+name = "flask-resources"
+version = "1.2.0"
+description = "\"Flask Resources module to create REST APIs.\""
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "flask-resources-1.2.0.tar.gz", hash = "sha256:c4a07963ebfb1ec4792ed3612dceda8238461fd6d30fb351dffcfe612e097205"},
+    {file = "flask_resources-1.2.0-py2.py3-none-any.whl", hash = "sha256:c5aa23308d808a5d29f21ec3858404dac47f33af3974735c423c18d8253b3a05"},
+]
+
+[package.dependencies]
+Flask = ">=1.1.4"
+marshmallow = ">=3.0,<4.0"
+speaklater = ">=1.3,<2.0"
+
+[package.extras]
+tests = ["Sphinx (>=4.5.0)", "check-manifest (>=0.42)", "coverage (>=5.3,<6)", "pytest (>=7,<8)", "pytest-black (>=0.3.0)", "pytest-cov (>=2.10.1)", "pytest-flask (>=1.0.0)", "pytest-isort (>=1.2.0)", "pytest-mock (>=1.6.0)", "pytest-pydocstyle (>=2.2.3)"]
+
+[[package]]
 name = "flask-security-invenio"
 version = "3.3.3"
 description = "\"Simple security for Flask apps.\""
@@ -1489,6 +1602,87 @@ wtforms = "*"
 email = ["email-validator"]
 
 [[package]]
+name = "fonttools"
+version = "4.50.0"
+description = "Tools to manipulate font files"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "fonttools-4.50.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:effd303fb422f8ce06543a36ca69148471144c534cc25f30e5be752bc4f46736"},
+    {file = "fonttools-4.50.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:7913992ab836f621d06aabac118fc258b9947a775a607e1a737eb3a91c360335"},
+    {file = "fonttools-4.50.0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8e0a1c5bd2f63da4043b63888534b52c5a1fd7ae187c8ffc64cbb7ae475b9dab"},
+    {file = "fonttools-4.50.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d40fc98540fa5360e7ecf2c56ddf3c6e7dd04929543618fd7b5cc76e66390562"},
+    {file = "fonttools-4.50.0-cp310-cp310-musllinux_1_1_aarch64.whl", hash = "sha256:9fff65fbb7afe137bac3113827855e0204482727bddd00a806034ab0d3951d0d"},
+    {file = "fonttools-4.50.0-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:b1aeae3dd2ee719074a9372c89ad94f7c581903306d76befdaca2a559f802472"},
+    {file = "fonttools-4.50.0-cp310-cp310-win32.whl", hash = "sha256:e9623afa319405da33b43c85cceb0585a6f5d3a1d7c604daf4f7e1dd55c03d1f"},
+    {file = "fonttools-4.50.0-cp310-cp310-win_amd64.whl", hash = "sha256:778c5f43e7e654ef7fe0605e80894930bc3a7772e2f496238e57218610140f54"},
+    {file = "fonttools-4.50.0-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:3dfb102e7f63b78c832e4539969167ffcc0375b013080e6472350965a5fe8048"},
+    {file = "fonttools-4.50.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:9e58fe34cb379ba3d01d5d319d67dd3ce7ca9a47ad044ea2b22635cd2d1247fc"},
+    {file = "fonttools-4.50.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2c673ab40d15a442a4e6eb09bf007c1dda47c84ac1e2eecbdf359adacb799c24"},
+    {file = "fonttools-4.50.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9b3ac35cdcd1a4c90c23a5200212c1bb74fa05833cc7c14291d7043a52ca2aaa"},
+    {file = "fonttools-4.50.0-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:8844e7a2c5f7ecf977e82eb6b3014f025c8b454e046d941ece05b768be5847ae"},
+    {file = "fonttools-4.50.0-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:f849bd3c5c2249b49c98eca5aaebb920d2bfd92b3c69e84ca9bddf133e9f83f0"},
+    {file = "fonttools-4.50.0-cp311-cp311-win32.whl", hash = "sha256:39293ff231b36b035575e81c14626dfc14407a20de5262f9596c2cbb199c3625"},
+    {file = "fonttools-4.50.0-cp311-cp311-win_amd64.whl", hash = "sha256:c33d5023523b44d3481624f840c8646656a1def7630ca562f222eb3ead16c438"},
+    {file = "fonttools-4.50.0-cp312-cp312-macosx_10_9_universal2.whl", hash = "sha256:b4a886a6dbe60100ba1cd24de962f8cd18139bd32808da80de1fa9f9f27bf1dc"},
+    {file = "fonttools-4.50.0-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:b2ca1837bfbe5eafa11313dbc7edada79052709a1fffa10cea691210af4aa1fa"},
+    {file = "fonttools-4.50.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a0493dd97ac8977e48ffc1476b932b37c847cbb87fd68673dee5182004906828"},
+    {file = "fonttools-4.50.0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:77844e2f1b0889120b6c222fc49b2b75c3d88b930615e98893b899b9352a27ea"},
+    {file = "fonttools-4.50.0-cp312-cp312-musllinux_1_1_aarch64.whl", hash = "sha256:3566bfb8c55ed9100afe1ba6f0f12265cd63a1387b9661eb6031a1578a28bad1"},
+    {file = "fonttools-4.50.0-cp312-cp312-musllinux_1_1_x86_64.whl", hash = "sha256:35e10ddbc129cf61775d58a14f2d44121178d89874d32cae1eac722e687d9019"},
+    {file = "fonttools-4.50.0-cp312-cp312-win32.whl", hash = "sha256:cc8140baf9fa8f9b903f2b393a6c413a220fa990264b215bf48484f3d0bf8710"},
+    {file = "fonttools-4.50.0-cp312-cp312-win_amd64.whl", hash = "sha256:0ccc85fd96373ab73c59833b824d7a73846670a0cb1f3afbaee2b2c426a8f931"},
+    {file = "fonttools-4.50.0-cp38-cp38-macosx_10_9_universal2.whl", hash = "sha256:e270a406219af37581d96c810172001ec536e29e5593aa40d4c01cca3e145aa6"},
+    {file = "fonttools-4.50.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:ac2463de667233372e9e1c7e9de3d914b708437ef52a3199fdbf5a60184f190c"},
+    {file = "fonttools-4.50.0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:47abd6669195abe87c22750dbcd366dc3a0648f1b7c93c2baa97429c4dc1506e"},
+    {file = "fonttools-4.50.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:074841375e2e3d559aecc86e1224caf78e8b8417bb391e7d2506412538f21adc"},
+    {file = "fonttools-4.50.0-cp38-cp38-musllinux_1_1_aarch64.whl", hash = "sha256:0743fd2191ad7ab43d78cd747215b12033ddee24fa1e088605a3efe80d6984de"},
+    {file = "fonttools-4.50.0-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:3d7080cce7be5ed65bee3496f09f79a82865a514863197ff4d4d177389e981b0"},
+    {file = "fonttools-4.50.0-cp38-cp38-win32.whl", hash = "sha256:a467ba4e2eadc1d5cc1a11d355abb945f680473fbe30d15617e104c81f483045"},
+    {file = "fonttools-4.50.0-cp38-cp38-win_amd64.whl", hash = "sha256:f77e048f805e00870659d6318fd89ef28ca4ee16a22b4c5e1905b735495fc422"},
+    {file = "fonttools-4.50.0-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:b6245eafd553c4e9a0708e93be51392bd2288c773523892fbd616d33fd2fda59"},
+    {file = "fonttools-4.50.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:a4062cc7e8de26f1603323ef3ae2171c9d29c8a9f5e067d555a2813cd5c7a7e0"},
+    {file = "fonttools-4.50.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:34692850dfd64ba06af61e5791a441f664cb7d21e7b544e8f385718430e8f8e4"},
+    {file = "fonttools-4.50.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:678dd95f26a67e02c50dcb5bf250f95231d455642afbc65a3b0bcdacd4e4dd38"},
+    {file = "fonttools-4.50.0-cp39-cp39-musllinux_1_1_aarch64.whl", hash = "sha256:4f2ce7b0b295fe64ac0a85aef46a0f2614995774bd7bc643b85679c0283287f9"},
+    {file = "fonttools-4.50.0-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:d346f4dc2221bfb7ab652d1e37d327578434ce559baf7113b0f55768437fe6a0"},
+    {file = "fonttools-4.50.0-cp39-cp39-win32.whl", hash = "sha256:a51eeaf52ba3afd70bf489be20e52fdfafe6c03d652b02477c6ce23c995222f4"},
+    {file = "fonttools-4.50.0-cp39-cp39-win_amd64.whl", hash = "sha256:8639be40d583e5d9da67795aa3eeeda0488fb577a1d42ae11a5036f18fb16d93"},
+    {file = "fonttools-4.50.0-py3-none-any.whl", hash = "sha256:48fa36da06247aa8282766cfd63efff1bb24e55f020f29a335939ed3844d20d3"},
+    {file = "fonttools-4.50.0.tar.gz", hash = "sha256:fa5cf61058c7dbb104c2ac4e782bf1b2016a8cf2f69de6e4dd6a865d2c969bb5"},
+]
+
+[package.extras]
+all = ["brotli (>=1.0.1)", "brotlicffi (>=0.8.0)", "fs (>=2.2.0,<3)", "lxml (>=4.0)", "lz4 (>=1.7.4.2)", "matplotlib", "munkres", "pycairo", "scipy", "skia-pathops (>=0.5.0)", "sympy", "uharfbuzz (>=0.23.0)", "unicodedata2 (>=15.1.0)", "xattr", "zopfli (>=0.1.4)"]
+graphite = ["lz4 (>=1.7.4.2)"]
+interpolatable = ["munkres", "pycairo", "scipy"]
+lxml = ["lxml (>=4.0)"]
+pathops = ["skia-pathops (>=0.5.0)"]
+plot = ["matplotlib"]
+repacker = ["uharfbuzz (>=0.23.0)"]
+symfont = ["sympy"]
+type1 = ["xattr"]
+ufo = ["fs (>=2.2.0,<3)"]
+unicode = ["unicodedata2 (>=15.1.0)"]
+woff = ["brotli (>=1.0.1)", "brotlicffi (>=0.8.0)", "zopfli (>=0.1.4)"]
+
+[[package]]
+name = "fpdf2"
+version = "2.7.8"
+description = "Simple & fast PDF generation for Python"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "fpdf2-2.7.8-py2.py3-none-any.whl", hash = "sha256:b09a297cbb14878ec4443ea2bef504d15e5cf4d92903118f013cb05e204fd491"},
+    {file = "fpdf2-2.7.8.tar.gz", hash = "sha256:21733fe27cc75021e5a4d7d69de95e185adf9717b1f9b1e14aa27d277d5c10fd"},
+]
+
+[package.dependencies]
+defusedxml = "*"
+fonttools = ">=4.34.0"
+Pillow = ">=6.2.2,<9.2.dev0 || >=9.3.dev0"
+
+[[package]]
 name = "freezegun"
 version = "1.4.0"
 description = "Let your Python tests travel through time"
@@ -1501,6 +1695,25 @@ files = [
 
 [package.dependencies]
 python-dateutil = ">=2.7"
+
+[[package]]
+name = "fs"
+version = "2.4.16"
+description = "Python's filesystem abstraction layer"
+optional = false
+python-versions = "*"
+files = [
+    {file = "fs-2.4.16-py2.py3-none-any.whl", hash = "sha256:660064febbccda264ae0b6bace80a8d1be9e089e0a5eb2427b7d517f9a91545c"},
+    {file = "fs-2.4.16.tar.gz", hash = "sha256:ae97c7d51213f4b70b6a958292530289090de3a7e15841e108fbe144f069d313"},
+]
+
+[package.dependencies]
+appdirs = ">=1.4.3,<1.5.0"
+setuptools = "*"
+six = ">=1.10,<2.0"
+
+[package.extras]
+scandir = ["scandir (>=1.5,<2.0)"]
 
 [[package]]
 name = "ftfy"
@@ -1524,6 +1737,17 @@ optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 files = [
     {file = "future-0.18.3.tar.gz", hash = "sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307"},
+]
+
+[[package]]
+name = "geojson"
+version = "3.1.0"
+description = "Python bindings and utilities for GeoJSON"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "geojson-3.1.0-py3-none-any.whl", hash = "sha256:68a9771827237adb8c0c71f8527509c8f5bef61733aa434cefc9c9d4f0ebe8f3"},
+    {file = "geojson-3.1.0.tar.gz", hash = "sha256:58a7fa40727ea058efc28b0e9ff0099eadf6d0965e04690830208d3ef571adac"},
 ]
 
 [[package]]
@@ -1628,6 +1852,24 @@ files = [
     {file = "idna-3.6-py3-none-any.whl", hash = "sha256:c05567e9c24a6b9faaa835c4821bad0590fbb9d5779e7caa6e1cc4978e7eb24f"},
     {file = "idna-3.6.tar.gz", hash = "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca"},
 ]
+
+[[package]]
+name = "idutils"
+version = "1.2.1"
+description = "\"Small library for persistent identifiers used in scholarly communication.\""
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "idutils-1.2.1-py2.py3-none-any.whl", hash = "sha256:908aabada07bb26e5e8f2d78ff222611b493cd721a05f1451f96d373a48f504d"},
+    {file = "idutils-1.2.1.tar.gz", hash = "sha256:d09220edd893c3164837890f0d1da303111a16a231dd9dd331c64d3d6f2b52cb"},
+]
+
+[package.dependencies]
+isbnlib = ">=3.10.8"
+six = ">=1.10"
+
+[package.extras]
+tests = ["pytest-black (>=0.3.0,<0.3.10)", "pytest-cache (>=1.0)", "pytest-invenio (>=1.4.0)", "pytest-runner (>=2.6.2)", "sphinx (>=4.5)"]
 
 [[package]]
 name = "imagesize"
@@ -1978,6 +2220,27 @@ postgresql = ["psycopg2-binary (>=2.8.6)"]
 tests = ["Sphinx (>=4.5.0)", "cryptography (>=2.1.4)", "pytest-black (>=0.3.0)", "pytest-invenio (>=1.4.5)"]
 
 [[package]]
+name = "invenio-files-rest"
+version = "2.2.0"
+description = "\"Files download/upload REST API similar to S3 for Invenio.\""
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "invenio-files-rest-2.2.0.tar.gz", hash = "sha256:f816373992273eafe52b5765fafd4f8389d17de8ab80a9b6aa209cf197e4f370"},
+    {file = "invenio_files_rest-2.2.0-py2.py3-none-any.whl", hash = "sha256:129b3ee9c965c12c71f8c20b5bdadab118dd254c4211cdb578a70b0ec79aeb1a"},
+]
+
+[package.dependencies]
+click-default-group = ">=1.2.2,<2.0.0"
+Flask-WTF = ">=0.15.1"
+fs = ">=2.0.10,<3.0"
+invenio-accounts = ">=1.4.10"
+invenio-i18n = ">=2.0.0"
+
+[package.extras]
+tests = ["future (>=0.18.2)", "invenio-access (>=1.4.0)", "invenio-admin (>=1.3.2)", "invenio-db[mysql,postgresql,versioning] (>=1.0.13,<2.0)", "pytest-black (>=0.3.0)", "pytest-invenio (>=1.4.7)", "sphinx (>=4.5.0)", "sphinxcontrib-httpdomain (>=1.4.0)"]
+
+[[package]]
 name = "invenio-formatter"
 version = "2.0.1"
 description = "\"Jinja utilities for Invenio.\""
@@ -2237,6 +2500,25 @@ invenio-i18n = ">=2.0.0"
 tests = ["Flask-Menu (>=0.5.1)", "SQLAlchemy-Continuum (>=1.3.11)", "Sphinx (>=4.5.0)", "datacite (>=0.1.0)", "invenio-access (>=1.0.0)", "invenio-accounts (>=1.4.0)", "invenio-admin (>=1.2.0)", "invenio-db[mysql,postgresql,versioning] (>=1.0.9,<2.0.0)", "mock (>=3.0.0)", "pytest-black (>=0.3.0)", "pytest-invenio (>=1.4.0)"]
 
 [[package]]
+name = "invenio-queues"
+version = "1.0.1"
+description = "\"Invenio module for managing queues.\""
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "invenio-queues-1.0.1.tar.gz", hash = "sha256:136b3bb425418a484aa453570138f9a052977ec6aeb08d9ad2f96ec100bc7cfc"},
+    {file = "invenio_queues-1.0.1-py2.py3-none-any.whl", hash = "sha256:437466ac59d47ef81f621f36aac96c38bc3c04499a3105eaf35c6f22ed254d1b"},
+]
+
+[package.dependencies]
+invenio-base = ">=1.2.5"
+invenio-celery = ">=1.2.4"
+redis = ">=3.4.0"
+
+[package.extras]
+tests = ["Sphinx (>=4.5.0)", "pytest-black (>=0.3.10)", "pytest-invenio (>=2.1.0,<3.0.0)"]
+
+[[package]]
 name = "invenio-records"
 version = "2.2.2"
 description = "Invenio-Records is a metadata storage module."
@@ -2284,6 +2566,43 @@ elasticsearch7 = ["invenio-search[elasticsearch7] (>=2.1.0,<3.0.0)"]
 opensearch1 = ["invenio-search[opensearch1] (>=2.1.0,<3.0.0)"]
 opensearch2 = ["invenio-search[opensearch2] (>=2.1.0,<3.0.0)"]
 tests = ["Sphinx (==4.2.0)", "invenio-accounts (>=3.0.0,<4.0.0)", "invenio-app (>=1.3.0,<2.0.0)", "invenio-db[mysql,postgresql,versioning] (>=1.0.9,<2.0.0)", "pytest-black (>=0.3.0)", "pytest-invenio (>=2.1.0,<3.0.0)", "pytest-mock (>=1.6.0)"]
+
+[[package]]
+name = "invenio-records-resources"
+version = "4.19.0"
+description = "Invenio resources module to create REST APIs."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "invenio-records-resources-4.19.0.tar.gz", hash = "sha256:456323c226a1a3ac129d12c2403c0a093465ecf0b7da7cb097b2636b6d617edc"},
+    {file = "invenio_records_resources-4.19.0-py2.py3-none-any.whl", hash = "sha256:b63be041c0deec58d0e9f831fc5b809b28cd6aeb7ae4f9aeada4d9f57422fb49"},
+]
+
+[package.dependencies]
+babel-edtf = ">=1.1.0"
+flask-resources = ">=1.0.0,<2.0.0"
+invenio-accounts = ">=3.0.0,<4.0.0"
+invenio-base = ">=1.2.12,<2.0.0"
+invenio-files-rest = ">=2.0.0,<3.0.0"
+invenio-i18n = ">=2.0.0,<3.0.0"
+invenio-indexer = ">=2.1.0,<3.0.0"
+invenio-jsonschemas = ">=1.1.3,<2.0.0"
+invenio-pidstore = ">=1.3.0,<2.0.0"
+invenio-records = ">=2.1.0,<3.0.0"
+invenio-records-permissions = ">=0.18.0,<1.0.0"
+invenio-stats = ">=4.0.0,<5.0.0"
+luqum = ">=0.11.0"
+marshmallow-utils = ">=0.7.1,<1.0.0"
+uritemplate = ">=3.0.1"
+wand = ">=0.6.6,<0.7.0"
+xmltodict = ">=0.12.0,<0.13.0"
+zipstream-ng = ">=1.3.4"
+
+[package.extras]
+elasticsearch7 = ["invenio-search[elasticsearch7] (>=2.1.0,<3.0.0)"]
+opensearch1 = ["invenio-search[opensearch1] (>=2.1.0,<3.0.0)"]
+opensearch2 = ["invenio-search[opensearch2] (>=2.1.0,<3.0.0)"]
+tests = ["invenio-app (>=1.3.2)", "invenio-db[mysql,postgresql,versioning] (>=1.0.14,<2.0.0)", "pytest-black (>=0.3.0)", "pytest-invenio (>=2.1.0,<3.0.0)", "pytest-mock (>=1.6.0)", "sphinx (>=5,<6)"]
 
 [[package]]
 name = "invenio-records-rest"
@@ -2427,6 +2746,33 @@ pytest-invenio = ">=2.1.0,<=3.0.0"
 python-dateutil = ">=2.8.2,<3.0.0"
 SQLAlchemy = ">=1.2.18,<1.5.0"
 SQLAlchemy-Utils = ">=0.33.1,<0.39"
+
+[[package]]
+name = "invenio-stats"
+version = "4.0.2"
+description = "\"Invenio module for collecting statistics.\""
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "invenio-stats-4.0.2.tar.gz", hash = "sha256:83db4d152a81e44f5813a64884ca7d7b58dccfc33aeea2abd36ad9b2a3b8fb23"},
+    {file = "invenio_stats-4.0.2-py2.py3-none-any.whl", hash = "sha256:08beb0d6e6f960620472673ed1497187c4291cb7b95779f5cac5db3cf7bc5b23"},
+]
+
+[package.dependencies]
+counter-robots = ">=2018.6"
+invenio-base = ">=1.2.13"
+invenio-cache = ">=1.1.0"
+invenio-celery = ">=1.2.5"
+invenio-queues = ">=1.0.0a2"
+maxminddb-geolite2 = ">=2018.703"
+python-dateutil = ">=2.7.0"
+python-geoip = ">=1.2"
+
+[package.extras]
+elasticsearch7 = ["invenio-search[elasticsearch7] (>=2.1.0)"]
+opensearch1 = ["invenio-search[opensearch1] (>=2.1.0)"]
+opensearch2 = ["invenio-search[opensearch2] (>=2.1.0)"]
+tests = ["Sphinx (>=5,<6)", "invenio-accounts (>=2.1.0)", "invenio-app (>=1.0.0)", "invenio-db (>=1.0.14)", "invenio-files-rest (>=1.3.0)", "invenio-oauth2server (>=1.3.0)", "invenio-records (>=2.0.0)", "invenio-records-ui (>=1.2.0)", "pytest-black (>=0.3.0,<0.3.10)", "pytest-invenio (>=2.1.0)"]
 
 [[package]]
 name = "invenio-theme"
@@ -2759,6 +3105,20 @@ files = [
 six = ">=1.4.1"
 
 [[package]]
+name = "luqum"
+version = "0.13.0"
+description = "A Lucene query parser generating ElasticSearch queries and more !"
+optional = false
+python-versions = "*"
+files = [
+    {file = "luqum-0.13.0-py3-none-any.whl", hash = "sha256:bf0ac6eb3ca8a6a579ff6dd4bd9d88fbba5d9f559b4f5d864f99c4a6b5061853"},
+    {file = "luqum-0.13.0.linux-x86_64.tar.gz", hash = "sha256:1af57bc37637014460858a2ae4737760015ed0b9d8b23d61f198de4736c174f5"},
+]
+
+[package.dependencies]
+ply = ">=3.11"
+
+[[package]]
 name = "lxml"
 version = "5.1.0"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
@@ -2988,6 +3348,53 @@ dev = ["pre-commit (>=2.4,<4.0)", "pytest", "pytz", "simplejson", "tox"]
 docs = ["alabaster (==0.7.15)", "autodocsumm (==0.2.12)", "sphinx (==7.2.6)", "sphinx-issues (==3.0.1)", "sphinx-version-warning (==1.1.2)"]
 lint = ["pre-commit (>=2.4,<4.0)"]
 tests = ["pytest", "pytz", "simplejson"]
+
+[[package]]
+name = "marshmallow-oneofschema"
+version = "3.1.1"
+description = "marshmallow multiplexing schema"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "marshmallow_oneofschema-3.1.1-py3-none-any.whl", hash = "sha256:ff4cb2a488785ee8edd521a765682c2c80c78b9dc48894124531bdfa1ec9303b"},
+    {file = "marshmallow_oneofschema-3.1.1.tar.gz", hash = "sha256:68b4a57d0281a04ac25d4eb7a4c5865a57090a0a8fd30fd6362c8e833ac6a6d9"},
+]
+
+[package.dependencies]
+marshmallow = ">=3.0.0,<4.0.0"
+
+[package.extras]
+dev = ["marshmallow-oneofschema[tests]", "pre-commit (>=3.5,<4.0)", "tox"]
+tests = ["pytest"]
+
+[[package]]
+name = "marshmallow-utils"
+version = "0.8.2"
+description = "Extras and utilities for Marshmallow."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "marshmallow-utils-0.8.2.tar.gz", hash = "sha256:2d5a315b82da8864174cf17ac59119995b8d4bf0cda5fbd1688fc5b2860e18c4"},
+    {file = "marshmallow_utils-0.8.2-py2.py3-none-any.whl", hash = "sha256:45a38869951c30712953139d6b8d0bd4c93ac5a1f960734f6769a1d9433c2577"},
+]
+
+[package.dependencies]
+arrow = ">=0.16.0"
+Babel = ">=2.8"
+babel-edtf = ">=1.1.0"
+bleach = ">=5.0.0"
+edtf = ">=4.0.1,<5.0.0"
+ftfy = ">=4.4.3"
+geojson = ">=2.5.0"
+idutils = ">=1.1.8"
+marshmallow = ">=3.5.0,<4.0.0"
+marshmallow-oneofschema = ">=2.1.0"
+pycountry = ">=18.12.8"
+uritemplate = ">=3.0.1"
+werkzeug = ">=1.0.0"
+
+[package.extras]
+tests = ["Sphinx (>=4.2.0)", "check-manifest (>=0.42)", "coverage (>=5.2.1)", "pytest (>=6.0)", "pytest-black (>=0.3.0,<0.3.10)", "pytest-cov (>=2.10.1)", "pytest-isort (>=1.2.0)", "pytest-pydocstyle (>=2.2.0)"]
 
 [[package]]
 name = "matplotlib-inline"
@@ -3389,6 +3796,17 @@ files = [
 dev = ["pre-commit", "tox"]
 
 [[package]]
+name = "ply"
+version = "3.11"
+description = "Python Lex & Yacc"
+optional = false
+python-versions = "*"
+files = [
+    {file = "ply-3.11-py2.py3-none-any.whl", hash = "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"},
+    {file = "ply-3.11.tar.gz", hash = "sha256:00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3"},
+]
+
+[[package]]
 name = "poethepoet"
 version = "0.12.3"
 description = "A task runner that works well with poetry."
@@ -3673,6 +4091,64 @@ docs = ["sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
 tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
 
 [[package]]
+name = "pymupdf"
+version = "1.24.0"
+description = "A high performance Python library for data extraction, analysis, conversion & manipulation of PDF (and other) documents."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "PyMuPDF-1.24.0-cp310-none-macosx_10_9_x86_64.whl", hash = "sha256:37160eb301e017ec67bb63b1c6f52eae2c90bd1159f6a6b2ec469c3e69d55f74"},
+    {file = "PyMuPDF-1.24.0-cp310-none-macosx_11_0_arm64.whl", hash = "sha256:af2d8ba47851f2a5a2f7592453792a03cbcd705e40512e9aeb199edd7bcce886"},
+    {file = "PyMuPDF-1.24.0-cp310-none-manylinux2014_aarch64.whl", hash = "sha256:f318efcfda3ca625b2b2318019d8195b2e239cf1e66eaf5a94cd1e6bd11999d2"},
+    {file = "PyMuPDF-1.24.0-cp310-none-manylinux2014_x86_64.whl", hash = "sha256:986b234751e734da1b4f983fd270fa595258781abc25e26d409d96439136c41c"},
+    {file = "PyMuPDF-1.24.0-cp310-none-win32.whl", hash = "sha256:490d10c85defec873bf33a54eea1e8cc637927c7efeaff3570b812d7c65256f7"},
+    {file = "PyMuPDF-1.24.0-cp310-none-win_amd64.whl", hash = "sha256:2d46cd6535f25ffeb6261d389b932fa6359193a12de3633e200504898d48c27d"},
+    {file = "PyMuPDF-1.24.0-cp311-none-macosx_10_9_x86_64.whl", hash = "sha256:9354c2654512390d261bad37a90168de0cb954be4e9b3d55073a67e8ca07f7f8"},
+    {file = "PyMuPDF-1.24.0-cp311-none-macosx_11_0_arm64.whl", hash = "sha256:bfc953361277cafa38e5bb93edd2b7c6c0c4284f137cea5847efe730759fe0d2"},
+    {file = "PyMuPDF-1.24.0-cp311-none-manylinux2014_aarch64.whl", hash = "sha256:13625c9da4021e649da11acb60e0a8aa300fb6c4bdb450754f975d7f92043999"},
+    {file = "PyMuPDF-1.24.0-cp311-none-manylinux2014_x86_64.whl", hash = "sha256:8db27eca7f6aa2c5aa84278cc9961a0183e8aca6d7210a5648658816ea9601bf"},
+    {file = "PyMuPDF-1.24.0-cp311-none-win32.whl", hash = "sha256:fc4b7a212b9f3216bb32c1146340efe5282c1519f7250e52ccd9dedcfd04df5d"},
+    {file = "PyMuPDF-1.24.0-cp311-none-win_amd64.whl", hash = "sha256:4e92d2895eb55b5475572bda167bb6d3c5b7757ba0b6beee0456ca0d3db852b2"},
+    {file = "PyMuPDF-1.24.0-cp312-none-macosx_10_9_x86_64.whl", hash = "sha256:963759f1a2722d25d08e79e00db696e4f5342675bed3b2f2129f03a8d4c41b77"},
+    {file = "PyMuPDF-1.24.0-cp312-none-macosx_11_0_arm64.whl", hash = "sha256:96bcecd0a33b2de6954c4a3c677719cd1d1f36c1fe7dc4e229e06177aef8bdb7"},
+    {file = "PyMuPDF-1.24.0-cp312-none-manylinux2014_aarch64.whl", hash = "sha256:b9fb4df0d584b1df3789f521e3950a930884fe0fdd28d4c4ef1c571f3fb9b56e"},
+    {file = "PyMuPDF-1.24.0-cp312-none-manylinux2014_x86_64.whl", hash = "sha256:65fc88a23804b83b9390016d377d9350dece167e349140de93769618858ccf8d"},
+    {file = "PyMuPDF-1.24.0-cp312-none-win32.whl", hash = "sha256:4395b420477620be4fc90567deb20f17eda5e9757e2ca95f7bc3854d2a6713cc"},
+    {file = "PyMuPDF-1.24.0-cp312-none-win_amd64.whl", hash = "sha256:ee1188a8d9bf9dbf21aab8229c99472dd47af315a71753452210f40cff744a7b"},
+    {file = "PyMuPDF-1.24.0-cp38-none-macosx_10_9_x86_64.whl", hash = "sha256:82ff0a4ed3a27de95726db1f10744c2865212eed2a28e3fd19a081b9c247028d"},
+    {file = "PyMuPDF-1.24.0-cp38-none-macosx_11_0_arm64.whl", hash = "sha256:9e9945d1af3ec6deff4c5d61edc63b9c68d49c2212df1104614e2ab173b1d158"},
+    {file = "PyMuPDF-1.24.0-cp38-none-manylinux2014_aarch64.whl", hash = "sha256:f120a23a0690be2e6d3ec195c308582930c75fbf3fb6cb6785252a01454fb0ef"},
+    {file = "PyMuPDF-1.24.0-cp38-none-manylinux2014_x86_64.whl", hash = "sha256:08bb534a046d7492ab7cf726ef9aa01a14791e53922ffc2a341fa617709434f2"},
+    {file = "PyMuPDF-1.24.0-cp38-none-win32.whl", hash = "sha256:f428210b2fc7e0094dbcd62acc15554cb3ee9778a3429bf2d04850cfbab227fb"},
+    {file = "PyMuPDF-1.24.0-cp38-none-win_amd64.whl", hash = "sha256:6731cc7ef76d972220bd1bb50d5b67720de2038312be23806045bcc5f9675951"},
+    {file = "PyMuPDF-1.24.0-cp39-none-macosx_10_9_x86_64.whl", hash = "sha256:de1aa7825f3333dfbff26e88f9cd37491a625b783b8b4780a14e5f70ab6d9853"},
+    {file = "PyMuPDF-1.24.0-cp39-none-macosx_11_0_arm64.whl", hash = "sha256:160a3310f33fda1c0cfaed82d4e22a2aca960ebf5c6919982032727973e42830"},
+    {file = "PyMuPDF-1.24.0-cp39-none-manylinux2014_aarch64.whl", hash = "sha256:ce6f1f0b3ca8023bdbbc90fd2428b05db5c7c4b581d785072200082924f6c82f"},
+    {file = "PyMuPDF-1.24.0-cp39-none-manylinux2014_x86_64.whl", hash = "sha256:750908f95771fa0fcdbc690f6aae7e0031ff002c5ea343f12930e42da73e5c8b"},
+    {file = "PyMuPDF-1.24.0-cp39-none-win32.whl", hash = "sha256:d193319e3850f4025dc1e3c8a6a0b03683668353aacf660d434668be51e3e464"},
+    {file = "PyMuPDF-1.24.0-cp39-none-win_amd64.whl", hash = "sha256:e72b7ab4b2dfffe38ceed1e577ffaaa2e34117d87fc716b0238a6f2a12670fe4"},
+    {file = "PyMuPDF-1.24.0.tar.gz", hash = "sha256:b6811b09af1ddb93229066f7acf183f6aeeeec4bf9c2290ff81fbeebbc5a4f79"},
+]
+
+[package.dependencies]
+PyMuPDFb = "1.24.0"
+
+[[package]]
+name = "pymupdfb"
+version = "1.24.0"
+description = "MuPDF shared libraries for PyMuPDF."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "PyMuPDFb-1.24.0-py3-none-macosx_10_9_x86_64.whl", hash = "sha256:5af4e14171efd5e85b82ce2ae94caaebae9f4314103fc9af62be99537e21562e"},
+    {file = "PyMuPDFb-1.24.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:113e424b534a73a00dfaf2407beab3e9c35bfe406f77cfa66a43cf5f87bafef6"},
+    {file = "PyMuPDFb-1.24.0-py3-none-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:347fff11c61e82538bdf6293cb4cfb41aa7b6ae14a4785efaaa81da949126424"},
+    {file = "PyMuPDFb-1.24.0-py3-none-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:871e100637fd64c76356656ca4122f4d355906aa25173997959ccaf39413c8d4"},
+    {file = "PyMuPDFb-1.24.0-py3-none-win32.whl", hash = "sha256:051e043ada55ecf03cae28b9990ec53b975a69995a0f177caedc9b3bf85d2d22"},
+    {file = "PyMuPDFb-1.24.0-py3-none-win_amd64.whl", hash = "sha256:3e368ce2a8935881965343a7b87565b532a1787a3dc8f5580980dfb8b91d0c39"},
+]
+
+[[package]]
 name = "pynpm"
 version = "0.2.0"
 description = "\"Python interface to your NPM and package.json.\""
@@ -3883,6 +4359,17 @@ files = [
 
 [package.extras]
 cli = ["click (>=5.0)"]
+
+[[package]]
+name = "python-geoip"
+version = "1.2"
+description = "Provides GeoIP functionality for Python."
+optional = false
+python-versions = "*"
+files = [
+    {file = "python-geoip-1.2.tar.gz", hash = "sha256:b7b11dab42bffba56943b3199e3441f41cea145244d215844ecb6de3d5fb2df5"},
+    {file = "python_geoip-1.2-py27-none-any.whl", hash = "sha256:fb0fa723d0cef2b52807afb7da154877125e0d40f94ec69707511549a8d431c9"},
+]
 
 [[package]]
 name = "pytz"
@@ -4185,6 +4672,28 @@ Mako = ">=1.2.2"
 pydocstyle = ">=6.1.1"
 PyYAML = "<=7.0"
 sqlalchemy = ">=1.3.0,<1.5.0"
+
+[[package]]
+name = "rero-invenio-files"
+version = "0.1.0"
+description = "Files support for the RERO invenio instances."
+optional = false
+python-versions = "^3.9"
+files = []
+develop = false
+
+[package.dependencies]
+fpdf2 = "^2.7.7"
+invenio-db = {version = ">=1.1.0,<1.2.0", extras = ["postgresql"]}
+invenio-records-resources = "^4.18.3"
+invenio-search = {version = ">=2.1.0,<3.0.0", extras = ["elasticsearch7"]}
+pymupdf = "^1.23.21"
+
+[package.source]
+type = "git"
+url = "https://github.com/rero/rero-invenio-files.git"
+reference = "HEAD"
+resolved_reference = "e14b9cb44eaef74d61859febb483d94b822a7bde"
 
 [[package]]
 name = "rpds-py"
@@ -5138,6 +5647,21 @@ files = [
 ]
 
 [[package]]
+name = "wand"
+version = "0.6.13"
+description = "Ctypes-based simple MagickWand API binding for Python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "Wand-0.6.13-py2.py3-none-any.whl", hash = "sha256:e5dda0ac2204a40c29ef5c4cb310770c95d3d05c37b1379e69c94ea79d7d19c0"},
+    {file = "Wand-0.6.13.tar.gz", hash = "sha256:f5013484eaf7a20eb22d1821aaefe60b50cc329722372b5f8565d46d4aaafcca"},
+]
+
+[package.extras]
+doc = ["Sphinx (>=5.3.0)"]
+test = ["pytest (>=7.2.0)"]
+
+[[package]]
 name = "watchdog"
 version = "2.2.1"
 description = "Filesystem events monitoring"
@@ -5323,13 +5847,13 @@ timezone = ["python-dateutil"]
 
 [[package]]
 name = "xmltodict"
-version = "0.13.0"
+version = "0.12.0"
 description = "Makes working with XML feel like you are working with JSON"
 optional = false
-python-versions = ">=3.4"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 files = [
-    {file = "xmltodict-0.13.0-py2.py3-none-any.whl", hash = "sha256:aa89e8fd76320154a40d19a0df04a4695fb9dc5ba977cbb68ab3e4eb225e7852"},
-    {file = "xmltodict-0.13.0.tar.gz", hash = "sha256:341595a488e3e01a85a9d8911d8912fd922ede5fecc4dce437eb4b6c8d037e56"},
+    {file = "xmltodict-0.12.0-py2.py3-none-any.whl", hash = "sha256:8bbcb45cc982f48b2ca8fe7e7827c5d792f217ecf1792626f808bf41c3b86051"},
+    {file = "xmltodict-0.12.0.tar.gz", hash = "sha256:50d8c638ed7ecb88d90561beedbf720c9b4e851a9fa6c47ebd64e99d166d8a21"},
 ]
 
 [[package]]
@@ -5347,10 +5871,24 @@ files = [
 docs = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (<7.2.5)", "sphinx (>=3.5)", "sphinx-lint"]
 testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=2.2)", "pytest-ignore-flaky", "pytest-mypy (>=0.9.1)", "pytest-ruff"]
 
+[[package]]
+name = "zipstream-ng"
+version = "1.7.1"
+description = "A modern and easy to use streamable zip file generator"
+optional = false
+python-versions = ">=3.5.0"
+files = [
+    {file = "zipstream-ng-1.7.1.tar.gz", hash = "sha256:f92023b9ca578cd7fdd94ec733c65664ecf7ee32493e38cdf8e365a1316e9ffc"},
+    {file = "zipstream_ng-1.7.1-py3-none-any.whl", hash = "sha256:d5a30ac73ae70ce32e1bde937da6839f01cad1f4effeedda5bfa08c6f6b8f73d"},
+]
+
+[package.extras]
+tests = ["pytest", "pytest-cov"]
+
 [extras]
 sip2 = ["invenio-sip2"]
 
 [metadata]
 lock-version = "2.0"
 python-versions = ">= 3.9, <3.10"
-content-hash = "2462230ef8646d3620e45cf60413e88d74d383c34963e2df38c1c8fdbdaf7450"
+content-hash = "21cd1f1e0ce3509104b2583bf47f0add5e02fa566d863ed2685f84fb31e10997"

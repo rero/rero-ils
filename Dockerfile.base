@@ -19,7 +19,7 @@ FROM python:3.9-slim-bullseye
 
 # require debian packages
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install --no-install-recommends -y git vim-tiny curl gcc gnupg libc6-dev procps && rm -rf /var/lib/apt/lists/*
+RUN apt-get install --no-install-recommends -y git vim-tiny curl gcc gnupg libc6-dev procps imagemagick && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade setuptools wheel pip poetry
 
 # # uwsgi uwsgitop uwsgi-tools

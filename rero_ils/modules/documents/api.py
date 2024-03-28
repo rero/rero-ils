@@ -24,6 +24,7 @@ from functools import partial
 from elasticsearch.exceptions import NotFoundError
 from elasticsearch_dsl import Q
 from flask import current_app
+from invenio_access.permissions import system_identity
 from invenio_circulation.search.api import search_by_pid
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
@@ -308,6 +309,7 @@ class Document(IlsRecord):
             document_pid=self.pid,
             exclude_states=[LoanState.CANCELLED, LoanState.ITEM_RETURNED]
         )
+        file_query = self.get_records_files_query().source()
         acq_order_lines_query = AcqOrderLinesSearch() \
             .filter('term', document__pid=self.pid)
         local_fields_query = LocalFieldsSearch()\
@@ -329,6 +331,7 @@ class Document(IlsRecord):
         if get_pids:
             holdings = sorted_pids(hold_query)
             items = sorted_pids(item_query)
+            files = [hit.id for hit in file_query.scan()]
             loans = sorted_pids(loan_query)
             acq_order_lines = sorted_pids(acq_order_lines_query)
             local_fields = sorted_pids(local_fields_query)
@@ -342,6 +345,7 @@ class Document(IlsRecord):
             holdings = hold_query.count()
             items = item_query.count()
             loans = loan_query.count()
+            files = file_query.count()
             acq_order_lines = acq_order_lines_query.count()
             local_fields = local_fields_query.count()
             documents = 0
@@ -353,12 +357,42 @@ class Document(IlsRecord):
         links = {
             'holdings': holdings,
             'items': items,
+            'files': files,
             'loans': loans,
             'acq_order_lines': acq_order_lines,
             'documents': documents,
             'local_fields': local_fields
         }
         return {k: v for k, v in links.items() if v}
+
+    def get_records_files_query(self, lib_pids=None):
+        """Creates an es query to retrieves the record files."""
+        ext = current_app.extensions['rero-invenio-files']
+        sfr = ext.records_service
+        search = sfr.search_request(
+            system_identity, dict(size=1), sfr.record_cls, sfr.config.search
+        )
+        # required to avoid exception during the `count()` call
+        # TODO: remove this once the issue is solved
+        search._params = {}
+        search = search.source(['uuid', 'id'])\
+            .filter('term', metadata__links=f'doc_{self.pid}')
+        # filter by library pids
+        if lib_pids:
+            # add lib_ prefix if it is needed
+            if not lib_pids[0].startswith('lib_'):
+                lib_pids = [f'lib_{pid}' for pid in lib_pids]
+            search = search.filter('terms', metadata__owners=lib_pids)
+        return search
+
+    def get_records_files(self, lib_pids=None):
+        """Get the record files linked to the current document."""
+        ext = current_app.extensions['rero-invenio-files']
+        sfr = ext.records_service
+        for rec in (self.get_records_files_query(
+            lib_pids=lib_pids).source().scan()
+        ):
+            yield sfr.record_cls.get_record(rec.uuid)
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""

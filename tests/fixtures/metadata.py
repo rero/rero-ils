@@ -17,13 +17,15 @@
 
 """Common pytest fixtures and plugins."""
 
-
+import shutil
+import tempfile
 from copy import deepcopy
 from datetime import datetime
 from os.path import dirname, join
 
 import mock
 import pytest
+from invenio_files_rest.models import Location
 from utils import flush_index, mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
@@ -31,6 +33,8 @@ from rero_ils.modules.entities.local_entities.api import LocalEntitiesSearch, \
     LocalEntity
 from rero_ils.modules.entities.remote_entities.api import \
     RemoteEntitiesSearch, RemoteEntity
+from rero_ils.modules.files.cli import create_pdf_record_files, \
+    load_files_for_document
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
@@ -38,6 +42,28 @@ from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.stats_cfg.api import StatConfiguration, \
     StatsConfigurationSearch
 from rero_ils.modules.templates.api import Template, TemplatesSearch
+
+
+@pytest.fixture(scope="module")
+def file_location(database):
+    """Creates a simple default location for a test.
+
+    Scope: function
+
+    Use this fixture if your test requires a `files location <https://invenio-
+    files-rest.readthedocs.io/en/latest/api.html#invenio_files_rest.models.
+    Location>`_. The location will be a default location with the name
+    ``pytest-location``.
+    """
+    uri = tempfile.mkdtemp()
+    location_obj = Location(name="pytest-location", uri=uri, default=True)
+
+    database.session.add(location_obj)
+    database.session.commit()
+
+    yield location_obj
+
+    shutil.rmtree(uri)
 
 
 @pytest.fixture(scope="module")
@@ -163,6 +189,21 @@ def document(app, document_data):
         reindex=True)
     flush_index(DocumentsSearch.Meta.index)
     return doc
+
+
+@pytest.fixture(scope='module')
+def document_with_files(document, lib_martigny, file_location):
+    """Create a document with a pdf file attached."""
+    metadata = dict(
+        owners=[f'lib_{lib_martigny.pid}'],
+        collections=['col1', 'col2']
+    )
+    create_pdf_record_files(document, metadata, flush=True)
+    file_path = join(dirname(__file__), '../data/help/files/logo_rero_ils.png')
+    load_files_for_document(
+        document=document, metadata=metadata, files=[file_path])
+    flush_index(DocumentsSearch.Meta.index)
+    yield document
 
 
 @pytest.fixture(scope="module")

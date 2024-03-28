@@ -42,6 +42,7 @@ from rero_ils.modules.patrons.api import current_patrons
 from rero_ils.modules.utils import extracted_data_from_ref
 
 from .api import Document, DocumentsSearch
+from .dumpers import document_indexer_dumper
 from .extensions import EditionStatementExtension, \
     ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
 from .utils import display_alternate_graphic_first, get_remote_cover, \
@@ -97,11 +98,11 @@ def doc_item_view_method(pid, record, template=None, **kwargs):
         query = query.filter(
             'term', holdings__organisation__organisation_pid=organisation.pid)
     linked_documents_count = query.count()
-
     return render_template(
         template,
         pid=pid,
         record=record,
+        es_record=record.dumps(document_indexer_dumper),
         holdings_count=holdings_count,
         viewcode=viewcode,
         recordType='documents',

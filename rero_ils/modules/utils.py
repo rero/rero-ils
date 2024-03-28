@@ -50,6 +50,13 @@ from lxml import etree
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
+from werkzeug.local import LocalProxy
+
+# jsonschema resolver
+# SEE: RECORDS_REFRESOLVER_STORE for more details
+refresolver_store = LocalProxy(
+    lambda: current_app.extensions['rero-ils'].jsonschema_store
+)
 
 
 def get_mef_url(entity_type):
@@ -237,6 +244,23 @@ def get_record_class_and_permissions_from_route(route_name):
     """Get record class and permission factories for a record route name."""
     endpoints = current_app.config.get('RECORDS_REST_ENDPOINTS')
     endpoints.update(current_app.config.get('CIRCULATION_REST_ENDPOINTS', {}))
+    registry = current_app.extensions["invenio-records-resources"].registry
+    # invenio records resources case
+    try:
+        service = registry.get(route_name)
+        record_class = service.record_cls
+        permission_cls = service.permission_policy
+        permissions = dict(
+            read=lambda record: permission_cls('read', record=record),
+            list=lambda record: permission_cls('search', record=record),
+            create=lambda record: permission_cls('create', record=record),
+            update=lambda record: permission_cls('update', record=record),
+            delete=lambda record: permission_cls('delete', record=record)
+        )
+        return record_class, permissions
+    except KeyError:
+        pass
+    # legacy invenio records rest case
     for endpoint in endpoints.items():
         record = endpoint[1]
         list_route = record.get('list_route').replace('/', '')

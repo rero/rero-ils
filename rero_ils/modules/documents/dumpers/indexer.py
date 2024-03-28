@@ -19,6 +19,7 @@
 """Indexing dumper."""
 
 from flask import current_app
+from invenio_access.permissions import system_identity
 from invenio_records.dumpers import Dumper
 
 from ..extensions import TitleExtension
@@ -227,6 +228,38 @@ class IndexerDumper(Dumper):
             data['sort_date_new'] = end_date or start_date
             data['sort_date_old'] = start_date
 
+    def _process_files(self, record, data):
+        """Add full text from files."""
+        ext = current_app.extensions['rero-invenio-files']
+        sfr = ext.records_service
+        search = sfr.search_request(
+            system_identity, dict(size=1), sfr.record_cls, sfr.config.search
+        )
+        search = search.source('uuid')\
+            .filter('term', metadata__links=f'doc_{record.pid}')
+        files = {}
+        for record_file in record.get_records_files():
+            collections = record_file.get('metadata', {}).get('collections')
+            for file_name in record_file.files:
+                file = record_file.files[file_name]
+                metadata = file.get('metadata', {})
+                if metadata.get('type') == 'thumbnail':
+                    # no useful information here
+                    continue
+                if metadata.get('type') == 'fulltext':
+                    # get the fulltext
+                    stream = file.get_stream('r')
+                    files.setdefault(
+                        metadata['fulltext_for'], {})['text'] = stream.read()
+                    continue
+                # other information from the main file
+                files.setdefault(file_name, {})['file_name'] = file_name
+                files[file_name]['rec_id'] = record_file.pid.pid_value
+                if collections:
+                    files[file_name]['collections'] = collections
+        if files:
+            data['files'] = list(files.values())
+
     def dump(self, record, data):
         """Dump a document instance with basic document information's.
 
@@ -240,6 +273,7 @@ class IndexerDumper(Dumper):
         self._process_sort_title(record, data)
         self._process_host_document(record, data)
         self._process_provision_activity(record, data)
+        self._process_files(record, data)
         # import pytz
         # from datetime import datetime
         # iso_now = pytz.utc.localize(datetime.utcnow()).isoformat()
