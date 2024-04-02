@@ -1,0 +1,25 @@
+Invitación a recoger un documento
+{%- include('email/_patron_address.txt') %}
+Estimado Sr./Sra,
+
+El documento que ha solicitado ya está disponible. Puede recogerlo en el mostrador de préstamos de la biblioteca que se indica a continuación.
+{%- for loan in loans %}
+
+Título: {{ loan.document.title_text }}
+Código de barras: {{ loan.document.barcode }}
+{%- if loan.document.call_numbers %}
+Clasificación : {{ loan.document.call_numbers | join(' / ') }}
+{%- endif %}
+Lugar de recogida: {{ loan.pickup_name }}
+{%- if loan.pickup_until %}
+Está disponible hasta: {{ loan.pickup_until.strftime('%d/%m/%Y') }}
+{%- endif %}
+{%- endfor %}
+
+Si el documento no se recoge en la fecha límite, volverá a ponerse en circulación para otras personas.
+Puede consultar su cuenta y ampliar la duración del préstamo de sus documentos en: {{ patron.profile_url }}
+
+Atentamente
+
+{{ library.name }}
+{{ library.address }}

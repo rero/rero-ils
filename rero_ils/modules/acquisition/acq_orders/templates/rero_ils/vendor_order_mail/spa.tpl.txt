@@ -1,0 +1,49 @@
+{{ order.library.name }} - Pedido [{{ order.reference }}]
+
+Nuestra referencia: {{ order.reference }}
+Fecha: {{ order.order_date }}
+
+Estimado Sr./Sra,
+
+Nos gustaría pedir la siguiente lista de libros:
+
+------------------------------------------------------------
+{%- for line in order.order_lines %}
+Documento :
+  {{ line.document.title_text }}
+  {%- if line.document.provision_activity %}
+  Mención de la publicación : {{ line.document.provision_activity }}
+  {%- endif %}
+  {%- if line.document.serie_statement %}
+  Colección : {{ line.document.serie_statement }}
+  {%- endif %}
+  {%- if line.document.identifiers %}
+  ISBN : {{ line.document.identifiers | join(' ; ') }}
+  {%- endif %}
+  {%- if line.note %}
+  Nota : {{ line.note }}
+  {%- endif %}
+  Cantidad: {{ line.quantity }}
+  Cuenta local : {{ line.account.name }} {% if line.account.number: -%}
+  {{ line.account.number }}]
+  {%- endif %}
+------------------------------------------------------------
+{%- endfor -%}
+{%- if order.note %}
+
+Nos gustaría llamar su atención sobre la siguiente observación:
+
+{{ order.note }}
+{%- endif %}
+
+Saludos cordiales,
+
+{{ order.library.shipping_informations.name }}
+
+Dirección de entrega:
+{{ order.library.shipping_informations | address_block(language=order.vendor.language) }}
+
+{% if order.library.billing_informations -%}
+Dirección de facturación:
+{{ order.library.billing_informations | address_block(language=order.vendor.language) }}
+{%- endif %}
