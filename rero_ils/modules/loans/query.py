@@ -42,5 +42,11 @@ def misc_status_filter():
         #   lower than the current timestamp
         if 'expired_request' in values:
             queries.append(Q('range', request_expire_date={'lt': 'now/d'}))
+            queries.append(Q('filter', terms={
+                'state': [
+                    'ITEM_AT_DESK',
+                    'ITEM_IN_TRANSIT_FOR_PICKUP'
+                ]
+            }))
         return Q('bool', must=queries)
     return inner

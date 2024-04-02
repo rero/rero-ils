@@ -1932,7 +1932,7 @@ RECORDS_REST_FACETS = dict(
                 filters=dict(
                     filters=dict(
                         overdue=dict(range=dict(end_date=dict(lt='now/d'))),
-                        expired_request=dict(range=dict(request_expire_date=dict(lt='now/d')))
+                        expired_request=dict(range=dict(request_expire_date=dict(lt='now/d')), terms=dict(state=['ITEM_AT_DESK', 'ITEM_IN_TRANSIT_FOR_PICKUP']))
                     )
                 )
             ),
