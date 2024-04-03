@@ -249,11 +249,9 @@ class IlsRecord(Record):
             record = super().create(data=data, id_=id_, **kwargs)
             if record and dbcommit:
                 record.dbcommit(reindex)
-        # TODO: remove validation error once the angular editor
-        #       validation is complete
         except Exception as err:
-            current_app.logger.error(
-                f'{cls.__name__} err:{err} data:{data}')
+            current_app.logger.warning(
+                f'CREATE WARNING: {cls.__name__}: {err} data:{data}')
             raise
         return record
 
