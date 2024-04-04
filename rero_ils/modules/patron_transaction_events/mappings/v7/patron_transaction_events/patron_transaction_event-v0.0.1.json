@@ -82,6 +82,9 @@
           "pid": {
             "type": "keyword"
           },
+          "barcode": {
+            "type": "keyword"
+          },
           "type": {
             "type": "keyword"
           }
@@ -111,6 +114,37 @@
         "properties": {
           "pid": {
             "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "document": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "type": {
+            "type": "keyword"
+          }
+        }
+      },
+      "item": {
+        "properties": {
+          "pid": {
+            "type": "keyword"
+          },
+          "barcode": {
+            "type": "keyword"
+          },
+          "call_numbers": {
+            "type": "text",
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            }
           },
           "type": {
             "type": "keyword"

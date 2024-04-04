@@ -26,6 +26,7 @@ from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata, \
     to_relative_url
 
+from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.patron_transaction_events.api import \
     PatronTransactionEvent
 
@@ -74,12 +75,20 @@ def test_patron_transaction_events_get(
     data = get_json(res)
     result = data['hits']['hits'][0]['metadata']
     # delete dynamically added keys (listener)
-    del result['organisation']
-    del result['patron']
-    del result['category']
-    del result['owning_library']
-    del result['owning_location']
-    del result['patron_type']
+    assert result.pop('organisation') == {'pid': 'org1', 'type': 'org'}
+    assert result.pop('patron') == {
+        'barcode': '4098124352',
+        'pid': 'ptrn6',
+        'type': 'ptrn'
+    }
+    assert result.pop('category') == NotificationType.OVERDUE
+    assert result.pop('owning_library') == {'pid': 'lib1', 'type': 'lib'}
+    assert result.pop('owning_location') == {'pid': 'loc1', 'type': 'loc'}
+    assert result.pop('patron_type') == {'pid': 'ptty1', 'type': 'ptty'}
+    assert result.pop('document') == {'pid': 'doc1', 'type': 'doc'}
+    item_data = result.pop('item')
+    assert item_data.pop('barcode').startswith('f-')
+    assert item_data == {'pid': 'item8', 'type': 'item'}
 
     assert result == patron_event.replace_refs()
 
