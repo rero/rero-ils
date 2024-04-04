@@ -79,9 +79,10 @@ def test_patron_transactions_get(
     assert res.status_code == 200
     data = get_json(res)
     result = data['hits']['hits'][0]['metadata']
-    del result['document']
-    del result['library']
-    del result['item']
+    assert result.pop('document') == {'pid': 'doc1', 'type': 'doc'}
+    assert result.pop('library') == {'pid': 'lib1', 'type': 'lib'}
+    assert result.pop('item') == {'pid': 'item8', 'type': 'item'}
+    del result['patron']['barcode']
     assert result == transaction.replace_refs()
 
     # Check for `rero+json` mime type response

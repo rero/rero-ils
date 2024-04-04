@@ -28,6 +28,9 @@
           },
           "pid": {
             "type": "keyword"
+          },
+          "barcode": {
+            "type": "keyword"
           }
         }
       },

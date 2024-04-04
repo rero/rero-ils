@@ -131,6 +131,12 @@ class PatronTransaction(IlsRecord):
             return loan.document_pid
 
     @property
+    def item_pid(self):
+        """Get the `Item` pid related to this transaction."""
+        if loan := self.loan:
+            return loan.item_pid
+
+    @property
     def library_pid(self):
         """Get the `Library` pid related to this transaction."""
         if loan := self.loan:

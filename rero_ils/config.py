@@ -2278,6 +2278,7 @@ RECORDS_REST_FACETS = dict(
             )
         ),
         filters={
+            'item': and_term_filter('item.pid'),
             'patron_type': and_term_filter('patron_type.pid'),
             'transaction_library': and_term_filter('library.pid'),
             'transaction_date': range_filter(
@@ -2286,7 +2287,6 @@ RECORDS_REST_FACETS = dict(
                 start_date_math='/d',
                 end_date_math='/d'
             ),
-
         },
         post_filters={
             'owning_library': {
