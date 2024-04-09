@@ -86,9 +86,7 @@ def create_pdf_record_files(document, metadata, flush=False,
         record.commit()
         # index the file record
         record_service.indexer.index_by_id(record.id)
-        if flush:
-            current_search.flush_and_refresh(
-                record_service.record_cls.index._name)
+
     recid = record["id"]
     g.identity = system_identity
     with UnitOfWork() as uow:
@@ -118,6 +116,9 @@ def create_pdf_record_files(document, metadata, flush=False,
                 uow=uow
             )
         uow.commit()
+    if flush:
+        current_search.flush_and_refresh(
+            record_service.record_cls.index._name)
     return record
 
 

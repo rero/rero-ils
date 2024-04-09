@@ -95,7 +95,8 @@ def test_documents_get(client, document_with_files):
     metadata = data['hits']['hits'][0]['metadata']
     files = metadata['files']
     assert len(files) == 2
-    assert set(files[0].keys()) == set(('file_name', 'rec_id', 'collections'))
+    assert set(files[0].keys()) == {
+        'file_name', 'rec_id', 'collections', 'organisation'}
     data_clean = clean_es_metadata(metadata)
     document = document.replace_refs().dumps()
     document.pop('identifiedBy', None)
