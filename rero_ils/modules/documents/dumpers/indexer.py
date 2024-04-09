@@ -240,6 +240,8 @@ class IndexerDumper(Dumper):
         files = {}
         for record_file in record.get_records_files():
             collections = record_file.get('metadata', {}).get('collections')
+            owners = record_file.get('metadata', {}).get('owners')
+            library_pid = owners[0].replace('lib_', '')
             for file_name in record_file.files:
                 file = record_file.files[file_name]
                 metadata = file.get('metadata', {})
@@ -257,6 +259,10 @@ class IndexerDumper(Dumper):
                 files[file_name]['rec_id'] = record_file.pid.pid_value
                 if collections:
                     files[file_name]['collections'] = collections
+                if library_pid:
+                    files[file_name]['organisation'] = {
+                        'library_pid': library_pid
+                    }
         if files:
             data['files'] = list(files.values())
 

@@ -31,13 +31,14 @@ from rero_ils.modules.stats.api.pricing import StatsForPricing
 def test_stats_pricing_collect(stat_for_pricing):
     """Test the stat pricing collect keys."""
 
-    assert list(stat_for_pricing.collect()[0].keys()) == [
-        'library', 'number_of_documents', 'number_of_libraries',
+    assert set(stat_for_pricing.collect()[0].keys()) == set([
+        'library', 'number_of_docs_with_files', 'number_of_files',
+        'files_volume', 'number_of_documents', 'number_of_libraries',
         'number_of_librarians', 'number_of_active_patrons',
         'number_of_order_lines', 'number_of_checkouts', 'number_of_renewals',
         'number_of_ill_requests', 'number_of_items',
         'number_of_new_items', 'number_of_deleted_items', 'number_of_patrons',
-        'number_of_new_patrons', 'number_of_checkins', 'number_of_requests']
+        'number_of_new_patrons', 'number_of_checkins', 'number_of_requests'])
 
 
 def test_stats_pricing_number_of_documents(
@@ -171,3 +172,14 @@ def test_stats_pricing_number_of_new_patrons(
     stat = StatsForPricing()
     assert stat\
         .number_of_new_patrons(patron_martigny.organisation_pid) == 0
+
+
+def test_stats_pricing_files(
+        stat_for_pricing, lib_martigny, document_with_files):
+    """Test the files indicators for a given library."""
+    assert float(stat_for_pricing.files_volume('foo')) == 0
+    assert stat_for_pricing.number_of_files('foo') == 0
+    assert stat_for_pricing.number_of_docs_with_files('foo') == 0
+    assert stat_for_pricing.number_of_files(lib_martigny.pid) >= 1
+    assert float(stat_for_pricing.files_volume(lib_martigny.pid)) > 0
+    assert stat_for_pricing.number_of_docs_with_files(lib_martigny.pid) >= 1
