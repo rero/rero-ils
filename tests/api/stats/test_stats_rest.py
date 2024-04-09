@@ -47,16 +47,17 @@ def test_stats_get(client, stats, csv_header):
     assert res.status_code == 200
     data = get_csv(res)
     assert data == (
-        'library id,library name,number_of_active_patrons,'
-        'number_of_checkins,number_of_checkouts,'
-        'number_of_deleted_items,number_of_documents,'
+        'files_volume,library id,library name,number_of_active_patrons,'
+        'number_of_checkins,number_of_checkouts,number_of_deleted_items,'
+        'number_of_docs_with_files,number_of_documents,number_of_files,'
         'number_of_ill_requests,number_of_items,number_of_librarians,'
         'number_of_libraries,number_of_new_items,number_of_new_patrons,'
-        'number_of_order_lines,number_of_patrons,'
-        'number_of_renewals,number_of_requests\r\n'
-        'lib3,Library of Fully,0,0,0,0,1,0,1,0,2,1,1,0,1,0,0\r\n'
-        'lib1,Library of Martigny-ville,0,0,0,0,1,1,1,0,2,1,1,0,1,0,0\r\n'
-        'lib4,Library of Sion,0,0,0,0,1,0,1,0,1,1,0,0,0,0,0\r\n'
+        'number_of_order_lines,number_of_patrons,number_of_renewals,'
+        'number_of_requests\r\n'
+        '0.000,lib3,Library of Fully,0,0,0,0,0,1,0,0,1,0,2,1,1,0,1,0,0\r\n'
+        '0.000,lib1,Library of Martigny-ville,'
+        '0,0,0,0,0,1,0,1,1,0,2,1,1,0,1,0,0\r\n'
+        '0.000,lib4,Library of Sion,0,0,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0\r\n'
     )
 
     list_url = url_for('invenio_records_rest.stat_list')
