@@ -23,6 +23,7 @@ from datetime import datetime
 import arrow
 from dateutil.relativedelta import relativedelta
 from flask import current_app
+from invenio_access.permissions import system_identity
 from invenio_search.api import RecordsSearch
 
 from rero_ils.modules.acquisition.acq_order_lines.api import \
@@ -99,7 +100,7 @@ class StatsForPricing:
         return stats
 
     def process(self, library):
-        """Process statistics for a give library.
+        """Process statistics for a given library.
 
         :param library: library from the elasticsearch index
         :return: a dict containing all the processed values.
@@ -134,7 +135,11 @@ class StatsForPricing:
                     library.pid,  ItemCirculationAction.CHECKIN),
             'number_of_requests':
                 self.number_of_circ_operations(
-                    library.pid,  ItemCirculationAction.REQUEST)
+                    library.pid,  ItemCirculationAction.REQUEST),
+            'number_of_docs_with_files': self.number_of_docs_with_files(
+                library.pid),
+            'number_of_files': self.number_of_files(library.pid),
+            'files_volume': self.files_volume(library.pid)
         }
 
     def number_of_documents(self, library_pid):
@@ -291,3 +296,52 @@ class StatsForPricing:
             .filter('term', roles='patron')\
             .filter('term', organisation__pid=organisation_pid)\
             .count()
+
+    def number_of_docs_with_files(self, library_pid):
+        """Number of documents containing files belonging to a given library.
+
+        point in time
+        :param library_pid: string - the library to filter with
+        :return: the number of matched documents
+        :rtype: integer
+        """
+        return DocumentsSearch().filter(
+            'term', files__organisation__library_pid=library_pid).count()
+
+    def _get_record_file_query(self):
+        """Get a record file query on the related index."""
+        ext = current_app.extensions["rero-invenio-files"]
+        record_service = ext.records_service
+        return record_service.search_request(
+            system_identity, dict(size=1), record_service.record_cls,
+            record_service.config.search)
+
+    def number_of_files(self, library_pid):
+        """Number of files linked to my library.
+
+        point in time
+        :param library_pid: string - the library to filter with
+        :return: the number of matched files
+        :rtype: integer
+        """
+        es_query = self._get_record_file_query()
+        es_query = es_query.filter(
+            'term', metadata__owners=f'lib_{library_pid}')
+        es_query.aggs.metric(
+            'number_of_files', 'sum', field="metadata.n_files")
+        return int(es_query.execute().aggs.number_of_files.value)
+
+    def files_volume(self, library_pid):
+        """Size in Mb of the files linked to a given library.
+
+        point in time
+        :param library_pid: string - the library to filter with
+        :return: the volume taken by the files in Mb
+        :rtype: str
+        """
+        es_query = self._get_record_file_query()
+        es_query = es_query.filter(
+            'term', metadata__owners=f'lib_{library_pid}')
+        es_query.aggs.metric(
+            'files_size', 'sum', field="metadata.file_size")
+        return "%.3f" % (es_query.execute().aggs.files_size.value/(1024*1024))
