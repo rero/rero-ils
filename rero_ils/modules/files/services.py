@@ -25,9 +25,10 @@ from rero_invenio_files.records.services import FileServiceConfig, \
 
 from .api import RecordWithFile
 from .components import OperationLogsComponent, OperationLogsFileComponent, \
-    ReindexComponent
+    ReindexFileComponent, ReindexRecordComponent
 from .dumpers import FileInformationDumperExt
 from .permissions import FilePermissionPolicy
+from .results import MainFileList
 from .schemas import RecordSchema
 
 
@@ -41,7 +42,8 @@ class RecordServiceConfig(RecordServiceConfig):
     permission_policy_cls = FilePermissionPolicy
 
     # Service components
-    components = RecordServiceConfig.components + [OperationLogsComponent]
+    components = RecordServiceConfig.components \
+        + [OperationLogsComponent, ReindexRecordComponent]
 
     # Dumper for the indexer
     index_dumper = SearchDumper(
@@ -58,14 +60,16 @@ class RecordFileServiceConfig(FileServiceConfig):
     # Record class
     record_cls = RecordWithFile
 
+    file_result_list_cls = MainFileList
+
     # Common configuration
     permission_policy_cls = FilePermissionPolicy
 
     # maximum files per buckets
-    max_files_count = 1000
+    max_files_count = 1700
 
     # Service components
     components = FileServiceConfig.components + [
-        ReindexComponent,
+        ReindexFileComponent,
         OperationLogsFileComponent,
     ]
