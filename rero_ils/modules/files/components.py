@@ -179,7 +179,7 @@ class OperationLogsFileComponent(FileServiceComponent):
             deleted_file=deleted_file)
 
 
-class ReindexComponent(FileServiceComponent):
+class ReindexFileComponent(FileServiceComponent):
     """Component to reindex linked resources to the file record."""
 
     def _register(self, record):
@@ -188,7 +188,7 @@ class ReindexComponent(FileServiceComponent):
         :param record: obj - record instance.
         """
         doc_pid = record["metadata"]["links"][0].replace("doc_", "")
-        for operation in [ReindexDoc(doc_pid), ReindexRecordFile(record.id)]:
+        for operation in [ReindexRecordFile(record.id), ReindexDoc(doc_pid)]:
             if operation not in self.uow._operations:
                 self.uow.register(operation)
 
@@ -197,6 +197,8 @@ class ReindexComponent(FileServiceComponent):
 
         :param identity: flask principal Identity
         :param id_: str - record file id.
+        :param file_key: str - file key in the file record.
+        :param record: obj - record instance.
         """
         self._register(record)
 
@@ -229,5 +231,45 @@ class ReindexComponent(FileServiceComponent):
         :param identity: flask principal Identity
         :param id_: str - record file id.
         :param record: obj - record instance.
+        """
+        self._register(record)
+
+
+class ReindexRecordComponent(FileServiceComponent):
+    """Component to reindex linked resources to the file record."""
+
+    def _register(self, record):
+        """Register a document reindex operation.
+
+        :param record: obj - record instance.
+        """
+        doc_pid = record["metadata"]["links"][0].replace("doc_", "")
+        for operation in [ReindexDoc(doc_pid)]:
+            if operation not in self.uow._operations:
+                self.uow.register(operation)
+
+    def create(self, identity, data, record, errors=None, **kwargs):
+        """Create handler.
+
+        :param identity: flask principal Identity
+        :param data: dict - creation data
+        :param record: obj - the created record
+        """
+        self._register(record)
+
+    def update(self, identity, data, record, **kwargs):
+        """Update handler.
+
+        :param identity: flask principal Identity
+        :param data: dict - data to update the record
+        :param record: obj - the updated record
+        """
+        self._register(record)
+
+    def delete(self, identity, record, **kwargs):
+        """Delete handler.
+
+        :param identity: flask principal Identity
+        :param record: obj - the updated record
         """
         self._register(record)

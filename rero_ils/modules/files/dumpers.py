@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-
 """Files indexer dumpers."""
 
 from invenio_records.dumpers import SearchDumperExt
@@ -40,7 +39,7 @@ class FileInformationDumperExt(SearchDumperExt):
             if f_type not in ["fulltext", "thumbnail"]:
                 n_main_files += 1
             # main files or extracted text
-            if f_type != "thumbnail":
+            if f_type != "thumbnail" and record.files[f].file:
                 size += record.files[f].file.size
         data["metadata"]["n_files"] = n_main_files
         data["metadata"]["file_size"] = size

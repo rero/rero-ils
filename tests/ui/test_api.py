@@ -25,7 +25,6 @@ from invenio_db import db
 from invenio_pidstore.models import PIDStatus, RecordIdentifier
 from invenio_pidstore.providers.base import BaseProvider
 from invenio_records.models import RecordMetadataBase
-from invenio_search import current_search
 from jsonschema.exceptions import ValidationError
 from utils import flush_index
 
@@ -118,7 +117,6 @@ class RecordTest(IlsRecord):
 
 def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     """Test IlsRecord update."""
-    current_search.delete(ignore=[404])
 
     # the created records will be accessible in all function of this test file
     record_1 = RecordTest.create(
