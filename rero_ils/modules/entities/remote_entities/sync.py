@@ -137,21 +137,13 @@ class SyncEntity:
 
         # get all entities from the document over all entity fields:
         # contribution and subjects
-        remote_entities = [
-            subject
-            for subject in doc.get('subjects', [])
-            if subject.get('$ref')
-        ]
-        remote_entities += [
-            contrib['entity']
-            for contrib in doc.get('contribution', [])
-            if contrib.get('entity', {}).get('$ref')
-        ]
-        remote_entities += [
-            genre_form
-            for genre_form in doc.get('genreForm', [])
-            if genre_form.get('$ref')
-        ]
+        remote_entities = []
+        for field in ['contribution', 'subjects', 'genreForm']:
+            remote_entities += [
+                entity['entity']
+                for entity in doc.get(field, [])
+                if entity.get('entity', {}).get('$ref')
+            ]
         if not remote_entities:
             self.logger.debug(f'No entity to update for document {doc.pid}')
 
