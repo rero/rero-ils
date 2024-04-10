@@ -533,7 +533,8 @@ APP_DEFAULT_SECURE_HEADERS = {
         'img-src': [
             '*',
             "'self'",
-            'data:'
+            'data:',
+            'blob:'
         ],
         'style-src': [
             '*',
@@ -565,11 +566,17 @@ SESSION_COOKIE_SECURE = False
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-# TODO: Check if needed one day
 # Previewers
 # ==========
-#: Include IIIF preview for images.
-# PREVIEWER_PREFERENCE = ['iiif_image'] + BASE_PREFERENCE
+PREVIEWER_RECORD_FILE_FACOTRY = (
+    "rero_invenio_files.records.previewer.record_file_factory"
+)
+
+PREVIEWER_MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024
+"""Maximum file size in bytes for image files."""
+
+PREVIEWER_MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024
+"""Maximum file size in bytes for JSON/XML files."""
 
 # Debug
 # =====
@@ -2897,7 +2904,6 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     'rero_ils.modules.permissions:can_use_debug_mode',
     'rero_ils.modules.items.permissions:late_issue_management'
 ]
-
 # Detailed View Configuration
 # ===========================
 RECORDS_UI_ENDPOINTS = {
@@ -2930,6 +2936,12 @@ RECORDS_UI_ENDPOINTS = {
         record_class='rero_ils.modules.stats.api.api:Stat',
         view_imp='rero_ils.modules.stats.views.stats_view_method',
         permission_factory_imp='rero_ils.modules.stats.permissions:stats_ui_permission_factory',
+    ),
+    "recid_preview": dict(
+        pid_type="recid",
+        route="/records/preview/<pid_value>/<path:filename>",
+        view_imp="rero_invenio_files.records.previewer.preview",
+        record_class="rero_invenio_files.records.api:RecordWithFile",
     )
 }
 
@@ -2947,6 +2959,7 @@ RECORDS_UI_EXPORT_FORMATS = {
         ),
     }
 }
+
 
 RERO_ILS_DEFAULT_JSON_SCHEMA = {
     'acac': '/acq_accounts/acq_account-v0.0.1.json',
