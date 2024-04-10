@@ -19,7 +19,6 @@
 """Indexing dumper."""
 
 from flask import current_app
-from invenio_access.permissions import system_identity
 from invenio_records.dumpers import Dumper
 
 from ..extensions import TitleExtension
@@ -232,11 +231,6 @@ class IndexerDumper(Dumper):
         """Add full text from files."""
         ext = current_app.extensions['rero-invenio-files']
         sfr = ext.records_service
-        search = sfr.search_request(
-            system_identity, dict(size=1), sfr.record_cls, sfr.config.search
-        )
-        search = search.source('uuid')\
-            .filter('term', metadata__links=f'doc_{record.pid}')
         files = {}
         for record_file in record.get_records_files():
             collections = record_file.get('metadata', {}).get('collections')
