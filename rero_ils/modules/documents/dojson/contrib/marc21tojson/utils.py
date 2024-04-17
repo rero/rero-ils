@@ -1724,9 +1724,9 @@ def _do_work_access_point_creator(marc21, key, value):
                 not_repetitive(bib_id, bib_id, key, value, 'b'))
         if date := not_repetitive(bib_id, bib_id, key, value, 'd'):
             date_parts = [d.strip().rstrip('.') for d in date.split('-')]
-            if date_parts[0]:
+            if date_parts and date_parts[0]:
                 data['date_of_birth'] = date_parts[0]
-            if date_parts[1]:
+            if len(date_parts) > 1 and date_parts[1]:
                 data['date_of_death'] = date_parts[1]
         if value.get('c'):
             data['qualifier'] = remove_trailing_punctuation(
