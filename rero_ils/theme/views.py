@@ -21,18 +21,21 @@ from __future__ import absolute_import, print_function
 
 import copy
 import re
+from copy import deepcopy
 from functools import wraps
+from urllib.parse import urlparse
 
 from flask import Blueprint, Response, abort, current_app, jsonify, redirect, \
     render_template, request, session, url_for
 from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
+from invenio_jsonschemas.proxies import current_refresolver_store
 
+from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.utils import cached
+from rero_ils.permissions import can_access_professional_view
 
 from .menus import init_menu_lang, init_menu_profile, init_menu_tools
-from ..modules.organisations.api import Organisation
-from ..permissions import can_access_professional_view
 
 blueprint = Blueprint(
     'rero_ils',
@@ -208,6 +211,58 @@ def schemaform(document_type):
         abort(404)
 
     return jsonify(data)
+
+
+def replace_ref_url(schema, new_host):
+    """Replace all $refs with local $refs.
+
+    :param: schema: Schema to replace the $refs
+    :param: new_host: The host to replace the $ref with.
+    :returns: modified schema.
+    """
+    jsonschema_host = current_app.config.get('JSONSCHEMAS_HOST')
+    for k, v in schema.items():
+        if isinstance(v, dict):
+            schema[k] = replace_ref_url(
+                schema=schema[k],
+                new_host=new_host
+            )
+    if '$ref' in schema and isinstance(schema['$ref'], str):
+        schema['$ref'] = schema['$ref'] \
+            .replace(jsonschema_host, new_host)
+    # Todo: local://
+    return schema
+
+
+@blueprint.route('/schemas/<path>/<schema>')
+def get_schema(path, schema):
+    """Retrieve a schema."""
+    schema_path = f'{path}/{schema}'
+    try:
+        schema = deepcopy(current_refresolver_store[f'local://{schema_path}'])
+    except KeyError:
+        abort(404)
+    resolved = request.args.get(
+        "resolved", current_app.config.get("JSONSCHEMAS_RESOLVE_SCHEMA"),
+        type=int
+    )
+    new_host = urlparse(request.base_url).netloc
+    # Change schema['properties']['$schema']['default'] URL
+    if default := schema.get(
+            'properties', {}).get('$schema', {}).get('default'):
+        schema['properties']['$schema']['default'] = default.replace(
+            current_app.config.get('JSONSCHEMAS_HOST'), new_host)
+    # Change $refs
+    schema = replace_ref_url(
+        schema=schema,
+        new_host=new_host
+    )
+    if resolved:
+        if current_app.debug:
+            current_jsonschemas.get_schema.cache_clear()
+        schema = deepcopy(
+            current_jsonschemas.get_schema(schema_path, with_refs=True))
+    return jsonify(schema)
 
 
 @blueprint.route('/professional/', defaults={'path': ''})

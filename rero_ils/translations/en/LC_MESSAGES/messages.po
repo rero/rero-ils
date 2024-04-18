@@ -5783,8 +5783,8 @@ msgstr "Language used for the metadata"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:145
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:150
-msgid " Description conventions"
-msgstr " Description conventions"
+msgid "Description conventions"
+msgstr "Description conventions"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:146
 msgid "Rules used for the descriptive content of the resource description"
@@ -9399,8 +9399,8 @@ msgid "article/volume"
 msgstr "article/volume"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:275
-msgid " articles/volumes"
-msgstr " articles/volumes"
+msgid "articles/volumes"
+msgstr "articles/volumes"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:312
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:314

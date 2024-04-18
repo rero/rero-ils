@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Link to an agent",
   "type": "object",
   "description": "Link to a remote or local entity of type person, family or corporate body (including conferences).",

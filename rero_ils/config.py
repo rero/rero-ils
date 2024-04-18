@@ -3248,11 +3248,18 @@ RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS = {
 
 # JSONSchemas
 # ===========
-#: Hostname used in URLs for local JSONSchemas.
-JSONSCHEMAS_URL_SCHEME = 'https'
+"""Default json schema host."""
 JSONSCHEMAS_HOST = 'bib.rero.ch'
-JSONSCHEMAS_REPLACE_REFS = True
+"""Default schema endpoint."""
+JSONSCHEMAS_ENDPOINT = "/schemas"
+"""Whether to resolve $ref before serving a schema."""
+JSONSCHEMAS_REPLACE_REFS = False
+"""Loader class used in ``JSONRef`` when replacing ``$ref``."""
 JSONSCHEMAS_LOADER_CLS = 'rero_ils.jsonschemas.utils.JsonLoader'
+"""Register the endpoints on the API app."""
+JSONSCHEMAS_REGISTER_ENDPOINTS_API = False
+"""Register the endpoints on the UI app."""
+JSONSCHEMAS_REGISTER_ENDPOINTS_UI = False
 
 # OAI-PMH
 # =======

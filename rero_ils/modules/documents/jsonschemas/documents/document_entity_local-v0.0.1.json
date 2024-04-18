@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Entity (textual)",
   "type": "object",
   "description": "Textual description of a topic, person, organisation (including conferences), place, temporal or work. Usually used temporarily until a link to an entity can be established.",
