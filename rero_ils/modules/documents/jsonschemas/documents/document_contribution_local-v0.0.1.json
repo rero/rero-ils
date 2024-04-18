@@ -1,4 +1,5 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Agent (textual)",
   "type": "object",
   "description": "Textual description of a person, family or corporate body (including conferences). Usually used temporarily until a link to an entity can be established.",

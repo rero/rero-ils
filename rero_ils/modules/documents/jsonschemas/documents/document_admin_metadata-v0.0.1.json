@@ -152,12 +152,12 @@
         ]
       },
       "descriptionConventions": {
-        "title": " Description conventions",
+        "title": "Description conventions",
         "description": "Rules used for the descriptive content of the resource description",
         "type": "array",
         "minItems": 1,
         "items": {
-          "title": " Description conventions",
+          "title": "Description conventions",
           "type": "string",
           "minLength": 1
         },
