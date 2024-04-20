@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-01-30 13:26+0100\n"
-"PO-Revision-Date: 2024-01-30 12:48+0000\n"
+"PO-Revision-Date: 2024-04-20 07:07+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/fr/>\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: rero_ils/accounts_views.py:60
@@ -161,7 +161,7 @@ msgstr "type d'exemplaire"
 
 #: rero_ils/config.py:1879
 msgid "temporary_item_type"
-msgstr "catégorie de prêt temporaire"
+msgstr "Type d'exemplaire temporaire"
 
 #: rero_ils/config.py:1880
 msgid "temporary_location"
@@ -10815,8 +10815,8 @@ msgid ""
 "Date used to sort the issue from the holdings item list. If empty, the "
 "issue expected date will be used as sort key."
 msgstr ""
-"Date utilisée pour trier le numéro dans la liste des articles de la "
-"collection. Si elle est vide, la date prévue sera utilisée."
+"Date utilisée pour forcer le tri des fascicules de l'état de collection. Si "
+"elle est vide, la date prévue sera utilisée pour le tri."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:408
 msgid "Regularity"
@@ -12508,7 +12508,7 @@ msgstr "année de création"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:912
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:987
 msgid "owning_library"
-msgstr "bibliothèque détentrice"
+msgstr "bibliothèque propriétaire"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:226
 msgid "imported"
@@ -12526,7 +12526,7 @@ msgstr "Nombre d'exemplaires"
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:916
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:991
 msgid "owning_location"
-msgstr "localisation détentrice"
+msgstr "localisation propriétaire"
 
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:380
 msgid "type (standard/issue)"
