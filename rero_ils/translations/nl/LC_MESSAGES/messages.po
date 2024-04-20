@@ -12,24 +12,25 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-01-30 13:26+0100\n"
-"PO-Revision-Date: 2023-11-23 13:17+0000\n"
-"Last-Translator: Ranforingus <ranforingus@hotmail.com>\n"
+"PO-Revision-Date: 2024-02-23 17:02+0000\n"
+"Last-Translator: LievenSmets <lievensmets@me.com>\n"
+"Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
+"nl/>\n"
 "Language: nl\n"
-"Language-Team: Dutch <https://hosted.weblate.org/projects/rero_plus/rero-"
-"ils/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: rero_ils/accounts_views.py:60
 msgid "The 2 passwords are not identical."
-msgstr ""
+msgstr "Beide wachtwoorden zijn niet gelijk."
 
 #: rero_ils/accounts_views.py:82 rero_ils/accounts_views.py:90
 msgid "INVALID_USER_OR_PASSWORD"
-msgstr ""
+msgstr "ONGELDIGE_GEBRUIKER_OF_WACHTWOORD"
 
 #: rero_ils/config.py:188
 msgid "French"
@@ -53,45 +54,41 @@ msgstr "Welkom"
 
 #: rero_ils/config.py:278
 msgid "RERO ID password reset"
-msgstr "RERO ID wachtwoord opnieuw instellen"
+msgstr "RERO ID wachtwoord bijwerken"
 
 #: rero_ils/config.py:279
 msgid "Your RERO ID password has been reset"
-msgstr "Uw RERO ID-wachtwoord is opnieuw ingesteld"
+msgstr "Uw RERO ID-wachtwoord werd bijgewerkt"
 
 #: rero_ils/config.py:1693
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 msgid "Global catalog"
-msgstr ""
+msgstr "Globale catalogus"
 
 #: rero_ils/config.py:1803
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:79
-#, fuzzy
 msgid "online"
-msgstr "On-line"
+msgstr "Online"
 
 #: rero_ils/config.py:1807
-#, fuzzy
 msgid "not_online"
-msgstr "On-line"
+msgstr "niet_online"
 
 #: rero_ils/config.py:1810
 msgid "author"
 msgstr "auteur"
 
 #: rero_ils/config.py:1811
-#, fuzzy
 msgid "subject_fiction"
-msgstr "abonnement"
+msgstr "onderwerp_fictie"
 
 #: rero_ils/config.py:1819
-#, fuzzy
 msgid "subject_no_fiction"
-msgstr "abonnement"
+msgstr "onderwerp_non_fictie"
 
 #: rero_ils/config.py:1828
 msgid "acquisition"
-msgstr ""
+msgstr "aanschaf"
 
 #: rero_ils/config.py:1831
 #, fuzzy
@@ -99,9 +96,8 @@ msgid "new_acquisition"
 msgstr "Aankoopvoorwaarden"
 
 #: rero_ils/config.py:1832
-#, fuzzy
 msgid "identifiers"
-msgstr "Identificator"
+msgstr "identificatiecode"
 
 #: rero_ils/config.py:1835 rero_ils/config.py:1836 rero_ils/config.py:1874
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:364
@@ -130,9 +126,8 @@ msgid "library"
 msgstr "bibliotheek"
 
 #: rero_ils/config.py:1845 rero_ils/config.py:1877
-#, fuzzy
 msgid "location"
-msgstr "Locatie"
+msgstr "plaats"
 
 #: rero_ils/config.py:1847 rero_ils/config.py:1881 rero_ils/config.py:1951
 #: rero_ils/config.py:2048 rero_ils/config.py:2094 rero_ils/config.py:2268
@@ -140,39 +135,33 @@ msgid "status"
 msgstr "status"
 
 #: rero_ils/config.py:1848
-#, fuzzy
 msgid "genreForm"
-msgstr "Algemeen"
+msgstr "genreVorm"
 
 #: rero_ils/config.py:1849
 msgid "intendedAudience"
-msgstr ""
+msgstr "beoogdPubliek"
 
 #: rero_ils/config.py:1850
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:867
-#, fuzzy
 msgid "year"
-msgstr "Zoeken"
+msgstr "jaar"
 
 #: rero_ils/config.py:1878
-#, fuzzy
 msgid "item_type"
-msgstr "Type van exemplaar"
+msgstr "Item type"
 
 #: rero_ils/config.py:1879
-#, fuzzy
 msgid "temporary_item_type"
-msgstr "Type van exemplaar"
+msgstr "tijdelijk_item_type"
 
 #: rero_ils/config.py:1880
-#, fuzzy
 msgid "temporary_location"
-msgstr "bibliothecaris"
+msgstr "tijdelijke_locatie"
 
 #: rero_ils/config.py:1882 rero_ils/config.py:2076
-#, fuzzy
 msgid "vendor"
-msgstr "Verkoper"
+msgstr "verkoper"
 
 #: rero_ils/config.py:1883
 msgid "or_issue_status"
@@ -180,67 +169,57 @@ msgstr ""
 
 #: rero_ils/config.py:1884
 msgid "claims_count"
-msgstr ""
+msgstr "claims_aantal"
 
 #: rero_ils/config.py:1885
 msgid "claims_date"
 msgstr ""
 
 #: rero_ils/config.py:1886
-#, fuzzy
 msgid "current_requests"
-msgstr "Ontvangen"
+msgstr "huidige_aanvragen"
 
 #: rero_ils/config.py:1945
-#, fuzzy
 msgid "owner_library"
-msgstr "bibliotheek"
+msgstr "eigenaar_bibliotheek"
 
 #: rero_ils/config.py:1946
-#, fuzzy
 msgid "owner_location"
-msgstr "Locatie"
+msgstr "eigenaar_plaats"
 
 #: rero_ils/config.py:1947
-#, fuzzy
 msgid "pickup_library"
-msgstr "bibliotheek"
+msgstr "afhaalpunt"
 
 #: rero_ils/config.py:1948
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:556
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1015
-#, fuzzy
 msgid "pickup_location"
-msgstr "is een afhaallocatie"
+msgstr "afhaallocatie"
 
 #: rero_ils/config.py:1949
-#, fuzzy
 msgid "transaction_library"
-msgstr "E-mail van de bibliotheek."
+msgstr "transactie_bibliotheek"
 
 #: rero_ils/config.py:1950
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:920
-#, fuzzy
 msgid "transaction_location"
-msgstr "PID van de transactie van de locatie"
+msgstr "transactie_plaats"
 
 #: rero_ils/config.py:1952
-#, fuzzy
 msgid "misc_status"
-msgstr "Nummer status"
+msgstr "diverse_status"
 
 #: rero_ils/config.py:1953 rero_ils/config.py:2002
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:924
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:995
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1063
-#, fuzzy
 msgid "patron_type"
-msgstr "Lezerstype"
+msgstr "gebruikers_type"
 
 #: rero_ils/config.py:1954
-#, fuzzy
 msgid "request_expire_date"
-msgstr "Vervaldatum van de reservatie"
+msgstr "aanvraag_vervaldatum"
 
 #: rero_ils/config.py:1960
 #, fuzzy
@@ -248,120 +227,111 @@ msgid "end_date"
 msgstr "Einddatum"
 
 #: rero_ils/config.py:1966
-#, fuzzy
 msgid "exclude_status"
-msgstr "Nummer status"
+msgstr "verwijderen_status"
 
 #: rero_ils/config.py:2000
 msgid "roles"
 msgstr "rollen"
 
 #: rero_ils/config.py:2001
-#, fuzzy
 msgid "city"
-msgstr "Stad"
+msgstr "stad"
 
 #: rero_ils/config.py:2003
 msgid "blocked"
-msgstr ""
+msgstr "geblokkeerd"
 
 #: rero_ils/config.py:2004
 msgid "expired"
-msgstr ""
+msgstr "vervallen"
 
 #: rero_ils/config.py:2026 rero_ils/config.py:2079
 msgid "budget"
-msgstr "begroting"
+msgstr "budget"
 
 #: rero_ils/config.py:2077 rero_ils/config.py:2120 rero_ils/config.py:2141
 #: rero_ils/config.py:2161 rero_ils/config.py:2186 rero_ils/config.py:2230
-#, fuzzy
 msgid "type"
-msgstr "Type"
+msgstr "type"
 
 #: rero_ils/config.py:2078
 msgid "account"
-msgstr ""
+msgstr "account"
 
 #: rero_ils/config.py:2080
 msgid "order_date"
-msgstr ""
+msgstr "bestelling_datum"
 
 #: rero_ils/config.py:2086
 msgid "receipt_date"
-msgstr ""
+msgstr "ontvangst_datum"
 
 #: rero_ils/config.py:2119
 msgid "resource_type"
-msgstr ""
+msgstr "bron_type"
 
 #: rero_ils/config.py:2121
 msgid "source_catalog"
-msgstr ""
+msgstr "bron_catalogus"
 
 #: rero_ils/config.py:2140 rero_ils/config.py:2160
 msgid "sources"
-msgstr "bron"
+msgstr "bronnen"
 
 #: rero_ils/config.py:2187
-#, fuzzy
 msgid "visibility"
-msgstr "beschikbaarheid"
+msgstr "zichtbaarheid"
 
 #: rero_ils/config.py:2232
 msgid "subject"
 msgstr "onderwerp"
 
 #: rero_ils/config.py:2233
-#, fuzzy
 msgid "teacher"
-msgstr "Andere"
+msgstr "Leeraar"
 
 #: rero_ils/config.py:2269
-#, fuzzy
 msgid "loan_status"
-msgstr "Tataars"
+msgstr "ontlening_status"
 
 #: rero_ils/config.py:2270
-#, fuzzy
 msgid "requester"
-msgstr "Opgevraagd"
+msgstr "aanvrager"
 
 #: rero_ils/config.py:2355
 msgid "category"
-msgstr ""
+msgstr "categorie"
 
 #: rero_ils/config.py:2356
 msgid "indicator"
-msgstr ""
+msgstr "indicator"
 
 #: rero_ils/config.py:2357
 msgid "frequency"
-msgstr ""
+msgstr "frequentie"
 
 #: rero_ils/config.py:2359
 msgid "active"
-msgstr ""
+msgstr "actief"
 
 #: rero_ils/config.py:3133 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:102
-#, fuzzy
 msgid "This is a TEST VERSION."
-msgstr "Testversie"
+msgstr "Dit is een TEST VERSIE"
 
 #: rero_ils/config.py:3134 rero_ils/manual_translations.txt:71
 #: rero_ils/theme/templates/rero_ils/header.html:104
-#, fuzzy
 msgid "Go to the production site."
-msgstr "Code van de lokatie."
+msgstr "Ga naar de productie site."
 
 #: rero_ils/config.py:3810
 msgid "contains"
-msgstr ""
+msgstr "bevat"
 
 #: rero_ils/config.py:3812
 msgid "phrase"
-msgstr ""
+msgstr "zin"
 
 #: rero_ils/config.py:3817
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:50
@@ -383,15 +353,14 @@ msgstr "Titel"
 
 #: rero_ils/config.py:3825
 msgid "Responsibility statement"
-msgstr ""
+msgstr "Verantwoordelijkheidsverklaring"
 
 #: rero_ils/config.py:3833
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:61
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:8
-#, fuzzy
 msgid "Contribution"
-msgstr "Distributie"
+msgstr "Bijdrage"
 
 #: rero_ils/config.py:3841 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:316
@@ -400,7 +369,7 @@ msgstr "Land"
 
 #: rero_ils/config.py:3849
 msgid "Canton"
-msgstr ""
+msgstr "Kanton"
 
 #: rero_ils/config.py:3857
 msgid "Provision activity statement"
@@ -424,11 +393,11 @@ msgstr "Identificator"
 
 #: rero_ils/config.py:3881
 msgid "ISBN"
-msgstr ""
+msgstr "ISBN"
 
 #: rero_ils/config.py:3889
 msgid "ISSN"
-msgstr ""
+msgstr "ISSN"
 
 #: rero_ils/config.py:3897
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:121
@@ -436,7 +405,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:13
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:23
 msgid "Genre, form"
-msgstr ""
+msgstr "Genre,Vorm"
 
 #: rero_ils/config.py:3905
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:121
@@ -451,42 +420,42 @@ msgstr "Onderwerp"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:427
 msgid "Call number"
-msgstr "Plaatskenmerk"
+msgstr "Telefoon"
 
 #: rero_ils/config.py:3921
 msgid "Local fields (document)"
-msgstr ""
+msgstr "Lokale velden (document)"
 
 #: rero_ils/config.py:3929
 msgid "Local fields (holdings)"
-msgstr ""
+msgstr "Lokale velden (bijhouding)"
 
 #: rero_ils/config.py:3937
 msgid "Local fields (items)"
-msgstr ""
+msgstr "Lokale velden (items)"
 
 #: rero_ils/config.py:3945
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:229
 msgid "Classification"
-msgstr ""
+msgstr "Classificatie"
 
 #: rero_ils/config.py:3953
 msgid "RDA content type"
-msgstr ""
+msgstr "RDA inhoudstype"
 
 #: rero_ils/config.py:3961
 msgid "RDA media type"
-msgstr ""
+msgstr "RDA mediatye"
 
 #: rero_ils/config.py:3969
 msgid "RDA carrier type"
-msgstr ""
+msgstr "RDA dragertype"
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:445
 msgid "on_loan"
-msgstr "in ontleen"
+msgstr "in ontlening"
 
 #: rero_ils/manual_translations.txt:17
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:441
@@ -496,7 +465,7 @@ msgstr "op de plank"
 #: rero_ils/manual_translations.txt:18
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:449
 msgid "missing"
-msgstr "vermist"
+msgstr "ontbrekend"
 
 #: rero_ils/manual_translations.txt:19
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:453
@@ -511,7 +480,7 @@ msgstr "bij het uitleenkantoor"
 #: rero_ils/manual_translations.txt:22
 #: rero_ils/modules/templates/jsonschemas/templates/template-v0.0.1.json:136
 msgid "patrons"
-msgstr "lezers"
+msgstr "gebruikers"
 
 #: rero_ils/manual_translations.txt:23
 msgid "librarian"
@@ -519,7 +488,7 @@ msgstr "bibliothecaris"
 
 #: rero_ils/manual_translations.txt:24
 msgid "staff"
-msgstr "staff"
+msgstr "medewerker"
 
 #: rero_ils/manual_translations.txt:26
 #: rero_ils/modules/entities/remote_entities/jsonschemas/remote_entities/remote_entity-v0.0.1.json:64
@@ -538,74 +507,77 @@ msgstr "idref"
 
 #: rero_ils/manual_translations.txt:31
 msgid "ui_language_en"
-msgstr "English"
+msgstr "ui_taal_en"
 
 #: rero_ils/manual_translations.txt:32
 msgid "ui_language_fr"
-msgstr "Français"
+msgstr "ui_taal_fr"
 
 #: rero_ils/manual_translations.txt:33
 msgid "ui_language_de"
-msgstr "Deutsch"
+msgstr "ui_taal_de"
 
 #: rero_ils/manual_translations.txt:34
 msgid "ui_language_it"
-msgstr "Italiano"
+msgstr "UI_TAAL_IT"
 
 #: rero_ils/manual_translations.txt:37
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:42
 msgid "bf:Publication"
-msgstr "Publicatie"
+msgstr "BF:Publicatie"
 
 #: rero_ils/manual_translations.txt:38
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:46
 msgid "bf:Manufacture"
-msgstr "Productie"
+msgstr "BF:Productie"
 
 #: rero_ils/manual_translations.txt:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:50
 msgid "bf:Distribution"
-msgstr "Verspreiding, distributie"
+msgstr "bf:distributie"
 
 #: rero_ils/manual_translations.txt:40
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:54
 msgid "bf:Production"
-msgstr "Productie"
+msgstr "bf:Productie"
 
 #: rero_ils/manual_translations.txt:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:51
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:177
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:151
 msgid "bf:Place"
-msgstr "bf:Place"
+msgstr "bf:Plaats"
 
 #: rero_ils/manual_translations.txt:42
 msgid "Date(s) uncertain or unknown"
-msgstr "Datum(en) onzeker of onbekend"
+msgstr "Datum(s) onzeker of onbekend"
 
 #: rero_ils/manual_translations.txt:43
 msgid "Date not available and automatically set to 2050"
 msgstr "Datum niet beschikbaar en automatisch ingesteld op 2050"
 
 #: rero_ils/manual_translations.txt:46
+#, fuzzy
 msgid "ebibliomedia"
 msgstr "Toegang"
 
 #: rero_ils/manual_translations.txt:47
+#, fuzzy
 msgid "mv-cantook"
 msgstr "Toegang"
 
 #: rero_ils/manual_translations.txt:50
 #: rero_ils/modules/patron_transaction_events/jsonschemas/patron_transaction_events/patron_transaction_event-v0.0.1.json:257
-#, fuzzy
 msgid "cancel"
-msgstr "Annuleer"
+msgstr "annuleer"
 
 #: rero_ils/manual_translations.txt:51
+#, fuzzy
 msgid "checkin"
 msgstr "checkin"
 
 #: rero_ils/manual_translations.txt:52
+#, fuzzy
 msgid "checkout"
 msgstr "checkout"
 
@@ -619,30 +591,28 @@ msgstr "ontvangen"
 
 #: rero_ils/manual_translations.txt:55
 msgid "request"
-msgstr "aanvragen"
+msgstr "aanvraag"
 
 #: rero_ils/manual_translations.txt:56
 msgid "validate_request"
-msgstr "validatie van de aanvraag"
+msgstr "validatie_aanvraag"
 
 #: rero_ils/manual_translations.txt:59
-#, fuzzy
 msgid "Tools"
-msgstr "rollen"
+msgstr "Gereedschap"
 
 #: rero_ils/manual_translations.txt:60
-#, fuzzy
 msgid "Interlibrary loan request"
-msgstr "bibliothecaris"
+msgstr "Interbibliothecaire ontleningsaanvraag"
 
 #: rero_ils/manual_translations.txt:61
 #: rero_ils/theme/templates/rero_ils/_frontpage_block_test.html:70
 msgid "Help"
-msgstr "Help"
+msgstr "Hulp"
 
 #: rero_ils/manual_translations.txt:62
 msgid "Login"
-msgstr "Inloggen"
+msgstr "Aanmelden"
 
 #: rero_ils/manual_translations.txt:63
 msgid "Professional interface"
@@ -650,7 +620,7 @@ msgstr "Professionele interface"
 
 #: rero_ils/manual_translations.txt:64
 msgid "Logout"
-msgstr "Uitloggen"
+msgstr "Afmelden"
 
 #: rero_ils/manual_translations.txt:65
 msgid "Edit my profile"
@@ -658,9 +628,8 @@ msgstr "Mijn profiel bewerken"
 
 #: rero_ils/manual_translations.txt:66
 #: rero_ils/modules/users/templates/rero_ils/user_password.html:22
-#, fuzzy
 msgid "Change password"
-msgstr "Wachtwoord vergeten?"
+msgstr "Wachtwoord aanpassen"
 
 #: rero_ils/manual_translations.txt:67
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:52
@@ -668,28 +637,24 @@ msgstr "Wachtwoord vergeten?"
 #: rero_ils/theme/templates/rero_ils/register_user.html:45
 #: rero_ils/theme/templates/rero_ils/reset_password.html:47
 msgid "Sign Up"
-msgstr "Aanmelden"
+msgstr "Inschrijven"
 
 #: rero_ils/manual_translations.txt:74
 #: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:143
-#, fuzzy
 msgid "approved"
-msgstr "Goedgekeurd"
+msgstr "goedgekeurd"
 
 #: rero_ils/manual_translations.txt:75
-#, fuzzy
 msgid "cancelled"
-msgstr "Annuleer"
+msgstr "geannuleerd"
 
 #: rero_ils/manual_translations.txt:76
-#, fuzzy
 msgid "ordered"
-msgstr "Geplande order"
+msgstr "besteld"
 
 #: rero_ils/manual_translations.txt:77
-#, fuzzy
 msgid "partially_received"
-msgstr "Ontvangen"
+msgstr "gedeeltelijk_ontvangen"
 
 #: rero_ils/manual_translations.txt:78
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:55
@@ -699,9 +664,8 @@ msgstr "In afwachting"
 
 #: rero_ils/manual_translations.txt:79
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:329
-#, fuzzy
 msgid "received"
-msgstr "Ontvangen"
+msgstr "ontvangen"
 
 #: rero_ils/manual_translations.txt:82
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:55
@@ -711,9 +675,8 @@ msgstr "Monografie"
 
 #: rero_ils/manual_translations.txt:83
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:59
-#, fuzzy
 msgid "serial"
-msgstr "Serieel"
+msgstr "serienummer"
 
 #: rero_ils/manual_translations.txt:84
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:63
@@ -723,106 +686,104 @@ msgstr "Doorlopende order"
 
 #: rero_ils/manual_translations.txt:85
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:67
-#, fuzzy
 msgid "monographic_set"
 msgstr "Monografische set"
 
 #: rero_ils/manual_translations.txt:86
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:71
-#, fuzzy
 msgid "planned_order"
-msgstr "Geplande order"
+msgstr "geplande_bestelling"
 
 #: rero_ils/manual_translations.txt:87
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:75
-#, fuzzy
 msgid "multi_volume"
-msgstr "Multivolume "
+msgstr "Multi_volume"
 
 #: rero_ils/manual_translations.txt:91
 msgid "Phone"
-msgstr ""
+msgstr "Telefoon"
 
 #: rero_ils/manual_translations.txt:92
 msgid "Phones"
-msgstr ""
+msgstr "Telefoons"
 
 #: rero_ils/manual_translations.txt:93
 msgid "Business"
-msgstr ""
+msgstr "Bedrijf"
 
 #: rero_ils/manual_translations.txt:94
 msgid "Domicile"
-msgstr ""
+msgstr "Woonplaats"
 
 #: rero_ils/manual_translations.txt:95
 msgid "Mobile"
-msgstr ""
+msgstr "GSM"
 
 #: rero_ils/manual_translations.txt:99
 msgid "Hide password"
-msgstr ""
+msgstr "Verberg wachtwoord"
 
 #: rero_ils/manual_translations.txt:104
 msgid "catalog"
-msgstr ""
+msgstr "catalogus"
 
 #: rero_ils/manual_translations.txt:105
 msgid "circulation"
-msgstr ""
+msgstr "circulatie"
 
 #: rero_ils/manual_translations.txt:106
 msgid "user_management"
-msgstr ""
+msgstr "gebruiker_beheer"
 
 #: rero_ils/manual_translations.txt:109
 msgid "number_of_documents"
-msgstr ""
+msgstr "aantal_documenten"
 
 #: rero_ils/manual_translations.txt:110
 msgid "number_of_serial_holdings"
-msgstr ""
+msgstr "aantal_bijhoudingen"
 
 #: rero_ils/manual_translations.txt:111
 msgid "number_of_items"
-msgstr ""
+msgstr "aantal_items"
 
 #: rero_ils/manual_translations.txt:112
 msgid "number_of_deleted_items"
-msgstr ""
+msgstr "aantal_verwijderde_items"
 
 #: rero_ils/manual_translations.txt:113
 msgid "number_of_ill_requests"
-msgstr ""
+msgstr "aantal_verkeerde_aanvragen"
 
 #: rero_ils/manual_translations.txt:114
+#, fuzzy
 msgid "number_of_checkins"
-msgstr ""
+msgstr "aantal_chek-ins's"
 
 #: rero_ils/manual_translations.txt:115
+#, fuzzy
 msgid "number_of_checkouts"
-msgstr ""
+msgstr "aantal_chek-out's"
 
 #: rero_ils/manual_translations.txt:116
 msgid "number_of_extends"
-msgstr ""
+msgstr "aantal_verlengingen"
 
 #: rero_ils/manual_translations.txt:117
 msgid "number_of_requests"
-msgstr ""
+msgstr "aantal_aanvragen_"
 
 #: rero_ils/manual_translations.txt:118
-#, fuzzy
 msgid "number_of_validate_requests"
-msgstr "validatie van de aanvraag"
+msgstr "aantal_gevalideerde_aanvragen"
 
 #: rero_ils/manual_translations.txt:119
 msgid "number_of_patrons"
-msgstr ""
+msgstr "aantal_gebruikers"
 
 #: rero_ils/manual_translations.txt:120
 msgid "number_of_active_patrons"
-msgstr ""
+msgstr "aantal_actieve_gebruikers"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -4529,32 +4490,32 @@ msgstr "Waarden"
 #, python-format
 msgid "Field must be at least %(num)d character long."
 msgid_plural "Field must be at least %(num)d characters long."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Veld moet minstens %(num)d teken lang zijn."
+msgstr[1] "Veld moet minstens %(num)d tekens lang zijn."
 
 #: rero_ils/modules/utils.py:1243
 msgid "The password must contain a lower case character."
-msgstr ""
+msgstr "Het wachtwoord dient een kleine letter te bevatten."
 
 #: rero_ils/modules/utils.py:1246
 msgid "The password must contain a upper case character."
-msgstr ""
+msgstr "Het wachtwoord dient een hoofdletter te bevatten."
 
 #: rero_ils/modules/utils.py:1249
 msgid "The password must contain a number."
-msgstr ""
+msgstr "Het wachtwoord dient een cijfer te bevatten."
 
 #: rero_ils/modules/utils.py:1252
 msgid "The password must contain a special character."
-msgstr ""
+msgstr "Het wachtwoord dient een speciaal teken te bevatten."
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:334
 msgid "Cannot transfer fund to myself."
-msgstr ""
+msgstr "Kan geen fondsen naar mezelf overdragen."
 
 #: rero_ils/modules/acquisition/acq_accounts/api.py:336
 msgid "Not enough available money from source account."
-msgstr ""
+msgstr "Het bronaccount bevat niet genoeg geld."
 
 #: rero_ils/modules/acquisition/acq_accounts/extensions.py:42
 #: rero_ils/modules/acquisition/acq_order_lines/extensions.py:63
@@ -4563,14 +4524,14 @@ msgstr ""
 
 #: rero_ils/modules/acquisition/acq_accounts/extensions.py:51
 msgid "Remaining balance too low"
-msgstr ""
+msgstr "Uw saldo is te laag"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:4
 #: rero_ils/modules/acquisition/acq_invoices/jsonschemas/acq_invoices/acq_invoice-v0.0.1.json:41
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:204
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:98
 msgid "Acquisition account"
-msgstr "Account"
+msgstr "Aanschaf account"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:5
 msgid "JSON schema for an account"
@@ -4618,7 +4579,7 @@ msgstr "Schema"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:26
 msgid "Schema to validate account records against."
-msgstr "Schema om account tegen te valideren."
+msgstr "Schema om account te valideren."
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:32
 msgid "Account ID"
@@ -4663,7 +4624,7 @@ msgstr ""
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:45
 msgid "Account number"
-msgstr ""
+msgstr "Nummer van het account"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:46
 msgid "Reference account number in accounting system."
@@ -4691,7 +4652,7 @@ msgstr ""
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:85
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:100
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #: rero_ils/modules/acquisition/acq_accounts/jsonschemas/acq_accounts/acq_account-v0.0.1.json:76
 msgid "Expenditure exceedance"
@@ -13292,4 +13253,3 @@ msgstr ""
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr ""
-
