@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-01-30 13:26+0100\n"
-"PO-Revision-Date: 2024-01-30 12:48+0000\n"
+"PO-Revision-Date: 2024-03-26 11:02+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 "Generated-By: Babel 2.14.0\n"
 
 #: rero_ils/accounts_views.py:60
@@ -157,7 +157,7 @@ msgstr "Exemplartyp"
 
 #: rero_ils/config.py:1879
 msgid "temporary_item_type"
-msgstr "Temporäre Ausleihkategorie"
+msgstr "Temporäre Exemplartyp"
 
 #: rero_ils/config.py:1880
 msgid "temporary_location"
