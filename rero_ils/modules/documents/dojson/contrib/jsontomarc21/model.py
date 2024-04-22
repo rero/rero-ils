@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -33,6 +33,7 @@ from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.api import Organisation
+from rero_ils.modules.utils import date_string_to_utc
 
 
 def set_value(data, old_data, key):
@@ -309,8 +310,9 @@ def get_holdings_items(document_pid, organisation_pids=None, library_pids=None,
     return results
 
 
-ORDER = ['leader', 'pid', 'fixed_length_data_elements',
-         'identifiedBy', 'title_responsibility', 'provisionActivity',
+ORDER = ['leader', 'pid', 'date_and_time_of_latest_transaction',
+         'fixed_length_data_elements', 'identifiedBy',
+         'title_responsibility', 'provisionActivity',
          'copyrightDate', 'physical_description', 'subjects', 'genreForm',
          'contribution', 'type', 'holdings_items']
 LEADER = '00000cam a2200000zu 4500'
@@ -348,8 +350,8 @@ class ToMarc21Overdo(Underdo):
         self.language = language
         blob['leader'] = LEADER
         # create fixed_length_data_elements for 008
-        # TODO: add 008/00-05  Date entered on file
-        fixed_data = '000000|||||||||xx#|||||||||||||||||||||c'
+        created = date_string_to_utc(blob['_created']).strftime('%y%m%d')
+        fixed_data = f'{created}|||||||||xx#|||||||||||||||||||||c'
         if fiction := blob.get('fiction'):
             fixed_data[33] = 1
         elif fiction is False:
@@ -362,13 +364,22 @@ class ToMarc21Overdo(Underdo):
                     fixed_data = fixed_data[:11] + end_date + fixed_data[15:]
                 start_date = str(p_activity.get('startDate', ''))
                 if start_date:
-                    fixed_data = fixed_data[:7] + start_date + fixed_data[11:]
+                    type_of_date = 's'
+                    if end_date:
+                        type_of_date = 'm'
+                    fixed_data = fixed_data[:6] + type_of_date + start_date \
+                        + fixed_data[11:]
                     break
         language = utils.force_list(blob.get('language'))
         if language:
             language = language[0].get('value')
             fixed_data = fixed_data[:35] + language + fixed_data[38:]
         blob['fixed_length_data_elements'] = fixed_data
+
+        # Add date and time of latest transaction
+        updated = date_string_to_utc(blob['_updated'])
+        blob['date_and_time_of_latest_transaction'] = updated.strftime(
+            '%Y%m%d%H%M%S.0')
 
         # Add responsibilityStatement to title
         if blob.get('title'):
@@ -506,6 +517,12 @@ def reverse_leader(self, key, value):
 def reverse_pid(self, key, value):
     """Reverse - pid."""
     return [value]
+
+
+@to_marc21.over('005', '^date_and_time_of_latest_transaction')
+def reverse_latest_transaction(self, key, value):
+    """Reverse - date and time of latest transaction."""
+    return value
 
 
 @to_marc21.over('008', '^fixed_length_data_elements')

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -20,11 +20,23 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
+from datetime import datetime, timezone
 
 import mock
 from dojson.utils import GroupableOrderedDict
 
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
+
+
+def add_created_updated(record, updated=False):
+    """Adds _created and _updated to record."""
+    date = datetime.now(timezone.utc)
+    record['_created'] = date.isoformat()
+    if updated:
+        record['_updated'] = date.isoformat()
+    else:
+        record['_updated'] = '2027-07-07T07:07:07.000000+00:00'
+    return date, record
 
 
 def test_pid_to_marc21(app, marc21_record):
@@ -59,12 +71,16 @@ def test_pid_to_marc21(app, marc21_record):
             'type': 'bf:Publication'
         }]
     }
+    date, record = add_created_updated(record, True)
     result = to_marc21.do(record)
-    record = deepcopy(marc21_record)
-    record.update({
-        '__order__': ('leader', '001', '008', '264_1'),
+    marc21 = deepcopy(marc21_record)
+    updated = date.strftime('%Y%m%d%H%M%S.0')
+    created = date.strftime('%y%m%d')
+    marc21.update({
+        '__order__': ('leader', '001', '005', '008', '264_1'),
         '001': '12345678',
-        '008': '000000|20072020xx#|||||||||||||||||fre|c',
+        '005': updated,
+        '008': f'{created}m20072020xx#|||||||||||||||||fre|c',
         '264_1': {
             '__order__': ('a', 'b', 'c'),
             'a': 'Paris',
@@ -72,7 +88,7 @@ def test_pid_to_marc21(app, marc21_record):
             'c': '2007-2020'
         }
     })
-    assert result == record
+    assert result == marc21
 
 
 def test_identified_by_to_marc21(app, marc21_record):
@@ -88,10 +104,13 @@ def test_identified_by_to_marc21(app, marc21_record):
             "qualifier": "qualifier"
         }]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
+    updated = date.strftime('%Y%m%d%H%M%S.0')
     record.update({
-        '__order__': ('leader', '008', '020__', '020__'),
+        '__order__': ('leader', '005', '008', '020__', '020__'),
+        ''
         '020__': ({
             '__order__': ('a', ),
             'a': '9782824606835'
@@ -117,10 +136,11 @@ def test_title_to_marc21(app, marc21_record):
             [{'value': "traduit de l'allemand par Valérie Bourgeois"}]
         ]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '2450_'),
+        '__order__': ('leader', '005', '008', '2450_'),
         '2450_': {
             '__order__': ('a', 'b', 'c'),
             'a': 'Kunst der Farbe',
@@ -151,10 +171,11 @@ def test_title_to_marc21(app, marc21_record):
             [{'value': 'Edmond Berrebi'}]
         ]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '2450_'),
+        '__order__': ('leader', '005', '008', '2450_'),
         '2450_': {
             '__order__': ('a', 'b', 'c', 'n', 'p', 'n', 'p'),
             'a': 'Statistique',
@@ -181,10 +202,11 @@ def test_title_to_marc21(app, marc21_record):
             'type': 'bf:ParallelTitle'
         }]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '2450_'),
+        '__order__': ('leader', '005', '008', '2450_'),
         '2450_': {
             '__order__': ('a', 'b'),
             'a': 'Suisse',
@@ -243,11 +265,13 @@ def test_provision_activity_copyright_date_to_marc21(app, marc21_record):
             "type": "bf:Publication"
         }]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
+    created = date.strftime('%y%m%d')
     record.update({
-        '__order__': ('leader', '008', '264_1'),
-        '008': '000000|1980||||xx#|||||||||||||||||||||c',
+        '__order__': ('leader', '005', '008', '264_1'),
+        '008': f'{created}s1980||||xx#|||||||||||||||||||||c',
         '264_1': {
             '__order__': ('a', 'b', 'a', 'b', 'a', 'b', 'c'),
             'a': ('Lausanne', 'Genève', 'Paris'),
@@ -301,11 +325,13 @@ def test_provision_activity_copyright_date_to_marc21(app, marc21_record):
             "type": "bf:Manufacture"
         }]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
+    created = date.strftime('%y%m%d')
     record.update({
-        '__order__': ('leader', '008', '264_1', '264_3'),
-        '008': '000000|19071975xx#|||||||||||||||||||||c',
+        '__order__': ('leader', '005', '008', '264_1', '264_3'),
+        '008': f'{created}m19071975xx#|||||||||||||||||||||c',
         '264_1': {
             '__order__': ('a', 'b', 'c'),
             'a': 'La Chaux-de-Fonds',
@@ -332,10 +358,11 @@ def test_physical_description_to_marc21(app, marc21_record):
         }],
         "dimensions": ["33 cm"]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '300__'),
+        '__order__': ('leader', '005', '008', '300__'),
         '300__': {
             '__order__': ('a', 'b', 'c'),
             'a': '159 p.',
@@ -355,10 +382,11 @@ def test_physical_description_to_marc21(app, marc21_record):
             "noteType": "accompanyingMaterial"
         }],
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '300__'),
+        '__order__': ('leader', '005', '008', '300__'),
         '300__': {
             '__order__': ('a', 'c', 'e'),
             'a': '1 DVD-vidéo (1h42)',
@@ -375,10 +403,11 @@ def test_physical_description_to_marc21(app, marc21_record):
         "illustrativeContent": ["illustrations"],
         "colorContent": ["rdacc:1002"]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '300__'),
+        '__order__': ('leader', '005', '008', '300__'),
         '300__': {
             '__order__': ('a', 'b'),
             'a': '1 DVD-vidéo (1h42)',
@@ -467,12 +496,13 @@ def test_subjects_to_marc21(app, mef_agents_url, mef_concepts_url,
             }
         }]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
 
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '650__', '650__', '6001_', '610__',
-                      '610__', '611__', '600__', '651__', '648_7'),
+        '__order__': ('leader', '005', '008', '650__', '650__', '6001_',
+                      '610__', '610__', '611__', '600__', '651__', '648_7'),
         '650__': (
             GroupableOrderedDict({'a': 'Roman pour la jeunesse'}),
             GroupableOrderedDict({'a': 'Antienzymes'})
@@ -546,11 +576,12 @@ def test_genre_form_to_marc21(app, mef_concepts_url, marc21_record,
             }
         }]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
 
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '655__', '655__'),
+        '__order__': ('leader', '005', '008', '655__', '655__'),
         '655__': (
             GroupableOrderedDict({'a': 'Roman pour la jeunesse'}),
             GroupableOrderedDict({'a': 'Antienzymes'})
@@ -617,6 +648,7 @@ def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
             'role': ['aut']
         }]
     }
+    date, record = add_created_updated(record)
     with mock.patch(
         'rero_ils.modules.entities.remote_entities.api.'
         'RemoteEntity.get_entity',
@@ -627,8 +659,8 @@ def test_contribution_to_marc21(app, mef_agents_url, marc21_record,
 
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '7001_', '7001_', '710__', '710__',
-                      '711__', '711__'),
+        '__order__': ('leader', '005', '008', '7001_', '7001_', '710__',
+                      '710__', '711__', '711__'),
         '7001_': ({
             '__order__': ('a', 'd', '4', '4'),
             'a': 'Fujimoto, Satoko',
@@ -679,10 +711,11 @@ def test_type_to_marc21(app, marc21_record):
             'subtype': 'docsubtype_atlas'
         }]
     }
+    date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
     record.update({
-        '__order__': ('leader', '008', '900__', '900__'),
+        '__order__': ('leader', '005', '008', '900__', '900__'),
         '900__': ({
             '__order__': ('a', 'b'),
             'a': 'docmaintype_comic',
@@ -701,22 +734,24 @@ def test_holdings_items_to_marc21(app, marc21_record, document,
                                   ebook_5, holding_lib_sion_electronic):
     """Test holding items to MARC21 transformation."""
     record = {'pid': document.pid}
+    date, record = add_created_updated(record)
     result = to_marc21.do(record, with_holdings_items=False)
-    record = deepcopy(marc21_record)
-    record.update({
-        '__order__': ('leader', '001', '008'),
-        '001': document.pid,
+    marc21 = deepcopy(marc21_record)
+    marc21.update({
+        '__order__': ('leader', '001', '005', '008'),
+        '001': document.pid
     })
-    assert result == record
+    assert result == marc21
 
     record = {'pid': document.pid}
+    _, record = add_created_updated(record)
     item2_lib_sion_save_barcode = item2_lib_sion['barcode']
     item2_lib_sion['barcode'] = '87121336'
     item2_lib_sion.update(item2_lib_sion, dbcommit=True, reindex=True)
     result = to_marc21.do(record, with_holdings_items=True)
-    record = deepcopy(marc21_record)
-    record.update({
-        '__order__': ('leader', '001', '008', '949__'),
+    marc21 = deepcopy(marc21_record)
+    marc21.update({
+        '__order__': ('leader', '001', '005', '008', '949__'),
         '001': 'doc1',
         '949__': ({
             '__order__': ('0', '1', '2', '3', '4', '5', 'a'),
@@ -729,17 +764,18 @@ def test_holdings_items_to_marc21(app, marc21_record, document,
             'a': '87121336'
         })
     })
-    assert result == record
+    assert result == marc21
 
     # clean up modified data
     item2_lib_sion['barcode'] = item2_lib_sion_save_barcode
     item2_lib_sion.update(item2_lib_sion, dbcommit=True, reindex=True)
 
     record = {'pid': ebook_5.pid}
+    _, record = add_created_updated(record)
     result = to_marc21.do(record, with_holdings_items=True)
-    record = deepcopy(marc21_record)
-    record.update({
-        '__order__': ('leader', '001', '008', '949__'),
+    marc21 = deepcopy(marc21_record)
+    marc21.update({
+        '__order__': ('leader', '001', '005', '008', '949__'),
         '001': 'ebook5',
         '949__': {
             '__order__': ('0', '1', '2', '3', '4', '5', 'E'),
@@ -753,4 +789,4 @@ def test_holdings_items_to_marc21(app, marc21_record, document,
                 'https://bm.ebibliomedia.ch/resources/5f780fc22357943b9a83ca3d'
         }
     })
-    assert result == record
+    assert result == marc21

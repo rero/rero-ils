@@ -20,6 +20,7 @@
 from __future__ import absolute_import, print_function
 
 from copy import deepcopy
+from datetime import datetime, timezone
 
 import pytest
 from pkg_resources import resource_string
@@ -28,6 +29,7 @@ from utils import get_schema
 from rero_ils.modules.entities.remote_entities.api import \
     RemoteEntitiesSearch, RemoteEntity
 from rero_ils.modules.patrons.api import Patron
+from rero_ils.modules.utils import date_string_to_utc
 
 
 @pytest.fixture(scope='module')
@@ -302,9 +304,12 @@ def vendors_schema():
 @pytest.fixture()
 def marc21_record():
     """Marc21 record."""
+    date = datetime.now(timezone.utc).isoformat()
+    created = date_string_to_utc(date).strftime('%y%m%d')
     return {
         'leader': '00000cam a2200000zu 4500',
-        '008': '000000|||||||||xx#|||||||||||||||||||||c',
+        '005': '20270707070707.0',
+        '008': f'{created}|||||||||xx#|||||||||||||||||||||c'
     }
 
 
