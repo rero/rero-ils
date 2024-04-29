@@ -554,7 +554,8 @@ def stats(item_pid):
     :param item_pid: the item pid
     """
     search = OperationLogsSearch()\
-        .filter('term', loan__item__pid=item_pid)
+        .filter('term', loan__item__pid=item_pid)\
+        .filter('term', record__type='loan')
     trigger = A(
         'terms',
         field='loan.trigger',

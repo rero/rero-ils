@@ -195,3 +195,16 @@ def test_item_stats(
             {
                 'total': {'checkin': 2},
                 'total_year': {'checkin': 1}}
+
+
+def test_item_stats_endpoint(
+    item_at_desk_martigny_patron_and_loan_at_desk,
+    client, librarian_martigny
+):
+    """Test loan filter on stats endpoint with real data."""
+    login_user_via_session(client, librarian_martigny.user)
+    res = client.get(url_for(
+        'api_item.stats',
+        item_pid=item_at_desk_martigny_patron_and_loan_at_desk[0].pid
+    ))
+    assert res.json['total']['request'] == 1
