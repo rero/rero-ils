@@ -917,10 +917,10 @@ class Loan(IlsRecord):
         three_month_ago = datetime.now() - relativedelta(months=3)
         six_month_ago = datetime.now() - relativedelta(months=6)
 
-        patron_query = PatronsSearch().filter('bool', must_not=[
-            Q('exists', field='keep_history'),
-            Q('term', keep_history=True)
-        ])
+        patron_query = PatronsSearch() \
+            .exclude('exists', field='keep_history') \
+            .exclude('term', keep_history=True)
+
         anonym_patron_pids = [h.pid for h in patron_query.source('pid').scan()]
 
         query = LoansSearch() \

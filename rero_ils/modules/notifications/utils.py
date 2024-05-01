@@ -59,17 +59,13 @@ def get_notifications(notification_type, processed=False, not_sent=False):
         .filter('term', notification_type=notification_type) \
         .source('pid')
     if not not_sent:
-        query = query.filter(
-            'bool', must_not=[
-                Q('exists', field='notification_sent'),
-                Q('term', notification_sent=False)
-            ]
-        )
+        query = query \
+            .exclude('exists', field='notification_sent') \
+            .exclude('term', notification_sent=False)
     if processed:
         query = query.filter('exists', field='process_date')
     else:
-        query = query.filter(
-            'bool', must_not=[Q('exists', field='process_date')])
+        query = query.exclude('exists', field='process_date')
 
     for hit in query.scan():
         yield hit.pid

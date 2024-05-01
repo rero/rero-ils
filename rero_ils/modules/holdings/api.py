@@ -389,8 +389,7 @@ class Holding(IlsRecord):
             .filter('term', document__pid=document_pid)\
             .source(['pid'])
         if not with_masked:
-            es_query = es_query.filter(
-                'bool', must_not=[Q('term', _masked=True)])
+            es_query = es_query.exclude('term', _masked=True)
         for holding in es_query.scan():
             yield holding.pid
 
@@ -403,8 +402,7 @@ class Holding(IlsRecord):
             .filter('term', organisation__pid=org_pid)\
             .source(['pid'])
         if not with_masked:
-            es_query = es_query.filter(
-                'bool', must_not=[Q('term', _masked=True)])
+            es_query = es_query.exclude('term', _masked=True)
         for holding in es_query.scan():
             yield holding.pid
 

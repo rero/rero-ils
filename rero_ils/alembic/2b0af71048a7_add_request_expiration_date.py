@@ -42,7 +42,7 @@ def upgrade():
     """Update loans records."""
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_AT_DESK) \
-        .filter('bool', must_not=[Q('exists', field='request_expire_date')]) \
+        .exclude('exists', field='request_expire_date') \
         .source('pid')
     loan_pids = [hit.pid for hit in query.scan()]
     ids = []

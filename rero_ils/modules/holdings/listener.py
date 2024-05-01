@@ -19,6 +19,7 @@
 
 
 from elasticsearch_dsl.query import Q
+from flask import current_app
 from invenio_db import db
 
 from rero_ils.modules.holdings.models import HoldingTypes
@@ -84,14 +85,10 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
         hold_circ_pid = record.circulation_category_pid
         hold_loc_pid = record.location_pid
         search = ItemsSearch().filter('term', holding__pid=record.pid)
-        item_hits = search.\
-            filter('bool', should=[
-                        Q('bool', must_not=[
-                            Q('match', item_type__pid=hold_circ_pid)]),
-                        Q('bool', must_not=[
-                            Q('match', location__pid=hold_loc_pid)])])\
-            .source(['pid'])
-        items = [hit.meta.id for hit in item_hits.scan()]
+        item_hits = search \
+            .exclude('match', item_type__pid=hold_circ_pid) \
+            .exclude('match', location__pid=hold_loc_pid)
+        items = [hit.meta.id for hit in item_hits.source().scan()]
         items_to_index = []
         # update these items and make sure they have the same location/category
         # as the parent holdings record.
@@ -128,7 +125,10 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
                 db.session.query(item.model_cls).filter_by(id=item.id).update(
                     {item.model_cls.json: item})
             except Exception as err:
-                pass
+                current_app.logger(
+                    f'update_items_locations_and_types: '
+                    f'({type(record)}):{record.pid} {err}'
+                )
         if items_to_index:
             # commit session
             db.session.commit()

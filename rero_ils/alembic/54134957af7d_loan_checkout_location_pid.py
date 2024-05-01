@@ -43,11 +43,9 @@ def upgrade():
     """
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_ON_LOAN) \
-        .filter('bool', must_not=[
-            Q('exists', field='checkout_location_pid')
-        ]) \
+        .exclude('exists', field='checkout_location_pid') \
         .source(['pid', 'transaction_location_pid'])
-    loans_hits = [hit for hit in query.scan()]
+    loans_hits = list(query.scan())
     ids = []
     for hit in loans_hits:
         loan = Loan.get_record_by_pid(hit.pid)
@@ -64,7 +62,7 @@ def downgrade():
     query = current_circulation.loan_search_cls() \
         .filter('exists', field='checkout_location_pid') \
         .source('pid')
-    loans_hits = [hit for hit in query.scan()]
+    loans_hits = list(query.scan())
     ids = []
     for hit in loans_hits:
         loan = Loan.get_record_by_pid(hit.pid)

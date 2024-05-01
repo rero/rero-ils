@@ -39,9 +39,8 @@ def upgrade():
     query = PatronsSearch()\
         .filter('term',
                 patron__communication_channel=CommunicationChannel.EMAIL)\
-        .filter('bool', must_not=[
-            Q('exists', field='patron.additional_communication_email')])\
-        .filter('bool', must_not=[Q('exists', field='email')])\
+        .exclude('exists', field='patron.additional_communication_email')\
+        .exclude('exists', field='email')\
         .source(includes='pid')
     pids = [(hit['pid'], hit.meta.id) for hit in query.scan()]
     errors = 0
