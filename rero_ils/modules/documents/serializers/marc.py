@@ -347,10 +347,10 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         sru = search_result['hits'].get('sru', {})
         query_es = sru.get('query_es', '')
         organisation_pids = re.findall(
-            r'holdings.organisation.organisation_pid:(\d*)',
+            r'organisation_pid:(\d*)',
             query_es, re.DOTALL)
         library_pids = re.findall(
-            r'holdings.organisation.library_pid:(\d*)',
+            r'library_pid:(\d*)',
             query_es, re.DOTALL)
         location_pids = re.findall(
             r'holdings.location.pid:(\d*)',

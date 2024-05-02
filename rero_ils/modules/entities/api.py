@@ -101,7 +101,7 @@ class Entity(IlsRecord, ABC):
         search = DocumentsSearch().by_entity(self)[:0]
         agg = A(
             'terms',
-            field='holdings.organisation.organisation_pid',
+            field='organisation_pid',
             min_doc_count=1,
             size=current_app.config
                             .get('RERO_ILS_AGGREGATION_SIZE', {})
