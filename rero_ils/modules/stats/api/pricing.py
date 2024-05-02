@@ -306,7 +306,7 @@ class StatsForPricing:
         :rtype: integer
         """
         return DocumentsSearch().filter(
-            'term', files__organisation__library_pid=library_pid).count()
+            'term', files__library_pid=library_pid).count()
 
     def _get_record_file_query(self):
         """Get a record file query on the related index."""

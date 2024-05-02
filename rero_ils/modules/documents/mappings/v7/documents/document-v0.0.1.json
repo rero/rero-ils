@@ -43,6 +43,15 @@
       "pid": {
         "type": "keyword"
       },
+      "organisation_pid": {
+        "type": "keyword"
+      },
+      "library_pid": {
+        "type": "keyword"
+      },
+      "location_pid": {
+        "type": "keyword"
+      },
       "files": {
         "type": "object",
         "properties": {
@@ -57,13 +66,13 @@
           "rec_id": {
             "type": "keyword"
           },
-          "organisation": {
-            "type": "object",
-            "properties": {
-              "library_pid": {
-                "type": "keyword"
-              }
-            }
+          "organisation_pid": {
+            "type": "keyword",
+            "copy_to": "organisation_pid"
+          },
+          "library_pid": {
+            "type": "keyword",
+            "copy_to": "library_pid"
           },
           "collections": {
             "type": "text",
@@ -1126,7 +1135,8 @@
             "type": "object",
             "properties": {
               "pid": {
-                "type": "keyword"
+                "type": "keyword",
+                "copy_to": "location_pid"
               }
             }
           },
@@ -1145,10 +1155,12 @@
             "type": "object",
             "properties": {
               "organisation_pid": {
-                "type": "keyword"
+                "type": "keyword",
+                "copy_to": "organisation_pid"
               },
               "library_pid": {
-                "type": "keyword"
+                "type": "keyword",
+                "copy_to": "library_pid"
               }
             }
           },
