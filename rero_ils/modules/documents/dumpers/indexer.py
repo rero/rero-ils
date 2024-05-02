@@ -21,6 +21,8 @@
 from flask import current_app
 from invenio_records.dumpers import Dumper
 
+from rero_ils.modules.libraries.api import Library
+
 from ..extensions import TitleExtension
 from ..utils import process_i18n_literal_fields
 
@@ -230,12 +232,15 @@ class IndexerDumper(Dumper):
     def _process_files(self, record, data):
         """Add full text from files."""
         ext = current_app.extensions['rero-invenio-files']
-        sfr = ext.records_service
-        files = {}
+        files = []
         for record_file in record.get_records_files():
+            record_files_information = {}
             collections = record_file.get('metadata', {}).get('collections')
             owners = record_file.get('metadata', {}).get('owners')
             library_pid = owners[0].replace('lib_', '')
+            if library_pid:
+                organisation_pid = Library.get_record_by_pid(
+                    library_pid).organisation_pid
             for file_name in record_file.files:
                 file = record_file.files[file_name]
                 metadata = file.get('metadata', {})
@@ -245,20 +250,25 @@ class IndexerDumper(Dumper):
                 if metadata.get('type') == 'fulltext':
                     # get the fulltext
                     stream = file.get_stream('r')
-                    files.setdefault(
+                    record_files_information.setdefault(
                         metadata['fulltext_for'], {})['text'] = stream.read()
                     continue
                 # other information from the main file
-                files.setdefault(file_name, {})['file_name'] = file_name
-                files[file_name]['rec_id'] = record_file.pid.pid_value
+                record_files_information.setdefault(
+                    file_name, {})['file_name'] = file_name
+                record_files_information[file_name]['rec_id'] = \
+                    record_file.pid.pid_value
                 if collections:
-                    files[file_name]['collections'] = collections
+                    record_files_information[file_name]['collections'] = \
+                        collections
                 if library_pid:
-                    files[file_name]['organisation'] = {
-                        'library_pid': library_pid
-                    }
+                    record_files_information[file_name]['library_pid'] = \
+                        library_pid
+                    record_files_information[file_name]['organisation_pid'] = \
+                        organisation_pid
+            files += list(record_files_information.values())
         if files:
-            data['files'] = list(files.values())
+            data['files'] = files
 
     def dump(self, record, data):
         """Dump a document instance with basic document information's.

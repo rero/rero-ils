@@ -101,7 +101,8 @@ def test_documents_get(client, document_with_files):
         "file_name",
         "rec_id",
         "collections",
-        "organisation",
+        "organisation_pid",
+        "library_pid",
     }
     data_clean = clean_es_metadata(metadata)
     document = document.replace_refs().dumps()

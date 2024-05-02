@@ -168,7 +168,7 @@ def documents_search_factory(self, search, query_parser=None):
         if view != current_app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
             org = Organisation.get_record_by_viewcode(view)
             filters = Q(
-                'term', holdings__organisation__organisation_pid=org['pid']
+                'term',  organisation_pid=org['pid']
             )
             filters |= Q('exists', field='files')
             search = search.filter(filters)

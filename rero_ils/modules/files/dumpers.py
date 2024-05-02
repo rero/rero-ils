@@ -43,3 +43,8 @@ class FileInformationDumperExt(SearchDumperExt):
                 size += record.files[f].file.size
         data["metadata"]["n_files"] = n_main_files
         data["metadata"]["file_size"] = size
+        lib_pid = data["metadata"]["owners"][0].replace("lib_", "")
+        from rero_ils.modules.libraries.api import Library
+        org_pid = Library.get_record_by_pid(lib_pid).organisation_pid
+        data["metadata"]["organisation_pid"] = org_pid
+        data["metadata"]["library_pid"] = lib_pid
