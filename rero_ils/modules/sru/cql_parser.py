@@ -99,8 +99,8 @@ ES_INDEX_MAPPINGS = {
     # 'dc.rights': '',
     # 'dc.source': '',
     'dc.subject': 'subject.entity.authorized_access_point',
-    'dc.organisation': 'holdings.organisation.organisation_pid',
-    'dc.library': 'holdings.organisation.library_pid',
+    'dc.organisation': 'organisation_pid',
+    'dc.library': 'library_pid',
     'dc.location': 'holdings.location.pid'
 }
 

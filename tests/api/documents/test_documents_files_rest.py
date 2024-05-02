@@ -38,6 +38,8 @@ def test_document_files(
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
+    aggregations = get_json(res)["aggregations"]["organisation"]
+    assert aggregations['buckets'][0]['doc_count'] == 1
     assert hits["total"]["value"] == 1
 
     # check for collections

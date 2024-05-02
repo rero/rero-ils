@@ -1760,12 +1760,12 @@ RECORDS_REST_FACETS = dict(
             ),
             language=dict(terms=dict(field='language.value', size=DOCUMENTS_AGGREGATION_SIZE)),
             organisation=dict(
-                terms=dict(field='holdings.organisation.organisation_pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
+                terms=dict(field='organisation_pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
                 aggs=dict(
                     library=dict(
-                        terms=dict(field='holdings.organisation.library_pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
+                        terms=dict(field='library_pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0),
                         aggs=dict(
-                            location=dict(terms=dict(field='holdings.location.pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0))
+                            location=dict(terms=dict(field='location_pid', size=DOCUMENTS_AGGREGATION_SIZE, min_doc_count=0))
                         )
                     )
                 )
@@ -1817,10 +1817,10 @@ RECORDS_REST_FACETS = dict(
             _('language'): terms_filter('language.value'),
             _('organisation'): {
                 _('organisation'): terms_filter(
-                    'holdings.organisation.organisation_pid'
+                    'organisation_pid'
                 ),
-                _('library'): terms_filter('holdings.organisation.library_pid'),
-                _('location'): terms_filter('holdings.location.pid')
+                _('library'): terms_filter('library_pid'),
+                _('location'): terms_filter('location_pid')
             },
             _('status'): terms_filter('holdings.items.status'),
             _('genreForm'): i18n_terms_filter('facet_genre_form'),
