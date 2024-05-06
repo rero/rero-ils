@@ -149,9 +149,11 @@ from .utils import TranslatedList, get_current_language
 
 APP_THEME = ['bootstrap3']
 
+
 def _(x):
     """Identity function used to trigger string extraction."""
     return x
+
 
 # Personalized homepage
 RERO_ILS_PERSONALIZED_CSS_BY_VIEW = True
@@ -254,7 +256,7 @@ RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT = 'https://resources.rero.ch/bib/test/c
 THEME_TRACKINGCODE_TEMPLATE = 'rero_ils/trackingcode.html'
 THEME_JAVASCRIPT_TEMPLATE = 'rero_ils/javascript.html'
 
-# WEBPACKEXT_PROJECT = 'rero_ils.webpack.project'
+WEBPACKEXT_PROJECT = 'rero_ils.theme.webpack:project'
 
 # Email configuration
 # ===================

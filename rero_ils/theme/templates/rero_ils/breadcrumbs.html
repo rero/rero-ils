@@ -17,22 +17,3 @@
 
 #}
 
-{%- if breadcrumbs|length > 1 %}
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb mt-4">
-      {%- for breadcrumb in breadcrumbs %}
-        {%- if loop.last %}
-          <li class="breadcrumb-item active">
-            {{ breadcrumb.text|safe }}
-          </li>
-        {%- else %}
-          <li class="breadcrumb-item">
-            <a href="{{ breadcrumb.url }}">
-              {{ breadcrumb.text|safe }}
-            </a>
-          </li>
-        {%- endif %}
-      {%- endfor %}
-    </ul>
-  </nav>
-{%- endif %}

@@ -97,12 +97,21 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error,
                 pids.append(patron.pid)
             else:
                 # remove profile fields from patron record
+                patron_data = User.remove_fields(patron_data)
                 patron.update(
-                    data=User.remove_fields(data), dbcommit=True, reindex=True)
+                    data=patron_data,
+                    dbcommit=True,
+                    reindex=True
+                )
                 if verbose:
+                    profile = patron.user.user_profile
+                    name_parts = [
+                        profile.get('last_name', '').strip(),
+                        profile.get('first_name', '').strip()
+                    ]
+                    user_name = ', '.join(filter(None, name_parts))
                     click.secho(
-                        f'{count:<8} Patron updated: '
-                        f'{patron.patron.user_name}',
+                        f'{count:<8} Patron updated: {user_name}',
                         fg='yellow'
                     )
         except Exception as err:

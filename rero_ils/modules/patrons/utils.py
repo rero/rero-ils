@@ -101,9 +101,8 @@ def create_patron_from_data(
     """
     from .api import Patron
     data = create_user_from_data(data, send_email)
-    ptrn = Patron.create(
+    return Patron.create(
         data=data,
         delete_pid=False,
         dbcommit=dbcommit,
         reindex=reindex)
-    return ptrn
