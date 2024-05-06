@@ -68,21 +68,24 @@ fi
 
 function pretests () {
   # -> Vulnerability found in flask-cors version 4.0.1
-  #    Vulnerability ID: 70624
+  #   Vulnerability ID: 70624
   # -> Vulnerability found in sqlalchemy version 1.4.52
-  #    Vulnerability ID: 51668
+  #   Vulnerability ID: 51668
   # -> Vulnerability found in sqlalchemy-utils version 0.38.3
-  #    Vulnerability ID: 42194
+  #   Vulnerability ID: 42194
   # -> Vulnerability found in wtforms version 2.3.3
-  #    Vulnerability ID: 42852
+  #   Vulnerability ID: 42852
   # -> Vulnerability found in werkzeug version 2.2.3
-  #    Vulnerability ID: 62019
+  #   Vulnerability ID: 62019
+  # -> Vulnerability found in black version 22.12.0
+  #   Vulnerability ID: 66742
+  #   ADVISORY: Black before 24.3.0 have a security vulnerability where
   # -> Vulnerability found in jinja2 version 3.1.4
-  #    Vulnerability ID: 70612
+  #   Vulnerability ID: 70612
   # -> Vulnerability found in py version 1.11.0
-  #    Vulnerability ID: 51457
+  #   Vulnerability ID: 51457
   info_msg "Check vulnerabilities:"
-  safety_exceptions="-i 70624 -i 51668 -i 42194 -i 42852 -i 62019 -i 70612 -i 51457"
+  safety_exceptions="-i 70624 -i 51668 -i 42194 -i 42852 -i 62019 -i 66742 -i 70612 -i 51457"
   msg=$(safety check -o text ${safety_exceptions}) || {
     echo "Safety vulnerabilites found for packages:" $(safety check -o bare ${safety_exceptions})
     echo "Run: \"safety check -o screen ${safety_exceptions} | grep -i vulnerability\" for more details"
@@ -97,10 +100,7 @@ function pretests () {
   info_msg "Test isort:"
   isort --check-only --diff tests rero_ils
   info_msg "Test useless imports:"
-  autoflake -c -r --remove-all-unused-imports --ignore-init-module-imports . &> /dev/null || {
-    autoflake --remove-all-unused-imports -r --ignore-init-module-imports .
-    exit 1
-  }
+  poetry run autoflake -r --remove-all-unused-imports --ignore-init-module-imports --quiet .
   # info_msg "Check-manifest:"
   # TODO: check if this is required when rero-ils will be published
   # check-manifest --ignore ".travis-*,docs/_build*"

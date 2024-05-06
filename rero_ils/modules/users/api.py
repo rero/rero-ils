@@ -126,6 +126,8 @@ class User(object):
             # send the reset password notification for new users
             if email := data.get('email'):
                 user.email = email
+            else:
+                user.domain = 'unknown'
             db.session.merge(user)
         db.session.commit()
         if data.get('email') and send_email:
