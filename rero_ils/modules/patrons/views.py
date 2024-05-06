@@ -26,9 +26,7 @@ import re
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from flask_babel import format_currency
-from flask_babel import lazy_gettext
 from flask_babel import lazy_gettext as _
-from flask_breadcrumbs import register_breadcrumb
 from flask_login import current_user, login_required
 from flask_menu import register_menu
 from flask_security import utils as security_utils
@@ -170,13 +168,10 @@ def logged_user():
 @register_menu(
     blueprint,
     'settings.patron_profile',
-    lazy_gettext('%(icon)s My loans', icon='<i class="fa fa-book fa-fw"></i>'),
+    _('%(icon)s My loans', icon='<i class="fa fa-book fa-fw"></i>'),
     visible_when=user_has_patron,
     id="my-profile-menu",
     order=-1
-)
-@register_breadcrumb(
-    blueprint, 'breadcrumbs.settings.patron_profile', _('Patron Profile')
 )
 def profile(viewcode):
     """Patron Profile Page."""
