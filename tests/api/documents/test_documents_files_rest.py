@@ -21,6 +21,8 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json
 
+from rero_ils.modules.utils import get_ref_for_pid
+
 
 def test_document_files(
     client,
@@ -71,13 +73,28 @@ def test_document_files(
         json={
             "metadata": {
                 "collections": ["new col"],
-                "owners": ["lib_lib1"],
-                "links": ["doc_doc1"],
+                "library": {'$ref': get_ref_for_pid('lib', 'lib1')},
+                "document": {'$ref': get_ref_for_pid('doc', 'doc1')},
             }
         },
     )
     assert res.status_code == 200
     res = client.get(f"/records/{file_data['rec_id']}", headers=json_header)
+    assert res.status_code == 200
+    assert res.json['metadata'] == {
+        'collections': ['new col'],
+        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc1'},
+        'library': {'$ref': 'https://bib.rero.ch/api/libraries/lib1'}
+    }
+
+    res = client.get(f"/records?q={file_data['rec_id']}", headers=json_header)
+    assert res.status_code == 200
+    metadata = res.json['hits']['hits'][0]['metadata']
+    assert set(metadata.keys()) == {
+        'collections', 'document', 'file_size', 'library', 'n_files'
+    }
+    assert metadata['library'] == {'pid': 'lib1', 'type': 'lib'}
+    assert metadata['document'] == {'pid': 'doc1', 'type': 'doc'}
 
     # check for modifications in document
     res = client.get(list_url)

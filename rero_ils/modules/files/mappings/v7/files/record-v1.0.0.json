@@ -49,13 +49,37 @@
       "metadata": {
         "type": "object",
         "properties": {
-          "owners": {
-            "type": "keyword"
+          "document": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          },
+          "library": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
+          },
+          "organisation": {
+            "properties": {
+              "pid": {
+                "type": "keyword"
+              },
+              "type": {
+                "type": "keyword"
+              }
+            }
           },
           "collections": {
-            "type": "keyword"
-          },
-          "links": {
             "type": "keyword"
           },
           "n_files": {

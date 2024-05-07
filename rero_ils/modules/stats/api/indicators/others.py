@@ -42,17 +42,17 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         """
         es_query = DocumentsSearch()[:0].filter(
             'term',
-            holdings__organisation__organisation_pid=self.cfg.org_pid
+            organisation_pid=self.cfg.org_pid
         )
         if pids := self.cfg.filter_by_libraries:
             es_query = es_query.filter(
-                'terms', holdings__organisation__library_pid=pids)
+                'terms', library_pid=pids)
         return es_query
 
     def aggregation(self, distribution):
         """Elasticsearch Aggregation configuration to compute distributions.
 
-        :param distrubtion: str - report distrubtion name
+        :param distrubtion: str - report distribution name
         :returns: an elasticsearch aggregation object
         """
         cfg = {

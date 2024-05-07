@@ -104,7 +104,7 @@ def cached(timeout=50, key_prefix='default', query_string=False):
     return caching
 
 
-def memoized(timeout=50):
+def memoize(timeout=50):
     """Memoize functions.
 
     Use this to cache the result of a function, taking its arguments into

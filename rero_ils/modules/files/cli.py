@@ -32,6 +32,7 @@ from rero_invenio_files.pdf import PDFGenerator
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dojson.contrib.jsontodc import dublincore
 from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 
 
 def create_pdf_file(document):
@@ -69,7 +70,8 @@ def create_pdf_record_files(document, metadata, flush=False,
     :param file_name_suffix: str - a suffix to add to the file name.
     """
     # add document link
-    metadata.setdefault("links", [f"doc_{document.pid}"])
+    metadata.setdefault(
+        "document", {'$ref': get_ref_for_pid('doc', document.pid)})
     ext = current_app.extensions["rero-invenio-files"]
     # get services
     record_service = ext.records_service
@@ -78,7 +80,9 @@ def create_pdf_record_files(document, metadata, flush=False,
     content = create_pdf_file(document)
     # create the record file
     try:
-        record = next(document.get_records_files(lib_pids=metadata["owners"]))
+        record = next(
+            document.get_records_files(
+                lib_pids=[extracted_data_from_ref(metadata.get('library'))]))
     except StopIteration:
         item = record_service.create(
             identity=system_identity, data={"metadata": metadata})
@@ -129,13 +133,16 @@ def load_files_for_document(document, metadata, files):
     :param metadata: dict - record metadata.
     :param files: list of str - file paths.
     """
-    metadata.setdefault("links", [f"doc_{document.pid}"])
+    metadata.setdefault(
+        "document", {"$ref": get_ref_for_pid('doc', document.pid)})
     ext = current_app.extensions["rero-invenio-files"]
     # get services
     record_service = ext.records_service
     file_service = ext.records_files_service
     try:
-        record = next(document.get_records_files(lib_pids=metadata["owners"]))
+        record = next(
+            document.get_records_files(
+                lib_pids=[extracted_data_from_ref(metadata.get('library'))]))
     except StopIteration:
         item = record_service.create(
             identity=system_identity, data={"metadata": metadata})
@@ -199,7 +206,8 @@ def create_files(number, collections):
         click.echo(f"Create {number_of_files} files for {pid}")
         lib_pid = choice(lib_pids)
         metadata = dict(
-            collections=[choice(collections)], owners=[f"lib_{lib_pid}"])
+            collections=[choice(collections)],
+            library={'$ref': get_ref_for_pid('lib', lib_pid)})
         create_pdf_record_files(
             document=doc, metadata=metadata, flush=True,
             number_of_files=number_of_files
@@ -220,7 +228,8 @@ def load_files(document_pid, library_pid, files, collections):
     """
     doc = Document.get_record_by_pid(document_pid)
     metadata = dict(
-        links=[f"doc_{document_pid}"], owners=[f"lib_{library_pid}"])
+        document={"$ref": get_ref_for_pid('doc', document_pid)},
+        library={"$ref": get_ref_for_pid('lib', library_pid)})
     if collections:
         metadata["collections"] = collections
     click.secho(f"Loading {len(files)} files...", fg="green")

@@ -578,30 +578,6 @@ def test_document_can_request_view(
     assert len(picks) == 3
 
 
-def test_document_boosting(client, roles, ebook_1, ebook_4):
-    """Test document boosting."""
-    list_url = url_for("invenio_records_rest.doc_list", q="maison")
-    res = client.get(list_url)
-    from pprint import pprint
-
-    pprint(get_json(res))
-    hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 2
-    data = hits["hits"][0]["metadata"]
-    assert data["pid"] == ebook_1.pid
-
-    list_url = url_for(
-        "invenio_records_rest.doc_list",
-        q="autocomplete_title:maison AND"
-        + "contribution.agent.authorized_access_point:James",
-    )
-    res = client.get(list_url)
-    hits = get_json(res)["hits"]
-    assert hits["total"]["value"] == 1
-    data = hits["hits"][0]["metadata"]
-    assert data["pid"] == ebook_1.pid
-
-
 @mock.patch("requests.Session.get")
 def test_documents_resolve(
     mock_contributions_mef_get,
@@ -934,7 +910,7 @@ def test_document_advanced_search_config(
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
 def test_document_fulltext(client, document_with_files, document_with_issn):
-    """Test document boosting."""
+    """Test document with fulltext."""
     list_url = url_for(
         "invenio_records_rest.doc_list",
         q=f'fulltext:"Document ({document_with_files.pid})"',

@@ -22,6 +22,7 @@ from invenio_records_permissions.generators import SystemProcess
 
 from rero_ils.modules.permissions import AllowedByAction, \
     AllowedByActionRestrictByManageableLibrary, RecordPermissionPolicy
+from rero_ils.modules.utils import extracted_data_from_ref
 
 # Actions to control Record Files policies for CRUD operations
 search_action = action_factory("file-search")
@@ -39,7 +40,7 @@ def get_library_pid(record):
     @returns: the library pid value.
     @rtype: string.
     """
-    return record.get("metadata", {}).get("owners", [])[0].replace("lib_", "")
+    return extracted_data_from_ref(record.get("metadata", {}).get("library"))
 
 
 class FilePermissionPolicy(RecordPermissionPolicy):
@@ -64,7 +65,7 @@ class FilePermissionPolicy(RecordPermissionPolicy):
     can_set_content_files = [
         AllowedByActionRestrictByManageableLibrary(
             create_action, get_library_pid),
-        SystemProcess(),
+        SystemProcess()
     ]
     # files container
     can_read_files = [AllowedByAction(read_action), SystemProcess()]
