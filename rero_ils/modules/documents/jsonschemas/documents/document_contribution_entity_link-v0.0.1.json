@@ -1,6 +1,7 @@
 {
   "title": "Link to an agent",
   "type": "object",
+  "description": "Link to a remote or local entity of type person, family or corporate body (including conferences).",
   "additionalProperties": false,
   "propertiesOrder": [
     "$ref"

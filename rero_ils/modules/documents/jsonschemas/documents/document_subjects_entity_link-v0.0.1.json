@@ -1,6 +1,7 @@
 {
   "title": "Link to a subject",
   "type": "object",
+  "description": "Link to a remote or local entity of type topic, person, organisation (including conferences), place, temporal or work.",
   "additionalProperties": false,
   "propertiesOrder": [
     "$ref"

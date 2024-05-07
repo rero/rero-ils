@@ -8,52 +8,30 @@
       "title": "Contribution",
       "description": "Person, family or corporate body (including conferences) and their contributing role for the document.",
       "type": "object",
-      "oneOf": [
-        {
-          "type": "object",
-          "title": "Link to an entity",
-          "description": "Link to a remote or local entity of type person, family or corporate body (including conferences).",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "entity",
-            "role"
-          ],
-          "required": [
-            "entity",
-            "role"
-          ],
-          "properties": {
-            "entity": {
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "entity",
+        "role"
+      ],
+      "required": [
+        "entity",
+        "role"
+      ],
+      "properties": {
+        "entity": {
+          "oneOf": [
+            {
               "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_entity_link-v0.0.1.json"
             },
-            "role": {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_role-v0.0.1.json"
-            }
-          }
-        },
-        {
-          "type": "object",
-          "title": "Entity (textual)",
-          "description": "Textual description of a person, family or corporate body (including conferences). Usually used temporarily until a link to an entity can be established.",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "entity",
-            "role"
-          ],
-          "required": [
-            "entity",
-            "role"
-          ],
-          "properties": {
-            "entity": {
+            {
               "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_local-v0.0.1.json"
-            },
-            "role": {
-              "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_role-v0.0.1.json"
             }
-          }
+          ]
+        },
+        "role": {
+          "$ref": "https://bib.rero.ch/schemas/documents/document_contribution_role-v0.0.1.json"
         }
-      ]
+      }
     },
     "widget": {
       "formlyConfig": {
