@@ -309,41 +309,6 @@
       "_masked": {
         "type": "boolean"
       },
-      "legacy_checkout_count": {
-        "type": "integer"
-      },
-      "legacy_circulation_rules": {
-        "properties": {
-          "allow_request": {
-            "type": "boolean"
-          },
-          "floats": {
-            "type": "boolean"
-          },
-          "loan_duration": {
-            "type": "integer"
-          },
-          "use_item_specific_rules": {
-            "type": "boolean"
-          }
-        }
-      },
-      "circulation_rules": {
-        "properties": {
-          "use_item_specific_rules": {
-            "type": "boolean"
-          },
-          "loan_duration": {
-            "type": "integer"
-          },
-          "allow_request": {
-            "type": "boolean"
-          },
-          "floats": {
-            "type": "boolean"
-          }
-        }
-      },
       "_created": {
         "type": "date"
       },

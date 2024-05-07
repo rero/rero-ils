@@ -183,11 +183,10 @@ def test_item_stats(
         'execute',
         mock.MagicMock(return_value=es_response)
     ):
-        # We sum the Legacy_count field in the checkout field
         res = client.get(url_for('api_item.stats', item_pid='item1'))
         assert res.json == \
             {
-                'total': {'checkout': 5, 'extend': 2, 'checkin': 2},
+                'total': {'checkout': 1, 'extend': 2, 'checkin': 2},
                 'total_year': {'checkout': 1, 'extend': 1, 'checkin': 1}}
 
     with mock.patch.object(
@@ -196,11 +195,10 @@ def test_item_stats(
         mock.MagicMock(return_value=es_response_checkin)
     ):
         # item found
-        # We add the legacy_checkout_count field to the checkout field
         res = client.get(url_for('api_item.stats', item_pid='item1'))
         assert res.json == \
             {
-                'total': {'checkout': 4, 'checkin': 2},
+                'total': {'checkin': 2},
                 'total_year': {'checkin': 1}}
         # No item found
         res = client.get(url_for('api_item.stats', item_pid='foot'))

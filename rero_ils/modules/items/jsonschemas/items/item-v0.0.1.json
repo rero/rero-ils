@@ -786,40 +786,6 @@
         }
       }
     },
-    "legacy_checkout_count": {
-      "title": "Virtua checkout count for item",
-      "type": "integer",
-      "minimum": 0,
-      "default": 0
-    },
-    "legacy_circulation_rules": {
-      "title": "Virtua item circulation rules",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "use_item_specific_rules": {
-          "title": "To use item specific rules or CIPO rules",
-          "type": "boolean",
-          "default": false
-        },
-        "loan_duration": {
-          "title": "Loan duration in days",
-          "type": "integer",
-          "minimum": 0,
-          "default": 0
-        },
-        "allow_request": {
-          "title": "Allow requests",
-          "type": "boolean",
-          "default": true
-        },
-        "floats": {
-          "title": "Item floats",
-          "type": "boolean",
-          "default": false
-        }
-      }
-    },
     "_masked": {
       "title": "Masked",
       "type": "boolean",

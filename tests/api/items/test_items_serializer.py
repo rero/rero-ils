@@ -91,7 +91,7 @@ def test_serializers(
         'document_local_field_7', 'document_local_field_8',
         'document_local_field_9', 'document_local_field_10',
         'item_acquisition_date', 'item_barcode', 'item_call_number',
-        'item_second_call_number', 'item_legacy_checkout_count',
+        'item_second_call_number',
         'item_type', 'item_library_name', 'item_location_name',
         'item_pac_code', 'item_holding_pid', 'item_price', 'item_status',
         'item_item_type', 'item_general_note', 'item_staff_note',

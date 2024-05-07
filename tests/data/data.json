@@ -4084,14 +4084,7 @@
     "status": "on_shelf",
     "url": "https://lipda.mediatheque.ch/CH-000019-X:223156.file",
     "pac_code": "0_frozen_collection",
-    "price": 23.2,
-    "legacy_checkout_count": 4,
-    "legacy_circulation_rules": {
-      "use_item_specific_rules": false,
-      "loan_duration": 15,
-      "allow_request": false,
-      "floats": false
-    }
+    "price": 23.2
   },
   "item2": {
     "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
