@@ -27,6 +27,7 @@ from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.operation_logs.extensions import OperationLogFactory
 from rero_ils.modules.operation_logs.logs.api import SpecificOperationLog
 from rero_ils.modules.operation_logs.models import OperationLogOperation
+from rero_ils.modules.utils import extracted_data_from_ref
 
 from .operations import ReindexDoc, ReindexRecordFile
 
@@ -70,14 +71,13 @@ class OperationLogsComponent(ServiceComponent):
 
         rec = Rec()
         rec['pid'] = record.pid.pid_value
-        if owners := record.get('metadata', {}).get('owners'):
-            lib_pid = owners[0].replace('lib_', '')
-            rec.library_pid = lib_pid
+        if library := record.get('metadata', {}).get('library'):
+            rec.library_pid = extracted_data_from_ref(library)
             rec.organisation_pid = Library.get_record_by_pid(
-                lib_pid).organisation_pid
-        if links := record.get('metadata', {}).get('links'):
+                rec.library_pid).organisation_pid
+        if document := record.get('metadata', {}).get('document'):
             rec['document'] = Document.get_record_by_pid(
-                links[0].replace('doc_', ''))
+                extracted_data_from_ref(document))
         OperationLogRecordFactory().create_operation_log(rec, operation)
 
     def create(self, identity, data, record, errors=None, **kwargs):
@@ -141,15 +141,13 @@ class OperationLogsFileComponent(FileServiceComponent):
 
         rec = Rec()
         rec['pid'] = file_key
-        if owners := record.get('metadata', {}).get('owners'):
-            lib_pid = owners[0].replace('lib_', '')
-            rec.library_pid = lib_pid
+        if library := record.get('metadata', {}).get('library'):
+            rec.library_pid = extracted_data_from_ref(library)
             rec.organisation_pid = Library.get_record_by_pid(
-                lib_pid).organisation_pid
-
-        if links := record.get('metadata', {}).get('links'):
+                rec.library_pid).organisation_pid
+        if document := record.get('metadata', {}).get('document'):
             rec['document'] = Document.get_record_by_pid(
-                links[0].replace('doc_', ''))
+                extracted_data_from_ref(document))
         rec['recid'] = record['id']
         OperationLogRecordFactory().create_operation_log(
             record=rec, operation=operation)
@@ -187,7 +185,7 @@ class ReindexFileComponent(FileServiceComponent):
 
         :param record: obj - record instance.
         """
-        doc_pid = record["metadata"]["links"][0].replace("doc_", "")
+        doc_pid = extracted_data_from_ref(record["metadata"]["document"])
         for operation in [ReindexRecordFile(record.id), ReindexDoc(doc_pid)]:
             if operation not in self.uow._operations:
                 self.uow.register(operation)
@@ -243,7 +241,7 @@ class ReindexRecordComponent(FileServiceComponent):
 
         :param record: obj - record instance.
         """
-        doc_pid = record["metadata"]["links"][0].replace("doc_", "")
+        doc_pid = extracted_data_from_ref(record["metadata"]["document"])
         for operation in [ReindexDoc(doc_pid)]:
             if operation not in self.uow._operations:
                 self.uow.register(operation)

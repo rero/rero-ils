@@ -42,6 +42,7 @@ from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.stats_cfg.api import StatConfiguration, \
     StatsConfigurationSearch
 from rero_ils.modules.templates.api import Template, TemplatesSearch
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 @pytest.fixture(scope="module")
@@ -195,7 +196,7 @@ def document(app, document_data):
 def document_with_files(document, lib_martigny, file_location):
     """Create a document with a pdf file attached."""
     metadata = dict(
-        owners=[f'lib_{lib_martigny.pid}'],
+        library={'$ref': get_ref_for_pid('lib', lib_martigny.pid)},
         collections=['col1', 'col2']
     )
     create_pdf_record_files(document, metadata, flush=True)

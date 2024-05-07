@@ -31,6 +31,7 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.operation_logs.models import OperationLogOperation
+from rero_ils.modules.utils import get_ref_for_pid
 
 
 @mock.patch('invenio_records_rest.views.verify_record_permission',
@@ -212,7 +213,7 @@ def test_operation_log_on_file(
 
     # create a pdf file
     metadata = dict(
-        owners=[f'lib_{lib_martigny.pid}'],
+        library={'$ref': get_ref_for_pid('lib', lib_martigny.pid)},
         collections=['col1', 'col2']
     )
     record = create_pdf_record_files(document, metadata, flush=True)

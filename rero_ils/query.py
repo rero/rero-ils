@@ -170,12 +170,11 @@ def documents_search_factory(self, search, query_parser=None):
             filters = Q(
                 'term',  organisation_pid=org['pid']
             )
-            filters |= Q('exists', field='files')
             search = search.filter(filters)
         # exclude masked documents
-        search = search.filter('bool', must_not=[Q('term', _masked=True)])
+        search = search.exclude(Q('term', _masked=True))
     # exclude draft documents
-    search = search.filter('bool', must_not=[Q('term', _draft=True)])
+    search = search.exclude(Q('term', _draft=True))
     return search, urlkwargs
 
 
@@ -458,7 +457,6 @@ def search_factory(self, search, query_parser=None):
                     query_type,
                     lenient=lenient,
                     query=qstr,
-                    boost=2,
                     fields=query_boosting if query_boosting else ["*"],
                     default_operator=default_operator,
                 )

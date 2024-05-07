@@ -32,8 +32,8 @@ def test_documents_get(client, document_with_files, librarian_martigny):
     metadata = data["hits"]["hits"][0]
     assert set(metadata["metadata"]) == {
         "collections",
-        "owners",
-        "links",
+        "document",
+        "library",
         "n_files",
         "file_size",
     }
