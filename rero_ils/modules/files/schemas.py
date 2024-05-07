@@ -26,11 +26,10 @@ class MetadataSchema(Schema):
     """Record metadata schema class."""
 
     collections = fields.List(SanitizedUnicode())
-    owners = fields.List(SanitizedUnicode())
-    links = fields.List(SanitizedUnicode())
+    library = fields.Dict(required=True)
+    document = fields.Dict(required=True)
     n_files = fields.Int(dump_only=True)
     file_size = fields.Int(dump_only=True)
-    files = fields.Dict()
 
     @pre_load
     def remove_fields(self, data, **kwargs):

@@ -28,13 +28,13 @@ from flask import request as flask_request
 from invenio_jsonschemas.proxies import current_jsonschemas
 from werkzeug.local import LocalProxy
 
-from ..utils import get_schema_for_resource, memoized
+from ..utils import get_schema_for_resource, memoize
 from ...utils import get_i18n_supported_languages
 
 _records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
 
 
-@memoized(timeout=3600)
+@memoize(timeout=3600)
 def get_document_types_from_schema(schema='doc'):
     """Create document type definition from schema."""
     path = current_jsonschemas.url_to_path(get_schema_for_resource(schema))

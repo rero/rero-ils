@@ -376,13 +376,10 @@ class Document(IlsRecord):
         # TODO: remove this once the issue is solved
         search._params = {}
         search = search.source(['uuid', 'id'])\
-            .filter('term', metadata__links=f'doc_{self.pid}')
+            .filter('term', metadata__document__pid=self.pid)
         # filter by library pids
         if lib_pids:
-            # add lib_ prefix if it is needed
-            if not lib_pids[0].startswith('lib_'):
-                lib_pids = [f'lib_{pid}' for pid in lib_pids]
-            search = search.filter('terms', metadata__owners=lib_pids)
+            search = search.filter('terms', metadata__library__pid=lib_pids)
         return search
 
     def get_records_files(self, lib_pids=None):

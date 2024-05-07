@@ -1248,7 +1248,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/local_entities/<pid(locent, record_class="rero_ils.modules.entities.local_entities.api:LocalEntity"):pid_value>',
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:search_factory',
+        search_factory_imp='rero_ils.query:remote_entity_view_search_factory',
         list_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('search', record=record),
         read_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('read', record=record),
         create_permission_factory_imp=lambda record: LocalEntityPermissionPolicy('create', record=record),
@@ -1273,7 +1273,7 @@ RECORDS_REST_ENDPOINTS = dict(
         item_route='/entities/<nooppid(ent, data={}):pid_value>',  # mandatory for invenio-records-rest (only used for permissions)
         default_media_type='application/json',
         max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp='rero_ils.query:search_factory',
+        search_factory_imp='rero_ils.query:remote_entity_view_search_factory',
         list_permission_factory_imp=allow_all,
         read_permission_factory_imp=deny_all,
         create_permission_factory_imp=deny_all,

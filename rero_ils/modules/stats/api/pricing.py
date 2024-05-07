@@ -326,7 +326,7 @@ class StatsForPricing:
         """
         es_query = self._get_record_file_query()
         es_query = es_query.filter(
-            'term', metadata__owners=f'lib_{library_pid}')
+            'term', metadata__library__pid=library_pid)
         es_query.aggs.metric(
             'number_of_files', 'sum', field="metadata.n_files")
         return int(es_query.execute().aggs.number_of_files.value)
@@ -341,7 +341,7 @@ class StatsForPricing:
         """
         es_query = self._get_record_file_query()
         es_query = es_query.filter(
-            'term', metadata__owners=f'lib_{library_pid}')
+            'term', metadata__library__pid=library_pid)
         es_query.aggs.metric(
             'files_size', 'sum', field="metadata.file_size")
         return "%.3f" % (es_query.execute().aggs.files_size.value/(1024*1024))

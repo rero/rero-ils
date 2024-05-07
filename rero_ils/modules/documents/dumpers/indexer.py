@@ -22,6 +22,7 @@ from flask import current_app
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.libraries.api import Library
+from rero_ils.modules.utils import extracted_data_from_ref
 
 from ..extensions import TitleExtension
 from ..utils import process_i18n_literal_fields
@@ -236,8 +237,8 @@ class IndexerDumper(Dumper):
         for record_file in record.get_records_files():
             record_files_information = {}
             collections = record_file.get('metadata', {}).get('collections')
-            owners = record_file.get('metadata', {}).get('owners')
-            library_pid = owners[0].replace('lib_', '')
+            library_pid = extracted_data_from_ref(
+                record_file.get('metadata', {}).get('library'))
             if library_pid:
                 organisation_pid = Library.get_record_by_pid(
                     library_pid).organisation_pid
