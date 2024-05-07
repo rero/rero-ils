@@ -117,7 +117,7 @@ pyparsing = "^3.1.1"
 flask-wiki = "^0.3.1"
 dnspython = ">2.4.2"
 cryptography = ">41.0.7"
-babel = "<2.15.0"  # NOTE: remove when https://github.com/python-babel/babel/issues/1081 is solved
+babel = ">2.14.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
