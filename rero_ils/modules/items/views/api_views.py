@@ -570,11 +570,6 @@ def stats(item_pid):
     for result in results.aggregations.trigger.buckets:
         output['total'][result.key] = result.doc_count
         output['total_year'][result.key] = result.year.doc_count
-    # Add legacy count on checkout
-    if item := Item.get_record_by_pid(item_pid):
-        legacy_count = item.get('legacy_checkout_count', 0)
-        output['total'].setdefault('checkout', 0)
-        output['total']['checkout'] += legacy_count
     return jsonify(output)
 
 
