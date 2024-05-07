@@ -31,7 +31,7 @@ def test_get_record_by_ref(document_data, document):
 def test_date_filter_format_timestamp_en(app):
     """Test full english date and tile filter."""
     datestring = format_date_filter('2018-06-06T09:29:55.947149+00:00')
-    assert 'Wednesday, 6 June 2018, 11:29:55' in datestring
+    assert 'Wednesday 6 June 2018, 11:29:55' in datestring
 
     datestring = format_date_filter(
         '2018-06-06T09:29:55.947149+00:00', locale='fr')
@@ -53,7 +53,7 @@ def test_date_filter_timezone(app):
     """Test medium english date filter."""
     datestring = format_date_filter(
         '2018-06-06T09:29:55.947149+00:00', timezone='Europe/Helsinki')
-    assert 'Wednesday, 6 June 2018, 12:29:55' in datestring
+    assert 'Wednesday 6 June 2018, 12:29:55' in datestring
 
 
 def test_date_filter_format_medium_date_en(app):
@@ -67,7 +67,7 @@ def test_date_filter_format_full_en(app):
     """Test full english date filter."""
     datestring = format_date_filter(
         '1950-01-01', date_format='full', time_format=None)
-    assert 'Sunday, 1 January 1950' in datestring
+    assert 'Sunday 1 January 1950' in datestring
 
 
 def test_date_filter_format_full_fr(app):
@@ -102,7 +102,7 @@ def test_time_filter_format_delimiter(app):
     """Test default time."""
     datestring = format_date_filter(
          '2018-06-06T09:29:55.947149+00:00', delimiter=' - ')
-    assert datestring == 'Wednesday, 6 June 2018 - 11:29:55'
+    assert datestring == 'Wednesday 6 June 2018 - 11:29:55'
 
 
 def test_to_pretty():
