@@ -211,6 +211,8 @@ SETTINGS_TEMPLATE = 'rero_ils/page_settings.html'
 # Google
 # =======================
 # THEME_GOOGLE_SITE_VERIFICATION = []
+# Example of id: UA-XXXXXX-XX
+# RERO_ILS_GOOGLE_ANALYTICS_TAG_ID =
 
 # Miscellaneous variable around templates
 # =======================

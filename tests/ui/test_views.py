@@ -205,3 +205,15 @@ def test_set_user_name(
     login_user(user=librarian_martigny.user)
     assert session['user_name'] == librarian_martigny.formatted_name
     logout_user()
+
+
+def test_google_analytics(client, app):
+    """Testing the insertion of the google analytics code in the html page."""
+    # The Google Analytics code must not be present on the page.
+    result = client.get(url_for('rero_ils.index'))
+    assert 'gtag' not in result.text
+
+    # The Google Analytics code must be present on the page.
+    app.config['RERO_ILS_GOOGLE_ANALYTICS_TAG_ID'] = 'GA-Foo'
+    result = client.get(url_for('rero_ils.index'))
+    assert 'gtag' in result.text
