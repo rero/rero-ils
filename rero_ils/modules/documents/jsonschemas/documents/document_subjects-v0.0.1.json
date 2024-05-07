@@ -8,42 +8,25 @@
       "type": "object",
       "title": "Subject",
       "description": "Topic, person, organisation (including conferences), place, temporal or work that is a subject of the document.",
-      "oneOf": [
-        {
-          "title": "Link to an entity",
-          "type": "object",
-          "description": "Link to a remote or local entity of type topic, person, organisation (including conferences), place, temporal or work.",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "entity"
-          ],
-          "required": [
-            "entity"
-          ],
-          "properties": {
-            "entity": {
+      "additionalProperties": false,
+      "propertiesOrder": [
+        "entity"
+      ],
+      "required": [
+        "entity"
+      ],
+      "properties": {
+        "entity": {
+          "oneOf": [
+            {
               "$ref": "https://bib.rero.ch/schemas/documents/document_subjects_entity_link-v0.0.1.json"
-            }
-          }
-        },
-        {
-          "title": "Entity (textual)",
-          "type": "object",
-          "description": "Textual description of a topic, person, organisation (including conferences), place, temporal or work. Usually used temporarily until a link to an entity can be established.",
-          "additionalProperties": false,
-          "propertiesOrder": [
-            "entity"
-          ],
-          "required": [
-            "entity"
-          ],
-          "properties": {
-            "entity": {
+            },
+            {
               "$ref": "https://bib.rero.ch/schemas/documents/document_entity_local-v0.0.1.json"
             }
-          }
+          ]
         }
-      ]
+      }
     },
     "widget": {
       "formlyConfig": {
