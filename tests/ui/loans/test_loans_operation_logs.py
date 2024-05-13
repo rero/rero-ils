@@ -104,7 +104,7 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
         assert log['loan']['patron']['pid'] == patron['pid']
         assert log['loan']['patron']['name'] == 'Roduit, Louis'
 
-    loan.anonymize(loan)
+    loan.anonymize(dbcommit=True, reindex=True)
 
     logs = LoanOperationLogsSearch().get_logs_by_record_pid(loan['pid'])
     assert len(logs) == 3

@@ -186,12 +186,13 @@ class Loan(IlsRecord):
                dbcommit=False, reindex=False, **kwargs):
         """Create the loan record.
 
-        :param cls - class object
-        :param data - dictionary representing a loan record.
-        :param id_ - UUID, it would be generated if it is not given.
-        :param delete_pid - remove the pid present in the data if True,
-        :param dbcommit - commit the changes in the db after the creation.
-        :param reindex - index the record after the creation.
+        :param cls: class object
+        :param data: dictionary representing a loan record.
+        :param id_: UUID, it would be generated if it is not given.
+        :param delete_pid: remove the pid present in the data if True,
+        :param dbcommit: commit the changes in the db after the creation.
+        :param reindex: index the record after the creation.
+        :returns: the created record
         """
         data['$schema'] = current_jsonschemas.path_to_url(cls._schema)
         # default state assignment
@@ -213,7 +214,13 @@ class Loan(IlsRecord):
             reindex=reindex, **kwargs)
 
     def update(self, data, commit=False, dbcommit=False, reindex=False):
-        """Update loan record."""
+        """Update loan record.
+
+        :param commit: if True push the db transaction.
+        :param dbcommit: make the change effective in db.
+        :param reindex: reindex the record.
+        :returns: the modified record
+        """
         self._loan_build_org_ref(data)
         # set the field to_anonymize
         if not self.get('to_anonymize') and Loan.can_anonymize(loan_data=data):
@@ -222,22 +229,23 @@ class Loan(IlsRecord):
             data=data, commit=commit, dbcommit=dbcommit, reindex=reindex)
         return self
 
-    def anonymize(self, loan, commit=True, dbcommit=False, reindex=False):
+    def anonymize(self, commit=True, dbcommit=False, reindex=False):
         """Anonymize a loan.
 
-        :param loan: the loan to update.
-        :param dbcommit - commit the changes in the db after the creation.
-        :param reindex - index the record after the creation.
+        :param commit: if True push the db transaction.
+        :param dbcommit: make the change effective in db.
+        :param reindex: reindex the record.
+        :returns: the modified record
         """
         from rero_ils.modules.loans.logs.api import LoanOperationLog
-        loan['to_anonymize'] = True
+        self['to_anonymize'] = True
         try:
-            super().update(loan, commit, dbcommit, reindex)
+            super().update(self, commit, dbcommit, reindex)
             # Anonymize loan operation logs
-            LoanOperationLog.anonymize_logs(loan['pid'])
+            LoanOperationLog.anonymize_logs(self.pid)
         except Exception as err:
             current_app.logger.error(
-                f'Can not anonymize loan: {loan.get("pid")} {err}')
+                f'Can not anonymize loan: {self.get("pid")} {err}')
         return self
 
     def date_fields2datetime(self):
@@ -292,7 +300,7 @@ class Loan(IlsRecord):
 
             :param pid: the patron pid.
             :param known_patrons: already known patrons.
-            :return the corresponding patron.
+            :return: the corresponding patron.
             """
             fields = ['pid', 'first_name', 'last_name', 'patron.barcode']
             if pid not in known_patrons:
@@ -309,7 +317,7 @@ class Loan(IlsRecord):
 
             :param pid: the location pid.
             :param known_locations: already known locations.
-            :return the corresponding location.
+            :return: the corresponding location.
             """
             fields = ['pid', 'name', 'library', 'pickup_name']
             if pid not in known_locations:
@@ -327,7 +335,7 @@ class Loan(IlsRecord):
 
             :param pid: the library pid.
             :param known_libraries: already known libraries.
-            :return the corresponding library.
+            :return: the corresponding library.
             """
             if pid not in known_libraries:
                 results = LibrariesSearch()\
@@ -343,7 +351,7 @@ class Loan(IlsRecord):
 
             :param pid: the holdings pid.
             :param known_holdings: already known holdings.
-            :return the corresponding holdings.
+            :return: the corresponding holdings.
             """
             from ..holdings.api import HoldingsSearch
             if pid not in known_holdings:
@@ -360,7 +368,7 @@ class Loan(IlsRecord):
 
             :param pid: the item pid.
             :param known_items: already known items.
-            :return the corresponding item.
+            :return: the corresponding item.
             """
             fields = ['pid', 'barcode', 'call_number',
                       'second_call_number', 'library', 'location',
@@ -380,7 +388,7 @@ class Loan(IlsRecord):
 
             :param pid: the item_type pid.
             :param known_ittys: already known item types
-            :return the corresponding item type
+            :return: the corresponding item type
             """
             if pid not in known_ittys:
                 results = ItemTypesSearch()\
@@ -491,15 +499,14 @@ class Loan(IlsRecord):
         :returns: True if is due soon
         """
         date = tstamp or datetime.now(timezone.utc)
-        due_soon_date = self.get('due_soon_date')
-        if due_soon_date:
+        if due_soon_date := self.get('due_soon_date'):
             return ciso8601.parse_datetime(due_soon_date) <= date
         return False
 
     def has_pending_transaction(self):
         """Check if a loan has pending patron transactions.
 
-        :return True if some open transaction is found, False otherwise
+        :return: True if some open transaction is found, False otherwise
         """
         if pid := self.pid:
             return PatronTransactionsSearch() \
@@ -614,9 +621,9 @@ class Loan(IlsRecord):
     @property
     def checkout_library_pid(self):
         """Get the checkout library pid."""
-        checkout_location = Location.get_record_by_pid(
-            self.get('checkout_location_pid'))
-        if checkout_location:
+        if checkout_location := Location.get_record_by_pid(
+            self.get('checkout_location_pid')
+        ):
             return checkout_location.library_pid
 
     @cached_property
@@ -671,7 +678,7 @@ class Loan(IlsRecord):
         loan is overdue, the circulation policy used will be related to the
         checkout location, not the extended location.
 
-        :return An array of tuple. Each tuple are composed with two values :
+        :return: An array of tuple. Each tuple are composed with two values :
                 the fee amount and a related timestamp.
                 Ex: [
                   (0.1, datetime.date('2021-01-28')),
@@ -761,9 +768,9 @@ class Loan(IlsRecord):
         generated based on another loan than itself (in case of request).
 
         :param trigger: the fired action trigger (optional)
-        :return a list of tuple. Each tuple represent a notification candidate.
-                Each tuple is composed by 2 elements : the loan object, and the
-                related notification type.
+        :return: a list of tuple. Each tuple represent a notification
+                 candidate. Each tuple is composed by 2 elements :
+                 the loan object, and the related notification type.
         """
         from rero_ils.modules.items.api import Item
         candidates = []
@@ -867,18 +874,16 @@ class Loan(IlsRecord):
                     reminder_type = DUE_SOON_REMINDER_TYPE
                     if n_type != NotificationType.DUE_SOON:
                         reminder_type = OVERDUE_REMINDER_TYPE
-                    reminder = cipo.get_reminder(reminder_type, counter)
                     # Reminder does not exists on the circulation policy.
-                    if not reminder:
-                        create = False
-                    else:
+                    if cipo.get_reminder(reminder_type, counter):
                         record['context']['reminder_counter'] = counter
+                    else:
+                        create = False
 
             # create the notification and enqueue it.
             if create:
-                notification = self._create_notification_resource(
-                    record, dispatch=dispatch)
-                if notification:
+                if notification := self._create_notification_resource(
+                        record, dispatch=dispatch):
                     notifications.append(notification)
         return notifications
 
@@ -912,7 +917,7 @@ class Loan(IlsRecord):
            (we need to keep transactions for the last 3 months for circulation
            management).
 
-        :return a generator of `Loan` candidate to anonymize.
+        :return: a generator of `Loan` candidate to anonymize.
         """
         three_month_ago = datetime.now() - relativedelta(months=3)
         six_month_ago = datetime.now() - relativedelta(months=6)
@@ -938,7 +943,7 @@ class Loan(IlsRecord):
     def is_concluded(self):
         """Check if loan can be considered as concluded or not.
 
-        :return True is the loan is concluded, False otherwise
+        :return: True is the loan is concluded, False otherwise
         """
         return self.get('state') in LoanState.CONCLUDED and \
             not self.has_pending_transaction()
@@ -946,7 +951,7 @@ class Loan(IlsRecord):
     def age(self):
         """Return the age of a loan in days.
 
-        :return the number of days since last transaction date.
+        :return: the number of days since last transaction date.
         """
         if value := self.get('transaction_date'):
             trans_date = ciso8601.parse_datetime(value)
@@ -968,7 +973,7 @@ class Loan(IlsRecord):
 
         :param loan_data: the loan data to check (could be a `Loan` or a dict).
         :param patron: the patron to check.
-        :return True if the loan can be anonymized, False otherwise.
+        :return: True if the loan can be anonymized, False otherwise.
         """
         # force `loan_data` as a `Loan` object instance if it's not yet.
         loan = loan_data if isinstance(loan_data, cls) else cls(loan_data)
@@ -1019,7 +1024,7 @@ def action_required_params(action=None):
     """List of required parameters for circulation actions.
 
     :param action: the action name to check.
-    :return the list of required parameters than the `Loan` must define to
+    :return: the list of required parameters than the `Loan` must define to
         validate the action.
     """
     shared_params = ['transaction_location_pid', 'transaction_user_pid']
@@ -1088,9 +1093,7 @@ def get_loans_by_item_pid_by_patron_pid(item_pid, patron_pid,
         filter_states=filter_states,
     )
     search_result = search.execute()
-    if search_result.hits:
-        return search_result.hits.hits[0]['_source']
-    return {}
+    return search_result.hits.hits[0]['_source'] if search_result.hits else {}
 
 
 def get_loans_stats_by_patron_pid(patron_pid):
@@ -1220,7 +1223,7 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
     :param patron_pid: the patron pid. If none, return all overdue loans.
     :param tstamp: a timestamp to define the execution time of the function.
                    Default to `datetime.now()`.
-    :return a generator of loan pid
+    :return: a generator of loan pid
     """
     end_date = tstamp or datetime.now(timezone.utc)
     end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
@@ -1245,7 +1248,7 @@ def get_overdue_loans(patron_pid=None, tstamp=None):
 
     :param patron_pid: the patron pid. If none, return all overdue loans.
     :param tstamp: a timestamp to define the execution time of the function
-    :return a generator of Loan
+    :return: a generator of Loan
     """
     for pid in get_overdue_loan_pids(patron_pid, tstamp):
         yield Loan.get_record_by_pid(pid)
