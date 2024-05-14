@@ -845,7 +845,7 @@ def do_provision_activity(data, marc21, key, value):
         }
 
         _, link = get_field_link_data(value)
-        try:
+        with contextlib.suppress(Exception):
             alt_gr = marc21.alternate_graphic['264'][link]
             subfield = \
                 marc21.get_subfields(alt_gr['field'], code='c')
@@ -854,8 +854,6 @@ def do_provision_activity(data, marc21, key, value):
                     'language': marc21.get_language_script(
                         alt_gr['script'])
             })
-        except Exception as err:
-            pass
         publication.setdefault('statement', [])
         publication['statement'].append(date)
     # make second provision activity for 260 $ e $f $g

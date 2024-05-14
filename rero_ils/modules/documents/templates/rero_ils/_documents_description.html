@@ -19,6 +19,16 @@
 <div class="div-striped mt-2">
   <!-- -------------- WORK / EXPRESSION -------------- -->
 
+  <!--FICTION STATEMENT -->
+  {% if record.fiction_statement %}
+  <div class="row">
+    <div class="col-3 font-weight-bold">{{ _('Fiction statement') }}</div>
+    <div class="col-9">
+      {{ _(record.fiction_statement) }}
+    </div>
+  </div>
+  {% endif %}
+
   <!-- SUPPLEMENT, RELATED TO -->
   {% with fieldLabel=_('Supplement'), data=record.supplement, header=false %}
     {% include 'rero_ils/_other_edition.html' %}

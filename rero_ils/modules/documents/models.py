@@ -19,6 +19,8 @@
 
 from __future__ import absolute_import
 
+from enum import Enum
+
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
 from invenio_records.models import RecordMetadataBase
@@ -40,3 +42,11 @@ class DocumentMetadata(db.Model, RecordMetadataBase):
     """Document record metadata."""
 
     __tablename__ = 'document_metadata'
+
+
+class DocumentFictionType(Enum):
+    """Document fiction types."""
+
+    Fiction = 'fiction'
+    NonFiction = 'non_fiction'
+    Unspecified = 'unspecified'

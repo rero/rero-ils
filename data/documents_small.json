@@ -165,7 +165,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "10",
@@ -351,7 +351,8 @@
           "value": "Ilaria Morali"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "100",
@@ -536,7 +537,8 @@
           "value": "ill. de Gavarni"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "101",
@@ -624,7 +626,8 @@
           "value": "Cathie Lyons"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "102",
@@ -713,7 +716,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "103",
@@ -885,7 +889,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "104",
@@ -1113,7 +1117,8 @@
           "value": "Max Richter"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "105",
@@ -1298,7 +1303,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "106",
@@ -1398,7 +1403,8 @@
           "value": "Stanley J. Samartha"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "107",
@@ -1623,7 +1629,8 @@
           "language": "gre-grek"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "108",
@@ -1772,7 +1779,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "109",
@@ -1954,7 +1961,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "11",
@@ -2136,7 +2143,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "110",
@@ -2213,7 +2220,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "111",
@@ -2386,7 +2394,8 @@
           "value": "[d'apr\u00e8s l'oeuvre de Isaac Asimov]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "112",
@@ -2545,7 +2554,8 @@
           "value": "Ill. von Susanne Krauss"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "113",
@@ -2654,7 +2664,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "114",
@@ -2859,7 +2869,8 @@
           "value": "in Verbindung mit den Mozartst\u00e4dten Augsburg, Salzburg und Wien hrsg. von der Internationalen Stiftung Mozarteum Salzburg"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "115",
@@ -3047,7 +3058,8 @@
           "value": "Ildik\u00f3 H\u00e1mos, Ilari Sohlo"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "116",
@@ -3117,7 +3129,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "117",
@@ -3212,7 +3225,8 @@
           "value": "Ulrich Scheuner"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "118",
@@ -3348,7 +3362,8 @@
           "rdaco:1011"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "119",
@@ -3443,7 +3458,8 @@
           "value": "George L. Olson"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "12",
@@ -3619,7 +3635,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "120",
@@ -3784,7 +3800,8 @@
           "value": "par J. Salleron"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "121",
@@ -3879,7 +3896,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "122",
@@ -4070,7 +4088,8 @@
           "value": "R. Ruffieux"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "123",
@@ -4227,7 +4246,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "124",
@@ -4352,7 +4371,8 @@
           "value": "Gilles Perrault"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "125",
@@ -4452,7 +4472,8 @@
           "value": "Robert N. Bellah"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "126",
@@ -4627,7 +4648,8 @@
           "value": "by Karl G\u00f6ran M\u00e4ler and Ronald E. Wyzga"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "127",
@@ -4727,7 +4749,8 @@
           "value": "J. Francis Watson"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "128",
@@ -4840,7 +4863,8 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "129",
@@ -4944,7 +4968,8 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "13",
@@ -5106,7 +5131,8 @@
           "value": "mit einem Anhang von Margot Berthold und Thomas W. Gaehtgens"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "130",
@@ -5283,7 +5309,8 @@
           "value": "Joseph Haydn"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "131",
@@ -5515,7 +5542,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "132",
@@ -5763,7 +5790,8 @@
           "value": "[ill.: Roger Voser]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "133",
@@ -5892,7 +5920,8 @@
           "value": "Lillian Glass"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "134",
@@ -6033,7 +6062,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "135",
@@ -6165,7 +6194,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "136",
@@ -6305,7 +6334,8 @@
           "value": "Brigitte Dekeyzer"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "137",
@@ -6400,7 +6430,8 @@
           "value": "Gregory Baum"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "138",
@@ -6494,7 +6525,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "139",
@@ -6638,7 +6670,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "14",
@@ -6961,7 +6993,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "140",
@@ -7113,7 +7145,8 @@
           "value": "Christine Schilte, Marcel Rufo"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "141",
@@ -7273,7 +7306,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "142",
@@ -7421,7 +7454,8 @@
           "value": "John Auchard"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "143",
@@ -7509,7 +7543,8 @@
           "value": "J. Deschner"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "144",
@@ -7643,7 +7678,8 @@
           "value": "V\u00e9ronique Olmi"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "145",
@@ -7858,7 +7894,8 @@
           "value": "unter der Leitung von Georg Feder"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "146",
@@ -7996,7 +8033,8 @@
           "value": "Walter Benjamin"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "147",
@@ -8117,7 +8155,8 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "148",
@@ -8295,7 +8334,8 @@
           "value": "Claudio Monteverdi"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "149",
@@ -8440,7 +8480,8 @@
           "value": "Michael Schumann ... [et al.]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "15",
@@ -8651,7 +8692,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "150",
@@ -8772,7 +8813,8 @@
           "value": "Stephenie Meyer"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "151",
@@ -8907,7 +8949,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "152",
@@ -9093,7 +9135,8 @@
           "value": "ausgew., \u00fcbers. und kommentiert von Wolfgang Kubin"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "153",
@@ -9196,7 +9239,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "154",
@@ -9367,7 +9411,8 @@
           "value": "Marc Cantin, Jean-Emmanuel Vermot-Desroches"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "155",
@@ -9534,7 +9579,8 @@
           "value": "digessit et edidit Ioh. Iacobus Gessnerus"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "156",
@@ -9612,7 +9658,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "157",
@@ -9746,7 +9793,8 @@
           "value": "Walt Disney"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "158",
@@ -9845,7 +9893,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "159",
@@ -9948,7 +9997,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "16",
@@ -10143,7 +10193,8 @@
           "value": "By John Cole, Late of Plymouth, but now of Beverley, in Yorkshire"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "160",
@@ -10387,7 +10438,8 @@
           "value": "A.S. Monin and A.M. Yaglom"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "161",
@@ -10501,7 +10553,8 @@
           "value": "Bauchklang"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "162",
@@ -10715,7 +10768,8 @@
           "value": "Robert Boyd and Peter J. Richerson"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "163",
@@ -10849,7 +10903,8 @@
           "value": "Anne Bacus"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "164",
@@ -10986,7 +11041,8 @@
           "value": "[Marcus Pfister]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "165",
@@ -11134,7 +11190,8 @@
           "value": "Godeleine de Rosamel"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "166",
@@ -11314,7 +11371,8 @@
           "value": "Santo Ferrari, Roberto e Giorgio Ferrari"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "167",
@@ -11401,7 +11459,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "168",
@@ -11576,7 +11635,8 @@
           "value": "par Ren\u00e9 Lalou"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "169",
@@ -11729,7 +11789,8 @@
           "value": "Pierre Dubois, Claudine Sabatier, Roland Sabatier"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "17",
@@ -11858,7 +11919,8 @@
           "value": "di Michele Borgialli"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "170",
@@ -12011,7 +12073,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "171",
@@ -12157,7 +12219,8 @@
           "value": "Allan Ahlberg, Andr\u00e9 Amstutz"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "172",
@@ -12259,7 +12322,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "173",
@@ -12401,7 +12465,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "174",
@@ -12578,7 +12643,8 @@
           "value": "trad. in\u00e9dites, introd. et notes par Luc Brisson"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "175",
@@ -12751,7 +12817,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "176",
@@ -12872,7 +12938,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "177",
@@ -13029,7 +13096,8 @@
           "value": "pr\u00e9f. d'Andrea Zanzotto"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "178",
@@ -13210,7 +13278,8 @@
           "value": "Marshall H. Klaus, John H. Kennell"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "179",
@@ -13338,7 +13407,8 @@
           "value": "David Mac Kee"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "18",
@@ -13537,7 +13607,8 @@
           "value": "Bundesamt f\u00fcr Statistik = Les \u00e9lections au Conseil national. L'\u00e9volution du paysage politique depuis 1971 / Office f\u00e9d\u00e9ral de la statistique"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "180",
@@ -13632,7 +13703,8 @@
           "value": "Harold E. Fey"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "181",
@@ -13802,7 +13874,8 @@
           "value": "by Franz Rosenthal"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "182",
@@ -13952,7 +14025,8 @@
           "value": "Manfred Mai, Erhard Dietl"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "183",
@@ -14084,7 +14158,8 @@
           "value": "[choix des contes: Robert Bablo\u00efan, Mirl\u00e9na Choumska\u00efa]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "184",
@@ -14223,7 +14298,8 @@
           "value": "Willy O. Wegenstein"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "185",
@@ -14371,7 +14447,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "186",
@@ -14586,7 +14663,8 @@
           "value": "[trad. Kay Gillioz, Michel Th\u00e9venaz]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "187",
@@ -14739,7 +14817,8 @@
           "value": "a cura di Emilio Costa"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "188",
@@ -14922,7 +15001,8 @@
           "language": "rus-cyrl"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "189",
@@ -15124,7 +15204,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "19",
@@ -15242,7 +15322,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "190",
@@ -15427,7 +15507,8 @@
           "value": "ill. Svetlin Vasilev"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "191",
@@ -15591,7 +15672,8 @@
           "value": "sotto la dir. di Giuseppe Felloni"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "192",
@@ -15764,7 +15846,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "193",
@@ -15871,7 +15953,8 @@
           "value": "Alain Plas"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "194",
@@ -16078,7 +16161,8 @@
           "value": "Charles Max"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "195",
@@ -16203,7 +16287,8 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "196",
@@ -16401,7 +16486,8 @@
           "value": "compositas a Ph. Eduardo Huschke"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "197",
@@ -16550,7 +16636,8 @@
           "value": "Hua Yu"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "198",
@@ -16706,7 +16793,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "199",
@@ -16862,7 +16949,8 @@
           "value": "V\u00e9ronique Gautherin"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2",
@@ -17025,7 +17113,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "20",
@@ -17198,7 +17286,8 @@
           "value": "Garth Nix"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "200",
@@ -17378,7 +17467,8 @@
           "value": "pr\u00e9sent\u00e9 et trad. par Laura Moscarelli"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000000",
@@ -17495,7 +17585,8 @@
           }
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000001",
@@ -17652,7 +17743,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000002",
@@ -17782,7 +17873,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000003",
@@ -17919,7 +18011,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000004",
@@ -18021,7 +18113,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000005",
@@ -18159,7 +18252,8 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000006",
@@ -18337,7 +18431,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000007",
@@ -18559,7 +18654,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000008",
@@ -18739,7 +18835,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000009",
@@ -18872,7 +18968,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000010",
@@ -18959,7 +19055,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000011",
@@ -19393,7 +19490,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000012",
@@ -19477,7 +19575,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000013",
@@ -19605,7 +19704,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000014",
@@ -19798,7 +19898,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000015",
@@ -19957,7 +20057,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000016",
@@ -20184,7 +20284,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000017",
@@ -20324,7 +20425,8 @@
           "value": "Marc Cantin"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000018",
@@ -20412,7 +20514,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000019",
@@ -20576,7 +20679,8 @@
           "value": "hrsg. vom Reichsinstitut f\u00fcr \u00e4ltere deutsche Geschichtskunde"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000020",
@@ -20694,7 +20798,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000021",
@@ -20847,7 +20952,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000022",
@@ -21000,7 +21106,8 @@
           "value": "publ. par la Soci\u00e9t\u00e9 suisse de physique"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000023",
@@ -21095,7 +21202,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000024",
@@ -21785,7 +21893,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000025",
@@ -21858,7 +21967,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000026",
@@ -22003,7 +22113,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000027",
@@ -22159,7 +22270,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000028",
@@ -22233,7 +22344,8 @@
           "rdaco:1011"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000029",
@@ -22366,7 +22478,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000030",
@@ -22477,7 +22589,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000031",
@@ -22614,7 +22727,8 @@
           "value": "Universit\u00e4tsbund Erlangen-N\u00fcrnberg, Universit\u00e4tsbibliothek Erlangen-N\u00fcrnberg"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000032",
@@ -22687,7 +22801,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000033",
@@ -22785,7 +22900,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000034",
@@ -22945,7 +23061,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000035",
@@ -23126,7 +23242,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000036",
@@ -23199,7 +23315,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000037",
@@ -23340,7 +23457,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000038",
@@ -23472,7 +23589,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000039",
@@ -23576,7 +23693,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000040",
@@ -23778,7 +23896,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000041",
@@ -23917,7 +24035,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000042",
@@ -24105,7 +24223,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000043",
@@ -24259,7 +24377,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000044",
@@ -24452,7 +24570,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000045",
@@ -24539,7 +24658,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000046",
@@ -24657,7 +24777,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000047",
@@ -24924,7 +25045,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000048",
@@ -25064,7 +25185,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000049",
@@ -25201,7 +25322,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000050",
@@ -25288,7 +25409,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000051",
@@ -25381,7 +25503,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000052",
@@ -25505,7 +25628,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000053",
@@ -25629,7 +25753,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000054",
@@ -25735,7 +25860,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000055",
@@ -25915,7 +26041,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000056",
@@ -26106,7 +26232,8 @@
           "value": "[avec la collab. de E. Coornaert, A. Gambasin... et al.]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000057",
@@ -26257,7 +26384,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000058",
@@ -26330,7 +26457,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000059",
@@ -26411,7 +26539,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000060",
@@ -26551,7 +26680,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000061",
@@ -26677,7 +26806,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000062",
@@ -26792,7 +26922,8 @@
           "value": "Garth Nix"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000063",
@@ -26975,7 +27106,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000064",
@@ -27113,7 +27244,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000065",
@@ -27243,7 +27375,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000066",
@@ -27784,7 +27917,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000067",
@@ -27854,7 +27988,8 @@
           }
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000068",
@@ -28019,7 +28154,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000069",
@@ -28105,7 +28240,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000070",
@@ -28250,7 +28386,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000071",
@@ -28337,7 +28474,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000072",
@@ -28447,7 +28585,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000073",
@@ -28604,7 +28743,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000074",
@@ -28822,7 +28961,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000075",
@@ -28955,7 +29095,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000076",
@@ -29094,7 +29235,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000077",
@@ -29329,7 +29471,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000078",
@@ -29412,7 +29554,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000079",
@@ -29646,7 +29789,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000080",
@@ -29885,7 +30029,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000081",
@@ -30010,7 +30154,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000082",
@@ -30118,7 +30263,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000083",
@@ -30249,7 +30395,8 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000084",
@@ -30426,7 +30573,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000085",
@@ -30602,7 +30749,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000086",
@@ -30746,7 +30893,8 @@
           "value": "Association protection Rh\u00f4ne-L\u00e9man, Chasseurs sans fusil, Action Suisse saine"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000087",
@@ -30869,7 +31017,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000088",
@@ -31005,7 +31153,8 @@
           "value": "publ. par la Cin\u00e9math\u00e8que suisse, Lausanne"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000089",
@@ -31165,7 +31314,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000090",
@@ -31250,7 +31399,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000091",
@@ -31492,7 +31642,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000092",
@@ -31730,7 +31880,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000093",
@@ -31880,7 +32030,8 @@
           "value": "von Serge von Bubnoff"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000094",
@@ -32019,7 +32170,8 @@
           "value": "hrsg. vom Kirchlichen Aussenamt der Evangelischen Kirche in Deutschland"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000095",
@@ -32132,7 +32284,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000096",
@@ -32319,7 +32472,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000097",
@@ -32454,7 +32607,8 @@
           "value": "hrsg. vom Lutherischen Weltbund"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000098",
@@ -32580,7 +32734,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000099",
@@ -32743,7 +32898,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000100",
@@ -32904,7 +33059,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000101",
@@ -33003,7 +33158,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000102",
@@ -33104,7 +33260,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000103",
@@ -33199,7 +33356,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000104",
@@ -33328,7 +33486,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000105",
@@ -33505,7 +33663,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000106",
@@ -33608,7 +33766,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000107",
@@ -33713,7 +33872,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000108",
@@ -33817,7 +33977,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000109",
@@ -33926,7 +34087,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000110",
@@ -34104,7 +34266,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000111",
@@ -34315,7 +34477,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000112",
@@ -34494,7 +34656,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000113",
@@ -34608,7 +34770,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000114",
@@ -34722,7 +34885,8 @@
           "value": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000115",
@@ -34934,7 +35098,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000116",
@@ -35143,7 +35307,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000117",
@@ -35294,7 +35458,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000118",
@@ -35419,7 +35583,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000119",
@@ -35545,7 +35710,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000120",
@@ -35675,7 +35841,8 @@
           "value": "F\u00e9d\u00e9ration luth\u00e9rienne mondiale, D\u00e9partement de Mission et de D\u00e9veloppement, Education chr\u00e9tienne"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000121",
@@ -35805,7 +35972,8 @@
           "value": "Federaci\u00f3n Luterana Mundial, Departamento de Misi\u00f3n y Desarrollo, Educaci\u00f3n Cristiana"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000122",
@@ -35931,7 +36099,8 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000123",
@@ -36046,7 +36215,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000124",
@@ -36240,7 +36409,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000125",
@@ -36408,7 +36577,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000126",
@@ -36647,7 +36816,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000127",
@@ -36912,7 +37081,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000128",
@@ -37057,7 +37226,8 @@
           "value": "The Lutheran World Federation"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000129",
@@ -37225,7 +37395,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000130",
@@ -37415,7 +37585,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000131",
@@ -37572,7 +37742,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000132",
@@ -37689,7 +37859,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000133",
@@ -37829,7 +37999,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000134",
@@ -37990,7 +38161,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000135",
@@ -38156,7 +38327,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000136",
@@ -38273,7 +38444,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000137",
@@ -38461,7 +38633,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000138",
@@ -38661,7 +38833,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000139",
@@ -38819,7 +38991,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000140",
@@ -38980,7 +39153,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000141",
@@ -39173,7 +39346,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000142",
@@ -39367,7 +39540,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000143",
@@ -39563,7 +39736,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000144",
@@ -39712,7 +39885,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000145",
@@ -39872,7 +40045,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000146",
@@ -40024,7 +40197,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "2000147",
@@ -40179,7 +40353,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000148",
@@ -40317,7 +40491,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "2000149",
@@ -40448,7 +40622,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "201",
@@ -40579,7 +40753,8 @@
           "value": "pr\u00e9sent\u00e9s par A.-M. Besnard"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "202",
@@ -40728,7 +40903,8 @@
           "value": "Jean Melas Kyriazi"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "203",
@@ -40899,7 +41075,8 @@
           "value": "par le G\u00e9n\u00e9ral Hellot"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "204",
@@ -41049,7 +41226,7 @@
     "illustrativeContent": [
       "illustrations"
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "205",
@@ -41166,7 +41343,8 @@
           "value": "Caio Pagano"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "206",
@@ -41342,7 +41520,8 @@
           "value": "[arr. von] Peter Bursch, J\u00fcrgen Kumlehn"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "207",
@@ -41519,7 +41698,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "208",
@@ -41651,7 +41830,8 @@
           "value": "Charlotte Le Van"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "209",
@@ -41798,7 +41978,8 @@
           "value": "Sylvie Overnoy"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "21",
@@ -41983,7 +42164,8 @@
           "value": "F.G.J. Hayhoe, R.J. Flemans"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "210",
@@ -42281,7 +42463,8 @@
           "value": "Katja Kessel, Sandra Reimann"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "211",
@@ -42471,7 +42654,8 @@
           "value": "M. Abercrombie, C.J. Hickman, and M.L. Johnson"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "212",
@@ -42640,7 +42824,8 @@
           "value": "Louis Pilandon"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "213",
@@ -42769,7 +42954,8 @@
           "value": "Yves Crouzet"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "214",
@@ -42939,7 +43125,8 @@
           "value": "ill. [de] Katia Texier"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "215",
@@ -43034,7 +43221,8 @@
           "value": "G. Tavard"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "216",
@@ -43172,7 +43360,8 @@
           "value": "Viviane Koenig, Arnauld Rou\u00e8che"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "217",
@@ -43338,7 +43527,8 @@
           "value": "edici\u00f3n dirigida por Aurora Egido y C\u00e9sar Antonio Molina"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "218",
@@ -43495,7 +43685,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "219",
@@ -43797,7 +43987,8 @@
           "language": "rus-cyrl"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "22",
@@ -43925,7 +44116,8 @@
           "value": "publ. by the Council on Christian Unity of the Christian Church (Disciples of Christ)"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "220",
@@ -44020,7 +44212,8 @@
           "value": "Gunars Anson"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "221",
@@ -44181,7 +44374,8 @@
           "value": "textes de Jean-Paul II"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "222",
@@ -44338,7 +44532,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "223",
@@ -44524,7 +44718,8 @@
           "value": "trad. Henri Perrin"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "224",
@@ -44661,7 +44856,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "225",
@@ -44834,7 +45029,8 @@
           "value": "Marc Eckebrecht"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "226",
@@ -45013,7 +45209,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "227",
@@ -45172,7 +45368,8 @@
           "value": "[textes de] Laurent Genefort... [et al.]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "228",
@@ -45233,7 +45430,7 @@
         }
       }
     ],
-    "fiction": true,
+    "fiction_statement": "fiction",
     "genreForm": [
       {
         "entity": {
@@ -45528,7 +45725,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "23",
@@ -45702,7 +45899,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "230",
@@ -45904,7 +46101,8 @@
           "value": "with an introd. by Albert de Lapradelle = The law of nations or the principles of natural law"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "231",
@@ -46082,7 +46280,8 @@
           "value": "Marguerite de Navarre"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "232",
@@ -46270,7 +46469,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "233",
@@ -46399,7 +46598,8 @@
           "value": "Julie Hasler"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "234",
@@ -46598,7 +46798,8 @@
           "language": "chi-hani"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "235",
@@ -46693,7 +46894,8 @@
           "value": "Schweizerisches \u00d6kumenisches Komitee f\u00fcr Gerechtigkeit, Frieden und die Bewahrung der Sch\u00f6pfung"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "236",
@@ -46897,7 +47099,8 @@
           "value": "Mirko Tavosanis"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "237",
@@ -47016,7 +47219,8 @@
           "value": "von N. Pringsheim"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "238",
@@ -47133,7 +47337,8 @@
           "value": "Dieter E. Zimmer"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "239",
@@ -47323,7 +47528,8 @@
           "value": "avec la collab. de X. Kohl"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "24",
@@ -47418,7 +47624,8 @@
           "value": "Cardinal Augustin Bea"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "240",
@@ -47513,7 +47720,8 @@
           "value": "Michael K. Kinnamon"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "241",
@@ -47683,7 +47891,8 @@
           "value": "par Olivier Clottu"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "242",
@@ -47809,7 +48018,8 @@
           "value": "Ga\u00ebtan Cassina"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "243",
@@ -48041,7 +48251,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "244",
@@ -48212,7 +48422,8 @@
           "value": "hrsg. von Christian Starck und Klaus Stern"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "245",
@@ -48313,7 +48524,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "246",
@@ -48437,7 +48649,8 @@
           "value": "descriptions h\u00e9raldiques et compositions graphiques de Robert Louis"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "247",
@@ -48577,7 +48790,8 @@
           "value": "Claude Mauriac"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "248",
@@ -48722,7 +48936,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "249",
@@ -48932,7 +49147,8 @@
           "value": "[prod.] Jean-Louis Porchet & G\u00e9rard Ruey"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "25",
@@ -49158,7 +49374,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "250",
@@ -49355,7 +49571,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "251",
@@ -49547,7 +49763,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "252",
@@ -49758,7 +49974,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "253",
@@ -49842,7 +50058,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "254",
@@ -50043,7 +50260,8 @@
           "value": "Thorsten Nesch"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "255",
@@ -50197,7 +50415,8 @@
           "value": "Rainer Christlein und Otto Braasch"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "256",
@@ -50347,7 +50566,8 @@
           "value": "musique originale Andr\u00e9 Mergenthaler"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "257",
@@ -50535,7 +50755,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "258",
@@ -50737,7 +50957,8 @@
           "value": "David Airey and King Chong"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "259",
@@ -50908,7 +51129,8 @@
           "value": "Elisabeth Dumont-Le Cornec, R\u00e9becca Dautremer, Laurent Sabathi\u00e9"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "26",
@@ -51073,7 +51295,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "260",
@@ -51270,7 +51492,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "261",
@@ -51512,7 +51735,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "262",
@@ -51685,7 +51908,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "263",
@@ -51817,7 +52040,8 @@
           "value": "Aruna M. Siewert"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "264",
@@ -52028,7 +52252,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "265",
@@ -52188,7 +52412,8 @@
           "value": "Reynald Delaloye"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "266",
@@ -52343,7 +52568,8 @@
           "value": "Ann Matthews Martin"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "267",
@@ -52427,7 +52653,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "268",
@@ -52540,7 +52767,8 @@
           "value": "Pierre Henry"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "269",
@@ -52633,7 +52861,8 @@
           "value": "Philip L. Wickeri"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "27",
@@ -52804,7 +53033,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "270",
@@ -52938,7 +53168,8 @@
           "value": "Arnaud Cathrine"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "271",
@@ -53119,7 +53350,8 @@
           "value": "Kazimierz Korzan"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "272",
@@ -53267,7 +53499,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "273",
@@ -53388,7 +53620,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "274",
@@ -53571,7 +53804,8 @@
           "value": "[Internationales Institut f\u00fcr Umwelt und Gesellschaft]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "275",
@@ -53700,7 +53934,8 @@
           "value": "[Pierre Weiss]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "276",
@@ -53821,7 +54056,8 @@
     ],
     "illustrativeContent": [
       "illustrations"
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "277",
@@ -53977,7 +54213,8 @@
           "value": "Ivan Bulloch, Diane James"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "278",
@@ -54139,7 +54376,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "279",
@@ -54591,7 +54828,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "28",
@@ -54784,7 +55021,8 @@
           "value": "ed. by Robert A. Prentky and Vernon L. Quinsey"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "280",
@@ -54955,7 +55193,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "281",
@@ -55236,7 +55474,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "282",
@@ -55404,7 +55642,8 @@
           "value": "Thierry Enel, Fran\u00e7ois-Xavier H\u00e9ry"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "283",
@@ -55591,7 +55830,8 @@
           "value": "Hrsg.: Bundesamt f\u00fcr Statistik (BFS) = Statistique de la Suisse. 17, Politique / \u00e9d.: Office f\u00e9d\u00e9ral de la statistique (OFS) = Statistica della Svizzera. 17, Politica / ed.: Ufficio federale di statistica (UST) = Swiss statistics. 17, Politics / ed.: Swiss Federal Statistical Office"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "284",
@@ -55909,7 +56149,8 @@
           "language": "jpn-jpan"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "285",
@@ -56098,7 +56339,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "286",
@@ -56215,7 +56456,8 @@
           "value": "M. Balka"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "287",
@@ -56333,7 +56575,8 @@
           "value": "Philippe Besson"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "288",
@@ -56433,7 +56676,8 @@
           "value": "by John Abercrombie"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "289",
@@ -56530,7 +56774,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "29",
@@ -56659,7 +56904,8 @@
           "value": "Hartmut Kraft"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "290",
@@ -56823,7 +57069,8 @@
           "value": "Henriette Bichonnier, Pef"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "291",
@@ -56948,7 +57195,8 @@
           "value": "Antoni Casas Ros"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "292",
@@ -57140,7 +57388,8 @@
           "value": "ed. [...] and with foreword by Arnold Schering"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "3",
@@ -57238,7 +57487,8 @@
           "value": "Fritz Christian Schneider"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "30",
@@ -57403,7 +57653,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "31",
@@ -57577,7 +57827,8 @@
           "value": "Carsten Dams, Michael Stolle"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "32",
@@ -57975,7 +58226,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "33",
@@ -58108,7 +58359,8 @@
           "value": "Anne Cortey, Janik Coat"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "34",
@@ -58338,7 +58590,8 @@
           "value": "[Internationales Institut f\u00fcr Umwelt und Gesellschaft]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "35",
@@ -58438,7 +58691,8 @@
           "value": "von G\u00fcnther Reese"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "36",
@@ -58592,7 +58846,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "37",
@@ -58780,7 +59034,8 @@
           "value": "European Commission, Environment"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "38",
@@ -58948,7 +59203,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "39",
@@ -59127,7 +59382,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "4",
@@ -59305,7 +59560,8 @@
           "value": "Rudolf Bruhin"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "40",
@@ -59461,7 +59717,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "41",
@@ -59538,7 +59794,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "42",
@@ -59706,7 +59963,8 @@
           "value": "von Wolfgang B\u00e4r"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "43",
@@ -59849,7 +60107,8 @@
           "value": "Jo\u00e3o Ubiratan Moreira dos Santos"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "44",
@@ -60002,7 +60261,8 @@
           "value": "trad. de l'allemand par Brigitte D\u00e9chin... [et al.]"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "45",
@@ -60179,7 +60439,8 @@
           "value": "Robert Marek"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "46",
@@ -60368,7 +60629,8 @@
           "value": "von Robert Schumann"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "47",
@@ -60517,7 +60779,8 @@
           "value": "ed. Gerald D. Fasman"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "48",
@@ -60687,7 +60950,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "49",
@@ -60816,7 +61079,8 @@
           "value": "Chantal Van Cutsem"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "5",
@@ -60939,7 +61203,8 @@
           "value": "(Trad. de l'anglais par Simone Breuzebosc.)"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "50",
@@ -61073,7 +61338,8 @@
           "value": "aus dem Engl. \u00fcbers. von Astrid Arz"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "51",
@@ -61285,7 +61551,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "52",
@@ -61362,7 +61628,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "53",
@@ -61532,7 +61799,8 @@
           "value": "Elvira Topalovi\u0107"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "54",
@@ -61727,7 +61995,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "55",
@@ -61885,7 +62154,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "56",
@@ -62030,7 +62299,7 @@
     "supplementaryContent": [
       "Bibliogr.: p. 100-101"
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "57",
@@ -62159,7 +62428,8 @@
           "rdaco:1011"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "58",
@@ -62263,7 +62533,8 @@
           "value": "von Anna Marie Aagaard"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "59",
@@ -62421,7 +62692,8 @@
           "value": "Fran\u00e7oise Joire, Jihad Darwiche"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "6",
@@ -62519,7 +62791,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "60",
@@ -62614,7 +62887,8 @@
           "value": "J. L. Boojamra"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "61",
@@ -62702,7 +62976,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "62",
@@ -62874,7 +63149,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "63",
@@ -62944,7 +63219,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "64",
@@ -63077,7 +63353,8 @@
           "value": "Walter Vogt"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "65",
@@ -63172,7 +63449,8 @@
           "value": "Cardinal Augustin Bea"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "66",
@@ -63301,7 +63579,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "67",
@@ -63511,7 +63790,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "68",
@@ -63682,7 +63961,8 @@
           "value": "Jean-Yves Lacoste"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "69",
@@ -63876,7 +64156,8 @@
           "value": "english version by Jean Lunn"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "7",
@@ -64104,7 +64385,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "70",
@@ -64250,7 +64531,8 @@
           "value": "Alessandro Baricco"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "71",
@@ -64345,7 +64627,8 @@
           "value": "Erich Hoffmann"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "72",
@@ -64449,7 +64732,8 @@
           "value": "Israel/Palestine Center for Research and Information"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "73",
@@ -64598,7 +64882,8 @@
           "value": "par Bernard Hedde D'Entremont"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "74",
@@ -64783,7 +65068,8 @@
           "value": "G. Mandl"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "75",
@@ -64892,7 +65178,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "76",
@@ -65071,7 +65358,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "77",
@@ -65210,7 +65497,8 @@
           "value": "Jean-Fran\u00e7ois Michel"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "78",
@@ -65466,7 +65754,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "79",
@@ -65609,7 +65897,7 @@
         "$ref": "https://bib.rero.ch/api/documents/79"
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "8",
@@ -65787,7 +66075,8 @@
           "value": "trad. de l'anglais par Paul Chemla"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "80",
@@ -65904,7 +66193,8 @@
           "value": "Wilco"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "81",
@@ -66024,7 +66314,8 @@
           "value": "Yasmina Khadra"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "82",
@@ -66194,7 +66485,8 @@
           "value": "by M. Young"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "83",
@@ -66302,7 +66594,7 @@
         "value": "eng"
       }
     ],
-    "fiction": true,
+    "fiction_statement": "fiction",
     "genreForm": [
       {
         "entity": {
@@ -66573,7 +66865,8 @@
           "value": "Philip A. Potter"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "85",
@@ -66711,7 +67004,8 @@
           "value": "V\u00e9ronique Follet"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "86",
@@ -66884,7 +67178,8 @@
           "value": "Val\u00e9rie Guidoux, Sylvain Bourri\u00e8res"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "87",
@@ -67051,7 +67346,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "88",
@@ -67189,7 +67485,8 @@
           "value": "Nicole Lambert"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "89",
@@ -67306,7 +67603,8 @@
           "value": "Susanne Fr\u00f6hlich"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "9",
@@ -67407,7 +67705,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "90",
@@ -67499,7 +67798,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "91",
@@ -67686,7 +67986,7 @@
         ]
       }
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "92",
@@ -67855,7 +68155,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "93",
@@ -68035,7 +68335,8 @@
           "value": "Kh\u0101lid Ab\u016b al-R\u016bs"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "94",
@@ -68221,7 +68522,8 @@
           "value": "Faur\u00e9"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "95",
@@ -68368,7 +68670,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "96",
@@ -68618,7 +68921,8 @@
           "language": "chi-hani"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "97",
@@ -68822,7 +69126,7 @@
         }
       ]
     ],
-    "fiction": false
+    "fiction_statement": "non_fiction"
   },
   {
     "pid": "98",
@@ -68912,7 +69216,8 @@
           "rdaco:1020"
         ]
       }
-    ]
+    ],
+    "fiction_statement": "unspecified"
   },
   {
     "pid": "99",
@@ -69060,6 +69365,7 @@
           "value": "Ludwig Bergmann"
         }
       ]
-    ]
+    ],
+    "fiction_statement": "unspecified"
   }
 ]

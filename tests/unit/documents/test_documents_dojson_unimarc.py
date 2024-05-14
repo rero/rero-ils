@@ -22,6 +22,7 @@ from __future__ import absolute_import, print_function
 from dojson.contrib.marc21.utils import create_record
 
 from rero_ils.modules.documents.dojson.contrib.unimarctojson import unimarc
+from rero_ils.modules.documents.models import DocumentFictionType
 
 
 # type: leader
@@ -1675,7 +1676,7 @@ def test_unimarc_to_isFiktion_from_105():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert not data.get('fiction')
+    assert data['fiction_statement'] == DocumentFictionType.Unspecified.value
 
     unimarcxml = """
     <record>
@@ -1687,4 +1688,4 @@ def test_unimarc_to_isFiktion_from_105():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('fiction')
+    assert data['fiction_statement'] == DocumentFictionType.Fiction.value

@@ -30,6 +30,7 @@ from rero_ils.dojson.utils import ReroIlsMarc21Overdo, TitlePartList, \
     remove_trailing_punctuation
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.utils import \
     do_language
+from rero_ils.modules.documents.models import DocumentFictionType
 from rero_ils.modules.documents.utils import create_authorized_access_point
 from rero_ils.modules.entities.models import EntityType
 
@@ -46,6 +47,7 @@ def marc21_to_issuance(self, key, value):
     )
     if marc21.admin_meta_data:
         self['adminMetadata'] = marc21.admin_meta_data
+    self['fiction_statement'] = DocumentFictionType.Unspecified.value
 
 
 @marc21.over('language', '^008')

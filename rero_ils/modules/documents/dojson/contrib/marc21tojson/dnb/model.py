@@ -21,6 +21,7 @@
 from dojson import utils
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo
+from rero_ils.modules.documents.models import DocumentFictionType
 
 from ..loc import marc21_to_subjects_6XX as marc21_to_subjects_6XX_loc
 from ..utils import do_abbreviated_title, \
@@ -46,6 +47,7 @@ def marc21_to_type_and_issuance(self, key, value):
     """Get document type, content/Media/Carrier type and mode of issuance."""
     do_issuance(self, marc21)
     do_type(self, marc21)
+    self['fiction_statement'] = DocumentFictionType.Unspecified.value
 
 
 @marc21.over('language', '^008')
@@ -57,10 +59,11 @@ def marc21_to_language(self, key, value):
     """
     language = do_language(self, marc21)
     # is fiction
+    self['fiction_statement'] = DocumentFictionType.Unspecified.value
     if value[33] in ['1', 'd', 'f', 'j', 'p']:
-        self['fiction'] = True
+        self['fiction_statement'] = DocumentFictionType.Fiction.value
     elif value[33] in ['0', 'e', 'h', 'i', 's']:
-        self['fiction'] = False
+        self['fiction_statement'] = DocumentFictionType.NonFiction.value
     return language or None
 
 

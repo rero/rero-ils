@@ -139,7 +139,8 @@
     ],
     "adminMetadata": {
       "encodingLevel": "Minimal level"
-    }
+    },
+    "fiction_statement": "unspecified"
   },
   {
     "type": [
@@ -251,6 +252,7 @@
     ],
     "adminMetadata": {
       "encodingLevel": "Minimal level"
-    }
+    },
+    "fiction_statement": "unspecified"
   }
 ]

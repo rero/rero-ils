@@ -2052,6 +2052,7 @@
         "subtype": "docsubtype_other_book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2339,6 +2340,7 @@
         "subtype": "docsubtype_other_book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2438,6 +2440,7 @@
         "subtype": "docsubtype_other_book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2582,6 +2585,7 @@
         "subtype": "docsubtype_other_book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -2840,6 +2844,7 @@
         "main_type": "docmaintype_serial"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "monographicSeries"
@@ -2942,6 +2947,7 @@
         "main_type": "docmaintype_serial"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"
@@ -3045,6 +3051,7 @@
         "subtype": "docsubtype_other_book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1002",
       "subtype": "set"
@@ -3186,6 +3193,7 @@
         "subtype": "docsubtype_sound"
       }
     ],
+    "fiction_statement": "unspecified",
     "language": [
       {
         "type": "bf:Language",
@@ -3446,6 +3454,7 @@
         "subtype": "docsubtype_other_book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -3541,6 +3550,7 @@
         "subtype": "docsubtype_e-book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -3659,6 +3669,7 @@
         "subtype": "docsubtype_e-book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -3757,6 +3768,7 @@
         "subtype": "docsubtype_e-book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -3848,6 +3860,7 @@
         "subtype": "docsubtype_e-book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"
@@ -3959,6 +3972,7 @@
         "subtype": "docsubtype_e-book"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1001",
       "subtype": "materialUnit"

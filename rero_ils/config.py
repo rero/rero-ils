@@ -143,7 +143,7 @@ from .modules.vendors.permissions import VendorPermissionPolicy
 from .permissions import librarian_delete_permission_factory, \
     librarian_permission_factory, librarian_update_permission_factory, \
     wiki_edit_ui_permission, wiki_edit_view_permission
-from .query import and_i18n_term_filter, and_term_filter, bool_filter, \
+from .query import and_i18n_term_filter, and_term_filter, \
     exclude_terms_filter, i18n_terms_filter, or_terms_filter_by_criteria
 from .utils import TranslatedList, get_current_language
 
@@ -1786,8 +1786,8 @@ RECORDS_REST_FACETS = dict(
                     date_max=dict(max=dict(field='holdings.items.acquisition.date', format='yyyy-MM-dd'))
                 )
             ),
-            fiction=dict(
-                terms=dict(field="fiction", size=DOCUMENTS_AGGREGATION_SIZE)
+            fiction_statement=dict(
+                terms=dict(field="fiction_statement", size=DOCUMENTS_AGGREGATION_SIZE)
             ),
         ),
         filters={
@@ -1807,7 +1807,6 @@ RECORDS_REST_FACETS = dict(
             # --> Ex: &new_acquisition=2020-01-01:2021-01-01
             _('new_acquisition'): acquisition_filter(),
             _('identifiers'): nested_identified_filter(),
-            _('fiction'): bool_filter('fiction'),
         },
         post_filters={
             _('document_type'): {
@@ -1825,7 +1824,8 @@ RECORDS_REST_FACETS = dict(
             _('status'): terms_filter('holdings.items.status'),
             _('genreForm'): i18n_terms_filter('facet_genre_form'),
             _('intendedAudience'): terms_filter('intendedAudience.value'),
-            _('year'): range_filter('provisionActivity.startDate')
+            _('year'): range_filter('provisionActivity.startDate'),
+            _('fiction_statement'): terms_filter('fiction_statement')
         }
 
     ),

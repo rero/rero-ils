@@ -27,6 +27,7 @@ from rero_ils.dojson.utils import not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero.model import \
     get_mef_link
+from rero_ils.modules.documents.models import DocumentFictionType
 from rero_ils.modules.documents.views import create_publication_statement, \
     get_cover_art, get_other_accesses
 from rero_ils.modules.entities.models import EntityType
@@ -5206,19 +5207,17 @@ def test_marc21_to_subjects_imported():
         <subfield code="a">Zermatt (Suisse, VS)</subfield>
         <subfield code="y">19e s. (fin)</subfield>
         <subfield code="2">chrero</subfield>
-    </datafield>
+      </datafield>
     </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data == {
-        'provisionActivity': [{
-            'note': 'Date not available and automatically set to 2050',
-            'place': [{'country': 'xx'}],
-            'startDate': 2050,
-            'type': 'bf:Publication'
-        }]
-      }
+    assert data.get('provisionActivity') == [{
+        'note': 'Date not available and automatically set to 2050',
+        'place': [{'country': 'xx'}],
+        'startDate': 2050,
+        'type': 'bf:Publication'
+    }]
 
     # field 919 with $2 chrero and without $v
     marc21xml = """
@@ -5227,20 +5226,18 @@ def test_marc21_to_subjects_imported():
           <subfield code="9">650 _7</subfield>
           <subfield code="a">chemin de fer</subfield>
           <subfield code="z">Suisse</subfield>
-         <subfield code="2">chrero</subfield>
+          <subfield code="2">chrero</subfield>
         </datafield>
     </record>
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data == {
-        'provisionActivity': [{
-            'note': 'Date not available and automatically set to 2050',
-            'place': [{'country': 'xx'}],
-            'startDate': 2050,
-            'type': 'bf:Publication'
-        }]
-      }
+    assert data.get('provisionActivity') == [{
+        'note': 'Date not available and automatically set to 2050',
+        'place': [{'country': 'xx'}],
+        'startDate': 2050,
+        'type': 'bf:Publication'
+    }]
 
     # field 919 with $2 ram|rameau|gnd|rerovoc
     marc21xml = """
@@ -6009,7 +6006,7 @@ def test_temporal_coverage(app, marc21_record):
     }]
 
 
-def test_marc21_to_fiction():
+def test_marc21_to_fiction_statement():
     """Test dojson marc21 fiction."""
 
     marc21xml = """
@@ -6020,7 +6017,7 @@ def test_marc21_to_fiction():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert not data.get('fiction')
+    assert data['fiction_statement'] == DocumentFictionType.Unspecified.value
     marc21xml = """
     <record>
       <controlfield tag=
@@ -6029,4 +6026,4 @@ def test_marc21_to_fiction():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('fiction')
+    assert data['fiction_statement'] == DocumentFictionType.Fiction.value

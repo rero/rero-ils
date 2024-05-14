@@ -23,6 +23,7 @@ from flask import current_app
 from flask_babel import gettext as translate
 
 from rero_ils.dojson.utils import error_print
+from rero_ils.modules.documents.models import DocumentFictionType
 from rero_ils.modules.documents.utils import display_alternate_graphic_first
 from rero_ils.modules.documents.views import create_title_responsibilites
 from rero_ils.modules.entities.models import EntityType
@@ -352,9 +353,10 @@ class ToMarc21Overdo(Underdo):
         # create fixed_length_data_elements for 008
         created = date_string_to_utc(blob['_created']).strftime('%y%m%d')
         fixed_data = f'{created}|||||||||xx#|||||||||||||||||||||c'
-        if fiction := blob.get('fiction'):
+        fiction = blob.get('fiction_statement')
+        if fiction == DocumentFictionType.Fiction.value:
             fixed_data[33] = 1
-        elif fiction is False:
+        elif fiction == DocumentFictionType.NonFiction.value:
             fixed_data[33] = 0
         provision_activity = blob.get('provisionActivity', [])
         for p_activity in provision_activity:
