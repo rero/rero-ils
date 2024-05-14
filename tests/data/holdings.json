@@ -7,6 +7,7 @@
         "main_type": "docmaintype_serial"
       }
     ],
+    "fiction_statement": "unspecified",
     "issuance": {
       "main_type": "rdami:1003",
       "subtype": "periodical"

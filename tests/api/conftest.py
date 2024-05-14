@@ -28,6 +28,7 @@ from invenio_accounts.models import User
 from utils import flush_index
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
+from rero_ils.modules.documents.models import DocumentFictionType
 from rero_ils.modules.items.api import Item, ItemsSearch
 
 
@@ -89,6 +90,7 @@ def doc_title_travailleurs(app):
             "main_type": "docmaintype_book",
             "subtype": "docsubtype_other_book"
         }],
+        'fiction_statement': DocumentFictionType.Unspecified.value,
         'language': [{'type': 'bf:Language', 'value': 'fre'}],
         'title': [{
             'type': 'bf:Title',
@@ -139,6 +141,7 @@ def doc_title_travailleuses(app):
             "main_type": "docmaintype_book",
             "subtype": "docsubtype_other_book"
         }],
+        'fiction_statement': DocumentFictionType.Unspecified.value,
         'language': [{'type': 'bf:Language', 'value': 'fre'}],
         'title': [{
             'type': 'bf:Title',

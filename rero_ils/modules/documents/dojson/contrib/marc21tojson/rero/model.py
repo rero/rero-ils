@@ -28,6 +28,7 @@ from dojson.utils import GroupableOrderedDict
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
     build_string_from_subfields, error_print, get_field_items, get_mef_link, \
     not_repetitive, re_identified, remove_trailing_punctuation
+from rero_ils.modules.documents.models import DocumentFictionType
 from rero_ils.modules.documents.utils import create_authorized_access_point
 from rero_ils.modules.entities.models import EntityType
 
@@ -57,7 +58,6 @@ class MyReroIlsMarc21Overdo(ReroIlsMarc21Overdo):
         result = super().do(blob, ignore_missing, exception_handlers)
         # add fiction
         if 'genreForm' in result and 'harvested' not in result:
-            fiction = False
             for genre_form in result.get('genreForm', []):
                 entity = genre_form['entity']
                 if (
@@ -65,9 +65,13 @@ class MyReroIlsMarc21Overdo(ReroIlsMarc21Overdo):
                     entity['authorized_access_point'] in
                     ['Fictions', 'Films de fiction']
                 ):
-                    result['fiction'] = True
-            if 'fiction' not in result and 'subjects' in result:
-                result['fiction'] = False
+                    result['fiction_statement'] = \
+                        DocumentFictionType.Fiction.value
+            if 'fiction_statement' not in result and 'subjects' in result:
+                result['fiction_statement'] = \
+                    DocumentFictionType.NonFiction.value
+        if 'fiction_statement' not in result:
+            result['fiction_statement'] = DocumentFictionType.Unspecified.value
         return result
 
 
@@ -124,11 +128,12 @@ def marc21_to_language(self, key, value):
     # if not language:
     #     error_print('ERROR LANGUAGE:', marc21.bib_id, 'set to "und"')
     #     language = [{'value': 'und', 'type': 'bf:Language'}]
-    # is fiction
+    # is
+    self['fiction_statement'] = DocumentFictionType.Unspecified.value
     if value[33] in ['1', 'd', 'f', 'j', 'p']:
-        self['fiction'] = True
+        self['fiction_statement'] = DocumentFictionType.Fiction.value
     elif value[33] in ['0', 'e', 'h', 'i', 's']:
-        self['fiction'] = False
+        self['fiction_statement'] = DocumentFictionType.NonFiction.value
     return language or None
 
 

@@ -265,12 +265,12 @@ def test_documents_facets(
         "author",
         "language",
         "subject",
-        "fiction",
+        "fiction_statement",
         "genreForm",
         "intendedAudience",
         "year",
         "status",
-        "acquisition",
+        "acquisition"
     ]
     assert all(key in data["aggregations"] for key in facet_keys)
 

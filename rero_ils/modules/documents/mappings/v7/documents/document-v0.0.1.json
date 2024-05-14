@@ -2187,8 +2187,8 @@
       "status": {
         "type": "keyword"
       },
-      "fiction": {
-        "type": "boolean"
+      "fiction_statement": {
+        "type": "keyword"
       },
       "harvested": {
         "type": "boolean"

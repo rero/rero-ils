@@ -24,6 +24,7 @@ from flask import current_app
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_identifier, \
     build_string_from_subfields, get_mef_link, remove_trailing_punctuation
+from rero_ils.modules.documents.models import DocumentFictionType
 from rero_ils.modules.entities.models import EntityType
 
 from ..utils import do_abbreviated_title, \
@@ -50,6 +51,7 @@ def marc21_to_type_and_issuance(self, key, value):
     """Get document type, content/Media/Carrier type and mode of issuance."""
     do_issuance(self, marc21)
     do_type(self, marc21)
+    self['fiction_statement'] = DocumentFictionType.Unspecified.value
 
 
 @marc21.over('pid', '^001')
@@ -72,10 +74,11 @@ def marc21_to_language(self, key, value):
     """
     language = do_language(self, marc21)
     # is fiction
+    self['fiction_statement'] = DocumentFictionType.Unspecified.value
     if value[33] in ['1', 'd', 'f', 'j', 'p']:
-        self['fiction'] = True
+        self['fiction_statement'] = DocumentFictionType.Fiction.value
     elif value[33] in ['0', 'e', 'h', 'i', 's']:
-        self['fiction'] = False
+        self['fiction_statement'] = DocumentFictionType.NonFiction.value
     return language or None
 
 

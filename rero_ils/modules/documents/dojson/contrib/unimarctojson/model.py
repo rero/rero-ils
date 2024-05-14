@@ -34,6 +34,7 @@ from rero_ils.dojson.utils import ReroIlsUnimarcOverdo, TitlePartList, \
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.utils import \
     get_mef_link
+from rero_ils.modules.documents.models import DocumentFictionType
 from rero_ils.modules.documents.utils import create_authorized_access_point
 from rero_ils.modules.entities.models import EntityType
 
@@ -359,6 +360,8 @@ def unimarc_type_and_issuance(self, key, value):
     if unimarc.serial_type in _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE:
         sub_type = _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE[unimarc.serial_type]
     self['issuance'] = dict(main_type=main_type, subtype=sub_type)
+    # fiction statement
+    self['fiction_statement'] = DocumentFictionType.Unspecified.value
 
 
 @unimarc.over('identifiedBy', '^003')
@@ -1192,16 +1195,18 @@ def unimarc_electronicLocator_from_field_856(self, key, value):
     )
 
 
-@unimarc.over('fiction', '^105..')
+@unimarc.over('fiction_statement', '^105..')
 @utils.ignore_value
-def unimarc_fiction(self, key, value):
+def unimarc_fiction_statement(self, key, value):
     """Get fiction from field 105 $a 11.
 
     codes for fiction=True : a, b, f, g, i
     codes for fiction=False : c, d, e, h, y
     """
+    fiction = DocumentFictionType.Unspecified.value
     if subfield_a := value.get('a'):
         if subfield_a[11] in ['a', 'b', 'f', 'g', 'i']:
-            return True
+            fiction = DocumentFictionType.Fiction.value
         if subfield_a[11] in ['c', 'd', 'e', 'h', 'y']:
-            return False
+            fiction = DocumentFictionType.NonFiction.value
+    return fiction

@@ -6,6 +6,7 @@
     "$schema",
     "pid",
     "type",
+    "fiction_statement",
     "title",
     "language",
     "provisionActivity",
@@ -15,7 +16,7 @@
   "propertiesOrder": [
     "identifiedBy",
     "type",
-    "fiction",
+    "fiction_statement",
     "contentMediaCarrier",
     "issuance",
     "genreForm",
@@ -306,12 +307,37 @@
       "description": "Document is harvested or not, will disable record edition or similar.",
       "type": "boolean"
     },
-    "fiction": {
-      "title": "Fiction",
-      "description": "Document is fiction.",
-      "type": "boolean",
-      "form": {
-        "hide": true
+    "fiction_statement": {
+      "title": "Fiction statement",
+      "description": "Defines whether the document is fiction or non-fiction (documentary). If irrelevant (image, object, score, etc.), use unspecified.",
+      "type": "string",
+      "default": "unspecified",
+      "enum": [
+        "fiction",
+        "non_fiction",
+        "unspecified"
+      ],
+      "widget": {
+        "formlyConfig": {
+          "type": "radioButton",
+          "props": {
+            "style": "inline",
+            "options": [
+              {
+                "label": "fiction",
+                "value": "fiction"
+              },
+              {
+                "label": "non_fiction",
+                "value": "non_fiction"
+              },
+              {
+                "label": "unspecified",
+                "value": "unspecified"
+              }
+            ]
+          }
+        }
       }
     },
     "_draft": {
