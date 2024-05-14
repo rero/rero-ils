@@ -77,12 +77,14 @@ function pretests () {
   #    Vulnerability ID: 42852
   # -> Vulnerability found in werkzeug version 2.2.3
   #    Vulnerability ID: 62019
+  # -> Vulnerability found in black version 22.12.0
+  #    Vulnerability ID: 66742
   # -> Vulnerability found in pip version 24.0
   #    Vulnerability ID: 67599
   # -> Vulnerability found in py version 1.11.0
   #    Vulnerability ID: 51457
   info_msg "Check vulnerabilities:"
-  safety_exceptions="-i 40459 -i 51668 -i 42194 -i 42852 -i 62019 -i 67599 -i 51457"
+  safety_exceptions="-i 40459 -i 51668 -i 42194 -i 42852 -i 66742 -i 62019 -i 67599 -i 51457"
   msg=$(safety check -o text ${safety_exceptions}) || {
     echo "Safety vulnerabilites found for packages:" $(safety check -o bare ${safety_exceptions})
     echo "Run: \"safety check -o screen ${safety_exceptions} | grep -i vulnerability\" for more details"
@@ -93,7 +95,9 @@ function pretests () {
   info_msg "Check license:"
   invenio reroils utils check_license check_license_config.yml
   info_msg "Test pydocstyle:"
-  pydocstyle rero_ils tests docs
+  pydocstyle rero_ils tests docs rero_ils
+  info_msg "Test pycodestyle:"
+  pydocstyle pycodestyle tests rero_ils
   info_msg "Test isort:"
   isort --check-only --diff tests rero_ils
   info_msg "Test useless imports:"
