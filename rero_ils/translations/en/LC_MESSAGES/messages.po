@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-05-16 15:14+0200\n"
-"PO-Revision-Date: 2024-03-26 11:01+0000\n"
+"PO-Revision-Date: 2024-05-16 14:23+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6-dev\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: rero_ils/accounts_views.py:60
@@ -72,6 +73,8 @@ msgid ""
 "characters long and only contain alphanumeric characters, dashes and "
 "underscores."
 msgstr ""
+"Username must start with a letter or a number, be at least three characters "
+"long and only contain alphanumeric characters, dashes and underscores."
 
 #: rero_ils/config.py:1713
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
@@ -157,7 +160,7 @@ msgstr "year"
 
 #: rero_ils/config.py:1828
 msgid "fiction_statement"
-msgstr ""
+msgstr "fiction statement"
 
 #: rero_ils/config.py:1856
 msgid "item_type"
@@ -791,15 +794,15 @@ msgstr "Number of active patrons"
 
 #: rero_ils/manual_translations.txt:123
 msgid "any_user"
-msgstr ""
+msgstr "any user"
 
 #: rero_ils/manual_translations.txt:124
 msgid "authenticated_user"
-msgstr ""
+msgstr "authenticated user"
 
 #: rero_ils/manual_translations.txt:125
 msgid "document_importer"
-msgstr ""
+msgstr "document importer"
 
 #: rero_ils/jsonschemas/common/cantons-v0.0.1.json:3
 msgid "Cantons"
@@ -5585,6 +5588,8 @@ msgstr "Published"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:296
 msgid "'Published' indicates that the collection appears in the public interface."
 msgstr ""
+"'Published' indicates that the exhibition/course appears in the public "
+"interface."
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:36
 msgid "Collection ID"
@@ -5682,21 +5687,23 @@ msgstr "Document is harvested or not, will disable record edition or similar."
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:311
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:25
 msgid "Fiction statement"
-msgstr ""
+msgstr "Fiction statement"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:312
 msgid ""
 "Defines whether the document is fiction or non-fiction (documentary). If "
 "irrelevant (image, object, score, etc.), use unspecified."
 msgstr ""
+"Defines whether the document is fiction or non-fiction (documentary). If "
+"irrelevant (image, object, score, etc.), use unspecified."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:327
 msgid "fiction"
-msgstr ""
+msgstr "fiction"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:331
 msgid "non_fiction"
-msgstr ""
+msgstr "non-fiction"
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:335
 #: rero_ils/modules/documents/jsonschemas/documents/document_content_media_carrier-v0.0.1.json:746
@@ -9439,7 +9446,7 @@ msgstr "Get"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:389
 msgid "No additionnal information yet."
-msgstr ""
+msgstr "No additionnal information yet."
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:410
 msgid "Export Formats"
@@ -9736,7 +9743,7 @@ msgstr "Source(s)"
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:3
 msgid "Names vocabulary."
-msgstr ""
+msgstr "Names vocabulary."
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:9
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:26
@@ -9746,11 +9753,11 @@ msgstr "Schema to validate user records against."
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:22
 msgid "Collections"
-msgstr ""
+msgstr "Collections"
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:26
 msgid "Collection Name"
-msgstr ""
+msgstr "Collection Name"
 
 #: rero_ils/modules/files/jsonschemas/files/record-v1.0.0.json:32
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:145
@@ -10633,6 +10640,8 @@ msgid ""
 "Short text displayed in the interface, for instance 'in acquisition' or "
 "'missing'."
 msgstr ""
+"Short text displayed in the interface, for instance 'in acquisition' or "
+"'missing'."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:170
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:232
@@ -10648,6 +10657,8 @@ msgid ""
 "This optional text is displayed in the public interface, for instance "
 "'On-site consultation'"
 msgstr ""
+"This optional text is displayed in the public interface, for instance 'On-"
+"site consultation'"
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:184
 msgid "Information"
@@ -11578,7 +11589,7 @@ msgstr "User library"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:230
 msgid "File Record Pid"
-msgstr ""
+msgstr "File Record Pid"
 
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:264
 msgid "Loan specific data"
@@ -12672,7 +12683,7 @@ msgstr "You are not allowed to change template visibility"
 
 #: rero_ils/modules/users/api.py:170
 msgid "A username or email is required."
-msgstr ""
+msgstr "A username or email is required."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:4
 msgid "User Personal Informations"
@@ -12704,15 +12715,15 @@ msgstr "no information"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:112
 msgid "Username"
-msgstr ""
+msgstr "Username"
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:113
 msgid "Login username for the web interface."
-msgstr ""
+msgstr "Login username for the web interface."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:126
 msgid "This username is already taken."
-msgstr ""
+msgstr "This username is already taken."
 
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:176
 msgid "Home phone number"
@@ -13088,4 +13099,3 @@ msgstr "Your library"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Your password has been successfully reset."
-
