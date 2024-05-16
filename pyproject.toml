@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rero-ils"
-version = "1.21.0"
+version = "1.22.0"
 description = "Invenio digital library framework."
 authors = ["RERO <software@rero.ch>"]
 license = "GNU Affero General Public License v3.0"
@@ -119,7 +119,7 @@ flask-wiki = "^0.3.1"
 dnspython = ">2.4.2"
 cryptography = ">41.0.7"
 babel = ">2.14.0"
-rero-invenio-files = {git = "https://github.com/rero/rero-invenio-files.git"}
+rero-invenio-files = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 ## Python packages development dependencies (order matters)
