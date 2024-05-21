@@ -69,3 +69,17 @@
     content: "";
   }
 }
+
+#documents-get {
+  .card {
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .list-unstyled {
+      margin-bottom: 0;
+    }
+  }
+}
+
