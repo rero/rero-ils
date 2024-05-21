@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,6 +17,7 @@
 
 """Signals connector for Holding."""
 
+import contextlib
 
 from elasticsearch_dsl.query import Q
 from invenio_db import db
@@ -75,28 +76,37 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
     This method checks the location and item_type of each item attached to the
     holding record and update the item record accordingly.
     This method should be connect with 'after_record_update'.
-    :param record: the holding record.
+
+    :param record: the holdings record.
     """
     if isinstance(record, Holding) and \
             record.get('holdings_type') == HoldingTypes.SERIAL:
-        # identify all items records attached to this serials holdings record
-        # with different location and item_type.
+        # identify all items linked to this holdings that we need to update
+        # by excluding form the search items where all the concerned fields
+        # correspond to the fields in the holdings.
         hold_circ_pid = record.circulation_category_pid
         hold_loc_pid = record.location_pid
+
         search = ItemsSearch().filter('term', holding__pid=record.pid)
-        item_hits = search.\
-            filter('bool', should=[
-                        Q('bool', must_not=[
-                            Q('match', item_type__pid=hold_circ_pid)]),
-                        Q('bool', must_not=[
-                            Q('match', location__pid=hold_loc_pid)])])\
-            .source(['pid'])
+        filters = Q('term', item_type__pid=hold_circ_pid) &\
+            Q('term', location__pid=hold_loc_pid)
+        if hold_call_number := record.get('call_number', None):
+            filters &= Q(
+                'term',
+                issue__inherited_first_call_number=hold_call_number
+                )
+        if hold_second_call_number := record.get('second_call_number', None):
+            filters &= Q(
+                'term',
+                issue__inherited_second_call_number=hold_second_call_number
+                )
+        item_hits = search.exclude(filters).source(['pid'])
         items = [hit.meta.id for hit in item_hits.scan()]
         items_to_index = []
-        # update these items and make sure they have the same location/category
-        # as the parent holdings record.
+        # update these items so that they inherit the fields location,
+        # item_type and call numbers from the parent holdings record.
         for id in items:
-            try:
+            with contextlib.suppress(Exception):
                 item = Item.get_record(id)
                 if not item:
                     continue
@@ -104,8 +114,7 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
                 item_temp_loc_pid, item_temp_type_pid = None, None
                 # remove the item temporary_location if it is equal to the
                 # new item location.
-                temporary_location = item.get('temporary_location', {})
-                if temporary_location:
+                if temporary_location := item.get('temporary_location'):
                     item_temp_loc_pid = extracted_data_from_ref(
                         temporary_location.get('$ref'))
                 if hold_loc_pid != item.location_pid:
@@ -113,10 +122,10 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
                         item.pop('temporary_location', None)
                     item['location'] = {'$ref': get_ref_for_pid(
                         'locations', hold_loc_pid)}
+
                 # remove the item temporary_item_type if it is equal to the
                 # new item item_type.
-                temporary_type = item.get('temporary_item_type', {})
-                if temporary_type:
+                if temporary_type := item.get('temporary_item_type'):
                     item_temp_type_pid = extracted_data_from_ref(
                         temporary_type.get('$ref'))
                 if hold_circ_pid != item.item_type_pid:
@@ -127,8 +136,7 @@ def update_items_locations_and_types(sender, record=None, **kwargs):
                 # update directly in database.
                 db.session.query(item.model_cls).filter_by(id=item.id).update(
                     {item.model_cls.json: item})
-            except Exception as err:
-                pass
+
         if items_to_index:
             # commit session
             db.session.commit()

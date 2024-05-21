@@ -28,6 +28,7 @@ import jinja2
 import pytest
 from invenio_accounts.testutils import login_user_via_session
 from jsonschema.exceptions import ValidationError
+from utils import flush_index
 
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.holdings.models import HoldingNoteTypes
@@ -630,5 +631,7 @@ def test_regular_issue_creation_update_delete_api(
         reindex=True
     )
     issue_pid = issue.pid
+    # flush index to prevent ES conflicts on delete
+    flush_index(ItemsSearch.Meta.index)
     assert holding.delete(dbcommit=True, delindex=True)
     assert not Item.get_record_by_pid(issue_pid)
