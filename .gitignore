@@ -102,5 +102,8 @@ tests/e2e/cypress/cypress/integration/test
 # Dependencies
 /node_modules
 
+# files
+data/files
+
 # Macosx
 .DS_Store
