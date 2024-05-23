@@ -133,8 +133,8 @@ class Entity(IlsRecord, ABC):
             subjects=with_subjects,
             imported_subjects=with_subjects_imported,
             genre_forms=with_genre_forms
-        ).source('pid')
-        return [hit.pid for hit in search.scan()]
+        )
+        return [hit.pid for hit in search.source('pid').scan()]
 
     def documents_ids(
         self, with_subjects=True, with_subjects_imported=True,

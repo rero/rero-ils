@@ -403,24 +403,26 @@ class Document(IlsRecord):
             cannot_delete['others'] = dict(harvested=True)
         return cannot_delete
 
-    def index_contributions(self, bulk=False):
-        """Index all attached contributions."""
+    def index_entities(self, bulk=False):
+        """Index all attached entities."""
         from rero_ils.modules.entities.remote_entities.api import \
             RemoteEntitiesIndexer, RemoteEntity
 
         from ..tasks import process_bulk_queue
-        contributions_ids = []
-        for contribution in self.get('contribution', []):
-            ref = contribution['entity'].get('$ref')
-            if not ref and (cont_pid := contribution['entity'].get('pid')):
-                if bulk:
-                    uid = RemoteEntity.get_id_by_pid(cont_pid)
-                    contributions_ids.append(uid)
-                else:
-                    contrib = RemoteEntity.get_record_by_pid(cont_pid)
-                    contrib.reindex()
-        if contributions_ids:
-            RemoteEntitiesIndexer().bulk_index(contributions_ids)
+        entities_ids = []
+        fields = ('contribution', 'subjects', 'genreForm')
+        for field in fields:
+            for entity in self.get(field, []):
+                if ent_pid := entity['entity'].get('pid'):
+                    if bulk:
+                        uid = RemoteEntity.get_id_by_pid(ent_pid)
+                        entities_ids.append(uid)
+                    else:
+                        entity = RemoteEntity.get_record_by_pid(ent_pid)
+                        entity.reindex()
+        if entities_ids:
+            # add ids to bulk indexer
+            RemoteEntitiesIndexer().bulk_index(entities_ids)
             process_bulk_queue.apply_async()
 
     @classmethod
@@ -555,9 +557,9 @@ class DocumentsIndexer(IlsRecordsIndexer):
         # call the parent index method
         return_value = super().index(record)
 
-        # index contributions
-        # TODO: reindex contributions only if it has been touched
-        record.index_contributions(bulk=True)
+        # index entities
+        # TODO: reindex entities only if it has been touched
+        record.index_entities(bulk=True)
 
         # index document of the host document only if the title
         # has been changed
