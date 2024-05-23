@@ -318,10 +318,7 @@ def ill_request_search_factory(self, search, query_parser=None):
         'range',
         _created={'lte': 'now', 'gte': date_delta}
     )
-    filters |= Q('terms', status=[
-        ILLRequestStatus.PENDING,
-        ILLRequestStatus.VALIDATED
-    ])
+    filters |= Q('term', status=ILLRequestStatus.PENDING)
 
     return search.filter(filters), urlkwargs
 
