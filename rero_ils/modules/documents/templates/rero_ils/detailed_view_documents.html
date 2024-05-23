@@ -310,9 +310,9 @@
           {% if viewcode | babeltheque_enabled_view and isbn is not none %}
           <li class="nav-item">
             <a class="nav-link" href="#documents-more-infos" data-toggle="tab"
-               id="documents-more-infos-tab" title="Babelio" role="tab"
+               id="documents-more-infos-tab" title="{{ _('More info') }}" role="tab"
                aria-controls="documents-description" aria-selected="false">
-              <i class="fa fa-bars"></i> Babelio
+              <i class="fa fa-bars"></i> {{ _('More info') }}
             </a>
           </li>
           {% endif %}
@@ -348,9 +348,9 @@
           {% if viewcode | babeltheque_enabled_view and isbn is not none %}
           <li class="nav-item">
             <a class="nav-link" href="#documents-more-infos" data-toggle="tab"
-               id="documents-more-infos-tab" title="Babelio" role="tab"
+               id="documents-more-infos-tab" title="{{ _('More info') }}" role="tab"
                aria-controls="documents-more-infos" aria-selected="false">
-              <i class="fa fa-bars"></i> Babelio
+              <i class="fa fa-bars"></i> {{ _('More info') }}
             </a>
           </li>
           {% endif %}
@@ -383,7 +383,8 @@
       {% if viewcode | babeltheque_enabled_view %}
       <section class="tab-pane container" id="documents-more-infos" role="tabpanel" aria-labelledby="documents-more-infos-tab">
         <!-- BABELTHEQUE -->
-        <div class="babelio-block mt-3">
+        <aside class="mt-3">Babelio</aside>
+        <div class="babelio-block">
           <div>
             <div id="BW_critiques"></div>
             <div id="BW_notes">{{ _('No additionnal information yet.') }}</div>
