@@ -434,8 +434,9 @@ def test_subjects_to_marc21(app, mef_agents_url, mef_concepts_url,
             }
         }, {
             'entity': {
-                '$ref': f'{mef_concepts_url}/api/concepts/idref/027828085',
-                'pid': '163554'
+                '$ref':
+                    f'{mef_concepts_url}/api/concepts/idref/ent_concept_idref',
+                'pid': 'ent_concept'
             }
         }, {
             'entity': {
@@ -575,8 +576,9 @@ def test_genre_form_to_marc21(app, mef_concepts_url, marc21_record,
             }
         }, {
             'entity': {
-                '$ref': f'{mef_concepts_url}/api/concepts/idref/027828085',
-                'pid': '163554'
+                '$ref':
+                    f'{mef_concepts_url}/api/concepts/idref/ent_concept_idref',
+                'pid': 'ent_concept'
             }
         }]
     }

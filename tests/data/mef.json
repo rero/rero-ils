@@ -50,7 +50,7 @@
         {
           "source": "IdRef",
           "type": "uri",
-          "value": "http://www.idref.fr/027828085"
+          "value": "http://www.idref.fr/ent_concept_idref"
         },
         {
           "source": "BNF",
@@ -151,7 +151,7 @@
           "noteType": "dataSource"
         }
       ],
-      "pid": "027828085",
+      "pid": "ent_concept_idref",
       "related": [
         {
           "authorized_access_point": "Enzymes"
@@ -167,7 +167,7 @@
         "Inhibiteurs enzymatiques"
       ]
     },
-    "pid": "163554",
+    "pid": "ent_concept",
     "sources": [
       "idref"
     ]

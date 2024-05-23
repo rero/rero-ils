@@ -307,17 +307,17 @@ def test_sync_concept(
 
 
 def test_remote_entity_properties(
-    entity_person, item_lib_martigny, document, document_data
+    entity_person, item_lib_martigny, document, document_data, mef_concept1
 ):
     """Test entity properties."""
     item = item_lib_martigny
 
     assert document.pid not in entity_person.documents_pids()
-    assert document.id not in entity_person.documents_ids()
+    assert str(document.id) not in entity_person.documents_ids()
     assert item.organisation_pid not in entity_person.organisation_pids
     document['contribution'] = [{
         'entity': {
-            '$ref': 'https://mef.rero.ch/api/agents/idref/223977268'
+            '$ref': 'https://mef.rero.ch/api/agents/idref/223977268',
         },
         'role': ['cre']
     }]
@@ -334,9 +334,6 @@ def test_remote_entity_properties(
     assert sources_pids['gnd'] == '13343771X'
     assert sources_pids['rero'] == 'A017671081'
 
-    document.index_contributions()
-    document.index_contributions(True)
-
     # Test special behavior of `get_record_by_ref` ::
     #   Simulate an exception into the entity creation to test the exception
     #   catching block statement.
@@ -347,6 +344,41 @@ def test_remote_entity_properties(
         entity, _ = RemoteEntity.get_record_by_ref(
             'https://bib.rero.ch/api/documents/dummy_doc')
         assert entity is None
+
+    # remove contribution
+    document.pop('contribution')
+    document.update(document, dbcommit=True, reindex=True)
+    assert document.pid not in entity_person.documents_pids()
+    assert str(document.id) not in entity_person.documents_ids()
+    assert item.organisation_pid not in entity_person.organisation_pids
+
+    # add subjects
+    document['subjects'] = [{
+        'entity': {
+            '$ref': 'https://mef.rero.ch/api/concepts/idref/ent_concept_idref',
+        }
+    }]
+    document.update(document, dbcommit=True, reindex=True)
+    assert document.pid in mef_concept1.documents_pids()
+    assert str(document.id) in mef_concept1.documents_ids()
+    assert item.organisation_pid in mef_concept1.organisation_pids
+    # remove subjects
+    document.pop('subjects')
+    document.update(document, dbcommit=True, reindex=True)
+    assert document.pid not in mef_concept1.documents_pids()
+    assert str(document.id) not in mef_concept1.documents_ids()
+    assert item.organisation_pid not in mef_concept1.organisation_pids
+
+    # add genreForm
+    document['genreForm'] = [{
+        'entity': {
+            '$ref': 'https://mef.rero.ch/api/concepts/idref/ent_concept_idref',
+        }
+    }]
+    document.update(document, dbcommit=True, reindex=True)
+    assert document.pid in mef_concept1.documents_pids()
+    assert str(document.id) in mef_concept1.documents_ids()
+    assert item.organisation_pid in mef_concept1.organisation_pids
 
     # Reset fixture
     document.update(document_data, dbcommit=True, reindex=True)
