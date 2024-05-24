@@ -207,6 +207,7 @@ class Collector():
             ('barcode', 'item_barcode'),
             ('call_number', 'item_call_number'),
             ('second_call_number', 'item_second_call_number'),
+            ('legacy_checkout_count', 'item_legacy_checkout_count'),
             ('pac_code', 'item_pac_code'),
             ('price', 'item_price'),
             ('type', 'item_item_type'),
