@@ -56,6 +56,7 @@ _csv = ItemCSVSerializer(
         'item_barcode',
         'item_call_number',
         'item_second_call_number',
+        'item_legacy_checkout_count',
         'item_type',
         'item_library_name',
         'item_location_name',

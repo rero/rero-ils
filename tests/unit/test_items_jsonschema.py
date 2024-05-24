@@ -62,7 +62,8 @@ def test_item_all_jsonschema_keys_values(
         {'key': 'ur', 'value': 25},
         {'key': 'pac_code', 'value': 25},
         {'key': 'price', 'value': '25'},
-        {'key': '_masked', 'value': 25}
+        {'key': '_masked', 'value': 25},
+        {'key': 'legacy_checkout_count', 'value': '25'}
     ]
     for element in validator:
         with pytest.raises(ValidationError):
