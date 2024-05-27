@@ -70,6 +70,7 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
                 'pid': data['pid'],
                 'trigger': data['trigger'],
                 'override_flag': False,
+                'auto_extend': data.get('auto_extend', False),
                 'transaction_channel': 'system' if not data.get(
                     'selfcheck_terminal_id') else 'sip2',
                 'transaction_location': {

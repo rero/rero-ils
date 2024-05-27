@@ -1,0 +1,19 @@
+Renewal
+{% include('email/_patron_address.txt') %}
+Dear patron,
+
+The loan of the following documents has been automatically renewed until the dates indicated:
+
+{%- for loan in loans %}
+
+Title: {{ loan.document.title_text }}
+New due date: {{ loan.end_date }}
+
+{%- endfor %}
+
+You can consult your account at: {{ patron.profile_url }}
+
+Best regards
+
+{{ library.name }}
+{{ library.address }}
