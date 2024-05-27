@@ -108,6 +108,9 @@
           "override_flag": {
             "type": "boolean"
           },
+          "auto_extend": {
+            "type": "boolean"
+          },
           "transaction_channel": {
             "type": "keyword"
           },

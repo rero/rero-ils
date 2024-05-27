@@ -49,6 +49,10 @@
         }
       }
     },
+    "auto_extend": {
+      "type": "boolean",
+      "title": "Defines if the latest renewal was automatic or manual."
+    },
     "extension_count": {
       "type": "integer",
       "title": "Loan extension count"

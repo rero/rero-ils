@@ -377,7 +377,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     'notification-creation': {
         'task': 'rero_ils.modules.notifications.tasks.create_notifications',
-        'schedule': crontab(minute=0, hour=3),  # Every day at 05:00 UTC,
+        'schedule': crontab(minute=0, hour=5),  # Every day at 05:00 UTC,
         'kwargs': {
             'types': [NotificationType.DUE_SOON, NotificationType.OVERDUE]
         },
@@ -414,6 +414,11 @@ CELERY_BEAT_SCHEDULE = {
     'cancel-expired-request': {
         'task': 'rero_ils.modules.loans.tasks.cancel_expired_request_task',
         'schedule': crontab(minute=15, hour=3),  # Every day at 03:15 UTC,
+        'enabled': False
+    },
+    'automatic_renewal': {
+        'task': 'rero_ils.modules.loans.tasks.automatic_renewal',
+        'schedule': crontab(minute=30, hour=3),  # Every day at 03:30 UTC
         'enabled': False
     },
     'anonymize-loans': {

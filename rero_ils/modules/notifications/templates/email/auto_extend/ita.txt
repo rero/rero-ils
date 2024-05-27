@@ -1,0 +1,19 @@
+Proroga
+{% include('email/_patron_address.txt') %}
+Cara lettrice, caro lettore,
+
+Il prestito dei seguenti documenti è stato automaticamente prorogato fino alle date indicate:
+
+{%- for loan in loans %}
+
+Titolo: {{ loan.document.title_text }}
+Nuova data di scadenza: {{ loan.end_date }}
+
+{%- endfor %}
+
+Lei può consultare il Suo conto al seguente indirizzo: {{ patron.profile_url }}
+
+Cordiali saluti
+
+{{ library.name }}
+{{ library.address }}
