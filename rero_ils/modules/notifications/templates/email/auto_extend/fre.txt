@@ -1,0 +1,19 @@
+Prolongation
+{% include('email/_patron_address.txt') %}
+Chère lectrice, cher lecteur,
+
+Le prêt des documents ci-dessous a été prolongé automatiquement jusqu'aux dates indiquées :
+
+{%- for loan in loans %}
+
+Titre : {{ loan.document.title_text }}
+Nouvelle échéance : {{ loan.end_date }}
+
+{%- endfor %}
+
+Vous pouvez consulter votre compte à l'adresse : {{ patron.profile_url }}
+
+Avec nos compliments
+
+{{ library.name }}
+{{ library.address }}

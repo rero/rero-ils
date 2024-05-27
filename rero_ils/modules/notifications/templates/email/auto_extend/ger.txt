@@ -1,0 +1,19 @@
+Verlängerung
+{% include('email/_patron_address.txt') %}
+Sehr geehrte Kundin, sehr geehrter Kunde,
+
+Die Ausleihe folgender Dokumente wurde automatisch bis zu den angegebenen Daten verlängert:
+
+{%- for loan in loans %}
+
+Titel: {{ loan.document.title_text }}
+Neues Rückgabedatum: {{ loan.end_date }}
+
+{%- endfor %}
+
+Unter folgender Adresse können Sie Ihr Konto einsehen: {{ patron.profile_url }}
+
+Freundliche Grüsse
+
+{{ library.name }}
+{{ library.address }}

@@ -831,6 +831,11 @@ class Loan(IlsRecord):
         #   notification to notify the library to hold the item (at desk).
         if trigger == LoanAction.CHECKIN and has_request:
             candidates.append((self, NotificationType.BOOKING))
+
+        # AUTO_RENEWAL
+        if trigger == 'extend' and self.get('auto_extend'):
+            candidates.append((self, NotificationType.AUTO_EXTEND))
+
         return candidates
 
     def create_notification(self, trigger=None, _type=None, counter=0):
@@ -1223,13 +1228,13 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
     :param patron_pid: the patron pid. If none, return all overdue loans.
     :param tstamp: a timestamp to define the execution time of the function.
                    Default to `datetime.now()`.
-    :return: a generator of loan pid
+    :return: a list of loan pids
     """
-    end_date = tstamp or datetime.now(timezone.utc)
-    end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
+    until_date = tstamp or datetime.now(timezone.utc)
+    until_date = until_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
     query = current_circulation.loan_search_cls() \
         .filter('term', state=LoanState.ITEM_ON_LOAN) \
-        .filter('range', end_date={'lte': end_date})
+        .filter('range', end_date={'lte': until_date})
     if patron_pid:
         query = query.filter('term', patron_pid=patron_pid)
     results = query\
@@ -1247,7 +1252,7 @@ def get_overdue_loans(patron_pid=None, tstamp=None):
     """Return all overdue loans optionally filtered for a patron pid.
 
     :param patron_pid: the patron pid. If none, return all overdue loans.
-    :param tstamp: a timestamp to define the execution time of the function
+    :param tstamp: a timestamp to define the execution time of the function.
     :return: a generator of Loan
     """
     for pid in get_overdue_loan_pids(patron_pid, tstamp):

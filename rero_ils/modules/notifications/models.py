@@ -58,10 +58,13 @@ class NotificationType:
     - OVERDUE           : when the loaned item is expired.
     - ACQUISITION_ORDER : when an acquisition order is sent to a vendor.
     - CLAIM_ISSUE       : when a claim is sent to a vendor about a serial issue
+    - AUTO_EXTEND       : when a loan has been automatically extended by the
+                          system.
     """
 
     ACQUISITION_ORDER = 'acquisition_order'
     AT_DESK = 'at_desk'
+    AUTO_EXTEND = 'auto_extend'
     AVAILABILITY = 'availability'
     BOOKING = 'booking'
     CLAIM_ISSUE = 'claim_issue'
@@ -98,6 +101,7 @@ class NotificationType:
     # Notification related to circulation modules
     CIRCULATION_NOTIFICATIONS = [
         AT_DESK,
+        AUTO_EXTEND,
         AVAILABILITY,
         DUE_SOON,
         OVERDUE,

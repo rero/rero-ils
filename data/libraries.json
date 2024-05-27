@@ -141,6 +141,10 @@
       {
         "type": "booking",
         "email": "reroilstest+aoste1@gmail.com"
+      },
+      {
+        "type": "auto_extend",
+        "email": "reroilstest+aoste1@gmail.com"
       }
     ],
     "communication_language": "ita",
@@ -334,6 +338,10 @@
       },
       {
         "type": "booking",
+        "email": "reroilstest+aoste2@gmail.com"
+      },
+      {
+        "type": "auto_extend",
         "email": "reroilstest+aoste2@gmail.com"
       }
     ],
