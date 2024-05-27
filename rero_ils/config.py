@@ -414,6 +414,11 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': crontab(minute=15, hour=3),  # Every day at 03:15 UTC,
         'enabled': False
     },
+    'automatic_renewal': {
+        'task': 'rero_ils.modules.loans.tasks.automatic_renewal',
+        'schedule': crontab(minute=0, hour=3),  # Every day at 03:00 UTC
+        'enabled': False
+    },
     'anonymize-loans': {
         'task': 'rero_ils.modules.loans.tasks.loan_anonymizer',
         'schedule': crontab(minute=0, hour=7),  # Every day at 07:00 UTC,

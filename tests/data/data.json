@@ -169,6 +169,10 @@
       {
         "type": "booking",
         "email": "reroilstest+martigny+booking@gmail.com"
+      },
+      {
+        "type": "auto_extend",
+        "email": "reroilstest+martigny+auto_extend@gmail.com"
       }
     ],
     "communication_language": "fre",
@@ -354,6 +358,10 @@
       {
         "type": "booking",
         "email": "reroilstest+saxon@gmail.com"
+      },
+      {
+        "type": "auto_extend",
+        "email": "reroilstest+saxon+auto_extend@gmail.com"
       }
     ],
     "communication_language": "fre",
@@ -497,6 +505,10 @@
       {
         "type": "booking",
         "email": "reroilstest+fully@gmail.com"
+      },
+      {
+        "type": "auto_extend",
+        "email": "reroilstest+fully+auto_extend@gmail.com"
       }
     ],
     "communication_language": "fre",
@@ -637,6 +649,10 @@
       {
         "type": "booking",
         "email": "reroilstest+sion@gmail.com"
+      },
+      {
+        "type": "auto_extend",
+        "email": "reroilstest+sion+auto_extend@gmail.com"
       }
     ],
     "communication_language": "fre",
@@ -768,6 +784,10 @@
       {
         "type": "booking",
         "email": "reroilstest+aproz@gmail.com"
+      },
+      {
+        "type": "auto_extend",
+        "email": "reroilstest+aproz+auto_extend@gmail.com"
       }
     ],
     "communication_language": "fre",
@@ -899,6 +919,10 @@
       {
         "type": "booking",
         "email": "reroilstest+saillon@gmail.com"
+      },
+      {
+        "type": "auto_extend",
+        "email": "reroilstest+saillon+auto_extend@gmail.com"
       }
     ],
     "communication_language": "fre",
@@ -948,6 +972,10 @@
       },
       {
         "type": "booking",
+        "email": "reroilstest+martignybourg@gmail.com"
+      },
+      {
+        "type": "auto_extend",
         "email": "reroilstest+martignybourg@gmail.com"
       }
     ],
@@ -1339,6 +1367,7 @@
     "pickup_hold_duration": 10,
     "number_renewals": 3,
     "renewal_duration": 30,
+    "automatic_renewal": true,
     "policy_library_level": false,
     "is_default": true
   },
@@ -1377,6 +1406,7 @@
     ],
     "number_renewals": 1,
     "renewal_duration": 15,
+    "automatic_renewal": true,
     "is_default": false,
     "policy_library_level": false,
     "settings": [

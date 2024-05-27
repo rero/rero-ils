@@ -55,7 +55,8 @@ class NotificationSubclassExtension(RecordExtension):
             NotificationType.REQUEST: RequestCirculationNotification,
             NotificationType.TRANSIT_NOTICE: TransitCirculationNotification,
             NotificationType.ACQUISITION_ORDER: AcquisitionOrderNotification,
-            NotificationType.CLAIM_ISSUE: ClaimSerialIssueNotification
+            NotificationType.CLAIM_ISSUE: ClaimSerialIssueNotification,
+            NotificationType.AUTO_EXTEND: RecallCirculationNotification,
         }
         try:
             return mapping[record.type]

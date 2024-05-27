@@ -831,7 +831,13 @@ class Loan(IlsRecord):
         #   notification to notify the library to hold the item (at desk).
         if trigger == LoanAction.CHECKIN and has_request:
             candidates.append((self, NotificationType.BOOKING))
+
+        # AUTO_RENEWAL
+        if trigger == 'extend' and self.get('auto_extend'):
+            candidates.append((self, NotificationType.AUTO_EXTEND))
+
         return candidates
+
 
     def create_notification(self, trigger=None, _type=None, counter=0):
         """Creates a notification from base on a loan.
@@ -1223,7 +1229,7 @@ def get_overdue_loan_pids(patron_pid=None, tstamp=None):
     :param patron_pid: the patron pid. If none, return all overdue loans.
     :param tstamp: a timestamp to define the execution time of the function.
                    Default to `datetime.now()`.
-    :return: a generator of loan pid
+    :return: a list of loan pids
     """
     end_date = tstamp or datetime.now(timezone.utc)
     end_date = end_date.strftime('%Y-%m-%dT%H:%M:%S.000Z')
@@ -1247,10 +1253,42 @@ def get_overdue_loans(patron_pid=None, tstamp=None):
     """Return all overdue loans optionally filtered for a patron pid.
 
     :param patron_pid: the patron pid. If none, return all overdue loans.
-    :param tstamp: a timestamp to define the execution time of the function
+    :param tstamp: a timestamp to define the execution time of the function.
     :return: a generator of Loan
     """
     for pid in get_overdue_loan_pids(patron_pid, tstamp):
+        yield Loan.get_record_by_pid(pid)
+
+
+def get_loans_pids_by_due_date(tstamp=None):
+    """Return the pids of all loans that are due on a given date.
+
+    :param tstamp: a timestamp to define the due date to filter by. Default is
+    now.
+    :return: a list of loan pids.
+    """
+    end_date = tstamp or datetime.now(timezone.utc)
+    end_date = end_date.strftime('%Y-%m-%d')
+    query = current_circulation.loan_search_cls() \
+        .filter('term', state=LoanState.ITEM_ON_LOAN) \
+        .filter('match', end_date=end_date)
+    results = query\
+        .params(preserve_order=True) \
+        .sort({'_created': {'order': 'asc'}}) \
+        .source(['pid']).scan()
+    # We return a list of pids here to prevent following ES error:
+    #  elasticsearch.helpers.errors.ScanError:
+    #  Scroll request has only succeeded on X (+0 skipped) shards out of Y.
+    return [hit.pid for hit in results]
+
+
+def get_loans_by_due_date(tstamp=None):
+    """Return the all loans that are due on a given date.
+
+    :param tstamp: a timestamp to define the due date to filter by.
+    :return: a generator of Loan objects.
+    """
+    for pid in get_loans_pids_by_due_date(tstamp):
         yield Loan.get_record_by_pid(pid)
 
 
