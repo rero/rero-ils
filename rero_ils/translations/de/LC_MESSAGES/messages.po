@@ -16,17 +16,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2024-05-16 15:14+0200\n"
+"POT-Creation-Date: 2024-05-28 12:59+0200\n"
 "PO-Revision-Date: 2024-05-16 14:23+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/de/>\n"
 "Language: de\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/de/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: rero_ils/accounts_views.py:60
@@ -5724,7 +5723,7 @@ msgstr "Wenn das Dokument ein Entwurf ist, wird die Datenvalidierung deaktiviert
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:356
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1104
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:790
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:796
 msgid "Masked"
 msgstr "Ausgeblendet"
 
@@ -9472,16 +9471,23 @@ msgstr "Artikel/Band"
 msgid "articles/volumes"
 msgstr "Artikel/Bände"
 
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:313
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:315
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:351
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:353
+msgid "More info"
+msgstr "Mehr Infos"
+
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:335
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:337
 msgid "Get"
 msgstr "Standorte/Bestellen"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:389
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:390
 msgid "No additionnal information yet."
 msgstr "Noch keine weiteren Informationen."
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:410
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:411
 msgid "Export Formats"
 msgstr "Exportformate"
 
@@ -10685,8 +10691,8 @@ msgid ""
 "Short text displayed in the interface, for instance 'in acquisition' or "
 "'missing'."
 msgstr ""
-"Kurzer Text, der in der Oberfläche angezeigt wird, z. B. \"in Erfassung\" "
-"oder \"fehlt\"."
+"Kurzer Text, der in der Oberfläche angezeigt wird, z. B. \"in Erfassung\""
+" oder \"fehlt\"."
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:170
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:232
@@ -10702,8 +10708,8 @@ msgid ""
 "This optional text is displayed in the public interface, for instance "
 "'On-site consultation'"
 msgstr ""
-"Dieser optionale Text wird in der öffentlichen Oberfläche angezeigt, z. B. \""
-" Konsultation vor Ort\""
+"Dieser optionale Text wird in der öffentlichen Oberfläche angezeigt, z. "
+"B. \" Konsultation vor Ort\""
 
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:184
 msgid "Information"
@@ -10952,7 +10958,11 @@ msgstr "Stufe 0: unbegrenzte Aufbewahrung"
 msgid "Price"
 msgstr "Preis"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:792
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:790
+msgid "Number of checkouts from previous system"
+msgstr "Anzahl der Ausleihen im alten System"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:798
 msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
@@ -13188,3 +13198,4 @@ msgstr "Ihre Bibliothek"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
+

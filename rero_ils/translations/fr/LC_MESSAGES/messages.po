@@ -20,17 +20,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2024-05-16 15:14+0200\n"
+"POT-Creation-Date: 2024-05-28 12:59+0200\n"
 "PO-Revision-Date: 2024-05-16 14:23+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/fr/>\n"
 "Language: fr\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/fr/>\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: rero_ils/accounts_views.py:60
@@ -76,9 +75,9 @@ msgid ""
 "characters long and only contain alphanumeric characters, dashes and "
 "underscores."
 msgstr ""
-"Le nom d'utilisateur doit commencer par une lettre ou un chiffre, comporter "
-"au moins trois caractères et ne contenir que des caractères alphanumériques, "
-"des tirets et des traits de soulignement."
+"Le nom d'utilisateur doit commencer par une lettre ou un chiffre, "
+"comporter au moins trois caractères et ne contenir que des caractères "
+"alphanumériques, des tirets et des traits de soulignement."
 
 #: rero_ils/config.py:1713
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
@@ -5592,7 +5591,8 @@ msgstr "Publié"
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:296
 msgid "'Published' indicates that the collection appears in the public interface."
 msgstr ""
-"'Publié' indique que l'exposition/cours apparaît dans l'interface publique."
+"'Publié' indique que l'exposition/cours apparaît dans l'interface "
+"publique."
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:36
 msgid "Collection ID"
@@ -5699,9 +5699,9 @@ msgid ""
 "Defines whether the document is fiction or non-fiction (documentary). If "
 "irrelevant (image, object, score, etc.), use unspecified."
 msgstr ""
-"Définit si le document est une fiction ou une non-fiction/documentaire. Si "
-"ce n'est pas pertinent (image, objet, partition, etc.), utiliser \"non "
-"spécifié\"."
+"Définit si le document est une fiction ou une non-fiction/documentaire. "
+"Si ce n'est pas pertinent (image, objet, partition, etc.), utiliser \"non"
+" spécifié\"."
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:327
 msgid "fiction"
@@ -5728,7 +5728,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document-v0.0.1.json:356
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:1104
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:790
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:796
 msgid "Masked"
 msgstr "Masqué"
 
@@ -9468,16 +9468,23 @@ msgstr "article/volume"
 msgid "articles/volumes"
 msgstr "articles/volumes"
 
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:313
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:315
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:351
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:353
+msgid "More info"
+msgstr "Plus d'infos"
+
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:335
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:337
 msgid "Get"
 msgstr "Obtenir"
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:389
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:390
 msgid "No additionnal information yet."
 msgstr "Aucune information supplémentaire n'est disponible pour l'instant."
 
-#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:410
+#: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:411
 msgid "Export Formats"
 msgstr "Formats d'export"
 
@@ -10960,7 +10967,11 @@ msgstr "Niveau 0 : conservation illimitée"
 msgid "Price"
 msgstr "Prix"
 
-#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:792
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:790
+msgid "Number of checkouts from previous system"
+msgstr "Nombre de prêts dans l'ancien système"
+
+#: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:798
 msgid ""
 "A masked item is visible in the professional interface, but not in the "
 "public interface."
@@ -13196,3 +13207,4 @@ msgstr "Votre bibliothèque"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "Votre mot de passe a été réinitialisé avec succès."
+
