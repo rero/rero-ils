@@ -55,6 +55,11 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
         {'type': 'bf:Local', 'value': 'cantook-EDEN502344'},
         {'type': 'bf:Local', 'source': 'cantook', 'value': 'record1'}
     ]
+    assert doc1.get('type') == [{
+        'main_type': 'docmaintype_book',
+        'subtype': 'docsubtype_e-book'
+    }]
+
     assert len(list(Holding.get_holdings_pid_by_document_pid(doc1.pid))) == 1
     doc2 = Document.get_record_by_pid('2')
     assert doc2.get('$schema') is not None
@@ -63,6 +68,10 @@ def test_publish_harvested_records(app, ebooks_1_xml, ebooks_2_xml,
         {'type': 'bf:Local', 'value': 'cantook-immateriel.frO1006810'},
         {'type': 'bf:Local', 'source': 'cantook', 'value': 'record2'}
     ]
+    assert doc2.get('type') == [{
+        'main_type': 'docmaintype_audio',
+        'subtype': 'docsubtype_audio_book'
+    }]
     assert len(list(Holding.get_holdings_pid_by_document_pid(doc2.pid))) == 1
 
     # test update

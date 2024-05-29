@@ -63,7 +63,7 @@
     <subfield code="3">Image de couverture</subfield>
   </datafield>
   <datafield tag="856" ind1="4" ind2="0">
-    <subfield code="q">epub</subfield>
+    <subfield code="q">audio</subfield>
     <subfield code="u">
     https://test2/resources/5d7c7e462357947ad94991f6
     </subfield>

@@ -3667,6 +3667,10 @@
       {
         "main_type": "docmaintype_book",
         "subtype": "docsubtype_e-book"
+      },
+      {
+        "main_type": "docmaintype_audio",
+        "subtype": "docsubtype_audio_book"
       }
     ],
     "fiction_statement": "unspecified",

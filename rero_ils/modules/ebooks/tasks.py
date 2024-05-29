@@ -35,10 +35,11 @@ def create_records(records):
     uuids = []
     for record in records:
         # add document type
-        record['type'] = [{
-            'main_type': 'docmaintype_book',
-            'subtype': 'docsubtype_e-book'
-        }]
+        if 'type' not in record:
+            record['type'] = [{
+                'main_type': 'docmaintype_book',
+                'subtype': 'docsubtype_e-book'
+            }]
         # check if already harvested
         pid = None
         for identifier in record.get('identifiedBy'):
