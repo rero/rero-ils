@@ -23,20 +23,20 @@ from functools import partial
 from elasticsearch_dsl import Q
 from flask_babel import gettext as _
 
-from .models import LocalFieldIdentifier, LocalFieldMetadata
+from ...modules.utils import extracted_data_from_ref
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..documents.api import Document
 from ..fetchers import id_fetcher
 from ..items.api import Item
 from ..minters import id_minter
 from ..providers import Provider
-from ...modules.utils import extracted_data_from_ref
+from .models import LocalFieldIdentifier, LocalFieldMetadata
 
 # provider
 LocalFieldProvider = type(
-    'LocalFieldProvider',
+    "LocalFieldProvider",
     (Provider,),
-    dict(identifier=LocalFieldIdentifier, pid_type='lofi')
+    dict(identifier=LocalFieldIdentifier, pid_type="lofi"),
 )
 # minter
 local_field_id_minter = partial(id_minter, provider=LocalFieldProvider)
@@ -50,9 +50,9 @@ class LocalFieldsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on local_field index."""
 
-        index = 'local_fields'
+        index = "local_fields"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
         default_filter = None
 
@@ -64,10 +64,10 @@ class LocalFieldsSearch(IlsRecordsSearch):
         :param organisation_pid: organisation pid filter value.
         :return: a list of ElasticSearch hit.
         """
-        filters = Q('term', parent__type=parent_type)
-        filters &= Q('term', parent__pid=parent_pid)
+        filters = Q("term", parent__type=parent_type)
+        filters &= Q("term", parent__pid=parent_pid)
         if organisation_pid:
-            filters &= Q('term', organisation__pid=organisation_pid)
+            filters &= Q("term", organisation__pid=organisation_pid)
         return self.filter(filters)
 
 
@@ -82,19 +82,20 @@ class LocalField(IlsRecord):
     def extended_validation(self, **kwargs):
         """Extended validation."""
         # parent reference must exists
-        parent = extracted_data_from_ref(self.get('parent'), data='record')
+        parent = extracted_data_from_ref(self.get("parent"), data="record")
         if not parent:
             return _("Parent record doesn't exists.")
         # check if a local_fields resource exists for this document
         query = LocalFieldsSearch().get_local_fields(
-            parent.provider.pid_type, parent.pid,
-            extracted_data_from_ref(self.get('organisation'))
+            parent.provider.pid_type,
+            parent.pid,
+            extracted_data_from_ref(self.get("organisation")),
         )
-        if query.exclude('term', pid=self['pid']).count():
-            return _('Local fields already exist for this resource.')
+        if query.exclude("term", pid=self["pid"]).count():
+            return _("Local fields already exist for this resource.")
         # check if all fields are empty.
-        if len(self.get('fields', {}).keys()) == 0:
-            return _('Missing fields.')
+        if len(self.get("fields", {}).keys()) == 0:
+            return _("Missing fields.")
         return True
 
     @staticmethod
@@ -106,9 +107,11 @@ class LocalField(IlsRecord):
         :param organisation_pid: organisation pid filter value.
         :returns: a generator of `LocalField` records.
         """
-        search = LocalFieldsSearch()\
-            .get_local_fields(parent_type, parent_pid, organisation_pid)\
+        search = (
+            LocalFieldsSearch()
+            .get_local_fields(parent_type, parent_pid, organisation_pid)
             .source(False)
+        )
         for hit in search.scan():
             yield LocalField.get_record(hit.meta.id)
 
@@ -121,9 +124,7 @@ class LocalField(IlsRecord):
         :returns: a generator of `LocalField` records.
         """
         return LocalField.get_local_fields_by_id(
-            parent.provider.pid_type,
-            parent.pid,
-            organisation_pid
+            parent.provider.pid_type, parent.pid, organisation_pid
         )
 
 
@@ -138,7 +139,7 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
 
         :param record: the `LocalField` instance.
         """
-        resource = extracted_data_from_ref(record['parent']['$ref'], 'record')
+        resource = extracted_data_from_ref(record["parent"]["$ref"], "record")
         if isinstance(resource, (Document, Item)):
             resource.reindex()
 
@@ -165,4 +166,4 @@ class LocalFieldsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='lofi')
+        super().bulk_index(record_id_iterator, doc_type="lofi")

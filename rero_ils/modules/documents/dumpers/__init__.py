@@ -23,38 +23,43 @@ from invenio_records.dumpers import Dumper
 from rero_ils.modules.commons.dumpers import MultiDumper, ReplaceRefsDumper
 
 from .indexer import IndexerDumper
-from .replace_refs import ReplaceRefsContributionsDumper, \
-    ReplaceRefsEntitiesDumper
+from .replace_refs import ReplaceRefsContributionsDumper, ReplaceRefsEntitiesDumper
 from .title import TitleDumper
 
 __all__ = (
-    'TitleDumper',
-    'ReplaceRefsContributionsDumper',
-    'ReplaceRefsEntitiesDumper',
+    "TitleDumper",
+    "ReplaceRefsContributionsDumper",
+    "ReplaceRefsEntitiesDumper",
 )
 
 # replace linked data
-document_replace_refs_dumper = MultiDumper(dumpers=[
-    # make a fresh copy
-    Dumper(),
-    ReplaceRefsContributionsDumper(),
-    ReplaceRefsEntitiesDumper('subjects', 'genreForm'),
-    ReplaceRefsDumper()
-])
+document_replace_refs_dumper = MultiDumper(
+    dumpers=[
+        # make a fresh copy
+        Dumper(),
+        ReplaceRefsContributionsDumper(),
+        ReplaceRefsEntitiesDumper("subjects", "genreForm"),
+        ReplaceRefsDumper(),
+    ]
+)
 
 # create a string version of the complex title field
-document_title_dumper = MultiDumper(dumpers=[
-    # make a fresh copy
-    Dumper(),
-    TitleDumper()
-])
+document_title_dumper = MultiDumper(
+    dumpers=[
+        # make a fresh copy
+        Dumper(),
+        TitleDumper(),
+    ]
+)
 
 # dumper used for indexing
-document_indexer_dumper = MultiDumper(dumpers=[
-    # make a fresh copy
-    Dumper(),
-    ReplaceRefsContributionsDumper(),
-    ReplaceRefsEntitiesDumper('subjects', 'genreForm'),
-    ReplaceRefsDumper(),
-    IndexerDumper()
-])
+document_indexer_dumper = MultiDumper(
+    dumpers=[
+        # make a fresh copy
+        Dumper(),
+        ReplaceRefsContributionsDumper(),
+        ReplaceRefsEntitiesDumper("subjects", "genreForm"),
+        ReplaceRefsDumper(),
+        IndexerDumper(),
+    ]
+)

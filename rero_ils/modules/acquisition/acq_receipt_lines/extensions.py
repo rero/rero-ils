@@ -16,6 +16,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition Receipt line record extensions."""
+
+import contextlib
 from datetime import datetime
 
 from flask_babel import gettext as _
@@ -35,8 +37,8 @@ class AcquisitionReceiptLineCompleteDataExtension(RecordExtension):
         :param data: The dict passed to the record's constructor
         :param model: The model class used for initialization.
         """
-        if not record.get('receipt_date'):
-            record['receipt_date'] = datetime.now().strftime('%Y-%m-%d')
+        if not record.get("receipt_date"):
+            record["receipt_date"] = datetime.now().strftime("%Y-%m-%d")
 
 
 class AcqReceiptLineValidationExtension(RecordExtension):
@@ -52,20 +54,14 @@ class AcqReceiptLineValidationExtension(RecordExtension):
             return
 
         original_quantity = 0
-        try:
+        with contextlib.suppress(NoResultFound):
             original_record = record.__class__.get_record(record.id)
             original_quantity = original_record.quantity
-        except NoResultFound:
-            # it's probably because the record isn't yet into DB (but `id`
-            # field is already populated for very next integration)
-            # As the record isn't yet into DB, the original_quantity keep 0
-            pass
-
         quantity_to_check = record.quantity - original_quantity
         already_received_quantity = record.order_line.received_quantity
         new_total_quantity = quantity_to_check + already_received_quantity
         if new_total_quantity > record.order_line.quantity:
-            msg = _('Received quantity is grower than ordered quantity')
+            msg = _("Received quantity is grower than ordered quantity")
             raise ValidationError(msg)
 
     # INVENIO EXTENSION HOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

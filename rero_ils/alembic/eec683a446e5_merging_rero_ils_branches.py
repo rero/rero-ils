@@ -21,13 +21,13 @@
 from logging import getLogger
 
 # revision identifiers, used by Alembic.
-revision = 'eec683a446e5'
-down_revision = ('fc45b1b998b8', 'a941628259e1')
+revision = "eec683a446e5"
+down_revision = ("fc45b1b998b8", "a941628259e1")
 branch_labels = ()
 depends_on = None
 
 
-LOGGER = getLogger('alembic')
+LOGGER = getLogger("alembic")
 
 
 def upgrade():

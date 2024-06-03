@@ -19,17 +19,20 @@
 """Permissions for Patron transaction event."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByOrganisation, \
-    AllowedByActionRestrictByOwnerOrOrganisation, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByOrganisation,
+    AllowedByActionRestrictByOwnerOrOrganisation,
+    RecordPermissionPolicy,
+)
 
 # Actions to control patron transaction event policies for CRUD operations
-search_action = action_factory('ptre-search')
-read_action = action_factory('ptre-read')
-create_action = action_factory('ptre-create')
-update_action = action_factory('ptre-update')
-delete_action = action_factory('ptre-delete')
-access_action = action_factory('ptre-access')
+search_action = action_factory("ptre-search")
+read_action = action_factory("ptre-read")
+create_action = action_factory("ptre-create")
+update_action = action_factory("ptre-update")
+delete_action = action_factory("ptre-delete")
+access_action = action_factory("ptre-access")
 
 
 class PatronTransactionEventPermissionPolicy(RecordPermissionPolicy):

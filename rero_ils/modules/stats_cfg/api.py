@@ -29,9 +29,9 @@ from .models import StatCfgIdentifier, StatCfgMetadata
 
 # provider
 StatCfgProvider = type(
-    'StatCfgProvider',
+    "StatCfgProvider",
     (Provider,),
-    dict(identifier=StatCfgIdentifier, pid_type='stacfg')
+    dict(identifier=StatCfgIdentifier, pid_type="stacfg"),
 )
 # minter
 stat_cfg_id_minter = partial(id_minter, provider=StatCfgProvider)
@@ -45,9 +45,9 @@ class StatsConfigurationSearch(IlsRecordsSearch):
     class Meta:
         """Search only on stats_cfg index."""
 
-        index = 'stats_cfg'
+        index = "stats_cfg"
         doc_types = None
-        fields = ('*',)
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -73,19 +73,21 @@ class StatConfiguration(IlsRecord):
 
         links = {}
 
-        query = StatsSearch()\
-            .filter('term', type='report')\
-            .filter('term', config__pid=self.pid)
+        query = (
+            StatsSearch()
+            .filter("term", type="report")
+            .filter("term", config__pid=self.pid)
+        )
 
         if get_pids:
-            query = query.source(['pid']).scan()
+            query = query.source(["pid"]).scan()
             reports = [s.pid for s in query]
         else:
             reports = query.count()
 
         # get number of reports or list of reports pids for configuration
         if reports:
-            links['reports'] = reports
+            links["reports"] = reports
         return links
 
     def reasons_not_to_delete(self):
@@ -94,22 +96,20 @@ class StatConfiguration(IlsRecord):
         :return: dict with number of reports or reports pids
         """
         cannot_delete = {}
-        # It is not possible to delete configuration if there are reports.
-        links = self.get_links_to_me()
-        if links:
-            cannot_delete['links'] = links
+        if links := self.get_links_to_me():
+            cannot_delete["links"] = links
         return cannot_delete
 
     @property
     def organisation_pid(self):
         """Shortcut for organisation pid."""
-        library = extracted_data_from_ref(self.get('library'), data='record')
+        library = extracted_data_from_ref(self.get("library"), data="record")
         return library.organisation_pid
 
     @property
     def library_pid(self):
         """Shortcut for library pid."""
-        return extracted_data_from_ref(self.get('library'))
+        return extracted_data_from_ref(self.get("library"))
 
 
 class StatsConfigurationIndexer(IlsRecordsIndexer):
@@ -123,4 +123,4 @@ class StatsConfigurationIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='stacfg')
+        super().bulk_index(record_id_iterator, doc_type="stacfg")

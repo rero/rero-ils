@@ -26,7 +26,6 @@ from invenio_pidstore.models import PIDStatus, RecordIdentifier
 from invenio_pidstore.providers.base import BaseProvider
 from invenio_records.models import RecordMetadataBase
 from jsonschema.exceptions import ValidationError
-from utils import flush_index
 
 from rero_ils.modules.api import IlsRecord, IlsRecordError, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
@@ -37,12 +36,13 @@ from rero_ils.modules.providers import Provider
 class IdentifierTest(RecordIdentifier):
     """Sequence generator for Test identifiers."""
 
-    __tablename__ = 'test_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "test_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
@@ -52,9 +52,9 @@ class SearchTest(IlsRecordsSearch):
     class Meta:
         """Search only on test index."""
 
-        index = 'records-record-v1.0.0'
+        index = "records-record-v1.0.0"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -63,7 +63,7 @@ class SearchTest(IlsRecordsSearch):
 class ProviderTest(BaseProvider):
     """Test identifier provider."""
 
-    pid_type = 'test'
+    pid_type = "test"
     """Type of persistent identifier."""
 
     pid_identifier = IdentifierTest.__tablename__
@@ -82,11 +82,11 @@ class ProviderTest(BaseProvider):
     @classmethod
     def create(cls, object_type=None, object_uuid=None, **kwargs):
         """Create a new Test identifier."""
-        if not kwargs.get('pid_value'):
-            kwargs['pid_value'] = str(IdentifierTest.next())
-        kwargs.setdefault('status', cls.default_status)
+        if not kwargs.get("pid_value"):
+            kwargs["pid_value"] = str(IdentifierTest.next())
+        kwargs.setdefault("status", cls.default_status)
         if object_type and object_uuid:
-            kwargs['status'] = PIDStatus.REGISTERED
+            kwargs["status"] = PIDStatus.REGISTERED
         return super().create(
             object_type=object_type, object_uuid=object_uuid, **kwargs
         )
@@ -108,7 +108,7 @@ class TestRecordMetadata(db.Model, RecordMetadataBase):
 class RecordTest(IlsRecord):
     """Test record class."""
 
-    name = 'records'
+    name = "records"
     minter = id_minter_test
     fetcher = id_fetcher_test
     provider = ProviderTest
@@ -119,12 +119,8 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     """Test IlsRecord update."""
 
     # the created records will be accessible in all function of this test file
-    record_1 = RecordTest.create(
-        data=ils_record,
-        dbcommit=True,
-        reindex=True
-    )
-    assert record_1.pid == 'ilsrecord_pid'
+    record_1 = RecordTest.create(data=ils_record, dbcommit=True, reindex=True)
+    assert record_1.pid == "ilsrecord_pid"
     assert record_1.id == RecordTest.get_id_by_pid(record_1.pid)
     record_alias = record_1.db_record()
     assert record_1.pid == record_alias.pid
@@ -134,79 +130,73 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
         dbcommit=True,
         reindex=True,
     )
-    assert record_2.pid == 'ilsrecord_pid_2'
+    assert record_2.pid == "ilsrecord_pid_2"
     record_created_pid = RecordTest.create(
-        data=ils_record,
-        reindex=True,
-        dbcommit=True,
-        delete_pid=True
+        data=ils_record, reindex=True, dbcommit=True, delete_pid=True
     )
-    assert record_created_pid.pid == '1'
+    assert record_created_pid.pid == "1"
     with pytest.raises(IlsRecordError.PidAlreadyUsed):
-        RecordTest.create(
-            data=ils_record,
-            dbcommit=True,
-            reindex=True
-        )
-    flush_index(SearchTest.Meta.index)
+        RecordTest.create(data=ils_record, dbcommit=True, reindex=True)
+    SearchTest.flush_and_refresh()
 
     """Test IlsRecord."""
     assert sorted(RecordTest.get_all_pids()) == [
-        '1', 'ilsrecord_pid', 'ilsrecord_pid_2'
+        "1",
+        "ilsrecord_pid",
+        "ilsrecord_pid_2",
     ]
     assert len(list(RecordTest.get_all_pids(limit=None))) == 3
     assert len(list(RecordTest.get_all_ids(limit=None))) == 3
 
-    assert RecordTest.get_id_by_pid(record_created_pid.pid) == \
-        record_created_pid.id
-    assert not RecordTest.get_record_by_pid('dummy')
+    assert RecordTest.get_id_by_pid(record_created_pid.pid) == record_created_pid.id
+    assert not RecordTest.get_record_by_pid("dummy")
 
     """Test IlsRecord update."""
-    record = RecordTest.get_record_by_pid('ilsrecord_pid')
-    record['name'] = 'name changed'
+    record = RecordTest.get_record_by_pid("ilsrecord_pid")
+    record["name"] = "name changed"
     record = record.update(record, dbcommit=True)
-    assert record['name'] == 'name changed'
+    assert record["name"] == "name changed"
     with pytest.raises(IlsRecordError.PidChange):
-        record['pid'] = 'pid changed'
+        record["pid"] = "pid changed"
         record.update(record, dbcommit=True)
 
     """Test IlsRecord replace."""
-    record = RecordTest.get_record_by_pid('ilsrecord_pid')
+    record = RecordTest.get_record_by_pid("ilsrecord_pid")
 
-    del record['name']
+    del record["name"]
     record = record.replace(record, dbcommit=True)
     assert record.get_links_to_me() == {}
-    assert not record.get('name')
+    assert not record.get("name")
 
     with pytest.raises(IlsRecordError.PidMissing):
-        del record['pid']
+        del record["pid"]
         record.replace(record, dbcommit=True)
 
     """Test IlsRecord get pid by id."""
-    record = RecordTest.get_record_by_pid('ilsrecord_pid')
+    record = RecordTest.get_record_by_pid("ilsrecord_pid")
     pid = RecordTest.get_pid_by_id(record.id)
     assert pid == record.pid
 
     """Test IlsRecord record pid exist."""
-    assert RecordTest.record_pid_exists('ilsrecord_pid')
-    assert not RecordTest.record_pid_exists('unknown')
+    assert RecordTest.record_pid_exists("ilsrecord_pid")
+    assert not RecordTest.record_pid_exists("unknown")
 
     """Test IlsRecord revert."""
-    record = RecordTest.get_record_by_pid('ilsrecord_pid')
+    record = RecordTest.get_record_by_pid("ilsrecord_pid")
     record = record.revert(record.revision_id - 1)
-    assert record.get('name') == 'name changed'
+    assert record.get("name") == "name changed"
 
     record.delete()
     with pytest.raises(IlsRecordError.Deleted):
         record = record.revert(record.revision_id - 1)
     record = record.undelete()
-    assert record.get('pid') == 'ilsrecord_pid'
+    assert record.get("pid") == "ilsrecord_pid"
     with pytest.raises(IlsRecordError.NotDeleted):
         record = record.undelete()
 
     """Test IlsRecord es search."""
     search = SearchTest()
-    count = search.filter('match_all').source().count()
+    count = search.filter("match_all").source().count()
     assert count == 3
     # TODO: do we need a mapping for this to work?
     # search_one = list(search.filter('term', pid='ilsrecord_pid')
@@ -214,13 +204,13 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
     # assert search_one[0]['pid'] == 'ilsrecord_pid_2'
 
     """Test IlsRecord update."""
-    record = RecordTest.get_record_by_pid('ilsrecord_pid')
+    record = RecordTest.get_record_by_pid("ilsrecord_pid")
     record.delete(delindex=True)
     assert RecordTest.count() == 2
-    record = RecordTest.get_record_by_pid('ilsrecord_pid_2')
+    record = RecordTest.get_record_by_pid("ilsrecord_pid_2")
     record.delete(delindex=True)
     assert RecordTest.count() == 1
-    record = RecordTest.get_record_by_pid('1')
+    record = RecordTest.get_record_by_pid("1")
     record.delete(delindex=True)
     assert RecordTest.count() == 0
 
@@ -228,22 +218,20 @@ def test_ilsrecord(app, es_default_index, ils_record, ils_record_2):
 class FailedPidIdentifier(RecordIdentifier):
     """Sequence generator for Test identifiers."""
 
-    __tablename__ = 'failed_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "failed_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
 FailedPidProvider = type(
-    'FailedPidProvider',
+    "FailedPidProvider",
     (Provider,),
-    dict(
-        identifier=FailedPidIdentifier,
-        pid_type='failed'
-    )
+    dict(identifier=FailedPidIdentifier, pid_type="failed"),
 )
 
 # failedPID minter
@@ -261,22 +249,22 @@ class FailedIlsRecord(IlsRecord):
 def test_ilsrecord_failed_pid(app, es_default_index, ils_record, ils_record_2):
     """Test IlsRecord PID after validation failed"""
     schema = {
-        'type': 'object',
-        'properties': {
-            'name': {
-                'type': 'string',
+        "type": "object",
+        "properties": {
+            "name": {
+                "type": "string",
             },
-            'noideaforafield': {
-                'type': 'string',
-            }
+            "noideaforafield": {
+                "type": "string",
+            },
         },
-        'required': ['name', 'noideaforafield']
+        "required": ["name", "noideaforafield"],
     }
     with pytest.raises(ValidationError):
         FailedIlsRecord.create(
             data={
-                '$schema': schema,
-                'name': 'Bad IlsRecord',
+                "$schema": schema,
+                "name": "Bad IlsRecord",
             },
             delete_pid=False,
         )
@@ -295,8 +283,8 @@ def test_ilsrecord_failed_pid(app, es_default_index, ils_record, ils_record_2):
     assert record2.pid == str(next_pid)
 
     ils_record_3 = {
-        'pid': '3',
-        'name': 'IlsRecord Name 3',
+        "pid": "3",
+        "name": "IlsRecord Name 3",
     }
     with pytest.raises(IlsRecordError.PidAlreadyUsed):
         record3 = FailedIlsRecord.create(data=ils_record_3, delete_pid=False)

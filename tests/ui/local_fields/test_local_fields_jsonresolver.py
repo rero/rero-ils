@@ -27,10 +27,10 @@ from rero_ils.modules.utils import extracted_data_from_ref
 def test_local_field_jsonresolver(local_field_martigny):
     """Test local fields json resolver."""
     local_field = local_field_martigny
-    rec = Record.create({
-        'local_field': {'$ref': 'https://bib.rero.ch/api/local_fields/lofi1'}
-    })
-    assert extracted_data_from_ref(rec.get('local_field')) == 'lofi1'
+    rec = Record.create(
+        {"local_field": {"$ref": "https://bib.rero.ch/api/local_fields/lofi1"}}
+    )
+    assert extracted_data_from_ref(rec.get("local_field")) == "lofi1"
 
     # deleted record
     local_field.delete()
@@ -38,8 +38,8 @@ def test_local_field_jsonresolver(local_field_martigny):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create({
-        'local_fields': {'$ref': 'https://bib.rero.ch/api/local_fields/n_e'}
-    })
+    rec = Record.create(
+        {"local_fields": {"$ref": "https://bib.rero.ch/api/local_fields/n_e"}}
+    )
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

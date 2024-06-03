@@ -26,40 +26,50 @@ from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.utils import get_schema_for_resource
 
 
-def test_loan_can_extend(client, patron_martigny, item_lib_martigny,
-                         loc_public_martigny, librarian_martigny,
-                         circulation_policies, json_header):
+def test_loan_can_extend(
+    client,
+    patron_martigny,
+    item_lib_martigny,
+    loc_public_martigny,
+    librarian_martigny,
+    circulation_policies,
+    json_header,
+):
     """Test is loan can extend."""
     params = {
-        'patron_pid': patron_martigny.pid,
-        'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny.pid,
-        'pickup_location_pid': loc_public_martigny.pid,
+        "patron_pid": patron_martigny.pid,
+        "transaction_location_pid": loc_public_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+        "pickup_location_pid": loc_public_martigny.pid,
     }
     item, loan = item_record_to_a_specific_loan_state(
-        item=item_lib_martigny, loan_state=LoanState.ITEM_ON_LOAN,
-        params=params, copy_item=True)
+        item=item_lib_martigny,
+        loan_state=LoanState.ITEM_ON_LOAN,
+        params=params,
+        copy_item=True,
+    )
 
-    list_url = url_for(
-        'api_loan.can_extend', loan_pid=loan.pid)
+    list_url = url_for("api_loan.can_extend", loan_pid=loan.pid)
     login_user(client, patron_martigny)
     response = client.get(list_url, headers=json_header)
     assert response.status_code == 200
     assert get_json(response) == {
-        'can': False,
-        'reasons': ['Circulation policies disallows the operation.']
+        "can": False,
+        "reasons": ["Circulation policies disallows the operation."],
     }
 
 
 def test_loan_circulation_policy(
-    client, patron_martigny, librarian_martigny,
-    item_on_loan_martigny_patron_and_loan_on_loan
+    client,
+    patron_martigny,
+    librarian_martigny,
+    item_on_loan_martigny_patron_and_loan_on_loan,
 ):
     """Test dumping of circulation policy related to a loan."""
     _, _, loan = item_on_loan_martigny_patron_and_loan_on_loan
-    base_url_for = 'api_loan.dump_loan_current_circulation_policy'
+    base_url_for = "api_loan.dump_loan_current_circulation_policy"
     api_url = url_for(base_url_for, loan_pid=loan.pid)
-    dummy_url = url_for(base_url_for, loan_pid='dummy_pid')
+    dummy_url = url_for(base_url_for, loan_pid="dummy_pid")
 
     # Patron user cannot access to this API
     login_user_via_session(client, patron_martigny.user)
@@ -71,8 +81,8 @@ def test_loan_circulation_policy(
     response = client.get(api_url)
     assert response.status_code == 200
     data = get_json(response)
-    cipo_schema = get_schema_for_resource('cipo')
-    data['$schema'] = current_jsonschemas.path_to_url(cipo_schema)
+    cipo_schema = get_schema_for_resource("cipo")
+    data["$schema"] = current_jsonschemas.path_to_url(cipo_schema)
 
     response = client.get(dummy_url)
     assert response.status_code == 404

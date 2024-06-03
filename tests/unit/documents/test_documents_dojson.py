@@ -25,40 +25,36 @@ from utils import mock_response
 
 from rero_ils.dojson.utils import not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
-from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero.model import \
-    get_mef_link
+from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero.model import (
+    get_mef_link,
+)
 from rero_ils.modules.documents.models import DocumentFictionType
-from rero_ils.modules.documents.views import create_publication_statement, \
-    get_cover_art, get_other_accesses
+from rero_ils.modules.documents.views import (
+    create_publication_statement,
+    get_cover_art,
+    get_other_accesses,
+)
 from rero_ils.modules.entities.models import EntityType
 
 
 def test_not_repetetive(capsys):
     """Test the function not_repetetive."""
-    data_dict = {'sub': ('first', 'second')}
+    data_dict = {"sub": ("first", "second")}
     data = not_repetitive(
-        bibid='pid1',
-        reroid='rero1',
-        key='key',
-        value=data_dict,
-        subfield='sub'
+        bibid="pid1", reroid="rero1", key="key", value=data_dict, subfield="sub"
     )
-    assert data == 'first'
+    assert data == "first"
     out, err = capsys.readouterr()
-    assert out == \
-        f'WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{str(data_dict)}\t\n'
-    data = {'sub': 'only'}
+    assert (
+        out == f"WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{str(data_dict)}\t\n"
+    )
+    data = {"sub": "only"}
     data = not_repetitive(
-        bibid='pid1',
-        reroid='rero1',
-        key='key',
-        value=data,
-        subfield='sub',
-        default=''
+        bibid="pid1", reroid="rero1", key="key", value=data, subfield="sub", default=""
     )
-    assert data == 'only'
+    assert data == "only"
     out, err = capsys.readouterr()
-    assert out == ''
+    assert out == ""
 
 
 # type: leader
@@ -82,10 +78,9 @@ def test_marc21_to_type():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('type') == [{
-        'main_type': 'docmaintype_book',
-        'subtype': 'docsubtype_other_book'
-    }]
+    assert data.get("type") == [
+        {"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}
+    ]
 
     marc21xml = """
     <record>
@@ -103,15 +98,9 @@ def test_marc21_to_type():
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('type') == [
-        {
-            'main_type': 'docmaintype_book',
-            'subtype': 'docsubtype_other_book'
-        },
-        {
-            'main_type': 'docmaintype_score',
-            'subtype': 'docsubtype_printed_score'
-        }
+    assert data.get("type") == [
+        {"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"},
+        {"main_type": "docmaintype_score", "subtype": "docsubtype_printed_score"},
     ]
 
 
@@ -129,9 +118,7 @@ def test_marc21_to_admin_metadata():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('adminMetadata') == {
-      'encodingLevel': 'Full level'
-    }
+    assert data.get("adminMetadata") == {"encodingLevel": "Full level"}
 
     marc21xml = """
     <record>
@@ -146,9 +133,9 @@ def test_marc21_to_admin_metadata():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('adminMetadata') == {
-      'encodingLevel': 'Less-than-full level, material not examined',
-      'note': ['Société de publications romanes (pf/08.05.1985)'],
+    assert data.get("adminMetadata") == {
+        "encodingLevel": "Less-than-full level, material not examined",
+        "note": ["Société de publications romanes (pf/08.05.1985)"],
     }
 
     marc21xml = """
@@ -176,14 +163,14 @@ def test_marc21_to_admin_metadata():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('adminMetadata') == {
-      'encodingLevel': 'Less-than-full level, material not examined',
-      'note': [
-         "Catalogué d'après la couverture (nebpun/12.2019)",
-         'BPUN: Sandoz, Pellet, Rosselet, Bähler (nebpun/12.2019)',
-         '!!!Bibliographie neuchâteloise!!! (necfbv/12.2019/3546)',
-         '!!! Discographie neuchâteloise!!! (necfbv/02.2021/3502)'
-      ]
+    assert data.get("adminMetadata") == {
+        "encodingLevel": "Less-than-full level, material not examined",
+        "note": [
+            "Catalogué d'après la couverture (nebpun/12.2019)",
+            "BPUN: Sandoz, Pellet, Rosselet, Bähler (nebpun/12.2019)",
+            "!!!Bibliographie neuchâteloise!!! (necfbv/12.2019/3546)",
+            "!!! Discographie neuchâteloise!!! (necfbv/02.2021/3502)",
+        ],
     }
 
     marc21xml = """
@@ -202,12 +189,9 @@ def test_marc21_to_admin_metadata():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('adminMetadata') == {
-      'encodingLevel': 'Less-than-full level, material not examined',
-      'note': [
-        'Notice privée (vsbcce/02.2013)',
-        'Fonds'
-      ],
+    assert data.get("adminMetadata") == {
+        "encodingLevel": "Less-than-full level, material not examined",
+        "note": ["Notice privée (vsbcce/02.2013)", "Fonds"],
     }
 
     # field 351 with missing $c
@@ -227,11 +211,9 @@ def test_marc21_to_admin_metadata():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('adminMetadata') == {
-      'encodingLevel': 'Less-than-full level, material not examined',
-      'note': [
-        'Notice privée (vsbcce/02.2013)'
-      ],
+    assert data.get("adminMetadata") == {
+        "encodingLevel": "Less-than-full level, material not examined",
+        "note": ["Notice privée (vsbcce/02.2013)"],
     }
 
     marc21xml = """
@@ -250,12 +232,12 @@ def test_marc21_to_admin_metadata():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('adminMetadata') == {
-      'encodingLevel': 'Unknown',
-      'source': 'DLC',
-      'descriptionModifier': ['SzZuIDS NEBIS ZBZ', 'RERO vsbcvs'],
-      'descriptionLanguage': 'ger',
-      'descriptionConventions': ['rda'],
+    assert data.get("adminMetadata") == {
+        "encodingLevel": "Unknown",
+        "source": "DLC",
+        "descriptionModifier": ["SzZuIDS NEBIS ZBZ", "RERO vsbcvs"],
+        "descriptionLanguage": "ger",
+        "descriptionConventions": ["rda"],
     }
 
 
@@ -273,10 +255,7 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1001',
-        'subtype': 'article'
-    }
+    assert data.get("issuance") == {"main_type": "rdami:1001", "subtype": "article"}
 
     marc21xml = """
     <record>
@@ -287,9 +266,9 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1003',
-        'subtype': 'serialInSerial'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1003",
+        "subtype": "serialInSerial",
     }
 
     marc21xml = """
@@ -301,10 +280,7 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1001',
-        'subtype': 'privateFile'
-    }
+    assert data.get("issuance") == {"main_type": "rdami:1001", "subtype": "privateFile"}
 
     marc21xml = """
     <record>
@@ -315,9 +291,9 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1001',
-        'subtype': 'privateSubfile'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1001",
+        "subtype": "privateSubfile",
     }
 
     marc21xml = """
@@ -329,9 +305,9 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1001',
-        'subtype': 'materialUnit'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit",
     }
 
     marc21xml = """
@@ -349,10 +325,7 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1002',
-        'subtype': 'set'
-    }
+    assert data.get("issuance") == {"main_type": "rdami:1002", "subtype": "set"}
 
     marc21xml = """
     <record>
@@ -363,9 +336,9 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1004',
-        'subtype': 'updatingWebsite'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1004",
+        "subtype": "updatingWebsite",
     }
 
     marc21xml = """
@@ -377,9 +350,9 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1004',
-        'subtype': 'updatingLoose-leaf'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1004",
+        "subtype": "updatingLoose-leaf",
     }
 
     marc21xml = """
@@ -391,9 +364,9 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1004',
-        'subtype': 'updatingWebsite'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1004",
+        "subtype": "updatingWebsite",
     }
 
     marc21xml = """
@@ -405,9 +378,9 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1003',
-        'subtype': 'monographicSeries'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1003",
+        "subtype": "monographicSeries",
     }
 
     marc21xml = """
@@ -419,10 +392,7 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1003',
-        'subtype': 'periodical'
-    }
+    assert data.get("issuance") == {"main_type": "rdami:1003", "subtype": "periodical"}
 
     marc21xml = """
     <record>
@@ -433,9 +403,9 @@ def test_marc21_to_mode_of_issuance():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1001',
-        'subtype': 'materialUnit'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit",
     }
 
 
@@ -452,7 +422,7 @@ def test_marc21_to_pid():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('pid') == '123456789'
+    assert data.get("pid") == "123456789"
     marc21xml = """
     <record>
       <controlfield tag="001">
@@ -462,7 +432,7 @@ def test_marc21_to_pid():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('pid') is None
+    assert data.get("pid") is None
 
 
 def test_marc21_to_title_245_with_sufield_c_having_square_bracket():
@@ -490,24 +460,16 @@ def test_marc21_to_title_245_with_sufield_c_having_square_bracket():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'type': 'bf:Title',
-            'mainTitle': [
-                {'value': 'Ma ville en vert'}
-            ],
-            'subtitle': [
-                {'value': 'pour un retour de la nature'}
-            ],
+            "type": "bf:Title",
+            "mainTitle": [{"value": "Ma ville en vert"}],
+            "subtitle": [{"value": "pour un retour de la nature"}],
         }
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {'value': '[Robert Klant ... [et al.]'}
-        ],
-        [
-            {'value': '[Kitty B.]'}
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "[Robert Klant ... [et al.]"}],
+        [{"value": "[Kitty B.]"}],
     ]
 
 
@@ -550,41 +512,27 @@ def test_marc21_to_title_245_with_two_246():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'type': 'bf:Title',
-            'mainTitle': [
-                {'value': 'Guo ji fa'},
-                {
-                    'value': '国际法',
-                    'language': 'chi-hani'
-                }
-            ]
+            "type": "bf:Title",
+            "mainTitle": [
+                {"value": "Guo ji fa"},
+                {"value": "国际法", "language": "chi-hani"},
+            ],
         },
         {
-            'type': 'bf:ParallelTitle',
-            'mainTitle': [
-                {'value': 'International law'},
-                {
-                    'value': 'International law',
-                    'language': 'chi-hani'
-                }
-            ]
+            "type": "bf:ParallelTitle",
+            "mainTitle": [
+                {"value": "International law"},
+                {"value": "International law", "language": "chi-hani"},
+            ],
         },
-        {
-            'type': 'bf:VariantTitle',
-            'mainTitle': [{'value': 'Guojifa'}]
-        }
+        {"type": "bf:VariantTitle", "mainTitle": [{"value": "Guojifa"}]},
     ]
-    assert data.get('responsibilityStatement') == [
+    assert data.get("responsibilityStatement") == [
         [
-            {
-                'value': 'Liang Xi yuan zhu zhu bian, Wang Xianshu fu zhu bian'
-            },
-            {
-                'value': '梁西原著主编, 王献枢副主编',
-                'language': 'chi-hani'
-            }
+            {"value": "Liang Xi yuan zhu zhu bian, Wang Xianshu fu zhu bian"},
+            {"value": "梁西原著主编, 王献枢副主编", "language": "chi-hani"},
         ]
     ]
 
@@ -621,33 +569,21 @@ def test_marc21_to_title_245_without_246():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'type': 'bf:Title',
-            'mainTitle': [
-                {'value': 'L.N. Tolstoĭ'},
-                {
-                    'value': 'Л.Н. Толстой',
-                    'language': 'rus-cyrl'
-                }
+            "type": "bf:Title",
+            "mainTitle": [
+                {"value": "L.N. Tolstoĭ"},
+                {"value": "Л.Н. Толстой", "language": "rus-cyrl"},
             ],
-            'subtitle': [
-                {'value': 'seminariĭ'},
-                {
-                    'value': 'семинарий',
-                    'language': 'rus-cyrl'
-                }
+            "subtitle": [
+                {"value": "seminariĭ"},
+                {"value": "семинарий", "language": "rus-cyrl"},
             ],
         }
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {'value': 'B.I. Bursov'},
-            {
-                'value': 'Б.И. Бурсов',
-                'language': 'rus-cyrl'
-            }
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "B.I. Bursov"}, {"value": "Б.И. Бурсов", "language": "rus-cyrl"}]
     ]
 
 
@@ -689,59 +625,39 @@ def test_marc21_to_title_245_with_part_without_246():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'mainTitle': [
-                {'value': 'L.N. Tolstoĭ'},
-                {
-                    'value': 'Л.Н. Толстой',
-                    'language': 'rus-cyrl'
-                }
+            "mainTitle": [
+                {"value": "L.N. Tolstoĭ"},
+                {"value": "Л.Н. Толстой", "language": "rus-cyrl"},
             ],
-            'subtitle': [
-                {'value': 'seminariĭ'},
-                {
-                    'value': 'семинарий',
-                    'language': 'rus-cyrl'
-                }
+            "subtitle": [
+                {"value": "seminariĭ"},
+                {"value": "семинарий", "language": "rus-cyrl"},
             ],
-            'type': 'bf:Title',
-            'part': [{
-                    'partNumber': [
-                        {'value': 'part number'},
-                        {
-                            'value': 'Part Number',
-                            'language': 'rus-cyrl'
-                        }
+            "type": "bf:Title",
+            "part": [
+                {
+                    "partNumber": [
+                        {"value": "part number"},
+                        {"value": "Part Number", "language": "rus-cyrl"},
                     ],
-                    'partName': [
-                        {'value': 'part name'},
-                        {
-                            'value': 'Part Name',
-                            'language': 'rus-cyrl'
-                        }
-                    ]
+                    "partName": [
+                        {"value": "part name"},
+                        {"value": "Part Name", "language": "rus-cyrl"},
+                    ],
                 },
                 {
-                    'partNumber': [
-                        {'value': 'part number 2'},
-                        {
-                            'value': 'Part Number 2',
-                            'language': 'rus-cyrl'
-                        }
+                    "partNumber": [
+                        {"value": "part number 2"},
+                        {"value": "Part Number 2", "language": "rus-cyrl"},
                     ]
-                }
-            ]
+                },
+            ],
         }
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {'value': 'B.I. Bursov'},
-            {
-                'value': 'Б.И. Бурсов',
-                'language': 'rus-cyrl'
-            }
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "B.I. Bursov"}, {"value": "Б.И. Бурсов", "language": "rus-cyrl"}]
     ]
 
 
@@ -776,38 +692,21 @@ def test_marc21_to_title_with_multiple_parts():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'type': 'bf:Title',
-            'mainTitle': [{'value': 'Statistique'}],
-            'subtitle': [{'value': 'exercices corrigés'}],
-            'part': [
-                {
-                    'partNumber': [{'value': 'T. 1'}],
-                    'partName': [{'value': 'Tome 1'}]
-                },
-                {
-                    'partNumber': [{'value': 'T. 2'}],
-                    'partName': [{'value': 'Tome 2'}]
-                },
-                {
-                    'partName': [{'value': 'Tome 3'}]
-
-                },
-                {
-                    'partNumber': [{'value': 'T. 4'}]
-                },
-                {
-                    'partNumber': [{'value': 'T. 5'}]
-                }
-            ]
+            "type": "bf:Title",
+            "mainTitle": [{"value": "Statistique"}],
+            "subtitle": [{"value": "exercices corrigés"}],
+            "part": [
+                {"partNumber": [{"value": "T. 1"}], "partName": [{"value": "Tome 1"}]},
+                {"partNumber": [{"value": "T. 2"}], "partName": [{"value": "Tome 2"}]},
+                {"partName": [{"value": "Tome 3"}]},
+                {"partNumber": [{"value": "T. 4"}]},
+                {"partNumber": [{"value": "T. 5"}]},
+            ],
         }
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {'value': 'Christian Labrousse'}
-        ]
-    ]
+    assert data.get("responsibilityStatement") == [[{"value": "Christian Labrousse"}]]
 
 
 def test_marc21_to_title_245_and_246():
@@ -845,38 +744,26 @@ def test_marc21_to_title_245_and_246():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'type': 'bf:Title',
-            'mainTitle': [
-                {'value': 'L.N. Tolstoĭ'},
-                {
-                    'value': 'Л.Н. Толстой',
-                    'language': 'rus-cyrl'
-                }
+            "type": "bf:Title",
+            "mainTitle": [
+                {"value": "L.N. Tolstoĭ"},
+                {"value": "Л.Н. Толстой", "language": "rus-cyrl"},
             ],
-            'subtitle': [
-                {'value': 'seminariĭ'},
-                {
-                    'value': 'семинарий',
-                    'language': 'rus-cyrl'
-                }
-            ]
+            "subtitle": [
+                {"value": "seminariĭ"},
+                {"value": "семинарий", "language": "rus-cyrl"},
+            ],
         },
         {
-            'type': 'bf:VariantTitle',
-            'mainTitle': [{'value': 'L.N. Tolstoj'}],
-            'subtitle': [{'value': 'seminarij / B.I. Bursov'}]
-        }
+            "type": "bf:VariantTitle",
+            "mainTitle": [{"value": "L.N. Tolstoj"}],
+            "subtitle": [{"value": "seminarij / B.I. Bursov"}],
+        },
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {'value': 'B.I. Bursov'},
-            {
-                'value': 'Б.И. Бурсов',
-                'language': 'rus-cyrl'
-            }
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "B.I. Bursov"}, {"value": "Б.И. Бурсов", "language": "rus-cyrl"}]
     ]
 
 
@@ -915,45 +802,27 @@ def test_marc21_to_title_245_and_246_with_multiple_responsibilities():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'type': 'bf:Title',
-            'mainTitle': [
-                {'value': 'L.N. Tolstoĭ'},
-                {
-                    'value': 'Л.Н. Толстой',
-                    'language': 'rus-cyrl'
-                }
+            "type": "bf:Title",
+            "mainTitle": [
+                {"value": "L.N. Tolstoĭ"},
+                {"value": "Л.Н. Толстой", "language": "rus-cyrl"},
             ],
-            'subtitle': [
-                {'value': 'seminariĭ'},
-                {
-                    'value': 'семинарий',
-                    'language': 'rus-cyrl'
-                }
-            ]
+            "subtitle": [
+                {"value": "seminariĭ"},
+                {"value": "семинарий", "language": "rus-cyrl"},
+            ],
         },
         {
-            'type': 'bf:VariantTitle',
-            'mainTitle': [{'value': 'L.N. Tolstoj'}],
-            'subtitle': [{'value': 'seminarij / B.I. Bursov'}]
-        }
+            "type": "bf:VariantTitle",
+            "mainTitle": [{"value": "L.N. Tolstoj"}],
+            "subtitle": [{"value": "seminarij / B.I. Bursov"}],
+        },
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {'value': 'B.I. Bursov'},
-            {
-                'value': 'Б.И. Бурсов',
-                'language': 'rus-cyrl'
-            }
-        ],
-        [
-            {'value': 'Tolstoĭ'},
-            {
-                'value': 'Толстой',
-                'language': 'rus-cyrl'
-            }
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "B.I. Bursov"}, {"value": "Б.И. Бурсов", "language": "rus-cyrl"}],
+        [{"value": "Tolstoĭ"}, {"value": "Толстой", "language": "rus-cyrl"}],
     ]
 
 
@@ -986,29 +855,24 @@ def test_marc21_to_title_with_variant_without_subtitle():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'type': 'bf:Title',
-            'mainTitle': [
-                {'value': 'TRANEL'}
+            "type": "bf:Title",
+            "mainTitle": [{"value": "TRANEL"}],
+            "subtitle": [
+                {"value": "travaux neuchâtelois de linguistique"},
             ],
-            'subtitle': [
-                {'value': 'travaux neuchâtelois de linguistique'},
-            ]
         },
         {
-            'type': 'bf:VariantTitle',
-            'mainTitle': [
-                {'value': 'Travaux neuchâtelois de linguistique'}
+            "type": "bf:VariantTitle",
+            "mainTitle": [{"value": "Travaux neuchâtelois de linguistique"}],
+            "part": [
+                {"partNumber": [{"value": "T. 1"}], "partName": [{"value": "Tome 1"}]}
             ],
-            'part': [{
-                    'partNumber': [{'value': 'T. 1'}],
-                    'partName': [{'value': 'Tome 1'}]
-            }]
-        }
+        },
     ]
-    assert data.get('responsibilityStatement') == [
-        [{'value': 'Institut de linguistique, UNINE'}]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "Institut de linguistique, UNINE"}]
     ]
 
 
@@ -1038,19 +902,14 @@ def test_marc21_to_title_with_variant_both_without_subtitle():
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
+        {"type": "bf:Title", "mainTitle": [{"value": "3 filles et 10 kilos en trop"}]},
         {
-            'type': 'bf:Title',
-            'mainTitle': [{'value': '3 filles et 10 kilos en trop'}]
+            "type": "bf:VariantTitle",
+            "mainTitle": [{"value": "Trois filles et dix kilos en trop"}],
         },
-        {
-            'type': 'bf:VariantTitle',
-            'mainTitle': [{'value': 'Trois filles et dix kilos en trop'}]
-        }
     ]
-    assert data.get('responsibilityStatement') == [
-        [{'value': 'Jacqueline Wilson'}]
-    ]
+    assert data.get("responsibilityStatement") == [[{"value": "Jacqueline Wilson"}]]
 
 
 def test_marc21_to_title_with_parallel_title():
@@ -1060,7 +919,8 @@ def test_marc21_to_title_with_parallel_title():
     - subfield 245 $a did not end with '='
     - field 246 with subfield $a only
     """
-    marc21xml = """
+    marc21xml = (
+        """
     <record>
       <controlfield tag=
         "008">001224s1980    sz |||||| ||||00|| |ger d</controlfield>
@@ -1069,8 +929,8 @@ def test_marc21_to_title_with_parallel_title():
       </datafield>
       <datafield tag="245" ind1="0" ind2="0">
         <subfield code="a">Schatzkammer der Schweiz :</subfield>
-        <subfield code="b">Landesmuseums = Le Patrimoine Suisse : joyaux """ \
-    """= Patrimonio : oggetti preziosi /</subfield>
+        <subfield code="b">Landesmuseums = Le Patrimoine Suisse : joyaux """
+        """= Patrimonio : oggetti preziosi /</subfield>
         <subfield code="c">Redaktion J. Schneider ; Texte R. Degan</subfield>
       </datafield>
       <datafield tag="246" ind1="3" ind2=" ">
@@ -1080,34 +940,34 @@ def test_marc21_to_title_with_parallel_title():
         <subfield code="a">Patrimonio culturale della Svizzera</subfield>
       </datafield>
     </record>    """
+    )
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'type': 'bf:Title',
-            'mainTitle': [{'value': 'Schatzkammer der Schweiz'}],
-            'subtitle': [{'value': 'Landesmuseums'}]
+            "type": "bf:Title",
+            "mainTitle": [{"value": "Schatzkammer der Schweiz"}],
+            "subtitle": [{"value": "Landesmuseums"}],
         },
         {
-            'type': 'bf:ParallelTitle',
-            'mainTitle': [{'value': 'Le Patrimoine Suisse'}],
-            'subtitle': [{'value': 'joyaux'}]
+            "type": "bf:ParallelTitle",
+            "mainTitle": [{"value": "Le Patrimoine Suisse"}],
+            "subtitle": [{"value": "joyaux"}],
         },
         {
-            'type': 'bf:ParallelTitle',
-            'mainTitle': [{'value': 'Patrimonio'}],
-            'subtitle': [{'value': 'oggetti preziosi'}]
-
+            "type": "bf:ParallelTitle",
+            "mainTitle": [{"value": "Patrimonio"}],
+            "subtitle": [{"value": "oggetti preziosi"}],
         },
         {
-            'type': 'bf:VariantTitle',
-            'mainTitle': [{'value': 'Patrimonio culturale della Svizzera'}]
-        }
+            "type": "bf:VariantTitle",
+            "mainTitle": [{"value": "Patrimonio culturale della Svizzera"}],
+        },
     ]
-    assert data.get('responsibilityStatement') == [
-        [{'value': 'Redaktion J. Schneider'}],
-        [{'value': 'Texte R. Degan'}]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "Redaktion J. Schneider"}],
+        [{"value": "Texte R. Degan"}],
     ]
 
 
@@ -1146,62 +1006,38 @@ def test_marc21_to_title_245_with_parallel_title_and_246():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'type': 'bf:Title',
-            'mainTitle': [
-                {'value': 'L.N. Tolstoĭ'},
-                {
-                    'value': 'Л.Н. Толстой',
-                    'language': 'rus-cyrl'
-                }
+            "type": "bf:Title",
+            "mainTitle": [
+                {"value": "L.N. Tolstoĭ"},
+                {"value": "Л.Н. Толстой", "language": "rus-cyrl"},
             ],
-            'subtitle': [
-                {'value': 'seminariĭ'},
-                {
-                    'value': 'семинарий',
-                    'language': 'rus-cyrl'
-                }
-            ]
+            "subtitle": [
+                {"value": "seminariĭ"},
+                {"value": "семинарий", "language": "rus-cyrl"},
+            ],
         },
         {
-            'type': 'bf:ParallelTitle',
-            'mainTitle': [
-                {'value': 'TOTO'},
-                {
-                    'value': 'toto',
-                    'language': 'rus-cyrl'
-                }
-            ],
-            'subtitle': [
-                {'value': 'TITI'},
-                {
-                    'value': 'titi',
-                    'language': 'rus-cyrl'
-                }
-            ]
+            "type": "bf:ParallelTitle",
+            "mainTitle": [{"value": "TOTO"}, {"value": "toto", "language": "rus-cyrl"}],
+            "subtitle": [{"value": "TITI"}, {"value": "titi", "language": "rus-cyrl"}],
         },
         {
-            'type': 'bf:VariantTitle',
-            'mainTitle': [{'value': 'L.N. Tolstoj'}],
-            'subtitle': [{'value': 'seminarij / B.I. Bursov'}]
-        }
+            "type": "bf:VariantTitle",
+            "mainTitle": [{"value": "L.N. Tolstoj"}],
+            "subtitle": [{"value": "seminarij / B.I. Bursov"}],
+        },
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {'value': 'B.I. Bursov'},
-            {
-                'value': 'Б.И. Бурсов',
-                'language': 'rus-cyrl'
-            }
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "B.I. Bursov"}, {"value": "Б.И. Бурсов", "language": "rus-cyrl"}]
     ]
 
 
 # languages: 008 and 041 [$a, repetitive]
 def test_marc21_to_language():
     """Test dojson marc21languages."""
-    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    field_008 = "881005s1984    xxu|||||| ||||00|| |ara d"
     marc21xml = f"""
     <record>
       <controlfield tag="008">{field_008}</controlfield>
@@ -1214,17 +1050,11 @@ def test_marc21_to_language():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
 
-    assert data.get('language') == [
-        {
-            'type': 'bf:Language',
-            'value': 'ara'
-        },
-        {
-            'type': 'bf:Language',
-            'value': 'eng'
-        }
+    assert data.get("language") == [
+        {"type": "bf:Language", "value": "ara"},
+        {"type": "bf:Language", "value": "eng"},
     ]
-    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    field_008 = "881005s1984    xxu|||||| ||||00|| |ara d"
     marc21xml = f"""
     <record>
       <controlfield tag="008">{field_008}</controlfield>
@@ -1238,20 +1068,12 @@ def test_marc21_to_language():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('language') == [
-        {
-            'type': 'bf:Language',
-            'value': 'ara'
-        },       {
-            'type': 'bf:Language',
-            'value': 'eng'
-        },
-        {
-            'type': 'bf:Language',
-            'value': 'fre'
-        }
+    assert data.get("language") == [
+        {"type": "bf:Language", "value": "ara"},
+        {"type": "bf:Language", "value": "eng"},
+        {"type": "bf:Language", "value": "fre"},
     ]
-    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    field_008 = "881005s1984    xxu|||||| ||||00|| |ara d"
     marc21xml = f"""
     <record>
       <datafield tag="041" ind1=" " ind2=" ">
@@ -1263,17 +1085,11 @@ def test_marc21_to_language():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
 
-    assert data.get('language') == [
-        {
-          'type': 'bf:Language',
-          'value': 'ara'
-        },
-        {
-          'type': 'bf:Language',
-          'value': 'eng'
-        }
+    assert data.get("language") == [
+        {"type": "bf:Language", "value": "ara"},
+        {"type": "bf:Language", "value": "eng"},
     ]
-    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    field_008 = "881005s1984    xxu|||||| ||||00|| |ara d"
     marc21xml = f"""
     <record>
       <controlfield tag="008">{field_008}</controlfield>
@@ -1285,21 +1101,12 @@ def test_marc21_to_language():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('language') == [
-        {
-            'type': 'bf:Language',
-            'value': 'ara'
-        },
-        {
-            'type': 'bf:Language',
-            'value': 'eng'
-        },
-        {
-            'type': 'bf:Language',
-            'value': 'rus'
-        }
+    assert data.get("language") == [
+        {"type": "bf:Language", "value": "ara"},
+        {"type": "bf:Language", "value": "eng"},
+        {"type": "bf:Language", "value": "rus"},
     ]
-    field_008 = '881005s1984    xxu|||||| ||||00|| |ara d'
+    field_008 = "881005s1984    xxu|||||| ||||00|| |ara d"
     marc21xml = f"""
     <record>
       <controlfield tag="008">{field_008}</controlfield>
@@ -1310,16 +1117,12 @@ def test_marc21_to_language():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('language') == [
-        {
-            'type': 'bf:Language',
-            'value': 'ara',
-            'note': 'LANGUAGE NOTE'
-        }
+    assert data.get("language") == [
+        {"type": "bf:Language", "value": "ara", "note": "LANGUAGE NOTE"}
     ]
 
 
-@mock.patch('requests.Session.get')
+@mock.patch("requests.Session.get")
 def test_marc21_to_contribution(mock_get, mef_agents_url):
     """Test dojson marc21_to_contribution."""
     marc21xml = """
@@ -1356,40 +1159,34 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    contribution = data.get('contribution')
+    contribution = data.get("contribution")
     assert contribution == [
         {
-            'entity': {
-                'authorized_access_point': 'Jean-Paul II, Pape, 1954',
-                'type': 'bf:Person'
+            "entity": {
+                "authorized_access_point": "Jean-Paul II, Pape, 1954",
+                "type": "bf:Person",
             },
-            'role': ['aut']
+            "role": ["aut"],
         },
         {
-            'entity': {
-                'authorized_access_point':
-                    'Dumont, Jean, 1921-2014, Historien',
-                'type': 'bf:Person'
+            "entity": {
+                "authorized_access_point": "Dumont, Jean, 1921-2014, Historien",
+                "type": "bf:Person",
             },
-            'role': ['edt']
+            "role": ["edt"],
         },
         {
-            'entity': {
-                'type': 'bf:Organisation',
-                'authorized_access_point': 'RERO'
-            },
-            'role': ['ctb']
+            "entity": {"type": "bf:Organisation", "authorized_access_point": "RERO"},
+            "role": ["ctb"],
         },
         {
-            'entity': {
-                'authorized_access_point':
-                    'Biennale de céramique contemporaine (17 : 2003 : '
-                    'Châteauroux)',
-                'type': 'bf:Organisation'
+            "entity": {
+                "authorized_access_point": "Biennale de céramique contemporaine (17 : 2003 : "
+                "Châteauroux)",
+                "type": "bf:Organisation",
             },
-            'role': ['aut']
-        }
-
+            "role": ["aut"],
+        },
     ]
 
     marc21xml = """
@@ -1399,20 +1196,15 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
       </datafield>
     </record>
     """
-    mock_get.return_value = mock_response(json_data={
-        'pid': 'test',
-        'type': 'bf:Person',
-        'idref': {'pid': 'XXXXXXXX'}
-    })
+    mock_get.return_value = mock_response(
+        json_data={"pid": "test", "type": "bf:Person", "idref": {"pid": "XXXXXXXX"}}
+    )
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    contribution = data.get('contribution')
-    assert contribution == [{
-        'entity': {
-            '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
-        },
-        'role': ['cre']
-    }]
+    contribution = data.get("contribution")
+    assert contribution == [
+        {"entity": {"$ref": f"{mef_agents_url}/idref/XXXXXXXX"}, "role": ["cre"]}
+    ]
 
     marc21xml = """
     <record>
@@ -1425,18 +1217,17 @@ def test_marc21_to_contribution(mock_get, mef_agents_url):
     mock_get.return_value = mock_response(status=400)
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    contribution = data.get('contribution')
-    assert contribution == [{
-        'entity': {
-            'authorized_access_point': 'Jean-Paul',
-            'type': 'bf:Person',
-            'identifiedBy': {
-                'type': 'IdRef',
-                'value': 'YYYYYYYY'
-            }
-        },
-        'role': ['cre']
-    }]
+    contribution = data.get("contribution")
+    assert contribution == [
+        {
+            "entity": {
+                "authorized_access_point": "Jean-Paul",
+                "type": "bf:Person",
+                "identifiedBy": {"type": "IdRef", "value": "YYYYYYYY"},
+            },
+            "role": ["cre"],
+        }
+    ]
 
 
 # Copyright Date: [264 _4 $c non repetitive]
@@ -1452,7 +1243,7 @@ def test_marc21copyrightdate():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('copyrightDate') == ['© 1971']
+    assert data.get("copyrightDate") == ["© 1971"]
 
     marc21xml = """
     <record>
@@ -1463,7 +1254,7 @@ def test_marc21copyrightdate():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('copyrightDate') == ['© 1971 [extra 1973]']
+    assert data.get("copyrightDate") == ["© 1971 [extra 1973]"]
 
 
 def test_marc21_to_provision_activity_manufacture_date():
@@ -1491,23 +1282,14 @@ def test_marc21_to_provision_activity_manufacture_date():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Manufacture',
-            'statement': [
-                {
-                    'label': [{'value': 'Bienne'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': 'Impr. Weber'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '[2006]'}],
-                    'type': 'Date'
-                }
-            ]
+            "type": "bf:Manufacture",
+            "statement": [
+                {"label": [{"value": "Bienne"}], "type": "bf:Place"},
+                {"label": [{"value": "Impr. Weber"}], "type": "bf:Agent"},
+                {"label": [{"value": "[2006]"}], "type": "Date"},
+            ],
         }
     ]
 
@@ -1524,14 +1306,14 @@ def test_marc21_provisionActivity_without_264():
     </record>"""
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'sz'
-        }],
-        'startDate': 2006,
-        'endDate': 2010
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Publication",
+            "place": [{"country": "sz"}],
+            "startDate": 2006,
+            "endDate": 2010,
+        }
+    ]
 
 
 def test_marc21_provisionActivity_without_264_with_752():
@@ -1551,18 +1333,19 @@ def test_marc21_provisionActivity_without_264_with_752():
     </record>"""
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'sz',
-            'identifiedBy': {
-                    'type': 'IdRef',
-                    'value': '027401421'
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "sz",
+                    "identifiedBy": {"type": "IdRef", "value": "027401421"},
                 }
-        }],
-        'startDate': 2006,
-        'endDate': 2010
-    }]
+            ],
+            "startDate": 2006,
+            "endDate": 2010,
+        }
+    ]
 
 
 def test_marc21_provisionActivity_with_original_date():
@@ -1576,15 +1359,15 @@ def test_marc21_provisionActivity_with_original_date():
     </record>"""
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'sz'
-        }],
-        'startDate': 1997,
-        'original_date': 1849,
-        'endDate': 1849
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Publication",
+            "place": [{"country": "sz"}],
+            "startDate": 1997,
+            "original_date": 1849,
+            "endDate": 1849,
+        }
+    ]
 
 
 def test_marc21_to_provision_activity_canton():
@@ -1625,64 +1408,32 @@ def test_marc21_to_provision_activity_canton():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'canton': 'be',
-                'country': 'sz'
-            }],
-            'statement': [
+            "type": "bf:Publication",
+            "place": [{"canton": "be", "country": "sz"}],
+            "statement": [
+                {"label": [{"value": "Biel/Bienne"}], "type": "bf:Place"},
+                {"label": [{"value": "Centre PasquArt"}], "type": "bf:Agent"},
+                {"label": [{"value": "Nürnberg"}], "type": "bf:Place"},
+                {"label": [{"value": "Verlag für Moderne Kunst"}], "type": "bf:Agent"},
+                {"label": [{"value": "Manchester"}], "type": "bf:Place"},
                 {
-                    'label': [{'value': 'Biel/Bienne'}],
-                    'type': 'bf:Place'
+                    "label": [{"value": "distrib. in the United Kingdom [etc.]"}],
+                    "type": "bf:Agent",
                 },
-                {
-                    'label': [{'value': 'Centre PasquArt'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': 'Nürnberg'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': 'Verlag für Moderne Kunst'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': 'Manchester'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{
-                        'value': 'distrib. in the United Kingdom [etc.]'
-                    }],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '[2006-2010]'}],
-                    'type': 'Date'
-                }
+                {"label": [{"value": "[2006-2010]"}], "type": "Date"},
             ],
-            'startDate': 2006,
-            'endDate': 2010
-        }, {
-            'type': 'bf:Manufacture',
-            'statement': [
-                {
-                    'label': [
-                        {'value': 'Bienne'}
-                    ],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [
-                        {'value': 'Impr. Weber'}
-                    ],
-                    'type': 'bf:Agent'
-                }
-            ]
-        }
+            "startDate": 2006,
+            "endDate": 2010,
+        },
+        {
+            "type": "bf:Manufacture",
+            "statement": [
+                {"label": [{"value": "Bienne"}], "type": "bf:Place"},
+                {"label": [{"value": "Impr. Weber"}], "type": "bf:Agent"},
+            ],
+        },
     ]
 
     marc21xml = """
@@ -1697,14 +1448,11 @@ def test_marc21_to_provision_activity_canton():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'canton': 'vd',
-                'country': 'sz'
-            }],
-            'startDate': 1998
+            "type": "bf:Publication",
+            "place": [{"canton": "vd", "country": "sz"}],
+            "startDate": 1998,
         }
     ]
 
@@ -1725,14 +1473,8 @@ def test_marc21_to_provision_activity_obsolete_countries():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
-        {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'xxc'
-            }],
-            'startDate': 1998
-        }
+    assert data.get("provisionActivity") == [
+        {"type": "bf:Publication", "place": [{"country": "xxc"}], "startDate": 1998}
     ]
 
     marc21xml = """
@@ -1746,13 +1488,15 @@ def test_marc21_to_provision_activity_obsolete_countries():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'er',
-            }],
-            'startDate': 1998
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "er",
+                }
+            ],
+            "startDate": 1998,
         }
     ]
 
@@ -1767,13 +1511,15 @@ def test_marc21_to_provision_activity_obsolete_countries():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'li',
-            }],
-            'startDate': 1998
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "li",
+                }
+            ],
+            "startDate": 1998,
         }
     ]
 
@@ -1788,13 +1534,15 @@ def test_marc21_to_provision_activity_obsolete_countries():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'lv',
-            }],
-            'startDate': 1998
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "lv",
+                }
+            ],
+            "startDate": 1998,
         }
     ]
 
@@ -1809,13 +1557,15 @@ def test_marc21_to_provision_activity_obsolete_countries():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'xxk',
-            }],
-            'startDate': 1998
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "xxk",
+                }
+            ],
+            "startDate": 1998,
         }
     ]
 
@@ -1830,13 +1580,15 @@ def test_marc21_to_provision_activity_obsolete_countries():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'un',
-            }],
-            'startDate': 1998
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "un",
+                }
+            ],
+            "startDate": 1998,
         }
     ]
 
@@ -1851,13 +1603,15 @@ def test_marc21_to_provision_activity_obsolete_countries():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'xxu',
-            }],
-            'startDate': 1998
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "xxu",
+                }
+            ],
+            "startDate": 1998,
         }
     ]
 
@@ -1872,13 +1626,15 @@ def test_marc21_to_provision_activity_obsolete_countries():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'xxr',
-            }],
-            'startDate': 1998
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "xxr",
+                }
+            ],
+            "startDate": 1998,
         }
     ]
 
@@ -1893,13 +1649,15 @@ def test_marc21_to_provision_activity_obsolete_countries():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'ye',
-            }],
-            'startDate': 1998
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "ye",
+                }
+            ],
+            "startDate": 1998,
         }
     ]
 
@@ -1923,31 +1681,17 @@ def test_marc21_to_provision_activity_1_place_2_agents():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'fr'
-            }],
-            'statement': [
-                {
-                    'label': [{'value': '[Paris]'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': 'Desclée de Brouwer [puis]'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': 'Etudes augustiniennes'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '1969-'}],
-                    'type': 'Date'
-                }
+            "type": "bf:Publication",
+            "place": [{"country": "fr"}],
+            "statement": [
+                {"label": [{"value": "[Paris]"}], "type": "bf:Place"},
+                {"label": [{"value": "Desclée de Brouwer [puis]"}], "type": "bf:Agent"},
+                {"label": [{"value": "Etudes augustiniennes"}], "type": "bf:Agent"},
+                {"label": [{"value": "1969-"}], "type": "Date"},
             ],
-            'startDate': 1969
+            "startDate": 1969,
         }
     ]
 
@@ -1977,35 +1721,22 @@ def test_marc21_to_provision_activity_1_place_2_agents_with_one_752():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'fr',
-                'identifiedBy': {
-                    'type': 'IdRef',
-                    'value': '027401421'
-                }
-            }],
-            'statement': [
+            "type": "bf:Publication",
+            "place": [
                 {
-                    'label': [{'value': '[Paris]'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': 'Desclée de Brouwer [puis]'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': 'Etudes augustiniennes'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '1969-'}],
-                    'type': 'Date'
+                    "country": "fr",
+                    "identifiedBy": {"type": "IdRef", "value": "027401421"},
                 }
             ],
-            'startDate': 1969
+            "statement": [
+                {"label": [{"value": "[Paris]"}], "type": "bf:Place"},
+                {"label": [{"value": "Desclée de Brouwer [puis]"}], "type": "bf:Agent"},
+                {"label": [{"value": "Etudes augustiniennes"}], "type": "bf:Agent"},
+                {"label": [{"value": "1969-"}], "type": "Date"},
+            ],
+            "startDate": 1969,
         }
     ]
 
@@ -2040,42 +1771,26 @@ def test_marc21_to_provision_activity_1_place_2_agents_with_two_752():
      """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                    'country': 'fr',
-                    'identifiedBy': {
-                        'type': 'IdRef',
-                        'value': '027401421'
-                    }
-                }, {
-                    'country': 'xx',
-                    'identifiedBy': {
-                        'type': 'RERO',
-                        'value': 'A000000001'
-                    }
-                }
+            "type": "bf:Publication",
+            "place": [
+                {
+                    "country": "fr",
+                    "identifiedBy": {"type": "IdRef", "value": "027401421"},
+                },
+                {
+                    "country": "xx",
+                    "identifiedBy": {"type": "RERO", "value": "A000000001"},
+                },
             ],
-            'statement': [
-                {
-                    'label': [{'value': '[Paris]'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': 'Desclée de Brouwer [puis]'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': 'Etudes augustiniennes'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '1969-'}],
-                    'type': 'Date'
-                }
+            "statement": [
+                {"label": [{"value": "[Paris]"}], "type": "bf:Place"},
+                {"label": [{"value": "Desclée de Brouwer [puis]"}], "type": "bf:Agent"},
+                {"label": [{"value": "Etudes augustiniennes"}], "type": "bf:Agent"},
+                {"label": [{"value": "1969-"}], "type": "Date"},
             ],
-            'startDate': 1969
+            "startDate": 1969,
         }
     ]
 
@@ -2098,37 +1813,24 @@ def test_marc21_to_provision_activity_unknown_place_2_agents():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'be'
-            }],
-            'statement': [
+            "type": "bf:Publication",
+            "place": [{"country": "be"}],
+            "statement": [
                 {
-                    'label': [
-                        {'value': '[Lieu de publication non identifié]'}
-                    ],
-                    'type': 'bf:Place'
+                    "label": [{"value": "[Lieu de publication non identifié]"}],
+                    "type": "bf:Place",
                 },
-                {
-                    'label': [{'value': 'Labor'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': 'Nathan'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '1968'}],
-                    'type': 'Date'
-                }
+                {"label": [{"value": "Labor"}], "type": "bf:Agent"},
+                {"label": [{"value": "Nathan"}], "type": "bf:Agent"},
+                {"label": [{"value": "1968"}], "type": "Date"},
             ],
-            'startDate': 1968
+            "startDate": 1968,
         }
     ]
-    assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        '[Lieu de publication non identifié] : Labor ; Nathan, 1968'
+    assert create_publication_statement(data.get("provisionActivity")[0]) == [
+        "[Lieu de publication non identifié] : Labor ; Nathan, 1968"
     ]
 
 
@@ -2152,39 +1854,22 @@ def test_marc21_to_provision_activity_3_places_dann_2_agents():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                 'country': 'gw'
-            }],
-            'statement': [
-                {
-                    'label': [{'value': 'Hamm (Westf.)'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': '[dann] Herzberg'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': '[dann] Nordhausen'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': 'T. Bautz'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '1975-'}],
-                    'type': 'Date'
-                }
+            "type": "bf:Publication",
+            "place": [{"country": "gw"}],
+            "statement": [
+                {"label": [{"value": "Hamm (Westf.)"}], "type": "bf:Place"},
+                {"label": [{"value": "[dann] Herzberg"}], "type": "bf:Place"},
+                {"label": [{"value": "[dann] Nordhausen"}], "type": "bf:Place"},
+                {"label": [{"value": "T. Bautz"}], "type": "bf:Agent"},
+                {"label": [{"value": "1975-"}], "type": "Date"},
             ],
-            'startDate': 1975
+            "startDate": 1975,
         }
     ]
-    assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        'Hamm (Westf.) ; [dann] Herzberg ; [dann] Nordhausen : T. Bautz, 1975-'
+    assert create_publication_statement(data.get("provisionActivity")[0]) == [
+        "Hamm (Westf.) ; [dann] Herzberg ; [dann] Nordhausen : T. Bautz, 1975-"
     ]
 
 
@@ -2207,35 +1892,21 @@ def test_marc21_to_provision_activity_2_places_1_agent():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'sz'
-            }],
-            'statement': [
-                {
-                    'label': [{'value': '[Louvain]'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': '[Paris]'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': '[éditeur non identifié]'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '[1966]'}],
-                    'type': 'Date'
-                }
+            "type": "bf:Publication",
+            "place": [{"country": "sz"}],
+            "statement": [
+                {"label": [{"value": "[Louvain]"}], "type": "bf:Place"},
+                {"label": [{"value": "[Paris]"}], "type": "bf:Place"},
+                {"label": [{"value": "[éditeur non identifié]"}], "type": "bf:Agent"},
+                {"label": [{"value": "[1966]"}], "type": "Date"},
             ],
-            'startDate': 1966
+            "startDate": 1966,
         }
     ]
-    assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        '[Louvain] ; [Paris] : [éditeur non identifié], [1966]'
+    assert create_publication_statement(data.get("provisionActivity")[0]) == [
+        "[Louvain] ; [Paris] : [éditeur non identifié], [1966]"
     ]
 
 
@@ -2261,28 +1932,20 @@ def test_marc21_to_provision_activity_1_place_1_agent_reprint_date():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'xxu'
-            }],
-            'statement': [
+            "type": "bf:Publication",
+            "place": [{"country": "xxu"}],
+            "statement": [
+                {"label": [{"value": "Washington"}], "type": "bf:Place"},
                 {
-                    'label': [{'value': 'Washington'}],
-                    'type': 'bf:Place'
+                    "label": [{"value": "Carnegie Institution of Washington"}],
+                    "type": "bf:Agent",
                 },
-                {
-                    'label': [{'value': 'Carnegie Institution of Washington'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '1916'}],
-                    'type': 'Date'
-                }
+                {"label": [{"value": "1916"}], "type": "Date"},
             ],
-            'startDate': 1758,
-            'endDate': 1916
+            "startDate": 1758,
+            "endDate": 1916,
         }
     ]
 
@@ -2305,32 +1968,21 @@ def test_marc21_to_provision_activity_1_place_1_agent_uncertain_date():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'fr'
-            }],
-            'statement': [
-                {
-                    'label': [{'value': 'Aurillac'}],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [{'value': 'Impr. moderne'}],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [{'value': '[1941?]'}],
-                    'type': 'Date'
-                }
+            "type": "bf:Publication",
+            "place": [{"country": "fr"}],
+            "statement": [
+                {"label": [{"value": "Aurillac"}], "type": "bf:Place"},
+                {"label": [{"value": "Impr. moderne"}], "type": "bf:Agent"},
+                {"label": [{"value": "[1941?]"}], "type": "Date"},
             ],
-            'note': 'Date(s) uncertain or unknown',
-            'startDate': 1941
+            "note": "Date(s) uncertain or unknown",
+            "startDate": 1941,
         }
     ]
-    assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        'Aurillac : Impr. moderne, [1941?]'
+    assert create_publication_statement(data.get("provisionActivity")[0]) == [
+        "Aurillac : Impr. moderne, [1941?]"
     ]
 
 
@@ -2368,41 +2020,39 @@ def test_marc21_to_provision_activity_1_place_1_agent_chi_hani():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'cc'
-            }],
-            'statement': [
+            "type": "bf:Publication",
+            "place": [{"country": "cc"}],
+            "statement": [
                 {
-                    'label': [
-                        {'value': 'Beijing'},
-                        {'value': '北京', 'language': 'chi-hani'}
+                    "label": [
+                        {"value": "Beijing"},
+                        {"value": "北京", "language": "chi-hani"},
                     ],
-                    'type': 'bf:Place'
+                    "type": "bf:Place",
                 },
                 {
-                    'label': [
-                          {'value': 'Beijing da xue chu ban she'},
-                          {'value': '北京大学出版社', 'language': 'chi-hani'}
+                    "label": [
+                        {"value": "Beijing da xue chu ban she"},
+                        {"value": "北京大学出版社", "language": "chi-hani"},
                     ],
-                    'type': 'bf:Agent'
+                    "type": "bf:Agent",
                 },
                 {
-                    'label': [
-                        {'value': '2017'},
-                        {'language': 'chi-hani', 'value': '2017'}
+                    "label": [
+                        {"value": "2017"},
+                        {"language": "chi-hani", "value": "2017"},
                     ],
-                    'type': 'Date'
-                }
+                    "type": "Date",
+                },
             ],
-            'startDate': 2017
+            "startDate": 2017,
         }
     ]
-    assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        '北京 : 北京大学出版社, 2017',
-        'Beijing : Beijing da xue chu ban she, 2017'
+    assert create_publication_statement(data.get("provisionActivity")[0]) == [
+        "北京 : 北京大学出版社, 2017",
+        "Beijing : Beijing da xue chu ban she, 2017",
     ]
     marc21xml = """
       <record>
@@ -2433,40 +2083,39 @@ def test_marc21_to_provision_activity_1_place_1_agent_chi_hani():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [{
-            'country': 'cc'
-        }],
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Beijing'},
-                    {'value': '北京', 'language': 'chi-hani'}
-                ],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Beijing da xue chu ban she'},
-                    {'value': '北京大学出版社',
-                     'language': 'chi-hani'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': '2017'},
-                    {'language': 'chi-hani', 'value': '2017'}
-                ],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 2017
-    }]
-    assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        '北京 : 北京大学出版社, 2017',
-        'Beijing : Beijing da xue chu ban she, 2017'
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Publication",
+            "place": [{"country": "cc"}],
+            "statement": [
+                {
+                    "label": [
+                        {"value": "Beijing"},
+                        {"value": "北京", "language": "chi-hani"},
+                    ],
+                    "type": "bf:Place",
+                },
+                {
+                    "label": [
+                        {"value": "Beijing da xue chu ban she"},
+                        {"value": "北京大学出版社", "language": "chi-hani"},
+                    ],
+                    "type": "bf:Agent",
+                },
+                {
+                    "label": [
+                        {"value": "2017"},
+                        {"language": "chi-hani", "value": "2017"},
+                    ],
+                    "type": "Date",
+                },
+            ],
+            "startDate": 2017,
+        }
+    ]
+    assert create_publication_statement(data.get("provisionActivity")[0]) == [
+        "北京 : 北京大学出版社, 2017",
+        "Beijing : Beijing da xue chu ban she, 2017",
     ]
 
 
@@ -2493,26 +2142,18 @@ def test_marc21_to_edition_statement_one_field_250():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('editionStatement') == [{
-        'editionDesignation': [
-            {
-                'value': 'Di 3 ban'
-            },
-            {
-                'value': '第3版',
-                'language': 'chi-hani'
-            }
-        ],
-        'responsibility': [
-            {
-                'value': 'Zeng Lingliang zhu bian'
-            },
-            {
-                'value': '曾令良主编',
-                'language': 'chi-hani'
-                }
-        ]
-    }]
+    assert data.get("editionStatement") == [
+        {
+            "editionDesignation": [
+                {"value": "Di 3 ban"},
+                {"value": "第3版", "language": "chi-hani"},
+            ],
+            "responsibility": [
+                {"value": "Zeng Lingliang zhu bian"},
+                {"value": "曾令良主编", "language": "chi-hani"},
+            ],
+        }
+    ]
 
 
 def test_marc21_to_edition_statement_two_fields_250():
@@ -2542,37 +2183,22 @@ def test_marc21_to_edition_statement_two_fields_250():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('editionStatement') == [{
-        'editionDesignation': [
-            {
-                'value': 'Di 3 ban'
-            },
-            {
-                'value': '第3版',
-                'language': 'chi-hani'
-            }
-        ],
-        'responsibility': [
-            {
-                'value': 'Zeng Lingliang zhu bian'
-            },
-            {
-                'value': '曾令良主编',
-                'language': 'chi-hani'
-            }
-        ]
-    }, {
-        'editionDesignation': [
-            {
-                'value': 'Edition'
-            }
-        ],
-        'responsibility': [
-            {
-                'value': 'Responsibility'
-            }
-        ]
-    }]
+    assert data.get("editionStatement") == [
+        {
+            "editionDesignation": [
+                {"value": "Di 3 ban"},
+                {"value": "第3版", "language": "chi-hani"},
+            ],
+            "responsibility": [
+                {"value": "Zeng Lingliang zhu bian"},
+                {"value": "曾令良主编", "language": "chi-hani"},
+            ],
+        },
+        {
+            "editionDesignation": [{"value": "Edition"}],
+            "responsibility": [{"value": "Responsibility"}],
+        },
+    ]
 
 
 def test_marc21_to_edition_statement_with_two_subfield_a():
@@ -2601,26 +2227,18 @@ def test_marc21_to_edition_statement_with_two_subfield_a():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
 
-    assert data.get('editionStatement') == [{
-        'editionDesignation': [
-            {
-                'value': 'Di 3 ban'
-            },
-            {
-                'value': '第3版',
-                'language': 'chi-hani'
-            }
-        ],
-        'responsibility': [
-            {
-                'value': 'Zeng Lingliang zhu bian'
-            },
-            {
-                'value': '曾令良主编',
-                'language': 'chi-hani'
-            }
-        ]
-    }]
+    assert data.get("editionStatement") == [
+        {
+            "editionDesignation": [
+                {"value": "Di 3 ban"},
+                {"value": "第3版", "language": "chi-hani"},
+            ],
+            "responsibility": [
+                {"value": "Zeng Lingliang zhu bian"},
+                {"value": "曾令良主编", "language": "chi-hani"},
+            ],
+        }
+    ]
 
 
 def test_marc21_to_edition_statement_with_one_bad_field_250():
@@ -2655,32 +2273,19 @@ def test_marc21_to_edition_statement_with_one_bad_field_250():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('editionStatement') == [{
-        'editionDesignation': [
-            {
-                'value': 'Di 3 ban'
-            },
-            {
-                'value': '第3版',
-                'language': 'chi-hani'
-            }
-        ],
-        'responsibility': [
-            {
-                'value': 'Zeng Lingliang zhu bian'
-            },
-            {
-                'value': '曾令良主编',
-                'language': 'chi-hani'
-            }
-        ]
-    }, {
-        'editionDesignation': [
-            {
-                'value': 'Edition'
-            }
-        ]
-     }]
+    assert data.get("editionStatement") == [
+        {
+            "editionDesignation": [
+                {"value": "Di 3 ban"},
+                {"value": "第3版", "language": "chi-hani"},
+            ],
+            "responsibility": [
+                {"value": "Zeng Lingliang zhu bian"},
+                {"value": "曾令良主编", "language": "chi-hani"},
+            ],
+        },
+        {"editionDesignation": [{"value": "Edition"}]},
+    ]
 
 
 def test_marc21_to_provision_activity_1_place_1_agent_ara_arab():
@@ -2708,43 +2313,42 @@ def test_marc21_to_provision_activity_1_place_1_agent_ara_arab():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'ua'
-            }],
-            'statement': [
+            "type": "bf:Publication",
+            "place": [{"country": "ua"}],
+            "statement": [
                 {
-                    'label': [
-                        {'value': 'al-Qāhirah'},
-                        {'value': 'القاهرة',
-                         'language': 'ara-arab'}
+                    "label": [
+                        {"value": "al-Qāhirah"},
+                        {"value": "القاهرة", "language": "ara-arab"},
                     ],
-                    'type': 'bf:Place'
+                    "type": "bf:Place",
                 },
                 {
-                    'label': [
-                        {'value': 'Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah'},
-                        {'value': 'الهيئة العامة لقصور الثقافة',
-                         'language': 'ara-arab'}
+                    "label": [
+                        {"value": "Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah"},
+                        {
+                            "value": "الهيئة العامة لقصور الثقافة",
+                            "language": "ara-arab",
+                        },
                     ],
-                    'type': 'bf:Agent'
+                    "type": "bf:Agent",
                 },
                 {
-                    'label': [
-                        {'value': '2014'},
-                        {'value': '2014', 'language': 'ara-arab'}
+                    "label": [
+                        {"value": "2014"},
+                        {"value": "2014", "language": "ara-arab"},
                     ],
-                    'type': 'Date'
-                }
+                    "type": "Date",
+                },
             ],
-            'startDate': 2014
+            "startDate": 2014,
         }
     ]
-    assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        'القاهرة : الهيئة العامة لقصور الثقافة, 2014',
-        'al-Qāhirah : Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah, 2014'
+    assert create_publication_statement(data.get("provisionActivity")[0]) == [
+        "القاهرة : الهيئة العامة لقصور الثقافة, 2014",
+        "al-Qāhirah : Al-Hayʾat al-ʿāmmah li quṣūr al-thaqāfah, 2014",
     ]
 
 
@@ -2791,59 +2395,53 @@ def test_marc21_to_provision_activity_2_places_2_agents_rus_cyrl():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'ru'
-            }],
-            'statement': [
+            "type": "bf:Publication",
+            "place": [{"country": "ru"}],
+            "statement": [
                 {
-                    'label': [
-                        {'value': 'Ierusalim'},
-                        {'value': 'Иерусалим',
-                         'language': 'rus-cyrl'}
+                    "label": [
+                        {"value": "Ierusalim"},
+                        {"value": "Иерусалим", "language": "rus-cyrl"},
                     ],
-                    'type': 'bf:Place'
+                    "type": "bf:Place",
                 },
                 {
-                    'label': [
-                        {'value': 'Gesharim'},
-                        {'value': 'Гешарим',
-                         'language': 'rus-cyrl'}
+                    "label": [
+                        {"value": "Gesharim"},
+                        {"value": "Гешарим", "language": "rus-cyrl"},
                     ],
-                    'type': 'bf:Agent'
+                    "type": "bf:Agent",
                 },
                 {
-                    'label': [
-                        {'value': 'Moskva'},
-                        {'value': 'Москва',
-                         'language': 'rus-cyrl'}
+                    "label": [
+                        {"value": "Moskva"},
+                        {"value": "Москва", "language": "rus-cyrl"},
                     ],
-                    'type': 'bf:Place'
+                    "type": "bf:Place",
                 },
                 {
-                    'label': [
-                        {'value': 'Mosty Kulʹtury'},
-                        {'value': 'Мосты Культуры',
-                         'language': 'rus-cyrl'}
+                    "label": [
+                        {"value": "Mosty Kulʹtury"},
+                        {"value": "Мосты Культуры", "language": "rus-cyrl"},
                     ],
-                    'type': 'bf:Agent'
+                    "type": "bf:Agent",
                 },
                 {
-                    'label': [
-                        {'value': '2017'},
-                        {'language': 'rus-cyrl', 'value': '2017'}
+                    "label": [
+                        {"value": "2017"},
+                        {"language": "rus-cyrl", "value": "2017"},
                     ],
-                    'type': 'Date'
-                }
+                    "type": "Date",
+                },
             ],
-            'startDate': 2017
+            "startDate": 2017,
         }
     ]
-    assert create_publication_statement(data.get('provisionActivity')[0]) == [
-        'Иерусалим : Гешарим ; Москва : Мосты Культуры, 2017',
-        'Ierusalim : Gesharim ; Moskva : Mosty Kulʹtury, 2017'
+    assert create_publication_statement(data.get("provisionActivity")[0]) == [
+        "Иерусалим : Гешарим ; Москва : Мосты Культуры, 2017",
+        "Ierusalim : Gesharim ; Moskva : Mosty Kulʹtury, 2017",
     ]
 
 
@@ -2868,29 +2466,26 @@ def test_marc21_to_provision_activity_exceptions(capsys):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     out, err = capsys.readouterr()
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'place': [{
-                'country': 'ru'
-            }],
-            'statement': [
+            "type": "bf:Publication",
+            "place": [{"country": "ru"}],
+            "statement": [
                 {
-                    'label': [
-                        {'value': 'Ierusalim'},
-                        {'value': 'Иерусалим',
-                         'language': 'und-cyrl'}
+                    "label": [
+                        {"value": "Ierusalim"},
+                        {"value": "Иерусалим", "language": "und-cyrl"},
                     ],
-                    'type': 'bf:Place'
+                    "type": "bf:Place",
                 },
             ],
-            'startDate': 2017
+            "startDate": 2017,
         }
     ]
-    assert out.strip().replace('\n', '') == (
-      'WARNING NOT A LANGUAGE 008:\t???\t???\t\t'
-      'WARNING LANGUAGE SCRIPTS:'
-      '\t???\t???\tcyrl\t008:\tund\t041$a:\t[]\t041$h:\t[]'
+    assert out.strip().replace("\n", "") == (
+        "WARNING NOT A LANGUAGE 008:\t???\t???\t\t"
+        "WARNING LANGUAGE SCRIPTS:"
+        "\t???\t???\tcyrl\t008:\tund\t041$a:\t[]\t041$h:\t[]"
     )
 
     marc21xml = """
@@ -2903,12 +2498,14 @@ def test_marc21_to_provision_activity_exceptions(capsys):
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     out, err = capsys.readouterr()
-    assert out.strip() == ('WARNING NOT A LANGUAGE 008:\t???\t???\t\t\n'
-                           'WARNING INIT CANTONS:\t???\t???\tchbe\t\n'
-                           'WARNING NOT A COUNTRY:\t???\t???\t\t\n'
-                           'WARNING START DATE 264:\t???\t???\tNone\t\n'
-                           'WARNING START DATE 008:\t???\t???\tNone\t\n'
-                           'WARNING PROVISION ACTIVITY:\t???\t???')
+    assert out.strip() == (
+        "WARNING NOT A LANGUAGE 008:\t???\t???\t\t\n"
+        "WARNING INIT CANTONS:\t???\t???\tchbe\t\n"
+        "WARNING NOT A COUNTRY:\t???\t???\t\t\n"
+        "WARNING START DATE 264:\t???\t???\tNone\t\n"
+        "WARNING START DATE 008:\t???\t???\tNone\t\n"
+        "WARNING PROVISION ACTIVITY:\t???\t???"
+    )
 
 
 # 300 [$a repetitive]: extent, duration:
@@ -2916,6 +2513,7 @@ def test_marc21_to_provision_activity_exceptions(capsys):
 #        illustrativeContent, note of type otherPhysicalDetails
 # 300 [$c repetitive]: format
 # 300 [$e non epetitive]: accompanying material note
+
 
 def test_marc21_to_physical_description_plano():
     """Test dojson extent, productionMethod."""
@@ -2932,15 +2530,13 @@ def test_marc21_to_physical_description_plano():
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('productionMethod') == \
-        ['rdapm:1007', 'rdapm:1009']
-    assert data.get('extent') == '116 p.'
-    assert data.get('bookFormat') == ['in-plano']
-    assert data.get('dimensions') == ['plano 22 cm']
-    assert data.get('note') == [{
-            'noteType': 'otherPhysicalDetails',
-            'label': 'litho photogravure gravure'
-        }]
+    assert data.get("productionMethod") == ["rdapm:1007", "rdapm:1009"]
+    assert data.get("extent") == "116 p."
+    assert data.get("bookFormat") == ["in-plano"]
+    assert data.get("dimensions") == ["plano 22 cm"]
+    assert data.get("note") == [
+        {"noteType": "otherPhysicalDetails", "label": "litho photogravure gravure"}
+    ]
 
 
 def test_marc21_to_physical_description_with_material_note():
@@ -2959,18 +2555,13 @@ def test_marc21_to_physical_description_with_material_note():
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('productionMethod') == \
-        ['rdapm:1007', 'rdapm:1009']
-    assert data.get('extent') == '116 p.'
-    assert data.get('bookFormat') == ['in-plano']
-    assert data.get('dimensions') == ['plano 22 cm']
-    assert data.get('note') == [{
-            'noteType': 'otherPhysicalDetails',
-            'label': 'litho photogravure gravure'
-        }, {
-            'noteType': 'accompanyingMaterial',
-            'label': '1 atlas'
-        }
+    assert data.get("productionMethod") == ["rdapm:1007", "rdapm:1009"]
+    assert data.get("extent") == "116 p."
+    assert data.get("bookFormat") == ["in-plano"]
+    assert data.get("dimensions") == ["plano 22 cm"]
+    assert data.get("note") == [
+        {"noteType": "otherPhysicalDetails", "label": "litho photogravure gravure"},
+        {"noteType": "accompanyingMaterial", "label": "1 atlas"},
     ]
 
 
@@ -2990,24 +2581,15 @@ def test_marc21_to_physical_description_with_material_note_plus():
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('productionMethod') == \
-        ['rdapm:1007', 'rdapm:1009']
-    assert data.get('extent') == '116 p.'
-    assert data.get('bookFormat') == ['in-plano']
-    assert data.get('dimensions') == ['plano 22 cm']
-    assert data.get('note') == [{
-            'noteType': 'otherPhysicalDetails',
-            'label': 'litho photogravure gravure'
-        }, {
-            'noteType': 'accompanyingMaterial',
-            'label': '1 atlas'
-        }, {
-            'noteType': 'accompanyingMaterial',
-            'label': '3 cartes'
-        }, {
-            'noteType': 'accompanyingMaterial',
-            'label': 'XXIX f. de pl.'
-        }
+    assert data.get("productionMethod") == ["rdapm:1007", "rdapm:1009"]
+    assert data.get("extent") == "116 p."
+    assert data.get("bookFormat") == ["in-plano"]
+    assert data.get("dimensions") == ["plano 22 cm"]
+    assert data.get("note") == [
+        {"noteType": "otherPhysicalDetails", "label": "litho photogravure gravure"},
+        {"noteType": "accompanyingMaterial", "label": "1 atlas"},
+        {"noteType": "accompanyingMaterial", "label": "3 cartes"},
+        {"noteType": "accompanyingMaterial", "label": "XXIX f. de pl."},
     ]
 
 
@@ -3024,9 +2606,9 @@ def test_marc21_to_physical_description_300_without_b():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('extent') == '191 p.'
-    assert data.get('dimensions') == ['21 cm']
-    assert data.get('note') is None
+    assert data.get("extent") == "191 p."
+    assert data.get("dimensions") == ["21 cm"]
+    assert data.get("note") is None
 
 
 def test_marc21_to_physical_description_ill_in_8():
@@ -3043,17 +2625,16 @@ def test_marc21_to_physical_description_ill_in_8():
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('productionMethod') == ['rdapm:1007']
-    assert data.get('extent') == '1 DVD-R (50 min.)'
-    assert data.get('duration') == ['50 min.']
-    assert data.get('illustrativeContent') == ['illustrations']
-    assert data.get('colorContent') == ['rdacc:1002']
-    assert data.get('bookFormat') == ['8ᵒ']
-    assert data.get('dimensions') == ['in-8, 22 cm']
-    assert data.get('note') == [{
-        'noteType': 'otherPhysicalDetails',
-        'label': 'litho Ill.en n. et bl.'
-    }]
+    assert data.get("productionMethod") == ["rdapm:1007"]
+    assert data.get("extent") == "1 DVD-R (50 min.)"
+    assert data.get("duration") == ["50 min."]
+    assert data.get("illustrativeContent") == ["illustrations"]
+    assert data.get("colorContent") == ["rdacc:1002"]
+    assert data.get("bookFormat") == ["8ᵒ"]
+    assert data.get("dimensions") == ["in-8, 22 cm"]
+    assert data.get("note") == [
+        {"noteType": "otherPhysicalDetails", "label": "litho Ill.en n. et bl."}
+    ]
 
 
 def test_marc21_to_physical_description_multiple_300():
@@ -3075,21 +2656,19 @@ def test_marc21_to_physical_description_multiple_300():
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('productionMethod') == \
-        ['rdapm:1007', 'rdapm:1009']
-    assert data.get('extent') == '1 DVD-R (50 min.)'
-    assert data.get('duration') == ['50 min.']
-    assert data.get('illustrativeContent') == ['illustrations', 'photographs']
-    assert data.get('colorContent') == ['rdacc:1002']
-    assert data.get('bookFormat') == ['8ᵒ', 'in-plano']
-    assert data.get('dimensions') == ['in-8, 22 cm', 'plano 22 cm']
-    assert data.get('note') == [{
-            'noteType': 'otherPhysicalDetails',
-            'label': 'litho photogravure gravure n. et bl.'
-        }, {
-            'noteType': 'otherPhysicalDetails',
-            'label': 'litho Ill.en n. et bl.'
-        }
+    assert data.get("productionMethod") == ["rdapm:1007", "rdapm:1009"]
+    assert data.get("extent") == "1 DVD-R (50 min.)"
+    assert data.get("duration") == ["50 min."]
+    assert data.get("illustrativeContent") == ["illustrations", "photographs"]
+    assert data.get("colorContent") == ["rdacc:1002"]
+    assert data.get("bookFormat") == ["8ᵒ", "in-plano"]
+    assert data.get("dimensions") == ["in-8, 22 cm", "plano 22 cm"]
+    assert data.get("note") == [
+        {
+            "noteType": "otherPhysicalDetails",
+            "label": "litho photogravure gravure n. et bl.",
+        },
+        {"noteType": "otherPhysicalDetails", "label": "litho Ill.en n. et bl."},
     ]
 
 
@@ -3112,18 +2691,22 @@ def test_marc21_to_series_statement():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Handbuch der Orientalistik'}],
-        'seriesEnumeration': [{'value': 'Abt. 7'}],
-        'subseriesStatement': [{
-                'subseriesTitle': [{'value': 'Kunst und Archäologie'}],
-                'subseriesEnumeration': [{'value': 'Bd. 6'}]
-            }, {
-                'subseriesTitle': [{'value': 'Südostasien'}],
-                'subseriesEnumeration': [{'value': 'Abschnitt 6'}]
-            }
-        ]
-    }]
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Handbuch der Orientalistik"}],
+            "seriesEnumeration": [{"value": "Abt. 7"}],
+            "subseriesStatement": [
+                {
+                    "subseriesTitle": [{"value": "Kunst und Archäologie"}],
+                    "subseriesEnumeration": [{"value": "Bd. 6"}],
+                },
+                {
+                    "subseriesTitle": [{"value": "Südostasien"}],
+                    "subseriesEnumeration": [{"value": "Abschnitt 6"}],
+                },
+            ],
+        }
+    ]
 
 
 def test_marc21_to_series_statement_mutiple_490():
@@ -3151,29 +2734,36 @@ def test_marc21_to_series_statement_mutiple_490():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Handbuch der Orientalistik 1'}],
-        'seriesEnumeration': [{'value': 'Abt. 7'}],
-        'subseriesStatement': [{
-                'subseriesTitle': [{'value': 'Kunst und Archäologie'}],
-                'subseriesEnumeration': [{'value': 'Bd. 6'}]
-            }, {
-                'subseriesTitle': [{'value': 'Südostasien'}],
-                'subseriesEnumeration': [{'value': 'Abschnitt 6'}]
-            }
-        ]
-    }, {
-        'seriesTitle': [{'value': 'Handbuch der Orientalistik 2'}],
-        'seriesEnumeration': [{'value': 'Abt. 7'}],
-        'subseriesStatement': [{
-                'subseriesTitle': [{'value': 'Kunst und Archäologie'}],
-                'subseriesEnumeration': [{'value': 'Bd. 6'}]
-            }, {
-                'subseriesTitle': [{'value': 'Südostasien'}],
-                'subseriesEnumeration': [{'value': 'Abschnitt 6'}]
-            }
-        ]
-    }]
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Handbuch der Orientalistik 1"}],
+            "seriesEnumeration": [{"value": "Abt. 7"}],
+            "subseriesStatement": [
+                {
+                    "subseriesTitle": [{"value": "Kunst und Archäologie"}],
+                    "subseriesEnumeration": [{"value": "Bd. 6"}],
+                },
+                {
+                    "subseriesTitle": [{"value": "Südostasien"}],
+                    "subseriesEnumeration": [{"value": "Abschnitt 6"}],
+                },
+            ],
+        },
+        {
+            "seriesTitle": [{"value": "Handbuch der Orientalistik 2"}],
+            "seriesEnumeration": [{"value": "Abt. 7"}],
+            "subseriesStatement": [
+                {
+                    "subseriesTitle": [{"value": "Kunst und Archäologie"}],
+                    "subseriesEnumeration": [{"value": "Bd. 6"}],
+                },
+                {
+                    "subseriesTitle": [{"value": "Südostasien"}],
+                    "subseriesEnumeration": [{"value": "Abschnitt 6"}],
+                },
+            ],
+        },
+    ]
 
 
 # series.name: [490$a repetitive]
@@ -3199,16 +2789,18 @@ def test_marc21_to_series_statement_with_alt_graphic():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [
-            {'value': "Žizn' zamečatel'nych ljudej"},
-            {'value': 'Жизнь замечательных людей', 'language': 'rus-cyrl'}
-        ],
-        'seriesEnumeration': [
-            {'value': 'vypusk 4, 357'},
-            {'value': 'выпуск 4, 357', 'language': 'rus-cyrl'}
-        ]
-    }]
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [
+                {"value": "Žizn' zamečatel'nych ljudej"},
+                {"value": "Жизнь замечательных людей", "language": "rus-cyrl"},
+            ],
+            "seriesEnumeration": [
+                {"value": "vypusk 4, 357"},
+                {"value": "выпуск 4, 357", "language": "rus-cyrl"},
+            ],
+        }
+    ]
 
 
 # series.name: [490$a repetitive]
@@ -3228,16 +2820,18 @@ def test_marc21_to_series_statement_with_missig_subfield_v():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Handbuch der Orientalistik'}],
-        'subseriesStatement': [{
-                'subseriesTitle': [{'value': 'Kunst und Archäologie'}]
-            }, {
-                'subseriesTitle': [{'value': 'Südostasien'}],
-                'subseriesEnumeration': [{'value': 'Abschnitt 6'}]
-            }
-        ]
-    }]
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Handbuch der Orientalistik"}],
+            "subseriesStatement": [
+                {"subseriesTitle": [{"value": "Kunst und Archäologie"}]},
+                {
+                    "subseriesTitle": [{"value": "Südostasien"}],
+                    "subseriesEnumeration": [{"value": "Abschnitt 6"}],
+                },
+            ],
+        }
+    ]
 
 
 # series.name: [490$a repetitive]
@@ -3257,7 +2851,7 @@ def test_marc21_to_series_statement_with_missig_subfield_a():
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
     # should return None because of the bad formating of field 490
-    assert data.get('seriesStatement') is None
+    assert data.get("seriesStatement") is None
 
 
 # series.name: [490$a repetitive]
@@ -3280,15 +2874,18 @@ def test_marc21_to_series_statement_with_succesive_subfield_v():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Handbuch der Orientalistik'}],
-        'seriesEnumeration': [{'value': 'Abt. 7, Bd. 7'}],
-        'subseriesStatement': [{
-                'subseriesTitle': [{'value': 'Südostasien'}],
-                'subseriesEnumeration': [{'value': 'Abschnitt 6, Bd. 6'}]
-            }
-        ]
-    }]
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Handbuch der Orientalistik"}],
+            "seriesEnumeration": [{"value": "Abt. 7, Bd. 7"}],
+            "subseriesStatement": [
+                {
+                    "subseriesTitle": [{"value": "Südostasien"}],
+                    "subseriesEnumeration": [{"value": "Abschnitt 6, Bd. 6"}],
+                }
+            ],
+        }
+    ]
 
 
 # summary: [520$a repetitive]
@@ -3305,10 +2902,9 @@ def test_marc21_to_summary():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('summary') == [{
-        "label": [{"value": "This book is about"}],
-        "source": "source"
-    }]
+    assert data.get("summary") == [
+        {"label": [{"value": "This book is about"}], "source": "source"}
+    ]
 
     marc21xml = """
     <record>
@@ -3324,14 +2920,16 @@ def test_marc21_to_summary():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('summary') == [{
-            'label': [{
-                    'value': 'Za wen fen wei si bu fen lu ru',
-                }, {
-                    'value': '杂文分为四部分录入',
-                    'language': 'und-hani'
-                }]
-    }]
+    assert data.get("summary") == [
+        {
+            "label": [
+                {
+                    "value": "Za wen fen wei si bu fen lu ru",
+                },
+                {"value": "杂文分为四部分录入", "language": "und-hani"},
+            ]
+        }
+    ]
 
 
 def test_marc21_to_intended_audience():
@@ -3351,13 +2949,13 @@ def test_marc21_to_intended_audience():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('intendedAudience') == [{
-            'audienceType': 'understanding_level',
-            'value': 'target_understanding_teenagers_12_15'
-        }, {
-            'audienceType': 'filmage_ch',
-            'value': 'from the age of 12'
-        }]
+    assert data.get("intendedAudience") == [
+        {
+            "audienceType": "understanding_level",
+            "value": "target_understanding_teenagers_12_15",
+        },
+        {"audienceType": "filmage_ch", "value": "from the age of 12"},
+    ]
 
     marc21xml = """
     <record>
@@ -3369,10 +2967,9 @@ def test_marc21_to_intended_audience():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('intendedAudience') == [{
-            'audienceType': 'undefined',
-            'value': 'Ado (12-15 ans)'
-        }]
+    assert data.get("intendedAudience") == [
+        {"audienceType": "undefined", "value": "Ado (12-15 ans)"}
+    ]
 
 
 def test_marc21_to_original_title_from_500():
@@ -3387,7 +2984,7 @@ def test_marc21_to_original_title_from_500():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('originalTitle') == ['Harry Potter secrets']
+    assert data.get("originalTitle") == ["Harry Potter secrets"]
 
 
 def test_marc21_to_notes_from_500():
@@ -3405,13 +3002,9 @@ def test_marc21_to_notes_from_500():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('note') == [{
-            'noteType': 'general',
-            'label': 'note 1'
-        }, {
-            'noteType': 'general',
-            'label': 'note 2'
-        }
+    assert data.get("note") == [
+        {"noteType": "general", "label": "note 1"},
+        {"noteType": "general", "label": "note 2"},
     ]
 
 
@@ -3433,13 +3026,9 @@ def test_marc21_to_notes_from_510():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('note') == [{
-            'noteType': 'cited_by',
-            'label': 'note 1 1c'
-        }, {
-            'noteType': 'cited_by',
-            'label': 'note 2 2c 2x'
-        }
+    assert data.get("note") == [
+        {"noteType": "cited_by", "label": "note 1 1c"},
+        {"noteType": "cited_by", "label": "note 2 2c 2x"},
     ]
 
 
@@ -3464,19 +3053,11 @@ def test_marc21_to_notes_from_530_545_555_580():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('note') == [{
-            'noteType': 'general',
-            'label': 'note 530'
-        }, {
-            'noteType': 'general',
-            'label': 'note 545'
-        }, {
-            'noteType': 'general',
-            'label': 'note 555'
-        }, {
-            'noteType': 'general',
-            'label': 'note 580'
-        }
+    assert data.get("note") == [
+        {"noteType": "general", "label": "note 530"},
+        {"noteType": "general", "label": "note 545"},
+        {"noteType": "general", "label": "note 555"},
+        {"noteType": "general", "label": "note 580"},
     ]
 
 
@@ -3500,14 +3081,13 @@ def test_marc21_to_classification_from_050():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('classification') == [{
-          'type': 'bf:ClassificationLcc',
-          'classificationPortion': 'JK468.I6',
-          'assigner': 'LOC'
-        }, {
-          'type': 'bf:ClassificationLcc',
-          'classificationPortion': 'JK500.I8'
-        }
+    assert data.get("classification") == [
+        {
+            "type": "bf:ClassificationLcc",
+            "classificationPortion": "JK468.I6",
+            "assigner": "LOC",
+        },
+        {"type": "bf:ClassificationLcc", "classificationPortion": "JK500.I8"},
     ]
 
 
@@ -3529,14 +3109,13 @@ def test_marc21_to_classification_from_060():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('classification') == [{
-          'type': 'bf:ClassificationNlm',
-          'classificationPortion': 'WM 460'
-        }, {
-          'type': 'bf:ClassificationNlm',
-          'classificationPortion': 'WM 800',
-          'assigner': 'NLM'
-        }
+    assert data.get("classification") == [
+        {"type": "bf:ClassificationNlm", "classificationPortion": "WM 460"},
+        {
+            "type": "bf:ClassificationNlm",
+            "classificationPortion": "WM 800",
+            "assigner": "NLM",
+        },
     ]
 
 
@@ -3566,26 +3145,31 @@ def test_marc21_to_classification_from_080():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('classification') == [{
-          'type': 'bf:ClassificationUdc',
-          'classificationPortion': '821.134.2-31',
-          'edition': "Full edition"
-        }, {
-          'type': 'bf:ClassificationUdc',
-          'classificationPortion': '900.135.3-32',
-        }, {
-          'type': 'bf:ClassificationUdc',
-          'classificationPortion': '700.138.1-45',
-          'edition': "Full edition, dollar_2"
-        }, {
-          'type': 'bf:ClassificationUdc',
-          'classificationPortion': '600.139.1-46',
-          'edition': "Abridged edition, dollar_2"
-        }, {
-          'type': 'bf:ClassificationUdc',
-          'classificationPortion': '500.156.1-47',
-          'edition': "Abridged edition"
-        }
+    assert data.get("classification") == [
+        {
+            "type": "bf:ClassificationUdc",
+            "classificationPortion": "821.134.2-31",
+            "edition": "Full edition",
+        },
+        {
+            "type": "bf:ClassificationUdc",
+            "classificationPortion": "900.135.3-32",
+        },
+        {
+            "type": "bf:ClassificationUdc",
+            "classificationPortion": "700.138.1-45",
+            "edition": "Full edition, dollar_2",
+        },
+        {
+            "type": "bf:ClassificationUdc",
+            "classificationPortion": "600.139.1-46",
+            "edition": "Abridged edition, dollar_2",
+        },
+        {
+            "type": "bf:ClassificationUdc",
+            "classificationPortion": "500.156.1-47",
+            "edition": "Abridged edition",
+        },
     ]
 
 
@@ -3616,24 +3200,28 @@ def test_marc21_to_classification_from_082():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('classification') == [{
-          'type': 'bf:ClassificationDdc',
-          'classificationPortion': '820',
-          'edition': "Abridged edition, 15"
-        }, {
-          'type': 'bf:ClassificationDdc',
-          'classificationPortion': '821',
-          'edition': "Abridged edition"
-        }, {
-          'type': 'bf:ClassificationDdc',
-          'classificationPortion': '822',
-          'edition': "15",
-          'assigner': 'LOC'
-        }, {
-          'type': 'bf:ClassificationDdc',
-          'classificationPortion': '823',
-          'edition': "Abridged edition, 15"
-        }
+    assert data.get("classification") == [
+        {
+            "type": "bf:ClassificationDdc",
+            "classificationPortion": "820",
+            "edition": "Abridged edition, 15",
+        },
+        {
+            "type": "bf:ClassificationDdc",
+            "classificationPortion": "821",
+            "edition": "Abridged edition",
+        },
+        {
+            "type": "bf:ClassificationDdc",
+            "classificationPortion": "822",
+            "edition": "15",
+            "assigner": "LOC",
+        },
+        {
+            "type": "bf:ClassificationDdc",
+            "classificationPortion": "823",
+            "edition": "Abridged edition, 15",
+        },
     ]
 
 
@@ -3656,22 +3244,22 @@ def test_marc21_to_subjects_from_980_2_factum():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('classification') is None
-    assert data.get('subjects') == [{
-            'entity': {
-                'type': 'bf:Person',
-                'authorized_access_point':
-                    'Conti, Louis de Bourbon, prince de',
-                'source': 'Factum',
+    assert data.get("classification") is None
+    assert data.get("subjects") == [
+        {
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Conti, Louis de Bourbon, prince de",
+                "source": "Factum",
             }
-        }, {
-            'entity': {
-                'type': 'bf:Person',
-                'authorized_access_point':
-                    'Lesdiguières, Marie-Françoise de Gondi',
-                'source': 'Factum',
+        },
+        {
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Lesdiguières, Marie-Françoise de Gondi",
+                "source": "Factum",
             }
-        }
+        },
     ]
 
 
@@ -3697,14 +3285,16 @@ def test_marc21_to_classification_from_980_2_musg_musi():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('classification') == [{
-          'type': 'classification_musicale_genres',
-          'classificationPortion': 'Opéra',
-          'subdivision': ['soli, choeur, orchestre', '1851-1900']
-        }, {
-          'type': 'classification_musicale_instruments',
-          'classificationPortion': 'soli, choeur, piano (adaptation)'
-        }
+    assert data.get("classification") == [
+        {
+            "type": "classification_musicale_genres",
+            "classificationPortion": "Opéra",
+            "subdivision": ["soli, choeur, orchestre", "1851-1900"],
+        },
+        {
+            "type": "classification_musicale_instruments",
+            "classificationPortion": "soli, choeur, piano (adaptation)",
+        },
     ]
 
 
@@ -3730,14 +3320,13 @@ def test_marc21_to_classification_from_980_2_brp_and_dr_sys():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('classification') == [{
-          'type': 'classification_brunetparguez',
-          'classificationPortion': 'brp_value',
-          'subdivision': ['brp_subdivision']
-        }, {
-          'type': 'classification_droit',
-          'classificationPortion': 'loi'
-        }
+    assert data.get("classification") == [
+        {
+            "type": "classification_brunetparguez",
+            "classificationPortion": "brp_value",
+            "subdivision": ["brp_subdivision"],
+        },
+        {"type": "classification_droit", "classificationPortion": "loi"},
     ]
 
 
@@ -3759,13 +3348,9 @@ def test_marc21_to_frequency():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('frequency') == [{
-        'label': 'Annuel',
-        'date': '1982-'
-      }, {
-        'label': 'Irrégulier',
-        'date': '1953-1981'
-      }
+    assert data.get("frequency") == [
+        {"label": "Annuel", "date": "1982-"},
+        {"label": "Irrégulier", "date": "1953-1981"},
     ]
 
     # field 310 $a with trailing coma and missing $b, 321 ok
@@ -3782,12 +3367,9 @@ def test_marc21_to_frequency():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('frequency') == [{
-        'label': 'Annuel'
-      }, {
-        'label': 'Irrégulier',
-        'date': '1953-1981'
-      }
+    assert data.get("frequency") == [
+        {"label": "Annuel"},
+        {"label": "Irrégulier", "date": "1953-1981"},
     ]
 
     # field 310 ok, field 321 without $a
@@ -3804,13 +3386,9 @@ def test_marc21_to_frequency():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('frequency') == [{
-        'label': 'Annuel',
-        'date': '1982-'
-      }, {
-        'label': 'missing_label',
-        'date': '1953-1981'
-      }
+    assert data.get("frequency") == [
+        {"label": "Annuel", "date": "1982-"},
+        {"label": "missing_label", "date": "1953-1981"},
     ]
 
 
@@ -3826,8 +3404,7 @@ def test_marc21_to_sequence_numbering_from_one_362():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('sequence_numbering') == \
-        '1890-1891 ; 1892/1893 ; 1894-1896/1897'
+    assert data.get("sequence_numbering") == "1890-1891 ; 1892/1893 ; 1894-1896/1897"
 
 
 def test_marc21_to_sequence_numbering_from_two_362():
@@ -3845,8 +3422,10 @@ def test_marc21_to_sequence_numbering_from_two_362():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('sequence_numbering') == \
-        '1890-1891 ; 1892/1893 ; 1894-1896/1897 ; 1915/1917-1918/1921 ; 1929'
+    assert (
+        data.get("sequence_numbering")
+        == "1890-1891 ; 1892/1893 ; 1894-1896/1897 ; 1915/1917-1918/1921 ; 1929"
+    )
 
 
 def test_marc21_to_table_of_contents_from_505():
@@ -3866,9 +3445,9 @@ def test_marc21_to_table_of_contents_from_505():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('tableOfContents') == [
+    assert data.get("tableOfContents") == [
         "Vol. 1: Le prisme noir trad. de l'anglais",
-        'Vol. 2 : Le couteau aveuglant'
+        "Vol. 2 : Le couteau aveuglant",
     ]
 
 
@@ -3884,10 +3463,8 @@ def test_marc21_to_usage_and_access_policy():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('usageAndAccessPolicy') == [{
-        'type': 'bf:UsageAndAccessPolicy',
-        'label': 'Les archives de C. Roussopoulos'
-      }
+    assert data.get("usageAndAccessPolicy") == [
+        {"type": "bf:UsageAndAccessPolicy", "label": "Les archives de C. Roussopoulos"}
     ]
 
     marc21xml = """
@@ -3899,10 +3476,11 @@ def test_marc21_to_usage_and_access_policy():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('usageAndAccessPolicy') == [{
-        'type': 'bf:UsageAndAccessPolicy',
-        'label': 'Les archives de Carole Roussopoulos'
-      }
+    assert data.get("usageAndAccessPolicy") == [
+        {
+            "type": "bf:UsageAndAccessPolicy",
+            "label": "Les archives de Carole Roussopoulos",
+        }
     ]
 
     marc21xml = """
@@ -3917,13 +3495,12 @@ def test_marc21_to_usage_and_access_policy():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('usageAndAccessPolicy') == [{
-        'type': 'bf:UsageAndAccessPolicy',
-        'label': 'Les archives de C. Roussopoulos'
-      }, {
-        'type': 'bf:UsageAndAccessPolicy',
-        'label': 'Les archives de Carole Roussopoulos'
-      }
+    assert data.get("usageAndAccessPolicy") == [
+        {"type": "bf:UsageAndAccessPolicy", "label": "Les archives de C. Roussopoulos"},
+        {
+            "type": "bf:UsageAndAccessPolicy",
+            "label": "Les archives de Carole Roussopoulos",
+        },
     ]
 
 
@@ -3943,7 +3520,7 @@ def test_marc21_to_credits_from_508():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('credits') == ['Ont également collaboré: Marco Praz']
+    assert data.get("credits") == ["Ont également collaboré: Marco Praz"]
 
 
 def test_marc21_to_credits_from_511():
@@ -3961,7 +3538,7 @@ def test_marc21_to_credits_from_511():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('credits') == ["Participants ou interprètes: A. Kurmann"]
+    assert data.get("credits") == ["Participants ou interprètes: A. Kurmann"]
 
 
 # dissertation: [502$a repetitive]
@@ -3981,14 +3558,16 @@ def test_marc21_to_dissertation():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('dissertation') == [{
-            'label': [{
-                    'value': 'Za wen fen wei si bu fen lu ru',
-                }, {
-                    'value': '杂文分为四部分录入',
-                    'language': 'und-hani'
-                }]
-    }]
+    assert data.get("dissertation") == [
+        {
+            "label": [
+                {
+                    "value": "Za wen fen wei si bu fen lu ru",
+                },
+                {"value": "杂文分为四部分录入", "language": "und-hani"},
+            ]
+        }
+    ]
 
 
 def test_marc21_to_supplementary_content_from_504():
@@ -4003,7 +3582,7 @@ def test_marc21_to_supplementary_content_from_504():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('supplementaryContent') == ['Bibliographie: p. 238-239']
+    assert data.get("supplementaryContent") == ["Bibliographie: p. 238-239"]
 
 
 # part_of 773, 800, 830
@@ -4021,9 +3600,10 @@ def test_marc21_to_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') == [{
-            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
-            'numbering': [{'pages': '411'}]
+    assert data.get("partOf") == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/123456"},
+            "numbering": [{"pages": "411"}],
         }
     ]
 
@@ -4039,18 +3619,15 @@ def test_marc21_to_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') == [{
-            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
-            'numbering': [{
-                    'pages': '411'
-                },
-                {
-                    'year': '2020',
-                    'volume': "1",
-                    'issue': "2",
-                    'pages': '300'
-                }]
-        }]
+    assert data.get("partOf") == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/123456"},
+            "numbering": [
+                {"pages": "411"},
+                {"year": "2020", "volume": "1", "issue": "2", "pages": "300"},
+            ],
+        }
+    ]
 
     marc21xml = """
     <record>
@@ -4063,15 +3640,12 @@ def test_marc21_to_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') == [{
-            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
-            'numbering': [
-                {
-                    'volume': "1",
-                    'issue': "2",
-                    'pages': '300'
-                }]
-        }]
+    assert data.get("partOf") == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/123456"},
+            "numbering": [{"volume": "1", "issue": "2", "pages": "300"}],
+        }
+    ]
 
     marc21xml = """
     <record>
@@ -4084,9 +3658,9 @@ def test_marc21_to_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') == [{
-            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'}
-        }]
+    assert data.get("partOf") == [
+        {"document": {"$ref": "https://bib.rero.ch/api/documents/123456"}}
+    ]
 
     marc21xml = """
     <record>
@@ -4100,17 +3674,15 @@ def test_marc21_to_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') == [{
-            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
-            'numbering': [{
-                    'year': '2020',
-                    'pages': '411'
-                },
-                {
-                    'volume': "1",
-                    'issue': "2"
-                }]
-        }]
+    assert data.get("partOf") == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/123456"},
+            "numbering": [
+                {"year": "2020", "pages": "411"},
+                {"volume": "1", "issue": "2"},
+            ],
+        }
+    ]
 
     marc21xml = """
     <record>
@@ -4123,9 +3695,9 @@ def test_marc21_to_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') == [{
-            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'}
-        }]
+    assert data.get("partOf") == [
+        {"document": {"$ref": "https://bib.rero.ch/api/documents/123456"}}
+    ]
 
     marc21xml = """
     <record>
@@ -4138,12 +3710,12 @@ def test_marc21_to_part_of():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') == [{
-            'document': {'$ref': 'https://bib.rero.ch/api/documents/123456'},
-            'numbering': [{
-                    'volume': "256"
-                }]
-        }]
+    assert data.get("partOf") == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/123456"},
+            "numbering": [{"volume": "256"}],
+        }
+    ]
 
 
 def test_marc21_to_specific_document_relation():
@@ -4163,8 +3735,9 @@ def test_marc21_to_specific_document_relation():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('supplement') == [{
-        '$ref': 'https://bib.rero.ch/api/documents/2000055',
+    assert data.get("supplement") == [
+        {
+            "$ref": "https://bib.rero.ch/api/documents/2000055",
         }
     ]
     # two 770 with link
@@ -4182,11 +3755,13 @@ def test_marc21_to_specific_document_relation():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('supplement') == [{
-            '$ref': 'https://bib.rero.ch/api/documents/2000055',
-        }, {
-            '$ref': 'https://bib.rero.ch/api/documents/2000056',
-        }
+    assert data.get("supplement") == [
+        {
+            "$ref": "https://bib.rero.ch/api/documents/2000055",
+        },
+        {
+            "$ref": "https://bib.rero.ch/api/documents/2000056",
+        },
     ]
     marc21xml = """
     <record>
@@ -4198,7 +3773,7 @@ def test_marc21_to_specific_document_relation():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('supplement') == [{'label': 'Télé-top-Matin 2000055'}]
+    assert data.get("supplement") == [{"label": "Télé-top-Matin 2000055"}]
     marc21xml = """
     <record>
       <datafield tag="533" ind1=" " ind2=" ">
@@ -4212,8 +3787,9 @@ def test_marc21_to_specific_document_relation():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('hasReproduction') == [{
-        'label': 'Master microfilm. Lausanne : BCU 1998 1 bobine ; 35 mm',
+    assert data.get("hasReproduction") == [
+        {
+            "label": "Master microfilm. Lausanne : BCU 1998 1 bobine ; 35 mm",
         }
     ]
 
@@ -4232,11 +3808,11 @@ def test_marc21_to_specific_document_relation():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('reproductionOf') == [{
-            'label': "Reproduction de l'édition de: Paris : H. Champion, 1931",
-        }, {
-            'label': "Repro. sur microfilm: Ed. de Minuit, 1968. - 189 pages"
-        }
+    assert data.get("reproductionOf") == [
+        {
+            "label": "Reproduction de l'édition de: Paris : H. Champion, 1931",
+        },
+        {"label": "Repro. sur microfilm: Ed. de Minuit, 1968. - 189 pages"},
     ]
 
 
@@ -4260,10 +3836,11 @@ def test_marc21_to_part_of_without_link():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') is None
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Stuart Hall : critical dialogues'}],
-        'seriesEnumeration': [{'value': '411'}],
+    assert data.get("partOf") is None
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Stuart Hall : critical dialogues"}],
+            "seriesEnumeration": [{"value": "411"}],
         }
     ]
 
@@ -4279,10 +3856,11 @@ def test_marc21_to_part_of_without_link():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') is None
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Neuchâtel disparu / Walter Wehinger'}],
-        'seriesEnumeration': [{'value': '8'}],
+    assert data.get("partOf") is None
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Neuchâtel disparu / Walter Wehinger"}],
+            "seriesEnumeration": [{"value": "8"}],
         }
     ]
 
@@ -4298,10 +3876,11 @@ def test_marc21_to_part_of_without_link():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') is None
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Neuchâtel disparu / Wehinger'}],
-        'seriesEnumeration': [{'value': '8'}],
+    assert data.get("partOf") is None
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Neuchâtel disparu / Wehinger"}],
+            "seriesEnumeration": [{"value": "8"}],
         }
     ]
 
@@ -4317,19 +3896,19 @@ def test_marc21_to_part_of_without_link():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') is None
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Ramsès / Christian Jacq'}],
-        'seriesEnumeration': [{'value': '1'}],
+    assert data.get("partOf") is None
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Ramsès / Christian Jacq"}],
+            "seriesEnumeration": [{"value": "1"}],
         }
     ]
-    assert data.get('work_access_point') == [{
-        'creator': {
-            'preferred_name': 'Jacq, Christian',
-            'type': 'bf:Person'
-        },
-        'title': 'Ramsès'
-    }]
+    assert data.get("work_access_point") == [
+        {
+            "creator": {"preferred_name": "Jacq, Christian", "type": "bf:Person"},
+            "title": "Ramsès",
+        }
+    ]
 
     marc21xml = """
     <record>
@@ -4341,15 +3920,16 @@ def test_marc21_to_part_of_without_link():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') is None
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Stuart Hall : critical dialogues'}],
-        'seriesEnumeration': [{'value': '411'}],
+    assert data.get("partOf") is None
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Stuart Hall : critical dialogues"}],
+            "seriesEnumeration": [{"value": "411"}],
         }
     ]
-    assert data.get('work_access_point') == [{
-         'title': 'Stuart Hall : critical dialogues'
-    }]
+    assert data.get("work_access_point") == [
+        {"title": "Stuart Hall : critical dialogues"}
+    ]
 
     marc21xml = """
     <record>
@@ -4361,10 +3941,11 @@ def test_marc21_to_part_of_without_link():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') is None
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Stuart Hall : critical dialogues'}],
-        'seriesEnumeration': [{'value': '411'}],
+    assert data.get("partOf") is None
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Stuart Hall : critical dialogues"}],
+            "seriesEnumeration": [{"value": "411"}],
         }
     ]
 
@@ -4383,8 +3964,8 @@ def test_marc21_to_part_of_without_link():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') is None
-    assert data.get('seriesStatement') is None
+    assert data.get("partOf") is None
+    assert data.get("seriesStatement") is None
 
     marc21xml = """
     <record>
@@ -4400,11 +3981,12 @@ def test_marc21_to_part_of_without_link():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') is None
+    assert data.get("partOf") is None
     # the seriesStatement is generated form 490 and not from the 800
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Stuart Hall : all critical dialogues'}],
-        'seriesEnumeration': [{'value': '512'}],
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Stuart Hall : all critical dialogues"}],
+            "seriesEnumeration": [{"value": "512"}],
         }
     ]
 
@@ -4422,11 +4004,12 @@ def test_marc21_to_part_of_without_link():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') is None
+    assert data.get("partOf") is None
     # the seriesStatement is generated form 490 and not from the 800
-    assert data.get('seriesStatement') == [{
-        'seriesTitle': [{'value': 'Stuart Hall : all critical dialogues'}],
-        'seriesEnumeration': [{'value': '512'}],
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Stuart Hall : all critical dialogues"}],
+            "seriesEnumeration": [{"value": "512"}],
         }
     ]
 
@@ -4469,35 +4052,32 @@ def test_marc21_to_part_of_with_multiple_800():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('partOf') == [{
-            'document': {'$ref': 'https://bib.rero.ch/api/documents/780067'},
-            'numbering': [{
-                    'volume': "3"
-                }]
-        }]
-    # the seriesStatement is generated form 490 and not from the 800
-    assert data.get('seriesStatement') == [{
-          'seriesTitle': [{
-              'value': 'A la recherche de la Licorne / Mirallès'
-          }],
-          'seriesEnumeration': [{'value': '3'}],
-      }, {
-          'seriesTitle': [{'value': 'Collection "Vécu"'}],
-      }
+    assert data.get("partOf") == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/780067"},
+            "numbering": [{"volume": "3"}],
+        }
     ]
-    assert data.get('work_access_point') == [{
-        'creator': {
-            'preferred_name': 'Mirallés, Ana',
-            'type': 'bf:Person'
+    # the seriesStatement is generated form 490 and not from the 800
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "A la recherche de la Licorne / Mirallès"}],
+            "seriesEnumeration": [{"value": "3"}],
         },
-        'title': 'A la recherche de la Licorne'
-    }, {
-        'creator': {
-            'preferred_name': 'Ruiz, Emilio',
-            'type': 'bf:Person'
+        {
+            "seriesTitle": [{"value": 'Collection "Vécu"'}],
         },
-        'title': 'A la recherche de la Licorne'
-    }]
+    ]
+    assert data.get("work_access_point") == [
+        {
+            "creator": {"preferred_name": "Mirallés, Ana", "type": "bf:Person"},
+            "title": "A la recherche de la Licorne",
+        },
+        {
+            "creator": {"preferred_name": "Ruiz, Emilio", "type": "bf:Person"},
+            "title": "A la recherche de la Licorne",
+        },
+    ]
 
 
 def test_marc21_to_identified_by_from_020():
@@ -4520,22 +4100,10 @@ def test_marc21_to_identified_by_from_020():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
-        {
-            'type': 'bf:Isbn',
-            'status': 'invalid or cancelled',
-            'value': '8124605254'
-        },
-        {
-            'type': 'bf:Isbn',
-            'qualifier': 'broché',
-            'value': '9788124605257'
-        },
-        {
-            'type': 'bf:Isbn',
-            'qualifier': 'hbk.',
-            'value': '9788189997212'
-        }
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Isbn", "status": "invalid or cancelled", "value": "8124605254"},
+        {"type": "bf:Isbn", "qualifier": "broché", "value": "9788124605257"},
+        {"type": "bf:Isbn", "qualifier": "hbk.", "value": "9788189997212"},
     ]
 
 
@@ -4559,29 +4127,12 @@ def test_marc21_to_identified_by_from_022():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
-        {
-            'type': 'bf:Issn',
-            'value': '0264-2875'
-        },
-        {
-            'type': 'bf:IssnL',
-            'value': '0264-2875'
-        },
-        {
-            'type': 'bf:Issn',
-            'value': '0264-2875'
-        },
-        {
-            'type': 'bf:Issn',
-            'status': 'invalid',
-            'value': '0080-4649'
-        },
-        {
-            'type': 'bf:IssnL',
-            'status': 'cancelled',
-            'value': '0080-4650'
-        }
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Issn", "value": "0264-2875"},
+        {"type": "bf:IssnL", "value": "0264-2875"},
+        {"type": "bf:Issn", "value": "0264-2875"},
+        {"type": "bf:Issn", "status": "invalid", "value": "0080-4649"},
+        {"type": "bf:IssnL", "status": "cancelled", "value": "0080-4650"},
     ]
 
 
@@ -4601,17 +4152,17 @@ def test_marc21_to_identified_by_from_024_snl_bnf():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
+    assert data.get("identifiedBy") == [
         {
-            'type': 'uri',
-            'source': 'SNL',
-            'value': 'http://permalink.snl.ch/bib/chccsa86779'
+            "type": "uri",
+            "source": "SNL",
+            "value": "http://permalink.snl.ch/bib/chccsa86779",
         },
         {
-            'type': 'uri',
-            'source': 'BNF',
-            'value': 'http://catalogue.bnf.fr/ark:/12148/cb312v'
-        }
+            "type": "uri",
+            "source": "BNF",
+            "value": "http://catalogue.bnf.fr/ark:/12148/cb312v",
+        },
     ]
 
     marc21xml = """
@@ -4624,11 +4175,8 @@ def test_marc21_to_identified_by_from_024_snl_bnf():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
-        {
-            'type': 'bf:Identifier',
-            'value': 'http://slsp.ch/12345'
-        }
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Identifier", "value": "http://slsp.ch/12345"}
     ]
 
 
@@ -4667,35 +4215,13 @@ def test_marc21_to_identified_by_from_024_with_subfield_2():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
-        {
-            'type': 'bf:Doi',
-            'value': '10.1007/978-3-540-37973-7',
-            'note': 'note'
-        },
-        {
-            'type': 'bf:Urn',
-            'value': 'urn:nbn:de:101:1-201609052530'
-        },
-        {
-            'type': 'bf:Local',
-            'source': 'NIPO',
-            'value': 'NIPO 035-16-060-7'
-        },
-        {
-            'type': 'bf:Local',
-            'source': 'danacode',
-            'value': '7290105422026'
-        },
-        {
-            'type': 'bf:Local',
-            'source': 'vd18',
-            'value': 'VD18 10153438'
-        },
-        {
-            'type': 'bf:Gtin14Number',
-            'value': '00028947969525'
-        }
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Doi", "value": "10.1007/978-3-540-37973-7", "note": "note"},
+        {"type": "bf:Urn", "value": "urn:nbn:de:101:1-201609052530"},
+        {"type": "bf:Local", "source": "NIPO", "value": "NIPO 035-16-060-7"},
+        {"type": "bf:Local", "source": "danacode", "value": "7290105422026"},
+        {"type": "bf:Local", "source": "vd18", "value": "VD18 10153438"},
+        {"type": "bf:Gtin14Number", "value": "00028947969525"},
     ]
 
 
@@ -4755,70 +4281,33 @@ def test_marc21_to_identified_by_from_024_without_subfield_2():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Identifier", "value": "9782100745463"},
+        {"type": "bf:Isrc", "qualifier": "vol. 2", "value": "702391010582"},
+        {"type": "bf:Isrc", "value": "Erato ECD 88030"},
+        {"type": "bf:Upc", "qualifier": "vol. 5", "value": "604907014223"},
+        {"type": "bf:Upc", "value": "EMI Classics 5 55585 2"},
         {
-            'type': 'bf:Identifier',
-            'value': '9782100745463'
+            "type": "bf:Ismn",
+            "qualifier": "kritischer B., kartoniert, vol. 1",
+            "value": "M006546565",
         },
         {
-            'type': 'bf:Isrc',
-            'qualifier': 'vol. 2',
-            'value': '702391010582'
+            "type": "bf:Ismn",
+            "qualifier": "Kritischer Bericht",
+            "value": "9790201858135",
         },
+        {"type": "bf:Identifier", "qualifier": "Bd. 1", "value": "4018262101065"},
         {
-            'type': 'bf:Isrc',
-            'value': 'Erato ECD 88030'
+            "type": "bf:Identifier",
+            "qualifier": "CD audio classe",
+            "value": "309-5-56-196162-1",
         },
-        {
-            'type': 'bf:Upc',
-            'qualifier': 'vol. 5',
-            'value': '604907014223'
-        },
-        {
-            'type': 'bf:Upc',
-            'value': 'EMI Classics 5 55585 2'
-        },
-        {
-            'type': 'bf:Ismn',
-            'qualifier': 'kritischer B., kartoniert, vol. 1',
-            'value': 'M006546565'
-        },
-        {
-            'type': 'bf:Ismn',
-            'qualifier': 'Kritischer Bericht',
-            'value': '9790201858135'
-        },
-        {
-            'type': 'bf:Identifier',
-            'qualifier': 'Bd. 1',
-            'value': '4018262101065'
-        },
-        {
-            'type': 'bf:Identifier',
-            'qualifier': 'CD audio classe',
-            'value': '309-5-56-196162-1'
-        },
-        {
-            'type': 'bf:Ean',
-            'qualifier': 'Bd 1, pbk.',
-            'value': '9783737407427'
-        },
-        {
-            'type': 'bf:Identifier',
-            'value': 'EP 2305'
-        },
-        {
-            'type': 'bf:Ean',
-            'value': '97 EP 1234'
-        },
-        {
-            'type': 'bf:Identifier',
-            'value': 'ELC1283925'
-        },
-        {
-            'type': 'bf:Isan',
-            'value': '0000-0002-A3B1-0000-0-0000-0000-2'
-        }
+        {"type": "bf:Ean", "qualifier": "Bd 1, pbk.", "value": "9783737407427"},
+        {"type": "bf:Identifier", "value": "EP 2305"},
+        {"type": "bf:Ean", "value": "97 EP 1234"},
+        {"type": "bf:Identifier", "value": "ELC1283925"},
+        {"type": "bf:Isan", "value": "0000-0002-A3B1-0000-0-0000-0000-2"},
     ]
 
 
@@ -4837,12 +4326,12 @@ def test_marc21_to_identified_by_from_028():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
+    assert data.get("identifiedBy") == [
         {
-            'type': 'bf:MusicPublisherNumber',
-            'source': 'SRC',
-            'qualifier': 'Qualif1, Qualif2',
-            'value': '1234'
+            "type": "bf:MusicPublisherNumber",
+            "source": "SRC",
+            "qualifier": "Qualif1, Qualif2",
+            "value": "1234",
         }
     ]
 
@@ -4858,12 +4347,12 @@ def test_marc21_to_identified_by_from_028():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
+    assert data.get("identifiedBy") == [
         {
-            'type': 'bf:Identifier',
-            'source': 'SRC',
-            'qualifier': 'Qualif1, Qualif2',
-            'value': '1234'
+            "type": "bf:Identifier",
+            "source": "SRC",
+            "qualifier": "Qualif1, Qualif2",
+            "value": "1234",
         }
     ]
 
@@ -4893,16 +4382,16 @@ def test_marc21_to_acquisition_terms():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('acquisitionTerms') == [
-        'CHF 68',
-        '£125.00',
-        'Fr. 147.20',
-        '€133.14',
-        'gratuit'
+    assert data.get("acquisitionTerms") == [
+        "CHF 68",
+        "£125.00",
+        "Fr. 147.20",
+        "€133.14",
+        "gratuit",
     ]
 
 
-@mock.patch('requests.Session.get')
+@mock.patch("requests.Session.get")
 def test_marc21_to_subjects(mock_get, mef_agents_url):
     """Test dojson subjects from 6xx (L49, L50)."""
     # field 600 without $t with ref
@@ -4917,18 +4406,14 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     </datafield>
     </record>
     """
-    mock_get.return_value = mock_response(json_data={
-        'pid': 'tets',
-        'type': 'bf:Person',
-        'idref': {'pid': 'XXXXXXXX'}
-    })
+    mock_get.return_value = mock_response(
+        json_data={"pid": "tets", "type": "bf:Person", "idref": {"pid": "XXXXXXXX"}}
+    )
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [{
-        'entity': {
-            '$ref': f'{mef_agents_url}/idref/XXXXXXXX'
-        }
-    }]
+    assert data.get("subjects") == [
+        {"entity": {"$ref": f"{mef_agents_url}/idref/XXXXXXXX"}}
+    ]
 
     # field 600 without $t
     marc21xml = """
@@ -4944,18 +4429,16 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [{
-        'entity': {
-            'type': 'bf:Person',
-            'authorized_access_point':
-                'Athenagoras (patriarche oecuménique ; 1)',
-            'source': 'rero',
-            'identifiedBy': {
-                'value': 'A009963344',
-                'type': 'RERO'
+    assert data.get("subjects") == [
+        {
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Athenagoras (patriarche oecuménique ; 1)",
+                "source": "rero",
+                "identifiedBy": {"value": "A009963344", "type": "RERO"},
             }
         }
-    }]
+    ]
 
     # field 611 without $t
     marc21xml = """
@@ -4970,17 +4453,16 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [{
-        'entity': {
-            'type': 'bf:Organisation',
-            'authorized_access_point': 'Belalp Hexe (Blatten)',
-            'source': 'rero',
-            'identifiedBy': {
-                'value': 'A017827554',
-                'type': 'RERO'
+    assert data.get("subjects") == [
+        {
+            "entity": {
+                "type": "bf:Organisation",
+                "authorized_access_point": "Belalp Hexe (Blatten)",
+                "source": "rero",
+                "identifiedBy": {"value": "A017827554", "type": "RERO"},
             }
         }
-    }]
+    ]
 
     # field 600 with $t
     marc21xml = """
@@ -4995,17 +4477,16 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [{
-        'entity': {
-            'type': 'bf:Work',
-            'authorized_access_point': 'Giraudoux, Jean. Electre',
-            'source': 'rero',
-            'identifiedBy': {
-                'value': '027538303',
-                'type': 'IdRef'
+    assert data.get("subjects") == [
+        {
+            "entity": {
+                "type": "bf:Work",
+                "authorized_access_point": "Giraudoux, Jean. Electre",
+                "source": "rero",
+                "identifiedBy": {"value": "027538303", "type": "IdRef"},
             }
         }
-    }]
+    ]
 
     # field 611 with $t
     marc21xml = """
@@ -5020,17 +4501,16 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [{
-        'entity': {
-            'type': 'bf:Work',
-            'source': 'rero',
-            'authorized_access_point': 'Concile de Vatican 2. Influence reçue',
-            'identifiedBy': {
-                'value': 'A010067471',
-                'type': 'RERO'
+    assert data.get("subjects") == [
+        {
+            "entity": {
+                "type": "bf:Work",
+                "source": "rero",
+                "authorized_access_point": "Concile de Vatican 2. Influence reçue",
+                "identifiedBy": {"value": "A010067471", "type": "RERO"},
             }
         }
-    }]
+    ]
 
     # field 650 topic
     marc21xml = """
@@ -5044,17 +4524,16 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [{
-        'entity': {
-            'type': 'bf:Topic',
-            'authorized_access_point': 'Vie',
-            'source': 'rero',
-            'identifiedBy': {
-                'value': 'A021002965',
-                'type': 'RERO'
+    assert data.get("subjects") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Vie",
+                "source": "rero",
+                "identifiedBy": {"value": "A021002965", "type": "RERO"},
             }
         }
-    }]
+    ]
 
     # field 650 temporal
     marc21xml = """
@@ -5068,17 +4547,16 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [{
-        'entity': {
-            'type': 'bf:Temporal',
-            'authorized_access_point': '1961',
-            'source': 'rero',
-            'identifiedBy': {
-                'value': 'G021002965',
-                'type': 'RERO'
+    assert data.get("subjects") == [
+        {
+            "entity": {
+                "type": "bf:Temporal",
+                "authorized_access_point": "1961",
+                "source": "rero",
+                "identifiedBy": {"value": "G021002965", "type": "RERO"},
             }
         }
-    }]
+    ]
 
     # field 651
     marc21xml = """
@@ -5092,17 +4570,16 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [{
-        'entity': {
-            'type': 'bf:Place',
-            'authorized_access_point': 'Europe occidentale',
-            'source': 'rero',
-            'identifiedBy': {
-                'value': 'A009975209',
-                'type': 'RERO'
+    assert data.get("subjects") == [
+        {
+            "entity": {
+                "type": "bf:Place",
+                "authorized_access_point": "Europe occidentale",
+                "source": "rero",
+                "identifiedBy": {"value": "A009975209", "type": "RERO"},
             }
         }
-    }]
+    ]
 
     # field 655 with $0
     marc21xml = """
@@ -5116,17 +4593,16 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('genreForm') == [{
-        'entity': {
-          'type': 'bf:Topic',
-          'authorized_access_point': 'Bases de données',
-          'source': 'rero',
-          'identifiedBy': {
-              'value': 'A001234567',
-              'type': 'RERO'
-          }
+    assert data.get("genreForm") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Bases de données",
+                "source": "rero",
+                "identifiedBy": {"value": "A001234567", "type": "RERO"},
+            }
         }
-    }]
+    ]
 
     # field 655 without $0
     marc21xml = """
@@ -5145,13 +4621,15 @@ def test_marc21_to_subjects(mock_get, mef_agents_url):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('genreForm') == [{
-        'entity': {
-            'type': 'bf:Topic',
-            'authorized_access_point': 'Bases de données',
-            'source': 'rero'
+    assert data.get("genreForm") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Bases de données",
+                "source": "rero",
+            }
         }
-    }]
+    ]
 
 
 def test_marc21_to_subjects_imported():
@@ -5168,13 +4646,14 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects_imported') == [{
-        'entity': {
-            'type': 'bf:Topic',
-            'authorized_access_point':
-                'Pollution - Government policy - Germany (West)'
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Pollution - Government policy - Germany (West)",
+            }
         }
-    }]
+    ]
 
     # field 919 with $2 chrero and $v
     marc21xml = """
@@ -5190,14 +4669,15 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects_imported') == [{
-        'entity': {
-            'type': 'bf:Topic',
-            'authorized_access_point':
-                'Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]',
-            'source': 'chrero'
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]",
+                "source": "chrero",
+            }
         }
-    }]
+    ]
 
     # field 919 with $2 chrero and without $v
     marc21xml = """
@@ -5212,12 +4692,14 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'note': 'Date not available and automatically set to 2050',
-        'place': [{'country': 'xx'}],
-        'startDate': 2050,
-        'type': 'bf:Publication'
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "note": "Date not available and automatically set to 2050",
+            "place": [{"country": "xx"}],
+            "startDate": 2050,
+            "type": "bf:Publication",
+        }
+    ]
 
     # field 919 with $2 chrero and without $v
     marc21xml = """
@@ -5232,12 +4714,14 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [{
-        'note': 'Date not available and automatically set to 2050',
-        'place': [{'country': 'xx'}],
-        'startDate': 2050,
-        'type': 'bf:Publication'
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "note": "Date not available and automatically set to 2050",
+            "place": [{"country": "xx"}],
+            "startDate": 2050,
+            "type": "bf:Publication",
+        }
+    ]
 
     # field 919 with $2 ram|rameau|gnd|rerovoc
     marc21xml = """
@@ -5252,13 +4736,15 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects_imported') == [{
-        'entity': {
-            'type': 'bf:Topic',
-            'authorized_access_point': 'Sekundarstufe',
-            'source': 'gnd'
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Sekundarstufe",
+                "source": "gnd",
+            }
         }
-    }]
+    ]
 
     # field 650 _0
     marc21xml = """
@@ -5270,13 +4756,15 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects_imported') == [{
-        'entity': {
-            'type': 'bf:Organisation',
-            'authorized_access_point': 'Conference of European Churches',
-            'source': 'LCSH'
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "type": "bf:Organisation",
+                "authorized_access_point": "Conference of European Churches",
+                "source": "LCSH",
+            }
         }
-    }]
+    ]
 
     # field 650 _2
     marc21xml = """
@@ -5288,13 +4776,15 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects_imported') == [{
-        'entity': {
-            'type': 'bf:Topic',
-            'authorized_access_point': 'Philosophy, Medical',
-            'source': 'MeSH'
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Philosophy, Medical",
+                "source": "MeSH",
+            }
         }
-    }]
+    ]
 
     # field 650 with $2 rerovoc
     marc21xml = """
@@ -5307,13 +4797,15 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects_imported') == [{
-        'entity': {
-            'type': 'bf:Topic',
-            'authorized_access_point': 'société (milieu humain)',
-            'source': 'rerovoc'
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "société (milieu humain)",
+                "source": "rerovoc",
+            }
         }
-    }]
+    ]
 
     # field 650 with $2 rerovoc
     marc21xml = """
@@ -5327,24 +4819,29 @@ def test_marc21_to_subjects_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects_imported') == [{
-        'entity': {
-            'type': 'bf:Organisation',
-            'authorized_access_point': 'Catholic Church',
-            'source': 'LCSH',
-            'subdivisions': [{
-                'entity': {
-                    'type': 'bf:Topic',
-                    'authorized_access_point': 'Relations'
-                }
-            }, {
-                'entity': {
-                    'type': 'bf:Topic',
-                    'authorized_access_point': 'Eastern churches'
-                }
-            }]
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "type": "bf:Organisation",
+                "authorized_access_point": "Catholic Church",
+                "source": "LCSH",
+                "subdivisions": [
+                    {
+                        "entity": {
+                            "type": "bf:Topic",
+                            "authorized_access_point": "Relations",
+                        }
+                    },
+                    {
+                        "entity": {
+                            "type": "bf:Topic",
+                            "authorized_access_point": "Eastern churches",
+                        }
+                    },
+                ],
+            }
         }
-    }]
+    ]
 
 
 def test_marc21_to_genreForm_imported():
@@ -5362,13 +4859,15 @@ def test_marc21_to_genreForm_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('genreForm_imported') == [{
-        'entity': {
-            'type': 'bf:Topic',
-            'authorized_access_point': 'Erlebnisbericht',
-            'source': 'gnd-content'
+    assert data.get("genreForm_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Erlebnisbericht",
+                "source": "gnd-content",
+            }
         }
-    }]
+    ]
 
     # field 919 with $2 chrero and $v
     marc21xml = """
@@ -5384,14 +4883,15 @@ def test_marc21_to_genreForm_imported():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('genreForm_imported') == [{
-        'entity': {
-            'type': 'bf:Topic',
-            'authorized_access_point':
-                'Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]',
-            'source': 'gnd-content'
+    assert data.get("genreForm_imported") == [
+        {
+            "entity": {
+                "type": "bf:Topic",
+                "authorized_access_point": "Zermatt (Suisse, VS) - 19e s. (fin) - [carte postale]",
+                "source": "gnd-content",
+            }
         }
-    }]
+    ]
 
 
 def test_marc21_to_identified_by_from_035():
@@ -5406,12 +4906,8 @@ def test_marc21_to_identified_by_from_035():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
-        {
-            'type': 'bf:Local',
-            'source': 'RERO',
-            'value': 'R008945501'
-        }
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Local", "source": "RERO", "value": "R008945501"}
     ]
 
     marc21xml = """
@@ -5423,16 +4919,12 @@ def test_marc21_to_identified_by_from_035():
         """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
-        {
-            'type': 'bf:Local',
-            'source': 'OCoLC',
-            'value': 'ocm72868858'
-        }
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Local", "source": "OCoLC", "value": "ocm72868858"}
     ]
 
 
-@mock.patch('requests.Session.get')
+@mock.patch("requests.Session.get")
 def test_marc21_to_electronicLocator_from_856(mock_cover_get, app):
     """Test dojson electronicLocator from 856."""
 
@@ -5447,21 +4939,21 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get, app):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('electronicLocator') == [
+    assert data.get("electronicLocator") == [
         {
-            'url': 'http://reader.digitale-s.de/r/d/XXX.html',
-            'type': 'versionOfResource',
-            'content': 'fullText',
-            'publicNote': ['Vol. 1']
+            "url": "http://reader.digitale-s.de/r/d/XXX.html",
+            "type": "versionOfResource",
+            "content": "fullText",
+            "publicNote": ["Vol. 1"],
         }
     ]
     assert get_cover_art(data) is None
     assert get_other_accesses(data) == [
         {
-            'url': 'http://reader.digitale-s.de/r/d/XXX.html',
-            'type': 'versionOfResource',
-            'content': 'full text',
-            'public_note': 'Vol. 1'
+            "url": "http://reader.digitale-s.de/r/d/XXX.html",
+            "type": "versionOfResource",
+            "content": "full text",
+            "public_note": "Vol. 1",
         }
     ]
 
@@ -5477,20 +4969,20 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get, app):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('electronicLocator') == [
+    assert data.get("electronicLocator") == [
         {
-            'url': 'http://d-nb.info/1071856731/04',
-            'type': 'relatedResource',
-            'publicNote': ['Inhaltsverzeichnis', 'Bd. 1']
+            "url": "http://d-nb.info/1071856731/04",
+            "type": "relatedResource",
+            "publicNote": ["Inhaltsverzeichnis", "Bd. 1"],
         }
     ]
     assert get_cover_art(data) is None
     assert get_other_accesses(data) == [
         {
-            'content': None,
-            'public_note': 'Inhaltsverzeichnis, Bd. 1',
-            'type': 'relatedResource',
-            'url': 'http://d-nb.info/1071856731/04'
+            "content": None,
+            "public_note": "Inhaltsverzeichnis, Bd. 1",
+            "type": "relatedResource",
+            "url": "http://d-nb.info/1071856731/04",
         }
     ]
 
@@ -5514,31 +5006,31 @@ def test_marc21_to_electronicLocator_from_856(mock_cover_get, app):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('electronicLocator') == [
+    assert data.get("electronicLocator") == [
         {
-            'url': 'http://d-nb.info/1071856731/04',
-            'type': 'relatedResource',
-            'publicNote': ['Inhaltsverzeichnis', 'Bd. 1']
+            "url": "http://d-nb.info/1071856731/04",
+            "type": "relatedResource",
+            "publicNote": ["Inhaltsverzeichnis", "Bd. 1"],
         },
         {
-            'content': 'coverImage',
-            'type': 'relatedResource',
-            'url': 'http://d-nb.info/image.png'
+            "content": "coverImage",
+            "type": "relatedResource",
+            "url": "http://d-nb.info/image.png",
         },
         {
-            'content': 'coverImage',
-            'type': 'versionOfResource',
-            'url': 'http://d-nb.info/image2.png'
-        }
+            "content": "coverImage",
+            "type": "versionOfResource",
+            "url": "http://d-nb.info/image2.png",
+        },
     ]
     mock_cover_get.return_value = mock_response(json_data={})
-    assert get_cover_art(data) == 'http://d-nb.info/image.png'
+    assert get_cover_art(data) == "http://d-nb.info/image.png"
     assert get_other_accesses(data) == [
         {
-            'content': None,
-            'public_note': 'Inhaltsverzeichnis, Bd. 1',
-            'type': 'relatedResource',
-            'url': 'http://d-nb.info/1071856731/04'
+            "content": None,
+            "public_note": "Inhaltsverzeichnis, Bd. 1",
+            "type": "relatedResource",
+            "url": "http://d-nb.info/1071856731/04",
         }
     ]
 
@@ -5556,12 +5048,8 @@ def test_marc21_to_identified_by_from_930():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
-        {
-            'type': 'bf:Local',
-            'source': 'OCoLC',
-            'value': 'ocm11113722'
-        }
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Local", "source": "OCoLC", "value": "ocm11113722"}
     ]
     # identifier without source in parenthesis
     marc21xml = """
@@ -5573,54 +5061,48 @@ def test_marc21_to_identified_by_from_930():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
-        {
-            'type': 'bf:Local',
-            'value': 'ocm11113722'
-        }
-    ]
+    assert data.get("identifiedBy") == [{"type": "bf:Local", "value": "ocm11113722"}]
 
 
-@mock.patch('requests.Session.get')
+@mock.patch("requests.Session.get")
 def test_get_mef_link(mock_get, capsys, app):
     """Test get mef contribution link"""
 
-    mock_get.return_value = mock_response(json_data={
-        'pid': 'test',
-        'idref': {'pid': '003945843'}
-    })
-    mef_url = get_mef_link(
-        bibid='1',
-        reroid='1',
-        entity_type=EntityType.PERSON,
-        ids=['(IdRef)003945843'],
-        key='100..'
+    mock_get.return_value = mock_response(
+        json_data={"pid": "test", "idref": {"pid": "003945843"}}
     )
-    assert mef_url == 'https://mef.rero.ch/api/agents/idref/003945843'
+    mef_url = get_mef_link(
+        bibid="1",
+        reroid="1",
+        entity_type=EntityType.PERSON,
+        ids=["(IdRef)003945843"],
+        key="100..",
+    )
+    assert mef_url == "https://mef.rero.ch/api/agents/idref/003945843"
 
     mock_get.return_value = mock_response(status=404)
     mef_url = get_mef_link(
-        bibid='1',
-        reroid='1',
+        bibid="1",
+        reroid="1",
         entity_type=EntityType.PERSON,
-        ids=['(IdRef)123456789'],
-        key='100..'
+        ids=["(IdRef)123456789"],
+        key="100..",
     )
     assert not mef_url
     out, err = capsys.readouterr()
     assert out == (
-        'WARNING GET MEF CONTRIBUTION:\t1\t1\t100..\t(IdRef)123456789\t'
-        'https://mef.rero.ch/api/agents/mef/latest/'
-        'idref:123456789\t404\t0\t\n'
+        "WARNING GET MEF CONTRIBUTION:\t1\t1\t100..\t(IdRef)123456789\t"
+        "https://mef.rero.ch/api/agents/mef/latest/"
+        "idref:123456789\t404\t0\t\n"
     )
 
     mock_get.return_value = mock_response(status=400)
     mef_url = get_mef_link(
-        bibid='1',
-        reroid='1',
+        bibid="1",
+        reroid="1",
         entity_type=EntityType.PERSON,
-        ids=['X123456789'],
-        key='100..'
+        ids=["X123456789"],
+        key="100..",
     )
     assert not mef_url
 
@@ -5640,7 +5122,7 @@ def test_marc21_to_masked():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('_masked')
+    assert data.get("_masked")
 
     marc21xml = """
     <record>
@@ -5652,7 +5134,7 @@ def test_marc21_to_masked():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert not data.get('_masked')
+    assert not data.get("_masked")
 
     marc21xml = """
     <record>
@@ -5661,7 +5143,7 @@ def test_marc21_to_masked():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert not data.get('_masked')
+    assert not data.get("_masked")
 
 
 def test_marc21_to_content_media_carrier():
@@ -5693,11 +5175,13 @@ def test_marc21_to_content_media_carrier():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('contentMediaCarrier') == [{
-        "contentType": ["rdaco:1020", "rdaco:1014"],
-        "mediaType": "rdamt:1007",
-        "carrierType": "rdact:1049"
-    }]
+    assert data.get("contentMediaCarrier") == [
+        {
+            "contentType": ["rdaco:1020", "rdaco:1014"],
+            "mediaType": "rdamt:1007",
+            "carrierType": "rdact:1049",
+        }
+    ]
 
     # missing 338
     marc21xml = """
@@ -5718,10 +5202,9 @@ def test_marc21_to_content_media_carrier():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('contentMediaCarrier') == [{
-        "contentType": ["rdaco:1020"],
-        "mediaType": "rdamt:1002"
-    }]
+    assert data.get("contentMediaCarrier") == [
+        {"contentType": ["rdaco:1020"], "mediaType": "rdamt:1002"}
+    ]
 
 
 def test_marc21_to_content_media_carrier_with_linked_fields():
@@ -5767,15 +5250,18 @@ def test_marc21_to_content_media_carrier_with_linked_fields():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('contentMediaCarrier') == [{
-        "contentType": ["rdaco:1020", "rdaco:1014"],
-        "mediaType": "rdamt:1007",
-        "carrierType": "rdact:1049"
-    }, {
-        "contentType": ["rdaco:1015"],
-        "mediaType": "rdamt:1003",
-        "carrierType": "rdact:1011"
-    }]
+    assert data.get("contentMediaCarrier") == [
+        {
+            "contentType": ["rdaco:1020", "rdaco:1014"],
+            "mediaType": "rdamt:1007",
+            "carrierType": "rdact:1049",
+        },
+        {
+            "contentType": ["rdaco:1015"],
+            "mediaType": "rdamt:1003",
+            "carrierType": "rdact:1011",
+        },
+    ]
 
     # unlinked 337
     marc21xml = """
@@ -5804,14 +5290,14 @@ def test_marc21_to_content_media_carrier_with_linked_fields():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('contentMediaCarrier') == [{
+    assert data.get("contentMediaCarrier") == [
+        {
             "contentType": ["rdaco:1020"],
             "mediaType": "rdamt:1007",
-            "carrierType": "rdact:1049"
-        }, {
-            "contentType": ["rdaco:1019"],
-            "mediaType": "rdamt:1007"
-        }]
+            "carrierType": "rdact:1049",
+        },
+        {"contentType": ["rdaco:1019"], "mediaType": "rdamt:1007"},
+    ]
 
 
 def test_marc21_to_original_language():
@@ -5833,7 +5319,7 @@ def test_marc21_to_original_language():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('originalLanguage') == ['eng']
+    assert data.get("originalLanguage") == ["eng"]
 
 
 def test_abbreviated_title(app, marc21_record):
@@ -5850,13 +5336,16 @@ def test_abbreviated_title(app, marc21_record):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [{
-        'type': 'bf:AbbreviatedTitle',
-        'mainTitle': [{'value': 'Günter Gianni Piontek Skulpt.'}]
-    }, {
-        'type': 'bf:KeyTitle',
-        'mainTitle': [{'value': 'Günter Gianni Piontek, Skulpturen'}]
-    }]
+    assert data.get("title") == [
+        {
+            "type": "bf:AbbreviatedTitle",
+            "mainTitle": [{"value": "Günter Gianni Piontek Skulpt."}],
+        },
+        {
+            "type": "bf:KeyTitle",
+            "mainTitle": [{"value": "Günter Gianni Piontek, Skulpturen"}],
+        },
+    ]
 
 
 def test_scale_and_cartographic(app, marc21_record):
@@ -5873,12 +5362,10 @@ def test_scale_and_cartographic(app, marc21_record):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('scale') == [{
-        'label': '1:25 000',
-        'ratio_linear_horizontal': 25000,
-        'type': 'Linear scale'
-    }]
-    assert data.get('cartographicAttributes') is None
+    assert data.get("scale") == [
+        {"label": "1:25 000", "ratio_linear_horizontal": 25000, "type": "Linear scale"}
+    ]
+    assert data.get("cartographicAttributes") is None
 
     marc21xml = """
     <record>
@@ -5909,28 +5396,30 @@ def test_scale_and_cartographic(app, marc21_record):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('scale') == [{
-        'label': 'Echelle 1:50 000',
-        'ratio_linear_horizontal': 1000000,
-        'type': 'Linear scale'
-      }, {
-        'label': '[Echelles diverses]',
-        'ratio_linear_horizontal': 500000,
-        'ratio_linear_vertical': 70000,
-        'type': 'Linear scale'
-      }]
-    assert data.get('cartographicAttributes') == [{
-        'coordinates': {
-            'label': "(E 6º50'-E 7º15'/N 46º10'-N 46º20')",
-            'latitude': 'N0251500 N0221000',
-            'longitude': 'E1103000 E1203000'
+    assert data.get("scale") == [
+        {
+            "label": "Echelle 1:50 000",
+            "ratio_linear_horizontal": 1000000,
+            "type": "Linear scale",
         },
-        'projection': 'projection conforme cylindrique'
-    }, {
-        'coordinates': {
-            'longitude': 'E0033800 E0080300'
-        }
-    }]
+        {
+            "label": "[Echelles diverses]",
+            "ratio_linear_horizontal": 500000,
+            "ratio_linear_vertical": 70000,
+            "type": "Linear scale",
+        },
+    ]
+    assert data.get("cartographicAttributes") == [
+        {
+            "coordinates": {
+                "label": "(E 6º50'-E 7º15'/N 46º10'-N 46º20')",
+                "latitude": "N0251500 N0221000",
+                "longitude": "E1103000 E1203000",
+            },
+            "projection": "projection conforme cylindrique",
+        },
+        {"coordinates": {"longitude": "E0033800 E0080300"}},
+    ]
 
 
 def test_temporal_coverage(app, marc21_record):
@@ -5973,37 +5462,16 @@ def test_temporal_coverage(app, marc21_record):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('temporalCoverage') == [{
-        'end_date': '-130000000',
-        'start_date': '-205000000',
-        'type': 'period'
-    }, {
-        'date': '-0044-03-15',
-        'period_code': ['d9d9'],
-        'type': 'time'
-    }, {
-        'date': '+1767',
-        'period_code': ['v6w3'],
-        'type': 'time'
-    }, {
-        'date': '+1798-08-26',
-        'period_code': ['v9w0'],
-        'type': 'time'
-    }, {
-        'date': None,
-        'period_code': ['w1w1'],
-        'type': 'time'
-    }, {
-        'date': None,
-        'period_code': ['x1x1'],
-        'type': 'time'
-    }, {
-        'period_code': ['x6x6'],
-        'type': 'period'
-    }, {
-        'date': '+1972',
-        'type': 'time'
-    }]
+    assert data.get("temporalCoverage") == [
+        {"end_date": "-130000000", "start_date": "-205000000", "type": "period"},
+        {"date": "-0044-03-15", "period_code": ["d9d9"], "type": "time"},
+        {"date": "+1767", "period_code": ["v6w3"], "type": "time"},
+        {"date": "+1798-08-26", "period_code": ["v9w0"], "type": "time"},
+        {"date": None, "period_code": ["w1w1"], "type": "time"},
+        {"date": None, "period_code": ["x1x1"], "type": "time"},
+        {"period_code": ["x6x6"], "type": "period"},
+        {"date": "+1972", "type": "time"},
+    ]
 
 
 def test_marc21_to_fiction_statement():
@@ -6017,7 +5485,7 @@ def test_marc21_to_fiction_statement():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data['fiction_statement'] == DocumentFictionType.Unspecified.value
+    assert data["fiction_statement"] == DocumentFictionType.Unspecified.value
     marc21xml = """
     <record>
       <controlfield tag=
@@ -6026,4 +5494,4 @@ def test_marc21_to_fiction_statement():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data['fiction_statement'] == DocumentFictionType.Fiction.value
+    assert data["fiction_statement"] == DocumentFictionType.Fiction.value

@@ -41,6 +41,7 @@ class AddMEFPidExtension(RecordExtension):
         :params record: dict - a document record.
         """
         from rero_ils.modules.entities.remote_entities.api import RemoteEntity
+
         remote_entities = []
 
         # Search about all entities present in the document through fields
@@ -49,17 +50,17 @@ class AddMEFPidExtension(RecordExtension):
             fields = record.get(field_name, [])
             if not isinstance(fields, list):
                 fields = [fields]
-            remote_entities.extend([
-                field['entity'] for field in fields if 'entity' in field
-            ])
+            remote_entities.extend(
+                [field["entity"] for field in fields if "entity" in field]
+            )
 
         # For each found entity, add its PID into the entity data.
         for entity_data in remote_entities:
-            if ref := entity_data.get('$ref'):
+            if ref := entity_data.get("$ref"):
                 entity, _ = RemoteEntity.get_record_by_ref(ref)
                 if entity:
                     # inject mef pid
-                    entity_data['pid'] = entity['pid']
+                    entity_data["pid"] = entity["pid"]
 
     def post_create(self, record):
         """Called after a record is initialized.

@@ -35,12 +35,7 @@ def test_marc21_to_isbn_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') == [
-        {
-            'type': 'bf:Isbn',
-            'value': '9782812933868'
-        }
-    ]
+    assert data.get("identifiedBy") == [{"type": "bf:Isbn", "value": "9782812933868"}]
 
     marc21xml = """
     <record>
@@ -51,7 +46,7 @@ def test_marc21_to_isbn_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('identifiedBy') is None
+    assert data.get("identifiedBy") is None
 
     marc21xml = """
     <record>
@@ -62,7 +57,7 @@ def test_marc21_to_isbn_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert not data.get('identifiedBy')
+    assert not data.get("identifiedBy")
 
 
 def test_marc21_to_languages_ebooks_from_008():
@@ -76,7 +71,7 @@ def test_marc21_to_languages_ebooks_from_008():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('language') == [{'type': 'bf:Language', 'value': 'fre'}]
+    assert data.get("language") == [{"type": "bf:Language", "value": "fre"}]
 
 
 def test_marc21_to_languages_ebooks():
@@ -96,7 +91,7 @@ def test_marc21_to_languages_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('language') == [{'type': 'bf:Language', 'value': 'fre'}]
+    assert data.get("language") == [{"type": "bf:Language", "value": "fre"}]
 
 
 def test_marc21_to_type_ebooks():
@@ -110,10 +105,9 @@ def test_marc21_to_type_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('type') == [{
-        'main_type': 'docmaintype_book',
-        'subtype': 'docsubtype_e-book'
-    }]
+    assert data.get("type") == [
+        {"main_type": "docmaintype_book", "subtype": "docsubtype_e-book"}
+    ]
 
 
 def test_marc21_to_identifier_rero_id():
@@ -127,11 +121,8 @@ def test_marc21_to_identifier_rero_id():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    identifiers = data.get('identifiedBy', [])
-    assert identifiers[0] == {
-        'type': 'bf:Local',
-        'value': 'cantook-EDEN496624'
-    }
+    identifiers = data.get("identifiedBy", [])
+    assert identifiers[0] == {"type": "bf:Local", "value": "cantook-EDEN496624"}
 
 
 def test_marc21_to_title():
@@ -145,10 +136,9 @@ def test_marc21_to_title():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('title') == [{
-        'mainTitle': [{'value': 'Elena et les joueuses'}],
-        'type': 'bf:Title'
-    }]
+    assert data.get("title") == [
+        {"mainTitle": [{"value": "Elena et les joueuses"}], "type": "bf:Title"}
+    ]
 
 
 def test_marc21_to_extent():
@@ -165,7 +155,7 @@ def test_marc21_to_extent():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('extent') == '1234'
+    assert data.get("extent") == "1234"
 
 
 def test_marc21_to_description():
@@ -187,7 +177,7 @@ def test_marc21_to_description():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('extent') == '116 p.'
+    assert data.get("extent") == "116 p."
 
     marc21xml = """
     <record>
@@ -206,7 +196,7 @@ def test_marc21_to_description():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('extent') == '116 p.'
+    assert data.get("extent") == "116 p."
 
     marc21xml = """
     <record>
@@ -219,7 +209,7 @@ def test_marc21_to_description():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('extent') == '116 p.'
+    assert data.get("extent") == "116 p."
 
 
 def test_marc21_to_notes():
@@ -240,13 +230,9 @@ def test_marc21_to_notes():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('note') == [{
-            'noteType': 'general',
-            'label': 'note 1'
-        }, {
-            'noteType': 'general',
-            'label': 'note 2'
-        }
+    assert data.get("note") == [
+        {"noteType": "general", "label": "note 1"},
+        {"noteType": "general", "label": "note 2"},
     ]
 
 
@@ -264,18 +250,12 @@ def test_marc21_to_edition_statement_one_field_250():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('editionStatement') == [{
-        'editionDesignation': [
-            {
-                'value': '2e ed.'
-            }
-        ],
-        'responsibility': [
-            {
-                'value': 'avec un avant-propos par Jean Faret'
-            }
-        ]
-    }]
+    assert data.get("editionStatement") == [
+        {
+            "editionDesignation": [{"value": "2e ed."}],
+            "responsibility": [{"value": "avec un avant-propos par Jean Faret"}],
+        }
+    ]
 
 
 def test_marc21_to_provision_activity_ebooks_from_field_260():
@@ -291,25 +271,14 @@ def test_marc21_to_provision_activity_ebooks_from_field_260():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'statement': [
-                {
-                    'label': [
-                        {'value': 'Lausanne'}
-                    ],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [
-                        {'value': '[2006]'}
-                    ],
-                    'type': 'Date'
-                }
-
+            "type": "bf:Publication",
+            "statement": [
+                {"label": [{"value": "Lausanne"}], "type": "bf:Place"},
+                {"label": [{"value": "[2006]"}], "type": "Date"},
             ],
-            'startDate': 2006
+            "startDate": 2006,
         }
     ]
 
@@ -327,7 +296,7 @@ def test_marc21copyrightdate_ebooks_from_field_264_04():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('copyrightDate') == ['© 1971']
+    assert data.get("copyrightDate") == ["© 1971"]
 
     marc21xml = """
     <record>
@@ -338,7 +307,7 @@ def test_marc21copyrightdate_ebooks_from_field_264_04():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('copyrightDate') == ['© 1971 [extra 1973]']
+    assert data.get("copyrightDate") == ["© 1971 [extra 1973]"]
 
 
 def test_marc21_to_provision_activity_ebooks_from_field_264_1():
@@ -354,31 +323,16 @@ def test_marc21_to_provision_activity_ebooks_from_field_264_1():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'statement': [
-                {
-                    'label': [
-                        {'value': 'Lausanne'}
-                    ],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [
-                        {'value': 'Payot'}
-                    ],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [
-                        {'value': '[2006-2010]'}
-                    ],
-                    'type': 'Date'
-                }
+            "type": "bf:Publication",
+            "statement": [
+                {"label": [{"value": "Lausanne"}], "type": "bf:Place"},
+                {"label": [{"value": "Payot"}], "type": "bf:Agent"},
+                {"label": [{"value": "[2006-2010]"}], "type": "Date"},
             ],
-            'startDate': 2006,
-            'endDate': 2010
+            "startDate": 2006,
+            "endDate": 2010,
         }
     ]
 
@@ -396,30 +350,14 @@ def test_marc21_to_provision_activity_ebooks_from_field_264_2():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Distribution',
-            'statement': [
-                {
-                    'label': [
-                        {'value': 'Lausanne'}
-                    ],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [
-                        {'value': 'Payot'}
-                    ],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [
-                        {'value': '[2006-2010]'}
-                    ],
-                    'type': 'Date'
-                }
-
-            ]
+            "type": "bf:Distribution",
+            "statement": [
+                {"label": [{"value": "Lausanne"}], "type": "bf:Place"},
+                {"label": [{"value": "Payot"}], "type": "bf:Agent"},
+                {"label": [{"value": "[2006-2010]"}], "type": "Date"},
+            ],
         }
     ]
 
@@ -450,37 +388,24 @@ def test_marc21_to_subjects():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('subjects') == [{
-            'entity': {
-                'authorized_access_point': 'Croissance personnelle',
-                'type': 'bf:Topic'
+    assert data.get("subjects") == [
+        {
+            "entity": {
+                "authorized_access_point": "Croissance personnelle",
+                "type": "bf:Topic",
             }
-        }, {
-            'entity': {
-                'authorized_access_point': 'Self-Help',
-                'type': 'bf:Topic'
+        },
+        {"entity": {"authorized_access_point": "Self-Help", "type": "bf:Topic"}},
+        {"entity": {"authorized_access_point": "Santé", "type": "bf:Topic"}},
+        {"entity": {"authorized_access_point": "Health", "type": "bf:Topic"}},
+        {
+            "entity": {
+                "authorized_access_point": "Développement Personnel",
+                "type": "bf:Topic",
             }
-        }, {
-            'entity': {
-                'authorized_access_point': 'Santé',
-                'type': 'bf:Topic'
-            }
-        }, {
-            'entity': {
-                'authorized_access_point': 'Health',
-                'type': 'bf:Topic'
-            }
-        }, {
-            'entity': {
-                'authorized_access_point': 'Développement Personnel',
-                'type': 'bf:Topic'
-            }
-        }, {
-            'entity': {
-                'authorized_access_point': 'Self-Help',
-                'type': 'bf:Topic'
-            }
-        }]
+        },
+        {"entity": {"authorized_access_point": "Self-Help", "type": "bf:Topic"}},
+    ]
 
 
 def test_marc21_to_contribution():
@@ -499,13 +424,10 @@ def test_marc21_to_contribution():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('contribution') == [
+    assert data.get("contribution") == [
         {
-            'entity': {
-                'type': 'bf:Person',
-                'authorized_access_point': 'Collectif'
-            },
-            'role': ['aut']
+            "entity": {"type": "bf:Person", "authorized_access_point": "Collectif"},
+            "role": ["aut"],
         }
     ]
 
@@ -538,40 +460,34 @@ def test_marc21_to_contribution():
 
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    contribution = data.get('contribution')
+    contribution = data.get("contribution")
     assert contribution == [
         {
-            'entity': {
-                'type': 'bf:Person',
-                'authorized_access_point': 'Jean-Paul II, Pape, 1954'
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Jean-Paul II, Pape, 1954",
             },
-            'role': ['aut']
+            "role": ["aut"],
         },
         {
-            'entity': {
-                'authorized_access_point':
-                    'Dumont, Jean, 1921-2014, Historien',
-                'type': 'bf:Person'
+            "entity": {
+                "authorized_access_point": "Dumont, Jean, 1921-2014, Historien",
+                "type": "bf:Person",
             },
-            'role': ['edt']
+            "role": ["edt"],
         },
         {
-            'entity': {
-                'type': 'bf:Organisation',
-                'authorized_access_point': 'RERO'
-            },
-            'role': ['ctb']
+            "entity": {"type": "bf:Organisation", "authorized_access_point": "RERO"},
+            "role": ["ctb"],
         },
         {
-            'entity': {
-                'type': 'bf:Organisation',
-                'authorized_access_point':
-                    'Biennale de céramique contemporaine (17 : 2003 : '
-                    'Châteauroux)'
+            "entity": {
+                "type": "bf:Organisation",
+                "authorized_access_point": "Biennale de céramique contemporaine (17 : 2003 : "
+                "Châteauroux)",
             },
-            'role': ['aut']
-        }
-
+            "role": ["aut"],
+        },
     ]
 
 
@@ -595,21 +511,21 @@ def test_marc21_to_contribution_and_translator():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('contribution') == [
+    assert data.get("contribution") == [
         {
-            'entity': {
-                'type': 'bf:Person',
-                'authorized_access_point': 'Peeters, Hagar'
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Peeters, Hagar",
             },
-            'role': ['aut']
+            "role": ["aut"],
         },
         {
-            'entity': {
-                'type': 'bf:Person',
-                'authorized_access_point': 'Maufroy, Sandrine'
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Maufroy, Sandrine",
             },
-            'role': ['trl']
-        }
+            "role": ["trl"],
+        },
     ]
 
 
@@ -637,22 +553,22 @@ def test_marc21_electronicLocator_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('electronicLocator') == [
+    assert data.get("electronicLocator") == [
         {
-            'url': 'http://site1.org/resources/1',
-            'type': 'resource',
-            'source': 'ebibliomedia'
+            "url": "http://site1.org/resources/1",
+            "type": "resource",
+            "source": "ebibliomedia",
         },
         {
-            'url': 'http://site5.org/resources/1',
-            'type': 'resource',
-            'source': 'mv-cantook'
+            "url": "http://site5.org/resources/1",
+            "type": "resource",
+            "source": "mv-cantook",
         },
         {
-            'url': 'http://site2.org/resources/2',
-            'type': 'relatedResource',
-            'content': 'coverImage'
-        }
+            "url": "http://site2.org/resources/2",
+            "type": "relatedResource",
+            "content": "coverImage",
+        },
     ]
 
 
@@ -672,10 +588,10 @@ def test_marc21_cover_art_ebooks():
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('electronicLocator') == [
+    assert data.get("electronicLocator") == [
         {
-            'url': 'http://site2.org/resources/2',
-            'type': 'relatedResource',
-            'content': 'coverImage'
+            "url": "http://site2.org/resources/2",
+            "type": "relatedResource",
+            "content": "coverImage",
         }
     ]

@@ -17,6 +17,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Patron dumpers."""
+
+import contextlib
+
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
 
@@ -39,10 +42,8 @@ class PatronPropertiesDumper(InvenioRecordsDumper):
         """
         data = record.dumps()  # use the default dumps() to get basic data.
         for property_name in self._properties:
-            try:
+            with contextlib.suppress(AttributeError):
                 data[property_name] = getattr(record, property_name)
-            except AttributeError:
-                pass
         return {k: v for k, v in data.items() if v}
 
 
@@ -57,18 +58,18 @@ class PatronNotificationDumper(InvenioRecordsDumper):
         :return a dict with dumped data.
         """
         data = {
-            'pid': record.pid,
-            'last_name': data.get('last_name'),
-            'first_name': data.get('first_name'),
-            'profile_url': record.profile_url,
-            'address': {
-                'street': data.get('street'),
-                'postal_code': data.get('postal_code'),
-                'city': data.get('city'),
-                'country': data.get('country')
+            "pid": record.pid,
+            "last_name": data.get("last_name"),
+            "first_name": data.get("first_name"),
+            "profile_url": record.profile_url,
+            "address": {
+                "street": data.get("street"),
+                "postal_code": data.get("postal_code"),
+                "city": data.get("city"),
+                "country": data.get("country"),
             },
-            'barcode': record.get('patron', {}).get('barcode')
+            "barcode": record.get("patron", {}).get("barcode"),
         }
-        data['address'] = {k: v for k, v in data['address'].items() if v}
+        data["address"] = {k: v for k, v in data["address"].items() if v}
         data = {k: v for k, v in data.items() if v}
         return data

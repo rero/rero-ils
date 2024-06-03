@@ -32,8 +32,7 @@ class StatsCfgJSONSerializer(JSONSerializer, PostprocessorMixin):
                             aggregations section.
         """
         JSONSerializer.enrich_bucket_with_data(
-            aggregations.get('library', {}).get('buckets', []),
-            LibrariesSearch, 'name'
+            aggregations.get("library", {}).get("buckets", []), LibrariesSearch, "name"
         )
 
         super()._postprocess_search_aggregations(aggregations)

@@ -27,16 +27,17 @@ from invenio_records.models import RecordMetadataBase
 class CollectionIdentifier(RecordIdentifier):
     """Sequence generator for collection identifiers."""
 
-    __tablename__ = 'collection_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "collection_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
 class CollectionMetadata(db.Model, RecordMetadataBase):
     """Collection record metadata."""
 
-    __tablename__ = 'collection_metadata'
+    __tablename__ = "collection_metadata"

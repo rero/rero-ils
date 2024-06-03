@@ -20,14 +20,22 @@
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.local_fields.api import LocalField
-from rero_ils.modules.local_fields.dumpers import \
-    ElasticSearchDumper as LocalFieldESDumper
+from rero_ils.modules.local_fields.dumpers import (
+    ElasticSearchDumper as LocalFieldESDumper,
+)
 
 from .api import Item, ItemsSearch
 
 
-def enrich_item_data(sender, json=None, record=None, index=None,
-                     doc_type=None, arguments=None, **dummy_kwargs):
+def enrich_item_data(
+    sender,
+    json=None,
+    record=None,
+    index=None,
+    doc_type=None,
+    arguments=None,
+    **dummy_kwargs,
+):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -35,48 +43,43 @@ def enrich_item_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index.split('-')[0] != ItemsSearch.Meta.index:
+    if index.split("-")[0] != ItemsSearch.Meta.index:
         return
     if not isinstance(record, Item):
-        record = Item.get_record_by_pid(record.get('pid'))
+        record = Item.get_record_by_pid(record.get("pid"))
 
     # Document type
-    document = Document.get_record_by_pid(json['document']['pid'])
-    json['document']['document_type'] = document['type']
+    document = Document.get_record_by_pid(json["document"]["pid"])
+    json["document"]["document_type"] = document["type"]
 
     # Current pending requests
-    json['current_pending_requests'] = record.get_requests(output='count')
+    json["current_pending_requests"] = record.get_requests(output="count")
 
-    # add related local fields
-    local_fields = [
+    if local_fields := [
         field.dumps(dumper=LocalFieldESDumper())
         for field in LocalField.get_local_fields(record)
-    ]
-    if local_fields:
-        json['local_fields'] = local_fields
+    ]:
+        json["local_fields"] = local_fields
 
     if record.is_issue:
         # Issue `sort_date` is an optional field but value is used to sort
         # issues from one another ; if this field is empty, use the issue
         # `expected_date` as value
-        json['issue']['sort_date'] = record.sort_date or record.expected_date
+        json["issue"]["sort_date"] = record.sort_date or record.expected_date
         # inherited_first_call_number to issue
         if call_number := record.issue_inherited_first_call_number:
-            json['issue']['inherited_first_call_number'] = call_number
+            json["issue"]["inherited_first_call_number"] = call_number
         # inherited_second_call_number to issue
         if call_number := record.issue_inherited_second_call_number:
-            json['issue']['inherited_second_call_number'] = call_number
+            json["issue"]["inherited_second_call_number"] = call_number
         # inject vendor pid
         if vendor_pid := record.vendor_pid:
-            json['vendor'] = {'pid': vendor_pid, 'type': 'vndr'}
+            json["vendor"] = {"pid": vendor_pid, "type": "vndr"}
         # inject claims information: counter and dates
         if notifications := record.claim_notifications:
             dates = [
-                notification['creation_date']
+                notification["creation_date"]
                 for notification in notifications
-                if 'creation_date' in notification
+                if "creation_date" in notification
             ]
-            json['issue']['claims'] = {
-                'counter': len(notifications),
-                'dates': dates
-            }
+            json["issue"]["claims"] = {"counter": len(notifications), "dates": dates}

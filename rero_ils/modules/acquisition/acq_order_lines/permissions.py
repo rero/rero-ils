@@ -19,19 +19,22 @@
 """Permissions for Acquisition order line."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByManageableLibrary, DisallowedIfRollovered, \
-    RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByManageableLibrary,
+    DisallowedIfRollovered,
+    RecordPermissionPolicy,
+)
 
 from .api import AcqOrderLine
 
 # Actions to control acquisition order lines resource policies
-search_action = action_factory('acol-search')
-read_action = action_factory('acol-read')
-create_action = action_factory('acol-create')
-update_action = action_factory('acol-update')
-delete_action = action_factory('acol-delete')
-access_action = action_factory('acol-access')
+search_action = action_factory("acol-search")
+read_action = action_factory("acol-read")
+create_action = action_factory("acol-create")
+update_action = action_factory("acol-update")
+delete_action = action_factory("acol-delete")
+access_action = action_factory("acol-access")
 
 
 class AcqOrderLinePermissionPolicy(RecordPermissionPolicy):
@@ -41,13 +44,13 @@ class AcqOrderLinePermissionPolicy(RecordPermissionPolicy):
     can_read = [AllowedByActionRestrictByManageableLibrary(read_action)]
     can_create = [
         AllowedByActionRestrictByManageableLibrary(create_action),
-        DisallowedIfRollovered(AcqOrderLine)
+        DisallowedIfRollovered(AcqOrderLine),
     ]
     can_update = [
         AllowedByActionRestrictByManageableLibrary(update_action),
-        DisallowedIfRollovered(AcqOrderLine)
+        DisallowedIfRollovered(AcqOrderLine),
     ]
     can_delete = [
         AllowedByActionRestrictByManageableLibrary(delete_action),
-        DisallowedIfRollovered(AcqOrderLine)
+        DisallowedIfRollovered(AcqOrderLine),
     ]

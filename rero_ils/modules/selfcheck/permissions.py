@@ -18,13 +18,10 @@
 
 """Selfcheck permissions."""
 
-from ..permissions import deny_access
 from ...permissions import monitoring_permission
+from ..permissions import deny_access
 
 
 def seflcheck_permission_factory(action):
     """Default api permission factory."""
-    if action in ['api-monitoring']:
-        return monitoring_permission
-
-    return deny_access
+    return monitoring_permission if action in ["api-monitoring"] else deny_access

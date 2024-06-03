@@ -30,22 +30,22 @@ from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 
-from .extensions import AcqReceiptLineValidationExtension, \
-    AcquisitionReceiptLineCompleteDataExtension
+from .extensions import (
+    AcqReceiptLineValidationExtension,
+    AcquisitionReceiptLineCompleteDataExtension,
+)
 from .models import AcqReceiptLineIdentifier, AcqReceiptLineMetadata
 
 # provider
 AcqReceiptLineProvider = type(
-    'AcqReceiptLineProvider',
+    "AcqReceiptLineProvider",
     (Provider,),
-    dict(identifier=AcqReceiptLineIdentifier, pid_type='acrl')
+    dict(identifier=AcqReceiptLineIdentifier, pid_type="acrl"),
 )
 # minter
-acq_receipt_line_id_minter = partial(
-    id_minter, provider=AcqReceiptLineProvider)
+acq_receipt_line_id_minter = partial(id_minter, provider=AcqReceiptLineProvider)
 # fetcher
-acq_receipt_line_id_fetcher = partial(
-    id_fetcher, provider=AcqReceiptLineProvider)
+acq_receipt_line_id_fetcher = partial(id_fetcher, provider=AcqReceiptLineProvider)
 
 
 class AcqReceiptLinesSearch(IlsRecordsSearch):
@@ -54,9 +54,9 @@ class AcqReceiptLinesSearch(IlsRecordsSearch):
     class Meta:
         """Search only on acq_receipt_lines index."""
 
-        index = 'acq_receipt_lines'
+        index = "acq_receipt_lines"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -72,18 +72,18 @@ class AcqReceiptLine(AcquisitionIlsRecord):
 
     _extensions = [
         AcquisitionReceiptLineCompleteDataExtension(),
-        AcqReceiptLineValidationExtension()
+        AcqReceiptLineValidationExtension(),
     ]
 
     @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=True, reindex=True, **kwargs):
+    def create(
+        cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs
+    ):
         """Create Acquisition Receipt Line record."""
         # TODO : should be used into `pre_create` hook extensions but seems not
         #        work as expected.
         cls._build_additional_refs(data)
-        return super().create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        return super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
 
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Receipt Line record."""
@@ -91,7 +91,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
         original_record = self.__class__.get_record(self.id)
 
         new_data = deepcopy(dict(self))
-        new_data.update(data)
+        new_data |= data
         self._build_additional_refs(new_data)
         super().update(new_data, commit, dbcommit, reindex)
 
@@ -100,15 +100,11 @@ class AcqReceiptLine(AcquisitionIlsRecord):
     @classmethod
     def _build_additional_refs(cls, data):
         """Build $ref for the organisation and library the acq receipt line."""
-        receipt = extracted_data_from_ref(
-            data.get('acq_receipt'), data='record')
-        if receipt:
-            data['organisation'] = {
-                '$ref': get_ref_for_pid('org', receipt.organisation_pid)
+        if receipt := extracted_data_from_ref(data.get("acq_receipt"), data="record"):
+            data["organisation"] = {
+                "$ref": get_ref_for_pid("org", receipt.organisation_pid)
             }
-            data['library'] = {
-                '$ref': get_ref_for_pid('lib', receipt.library_pid)
-            }
+            data["library"] = {"$ref": get_ref_for_pid("lib", receipt.library_pid)}
 
     # GETTER & SETTER =========================================================
     #   * Define some properties as shortcut to quickly access object attrs.
@@ -116,25 +112,22 @@ class AcqReceiptLine(AcquisitionIlsRecord):
     @cached_property
     def receipt(self):
         """Shortcut to the receipt of the receipt line."""
-        return extracted_data_from_ref(self.get('acq_receipt'), data='record')
+        return extracted_data_from_ref(self.get("acq_receipt"), data="record")
 
     @property
     def library_pid(self):
         """Shortcut for acquisition receipt line library pid."""
-        return extracted_data_from_ref(self.get('library'))
+        return extracted_data_from_ref(self.get("library"))
 
     @property
     def order_line_pid(self):
         """Shortcut for related acquisition order line pid."""
-        return extracted_data_from_ref(self.get('acq_order_line'))
+        return extracted_data_from_ref(self.get("acq_order_line"))
 
     @cached_property
     def order_line(self):
         """Shortcut for related acquisition order line record."""
-        return extracted_data_from_ref(
-            self.get('acq_order_line'),
-            data='record'
-        )
+        return extracted_data_from_ref(self.get("acq_order_line"), data="record")
 
     @property
     def is_active(self):
@@ -153,25 +146,24 @@ class AcqReceiptLine(AcquisitionIlsRecord):
     @property
     def receipt_pid(self):
         """Shortcut for related acquisition receipt pid."""
-        return extracted_data_from_ref(self.get('acq_receipt'))
+        return extracted_data_from_ref(self.get("acq_receipt"))
 
     @property
     def amount(self):
         """Shortcut for related acquisition amount."""
-        return self.get('amount')
+        return self.get("amount")
 
     @property
     def total_amount(self):
         """Shortcut for related acquisition total_amount."""
-        vat_factor = (100 + self.get('vat_rate', 0)) / 100
-        total = self.amount * self.receipt.exchange_rate * self.quantity * \
-            vat_factor
+        vat_factor = (100 + self.get("vat_rate", 0)) / 100
+        total = self.amount * self.receipt.exchange_rate * self.quantity * vat_factor
         return round(total, 2)
 
     @property
     def quantity(self):
         """Shortcut for related acquisition quantity."""
-        return self.get('quantity')
+        return self.get("quantity")
 
     @property
     def organisation_pid(self):
@@ -187,8 +179,9 @@ class AcqReceiptLine(AcquisitionIlsRecord):
         :return the note content if exists, otherwise returns None.
         """
         note = [
-            note.get('content') for note in self.get('notes', [])
-            if note.get('type') == note_type
+            note.get("content")
+            for note in self.get("notes", [])
+            if note.get("type") == note_type
         ]
         return next(iter(note), None)
 
@@ -197,7 +190,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
         cannot_delete = {}
         # Note: not possible to delete records attached to rolled_over budget.
         if not self.is_active:
-            cannot_delete['links'] = {'rolled_over': True}
+            cannot_delete["links"] = {"rolled_over": True}
         return cannot_delete
 
 

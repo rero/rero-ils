@@ -20,10 +20,8 @@
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
 
-from rero_ils.modules.acquisition.acq_accounts.dumpers import \
-    AcqAccountGenericDumper
-from rero_ils.modules.acquisition.acq_order_lines.models import \
-    AcqOrderLineNoteType
+from rero_ils.modules.acquisition.acq_accounts.dumpers import AcqAccountGenericDumper
+from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineNoteType
 from rero_ils.modules.acquisition.dumpers import document_acquisition_dumper
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.extensions import TitleExtension
@@ -44,35 +42,34 @@ class AcqOrderLineESDumper(InvenioRecordsDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         # Keep only some attributes from AcqOrderLine object initial dump.
-        for attr in ['pid', 'status', 'order_date', 'quantity']:
+        for attr in ["pid", "status", "order_date", "quantity"]:
             if value := record.get(attr):
                 data.update({attr: value})
 
         # Add account information's: pid, name and reference number.
         # (remove None values from account metadata)
         account = record.account
-        data['account'] = {
-            'pid': account.pid,
-            'name': account['name'],
-            'number': account.get('number')
+        data["account"] = {
+            "pid": account.pid,
+            "name": account["name"],
+            "number": account.get("number"),
         }
-        data['account'] = {k: v for k, v in data['account'].items() if v}
+        data["account"] = {k: v for k, v in data["account"].items() if v}
 
         # Add document information's: pid, formatted title and ISBN
         # identifiers (remove None values from document metadata)
         document = record.document
         identifiers = document.get_identifiers(
-            filters=[IdentifierType.ISBN],
-            with_alternatives=True
+            filters=[IdentifierType.ISBN], with_alternatives=True
         )
         identifiers = [identifier.normalize() for identifier in identifiers]
 
-        data['document'] = {
-            'pid': document.pid,
-            'title': TitleExtension.format_text(document.get('title', [])),
-            'identifiers': identifiers
+        data["document"] = {
+            "pid": document.pid,
+            "title": TitleExtension.format_text(document.get("title", [])),
+            "identifiers": identifiers,
         }
-        data['document'] = {k: v for k, v in data['document'].items() if v}
+        data["document"] = {k: v for k, v in data["document"].items() if v}
         return data
 
 
@@ -86,13 +83,14 @@ class AcqOrderLineNotificationDumper(InvenioRecordsDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         # Dumps AcqOrderLine acquisition
-        data.update({
-            'quantity': record.get('quantity'),
-            'amount': record.get('amount'),
-            'note': record.get_note(AcqOrderLineNoteType.VENDOR),
-            'account': record.account.dumps(dumper=AcqAccountGenericDumper()),
-            'document': record.document.dumps(
-                dumper=document_acquisition_dumper)
-        })
+        data.update(
+            {
+                "quantity": record.get("quantity"),
+                "amount": record.get("amount"),
+                "note": record.get_note(AcqOrderLineNoteType.VENDOR),
+                "account": record.account.dumps(dumper=AcqAccountGenericDumper()),
+                "document": record.document.dumps(dumper=document_acquisition_dumper),
+            }
+        )
         data = {k: v for k, v in data.items() if v}
         return data

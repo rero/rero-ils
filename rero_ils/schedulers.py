@@ -29,13 +29,10 @@ from flask_celeryext._mapping import FLASK_TO_CELERY_MAPPING
 from redisbeat.scheduler import RedisScheduler as OriginalRedisScheduler
 from werkzeug.local import LocalProxy
 
-current_scheduler = LocalProxy(lambda: RedisScheduler(
-    app=current_celery,
-    lazy=True
-))
+current_scheduler = LocalProxy(lambda: RedisScheduler(app=current_celery, lazy=True))
 
 logger = get_logger(__name__)
-schedstate = namedtuple('schedstate', ('is_due', 'next'))
+schedstate = namedtuple("schedstate", ("is_due", "next"))
 
 
 class RedisScheduler(OriginalRedisScheduler):
@@ -65,12 +62,11 @@ class RedisScheduler(OriginalRedisScheduler):
         :param args: see base class definitions
         :param kwargs: see base class definitions
         """
-        lazy = kwargs.get('lazy', False)
-        url = app.conf.get("CELERY_REDIS_SCHEDULER_URL",
-                           "redis://localhost:6379")
-        logger.info(f'Connect: {url} lazy:{lazy}')
-        kwargs['app'] = app
-        kwargs['lazy'] = lazy
+        lazy = kwargs.get("lazy", False)
+        url = app.conf.get("CELERY_REDIS_SCHEDULER_URL", "redis://localhost:6379")
+        logger.info(f"Connect: {url} lazy:{lazy}")
+        kwargs["app"] = app
+        kwargs["lazy"] = lazy
         super().__init__(*args, **kwargs)
 
     def get(self, name):
@@ -91,7 +87,7 @@ class RedisScheduler(OriginalRedisScheduler):
         :param name: name of entry in task scheduler
         :return: name of the enable key in REDIS DB
         """
-        return f'{self.key}:{name}'
+        return f"{self.key}:{name}"
 
     def merge_inplace(self, tasks):
         """Merge entries from CELERY_BEAT_SCHEDULE.
@@ -99,18 +95,18 @@ class RedisScheduler(OriginalRedisScheduler):
         :param tasks: dictionary with CELERY_BEAT_SCHEDULE tasks
         """
         for name in tasks:
-            enabled = tasks[name].pop('enabled', True)
+            enabled = tasks[name].pop("enabled", True)
             if not self.rdb.get(self.enabled_name(name)):
                 self.rdb[self.enabled_name(name)] = int(enabled)
         super().merge_inplace(tasks)
 
     def setup_schedule(self):
         """Init entries from CELERY_BEAT_SCHEDULE."""
-        beat_schedule = FLASK_TO_CELERY_MAPPING['CELERY_BEAT_SCHEDULE']
+        beat_schedule = FLASK_TO_CELERY_MAPPING["CELERY_BEAT_SCHEDULE"]
         config = deepcopy(self.app.conf.get(beat_schedule))
         self.merge_inplace(config)
         current_schedule = "\n".join(self.display_all(prefix="- Tasks: "))
-        msg = f'Current schedule:\n {current_schedule}'
+        msg = f"Current schedule:\n {current_schedule}"
         logger.info(msg)
 
     def is_due(self, entry):
@@ -131,8 +127,10 @@ class RedisScheduler(OriginalRedisScheduler):
         """
         if self.get_entry_enabled(entry.name):
             return entry.is_due()
-        msg = f'Not enabled: {entry.name} = {entry.task} ' \
-              f'{repr(entry.schedule)} {entry.kwargs}'
+        msg = (
+            f"Not enabled: {entry.name} = {entry.task} "
+            f"{repr(entry.schedule)} {entry.kwargs}"
+        )
         logger.info(msg)
         return schedstate(is_due=False, next=entry.is_due().next)
 
@@ -175,36 +173,38 @@ class RedisScheduler(OriginalRedisScheduler):
         :param enable: enable or disable scheduling
         :return: True if successful
         """
-        result = self.add(**{
-            'name': entry.name,
-            'task': entry.task,
-            'schedule': entry.schedule,
-            'args': entry.args,
-            'kwargs': entry.kwargs,
-            'options': entry.options
-        })
+        result = self.add(
+            **{
+                "name": entry.name,
+                "task": entry.task,
+                "schedule": entry.schedule,
+                "args": entry.args,
+                "kwargs": entry.kwargs,
+                "options": entry.options,
+            }
+        )
         if result:
             self.set_entry_enabled(name=entry.name, enable=enable)
         return result
 
-    def display_entry(self, name, prefix='- '):
+    def display_entry(self, name, prefix="- "):
         """Display an entry.
 
         :param name: name of entry in task scheduler
         :param prefix: prefix to add to returned info
         :return: entry as string representative
         """
-        entry_as_text = f'Not found entry: {name}'
+        entry_as_text = f"Not found entry: {name}"
         if entry := self.get(name):
             entry_as_text = (
-                f'{prefix}{entry.name} = {entry.task} {repr(entry.schedule)} '
-                f'kwargs:{entry.kwargs} '
-                f'options:{entry.options} '
-                f'enabled:{self.get_entry_enabled(name)}'
+                f"{prefix}{entry.name} = {entry.task} {repr(entry.schedule)} "
+                f"kwargs:{entry.kwargs} "
+                f"options:{entry.options} "
+                f"enabled:{self.get_entry_enabled(name)}"
             )
         return entry_as_text
 
-    def display_all(self, prefix='- '):
+    def display_all(self, prefix="- "):
         """Display all entries.
 
         :param prefix: prefix to add to returned info
@@ -225,9 +225,7 @@ class RedisScheduler(OriginalRedisScheduler):
         :return: enabled status
         """
         value = self.rdb.get(self.enabled_name(name))
-        if value is None or value == b'1':
-            return True
-        return False
+        return value is None or value == b"1"
 
     def set_entry_enabled(self, name, enable=True):
         """Set enabled of an entry.
@@ -242,7 +240,7 @@ class RedisScheduler(OriginalRedisScheduler):
         :param enable: enable or disable scheduling
         """
         if self.get(name):
-            enabled_name = f'{self.key}:{name}'
+            enabled_name = f"{self.key}:{name}"
             self.rdb[enabled_name] = int(enable)
 
     def set_enable_all(self, enable=True):
@@ -259,17 +257,17 @@ def scheduler():
     """Scheduler management commands."""
 
 
-@scheduler.command('info')
+@scheduler.command("info")
 @with_appcontext
 def info():
     """Displays infos about all periodic tasks."""
-    click.secho('Scheduled tasks:', fg='green')
-    click.echo('\n'.join(current_scheduler.display_all()))
+    click.secho("Scheduled tasks:", fg="green")
+    click.echo("\n".join(current_scheduler.display_all()))
 
 
-@scheduler.command('init')
-@click.option('-r', '--reset', 'reset', is_flag=True, default=False)
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@scheduler.command("init")
+@click.option("-r", "--reset", "reset", is_flag=True, default=False)
+@click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
 @with_appcontext
 def init(reset, verbose):
     """Initialize scheduler.
@@ -278,20 +276,20 @@ def init(reset, verbose):
     :param verbose: verbose output
     """
     if reset:
-        click.secho('Reset REDIS scheduler!', fg='red', bold=True)
+        click.secho("Reset REDIS scheduler!", fg="red", bold=True)
         current_scheduler.reset()
     else:
-        click.secho('Initalize REDIS scheduler!', fg='yellow')
+        click.secho("Initalize REDIS scheduler!", fg="yellow")
     current_scheduler.setup_schedule()
     if verbose:
-        click.echo('\n'.join(current_scheduler.display_all()))
+        click.echo("\n".join(current_scheduler.display_all()))
 
 
-@scheduler.command('enable_tasks')
-@click.option('-a', '--all', 'all', is_flag=True, default=False)
-@click.option('-n', '--name', 'names', multiple=True, default=None)
-@click.option('-d', '--disable', 'disable', is_flag=True, default=False)
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
+@scheduler.command("enable_tasks")
+@click.option("-a", "--all", "all", is_flag=True, default=False)
+@click.option("-n", "--name", "names", multiple=True, default=None)
+@click.option("-d", "--disable", "disable", is_flag=True, default=False)
+@click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
 @with_appcontext
 def enable_tasks(all, names, disable, verbose):
     """Enable or disable a periodic tasks.
@@ -302,11 +300,11 @@ def enable_tasks(all, names, disable, verbose):
     :param verbose: verbose output
     """
     if verbose:
-        click.secho('Scheduler tasks enabled:', fg='green')
+        click.secho("Scheduler tasks enabled:", fg="green")
     if all:
         current_scheduler.set_enable_all(not disable)
         if verbose:
-            click.echo('\n'.join(current_scheduler.display_all()))
+            click.echo("\n".join(current_scheduler.display_all()))
     else:
         names = names or []
         for name in names:

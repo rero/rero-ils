@@ -24,10 +24,8 @@ from jsonref import JsonRefError
 
 def test_items_jsonresolver(item_lib_martigny):
     """Test item json resolver."""
-    rec = Record.create({
-        'item': {'$ref': 'https://bib.rero.ch/api/items/item1'}
-    })
-    assert rec.replace_refs().get('item') == {'type': 'item', 'pid': 'item1'}
+    rec = Record.create({"item": {"$ref": "https://bib.rero.ch/api/items/item1"}})
+    assert rec.replace_refs().get("item") == {"type": "item", "pid": "item1"}
 
     # deleted record
     item_lib_martigny.delete()
@@ -35,8 +33,6 @@ def test_items_jsonresolver(item_lib_martigny):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create({
-        'item': {'$ref': 'https://bib.rero.ch/api/items/n_e'}
-    })
+    rec = Record.create({"item": {"$ref": "https://bib.rero.ch/api/items/n_e"}})
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

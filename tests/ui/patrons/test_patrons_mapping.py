@@ -22,8 +22,7 @@ from utils import get_mapping
 from rero_ils.modules.patrons.api import PatronsSearch
 
 
-def test_patron_es_mapping(
-        roles, search, lib_martigny, librarian_martigny_data_tmp):
+def test_patron_es_mapping(roles, search, lib_martigny, librarian_martigny_data_tmp):
     """Test patron elasticsearch mapping."""
     search = PatronsSearch()
     mapping = get_mapping(search.Meta.index)
@@ -35,12 +34,12 @@ def test_patron_search_mapping(app, patrons_records, librarian_saxon):
     """Test patron search mapping."""
     search = PatronsSearch()
 
-    assert search.query('query_string', query='Roduit').count() == 1
-    assert search.query('match', first_name='Eric').count() == 1
-    assert search.query('match', last_name='Moret').count() == 1
-    assert search.query('match', first_name='Elena').count() == 1
+    assert search.query("query_string", query="Roduit").count() == 1
+    assert search.query("match", first_name="Eric").count() == 1
+    assert search.query("match", last_name="Moret").count() == 1
+    assert search.query("match", first_name="Elena").count() == 1
 
-    eq_query = search.query('match', first_name='Eléna').source(['pid']).scan()
+    eq_query = search.query("match", first_name="Eléna").source(["pid"]).scan()
     pids = [hit.pid for hit in eq_query]
     assert len(pids) == 1
     assert librarian_saxon.pid in pids

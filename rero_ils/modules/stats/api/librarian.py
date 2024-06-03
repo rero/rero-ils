@@ -53,9 +53,9 @@ class StatsForLibrarian(StatsForPricing):
             to_date = arrow.Arrow.fromdatetime(to_date)
         to_date = to_date or arrow.utcnow() - relativedelta(days=1)
         # Get statistics per month
-        _from = f'{to_date.year}-{to_date.month:02d}-01T00:00:00'
-        _to = to_date.format(fmt='YYYY-MM-DDT23:59:59')
-        self.date_range = {'gte': _from, 'lte': _to}
+        _from = f"{to_date.year}-{to_date.month:02d}-01T00:00:00"
+        _to = to_date.format(fmt="YYYY-MM-DDT23:59:59")
+        self.date_range = {"gte": _from, "lte": _to}
 
     def _get_locations_code_name(self, location_pids):
         """Location code and name.
@@ -64,13 +64,12 @@ class StatsForLibrarian(StatsForPricing):
         :return: concatenated code and name of location
         :rtype: string
         """
-        location_search = LocationsSearch()\
-            .filter('terms', pid=location_pids)\
-            .source(['code', 'name', 'pid'])
-        res = {}
-        for hit in location_search.scan():
-            res[hit.pid] = f'{hit.code} - {hit.name}'
-        return res
+        location_search = (
+            LocationsSearch()
+            .filter("terms", pid=location_pids)
+            .source(["code", "name", "pid"])
+        )
+        return {hit.pid: f"{hit.code} - {hit.name}" for hit in location_search.scan()}
 
     def process(self, library):
         """Process statistics for a give library.
@@ -79,29 +78,29 @@ class StatsForLibrarian(StatsForPricing):
         :return: a dict containing all the processed values.
         """
         return {
-            'checkouts_for_transaction_library':
-                self.checkouts_for_transaction_library(library.pid),
-            'checkouts_for_owning_library':
-                self.checkouts_for_owning_library(library.pid),
-            'active_patrons_by_postal_code':
-                self.active_patrons_by_postal_code(library.pid),
-            'new_active_patrons_by_postal_code':
-                self.active_patrons_by_postal_code(
-                    library.pid, new_patrons=True),
-            'new_documents':
-                self.new_documents(library.pid),
-            'new_items':
-                self.number_of_new_items(library.pid),
-            'renewals':
-                self.renewals(library.pid),
-            'validated_requests':
-                self.validated_requests(library.pid),
-            'items_by_document_type_and_subtype':
-                self.items_by_document_type_and_subtype(library.pid),
-            'new_items_by_location':
-                self.new_items_by_location(library.pid),
-            'loans_of_transaction_library_by_item_location':
-                self.loans_of_transaction_library_by_item_location(library.pid)
+            "checkouts_for_transaction_library": self.checkouts_for_transaction_library(
+                library.pid
+            ),
+            "checkouts_for_owning_library": self.checkouts_for_owning_library(
+                library.pid
+            ),
+            "active_patrons_by_postal_code": self.active_patrons_by_postal_code(
+                library.pid
+            ),
+            "new_active_patrons_by_postal_code": self.active_patrons_by_postal_code(
+                library.pid, new_patrons=True
+            ),
+            "new_documents": self.new_documents(library.pid),
+            "new_items": self.number_of_new_items(library.pid),
+            "renewals": self.renewals(library.pid),
+            "validated_requests": self.validated_requests(library.pid),
+            "items_by_document_type_and_subtype": self.items_by_document_type_and_subtype(
+                library.pid
+            ),
+            "new_items_by_location": self.new_items_by_location(library.pid),
+            "loans_of_transaction_library_by_item_location": self.loans_of_transaction_library_by_item_location(
+                library.pid
+            ),
         }
 
     def checkouts_for_transaction_library(self, library_pid):
@@ -114,11 +113,14 @@ class StatsForLibrarian(StatsForPricing):
         :rtype: integer
         """
         location_pids = LocationsSearch().location_pids(library_pid)
-        return LoanOperationLogsSearch().get_logs_by_trigger(
-                triggers=[ItemCirculationAction.CHECKOUT],
-                date_range=self.date_range
-            ).filter('terms', loan__transaction_location__pid=location_pids)\
+        return (
+            LoanOperationLogsSearch()
+            .get_logs_by_trigger(
+                triggers=[ItemCirculationAction.CHECKOUT], date_range=self.date_range
+            )
+            .filter("terms", loan__transaction_location__pid=location_pids)
             .count()
+        )
 
     def checkouts_for_owning_library(self, library_pid):
         """Number of circulation operation during the specified timeframe.
@@ -129,11 +131,14 @@ class StatsForLibrarian(StatsForPricing):
         :return: the number of matched circulation operation
         :rtype: integer
         """
-        return LoanOperationLogsSearch().get_logs_by_trigger(
-                triggers=[ItemCirculationAction.CHECKOUT],
-                date_range=self.date_range
-            ).filter('term', loan__item__library_pid=library_pid)\
+        return (
+            LoanOperationLogsSearch()
+            .get_logs_by_trigger(
+                triggers=[ItemCirculationAction.CHECKOUT], date_range=self.date_range
+            )
+            .filter("term", loan__item__library_pid=library_pid)
             .count()
+        )
 
     def active_patrons_by_postal_code(self, library_pid, new_patrons=False):
         """Number of circulation operation during the specified timeframe.
@@ -147,31 +152,40 @@ class StatsForLibrarian(StatsForPricing):
         """
         location_pids = LocationsSearch().location_pids(library_pid)
 
-        search = LoanOperationLogsSearch().get_logs_by_trigger(
+        search = (
+            LoanOperationLogsSearch()
+            .get_logs_by_trigger(
                 triggers=[
                     ItemCirculationAction.REQUEST,
                     ItemCirculationAction.CHECKIN,
-                    ItemCirculationAction.CHECKOUT
-                ], date_range=self.date_range
-            ).filter('terms', loan__transaction_location__pid=location_pids)
+                    ItemCirculationAction.CHECKOUT,
+                ],
+                date_range=self.date_range,
+            )
+            .filter("terms", loan__transaction_location__pid=location_pids)
+        )
         if new_patrons:
             # Get new patrons in date range and hash the pids
-            search_patron = PatronsSearch()\
-                .filter("range", _created=self.date_range)\
-                .source('pid').scan()
+            search_patron = (
+                PatronsSearch()
+                .filter("range", _created=self.date_range)
+                .source("pid")
+                .scan()
+            )
             new_patron_hashed_pids = set()
             for p in search_patron:
                 hashed_pid = hashlib.md5(p.pid.encode()).hexdigest()
                 new_patron_hashed_pids.add(hashed_pid)
             search = search.filter(
-                'terms', loan__patron__hashed_pid=list(new_patron_hashed_pids))
+                "terms", loan__patron__hashed_pid=list(new_patron_hashed_pids)
+            )
         stats = {}
         patron_pids = set()
         # Main postal code from user profile
         for s in search.scan():
             patron_pid = s.loan.patron.hashed_pid
-            postal_code = 'unknown'
-            if 'postal_code' in s.loan.patron:
+            postal_code = "unknown"
+            if "postal_code" in s.loan.patron:
                 postal_code = s.loan.patron.postal_code
 
             stats.setdefault(postal_code, 0)
@@ -187,12 +201,14 @@ class StatsForLibrarian(StatsForPricing):
         :return: the number of matched documents
         :rtype: integer
         """
-        return RecordsSearch(index=OperationLog.index_name)\
-            .filter('range', date=self.date_range)\
-            .filter('term', record__type='doc')\
-            .filter('term', operation='create')\
-            .filter('term', library__value=library_pid)\
+        return (
+            RecordsSearch(index=OperationLog.index_name)
+            .filter("range", date=self.date_range)
+            .filter("term", record__type="doc")
+            .filter("term", operation="create")
+            .filter("term", library__value=library_pid)
             .count()
+        )
 
     def renewals(self, library_pid):
         """Number of items with loan extended.
@@ -202,10 +218,14 @@ class StatsForLibrarian(StatsForPricing):
         :return: the number of matched documents
         :rtype: integer
         """
-        return LoanOperationLogsSearch().get_logs_by_trigger(
-                triggers=[ItemCirculationAction.EXTEND],
-                date_range=self.date_range
-            ).filter('term', loan__item__library_pid=library_pid).count()
+        return (
+            LoanOperationLogsSearch()
+            .get_logs_by_trigger(
+                triggers=[ItemCirculationAction.EXTEND], date_range=self.date_range
+            )
+            .filter("term", loan__item__library_pid=library_pid)
+            .count()
+        )
 
     def validated_requests(self, library_pid):
         """Number of validated requests.
@@ -216,10 +236,14 @@ class StatsForLibrarian(StatsForPricing):
         :return: the number of matched documents
         :rtype: integer
         """
-        return LoanOperationLogsSearch().get_logs_by_trigger(
-                triggers=['validate_request'],
-                date_range=self.date_range
-            ).filter('term', library__value=library_pid).count()
+        return (
+            LoanOperationLogsSearch()
+            .get_logs_by_trigger(
+                triggers=["validate_request"], date_range=self.date_range
+            )
+            .filter("term", library__value=library_pid)
+            .count()
+        )
 
     def new_items_by_location(self, library_pid):
         """Number of new items per library by location.
@@ -232,20 +256,20 @@ class StatsForLibrarian(StatsForPricing):
         """
         location_pids = LocationsSearch().location_pids(library_pid)
 
-        search = ItemsSearch()[:0]\
-            .filter('range', _created=self.date_range)\
-            .filter('term', library__pid=library_pid)\
-            .source('location.pid')
-        search.aggs.bucket('location_pid', 'terms', field='location.pid',
-                           size=10000)
+        search = (
+            ItemsSearch()[:0]
+            .filter("range", _created=self.date_range)
+            .filter("term", library__pid=library_pid)
+            .source("location.pid")
+        )
+        search.aggs.bucket("location_pid", "terms", field="location.pid", size=10000)
         res = search.execute()
-        stats = {}
-        location_pids = [
-            bucket.key for bucket in res.aggregations.location_pid.buckets]
+        location_pids = [bucket.key for bucket in res.aggregations.location_pid.buckets]
         location_names = self._get_locations_code_name(location_pids)
-        for bucket in res.aggregations.location_pid.buckets:
-            stats[location_names[bucket.key]] = bucket.doc_count
-        return stats
+        return {
+            location_names[bucket.key]: bucket.doc_count
+            for bucket in res.aggregations.location_pid.buckets
+        }
 
     def items_by_document_type_and_subtype(self, library_pid):
         """Number of items per library by document type and sub-type.
@@ -256,16 +280,18 @@ class StatsForLibrarian(StatsForPricing):
         :return: the number of matched documents
         :rtype: dict
         """
-        search = ItemsSearch()[:0]\
-            .filter('range', _created={'lte': self.date_range['lte']})\
-            .filter('term', library__pid=library_pid)\
-            .source('document.document_type')
-        search.aggs\
-              .bucket('main_type', 'terms',
-                      field='document.document_type.main_type', size=10000)
-        search.aggs\
-              .bucket('subtype', 'terms',
-                      field='document.document_type.subtype', size=10000)
+        search = (
+            ItemsSearch()[:0]
+            .filter("range", _created={"lte": self.date_range["lte"]})
+            .filter("term", library__pid=library_pid)
+            .source("document.document_type")
+        )
+        search.aggs.bucket(
+            "main_type", "terms", field="document.document_type.main_type", size=10000
+        )
+        search.aggs.bucket(
+            "subtype", "terms", field="document.document_type.subtype", size=10000
+        )
         res = search.execute()
         stats = {
             bucket.key: bucket.doc_count
@@ -286,27 +312,39 @@ class StatsForLibrarian(StatsForPricing):
         """
         location_pids = LocationsSearch().location_pids(library_pid)
 
-        search = LoanOperationLogsSearch().get_logs_by_trigger(
+        search = (
+            LoanOperationLogsSearch()
+            .get_logs_by_trigger(
                 triggers=[
                     ItemCirculationAction.CHECKIN,
-                    ItemCirculationAction.CHECKOUT
-                ], date_range=self.date_range
-            ).filter('terms', loan__transaction_location__pid=location_pids)\
-            .source('loan').scan()
+                    ItemCirculationAction.CHECKOUT,
+                ],
+                date_range=self.date_range,
+            )
+            .filter("terms", loan__transaction_location__pid=location_pids)
+            .source("loan")
+            .scan()
+        )
 
         stats = {}
-        libraries_map = {lib.pid: lib.name for lib in LibrariesSearch().source(
-            ['pid', 'name', 'organisation']).scan()}
+        libraries_map = {
+            lib.pid: lib.name
+            for lib in LibrariesSearch().source(["pid", "name", "organisation"]).scan()
+        }
         for s in search:
             item_library_pid = s.loan.item.library_pid
             item_library_name = libraries_map[item_library_pid]
             location_name = s.loan.item.holding.location_name
 
-            key = f'{item_library_pid}: {item_library_name} - {location_name}'
-            stats.setdefault(key, {
-                # TODO: to be removed as it is already in the key
-                'location_name': location_name,
-                ItemCirculationAction.CHECKIN: 0,
-                ItemCirculationAction.CHECKOUT: 0})
+            key = f"{item_library_pid}: {item_library_name} - {location_name}"
+            stats.setdefault(
+                key,
+                {
+                    # TODO: to be removed as it is already in the key
+                    "location_name": location_name,
+                    ItemCirculationAction.CHECKIN: 0,
+                    ItemCirculationAction.CHECKOUT: 0,
+                },
+            )
             stats[key][s.loan.trigger] += 1
         return stats

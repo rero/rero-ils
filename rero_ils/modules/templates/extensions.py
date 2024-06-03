@@ -23,30 +23,18 @@ class CleanDataDictExtension(RecordExtension):
     """Defines the methods needed by an extension."""
 
     fields_to_clean = {
-        'documents': [
-            'pid'
+        "documents": ["pid"],
+        "items": [
+            "pid",
+            "barcode",
+            "status",
+            "document",
+            "holding",
+            "organisation",
+            "library",
         ],
-        'items': [
-            'pid',
-            'barcode',
-            'status',
-            'document',
-            'holding',
-            'organisation',
-            'library'
-        ],
-        'holdings': [
-            'pid',
-            'organisation',
-            'library',
-            'document'
-        ],
-        'patrons': [
-            'pid',
-            'user_id',
-            'patron.subscriptions',
-            'patron.barcode'
-        ]
+        "holdings": ["pid", "organisation", "library", "document"],
+        "patrons": ["pid", "user_id", "patron.subscriptions", "patron.barcode"],
     }
 
     def _clean_record(self, record):
@@ -67,16 +55,16 @@ class CleanDataDictExtension(RecordExtension):
             if not data:
                 return
             for key in keys:
-                if '.' in key:
-                    root_path, child_path = key.split('.', 1)
+                if "." in key:
+                    root_path, child_path = key.split(".", 1)
                     _clean(data.get(root_path, {}), [child_path])
                 else:
                     data.pop(key, None)
 
-        if not record.get('data'):
+        if not record.get("data"):
             return
-        if fields := self.fields_to_clean.get(record.get('template_type')):
-            _clean(record['data'], fields)
+        if fields := self.fields_to_clean.get(record.get("template_type")):
+            _clean(record["data"], fields)
 
     def pre_commit(self, record):
         """Called before a record is committed."""

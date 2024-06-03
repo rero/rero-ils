@@ -22,8 +22,7 @@ from functools import partial
 
 from flask_babel import gettext as _
 
-from rero_ils.modules.acquisition.acq_invoices.api import \
-    AcquisitionInvoicesSearch
+from rero_ils.modules.acquisition.acq_invoices.api import AcquisitionInvoicesSearch
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
@@ -34,9 +33,7 @@ from .models import VendorContactType, VendorIdentifier, VendorMetadata
 
 # provider
 VendorProvider = type(
-    'VendorProvider',
-    (Provider,),
-    dict(identifier=VendorIdentifier, pid_type='vndr')
+    "VendorProvider", (Provider,), dict(identifier=VendorIdentifier, pid_type="vndr")
 )
 # minter
 vendor_id_minter = partial(id_minter, provider=VendorProvider)
@@ -50,9 +47,9 @@ class VendorsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on vendor index."""
 
-        index = 'vendors'
+        index = "vendors"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -65,11 +62,7 @@ class Vendor(IlsRecord):
     fetcher = vendor_id_fetcher
     provider = VendorProvider
     model_cls = VendorMetadata
-    pids_exist_check = {
-        'required': {
-            'org': 'organisation'
-        }
-    }
+    pids_exist_check = {"required": {"org": "organisation"}}
 
     def extended_validation(self, **kwargs):
         """Add additional record validation.
@@ -79,13 +72,13 @@ class Vendor(IlsRecord):
             - notes array has multiple notes with same type
         """
         # CONTACTS field
-        types = [contact.get('type') for contact in self.get('contacts', [])]
+        types = [contact.get("type") for contact in self.get("contacts", [])]
         if len(types) != len(set(types)):
-            return _('Can not have multiple contacts with the same type.')
+            return _("Can not have multiple contacts with the same type.")
         # NOTES field
-        types = [note.get('type') for note in self.get('notes', [])]
+        types = [note.get("type") for note in self.get("notes", [])]
         if len(types) != len(set(types)):
-            return _('Can not have multiple notes with the same type.')
+            return _("Can not have multiple notes with the same type.")
 
         return True
 
@@ -96,8 +89,8 @@ class Vendor(IlsRecord):
             to see all contact type available.
         :return data relative to this contact type.
         """
-        for contact in self.get('contacts', []):
-            if contact['type'] == contact_type:
+        for contact in self.get("contacts", []):
+            if contact["type"] == contact_type:
                 return contact
 
     @property
@@ -108,11 +101,12 @@ class Vendor(IlsRecord):
                 order contact information does not exist, the default contact
                 information will be used.
         """
-        contact = \
-            self.get_contact(VendorContactType.ORDER) or \
-            self.get_contact(VendorContactType.DEFAULT) or \
-            {}
-        return contact.get('email')
+        contact = (
+            self.get_contact(VendorContactType.ORDER)
+            or self.get_contact(VendorContactType.DEFAULT)
+            or {}
+        )
+        return contact.get("email")
 
     @property
     def serial_email(self):
@@ -122,11 +116,12 @@ class Vendor(IlsRecord):
                 serial contact information does not exist, the default contact
                 information will be used.
         """
-        contact = \
-            self.get_contact(VendorContactType.SERIAL) or \
-            self.get_contact(VendorContactType.DEFAULT) or \
-            {}
-        return contact.get('email')
+        contact = (
+            self.get_contact(VendorContactType.SERIAL)
+            or self.get_contact(VendorContactType.DEFAULT)
+            or {}
+        )
+        return contact.get("email")
 
     def get_note(self, note_type):
         """Get a specific type of note.
@@ -136,8 +131,9 @@ class Vendor(IlsRecord):
         :return the note content if exists, otherwise returns None.
         """
         note = [
-            note.get('content') for note in self.get('notes', [])
-            if note.get('type') == note_type
+            note.get("content")
+            for note in self.get("notes", [])
+            if note.get("type") == note_type
         ]
         return next(iter(note), None)
 
@@ -150,12 +146,11 @@ class Vendor(IlsRecord):
         from rero_ils.modules.acquisition.acq_orders.api import AcqOrdersSearch
         from rero_ils.modules.holdings.api import HoldingsSearch
 
-        acq_orders_query = AcqOrdersSearch()\
-            .filter('term', vendor__pid=self.pid)
-        acq_invoices_query = AcquisitionInvoicesSearch()\
-            .filter('term', vendor__pid=self.pid)
-        hold_query = HoldingsSearch()\
-            .filter('term', vendor__pid=self.pid)
+        acq_orders_query = AcqOrdersSearch().filter("term", vendor__pid=self.pid)
+        acq_invoices_query = AcquisitionInvoicesSearch().filter(
+            "term", vendor__pid=self.pid
+        )
+        hold_query = HoldingsSearch().filter("term", vendor__pid=self.pid)
         links = {}
         if get_pids:
             acq_orders = sorted_pids(acq_orders_query)
@@ -166,18 +161,18 @@ class Vendor(IlsRecord):
             acq_invoices = acq_invoices_query.count()
             holdings = hold_query.count()
         if acq_orders:
-            links['acq_orders'] = acq_orders
+            links["acq_orders"] = acq_orders
         if acq_invoices:
-            links['acq_invoices'] = acq_invoices
+            links["acq_invoices"] = acq_invoices
         if holdings:
-            links['holdings'] = holdings
+            links["holdings"] = holdings
         return links
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
         if links := self.get_links_to_me():
-            cannot_delete['links'] = links
+            cannot_delete["links"] = links
         return cannot_delete
 
 
@@ -191,4 +186,4 @@ class VendorsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='vndr')
+        super().bulk_index(record_id_iterator, doc_type="vndr")

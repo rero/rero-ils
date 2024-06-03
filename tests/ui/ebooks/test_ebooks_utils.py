@@ -22,10 +22,15 @@ from rero_ils.modules.ebooks.utils import add_oai_source
 
 def test_add_oai_source(app):
     """Test add oai source."""
-    msg = add_oai_source(name='test', baseurl='http://test.com')
-    assert msg == 'Added'
-    msg = add_oai_source(name='test', baseurl='http://test.com')
-    assert msg == 'Not Updated'
-    msg = add_oai_source(name='test', baseurl='http://test.com',
-                         setspecs='specs', comment='comment', update=True)
-    assert msg == 'Updated'
+    msg = add_oai_source(name="test", baseurl="http://test.com")
+    assert msg == "Added"
+    msg = add_oai_source(name="test", baseurl="http://test.com")
+    assert msg == "Not Updated"
+    msg = add_oai_source(
+        name="test",
+        baseurl="http://test.com",
+        setspecs="specs",
+        comment="comment",
+        update=True,
+    )
+    assert msg == "Updated"

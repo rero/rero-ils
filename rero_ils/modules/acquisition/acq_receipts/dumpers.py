@@ -35,11 +35,11 @@ class AcqReceiptESDumper(InvenioRecordsDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         metadata = {
-            'pid': record.pid,
-            'reference': record.get('reference'),
-            'receipt_date': list(set([
-                line.get('receipt_date') for line in record.get_receipt_lines()
-            ]))
+            "pid": record.pid,
+            "reference": record.get("reference"),
+            "receipt_date": list(
+                {line.get("receipt_date") for line in record.get_receipt_lines()}
+            ),
         }
         metadata = {k: v for k, v in metadata.items() if v}
         data.update(metadata)

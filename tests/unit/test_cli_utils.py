@@ -21,51 +21,42 @@ from os.path import dirname, join
 
 from click.testing import CliRunner
 
-from rero_ils.modules.cli.utils import check_validate, extract_from_xml, \
-    token_create
+from rero_ils.modules.cli.utils import check_validate, extract_from_xml, token_create
 
 
-def test_cli_validate(app, script_info):
+def test_cli_validate(app):
     """Test validate cli."""
     runner = CliRunner()
-    file_name = join(dirname(__file__), '../data/documents.json')
+    file_name = join(dirname(__file__), "../data/documents.json")
 
-    res = runner.invoke(
-        check_validate,
-        [file_name, 'doc', '-v'],
-        obj=script_info
-    )
-    assert res.output.strip().split('\n') == [
-        f'Testing json schema for file: {file_name} type: doc',
-        '\tTest record: 1',
-        '\tTest record: 2'
+    res = runner.invoke(check_validate, [file_name, "doc", "-v"])
+    assert res.output.strip().split("\n") == [
+        f"Testing json schema for file: {file_name} type: doc",
+        "\tTest record: 1",
+        "\tTest record: 2",
     ]
 
 
-def test_cli_access_token(app, script_info, patron_martigny):
+def test_cli_access_token(app, patron_martigny):
     """Test access token cli."""
     runner = CliRunner()
     res = runner.invoke(
         token_create,
-        ['-n', 'test', '-u', patron_martigny.dumps().get('email'),
-         '-t', 'my_token'],
-        obj=script_info
+        ["-n", "test", "-u", patron_martigny.dumps().get("email"), "-t", "my_token"],
     )
-    assert res.output.strip().split('\n') == ['my_token']
+    assert res.output.strip().split("\n") == ["my_token"]
 
 
-def test_cli_extract_from_xml(app, tmpdir, document_marcxml, script_info):
+def test_cli_extract_from_xml(app, tmpdir, document_marcxml):
     """Test extract from xml cli."""
-    pids_path = join(dirname(__file__), '..', 'data', '001.pids')
-    xml_path = join(dirname(__file__), '..', 'data', 'xml', 'documents.xml')
-    temp_file_name = join(tmpdir, 'temp.xml')
+    pids_path = join(dirname(__file__), "..", "data", "001.pids")
+    xml_path = join(dirname(__file__), "..", "data", "xml", "documents.xml")
+    temp_file_name = join(tmpdir, "temp.xml")
     runner = CliRunner()
     result = runner.invoke(
-        extract_from_xml,
-        [pids_path, xml_path, temp_file_name, '-v'],
-        obj=script_info
+        extract_from_xml, [pids_path, xml_path, temp_file_name, "-v"]
     )
     assert result.exit_code == 0
-    results_output = result.output.split('\n')
-    assert results_output[0] == 'Extract pids from xml: '
-    assert results_output[4] == 'Search pids count: 1'
+    results_output = result.output.split("\n")
+    assert results_output[0] == "Extract pids from xml: "
+    assert results_output[4] == "Search pids count: 1"

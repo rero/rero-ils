@@ -22,13 +22,12 @@ from flask import current_app, request, stream_with_context
 from invenio_i18n.ext import current_i18n
 from invenio_records_rest.serializers.base import SerializerMixinInterface
 
-from rero_ils.modules.commons.identifiers import IdentifierFactory, \
-    IdentifierType
+from rero_ils.modules.commons.identifiers import IdentifierFactory, IdentifierType
 from rero_ils.utils import get_i18n_supported_languages
 
-from .base import BaseDocumentFormatterMixin
 from ..dumpers import document_replace_refs_dumper
 from ..utils import process_i18n_literal_fields
+from .base import BaseDocumentFormatterMixin
 
 
 class RISSerializer(SerializerMixinInterface):
@@ -42,23 +41,23 @@ class RISSerializer(SerializerMixinInterface):
         :param links_factory: Factory function for record links.
         """
         record = record.dumps(document_replace_refs_dumper)
-        if contributions := record.pop('contribution', []):
-            record['contribution'] = process_i18n_literal_fields(contributions)
+        if contributions := record.pop("contribution", []):
+            record["contribution"] = process_i18n_literal_fields(contributions)
         # enrich record data with encoded identifier alternatives. The
         # record identifiers list should contain only distinct identifier !
-        identifiers = set([
+        identifiers = {
             IdentifierFactory.create_identifier(identifier_data)
-            for identifier_data in record.get('identifiedBy', [])
-        ])
+            for identifier_data in record.get("identifiedBy", [])
+        }
 
         for identifier in list(identifiers):
             identifiers.update(identifier.get_alternatives())
-        record['identifiedBy'] = \
-            [identifier.dump() for identifier in identifiers]
+        record["identifiedBy"] = [identifier.dump() for identifier in identifiers]
         return RISFormatter(record=record).format()
 
-    def serialize_search(self, pid_fetcher, search_result, links=None,
-                         item_links_factory=None, **kwargs):
+    def serialize_search(
+        self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
+    ):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -66,9 +65,11 @@ class RISSerializer(SerializerMixinInterface):
         :param links: Dictionary of links to add to response.
         :param item_links_factory: Factory function for record links.
         """
+
         def generate_export():
-            for hit in search_result['hits']['hits']:
-                yield RISFormatter(record=hit['_source']).format()
+            for hit in search_result["hits"]["hits"]:
+                yield RISFormatter(record=hit["_source"]).format()
+
         return stream_with_context(generate_export())
 
 
@@ -76,24 +77,22 @@ class RISFormatter(BaseDocumentFormatterMixin):
     """RIS formatter class."""
 
     # RIS separator between key and value
-    separator = '  - '
+    separator = "  - "
 
     def __init__(self, record, doctype_mapping=None, export_fields=None):
         """Initialize RIS formatter with the specific record."""
         super().__init__(record)
-        config = current_app.config \
-            .get('RERO_ILS_EXPORT_MAPPER').get('ris', {})
+        config = current_app.config.get("RERO_ILS_EXPORT_MAPPER").get("ris", {})
         language = request.args.get("lang", current_i18n.language)
         if not language or language not in get_i18n_supported_languages():
-            language = current_app.config.get('BABEL_DEFAULT_LANGUAGE', 'en')
+            language = current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
         self._language = language
-        self._doctype_mapping = doctype_mapping \
-            or config.get('doctype_mapping')
-        self._export_fields = export_fields or config.get('export_fields')
+        self._doctype_mapping = doctype_mapping or config.get("doctype_mapping")
+        self._export_fields = export_fields or config.get("export_fields")
 
     def format(self):
         """Return RIS export for single record."""
-        return self._fetch_fields() + f'ER{self.separator}\n'
+        return f"{self._fetch_fields()}ER{self.separator}\n"
 
     def _doctype_mapper(self, main_type: str, sub_type: str = None):
         """Document type mapper.
@@ -102,20 +101,23 @@ class RISFormatter(BaseDocumentFormatterMixin):
         :param: sub_type: subtype of main document type.
         :return: mapped RIS reference type.
         """
-        for ris_doc_type, func in self._doctype_mapping.items():
-            if func(main_type, sub_type):
-                return ris_doc_type
-        return 'GEN'
+        return next(
+            (
+                ris_doc_type
+                for ris_doc_type, func in self._doctype_mapping.items()
+                if func(main_type, sub_type)
+            ),
+            "GEN",
+        )
 
     def _get_document_types(self):
         """Return document types."""
-        if 'type' not in self.record:
-            return ['GEN']
+        if "type" not in self.record:
+            return ["GEN"]
 
         return [
-            self._doctype_mapper(doc_type.get('main_type'),
-                                 doc_type.get('subtype'))
-            for doc_type in self.record['type']
+            self._doctype_mapper(doc_type.get("main_type"), doc_type.get("subtype"))
+            for doc_type in self.record["type"]
         ]
 
     def _get_city(self):
@@ -132,33 +134,33 @@ class RISFormatter(BaseDocumentFormatterMixin):
     def _fetch_fields(self):
         """Return formatted output based on export fields."""
         available_fields = {
-            'TY': self._get_document_types(),
-            'ID': self._get_pid(),
-            'TI': self._get_title(),
-            'T2': self._get_secondary_title(),
-            'AU': self._get_authors(),
-            'A2': self._get_secondary_authors(),
-            'DA': self._get_publication_year(),
-            'ET': self._get_editions(),
-            'SP': self._get_start_pages(),
-            'EP': self._get_end_pages(),
-            'CY': self._get_publication_places(),
-            'LA': self._get_languages(),
-            'PB': self._get_publisher(),
-            'SN': self._get_identifiers([IdentifierType.ISBN,
-                                         IdentifierType.ISSN,
-                                         IdentifierType.L_ISSN]),
-            'UR': self._get_electronic_locators(),
-            'UR': self._get_permalink(),
-            'KW': self._get_subjects(),
-            'DO': self._get_identifiers([IdentifierType.DOI]),
-            'VL': self._get_volume_numbers(),
-            'IS': self._get_issue_numbers(),
-            'PP': self._get_publication_places(),
-            'Y1': self._get_publication_year(),
-            'PY': self._get_publication_year()
+            "TY": self._get_document_types(),
+            "ID": self._get_pid(),
+            "TI": self._get_title(),
+            "T2": self._get_secondary_title(),
+            "AU": self._get_authors(),
+            "A2": self._get_secondary_authors(),
+            "DA": self._get_publication_year(),
+            "ET": self._get_editions(),
+            "SP": self._get_start_pages(),
+            "EP": self._get_end_pages(),
+            "CY": self._get_publication_places(),
+            "LA": self._get_languages(),
+            "PB": self._get_publisher(),
+            "SN": self._get_identifiers(
+                [IdentifierType.ISBN, IdentifierType.ISSN, IdentifierType.L_ISSN]
+            ),
+            "UR": self._get_electronic_locators(),
+            "UR": self._get_permalink(),
+            "KW": self._get_subjects(),
+            "DO": self._get_identifiers([IdentifierType.DOI]),
+            "VL": self._get_volume_numbers(),
+            "IS": self._get_issue_numbers(),
+            "PP": self._get_publication_places(),
+            "Y1": self._get_publication_year(),
+            "PY": self._get_publication_year(),
         }
-        out = ''
+        out = ""
         for field in self._export_fields:
             if value := available_fields[field]:
                 out += self._format_output_row(field, value)
@@ -171,10 +173,10 @@ class RISFormatter(BaseDocumentFormatterMixin):
         :param value: value for RIS tag
         :returns formatted row string
         """
-        out = ''
+        out = ""
         if isinstance(value, list):
             for v in value:
-                out += f'{field}{self.separator}{v}\n'
+                out += f"{field}{self.separator}{v}\n"
         else:
-            out += f'{field}{self.separator}{value}\n'
+            out += f"{field}{self.separator}{value}\n"
         return out

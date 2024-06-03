@@ -28,12 +28,19 @@ from rero_ils.modules.patron_types.api import PatronTypesSearch
 from rero_ils.modules.stats_cfg.api import StatConfiguration
 from rero_ils.modules.utils import extracted_data_from_ref
 
-from .indicators import NumberOfActivePatronsCfg, NumberOfCirculationCfg, \
-    NumberOfDeletedItemsCfg, NumberOfDocumentsCfg, NumberOfILLRequests, \
-    NumberOfItemsCfg, NumberOfPatronsCfg, NumberOfRequestsCfg, \
-    NumberOfSerialHoldingsCfg
 from ..api.api import Stat
 from ..models import StatType
+from .indicators import (
+    NumberOfActivePatronsCfg,
+    NumberOfCirculationCfg,
+    NumberOfDeletedItemsCfg,
+    NumberOfDocumentsCfg,
+    NumberOfILLRequests,
+    NumberOfItemsCfg,
+    NumberOfPatronsCfg,
+    NumberOfRequestsCfg,
+    NumberOfSerialHoldingsCfg,
+)
 
 
 class StatsReport:
@@ -47,30 +54,40 @@ class StatsReport:
         if not isinstance(config, StatConfiguration):
             config = StatConfiguration(data=config)
         self.config = config
-        self.is_active = config.get('is_active', False)
-        self.indicator = config['category']['indicator']['type']
-        self.period = config['category']['indicator'].get('period')
-        self.distributions = config[
-            'category']['indicator'].get('distributions', [])
+        self.is_active = config.get("is_active", False)
+        self.indicator = config["category"]["indicator"]["type"]
+        self.period = config["category"]["indicator"].get("period")
+        self.distributions = config["category"]["indicator"].get("distributions", [])
         self.org_pid = config.organisation_pid
         self.filter_by_libraries = []
-        for library in config.get('filter_by_libraries', []):
-            self.filter_by_libraries.append(extracted_data_from_ref(library))
+        self.filter_by_libraries.extend(
+            extracted_data_from_ref(library)
+            for library in config.get("filter_by_libraries", [])
+        )
         self.libraries = {
-            hit.pid: hit.name for hit in LibrariesSearch().by_organisation_pid(
-                self.org_pid).source(['pid', 'name']).scan()
+            hit.pid: hit.name
+            for hit in LibrariesSearch()
+            .by_organisation_pid(self.org_pid)
+            .source(["pid", "name"])
+            .scan()
         }
         self.lib_pids = list(self.libraries.keys())
-        es_locations = LocationsSearch().by_organisation_pid(
-                self.org_pid).source(['pid', 'name', 'library']).scan()
+        es_locations = (
+            LocationsSearch()
+            .by_organisation_pid(self.org_pid)
+            .source(["pid", "name", "library"])
+            .scan()
+        )
         self.locations = {
-            hit.pid: f'{self.libraries[hit.library.pid]} / {hit.name}'
+            hit.pid: f"{self.libraries[hit.library.pid]} / {hit.name}"
             for hit in es_locations
         }
         self.patron_types = {
-            hit.pid: hit.name for hit in
-            PatronTypesSearch().by_organisation_pid(
-                self.org_pid).source(['pid', 'name']).scan()
+            hit.pid: hit.name
+            for hit in PatronTypesSearch()
+            .by_organisation_pid(self.org_pid)
+            .source(["pid", "name"])
+            .scan()
         }
 
         self.loc_pids = list(self.locations.keys())
@@ -84,19 +101,20 @@ class StatsReport:
         :rtype: IndicatorCfg instance.
         """
         cfg = {
-            'number_of_documents': NumberOfDocumentsCfg(self),
-            'number_of_serial_holdings': NumberOfSerialHoldingsCfg(self),
-            'number_of_items': NumberOfItemsCfg(self),
-            'number_of_deleted_items': NumberOfDeletedItemsCfg(self),
-            'number_of_ill_requests': NumberOfILLRequests(self),
-            'number_of_checkins': NumberOfCirculationCfg(self, 'checkin'),
-            'number_of_checkouts': NumberOfCirculationCfg(self, 'checkout'),
-            'number_of_extends': NumberOfCirculationCfg(self, 'extend'),
-            'number_of_requests': NumberOfRequestsCfg(self, 'request'),
-            'number_of_validate_requests': NumberOfRequestsCfg(
-                self, 'validate_request'),
-            'number_of_patrons': NumberOfPatronsCfg(self),
-            'number_of_active_patrons': NumberOfActivePatronsCfg(self)
+            "number_of_documents": NumberOfDocumentsCfg(self),
+            "number_of_serial_holdings": NumberOfSerialHoldingsCfg(self),
+            "number_of_items": NumberOfItemsCfg(self),
+            "number_of_deleted_items": NumberOfDeletedItemsCfg(self),
+            "number_of_ill_requests": NumberOfILLRequests(self),
+            "number_of_checkins": NumberOfCirculationCfg(self, "checkin"),
+            "number_of_checkouts": NumberOfCirculationCfg(self, "checkout"),
+            "number_of_extends": NumberOfCirculationCfg(self, "extend"),
+            "number_of_requests": NumberOfRequestsCfg(self, "request"),
+            "number_of_validate_requests": NumberOfRequestsCfg(
+                self, "validate_request"
+            ),
+            "number_of_patrons": NumberOfPatronsCfg(self),
+            "number_of_active_patrons": NumberOfActivePatronsCfg(self),
         }
         return cfg[self.indicator]
 
@@ -111,8 +129,7 @@ class StatsReport:
                 if isinstance(dist1, str):
                     key1 = dist1
                     parent_dist = es_results.aggs[distrib1].buckets[key1]
-                    doc_count = \
-                        es_results.aggs[distrib1].buckets[key1].doc_count
+                    doc_count = es_results.aggs[distrib1].buckets[key1].doc_count
                 else:
                     parent_dist = dist1
                     key1 = self.indicator_cfg.label(distrib1, dist1)
@@ -132,7 +149,7 @@ class StatsReport:
                         values[key2] = doc_count
                         y_keys.add(key2)
                 if values:
-                    results[key1]['values'] = values
+                    results[key1]["values"] = values
             y_keys = sorted(y_keys)
             x_keys = sorted(results.keys())
         return self._process_distributions(x_keys, y_keys, results)
@@ -141,16 +158,16 @@ class StatsReport:
         """Process the elasticsearch aggregations results."""
         data = []
         if y_keys:
-            data.append([''] + y_keys)
+            data.append([""] + y_keys)
 
         for x_key in x_keys:
             values = [x_key]
             if y_keys:
-                for y_key in y_keys:
-                    values.append(
-                        results[x_key].get('values', {}).get(y_key, 0))
+                values.extend(
+                    results[x_key].get("values", {}).get(y_key, 0) for y_key in y_keys
+                )
             else:
-                values.append(results[x_key].get('count', 0))
+                values.append(results[x_key].get("count", 0))
             data.append(values)
         return data
 
@@ -182,22 +199,22 @@ class StatsReport:
 
     def get_range_period(self, period):
         """Get the range period for elasticsearch date range aggs."""
-        if period == 'month':
+        if period == "month":
             # now - 1 month
             previous_month = datetime.now() - relativedelta(months=1)
             # get last day of previous month using relativedelta with
             # day=31: this will add a max value of 31 days but stays
             # in the same month
             previous_month = previous_month + relativedelta(day=31)
-            month = '%02d' % previous_month.month
-            _from = f'{previous_month.year}-{month}-01T00:00:00'
-            _to = f'{previous_month.year}-{month}-{previous_month.day}'
-            _to = f'{_to}T23:59:59'
+            month = "%02d" % previous_month.month
+            _from = f"{previous_month.year}-{month}-01T00:00:00"
+            _to = f"{previous_month.year}-{month}-{previous_month.day}"
+            _to = f"{_to}T23:59:59"
             return dict(gte=_from, lte=_to)
-        elif period == 'year':
+        elif period == "year":
             previous_year = datetime.now().year - 1
-            _from = f'{previous_year}-01-01T00:00:00'
-            _to = f'{previous_year}-12-31T23:59:59'
+            _from = f"{previous_year}-01-01T00:00:00"
+            _to = f"{previous_year}-12-31T23:59:59"
             return dict(gte=_from, lte=_to)
 
     def create_stat(self, values, dbcommit=True, reindex=True):
@@ -209,14 +226,11 @@ class StatsReport:
         :returns: the create report.
         """
         data = dict(
-                type=StatType.REPORT,
-                config=self.config.dumps(),
-                values=[dict(results=values)]
-            )
+            type=StatType.REPORT,
+            config=self.config.dumps(),
+            values=[dict(results=values)],
+        )
         if self.period:
-            range = self.get_range_period(self.period)
-            data['date_range'] = {
-                'from': range['gte'],
-                'to': range['lte']
-            }
+            date_range = self.get_range_period(self.period)
+            data["date_range"] = {"from": date_range["gte"], "to": date_range["lte"]}
         return Stat.create(data, dbcommit=dbcommit, reindex=reindex)

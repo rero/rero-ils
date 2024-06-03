@@ -27,19 +27,20 @@ from invenio_records.models import RecordMetadataBase
 class NotificationIdentifier(RecordIdentifier):
     """Sequence generator for Notifications identifiers."""
 
-    __tablename__ = 'notification_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "notification_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
 class NotificationMetadata(db.Model, RecordMetadataBase):
     """Notification record metadata."""
 
-    __tablename__ = 'notifications_metadata'
+    __tablename__ = "notifications_metadata"
 
 
 class NotificationType:
@@ -62,17 +63,17 @@ class NotificationType:
                           system.
     """
 
-    ACQUISITION_ORDER = 'acquisition_order'
-    AT_DESK = 'at_desk'
-    AUTO_EXTEND = 'auto_extend'
-    AVAILABILITY = 'availability'
-    BOOKING = 'booking'
-    CLAIM_ISSUE = 'claim_issue'
-    DUE_SOON = 'due_soon'
-    OVERDUE = 'overdue'
-    RECALL = 'recall'
-    REQUEST = 'request'
-    TRANSIT_NOTICE = 'transit_notice'
+    ACQUISITION_ORDER = "acquisition_order"
+    AT_DESK = "at_desk"
+    AUTO_EXTEND = "auto_extend"
+    AVAILABILITY = "availability"
+    BOOKING = "booking"
+    CLAIM_ISSUE = "claim_issue"
+    DUE_SOON = "due_soon"
+    OVERDUE = "overdue"
+    RECALL = "recall"
+    REQUEST = "request"
+    TRANSIT_NOTICE = "transit_notice"
 
     # All notification types
     ALL_NOTIFICATIONS = [
@@ -83,20 +84,12 @@ class NotificationType:
         RECALL,
         TRANSIT_NOTICE,
         REQUEST,
-        BOOKING
+        BOOKING,
     ]
     # Notification related to cipo reminders.
-    REMINDERS_NOTIFICATIONS = [
-        DUE_SOON,
-        OVERDUE
-    ]
+    REMINDERS_NOTIFICATIONS = [DUE_SOON, OVERDUE]
     # Notification to send to a library (not to a patron)
-    INTERNAL_NOTIFICATIONS = [
-        AT_DESK,
-        BOOKING,
-        REQUEST,
-        TRANSIT_NOTICE
-    ]
+    INTERNAL_NOTIFICATIONS = [AT_DESK, BOOKING, REQUEST, TRANSIT_NOTICE]
 
     # Notification related to circulation modules
     CIRCULATION_NOTIFICATIONS = [
@@ -108,30 +101,30 @@ class NotificationType:
         RECALL,
         TRANSIT_NOTICE,
         REQUEST,
-        BOOKING
+        BOOKING,
     ]
 
 
 class NotificationStatus:
     """Notification status."""
 
-    DONE = 'done'
-    CREATED = 'created'
-    CANCELLED = 'cancelled'
+    DONE = "done"
+    CREATED = "created"
+    CANCELLED = "cancelled"
 
 
 class NotificationChannel:
     """Notification channels."""
 
-    MAIL = 'mail'
-    EMAIL = 'email'
-    PATRON_SETTING = 'patron_setting'
+    MAIL = "mail"
+    EMAIL = "email"
+    PATRON_SETTING = "patron_setting"
 
 
 class RecipientType:
     """Notification recipient type."""
 
-    TO = 'to'
-    CC = 'cc'
-    BCC = 'bcc'
-    REPLY_TO = 'reply_to'
+    TO = "to"
+    CC = "cc"
+    BCC = "bcc"
+    REPLY_TO = "reply_to"

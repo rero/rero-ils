@@ -30,11 +30,13 @@ class OrganisationLoggedUserDumper(InvenioRecordsDumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        data.update({
-            'pid': record.pid,
-            'name': record.get('name'),
-            'code': record.get('code'),
-            'currency': record.get('default_currency'),
-            'budget': {'pid': record.get('current_budget_pid')}
-        })
+        data.update(
+            {
+                "pid": record.pid,
+                "name": record.get("name"),
+                "code": record.get("code"),
+                "currency": record.get("default_currency"),
+                "budget": {"pid": record.get("current_budget_pid")},
+            }
+        )
         return {k: v for k, v in data.items() if v}

@@ -21,8 +21,15 @@ from .api import AcqAccount, AcqAccountsSearch
 from .models import AcqAccountExceedanceType
 
 
-def enrich_acq_account_data(sender, json=None, record=None, index=None,
-                            doc_type=None, arguments=None, **dummy_kwargs):
+def enrich_acq_account_data(
+    sender,
+    json=None,
+    record=None,
+    index=None,
+    doc_type=None,
+    arguments=None,
+    **dummy_kwargs,
+):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -30,54 +37,45 @@ def enrich_acq_account_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index.split('-')[0] == AcqAccountsSearch.Meta.index:
-        account = record
-        if not isinstance(record, AcqAccount):
-            account = AcqAccount.get_record_by_pid(record.get('pid'))
+    if index.split("-")[0] != AcqAccountsSearch.Meta.index:
+        return
+    account = record
+    if not isinstance(record, AcqAccount):
+        account = AcqAccount.get_record_by_pid(record.get("pid"))
 
-        # compute the exceedance amounts
-        amount = account.get('allocated_amount', 0)
-        if amount:
-            if 'encumbrance_exceedance' in account:
-                json['encumbrance_exceedance'] = dict(
-                    value=account.get('encumbrance_exceedance'),
-                    amount=account.get_exceedance(
-                        AcqAccountExceedanceType.ENCUMBRANCE)
-                )
-            if 'expenditure_exceedance' in account:
-                json['expenditure_exceedance'] = dict(
-                    value=account.get('expenditure_exceedance'),
-                    amount=account.get_exceedance(
-                        AcqAccountExceedanceType.EXPENDITURE)
-                )
-        else:
-            json.pop('encumbrance_exceedance', None)
-            json.pop('expenditure_exceedance', None)
+    if amount := account.get("allocated_amount", 0):
+        if "encumbrance_exceedance" in account:
+            json["encumbrance_exceedance"] = dict(
+                value=account.get("encumbrance_exceedance"),
+                amount=account.get_exceedance(AcqAccountExceedanceType.ENCUMBRANCE),
+            )
+        if "expenditure_exceedance" in account:
+            json["expenditure_exceedance"] = dict(
+                value=account.get("expenditure_exceedance"),
+                amount=account.get_exceedance(AcqAccountExceedanceType.EXPENDITURE),
+            )
+    else:
+        json.pop("encumbrance_exceedance", None)
+        json.pop("expenditure_exceedance", None)
 
-        # encumbrance, expenditure and balance amounts
-        (self_amount, children_amount) = account.encumbrance_amount
-        json['encumbrance_amount'] = dict(
-            self=self_amount,
-            children=children_amount,
-            total=self_amount + children_amount
-        )
-        (self_amount, children_amount) = account.expenditure_amount
-        json['expenditure_amount'] = dict(
-            self=self_amount,
-            children=children_amount,
-            total=self_amount + children_amount
-        )
-        (self_amount, total_amount) = account.remaining_balance
-        json['remaining_balance'] = dict(
-            self=self_amount,
-            total=total_amount
-        )
+    # encumbrance, expenditure and balance amounts
+    (self_amount, children_amount) = account.encumbrance_amount
+    json["encumbrance_amount"] = dict(
+        self=self_amount,
+        children=children_amount,
+        total=self_amount + children_amount,
+    )
+    (self_amount, children_amount) = account.expenditure_amount
+    json["expenditure_amount"] = dict(
+        self=self_amount,
+        children=children_amount,
+        total=self_amount + children_amount,
+    )
+    (self_amount, total_amount) = account.remaining_balance
+    json["remaining_balance"] = dict(self=self_amount, total=total_amount)
 
-        # additional fields for ES
-        json['is_active'] = account.is_active
-        json['depth'] = account.depth
-        json['distribution'] = account.distribution
-        json['organisation'] = dict(
-            pid=account.organisation_pid,
-            type='org'
-        )
+    # additional fields for ES
+    json["is_active"] = account.is_active
+    json["depth"] = account.depth
+    json["distribution"] = account.distribution
+    json["organisation"] = dict(pid=account.organisation_pid, type="org")

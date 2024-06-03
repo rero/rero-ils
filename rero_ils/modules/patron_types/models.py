@@ -27,11 +27,11 @@ from invenio_records.models import RecordMetadataBase
 class PatronTypeIdentifier(RecordIdentifier):
     """Sequence generator for PatronType identifiers."""
 
-    __tablename__ = 'patron_type_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "patron_type_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
         primary_key=True,
         autoincrement=True,
     )
@@ -40,4 +40,4 @@ class PatronTypeIdentifier(RecordIdentifier):
 class PatronTypeMetadata(db.Model, RecordMetadataBase):
     """PatronType record metadata."""
 
-    __tablename__ = 'patron_type_metadata'
+    __tablename__ = "patron_type_metadata"

@@ -34,9 +34,9 @@ class RegisterForm(SecurityRegisterForm):
         self.password.validators = [
             password_required,
             PasswordValidator(
-                length=current_app.config['RERO_ILS_PASSWORD_MIN_LENGTH'],
-                special_char=current_app.config[
-                    'RERO_ILS_PASSWORD_SPECIAL_CHAR'])
+                length=current_app.config["RERO_ILS_PASSWORD_MIN_LENGTH"],
+                special_char=current_app.config["RERO_ILS_PASSWORD_SPECIAL_CHAR"],
+            ),
         ]
 
 
@@ -49,7 +49,7 @@ class ResetPasswordForm(SecurityResetPasswordForm):
         self.password.validators = [
             password_required,
             PasswordValidator(
-                length=current_app.config['RERO_ILS_PASSWORD_MIN_LENGTH'],
-                special_char=current_app.config[
-                    'RERO_ILS_PASSWORD_SPECIAL_CHAR'])
+                length=current_app.config["RERO_ILS_PASSWORD_MIN_LENGTH"],
+                special_char=current_app.config["RERO_ILS_PASSWORD_SPECIAL_CHAR"],
+            ),
         ]

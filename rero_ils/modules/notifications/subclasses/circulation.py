@@ -49,8 +49,10 @@ class CirculationNotification(Notification, ABC):
         if self.type not in NotificationType.CIRCULATION_NOTIFICATIONS:
             return f"'{self.type} isn't a CirculationNotification"
         if not self.loan_pid:
-            return '`loan` field must be specified into `context` for ' \
-                   'CirculationNotification'
+            return (
+                "`loan` field must be specified into `context` for "
+                "CirculationNotification"
+            )
         return True
 
     # PARENT ABSTRACT IMPLEMENTATION METHODS ==================================
@@ -73,7 +75,7 @@ class CirculationNotification(Notification, ABC):
             self.get_template_path(),
             self.get_communication_channel(),
             self.library_pid,
-            self.patron_pid
+            self.patron_pid,
         ]
         return hashlib.md5(str(parts).encode()).hexdigest()
 
@@ -89,49 +91,49 @@ class CirculationNotification(Notification, ABC):
                 can be cancelled; the reason why the notification can be
                 cancelled (only present if tuple first value is True).
         """
-        if not self.item:
-            return True, "Item doesn't exists anymore"
-        return False, None
+        return (False, None) if self.item else (True, "Item doesn't exists anymore")
 
     def get_communication_channel(self):
         """Get the communication channel to use for this notification."""
         # By default the circulation notification should be send depending of
         # the patron setting. Override this method if necessary
-        return self.patron.get('patron', {}).get('communication_channel')
+        return self.patron.get("patron", {}).get("communication_channel")
 
     def get_language_to_use(self):
         """Get the language to use for dispatching the notification."""
         # By default, the language to use to build the notification is defined
         # in the patron setting. Override this method if the patron isn't the
         # recipient of this notification.
-        return self.patron.get('patron', {}).get('communication_language')
+        return self.patron.get("patron", {}).get("communication_language")
 
     def get_template_path(self):
         """Get the template to use to render the notification."""
         # By default, the template path to use reflects the notification type.
         # Override this method if necessary
-        return f'email/{self.type}/{self.get_language_to_use()}.txt'
+        return f"email/{self.type}/{self.get_language_to_use()}.txt"
 
     def get_recipients(self, address_type):
         """Get the notification recipient email addresses."""
         mapping = {
             RecipientType.TO: self.get_recipients_to,
-            RecipientType.REPLY_TO: self.get_recipients_reply_to
+            RecipientType.REPLY_TO: self.get_recipients_reply_to,
         }
         return mapping[address_type]() if address_type in mapping else []
 
     def get_recipients_reply_to(self):
         """Get the notification email address for 'REPLY_TO' recipient type."""
-        return [self.library.get('email')]
+        return [self.library.get("email")]
 
     def get_recipients_to(self):
         """Get the notification email address for 'TO' recipient type."""
         addresses = []
-        if self.get_communication_channel() == NotificationChannel.EMAIL \
-           and self.patron:
+        if (
+            self.get_communication_channel() == NotificationChannel.EMAIL
+            and self.patron
+        ):
             addresses = [
                 self.patron.user.email,
-                self.patron['patron'].get('additional_communication_email')
+                self.patron["patron"].get("additional_communication_email"),
             ]
             addresses = [address for address in addresses if address]
         return addresses
@@ -141,7 +143,7 @@ class CirculationNotification(Notification, ABC):
     @property
     def loan_pid(self):
         """Shortcut for loan pid of the notification."""
-        return extracted_data_from_ref(self['context']['loan'])
+        return extracted_data_from_ref(self["context"]["loan"])
 
     @cached_property
     def loan(self):
@@ -151,7 +153,7 @@ class CirculationNotification(Notification, ABC):
     @property
     def item_pid(self):
         """Shortcut for item pid of the notification."""
-        return self.loan.get('item_pid', {}).get('value')
+        return self.loan.get("item_pid", {}).get("value")
 
     @cached_property
     def item(self):
@@ -181,7 +183,7 @@ class CirculationNotification(Notification, ABC):
     @property
     def patron_pid(self):
         """Shortcut for patron pid of the notification."""
-        return self.loan.get('patron_pid')
+        return self.loan.get("patron_pid")
 
     @cached_property
     def patron(self):
@@ -191,7 +193,7 @@ class CirculationNotification(Notification, ABC):
     @property
     def transaction_user_pid(self):
         """Shortcut for transaction user pid of the notification."""
-        return self.loan.get('transaction_user_pid')
+        return self.loan.get("transaction_user_pid")
 
     @cached_property
     def transaction_user(self):
@@ -211,7 +213,7 @@ class CirculationNotification(Notification, ABC):
     @property
     def transaction_location_pid(self):
         """Shortcut for transaction location pid of the notification."""
-        return self.loan.get('transaction_location_pid')
+        return self.loan.get("transaction_location_pid")
 
     @cached_property
     def transaction_location(self):
@@ -221,7 +223,7 @@ class CirculationNotification(Notification, ABC):
     @property
     def pickup_location_pid(self):
         """Shortcut for pickup location pid of the notification."""
-        return self.loan.get('pickup_location_pid')
+        return self.loan.get("pickup_location_pid")
 
     @cached_property
     def pickup_location(self):
@@ -236,7 +238,7 @@ class CirculationNotification(Notification, ABC):
     @property
     def document_pid(self):
         """Shortcut for document pid of the notification."""
-        return self.loan.get('document_pid')
+        return self.loan.get("document_pid")
 
     @cached_property
     def document(self):
@@ -246,7 +248,8 @@ class CirculationNotification(Notification, ABC):
     @cached_property
     def request_loan(self):
         """Get the request loan related to this notification."""
-        return self.item.get_first_loan_by_state(LoanState.ITEM_AT_DESK) \
-            or self.item.get_first_loan_by_state(
-                LoanState.ITEM_IN_TRANSIT_FOR_PICKUP) \
+        return (
+            self.item.get_first_loan_by_state(LoanState.ITEM_AT_DESK)
+            or self.item.get_first_loan_by_state(LoanState.ITEM_IN_TRANSIT_FOR_PICKUP)
             or self.item.get_first_loan_by_state(LoanState.PENDING)
+        )

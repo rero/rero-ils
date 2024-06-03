@@ -26,26 +26,28 @@ from flask import Blueprint, current_app, jsonify, request
 from rero_ils.modules.decorators import check_logged_as_librarian
 from rero_ils.modules.entities.local_entities.proxy import LocalEntityProxy
 
-api_blueprint = Blueprint('api_local_entities', __name__)
+api_blueprint = Blueprint("api_local_entities", __name__)
 
 
 def extract_size_parameter(func):
     """Decorator to extract the size parameter from query string."""
+
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if 'size' not in kwargs:
-            kwargs['size'] = current_app.config.get(
-                'RERO_ILS_DEFAULT_SUGGESTION_LIMIT')
+        if "size" not in kwargs:
+            kwargs["size"] = current_app.config.get("RERO_ILS_DEFAULT_SUGGESTION_LIMIT")
             with suppress(ValueError):
-                kwargs['size'] = int(request.args.get('size') or '')
+                kwargs["size"] = int(request.args.get("size") or "")
         return func(*args, **kwargs)
+
     return wrapper
 
 
-@api_blueprint.route('/local_entities/search/<term>',
-                     defaults={'entity_type': 'agents'})
-@api_blueprint.route('/local_entities/search/<entity_type>/<term>')
-@api_blueprint.route('/local_entities/search/<entity_type>/<term>/')
+@api_blueprint.route(
+    "/local_entities/search/<term>", defaults={"entity_type": "agents"}
+)
+@api_blueprint.route("/local_entities/search/<entity_type>/<term>")
+@api_blueprint.route("/local_entities/search/<entity_type>/<term>/")
 @check_logged_as_librarian
 @extract_size_parameter
 def local_search_proxy(entity_type, term, size):
@@ -64,7 +66,6 @@ def local_search_proxy(entity_type, term, size):
     #   apply.
     #   See same behavior for remote entities search proxy.
 
-    return jsonify([
-        hit.to_dict()
-        for hit in LocalEntityProxy(entity_type).search(term, size)
-    ])
+    return jsonify(
+        [hit.to_dict() for hit in LocalEntityProxy(entity_type).search(term, size)]
+    )

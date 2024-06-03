@@ -17,43 +17,40 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO-ILS Loan resource serializers."""
-from rero_ils.modules.serializers import RecordSchemaJSONV1, \
-    search_responsify, search_responsify_file
+from rero_ils.modules.serializers import (
+    RecordSchemaJSONV1,
+    search_responsify,
+    search_responsify_file,
+)
 
 from .csv import LoanStreamedCSVSerializer
 from .json import LoanJSONSerializer
 
-__all__ = [
-    'json_loan_search',
-    'csv_stream_search'
-]
+__all__ = ["json_loan_search", "csv_stream_search"]
 
 
 _json = LoanJSONSerializer(RecordSchemaJSONV1)
 _streamed_csv = LoanStreamedCSVSerializer(
     csv_included_fields=[
-        'pid',
-        'document_title',
-        'item_barcode',
-        'item_call_numbers',
-        'patron_name',
-        'patron_barcode',
-        'patron_email',
-        'patron_type',
-        'owning_library',
-        'transaction_library',
-        'pickup_library',
-        'state',
-        'checkout_date',
-        'end_date',
-        'request_expire_date',
+        "pid",
+        "document_title",
+        "item_barcode",
+        "item_call_numbers",
+        "patron_name",
+        "patron_barcode",
+        "patron_email",
+        "patron_type",
+        "owning_library",
+        "transaction_library",
+        "pickup_library",
+        "state",
+        "checkout_date",
+        "end_date",
+        "request_expire_date",
     ]
 )
 
-json_loan_search = search_responsify(_json, 'application/rero+json')
+json_loan_search = search_responsify(_json, "application/rero+json")
 csv_stream_search = search_responsify_file(
-    _streamed_csv,
-    'text/csv',
-    file_extension='csv',
-    file_prefix='export-loans'
+    _streamed_csv, "text/csv", file_extension="csv", file_prefix="export-loans"
 )

@@ -32,15 +32,14 @@ from .models import AcquisitionInvoiceIdentifier, AcquisitionInvoiceMetadata
 
 # provider
 AcquisitionInvoiceProvider = type(
-    'AcqInvoiceProvider',
+    "AcqInvoiceProvider",
     (Provider,),
-    dict(identifier=AcquisitionInvoiceIdentifier, pid_type='acin')
+    dict(identifier=AcquisitionInvoiceIdentifier, pid_type="acin"),
 )
 # minter
 acq_invoice_id_minter = partial(id_minter, provider=AcquisitionInvoiceProvider)
 # fetcher
-acq_invoice_id_fetcher = partial(
-    id_fetcher, provider=AcquisitionInvoiceProvider)
+acq_invoice_id_fetcher = partial(id_fetcher, provider=AcquisitionInvoiceProvider)
 
 
 class AcquisitionInvoicesSearch(IlsRecordsSearch):
@@ -49,9 +48,9 @@ class AcquisitionInvoicesSearch(IlsRecordsSearch):
     class Meta:
         """Search only on acq_invoice index."""
 
-        index = 'acq_invoices'
+        index = "acq_invoices"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -65,24 +64,18 @@ class AcquisitionInvoice(AcquisitionIlsRecord):
     provider = AcquisitionInvoiceProvider
     model_cls = AcquisitionInvoiceMetadata
     pids_exist_check = {
-        'required': {
-            'lib': 'library',
-            'vndr': 'vendor'
-        },
-        'not_required': {
-            'org': 'organisation'
-        }
+        "required": {"lib": "library", "vndr": "vendor"},
+        "not_required": {"org": "organisation"},
     }
 
     @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, **kwargs):
+    def create(
+        cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs
+    ):
         """Create acquisition invoice record."""
         cls._acquisition_invoice_build_org_ref(data)
         cls._build_total_amount_of_invoice(data)
-        record = super().create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        return record
+        return super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
 
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Invoice record."""
@@ -94,21 +87,22 @@ class AcquisitionInvoice(AcquisitionIlsRecord):
     def _build_total_amount_of_invoice(cls, data):
         """Build total amount for invoice."""
         invoice_price = 0
-        for idx, item in enumerate(data.get('invoice_items')):
+        for idx, item in enumerate(data.get("invoice_items")):
             # build total price for each invoice line item
             invoiceLine = InvoiceLine(item)
-            data['invoice_items'][idx]['total_price'] = invoiceLine.total_price
-            invoice_price += data['invoice_items'][idx]['total_price']
+            data["invoice_items"][idx]["total_price"] = invoiceLine.total_price
+            invoice_price += data["invoice_items"][idx]["total_price"]
 
         # check if discount percentage
-        if data.get('discount', {}).get('percentage'):
+        if data.get("discount", {}).get("percentage"):
             invoice_price -= cls._calculate_percentage_discount(
-                invoice_price, data.get('discount').get('percentage'))
+                invoice_price, data.get("discount").get("percentage")
+            )
         # check if discount amount
-        if data.get('discount', {}).get('amount'):
-            invoice_price -= data.get('discount').get('amount')
+        if data.get("discount", {}).get("amount"):
+            invoice_price -= data.get("discount").get("amount")
         # set invoice price
-        data['invoice_price'] = invoice_price
+        data["invoice_price"] = invoice_price
 
     @classmethod
     def _calculate_percentage_discount(cls, amount, percentage):
@@ -118,30 +112,30 @@ class AcquisitionInvoice(AcquisitionIlsRecord):
     @classmethod
     def _acquisition_invoice_build_org_ref(cls, data):
         """Build $ref for the organisation of the acquisition invoice."""
-        library_pid = data.get('library', {}).get('pid')
-        if not library_pid:
-            library_pid = data.get('library').get(
-                '$ref').split('libraries/')[1]
-        org_pid = Library.get_record_by_pid(library_pid).organisation_pid \
+        library_pid = (
+            data.get("library", {}).get("pid")
+            or data.get("library").get("$ref").split("libraries/")[1]
+        )
+        org_pid = (
+            Library.get_record_by_pid(library_pid).organisation_pid
             or cls.organisation_pid
-        data['organisation'] = {
-            '$ref': f'{get_base_url()}/api/organisations/{org_pid}'
-        }
+        )
+        data["organisation"] = {"$ref": f"{get_base_url()}/api/organisations/{org_pid}"}
 
     @property
     def organisation_pid(self):
         """Shortcut for acquisition invoice organisation pid."""
-        return extracted_data_from_ref(self.get('organisation'))
+        return extracted_data_from_ref(self.get("organisation"))
 
     @property
     def library_pid(self):
         """Shortcut for acquisition order library pid."""
-        return extracted_data_from_ref(self.get('library'))
+        return extracted_data_from_ref(self.get("library"))
 
     @property
     def vendor_pid(self):
         """Shortcut for acquisition order vendor pid."""
-        return extracted_data_from_ref(self.get('vendor'))
+        return extracted_data_from_ref(self.get("vendor"))
 
     @property
     def is_active(self):
@@ -160,7 +154,7 @@ class AcquisitionInvoicesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='acin')
+        super().bulk_index(record_id_iterator, doc_type="acin")
 
 
 class InvoiceLine(object):
@@ -173,6 +167,6 @@ class InvoiceLine(object):
     @property
     def total_price(self):
         """Build total price for invoice line."""
-        total_price = self.data['price'] * self.data['quantity']
-        total_price -= self.data.get('discount', 0)
+        total_price = self.data["price"] * self.data["quantity"]
+        total_price -= self.data.get("discount", 0)
         return total_price

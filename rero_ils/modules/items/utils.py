@@ -18,8 +18,7 @@
 """Item utils."""
 from datetime import datetime, timedelta, timezone
 
-from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus, \
-    TypeOfItem
+from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus, TypeOfItem
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.notifications.models import RecipientType
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
@@ -33,7 +32,7 @@ def item_pid_to_object(item_pid):
     :return: the item_pid object
     :rtype: object
     """
-    return {'value': item_pid, 'type': 'item'}
+    return {"value": item_pid, "type": "item"}
 
 
 def item_location_retriever(item_pid):
@@ -46,10 +45,7 @@ def item_location_retriever(item_pid):
     """
     from .api import Item
 
-    # TODO: for requests we probably need the transation_location_pid
-    #       to deal with multiple pickup locations for a library
-    item = Item.get_record_by_pid(item_pid.get('value'))
-    if item:
+    if item := Item.get_record_by_pid(item_pid.get("value")):
         # TODO: this will be useful for the very specific rero use cases
 
         # last_location = item.get_last_location()
@@ -67,10 +63,9 @@ def same_location_validator(item_pid, input_location_pid):
     :rtype: boolean
     """
     from rero_ils.modules.items.api import ItemsSearch
-    lib_from_loc = LocationsSearch().get_record_by_pid(
-        input_location_pid).library.pid
-    lib_from_item = ItemsSearch().get_record_by_pid(
-        item_pid.get('value')).library.pid
+
+    lib_from_loc = LocationsSearch().get_record_by_pid(input_location_pid).library.pid
+    lib_from_item = ItemsSearch().get_record_by_pid(item_pid.get("value")).library.pid
     return lib_from_loc == lib_from_item
 
 
@@ -83,12 +78,13 @@ def exists_available_item(items=None):
     :return True if one item is available; false otherwise.
     """
     from rero_ils.modules.items.api import Item
+
     items = items or []
     for item in items:
         if isinstance(item, str):  # `item` seems to be an item pid
             item = Item.get_record_by_pid(item)
         if not isinstance(item, Item):
-            raise ValueError('All items should be Item resource.')
+            raise ValueError("All items should be Item resource.")
         if item.is_available():
             return True
     return False
@@ -105,18 +101,22 @@ def get_provisional_items_candidate_to_delete():
     from rero_ils.modules.items.api import Item, ItemsSearch
 
     # query ES index for open fees
-    query_fees = PatronTransactionsSearch()\
-        .filter('term', status='open')\
-        .filter('exists', field='item')\
-        .filter('range', total_amount={'gt': 0})\
-        .source('item')
+    query_fees = (
+        PatronTransactionsSearch()
+        .filter("term", status="open")
+        .filter("exists", field="item")
+        .filter("range", total_amount={"gt": 0})
+        .source("item")
+    )
     # list of item pids with open fees
     item_pids_with_fees = [hit.item.pid for hit in query_fees.scan()]
-    query = ItemsSearch()\
-        .filter('term', type=TypeOfItem.PROVISIONAL) \
-        .filter('terms', status=[ItemStatus.ON_SHELF]) \
-        .exclude('terms', pid=item_pids_with_fees)\
+    query = (
+        ItemsSearch()
+        .filter("term", type=TypeOfItem.PROVISIONAL)
+        .filter("terms", status=[ItemStatus.ON_SHELF])
+        .exclude("terms", pid=item_pids_with_fees)
         .source(False)
+    )
     for hit in query.scan():
         yield Item.get_record(hit.meta.id)
 
@@ -131,12 +131,14 @@ def update_late_expected_issue(dbcommit=False, reindex=False):
     from rero_ils.modules.items.api import Item, ItemsSearch
 
     yesterday = datetime.now(timezone.utc) - timedelta(days=1)
-    yesterday = yesterday.strftime('%Y-%m-%d')
-    query = ItemsSearch() \
-        .filter('term', type=TypeOfItem.ISSUE) \
-        .filter('term', issue__status=ItemIssueStatus.EXPECTED) \
-        .filter('range', issue__expected_date={'lte': yesterday}) \
+    yesterday = yesterday.strftime("%Y-%m-%d")
+    query = (
+        ItemsSearch()
+        .filter("term", type=TypeOfItem.ISSUE)
+        .filter("term", issue__status=ItemIssueStatus.EXPECTED)
+        .filter("range", issue__expected_date={"lte": yesterday})
         .source(False)
+    )
     counter = 0
     for counter, hit in enumerate(query.scan(), 1):
         item = Item.get_record(hit.meta.id)
@@ -159,11 +161,12 @@ def get_recipient_suggestions(issue):
     suggestions = {}
     if (vendor := issue.vendor) and (email := vendor.serial_email):
         suggestions.setdefault(email, set()).update([RecipientType.TO])
-    if settings := (issue.library or {}).get('serial_acquisition_settings'):
-        if email := settings.get('shipping_informations', {}).get('email'):
-            suggestions.setdefault(email, set())\
-                .update([RecipientType.CC, RecipientType.REPLY_TO])
-        if email := settings.get('billing_informations', {}).get('email'):
+    if settings := (issue.library or {}).get("serial_acquisition_settings"):
+        if email := settings.get("shipping_informations", {}).get("email"):
+            suggestions.setdefault(email, set()).update(
+                [RecipientType.CC, RecipientType.REPLY_TO]
+            )
+        if email := settings.get("billing_informations", {}).get("email"):
             suggestions.setdefault(email, set())
     if email := current_librarian.user.email:
         suggestions.setdefault(email, set())
@@ -173,8 +176,8 @@ def get_recipient_suggestions(issue):
     # return a recipient suggestion array.
     cleaned_suggestions = []
     for recipient_address, recipient_types in suggestions.items():
-        suggestion = {'address': recipient_address}
+        suggestion = {"address": recipient_address}
         if recipient_types:
-            suggestion['type'] = list(recipient_types)
+            suggestion["type"] = list(recipient_types)
         cleaned_suggestions.append(suggestion)
     return cleaned_suggestions

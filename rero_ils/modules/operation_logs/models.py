@@ -22,6 +22,6 @@
 class OperationLogOperation:
     """Allowed operation for operation logs."""
 
-    CREATE = 'create'
-    UPDATE = 'update'
-    DELETE = 'delete'
+    CREATE = "create"
+    UPDATE = "update"
+    DELETE = "delete"

@@ -35,5 +35,6 @@ class DeleteRelatedLocalFieldExtension(RecordExtension):
         :param force: is the suppression must be forced.
         """
         from .api import LocalField
+
         for local_field in LocalField.get_local_fields(record):
             local_field.delete(force=force, delindex=True)

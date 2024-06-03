@@ -48,62 +48,66 @@ def stats_view_method(pid, record, template=None, **kwargs):
     # We make a `dumps` to trigger the extension on the statistical record
     # that allows to filter the libraries.
     record = record.dumps()
-    return render_template(
-        template,
-        record=record
-    )
+    return render_template(template, record=record)
 
 
 blueprint = Blueprint(
-    'stats',
+    "stats",
     __name__,
-    url_prefix='/stats',
-    template_folder='templates',
-    static_folder='static',
+    url_prefix="/stats",
+    template_folder="templates",
+    static_folder="static",
 )
 
 
-@blueprint.route('/', methods=['GET'])
+@blueprint.route("/", methods=["GET"])
 @check_logged_as_admin
 def stats_billing():
     """Show the list of the first 100 items on the billing stats list.
 
     Note: includes old statistics where the field type was absent.
     """
-    f = ~Q('exists', field='type') | Q('term', type=StatType.BILLING)
-    search = StatsSearch().filter('bool', must=[f]).sort('-_created')\
-        .source(['pid', '_created'])
-    hits = search[0:100].execute().to_dict()
+    f = ~Q("exists", field="type") | Q("term", type=StatType.BILLING)
+    search = (
+        StatsSearch()
+        .filter("bool", must=[f])
+        .sort("-_created")
+        .source(["pid", "_created"])
+    )
+    hits = search[:100].execute().to_dict()
     return render_template(
-        'rero_ils/stats_list.html', records=hits['hits']['hits'],
-        type=StatType.BILLING)
+        "rero_ils/stats_list.html", records=hits["hits"]["hits"], type=StatType.BILLING
+    )
 
 
-@blueprint.route('/live', methods=['GET'])
+@blueprint.route("/live", methods=["GET"])
 @check_logged_as_admin
 def live_stats_billing():
     """Show the current billing stats values."""
     now = arrow.utcnow()
     stats = StatsForPricing(to_date=now).collect()
     return render_template(
-        'rero_ils/detailed_view_stats.html',
-        record=dict(created=now, values=stats))
+        "rero_ils/detailed_view_stats.html", record=dict(created=now, values=stats)
+    )
 
 
-@blueprint.route('/librarian', methods=['GET'])
+@blueprint.route("/librarian", methods=["GET"])
 @check_logged_as_librarian
 def stats_librarian():
     """Show the list of the first 100 items on the librarian stats list."""
-    search = StatsSearch()\
-        .filter('term', type=StatType.LIBRARIAN).sort('-_created')\
-        .source(['pid', '_created', 'date_range'])
-    hits = search[0:100].execute().to_dict()
+    search = (
+        StatsSearch()
+        .filter("term", type=StatType.LIBRARIAN)
+        .sort("-_created")
+        .source(["pid", "_created", "date_range"])
+    )
+    hits = search[:100].execute().to_dict()
     return render_template(
-        'rero_ils/stats_list.html', records=hits['hits']['hits'],
-        type='librarian')
+        "rero_ils/stats_list.html", records=hits["hits"]["hits"], type="librarian"
+    )
 
 
-@blueprint.route('/librarian/<record_pid>/csv')
+@blueprint.route("/librarian/<record_pid>/csv")
 @check_logged_as_librarian
 def stats_librarian_queries(record_pid):
     """Download specific statistic query into csv file.
@@ -111,8 +115,8 @@ def stats_librarian_queries(record_pid):
     :param record_pid: statistics pid
     :return: response object, the csv file
     """
-    queries = ['loans_of_transaction_library_by_item_location']
-    query_id = request.args.get('query_id', None)
+    queries = ["loans_of_transaction_library_by_item_location"]
+    query_id = request.args.get("query_id", None)
     if query_id not in queries:
         abort(404)
 
@@ -123,43 +127,52 @@ def stats_librarian_queries(record_pid):
     # note : This is done by the `pre_dump` extension from `Stats` record,
     record = record.dumps()
 
-    _from = record['date_range']['from'].split('T')[0]
-    _to = record['date_range']['to'].split('T')[0]
-    filename = f'{query_id}_{_from}_{_to}.csv'
+    _from = record["date_range"]["from"].split("T")[0]
+    _to = record["date_range"]["to"].split("T")[0]
+    filename = f"{query_id}_{_from}_{_to}.csv"
 
     data = StringIO()
     w = csv.writer(data)
 
-    if query_id == 'loans_of_transaction_library_by_item_location':
-        fieldnames = ['Transaction library', 'Item library',
-                      'Item location', 'Checkins', 'Checkouts']
+    if query_id == "loans_of_transaction_library_by_item_location":
+        fieldnames = [
+            "Transaction library",
+            "Item library",
+            "Item location",
+            "Checkins",
+            "Checkouts",
+        ]
         w.writerow(fieldnames)
-        for result in record['values']:
-            transaction_library = \
+        for result in record["values"]:
+            transaction_library = (
                 f"{result['library']['pid']}: {result['library']['name']}"
+            )
 
             if not result[query_id]:
-                w.writerow((transaction_library, '-', '-', 0, 0))
+                w.writerow((transaction_library, "-", "-", 0, 0))
             else:
                 for location in result[query_id]:
                     result_loc = result[query_id][location]
-                    location_name = result_loc['location_name']
-                    item_library =\
-                        location.replace(f' - {location_name}', '')
-                    w.writerow((
-                        transaction_library,
-                        item_library,
-                        location_name,
-                        result_loc['checkin'],
-                        result_loc['checkout']))
+                    location_name = result_loc["location_name"]
+                    item_library = location.replace(f" - {location_name}", "")
+                    w.writerow(
+                        (
+                            transaction_library,
+                            item_library,
+                            location_name,
+                            result_loc["checkin"],
+                            result_loc["checkout"],
+                        )
+                    )
 
     output = make_response(data.getvalue())
-    output.headers["Content-Disposition"] = f'attachment; filename={filename}'
+    output.headers["Content-Disposition"] = f"attachment; filename={filename}"
     output.headers["Content-type"] = "text/csv"
     return output
 
 
 # JINJA FILTERS ===============================================================
+
 
 @jinja2.pass_context
 @blueprint.app_template_filter()
@@ -169,7 +182,7 @@ def yearmonthfilter(context, value, format="%Y-%m-%dT%H:%M:%S"):
     value: datetime
     returns: year and month of datetime
     """
-    utc = pytz.timezone('UTC')
+    utc = pytz.timezone("UTC")
     value = datetime.datetime.strptime(value, format)
     value = utc.localize(value, is_dst=None).astimezone(pytz.utc)
     datetime_object = datetime.datetime.strptime(str(value.month), "%m")
@@ -209,7 +222,7 @@ def sort_dict_by_library(context, dictionary):
     returns: sorted dict
     :rtype: dict
     """
-    return sorted(dictionary, key=lambda v: v['library']['name'])
+    return sorted(dictionary, key=lambda v: v["library"]["name"])
 
 
 @jinja2.pass_context
@@ -222,9 +235,11 @@ def process_data(context, value):
     returns: processed dict
     :rtype: dict
     """
-    if 'library' in value:
-        updated_dict = {'library id': value['library']['pid'],
-                        'library name': value['library']['name']}
-        updated_dict.update(value)
-        updated_dict.pop('library')
+    if "library" in value:
+        updated_dict = {
+            "library id": value["library"]["pid"],
+            "library name": value["library"]["name"],
+        }
+        updated_dict |= value
+        updated_dict.pop("library")
     return updated_dict

@@ -39,8 +39,8 @@ def get_i18n_supported_languages():
 
     :returns: defined languages from config.
     """
-    languages = [current_app.config.get('BABEL_DEFAULT_LANGUAGE')]
-    i18n_languages = current_app.config.get('I18N_LANGUAGES')
+    languages = [current_app.config.get("BABEL_DEFAULT_LANGUAGE")]
+    i18n_languages = current_app.config.get("I18N_LANGUAGES")
     return languages + [ln[0] for ln in i18n_languages]
 
 
@@ -81,8 +81,7 @@ def language_mapping(lang):
     :param lang: bibliographic language code
     :returns: language mapping
     """
-    return current_app.config.get('RERO_ILS_LANGUAGE_MAPPING', {})\
-        .get(lang, lang)
+    return current_app.config.get("RERO_ILS_LANGUAGE_MAPPING", {}).get(lang, lang)
 
 
 class TranslatedList(list):

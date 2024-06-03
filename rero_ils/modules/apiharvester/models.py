@@ -29,18 +29,19 @@ from invenio_pidstore.models import RecordIdentifier
 class ApiHarvestConfig(RecordIdentifier):
     """Sequence generator for Document identifiers."""
 
-    __tablename__ = 'apiharvester_config'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "apiharvester_config"
+    __mapper_args__ = {"concrete": True}
 
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(255), nullable=False, server_default='')
+    url = db.Column(db.String(255), nullable=False, server_default="")
     name = db.Column(db.String(255), nullable=False)
     mimetype = db.Column(db.String(255), nullable=False)
     size = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.Text, nullable=True)
-    default_last_run = datetime.strptime('1900-1-1', '%Y-%m-%d')
-    lastrun = db.Column(db.DateTime, default=pytz.utc.localize(
-        default_last_run), nullable=True)
+    default_last_run = datetime.strptime("1900-1-1", "%Y-%m-%d")
+    lastrun = db.Column(
+        db.DateTime, default=pytz.utc.localize(default_last_run), nullable=True
+    )
 
     def save(self):
         """Save object to persistent storage."""

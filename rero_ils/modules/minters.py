@@ -20,12 +20,10 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 
-def id_minter(record_uuid, data, provider, pid_key='pid', object_type='rec'):
+def id_minter(record_uuid, data, provider, pid_key="pid", object_type="rec"):
     """RERO ILS minter."""
     provider = provider.create(
-        object_type=object_type,
-        object_uuid=record_uuid,
-        pid_value=data.get(pid_key)
+        object_type=object_type, object_uuid=record_uuid, pid_value=data.get(pid_key)
     )
 
     persistent_identifier = provider.pid

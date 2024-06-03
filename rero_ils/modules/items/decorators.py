@@ -24,8 +24,7 @@ from flask import current_app
 from invenio_circulation.errors import CirculationException
 from invenio_records_rest.utils import obj_or_import_string
 
-from rero_ils.modules.loans.api import Loan, \
-    get_request_by_item_pid_by_patron_pid
+from rero_ils.modules.loans.api import Loan, get_request_by_item_pid_by_patron_pid
 
 
 def add_action_parameters_and_flush_indexes(function):
@@ -35,35 +34,39 @@ def add_action_parameters_and_flush_indexes(function):
     parameters are given. Adds missing parameters if any. Ensures the right
     loan transition for the given action.
     """
+
     @wraps(function)
     def wrapper(item, *args, **kwargs):
         """Executed before loan action."""
         checkin_loan = None
-        if function.__name__ == 'validate_request':
+        if function.__name__ == "validate_request":
             # checks if the given loan pid can be validated
             item.prior_validate_actions(**kwargs)
-        elif function.__name__ == 'checkin':
+        elif function.__name__ == "checkin":
             # the smart checkin requires extra checks/actions before a checkin
             loan, kwargs = item.prior_checkin_actions(**kwargs)
             checkin_loan = loan
         # CHECKOUT: Case where no loan PID
-        elif function.__name__ == 'checkout' and not kwargs.get('pid'):
-            patron_pid = kwargs['patron_pid']
+        elif function.__name__ == "checkout" and not kwargs.get("pid"):
+            patron_pid = kwargs["patron_pid"]
             item_pid = item.pid
             request = get_request_by_item_pid_by_patron_pid(
-                item_pid=item_pid, patron_pid=patron_pid)
+                item_pid=item_pid, patron_pid=patron_pid
+            )
             if request:
-                kwargs['pid'] = request.pid
-        elif function.__name__ == 'extend_loan':
+                kwargs["pid"] = request.pid
+        elif function.__name__ == "extend_loan":
             loan, kwargs = item.prior_extend_loan_actions(**kwargs)
             checkin_loan = loan
 
         loan, kwargs = item.complete_action_missing_params(
-                item=item, checkin_loan=checkin_loan, **kwargs)
+            item=item, checkin_loan=checkin_loan, **kwargs
+        )
         Loan.check_required_params(function.__name__, **kwargs)
         item, action_applied = function(item, loan, *args, **kwargs)
         item.change_status_commit_and_reindex()
         return item, action_applied
+
     return wrapper
 
 
@@ -82,19 +85,21 @@ def check_operation_allowed(action):
     :param action: the action to check as ItemCirculationAction part.
     :raise CirculationException if a function disallow the operation.
     """
+
     def inner_function(func):
         @wraps(func)
         def decorated_view(*args, **kwargs):
-            override_blocking = kwargs.pop('override_blocking', False)
+            override_blocking = kwargs.pop("override_blocking", False)
             override_blocking = bool(override_blocking)
             if not override_blocking:
-                actions = current_app.config.get(
-                    'CIRCULATION_ACTIONS_VALIDATION', {})
+                actions = current_app.config.get("CIRCULATION_ACTIONS_VALIDATION", {})
                 for func_name in actions.get(action, []):
                     func_callback = obj_or_import_string(func_name)
                     can, reasons = func_callback(args[0], **kwargs)
                     if not can:
                         raise CirculationException(description=reasons[0])
             return func(*args, **kwargs)
+
         return decorated_view
+
     return inner_function

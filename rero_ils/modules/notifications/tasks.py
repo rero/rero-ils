@@ -43,10 +43,9 @@ def process_notifications(notification_type, verbose=True):
     """
     notification_pids = get_notifications(notification_type=notification_type)
     result = Dispatcher.dispatch_notifications(
-        notification_pids=notification_pids,
-        verbose=verbose
+        notification_pids=notification_pids, verbose=verbose
     )
-    set_timestamp(f'notification-dispatch-{notification_type}', **result)
+    set_timestamp(f"notification-dispatch-{notification_type}", **result)
     return result
 
 
@@ -60,6 +59,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
     :param verbose: is the task should be verbose.
     """
     from ..loans.utils import get_circ_policy
+
     types = types or []
     tstamp = tstamp or datetime.now(timezone.utc)
     logger = current_app.logger
@@ -73,13 +73,14 @@ def create_notifications(types=None, tstamp=None, verbose=True):
             try:
                 logger.debug(f"* Loan#{loan.pid} is considered as 'due_soon'")
                 notifications = loan.create_notification(
-                    _type=NotificationType.DUE_SOON)
-                notification_counter[NotificationType.DUE_SOON] += len(
-                    notifications)
+                    _type=NotificationType.DUE_SOON
+                )
+                notification_counter[NotificationType.DUE_SOON] += len(notifications)
             except Exception as error:
                 logger.error(
-                    f'Unable to create DUE_SOON notification :: {error}',
-                    exc_info=True, stack_info=True
+                    f"Unable to create DUE_SOON notification :: {error}",
+                    exc_info=True,
+                    stack_info=True,
                 )
         process_notifications(NotificationType.DUE_SOON)
     # OVERDUE NOTIFICATIONS
@@ -92,15 +93,13 @@ def create_notifications(types=None, tstamp=None, verbose=True):
             # to should be sent from the due_date and the current used date.
             loan_library = Library.get_record_by_pid(loan.library_pid)
             open_days = loan_library.count_open(
-                start_date=loan.overdue_date,
-                end_date=tstamp
+                start_date=loan.overdue_date, end_date=tstamp
             )
             circ_policy = get_circ_policy(loan)
-            logger.debug(f'  - this loan use the cipo#{circ_policy.pid}')
-            logger.debug(f'  - open days from loans due_date :: {open_days}')
+            logger.debug(f"  - this loan use the cipo#{circ_policy.pid}")
+            logger.debug(f"  - open days from loans due_date :: {open_days}")
             reminders = circ_policy.get_reminders(
-                reminder_type=OVERDUE_REMINDER_TYPE,
-                limit=open_days
+                reminder_type=OVERDUE_REMINDER_TYPE, limit=open_days
             )
             # For each reminder, try to create it.
             #   the `create_notification` method will check if the notification
@@ -109,22 +108,25 @@ def create_notifications(types=None, tstamp=None, verbose=True):
             for idx, _ in enumerate(reminders):
                 try:
                     if notifications := loan.create_notification(
-                        _type=NotificationType.OVERDUE,
-                        counter=idx
+                        _type=NotificationType.OVERDUE, counter=idx
                     ):
-                        msg = f'  --> Overdue notification#{idx+1} created'
+                        msg = f"  --> Overdue notification#{idx+1} created"
                         logger.debug(msg)
                         notification_counter[NotificationType.OVERDUE] += len(
-                            notifications)
+                            notifications
+                        )
 
                     else:
-                        msg = f'  --> Overdue notification#{idx+1} skipped ' \
-                              ':: already sent'
+                        msg = (
+                            f"  --> Overdue notification#{idx+1} skipped "
+                            ":: already sent"
+                        )
                         logger.debug(msg)
                 except Exception as error:
                     logger.error(
-                        f'Unable to create OVERDUE notification :: {error}',
-                        exc_info=True, stack_info=True
+                        f"Unable to create OVERDUE notification :: {error}",
+                        exc_info=True,
+                        stack_info=True,
                     )
         process_notifications(NotificationType.OVERDUE)
     notification_sum = sum(notification_counter.values())
@@ -133,8 +135,8 @@ def create_notifications(types=None, tstamp=None, verbose=True):
     if verbose:
         logger = current_app.logger
         logger.info("NOTIFICATIONS CREATION TASK")
-        logger.info(f'  * total of {notification_sum} notification(s) created')
+        logger.info(f"  * total of {notification_sum} notification(s) created")
         for notif_type, cpt in counters.items():
-            logger.info(f'  +--> {cpt} `{notif_type}` notification(s) created')
+            logger.info(f"  +--> {cpt} `{notif_type}` notification(s) created")
 
     return counters

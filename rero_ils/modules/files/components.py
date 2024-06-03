@@ -17,10 +17,8 @@
 
 """Files components."""
 
-from invenio_records_resources.services.files.components import \
-    FileServiceComponent
-from invenio_records_resources.services.records.components import \
-    ServiceComponent
+from invenio_records_resources.services.files.components import FileServiceComponent
+from invenio_records_resources.services.records.components import ServiceComponent
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.libraries.api import Library
@@ -45,12 +43,12 @@ class OperationLogRecordFactory(OperationLogFactory):
         :return a dict with additional informations.
         """
         data = {}
-        if doc := record.get('document'):
-            data.setdefault(
-                'file', {})['document'] = \
-                    SpecificOperationLog._get_document_data(doc)
-        if recid := record.get('recid'):
-            data.setdefault('file', {})['recid'] = recid
+        if doc := record.get("document"):
+            data.setdefault("file", {})["document"] = (
+                SpecificOperationLog._get_document_data(doc)
+            )
+        if recid := record.get("recid"):
+            data.setdefault("file", {})["recid"] = recid
         return data
 
 
@@ -60,24 +58,27 @@ class OperationLogsComponent(ServiceComponent):
     def _create_operation_logs(self, record, operation):
         """Create operation logs.
 
-        :param record: obj - record instance.
+                :param record: obj - record instance.
         :param operation: str - CRUD operation
         """
-        # as the invenio record resource record is different than ILSRecord
-        # a wrapper should be created
+
         class Rec(dict):
+            # as the invenio record resource record is different than ILSRecord
+            # a wrapper should be created
             class provider:
-                pid_type = 'recid'
+                pid_type = "recid"
 
         rec = Rec()
-        rec['pid'] = record.pid.pid_value
-        if library := record.get('metadata', {}).get('library'):
+        rec["pid"] = record.pid.pid_value
+        if library := record.get("metadata", {}).get("library"):
             rec.library_pid = extracted_data_from_ref(library)
             rec.organisation_pid = Library.get_record_by_pid(
-                rec.library_pid).organisation_pid
-        if document := record.get('metadata', {}).get('document'):
-            rec['document'] = Document.get_record_by_pid(
-                extracted_data_from_ref(document))
+                rec.library_pid
+            ).organisation_pid
+        if document := record.get("metadata", {}).get("document"):
+            rec["document"] = Document.get_record_by_pid(
+                extracted_data_from_ref(document)
+            )
         OperationLogRecordFactory().create_operation_log(rec, operation)
 
     def create(self, identity, data, record, errors=None, **kwargs):
@@ -88,7 +89,8 @@ class OperationLogsComponent(ServiceComponent):
         :param record: obj - the created record
         """
         self._create_operation_logs(
-            record=record, operation=OperationLogOperation.CREATE)
+            record=record, operation=OperationLogOperation.CREATE
+        )
 
     def update(self, identity, data, record, **kwargs):
         """Update handler.
@@ -98,7 +100,8 @@ class OperationLogsComponent(ServiceComponent):
         :param record: obj - the updated record
         """
         self._create_operation_logs(
-            record=record, operation=OperationLogOperation.UPDATE)
+            record=record, operation=OperationLogOperation.UPDATE
+        )
 
     def delete(self, identity, record, **kwargs):
         """Delete handler.
@@ -107,15 +110,14 @@ class OperationLogsComponent(ServiceComponent):
         :param record: obj - the updated record
         """
         self._create_operation_logs(
-            record=record, operation=OperationLogOperation.DELETE)
+            record=record, operation=OperationLogOperation.DELETE
+        )
 
 
 class OperationLogsFileComponent(FileServiceComponent):
     """Component to create files CRUD operation logs."""
 
-    def _create_operation_logs(
-        self, record, file_key, operation, deleted_file=None
-    ):
+    def _create_operation_logs(self, record, file_key, operation, deleted_file=None):
         """Create operation logs.
 
         :param record: obj - record instance.
@@ -125,32 +127,35 @@ class OperationLogsFileComponent(FileServiceComponent):
         """
         # for deletion the file is not in the record anymore.
         if deleted_file:
-            file_metadata = deleted_file.get('metadata', {})
+            file_metadata = deleted_file.get("metadata", {})
         else:
-            file_metadata = record.files.get(file_key).get('metadata', {})
+            file_metadata = record.files.get(file_key).get("metadata", {})
 
         # only for main files
-        if file_metadata.get('type') in ['fulltext', 'thumbnail']:
+        if file_metadata.get("type") in ["fulltext", "thumbnail"]:
             return
 
         # as the invenio record resource record is different than ILSRecord
         # a wrapper should be created
         class Rec(dict):
             class provider:
-                pid_type = 'file'
+                pid_type = "file"
 
         rec = Rec()
-        rec['pid'] = file_key
-        if library := record.get('metadata', {}).get('library'):
+        rec["pid"] = file_key
+        if library := record.get("metadata", {}).get("library"):
             rec.library_pid = extracted_data_from_ref(library)
             rec.organisation_pid = Library.get_record_by_pid(
-                rec.library_pid).organisation_pid
-        if document := record.get('metadata', {}).get('document'):
-            rec['document'] = Document.get_record_by_pid(
-                extracted_data_from_ref(document))
-        rec['recid'] = record['id']
+                rec.library_pid
+            ).organisation_pid
+        if document := record.get("metadata", {}).get("document"):
+            rec["document"] = Document.get_record_by_pid(
+                extracted_data_from_ref(document)
+            )
+        rec["recid"] = record["id"]
         OperationLogRecordFactory().create_operation_log(
-            record=rec, operation=operation)
+            record=rec, operation=operation
+        )
 
     def commit_file(self, identity, id_, file_key, record):
         """Commit file handler.
@@ -160,8 +165,7 @@ class OperationLogsFileComponent(FileServiceComponent):
         :param file_key: str - file key in the file record.
         :param record: obj - record instance.
         """
-        self._create_operation_logs(
-            record, file_key, OperationLogOperation.CREATE)
+        self._create_operation_logs(record, file_key, OperationLogOperation.CREATE)
 
     def delete_file(self, identity, id_, file_key, record, deleted_file):
         """Delete file handler.
@@ -173,8 +177,8 @@ class OperationLogsFileComponent(FileServiceComponent):
         :param deleted_file: file instance - the deleted file instance.
         """
         self._create_operation_logs(
-            record, file_key, OperationLogOperation.DELETE,
-            deleted_file=deleted_file)
+            record, file_key, OperationLogOperation.DELETE, deleted_file=deleted_file
+        )
 
 
 class ReindexFileComponent(FileServiceComponent):

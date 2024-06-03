@@ -34,7 +34,7 @@ from .modules.message import Message
 from .modules.utils import extracted_data_from_ref
 
 
-def get_record_by_ref(ref, type='es_record'):
+def get_record_by_ref(ref, type="es_record"):
     """Get record by ref.
 
     :param ref: The json $ref. Ex: {$ref: 'xxxxx'}.
@@ -44,8 +44,9 @@ def get_record_by_ref(ref, type='es_record'):
     return extracted_data_from_ref(ref, data=type)
 
 
-def node_assets(package, patterns=[
-        'runtime*.js', 'polyfills*.js', 'main*.js'], _type='js', tags=''):
+def node_assets(
+    package, patterns=["runtime*.js", "polyfills*.js", "main*.js"], _type="js", tags=""
+):
     """Generate the node assets html code.
 
     :param package: The node package path relative to node_modules.
@@ -54,17 +55,17 @@ def node_assets(package, patterns=[
     "param tags: additional script, link, html tags such as 'defer', etc.
     "return" html link, script code
     """
-    package_path = os.path.join(
-        current_app.static_folder, 'node_modules', package)
+    package_path = os.path.join(current_app.static_folder, "node_modules", package)
 
     def to_html(value):
-        value = re.sub(r'(.*?)\/static', '/static', value)
+        value = re.sub(r"(.*?)\/static", "/static", value)
         # default: js
         html_code = f'<script {tags} src="{value}"></script>'
         # styles
-        if _type == 'css':
+        if _type == "css":
             html_code = f'<link {tags} href="{value}" rel="stylesheet">'
         return html_code
+
     output_files = []
     for pattern in patterns:
         files = glob.glob(os.path.join(package_path, pattern))
@@ -72,14 +73,19 @@ def node_assets(package, patterns=[
 
     class HTMLSafe:
         def __html__():
-            return Markup('\n'.join(output_files))
+            return Markup("\n".join(output_files))
+
     return HTMLSafe
 
 
 def format_date_filter(
-    date_str, date_format='full', time_format='medium',
-    locale=None, delimiter=', ', timezone=None,
-    timezone_default='utc'
+    date_str,
+    date_format="full",
+    time_format="medium",
+    locale=None,
+    delimiter=", ",
+    timezone=None,
+    timezone_default="utc",
 ):
     """Format the date to the given locale.
 
@@ -101,24 +107,26 @@ def format_date_filter(
         locale = current_i18n.locale.language
 
     # Date formatting in GB English (DD/MM/YYYY)
-    if locale == 'en':
-        locale += '_GB'
+    if locale == "en":
+        locale += "_GB"
 
     if timezone:
         tzinfo = timezone
     else:
-        tzinfo = current_app.config.get(
-            'BABEL_DEFAULT_TIMEZONE', timezone_default)
+        tzinfo = current_app.config.get("BABEL_DEFAULT_TIMEZONE", timezone_default)
 
-    datetimetz = format_datetime(dateparser.parse(
-        date_str, locales=['en']), tzinfo=tzinfo, locale='en')
+    datetimetz = format_datetime(
+        dateparser.parse(date_str, locales=["en"]), tzinfo=tzinfo, locale="en"
+    )
 
     if date_format:
         date = format_date(
-            dateparser.parse(datetimetz), format=date_format, locale=locale)
+            dateparser.parse(datetimetz), format=date_format, locale=locale
+        )
     if time_format:
         time = format_time(
-            dateparser.parse(datetimetz), format=time_format, locale=locale)
+            dateparser.parse(datetimetz), format=time_format, locale=locale
+        )
     return delimiter.join(filter(None, [date, time]))
 
 
@@ -128,7 +136,7 @@ def to_pretty_json(value):
         value,
         sort_keys=True,
         indent=4,
-        separators=(',', ': '),
+        separators=(",", ": "),
         ensure_ascii=False,
     )
 
@@ -140,16 +148,15 @@ def jsondumps(data):
 
 def text_to_id(text):
     """Text to id."""
-    return re.sub(r'\W', '', text)
+    return re.sub(r"\W", "", text)
 
 
-def empty_data(data, replacement_string='No data'):
+def empty_data(data, replacement_string="No data"):
     """Return default string if no data."""
     if data:
         return data
-    else:
-        msg = f'<em class="no-data">{replacement_string}</em>'
-        return Markup(msg)
+    msg = f'<em class="no-data">{replacement_string}</em>'
+    return Markup(msg)
 
 
 def address_block(metadata, language=None):
@@ -172,10 +179,10 @@ def address_block(metadata, language=None):
     :return: the formatted address.
     """
     try:
-        tpl_file = f'rero_ils/address_block/{language}.tpl.txt'
+        tpl_file = f"rero_ils/address_block/{language}.tpl.txt"
         return render_template(tpl_file, data=metadata)
     except TemplateNotFound:
-        tpl_file = 'rero_ils/address_block/eng.tpl.txt'
+        tpl_file = "rero_ils/address_block/eng.tpl.txt"
         return render_template(tpl_file, data=metadata)
 
 
@@ -188,7 +195,7 @@ def message_filter(key):
     return Message.get(key)
 
 
-def translate(data, prefix='', separator=', '):
+def translate(data, prefix="", separator=", "):
     """Translate data.
 
     :param data: the data to translate
@@ -198,7 +205,7 @@ def translate(data, prefix='', separator=', '):
     """
     if data:
         if isinstance(data, list):
-            translated = [_(f'{prefix}{item}') for item in data]
+            translated = [_(f"{prefix}{item}") for item in data]
             return separator.join(translated)
         elif isinstance(data, str):
-            return _(f'{prefix}{data}')
+            return _(f"{prefix}{data}")

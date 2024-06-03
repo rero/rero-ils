@@ -20,12 +20,15 @@
 
 from invenio_records.dumpers import SearchDumper
 from invenio_records.dumpers.indexedat import IndexedAtDumperExt
-from rero_invenio_files.records.services import FileServiceConfig, \
-    RecordServiceConfig
+from rero_invenio_files.records.services import FileServiceConfig, RecordServiceConfig
 
 from .api import RecordWithFile
-from .components import OperationLogsComponent, OperationLogsFileComponent, \
-    ReindexFileComponent, ReindexRecordComponent
+from .components import (
+    OperationLogsComponent,
+    OperationLogsFileComponent,
+    ReindexFileComponent,
+    ReindexRecordComponent,
+)
 from .dumpers import FileInformationDumperExt
 from .permissions import FilePermissionPolicy
 from .results import MainFileList
@@ -42,8 +45,10 @@ class RecordServiceConfig(RecordServiceConfig):
     permission_policy_cls = FilePermissionPolicy
 
     # Service components
-    components = RecordServiceConfig.components \
-        + [OperationLogsComponent, ReindexRecordComponent]
+    components = RecordServiceConfig.components + [
+        OperationLogsComponent,
+        ReindexRecordComponent,
+    ]
 
     # Dumper for the indexer
     index_dumper = SearchDumper(

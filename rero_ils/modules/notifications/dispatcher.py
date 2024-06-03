@@ -32,8 +32,9 @@ class Dispatcher:
     """Dispatcher notifications class."""
 
     @classmethod
-    def dispatch_notifications(cls, notification_pids=None, resend=False,
-                               verbose=False):
+    def dispatch_notifications(
+        cls, notification_pids=None, resend=False, verbose=False
+    ):
         """Dispatch the notification.
 
         :param notification_pids: Notification pids to send.
@@ -41,16 +42,18 @@ class Dispatcher:
         :param verbose: Verbose output.
         :returns: dictionary with processed and send count
         """
+
         def get_dispatcher_function(channel):
             """Find the dispatcher function to use by communication channel."""
             try:
                 communication_switcher = current_app.config.get(
-                    'RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS', [])
+                    "RERO_ILS_COMMUNICATION_DISPATCHER_FUNCTIONS", []
+                )
                 return communication_switcher[channel]
             except KeyError:
                 current_app.logger.warning(
-                    f'The communication channel: {channel}'
-                    ' is not yet implemented')
+                    f"The communication channel: {channel}" " is not yet implemented"
+                )
                 return Dispatcher.not_yet_implemented
 
         sent = not_sent = errors = 0
@@ -65,14 +68,16 @@ class Dispatcher:
         #   notification to the aggregation dict
         for notification in notifications:
             try:
-                cls._process_notification(
-                    notification, resend, aggregated)
+                cls._process_notification(notification, resend, aggregated)
             except Exception as error:
                 errors += 1
                 current_app.logger.error(
-                    f'Notification has not be sent (pid: {notification.pid},'
+                    f"Notification has not be sent (pid: {notification.pid},"
                     f' type: {notification["notification_type"]}): '
-                    f'{error}', exc_info=True, stack_info=True)
+                    f"{error}",
+                    exc_info=True,
+                    stack_info=True,
+                )
 
         # SEND AGGREGATED NOTIFICATIONS
         #   The aggregation key we build ensure than aggregated notifications
@@ -85,12 +90,12 @@ class Dispatcher:
             dispatcher_function = get_dispatcher_function(comm_channel)
             counter = len(aggr_notifications)
             if verbose:
-                msg = f'Dispatch notifications: {notification.type} '
-                if hasattr(notification, 'library'):
-                    msg += f'library: {notification.library.pid} '
-                if hasattr(notification, 'patron'):
-                    msg += f'patron: {notification.patron.pid} '
-                msg += f'documents: {counter}'
+                msg = f"Dispatch notifications: {notification.type} "
+                if hasattr(notification, "library"):
+                    msg += f"library: {notification.library.pid} "
+                if hasattr(notification, "patron"):
+                    msg += f"patron: {notification.patron.pid} "
+                msg += f"documents: {counter}"
                 current_app.logger.info(msg)
             result, recipients = dispatcher_function(aggr_notifications)
             for notification in aggr_notifications:
@@ -102,10 +107,10 @@ class Dispatcher:
             else:
                 not_sent += counter
         return {
-            'processed': len(notifications),
-            'sent': sent,
-            'not_sent': not_sent,
-            'errors': errors
+            "processed": len(notifications),
+            "sent": sent,
+            "not_sent": not_sent,
+            "errors": errors,
         }
 
     @classmethod
@@ -117,13 +122,10 @@ class Dispatcher:
                        if already send.
         :param aggregated: ``dict`` to store notification results.
         """
-        # 1. Check if notification has already been processed and if we
-        #    need to resend it. If not, skip this notification and continue
-        process_date = notification.get('process_date')
-        if process_date:
+        if process_date := notification.get("process_date"):
             current_app.logger.warning(
-                f'Notification: {notification.pid} already processed '
-                f'on: {process_date}'
+                f"Notification: {notification.pid} already processed "
+                f"on: {process_date}"
             )
             if not resend:
                 return
@@ -133,9 +135,9 @@ class Dispatcher:
         #    notification 'status' and stop the notification processing.
         can_cancel, reason = notification.can_be_cancelled()
         if can_cancel:
-            msg = f'Notification #{notification.pid} cancelled: {reason}'
+            msg = f"Notification #{notification.pid} cancelled: {reason}"
             current_app.logger.info(msg)
-            notification.update_process_date(sent=False, status='cancelled')
+            notification.update_process_date(sent=False, status="cancelled")
             return
 
         # 3. Aggregate notifications
@@ -144,8 +146,7 @@ class Dispatcher:
         aggregated[aggr_key].append(notification)
 
     @staticmethod
-    def _create_email(recipients, reply_to, ctx_data, template,
-                      cc=None, bcc=None):
+    def _create_email(recipients, reply_to, ctx_data, template, cc=None, bcc=None):
         """Create email message from template.
 
         :param recipients: Main recipient emails list
@@ -158,18 +159,17 @@ class Dispatcher:
         """
         msg = TemplatedMessage(
             template_body=template,
-            sender=current_app.config.get('DEFAULT_SENDER_EMAIL',
-                                          'noreply@rero.ch'),
-            reply_to=','.join(reply_to),  # the client is unable to manage list
+            sender=current_app.config.get("DEFAULT_SENDER_EMAIL", "noreply@rero.ch"),
+            reply_to=",".join(reply_to),  # the client is unable to manage list
             recipients=recipients,
             cc=cc,
             bcc=bcc,
-            ctx=ctx_data
+            ctx=ctx_data,
         )
         # subject is the first line, body is the rest
-        text = msg.body.split('\n')
+        text = msg.body.split("\n")
         msg.subject = text[0]
-        msg.body = '\n'.join(text[1:])
+        msg.body = "\n".join(text[1:])
         return msg
 
     @staticmethod
@@ -207,7 +207,7 @@ class Dispatcher:
         library = notification.library
         if notification.type in [
             NotificationType.BOOKING,
-            NotificationType.TRANSIT_NOTICE
+            NotificationType.TRANSIT_NOTICE,
         ]:
             library = notification.transaction_library
         elif notification.type == NotificationType.AVAILABILITY:
@@ -218,19 +218,19 @@ class Dispatcher:
         #    on the location. If the location email isn't defined, then use the
         #    library email by default.
         if notification.type == NotificationType.REQUEST:
-            recipient = notification.location.get(
-                'notification_email', recipient)
+            recipient = notification.location.get("notification_email", recipient)
 
         error_reasons = []
-        reply_to = notification.library.get('email')
+        reply_to = notification.library.get("email")
         if not recipient:
-            error_reasons.append('Missing notification email')
+            error_reasons.append("Missing notification email")
         if not reply_to:
-            error_reasons.append('Missing notification reply_to email')
+            error_reasons.append("Missing notification reply_to email")
         if error_reasons:
             current_app.logger.warning(
-                f'Notification#{notification.pid} for printing is lost :: '
-                f'({")(".join(error_reasons)})')
+                f"Notification#{notification.pid} for printing is lost :: "
+                f'({")(".join(error_reasons)})'
+            )
             return False, None
 
         # 2. Build the context to render the template
@@ -241,14 +241,14 @@ class Dispatcher:
         #    the patron asked to receive them by email (cipo reminders
         #    notifications with a communication channel to 'mail' value).
         #    Ensure than the ``include_patron_address`` are set to True.
-        context['include_patron_address'] = True
+        context["include_patron_address"] = True
 
         # 3. Send the message
         msg = Dispatcher._create_email(
             recipients=[recipient],
             reply_to=[reply_to],
             ctx_data=context,
-            template=notification.get_template_path()
+            template=notification.get_template_path(),
         )
         task_send_email.apply_async((msg.__dict__,))
         return True, [(RecipientType.TO, recipient)]
@@ -275,13 +275,14 @@ class Dispatcher:
 
         error_reasons = []
         if not recipients:
-            error_reasons.append('Missing notification recipients')
+            error_reasons.append("Missing notification recipients")
         if not reply_to:
-            error_reasons.append('Missing reply_to email')
+            error_reasons.append("Missing reply_to email")
         if error_reasons:
             current_app.logger.warning(
-                f'Notification#{notification.pid} is lost :: '
-                f'({")(".join(error_reasons)})')
+                f"Notification#{notification.pid} is lost :: "
+                f'({")(".join(error_reasons)})'
+            )
             return False, None
 
         # build the context for this notification set
@@ -294,8 +295,8 @@ class Dispatcher:
             bcc=bcc,
             reply_to=reply_to,
             ctx_data=context,
-            template=notification.get_template_path()
+            template=notification.get_template_path(),
         )
-        delay = context.get('delay', 0)
+        delay = context.get("delay", 0)
         task_send_email.apply_async((msg.__dict__,), countdown=delay)
         return True, [(RecipientType.TO, addr) for addr in recipients]

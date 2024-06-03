@@ -30,6 +30,6 @@ class EntityIndexerDumper(Dumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        data['resource_type'] = record.resource_type
-        data['organisations'] = record.organisation_pids
+        data["resource_type"] = record.resource_type
+        data["organisations"] = record.organisation_pids
         return data

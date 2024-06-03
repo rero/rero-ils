@@ -38,11 +38,11 @@ librarian_permission = Permission(
     RoleNeed(UserRole.STATISTICS_MANAGER),
     RoleNeed(UserRole.LIBRARY_ADMINISTRATOR),
     RoleNeed(UserRole.ACQUISITION_MANAGER),
-    RoleNeed(UserRole.FULL_PERMISSIONS)
+    RoleNeed(UserRole.FULL_PERMISSIONS),
 )
-admin_permission = Permission(RoleNeed('admin'))
-editor_permission = Permission(RoleNeed('editor'), RoleNeed('admin'))
-monitoring_permission = Permission(RoleNeed('monitoring'))
+admin_permission = Permission(RoleNeed("admin"))
+editor_permission = Permission(RoleNeed("editor"), RoleNeed("admin"))
+monitoring_permission = Permission(RoleNeed("monitoring"))
 
 
 def admin_permission_factory(record, *args, **kwargs):
@@ -59,15 +59,16 @@ def librarian_update_permission_factory(record, *args, **kwargs):
     """User has editor role and the record is editable."""
     if record.can_edit:
         return librarian_permission
-    return type('Check', (), {'can': lambda x: False})()
+    return type("Check", (), {"can": lambda x: False})()
 
 
 def librarian_delete_permission_factory(
-        record, credentials_only=False, *args, **kwargs):
+    record, credentials_only=False, *args, **kwargs
+):
     """User can delete record."""
     if credentials_only or record.can_delete[0]:
         return librarian_permission
-    return type('Check', (), {'can': lambda x: False})()
+    return type("Check", (), {"can": lambda x: False})()
 
 
 def login_and_librarian():
@@ -87,11 +88,9 @@ def login_and_patron():
       * string: the redirect url to use (optional).
     """
     if current_user and not current_user.is_authenticated:
-        redirect_url = url_for('security.login', next=request.path)
+        redirect_url = url_for("security.login", next=request.path)
         return False, 401, redirect_url
-    if len(current_patrons) == 0:
-        return False, 403, None
-    return True, 200, None
+    return (False, 403, None) if len(current_patrons) == 0 else (True, 200, None)
 
 
 def can_access_professional_view(func):
@@ -99,6 +98,7 @@ def can_access_professional_view(func):
 
     and give access to professional view.
     """
+
     @wraps(func)
     def decorated_view(*args, **kwargs):
         if not current_user.is_authenticated:
@@ -106,6 +106,7 @@ def can_access_professional_view(func):
         if not current_librarian:
             abort(403)
         return func(*args, **kwargs)
+
     return decorated_view
 
 
@@ -118,6 +119,7 @@ def check_user_is_authenticated(redirect_to=None, code=302):
     :param redirect_to: the URL to redirect the user if it's not authenticated.
     :param code: the HTTP code to use for redirect (default=302)
     """
+
     def inner_function(func):
         @wraps(func)
         def decorated_view(*args, **kwargs):
@@ -127,7 +129,9 @@ def check_user_is_authenticated(redirect_to=None, code=302):
                 return redirect(url_for(redirect_to), code)
             else:
                 abort(403)
+
         return decorated_view
+
     return inner_function
 
 
@@ -136,10 +140,12 @@ def wiki_edit_view_permission():
 
     :return: true if the logged user has the editor role
     """
+
     @login_required
-    @roles_required('editor')
+    @roles_required("editor")
     def foo():
         return True
+
     return foo()
 
 
@@ -163,7 +169,5 @@ def can_receive_regular_issue(holding):
     if current_librarian.organisation_pid == holding.organisation_pid:
         if current_librarian.has_full_permissions:
             return True
-        if holding.library_pid not in current_librarian.library_pids:
-            return False
-        return True
+        return holding.library_pid in current_librarian.library_pids
     return False

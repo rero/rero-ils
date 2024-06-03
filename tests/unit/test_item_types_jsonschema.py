@@ -38,7 +38,7 @@ def test_pid(item_type_schema, item_type_data_tmp):
     validate(item_type_data_tmp, item_type_schema)
 
     with pytest.raises(ValidationError):
-        item_type_data_tmp['pid'] = 25
+        item_type_data_tmp["pid"] = 25
         validate(item_type_data_tmp, item_type_schema)
 
 
@@ -47,7 +47,7 @@ def test_name(item_type_schema, item_type_data_tmp):
     validate(item_type_data_tmp, item_type_schema)
 
     with pytest.raises(ValidationError):
-        item_type_data_tmp['name'] = 25
+        item_type_data_tmp["name"] = 25
         validate(item_type_data_tmp, item_type_schema)
 
 
@@ -56,7 +56,7 @@ def test_description(item_type_schema, item_type_data_tmp):
     validate(item_type_data_tmp, item_type_schema)
 
     with pytest.raises(ValidationError):
-        item_type_data_tmp['description'] = 25
+        item_type_data_tmp["description"] = 25
         validate(item_type_data_tmp, item_type_schema)
 
 
@@ -65,5 +65,5 @@ def test_organisation_pid(item_type_schema, item_type_data_tmp):
     validate(item_type_data_tmp, item_type_schema)
 
     with pytest.raises(ValidationError):
-        item_type_data_tmp['organisation_pid'] = 25
+        item_type_data_tmp["organisation_pid"] = 25
         validate(item_type_data_tmp, item_type_schema)

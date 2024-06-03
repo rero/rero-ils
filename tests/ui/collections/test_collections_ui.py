@@ -24,16 +24,18 @@ from flask import url_for
 def test_collection_detailed_view_without_library(client, coll_saxon_1):
     """Test collection detailed view."""
     # check redirection
-    res = client.get(url_for(
-        'invenio_records_ui.coll', viewcode='org1',
-        pid_value=coll_saxon_1.pid))
+    res = client.get(
+        url_for("invenio_records_ui.coll", viewcode="org1", pid_value=coll_saxon_1.pid)
+    )
     assert res.status_code == 200
 
 
 def test_collection_detailed_view(client, coll_martigny_1):
     """Test collection detailed view."""
     # check redirection
-    res = client.get(url_for(
-        'invenio_records_ui.coll', viewcode='org1',
-        pid_value=coll_martigny_1.pid))
+    res = client.get(
+        url_for(
+            "invenio_records_ui.coll", viewcode="org1", pid_value=coll_martigny_1.pid
+        )
+    )
     assert res.status_code == 200

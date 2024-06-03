@@ -25,12 +25,10 @@ from jsonref import JsonRefError
 
 def test_holdings_jsonresolver(holding_lib_martigny):
     """Test holding json resolver."""
-    rec = Record.create({
-        'holding': {'$ref': 'https://bib.rero.ch/api/holdings/holding1'}
-    })
-    assert rec.replace_refs().get('holding') == {
-        'type': 'hold', 'pid': 'holding1'
-    }
+    rec = Record.create(
+        {"holding": {"$ref": "https://bib.rero.ch/api/holdings/holding1"}}
+    )
+    assert rec.replace_refs().get("holding") == {"type": "hold", "pid": "holding1"}
 
     # deleted record
     holding_lib_martigny.delete()
@@ -38,8 +36,6 @@ def test_holdings_jsonresolver(holding_lib_martigny):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create({
-        'holding': {'$ref': 'https://bib.rero.ch/api/holdings/n_e'}
-    })
+    rec = Record.create({"holding": {"$ref": "https://bib.rero.ch/api/holdings/n_e"}})
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

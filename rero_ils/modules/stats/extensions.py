@@ -43,21 +43,18 @@ class StatisticsDumperExtension(RecordExtension):
         :param dumper: the dumper class used to dump the record.
         """
         # to filter the search list results
-        if lib := record.get('config', {}).get('library'):
-            lib_pid = (
-                lib.get('pid')
-                or extracted_data_from_ref(lib.get('$ref')))
+        if lib := record.get("config", {}).get("library"):
+            lib_pid = lib.get("pid") or extracted_data_from_ref(lib.get("$ref"))
             org_pid = Library.get_record_by_pid(lib_pid).organisation_pid
-            record['organisation'] = {
-                'pid': org_pid
-            }
+            record["organisation"] = {"pid": org_pid}
 
         if not current_librarian:
             return
 
-        if record['type'] == StatType.LIBRARIAN:
+        if record["type"] == StatType.LIBRARIAN:
             library_pids = current_librarian.manageable_library_pids
-            record['values'] = list(filter(
-                lambda lib: lib['library']['pid'] in library_pids,
-                record['values']
-            ))
+            record["values"] = list(
+                filter(
+                    lambda lib: lib["library"]["pid"] in library_pids, record["values"]
+                )
+            )

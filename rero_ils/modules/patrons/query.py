@@ -26,7 +26,12 @@ from elasticsearch_dsl import Q
 
 def patron_expired():
     """Create a filter for the patron account is expired."""
+
     def inner(values):
-        return Q('range', patron__expiration_date={'lte': datetime.now()}) \
-            if 'true' == values[0] else Q()
+        return (
+            Q("range", patron__expiration_date={"lte": datetime.now()})
+            if "true" == values[0]
+            else Q()
+        )
+
     return inner

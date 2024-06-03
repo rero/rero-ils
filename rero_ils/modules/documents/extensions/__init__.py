@@ -24,9 +24,9 @@ from .series_statement import SeriesStatementExtension
 from .title import TitleExtension
 
 __all__ = (
-    'AddMEFPidExtension',
-    'ProvisionActivitiesExtension',
-    'SeriesStatementExtension',
-    'EditionStatementExtension',
-    'TitleExtension'
+    "AddMEFPidExtension",
+    "ProvisionActivitiesExtension",
+    "SeriesStatementExtension",
+    "EditionStatementExtension",
+    "TitleExtension",
 )

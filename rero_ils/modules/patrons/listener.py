@@ -19,13 +19,20 @@
 
 from datetime import datetime
 
-from .api import Patron, PatronsSearch
 from ..patron_types.api import PatronType
 from ..utils import add_years
+from .api import Patron, PatronsSearch
 
 
-def enrich_patron_data(sender, json=None, record=None, index=None,
-                       doc_type=None, arguments=None, **dummy_kwargs):
+def enrich_patron_data(
+    sender,
+    json=None,
+    record=None,
+    index=None,
+    doc_type=None,
+    arguments=None,
+    **dummy_kwargs,
+):
     """Signal sent before a record is indexed.
 
     :param json: The dumped record dictionary which can be modified.
@@ -33,12 +40,12 @@ def enrich_patron_data(sender, json=None, record=None, index=None,
     :param index: The index in which the record will be indexed.
     :param doc_type: The doc_type for the record.
     """
-    if index.split('-')[0] == PatronsSearch.Meta.index:
+    if index.split("-")[0] == PatronsSearch.Meta.index:
         patron = record
         if not isinstance(record, Patron):
-            patron = Patron.get_record_by_pid(record.get('pid'))
-        if org_pid := patron.organisation['pid']:
-            json['organisation'] = {'pid': org_pid}
+            patron = Patron.get_record_by_pid(record.get("pid"))
+        if org_pid := patron.organisation["pid"]:
+            json["organisation"] = {"pid": org_pid}
 
 
 def create_subscription_patron_transaction(sender, record=None, **kwargs):
@@ -74,5 +81,6 @@ def update_from_profile(sender, user, **kwargs):
         patron.reindex()
         if patron.is_patron:
             from ..loans.api import anonymize_loans
-            if not user.user_profile.get('keep_history', True):
+
+            if not user.user_profile.get("keep_history", True):
                 anonymize_loans(patron=patron, dbcommit=True, reindex=True)

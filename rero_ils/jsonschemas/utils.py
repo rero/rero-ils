@@ -52,9 +52,8 @@ class JsonLoader(_JsonLoader):
         :param kwargs: Keyword arguments passed to json.loads().
         :returns: resolved json schema.
         """
-        path = current_jsonschemas.url_to_path(uri)
-        if path:
-            result = current_jsonschemas.get_schema(path=path)
-        else:
-            result = super().get_remote_json(uri, **kwargs)
-        return result
+        return (
+            current_jsonschemas.get_schema(path=path)
+            if (path := current_jsonschemas.url_to_path(uri))
+            else super().get_remote_json(uri, **kwargs)
+        )

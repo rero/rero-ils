@@ -25,9 +25,9 @@ from invenio_jsonschemas.proxies import current_jsonschemas
 from invenio_records.api import RecordBase
 from invenio_search import RecordsSearch, current_search_client
 
-from .extensions import DatesExtension, IDExtension, ResolveRefsExtension
 from ..api import IlsRecordsSearch
 from ..fetchers import FetchedPID
+from .extensions import DatesExtension, IDExtension, ResolveRefsExtension
 
 
 class OperationLogsSearch(IlsRecordsSearch):
@@ -36,9 +36,9 @@ class OperationLogsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on Notifications index."""
 
-        index = 'operation_logs'
+        index = "operation_logs"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -50,7 +50,7 @@ class OperationLogsSearch(IlsRecordsSearch):
         :returns a generator of ElasticSearch hit.
         :rtype generator<dict>.
         """
-        query = self.filter('term', notification__pid=notif_pid)
+        query = self.filter("term", notification__pid=notif_pid)
         for hit in query.scan():
             yield hit.to_dict()
 
@@ -61,12 +61,10 @@ class OperationLogsSearch(IlsRecordsSearch):
         :returns: List of logs.
         """
         return list(
-            self.filter(
-                'bool', must={
-                    'exists': {
-                        'field': 'loan'
-                    }
-                }).filter('term', record__value=pid).scan())
+            self.filter("bool", must={"exists": {"field": "loan"}})
+            .filter("term", record__value=pid)
+            .scan()
+        )
 
 
 def operation_log_id_fetcher(record_uuid, data):
@@ -76,24 +74,20 @@ def operation_log_id_fetcher(record_uuid, data):
     :param data: The record metadata.
     :return: A :data:`rero_ils.modules.fetchers.FetchedPID` instance.
     """
-    return FetchedPID(provider=None, pid_type='oplg', pid_value=record_uuid)
+    return FetchedPID(provider=None, pid_type="oplg", pid_value=record_uuid)
 
 
 class OperationLog(RecordBase):
     """OperationLog class."""
 
-    index_name = 'operation_logs'
+    index_name = "operation_logs"
 
-    _schema = 'operation_logs/operation_log-v0.0.1.json'
+    _schema = "operation_logs/operation_log-v0.0.1.json"
 
-    _extensions = [
-        ResolveRefsExtension(),
-        DatesExtension(),
-        IDExtension()
-    ]
+    _extensions = [ResolveRefsExtension(), DatesExtension(), IDExtension()]
 
     @classmethod
-    def create(cls, data, id_=None, index_refresh='false', **kwargs):
+    def create(cls, data, id_=None, index_refresh="false", **kwargs):
         """Create a new record instance and store it in elasticsearch.
 
         :param data: Dict with the record metadata.
@@ -107,7 +101,7 @@ class OperationLog(RecordBase):
         :returns: A new :class:`Record` instance.
         """
         if id_:
-            data['pid'] = id_
+            data["pid"] = id_
 
         record = cls(data, model=None, **kwargs)
 
@@ -115,25 +109,22 @@ class OperationLog(RecordBase):
         for e in cls._extensions:
             e.pre_create(record)
 
-        if current_app.config.get('RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION'):
+        if current_app.config.get("RERO_ILS_ENABLE_OPERATION_LOG_VALIDATION"):
             # Validate also encodes the data
             # For backward compatibility we pop them here.
-            format_checker = kwargs.pop('format_checker', None)
-            validator = kwargs.pop('validator', None)
-            if '$schema' not in record:
-                record['$schema'] = current_jsonschemas.path_to_url(
-                    cls._schema)
+            format_checker = kwargs.pop("format_checker", None)
+            validator = kwargs.pop("validator", None)
+            if "$schema" not in record:
+                record["$schema"] = current_jsonschemas.path_to_url(cls._schema)
             record._validate(
-                format_checker=format_checker,
-                validator=validator,
-                use_model=False
+                format_checker=format_checker, validator=validator, use_model=False
             )
 
         current_search_client.index(
             index=cls.get_index(record),
             body=record.dumps(),
-            id=record['pid'],
-            refresh=index_refresh
+            id=record["pid"],
+            refresh=index_refresh,
         )
 
         # Run post create extensions
@@ -150,8 +141,8 @@ class OperationLog(RecordBase):
         :param data: Dict with the record metadata.
         :returns: str, the corresponding index name.
         """
-        suffix = '-'.join(data.get('date', '').split('-')[0:1])
-        return f'{cls.index_name}-{suffix}'
+        suffix = "-".join(data.get("date", "").split("-")[:1])
+        return f"{cls.index_name}-{suffix}"
 
     @classmethod
     def bulk_index(cls, data):
@@ -163,22 +154,22 @@ class OperationLog(RecordBase):
         for d in data:
             d = OperationLog(d)
             oplg = d.dumps()
-            if oplg.get('record', {}).get('pid'):
-                oplg['record']['value'] = oplg['record'].pop('pid', None)
+            if oplg.get("record", {}).get("pid"):
+                oplg["record"]["value"] = oplg["record"].pop("pid", None)
             # Run pre create extensions
             for e in cls._extensions:
                 e.pre_create(oplg)
 
             action = {
-                '_op_type': 'index',
-                '_index': cls.get_index(oplg),
-                '_source': oplg,
-                '_id': oplg['pid']
+                "_op_type": "index",
+                "_index": cls.get_index(oplg),
+                "_source": oplg,
+                "_id": oplg["pid"],
             }
             actions.append(action)
         n_succeed, errors = bulk(current_search_client, actions)
         if n_succeed != len(data):
-            raise Exception(f'Elasticsearch Indexing Errors: {errors}')
+            raise Exception(f"Elasticsearch Indexing Errors: {errors}")
 
     @classmethod
     def get_record(cls, _id):
@@ -191,21 +182,24 @@ class OperationLog(RecordBase):
         # here the elasticsearch get API cannot be used with an index alias
         return cls(
             next(
-                RecordsSearch(index=cls.index_name).filter(
-                    'term', _id=_id).scan()).to_dict())
+                RecordsSearch(index=cls.index_name).filter("term", _id=_id).scan()
+            ).to_dict()
+        )
 
     @classmethod
     def get_indices(cls):
         """Get all index names present in the elasticsearch server."""
-        return set([
-            v['index'] for v in current_search_client.cat.indices(
-                index=f'{cls.index_name}*', format='json')
-        ])
+        return {
+            v["index"]
+            for v in current_search_client.cat.indices(
+                index=f"{cls.index_name}*", format="json"
+            )
+        }
 
     @classmethod
     def delete_indices(cls):
         """Remove all index names present in the elasticsearch server."""
-        current_search_client.indices.delete(f'{cls.index_name}*')
+        current_search_client.indices.delete(f"{cls.index_name}*")
         return True
 
     @classmethod
@@ -216,7 +210,7 @@ class OperationLog(RecordBase):
         :param str date: Log date, useful for getting the right index.
         :param dict data: New record data.
         """
-        index = cls.get_index({'date': date})
+        index = cls.get_index({"date": date})
 
         document = Document.get(_id, index=index, using=current_search_client)
 
@@ -230,20 +224,20 @@ class OperationLog(RecordBase):
             refresh=True,
         )
 
-        if result != 'updated':
-            raise Exception('Operation log cannot be updated.')
+        if result != "updated":
+            raise Exception("Operation log cannot be updated.")
 
     @property
     def id(self):
         """Get model identifier."""
-        return self.get('pid')
+        return self.get("pid")
 
     @classmethod
     def count(cls, with_deleted=False):
         """Get record count."""
         count = 0
         try:
-            count = OperationLogsSearch().filter('match_all').count()
+            count = OperationLogsSearch().filter("match_all").count()
         except NotFoundError:
-            current_app.logger.warning('Operation logs index not found.')
+            current_app.logger.warning("Operation logs index not found.")
         return count

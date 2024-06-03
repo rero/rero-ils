@@ -33,20 +33,21 @@ def test_required(operation_log_schema, operation_log_data):
 
 
 def test_operation_log_all_jsonschema_keys_values(
-        operation_log_schema, operation_log_data):
+    operation_log_schema, operation_log_data
+):
     """Test all keys and values for operation log jsonschema."""
     record = operation_log_data
     validate(record, operation_log_schema)
     validator = [
-        {'key': 'pid', 'value': 25},
-        {'key': 'operation', 'value': 25},
-        {'key': 'record', 'value': 25},
-        {'key': 'date', 'value': 25},
-        {'key': 'organisation', 'value': 25},
-        {'key': 'user', 'value': 25},
-        {'key': 'user_name', 'value': 25}
+        {"key": "pid", "value": 25},
+        {"key": "operation", "value": 25},
+        {"key": "record", "value": 25},
+        {"key": "date", "value": 25},
+        {"key": "organisation", "value": 25},
+        {"key": "user", "value": 25},
+        {"key": "user_name", "value": 25},
     ]
     for element in validator:
         with pytest.raises(ValidationError):
-            record[element['key']] = element['value']
+            record[element["key"]] = element["value"]
             validate(record, operation_log_schema)

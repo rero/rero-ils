@@ -29,4 +29,4 @@ class PlaceLocalEntity(LocalEntity):
 
         :return return the calculated authorized access point to use.
         """
-        return self.get('name')
+        return self.get("name")

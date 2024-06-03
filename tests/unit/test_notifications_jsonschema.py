@@ -39,17 +39,16 @@ def test_pid(notification_schema, dummy_notification):
     validate(dummy_notification, notification_schema)
 
     with pytest.raises(ValidationError):
-        dummy_notification['pid'] = 25
+        dummy_notification["pid"] = 25
         validate(dummy_notification, notification_schema)
 
 
-def test_notification_type(
-        notification_schema, dummy_notification):
+def test_notification_type(notification_schema, dummy_notification):
     """Test type for notification jsonschemas."""
     validate(dummy_notification, notification_schema)
 
     with pytest.raises(ValidationError):
-        dummy_notification['notification_type'] = 25
+        dummy_notification["notification_type"] = 25
         validate(dummy_notification, notification_schema)
 
 
@@ -58,10 +57,10 @@ def test_loan(app, notification_schema, dummy_notification):
     validate(dummy_notification, notification_schema)
 
     with pytest.raises(ValidationError):
-        dummy_notification['context']['loan'] = 25
+        dummy_notification["context"]["loan"] = 25
         validate(dummy_notification, notification_schema)
 
     with pytest.raises(ValidationError):
         notif = Notification(dummy_notification)
-        del notif['context']['loan']
+        del notif["context"]["loan"]
         notif.validate()

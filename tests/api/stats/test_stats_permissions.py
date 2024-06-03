@@ -25,8 +25,7 @@ from rero_ils.modules.stats.permissions import StatisticsPermissionPolicy
 
 
 def test_stats_permissions(
-    patron_martigny, stats_librarian, librarian_martigny,
-    system_librarian_martigny
+    patron_martigny, stats_librarian, librarian_martigny, system_librarian_martigny
 ):
     """Test stat permissions class."""
 
@@ -34,47 +33,67 @@ def test_stats_permissions(
     identity_changed.send(
         current_app._get_current_object(), identity=AnonymousIdentity()
     )
-    check_permission(StatisticsPermissionPolicy, {
-        'search': False,
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, None)
-    check_permission(StatisticsPermissionPolicy, {
-        'search': False,
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, stats_librarian)
+    check_permission(
+        StatisticsPermissionPolicy,
+        {
+            "search": False,
+            "read": False,
+            "create": False,
+            "update": False,
+            "delete": False,
+        },
+        None,
+    )
+    check_permission(
+        StatisticsPermissionPolicy,
+        {
+            "search": False,
+            "read": False,
+            "create": False,
+            "update": False,
+            "delete": False,
+        },
+        stats_librarian,
+    )
     login_user(patron_martigny.user)
-    check_permission(StatisticsPermissionPolicy, {'create': False}, {})
-    check_permission(StatisticsPermissionPolicy, {
-        'search': False,
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, stats_librarian)
+    check_permission(StatisticsPermissionPolicy, {"create": False}, {})
+    check_permission(
+        StatisticsPermissionPolicy,
+        {
+            "search": False,
+            "read": False,
+            "create": False,
+            "update": False,
+            "delete": False,
+        },
+        stats_librarian,
+    )
 
     # Librarian with specific role
     #     - search/read: any items
     #     - create/update/delete: always disallowed
     login_user(librarian_martigny.user)
-    check_permission(StatisticsPermissionPolicy, {
-        'search': False,
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, stats_librarian)
+    check_permission(
+        StatisticsPermissionPolicy,
+        {
+            "search": False,
+            "read": False,
+            "create": False,
+            "update": False,
+            "delete": False,
+        },
+        stats_librarian,
+    )
 
     login_user(system_librarian_martigny.user)
-    check_permission(StatisticsPermissionPolicy, {
-        'search': True,
-        'read': True,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, stats_librarian)
+    check_permission(
+        StatisticsPermissionPolicy,
+        {
+            "search": True,
+            "read": True,
+            "create": False,
+            "update": False,
+            "delete": False,
+        },
+        stats_librarian,
+    )

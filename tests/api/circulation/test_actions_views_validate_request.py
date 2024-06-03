@@ -23,10 +23,13 @@ from utils import postdata
 
 
 def test_validate_item_request(
-    client, librarian_martigny, lib_martigny,
+    client,
+    librarian_martigny,
+    lib_martigny,
     item2_on_shelf_martigny_patron_and_loan_pending,
-    item_on_shelf_martigny_patron_and_loan_pending, loc_public_martigny,
-    circulation_policies
+    item_on_shelf_martigny_patron_and_loan_pending,
+    loc_public_martigny,
+    circulation_policies,
 ):
     """Test the frontend validate an item request action."""
     login_user_via_session(client, librarian_martigny.user)
@@ -36,42 +39,51 @@ def test_validate_item_request(
     # --> `pid` parameter is required into data. Representing the loan pid.
     # --> `transaction_location_pid` parameter is required into data
     # --> `transaction_user_pid` parameter is required into data
-    data = [{
-        'parameters': {'pid': loan.pid},
-        'return_code': 400
-    }, {
-        'parameters':  {
-            'pid': loan.pid,
-            'transaction_location_pid': loc_public_martigny.pid
+    data = [
+        {"parameters": {"pid": loan.pid}, "return_code": 400},
+        {
+            "parameters": {
+                "pid": loan.pid,
+                "transaction_location_pid": loc_public_martigny.pid,
+            },
+            "return_code": 400,
         },
-        'return_code': 400
-    }, {
-        'parameters': {
-            'transaction_location_pid': loc_public_martigny.pid,
-            'transaction_user_pid': librarian_martigny.pid
+        {
+            "parameters": {
+                "transaction_location_pid": loc_public_martigny.pid,
+                "transaction_user_pid": librarian_martigny.pid,
+            },
+            "return_code": 404,
         },
-        'return_code': 404
-    }]
+    ]
     for hit in data:
-        params = hit['parameters']
-        res, _ = postdata(client, 'api_item.validate_request', data=params)
-        assert res.status_code == hit['return_code']
+        params = hit["parameters"]
+        res, _ = postdata(client, "api_item.validate_request", data=params)
+        assert res.status_code == hit["return_code"]
 
     # TEST SUCCESS
     # --> test passes when the transaction location pid is given
     # --> test passes when the transaction library pid is given
-    res, data = postdata(client, 'api_item.validate_request', data={
-        'pid': loan.pid,
-        'transaction_location_pid': loc_public_martigny.pid,
-        'transaction_user_pid': librarian_martigny.pid
-    })
+    res, data = postdata(
+        client,
+        "api_item.validate_request",
+        data={
+            "pid": loan.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
+    )
     assert res.status_code == 200
 
     login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item2_on_shelf_martigny_patron_and_loan_pending
-    res, data = postdata(client, 'api_item.validate_request', data={
-        'pid': loan.pid,
-        'transaction_library_pid': lib_martigny.pid,
-        'transaction_user_pid': librarian_martigny.pid
-    })
+    res, data = postdata(
+        client,
+        "api_item.validate_request",
+        data={
+            "pid": loan.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
+    )
     assert res.status_code == 200

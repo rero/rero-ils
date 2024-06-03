@@ -22,5 +22,5 @@
 class NoteTypes:
     """List of note type."""
 
-    PUBLIC_NOTE = 'public_note'
-    STAFF_NOTE = 'staff_note'
+    PUBLIC_NOTE = "public_note"
+    STAFF_NOTE = "staff_note"

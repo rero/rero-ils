@@ -26,34 +26,25 @@ from utils import mock_response
 from rero_ils.modules.cli.fixtures import count_cli, create
 
 
-def test_count(app, script_info):
+def test_count(app):
     """Test count cli."""
-    json_file_name = join(dirname(__file__), '../data/documents.json')
+    json_file_name = join(dirname(__file__), "../data/documents.json")
 
     runner = CliRunner()
-    result = runner.invoke(
-        count_cli,
-        [json_file_name],
-        obj=script_info
-    )
+    result = runner.invoke(count_cli, [json_file_name])
     assert result.exit_code == 0
-    assert result.output.strip().split('\n')[1] == 'Count: 2'
+    assert result.output.strip().split("\n")[1] == "Count: 2"
 
     runner = CliRunner()
-    result = runner.invoke(
-        count_cli,
-        [json_file_name, '-l'],
-        obj=script_info
-    )
+    result = runner.invoke(count_cli, [json_file_name, "-l"])
     assert result.exit_code == 0
-    assert result.output.strip().split('\n')[1] == 'Count: 2'
+    assert result.output.strip().split("\n")[1] == "Count: 2"
 
 
-@mock.patch('requests.Session.get')
-def test_create(mock_contributions_mef_get, app, script_info,
-                entity_person_response_data):
+@mock.patch("requests.Session.get")
+def test_create(mock_contributions_mef_get, app, entity_person_response_data):
     """Test create cli."""
-    json_file_name = join(dirname(__file__), '../data/documents.json')
+    json_file_name = join(dirname(__file__), "../data/documents.json")
     mock_contributions_mef_get.return_value = mock_response(
         json_data=entity_person_response_data
     )
@@ -61,28 +52,46 @@ def test_create(mock_contributions_mef_get, app, script_info,
     runner = CliRunner()
     result = runner.invoke(
         create,
-        [json_file_name, '--pid_type', 'doc', '--append', '--reindex',
-         '--dbcommit', '--verbose', '--debug', '--lazy', '--dont-stop'],
-        obj=script_info
+        [
+            json_file_name,
+            "--pid_type",
+            "doc",
+            "--append",
+            "--reindex",
+            "--dbcommit",
+            "--verbose",
+            "--debug",
+            "--lazy",
+            "--dont-stop",
+        ],
     )
     # assert result.exit_code == 0
-    assert result.output.strip().split('\n')[3:] == [
-        'DB commit: 2',
-        'Append fixtures new identifiers: 2',
-        'DB commit append: 2'
+    assert result.output.strip().split("\n")[3:] == [
+        "DB commit: 2",
+        "Append fixtures new identifiers: 2",
+        "DB commit append: 2",
     ]
 
     runner = CliRunner()
     result = runner.invoke(
         create,
-        [json_file_name, '--pid_type', 'doc', '--append', '--reindex',
-         '--dbcommit', '--verbose', '--debug', '--lazy', '--dont-stop',
-         '--create_or_update'],
-        obj=script_info
+        [
+            json_file_name,
+            "--pid_type",
+            "doc",
+            "--append",
+            "--reindex",
+            "--dbcommit",
+            "--verbose",
+            "--debug",
+            "--lazy",
+            "--dont-stop",
+            "--create_or_update",
+        ],
     )
     # assert result.exit_code == 0
-    assert result.output.strip().split('\n')[3:] == [
-        'DB commit: 2',
-        'Append fixtures new identifiers: 0',
-        'DB commit append: 0'
+    assert result.output.strip().split("\n")[3:] == [
+        "DB commit: 2",
+        "Append fixtures new identifiers: 0",
+        "DB commit append: 0",
     ]

@@ -41,7 +41,7 @@ def test_pid(library_schema, lib_martigny_data):
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(lib_martigny_data)
-        data['pid'] = 25
+        data["pid"] = 25
         validate(data, library_schema)
 
 
@@ -51,7 +51,7 @@ def test_name(library_schema, lib_martigny_data):
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(lib_martigny_data)
-        data['name'] = 25
+        data["name"] = 25
         validate(data, library_schema)
 
 
@@ -61,7 +61,7 @@ def test_address(library_schema, lib_martigny_data):
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(lib_martigny_data)
-        data['address'] = 25
+        data["address"] = 25
         validate(data, library_schema)
 
 
@@ -71,32 +71,32 @@ def test_acquisition_settings(library_schema, lib_martigny_data):
 
     with pytest.raises(ValidationError):
         copied_data = copy.deepcopy(lib_martigny_data)
-        acq_data = copied_data['acquisition_settings']
-        del acq_data['billing_informations']['address']
+        acq_data = copied_data["acquisition_settings"]
+        del acq_data["billing_informations"]["address"]
         validate(copied_data, library_schema)
 
     with pytest.raises(ValidationError):
         copied_data = copy.deepcopy(lib_martigny_data)
-        acq_data = copied_data['acquisition_settings']
-        del acq_data['billing_informations']['name']
+        acq_data = copied_data["acquisition_settings"]
+        del acq_data["billing_informations"]["name"]
         validate(copied_data, library_schema)
 
     with pytest.raises(ValidationError):
         copied_data = copy.deepcopy(lib_martigny_data)
-        acq_data = copied_data['acquisition_settings']
-        adr_data = acq_data['billing_informations']['address']
-        del adr_data['street']
+        acq_data = copied_data["acquisition_settings"]
+        adr_data = acq_data["billing_informations"]["address"]
+        del adr_data["street"]
         validate(copied_data, library_schema)
 
     with pytest.raises(ValidationError):
         copied_data = copy.deepcopy(lib_martigny_data)
-        acq_data = copied_data['acquisition_settings']
-        acq_data['dummy'] = 'some data'
+        acq_data = copied_data["acquisition_settings"]
+        acq_data["dummy"] = "some data"
         validate(copied_data, library_schema)
 
     with pytest.raises(ValidationError):
         copied_data = copy.deepcopy(lib_martigny_data)
-        acq_data = copied_data['acquisition_settings']
-        adr_data = acq_data['billing_informations']['address']
-        adr_data['dummy'] = 'some data'
+        acq_data = copied_data["acquisition_settings"]
+        adr_data = acq_data["billing_informations"]["address"]
+        adr_data["dummy"] = "some data"
         validate(copied_data, library_schema)

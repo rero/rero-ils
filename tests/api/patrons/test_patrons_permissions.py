@@ -22,18 +22,25 @@ import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
-from utils import check_permission, flush_index
+from utils import check_permission
 
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
 from rero_ils.modules.patrons.permissions import PatronPermissionPolicy
 from rero_ils.modules.users.models import UserRole
 
 
-@mock.patch.object(Patron, '_extensions', [])
+@mock.patch.object(Patron, "_extensions", [])
 def test_patrons_permissions(
-    patron_martigny, librarian_martigny, system_librarian_martigny,
-    org_martigny, librarian_saxon, patron_sion, patron2_martigny,
-    librarian2_martigny, librarian2_martigny_data, lib_saxon
+    patron_martigny,
+    librarian_martigny,
+    system_librarian_martigny,
+    org_martigny,
+    librarian_saxon,
+    patron_sion,
+    patron2_martigny,
+    librarian2_martigny,
+    librarian2_martigny_data,
+    lib_saxon,
 ):
     """Test patrons permissions class."""
 
@@ -41,57 +48,51 @@ def test_patrons_permissions(
     identity_changed.send(
         current_app._get_current_object(), identity=AnonymousIdentity()
     )
-    check_permission(PatronPermissionPolicy, {'search': False}, {})
-    check_permission(PatronPermissionPolicy, {
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, None)
-    check_permission(PatronPermissionPolicy, {
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, patron_martigny)
+    check_permission(PatronPermissionPolicy, {"search": False}, {})
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": False, "create": False, "update": False, "delete": False},
+        None,
+    )
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": False, "create": False, "update": False, "delete": False},
+        patron_martigny,
+    )
     login_user(patron_martigny.user)
-    check_permission(PatronPermissionPolicy, {'search': False}, {})
-    check_permission(PatronPermissionPolicy, {'create': False}, {})
-    check_permission(PatronPermissionPolicy, {
-        'read': True,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, patron_martigny)
-    check_permission(PatronPermissionPolicy, {
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, patron2_martigny)
+    check_permission(PatronPermissionPolicy, {"search": False}, {})
+    check_permission(PatronPermissionPolicy, {"create": False}, {})
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": True, "create": False, "update": False, "delete": False},
+        patron_martigny,
+    )
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": False, "create": False, "update": False, "delete": False},
+        patron2_martigny,
+    )
 
     # Librarian without any specific role
     #     - search/read: any patrons of its own organisation
     #     - create/update/delete: disallowed
-    original_roles = librarian_martigny.get('roles', [])
-    librarian_martigny['roles'] = [UserRole.CIRCULATION_MANAGER]
+    original_roles = librarian_martigny.get("roles", [])
+    librarian_martigny["roles"] = [UserRole.CIRCULATION_MANAGER]
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush_and_refresh()
 
     login_user(librarian_martigny.user)  # to refresh identity !
-    check_permission(PatronPermissionPolicy, {'search': True}, {})
-    check_permission(PatronPermissionPolicy, {
-        'read': True,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, patron_martigny)
-    check_permission(PatronPermissionPolicy, {
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, patron_sion)
+    check_permission(PatronPermissionPolicy, {"search": True}, {})
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": True, "create": False, "update": False, "delete": False},
+        patron_martigny,
+    )
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": False, "create": False, "update": False, "delete": False},
+        patron_sion,
+    )
 
     # Librarian with specific 'user-management'
     #   - operation allowed on any 'patron' of its own organisation
@@ -100,73 +101,71 @@ def test_patrons_permissions(
     #   - can only manage 'patron' roles and 'pro_user_manager' role. Any
     #     operation including roles management outside this scope must be
     #     denied.
-    librarian_martigny['roles'] = [UserRole.USER_MANAGER]
+    librarian_martigny["roles"] = [UserRole.USER_MANAGER]
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush_and_refresh()
 
     login_user(librarian_martigny.user)  # to refresh identity !
-    check_permission(PatronPermissionPolicy, {'search': True}, {})
-    check_permission(PatronPermissionPolicy, {
-        'read': True,
-        'create': True,
-        'update': True,
-        'delete': True
-    }, patron_martigny)
-    check_permission(PatronPermissionPolicy, {
-        'read': True,
-        'create': True,
-        'update': True,
-        'delete': True
-    }, patron2_martigny)
-    check_permission(PatronPermissionPolicy, {
-        'read': True,
-        'create': True,
-        'update': True,
-        'delete': False  # simple librarian cannot delete other librarian
-    }, librarian2_martigny)
-    check_permission(PatronPermissionPolicy, {
-        'read': True,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, librarian_saxon)
-    check_permission(PatronPermissionPolicy, {
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, patron_sion)
+    check_permission(PatronPermissionPolicy, {"search": True}, {})
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": True, "create": True, "update": True, "delete": True},
+        patron_martigny,
+    )
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": True, "create": True, "update": True, "delete": True},
+        patron2_martigny,
+    )
+    check_permission(
+        PatronPermissionPolicy,
+        {
+            "read": True,
+            "create": True,
+            "update": True,
+            "delete": False,  # simple librarian cannot delete other librarian
+        },
+        librarian2_martigny,
+    )
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": True, "create": False, "update": False, "delete": False},
+        librarian_saxon,
+    )
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": False, "create": False, "update": False, "delete": False},
+        patron_sion,
+    )
 
     # reset librarian
     # reset the librarian
-    librarian_martigny['roles'] = original_roles
+    librarian_martigny["roles"] = original_roles
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush_and_refresh()
 
-    original_roles = patron_martigny.get('roles', [])
+    original_roles = patron_martigny.get("roles", [])
 
     # librarian + patron roles
-    patron_martigny['roles'] = [UserRole.FULL_PERMISSIONS, UserRole.PATRON]
-    patron_martigny['libraries'] = librarian_martigny['libraries']
+    patron_martigny["roles"] = [UserRole.FULL_PERMISSIONS, UserRole.PATRON]
+    patron_martigny["libraries"] = librarian_martigny["libraries"]
     patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush_and_refresh()
 
     login_user(patron_martigny.user)  # to refresh identity !
-    check_permission(PatronPermissionPolicy, {'search': True}, {})
-    check_permission(PatronPermissionPolicy, {
-        'read': True,
-        'create': True,
-        'update': True,
-        'delete': True
-    }, patron_martigny)
-    check_permission(PatronPermissionPolicy, {
-        'read': True,
-        'create': True,
-        'update': True,
-        'delete': True
-    }, patron2_martigny)
+    check_permission(PatronPermissionPolicy, {"search": True}, {})
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": True, "create": True, "update": True, "delete": True},
+        patron_martigny,
+    )
+    check_permission(
+        PatronPermissionPolicy,
+        {"read": True, "create": True, "update": True, "delete": True},
+        patron2_martigny,
+    )
 
-    patron_martigny['roles'] = original_roles
-    del patron_martigny['libraries']
+    patron_martigny["roles"] = original_roles
+    del patron_martigny["libraries"]
     patron_martigny.update(patron_martigny, dbcommit=True, reindex=True)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush_and_refresh()

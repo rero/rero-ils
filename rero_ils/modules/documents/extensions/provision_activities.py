@@ -38,40 +38,36 @@ class ProvisionActivitiesExtension(RecordExtension):
         :returns: a text representation of the input dictionary
         :rtype: string
         """
-        punctuation = {
-            EntityType.PLACE: ' ; ',
-            EntityType.AGENT: ' ; ',
-            'Date': ', '
-        }
-        statement_with_language = {'default': ''}
+        punctuation = {EntityType.PLACE: " ; ", EntityType.AGENT: " ; ", "Date": ", "}
+        statement_with_language = {"default": ""}
         last_statement_type = None
         # Perform each statement entries to build the best possible string
-        for statement in provision_activity.get('statement', []):
-            for label in statement['label']:
-                language = label.get('language', 'default')
-                statement_with_language.setdefault(language, '')
+        for statement in provision_activity.get("statement", []):
+            for label in statement["label"]:
+                language = label.get("language", "default")
+                statement_with_language.setdefault(language, "")
                 if statement_with_language[language]:
-                    if last_statement_type == statement['type']:
+                    if last_statement_type == statement["type"]:
                         statement_with_language[language] += punctuation[
                             last_statement_type
                         ]
-                    elif statement['type'] == EntityType.PLACE:
-                        statement_with_language[language] += ' ; '
-                    elif statement['type'] == 'Date':
-                        statement_with_language[language] += ', '
+                    elif statement["type"] == EntityType.PLACE:
+                        statement_with_language[language] += " ; "
+                    elif statement["type"] == "Date":
+                        statement_with_language[language] += ", "
                     else:
-                        statement_with_language[language] += ' : '
+                        statement_with_language[language] += " : "
 
-                statement_with_language[language] += label['value']
-            last_statement_type = statement['type']
+                statement_with_language[language] += label["value"]
+            last_statement_type = statement["type"]
         # date field: remove ';' and append
         statement_text = []
         for key, value in statement_with_language.items():
             value = remove_trailing_punctuation(value)
             if display_alternate_graphic_first(key):
-                statement_text.insert(0, {'value': value, 'language': key})
+                statement_text.insert(0, {"value": value, "language": key})
             else:
-                statement_text.append({'value': value, 'language': key})
+                statement_text.append({"value": value, "language": key})
         return statement_text
 
     def post_dump(self, record, data, dumper=None):
@@ -81,7 +77,6 @@ class ProvisionActivitiesExtension(RecordExtension):
         :param data: dict - the data.
         :param dumper: record dumper - dumper helper.
         """
-        for provision_activity in data.get('provisionActivity', []):
-            if pub_state_text := self.format_text(
-                    provision_activity):
-                provision_activity['_text'] = pub_state_text
+        for provision_activity in data.get("provisionActivity", []):
+            if pub_state_text := self.format_text(provision_activity):
+                provision_activity["_text"] = pub_state_text

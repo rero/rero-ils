@@ -22,16 +22,15 @@ from invenio_access import action_factory
 from invenio_access.permissions import any_user
 from invenio_records_permissions.generators import Generator
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    RecordPermissionPolicy
+from rero_ils.modules.permissions import AllowedByAction, RecordPermissionPolicy
 
 # Actions to control Documents policies for CRUD operations
-search_action = action_factory('doc-search')
-read_action = action_factory('doc-read')
-create_action = action_factory('doc-create')
-update_action = action_factory('doc-update')
-delete_action = action_factory('doc-delete')
-access_action = action_factory('doc-access')
+search_action = action_factory("doc-search")
+read_action = action_factory("doc-read")
+create_action = action_factory("doc-create")
+update_action = action_factory("doc-update")
+delete_action = action_factory("doc-delete")
+access_action = action_factory("doc-access")
 
 
 class DisallowIfCannotEdit(Generator):

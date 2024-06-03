@@ -23,7 +23,7 @@ import jsonresolver
 from ..jsonresolver import resolve_json_refs
 
 
-@jsonresolver.route('/api/patrons/<pid>', host='bib.rero.ch')
+@jsonresolver.route("/api/patrons/<pid>", host="bib.rero.ch")
 def patron_resolver(pid):
     """Patron resolver."""
-    return resolve_json_refs('ptrn', pid)
+    return resolve_json_refs("ptrn", pid)

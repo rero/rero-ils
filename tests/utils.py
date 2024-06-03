@@ -24,8 +24,7 @@ from datetime import datetime, timedelta, timezone
 import jsonref
 import xmltodict
 from flask import url_for
-from invenio_accounts.testutils import login_user_via_session, \
-    login_user_via_view
+from invenio_accounts.testutils import login_user_via_session, login_user_via_view
 from invenio_circulation.api import get_loan_for_item
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
@@ -68,9 +67,9 @@ def check_permission(permission_policy, actions, record):
     """
     for action_name, action_result in actions.items():
         result = permission_policy(action_name, record=record).can()
-        assert \
-            result == action_result, \
-            f'{action_name} :: return {result} but should {action_result}'
+        assert (
+            result == action_result
+        ), f"{action_name} :: return {result} but should {action_result}"
 
 
 def login_user(client, user):
@@ -94,9 +93,7 @@ def get_xml_dict(response, ordered=False):
     """Get XML from response."""
     if ordered:
         return xmltodict.parse(response.get_data(as_text=True))
-    return json.loads(json.dumps(
-        xmltodict.parse(response.get_data(as_text=True))
-    ))
+    return json.loads(json.dumps(xmltodict.parse(response.get_data(as_text=True))))
 
 
 def get_csv(response):
@@ -111,8 +108,8 @@ def parse_csv(raw_data):
 
 
 def postdata(
-        client, endpoint, data=None, headers=None, url_data=None,
-        force_data_as_json=True):
+    client, endpoint, data=None, headers=None, url_data=None, force_data_as_json=True
+):
     """Build URL from given endpoint and send given data to it.
 
     :param force_data_as_json: the data sent forced json.
@@ -121,19 +118,12 @@ def postdata(
     if data is None:
         data = {}
     if headers is None:
-        headers = [
-            ('Accept', 'application/json'),
-            ('Content-Type', 'application/json')
-        ]
+        headers = [("Accept", "application/json"), ("Content-Type", "application/json")]
     if url_data is None:
         url_data = {}
     if force_data_as_json:
         data = json.dumps(data)
-    res = client.post(
-        url_for(endpoint, **url_data),
-        data=data,
-        headers=headers
-    )
+    res = client.post(url_for(endpoint, **url_data), data=data, headers=headers)
     output = get_json(res)
     return res, output
 
@@ -145,9 +135,13 @@ def to_relative_url(url):
     external urls.
     """
     parsed = urlparse(url)
-    return parsed.path + '?' + '&'.join([
-        f'{param}={val[0]}' for param, val in parse_qs(parsed.query).items()
-    ])
+    return (
+        parsed.path
+        + "?"
+        + "&".join(
+            [f"{param}={val[0]}" for param, val in parse_qs(parsed.query).items()]
+        )
+    )
 
 
 def get_mapping(name):
@@ -155,50 +149,46 @@ def get_mapping(name):
     return current_search.client.indices.get_mapping(name)
 
 
-def flush_index(name):
-    """Flush index."""
-    return current_search.flush_and_refresh(name)
-
-
 def loaded_resources_report():
     """For debug only: returns a list or count of loaded objects."""
     objects = {
-        'organisations': Organisation,
-        'libraries': Library,
-        'locations': Location,
-        'circ_policies': CircPolicy,
-        'item_types': ItemType,
-        'patron_types': PatronType,
-        'patrons': Patron,
-        'documents': Document,
-        'items': Item,
-        'holdings': Holding
+        "organisations": Organisation,
+        "libraries": Library,
+        "locations": Location,
+        "circ_policies": CircPolicy,
+        "item_types": ItemType,
+        "patron_types": PatronType,
+        "patrons": Patron,
+        "documents": Document,
+        "items": Item,
+        "holdings": Holding,
     }
     report = {}
     for object in objects:
         object_pids = objects[object].get_all_pids()
         report[object] = len(list(object_pids))
         item_details = []
-        if object == 'items':
+        if object == "items":
             for item in object_pids:
                 item_details.append(
                     {
-                        'item_pid': item,
-                        'item_status': objects[object].get_record_by_pid(
-                            item).status,
-                        'requests': objects[object].get_record_by_pid(
-                            item).number_of_requests(),
-                        'loans': get_loan_for_item(item_pid_to_object(item))
+                        "item_pid": item,
+                        "item_status": objects[object].get_record_by_pid(item).status,
+                        "requests": objects[object]
+                        .get_record_by_pid(item)
+                        .number_of_requests(),
+                        "loans": get_loan_for_item(item_pid_to_object(item)),
                     }
                 )
-        report['item_details'] = item_details
+        report["item_details"] = item_details
     return report
 
 
-def mock_response(status=200, content="CONTENT", headers=None, json_data=None,
-                  raise_for_status=None):
+def mock_response(
+    status=200, content="CONTENT", headers=None, json_data=None, raise_for_status=None
+):
     """Mock a request response."""
-    headers = headers or {'Content-Type': 'text/plain'}
+    headers = headers or {"Content-Type": "text/plain"}
     mock_resp = Mock()
     # mock raise_for_status call w/optional error
     mock_resp.raise_for_status = Mock()
@@ -211,7 +201,7 @@ def mock_response(status=200, content="CONTENT", headers=None, json_data=None,
     mock_resp.text = content
     # add json data if provided
     if json_data:
-        mock_resp.headers['Content-Type'] = 'application/json'
+        mock_resp.headers["Content-Type"] = "application/json"
         mock_resp.json = MagicMock(return_value=json_data)
         mock_resp.text = json.dumps(json_data)
         mock_resp.content = json.dumps(json_data)
@@ -222,7 +212,7 @@ def get_timezone_difference(timezone, date):
     """Get timezone offset difference, in hours."""
     if date.tzinfo is not None:
         date = date.replace(tzinfo=None)
-    return int(timezone.utcoffset(date).total_seconds()/3600)
+    return int(timezone.utcoffset(date).total_seconds() / 3600)
 
 
 def check_timezone_date(timezone, date, expected=None):
@@ -235,8 +225,7 @@ def check_timezone_date(timezone, date, expected=None):
     hour = (date.hour + difference) % 24
     # Prepare date
     tocheck_date = date.astimezone(timezone)
-    error_msg = "Date: %s. Expected: %s. Minutes should be: %s. Hour: %s" % (
-        tocheck_date, date, date.minute, hour)
+    error_msg = f"Date: {tocheck_date}. Expected: {date}. Minutes should be: {date.minute}. Hour: {hour}"
     # Expected list defines accepted hours for tests
     if expected:
         assert hour in expected, error_msg
@@ -246,22 +235,20 @@ def check_timezone_date(timezone, date, expected=None):
 
 def jsonloader(uri, **kwargs):
     """This method will be used by the mock to replace requests.get."""
-    ref_split = uri.split('/')
+    ref_split = uri.split("/")
     # TODO: find a better way to determine name and path.
-    if ref_split[-2] == 'common':
-        path = 'rero_ils.jsonschemas'
-        name = f'common/{ref_split[-1]}'
+    if ref_split[-2] == "common":
+        path = "rero_ils.jsonschemas"
+        name = f"common/{ref_split[-1]}"
     else:
-        if ref_split[-2] in ['remote_entities', 'local_entities']:
-            path = f'rero_ils.modules.entities.{ref_split[-2]}.jsonschemas'
+        if ref_split[-2] in ["remote_entities", "local_entities"]:
+            path = f"rero_ils.modules.entities.{ref_split[-2]}.jsonschemas"
         else:
-            path = f'rero_ils.modules.{ref_split[-2]}.jsonschemas'
-        name = f'{ref_split[-2]}/{ref_split[-1]}'
+            path = f"rero_ils.modules.{ref_split[-2]}.jsonschemas"
+        name = f"{ref_split[-2]}/{ref_split[-1]}"
 
     schema_in_bytes = resource_string(path, name)
-    schema = json.loads(schema_in_bytes.decode('utf8'))
-
-    return schema
+    return json.loads(schema_in_bytes.decode("utf8"))
 
 
 def get_schema(schema_in_bytes):
@@ -273,7 +260,7 @@ def get_schema(schema_in_bytes):
     :schema_in_bytes: schema in bytes.
     :returns: resolved json schema.
     """
-    schema = jsonref.loads(schema_in_bytes.decode('utf8'), loader=jsonloader)
+    schema = jsonref.loads(schema_in_bytes.decode("utf8"), loader=jsonloader)
 
     # Replace all remaining $refs
     while schema != jsonref.loads(jsonref.dumps(schema), loader=jsonloader):
@@ -289,18 +276,18 @@ def create_new_item_from_existing_item(item=None):
     :return: the newly created item
     """
     data = deepcopy(item)
-    data.pop('barcode')
-    data['status'] = ItemStatus.ON_SHELF
-    new_item = Item.create(data=data, dbcommit=True,
-                           reindex=True, delete_pid=True)
-    flush_index(ItemsSearch.Meta.index)
+    data.pop("barcode")
+    data["status"] = ItemStatus.ON_SHELF
+    new_item = Item.create(data=data, dbcommit=True, reindex=True, delete_pid=True)
+    ItemsSearch.flush_and_refresh()
     assert new_item.status == ItemStatus.ON_SHELF
     assert new_item.number_of_requests() == 0
     return new_item
 
 
 def item_record_to_a_specific_loan_state(
-        item=None, loan_state=None, params=None, copy_item=True):
+    item=None, loan_state=None, params=None, copy_item=True
+):
     """Put an item into a specific circulation loan state.
 
     :param item: the item record
@@ -314,50 +301,46 @@ def item_record_to_a_specific_loan_state(
         item = create_new_item_from_existing_item(item=item)
 
     # complete missing parameters
-    params.setdefault('transaction_date',
-                      datetime.now(timezone.utc).isoformat())
-    params.setdefault('document_pid', item.document_pid)
+    params.setdefault("transaction_date", datetime.now(timezone.utc).isoformat())
+    params.setdefault("document_pid", item.document_pid)
 
     # a parameter to allow in_transit returns
-    checkin_transaction_location_pid = \
-        params.pop('checkin_transaction_location_pid', None)
-    patron = Patron.get_record_by_pid(params.get('patron_pid'))
+    checkin_transaction_location_pid = params.pop(
+        "checkin_transaction_location_pid", None
+    )
+    patron = Patron.get_record_by_pid(params.get("patron_pid"))
     # perform circulation actions
     if loan_state in [
-            LoanState.PENDING, LoanState.ITEM_AT_DESK,
-            LoanState.ITEM_ON_LOAN,
-            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
-            LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+        LoanState.PENDING,
+        LoanState.ITEM_AT_DESK,
+        LoanState.ITEM_ON_LOAN,
+        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+        LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
     ]:
         item, actions = item.request(**params)
-        loan = Loan.get_record_by_pid(actions[LoanAction.REQUEST].get('pid'))
+        loan = Loan.get_record_by_pid(actions[LoanAction.REQUEST].get("pid"))
         assert item.number_of_requests() >= 1
-        assert item.is_requested_by_patron(patron.get(
-            'patron', {}).get('barcode')[0])
+        assert item.is_requested_by_patron(patron.get("patron", {}).get("barcode")[0])
     if loan_state in [
-            LoanState.ITEM_AT_DESK,
-            LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
-            LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+        LoanState.ITEM_AT_DESK,
+        LoanState.ITEM_IN_TRANSIT_FOR_PICKUP,
+        LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
     ]:
         item, actions = item.validate_request(**params, pid=loan.pid)
-        loan = Loan.get_record_by_pid(actions[LoanAction.VALIDATE].get('pid'))
-    if loan_state in [
-            LoanState.ITEM_ON_LOAN,
-            LoanState.ITEM_IN_TRANSIT_TO_HOUSE
-    ]:
+        loan = Loan.get_record_by_pid(actions[LoanAction.VALIDATE].get("pid"))
+    if loan_state in [LoanState.ITEM_ON_LOAN, LoanState.ITEM_IN_TRANSIT_TO_HOUSE]:
         item, actions = item.checkout(**params, pid=loan.pid)
-        loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get('pid'))
+        loan = Loan.get_record_by_pid(actions[LoanAction.CHECKOUT].get("pid"))
     if loan_state == LoanState.ITEM_IN_TRANSIT_TO_HOUSE:
         if checkin_transaction_location_pid:
-            params['transaction_location_pid'] = \
-                checkin_transaction_location_pid
+            params["transaction_location_pid"] = checkin_transaction_location_pid
         item, actions = item.checkin(**params, pid=loan.pid)
-        loan = Loan.get_record_by_pid(actions[LoanAction.CHECKIN].get('pid'))
+        loan = Loan.get_record_by_pid(actions[LoanAction.CHECKIN].get("pid"))
 
-    flush_index(ItemsSearch.Meta.index)
-    flush_index(LoansSearch.Meta.index)
+    ItemsSearch.flush_and_refresh()
+    LoansSearch.flush_and_refresh()
 
-    assert loan['state'] == loan_state
+    assert loan["state"] == loan_state
     return item, loan
 
 
@@ -368,7 +351,7 @@ def create_patron(data):
     :returns: - A freshly created Patron instance.
     """
     ptrn = create_patron_from_data(data=data)
-    flush_index(PatronsSearch.Meta.index)
+    PatronsSearch.flush_and_refresh()
     return ptrn
 
 
@@ -381,7 +364,7 @@ def create_user_token(client_name, user, access_token):
             user_id=user.id,
             is_internal=True,
             is_confidential=False,
-            _default_scopes=''
+            _default_scopes="",
         )
         client.gen_salt()
         token = Token(
@@ -391,7 +374,7 @@ def create_user_token(client_name, user, access_token):
             expires=None,
             is_personal=True,
             is_internal=True,
-            _scopes=''
+            _scopes="",
         )
         db.session.add(client)
         db.session.add(token)
@@ -411,10 +394,11 @@ def create_selfcheck_terminal(data):
 
 def patch_expiration_date(data):
     """Patch expiration date for patrons."""
-    if data.get('patron', {}).get('expiration_date'):
+    if data.get("patron", {}).get("expiration_date"):
         # expiration date in one year
-        data['patron']['expiration_date'] = \
-            (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d')
+        data["patron"]["expiration_date"] = (
+            datetime.now() + timedelta(days=365)
+        ).strftime("%Y-%m-%d")
     return data
 
 
@@ -423,7 +407,7 @@ def clean_text(data):
     if isinstance(data, list):
         data = [clean_text(val) for val in data]
     elif isinstance(data, dict):
-        if '_text' in data:
-            del data['_text']
+        if "_text" in data:
+            del data["_text"]
         data = {key: clean_text(val) for key, val in data.items()}
     return data

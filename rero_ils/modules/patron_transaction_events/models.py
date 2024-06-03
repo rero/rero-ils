@@ -28,25 +28,26 @@ from invenio_records.models import RecordMetadataBase
 class PatronTransactionEventIdentifier(RecordIdentifier):
     """Sequence generator for PatronTransactionEvent identifiers."""
 
-    __tablename__ = 'patron_transaction_event_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "patron_transaction_event_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
 class PatronTransactionEventMetadata(db.Model, RecordMetadataBase):
     """PatronTransactionEvent record metadata."""
 
-    __tablename__ = 'patron_transaction_event_metadata'
+    __tablename__ = "patron_transaction_event_metadata"
 
 
 class PatronTransactionEventType:
     """Type of PatronTransactionEvent."""
 
-    FEE = 'fee'
-    PAYMENT = 'payment'
-    DISPUTE = 'dispute'
-    CANCEL = 'cancel'
+    FEE = "fee"
+    PAYMENT = "payment"
+    DISPUTE = "dispute"
+    CANCEL = "cancel"

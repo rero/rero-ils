@@ -28,29 +28,30 @@ from invenio_records.models import RecordMetadataBase
 class AcqReceiptIdentifier(RecordIdentifier):
     """Sequence generator for acquisition receipt identifiers."""
 
-    __tablename__ = 'acq_receipt_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "acq_receipt_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
 class AcqReceiptMetadata(db.Model, RecordMetadataBase):
     """AcqReceipt record metadata."""
 
-    __tablename__ = 'acq_receipt_metadata'
+    __tablename__ = "acq_receipt_metadata"
 
 
 class AcqReceiptNoteType:
     """Type of acquisition receipt note."""
 
-    STAFF = 'staff_note'
+    STAFF = "staff_note"
 
 
 class AcqReceiptLineCreationStatus:
     """Status following an attempt to create a receipt line."""
 
-    SUCCESS = 'success'
-    FAILURE = 'failure'
+    SUCCESS = "success"
+    FAILURE = "failure"

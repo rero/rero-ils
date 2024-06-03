@@ -36,8 +36,9 @@ from .collector import Collector
 class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
     """Serialize item search for csv."""
 
-    def serialize_search(self, pid_fetcher, search_result, links=None,
-                         item_links_factory=None):
+    def serialize_search(
+        self, pid_fetcher, search_result, links=None, item_links_factory=None
+    ):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -48,7 +49,7 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
         # language
         language = request.args.get("lang", current_i18n.language)
         if not language or language not in get_i18n_supported_languages():
-            language = current_app.config.get('BABEL_DEFAULT_LANGUAGE', 'en')
+            language = current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
 
         def generate_csv():
             """Generate CSV records."""
@@ -58,25 +59,25 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
 
                 :param csv_data: Dictionary of data.
                 """
-                itty_pid = csv_data.get('item_type_pid')
-                csv_data['item_type'] = self\
-                    .get_resource(ItemTypesSearch(), itty_pid)\
-                    .get('name')
+                itty_pid = csv_data.get("item_type_pid")
+                csv_data["item_type"] = self.get_resource(
+                    ItemTypesSearch(), itty_pid
+                ).get("name")
                 # temporary item_type
-                if itty_pid := csv_data.pop('temporary_item_type_pid', None):
-                    csv_data['temporary_item_type'] = self\
-                        .get_resource(ItemTypesSearch(), itty_pid)\
-                        .get('name')
+                if itty_pid := csv_data.pop("temporary_item_type_pid", None):
+                    csv_data["temporary_item_type"] = self.get_resource(
+                        ItemTypesSearch(), itty_pid
+                    ).get("name")
                 # library
-                lib_pid = csv_data.pop('item_library_pid')
-                csv_data['item_library_name'] = self\
-                    .get_resource(LibrariesSearch(), lib_pid)\
-                    .get('name')
+                lib_pid = csv_data.pop("item_library_pid")
+                csv_data["item_library_name"] = self.get_resource(
+                    LibrariesSearch(), lib_pid
+                ).get("name")
                 # location
-                loc_pid = csv_data.pop('item_location_pid')
-                csv_data['item_location_name'] = self\
-                    .get_resource(LocationsSearch(), loc_pid)\
-                    .get('name')
+                loc_pid = csv_data.pop("item_location_pid")
+                csv_data["item_location_name"] = self.get_resource(
+                    LocationsSearch(), loc_pid
+                ).get("name")
 
             headers = dict.fromkeys(self.csv_included_fields)
 
@@ -89,7 +90,8 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
             for pids, batch_results in Collector.batch(results=search_result):
                 # get documents
                 documents = Collector.get_documents_by_item_pids(
-                    item_pids=pids, language=language)
+                    item_pids=pids, language=language
+                )
                 # get loans
                 items_stats = Collector.get_loans_by_item_pids(item_pids=pids)
                 for hit in batch_results:

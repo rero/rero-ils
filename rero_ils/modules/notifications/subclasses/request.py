@@ -47,14 +47,14 @@ class RequestCirculationNotification(InternalCirculationNotification):
         # Request notification will be sent to the item location if a location
         # ``notification_email`` attribute is defined, otherwise to the library
         # address.
-        if loc_email := self.location.get('notification_email'):
+        if loc_email := self.location.get("notification_email"):
             return [loc_email]
         return super().get_recipients_to()
 
     @classmethod
     def get_notification_context(cls, notifications=None):
         """Get the context to render the notification template."""
-        context = {'loans': []}
+        context = {"loans": []}
         notifications = notifications or []
 
         item_dumper = ItemNotificationDumper()
@@ -62,26 +62,28 @@ class RequestCirculationNotification(InternalCirculationNotification):
         for notification in notifications:
             loan = notification.loan
             creation_date = format_date_filter(
-                notification.get('creation_date'), date_format='medium',
-                locale=language_iso639_2to1(notification.get_language_to_use())
+                notification.get("creation_date"),
+                date_format="medium",
+                locale=language_iso639_2to1(notification.get_language_to_use()),
             )
             # merge doc and item metadata preserving document key
             item_data = notification.item.dumps(dumper=item_dumper)
-            doc_data = notification.document.dumps(
-                dumper=document_title_dumper)
+            doc_data = notification.document.dumps(dumper=document_title_dumper)
             doc_data = {**item_data, **doc_data}
             # pickup location name
-            pickup_location = notification.pickup_location or \
-                notification.transaction_location
+            pickup_location = (
+                notification.pickup_location or notification.transaction_location
+            )
 
             loan_context = {
-                'creation_date': creation_date,
-                'in_transit': loan.state in LoanState.ITEM_IN_TRANSIT,
-                'document': doc_data,
-                'pickup_name': pickup_location.get(
-                    'pickup_name', pickup_location.get('name')),
-                'patron': notification.patron.dumps(dumper=patron_dumper)
+                "creation_date": creation_date,
+                "in_transit": loan.state in LoanState.ITEM_IN_TRANSIT,
+                "document": doc_data,
+                "pickup_name": pickup_location.get(
+                    "pickup_name", pickup_location.get("name")
+                ),
+                "patron": notification.patron.dumps(dumper=patron_dumper),
             }
-            context['loans'].append(loan_context)
+            context["loans"].append(loan_context)
 
         return context

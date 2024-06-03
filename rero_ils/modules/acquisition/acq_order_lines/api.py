@@ -30,18 +30,16 @@ from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
-from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, \
-    sorted_pids
+from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid, sorted_pids
 
 from .extensions import AcqOrderLineValidationExtension
-from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata, \
-    AcqOrderLineStatus
+from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata, AcqOrderLineStatus
 
 # provider
 AcqOrderLineProvider = type(
-    'AcqOrderLineProvider',
+    "AcqOrderLineProvider",
     (Provider,),
-    dict(identifier=AcqOrderLineIdentifier, pid_type='acol')
+    dict(identifier=AcqOrderLineIdentifier, pid_type="acol"),
 )
 # minter
 acq_order_line_id_minter = partial(id_minter, provider=AcqOrderLineProvider)
@@ -55,9 +53,9 @@ class AcqOrderLinesSearch(IlsRecordsSearch):
     class Meta:
         """Search only on Acquisition Order Line index."""
 
-        index = 'acq_order_lines'
+        index = "acq_order_lines"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -71,19 +69,11 @@ class AcqOrderLine(AcquisitionIlsRecord):
     provider = AcqOrderLineProvider
     model_cls = AcqOrderLineMetadata
     pids_exist_check = {
-        'required': {
-            'doc': 'document',
-            'acac': 'acq_account',
-            'acor': 'acq_order'
-        },
-        'not_required': {
-            'org': 'organisation'
-        }
+        "required": {"doc": "document", "acac": "acq_account", "acor": "acq_order"},
+        "not_required": {"org": "organisation"},
     }
 
-    _extensions = [
-        AcqOrderLineValidationExtension()
-    ]
+    _extensions = [AcqOrderLineValidationExtension()]
 
     # API METHODS =============================================================
     #   Overriding the `IlsRecord` default behavior for create and update
@@ -96,23 +86,22 @@ class AcqOrderLine(AcquisitionIlsRecord):
             - notes array has multiple notes with same type
         """
         # NOTES fields testing
-        note_types = [note.get('type') for note in self.get('notes', [])]
+        note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
-            return _('Can not have multiple notes of the same type.')
+            return _("Can not have multiple notes of the same type.")
 
         return True
 
     @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=True, reindex=True, **kwargs):
+    def create(
+        cls, data, id_=None, delete_pid=False, dbcommit=True, reindex=True, **kwargs
+    ):
         """Create Acquisition Order Line record."""
         # TODO : should be used into `pre_create` hook extensions but seems not
         #        work as expected.
         cls._build_additional_refs(data)
         cls._build_total_amount(data)
-        record = super().create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
-        return record
+        return super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
 
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Order Line record."""
@@ -120,7 +109,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
         original_record = self.__class__.get_record(self.id)
 
         new_data = deepcopy(dict(self))
-        new_data.update(data)
+        new_data |= data
         self._build_additional_refs(new_data)
         self._build_total_amount(new_data)
         super().update(new_data, commit, dbcommit, reindex)
@@ -135,19 +124,16 @@ class AcqOrderLine(AcquisitionIlsRecord):
     @classmethod
     def _build_additional_refs(cls, data):
         """Build $ref for the organisation of the acquisition order."""
-        order = extracted_data_from_ref(data.get('acq_order'), data='record')
-        if order:
-            data['library'] = {
-                '$ref': get_ref_for_pid('lib', order.library_pid)
-            }
-            data['organisation'] = {
-                '$ref': get_ref_for_pid('org', order.organisation_pid)
+        if order := extracted_data_from_ref(data.get("acq_order"), data="record"):
+            data["library"] = {"$ref": get_ref_for_pid("lib", order.library_pid)}
+            data["organisation"] = {
+                "$ref": get_ref_for_pid("org", order.organisation_pid)
             }
 
     @classmethod
     def _build_total_amount(cls, data):
         """Build total amount for order line."""
-        data['total_amount'] = data['amount'] * data['quantity']
+        data["total_amount"] = data["amount"] * data["quantity"]
 
     # GETTER & SETTER =========================================================
     #   * Define some properties as shortcut to quickly access object attrs.
@@ -156,32 +142,32 @@ class AcqOrderLine(AcquisitionIlsRecord):
     @property
     def order_pid(self):
         """Shortcut for acquisition order pid."""
-        return extracted_data_from_ref(self.get('acq_order'))
+        return extracted_data_from_ref(self.get("acq_order"))
 
     @property
     def order(self):
         """Shortcut to the order of the order line."""
-        return extracted_data_from_ref(self.get('acq_order'), data='record')
+        return extracted_data_from_ref(self.get("acq_order"), data="record")
 
     @property
     def order_date(self):
         """Shortcut for acquisition order send date."""
-        return self.get('order_date')
+        return self.get("order_date")
 
     @property
     def is_cancelled(self):
         """Shortcut for acquisition order is_cancelled falg."""
-        return self.get('is_cancelled')
+        return self.get("is_cancelled")
 
     @property
     def account_pid(self):
         """Shortcut to the account pid related to this order line."""
-        return extracted_data_from_ref(self.get('acq_account'))
+        return extracted_data_from_ref(self.get("acq_account"))
 
     @property
     def account(self):
         """Shortcut to the account object related to this order line."""
-        return extracted_data_from_ref(self.get('acq_account'), data='record')
+        return extracted_data_from_ref(self.get("acq_account"), data="record")
 
     @property
     def is_active(self):
@@ -195,12 +181,12 @@ class AcqOrderLine(AcquisitionIlsRecord):
     @property
     def document_pid(self):
         """Shortcut to the document pid related to this order line."""
-        return extracted_data_from_ref(self.get('document'))
+        return extracted_data_from_ref(self.get("document"))
 
     @property
     def document(self):
         """Shortcut to the document object related to this order line."""
-        return extracted_data_from_ref(self.get('document'), data='record')
+        return extracted_data_from_ref(self.get("document"), data="record")
 
     @property
     def organisation_pid(self):
@@ -214,7 +200,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
         This comes from the metadata of the order line that represent the
         number of items to order or already ordered.
         """
-        return self.get('quantity')
+        return self.get("quantity")
 
     @property
     def received_quantity(self):
@@ -223,11 +209,12 @@ class AcqOrderLine(AcquisitionIlsRecord):
         The received quantity is number of quantity received for the resource
         acq_receipt_line and for the corresponding acq_line_order.
         """
-        from rero_ils.modules.acquisition.acq_receipt_lines.api import \
-            AcqReceiptLinesSearch
-        search = AcqReceiptLinesSearch()\
-            .filter('term', acq_order_line__pid=self.pid)
-        search.aggs.metric('sum_order_line_recieved', 'sum', field='quantity')
+        from rero_ils.modules.acquisition.acq_receipt_lines.api import (
+            AcqReceiptLinesSearch,
+        )
+
+        search = AcqReceiptLinesSearch().filter("term", acq_order_line__pid=self.pid)
+        search.aggs.metric("sum_order_line_recieved", "sum", field="quantity")
         results = search.execute()
         return results.aggregations.sum_order_line_recieved.value
 
@@ -239,11 +226,12 @@ class AcqOrderLine(AcquisitionIlsRecord):
     @cached_property
     def receipt_date(self):
         """Get the first reception date for one item of this order line."""
-        from rero_ils.modules.acquisition.acq_receipt_lines.api import \
-            AcqReceiptLinesSearch
-        search = AcqReceiptLinesSearch() \
-            .filter('term', acq_order_line__pid=self.pid)
-        search.aggs.metric('min_receipt_date', 'min', field='receipt_date')
+        from rero_ils.modules.acquisition.acq_receipt_lines.api import (
+            AcqReceiptLinesSearch,
+        )
+
+        search = AcqReceiptLinesSearch().filter("term", acq_order_line__pid=self.pid)
+        search.aggs.metric("min_receipt_date", "min", field="receipt_date")
         results = search.execute()
         epoch = results.aggregations.min_receipt_date.value / 1000
         return datetime.fromtimestamp(epoch)
@@ -262,8 +250,11 @@ class AcqOrderLine(AcquisitionIlsRecord):
         """
         if self.is_cancelled:
             return AcqOrderLineStatus.CANCELLED
-        status = AcqOrderLineStatus.ORDERED \
-            if self.order_date else AcqOrderLineStatus.APPROVED
+        status = (
+            AcqOrderLineStatus.ORDERED
+            if self.order_date
+            else AcqOrderLineStatus.APPROVED
+        )
         received_quantity = self.received_quantity
         # not use the property to prevent an extra ES call
         unreceived_quantity = self.quantity - received_quantity
@@ -286,8 +277,9 @@ class AcqOrderLine(AcquisitionIlsRecord):
         :return the note content if exists, otherwise returns None.
         """
         note = [
-            note.get('content') for note in self.get('notes', [])
-            if note.get('type') == note_type
+            note.get("content")
+            for note in self.get("notes", [])
+            if note.get("type") == note_type
         ]
         return next(iter(note), None)
 
@@ -297,16 +289,17 @@ class AcqOrderLine(AcquisitionIlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        from rero_ils.modules.acquisition.acq_receipt_lines.api import \
-            AcqReceiptLinesSearch
+        from rero_ils.modules.acquisition.acq_receipt_lines.api import (
+            AcqReceiptLinesSearch,
+        )
+
         links = {}
-        query = AcqReceiptLinesSearch()\
-            .filter('term', acq_order_line__pid=self.pid)
+        query = AcqReceiptLinesSearch().filter("term", acq_order_line__pid=self.pid)
 
         receipt_lines = sorted_pids(query) if get_pids else query.count()
 
         if receipt_lines:
-            links['acq_receipt_lines'] = receipt_lines
+            links["acq_receipt_lines"] = receipt_lines
 
         return links
 
@@ -315,10 +308,10 @@ class AcqOrderLine(AcquisitionIlsRecord):
         cannot_delete = {}
         # Note: not possible to delete records attached to rolled_over budget.
         if not self.is_active:
-            cannot_delete['links'] = {'rolled_over': True}
+            cannot_delete["links"] = {"rolled_over": True}
             return cannot_delete
         if links := self.get_links_to_me():
-            cannot_delete['links'] = links
+            cannot_delete["links"] = links
         return cannot_delete
 
 
@@ -349,4 +342,4 @@ class AcqOrderLinesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='acol')
+        super().bulk_index(record_id_iterator, doc_type="acol")

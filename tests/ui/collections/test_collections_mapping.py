@@ -21,17 +21,20 @@ from utils import get_mapping
 from rero_ils.modules.collections.api import Collection, CollectionsSearch
 
 
-def test_collections_es_mapping(search, db, org_martigny, coll_martigny_1_data,
-                                item_lib_martigny, item2_lib_martigny):
+def test_collections_es_mapping(
+    search,
+    db,
+    org_martigny,
+    coll_martigny_1_data,
+    item_lib_martigny,
+    item2_lib_martigny,
+):
     """Test collections elasticsearch mapping."""
     search = CollectionsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     collection = Collection.create(
-        coll_martigny_1_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
+        coll_martigny_1_data, dbcommit=True, reindex=True, delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
     collection.delete(force=True, dbcommit=True, delindex=True)

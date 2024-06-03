@@ -18,8 +18,10 @@
 """Item record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.entities.local_entities.api import LocalEntitiesSearch, \
-    LocalEntity
+from rero_ils.modules.entities.local_entities.api import (
+    LocalEntitiesSearch,
+    LocalEntity,
+)
 
 
 def test_local_entities_es_mapping(app, local_entity_person2_data):
@@ -28,9 +30,6 @@ def test_local_entities_es_mapping(app, local_entity_person2_data):
     mapping = get_mapping(search.Meta.index)
     assert mapping
     LocalEntity.create(
-        local_entity_person2_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
+        local_entity_person2_data, dbcommit=True, reindex=True, delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
