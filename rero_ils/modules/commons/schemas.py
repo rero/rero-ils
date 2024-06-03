@@ -33,12 +33,15 @@ def http_applicable_method(*http_methods):
         function will be applicable. If request method isn't in this list, the
         decorated function will be skipped/uncalled.
     """
+
     def inner(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             if request.method in http_methods:
                 return func(*args, **kwargs)
+
         return wrapper
+
     return inner
 
 
@@ -46,7 +49,7 @@ class RefSchema(Schema):
     """Schema to describe a reference to another resources."""
 
     # TODO : find a way to validate the `$ref` using a variable pattern.
-    ref = SanitizedUnicode(data_key='$ref', attribute='$ref')
+    ref = SanitizedUnicode(data_key="$ref", attribute="$ref")
 
 
 class NoteSchema(Schema):

@@ -4589,6 +4589,21 @@ tomli = ">=1.0.0"
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
 
 [[package]]
+name = "pytest-black"
+version = "0.3.12"
+description = "A pytest plugin to enable format checking with black"
+optional = false
+python-versions = ">=2.7"
+files = [
+    {file = "pytest-black-0.3.12.tar.gz", hash = "sha256:1d339b004f764d6cd0f06e690f6dd748df3d62e6fe1a692d6a5500ac2c5b75a5"},
+]
+
+[package.dependencies]
+black = {version = "*", markers = "python_version >= \"3.6\""}
+pytest = ">=3.5.0"
+toml = "*"
+
+[[package]]
 name = "pytest-black-ng"
 version = "0.4.1"
 description = "A pytest plugin to enable format checking with black"
@@ -6490,4 +6505,4 @@ sip2 = ["invenio-sip2"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">= 3.9, <3.10"
-content-hash = "0b552929d4764ee76790c7fcb83442a13afab703f484ffe8de9211f9bb405e9e"
+content-hash = "ec10bb475325cdb6971e2de72ed28bd11716afbc2069848a3634821bac249a1b"

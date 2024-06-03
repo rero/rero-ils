@@ -19,14 +19,19 @@
 """Acquisition receipt line record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.acquisition.acq_receipt_lines.api import \
-    AcqReceiptLine, AcqReceiptLinesSearch
+from rero_ils.modules.acquisition.acq_receipt_lines.api import (
+    AcqReceiptLine,
+    AcqReceiptLinesSearch,
+)
 
 
 def test_acq_receipt_lines_es_mapping(
-    search, db, lib_martigny, vendor_martigny,
+    search,
+    db,
+    lib_martigny,
+    vendor_martigny,
     acq_receipt_line_1_fiction_martigny,
-    acq_receipt_line_1_fiction_martigny_data
+    acq_receipt_line_1_fiction_martigny_data,
 ):
     """Test acquisition receipt lines elasticsearch mapping."""
     search = AcqReceiptLinesSearch()
@@ -36,7 +41,7 @@ def test_acq_receipt_lines_es_mapping(
         acq_receipt_line_1_fiction_martigny_data,
         dbcommit=True,
         reindex=True,
-        delete_pid=True
+        delete_pid=True,
     )
     assert mapping == get_mapping(search.Meta.index)
     receipt.delete(force=True, dbcommit=True, delindex=True)

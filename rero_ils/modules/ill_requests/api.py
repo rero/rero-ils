@@ -34,14 +34,18 @@ from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref
 
 from .extensions import IllRequestOperationLogObserverExtension
-from .models import ILLRequestIdentifier, ILLRequestMetadata, \
-    ILLRequestNoteStatus, ILLRequestStatus
+from .models import (
+    ILLRequestIdentifier,
+    ILLRequestMetadata,
+    ILLRequestNoteStatus,
+    ILLRequestStatus,
+)
 
 # provider
 ILLRequestProvider = type(
-    'ILLRequestProvider',
+    "ILLRequestProvider",
     (Provider,),
-    dict(identifier=ILLRequestIdentifier, pid_type='illr')
+    dict(identifier=ILLRequestIdentifier, pid_type="illr"),
 )
 # minter
 ill_request_id_minter = partial(id_minter, provider=ILLRequestProvider)
@@ -55,7 +59,7 @@ class ILLRequestsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on ill_request index."""
 
-        index = 'ill_requests'
+        index = "ill_requests"
         doc_types = None
 
     def get_ill_requests_total_for_patron(self, patron_pid):
@@ -66,14 +70,11 @@ class ILLRequestsSearch(IlsRecordsSearch):
         :param patron_pid: the patron pid being searched.
         :return: return total of ill requests.
         """
-        months = current_app.config.get('RERO_ILS_ILL_HIDE_MONTHS', 6)
+        months = current_app.config.get("RERO_ILS_ILL_HIDE_MONTHS", 6)
         date_delta = datetime.now(timezone.utc) - relativedelta(months=months)
-        filters = Q(
-            'range',
-            _created={'lte': 'now', 'gte': date_delta}
-        )
-        filters |= Q('term', status=ILLRequestStatus.PENDING)
-        filters &= Q('term', patron__pid=patron_pid)
+        filters = Q("range", _created={"lte": "now", "gte": date_delta})
+        filters |= Q("term", status=ILLRequestStatus.PENDING)
+        filters &= Q("term", patron__pid=patron_pid)
         return self.filter(filters).count()
 
 
@@ -85,9 +86,7 @@ class ILLRequest(IlsRecord):
     provider = ILLRequestProvider
     model_cls = ILLRequestMetadata
 
-    _extensions = [
-        IllRequestOperationLogObserverExtension()
-    ]
+    _extensions = [IllRequestOperationLogObserverExtension()]
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.
@@ -96,22 +95,21 @@ class ILLRequest(IlsRecord):
           required
         * Ensures that only one note of each type is present.
         """
-        if self.is_copy and self.get('pages') is None:
-            return 'Required property : `pages`'
+        if self.is_copy and self.get("pages") is None:
+            return "Required property : `pages`"
 
-        note_types = [note.get('type') for note in self.get('notes', [])]
+        note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
-            return _('Can not have multiple notes of the same type.')
+            return _("Can not have multiple notes of the same type.")
 
         return True
 
     @classmethod
     def _build_requests_query(cls, patron_pid, status=None):
         """Private function to build a request query linked to a patron."""
-        query = ILLRequestsSearch() \
-            .filter('term', patron__pid=patron_pid)
+        query = ILLRequestsSearch().filter("term", patron__pid=patron_pid)
         if status:
-            query = query.filter('term', status=status)
+            query = query.filter("term", status=status)
         return query
 
     @classmethod
@@ -123,7 +121,7 @@ class ILLRequest(IlsRecord):
         :return a generator of request pid
         """
         query = cls._build_requests_query(patron_pid, status)
-        results = query.source('pid').scan()
+        results = query.source("pid").scan()
         for result in results:
             yield result.pid
 
@@ -141,12 +139,12 @@ class ILLRequest(IlsRecord):
     @property
     def is_copy(self):
         """Is request is a request copy."""
-        return self.get('copy', False)
+        return self.get("copy", False)
 
     @property
     def patron_pid(self):
         """Get patron pid for ill_request."""
-        return extracted_data_from_ref(self.get('patron'))
+        return extracted_data_from_ref(self.get("patron"))
 
     @property
     def organisation_pid(self):
@@ -156,13 +154,16 @@ class ILLRequest(IlsRecord):
     @property
     def public_note(self):
         """Get the public note for ill_requests."""
-        notes = [note.get('content') for note in self.get('notes', [])
-                 if note.get('type') == ILLRequestNoteStatus.PUBLIC_NOTE]
+        notes = [
+            note.get("content")
+            for note in self.get("notes", [])
+            if note.get("type") == ILLRequestNoteStatus.PUBLIC_NOTE
+        ]
         return next(iter(notes or []), None)
 
     def get_pickup_location(self):
         """Get the pickup location."""
-        location_pid = extracted_data_from_ref(self.get('pickup_location'))
+        location_pid = extracted_data_from_ref(self.get("pickup_location"))
         return Location.get_record_by_pid(location_pid)
 
     def get_library(self):
@@ -180,4 +181,4 @@ class ILLRequestsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='illr')
+        super().bulk_index(record_id_iterator, doc_type="illr")

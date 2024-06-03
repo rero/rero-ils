@@ -28,11 +28,11 @@ from invenio_records.models import RecordMetadataBase
 class RemoteEntityIdentifier(RecordIdentifier):
     """Sequence generator for `Remote Entity` identifiers."""
 
-    __tablename__ = 'remote_entity_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "remote_entity_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
         primary_key=True,
         autoincrement=True,
     )
@@ -41,12 +41,12 @@ class RemoteEntityIdentifier(RecordIdentifier):
 class RemoteEntityMetadata(db.Model, RecordMetadataBase):
     """Remote Entity record metadata."""
 
-    __tablename__ = 'remote_entity_metadata'
+    __tablename__ = "remote_entity_metadata"
 
 
 class EntityUpdateAction:
     """Class holding all available agent record creation actions."""
 
-    REPLACE = 'replace'
-    UPTODATE = 'uptodate'
-    ERROR = 'error'
+    REPLACE = "replace"
+    UPTODATE = "uptodate"
+    ERROR = "error"

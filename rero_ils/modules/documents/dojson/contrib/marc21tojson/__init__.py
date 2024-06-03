@@ -25,5 +25,11 @@ from .rero.model import marc21 as marc21_rero
 from .slsp.model import marc21 as marc21_slsp
 from .ugent.model import marc21 as marc21_ugent
 
-__all__ = ('marc21_dnb', 'marc21_kul', 'marc21_loc', 'marc21_rero',
-           'marc21_slsp', 'marc21_ugent')
+__all__ = (
+    "marc21_dnb",
+    "marc21_kul",
+    "marc21_loc",
+    "marc21_rero",
+    "marc21_slsp",
+    "marc21_ugent",
+)

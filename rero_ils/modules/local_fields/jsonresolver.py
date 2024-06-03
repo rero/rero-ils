@@ -22,13 +22,13 @@ from flask import current_app
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
-@jsonresolver.route('/api/local_fields/<pid>', host='bib.rero.ch')
+@jsonresolver.route("/api/local_fields/<pid>", host="bib.rero.ch")
 def local_field_resolver(pid):
     """Resolver for local_field record."""
-    persistent_id = PersistentIdentifier.get('lofi', pid)
+    persistent_id = PersistentIdentifier.get("lofi", pid)
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)
     current_app.logger.error(
-        f'Local fields resolver error: /api/local_fields/{pid} {persistent_id}'
+        f"Local fields resolver error: /api/local_fields/{pid} {persistent_id}"
     )
-    raise Exception('unable to resolve')
+    raise Exception("unable to resolve")

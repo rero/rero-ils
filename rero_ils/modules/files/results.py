@@ -28,7 +28,7 @@ class MainFileList(FileList):
         """Iterator over the hits."""
         for entry in self._results:
             # keep only the main files
-            if entry.metadata.get('type') in ['fulltext', 'thumbnail']:
+            if entry.metadata.get("type") in ["fulltext", "thumbnail"]:
                 continue
             projection = self._service.file_schema.dump(
                 entry,
@@ -37,7 +37,6 @@ class MainFileList(FileList):
                 ),
             )
             if self._links_item_tpl:
-                projection["links"] = self._links_item_tpl.expand(
-                    self._identity, entry)
+                projection["links"] = self._links_item_tpl.expand(self._identity, entry)
 
             yield projection

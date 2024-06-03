@@ -22,13 +22,13 @@ from flask import current_app
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
-@jsonresolver.route('/api/collections/<pid>', host='bib.rero.ch')
+@jsonresolver.route("/api/collections/<pid>", host="bib.rero.ch")
 def collection_resolver(pid):
     """Resolver for collection record."""
-    persistent_id = PersistentIdentifier.get('coll', pid)
+    persistent_id = PersistentIdentifier.get("coll", pid)
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)
     current_app.logger.error(
-        f'Doc resolver error: /api/collections/{pid} {persistent_id}'
+        f"Doc resolver error: /api/collections/{pid} {persistent_id}"
     )
-    raise Exception('unable to resolve')
+    raise Exception("unable to resolve")

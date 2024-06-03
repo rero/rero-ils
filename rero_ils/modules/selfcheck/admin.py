@@ -39,40 +39,51 @@ class SelfcheckTerminalView(ModelView):
     can_delete = True
 
     list_all = (
-        'id', 'name', 'access_token', 'organisation_pid', 'library_pid',
-        'location_pid', 'active', 'last_login_at', 'last_login_ip',
+        "id",
+        "name",
+        "access_token",
+        "organisation_pid",
+        "library_pid",
+        "location_pid",
+        "active",
+        "last_login_at",
+        "last_login_ip",
     )
 
-    column_list = \
-        column_searchable_list = \
-        column_sortable_list = \
-        column_details_list = \
-        list_all
+    column_list = column_searchable_list = column_sortable_list = (
+        column_details_list
+    ) = list_all
 
-    form_columns = ('name', 'access_token', 'location_pid', 'active')
+    form_columns = ("name", "access_token", "location_pid", "active")
 
     form_args = dict(
-        name=dict(label='Name', validators=[DataRequired()]),
-        access_token=dict(label='Access token', validators=[DataRequired()]),
+        name=dict(label="Name", validators=[DataRequired()]),
+        access_token=dict(label="Access token", validators=[DataRequired()]),
         location_pid=dict(
-            label='Location',
+            label="Location",
             validators=[DataRequired()],
-            choices=LocalProxy(lambda: [
-                (opts.get('location_pid'), opts.get('location_name')) for opts
-                in locations_form_options()
-            ]),
+            choices=LocalProxy(
+                lambda: [
+                    (opts.get("location_pid"), opts.get("location_name"))
+                    for opts in locations_form_options()
+                ]
+            ),
         ),
     )
 
-    column_filters = ('id', 'name', 'active', 'organisation_pid',
-                      'library_pid', 'location_pid', 'last_login_at')
+    column_filters = (
+        "id",
+        "name",
+        "active",
+        "organisation_pid",
+        "library_pid",
+        "location_pid",
+        "last_login_at",
+    )
 
-    column_default_sort = ('last_login_at', True)
+    column_default_sort = ("last_login_at", True)
 
-    form_overrides = {
-        'location_pid': SelectField,
-        'last_login_at': DateTimeField
-    }
+    form_overrides = {"location_pid": SelectField, "last_login_at": DateTimeField}
 
     def on_model_change(self, form, model, is_created):
         """Fill organisation_pid when saving.
@@ -86,37 +97,38 @@ class SelfcheckTerminalView(ModelView):
         """
         location_pid = form.location_pid.data
         location = LocationsSearch().get_record_by_pid(location_pid)
-        model.organisation_pid = location.organisation['pid']
-        model.library_pid = location.library['pid']
+        model.organisation_pid = location.organisation["pid"]
+        model.library_pid = location.library["pid"]
 
 
 def locations_form_options():
     """Get locations form options."""
     location_opts = []
     for org in Organisation.get_all():
-        query = LocationsSearch() \
-            .filter('term', organisation__pid=org.pid) \
-            .exclude('term', is_online=True) \
-            .sort({'code': {'order': 'asc'}}) \
+        query = (
+            LocationsSearch()
+            .filter("term", organisation__pid=org.pid)
+            .exclude("term", is_online=True)
+            .sort({"code": {"order": "asc"}})
             .params(preserve_order=True)
+        )
         for location in query.scan():
-            org_name = org.get('name'),
-            loc_code = location.code,
+            org_name = (org.get("name"),)
+            loc_code = (location.code,)
             loc_name = location.name
-            location_opts.append({
-                'location_pid': location.pid,
-                'location_name': f'{org_name} - {loc_code} ({loc_name})'
-            })
+            location_opts.append(
+                {
+                    "location_pid": location.pid,
+                    "location_name": f"{org_name} - {loc_code} ({loc_name})",
+                }
+            )
     return location_opts
 
 
 selfcheck_terminal_adminview = {
-    'model': SelfcheckTerminal,
-    'modelview': SelfcheckTerminalView,
-    'category': _('Selfcheck Terminal Management'),
+    "model": SelfcheckTerminal,
+    "modelview": SelfcheckTerminalView,
+    "category": _("Selfcheck Terminal Management"),
 }
 
-__all__ = (
-    'selfcheck_terminal_adminview',
-    'SelfcheckTerminalView'
-)
+__all__ = ("selfcheck_terminal_adminview", "SelfcheckTerminalView")

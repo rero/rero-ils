@@ -26,10 +26,10 @@ from .topic import TopicLocalEntity
 from .work import WorkLocalEntity
 
 __all__ = [
-    'OrganisationLocalEntity',
-    'PersonLocalEntity',
-    'PlaceLocalEntity',
-    'TemporalLocalEntity',
-    'TopicLocalEntity',
-    'WorkLocalEntity'
+    "OrganisationLocalEntity",
+    "PersonLocalEntity",
+    "PlaceLocalEntity",
+    "TemporalLocalEntity",
+    "TopicLocalEntity",
+    "WorkLocalEntity",
 ]

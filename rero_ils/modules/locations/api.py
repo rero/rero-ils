@@ -35,9 +35,7 @@ from .models import LocationIdentifier, LocationMetadata
 
 # provider
 LocationProvider = type(
-    'LocationProvider',
-    (Provider,),
-    dict(identifier=LocationIdentifier, pid_type='loc')
+    "LocationProvider", (Provider,), dict(identifier=LocationIdentifier, pid_type="loc")
 )
 # minter
 location_id_minter = partial(id_minter, provider=LocationProvider)
@@ -51,22 +49,26 @@ class LocationsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on locations index."""
 
-        index = 'locations'
+        index = "locations"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
 
-    def location_pids(self, library_pid, source='pid'):
+    def location_pids(self, library_pid, source="pid"):
         """Locations pid for given library.
 
         :param library_pid: string - the library to filter with
         :return: list of pid locations
         :rtype: list
         """
-        return [location.pid for location in self.filter(
-                'term', library__pid=library_pid).source(source).scan()]
+        return [
+            location.pid
+            for location in self.filter("term", library__pid=library_pid)
+            .source(source)
+            .scan()
+        ]
 
     def by_organisation_pid(self, organisation_pid):
         """Build a search to get hits related to an organisation pid.
@@ -75,7 +77,7 @@ class LocationsSearch(IlsRecordsSearch):
         :returns: An ElasticSearch query to get hits related the entity.
         :rtype: `elasticsearch_dsl.Search`
         """
-        return self.filter('term', organisation__pid=organisation_pid)
+        return self.filter("term", organisation__pid=organisation_pid)
 
 
 class Location(IlsRecord):
@@ -86,15 +88,9 @@ class Location(IlsRecord):
     provider = LocationProvider
     model_cls = LocationMetadata
     enable_jsonref = False
-    pids_exist_check = {
-        'required': {
-            'lib': 'library'
-        }
-    }
+    pids_exist_check = {"required": {"lib": "library"}}
 
-    _extensions = [
-        IsPickupToExtension()
-    ]
+    _extensions = [IsPickupToExtension()]
 
     def extended_validation(self, **kwargs):
         """Validate record against schema.
@@ -104,41 +100,45 @@ class Location(IlsRecord):
         is present and not empty if location is pickup
         """
         online_location_pid = self.get_library().online_location
-        if self.get('is_online') and online_location_pid and \
-                self.pid != online_location_pid:
-            return _('Another online location exists in this library')
-        if self.get('is_pickup', False) and \
-                not self.get('pickup_name', '').strip():
-            return _('Pickup location name field is required.')
+        if (
+            self.get("is_online")
+            and online_location_pid
+            and self.pid != online_location_pid
+        ):
+            return _("Another online location exists in this library")
+        if self.get("is_pickup", False) and not self.get("pickup_name", "").strip():
+            return _("Pickup location name field is required.")
         return True
 
     @classmethod
-    def get_pickup_location_pids(cls, patron_pid=None, item_pid=None,
-                                 is_ill_pickup=False):
+    def get_pickup_location_pids(
+        cls, patron_pid=None, item_pid=None, is_ill_pickup=False
+    ):
         """Return pickup locations."""
         from rero_ils.modules.items.api import Item
         from rero_ils.modules.patrons.api import Patron
+
         search = LocationsSearch()
 
         if item_pid:
             loc = Item.get_record_by_pid(item_pid).get_location()
             if loc.restrict_pickup_to:
-                search = search.filter('terms', pid=loc.restrict_pickup_to)
+                search = search.filter("terms", pid=loc.restrict_pickup_to)
 
-        field = 'is_ill_pickup' if is_ill_pickup else 'is_pickup'
-        search = search.filter('term', **{field: True})
+        field = "is_ill_pickup" if is_ill_pickup else "is_pickup"
+        search = search.filter("term", **{field: True})
 
         if patron_pid:
             org_pid = Patron.get_record_by_pid(patron_pid).organisation_pid
-            search = search.filter('term', organisation__pid=org_pid)
+            search = search.filter("term", organisation__pid=org_pid)
 
-        locations = search.source(['pid']).scan()
+        locations = search.source(["pid"]).scan()
         for location in locations:
             yield location.pid
 
     def get_library(self):
         """Get library."""
-        return extracted_data_from_ref(self.get('library'), data='record')
+        return extracted_data_from_ref(self.get("library"), data="record")
 
     def get_links_to_me(self, get_pids=False):
         """Record links.
@@ -149,21 +149,31 @@ class Location(IlsRecord):
         from ..holdings.api import HoldingsSearch
         from ..items.api import ItemsSearch
         from ..loans.api import LoansSearch
-        item_query = ItemsSearch() \
-            .filter('bool', should=[
-                Q('term', location__pid=self.pid),
-                Q('term', temporary_location__pid=self.pid)
-            ])
+
+        item_query = ItemsSearch().filter(
+            "bool",
+            should=[
+                Q("term", location__pid=self.pid),
+                Q("term", temporary_location__pid=self.pid),
+            ],
+        )
         exclude_states = [
-            LoanState.CANCELLED, LoanState.ITEM_RETURNED, LoanState.CREATED]
-        loan_query = LoansSearch() \
-            .filter('bool', should=[
-                Q('term', pickup_location_pid=self.pid),
-                Q('term', transaction_location_pid=self.pid)
-            ]) \
-            .exclude('terms', state=exclude_states)
-        holdings_query = HoldingsSearch() \
-            .filter('term', location__pid=self.pid)
+            LoanState.CANCELLED,
+            LoanState.ITEM_RETURNED,
+            LoanState.CREATED,
+        ]
+        loan_query = (
+            LoansSearch()
+            .filter(
+                "bool",
+                should=[
+                    Q("term", pickup_location_pid=self.pid),
+                    Q("term", transaction_location_pid=self.pid),
+                ],
+            )
+            .exclude("terms", state=exclude_states)
+        )
+        holdings_query = HoldingsSearch().filter("term", location__pid=self.pid)
         links = {}
         if get_pids:
             items = sorted_pids(item_query)
@@ -173,11 +183,7 @@ class Location(IlsRecord):
             items = item_query.count()
             loans = loan_query.count()
             holdings = holdings_query.count()
-        links = {
-            'items': items,
-            'loans': loans,
-            'holdings': holdings
-        }
+        links = {"items": items, "loans": loans, "holdings": holdings}
         return {k: v for k, v in links.items() if v}
 
     def resolve(self):
@@ -191,18 +197,18 @@ class Location(IlsRecord):
         """Get reasons not to delete record."""
         cannot_delete = {}
         if links := self.get_links_to_me():
-            cannot_delete['links'] = links
+            cannot_delete["links"] = links
         return cannot_delete
 
     @property
     def library_pid(self):
         """Get library pid for location."""
-        return extracted_data_from_ref(self.get('library'))
+        return extracted_data_from_ref(self.get("library"))
 
     @property
     def library(self):
         """Get library record related to this location."""
-        return extracted_data_from_ref(self.get('library'), data='record')
+        return extracted_data_from_ref(self.get("library"), data="record")
 
     @property
     def organisation_pid(self):
@@ -217,14 +223,17 @@ class Location(IlsRecord):
         """Get restriction pickup location pid of location."""
         return [
             extracted_data_from_ref(restrict_pickup_to)
-            for restrict_pickup_to in self.get('restrict_pickup_to', [])
+            for restrict_pickup_to in self.get("restrict_pickup_to", [])
         ]
 
     @property
     def pickup_name(self):
         """Get pickup name for location."""
-        return self['pickup_name'] if 'pickup_name' in self \
+        return (
+            self["pickup_name"]
+            if "pickup_name" in self
             else f"{self.library['code']}: {self['name']}"
+        )
 
     @classmethod
     def can_request(cls, record, **kwargs):
@@ -235,12 +244,12 @@ class Location(IlsRecord):
         :return a tuple with True|False and reasons to disallow if False.
         """
         if record:
-            location_method = 'get_location'
-            if hasattr(record, 'get_circulation_location'):
-                location_method = 'get_circulation_location'
+            location_method = "get_location"
+            if hasattr(record, "get_circulation_location"):
+                location_method = "get_circulation_location"
             location = getattr(record, location_method)()
-            if not location.get('allow_request', False):
-                return False, [_('Record location disallows request.')]
+            if not location.get("allow_request", False):
+                return False, [_("Record location disallows request.")]
         return True, []
 
     def transaction_location_validator(self, location_pid):
@@ -265,4 +274,4 @@ class LocationsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='loc')
+        super().bulk_index(record_id_iterator, doc_type="loc")

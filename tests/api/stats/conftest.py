@@ -26,42 +26,32 @@ from rero_ils.modules.stats.api.pricing import StatsForPricing
 from rero_ils.modules.stats.api.report import StatsReport
 
 
-@pytest.fixture(scope='module')
-def stats(item_lib_martigny, item_lib_fully, item_lib_sion,
-          ill_request_martigny):
+@pytest.fixture(scope="module")
+def stats(item_lib_martigny, item_lib_fully, item_lib_sion, ill_request_martigny):
     """Stats fixture."""
     stats = StatsForPricing(to_date=arrow.utcnow())
     yield Stat.create(
-        data=dict(
-            type='billing',
-            values=stats.collect()
-        ),
-        dbcommit=True,
-        reindex=True
+        data=dict(type="billing", values=stats.collect()), dbcommit=True, reindex=True
     )
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def stats_librarian(item_lib_martigny, item_lib_fully, item_lib_sion):
     """Stats fixture for librarian."""
     stats_librarian = StatsForLibrarian()
     date_range = {
-        'from': stats_librarian.date_range['gte'],
-        'to': stats_librarian.date_range['lte']
+        "from": stats_librarian.date_range["gte"],
+        "to": stats_librarian.date_range["lte"],
     }
     stats_values = stats_librarian.collect()
     yield Stat.create(
-        data=dict(
-            type='librarian',
-            date_range=date_range,
-            values=stats_values
-        ),
+        data=dict(type="librarian", date_range=date_range, values=stats_values),
         dbcommit=True,
-        reindex=True
+        reindex=True,
     )
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def stats_report_martigny(stats_cfg_martigny, item_lib_martigny):
     """Stats fixture for librarian."""
     stat_report = StatsReport(stats_cfg_martigny)

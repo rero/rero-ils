@@ -31,8 +31,8 @@ from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.dumpers import PatronNotificationDumper
 from rero_ils.utils import language_iso639_2to1
 
-from .circulation import CirculationNotification
 from ..models import NotificationChannel
+from .circulation import CirculationNotification
 
 
 class BookingCirculationNotification(CirculationNotification):
@@ -67,7 +67,7 @@ class BookingCirculationNotification(CirculationNotification):
     def get_language_to_use(self):
         """Get the language to use when dispatching the notification."""
         lib = self.pickup_library or self.transaction_library
-        return lib.get('communication_language')
+        return lib.get("communication_language")
 
     def get_recipients_to(self):
         """Get notification email addresses for 'TO' recipient type."""
@@ -78,7 +78,7 @@ class BookingCirculationNotification(CirculationNotification):
     @classmethod
     def get_notification_context(cls, notifications=None):
         """Get the context to render the notification template."""
-        context = {'loans': []}
+        context = {"loans": []}
         notifications = notifications or []
 
         item_dumper = ItemNotificationDumper()
@@ -86,33 +86,34 @@ class BookingCirculationNotification(CirculationNotification):
         for notification in notifications:
             loan = notification.loan
             creation_date = format_date_filter(
-                notification.get('creation_date'), date_format='medium',
-                locale=language_iso639_2to1(notification.get_language_to_use())
+                notification.get("creation_date"),
+                date_format="medium",
+                locale=language_iso639_2to1(notification.get_language_to_use()),
             )
             # merge doc and item metadata preserving document key
             item_data = notification.item.dumps(dumper=item_dumper)
-            doc_data = notification.document.dumps(
-                dumper=document_title_dumper)
+            doc_data = notification.document.dumps(dumper=document_title_dumper)
             doc_data = {**item_data, **doc_data}
             # pickup location name --> !! pickup is on notif.request_loan, not
             # on notif.loan
             request_loan = notification.request_loan
             pickup_location = Location.get_record_by_pid(
-                request_loan.get('pickup_location_pid')) or \
-                Location.get_record_by_pid(
-                    request_loan.get('transaction_location_pid'))
+                request_loan.get("pickup_location_pid")
+            ) or Location.get_record_by_pid(
+                request_loan.get("transaction_location_pid")
+            )
             # request_patron
-            request_patron = Patron.get_record_by_pid(
-                request_loan.get('patron_pid'))
+            request_patron = Patron.get_record_by_pid(request_loan.get("patron_pid"))
 
             loan_context = {
-                'creation_date': creation_date,
-                'in_transit': loan.state in LoanState.ITEM_IN_TRANSIT,
-                'document': doc_data,
-                'pickup_name': pickup_location.get(
-                    'pickup_name', pickup_location.get('name')),
-                'patron': request_patron.dumps(dumper=patron_dumper)
+                "creation_date": creation_date,
+                "in_transit": loan.state in LoanState.ITEM_IN_TRANSIT,
+                "document": doc_data,
+                "pickup_name": pickup_location.get(
+                    "pickup_name", pickup_location.get("name")
+                ),
+                "patron": request_patron.dumps(dumper=patron_dumper),
             }
-            context['loans'].append(loan_context)
+            context["loans"].append(loan_context)
 
         return context

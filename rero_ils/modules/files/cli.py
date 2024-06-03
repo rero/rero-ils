@@ -60,8 +60,7 @@ def create_pdf_file(document):
     return generator.output()
 
 
-def create_pdf_record_files(document, metadata, flush=False,
-                            number_of_files=1):
+def create_pdf_record_files(document, metadata, flush=False, number_of_files=1):
     """Creates and attach a pdf file to a given document.
 
     :param document: Document - the document record.
@@ -70,8 +69,7 @@ def create_pdf_record_files(document, metadata, flush=False,
     :param file_name_suffix: str - a suffix to add to the file name.
     """
     # add document link
-    metadata.setdefault(
-        "document", {'$ref': get_ref_for_pid('doc', document.pid)})
+    metadata.setdefault("document", {"$ref": get_ref_for_pid("doc", document.pid)})
     ext = current_app.extensions["rero-invenio-files"]
     # get services
     record_service = ext.records_service
@@ -82,10 +80,13 @@ def create_pdf_record_files(document, metadata, flush=False,
     try:
         record = next(
             document.get_records_files(
-                lib_pids=[extracted_data_from_ref(metadata.get('library'))]))
+                lib_pids=[extracted_data_from_ref(metadata.get("library"))]
+            )
+        )
     except StopIteration:
         item = record_service.create(
-            identity=system_identity, data={"metadata": metadata})
+            identity=system_identity, data={"metadata": metadata}
+        )
         record = item._record
         record.commit()
         # index the file record
@@ -101,10 +102,7 @@ def create_pdf_record_files(document, metadata, flush=False,
             # TODO: find a cleaner approach i.e. create a permission to allow
             # boolean operators
             file_service.init_files(
-                identity=system_identity,
-                id_=recid,
-                data=[{"key": file_name}],
-                uow=uow
+                identity=system_identity, id_=recid, data=[{"key": file_name}], uow=uow
             )
             file_service.set_file_content(
                 identity=system_identity,
@@ -114,15 +112,11 @@ def create_pdf_record_files(document, metadata, flush=False,
                 uow=uow,
             )
             file_service.commit_file(
-                identity=system_identity,
-                id_=recid,
-                file_key=file_name,
-                uow=uow
+                identity=system_identity, id_=recid, file_key=file_name, uow=uow
             )
         uow.commit()
     if flush:
-        current_search.flush_and_refresh(
-            record_service.record_cls.index._name)
+        current_search.flush_and_refresh(record_service.record_cls.index._name)
     return record
 
 
@@ -133,8 +127,7 @@ def load_files_for_document(document, metadata, files):
     :param metadata: dict - record metadata.
     :param files: list of str - file paths.
     """
-    metadata.setdefault(
-        "document", {"$ref": get_ref_for_pid('doc', document.pid)})
+    metadata.setdefault("document", {"$ref": get_ref_for_pid("doc", document.pid)})
     ext = current_app.extensions["rero-invenio-files"]
     # get services
     record_service = ext.records_service
@@ -142,10 +135,13 @@ def load_files_for_document(document, metadata, files):
     try:
         record = next(
             document.get_records_files(
-                lib_pids=[extracted_data_from_ref(metadata.get('library'))]))
+                lib_pids=[extracted_data_from_ref(metadata.get("library"))]
+            )
+        )
     except StopIteration:
         item = record_service.create(
-            identity=system_identity, data={"metadata": metadata})
+            identity=system_identity, data={"metadata": metadata}
+        )
         record = item._record
         record.commit()
         # index the file record
@@ -161,30 +157,24 @@ def load_files_for_document(document, metadata, files):
             file_name = os.path.basename(file_path)
             stream = open(file_path, "rb")
             file_service.init_files(
-                identity=system_identity,
-                id_=recid,
-                data=[{"key": file_name}],
-                uow=uow
+                identity=system_identity, id_=recid, data=[{"key": file_name}], uow=uow
             )
             file_service.set_file_content(
                 identity=system_identity,
                 id_=recid,
                 file_key=file_name,
                 stream=stream,
-                uow=uow
+                uow=uow,
             )
             file_service.commit_file(
-                identity=system_identity,
-                id_=recid,
-                file_key=file_name,
-                uow=uow)
+                identity=system_identity, id_=recid, file_key=file_name, uow=uow
+            )
         uow.commit()
 
 
 @click.command()
 @click.argument("number", type=int)
-@click.option("-c", "--collections", multiple=True,
-              default=["col1", "col2", "col3"])
+@click.option("-c", "--collections", multiple=True, default=["col1", "col2", "col3"])
 @with_appcontext
 def create_files(number, collections):
     """Create attached files.
@@ -207,10 +197,10 @@ def create_files(number, collections):
         lib_pid = choice(lib_pids)
         metadata = dict(
             collections=[choice(collections)],
-            library={'$ref': get_ref_for_pid('lib', lib_pid)})
+            library={"$ref": get_ref_for_pid("lib", lib_pid)},
+        )
         create_pdf_record_files(
-            document=doc, metadata=metadata, flush=True,
-            number_of_files=number_of_files
+            document=doc, metadata=metadata, flush=True, number_of_files=number_of_files
         )
 
 
@@ -228,8 +218,9 @@ def load_files(document_pid, library_pid, files, collections):
     """
     doc = Document.get_record_by_pid(document_pid)
     metadata = dict(
-        document={"$ref": get_ref_for_pid('doc', document_pid)},
-        library={"$ref": get_ref_for_pid('lib', library_pid)})
+        document={"$ref": get_ref_for_pid("doc", document_pid)},
+        library={"$ref": get_ref_for_pid("lib", library_pid)},
+    )
     if collections:
         metadata["collections"] = collections
     click.secho(f"Loading {len(files)} files...", fg="green")

@@ -26,16 +26,14 @@ from rero_ils.modules.decorators import check_logged_as_librarian
 
 from .proxy import MEFProxyFactory
 
-api_blueprint = Blueprint(
-    'api_remote_entities',
-    __name__
+api_blueprint = Blueprint("api_remote_entities", __name__)
+
+
+@api_blueprint.route(
+    "/remote_entities/search/<term>", defaults={"entity_type": "agents"}
 )
-
-
-@api_blueprint.route('/remote_entities/search/<term>',
-                     defaults={'entity_type': 'agents'})
-@api_blueprint.route('/remote_entities/search/<entity_type>/<term>')
-@api_blueprint.route('/remote_entities/search/<entity_type>/<term>/')
+@api_blueprint.route("/remote_entities/search/<entity_type>/<term>")
+@api_blueprint.route("/remote_entities/search/<entity_type>/<term>/")
 @check_logged_as_librarian
 def remote_search_proxy(entity_type, term):
     """Proxy to search entities on remote server.

@@ -30,24 +30,23 @@ def test_vendors_properties(vendor_martigny, vendor_sion):
 
     # CONTACTS ----------------------------------------------------------------
     serial_info = {
-        'type': VendorContactType.SERIAL,
-        'city': 'Berne',
-        'email': 'serial@berne.ch'
+        "type": VendorContactType.SERIAL,
+        "city": "Berne",
+        "email": "serial@berne.ch",
     }
-    vendor_martigny['contacts'].append(serial_info)
+    vendor_martigny["contacts"].append(serial_info)
     assert not vendor_martigny.get_contact(VendorContactType.ORDER)
     assert vendor_martigny.get_contact(VendorContactType.SERIAL) == serial_info
 
     # ORDER EMAIL -------------------------------------------------------------
     #   With no specific ORDER contact type, the default contact email field
     #   should be returned
-    assert vendor_martigny.order_email == \
-           vendor_martigny.get_contact(VendorContactType.DEFAULT).get('email')
+    assert vendor_martigny.order_email == vendor_martigny.get_contact(
+        VendorContactType.DEFAULT
+    ).get("email")
 
 
-def test_vendors_get_links_to_me(
-    vendor_martigny, acq_invoice_fiction_martigny
-):
+def test_vendors_get_links_to_me(vendor_martigny, acq_invoice_fiction_martigny):
     """Test vendors relations."""
     links = vendor_martigny.get_links_to_me(True)
-    assert acq_invoice_fiction_martigny.pid in links['acq_invoices']
+    assert acq_invoice_fiction_martigny.pid in links["acq_invoices"]

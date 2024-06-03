@@ -32,6 +32,7 @@ class LocalizedAuthorizedAccessPointDumper(Dumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         for language in get_i18n_supported_languages():
-            data[f'authorized_access_point_{language}'] = \
+            data[f"authorized_access_point_{language}"] = (
                 record.get_authorized_access_point(language)
+            )
         return data

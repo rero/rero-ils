@@ -46,10 +46,9 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == [{
-        "main_type": "docmaintype_book",
-        "subtype": "docsubtype_other_book"
-    }]
+    assert data.get("type") == [
+        {"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}
+    ]
 
     unimarcxml = """
     <record>
@@ -58,9 +57,7 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == [{
-        "main_type": "docmaintype_serial"
-    }]
+    assert data.get("type") == [{"main_type": "docmaintype_serial"}]
 
     unimarcxml = """
     <record>
@@ -69,9 +66,11 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == [{
-        "main_type": "docmaintype_article",
-    }]
+    assert data.get("type") == [
+        {
+            "main_type": "docmaintype_article",
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -80,10 +79,9 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == [{
-        "main_type": "docmaintype_score",
-        "subtype": "docsubtype_printed_score"
-    }]
+    assert data.get("type") == [
+        {"main_type": "docmaintype_score", "subtype": "docsubtype_printed_score"}
+    ]
 
     unimarcxml = """
     <record>
@@ -92,10 +90,9 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == [{
-        "main_type": "docmaintype_score",
-        "subtype": "docsubtype_printed_score"
-    }]
+    assert data.get("type") == [
+        {"main_type": "docmaintype_score", "subtype": "docsubtype_printed_score"}
+    ]
 
     unimarcxml = """
     <record>
@@ -104,10 +101,9 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == [{
-        "main_type": "docmaintype_audio",
-        "subtype": "docsubtype_music"
-    }]
+    assert data.get("type") == [
+        {"main_type": "docmaintype_audio", "subtype": "docsubtype_music"}
+    ]
 
     unimarcxml = """
     <record>
@@ -116,10 +112,9 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == [{
-        "main_type": "docmaintype_audio",
-        "subtype": "docsubtype_music"
-    }]
+    assert data.get("type") == [
+        {"main_type": "docmaintype_audio", "subtype": "docsubtype_music"}
+    ]
 
     unimarcxml = """
     <record>
@@ -128,10 +123,9 @@ def test_unimarc_to_type():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('type') == [{
-        "main_type": "docmaintype_movie_series",
-        "subtype": "docsubtype_movie"
-    }]
+    assert data.get("type") == [
+        {"main_type": "docmaintype_movie_series", "subtype": "docsubtype_movie"}
+    ]
 
 
 def test_marc21_to_mode_of_issuance():
@@ -151,10 +145,7 @@ def test_marc21_to_mode_of_issuance():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1001',
-        'subtype': 'article'
-    }
+    assert data.get("issuance") == {"main_type": "rdami:1001", "subtype": "article"}
 
     unimarcxml = """
     <record>
@@ -163,9 +154,9 @@ def test_marc21_to_mode_of_issuance():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1001',
-        'subtype': 'materialUnit'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1001",
+        "subtype": "materialUnit",
     }
 
     unimarcxml = """
@@ -175,10 +166,7 @@ def test_marc21_to_mode_of_issuance():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1001',
-        'subtype': 'privateFile'
-    }
+    assert data.get("issuance") == {"main_type": "rdami:1001", "subtype": "privateFile"}
 
     #  rdami:1003 (serial)
     #    serialInSerial > no equivalence
@@ -194,10 +182,7 @@ def test_marc21_to_mode_of_issuance():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1003',
-        'subtype': 'periodical'
-    }
+    assert data.get("issuance") == {"main_type": "rdami:1003", "subtype": "periodical"}
 
     unimarcxml = """
     <record>
@@ -209,9 +194,9 @@ def test_marc21_to_mode_of_issuance():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1003',
-        'subtype': 'monographicSeries'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1003",
+        "subtype": "monographicSeries",
     }
 
     # rdami:1004 (integrating resource)
@@ -227,9 +212,9 @@ def test_marc21_to_mode_of_issuance():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1004',
-        'subtype': 'updatingWebsite'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1004",
+        "subtype": "updatingWebsite",
     }
 
     unimarcxml = """
@@ -242,9 +227,9 @@ def test_marc21_to_mode_of_issuance():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1004',
-        'subtype': 'updatingWebsite'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1004",
+        "subtype": "updatingWebsite",
     }
 
     unimarcxml = """
@@ -257,9 +242,9 @@ def test_marc21_to_mode_of_issuance():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1004',
-        'subtype': 'updatingWebsite'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1004",
+        "subtype": "updatingWebsite",
     }
 
     unimarcxml = """
@@ -272,9 +257,9 @@ def test_marc21_to_mode_of_issuance():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('issuance') == {
-        'main_type': 'rdami:1004',
-        'subtype': 'updatingLoose-leaf'
+    assert data.get("issuance") == {
+        "main_type": "rdami:1004",
+        "subtype": "updatingLoose-leaf",
     }
 
 
@@ -297,50 +282,21 @@ def test_unimarc_to_title():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'mainTitle': [
+            "mainTitle": [{"value": "main title"}],
+            "subtitle": [{"value": "subtitle"}],
+            "part": [
                 {
-                    'value': 'main title'
-                }
-            ],
-            'subtitle': [
-                {
-                    'value': 'subtitle'
-                }
-            ],
-            'part': [
-                {
-                    'partNumber': [
-                        {
-                            'value': 'Part Number'
-                        }
-                    ],
-                    'partName': [
-                        {
-                            'value': 'Part Name'
-                        }
-                    ]
+                    "partNumber": [{"value": "Part Number"}],
+                    "partName": [{"value": "Part Name"}],
                 },
-                {
-                    'partName': [
-                        {
-                            'value': 'Part Name 2'
-                        }
-                    ]
-                }
-
+                {"partName": [{"value": "Part Name 2"}]},
             ],
-            'type': 'bf:Title'
+            "type": "bf:Title",
         }
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {
-                'value': 'responsibility'
-            }
-        ]
-    ]
+    assert data.get("responsibilityStatement") == [[{"value": "responsibility"}]]
 
     # field 200 to bf:Title
     # field 200 with $a, $f
@@ -354,23 +310,10 @@ def test_unimarc_to_title():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('title') == [
-        {
-            'mainTitle': [
-                {
-                    'value': 'main title'
-                }
-            ],
-            'type': 'bf:Title'
-        }
+    assert data.get("title") == [
+        {"mainTitle": [{"value": "main title"}], "type": "bf:Title"}
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {
-                'value': 'responsibility'
-            }
-        ]
-    ]
+    assert data.get("responsibilityStatement") == [[{"value": "responsibility"}]]
 
     # field 200 to bf:Title
     # field 200 with $a
@@ -383,17 +326,10 @@ def test_unimarc_to_title():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('title') == [
-        {
-            'mainTitle': [
-                {
-                    'value': 'main title'
-                }
-            ],
-            'type': 'bf:Title'
-        }
+    assert data.get("title") == [
+        {"mainTitle": [{"value": "main title"}], "type": "bf:Title"}
     ]
-    assert data.get('responsibilityStatement') is None
+    assert data.get("responsibilityStatement") is None
 
 
 def test_unimarc_to_title_with_alt_graphic_with_bad_lang():
@@ -423,32 +359,18 @@ def test_unimarc_to_title_with_alt_graphic_with_bad_lang():
 
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'mainTitle': [
-                {
-                    'value': 'Aẖbār min Marrākuš'
-                },
-                {
-                     'value': 'أخبار من مراكش',
-                     'language': 'und-arab'
-                }
-
+            "mainTitle": [
+                {"value": "Aẖbār min Marrākuš"},
+                {"value": "أخبار من مراكش", "language": "und-arab"},
             ],
-            'type': 'bf:Title'
+            "type": "bf:Title",
         }
     ]
 
-    assert data.get('responsibilityStatement') == [
-        [
-            {
-                'value': 'al-Ṭāhir ibn Ǧullūn'
-            },
-            {
-                'value': 'لمبرون',
-                'language': 'und-arab'
-            }
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "al-Ṭāhir ibn Ǧullūn"}, {"value": "لمبرون", "language": "und-arab"}]
     ]
 
 
@@ -479,31 +401,18 @@ def test_unimarc_to_title_with_alt_graphic():
 
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'mainTitle': [
-                {
-                    'value': 'Aẖbār min Marrākuš'
-                },
-                {
-                     'value': 'أخبار من مراكش',
-                     'language': 'ara-arab'
-                }
+            "mainTitle": [
+                {"value": "Aẖbār min Marrākuš"},
+                {"value": "أخبار من مراكش", "language": "ara-arab"},
             ],
-            'type': 'bf:Title'
+            "type": "bf:Title",
         }
     ]
 
-    assert data.get('responsibilityStatement') == [
-        [
-            {
-                'value': 'al-Ṭāhir ibn Ǧullūn'
-            },
-            {
-                'value': 'لمبرون',
-                'language': 'ara-arab'
-            }
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "al-Ṭāhir ibn Ǧullūn"}, {"value": "لمبرون", "language": "ara-arab"}]
     ]
 
 
@@ -535,73 +444,33 @@ def test_unimarctotitle_with_parallel_title():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'mainTitle': [
+            "mainTitle": [{"value": "main title"}],
+            "subtitle": [{"value": "subtitle"}],
+            "part": [
                 {
-                    'value': 'main title'
+                    "partNumber": [{"value": "Part Number"}],
+                    "partName": [{"value": "Part Name"}],
                 }
             ],
-            'subtitle': [
-                {
-                    'value': 'subtitle'
-                }
-            ],
-            'part': [
-                {
-                    'partNumber': [
-                        {
-                            'value': 'Part Number'
-                        }
-                    ],
-                    'partName': [
-                        {
-                            'value': 'Part Name'
-                        }
-                    ]
-                }
-            ],
-            'type': 'bf:Title'
+            "type": "bf:Title",
         },
         {
-            'mainTitle': [
+            "mainTitle": [{"value": "main parallel title"}],
+            "subtitle": [{"value": "parallel subtitle"}],
+            "part": [
                 {
-                    'value': 'main parallel title'
+                    "partNumber": [{"value": "Part Number parallel"}],
+                    "partName": [{"value": "Part Name parallel"}],
                 }
             ],
-            'subtitle': [
-                {
-                    'value': 'parallel subtitle'
-                }
-            ],
-            'part': [
-                {
-                    'partNumber': [
-                        {
-                            'value': 'Part Number parallel'
-                        }
-                    ],
-                    'partName': [
-                        {
-                            'value': 'Part Name parallel'
-                        }
-                    ]
-                }
-            ],
-            'type': 'bf:ParallelTitle'
-        }
+            "type": "bf:ParallelTitle",
+        },
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {
-                'value': 'responsibility f'
-            }
-        ],
-        [
-            {
-                'value': 'responsibility g'
-            }
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "responsibility f"}],
+        [{"value": "responsibility g"}],
     ]
 
 
@@ -651,127 +520,55 @@ def test_unimarctotitle_with_parallel_and_variant_title():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('title') == [
+    assert data.get("title") == [
         {
-            'mainTitle': [
+            "mainTitle": [{"value": "main title"}],
+            "subtitle": [{"value": "subtitle"}],
+            "part": [
                 {
-                    'value': 'main title'
+                    "partNumber": [{"value": "Part Number"}],
+                    "partName": [{"value": "Part Name"}],
                 }
             ],
-            'subtitle': [
-                {
-                    'value': 'subtitle'
-                }
-            ],
-            'part': [
-                {
-                    'partNumber': [
-                        {
-                            'value': 'Part Number'
-                        }
-                    ],
-                    'partName': [
-                        {
-                            'value': 'Part Name'
-                        }
-                    ]
-                }
-            ],
-            'type': 'bf:Title'
+            "type": "bf:Title",
         },
         {
-            'mainTitle': [
+            "mainTitle": [{"value": "main parallel title"}],
+            "subtitle": [{"value": "parallel subtitle"}],
+            "part": [
                 {
-                    'value': 'main parallel title'
+                    "partNumber": [{"value": "Part Number parallel"}],
+                    "partName": [{"value": "Part Name parallel"}],
                 }
             ],
-            'subtitle': [
-                {
-                    'value': 'parallel subtitle'
-                }
-            ],
-            'part': [
-                {
-                    'partNumber': [
-                        {
-                            'value': 'Part Number parallel'
-                        }
-                    ],
-                    'partName': [
-                        {
-                            'value': 'Part Name parallel'
-                        }
-                    ]
-                }
-            ],
-            'type': 'bf:ParallelTitle'
+            "type": "bf:ParallelTitle",
         },
         {
-            'mainTitle': [
+            "mainTitle": [{"value": "main variant title 512"}],
+            "subtitle": [{"value": "variant subtitle 512"}],
+            "part": [
                 {
-                    'value': 'main variant title 512'
+                    "partNumber": [{"value": "Part Number variant 512"}],
+                    "partName": [{"value": "Part Name variant 512"}],
                 }
             ],
-            'subtitle': [
-                {
-                    'value': 'variant subtitle 512'
-                }
-            ],
-            'part': [
-                {
-                    'partNumber': [
-                        {
-                            'value': 'Part Number variant 512'
-                        }
-                    ],
-                    'partName': [
-                        {
-                            'value': 'Part Name variant 512'
-                        }
-                    ]
-                }
-            ],
-            'type': 'bf:VariantTitle'
+            "type": "bf:VariantTitle",
         },
         {
-            'mainTitle': [
+            "mainTitle": [{"value": "main variant title 514"}],
+            "subtitle": [{"value": "variant subtitle 514"}],
+            "part": [
                 {
-                    'value': 'main variant title 514'
+                    "partNumber": [{"value": "Part Number variant 514"}],
+                    "partName": [{"value": "Part Name variant 514"}],
                 }
             ],
-            'subtitle': [
-                {
-                    'value': 'variant subtitle 514'
-                }
-            ],
-            'part': [
-                {
-                    'partNumber': [
-                        {
-                            'value': 'Part Number variant 514'
-                        }
-                    ],
-                    'partName': [
-                        {
-                            'value': 'Part Name variant 514'
-                        }
-                    ]
-                }
-            ],
-            'type': 'bf:VariantTitle'
-        }
+            "type": "bf:VariantTitle",
+        },
     ]
-    assert data.get('responsibilityStatement') == [
-        [
-            {
-                'value': 'responsibility f'
-            }
-        ],
-        [
-            {
-                'value': 'responsibility g'
-            }
-        ]
+    assert data.get("responsibilityStatement") == [
+        [{"value": "responsibility f"}],
+        [{"value": "responsibility g"}],
     ]
 
 
@@ -788,7 +585,7 @@ def test_unimarc_languages():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('language') == [{'value': 'eng', 'type': 'bf:Language'}]
+    assert data.get("language") == [{"value": "eng", "type": "bf:Language"}]
 
     unimarcxml = """
     <record>
@@ -801,9 +598,9 @@ def test_unimarc_languages():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('language') == [
-        {'value': 'eng', 'type': 'bf:Language'},
-        {'value': 'fre', 'type': 'bf:Language'}
+    assert data.get("language") == [
+        {"value": "eng", "type": "bf:Language"},
+        {"value": "fre", "type": "bf:Language"},
     ]
 
     unimarcxml = """
@@ -817,8 +614,8 @@ def test_unimarc_languages():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('language') == [
-        {'value': 'eng', 'type': 'bf:Language'},
+    assert data.get("language") == [
+        {"value": "eng", "type": "bf:Language"},
     ]
 
 
@@ -863,50 +660,44 @@ def test_unimarc_contribution():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    contribution = data.get('contribution')
+    contribution = data.get("contribution")
     assert contribution == [
         {
-            'entity': {
-                'type': 'bf:Person',
-                'authorized_access_point': 'Jean-Paul II, Pape, 1954'
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Jean-Paul II, Pape, 1954",
             },
-            'role': ['aut']
+            "role": ["aut"],
         },
         {
-            'entity': {
-                'type': 'bf:Person',
-                'authorized_access_point': 'Dumont, Jean, 1921-2014, Historien'
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Dumont, Jean, 1921-2014, Historien",
             },
-            'role': ['aut']
+            "role": ["aut"],
         },
         {
-            'entity': {
-                'type': 'bf:Person',
-                'authorized_access_point': 'Dicker, J., 1921'
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Dicker, J., 1921",
             },
-            'role': ['aut']
+            "role": ["aut"],
         },
         {
-            'entity': {
-                'type': 'bf:Organisation',
-                'authorized_access_point': 'RERO'
-            },
-            'role': ['aut']
+            "entity": {"type": "bf:Organisation", "authorized_access_point": "RERO"},
+            "role": ["aut"],
         },
         {
-            'entity': {
-                'type': 'bf:Organisation',
-                'authorized_access_point': 'LOC (1 : 2020-02-02 : London)'
+            "entity": {
+                "type": "bf:Organisation",
+                "authorized_access_point": "LOC (1 : 2020-02-02 : London)",
             },
-            'role': ['aut']
+            "role": ["aut"],
         },
         {
-            'entity': {
-                'type': 'bf:Organisation',
-                'authorized_access_point': 'BNF'
-            },
-            'role': ['aut']
-        }
+            "entity": {"type": "bf:Organisation", "authorized_access_point": "BNF"},
+            "role": ["aut"],
+        },
     ]
 
 
@@ -924,19 +715,11 @@ def test_unimarc_edition():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('editionStatement') == [
-      {
-        'editionDesignation': [
-          {
-            'value': '2e ed.'
-          }
-        ],
-        'responsibility': [
-          {
-            'value': 'avec un avant-propos par Jean Faret'
-          }
-        ]
-      }
+    assert data.get("editionStatement") == [
+        {
+            "editionDesignation": [{"value": "2e ed."}],
+            "responsibility": [{"value": "avec un avant-propos par Jean Faret"}],
+        }
     ]
 
 
@@ -957,30 +740,17 @@ def test_unimarc_publishers_provision_activity():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Lausanne'}
-                ],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Payot'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': '2015'}
-                ],
-                'type': 'Date'
-            }
-        ],
-        'startDate': 2015,
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Publication",
+            "statement": [
+                {"label": [{"value": "Lausanne"}], "type": "bf:Place"},
+                {"label": [{"value": "Payot"}], "type": "bf:Agent"},
+                {"label": [{"value": "2015"}], "type": "Date"},
+            ],
+            "startDate": 2015,
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -999,42 +769,20 @@ def test_unimarc_publishers_provision_activity():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('provisionActivity') == [
+    assert data.get("provisionActivity") == [
         {
-            'type': 'bf:Publication',
-            'statement': [
-                {
-                    'label': [
-                        {'value': 'Lausanne'}
-                    ],
-                    'type': 'bf:Place'
-                },
-                {
-                    'label': [
-                        {'value': 'Payot'}
-                    ],
-                    'type': 'bf:Agent'
-                },
-                {
-                    'label': [
-                        {'value': '2015'}
-                    ],
-                    'type': 'Date'
-                }
+            "type": "bf:Publication",
+            "statement": [
+                {"label": [{"value": "Lausanne"}], "type": "bf:Place"},
+                {"label": [{"value": "Payot"}], "type": "bf:Agent"},
+                {"label": [{"value": "2015"}], "type": "Date"},
             ],
-            'startDate': 2015,
+            "startDate": 2015,
         },
         {
-            'statement': [
-                {
-                    'label': [
-                        {'value': 'Lausanne'}
-                    ],
-                    'type': 'bf:Place'
-                }
-            ],
-            'type': 'bf:Manufacture'
-        }
+            "statement": [{"label": [{"value": "Lausanne"}], "type": "bf:Place"}],
+            "type": "bf:Manufacture",
+        },
     ]
 
     unimarcxml = """
@@ -1052,40 +800,20 @@ def test_unimarc_publishers_provision_activity():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'place': [
-            {
-                'country': 'fr'
-            },
-        ],
-        'statement': [
-            {
-                'label': [
-                    {'value': '[Paris]'}
-                ],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Desclée de Brouwer [puis]'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': 'Etudes augustiniennes'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': '[1969-1999]'}
-                ],
-                'type': 'Date'
-            }
-        ]
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Publication",
+            "place": [
+                {"country": "fr"},
+            ],
+            "statement": [
+                {"label": [{"value": "[Paris]"}], "type": "bf:Place"},
+                {"label": [{"value": "Desclée de Brouwer [puis]"}], "type": "bf:Agent"},
+                {"label": [{"value": "Etudes augustiniennes"}], "type": "bf:Agent"},
+                {"label": [{"value": "[1969-1999]"}], "type": "Date"},
+            ],
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -1100,41 +828,18 @@ def test_unimarc_publishers_provision_activity():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Publication',
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Paris'}
-                ],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Champion'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': 'Genève'}
-                ],
-                'type': 'bf:Place'
-            },
-            {
-                'label': [
-                    {'value': 'Droz'}
-                ],
-                'type': 'bf:Agent'
-            },
-            {
-                'label': [
-                    {'value': '1912-1955'}
-                ],
-                'type': 'Date'
-            }
-        ]
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Publication",
+            "statement": [
+                {"label": [{"value": "Paris"}], "type": "bf:Place"},
+                {"label": [{"value": "Champion"}], "type": "bf:Agent"},
+                {"label": [{"value": "Genève"}], "type": "bf:Place"},
+                {"label": [{"value": "Droz"}], "type": "bf:Agent"},
+                {"label": [{"value": "1912-1955"}], "type": "Date"},
+            ],
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -1145,17 +850,12 @@ def test_unimarc_publishers_provision_activity():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Production',
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Lausanne'}
-                ],
-                'type': 'bf:Place'
-            }
-        ],
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Production",
+            "statement": [{"label": [{"value": "Lausanne"}], "type": "bf:Place"}],
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -1166,17 +866,12 @@ def test_unimarc_publishers_provision_activity():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Distribution',
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Lausanne'}
-                ],
-                'type': 'bf:Place'
-            }
-        ],
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Distribution",
+            "statement": [{"label": [{"value": "Lausanne"}], "type": "bf:Place"}],
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -1187,17 +882,12 @@ def test_unimarc_publishers_provision_activity():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('provisionActivity') == [{
-        'type': 'bf:Manufacture',
-        'statement': [
-            {
-                'label': [
-                    {'value': 'Lausanne'}
-                ],
-                'type': 'bf:Place'
-            }
-        ],
-    }]
+    assert data.get("provisionActivity") == [
+        {
+            "type": "bf:Manufacture",
+            "statement": [{"label": [{"value": "Lausanne"}], "type": "bf:Place"}],
+        }
+    ]
 
 
 def test_unimarc_copyright_date():
@@ -1211,7 +901,7 @@ def test_unimarc_copyright_date():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('copyrightDate') == ['© 1919']
+    assert data.get("copyrightDate") == ["© 1919"]
 
     unimarcxml = """
     <record>
@@ -1222,7 +912,7 @@ def test_unimarc_copyright_date():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('copyrightDate') == ['℗ 1919']
+    assert data.get("copyrightDate") == ["℗ 1919"]
 
 
 def test_unimarc_description():
@@ -1246,16 +936,13 @@ def test_unimarc_description():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('extent') == '116 p.'
-    assert data.get('illustrativeContent') == ['illustrations']
-    assert data.get('dimensions') == ['22 cm']
-    assert data.get('note') == [{
-            'noteType': 'otherPhysicalDetails',
-            'label': 'ill.'
-        }, {
-            'noteType': 'accompanyingMaterial',
-            'label': '1 volume (200 pages)'
-        }]
+    assert data.get("extent") == "116 p."
+    assert data.get("illustrativeContent") == ["illustrations"]
+    assert data.get("dimensions") == ["22 cm"]
+    assert data.get("note") == [
+        {"noteType": "otherPhysicalDetails", "label": "ill."},
+        {"noteType": "accompanyingMaterial", "label": "1 volume (200 pages)"},
+    ]
 
     unimarcxml = """
     <record>
@@ -1271,22 +958,15 @@ def test_unimarc_description():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('extent') == '116 p.'
-    assert data.get('illustrativeContent') == ['illustrations']
-    assert data.get('dimensions') == ['22 cm']
-    assert data.get('note') == [{
-            'noteType': 'otherPhysicalDetails',
-            'label': 'ill.'
-        }, {
-            'noteType': 'accompanyingMaterial',
-            'label': '1 volume (200 pages)'
-        }, {
-            'noteType': 'accompanyingMaterial',
-            'label': 'une brochure (12 pages)'
-        }, {
-            'noteType': 'accompanyingMaterial',
-            'label': 'une disquette'
-        }]
+    assert data.get("extent") == "116 p."
+    assert data.get("illustrativeContent") == ["illustrations"]
+    assert data.get("dimensions") == ["22 cm"]
+    assert data.get("note") == [
+        {"noteType": "otherPhysicalDetails", "label": "ill."},
+        {"noteType": "accompanyingMaterial", "label": "1 volume (200 pages)"},
+        {"noteType": "accompanyingMaterial", "label": "une brochure (12 pages)"},
+        {"noteType": "accompanyingMaterial", "label": "une disquette"},
+    ]
 
     unimarcxml = """
     <record>
@@ -1305,12 +985,9 @@ def test_unimarc_description():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('illustrativeContent') == ['illustrations']
-    assert data.get('dimensions') == ['12 x 15', '19 cm', '22 cm']
-    assert data.get('note') == [{
-            'noteType': 'otherPhysicalDetails',
-            'label': 'ill.'
-        }]
+    assert data.get("illustrativeContent") == ["illustrations"]
+    assert data.get("dimensions") == ["12 x 15", "19 cm", "22 cm"]
+    assert data.get("note") == [{"noteType": "otherPhysicalDetails", "label": "ill."}]
     unimarcxml = """
     <record>
       <datafield tag="215" ind1=" " ind2=" ">
@@ -1322,12 +999,11 @@ def test_unimarc_description():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('dimensions') == ['24 cm']
-    assert data.get('colorContent') == ['rdacc:1003']
-    assert data.get('note') == [{
-            'noteType': 'otherPhysicalDetails',
-            'label': 'couv. ill. en coul.'
-        }]
+    assert data.get("dimensions") == ["24 cm"]
+    assert data.get("colorContent") == ["rdacc:1003"]
+    assert data.get("note") == [
+        {"noteType": "otherPhysicalDetails", "label": "couv. ill. en coul."}
+    ]
 
 
 # seriesStatement: [225 repetitive]
@@ -1351,17 +1027,21 @@ def test_unimarc_series_statement():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('seriesStatement') == [{
-            'seriesTitle': [{'value': 'Collection formation: Mucchielli'}],
-            'seriesEnumeration': [{'value': '5'}],
-            'subseriesStatement': [{
-                'subseriesTitle': [{'value': 'Développement personnel'}],
-                'subseriesEnumeration': [{'value': '6'}]
-                }]
-            }, {
-            'seriesTitle': [{'value': 'Collection Two'}],
-            'seriesEnumeration': [{'value': '123'}],
-        }
+    assert data.get("seriesStatement") == [
+        {
+            "seriesTitle": [{"value": "Collection formation: Mucchielli"}],
+            "seriesEnumeration": [{"value": "5"}],
+            "subseriesStatement": [
+                {
+                    "subseriesTitle": [{"value": "Développement personnel"}],
+                    "subseriesEnumeration": [{"value": "6"}],
+                }
+            ],
+        },
+        {
+            "seriesTitle": [{"value": "Collection Two"}],
+            "seriesEnumeration": [{"value": "123"}],
+        },
     ]
 
 
@@ -1410,13 +1090,12 @@ def test_unimarc_partOf_with_link(document_with_issn):
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data['partOf'] == [{
-        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
-        'numbering': [{
-            'volume': '24',
-            'year': '2024'
-        }]
-    }]
+    assert data["partOf"] == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/doc5"},
+            "numbering": [{"volume": "24", "year": "2024"}],
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -1430,13 +1109,12 @@ def test_unimarc_partOf_with_link(document_with_issn):
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data['partOf'] == [{
-        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
-        'numbering': [{
-            'volume': 'No 770, 15 mai 2024, pp. 31-41',
-            'year': '2024'
-        }]
-    }]
+    assert data["partOf"] == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/doc5"},
+            "numbering": [{"volume": "No 770, 15 mai 2024, pp. 31-41", "year": "2024"}],
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -1450,19 +1128,16 @@ def test_unimarc_partOf_with_link(document_with_issn):
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data['partOf'] == [{
-        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
-        'numbering': [{
-            'volume': '3-4,11-15',
-            'year': '1867'
-        }, {
-            'volume': '3-4,11-15',
-            'year': '1868'
-        }, {
-            'volume': '3-4,11-15',
-            'year': '1869'
-        }]
-    }]
+    assert data["partOf"] == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/doc5"},
+            "numbering": [
+                {"volume": "3-4,11-15", "year": "1867"},
+                {"volume": "3-4,11-15", "year": "1868"},
+                {"volume": "3-4,11-15", "year": "1869"},
+            ],
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -1475,16 +1150,12 @@ def test_unimarc_partOf_with_link(document_with_issn):
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data['partOf'] == [{
-        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
-        'numbering': [{
-            'year': '1867'
-        }, {
-            'year': '1868'
-        }, {
-            'year': '1869'
-        }]
-    }]
+    assert data["partOf"] == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/doc5"},
+            "numbering": [{"year": "1867"}, {"year": "1868"}, {"year": "1869"}],
+        }
+    ]
 
     unimarcxml = """
     <record>
@@ -1497,10 +1168,12 @@ def test_unimarc_partOf_with_link(document_with_issn):
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data['partOf'] == [{
-        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc5'},
-        'numbering': [{'year': '1869'}]
-    }]
+    assert data["partOf"] == [
+        {
+            "document": {"$ref": "https://bib.rero.ch/api/documents/doc5"},
+            "numbering": [{"year": "1869"}],
+        }
+    ]
 
 
 # abstract: [330$a repetitive]
@@ -1516,8 +1189,7 @@ def test_unimarc_summary():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('summary') == [
-        {'label': [{'value': 'This book is about'}]}]
+    assert data.get("summary") == [{"label": [{"value": "This book is about"}]}]
 
 
 # identifiers:isbn: 010$a
@@ -1535,16 +1207,9 @@ def test_unimarc_identifiers():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('identifiedBy') == [
-      {
-        "type": "bf:Local",
-        "value": "ark:/12148/cb350330441",
-        "source": "BNF"
-      },
-      {
-        "type": "bf:Ean",
-        "value": "9782370550163"
-      }
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Local", "value": "ark:/12148/cb350330441", "source": "BNF"},
+        {"type": "bf:Ean", "value": "9782370550163"},
     ]
 
     unimarcxml = """
@@ -1556,12 +1221,8 @@ def test_unimarc_identifiers():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('identifiedBy') == [
-      {
-        "type": "bf:Ean",
-        "value": "978237055016x",
-        "status": "invalid"
-      }
+    assert data.get("identifiedBy") == [
+        {"type": "bf:Ean", "value": "978237055016x", "status": "invalid"}
     ]
 
 
@@ -1578,10 +1239,7 @@ def test_unimarc_notes():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('note') == [{
-        'noteType': 'general',
-        'label': 'note'
-    }]
+    assert data.get("note") == [{"noteType": "general", "label": "note"}]
 
     unimarcxml = """
     <record>
@@ -1595,13 +1253,9 @@ def test_unimarc_notes():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('note') == [{
-            'noteType': 'general',
-            'label': 'note 1'
-        }, {
-            'noteType': 'general',
-            'label': 'note 2'
-        }
+    assert data.get("note") == [
+        {"noteType": "general", "label": "note 1"},
+        {"noteType": "general", "label": "note 2"},
     ]
 
 
@@ -1629,19 +1283,21 @@ def test_unimarc_subjects():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('subjects_imported') == [{
-        'entity': {
-            'authorized_access_point': 'subjects 600',
-            'type': 'bf:Topic',
-            'source': 'rameau'
-        }
-    }, {
-        'entity': {
-            'authorized_access_point':
-                'Capet, Louis III, Jr., 1700-1780 -- France',
-            'type': 'bf:Topic'
-        }
-    }]
+    assert data.get("subjects_imported") == [
+        {
+            "entity": {
+                "authorized_access_point": "subjects 600",
+                "type": "bf:Topic",
+                "source": "rameau",
+            }
+        },
+        {
+            "entity": {
+                "authorized_access_point": "Capet, Louis III, Jr., 1700-1780 -- France",
+                "type": "bf:Topic",
+            }
+        },
+    ]
 
 
 def test_unimarc_to_electronicLocator_from_856():
@@ -1657,10 +1313,12 @@ def test_unimarc_to_electronicLocator_from_856():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data.get('electronicLocator') == [{
-        'url': 'http://gallica.bnf.fr/ark:/12148/btv1b550017355',
-        'type': 'resource',
-    }]
+    assert data.get("electronicLocator") == [
+        {
+            "url": "http://gallica.bnf.fr/ark:/12148/btv1b550017355",
+            "type": "resource",
+        }
+    ]
 
 
 def test_unimarc_to_isFiktion_from_105():
@@ -1676,7 +1334,7 @@ def test_unimarc_to_isFiktion_from_105():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data['fiction_statement'] == DocumentFictionType.Unspecified.value
+    assert data["fiction_statement"] == DocumentFictionType.Unspecified.value
 
     unimarcxml = """
     <record>
@@ -1688,4 +1346,4 @@ def test_unimarc_to_isFiktion_from_105():
     """
     unimarcjson = create_record(unimarcxml)
     data = unimarc.do(unimarcjson)
-    assert data['fiction_statement'] == DocumentFictionType.Fiction.value
+    assert data["fiction_statement"] == DocumentFictionType.Fiction.value

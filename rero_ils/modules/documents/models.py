@@ -29,24 +29,25 @@ from invenio_records.models import RecordMetadataBase
 class DocumentIdentifier(RecordIdentifier):
     """Sequence generator for Document identifiers."""
 
-    __tablename__ = 'document_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "document_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
 class DocumentMetadata(db.Model, RecordMetadataBase):
     """Document record metadata."""
 
-    __tablename__ = 'document_metadata'
+    __tablename__ = "document_metadata"
 
 
 class DocumentFictionType(Enum):
     """Document fiction types."""
 
-    Fiction = 'fiction'
-    NonFiction = 'non_fiction'
-    Unspecified = 'unspecified'
+    Fiction = "fiction"
+    NonFiction = "non_fiction"
+    Unspecified = "unspecified"

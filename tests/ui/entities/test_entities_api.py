@@ -38,9 +38,9 @@ def test_entities_properties(entity_person_data_tmp):
 
 def test_entities_helpers(local_entity_org):
     """Test entity helpers"""
-    data = {'pid': 'dummy'}
+    data = {"pid": "dummy"}
     with pytest.raises(RecordNotFound):
         get_entity_record_from_data(data)
 
-    data = {'$ref': get_ref_for_pid('locent', local_entity_org.pid)}
+    data = {"$ref": get_ref_for_pid("locent", local_entity_org.pid)}
     assert get_entity_record_from_data(data) == local_entity_org

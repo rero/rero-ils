@@ -19,16 +19,19 @@
 """Permissions for Budgets."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByOrganisation,
+    RecordPermissionPolicy,
+)
 
 # Actions to control budget resource policies
-search_action = action_factory('budg-search')
-read_action = action_factory('budg-read')
-create_action = action_factory('budg-create')
-update_action = action_factory('budg-update')
-delete_action = action_factory('budg-delete')
-access_action = action_factory('budg-access')
+search_action = action_factory("budg-search")
+read_action = action_factory("budg-read")
+create_action = action_factory("budg-create")
+update_action = action_factory("budg-update")
+delete_action = action_factory("budg-delete")
+access_action = action_factory("budg-access")
 
 
 class BudgetPermissionPolicy(RecordPermissionPolicy):

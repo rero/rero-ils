@@ -22,11 +22,11 @@ from __future__ import absolute_import, print_function
 
 from collections import namedtuple
 
-FetchedPID = namedtuple('FetchedPID', ['provider', 'pid_type', 'pid_value'])
+FetchedPID = namedtuple("FetchedPID", ["provider", "pid_type", "pid_value"])
 """A pid fetcher."""
 
 
-def id_fetcher(record_uuid, data, provider, pid_key='pid'):
+def id_fetcher(record_uuid, data, provider, pid_key="pid"):
     """Fetch a record's identifier.
 
     :param record_uuid: The record UUID.
@@ -34,7 +34,5 @@ def id_fetcher(record_uuid, data, provider, pid_key='pid'):
     :return: A :data:`rero_ils.modules.fetchers.FetchedPID` instance.
     """
     return FetchedPID(
-        provider=provider,
-        pid_type=provider.pid_type,
-        pid_value=data[pid_key]
+        provider=provider, pid_type=provider.pid_type, pid_value=data[pid_key]
     )

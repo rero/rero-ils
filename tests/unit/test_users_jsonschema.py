@@ -30,28 +30,27 @@ def test_required(user_schema, user_data_tmp):
         validate({}, user_schema)
 
 
-def test_user_all_jsonschema_keys_values(
-        user_schema, user_data_tmp):
+def test_user_all_jsonschema_keys_values(user_schema, user_data_tmp):
     """Test all keys and values for user jsonschema."""
     record = user_data_tmp
     validate(record, user_schema)
     validator = [
-        {'key': 'first_name', 'value': 25},
-        {'key': 'last_name', 'value': 25},
-        {'key': 'birth_date', 'value': 25},
-        {'key': 'gender', 'value': 25},
-        {'key': 'street', 'value': 25},
-        {'key': 'postal_code', 'value': 25},
-        {'key': 'city', 'value': 25},
-        {'key': 'country', 'value': 25},
-        {'key': 'mobile_phone', 'value': 25},
-        {'key': 'business_phone', 'value': 25},
-        {'key': 'mobile_phone', 'value': 25},
-        {'key': 'other_phone', 'value': 25},
-        {'key': 'keep_history', 'value': 25},
-        {'key': 'user_id', 'value': '25'}
+        {"key": "first_name", "value": 25},
+        {"key": "last_name", "value": 25},
+        {"key": "birth_date", "value": 25},
+        {"key": "gender", "value": 25},
+        {"key": "street", "value": 25},
+        {"key": "postal_code", "value": 25},
+        {"key": "city", "value": 25},
+        {"key": "country", "value": 25},
+        {"key": "mobile_phone", "value": 25},
+        {"key": "business_phone", "value": 25},
+        {"key": "mobile_phone", "value": 25},
+        {"key": "other_phone", "value": 25},
+        {"key": "keep_history", "value": 25},
+        {"key": "user_id", "value": "25"},
     ]
     for element in validator:
         with pytest.raises(ValidationError):
-            record[element['key']] = element['value']
+            record[element["key"]] = element["value"]
             validate(record, user_schema)

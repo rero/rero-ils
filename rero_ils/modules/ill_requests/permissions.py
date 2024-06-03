@@ -19,17 +19,20 @@
 """Permissions for ILL request."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByOrganisation, \
-    AllowedByActionRestrictByOwnerOrOrganisation, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByOrganisation,
+    AllowedByActionRestrictByOwnerOrOrganisation,
+    RecordPermissionPolicy,
+)
 
 # Actions to control ILL request policy
-search_action = action_factory('illr-search')
-read_action = action_factory('illr-read')
-create_action = action_factory('illr-create')
-update_action = action_factory('illr-update')
-delete_action = action_factory('illr-delete')
-access_action = action_factory('illr-access')
+search_action = action_factory("illr-search")
+read_action = action_factory("illr-read")
+create_action = action_factory("illr-create")
+update_action = action_factory("illr-update")
+delete_action = action_factory("illr-delete")
+access_action = action_factory("illr-access")
 
 
 class ILLRequestPermissionPolicy(RecordPermissionPolicy):

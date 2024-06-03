@@ -56,50 +56,41 @@ class MEFProxyFactory:
         # DEV NOTES :: `agents` isn't yet used, but could be ASAP. This is why
         #              it's already configured.
         proxy_config = {
-            'agents': {
-                'class': MefAgentsProxy,
-                'entities': (EntityType.PERSON, EntityType.ORGANISATION)
+            "agents": {
+                "class": MefAgentsProxy,
+                "entities": (EntityType.PERSON, EntityType.ORGANISATION),
             },
-            'person': {
-                'class': MefAgentsProxy,
-                'entities': (EntityType.PERSON,)
+            "person": {"class": MefAgentsProxy, "entities": (EntityType.PERSON,)},
+            "organisation": {
+                "class": MefAgentsProxy,
+                "entities": (EntityType.ORGANISATION,),
             },
-            'organisation': {
-                'class': MefAgentsProxy,
-                'entities': (EntityType.ORGANISATION,)
+            "concepts": {
+                "class": MefConceptsProxy,
+                "entities": (EntityType.TOPIC, EntityType.TEMPORAL),
             },
-            'concepts': {
-                'class': MefConceptsProxy,
-                'entities': (EntityType.TOPIC, EntityType.TEMPORAL)
+            "topics": {"class": MefConceptsProxy, "entities": (EntityType.TOPIC,)},
+            "temporals": {
+                "class": MefConceptsProxy,
+                "entities": (EntityType.TEMPORAL,),
             },
-            'topics': {
-                'class': MefConceptsProxy,
-                'entities': (EntityType.TOPIC,)
+            "concepts-genreForm": {
+                "class": MefConceptsGenreFormProxy,
+                "entities": (EntityType.TOPIC,),
             },
-            'temporals': {
-                'class': MefConceptsProxy,
-                'entities': (EntityType.TEMPORAL, )
-            },
-            'concepts-genreForm': {
-                'class': MefConceptsGenreFormProxy,
-                'entities': (EntityType.TOPIC,)
-            },
-            'places': {
-                'class': MefPlacesProxy,
-                'entities': (EntityType.PLACE, )
-            },
+            "places": {"class": MefPlacesProxy, "entities": (EntityType.PLACE,)},
         }
         # Create proxy configuration aliases
-        proxy_config[EntityType.PERSON] = proxy_config['person']
-        proxy_config[EntityType.ORGANISATION] = proxy_config['organisation']
-        proxy_config[EntityType.TOPIC] = proxy_config['topics']
-        proxy_config[EntityType.TEMPORAL] = proxy_config['temporals']
-        proxy_config[EntityType.PLACE] = proxy_config['places']
+        proxy_config[EntityType.PERSON] = proxy_config["person"]
+        proxy_config[EntityType.ORGANISATION] = proxy_config["organisation"]
+        proxy_config[EntityType.TOPIC] = proxy_config["topics"]
+        proxy_config[EntityType.TEMPORAL] = proxy_config["temporals"]
+        proxy_config[EntityType.PLACE] = proxy_config["places"]
 
         # Try to create the proxy, otherwise raise a ValueError
         if data := proxy_config.get(category):
-            return data['class'](*(data['entities']))
-        raise ValueError(f'Unable to find a MEF factory for {category}')
+            return data["class"](*(data["entities"]))
+        raise ValueError(f"Unable to find a MEF factory for {category}")
 
 
 class MEFProxyMixin:
@@ -119,24 +110,26 @@ class MEFProxyMixin:
 
     # Headers that should be excluded from remote MEF system response.
     excluded_headers = [
-        'Content-Encoding',
-        'Content-Length',
-        'Transfer-Encoding',
-        'Connection'
+        "Content-Encoding",
+        "Content-Length",
+        "Transfer-Encoding",
+        "Connection",
     ]
     mef_entrypoint = None  # Must be overridden by subclasses
 
     def __init__(self, *args):
         """Magic initialization method."""
         self.entity_types = args
-        self.sources = current_app.config \
-            .get('RERO_ILS_MEF_CONFIG', {}) \
-            .get(self.mef_entrypoint, {}) \
-            .get('sources', [])
-        self.filters = current_app.config \
-            .get('RERO_ILS_MEF_CONFIG', {}) \
-            .get(self.mef_entrypoint, {}) \
-            .get('filters', [])
+        self.sources = (
+            current_app.config.get("RERO_ILS_MEF_CONFIG", {})
+            .get(self.mef_entrypoint, {})
+            .get("sources", [])
+        )
+        self.filters = (
+            current_app.config.get("RERO_ILS_MEF_CONFIG", {})
+            .get(self.mef_entrypoint, {})
+            .get("filters", [])
+        )
 
     def search(self, term):
         """Search specific term on MEF authority system.
@@ -149,9 +142,7 @@ class MEFProxyMixin:
         # Call the remote MEF server removing the 'Host' headers from initial
         # request to avoid security problems.
         request_headers = {
-            key: value
-            for key, value in request.headers
-            if key != 'Host'
+            key: value for key, value in request.headers if key != "Host"
         }
         response = requests.request(
             method=request.method,
@@ -159,7 +150,7 @@ class MEFProxyMixin:
             headers=request_headers,
             data=request.get_data(),
             cookies=request.cookies,
-            allow_redirects=True
+            allow_redirects=True,
         )
 
         # If remote server response failed, raise this HTTP error through a
@@ -170,7 +161,7 @@ class MEFProxyMixin:
         # Post-process the result hits to get a standard format against all
         # format possibility depending on entity type searched.
         content = json.loads(response.content)
-        for hit in content.get('hits', {}).get('hits', []):
+        for hit in content.get("hits", {}).get("hits", []):
             self._post_process_result_hit(hit)
 
         # Finally, return a flask `Response` from a `request.Response`. All
@@ -198,13 +189,13 @@ class MEFProxyMixin:
                 return f'({" OR ".join(value)})'
             return f'"{str(value)}"'
 
-        query_params = [f'((autocomplete_name:{term})^2 OR {term})']
+        query_params = [f"((autocomplete_name:{term})^2 OR {term})"]
         if self.sources:
-            query_params.append(f'sources:{_build_filter_value(self.sources)}')
+            query_params.append(f"sources:{_build_filter_value(self.sources)}")
         for filter_field in self.filters:
             for key, value in filter_field.items():
                 filter_value = _build_filter_value(value)
-                query_params.append(f'{key}:{filter_value}')
+                query_params.append(f"{key}:{filter_value}")
         return query_params
 
     def _build_url(self, term):
@@ -215,9 +206,9 @@ class MEFProxyMixin:
         :returns: the MEF URL to call to get response hits.
         :rtype: str
         """
-        query = quote_plus(' AND '.join(self._get_query_params(term)))
+        query = quote_plus(" AND ".join(self._get_query_params(term)))
         base_url = get_mef_url(self.mef_entrypoint)
-        return f'{base_url}/mef?q={query}&page=1&size=10&facets='
+        return f"{base_url}/mef?q={query}&page=1&size=10&facets="
 
     def _post_process_result_hit(self, hit):
         """Modify a MEF hit response to return a standardized hit."""
@@ -225,23 +216,25 @@ class MEFProxyMixin:
         # This URI is the direct access for the source metadata on the remote
         # MEF authority server.
         # TODO :: this URI should be returned by MEF API
-        if not (metadata := hit.get('metadata')):
+        if not (metadata := hit.get("metadata")):
             return
         base_url = get_mef_url(self.mef_entrypoint)
         for source_name in self.sources:
             if not (src_data := metadata.get(source_name)):
                 continue
-            src_data.setdefault('identifiedBy', []).append({
-                'source': 'mef',
-                'type': 'uri',
-                'value': f'{base_url}/{source_name}/{src_data["pid"]}'
-            })
+            src_data.setdefault("identifiedBy", []).append(
+                {
+                    "source": "mef",
+                    "type": "uri",
+                    "value": f'{base_url}/{source_name}/{src_data["pid"]}',
+                }
+            )
 
 
 class MefAgentsProxy(MEFProxyMixin):
     """Proxy on RERO-MEF authority system when searching for `agents`."""
 
-    mef_entrypoint = 'agents'
+    mef_entrypoint = "agents"
 
     def _get_query_params(self, term):
         """Get all parameters to use to build the MEF query.
@@ -258,7 +251,7 @@ class MefAgentsProxy(MEFProxyMixin):
             ent_types = []
             for _type in self.entity_types:
                 _type = _type.replace(":", "\\:")
-                ent_types.append(f'type:{_type}')
+                ent_types.append(f"type:{_type}")
             params += [f'({" OR ".join(ent_types)})']
         return params
 
@@ -271,24 +264,22 @@ class MefAgentsProxy(MEFProxyMixin):
 
         :param hit: an elasticSearch hit already parsed as a dictionary.
         """
-        if not (metadata := hit.get('metadata', {})):
+        if not (metadata := hit.get("metadata", {})):
             return
         for source_name in self.sources:
             if not (src_data := metadata.get(source_name)):
                 continue
-            if identifier := src_data.pop('identifier', None):
-                src_data.setdefault('identifiedBy', []).append({
-                    'source': source_name,
-                    'type': 'uri',
-                    'value': identifier
-                })
+            if identifier := src_data.pop("identifier", None):
+                src_data.setdefault("identifiedBy", []).append(
+                    {"source": source_name, "type": "uri", "value": identifier}
+                )
         super()._post_process_result_hit(hit)
 
 
 class MefConceptsProxy(MEFProxyMixin):
     """Proxy on RERO-MEF authority system when searching for `concepts`."""
 
-    mef_entrypoint = 'concepts'
+    mef_entrypoint = "concepts"
 
     def _get_query_params(self, term):
         """Get all parameters to use to build the MEF query.
@@ -305,7 +296,7 @@ class MefConceptsProxy(MEFProxyMixin):
             ent_types = []
             for _type in self.entity_types:
                 _type = _type.replace(":", "\\:")
-                ent_types.append(f'type:{_type}')
+                ent_types.append(f"type:{_type}")
             params += [f'({" OR ".join(ent_types)})']
         return params
 
@@ -318,7 +309,7 @@ class MefConceptsProxy(MEFProxyMixin):
 
         :param hit: an elasticSearch hit already parsed as a dictionary.
         """
-        if not (metadata := hit.get('metadata', {})):
+        if not (metadata := hit.get("metadata", {})):
             return
         super()._post_process_result_hit(hit)
 
@@ -326,10 +317,10 @@ class MefConceptsProxy(MEFProxyMixin):
 class MefConceptsGenreFormProxy(MefConceptsProxy):
     """Proxy on RERO-MEF authority system for specific `genreForm` concepts."""
 
-    mef_entrypoint = 'concepts-genreForm'
+    mef_entrypoint = "concepts-genreForm"
 
 
 class MefPlacesProxy(MEFProxyMixin):
     """Proxy on RERO-MEF authority system when searching for `places`."""
 
-    mef_entrypoint = 'places'
+    mef_entrypoint = "places"

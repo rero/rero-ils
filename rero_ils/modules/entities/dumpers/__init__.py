@@ -26,23 +26,29 @@ from .document import BaseDocumentEntityDumper
 from .indexer import EntityIndexerDumper
 
 # replace linked data (seems not necessary at this time)
-replace_refs_dumper = MultiDumper(dumpers=[
-    # make a fresh copy
-    Dumper(),
-    ReplaceRefsDumper()
-])
+replace_refs_dumper = MultiDumper(
+    dumpers=[
+        # make a fresh copy
+        Dumper(),
+        ReplaceRefsDumper(),
+    ]
+)
 
 # dumper used for indexing
-indexer_dumper = MultiDumper(dumpers=[
-    # make a fresh copy
-    Dumper(),
-    ReplaceRefsDumper(),
-    EntityIndexerDumper(),
-    LocalizedAuthorizedAccessPointDumper()
-])
+indexer_dumper = MultiDumper(
+    dumpers=[
+        # make a fresh copy
+        Dumper(),
+        ReplaceRefsDumper(),
+        EntityIndexerDumper(),
+        LocalizedAuthorizedAccessPointDumper(),
+    ]
+)
 
-document_dumper = MultiDumper(dumpers=[
-    BaseDocumentEntityDumper(),
-    EntityIndexerDumper(),
-    LocalizedAuthorizedAccessPointDumper(),
-])
+document_dumper = MultiDumper(
+    dumpers=[
+        BaseDocumentEntityDumper(),
+        EntityIndexerDumper(),
+        LocalizedAuthorizedAccessPointDumper(),
+    ]
+)

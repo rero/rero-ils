@@ -26,11 +26,11 @@ from invenio_records.models import RecordMetadataBase
 class LocalEntityIdentifier(RecordIdentifier):
     """Sequence generator for `Entity` identifiers."""
 
-    __tablename__ = 'local_entity_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "local_entity_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
         primary_key=True,
         autoincrement=True,
     )
@@ -39,4 +39,4 @@ class LocalEntityIdentifier(RecordIdentifier):
 class LocalEntityMetadata(db.Model, RecordMetadataBase):
     """Entity record metadata."""
 
-    __tablename__ = 'local_entity_metadata'
+    __tablename__ = "local_entity_metadata"

@@ -35,8 +35,7 @@ class AuthorizedAccessPointExtension(RecordExtension):
 
         :param record: the record metadata.
         """
-        record['authorized_access_point'] = \
-            self._get_authorized_access_point(record)
+        record["authorized_access_point"] = self._get_authorized_access_point(record)
         # required for validation
         if record.model:
             record.model.data = record
@@ -46,5 +45,4 @@ class AuthorizedAccessPointExtension(RecordExtension):
 
         :param record: the record metadata.
         """
-        record['authorized_access_point'] = \
-            self._get_authorized_access_point(record)
+        record["authorized_access_point"] = self._get_authorized_access_point(record)

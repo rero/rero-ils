@@ -45,19 +45,25 @@ class NumberOfCirculationCfg(IndicatorCfg):
 
         :returns: an elasticsearch query object
         """
-        es_query = LoanOperationLogsSearch()[:0]\
-            .filter('terms', loan__item__library_pid=self.cfg.lib_pids)\
-            .filter('term', record__type='loan')\
-            .filter('term', loan__trigger=self.trigger)
+        es_query = (
+            LoanOperationLogsSearch()[:0]
+            .filter("terms", loan__item__library_pid=self.cfg.lib_pids)
+            .filter("term", record__type="loan")
+            .filter("term", loan__trigger=self.trigger)
+        )
         if period := self.cfg.period:
-            es_query = es_query.filter(
-                'range', date=self.cfg.get_range_period(period))
+            es_query = es_query.filter("range", date=self.cfg.get_range_period(period))
         if lib_pids := self.cfg.filter_by_libraries:
             loc_pids = [
-                hit.pid for hit in LocationsSearch().filter(
-                    "terms", library__pid=lib_pids).source('pid').scan()]
+                hit.pid
+                for hit in LocationsSearch()
+                .filter("terms", library__pid=lib_pids)
+                .source("pid")
+                .scan()
+            ]
             es_query = es_query.filter(
-                'terms', loan__transaction_location__pid=loc_pids)
+                "terms", loan__transaction_location__pid=loc_pids
+            )
         return es_query
 
     def aggregation(self, distribution):
@@ -67,63 +73,42 @@ class NumberOfCirculationCfg(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'transaction_location': A(
-                'terms',
-                field='loan.transaction_location.pid',
-                size=self.cfg.aggs_size
+            "transaction_location": A(
+                "terms", field="loan.transaction_location.pid", size=self.cfg.aggs_size
             ),
-            'transaction_month': A(
-                'date_histogram',
-                field='date',
-                calendar_interval='month',
-                format='yyyy-MM'
+            "transaction_month": A(
+                "date_histogram",
+                field="date",
+                calendar_interval="month",
+                format="yyyy-MM",
             ),
-            'transaction_year': A(
-                'date_histogram',
-                field='date',
-                calendar_interval='year',
-                format='yyyy'
+            "transaction_year": A(
+                "date_histogram", field="date", calendar_interval="year", format="yyyy"
             ),
-            'patron_type': A(
-                'terms',
-                field='loan.patron.type',
-                size=self.cfg.aggs_size
+            "patron_type": A(
+                "terms", field="loan.patron.type", size=self.cfg.aggs_size
             ),
-            'patron_age': A(
-                'terms',
-                field='loan.patron.age',
-                size=self.cfg.aggs_size
+            "patron_age": A("terms", field="loan.patron.age", size=self.cfg.aggs_size),
+            "patron_type": A(
+                "terms", field="loan.patron.type", size=self.cfg.aggs_size
             ),
-            'patron_type': A(
-                'terms',
-                field='loan.patron.type',
-                size=self.cfg.aggs_size
+            "patron_postal_code": A(
+                "terms", field="loan.patron.postal_code", size=self.cfg.aggs_size
             ),
-            'patron_postal_code': A(
-                'terms',
-                field='loan.patron.postal_code',
-                size=self.cfg.aggs_size
+            "document_type": A(
+                "terms", field="loan.item.document.type", size=self.cfg.aggs_size
             ),
-            'document_type': A(
-                'terms',
-                field='loan.item.document.type',
-                size=self.cfg.aggs_size
+            "transaction_channel": A(
+                "terms", field="loan.transaction_channel", size=self.cfg.aggs_size
             ),
-            'transaction_channel': A(
-                'terms',
-                field='loan.transaction_channel',
-                size=self.cfg.aggs_size
+            "owning_library": A(
+                "terms", field="loan.item.library_pid", size=self.cfg.aggs_size
             ),
-            'owning_library': A(
-                'terms',
-                field='loan.item.library_pid',
-                size=self.cfg.aggs_size
+            "owning_location": A(
+                "terms",
+                field="loan.item.holding.location_name.raw",
+                size=self.cfg.aggs_size,
             ),
-            'owning_location': A(
-                'terms',
-                field='loan.item.holding.location_name.raw',
-                size=self.cfg.aggs_size
-            )
         }
         return cfg[distribution]
 
@@ -136,19 +121,17 @@ class NumberOfCirculationCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'transaction_location': lambda:
-                f'{self.cfg.locations.get(bucket.key, self.label_na_msg)} '
-                f'({bucket.key})',
-            'transaction_month': lambda: bucket.key_as_string,
-            'transaction_year': lambda: bucket.key_as_string,
-            'patron_type': lambda: bucket.key,
-            'patron_age': lambda: bucket.key,
-            'document_type': lambda: bucket.key,
-            'patron_postal_code': lambda: bucket.key,
-            'transaction_channel': lambda: bucket.key,
-            'owning_library': lambda:
-                f'{self.cfg.libraries.get(bucket.key, self.label_na_msg)} '
-                f'({bucket.key})',
-            'owning_location': lambda: bucket.key,
+            "transaction_location": lambda: f"{self.cfg.locations.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})",
+            "transaction_month": lambda: bucket.key_as_string,
+            "transaction_year": lambda: bucket.key_as_string,
+            "patron_type": lambda: bucket.key,
+            "patron_age": lambda: bucket.key,
+            "document_type": lambda: bucket.key,
+            "patron_postal_code": lambda: bucket.key,
+            "transaction_channel": lambda: bucket.key,
+            "owning_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})",
+            "owning_location": lambda: bucket.key,
         }
         return cfg[distribution]()

@@ -18,8 +18,8 @@
 
 """API for manipulating "work" local entities."""
 
-from ..api import LocalEntity
 from ...helpers import str_builder as builder
+from ..api import LocalEntity
 
 
 class WorkLocalEntity(LocalEntity):
@@ -31,7 +31,7 @@ class WorkLocalEntity(LocalEntity):
         :return return the calculated authorized access point to use.
         """
         field_builders = [
-            builder(self.get('creator'), suffix='. '),
-            self.get('title'),
+            builder(self.get("creator"), suffix=". "),
+            self.get("title"),
         ]
-        return ''.join(field_builders)
+        return "".join(field_builders)

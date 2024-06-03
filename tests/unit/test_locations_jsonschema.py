@@ -42,7 +42,7 @@ def test_locations_pid(location_schema, loc_public_martigny_data):
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(loc_public_martigny_data)
-        data['pid'] = 25
+        data["pid"] = 25
         validate(data, location_schema)
 
 
@@ -52,7 +52,7 @@ def test_locations_name(location_schema, loc_public_martigny_data):
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(loc_public_martigny_data)
-        data['name'] = 25
+        data["name"] = 25
         validate(data, location_schema)
 
 
@@ -60,7 +60,6 @@ def test_locations_email(location_schema, loc_public_martigny_data):
     """Test email for location jsonschemas."""
     data = loc_public_martigny_data
 
-    data['notification_email'] = 'test@test.@be'
+    data["notification_email"] = "test@test.@be"
     with pytest.raises(ValidationError):
-        validate(data, location_schema,
-                 format_checker=ils_record_format_checker)
+        validate(data, location_schema, format_checker=ils_record_format_checker)

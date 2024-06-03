@@ -23,30 +23,34 @@ import os
 
 import polib
 import requests
-from flask import Blueprint, abort, current_app, jsonify, make_response, \
-    request
+from flask import Blueprint, abort, current_app, jsonify, make_response, request
 
 from rero_ils.modules.utils import cached, get_all_roles
 
-from .decorators import check_authentication, check_logged_as_librarian, \
-    check_permission, parse_permission_payload
+from .decorators import (
+    check_authentication,
+    check_logged_as_librarian,
+    check_permission,
+    parse_permission_payload,
+)
 from .patrons.api import Patron
-from .permissions import PermissionContext, expose_action_needs_by_patron, \
-    expose_action_needs_by_role, manage_role_permissions
+from .permissions import (
+    PermissionContext,
+    expose_action_needs_by_patron,
+    expose_action_needs_by_role,
+    manage_role_permissions,
+)
 from .permissions import permission_management as permission_management_action
 from .permissions import record_permissions
 
-api_blueprint = Blueprint(
-    'api_blueprint',
-    __name__,
-    url_prefix=''
-)
+api_blueprint = Blueprint("api_blueprint", __name__, url_prefix="")
 
 
 # PERMISSIONS APIS' ===========================================================
 
-@api_blueprint.route('/permissions/<route_name>', methods=['GET'])
-@api_blueprint.route('/permissions/<route_name>/<record_pid>', methods=['GET'])
+
+@api_blueprint.route("/permissions/<route_name>", methods=["GET"])
+@api_blueprint.route("/permissions/<route_name>/<record_pid>", methods=["GET"])
 @cached(timeout=10, query_string=True)
 @check_authentication
 def permissions(route_name, record_pid=None):
@@ -60,10 +64,10 @@ def permissions(route_name, record_pid=None):
     return record_permissions(record_pid=record_pid, route_name=route_name)
 
 
-@api_blueprint.route('/permission/management', methods=['POST', 'DELETE'])
+@api_blueprint.route("/permission/management", methods=["POST", "DELETE"])
 @check_permission([permission_management_action])
 @parse_permission_payload
-def permission_management(context, permission, method='allow', **kwargs):
+def permission_management(context, permission, method="allow", **kwargs):
     """Manage permissions.
 
     This API allows to manage RERO-ILS permission to allow/disallow any action
@@ -80,25 +84,23 @@ def permission_management(context, permission, method='allow', **kwargs):
     """
     # TODO :: implements other SYSTEM_ROLE and USER context
     if context != PermissionContext.BY_ROLE:
-        abort(501, 'This permission context management isn\'t yet implemented')
+        abort(501, "This permission context management isn't yet implemented")
 
     try:
         if context == PermissionContext.BY_ROLE:
-            role_name = kwargs.get('role_name')
+            role_name = kwargs.get("role_name")
             manage_role_permissions(method, permission, role_name)
     except NameError as ne:
         abort(400, str(ne))
     except Exception as e:
         abort(500, str(e))
 
-    return jsonify({
-        'context': context,
-        'permission': permission,
-        'method': method
-    } | kwargs), 204 if method == 'deny' else 200
+    return jsonify(
+        {"context": context, "permission": permission, "method": method} | kwargs
+    ), (204 if method == "deny" else 200)
 
 
-@api_blueprint.route('/permissions/by_role', methods=['GET'])
+@api_blueprint.route("/permissions/by_role", methods=["GET"])
 @check_permission([permission_management_action])
 def permissions_by_role():
     """Expose permissions by roles.
@@ -113,14 +115,14 @@ def permissions_by_role():
         --> all permissions for "admin" and "pro_read_only" roles.
     """
     filtered_roles = get_all_roles()
-    if role_names := request.args.getlist('role'):
-        if 'all' not in role_names:
+    if role_names := request.args.getlist("role"):
+        if "all" not in role_names:
             filtered_roles = [r for r in filtered_roles if r[0] in role_names]
 
     return jsonify(expose_action_needs_by_role(filtered_roles))
 
 
-@api_blueprint.route('/permissions/by_patron/<patron_pid>', methods=['GET'])
+@api_blueprint.route("/permissions/by_patron/<patron_pid>", methods=["GET"])
 @check_permission([permission_management_action])
 def permissions_by_patron(patron_pid):
     """Expose permissions for a specific user.
@@ -129,16 +131,16 @@ def permissions_by_patron(patron_pid):
     """
     patron = Patron.get_record_by_pid(patron_pid)
     if not patron:
-        abort(404, 'Patron not found')
+        abort(404, "Patron not found")
     return jsonify(expose_action_needs_by_patron(patron))
 
 
 # PROXY APIS' =================================================================
-@api_blueprint.route('/proxy')
+@api_blueprint.route("/proxy")
 @check_logged_as_librarian
 def proxy():
     """Proxy to get record metadata from MEF server."""
-    if not (url := request.args.get('url')):
+    if not (url := request.args.get("url")):
         abort(400, "Missing `url` parameter")
     response = requests.get(url)
     return make_response(response.content, response.status_code)
@@ -146,27 +148,28 @@ def proxy():
 
 # TRANSLATIONS APIS' ==========================================================
 
-@api_blueprint.route('/translations/<ln>.json')
+
+@api_blueprint.route("/translations/<ln>.json")
 def translations(ln):
     """Exposes translations in JSON format.
 
     :param ln: language ISO 639-1 Code (two chars).
     """
-    babel = current_app.extensions['babel']
+    babel = current_app.extensions["babel"]
     paths = babel.default_directories
     try:
-        path = next(p for p in paths if p.find('rero_ils') > -1)
+        path = next(p for p in paths if p.find("rero_ils") > -1)
     except StopIteration:
-        current_app.logger.error(f'translations for {ln} does not exist')
+        current_app.logger.error(f"translations for {ln} does not exist")
         abort(404)
 
-    po_file_name = f'{path}/{ln}/LC_MESSAGES/{babel.default_domain}.po'
+    po_file_name = f"{path}/{ln}/LC_MESSAGES/{babel.default_domain}.po"
     if not os.path.isfile(po_file_name):
         abort(404)
     try:
         po = polib.pofile(po_file_name)
     except Exception:
-        current_app.logger.error(f'unable to open po file: {po_file_name}')
+        current_app.logger.error(f"unable to open po file: {po_file_name}")
         abort(404)
     data = {entry.msgid: entry.msgstr or entry.msgid for entry in po}
     return jsonify(data)

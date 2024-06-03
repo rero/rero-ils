@@ -20,8 +20,11 @@
 import ciso8601
 from elasticsearch_dsl import Q
 
-from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE, \
-    OVERDUE_REMINDER_TYPE, CircPolicy
+from rero_ils.modules.circ_policies.api import (
+    DUE_SOON_REMINDER_TYPE,
+    OVERDUE_REMINDER_TYPE,
+    CircPolicy,
+)
 from rero_ils.modules.locations.api import Location
 from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
@@ -34,12 +37,16 @@ def get_notification(loan, notification_type):
     :param notification_type: the type of notification sent.
     """
     from .api import Notification
-    results = NotificationsSearch()\
-        .filter('term', context__loan__pid=loan.pid)\
-        .filter('term', notification_type=notification_type) \
-        .params(preserve_order=True) \
-        .sort({'creation_date': {"order": "desc"}}) \
-        .source().scan()
+
+    results = (
+        NotificationsSearch()
+        .filter("term", context__loan__pid=loan.pid)
+        .filter("term", notification_type=notification_type)
+        .params(preserve_order=True)
+        .sort({"creation_date": {"order": "desc"}})
+        .source()
+        .scan()
+    )
     try:
         pid = next(results).pid
         return Notification.get_record_by_pid(pid)
@@ -55,41 +62,45 @@ def get_notifications(notification_type, processed=False, not_sent=False):
     :param not_sent: filter on not yet send notifications.
     :return a notification pid generator.
     """
-    query = NotificationsSearch()\
-        .filter('term', notification_type=notification_type) \
-        .source('pid')
+    query = (
+        NotificationsSearch()
+        .filter("term", notification_type=notification_type)
+        .source("pid")
+    )
     if not not_sent:
         query = query.filter(
-            'bool', must_not=[
-                Q('exists', field='notification_sent'),
-                Q('term', notification_sent=False)
-            ]
+            "bool",
+            must_not=[
+                Q("exists", field="notification_sent"),
+                Q("term", notification_sent=False),
+            ],
         )
     if processed:
-        query = query.filter('exists', field='process_date')
+        query = query.filter("exists", field="process_date")
     else:
-        query = query.filter(
-            'bool', must_not=[Q('exists', field='process_date')])
+        query = query.filter("bool", must_not=[Q("exists", field="process_date")])
 
     for hit in query.scan():
         yield hit.pid
 
 
-def number_of_notifications_sent(loan,
-                                 notification_type=NotificationType.OVERDUE):
+def number_of_notifications_sent(loan, notification_type=NotificationType.OVERDUE):
     """Get the number of notifications sent for the given loan.
 
     :param loan: the parent loan.
     :param notification_type: the type of notification to find.
     :return notification counter.
     """
-    trans_date = ciso8601.parse_datetime(loan.get('transaction_date'))
-    return NotificationsSearch()\
-        .filter('term', context__loan__pid=loan.pid)\
-        .filter('term', notification_type=notification_type) \
-        .filter('term', notification_sent=True) \
-        .filter('range', creation_date={'gt': trans_date}) \
-        .source().count()
+    trans_date = ciso8601.parse_datetime(loan.get("transaction_date"))
+    return (
+        NotificationsSearch()
+        .filter("term", context__loan__pid=loan.pid)
+        .filter("term", notification_type=notification_type)
+        .filter("term", notification_sent=True)
+        .filter("range", creation_date={"gt": trans_date})
+        .source()
+        .count()
+    )
 
 
 def calculate_notification_amount(notification):
@@ -104,10 +115,10 @@ def calculate_notification_amount(notification):
     # Find the reminder type to use based on the notification that we would
     # sent. If no reminder type is found, then no amount could be calculated
     # and we can't return '0'
-    notif_type = notification.get('notification_type')
+    notif_type = notification.get("notification_type")
     reminder_type_mapping = {
         NotificationType.DUE_SOON: DUE_SOON_REMINDER_TYPE,
-        NotificationType.OVERDUE: OVERDUE_REMINDER_TYPE
+        NotificationType.OVERDUE: OVERDUE_REMINDER_TYPE,
     }
     reminder_type = reminder_type_mapping.get(notif_type)
     if not notif_type or not reminder_type:
@@ -121,13 +132,13 @@ def calculate_notification_amount(notification):
         location.organisation_pid,
         location.library_pid,
         notification.patron.patron_type_pid,
-        notification.item.holding_circulation_category_pid
+        notification.item.holding_circulation_category_pid,
     )
 
     # now we get the circulation policy, search the correct reminder depending
     # of the reminder_counter from the notification context.
     reminder = cipo.get_reminder(
         reminder_type=reminder_type,
-        idx=notification.get('context', {}).get('reminder_counter', 0)
+        idx=notification.get("context", {}).get("reminder_counter", 0),
     )
-    return reminder.get('fee_amount', 0) if reminder else 0
+    return reminder.get("fee_amount", 0) if reminder else 0

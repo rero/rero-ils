@@ -23,20 +23,22 @@ from utils import postdata
 
 
 def test_add_request_failed_actions(
-        client, librarian_martigny, lib_martigny,
-        patron_martigny, loc_public_martigny, item_lib_martigny,
-        circulation_policies):
+    client,
+    librarian_martigny,
+    lib_martigny,
+    patron_martigny,
+    loc_public_martigny,
+    item_lib_martigny,
+    circulation_policies,
+):
     """Test item failed actions."""
     login_user_via_session(client, librarian_martigny.user)
 
     # test fails for a request with a missing parameter pickup_location_pid
     res, data = postdata(
         client,
-        'api_item.librarian_request',
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny.pid
-        )
+        "api_item.librarian_request",
+        dict(item_pid=item_lib_martigny.pid, patron_pid=patron_martigny.pid),
     )
     assert res.status_code == 400
 
@@ -44,56 +46,60 @@ def test_add_request_failed_actions(
     # when item record not found in database, api returns 404
     res, data = postdata(
         client,
-        'api_item.librarian_request',
+        "api_item.librarian_request",
         dict(
-            patron_pid=patron_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid
-        )
+            patron_pid=patron_martigny.pid, pickup_location_pid=loc_public_martigny.pid
+        ),
     )
     assert res.status_code == 404
 
     # test fails for a request with a missing parameter patron_pid
     res, data = postdata(
         client,
-        'api_item.librarian_request',
+        "api_item.librarian_request",
         dict(
-            item_pid=item_lib_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid
-        )
+            item_pid=item_lib_martigny.pid, pickup_location_pid=loc_public_martigny.pid
+        ),
     )
     assert res.status_code == 400
 
     # test fails for a request with a missing parameter transaction_library_pid
     res, data = postdata(
         client,
-        'api_item.librarian_request',
+        "api_item.librarian_request",
         dict(
             item_pid=item_lib_martigny.pid,
             patron_pid=patron_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid
-        )
+            pickup_location_pid=loc_public_martigny.pid,
+        ),
     )
     assert res.status_code == 400
 
 
 def test_add_request(
-        client, librarian_martigny, lib_martigny,
-        patron_martigny, loc_public_martigny, item_lib_martigny,
-        circulation_policies, patron2_martigny):
+    client,
+    librarian_martigny,
+    lib_martigny,
+    patron_martigny,
+    loc_public_martigny,
+    item_lib_martigny,
+    circulation_policies,
+    patron2_martigny,
+):
     """Test a successful frontend add request action."""
     # test passes when all required parameters are given
     # test passes when the transaction libarary pid is given
     login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
-        'api_item.librarian_request',
+        "api_item.librarian_request",
         dict(
             item_pid=item_lib_martigny.pid,
             patron_pid=patron_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid
-        )
+            transaction_user_pid=librarian_martigny.pid,
+        ),
     )
     assert res.status_code == 200
 
@@ -101,13 +107,13 @@ def test_add_request(
     login_user_via_session(client, librarian_martigny.user)
     res, data = postdata(
         client,
-        'api_item.librarian_request',
+        "api_item.librarian_request",
         dict(
             item_pid=item_lib_martigny.pid,
             patron_pid=patron2_martigny.pid,
             pickup_location_pid=loc_public_martigny.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid
-        )
+            transaction_user_pid=librarian_martigny.pid,
+        ),
     )
     assert res.status_code == 200

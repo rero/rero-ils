@@ -23,8 +23,8 @@ from __future__ import absolute_import, print_function
 import hashlib
 from abc import ABC
 
-from .circulation import CirculationNotification
 from ..models import NotificationChannel
+from .circulation import CirculationNotification
 
 
 class InternalCirculationNotification(CirculationNotification, ABC):
@@ -57,8 +57,7 @@ class InternalCirculationNotification(CirculationNotification, ABC):
         # Check loan notification candidate (by unpacking tuple's notification
         # candidate)
         candidates_types = [
-            n[1] for n in
-            self.loan.get_notification_candidates(trigger=None)
+            n[1] for n in self.loan.get_notification_candidates(trigger=None)
         ]
         if self.type not in candidates_types:
             msg = "Notification type isn't into notification candidate"
@@ -84,7 +83,7 @@ class InternalCirculationNotification(CirculationNotification, ABC):
 
     def get_language_to_use(self):
         """Get the language to use when dispatching the notification."""
-        return self.library.get('communication_language')
+        return self.library.get("communication_language")
 
     def get_recipients_to(self):
         """Get notification recipient email addresses."""

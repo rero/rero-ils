@@ -46,6 +46,6 @@ class AcquisitionReceiptCompleteDataExtension(RecordExtension):
 
         :param record: the record metadata.
         """
-        if not record.get('reference'):
-            record['reference'] = f'RECEIPT-{record.pid}'
+        if not record.get("reference"):
+            record["reference"] = f"RECEIPT-{record.pid}"
             record.update(record, dbcommit=True, reindex=True)

@@ -23,7 +23,7 @@ import jsonresolver
 from rero_ils.modules.jsonresolver import resolve_json_refs
 
 
-@jsonresolver.route('/api/patron_transaction_events/<pid>', host='bib.rero.ch')
+@jsonresolver.route("/api/patron_transaction_events/<pid>", host="bib.rero.ch")
 def patron_transaction_event_resolver(pid):
     """Resolver for patron_transaction_event record."""
-    return resolve_json_refs('ptre', pid)
+    return resolve_json_refs("ptre", pid)

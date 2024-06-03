@@ -23,12 +23,12 @@ from __future__ import absolute_import, print_function
 from flask import Blueprint, abort, current_app, render_template
 from invenio_records_ui.signals import record_viewed
 
-from .api import Holding
 from ..documents.api import Document
 from ..item_types.api import ItemType
 from ..libraries.api import Library
 from ..locations.api import Location
 from ..utils import extracted_data_from_ref
+from .api import Holding
 
 
 def holding_view_method(pid, record, template=None, **kwargs):
@@ -41,30 +41,35 @@ def holding_view_method(pid, record, template=None, **kwargs):
     :param **kwargs: Additional view arguments based on URL rule.
     :return: The rendered template.
     """
-    record_viewed.send(
-        current_app._get_current_object(), pid=pid, record=record
-    )
-    document_pid = extracted_data_from_ref(record.get('document'))
+    record_viewed.send(current_app._get_current_object(), pid=pid, record=record)
+    document_pid = extracted_data_from_ref(record.get("document"))
     document = Document.get_record_by_pid(document_pid)
-    location_pid = extracted_data_from_ref(record.get('location'))
+    location_pid = extracted_data_from_ref(record.get("location"))
     location = Location.get_record_by_pid(location_pid)
-    library_pid = extracted_data_from_ref(location.get('library'))
+    library_pid = extracted_data_from_ref(location.get("library"))
     library = Library.get_record_by_pid(library_pid)
-    item_type_pid = extracted_data_from_ref(record.get('circulation_category'))
+    item_type_pid = extracted_data_from_ref(record.get("circulation_category"))
     circulation_category = ItemType.get_record_by_pid(item_type_pid)
-    items = record.get_items_filter_by_viewcode(kwargs['viewcode'])
+    items = record.get_items_filter_by_viewcode(kwargs["viewcode"])
     return render_template(
-        template, pid=pid, record=record, document=document,
-        location=location, circulation_category=circulation_category,
-        library=library, viewcode=kwargs['viewcode'], items=items)
+        template,
+        pid=pid,
+        record=record,
+        document=document,
+        location=location,
+        circulation_category=circulation_category,
+        library=library,
+        viewcode=kwargs["viewcode"],
+        items=items,
+    )
 
 
 blueprint = Blueprint(
-    'holding',
+    "holding",
     __name__,
-    url_prefix='/holding',
-    template_folder='templates',
-    static_folder='static',
+    url_prefix="/holding",
+    template_folder="templates",
+    static_folder="static",
 )
 
 

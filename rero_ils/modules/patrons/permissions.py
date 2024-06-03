@@ -22,26 +22,30 @@ from flask_login import current_user
 from invenio_access import action_factory, any_user
 from invenio_records_permissions.generators import Generator
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByOrganisation, \
-    AllowedByActionRestrictByOwnerOrOrganisation, LibraryNeed, \
-    RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByOrganisation,
+    AllowedByActionRestrictByOwnerOrOrganisation,
+    LibraryNeed,
+    RecordPermissionPolicy,
+)
 from rero_ils.modules.users.models import UserRole
 
 from .api import Patron, current_librarian
 from .utils import validate_role_changes
 
 # Actions to control patron permission policy
-search_action = action_factory('ptrn-search')
-read_action = action_factory('ptrn-read')
-create_action = action_factory('ptrn-create')
-update_action = action_factory('ptrn-update')
-delete_action = action_factory('ptrn-delete')
-access_action = action_factory('ptrn-access')
+search_action = action_factory("ptrn-search")
+read_action = action_factory("ptrn-read")
+create_action = action_factory("ptrn-create")
+update_action = action_factory("ptrn-update")
+delete_action = action_factory("ptrn-delete")
+access_action = action_factory("ptrn-access")
 
 
 class AllowedByActionRestrictStaffByManageableLibrary(
-      AllowedByActionRestrictByOrganisation):
+    AllowedByActionRestrictByOrganisation
+):
     """Restrict action on staff users by staff users of the same library.
 
     If the updated record represents a staff `Patron` user, then only staff
@@ -59,7 +63,7 @@ class AllowedByActionRestrictStaffByManageableLibrary(
         if not isinstance(record, Patron):
             record = Patron(record)
 
-        record_roles = record.get('roles', [])
+        record_roles = record.get("roles", [])
         # If updated user is a staff member, only user related to the same
         # library (so only staff members because simple patron are not
         # related to any library) can perform operation on this user.
@@ -85,7 +89,7 @@ class RestrictDeleteDependOnPatronRolesManagement(Generator):
         :param kwargs: extra named arguments.
         :returns: a list of Needs to disable access.
         """
-        roles = set(record.get('roles', []))
+        roles = set(record.get("roles", []))
         if not validate_role_changes(current_user, roles, raise_exc=False):
             return [any_user]
         return []
@@ -95,19 +99,16 @@ class PatronPermissionPolicy(RecordPermissionPolicy):
     """Patron Permission Policy used by the CRUD operations."""
 
     can_search = [AllowedByAction(search_action)]
-    can_read = [AllowedByActionRestrictByOwnerOrOrganisation(
-        read_action,
-        patron_callback=lambda record: record.pid
-    )]
-    can_create = [
-        AllowedByActionRestrictStaffByManageableLibrary(create_action)
+    can_read = [
+        AllowedByActionRestrictByOwnerOrOrganisation(
+            read_action, patron_callback=lambda record: record.pid
+        )
     ]
-    can_update = [
-        AllowedByActionRestrictStaffByManageableLibrary(update_action)
-    ]
+    can_create = [AllowedByActionRestrictStaffByManageableLibrary(create_action)]
+    can_update = [AllowedByActionRestrictStaffByManageableLibrary(update_action)]
     can_delete = [
         AllowedByActionRestrictStaffByManageableLibrary(delete_action),
-        RestrictDeleteDependOnPatronRolesManagement()
+        RestrictDeleteDependOnPatronRolesManagement(),
     ]
 
 

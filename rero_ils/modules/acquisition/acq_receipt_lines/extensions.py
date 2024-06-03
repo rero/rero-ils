@@ -35,8 +35,8 @@ class AcquisitionReceiptLineCompleteDataExtension(RecordExtension):
         :param data: The dict passed to the record's constructor
         :param model: The model class used for initialization.
         """
-        if not record.get('receipt_date'):
-            record['receipt_date'] = datetime.now().strftime('%Y-%m-%d')
+        if not record.get("receipt_date"):
+            record["receipt_date"] = datetime.now().strftime("%Y-%m-%d")
 
 
 class AcqReceiptLineValidationExtension(RecordExtension):
@@ -65,7 +65,7 @@ class AcqReceiptLineValidationExtension(RecordExtension):
         already_received_quantity = record.order_line.received_quantity
         new_total_quantity = quantity_to_check + already_received_quantity
         if new_total_quantity > record.order_line.quantity:
-            msg = _('Received quantity is grower than ordered quantity')
+            msg = _("Received quantity is grower than ordered quantity")
             raise ValidationError(msg)
 
     # INVENIO EXTENSION HOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

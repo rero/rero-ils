@@ -49,8 +49,8 @@ from .utils import extracted_data_from_ref
 ils_record_format_checker = FormatChecker()
 
 
-@ils_record_format_checker.checks('email')
-@ils_record_format_checker.checks('idn-email')
+@ils_record_format_checker.checks("email")
+@ils_record_format_checker.checks("idn-email")
 def _strong_email_validation(instance) -> bool:
     """Allow to validate an email address (only email format, not DNS)."""
     if not isinstance(instance, str):
@@ -59,7 +59,7 @@ def _strong_email_validation(instance) -> bool:
     # into `email.validator.ts` file into @rero/ng-core. The best solution
     # should be to use a configuration setting available through an API, but
     # it should be a little overkill.
-    email_regexp = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+    email_regexp = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
     return bool(re.fullmatch(email_regexp, instance))
 
 
@@ -94,9 +94,9 @@ class IlsRecordsSearch(RecordsSearch):
     class Meta:
         """Search only on item index."""
 
-        index = 'records'
+        index = "records"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -117,7 +117,7 @@ class IlsRecordsSearch(RecordsSearch):
         """
         if hit := next(self.get_records_by_pids([pid], fields), None):
             return hit
-        raise NotFoundError(f'Record not found pid: {pid}')
+        raise NotFoundError(f"Record not found pid: {pid}")
 
     def get_records_by_pids(self, pids, fields=None):
         """Get ES hits by pids.
@@ -129,13 +129,12 @@ class IlsRecordsSearch(RecordsSearch):
             found.
         """
         assert type(pids) is list
-        query = self.filter('terms', pid=pids)
+        query = self.filter("terms", pid=pids)
         if fields:
             query = query.source(includes=fields)
         return query.scan()
 
-    def get_records_by_terms(self, terms, key='pid', fields=None,
-                             as_dict=False):
+    def get_records_by_terms(self, terms, key="pid", fields=None, as_dict=False):
         """Search records by terms.
 
         :param terms: list of term to search
@@ -145,15 +144,12 @@ class IlsRecordsSearch(RecordsSearch):
         :return: dictionary if as_dict is true else return generator
         :rtype: dictionary or generator
         """
-        fields = fields or '*'
+        fields = fields or "*"
         params = {key: terms}
-        query = self.filter('terms', **params).source(includes=fields)
+        query = self.filter("terms", **params).source(includes=fields)
 
         if as_dict:
-            return {
-                result.pid: result.to_dict()
-                for result in query.scan()
-            }
+            return {result.pid: result.to_dict() for result in query.scan()}
 
         return query.scan()
 
@@ -164,7 +160,7 @@ class IlsRecord(Record):
     minter = None
     fetcher = None
     provider = None
-    object_type = 'rec'
+    object_type = "rec"
     pids_exist_check = None
     pid_check = True
 
@@ -173,11 +169,11 @@ class IlsRecord(Record):
     @classmethod
     def get_indexer_class(cls):
         """Get the indexer from config."""
-        endpoints = current_app.config['RECORDS_REST_ENDPOINTS']
-        endpoints.update(current_app.config['CIRCULATION_REST_ENDPOINTS'])
+        endpoints = current_app.config["RECORDS_REST_ENDPOINTS"]
+        endpoints.update(current_app.config["CIRCULATION_REST_ENDPOINTS"])
         try:
             indexer = obj_or_import_string(
-                endpoints[cls.provider.pid_type]['indexer_class']
+                endpoints[cls.provider.pid_type]["indexer_class"]
             )
         except Exception:
             # provide default indexer if no indexer is defined in config.
@@ -190,7 +186,7 @@ class IlsRecord(Record):
         extended validation per record class
         and test of pid existence.
         """
-        if self.get('_draft'):
+        if self.get("_draft"):
             # No validation is needed for draft records
             return self
 
@@ -198,19 +194,22 @@ class IlsRecord(Record):
         validation_message = self.extended_validation(**kwargs)
         # We only like to run pids_exist_check if validation_message is True
         # and not a string with error from extended_validation
-        if validation_message is True and self.pid_check and \
-                self.pids_exist_check:
+        if validation_message is True and self.pid_check and self.pids_exist_check:
             from .utils import pids_exists_in_data
-            validation_message = pids_exists_in_data(
-                info=f'{self.provider.pid_type} ({self.pid})',
-                data=self,
-                required=self.pids_exist_check.get('required', {}),
-                not_required=self.pids_exist_check.get('not_required', {})
-            ) or True
+
+            validation_message = (
+                pids_exists_in_data(
+                    info=f"{self.provider.pid_type} ({self.pid})",
+                    data=self,
+                    required=self.pids_exist_check.get("required", {}),
+                    not_required=self.pids_exist_check.get("not_required", {}),
+                )
+                or True
+            )
         if validation_message is not True:
             if not isinstance(validation_message, list):
                 validation_message = [validation_message]
-            raise ValidationError(';'.join(validation_message))
+            raise ValidationError(";".join(validation_message))
         return json
 
     def extended_validation(self, **kwargs):
@@ -221,25 +220,34 @@ class IlsRecord(Record):
         return True
 
     @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, pidcheck=True, **kwargs):
+    def create(
+        cls,
+        data,
+        id_=None,
+        delete_pid=False,
+        dbcommit=False,
+        reindex=False,
+        pidcheck=True,
+        **kwargs,
+    ):
         """Create a new ils record."""
         assert cls.minter
         assert cls.provider
-        if '$schema' not in data:
+        if "$schema" not in data:
             pid_type = cls.provider.pid_type
-            schemas = current_app.config.get('RERO_ILS_DEFAULT_JSON_SCHEMA')
+            schemas = current_app.config.get("RERO_ILS_DEFAULT_JSON_SCHEMA")
             if pid_type in schemas:
                 from .utils import get_schema_for_resource
-                data['$schema'] = get_schema_for_resource(pid_type)
-        pid = data.get('pid')
+
+                data["$schema"] = get_schema_for_resource(pid_type)
+        pid = data.get("pid")
         if delete_pid and pid:
-            del data['pid']
+            del data["pid"]
         elif pid:
             if test_rec := cls.get_record_by_pid(pid):
                 raise IlsRecordError.PidAlreadyUsed(
-                    f'PidAlreadyUsed {cls.provider.pid_type} '
-                    f'{test_rec.pid} {test_rec.id}'
+                    f"PidAlreadyUsed {cls.provider.pid_type} "
+                    f"{test_rec.pid} {test_rec.id}"
                 )
         if not id_:
             id_ = uuid4()
@@ -251,7 +259,8 @@ class IlsRecord(Record):
                 record.dbcommit(reindex)
         except Exception as err:
             current_app.logger.warning(
-                f'CREATE WARNING: {cls.__name__}: {err} data:{data}')
+                f"CREATE WARNING: {cls.__name__}: {err} data:{data}"
+            )
             raise
         return record
 
@@ -259,17 +268,15 @@ class IlsRecord(Record):
     def get_record_by_pid(cls, pid, with_deleted=False, verbose=False):
         """Get ILS record by pid value."""
         if verbose:
-            click.echo(f'\t\tget_record_by_pid: {cls.__name__} {pid}')
+            click.echo(f"\t\tget_record_by_pid: {cls.__name__} {pid}")
         if pid:
             assert cls.provider
             try:
                 persistent_identifier = PersistentIdentifier.get(
-                    cls.provider.pid_type,
-                    pid
+                    cls.provider.pid_type, pid
                 )
                 return super().get_record(
-                    persistent_identifier.object_uuid,
-                    with_deleted=with_deleted
+                    persistent_identifier.object_uuid, with_deleted=with_deleted
                 )
             # TODO: is it better to raise a error or to return None?
             except (NoResultFound, PIDDoesNotExistError):
@@ -296,10 +303,7 @@ class IlsRecord(Record):
         """
         assert cls.provider
         try:
-            PersistentIdentifier.get(
-                cls.provider.pid_type,
-                pid
-            )
+            PersistentIdentifier.get(cls.provider.pid_type, pid)
             return True
 
         except (NoResultFound, PIDDoesNotExistError):
@@ -316,10 +320,7 @@ class IlsRecord(Record):
         """Get uuid by pid."""
         assert cls.provider
         try:
-            persistent_identifier = PersistentIdentifier.get(
-                cls.provider.pid_type,
-                pid
-            )
+            persistent_identifier = PersistentIdentifier.get(cls.provider.pid_type, pid)
             return persistent_identifier.object_uuid
         except Exception:
             return None
@@ -328,17 +329,13 @@ class IlsRecord(Record):
     def get_persistent_identifier(cls, id):
         """Get Persistent Identifier."""
         return PersistentIdentifier.get_by_object(
-            cls.provider.pid_type,
-            cls.object_type,
-            id
+            cls.provider.pid_type, cls.object_type, id
         )
 
     @classmethod
     def _get_all(cls, with_deleted=False):
         """Get all persistent identifier records."""
-        query = PersistentIdentifier.query.filter_by(
-            pid_type=cls.provider.pid_type
-        )
+        query = PersistentIdentifier.query.filter_by(pid_type=cls.provider.pid_type)
         if not with_deleted:
             query = query.filter_by(status=PIDStatus.REGISTERED)
         return query
@@ -350,7 +347,7 @@ class IlsRecord(Record):
         if limit:
             count = query.count()
             # slower, less memory
-            query = query.order_by(text('pid_value')).limit(limit)
+            query = query.order_by(text("pid_value")).limit(limit)
             offset = 0
             while offset < count:
                 for identifier in query.offset(offset):
@@ -367,7 +364,7 @@ class IlsRecord(Record):
         query = cls._get_all(with_deleted=with_deleted)
         if limit:
             # slower, less memory
-            query = query.order_by(text('pid_value')).limit(limit)
+            query = query.order_by(text("pid_value")).limit(limit)
             offset = 0
             count = cls.count(with_deleted=with_deleted)
             while offset < count:
@@ -421,20 +418,22 @@ class IlsRecord(Record):
         :param reindex: reindex the record.
         :returns: the modified record
         """
-        if pid := data.get('pid'):
+        if pid := data.get("pid"):
             db_record = self.get_record(self.id)
             if pid != db_record.pid:
                 raise IlsRecordError.PidChange(
-                    f'{self.__class__.__name__} changed pid from '
-                    f'{db_record.pid} to {pid}')
+                    f"{self.__class__.__name__} changed pid from "
+                    f"{db_record.pid} to {pid}"
+                )
         record = self
 
         # Add schema if missing.
-        if not data.get('$schema'):
+        if not data.get("$schema"):
             pid_type = self.provider.pid_type
             from .utils import get_schema_for_resource
+
             if schema := get_schema_for_resource(pid_type):
-                data['$schema'] = schema
+                data["$schema"] = schema
 
         super().update(data)
         if commit or dbcommit:
@@ -447,12 +446,11 @@ class IlsRecord(Record):
     def replace(self, data, commit=True, dbcommit=False, reindex=False):
         """Replace data in record."""
         new_data = deepcopy(data)
-        pid = new_data.get('pid')
+        pid = new_data.get("pid")
         if not pid:
-            raise IlsRecordError.PidMissing(f'missing pid={self.pid}')
+            raise IlsRecordError.PidMissing(f"missing pid={self.pid}")
         self.clear()
-        return self.update(
-            new_data, commit=commit, dbcommit=dbcommit, reindex=reindex)
+        return self.update(new_data, commit=commit, dbcommit=dbcommit, reindex=reindex)
 
     def revert(self, revision_id, reindex=False):
         """Revert the record to a specific revision."""
@@ -499,13 +497,13 @@ class IlsRecord(Record):
             indexer().delete(self)
         except NotFoundError:
             current_app.logger.warning(
-                f'Can not delete from index {self.__class__.__name__}'
-                f': {self.pid}')
+                f"Can not delete from index {self.__class__.__name__}" f": {self.pid}"
+            )
 
     @property
     def pid(self):
         """Get ils record pid value."""
-        return self.get('pid')
+        return self.get("pid")
 
     @property
     def persistent_identifier(self):
@@ -536,7 +534,7 @@ class IlsRecord(Record):
     @property
     def organisation_pid(self):
         """Get organisation pid for circulation policy."""
-        return extracted_data_from_ref(self.get('organisation'))
+        return extracted_data_from_ref(self.get("organisation"))
 
     @classmethod
     def get_metadata_identifier_names(cls):
@@ -569,22 +567,21 @@ class IlsRecordsIndexer(RecordIndexer):
 
     def index(self, record):
         """Indexing a record."""
-        return super().index(record, arguments=dict(refresh='true'))
+        return super().index(record, arguments=dict(refresh="true"))
 
     def delete(self, record):
         """Delete a record.
 
         :param record: Record instance.
         """
-        return super().delete(record, refresh='true')
+        return super().delete(record, refresh="true")
 
     def bulk_index(self, record_id_iterator, doc_type=None):
         """Bulk index records.
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        self._bulk_op(
-            record_id_iterator, op_type='index', doc_type=doc_type)
+        self._bulk_op(record_id_iterator, op_type="index", doc_type=doc_type)
 
     def process_bulk_queue(self, search_bulk_kwargs=None, stats_only=True):
         """Process bulk indexing queue.
@@ -603,7 +600,7 @@ class IlsRecordsIndexer(RecordIndexer):
                 routing_key=self.mq_routing_key,
             )
 
-            req_timeout = current_app.config['INDEXER_BULK_REQUEST_TIMEOUT']
+            req_timeout = current_app.config["INDEXER_BULK_REQUEST_TIMEOUT"]
 
             search_bulk_kwargs = search_bulk_kwargs or {}
 
@@ -613,7 +610,7 @@ class IlsRecordsIndexer(RecordIndexer):
                 stats_only=stats_only,
                 request_timeout=req_timeout,
                 expand_action_callback=search.helpers.expand_action,
-                **search_bulk_kwargs
+                **search_bulk_kwargs,
             )
 
             consumer.close()
@@ -625,7 +622,7 @@ class IlsRecordsIndexer(RecordIndexer):
         from .utils import get_record_class_from_schema_or_pid_type
 
         # take the first defined doc type for finding the class
-        pid_type = payload.get('doc_type', 'rec')
+        pid_type = payload.get("doc_type", "rec")
         return get_record_class_from_schema_or_pid_type(pid_type=pid_type)
 
     #
@@ -642,12 +639,7 @@ class IlsRecordsIndexer(RecordIndexer):
         """
         with self.create_producer() as producer:
             for rec in record_id_iterator:
-                data = dict(
-                    id=str(rec),
-                    op=op_type,
-                    index=index,
-                    doc_type=doc_type
-                )
+                data = dict(id=str(rec), op=op_type, index=index, doc_type=doc_type)
                 producer.publish(
                     data,
                     declare=[self.mq_queue],
@@ -663,7 +655,7 @@ class IlsRecordsIndexer(RecordIndexer):
             payload = message.decode()
             try:
                 indexer = self._get_record_class(payload).get_indexer_class()
-                if payload['op'] == 'delete':
+                if payload["op"] == "delete":
                     yield indexer()._delete_action(payload=payload)
                 else:
                     yield indexer()._index_action(payload=payload)
@@ -676,7 +668,7 @@ class IlsRecordsIndexer(RecordIndexer):
                     f"Failed to {payload['op']}"
                     f" {payload.get('doc_type'), 'rec'} "
                     f"{payload.get('pid')}:{payload.get('id')}",
-                    exc_info=True
+                    exc_info=True,
                 )
 
     def _index_action(self, payload):
@@ -685,26 +677,25 @@ class IlsRecordsIndexer(RecordIndexer):
         :param payload: Decoded message body.
         :return: Dictionary defining an Elasticsearch bulk 'index' action.
         """
-        record = self.record_cls.get_record(payload['id'])
+        record = self.record_cls.get_record(payload["id"])
         index = self.record_to_index(record)
 
         arguments = {}
-        index = payload.get('index') or index
+        index = payload.get("index") or index
         body = self._prepare_record(record, index, arguments)
         action = {
-            '_op_type': 'index',
-            '_index': index,
-            '_id': str(record.id),
-            '_version': record.revision_id,
-            '_version_type': self._version_type,
-            '_source': body
+            "_op_type": "index",
+            "_index": index,
+            "_id": str(record.id),
+            "_version": record.revision_id,
+            "_version_type": self._version_type,
+            "_source": body,
         }
         action.update(arguments)
 
         return action
 
-    def _prepare_record(
-            self, record, index, arguments=None, **kwargs):
+    def _prepare_record(self, record, index, arguments=None, **kwargs):
         """Prepare record data for indexing.
 
         :param record: The record to prepare.
@@ -713,7 +704,7 @@ class IlsRecordsIndexer(RecordIndexer):
         :param **kwargs: Extra parameters.
         :return: The record metadata.
         """
-        if not getattr(record, 'enable_jsonref', True):
+        if not getattr(record, "enable_jsonref", True):
             # If dumper is None, dumps() will use the default configured dumper
             # on the Record class.
             data = record.dumps(dumper=self.record_dumper)
@@ -724,17 +715,19 @@ class IlsRecordsIndexer(RecordIndexer):
             # records. Also, we're adding extra information into the record
             # like _created and _updated afterwards, which the Record.dumps()
             # have no control over.
-            if current_app.config.get('INDEXER_REPLACE_REFS'):
+            if current_app.config.get("INDEXER_REPLACE_REFS"):
                 data = record.replace_refs().dumps()
                 # Original code
                 # data = copy.deepcopy(record.replace_refs())
             else:
                 data = record.dumps()
 
-        data['_created'] = pytz.utc.localize(record.created).isoformat() \
-            if record.created else None
-        data['_updated'] = pytz.utc.localize(record.updated).isoformat() \
-            if record.updated else None
+        data["_created"] = (
+            pytz.utc.localize(record.created).isoformat() if record.created else None
+        )
+        data["_updated"] = (
+            pytz.utc.localize(record.updated).isoformat() if record.updated else None
+        )
 
         # Allow modification of data prior to sending to Elasticsearch.
         before_record_index.send(
@@ -743,7 +736,7 @@ class IlsRecordsIndexer(RecordIndexer):
             record=record,
             index=index,
             arguments={} if arguments is None else arguments,
-            **kwargs
+            **kwargs,
         )
         return data
 
@@ -762,7 +755,7 @@ class ReferencedRecordsIndexer:
         indexer = indexer_class()
         for r in referenced:
             try:
-                record_to_index = r['record']
+                record_to_index = r["record"]
                 indexer.index(record_to_index)
             except Exception as err:
                 current_app.logger.error(

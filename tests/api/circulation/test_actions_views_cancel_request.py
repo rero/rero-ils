@@ -23,33 +23,28 @@ from utils import postdata
 
 
 def test_cancel_an_item_request(
-        client, librarian_martigny, lib_martigny,
-        item_at_desk_martigny_patron_and_loan_at_desk,
-        item_on_shelf_martigny_patron_and_loan_pending, loc_public_martigny,
-        circulation_policies):
+    client,
+    librarian_martigny,
+    lib_martigny,
+    item_at_desk_martigny_patron_and_loan_at_desk,
+    item_on_shelf_martigny_patron_and_loan_pending,
+    loc_public_martigny,
+    circulation_policies,
+):
     """Test the frontend cancel an item request action."""
     # test passes when all required parameters are given
     login_user_via_session(client, librarian_martigny.user)
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
 
     # test fails when there is a missing required parameter
-    res, data = postdata(
-        client,
-        'api_item.cancel_item_request',
-        dict(
-            pid=loan.pid
-        )
-    )
+    res, data = postdata(client, "api_item.cancel_item_request", dict(pid=loan.pid))
     assert res.status_code == 400
 
     # test fails when there is a missing required parameter
     res, data = postdata(
         client,
-        'api_item.cancel_item_request',
-        dict(
-            pid=loan.pid,
-            transaction_location_pid=loc_public_martigny.pid
-        )
+        "api_item.cancel_item_request",
+        dict(pid=loan.pid, transaction_location_pid=loc_public_martigny.pid),
     )
     assert res.status_code == 400
 
@@ -57,23 +52,23 @@ def test_cancel_an_item_request(
     # when item record not found in database, api returns 404
     res, data = postdata(
         client,
-        'api_item.cancel_item_request',
+        "api_item.cancel_item_request",
         dict(
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid
-        )
+            transaction_user_pid=librarian_martigny.pid,
+        ),
     )
     assert res.status_code == 404
 
     # test passes when the transaction location pid is given
     res, data = postdata(
         client,
-        'api_item.cancel_item_request',
+        "api_item.cancel_item_request",
         dict(
             pid=loan.pid,
             transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid
-        )
+            transaction_user_pid=librarian_martigny.pid,
+        ),
     )
     assert res.status_code == 200
 
@@ -82,11 +77,11 @@ def test_cancel_an_item_request(
     item, patron, loan = item_at_desk_martigny_patron_and_loan_at_desk
     res, data = postdata(
         client,
-        'api_item.cancel_item_request',
+        "api_item.cancel_item_request",
         dict(
             pid=loan.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid
-        )
+            transaction_user_pid=librarian_martigny.pid,
+        ),
     )
     assert res.status_code == 200

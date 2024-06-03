@@ -26,7 +26,7 @@ from invenio_cache import current_cache
 from .exceptions import LibraryNeverOpen
 
 
-@shared_task(name='library-calendar-changes-update-loans')
+@shared_task(name="library-calendar-changes-update-loans")
 def calendar_changes_update_loans(record_data):
     """Task to update related loans if library calendar changes.
 
@@ -64,12 +64,11 @@ def calendar_changes_update_loans(record_data):
         #   decorator should take the key to clean as argument. But we didn't
         #   know the key because it's created from `record_data`. This is why
         #   it's easier to create a small specific function.
-        cache_content = current_cache.get('library-calendar-changes') or {}
+        cache_content = current_cache.get("library-calendar-changes") or {}
         cache_content.pop(library.pid, {})
-        current_cache.set('library-calendar-changes', cache_content)
+        current_cache.set("library-calendar-changes", cache_content)
 
-    from rero_ils.modules.loans.api import LoansIndexer, \
-        get_on_loan_loans_for_library
+    from rero_ils.modules.loans.api import LoansIndexer, get_on_loan_loans_for_library
 
     from .api import Library
 
@@ -80,11 +79,12 @@ def calendar_changes_update_loans(record_data):
         active_loan_counter += 1
         if not library.is_open(loan.end_date):
             with contextlib.suppress(LibraryNeverOpen):
-                loan['end_date'] = library \
-                    .next_open(loan.end_date) \
-                    .astimezone(library.get_timezone()) \
-                    .replace(hour=23, minute=59, second=0, microsecond=0)\
+                loan["end_date"] = (
+                    library.next_open(loan.end_date)
+                    .astimezone(library.get_timezone())
+                    .replace(hour=23, minute=59, second=0, microsecond=0)
                     .isoformat()
+                )
                 changed_loan_uuids.append(loan.id)
                 loan.update(loan, dbcommit=True, reindex=False)
     indexer = LoansIndexer()

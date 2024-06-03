@@ -29,24 +29,25 @@ from rero_ils.modules.patron_transactions.models import PatronTransactionStatus
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref
 
-from .models import PatronTransactionEventIdentifier, \
-    PatronTransactionEventMetadata, PatronTransactionEventType
+from .models import (
+    PatronTransactionEventIdentifier,
+    PatronTransactionEventMetadata,
+    PatronTransactionEventType,
+)
 
 # provider
 PatronTransactionEventProvider = type(
-    'PatronTransactionEventProvider',
+    "PatronTransactionEventProvider",
     (Provider,),
-    dict(identifier=PatronTransactionEventIdentifier, pid_type='ptre')
+    dict(identifier=PatronTransactionEventIdentifier, pid_type="ptre"),
 )
 # minter
 patron_transaction_event_id_minter = partial(
-    id_minter,
-    provider=PatronTransactionEventProvider
+    id_minter, provider=PatronTransactionEventProvider
 )
 # fetcher
 patron_transaction_event_id_fetcher = partial(
-    id_fetcher,
-    provider=PatronTransactionEventProvider
+    id_fetcher, provider=PatronTransactionEventProvider
 )
 
 
@@ -56,9 +57,9 @@ class PatronTransactionEventsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on patron_transaction_event index."""
 
-        index = 'patron_transaction_events'
+        index = "patron_transaction_events"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -72,27 +73,27 @@ class PatronTransactionEvent(IlsRecord):
     provider = PatronTransactionEventProvider
     model_cls = PatronTransactionEventMetadata
     pids_exist_check = {
-        'required': {
-            'pttr': 'parent'
-        },
-        'not_required': {
-            'lib': 'library',
-            'ptrn': 'operator'
-        }
+        "required": {"pttr": "parent"},
+        "not_required": {"lib": "library", "ptrn": "operator"},
     }
 
-    _extensions = [
-        DecimalAmountExtension('amount')
-    ]
+    _extensions = [DecimalAmountExtension("amount")]
 
     @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, update_parent=True, **kwargs):
+    def create(
+        cls,
+        data,
+        id_=None,
+        delete_pid=False,
+        dbcommit=False,
+        reindex=False,
+        update_parent=True,
+        **kwargs,
+    ):
         """Create patron transaction event record."""
-        if 'creation_date' not in data:
-            data['creation_date'] = datetime.now(timezone.utc).isoformat()
-        record = super().create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        if "creation_date" not in data:
+            data["creation_date"] = datetime.now(timezone.utc).isoformat()
+        record = super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
         if update_parent and record:
             record.update_parent_patron_transaction()
         return record
@@ -103,10 +104,7 @@ class PatronTransactionEvent(IlsRecord):
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update data for record."""
         return super().update(
-            data=data,
-            commit=commit,
-            dbcommit=dbcommit,
-            reindex=reindex
+            data=data, commit=commit, dbcommit=dbcommit, reindex=reindex
         )
 
     def update_parent_patron_transaction(self):
@@ -121,20 +119,19 @@ class PatronTransactionEvent(IlsRecord):
         #   digits, we can multiply amounts by 100, cast result as integer,
         #   do operation with these values, and (at the end) divide the result
         #   by 100.
-        if not self.amount or \
-           self.event_type == PatronTransactionEventType.DISPUTE:
+        if not self.amount or self.event_type == PatronTransactionEventType.DISPUTE:
             return
 
         pttr = self.patron_transaction
-        total_amount = int(pttr.get('total_amount') * 100)
+        total_amount = int(pttr.get("total_amount") * 100)
         amount = int(self.amount * 100)
         if self.event_type == PatronTransactionEventType.FEE:
             total_amount += amount
         else:
             total_amount -= amount
-        pttr['total_amount'] = total_amount / 100
+        pttr["total_amount"] = total_amount / 100
         if total_amount == 0:
-            pttr['status'] = PatronTransactionStatus.CLOSED
+            pttr["status"] = PatronTransactionStatus.CLOSED
         pttr.update(pttr, dbcommit=True, reindex=True)
 
     @classmethod
@@ -144,11 +141,13 @@ class PatronTransactionEvent(IlsRecord):
         :param transaction_pid: The transaction PID
         :return: Array of events selected by transaction PID
         """
-        return PatronTransactionEventsSearch()\
-            .params(preserve_order=True)\
-            .filter('term', parent__pid=transaction_pid)\
-            .sort({'creation_date': {'order': 'desc'}})\
+        return (
+            PatronTransactionEventsSearch()
+            .params(preserve_order=True)
+            .filter("term", parent__pid=transaction_pid)
+            .sort({"creation_date": {"order": "desc"}})
             .scan()
+        )
 
     @classmethod
     def get_initial_amount_transaction_event(cls, transaction_pid):
@@ -157,33 +156,35 @@ class PatronTransactionEvent(IlsRecord):
         :param transaction_pid: The transaction PID
         :return: The initial amount for selected transaction
         """
-        result = PatronTransactionEventsSearch()\
-            .params(preserve_order=True)\
-            .filter('term', parent__pid=transaction_pid)\
-            .sort({'creation_date': {'order': 'asc'}})\
-            .source(['amount'])\
+        result = (
+            PatronTransactionEventsSearch()
+            .params(preserve_order=True)
+            .filter("term", parent__pid=transaction_pid)
+            .sort({"creation_date": {"order": "asc"}})
+            .source(["amount"])
             .scan()
+        )
         return next(result).amount
 
     @property
     def parent_pid(self):
         """Return the parent pid of the patron transaction event."""
-        return extracted_data_from_ref(self.get('parent'))
+        return extracted_data_from_ref(self.get("parent"))
 
     @property
     def patron_transaction(self):
         """Return the parent patron transaction of the event."""
-        return extracted_data_from_ref(self.get('parent'), data='record')
+        return extracted_data_from_ref(self.get("parent"), data="record")
 
     @property
     def event_type(self):
         """Return the type of the patron transaction event."""
-        return self.get('type')
+        return self.get("type")
 
     @property
     def amount(self):
         """Return the amount of the patron transaction event."""
-        return self.get('amount')
+        return self.get("amount")
 
     @property
     def patron_pid(self):
@@ -208,4 +209,4 @@ class PatronTransactionEventsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='ptre')
+        super().bulk_index(record_id_iterator, doc_type="ptre")

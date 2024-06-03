@@ -35,9 +35,9 @@ from .models import OrganisationIdentifier, OrganisationMetadata
 
 # provider
 OrganisationProvider = type(
-    'OrganisationProvider',
+    "OrganisationProvider",
     (Provider,),
-    dict(identifier=OrganisationIdentifier, pid_type='org')
+    dict(identifier=OrganisationIdentifier, pid_type="org"),
 )
 # minter
 organisation_id_minter = partial(id_minter, provider=OrganisationProvider)
@@ -51,22 +51,21 @@ class OrganisationsSearch(IlsRecordsSearch):
     class Meta:
         """Meta class."""
 
-        index = 'organisations'
+        index = "organisations"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
 
     def get_record_by_viewcode(self, viewcode, fields=None):
         """Search by viewcode."""
-        query = self.filter('term', code=viewcode).extra(size=1)
+        query = self.filter("term", code=viewcode).extra(size=1)
         if fields:
             query = query.source(includes=fields)
         response = query.execute()
         if response.hits.total.value != 1:
-            raise NotFoundError(
-                f'Organisation viewcode {viewcode}: Result not found.')
+            raise NotFoundError(f"Organisation viewcode {viewcode}: Result not found.")
         return response.hits.hits[0]._source
 
 
@@ -81,27 +80,24 @@ class Organisation(IlsRecord):
     @classmethod
     def get_all(cls):
         """Get all organisations."""
-        return sorted([
-            Organisation.get_record(_id)
-            for _id in Organisation.get_all_ids()
-        ], key=lambda org: org.get('name'))
+        return sorted(
+            [Organisation.get_record(_id) for _id in Organisation.get_all_ids()],
+            key=lambda org: org.get("name"),
+        )
 
     @classmethod
     def all_code(cls):
         """Get all code."""
-        return [org.get('code') for org in cls.get_all()]
+        return [org.get("code") for org in cls.get_all()]
 
     @classmethod
     def get_record_by_viewcode(cls, viewcode):
         """Get record by view code."""
-        result = OrganisationsSearch()\
-            .filter('term', code=viewcode)\
-            .execute()
-        if result['hits']['total']['value'] != 1:
-            raise Exception(
-                'Organisation (get_record_by_viewcode): Result not found.')
+        result = OrganisationsSearch().filter("term", code=viewcode).execute()
+        if result["hits"]["total"]["value"] != 1:
+            raise Exception("Organisation (get_record_by_viewcode): Result not found.")
 
-        return result['hits']['hits'][0]['_source']
+        return result["hits"]["hits"][0]["_source"]
 
     @classmethod
     def get_record_by_online_harvested_source(cls, source):
@@ -110,8 +106,9 @@ class Organisation(IlsRecord):
         :param source: the record source
         :return: Organisation record or None.
         """
-        results = OrganisationsSearch().filter(
-            'term', online_harvested_source=source).scan()
+        results = (
+            OrganisationsSearch().filter("term", online_harvested_source=source).scan()
+        )
         try:
             return Organisation.get_record_by_pid(next(results).pid)
         except StopIteration:
@@ -124,9 +121,13 @@ class Organisation(IlsRecord):
 
     def online_circulation_category(self):
         """Get the default circulation category for online resources."""
-        results = ItemTypesSearch().filter(
-            'term', organisation__pid=self.pid).filter(
-                'term', type='online').source(['pid']).scan()
+        results = (
+            ItemTypesSearch()
+            .filter("term", organisation__pid=self.pid)
+            .filter("term", type="online")
+            .source(["pid"])
+            .scan()
+        )
         try:
             return next(results).pid
         except StopIteration:
@@ -142,9 +143,12 @@ class Organisation(IlsRecord):
 
     def get_libraries_pids(self):
         """Get all libraries pids related to the organisation."""
-        query = LibrariesSearch().source(['pid'])\
-            .filter('term', organisation__pid=self.pid)\
-            .source('pid')
+        query = (
+            LibrariesSearch()
+            .source(["pid"])
+            .filter("term", organisation__pid=self.pid)
+            .source("pid")
+        )
         return [hit.pid for hit in query.scan()]
 
     def get_libraries(self):
@@ -154,9 +158,12 @@ class Organisation(IlsRecord):
 
     def get_vendor_pids(self):
         """Get all vendor pids related to the organisation."""
-        query = VendorsSearch().source(['pid'])\
-            .filter('term', organisation__pid=self.pid)\
-            .source('pid')
+        query = (
+            VendorsSearch()
+            .source(["pid"])
+            .filter("term", organisation__pid=self.pid)
+            .source("pid")
+        )
         return [hit.pid for hit in query.scan()]
 
     def get_vendors(self):
@@ -170,12 +177,10 @@ class Organisation(IlsRecord):
         :param get_pids: if True list of linked pids
                          if False count of linked records
         """
-        from rero_ils.modules.acquisition.acq_receipts.api import \
-            AcqReceiptsSearch
-        library_query = LibrariesSearch()\
-            .filter('term', organisation__pid=self.pid)
-        receipt_query = AcqReceiptsSearch() \
-            .filter('term', organisation__pid=self.pid)
+        from rero_ils.modules.acquisition.acq_receipts.api import AcqReceiptsSearch
+
+        library_query = LibrariesSearch().filter("term", organisation__pid=self.pid)
+        receipt_query = AcqReceiptsSearch().filter("term", organisation__pid=self.pid)
         links = {}
         if get_pids:
             libraries = sorted_pids(library_query)
@@ -184,21 +189,21 @@ class Organisation(IlsRecord):
             libraries = library_query.count()
             receipts = receipt_query.count()
         if libraries:
-            links['libraries'] = libraries
+            links["libraries"] = libraries
         if receipts:
-            links['acq_receipts'] = receipts
+            links["acq_receipts"] = receipts
         return links
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
         if links := self.get_links_to_me():
-            cannot_delete['links'] = links
+            cannot_delete["links"] = links
         return cannot_delete
 
     def is_test_organisation(self):
         """Check if this is a test organisation."""
-        return self.get('code') == 'cypress'
+        return self.get("code") == "cypress"
 
 
 class OrganisationsIndexer(IlsRecordsIndexer):
@@ -211,4 +216,4 @@ class OrganisationsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='org')
+        super().bulk_index(record_id_iterator, doc_type="org")

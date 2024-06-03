@@ -25,20 +25,24 @@ from flask_login import current_user
 from invenio_access import Permission
 from werkzeug.exceptions import HTTPException
 
-from rero_ils.permissions import librarian_permission, login_and_librarian, \
-    login_and_patron
+from rero_ils.permissions import (
+    librarian_permission,
+    login_and_librarian,
+    login_and_patron,
+)
 
 from .permissions import PermissionContext
 
 
 def check_authentication(fn):
     """Decorator to check authentication for permissions HTTP API."""
+
     @wraps(fn)
     def decorated_view(*args, **kwargs):
         if not current_user.is_authenticated:
-            return jsonify({'status': 'error: Unauthorized'}), 401
+            return jsonify({"status": "error: Unauthorized"}), 401
         if not librarian_permission.require().can():
-            return jsonify({'status': 'error: Forbidden'}), 403
+            return jsonify({"status": "error: Forbidden"}), 403
         return fn(*args, **kwargs)
 
     return decorated_view
@@ -50,10 +54,12 @@ def check_logged_as_librarian(fn):
     If no user is connected: return 401 (unauthorized)
     If current logged user isn't `librarian`: return 403 (forbidden)
     """
+
     @wraps(fn)
     def wrapper(*args, **kwargs):
         login_and_librarian()
         return fn(*args, **kwargs)
+
     return wrapper
 
 
@@ -63,6 +69,7 @@ def check_logged_as_patron(fn):
     If no user is connected: redirect the user to sign-in page
     If current logged user isn't `patron`: return 403 (forbidden)
     """
+
     @wraps(fn)
     def wrapper(*args, **kwargs):
         status, code, redirect_url = login_and_patron()
@@ -72,15 +79,17 @@ def check_logged_as_patron(fn):
             return redirect(redirect_url)
         else:
             abort(code)
+
     return wrapper
 
 
 def check_logged_user_authentication(func):
     """Decorator to check authentication for user HTTP API."""
+
     @wraps(func)
     def decorated_view(*args, **kwargs):
         if not current_user.is_authenticated:
-            return jsonify({'status': 'error: Unauthorized'}), 401
+            return jsonify({"status": "error: Unauthorized"}), 401
         return func(*args, **kwargs)
 
     return decorated_view
@@ -92,15 +101,18 @@ def check_permission(actions):
     :param actions: List of `ActionNeed` to test. If one permission failed
         then the access should be unauthorized.
     """
+
     def inner(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
             for action in actions:
                 permission = Permission(action)
                 if not permission.can():
-                    return jsonify({'status': 'error: Unauthorized'}), 401
+                    return jsonify({"status": "error: Unauthorized"}), 401
             return func(*args, **kwargs)
+
         return wrapper
+
     return inner
 
 
@@ -113,14 +125,15 @@ def parse_permission_payload(func):
 
     :raises KeyError - If a required parameter isn't available.
     """
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         data = request.get_json() or {}
-        kwargs['method'] = 'deny' if request.method == 'DELETE' else 'allow'
+        kwargs["method"] = "deny" if request.method == "DELETE" else "allow"
         # define required parameters depending on request context.
-        required_arguments = ['context', 'permission']
-        if data.get('context') == PermissionContext.BY_ROLE:
-            required_arguments.extend(['role_name'])
+        required_arguments = ["context", "permission"]
+        if data.get("context") == PermissionContext.BY_ROLE:
+            required_arguments.extend(["role_name"])
         # check parameter exists and fill the keyword argument with them.
         for param_name in required_arguments:
             try:
@@ -128,19 +141,22 @@ def parse_permission_payload(func):
             except KeyError:
                 abort(400, f"'{param_name}' argument required")
         return func(*args, **kwargs)
+
     return wrapper
 
 
 def jsonify_error(func):
     """Jsonify errors."""
+
     @wraps(func)
     def decorated_view(*args, **kwargs):
         try:
             return func(*args, **kwargs)
         except HTTPException as httpe:
-            return jsonify({'message': f'{httpe}'}), httpe.code
+            return jsonify({"message": f"{httpe}"}), httpe.code
         except Exception as error:
             # raise error
             # current_app.logger.error(str(error))
-            return jsonify({'message': f'{error}'}), 400
+            return jsonify({"message": f"{error}"}), 400
+
     return decorated_view

@@ -21,13 +21,11 @@ from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
 from utils import check_permission
 
-from rero_ils.modules.acquisition.budgets.permissions import \
-    BudgetPermissionPolicy
+from rero_ils.modules.acquisition.budgets.permissions import BudgetPermissionPolicy
 
 
 def test_budget_permissions(
-    patron_martigny, librarian_martigny,
-    budget_2018_martigny, budget_2020_sion
+    patron_martigny, librarian_martigny, budget_2018_martigny, budget_2020_sion
 ):
     """Test budget permissions class."""
 
@@ -35,37 +33,53 @@ def test_budget_permissions(
     identity_changed.send(
         current_app._get_current_object(), identity=AnonymousIdentity()
     )
-    check_permission(BudgetPermissionPolicy, {
-        'search': False,
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, {})
+    check_permission(
+        BudgetPermissionPolicy,
+        {
+            "search": False,
+            "read": False,
+            "create": False,
+            "update": False,
+            "delete": False,
+        },
+        {},
+    )
 
     # Patron :: can't operate any operation about Budget
     login_user(patron_martigny.user)
-    check_permission(BudgetPermissionPolicy, {
-        'search': False,
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, budget_2018_martigny)
+    check_permission(
+        BudgetPermissionPolicy,
+        {
+            "search": False,
+            "read": False,
+            "create": False,
+            "update": False,
+            "delete": False,
+        },
+        budget_2018_martigny,
+    )
 
     # Staff members :: can only search and read (only org record)
     login_user(librarian_martigny.user)
-    check_permission(BudgetPermissionPolicy, {
-        'search': True,
-        'read': True,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, budget_2018_martigny)
-    check_permission(BudgetPermissionPolicy, {
-        'search': True,
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, budget_2020_sion)
+    check_permission(
+        BudgetPermissionPolicy,
+        {
+            "search": True,
+            "read": True,
+            "create": False,
+            "update": False,
+            "delete": False,
+        },
+        budget_2018_martigny,
+    )
+    check_permission(
+        BudgetPermissionPolicy,
+        {
+            "search": True,
+            "read": False,
+            "create": False,
+            "update": False,
+            "delete": False,
+        },
+        budget_2020_sion,
+    )

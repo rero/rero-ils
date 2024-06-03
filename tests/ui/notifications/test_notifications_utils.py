@@ -28,9 +28,7 @@ from rero_ils.modules.loans.utils import get_circ_policy
 from rero_ils.modules.notifications.utils import calculate_notification_amount
 
 
-def test_notification_calculate_notification_amount(
-   notification_due_soon_martigny
-):
+def test_notification_calculate_notification_amount(notification_due_soon_martigny):
     """Test calculate amount for a notifications."""
     notification = notification_due_soon_martigny
     loan = Loan.get_record_by_pid(notification.loan_pid)
@@ -48,21 +46,21 @@ def test_notification_calculate_notification_amount(
     #           to this new setting
     fee_amount = randint(1, 100)
     reminder = cipo.get_reminder(DUE_SOON_REMINDER_TYPE)
-    reminder['fee_amount'] = fee_amount
-    cipo['reminders'] = [reminder]
+    reminder["fee_amount"] = fee_amount
+    cipo["reminders"] = [reminder]
     cipo.update(cipo, dbcommit=True, reindex=True)
     assert calculate_notification_amount(notification) == fee_amount
 
     # STEP 2 :: Update the notification context to simulate it's the second
     #           'due_soon' reminders notification. Check the notification
     #           amount accord to this new setting
-    counter = notification['context']['reminder_counter']
-    notification['context']['reminder_counter'] = counter + 1
+    counter = notification["context"]["reminder_counter"]
+    notification["context"]["reminder_counter"] = counter + 1
     assert calculate_notification_amount(notification) == 0
 
     # STEP 3 :: Delete the cipo reminders setting. As there is no setting, the
     #           caclulted amount must be equals to 0
-    del cipo['reminders']
+    del cipo["reminders"]
     cipo.update(cipo, dbcommit=True, reindex=True)
     assert calculate_notification_amount(notification) == 0
 

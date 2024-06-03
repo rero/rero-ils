@@ -99,6 +99,8 @@ function pretests () {
   pydocstyle rero_ils tests docs
   info_msg "Test isort:"
   isort --check-only --diff tests rero_ils
+  info_msg "Test black:"
+  black tests rero_ils --diff
   info_msg "Test useless imports:"
   poetry run autoflake -r --remove-all-unused-imports --ignore-init-module-imports --quiet .
   # info_msg "Check-manifest:"

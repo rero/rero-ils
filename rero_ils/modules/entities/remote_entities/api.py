@@ -32,18 +32,17 @@ from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.providers import Provider
 
-from .models import EntityUpdateAction, RemoteEntityIdentifier, \
-    RemoteEntityMetadata
-from .utils import extract_data_from_mef_uri, get_mef_data_by_type
 from ..api import Entity
 from ..dumpers import indexer_dumper, replace_refs_dumper
 from ..models import EntityResourceType
+from .models import EntityUpdateAction, RemoteEntityIdentifier, RemoteEntityMetadata
+from .utils import extract_data_from_mef_uri, get_mef_data_by_type
 
 # provider
 RemoteEntityProvider = type(
-    'EntityProvider',
+    "EntityProvider",
     (Provider,),
-    dict(identifier=RemoteEntityIdentifier, pid_type='rement')
+    dict(identifier=RemoteEntityIdentifier, pid_type="rement"),
 )
 # minter
 remote_entity_id_minter = partial(id_minter, provider=RemoteEntityProvider)
@@ -57,9 +56,9 @@ class RemoteEntitiesSearch(IlsRecordsSearch):
     class Meta:
         """Meta class."""
 
-        index = 'remote_entities'
+        index = "remote_entities"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -84,18 +83,20 @@ class RemoteEntity(Entity):
         :param ref_pid: the identifier to search.
         :returns: the corresponding `Entity` if exists.
         """
-        if ref_type == 'mef':
+        if ref_type == "mef":
             return cls.get_record_by_pid(ref_pid)
 
-        es_filter = Q('term', **{f'{ref_type}.pid': ref_pid})
-        if ref_type == 'viaf':
-            es_filter = Q('term', viaf_pid=ref_pid)
-        query = RemoteEntitiesSearch() \
-            .params(preserve_order=True) \
-            .sort({'_created': {'order': 'desc'}}) \
+        es_filter = Q("term", **{f"{ref_type}.pid": ref_pid})
+        if ref_type == "viaf":
+            es_filter = Q("term", viaf_pid=ref_pid)
+        query = (
+            RemoteEntitiesSearch()
+            .params(preserve_order=True)
+            .sort({"_created": {"order": "desc"}})
             .filter(es_filter)
+        )
         with contextlib.suppress(StopIteration):
-            pid = next(query.source('pid').scan()).pid
+            pid = next(query.source("pid").scan()).pid
             return cls.get_record_by_pid(pid)
 
     @classmethod
@@ -120,11 +121,12 @@ class RemoteEntity(Entity):
         nested = db.session.begin_nested()
         try:
             data = get_mef_data_by_type(
-                entity_type=entity_type, pid_type=ref_type, pid=ref_pid)
+                entity_type=entity_type, pid_type=ref_type, pid=ref_pid
+            )
             if not data:
-                raise HTTPError('', 404, "Not found")
+                raise HTTPError("", 404, "Not found")
             # Try to get the contribution from DB maybe it was not indexed.
-            if entity := RemoteEntity.get_record_by_pid(data['pid']):
+            if entity := RemoteEntity.get_record_by_pid(data["pid"]):
                 entity = entity.replace(data)
             else:
                 entity = cls.create(data)
@@ -134,9 +136,7 @@ class RemoteEntity(Entity):
             entity.reindex()
         except Exception as err:
             nested.rollback()
-            current_app.logger.error(
-                f'Get MEF record: {ref_type}:{ref_pid} >>{err}<<'
-            )
+            current_app.logger.error(f"Get MEF record: {ref_type}:{ref_pid} >>{err}<<")
             entity = None
         return entity, online
 
@@ -148,8 +148,8 @@ class RemoteEntity(Entity):
     @property
     def type(self):
         """Get entity type."""
-        entity_types = current_app.config['RERO_ILS_ENTITY_TYPES']
-        return entity_types.get(self['type'])
+        entity_types = current_app.config["RERO_ILS_ENTITY_TYPES"]
+        return entity_types.get(self["type"])
 
     def resolve(self):
         """Resolve references data.
@@ -174,12 +174,12 @@ class RemoteEntity(Entity):
         :returns: authorized access point in given language.
         """
         return self._get_mef_localized_value(
-            key='authorized_access_point',
-            language=language
+            key="authorized_access_point", language=language
         )
 
-    def update_online(self, dbcommit=False, reindex=False, verbose=False,
-                      reindex_doc=True):
+    def update_online(
+        self, dbcommit=False, reindex=False, verbose=False, reindex_doc=True
+    ):
         """Update record online.
 
         :param reindex: reindex record by record
@@ -189,27 +189,26 @@ class RemoteEntity(Entity):
         :return: updated record status and updated record
         """
         action = EntityUpdateAction.UPTODATE
-        pid = self.get('pid')
+        pid = self.get("pid")
         try:
             if data := get_mef_data_by_type(
-                    entity_type=self.type,
-                    pid_type='mef',
-                    pid=pid,
-                    verbose=verbose):
-                data['$schema'] = self['$schema']
-                if data.get('deleted'):
+                entity_type=self.type, pid_type="mef", pid=pid, verbose=verbose
+            ):
+                data["$schema"] = self["$schema"]
+                if data.get("deleted"):
                     current_app.logger.warning(
-                        f'UPDATE ONLINE {self.type} (pid:{pid}): was deleted')
-                    action = EntityUpdateAction.ERROR
-                elif not data.get('sources'):
-                    current_app.logger.warning(
-                        f'UPDATE ONLINE {self.type} (pid:{pid}): '
-                        f'has no sources'
+                        f"UPDATE ONLINE {self.type} (pid:{pid}): was deleted"
                     )
                     action = EntityUpdateAction.ERROR
-                elif not data.get('type'):
+                elif not data.get("sources"):
                     current_app.logger.warning(
-                        f'UPDATE ONLINE {self.type} (pid:{pid}): has no type')
+                        f"UPDATE ONLINE {self.type} (pid:{pid}): " f"has no sources"
+                    )
+                    action = EntityUpdateAction.ERROR
+                elif not data.get("type"):
+                    current_app.logger.warning(
+                        f"UPDATE ONLINE {self.type} (pid:{pid}): has no type"
+                    )
                     action = EntityUpdateAction.ERROR
                 elif dict(self) != data:
                     action = EntityUpdateAction.REPLACE
@@ -220,22 +219,18 @@ class RemoteEntity(Entity):
                         indexer.process_bulk_queue()
         except Exception as err:
             action = EntityUpdateAction.ERROR
-            current_app.logger.warning(f'UPDATE ONLINE {pid}: {err}')
+            current_app.logger.warning(f"UPDATE ONLINE {pid}: {err}")
         return action, self
 
     def source_pids(self):
         """Get agents pids."""
-        sources = current_app.config.get('RERO_ILS_AGENTS_SOURCES', [])
-        return {
-            source: self[source]['pid']
-            for source in sources
-            if source in self
-        }
+        sources = current_app.config.get("RERO_ILS_AGENTS_SOURCES", [])
+        return {source: self[source]["pid"] for source in sources if source in self}
 
     def _get_mef_localized_value(self, key, language):
         """Get the 1st localized value for given key among MEF source list."""
-        order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', [])
-        source_order = order.get(language, order.get(order['fallback'], []))
+        order = current_app.config.get("RERO_ILS_AGENTS_LABEL_ORDER", [])
+        source_order = order.get(language, order.get(order["fallback"], []))
         for source in source_order:
             if value := self.get(source, {}).get(key, None):
                 return value
@@ -253,4 +248,4 @@ class RemoteEntitiesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='rement')
+        super().bulk_index(record_id_iterator, doc_type="rement")

@@ -20,12 +20,6 @@
 import pytest
 
 
-@pytest.fixture(scope='module')
-def libraries_records(
-    lib_martigny,
-    lib_saxon,
-    lib_fully,
-    lib_sion,
-    lib_aproz
-):
+@pytest.fixture(scope="module")
+def libraries_records(lib_martigny, lib_saxon, lib_fully, lib_sion, lib_aproz):
     """Libraries for test mapping."""

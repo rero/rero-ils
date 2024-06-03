@@ -33,6 +33,6 @@ class UserDataExtension(RecordExtension):
         :param dumper: Dumper to use when dumping the record.
         :return the future dumped data.
         """
-        user = User.get_record(record.get('user_id'))
+        user = User.get_record(record.get("user_id"))
         user_info = user.dumps_metadata()
         return data.update(user_info)

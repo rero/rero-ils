@@ -26,9 +26,9 @@ from flask import current_app
 
 from rero_ils.modules.users.api import User
 
-from .api import Patron
 from ..patron_types.api import PatronType
 from ..utils import add_years, set_timestamp
+from .api import Patron
 
 
 def clean_obsolete_subscriptions():
@@ -38,30 +38,27 @@ def clean_obsolete_subscriptions():
     clean the subscription array keeping only subscription with a end-time
     grower than now(). Update patron to commit change
     """
+
     def is_obsolete(subscription, end_date=None):
         """Check if a subscription is obsolete by checking end date."""
         if end_date is None:
             end_date = datetime.now()
-        sub_end_date = subscription.get('end_date', '1970-01-01')
-        sub_end_date = datetime.strptime(sub_end_date, '%Y-%m-%d')
+        sub_end_date = subscription.get("end_date", "1970-01-01")
+        sub_end_date = datetime.strptime(sub_end_date, "%Y-%m-%d")
         return sub_end_date < end_date
 
     for patron in Patron.patrons_with_obsolete_subscription_pids():
-        subscriptions = patron.patron.get('subscriptions', [])
+        subscriptions = patron.patron.get("subscriptions", [])
         subscriptions = [sub for sub in subscriptions if not is_obsolete(sub)]
-        if not subscriptions and 'subscriptions' in patron.patron:
-            del patron['patron']['subscriptions']
+        if not subscriptions and "subscriptions" in patron.patron:
+            del patron["patron"]["subscriptions"]
         else:
-            patron['patron']['subscriptions'] = subscriptions
+            patron["patron"]["subscriptions"] = subscriptions
 
         # DEV NOTE : this update will trigger the listener
         #     `create_subscription_patron_transaction`. This listener will
         #     create a new subscription if needed
-        patron.update(
-            User.remove_fields(patron.dumps()),
-            dbcommit=True,
-            reindex=True
-        )
+        patron.update(User.remove_fields(patron.dumps()), dbcommit=True, reindex=True)
 
 
 def check_patron_types_and_add_subscriptions():
@@ -81,8 +78,10 @@ def check_patron_types_and_add_subscriptions():
     for ptty in PatronType.get_yearly_subscription_patron_types():
         patron_no_subsc = Patron.get_patrons_without_subscription(ptty.pid)
         for patron in patron_no_subsc:
-            msg = f'Add a subscription for patron#{patron.pid} ... ' \
-                  'it shouldn\'t happen !!'
+            msg = (
+                f"Add a subscription for patron#{patron.pid} ... "
+                "it shouldn't happen !!"
+            )
             current_app.logger.error(msg)
             start_date = datetime.now()
             end_date = add_years(start_date, 1)
@@ -94,4 +93,4 @@ def task_clear_and_renew_subscriptions():
     """Clean obsolete subscriptions and renew subscription if needed."""
     clean_obsolete_subscriptions()
     check_patron_types_and_add_subscriptions()
-    set_timestamp('clear_and_renew_subscriptions')
+    set_timestamp("clear_and_renew_subscriptions")

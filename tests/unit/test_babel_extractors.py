@@ -26,11 +26,11 @@ def test_babel_extractors_extract_json(babel_filehandle):
         fileobj=babel_filehandle,
         keywords=None,
         comment_tags=None,
-        options={'keys_to_translate': "['title']"}
+        options={"keys_to_translate": "['title']"},
     )
     assert translations == [
-        (4, 'gettext', 'Organisation', []),
-        (14, 'gettext', 'Schema', []),
-        (21, 'gettext', 'Organisation ID', []),
-        (25, 'gettext', 'Name', [])
+        (4, "gettext", "Organisation", []),
+        (14, "gettext", "Schema", []),
+        (21, "gettext", "Organisation ID", []),
+        (25, "gettext", "Name", []),
     ]

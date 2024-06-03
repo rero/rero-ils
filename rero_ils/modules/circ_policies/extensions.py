@@ -32,9 +32,8 @@ class CircPolicyFieldsExtension(RecordExtension):
 
         :param record: the record to check.
         """
-        if not record.get('allow_requests') \
-           and 'pickup_hold_duration' in record:
-            del record['pickup_hold_duration']
+        if not record.get("allow_requests") and "pickup_hold_duration" in record:
+            del record["pickup_hold_duration"]
 
     pre_commit = _pickup_hold_duration_check
     pre_create = _pickup_hold_duration_check

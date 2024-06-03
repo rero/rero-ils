@@ -26,6 +26,7 @@ from rero_ils.modules.users.api import User
 def user_has_patron(user=current_user):
     """Test if user has a patron."""
     from .api import Patron
+
     patrons = Patron.get_patrons_by_user(user=user)
     return bool(patrons)  # true if `patrons` list isn't empty; false otherwise
 
@@ -37,7 +38,8 @@ def get_patron_pid_by_email(email):
     :return: the first patron pid found corresponding to this email.
     """
     from .api import PatronsSearch
-    query = PatronsSearch().filter('term', email=email).source(['pid'])
+
+    query = PatronsSearch().filter("term", email=email).source(["pid"])
     if hit := next(query.scan(), None):
         return hit.pid
 
@@ -55,17 +57,16 @@ def validate_role_changes(user, changes, raise_exc=True):
     # this user can manage reading the configuration setting. If any role
     # from `role_changes` are not present in manageable role, an error
     # should be raised.
-    key_config = 'RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS'
+    key_config = "RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS"
     config_roles = current_app.config.get(key_config, {})
     manageable_roles = set()
     for role in user.roles:
-        manageable_roles = manageable_roles.union(
-            config_roles.get(role.name, {}))
+        manageable_roles = manageable_roles.union(config_roles.get(role.name, {}))
     # If any difference are found between both sets, disallow the operation
     if role_diffs := changes.difference(manageable_roles):
         if raise_exc:
-            error_roles = ', '.join(role_diffs)
-            raise ValidationError(f'Unable to manage role(s): {error_roles}')
+            error_roles = ", ".join(role_diffs)
+            raise ValidationError(f"Unable to manage role(s): {error_roles}")
         else:
             return False
     # No problems were detected
@@ -79,20 +80,18 @@ def create_user_from_data(data, send_email=False):
     :param send_email - send the reset password email to the user
     :returns: The modified dict.
     """
-    user = User.get_by_username(data.get('username'))
+    user = User.get_by_username(data.get("username"))
     if not user:
         user = User.create(data, send_email)
         user_id = user.id
     else:
         user_id = user.user.id
-    data['user_id'] = user_id
+    data["user_id"] = user_id
 
     return User.remove_fields(data)
 
 
-def create_patron_from_data(
-    data, dbcommit=True, reindex=True, send_email=False
-):
+def create_patron_from_data(data, dbcommit=True, reindex=True, send_email=False):
     """Create a patron and a user from a data dict.
 
     :param data - dictionary representing a library user
@@ -100,9 +99,8 @@ def create_patron_from_data(
     :returns: - A `Patron` instance
     """
     from .api import Patron
+
     data = create_user_from_data(data, send_email)
     return Patron.create(
-        data=data,
-        delete_pid=False,
-        dbcommit=dbcommit,
-        reindex=reindex)
+        data=data, delete_pid=False, dbcommit=dbcommit, reindex=reindex
+    )

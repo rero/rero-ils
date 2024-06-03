@@ -34,8 +34,8 @@ class ClaimIssueHoldingDumper(InvenioRecordsDumper):
         """
         assert record.is_serial, "Holding type must be 'serial'"
         data = {
-            'pid': record.pid,
-            'client_id': record.get('client_id'),
-            'order_reference': record.get('order_reference')
+            "pid": record.pid,
+            "client_id": record.get("client_id"),
+            "order_reference": record.get("order_reference"),
         }
         return {k: v for k, v in data.items() if v}

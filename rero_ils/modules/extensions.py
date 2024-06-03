@@ -89,22 +89,25 @@ class UniqueFieldsExtension(RecordExtension):
         # record from the result. If one hit matches, raise a ValidationError,
         # otherwise, all should be fine. Enjoy !
         terms = [
-            Q('term', **{es_field: record[attr]})
+            Q("term", **{es_field: record[attr]})
             for attr, es_field in self.fields
             if attr in record
         ]
 
-        es_query = self.search_class()\
-            .query('bool', should=terms, minimum_should_match=1)\
-            .exclude('term', pid=record.pid)\
-            .source().scan()
+        es_query = (
+            self.search_class()
+            .query("bool", should=terms, minimum_should_match=1)
+            .exclude("term", pid=record.pid)
+            .source()
+            .scan()
+        )
 
         _exhausted = object()
         matching_hit = next(es_query, _exhausted)
         if matching_hit != _exhausted:
             pid = matching_hit.pid
-            field_keys = ' and/or '.join(attrs_to_check)
-            msg = f'{field_keys} value(s) already taken by pid={pid}'
+            field_keys = " and/or ".join(attrs_to_check)
+            msg = f"{field_keys} value(s) already taken by pid={pid}"
             raise ValidationError(msg)
 
     pre_commit = _check_fields
@@ -153,13 +156,13 @@ class DecimalAmountExtension(RecordExtension):
         # NOTE:
         #   an amount of "123,450" is true despite if we configure only 2
         #   decimals. In same way "123,4" is also a valid value.
-        regexp = r'^-?(\d+(?:(,|.)\d{1,' + str(self.decimals) + r'})?)$'
+        regexp = r"^-?(\d+(?:(,|.)\d{1," + str(self.decimals) + r"})?)$"
         regexp = re.compile(regexp)
 
         for value in values_to_check:
             if not regexp.match(str(value)):
                 decimal_string = 1 / pow(10, self.decimals)
-                msg = f'`{value}` must be multiple of {decimal_string}'
+                msg = f"`{value}` must be multiple of {decimal_string}"
                 raise ValidationError(msg)
 
     pre_commit = _check_amount

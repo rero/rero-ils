@@ -18,9 +18,6 @@
 """Test item collections."""
 
 
-def test_get_items(
-                   item_lib_martigny, item2_lib_martigny,
-                   coll_martigny_1):
+def test_get_items(item_lib_martigny, item2_lib_martigny, coll_martigny_1):
     """Test get items for a collection"""
-    assert coll_martigny_1.get_items() == \
-        [item_lib_martigny, item2_lib_martigny]
+    assert coll_martigny_1.get_items() == [item_lib_martigny, item2_lib_martigny]

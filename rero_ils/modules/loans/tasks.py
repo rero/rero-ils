@@ -43,7 +43,7 @@ def loan_anonymizer(dbcommit=True, reindex=True):
             loan.anonymize(dbcommit=dbcommit, reindex=reindex)
             counter += 1
 
-    set_timestamp('anonymize-loans', count=counter)
+    set_timestamp("anonymize-loans", count=counter)
     return counter
 
 
@@ -63,12 +63,15 @@ def cancel_expired_request_task(tstamp=None):
         _, actions = item.cancel_item_request(
             loan.pid,
             transaction_location_pid=loan.location_pid,
-            transaction_user_pid=loan.patron_pid
+            transaction_user_pid=loan.patron_pid,
         )
-        if actions.get('cancel', {}).get('pid') == loan.pid:
+        if actions.get("cancel", {}).get("pid") == loan.pid:
             total_cancelled_loans += 1
-    set_timestamp('cancel-expired-request-task', total=total_loans_counter,
-                  cancelled=total_cancelled_loans)
+    set_timestamp(
+        "cancel-expired-request-task",
+        total=total_loans_counter,
+        cancelled=total_cancelled_loans,
+    )
     return total_loans_counter, total_cancelled_loans
 
 
@@ -78,18 +81,19 @@ def delete_loans_created(verbose=False, hours=1, dbcommit=True, delindex=True):
     now = datetime.now(timezone.utc)
     if hours >= 0:
         now -= timedelta(hours=hours)
-    count = LoansSearch().filter('term', state='CREATED').count()
-    query = LoansSearch() \
-        .filter('term', state='CREATED').filter('range', _created={'lt': now})
+    count = LoansSearch().filter("term", state="CREATED").count()
+    query = (
+        LoansSearch()
+        .filter("term", state="CREATED")
+        .filter("range", _created={"lt": now})
+    )
     if verbose:
-        click.echo(
-            f'TOTAL: {count} DELETE: {query.count()} HOURS: {-query.count()}'
-        )
+        click.echo(f"TOTAL: {count} DELETE: {query.count()} HOURS: {-query.count()}")
     idx = 0
-    for idx, hit in enumerate(query.source('pid').scan(), 1):
+    for idx, hit in enumerate(query.source("pid").scan(), 1):
         loan = Loan.get_record_by_pid(hit.pid)
-        state = loan.get('state')
+        state = loan.get("state")
         if verbose:
-            click.echo(f'{idx:<10} {loan.pid:<10} {state} DELETE')
+            click.echo(f"{idx:<10} {loan.pid:<10} {state} DELETE")
         loan.delete(dbcommit=dbcommit, delindex=delindex)
     return idx

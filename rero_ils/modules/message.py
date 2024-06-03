@@ -21,10 +21,10 @@ from invenio_cache.proxies import current_cache
 from markupsafe import Markup
 
 
-class Message():
+class Message:
     """Message for the user."""
 
-    prefix = 'message_'
+    prefix = "message_"
 
     @classmethod
     def set(cls, key, type, value):
@@ -35,8 +35,8 @@ class Message():
         :param value: the value of message.
         :return: True if the insertion went well.
         """
-        data = {'type': type or 'primary', 'message': Markup(value)}
-        return current_cache.set(f'{cls.prefix}{key}', data)
+        data = {"type": type or "primary", "message": Markup(value)}
+        return current_cache.set(f"{cls.prefix}{key}", data)
 
     @classmethod
     def get(cls, key):
@@ -45,7 +45,7 @@ class Message():
         :param key: the cache key.
         :return: empty or the json.
         """
-        return current_cache.get(f'{cls.prefix}{key}')
+        return current_cache.get(f"{cls.prefix}{key}")
 
     @classmethod
     def delete(cls, key):
@@ -54,4 +54,4 @@ class Message():
         :param key: the cache key.
         :return: True if the removal went well.
         """
-        return current_cache.delete(f'{cls.prefix}{key}')
+        return current_cache.delete(f"{cls.prefix}{key}")

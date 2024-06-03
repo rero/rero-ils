@@ -18,8 +18,10 @@
 
 """Signals connector for Budgets."""
 
-from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsIndexer, \
-    AcqAccountsSearch
+from rero_ils.modules.acquisition.acq_accounts.api import (
+    AcqAccountsIndexer,
+    AcqAccountsSearch,
+)
 from rero_ils.modules.acquisition.budgets.api import Budget
 from rero_ils.modules.tasks import process_bulk_queue
 
@@ -28,13 +30,16 @@ def budget_is_active_changed(sender, record=None, *args, **kwargs):
     """Reindex related account if is_active field changes."""
     if isinstance(record, Budget):
         ori_record = Budget.get_record_by_pid(record.pid)
-        if ori_record['is_active'] != record['is_active']:
+        if ori_record["is_active"] != record["is_active"]:
             # the `is_active` flag changed, we need to reindex all accounts
             # related to this budget
             uuids = []
-            search = AcqAccountsSearch()\
-                .filter('term', budget__pid=record.pid)\
-                .source().scan()
+            search = (
+                AcqAccountsSearch()
+                .filter("term", budget__pid=record.pid)
+                .source()
+                .scan()
+            )
             for hit in search:
                 uuids.append(hit.meta.id)
             AcqAccountsIndexer().bulk_index(uuids)
