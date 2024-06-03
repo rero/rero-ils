@@ -104,3 +104,6 @@ tests/e2e/cypress/cypress/integration/test
 
 # Macosx
 .DS_Store
+
+# Files
+/data/files
