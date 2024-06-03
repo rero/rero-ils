@@ -19,19 +19,22 @@
 """Permissions for Acquisition receipt line."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByManageableLibrary, DisallowedIfRollovered, \
-    RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByManageableLibrary,
+    DisallowedIfRollovered,
+    RecordPermissionPolicy,
+)
 
 from .api import AcqReceiptLine
 
 # Actions to control acquisition receipt lines resource policies
-search_action = action_factory('acrl-search')
-read_action = action_factory('acrl-read')
-create_action = action_factory('acrl-create')
-update_action = action_factory('acrl-update')
-delete_action = action_factory('acrl-delete')
-access_action = action_factory('acrl-access')
+search_action = action_factory("acrl-search")
+read_action = action_factory("acrl-read")
+create_action = action_factory("acrl-create")
+update_action = action_factory("acrl-update")
+delete_action = action_factory("acrl-delete")
+access_action = action_factory("acrl-access")
 
 
 class AcqReceiptLinePermissionPolicy(RecordPermissionPolicy):
@@ -41,13 +44,13 @@ class AcqReceiptLinePermissionPolicy(RecordPermissionPolicy):
     can_read = [AllowedByActionRestrictByManageableLibrary(read_action)]
     can_create = [
         AllowedByActionRestrictByManageableLibrary(create_action),
-        DisallowedIfRollovered(AcqReceiptLine)
+        DisallowedIfRollovered(AcqReceiptLine),
     ]
     can_update = [
         AllowedByActionRestrictByManageableLibrary(update_action),
-        DisallowedIfRollovered(AcqReceiptLine)
+        DisallowedIfRollovered(AcqReceiptLine),
     ]
     can_delete = [
         AllowedByActionRestrictByManageableLibrary(delete_action),
-        DisallowedIfRollovered(AcqReceiptLine)
+        DisallowedIfRollovered(AcqReceiptLine),
     ]

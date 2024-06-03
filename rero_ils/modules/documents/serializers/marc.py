@@ -29,14 +29,14 @@ from lxml.builder import ElementMaker
 from werkzeug.local import LocalProxy
 
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
-from rero_ils.modules.documents.dojson.contrib.jsontomarc21.model import \
-    replace_contribution_sources
+from rero_ils.modules.documents.dojson.contrib.jsontomarc21.model import (
+    replace_contribution_sources,
+)
 from rero_ils.modules.entities.remote_entities.api import RemoteEntitiesSearch
 from rero_ils.modules.serializers import JSONSerializer
 from rero_ils.modules.utils import strip_chars
 
-DEFAULT_LANGUAGE = LocalProxy(
-    lambda: current_app.config.get('BABEL_DEFAULT_LANGUAGE'))
+DEFAULT_LANGUAGE = LocalProxy(lambda: current_app.config.get("BABEL_DEFAULT_LANGUAGE"))
 
 
 class DocumentMARCXMLSerializer(JSONSerializer):
@@ -71,10 +71,18 @@ class DocumentMARCXMLSerializer(JSONSerializer):
     #                         with_holdings_items=True)
     #
 
-    def transform_search_hit(self, pid, record_hit, language=None,
-                             with_holdings_items=True, organisation_pids=None,
-                             library_pids=None, location_pids=None,
-                             links_factory=None, **kwargs):
+    def transform_search_hit(
+        self,
+        pid,
+        record_hit,
+        language=None,
+        with_holdings_items=True,
+        organisation_pids=None,
+        library_pids=None,
+        location_pids=None,
+        links_factory=None,
+        **kwargs,
+    ):
         """Transform search result hit into an intermediate representation."""
         return to_marc21.do(
             record_hit,
@@ -82,7 +90,7 @@ class DocumentMARCXMLSerializer(JSONSerializer):
             with_holdings_items=with_holdings_items,
             organisation_pids=organisation_pids,
             library_pids=library_pids,
-            location_pids=location_pids
+            location_pids=location_pids,
         )
 
     # Needed if we use it for documents serialization !
@@ -102,50 +110,57 @@ class DocumentMARCXMLSerializer(JSONSerializer):
     #         **self.dumps_kwargs
     #     )
 
-    def transform_records(self, hits, pid_fetcher, language,
-                          with_holdings_items=True, organisation_pids=None,
-                          library_pids=None, location_pids=None,
-                          item_links_factory=None):
+    def transform_records(
+        self,
+        hits,
+        pid_fetcher,
+        language,
+        with_holdings_items=True,
+        organisation_pids=None,
+        library_pids=None,
+        location_pids=None,
+        item_links_factory=None,
+    ):
         """Transform records into an intermediate representation."""
         # get all linked contributions
         contribution_pids = []
         for hit in hits:
-            for contribution in hit['_source'].get('contribution', []):
-                contribution_pid = contribution.get('entity', {}).get('pid')
-                if contribution_pid:
+            for contribution in hit["_source"].get("contribution", []):
+                if contribution_pid := contribution.get("entity", {}).get("pid"):
                     contribution_pids.append(contribution_pid)
-        search = RemoteEntitiesSearch() \
-            .filter('terms', pid=list(set(contribution_pids)))
+        search = RemoteEntitiesSearch().filter(
+            "terms", pid=list(set(contribution_pids))
+        )
         es_contributions = {}
         for hit in search.scan():
             contribution = hit.to_dict()
-            es_contributions[contribution['pid']] = contribution
+            es_contributions[contribution["pid"]] = contribution
 
-        order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', {})
-        source_order = order.get(language, order.get(order['fallback'], []))
+        order = current_app.config.get("RERO_ILS_AGENTS_LABEL_ORDER", {})
+        source_order = order.get(language, order.get(order["fallback"], []))
         records = []
         for hit in hits:
-            document = hit['_source']
-            contributions = document.get('contribution', [])
+            document = hit["_source"]
+            contributions = document.get("contribution", [])
             for contribution in contributions:
-                contribution_pid = contribution.get('entity', {}).get('pid')
+                contribution_pid = contribution.get("entity", {}).get("pid")
                 if contribution_pid in es_contributions:
-                    contribution['entity'] = deepcopy(
-                        es_contributions[contribution_pid])
+                    contribution["entity"] = deepcopy(
+                        es_contributions[contribution_pid]
+                    )
                     replace_contribution_sources(
-                        contribution=contribution,
-                        source_order=source_order
+                        contribution=contribution, source_order=source_order
                     )
 
             record = self.transform_search_hit(
-                pid=pid_fetcher(hit['_id'], document),
+                pid=pid_fetcher(hit["_id"], document),
                 record_hit=document,
                 language=language,
                 with_holdings_items=with_holdings_items,
                 organisation_pids=organisation_pids,
                 library_pids=library_pids,
                 location_pids=location_pids,
-                links_factory=item_links_factory
+                links_factory=item_links_factory,
             )
             # complete the contributions from refs
 
@@ -184,29 +199,24 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
     MARC21_REC = "http://www.loc.gov/MARC21/slim"
     """MARCXML XML Schema"""
 
-    def dumps_etree(self, total, records, sru, xslt_filename=None,
-                    prefix=None):
+    def dumps_etree(self, total, records, sru, xslt_filename=None, prefix=None):
         """Dump records into a etree."""
-        element = ElementMaker(
-            namespace=self.MARC21_ZS,
-            nsmap={'zs': self.MARC21_ZS}
-        )
+        element = ElementMaker(namespace=self.MARC21_ZS, nsmap={"zs": self.MARC21_ZS})
 
         def dump_record(record, idx):
             """Dump a single record."""
             rec_element = ElementMaker(
-                namespace=self.MARC21_REC,
-                nsmap={prefix: self.MARC21_REC}
+                namespace=self.MARC21_REC, nsmap={prefix: self.MARC21_REC}
             )
             data_element = ElementMaker()
             rec = element.record()
-            rec.append(element.recordPacking('xml'))
-            rec.append(element.recordSchema('marcxml'))
+            rec.append(element.recordPacking("xml"))
+            rec.append(element.recordSchema("marcxml"))
 
             rec_record_data = element.recordData()
             rec_data = rec_element.record()
 
-            if leader := record.get('leader'):
+            if leader := record.get("leader"):
                 rec_data.append(data_element.leader(leader))
 
             if isinstance(record, GroupableOrderedDict):
@@ -219,52 +229,54 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
                 if len(df) == 3:
                     if isinstance(subfields, string_types):
                         controlfield = data_element.controlfield(subfields)
-                        controlfield.attrib['tag'] = df[:3]
+                        controlfield.attrib["tag"] = df[:3]
                         rec_data.append(controlfield)
                     elif isinstance(subfields, (list, tuple, set)):
                         for subfield in subfields:
                             controlfield = data_element.controlfield(subfield)
-                            controlfield.attrib['tag'] = df[:3]
+                            controlfield.attrib["tag"] = df[:3]
                             rec_data.append(controlfield)
                 else:
                     # Skip leader.
-                    if df == 'leader':
+                    if df == "leader":
                         continue
 
                     if not isinstance(subfields, (list, tuple, set)):
                         subfields = (subfields,)
 
-                    df = df.replace('_', ' ')
+                    df = df.replace("_", " ")
                     for subfield in subfields:
                         if not isinstance(subfield, (list, tuple, set)):
                             subfield = [subfield]
 
                         for s in subfield:
                             datafield = data_element.datafield()
-                            datafield.attrib['tag'] = df[:3]
-                            datafield.attrib['ind1'] = df[3]
-                            datafield.attrib['ind2'] = df[4]
+                            datafield.attrib["tag"] = df[:3]
+                            datafield.attrib["ind1"] = df[3]
+                            datafield.attrib["ind2"] = df[4]
 
                             if isinstance(s, GroupableOrderedDict):
-                                items = s.iteritems(
-                                    with_order=False, repeated=True)
+                                items = s.iteritems(with_order=False, repeated=True)
                             elif isinstance(s, dict):
                                 items = iteritems(s)
                             else:
                                 datafield.append(data_element.subfield(s))
 
-                                items = tuple()
+                                items = ()
 
                             for code, value in items:
                                 if isinstance(value, string_types):
-                                    datafield.append(data_element.subfield(
-                                        strip_chars(value), code=code)
+                                    datafield.append(
+                                        data_element.subfield(
+                                            strip_chars(value), code=code
+                                        )
                                     )
                                 else:
                                     for v in value:
                                         datafield.append(
                                             data_element.subfield(
-                                                strip_chars(v), code=code)
+                                                strip_chars(v), code=code
+                                            )
                                         )
                             rec_data.append(datafield)
                 rec_record_data.append(rec_data)
@@ -275,14 +287,14 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
         if isinstance(records, dict):
             root = dump_record(records, 1)
         else:
-            number_of_records = total['value']
-            start_record = sru.get('start_record', 0)
-            maximum_records = sru.get('maximum_records', 0)
-            query = sru.get('query')
-            query_es = sru.get('query_es')
+            number_of_records = total["value"]
+            start_record = sru.get("start_record", 0)
+            maximum_records = sru.get("maximum_records", 0)
+            query = sru.get("query")
+            query_es = sru.get("query_es")
             next_record = start_record + maximum_records
             root = element.searchRetrieveResponse()
-            root.append(element.version('1.1'))
+            root.append(element.version("1.1"))
             root.append(element.numberOfRecords(str(number_of_records)))
             if next_record > 1 and next_record < number_of_records:
                 root.append(element.nextRecordPosition(str(next_record)))
@@ -296,16 +308,14 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             if query_es:
                 echoed_search_rr.append(element.query_es(query_es))
             if start_record:
-                echoed_search_rr.append(
-                    element.startRecord(str(start_record)))
+                echoed_search_rr.append(element.startRecord(str(start_record)))
             if maximum_records:
-                echoed_search_rr.append(
-                    element.maximumRecords(str(maximum_records)))
-            echoed_search_rr.append(element.recordPacking('XML'))
+                echoed_search_rr.append(element.maximumRecords(str(maximum_records)))
+            echoed_search_rr.append(element.recordPacking("XML"))
             echoed_search_rr.append(
-                element.recordSchema(
-                    'info:sru/schema/1/marcxml-v1.1-light'))
-            echoed_search_rr.append(element.resultSetTTL('0'))
+                element.recordSchema("info:sru/schema/1/marcxml-v1.1-light")
+            )
+            echoed_search_rr.append(element.resultSetTTL("0"))
             root.append(echoed_search_rr)
 
         # Needed if we use display with XSLT file.
@@ -319,21 +329,15 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
     def dumps(self, total, records, sru, xslt_filename=None, **kwargs):
         """Dump records into a MarcXMLSRU file."""
         root = self.dumps_etree(
-            total=total,
-            records=records,
-            sru=sru,
-            xslt_filename=xslt_filename
+            total=total, records=records, sru=sru, xslt_filename=xslt_filename
         )
         return etree.tostring(
-            root,
-            pretty_print=True,
-            xml_declaration=True,
-            encoding='UTF-8',
-            **kwargs
+            root, pretty_print=True, xml_declaration=True, encoding="UTF-8", **kwargs
         )
 
-    def serialize_search(self, pid_fetcher, search_result,
-                         item_links_factory=None, **kwargs):
+    def serialize_search(
+        self, pid_fetcher, search_result, item_links_factory=None, **kwargs
+    ):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -342,32 +346,26 @@ class DocumentMARCXMLSRUSerializer(DocumentMARCXMLSerializer):
             (Default: ``None``)
         :returns: The objects serialized.
         """
-        language = request.args.get('ln', DEFAULT_LANGUAGE)
-        with_holdings_items = not request.args.get('without_items', False)
-        sru = search_result['hits'].get('sru', {})
-        query_es = sru.get('query_es', '')
-        organisation_pids = re.findall(
-            r'organisation_pid:(\d*)',
-            query_es, re.DOTALL)
-        library_pids = re.findall(
-            r'library_pid:(\d*)',
-            query_es, re.DOTALL)
-        location_pids = re.findall(
-            r'holdings.location.pid:(\d*)',
-            query_es, re.DOTALL)
+        language = request.args.get("ln", DEFAULT_LANGUAGE)
+        with_holdings_items = not request.args.get("without_items", False)
+        sru = search_result["hits"].get("sru", {})
+        query_es = sru.get("query_es", "")
+        organisation_pids = re.findall(r"organisation_pid:(\d*)", query_es, re.DOTALL)
+        library_pids = re.findall(r"library_pid:(\d*)", query_es, re.DOTALL)
+        location_pids = re.findall(r"holdings.location.pid:(\d*)", query_es, re.DOTALL)
         records = self.transform_records(
-            hits=search_result['hits']['hits'],
+            hits=search_result["hits"]["hits"],
             pid_fetcher=pid_fetcher,
             language=language,
             with_holdings_items=with_holdings_items,
             organisation_pids=organisation_pids,
             library_pids=library_pids,
             location_pids=location_pids,
-            item_links_factory=item_links_factory
+            item_links_factory=item_links_factory,
         )
         return self.dumps(
-            total=search_result['hits']['total'],
+            total=search_result["hits"]["total"],
             sru=sru,
             records=records,
-            **self.dumps_kwargs
+            **self.dumps_kwargs,
         )

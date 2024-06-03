@@ -23,12 +23,14 @@ from __future__ import absolute_import, print_function
 from flask import current_app
 from werkzeug.utils import cached_property
 
-from rero_ils.modules.acquisition.acq_orders.dumpers import \
-    AcqOrderNotificationDumper
+from rero_ils.modules.acquisition.acq_orders.dumpers import AcqOrderNotificationDumper
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.notifications.api import Notification
-from rero_ils.modules.notifications.models import NotificationChannel, \
-    NotificationType, RecipientType
+from rero_ils.modules.notifications.models import (
+    NotificationChannel,
+    NotificationType,
+    RecipientType,
+)
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
@@ -53,18 +55,22 @@ class AcquisitionOrderNotification(Notification):
         if self.type != NotificationType.ACQUISITION_ORDER:
             return f"'{self.type} isn't an AcquisitionNotification"
         if not self.acq_order_pid:
-            return '`order` field must be specified into `context` for ' \
-                   'AcquisitionNotification'
+            return (
+                "`order` field must be specified into `context` for "
+                "AcquisitionNotification"
+            )
 
         # validate that at least one email of type `to` exist and one email of
         # type `reply_to` is given in the ist of emails.
         recipient_types = {
-            recipient.get('type')
-            for recipient in self.get('context', {}).get('recipients', [])
+            recipient.get("type")
+            for recipient in self.get("context", {}).get("recipients", [])
         }
-        if RecipientType.TO not in recipient_types \
-           or RecipientType.REPLY_TO not in recipient_types:
-            return 'Recipient type `to` and `reply_to` are required'
+        if (
+            RecipientType.TO not in recipient_types
+            or RecipientType.REPLY_TO not in recipient_types
+        ):
+            return "Recipient type `to` and `reply_to` are required"
         return True
 
     # PARENT ABSTRACT IMPLEMENTATION METHODS ==================================
@@ -98,9 +104,7 @@ class AcquisitionOrderNotification(Notification):
                 can be cancelled; the reason why the notification can be
                 cancelled (only present if tuple first value is True).
         """
-        if not self.order:
-            return True, "Order doesn't exists anymore"
-        return False, None
+        return (False, None) if self.order else (True, "Order doesn't exists anymore")
 
     def get_communication_channel(self):
         """Get the communication channel to use for this notification."""
@@ -113,16 +117,15 @@ class AcquisitionOrderNotification(Notification):
         # By default, the language to use to build the notification is defined
         # in the vendor setting. Override this method if needed in the future.
         return self.order.vendor.get(
-            'communication_language',
-            current_app.config.get('RERO_ILS_APP_DEFAULT_LANGUAGE', 'eng')
+            "communication_language",
+            current_app.config.get("RERO_ILS_APP_DEFAULT_LANGUAGE", "eng"),
         )
 
     def get_template_path(self):
         """Get the template to use to render the notification."""
         # By default, the template path to use reflects the notification type.
         # Override this method if necessary
-        return \
-            f'rero_ils/vendor_order_mail/{self.get_language_to_use()}.tpl.txt'
+        return f"rero_ils/vendor_order_mail/{self.get_language_to_use()}.tpl.txt"
 
     def get_recipients(self, address_type):
         """Get the notification recipients email address.
@@ -135,9 +138,9 @@ class AcquisitionOrderNotification(Notification):
         :returns: email addresses list where send the notification to.
         """
         return [
-            recipient.get('address')
-            for recipient in self.get('context', {}).get('recipients', [])
-            if recipient.get('type') == address_type
+            recipient.get("address")
+            for recipient in self.get("context", {}).get("recipients", [])
+            if recipient.get("type") == address_type
         ]
 
     @classmethod
@@ -155,7 +158,7 @@ class AcquisitionOrderNotification(Notification):
 
         notification = notifications[0]
         order = notification.order
-        return {'order': order.dumps(dumper=AcqOrderNotificationDumper())}
+        return {"order": order.dumps(dumper=AcqOrderNotificationDumper())}
 
     # GETTER & SETTER METHODS =================================================
     #  Shortcuts to easy access notification attributes.
@@ -163,12 +166,12 @@ class AcquisitionOrderNotification(Notification):
     @property
     def acq_order_pid(self):
         """Shortcut for acq order pid of the notification."""
-        return extracted_data_from_ref(self['context']['order'])
+        return extracted_data_from_ref(self["context"]["order"])
 
     @cached_property
     def order(self):
         """Shortcut for acquisition order related to the notification."""
-        return extracted_data_from_ref(self['context']['order'], data='record')
+        return extracted_data_from_ref(self["context"]["order"], data="record")
 
     @property
     def library_pid(self):

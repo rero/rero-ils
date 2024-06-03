@@ -20,12 +20,10 @@ from copy import deepcopy
 
 from utils import get_mapping
 
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch
+from rero_ils.modules.notifications.api import Notification, NotificationsSearch
 
 
-def test_notification_es_mapping(
-        dummy_notification, loan_validated_martigny):
+def test_notification_es_mapping(dummy_notification, loan_validated_martigny):
     """Test notification elasticsearch mapping."""
 
     search = NotificationsSearch()
@@ -33,8 +31,8 @@ def test_notification_es_mapping(
     assert mapping
 
     notif = deepcopy(dummy_notification)
-    validated_pid = loan_validated_martigny.get('pid')
-    loan_ref = f'https://bib.rero.ch/api/loans/{validated_pid}'
-    notif['context']['loan']['$ref'] = loan_ref
+    validated_pid = loan_validated_martigny.get("pid")
+    loan_ref = f"https://bib.rero.ch/api/loans/{validated_pid}"
+    notif["context"]["loan"]["$ref"] = loan_ref
     Notification.create(notif, dbcommit=True, delete_pid=True, reindex=True)
     assert mapping == get_mapping(search.Meta.index)

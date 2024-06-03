@@ -21,18 +21,14 @@ from flask import Blueprint, abort, jsonify
 from flask import request as flask_request
 
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt
-from rero_ils.modules.decorators import check_logged_as_librarian, \
-    jsonify_error
+from rero_ils.modules.decorators import check_logged_as_librarian, jsonify_error
 
 api_blueprint = Blueprint(
-    'api_receipt',
-    __name__,
-    url_prefix='/acq_receipt',
-    template_folder='templates'
+    "api_receipt", __name__, url_prefix="/acq_receipt", template_folder="templates"
 )
 
 
-@api_blueprint.route('/<receipt_pid>/lines', methods=['POST'])
+@api_blueprint.route("/<receipt_pid>/lines", methods=["POST"])
 @check_logged_as_librarian
 @jsonify_error
 def lines(receipt_pid):
@@ -54,6 +50,5 @@ def lines(receipt_pid):
     receipt_lines = flask_request.get_json()
     if not receipt_lines:
         abort(400, "Missing receipt lines data.")
-    created_receipt_lines = receipt.create_receipt_lines(
-        receipt_lines=receipt_lines)
+    created_receipt_lines = receipt.create_receipt_lines(receipt_lines=receipt_lines)
     return jsonify(response=created_receipt_lines)

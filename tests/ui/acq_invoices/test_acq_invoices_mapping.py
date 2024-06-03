@@ -18,23 +18,30 @@
 """Acquisition invoice record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.acquisition.acq_invoices.api import AcquisitionInvoice, \
-    AcquisitionInvoicesSearch
+from rero_ils.modules.acquisition.acq_invoices.api import (
+    AcquisitionInvoice,
+    AcquisitionInvoicesSearch,
+)
 
 
 def test_acq_invoices_es_mapping(
-     es, db, lib_martigny, vendor_martigny, acq_invoice_fiction_martigny_data,
-     document, document_ref, acq_order_fiction_martigny,
-     acq_order_line_fiction_martigny, acq_order_line2_fiction_martigny):
+    es,
+    db,
+    lib_martigny,
+    vendor_martigny,
+    acq_invoice_fiction_martigny_data,
+    document,
+    document_ref,
+    acq_order_fiction_martigny,
+    acq_order_line_fiction_martigny,
+    acq_order_line2_fiction_martigny,
+):
     """Test acquisition account elasticsearch mapping."""
     search = AcquisitionInvoicesSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     invoice = AcquisitionInvoice.create(
-        acq_invoice_fiction_martigny_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
+        acq_invoice_fiction_martigny_data, dbcommit=True, reindex=True, delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
     invoice.delete(force=True, dbcommit=True, delindex=True)

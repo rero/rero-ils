@@ -32,20 +32,12 @@ class LocationIndexerDumper(Dumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        data['organisation'] = {
-            'pid': record.organisation_pid,
-            'type': 'org'
-        }
+        data["organisation"] = {"pid": record.organisation_pid, "type": "org"}
         return data
 
 
-location_replace_refs_dumper = MultiDumper(dumpers=[
-    Dumper(),
-    ReplaceRefsDumper()
-])
+location_replace_refs_dumper = MultiDumper(dumpers=[Dumper(), ReplaceRefsDumper()])
 
-location_indexer_dumper = MultiDumper(dumpers=[
-    Dumper(),
-    ReplaceRefsDumper(),
-    LocationIndexerDumper()
-])
+location_indexer_dumper = MultiDumper(
+    dumpers=[Dumper(), ReplaceRefsDumper(), LocationIndexerDumper()]
+)

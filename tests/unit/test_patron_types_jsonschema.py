@@ -40,7 +40,7 @@ def test_pid(patron_type_schema, patron_type_data_tmp):
     validate(patron_type_data_tmp, patron_type_schema)
 
     with pytest.raises(ValidationError):
-        patron_type_data_tmp['pid'] = 25
+        patron_type_data_tmp["pid"] = 25
         validate(patron_type_data_tmp, patron_type_schema)
 
 
@@ -49,7 +49,7 @@ def test_name(patron_type_schema, patron_type_data_tmp):
     validate(patron_type_data_tmp, patron_type_schema)
 
     with pytest.raises(ValidationError):
-        patron_type_data_tmp['name'] = 25
+        patron_type_data_tmp["name"] = 25
         validate(patron_type_data_tmp, patron_type_schema)
 
 
@@ -58,32 +58,30 @@ def test_description(patron_type_schema, patron_type_data_tmp):
     validate(patron_type_data_tmp, patron_type_schema)
 
     with pytest.raises(ValidationError):
-        patron_type_data_tmp['description'] = 25
+        patron_type_data_tmp["description"] = 25
         validate(patron_type_data_tmp, patron_type_schema)
 
 
-def test_organisation_pid(
-        patron_type_schema, patron_type_data_tmp):
+def test_organisation_pid(patron_type_schema, patron_type_data_tmp):
     """Test organisation_pid for patron type jsonschemas."""
     validate(patron_type_data_tmp, patron_type_schema)
 
     with pytest.raises(ValidationError):
-        patron_type_data_tmp['organisation_pid'] = 25
+        patron_type_data_tmp["organisation_pid"] = 25
         validate(patron_type_data_tmp, patron_type_schema)
 
 
-def test_subscription_amount(
-        patron_type_schema, patron_type_data_tmp):
+def test_subscription_amount(patron_type_schema, patron_type_data_tmp):
     """Test subscription amount for patron type jsonschemas."""
-    patron_type_data_tmp['subscription_amount'] = 25
+    patron_type_data_tmp["subscription_amount"] = 25
     validate(patron_type_data_tmp, patron_type_schema)
 
     with pytest.raises(ValidationError):
-        patron_type_data_tmp['organisation_pid'] = -25
+        patron_type_data_tmp["organisation_pid"] = -25
         validate(patron_type_data_tmp, patron_type_schema)
 
     with pytest.raises(ValidationError):
-        patron_type_data_tmp['organisation_pid'] = '35'
+        patron_type_data_tmp["organisation_pid"] = "35"
         validate(patron_type_data_tmp, patron_type_schema)
 
 
@@ -92,31 +90,26 @@ def test_limits(patron_type_schema, patron_type_tmp):
     data = patron_type_tmp
 
     # checkout limits :: library limit > general limit
-    data['limits'] = {
-        'checkout_limits': {
-            'global_limit': 20,
-            'library_limit': 15
-        }
-    }
+    data["limits"] = {"checkout_limits": {"global_limit": 20, "library_limit": 15}}
     validate(data, patron_type_schema)
     with pytest.raises(ValidationError):
-        data['limits']['checkout_limits']['library_limit'] = 40
+        data["limits"]["checkout_limits"]["library_limit"] = 40
         validate(data, patron_type_schema)  # valid for JSON schema
         data.validate()  # invalid against extented_validation rules
 
-    data['limits']['checkout_limits']['library_limit'] = 15
+    data["limits"]["checkout_limits"]["library_limit"] = 15
     with pytest.raises(ValidationError):
-        lib_ref = get_ref_for_pid('lib', 'dummy')
-        data['limits']['checkout_limits']['library_exceptions'] = [
-            {'library': {'$ref': lib_ref}, 'value': 15}
+        lib_ref = get_ref_for_pid("lib", "dummy")
+        data["limits"]["checkout_limits"]["library_exceptions"] = [
+            {"library": {"$ref": lib_ref}, "value": 15}
         ]
         validate(data, patron_type_schema)  # valid for JSON schema
         data.validate()  # invalid against extented_validation rules
 
     with pytest.raises(ValidationError):
-        data['limits']['checkout_limits']['library_exceptions'] = [
-            {'library': {'$ref': lib_ref}, 'value': 5},
-            {'library': {'$ref': lib_ref}, 'value': 7}
+        data["limits"]["checkout_limits"]["library_exceptions"] = [
+            {"library": {"$ref": lib_ref}, "value": 5},
+            {"library": {"$ref": lib_ref}, "value": 7},
         ]
         validate(data, patron_type_schema)  # valid for JSON schema
         data.validate()  # invalid against extented_validation rules

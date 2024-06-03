@@ -20,8 +20,12 @@
 from rero_ils.modules.item_types.api import ItemType
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
-from rero_ils.modules.serializers import CachedDataSerializerMixin, \
-    JSONSerializer, RecordSchemaJSONV1, search_responsify
+from rero_ils.modules.serializers import (
+    CachedDataSerializerMixin,
+    JSONSerializer,
+    RecordSchemaJSONV1,
+    search_responsify,
+)
 
 from .api import Holding
 
@@ -38,21 +42,21 @@ class HoldingsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
           * holdings availability
           * location and library name.
         """
-        metadata = hit.get('metadata', {})
-        record = Holding.get_record_by_pid(metadata.get('pid'))
+        metadata = hit.get("metadata", {})
+        record = Holding.get_record_by_pid(metadata.get("pid"))
         # Circulation category
-        circ_category_pid = metadata['circulation_category']['pid']
+        circ_category_pid = metadata["circulation_category"]["pid"]
         circ_category = self.get_resource(ItemType, circ_category_pid)
-        metadata['circulation_category'] = circ_category.dumps()
+        metadata["circulation_category"] = circ_category.dumps()
         # Library & location
-        if pid := metadata.get('location', {}).get('pid'):
-            loc_name = self.get_resource(LocationsSearch(), pid)['name']
-            metadata['location']['name'] = loc_name
-        if pid := metadata.get('library', {}).get('pid'):
-            lib_name = self.get_resource(LibrariesSearch(), pid)['name']
-            metadata['library']['name'] = lib_name
+        if pid := metadata.get("location", {}).get("pid"):
+            loc_name = self.get_resource(LocationsSearch(), pid)["name"]
+            metadata["location"]["name"] = loc_name
+        if pid := metadata.get("library", {}).get("pid"):
+            lib_name = self.get_resource(LibrariesSearch(), pid)["name"]
+            metadata["library"]["name"] = lib_name
         super()._postprocess_search_hit(hit)
 
 
 _json = HoldingsJSONSerializer(RecordSchemaJSONV1)
-json_holdings_search = search_responsify(_json, 'application/rero+json')
+json_holdings_search = search_responsify(_json, "application/rero+json")

@@ -26,12 +26,13 @@ from utils import get_csv, parse_csv
 from rero_ils.modules.utils import get_ref_for_pid
 
 
-def test_loans_exports(app, client, librarian_martigny,
-                       loan_pending_martigny, loan2_validated_martigny):
+def test_loans_exports(
+    app, client, librarian_martigny, loan_pending_martigny, loan2_validated_martigny
+):
     """Test loans streamed exportation."""
     # STEP#1 :: CHECK EXPORT PERMISSION
     #   Only authenticated user could export loans.
-    url = url_for('api_exports.loan_export')
+    url = url_for("api_exports.loan_export")
     res = client.get(url)
     assert res.status_code == 401
 
@@ -44,28 +45,40 @@ def test_loans_exports(app, client, librarian_martigny,
 
     header = data.pop(0)
     header_columns = [
-        'pid', 'document_title', 'item_barcode', 'item_call_numbers',
-        'patron_name', 'patron_barcode', 'patron_email', 'patron_type',
-        'owning_library', 'transaction_library', 'pickup_library',
-        'state', 'end_date', 'request_expire_date'
+        "pid",
+        "document_title",
+        "item_barcode",
+        "item_call_numbers",
+        "patron_name",
+        "patron_barcode",
+        "patron_email",
+        "patron_type",
+        "owning_library",
+        "transaction_library",
+        "pickup_library",
+        "state",
+        "end_date",
+        "request_expire_date",
     ]
     assert all(field in header for field in header_columns)
     assert len(data) == 2
 
 
 def test_patron_transaction_events_exports(
-    app, client, librarian_martigny,
+    app,
+    client,
+    librarian_martigny,
     patron_transaction_overdue_event_martigny,
     patron_martigny,
     item4_lib_martigny,
     patron_type_children_martigny,
-    document
+    document,
 ):
     """Test patron transaction events expotation."""
     ptre = patron_transaction_overdue_event_martigny
     # STEP#1 :: CHECK EXPORT PERMISSION
     #   Only authenticated user could export loans.
-    url = url_for('api_exports.patron_transaction_events_export')
+    url = url_for("api_exports.patron_transaction_events_export")
     res = client.get(url)
     assert res.status_code == 401
 
@@ -73,9 +86,7 @@ def test_patron_transaction_events_exports(
     #   Logged as librarian and test the export endpoint.
     #   DEV NOTE :: update `operator` to max the code coverage
     login_user_via_session(client, librarian_martigny.user)
-    ptre['operator'] = {
-        '$ref': get_ref_for_pid('ptrn', librarian_martigny.pid)
-    }
+    ptre["operator"] = {"$ref": get_ref_for_pid("ptrn", librarian_martigny.pid)}
     ptre.update(ptre, dbcommit=False, reindex=True)
 
     # If some missing related resources are missing, this will not cause any
@@ -84,7 +95,7 @@ def test_patron_transaction_events_exports(
         (patron_martigny, False),
         (item4_lib_martigny, False),
         (document, False),
-        (patron_type_children_martigny, True)
+        (patron_type_children_martigny, True),
     ]:
         resource.delete(force=True, dbcommit=False, delindex=delindex)
         res = client.get(url)
@@ -100,10 +111,21 @@ def test_patron_transaction_events_exports(
 
     header = data.pop(0)
     header_columns = [
-        'category', 'type', 'subtype', 'transaction_date', 'amount',
-        'patron_name', 'patron_barcode', 'patron_email', 'patron_type',
-        'document_pid', 'document_title', 'item_barcode',
-        'item_owning_library', 'transaction_library', 'operator_name'
+        "category",
+        "type",
+        "subtype",
+        "transaction_date",
+        "amount",
+        "patron_name",
+        "patron_barcode",
+        "patron_email",
+        "patron_type",
+        "document_pid",
+        "document_title",
+        "item_barcode",
+        "item_owning_library",
+        "transaction_library",
+        "operator_name",
     ]
     assert all(field in header for field in header_columns)
     assert len(data) == 1

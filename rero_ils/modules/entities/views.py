@@ -27,15 +27,15 @@ from .local_entities.api import LocalEntity
 from .remote_entities.api import RemoteEntity
 
 blueprint = Blueprint(
-    'entities',
+    "entities",
     __name__,
-    url_prefix='/<string:viewcode>/entities',
-    template_folder='templates',
-    static_folder='static',
+    url_prefix="/<string:viewcode>/entities",
+    template_folder="templates",
+    static_folder="static",
 )
 
 
-@blueprint.route('/<string:type>/<string:pid>')
+@blueprint.route("/<string:type>/<string:pid>")
 def entity_detailed_view(viewcode, type, pid):
     """Display entity view (local or remote).
 
@@ -44,17 +44,17 @@ def entity_detailed_view(viewcode, type, pid):
     :param: pid: Resource PID.
     :returns: The html rendering of the resource.
     """
-    if type not in ['local', 'remote']:
+    if type not in ["local", "remote"]:
         abort(404)
-    entity_class = LocalEntity if type == 'local' else RemoteEntity
+    entity_class = LocalEntity if type == "local" else RemoteEntity
     if not (record := entity_class.get_record_by_pid(pid)):
-        abort(404, _('Entity not found.'))
+        abort(404, _("Entity not found."))
 
     return render_template(
-        f'rero_ils/entity_{type}.html',
+        f"rero_ils/entity_{type}.html",
         record=record,
         viewcode=viewcode,
-        search_link=search_link(record)
+        search_link=search_link(record),
     )
 
 
@@ -66,14 +66,14 @@ def entity_icon(type):
     :returns: string, The class of the selected icon.
     """
     icons = {
-        EntityType.ORGANISATION: 'fa-building-o',
-        EntityType.PERSON: 'fa-user-o',
-        EntityType.PLACE: 'fa-map-marker',
-        EntityType.TEMPORAL: 'fa-calendar',
-        EntityType.TOPIC: 'fa-tag',
-        EntityType.WORK: 'fa-book'
+        EntityType.ORGANISATION: "fa-building-o",
+        EntityType.PERSON: "fa-user-o",
+        EntityType.PLACE: "fa-map-marker",
+        EntityType.TEMPORAL: "fa-calendar",
+        EntityType.TOPIC: "fa-tag",
+        EntityType.WORK: "fa-book",
     }
-    return icons.get(type, 'fa-question-circle-o')
+    return icons.get(type, "fa-question-circle-o")
 
 
 @blueprint.app_template_filter()
@@ -86,9 +86,9 @@ def extract_data_from_remote_entity(record):
     :returns: source and the dictionary of the resource selected.
     """
     locale = current_i18n.locale.language
-    agent_order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER')
+    agent_order = current_app.config.get("RERO_ILS_AGENTS_LABEL_ORDER")
     if locale not in agent_order:
-        locale = agent_order.get('fallback', {})
+        locale = agent_order.get("fallback", {})
     sources = agent_order.get(locale)
     for source in sources:
         if data := record.get(source):
@@ -103,12 +103,12 @@ def entity_label(data, language):
     :param language: The current language.
     :returns: The contribution label.
     """
-    order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', [])
-    source_order = order.get(language, order.get(order['fallback'], []))
+    order = current_app.config.get("RERO_ILS_AGENTS_LABEL_ORDER", [])
+    source_order = order.get(language, order.get(order["fallback"], []))
     for source in source_order:
-        if label := data.get(source, {}).get('authorized_access_point', None):
+        if label := data.get(source, {}).get("authorized_access_point", None):
             return label
-    return '-'
+    return "-"
 
 
 @blueprint.app_template_filter()
@@ -119,13 +119,16 @@ def sources_link(data):
     :returns A dict with the source and link.
     """
     links = {}
-    sources_link = list(filter(lambda source: source not in
-                               current_app.config.get(
-                                   'RERO_ILS_AGENTS_SOURCES_EXCLUDE_LINK', []),
-                               data.get('sources', [])))
+    sources_link = list(
+        filter(
+            lambda source: source
+            not in current_app.config.get("RERO_ILS_AGENTS_SOURCES_EXCLUDE_LINK", []),
+            data.get("sources", []),
+        )
+    )
 
     for source in sources_link:
-        if identifier := data.get(source, {}).get('identifier'):
+        if identifier := data.get(source, {}).get("identifier"):
             links[source] = identifier
     return links
 
@@ -136,22 +139,21 @@ def search_link(metadata):
     :param metadata: the record metadata.
     :returns: the search link.
     """
-    fields_config = current_app.config.get(
-        'RERO_ILS_APP_ENTITIES_TYPES_FIELDS', {})
-    fields_ref = current_app.config.get(
-        'RERO_ILS_APP_ENTITIES_FIELDS_REF', [])
-    entity_type = metadata['type']
-    fields = fields_config[entity_type] if (entity_type in fields_config) \
-        else fields_ref
+    fields_config = current_app.config.get("RERO_ILS_APP_ENTITIES_TYPES_FIELDS", {})
+    fields_ref = current_app.config.get("RERO_ILS_APP_ENTITIES_FIELDS_REF", [])
+    entity_type = metadata["type"]
+    fields = (
+        fields_config[entity_type] if (entity_type in fields_config) else fields_ref
+    )
     queries = []
     for field in fields:
-        if 'sources' in metadata:
+        if "sources" in metadata:
             # Remote entities
             source, data = extract_data_from_remote_entity(metadata)
-            entity_id = data.get('pid')
+            entity_id = data.get("pid")
         else:
             # Local entities
-            source = 'local'
-            entity_id = metadata.get('pid')
-        queries.append(f'{field}.entity.pids.{source}:{entity_id}')
+            source = "local"
+            entity_id = metadata.get("pid")
+        queries.append(f"{field}.entity.pids.{source}:{entity_id}")
     return " OR ".join(queries) + "&simple=0"

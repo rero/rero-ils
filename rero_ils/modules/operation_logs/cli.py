@@ -36,10 +36,10 @@ def abort_if_false(ctx, param, value):
         ctx.abort()
 
 
-@click.command('create_operation_logs')
-@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
-@click.option('-s', '--batch-size', 'size', type=int, default=10000)
-@click.argument('infile', type=click.File('r'))
+@click.command("create_operation_logs")
+@click.option("-l", "--lazy", "lazy", is_flag=True, default=False)
+@click.option("-s", "--batch-size", "size", type=int, default=10000)
+@click.argument("infile", type=click.File("r"))
 @with_appcontext
 def create_operation_logs(infile, lazy, size):
     """Load operation log records in reroils.
@@ -47,13 +47,8 @@ def create_operation_logs(infile, lazy, size):
     :param infile: Json operation log file.
     :param lazy: lazy reads file
     """
-    click.secho('Load operation log records:', fg='green')
-    if lazy:
-        # try to lazy read json file (slower, better memory management)
-        data = read_json_record(infile)
-    else:
-        # load everything in memory (faster, bad memory management)
-        data = json.load(infile)
+    click.secho("Load operation log records:", fg="green")
+    data = read_json_record(infile) if lazy else json.load(infile)
     index_count = 0
     with click.progressbar(data) as bar:
         records = []
@@ -67,22 +62,22 @@ def create_operation_logs(infile, lazy, size):
         if records:
             OperationLog.bulk_index(records)
             index_count += len(records)
-    click.echo(f'created {index_count} operation logs.')
+    click.echo(f"created {index_count} operation logs.")
 
 
-@click.command('dump_operation_logs')
-@click.argument('outfile_name')
-@click.option('-y', '--year', 'year', type=int)
+@click.command("dump_operation_logs")
+@click.argument("outfile_name")
+@click.option("-y", "--year", "year", type=int)
 @with_appcontext
 def dump_operation_logs(outfile_name, year):
     """Dumps operation log records in a given file.
 
     :param outfile: JSON operation log output file.
     """
-    click.secho('Dumps operation log records:', fg='green')
+    click.secho("Dumps operation log records:", fg="green")
     index_name = OperationLog.index_name
     if year is not None:
-        index_name = f'{index_name}-{year}'
+        index_name = f"{index_name}-{year}"
     search = RecordsSearch(index=index_name)
 
     index_count = 0
@@ -91,15 +86,19 @@ def dump_operation_logs(outfile_name, year):
         for oplg in bar:
             outfile.write(str(oplg.to_dict()))
             index_count += 1
-    click.echo(f'created {index_count} operation logs.')
+    click.echo(f"created {index_count} operation logs.")
 
 
-@click.command('destroy_operation_logs')
-@click.option('--yes-i-know', is_flag=True, callback=abort_if_false,
-              expose_value=False,
-              prompt='Do you really want to remove all the operation logs?')
+@click.command("destroy_operation_logs")
+@click.option(
+    "--yes-i-know",
+    is_flag=True,
+    callback=abort_if_false,
+    expose_value=False,
+    prompt="Do you really want to remove all the operation logs?",
+)
 @with_appcontext
 def destroy_operation_logs():
     """Removes all the operation logs data."""
     OperationLog.delete_indices()
-    click.secho('All operations logs have been removed', fg='green')
+    click.secho("All operations logs have been removed", fg="green")

@@ -27,16 +27,17 @@ from invenio_records.models import RecordMetadataBase
 class AcquisitionInvoiceIdentifier(RecordIdentifier):
     """Sequence generator for Acquisition Invoice identifiers."""
 
-    __tablename__ = 'acq_invoice_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "acq_invoice_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
 class AcquisitionInvoiceMetadata(db.Model, RecordMetadataBase):
     """AcquisitionInvoice record metadata."""
 
-    __tablename__ = 'acq_invoice_metadata'
+    __tablename__ = "acq_invoice_metadata"

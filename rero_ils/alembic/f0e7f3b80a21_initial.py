@@ -20,9 +20,9 @@
 
 
 # revision identifiers, used by Alembic.
-revision = 'f0e7f3b80a21'
+revision = "f0e7f3b80a21"
 down_revision = None
-branch_labels = ('rero_ils',)
+branch_labels = ("rero_ils",)
 depends_on = None
 
 

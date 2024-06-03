@@ -25,8 +25,7 @@ from rero_ils.modules.items.api import Item
 from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.organisations.api import OrganisationsSearch
-from rero_ils.modules.serializers import CachedDataSerializerMixin, \
-    JSONSerializer
+from rero_ils.modules.serializers import CachedDataSerializerMixin, JSONSerializer
 from rero_ils.modules.vendors.api import VendorsSearch
 
 
@@ -35,6 +34,7 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
 
     def _postprocess_search_hit(self, hit: dict) -> None:
         """Post-process each hit of a search result."""
+
         def _set_item_type_circulation_information(metadata, pid):
             """Get Item type circulation information.
 
@@ -42,83 +42,84 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
             :param: pid: the item type pid.
             """
             record = self.get_resource(ItemTypesSearch(), pid) or {}
-            if circulation := record.get('circulation_information'):
-                metadata['item_type']['circulation_information'] = circulation
+            if circulation := record.get("circulation_information"):
+                metadata["item_type"]["circulation_information"] = circulation
 
-        metadata = hit.get('metadata', {})
-        doc_pid = metadata.get('document').get('pid')
+        metadata = hit.get("metadata", {})
+        doc_pid = metadata.get("document").get("pid")
         document = self.get_resource(DocumentsSearch(), doc_pid)
-        metadata['ui_title_text'] = TitleExtension.format_text(
-            document['title'], with_subtitle=True)
+        metadata["ui_title_text"] = TitleExtension.format_text(
+            document["title"], with_subtitle=True
+        )
 
-        item = self.get_resource(Item, metadata.get('pid'))
+        item = self.get_resource(Item, metadata.get("pid"))
 
         # Item in collection
         if collection := item.in_collection():
-            metadata['in_collection'] = collection
+            metadata["in_collection"] = collection
         # Temporary location
-        if (temp_loc := metadata.get('temporary_location')) \
-           and 'pid' in temp_loc:
-            temp_loc_pid = temp_loc['pid']
-            temp_loc['name'] = self\
-                .get_resource(LocationsSearch(), temp_loc_pid).get('name')
+        if (temp_loc := metadata.get("temporary_location")) and "pid" in temp_loc:
+            temp_loc_pid = temp_loc["pid"]
+            temp_loc["name"] = self.get_resource(LocationsSearch(), temp_loc_pid).get(
+                "name"
+            )
 
         # Organisation
-        org_pid = metadata['organisation']['pid']
+        org_pid = metadata["organisation"]["pid"]
         organisation = self.get_resource(OrganisationsSearch(), org_pid)
-        metadata['organisation']['viewcode'] = organisation.get('code')
+        metadata["organisation"]["viewcode"] = organisation.get("code")
         # Library
-        library_pid = metadata['library']['pid']
+        library_pid = metadata["library"]["pid"]
         library = self.get_resource(LibrariesSearch(), library_pid)
-        metadata['library']['name'] = library.get('name')
+        metadata["library"]["name"] = library.get("name")
         # Location
-        location_pid = metadata['location']['pid']
+        location_pid = metadata["location"]["pid"]
         location = self.get_resource(LocationsSearch(), location_pid)
-        metadata['location']['name'] = location.get('name')
+        metadata["location"]["name"] = location.get("name")
 
         # Try to serialize circulation information from best possible
         # related `ItemType` resource if exists.
-        if itty_pid := metadata.get('temporary_item_type', {}).get('pid'):
+        if itty_pid := metadata.get("temporary_item_type", {}).get("pid"):
             itty_rec = self.get_resource(ItemTypesSearch(), itty_pid) or {}
-            if circulation := itty_rec.get('circulation_information'):
-                metadata['item_type']['circulation_information'] = circulation
+            if circulation := itty_rec.get("circulation_information"):
+                metadata["item_type"]["circulation_information"] = circulation
 
         super()._postprocess_search_hit(hit)
 
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""
         JSONSerializer.enrich_bucket_with_data(
-            aggregations.get('library', {}).get('buckets', []),
-            LibrariesSearch, 'name'
+            aggregations.get("library", {}).get("buckets", []), LibrariesSearch, "name"
         )
         JSONSerializer.enrich_bucket_with_data(
-            aggregations.get('location', {}).get('buckets', []),
-            LocationsSearch, 'name'
+            aggregations.get("location", {}).get("buckets", []), LocationsSearch, "name"
         )
         JSONSerializer.enrich_bucket_with_data(
-            aggregations.get('item_type', {}).get('buckets', []),
-            ItemTypesSearch, 'name'
+            aggregations.get("item_type", {}).get("buckets", []),
+            ItemTypesSearch,
+            "name",
         )
         JSONSerializer.enrich_bucket_with_data(
-            aggregations.get('temporary_item_type', {}).get('buckets', []),
-            ItemTypesSearch, 'name'
+            aggregations.get("temporary_item_type", {}).get("buckets", []),
+            ItemTypesSearch,
+            "name",
         )
         JSONSerializer.enrich_bucket_with_data(
-            aggregations.get('temporary_location', {}).get('buckets', []),
-            LocationsSearch, 'name'
+            aggregations.get("temporary_location", {}).get("buckets", []),
+            LocationsSearch,
+            "name",
         )
         JSONSerializer.enrich_bucket_with_data(
-            aggregations.get('vendor', {}).get('buckets', []),
-            VendorsSearch, 'name'
+            aggregations.get("vendor", {}).get("buckets", []), VendorsSearch, "name"
         )
-        if aggregations.get('current_requests'):
-            aggregations['current_requests']['type'] = 'range'
-            aggregations['current_requests']['config'] = {
-                'min': 1,
-                'max': 100,
-                'step': 1
+        if aggregations.get("current_requests"):
+            aggregations["current_requests"]["type"] = "range"
+            aggregations["current_requests"]["config"] = {
+                "min": 1,
+                "max": 100,
+                "step": 1,
             }
-        if aggr := aggregations.get('claims_date'):
+        if aggr := aggregations.get("claims_date"):
             JSONSerializer.add_date_range_configuration(aggr)
 
         super()._postprocess_search_aggregations(aggregations)
@@ -132,13 +133,14 @@ class ItemsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
         """
         if record.is_issue and (notifications := record.claim_notifications):
             dates = [
-                notification['creation_date']
+                notification["creation_date"]
                 for notification in notifications
-                if 'creation_date' in notification
+                if "creation_date" in notification
             ]
-            record.setdefault('issue', {})['claims'] = {
-                'counter': len(notifications),
-                'dates': dates
+            record.setdefault("issue", {})["claims"] = {
+                "counter": len(notifications),
+                "dates": dates,
             }
         return super().preprocess_record(
-            pid=pid, record=record, links_factory=links_factory, kwargs=kwargs)
+            pid=pid, record=record, links_factory=links_factory, kwargs=kwargs
+        )

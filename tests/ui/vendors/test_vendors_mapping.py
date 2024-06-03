@@ -27,10 +27,7 @@ def test_budgets_es_mapping(search, db, org_martigny, vendor_martigny_data):
     mapping = get_mapping(search.Meta.index)
     assert mapping
     vendor = Vendor.create(
-        vendor_martigny_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
+        vendor_martigny_data, dbcommit=True, reindex=True, delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
     vendor.delete(force=True, dbcommit=True, delindex=True)

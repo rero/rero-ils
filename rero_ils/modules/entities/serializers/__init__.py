@@ -28,4 +28,4 @@ _json = EntityJSONSerializer(RecordSchemaJSONV1)
 
 # Records-REST serializers
 # ========================
-json_entities_search = search_responsify(_json, 'application/json')
+json_entities_search = search_responsify(_json, "application/json")

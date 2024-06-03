@@ -22,33 +22,38 @@
 http://www.loc.gov/standards/sru/explain/
 """
 
+
+import contextlib
+
 import jsonref
 from flask import current_app
 from invenio_search import current_search
 from lxml import etree
 from lxml.builder import ElementMaker
 
-from .cql_parser import ES_INDEX_MAPPINGS
 from ..utils import get_schema_for_resource
+from .cql_parser import ES_INDEX_MAPPINGS
 
 
-class Explain():
+class Explain:
     """SRU explain class."""
 
-    def __init__(self, database, doc_type='doc'):
+    def __init__(self, database, doc_type="doc"):
         """Constructor."""
         self.database = database
         self.number_of_records = current_app.config.get(
-            'RERO_SRU_NUMBER_OF_RECORDS', 100)
-        self.maximum_records = current_app.config.get(
-            'RERO_SRU_MAXIMUM_RECORDS', 1000)
+            "RERO_SRU_NUMBER_OF_RECORDS", 100
+        )
+        self.maximum_records = current_app.config.get("RERO_SRU_MAXIMUM_RECORDS", 1000)
         self.doc_type = doc_type
-        self.index = current_app.config.get(
-            'RECORDS_REST_ENDPOINTS', {}
-        ).get(doc_type, {}).get('search_index')
+        self.index = (
+            current_app.config.get("RECORDS_REST_ENDPOINTS", {})
+            .get(doc_type, {})
+            .get("search_index")
+        )
         self.es_mappings = {}
         for index in self.get_es_mappings(self.index):
-            self.es_mappings[index.lower().replace('.', '__')] = index
+            self.es_mappings[index.lower().replace(".", "__")] = index
         self.init_xml()
 
     def __str__(self):
@@ -60,61 +65,51 @@ class Explain():
         keys = []
         for key, value in data.items():
             if isinstance(value, dict):
-                properties = value.get('properties')
-                if properties:
+                if properties := value.get("properties"):
                     sub_keys = self.get_properties(properties)
                     for sub_key in sub_keys:
-                        if '.' in sub_key and sub_key[0] != '$':
-                            keys.append('.'.join([key, sub_key]))
-                        elif properties[sub_key].get('index', True):
-                            keys.append('.'.join([key, sub_key]))
-                elif key[0] != '$':
+                        if "." in sub_key and sub_key[0] != "$":
+                            keys.append(".".join([key, sub_key]))
+                        elif properties[sub_key].get("index", True):
+                            keys.append(".".join([key, sub_key]))
+                elif key[0] != "$":
                     keys.append(key)
         return keys
 
     def get_es_mappings(self, index):
         """Get mappings from ES."""
         mappings = {}
-        try:
+        with contextlib.suppress(Exception):
             index_alias = current_search.aliases.get(index)
             index_file_name = list(index_alias.values())[0]
             data = jsonref.load(open(index_file_name))
-            mappings = self.get_properties(
-                data.get('mappings').get('properties'))
-        except Exception:
-            pass
+            mappings = self.get_properties(data.get("mappings").get("properties"))
         return mappings
 
     def init_xml(self):
         """Init XML."""
-        sru_ns = 'http://www.loc.gov/standards/sru/'
-        element_sru = ElementMaker(
-            namespace=sru_ns,
-            nsmap={'sru': sru_ns}
-        )
+        sru_ns = "http://www.loc.gov/standards/sru/"
+        element_sru = ElementMaker(namespace=sru_ns, nsmap={"sru": sru_ns})
         zr_ns = "http://explain.z3950.org/dtd/2.1/"
-        element_zr = ElementMaker(
-            namespace=zr_ns,
-            nsmap={'zr': zr_ns}
-        )
+        element_zr = ElementMaker(namespace=zr_ns, nsmap={"zr": zr_ns})
 
         self.xml_root = element_sru.explainResponse()
-        self.xml_root.append(element_sru.version('1.1'))
+        self.xml_root.append(element_sru.version("1.1"))
         record = element_sru.record()
-        record.append(element_sru.recordPacking('xml'))
-        record.append(element_sru.recordSchema(
-            'http://explain.z3950.org/dtd/2.1/'))
+        record.append(element_sru.recordPacking("xml"))
+        record.append(element_sru.recordSchema("http://explain.z3950.org/dtd/2.1/"))
         record_data = element_sru.recordData()
         explain = element_zr.explain()
 
-        server_info = element_zr.serverInfo({
-            'protocol': 'SRU',
-            'version': '1.1',
-            'transport': current_app.config.get('RERO_ILS_APP_URL_SCHEME'),
-            'method': 'GET'
-        })
-        server_info.append(element_zr.host(
-            current_app.config.get('RERO_ILS_APP_HOST')))
+        server_info = element_zr.serverInfo(
+            {
+                "protocol": "SRU",
+                "version": "1.1",
+                "transport": current_app.config.get("RERO_ILS_APP_URL_SCHEME"),
+                "method": "GET",
+            }
+        )
+        server_info.append(element_zr.host(current_app.config.get("RERO_ILS_APP_HOST")))
         # server_info.append(element_zr.port('5000'))
         server_info.append(element_zr.database(self.database))
         explain.append(server_info)
@@ -138,24 +133,20 @@ class Explain():
 
     def init_index_info_dc(self):
         """Init index info for DC."""
-        dc_ns = 'info:srw/cql-context-set/1/dc-v1.1'
-        element_dc = ElementMaker(
-            namespace=dc_ns,
-            nsmap={'dc': dc_ns}
-        )
+        dc_ns = "info:srw/cql-context-set/1/dc-v1.1"
+        element_dc = ElementMaker(namespace=dc_ns, nsmap={"dc": dc_ns})
         index = element_dc.index()
         dc_map = element_dc.map()
         for dc_index in ES_INDEX_MAPPINGS:
-            dc_map.append(element_dc.name(dc_index.replace('dc.', '')))
+            dc_map.append(element_dc.name(dc_index.replace("dc.", "")))
         index.append(dc_map)
         return index
 
     def init_index_info(self):
         """Init index info."""
-        rero_ils_ns = get_schema_for_resource('doc')
+        rero_ils_ns = get_schema_for_resource("doc")
         element_rero_ils = ElementMaker(
-            namespace=rero_ils_ns,
-            nsmap={'rero-ils': rero_ils_ns}
+            namespace=rero_ils_ns, nsmap={"rero-ils": rero_ils_ns}
         )
         index = element_rero_ils.index()
         es_map = element_rero_ils.map()
@@ -168,23 +159,18 @@ class Explain():
         """Init schema info."""
         schema = element.schemaInfo()
         # Todo: documents -> doc
-        schema.append(element.set(
-            {
-                'name': 'json',
-                'identifier': get_schema_for_resource('doc')
-                }
-        ))
+        schema.append(
+            element.set({"name": "json", "identifier": get_schema_for_resource("doc")})
+        )
         return schema
 
     def init_config_info(self, element):
         """Init config info."""
         config = element.configInfo()
-        config.append(element.default(
-            str(self.number_of_records),
-            {'type': 'numberOfRecords'}
-        ))
-        config.append(element.setting(
-            str(self.maximum_records),
-            {'type': 'maximumRecords'}
-        ))
+        config.append(
+            element.default(str(self.number_of_records), {"type": "numberOfRecords"})
+        )
+        config.append(
+            element.setting(str(self.maximum_records), {"type": "maximumRecords"})
+        )
         return config

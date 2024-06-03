@@ -24,11 +24,12 @@ from jsonref import JsonRefError
 
 def test_stats_cfg_jsonresolver(stats_cfg_martigny):
     """Test statistics configuration json resolver."""
-    rec = Record.create({
-        'stats_cfg': {'$ref': 'https://bib.rero.ch/api/stats_cfg/stats_cfg1'}
-    })
-    assert rec.replace_refs().get('stats_cfg') == {
-        'type': 'stacfg', 'pid': 'stats_cfg1'
+    rec = Record.create(
+        {"stats_cfg": {"$ref": "https://bib.rero.ch/api/stats_cfg/stats_cfg1"}}
+    )
+    assert rec.replace_refs().get("stats_cfg") == {
+        "type": "stacfg",
+        "pid": "stats_cfg1",
     }
 
     # deleted record
@@ -37,8 +38,8 @@ def test_stats_cfg_jsonresolver(stats_cfg_martigny):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create({
-        'stats_cfg': {'$ref': 'https://bib.rero.ch/api/stats_cfg/n_e'}
-    })
+    rec = Record.create(
+        {"stats_cfg": {"$ref": "https://bib.rero.ch/api/stats_cfg/n_e"}}
+    )
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

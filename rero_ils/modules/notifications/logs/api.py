@@ -28,7 +28,7 @@ class NotificationOperationLog(OperationLog, SpecificOperationLog):
     """Operation log for notification."""
 
     @classmethod
-    def create(cls, data, id_=None, index_refresh='false', **kwargs):
+    def create(cls, data, id_=None, index_refresh="false", **kwargs):
         """Create a new record instance and store it in elasticsearch.
 
         :param data: Dict with the notification metadata.
@@ -41,45 +41,41 @@ class NotificationOperationLog(OperationLog, SpecificOperationLog):
             Valid choices: true, false, wait_for
         :returns: A new :class:`Record` instance.
         """
-        if not (loan := getattr(data, 'loan', None)):
+        if not (loan := getattr(data, "loan", None)):
             return
 
         # If i have no recipients, assign a default value
         # because the "recipients" json schema required at least one item.
         if not (recipients := data.get_recipients(RecipientType.TO)):
-            recipients = ['no-recipient-email']
+            recipients = ["no-recipient-email"]
         log = {
-            'record': {
-                'value': data.get('pid'),
-                'type': 'notif'
-            },
-            'operation': 'create',
-            'date': data['creation_date'],
-            'loan': {
-                'pid': loan.pid,
-                'trigger': loan['trigger'],
-                'override_flag': False,
-                'transaction_channel': 'system',
-                'transaction_location': {
-                    'pid': loan.transaction_location_pid,
-                    'name': cls._get_location_name(
-                        loan.transaction_location_pid)
+            "record": {"value": data.get("pid"), "type": "notif"},
+            "operation": "create",
+            "date": data["creation_date"],
+            "loan": {
+                "pid": loan.pid,
+                "trigger": loan["trigger"],
+                "override_flag": False,
+                "transaction_channel": "system",
+                "transaction_location": {
+                    "pid": loan.transaction_location_pid,
+                    "name": cls._get_location_name(loan.transaction_location_pid),
                 },
-                'pickup_location': {
-                    'pid': loan.pickup_location_pid,
-                    'name': cls._get_location_name(loan.pickup_location_pid)
+                "pickup_location": {
+                    "pid": loan.pickup_location_pid,
+                    "name": cls._get_location_name(loan.pickup_location_pid),
                 },
-                'patron': cls._get_patron_data(loan.patron),
-                'item': cls._get_item_data(loan.item)
+                "patron": cls._get_patron_data(loan.patron),
+                "item": cls._get_item_data(loan.item),
             },
-            'user_name': 'system',
-            'notification': {
-                'pid': data.pid,
-                'type': data['notification_type'],
-                'date': data['creation_date'],
-                'sender_library_pid': data.library_pid,
-                'recipients': recipients
-            }
+            "user_name": "system",
+            "notification": {
+                "pid": data.pid,
+                "type": data["notification_type"],
+                "date": data["creation_date"],
+                "sender_library_pid": data.library_pid,
+                "recipients": recipients,
+            },
         }
 
         return super().create(log, index_refresh=index_refresh)

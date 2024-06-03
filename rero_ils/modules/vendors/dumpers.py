@@ -30,11 +30,13 @@ class VendorAcquisitionNotificationDumper(InvenioRecordsDumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        data.update({
-            'name': record.get('name'),
-            'language': record.get('communication_language', 'eng'),
-            'email': record.order_email
-        })
+        data.update(
+            {
+                "name": record.get("name"),
+                "language": record.get("communication_language", "eng"),
+                "email": record.order_email,
+            }
+        )
         data = {k: v for k, v in data.items() if v}
         return data
 
@@ -48,10 +50,12 @@ class VendorClaimIssueNotificationDumper(InvenioRecordsDumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        data.update({
-            'name': record.get('name'),
-            'language': record.get('communication_language', 'eng'),
-            'email': record.serial_email
-        })
+        data.update(
+            {
+                "name": record.get("name"),
+                "language": record.get("communication_language", "eng"),
+                "email": record.serial_email,
+            }
+        )
         data = {k: v for k, v in data.items() if v}
         return data

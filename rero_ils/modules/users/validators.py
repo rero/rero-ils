@@ -19,8 +19,7 @@
 
 from wtforms import ValidationError
 
-from rero_ils.modules.utils import PasswordValidatorException, \
-    password_validator
+from rero_ils.modules.utils import PasswordValidatorException, password_validator
 
 
 class PasswordValidator:
@@ -39,7 +38,8 @@ class PasswordValidator:
         :raise ValidationError: If the password is invalid.
         """
         try:
-            password_validator(field.data, length=self.length,
-                               special_char=self.special_char)
+            password_validator(
+                field.data, length=self.length, special_char=self.special_char
+            )
         except PasswordValidatorException as e:
             raise ValidationError(str(e)) from e

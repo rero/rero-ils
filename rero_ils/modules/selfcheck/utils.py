@@ -51,10 +51,9 @@ def authorize_selfckeck_terminal(terminal, access_token, **kwargs):
     :return: The granted user instance or ``None``.
     """
     if terminal and terminal.access_token == access_token:
-        token = get_token(access_token=access_token)
-        if token:
+        if token := get_token(access_token=access_token):
             terminal.last_login_at = datetime.utcnow()
-            terminal.last_login_ip = kwargs.get('terminal_ip', None)
+            terminal.last_login_ip = kwargs.get("terminal_ip", None)
             db.session.merge(terminal)
             return token.user
 
@@ -78,19 +77,23 @@ def format_patron_address(patron):
     :param patron: patron instance.
     :return: Formated address like 'street postal code city' for patron.
     """
-    if address := patron.get('second_address'):
-        street = address.get('street'),
-        postal_code = address.get('postal_code')
-        city = address.get('city')
+    if address := patron.get("second_address"):
+        street = (address.get("street"),)
+        postal_code = address.get("postal_code")
+        city = address.get("city")
     else:
         profile = patron.user.user_profile
-        street = profile['street'].strip()
-        postal_code = profile['postal_code'].strip()
-        city = profile['city'].strip()
-    formated_address = f'{street}, {postal_code} {city}'
+        street = profile["street"].strip()
+        postal_code = profile["postal_code"].strip()
+        city = profile["city"].strip()
+    formated_address = f"{street}, {postal_code} {city}"
     # Should never append, but can be imported from an old system
-    return formated_address.replace(r'\n', ' ').replace(r'\r', ' ')\
-        .replace('\n', ' ').replace('\r', ' ')
+    return (
+        formated_address.replace(r"\n", " ")
+        .replace(r"\r", " ")
+        .replace("\n", " ")
+        .replace("\r", " ")
+    )
 
 
 def get_patron_status(patron):
@@ -106,58 +109,54 @@ def get_patron_status(patron):
 
     :return SelfcheckPatronStatus object or None.
     """
-    if check_sip2_module():
-        from invenio_sip2.models import PatronStatus, PatronStatusTypes
+    if not check_sip2_module():
+        return
+    from invenio_sip2.models import PatronStatus, PatronStatusTypes
 
-        patron_status = PatronStatus()
-        # check if patron is blocked
-        if patron.is_blocked:
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.RECALL_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
+    patron_status = PatronStatus()
+    # check if patron is blocked
+    if patron.is_blocked:
+        patron_status.add_patron_status_type(PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
+        patron_status.add_patron_status_type(
+            PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED
+        )
+        patron_status.add_patron_status_type(PatronStatusTypes.RECALL_PRIVILEGES_DENIED)
+        patron_status.add_patron_status_type(PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
 
-        patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
-        # check the patron type checkout limit
-        if not patron_type.check_checkout_count_limit(patron):
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.TOO_MANY_ITEMS_CHARGED)
+    patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
+    # check the patron type checkout limit
+    if not patron_type.check_checkout_count_limit(patron):
+        patron_status.add_patron_status_type(PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
+        patron_status.add_patron_status_type(
+            PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED
+        )
+        patron_status.add_patron_status_type(PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
+        patron_status.add_patron_status_type(PatronStatusTypes.TOO_MANY_ITEMS_CHARGED)
 
-        # check the patron type fee amount limit
-        if not patron_type.check_fee_amount_limit(patron):
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.EXCESSIVE_OUTSTANDING_FINES)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.EXCESSIVE_OUTSTANDING_FEES)
+    # check the patron type fee amount limit
+    if not patron_type.check_fee_amount_limit(patron):
+        patron_status.add_patron_status_type(PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
+        patron_status.add_patron_status_type(
+            PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED
+        )
+        patron_status.add_patron_status_type(PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
+        patron_status.add_patron_status_type(
+            PatronStatusTypes.EXCESSIVE_OUTSTANDING_FINES
+        )
+        patron_status.add_patron_status_type(
+            PatronStatusTypes.EXCESSIVE_OUTSTANDING_FEES
+        )
 
-        # check the patron type overdue limit
-        if not patron_type.check_overdue_items_limit(patron):
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
-            patron_status.add_patron_status_type(
-                PatronStatusTypes.TOO_MANY_ITEMS_OVERDUE)
+    # check the patron type overdue limit
+    if not patron_type.check_overdue_items_limit(patron):
+        patron_status.add_patron_status_type(PatronStatusTypes.CHARGE_PRIVILEGES_DENIED)
+        patron_status.add_patron_status_type(
+            PatronStatusTypes.RENEWAL_PRIVILEGES_DENIED
+        )
+        patron_status.add_patron_status_type(PatronStatusTypes.HOLD_PRIVILEGES_DENIED)
+        patron_status.add_patron_status_type(PatronStatusTypes.TOO_MANY_ITEMS_OVERDUE)
 
-        return patron_status
+    return patron_status
 
 
 def map_media_type(media_type):
@@ -166,8 +165,8 @@ def map_media_type(media_type):
     :param media_type: Document type
     :return: sip2 media type (see invenio_sip2.models.SelfcheckMediaType)
     """
-    return current_app.config.get('SIP2_MEDIA_TYPES').get(
-        media_type, 'docmaintype_other'
+    return current_app.config.get("SIP2_MEDIA_TYPES").get(
+        media_type, "docmaintype_other"
     )
 
 
@@ -179,12 +178,12 @@ def map_item_circulation_status(item_status):
              (see invenio_sip2.models.SelfcheckCirculationStatus)
     """
     circulation_status = {
-        ItemStatus.ON_SHELF: 'AVAILABLE',
-        ItemStatus.AT_DESK: 'WAITING_ON_HOLD_SHELF',
-        ItemStatus.ON_LOAN: 'CHARGED',
-        ItemStatus.IN_TRANSIT: 'IN_TRANSIT',
-        ItemStatus.EXCLUDED: 'OTHER',
-        ItemStatus.MISSING: 'MISSING',
+        ItemStatus.ON_SHELF: "AVAILABLE",
+        ItemStatus.AT_DESK: "WAITING_ON_HOLD_SHELF",
+        ItemStatus.ON_LOAN: "CHARGED",
+        ItemStatus.IN_TRANSIT: "IN_TRANSIT",
+        ItemStatus.EXCLUDED: "OTHER",
+        ItemStatus.MISSING: "MISSING",
     }
 
-    return circulation_status.get(item_status, 'OTHER')
+    return circulation_status.get(item_status, "OTHER")

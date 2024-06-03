@@ -23,14 +23,22 @@ from datetime import datetime, timedelta
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, clean_text, flush_index, \
-    get_json, mock_response, postdata, to_relative_url
+from utils import (
+    VerifyRecordPermissionPatch,
+    clean_text,
+    get_json,
+    mock_response,
+    postdata,
+    to_relative_url,
+)
 
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.utils import get_remote_cover
-from rero_ils.modules.documents.views import can_request, \
-    record_library_pickup_locations
+from rero_ils.modules.documents.views import (
+    can_request,
+    record_library_pickup_locations,
+)
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -89,8 +97,7 @@ def test_documents_get(client, document_with_files):
     document_data.pop("identifiedBy", None)
     assert document_data == clean_es_metadata(data["metadata"])
 
-    list_url = url_for(
-        "invenio_records_rest.doc_list", q=f"pid:{document.pid}")
+    list_url = url_for("invenio_records_rest.doc_list", q=f"pid:{document.pid}")
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
@@ -161,8 +168,7 @@ def test_documents_newacq_filters(
     assert res.status_code == 201
 
     # check item creation and indexation
-    doc_list = url_for(
-        "invenio_records_rest.doc_list", view="global", pid="doc1")
+    doc_list = url_for("invenio_records_rest.doc_list", view="global", pid="doc1")
     res = client.get(doc_list, headers=rero_json_header)
     data = get_json(res)
     assert len(data["hits"]["hits"]) == 1
@@ -270,7 +276,7 @@ def test_documents_facets(
         "intendedAudience",
         "year",
         "status",
-        "acquisition"
+        "acquisition",
     ]
     assert all(key in data["aggregations"] for key in facet_keys)
 
@@ -320,9 +326,7 @@ def test_documents_facets(
             },
             0,
         ),
-        ({
-            "view": "global",
-            "author": "Nebehay, Christian Michael", "lang": "thl"}, 1),
+        ({"view": "global", "author": "Nebehay, Christian Michael", "lang": "thl"}, 1),
         ({"view": "global", "online": "true"}, 1),
     ]
     for params, value in checks:
@@ -383,8 +387,7 @@ def test_documents_post_put_delete(
     list_url = url_for("invenio_records_rest.doc_list", q="pid:4")
 
     document_chinese_data["pid"] = "4"
-    res, data = postdata(
-        client, "invenio_records_rest.doc_list", document_chinese_data)
+    res, data = postdata(client, "invenio_records_rest.doc_list", document_chinese_data)
 
     assert res.status_code == 201
 
@@ -422,15 +425,11 @@ def test_documents_post_put_delete(
                 {
                     "partNumber": [
                         {"value": "Part Number (Latin)"},
-                        {
-                            "value": "Part Number (Chinese)",
-                            "language": "chi-hani"},
+                        {"value": "Part Number (Chinese)", "language": "chi-hani"},
                     ],
                     "partName": [
                         {"value": "Part Name (Latin)"},
-                        {
-                            "language": "chi-hani",
-                            "value": "Part Name (Chinese)"},
+                        {"language": "chi-hani", "value": "Part Name (Chinese)"},
                     ],
                 }
             ],
@@ -439,15 +438,11 @@ def test_documents_post_put_delete(
         {
             "mainTitle": [
                 {"value": "International law (Latin)"},
-                {
-                    "value": "International law (Chinese)",
-                    "language": "chi-hani"},
+                {"value": "International law (Chinese)", "language": "chi-hani"},
             ],
             "subtitle": [
                 {"value": "Parallel Subtitle (Latin)"},
-                {
-                    "value": "Parallel Subtitle (Chinese)",
-                    "language": "chi-hani"},
+                {"value": "Parallel Subtitle (Chinese)", "language": "chi-hani"},
             ],
             "part": [
                 {
@@ -472,15 +467,11 @@ def test_documents_post_put_delete(
         {
             "mainTitle": [
                 {"value": "Parallel Title 2 (Latin)"},
-                {
-                    "value": "Parallel Title 2 (Chinese)",
-                    "language": "chi-hani"},
+                {"value": "Parallel Title 2 (Chinese)", "language": "chi-hani"},
             ],
             "subtitle": [
                 {"value": "Parallel Subtitle 2 (Latin)"},
-                {
-                    "value": "Parallel Subtitle 2 (Chinese)",
-                    "language": "chi-hani"},
+                {"value": "Parallel Subtitle 2 (Chinese)", "language": "chi-hani"},
             ],
             "type": "bf:ParallelTitle",
         },
@@ -526,8 +517,7 @@ def test_documents_get_resolve_rero_json(
     rero_json_header,
 ):
     """Test record get with resolve and mimetype rero+json."""
-    api_url = url_for(
-        "invenio_records_rest.doc_item", pid_value="doc2", resolve="1")
+    api_url = url_for("invenio_records_rest.doc_item", pid_value="doc2", resolve="1")
     res = client.get(api_url, headers=rero_json_header)
     assert res.status_code == 200
     metadata = get_json(res).get("metadata", {})
@@ -588,8 +578,7 @@ def test_documents_resolve(
     entity_person_response_data,
 ):
     """Test document detailed view with items filter."""
-    res = client.get(
-        url_for("invenio_records_rest.doc_item", pid_value="doc2"))
+    res = client.get(url_for("invenio_records_rest.doc_item", pid_value="doc2"))
     assert res.json["metadata"]["contribution"] == [
         {
             "entity": {
@@ -762,7 +751,7 @@ def test_document_identifiers_search(client, document):
         {"type": IdentifierType.EAN, "value": "invalid_ean_identifier"}
     )
     document.update(document, dbcommit=True, reindex=True)
-    flush_index(DocumentsSearch.Meta.index)
+    DocumentsSearch.flush_and_refresh()
 
     params = {"identifiers": ["(bf:Ean)invalid_ean_identifier"]}
     url = url_for("invenio_records_rest.doc_list", **params)
@@ -792,7 +781,7 @@ def test_document_current_library_on_request_parameter(
     doc_url = url_for("invenio_records_rest.doc_item", pid_value=document.pid)
     res = client.put(doc_url, data=json.dumps(document), headers=json_header)
     assert res.status_code == 200
-    flush_index(OperationLogsSearch.Meta.index)
+    OperationLogsSearch.flush_and_refresh()
     oplg = next(
         OperationLogsSearch()
         .filter("term", record__type="doc")
@@ -813,7 +802,7 @@ def test_document_current_library_on_request_parameter(
     )
     res = client.put(doc_url, data=json.dumps(document), headers=json_header)
     assert res.status_code == 200
-    flush_index(OperationLogsSearch.Meta.index)
+    OperationLogsSearch.flush_and_refresh()
     oplg = next(
         OperationLogsSearch()
         .filter("term", record__type="doc")
@@ -887,21 +876,16 @@ def test_document_advanced_search_config(
     ]
     assert data_keys == list(field_data.keys())
 
+    check_field_data("canton", field_data, {"label": "canton_ag", "value": "ag"})
+    check_field_data("country", field_data, {"label": "country_aa", "value": "aa"})
     check_field_data(
-        "canton", field_data, {"label": "canton_ag", "value": "ag"})
-    check_field_data(
-        "country", field_data, {"label": "country_aa", "value": "aa"})
-    check_field_data(
-        "rdaCarrierType", field_data,
-        {"label": "rdact:1002", "value": "rdact:1002"}
+        "rdaCarrierType", field_data, {"label": "rdact:1002", "value": "rdact:1002"}
     )
     check_field_data(
-        "rdaContentType", field_data,
-        {"label": "rdaco:1002", "value": "rdaco:1002"}
+        "rdaContentType", field_data, {"label": "rdaco:1002", "value": "rdaco:1002"}
     )
     check_field_data(
-        "rdaMediaType", field_data,
-        {"label": "rdamt:1001", "value": "rdamt:1001"}
+        "rdaMediaType", field_data, {"label": "rdamt:1001", "value": "rdamt:1001"}
     )
 
 
@@ -945,8 +929,7 @@ def test_document_fulltext(client, document_with_files, document_with_issn):
     assert data["pid"] == document_with_files.pid
 
     list_url = url_for(
-        "invenio_records_rest.doc_list",
-        q=f'"Document ({document_with_files.pid})"'
+        "invenio_records_rest.doc_list", q=f'"Document ({document_with_files.pid})"'
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]

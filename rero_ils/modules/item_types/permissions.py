@@ -19,15 +19,18 @@
 """Permissions for item types."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByOrganisation,
+    RecordPermissionPolicy,
+)
 
-search_action = action_factory('itty-search')
-read_action = action_factory('itty-read')
-create_action = action_factory('itty-create')
-update_action = action_factory('itty-update')
-delete_action = action_factory('itty-delete')
-access_action = action_factory('itty-access')
+search_action = action_factory("itty-search")
+read_action = action_factory("itty-read")
+create_action = action_factory("itty-create")
+update_action = action_factory("itty-update")
+delete_action = action_factory("itty-delete")
+access_action = action_factory("itty-access")
 
 
 class ItemTypePermissionPolicy(RecordPermissionPolicy):

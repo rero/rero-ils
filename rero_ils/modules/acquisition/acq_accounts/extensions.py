@@ -28,28 +28,34 @@ class ParentAccountDistributionCheck(RecordExtension):
     def _check_balance(self, record):
         """Check if parent balance has enough money."""
         original_record = record.__class__.get_record_by_pid(record.pid)
-        amount_to_check = record.get('allocated_amount')
+        amount_to_check = record.get("allocated_amount")
         if original_record:
-            amount_to_check -= original_record.get('allocated_amount')
+            amount_to_check -= original_record.get("allocated_amount")
         parent = record.parent
 
         # If we grow the allocated amount:
         #  - Either record is a root account. In this case, nothing to check!
         #  - Either record has parent, we need to check if parent has enough
         #    balance to do that.
-        if amount_to_check > 0 and parent:
-            if parent.remaining_balance[0] < amount_to_check:
-                msg = _('Parent account available amount too low')
-                raise ValidationError(msg)
+        if (
+            amount_to_check > 0
+            and parent
+            and parent.remaining_balance[0] < amount_to_check
+        ):
+            msg = _("Parent account available amount too low")
+            raise ValidationError(msg)
 
         # If we decrease the allocated amount:
         #  - Either record doesn't have any children : nothing to check!
         #  - Either record has child : we need to decrease more the record
         #    self balance (money still available for this account)
-        if amount_to_check < 0 and record.get_children(output='count'):
-            if original_record.remaining_balance[0] < abs(amount_to_check):
-                msg = _('Remaining balance too low')
-                raise ValidationError(msg)
+        if (
+            amount_to_check < 0
+            and record.get_children(output="count")
+            and original_record.remaining_balance[0] < abs(amount_to_check)
+        ):
+            msg = _("Remaining balance too low")
+            raise ValidationError(msg)
 
     pre_commit = _check_balance
     pre_create = _check_balance

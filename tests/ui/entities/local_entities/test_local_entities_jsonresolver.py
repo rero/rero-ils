@@ -24,14 +24,16 @@ from jsonref import JsonRefError
 
 def test_local_entities_jsonresolver(local_entity_person2):
     """Test local entity json resolver."""
-    rec = Record.create({
-        'local_entity': {
-            '$ref': 'https://bib.rero.ch/api/local_entities/locent_pers2'
+    rec = Record.create(
+        {
+            "local_entity": {
+                "$ref": "https://bib.rero.ch/api/local_entities/locent_pers2"
+            }
         }
-    })
-    assert rec.replace_refs().get('local_entity') == {
-        'pid': 'locent_pers2',
-        'type': 'locent'
+    )
+    assert rec.replace_refs().get("local_entity") == {
+        "pid": "locent_pers2",
+        "type": "locent",
     }
 
     # deleted record
@@ -40,8 +42,8 @@ def test_local_entities_jsonresolver(local_entity_person2):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create({
-        'local_entity': {'$ref': 'https://bib.rero.ch/api/local_entities/n_e'}
-    })
+    rec = Record.create(
+        {"local_entity": {"$ref": "https://bib.rero.ch/api/local_entities/n_e"}}
+    )
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

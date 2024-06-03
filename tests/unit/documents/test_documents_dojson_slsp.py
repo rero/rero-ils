@@ -25,7 +25,7 @@ from dojson.contrib.marc21.utils import create_record
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.slsp import marc21
 
 
-@mock.patch('requests.Session.get')
+@mock.patch("requests.Session.get")
 def test_marc21_to_contribution(mock_get):
     """Test dojson marc21_to_contribution."""
     marc21xml = """
@@ -70,56 +70,55 @@ def test_marc21_to_contribution(mock_get):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('contribution') == [{
-        'entity': {
-            'type': 'bf:Person',
-            'authorized_access_point': 'Jean-Paul II, Pape, 1954'
+    assert data.get("contribution") == [
+        {
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Jean-Paul II, Pape, 1954",
+            },
+            "role": ["aut"],
         },
-        'role': ['aut']
-    }, {
-        'entity': {
-            'type': 'bf:Person',
-            'authorized_access_point': 'Dumont, Jean, 1921-2014, Historien'
+        {
+            "entity": {
+                "type": "bf:Person",
+                "authorized_access_point": "Dumont, Jean, 1921-2014, Historien",
+            },
+            "role": ["edt"],
         },
-        'role': ['edt']
-    }, {
-        'entity': {
-            'type': 'bf:Organisation',
-            'authorized_access_point': 'RERO'
+        {
+            "entity": {"type": "bf:Organisation", "authorized_access_point": "RERO"},
+            "role": ["ctb"],
         },
-        'role': ['ctb']
-    }, {
-        'entity': {
-            'type': 'bf:Organisation',
-            'authorized_access_point':
-                'Biennale de céramique contemporaine (17 : 2003 : Châteauroux)'
+        {
+            "entity": {
+                "type": "bf:Organisation",
+                "authorized_access_point": "Biennale de céramique contemporaine (17 : 2003 : Châteauroux)",
+            },
+            "role": ["aut"],
         },
-        'role': ['aut']
-    }]
-    assert data.get('work_access_point') == [{
-        'creator': {
-            'date_of_birth': '1954',
-            'numeration': 'II',
-            'preferred_name': 'Jean-Paul',
-            'qualifier': 'Pape',
-            'type': 'bf:Person'
+    ]
+    assert data.get("work_access_point") == [
+        {
+            "creator": {
+                "date_of_birth": "1954",
+                "numeration": "II",
+                "preferred_name": "Jean-Paul",
+                "qualifier": "Pape",
+                "type": "bf:Person",
+            },
+            "title": "Treaties, etc.",
         },
-        'title': 'Treaties, etc.'
-    }, {
-        'creator': {
-            'preferred_name': 'Santamaría, Germán',
-            'type': 'bf:Person'
+        {
+            "creator": {"preferred_name": "Santamaría, Germán", "type": "bf:Person"},
+            "language": "fre",
+            "title": "No morirás",
         },
-        'language': 'fre',
-        'title': 'No morirás'
-    }, {
-        'miscellaneous_information': 'language: Coréen',
-        'part': [{
-            'partName': 'A.T. et N.T.',
-            'partNumber': '000'
-        }],
-        'title': 'Bible'
-    }]
+        {
+            "miscellaneous_information": "language: Coréen",
+            "part": [{"partName": "A.T. et N.T.", "partNumber": "000"}],
+            "title": "Bible",
+        },
+    ]
 
     marc21xml = """
     <record>
@@ -137,19 +136,22 @@ def test_marc21_to_contribution(mock_get):
     """
     marc21json = create_record(marc21xml)
     data = marc21.do(marc21json)
-    assert data.get('work_access_point') == [{
-        'creator': {
-            'date_of_birth': '1919',
-            'date_of_death': '1990',
-            'preferred_name': 'Santamaría, Germán',
-            'type': 'bf:Person'
+    assert data.get("work_access_point") == [
+        {
+            "creator": {
+                "date_of_birth": "1919",
+                "date_of_death": "1990",
+                "preferred_name": "Santamaría, Germán",
+                "type": "bf:Person",
+            },
+            "title": "No morirás",
         },
-        'title': 'No morirás'
-    }, {
-        'creator': {
-            'date_of_birth': '1919',
-            'preferred_name': 'Santamaría, Germán',
-            'type': 'bf:Person'
+        {
+            "creator": {
+                "date_of_birth": "1919",
+                "preferred_name": "Santamaría, Germán",
+                "type": "bf:Person",
+            },
+            "title": "No morirás",
         },
-        'title': 'No morirás'
-    }]
+    ]

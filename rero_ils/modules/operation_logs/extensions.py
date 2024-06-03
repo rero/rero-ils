@@ -27,8 +27,8 @@ from invenio_records.extensions import RecordExtension
 
 from rero_ils.modules.patrons.api import current_librarian
 
-from .models import OperationLogOperation
 from ..utils import extracted_data_from_ref
+from .models import OperationLogOperation
 
 
 class OperationLogFactory:
@@ -53,59 +53,46 @@ class OperationLogFactory:
         :return a dict representing the operation log to register.
         """
         oplg = {
-            'date': datetime.now(timezone.utc).isoformat(),
-            'record': {
-                'value': record.get('pid'),
-                'type': record.provider.pid_type
-            },
-            'operation': operation,
-            'user_name': 'system'  # default value, could be override
+            "date": datetime.now(timezone.utc).isoformat(),
+            "record": {"value": record.get("pid"), "type": record.provider.pid_type},
+            "operation": operation,
+            "user_name": "system",  # default value, could be override
         }
-        if (
-            hasattr(record, 'organisation_pid')
-            and (org_pid := record.organisation_pid)
-        ):
-            oplg['record']['organisation_pid'] = org_pid
-        if hasattr(record, 'library_pid') and (org_pid := record.library_pid):
-            oplg['record']['library_pid'] = org_pid
+        if hasattr(record, "organisation_pid") and (org_pid := record.organisation_pid):
+            oplg["record"]["organisation_pid"] = org_pid
+        if hasattr(record, "library_pid") and (org_pid := record.library_pid):
+            oplg["record"]["library_pid"] = org_pid
         if current_librarian:
             oplg |= {
-                'user_name': current_librarian.formatted_name,
-                'user': {
-                    'type': 'ptrn',
-                    'value': current_librarian.pid
+                "user_name": current_librarian.formatted_name,
+                "user": {"type": "ptrn", "value": current_librarian.pid},
+                "organisation": {
+                    "type": "org",
+                    "value": current_librarian.organisation_pid,
                 },
-                'organisation': {
-                    'type': 'org',
-                    'value': current_librarian.organisation_pid
-                },
-                'library': {
-                    'type': 'lib',
-                    'value': current_librarian.library_pid
-                },
+                "library": {"type": "lib", "value": current_librarian.library_pid},
             }
-            if (lib_pid := flask_request.args.get('current_library')) \
-                    and lib_pid in current_librarian.manageable_library_pids:
+            if (
+                lib_pid := flask_request.args.get("current_library")
+            ) and lib_pid in current_librarian.manageable_library_pids:
                 oplg |= {
-                    'organisation': {
-                        'type': 'org',
-                        'value': current_librarian.organisation_pid
+                    "organisation": {
+                        "type": "org",
+                        "value": current_librarian.organisation_pid,
                     },
-                    'library': {
-                        'type': 'lib',
-                        'value': lib_pid
-                    }
+                    "library": {"type": "lib", "value": lib_pid},
                 }
 
         # Allow additional informations for the operation log.
         #   Subclasses can override the ``additional_informations()`` method
         #   to add some data into the operation log dict
-        oplg |= (self.get_additional_informations(record) or {})
+        oplg |= self.get_additional_informations(record) or {}
         return oplg
 
     def create_operation_log(self, record, operation, **kwargs):
         """Build and register an operation log."""
         from .api import OperationLog
+
         data = self._build_operation_log(record, operation)
         OperationLog.create(data)
 
@@ -114,26 +101,22 @@ class OperationLogObserverExtension(RecordExtension, OperationLogFactory):
     """Observe a resource and build operation log when it changes."""
 
     post_create = partialmethod(
-        OperationLogFactory.create_operation_log,
-        operation=OperationLogOperation.CREATE
+        OperationLogFactory.create_operation_log, operation=OperationLogOperation.CREATE
     )
     """Called after a record is created."""
 
     pre_commit = partialmethod(
-        OperationLogFactory.create_operation_log,
-        operation=OperationLogOperation.UPDATE
+        OperationLogFactory.create_operation_log, operation=OperationLogOperation.UPDATE
     )
     """Called before a record is committed."""
 
     post_delete = partialmethod(
-        OperationLogFactory.create_operation_log,
-        operation=OperationLogOperation.DELETE
+        OperationLogFactory.create_operation_log, operation=OperationLogOperation.DELETE
     )
     """Called after a record is deleted."""
 
 
-class UntrackedFieldsOperationLogObserverExtension\
-        (OperationLogObserverExtension):
+class UntrackedFieldsOperationLogObserverExtension(OperationLogObserverExtension):
     """Extension to skip Operation log if only some field changed.
 
     If you need to observe a resource but skip changes on some resource
@@ -163,12 +146,12 @@ class UntrackedFieldsOperationLogObserverExtension\
     def pre_commit(self, record):
         """Called before a record is committed."""
         original_record = record.__class__.get_record_by_pid(record.pid)
-        diff = DeepDiff(
-            original_record, record,
+        if diff := DeepDiff(
+            original_record,
+            record,
             verbose_level=2,
-            exclude_paths=self.exclude_path
-        )
-        if diff:
+            exclude_paths=self.exclude_path,
+        ):
             super().pre_commit(record)
 
 
@@ -176,14 +159,14 @@ class ResolveRefsExtension(RecordExtension):
     """Replace all $ref values by a dict of pid, type."""
 
     mod_type = {
-        'documents': 'doc',
-        'items': 'item',
-        'holdings': 'hold',
-        'loans': 'loan',
-        'ill_requests': 'illr',
-        'patrons': 'ptrn',
-        'organisations': 'org',
-        'libraries': 'lib'
+        "documents": "doc",
+        "items": "item",
+        "holdings": "hold",
+        "loans": "loan",
+        "ill_requests": "illr",
+        "patrons": "ptrn",
+        "organisations": "org",
+        "libraries": "lib",
     }
 
     def pre_dump(self, record, dumper=None):
@@ -203,14 +186,11 @@ class ResolveRefsExtension(RecordExtension):
         """
         for k, v in record.items():
             if isinstance(v, dict):
-                if v.get('$ref'):
-                    _type = self.mod_type.get(
-                        extracted_data_from_ref(v, data='resource'))
-                    if _type:
-                        resolved = dict(
-                            pid=extracted_data_from_ref(v),
-                            type=_type
-                        )
+                if v.get("$ref"):
+                    if _type := self.mod_type.get(
+                        extracted_data_from_ref(v, data="resource")
+                    ):
+                        resolved = dict(pid=extracted_data_from_ref(v), type=_type)
                         record[k] = resolved
                 else:
                     self._resolve_refs(v)
@@ -224,8 +204,8 @@ class IDExtension(RecordExtension):
 
         :param record: the record metadata.
         """
-        if not record.get('pid'):
-            record['pid'] = str(uuid.uuid1())
+        if not record.get("pid"):
+            record["pid"] = str(uuid.uuid1())
 
 
 class DatesExtension(RecordExtension):
@@ -237,6 +217,6 @@ class DatesExtension(RecordExtension):
         :param record: the record metadata.
         """
         iso_now = pytz.utc.localize(datetime.utcnow()).isoformat()
-        for date_field in ['_created', '_updated']:
+        for date_field in ["_created", "_updated"]:
             if not record.get(date_field):
                 record[date_field] = iso_now

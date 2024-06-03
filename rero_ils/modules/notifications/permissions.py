@@ -19,17 +19,20 @@
 """Permissions for notifications."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByManageableLibrary, \
-    AllowedByActionRestrictByOwnerOrOrganisation, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByManageableLibrary,
+    AllowedByActionRestrictByOwnerOrOrganisation,
+    RecordPermissionPolicy,
+)
 
 # Actions to control Items policies for CRUD operations
-search_action = action_factory('notif-search')
-read_action = action_factory('notif-read')
-create_action = action_factory('notif-create')
-update_action = action_factory('notif-update')
-delete_action = action_factory('notif-delete')
-access_action = action_factory('notif-access')
+search_action = action_factory("notif-search")
+read_action = action_factory("notif-read")
+create_action = action_factory("notif-create")
+update_action = action_factory("notif-update")
+delete_action = action_factory("notif-delete")
+access_action = action_factory("notif-access")
 
 
 class NotificationPermissionPolicy(RecordPermissionPolicy):
@@ -43,15 +46,21 @@ class NotificationPermissionPolicy(RecordPermissionPolicy):
 
     can_search = [AllowedByAction(search_action)]
     can_read = [AllowedByActionRestrictByOwnerOrOrganisation(read_action)]
-    can_create = [AllowedByActionRestrictByManageableLibrary(
-        create_action,
-        callback=lambda rec: getattr(rec, 'library_pid', 'unavailable_data')
-    )]
-    can_update = [AllowedByActionRestrictByManageableLibrary(
-        update_action,
-        callback=lambda rec: getattr(rec, 'library_pid', 'unavailable_data')
-    )]
-    can_delete = [AllowedByActionRestrictByManageableLibrary(
-        delete_action,
-        callback=lambda rec: getattr(rec, 'library_pid', 'unavailable_data')
-    )]
+    can_create = [
+        AllowedByActionRestrictByManageableLibrary(
+            create_action,
+            callback=lambda rec: getattr(rec, "library_pid", "unavailable_data"),
+        )
+    ]
+    can_update = [
+        AllowedByActionRestrictByManageableLibrary(
+            update_action,
+            callback=lambda rec: getattr(rec, "library_pid", "unavailable_data"),
+        )
+    ]
+    can_delete = [
+        AllowedByActionRestrictByManageableLibrary(
+            delete_action,
+            callback=lambda rec: getattr(rec, "library_pid", "unavailable_data"),
+        )
+    ]

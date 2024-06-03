@@ -26,11 +26,15 @@ from utils import get_mapping, mock_response
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 
 
-@mock.patch('requests.Session.get')
+@mock.patch("requests.Session.get")
 def test_document_es_mapping(
-    mock_contributions_mef_get, search, db, org_martigny,
-    document_data_ref, item_lib_martigny,
-    entity_person_response_data
+    mock_contributions_mef_get,
+    search,
+    db,
+    org_martigny,
+    document_data_ref,
+    item_lib_martigny,
+    entity_person_response_data,
 ):
     """Test document elasticsearch mapping."""
     search = DocumentsSearch()
@@ -40,12 +44,7 @@ def test_document_es_mapping(
     mock_contributions_mef_get.return_value = mock_response(
         json_data=entity_person_response_data
     )
-    Document.create(
-        data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
-    )
+    Document.create(data, dbcommit=True, reindex=True, delete_pid=True)
     assert mapping == get_mapping(search.Meta.index)
 
 
@@ -53,25 +52,24 @@ def test_document_search_mapping(app, document_records):
     """Test document search mapping."""
     search = DocumentsSearch()
 
-    count = search.query('query_string', query='reine Berthe').count()
+    count = search.query("query_string", query="reine Berthe").count()
     assert count == 2
 
-    count = search.query('query_string', query='maison').count()
+    count = search.query("query_string", query="maison").count()
     assert count == 1
 
-    count = search.query('query_string', query='Körper').count()
+    count = search.query("query_string", query="Körper").count()
     assert count == 1
 
-    count = search.query('query_string', query='Chamber Secrets').count()
+    count = search.query("query_string", query="Chamber Secrets").count()
     assert count == 1
 
-    query = MultiMatch(query='Chamber of Secrets',
-                       fields=['title.mainTitle.value'])
+    query = MultiMatch(query="Chamber of Secrets", fields=["title.mainTitle.value"])
     count = search.query(query).count()
     assert count == 1
 
-    count = search.query('query_string', query='9782823855890').count()
+    count = search.query("query_string", query="9782823855890").count()
     assert count == 1
 
-    count = search.query('query_string', query='2823855890').count()
+    count = search.query("query_string", query="2823855890").count()
     assert count == 1

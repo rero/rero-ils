@@ -63,30 +63,22 @@ msg "PROGRAM: ${PROGRAM}"
 
 # Poetry is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
+  error_msg+exit "Error - Launch this script via poetry command:\n\t${PROGRAM}"
 fi
 
 function pretests () {
-  # -> Vulnerability found in flask-caching version 2.3.0
-  #   Vulnerability ID: 40459
-  # -> Vulnerability found in sqlalchemy-utils version 0.38.3
-  #   Vulnerability ID: 42194
-  # -> Vulnerability found in wtforms version 2.3.3
-  #   Vulnerability ID: 42852
-  # -> Vulnerability found in py version 1.11.0
-  #   Vulnerability ID: 51457
-  # -> Vulnerability found in sqlalchemy version 1.4.52
-  #   Vulnerability ID: 51668
-  # -> Vulnerability found in werkzeug version 2.2.3
-  #   Vulnerability ID: 62019
-  # -> Vulnerability found in black version 22.12.0
-  #   Vulnerability ID: 66742
-  # -> Vulnerability found in jinja2 version 3.1.4
-  #   Vulnerability ID: 70612
+  # -> Vulnerability found in flask-caching version 2.0.1
+  #    Vulnerability ID: 40459
   # -> Vulnerability found in flask-cors version 4.0.1
-  #   Vulnerability ID: 70624
+  #    Vulnerability ID: 70624
+  # -> Vulnerability found in sqlalchemy version 1.4.53
+  #    Vulnerability ID: 51668
+  # -> Vulnerability found in sqlalchemy-utils version 0.38.3
+  #    Vulnerability ID: 42194
+  # -> Vulnerability found in wtforms version 2.3.3
+  #    Vulnerability ID: 42852
   # -> Vulnerability found in werkzeug version 2.2.3
-  #   Vulnerability ID: 71594
+  #    Vulnerability ID: 62019
   # -> Vulnerability found in werkzeug version 2.2.3
   #   Vulnerability ID: 71595
   # -> Vulnerability found in sentry-sdk version 1.45.1
@@ -106,8 +98,10 @@ function pretests () {
   pydocstyle rero_ils tests docs
   info_msg "Test isort:"
   isort --check-only --diff tests rero_ils
+  info_msg "Test black:"
+  black tests rero_ils tests --check
   info_msg "Test useless imports:"
-  poetry run autoflake -r --remove-all-unused-imports --ignore-init-module-imports --quiet .
+  autoflake --recursive --remove-all-unused-imports --ignore-init-module-imports --check-diff --quiet .
   # info_msg "Check-manifest:"
   # TODO: check if this is required when rero-ils will be published
   # check-manifest --ignore ".travis-*,docs/_build*"
@@ -117,36 +111,36 @@ function pretests () {
 
 function tests () {
   info_msg "Tests All:"
-  poetry run pytest
+  pytest
 }
 
 function tests_api () {
   info_msg "Tests API:"
-  poetry run pytest ./tests/api
+  pytest ./tests/api
 }
 function tests_e2e () {
   info_msg "Tests E2E:"
-  poetry run pytest ./tests/e2e
+  pytest ./tests/e2e
 }
 function tests_scheduler () {
   info_msg "Tests Scheduler:"
-  poetry run pytest ./tests/scheduler
+  pytest ./tests/scheduler
 }
 function tests_ui () {
   info_msg "Tests UI:"
-  poetry run pytest ./tests/ui
+  pytest ./tests/ui
 }
 function tests_unit () {
   info_msg "Tests Unit:"
-  poetry run pytest ./tests/unit
+  pytest ./tests/unit
 }
 function tests_external () {
   info_msg "Tests External:"
-  poetry run pytest tests/api/test_external_services.py
+  pytest tests/api/test_external_services.py
 }
 function tests_other () {
   info_msg "Tests Other:"
-  poetry run pytest ./tests/conftest.py ./tests/test_version.py ./tests/utils.py
+  pytest ./tests/conftest.py ./tests/test_version.py ./tests/utils.py
 }
 
 if [ $# -eq 0 ]

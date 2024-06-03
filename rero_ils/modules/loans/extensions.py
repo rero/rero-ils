@@ -45,9 +45,9 @@ class CheckoutLocationExtension(RecordExtension):
 
         :param record: the record metadata.
         """
-        transaction_pid = record.get('transaction_location_pid')
-        if record.get('trigger') == 'checkout' and transaction_pid:
-            record['checkout_location_pid'] = transaction_pid
+        transaction_pid = record.get("transaction_location_pid")
+        if record.get("trigger") == "checkout" and transaction_pid:
+            record["checkout_location_pid"] = transaction_pid
 
     def pre_commit(self, record):
         """Called before a record is committed."""
@@ -72,36 +72,41 @@ class CirculationDatesExtension(RecordExtension):
         :param record: the record metadata.
         """
         from .utils import get_circ_policy
-        if record.state == LoanState.ITEM_AT_DESK and \
-           'request_expire_date' not in record:
+
+        if (
+            record.state == LoanState.ITEM_AT_DESK
+            and "request_expire_date" not in record
+        ):
             cipo = get_circ_policy(record)
-            duration = cipo.get('pickup_hold_duration')
+            duration = cipo.get("pickup_hold_duration")
             library = record.pickup_library
-            if cipo.get('allow_requests') and duration and library:
+            if cipo.get("allow_requests") and duration and library:
                 # the expiration date should be calculated using the pickup
                 # library calendar
                 trans_date = ciso8601.parse_datetime(record.transaction_date)
                 try:
                     # Ask `duration-1` to get eve to safely use `next_open`
                     expire_date = trans_date + timedelta(days=duration - 1)
-                    expire_date = library \
-                        .next_open(expire_date) \
-                        .astimezone(library.get_timezone()) \
+                    expire_date = (
+                        library.next_open(expire_date)
+                        .astimezone(library.get_timezone())
                         .replace(hour=23, minute=59, second=0, microsecond=0)
+                    )
                 except LibraryNeverOpen:
                     # 10 days by default ... it's better than place a random
                     # date value
                     default_duration = current_app.config.get(
-                        'RERO_ILS_DEFAULT_PICKUP_HOLD_DURATION', 10)
+                        "RERO_ILS_DEFAULT_PICKUP_HOLD_DURATION", 10
+                    )
                     expire_date = trans_date + timedelta(days=default_duration)
-                    expire_date = expire_date \
-                        .astimezone(library.get_timezone()) \
-                        .replace(hour=23, minute=59, second=0, microsecond=0)
+                    expire_date = expire_date.astimezone(
+                        library.get_timezone()
+                    ).replace(hour=23, minute=59, second=0, microsecond=0)
 
-                record['request_expire_date'] = expire_date.isoformat()
-                record['request_start_date'] = datetime \
-                    .now(library.get_timezone()) \
-                    .isoformat()
+                record["request_expire_date"] = expire_date.isoformat()
+                record["request_start_date"] = datetime.now(
+                    library.get_timezone()
+                ).isoformat()
 
     @staticmethod
     def _add_due_soon_date(record):
@@ -110,16 +115,17 @@ class CirculationDatesExtension(RecordExtension):
         :param record: the record metadata.
         """
         from .utils import get_circ_policy
+
         if record.state == LoanState.ITEM_ON_LOAN and record.end_date:
             # find the correct policy based on the checkout location.
             circ_policy = get_circ_policy(record, checkout_location=True)
             due_date = ciso8601.parse_datetime(record.end_date).replace(
-                tzinfo=timezone.utc)
+                tzinfo=timezone.utc
+            )
             if days_before := circ_policy.due_soon_interval_days:
                 due_soon = due_date - timedelta(days=days_before)
-                due_soon = due_soon.replace(
-                    hour=0, minute=0, second=0, microsecond=0)
-                record['due_soon_date'] = due_soon.isoformat()
+                due_soon = due_soon.replace(hour=0, minute=0, second=0, microsecond=0)
+                record["due_soon_date"] = due_soon.isoformat()
 
     @staticmethod
     def _add_last_end_date(record):
@@ -127,8 +133,8 @@ class CirculationDatesExtension(RecordExtension):
 
         :param record: the record metadata.
         """
-        if record.state == LoanState.ITEM_ON_LOAN and record.get('end_date'):
-            record['last_end_date'] = record['end_date']
+        if record.state == LoanState.ITEM_ON_LOAN and record.get("end_date"):
+            record["last_end_date"] = record["end_date"]
 
     def pre_commit(self, record):
         """Called before a record is committed."""

@@ -24,6 +24,4 @@ from ..schemas.json import TemplateMetadataSchemaV1
 
 json_v1 = marshmallow_loader(TemplateMetadataSchemaV1)
 
-__all__ = (
-    'json_v1',
-)
+__all__ = ("json_v1",)

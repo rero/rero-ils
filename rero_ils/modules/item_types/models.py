@@ -27,16 +27,17 @@ from invenio_records.models import RecordMetadataBase
 class ItemTypeIdentifier(RecordIdentifier):
     """Sequence generator for ItemType identifiers."""
 
-    __tablename__ = 'item_type_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "item_type_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
 class ItemTypeMetadata(db.Model, RecordMetadataBase):
     """ItemType record metadata."""
 
-    __tablename__ = 'item_type_metadata'
+    __tablename__ = "item_type_metadata"

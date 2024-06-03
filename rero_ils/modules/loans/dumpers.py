@@ -36,24 +36,26 @@ class CirculationDumper(InvenioRecordsDumper):
         """Dump an loan for circulation."""
         data = deepcopy(dict(record))
         # used only for pending
-        data['creation_date'] = record.created
+        data["creation_date"] = record.created
 
-        ptrn_query = PatronsSearch()\
-            .source(['patron', 'first_name', 'last_name'])\
-            .filter('term', pid=record['patron_pid'])
+        ptrn_query = (
+            PatronsSearch()
+            .source(["patron", "first_name", "last_name"])
+            .filter("term", pid=record["patron_pid"])
+        )
         if ptrn_data := next(ptrn_query.scan(), None):
-            data['patron'] = {}
-            data['patron']['barcode'] = ptrn_data.patron.barcode.pop()
-            data['patron']['name'] = ', '.join((
-                ptrn_data.last_name, ptrn_data.first_name))
+            data["patron"] = {}
+            data["patron"]["barcode"] = ptrn_data.patron.barcode.pop()
+            data["patron"]["name"] = ", ".join(
+                (ptrn_data.last_name, ptrn_data.first_name)
+            )
 
-        if record.get('pickup_location_pid'):
-            location = Location.get_record_by_pid(
-                record.get('pickup_location_pid'))
-            data['pickup_location'] = {
-                'name': location.get('name'),
-                'library_name': location.get_library().get('name'),
-                'pickup_name': location.pickup_name
+        if record.get("pickup_location_pid"):
+            location = Location.get_record_by_pid(record.get("pickup_location_pid"))
+            data["pickup_location"] = {
+                "name": location.get("name"),
+                "library_name": location.get_library().get("name"),
+                "pickup_name": location.pickup_name,
             }
 
         # Always add item destination readable information if item state is
@@ -61,20 +63,14 @@ class CirculationDumper(InvenioRecordsDumper):
         item = record.item
         if item.status == ItemStatus.IN_TRANSIT:
             destination_loc_pid = item.location_pid
-            if record.get('state') == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
-                destination_loc_pid = record.get('pickup_location_pid')
+            if record.get("state") == LoanState.ITEM_IN_TRANSIT_FOR_PICKUP:
+                destination_loc_pid = record.get("pickup_location_pid")
                 # can be already computed
-                if library_name := data.get(
-                        'pickup_location', {}).get('library_name'):
-                    data['item_destination'] = {
-                        'library_name': library_name
-                    }
+                if library_name := data.get("pickup_location", {}).get("library_name"):
+                    data["item_destination"] = {"library_name": library_name}
             # do nothing is already done
-            if not data.get('item_destination'):
-                destination_loc = Location.get_record_by_pid(
-                    destination_loc_pid)
+            if not data.get("item_destination"):
+                destination_loc = Location.get_record_by_pid(destination_loc_pid)
                 destination_lib = destination_loc.get_library()
-                data['item_destination'] = {
-                    'library_name': destination_lib.get('name')
-                }
+                data["item_destination"] = {"library_name": destination_lib.get("name")}
         return data

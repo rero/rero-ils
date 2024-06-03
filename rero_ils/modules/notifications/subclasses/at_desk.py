@@ -65,19 +65,19 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
         request_loan = self.request_loan
         msg = None
         if not request_loan:
-            msg = 'No previous request found, none AT_DESK should be sent.'
+            msg = "No previous request found, none AT_DESK should be sent."
         # we need to use `!=` comparator because strings was built differently
         # The `!=` operator compares the value or equality of two objects,
         # `is not` operator checks whether two variables point to the same
         # object in memory : `id(str_a) is not `id(str_b)`.
-        elif request_loan.get('state') != LoanState.ITEM_AT_DESK:
-            msg = "The first found request isn\'t AT_DESK"
+        elif request_loan.get("state") != LoanState.ITEM_AT_DESK:
+            msg = "The first found request isn't AT_DESK"
         # we don't find any reasons to cancel this notification
         return msg is not None, msg
 
     def get_template_path(self):
         """Get the template to use to render the notification."""
-        return f'email/at_desk/{self.get_language_to_use()}.txt'
+        return f"email/at_desk/{self.get_language_to_use()}.txt"
 
     def get_recipients_to(self):
         """Get notification recipient email addresses."""
@@ -90,51 +90,50 @@ class AtDeskCirculationNotification(InternalCirculationNotification):
         """Get the context to render the notification template."""
         # Use a delay to be sure the notification is sent AFTER the loan has
         # been indexed (avoid problem due to server load).
-        context = {
-            'delay': 30
-        }
+        context = {"delay": 30}
         notifications = notifications or []
         if not notifications:
             return context
 
-        context['loans'] = []
+        context["loans"] = []
         item_dumper = ItemNotificationDumper()
         patron_dumper = PatronNotificationDumper()
         for notification in notifications:
             loan = notification.loan
             creation_date = format_date_filter(
-                notification.get('creation_date'), date_format='medium',
-                locale=language_iso639_2to1(notification.get_language_to_use())
+                notification.get("creation_date"),
+                date_format="medium",
+                locale=language_iso639_2to1(notification.get_language_to_use()),
             )
             request_expire_date = format_date_filter(
-                loan.get('request_expire_date'), date_format='medium',
-                locale=language_iso639_2to1(notification.get_language_to_use())
+                loan.get("request_expire_date"),
+                date_format="medium",
+                locale=language_iso639_2to1(notification.get_language_to_use()),
             )
             # merge doc and item metadata preserving document key
             item_data = notification.item.dumps(dumper=item_dumper)
-            doc_data = notification.document.dumps(
-                dumper=document_title_dumper)
+            doc_data = notification.document.dumps(dumper=document_title_dumper)
             doc_data = {**item_data, **doc_data}
             # pickup location name --> !! pickup is on notif.request_loan, not
             # on notif.loan
             request_loan = notification.request_loan
             pickup_location = Location.get_record_by_pid(
-                request_loan.get('pickup_location_pid'))
-            if not pickup_location:
-                pickup_location = Location.get_record_by_pid(
-                    request_loan.get('transaction_location_pid'))
+                request_loan.get("pickup_location_pid")
+            ) or Location.get_record_by_pid(
+                request_loan.get("transaction_location_pid")
+            )
             # request_patron
-            request_patron = Patron.get_record_by_pid(
-                request_loan.get('patron_pid'))
+            request_patron = Patron.get_record_by_pid(request_loan.get("patron_pid"))
 
             loan_context = {
-                'creation_date': creation_date,
-                'document': doc_data,
-                'pickup_name': pickup_location.get(
-                    'pickup_name', pickup_location.get('name')),
-                'request_expire_date': request_expire_date,
-                'patron': request_patron.dumps(dumper=patron_dumper)
+                "creation_date": creation_date,
+                "document": doc_data,
+                "pickup_name": pickup_location.get(
+                    "pickup_name", pickup_location.get("name")
+                ),
+                "request_expire_date": request_expire_date,
+                "patron": request_patron.dumps(dumper=patron_dumper),
             }
-            context['loans'].append(loan_context)
+            context["loans"].append(loan_context)
 
         return context

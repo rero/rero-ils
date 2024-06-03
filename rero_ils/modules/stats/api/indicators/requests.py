@@ -34,10 +34,8 @@ class NumberOfRequestsCfg(NumberOfCirculationCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'pickup_location': A(
-                'terms',
-                field='loan.pickup_location.pid',
-                size=self.cfg.aggs_size
+            "pickup_location": A(
+                "terms", field="loan.pickup_location.pid", size=self.cfg.aggs_size
             )
         }
         if agg := cfg.get(distribution):
@@ -53,9 +51,8 @@ class NumberOfRequestsCfg(NumberOfCirculationCfg):
         :rtype: str
         """
         cfg = {
-            'pickup_location': lambda:
-                f'{self.cfg.locations.get(bucket.key, self.label_na_msg)} '
-                f'({bucket.key})'
+            "pickup_location": lambda: f"{self.cfg.locations.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})"
         }
         if label_fn := cfg.get(distribution):
             return label_fn()

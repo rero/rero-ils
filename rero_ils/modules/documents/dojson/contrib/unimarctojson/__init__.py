@@ -19,4 +19,4 @@
 
 from .model import unimarc
 
-__all__ = ('unimarc')
+__all__ = "unimarc"

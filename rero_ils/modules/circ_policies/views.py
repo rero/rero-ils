@@ -26,26 +26,20 @@ from ..decorators import check_logged_as_librarian
 from ..patrons.api import current_librarian
 
 blueprint = Blueprint(
-    'circ_policies',
+    "circ_policies",
     __name__,
-    template_folder='templates',
-    static_folder='static',
+    template_folder="templates",
+    static_folder="static",
 )
 
 
-@blueprint.route('/circ_policies/name/validate/<name>', methods=["GET"])
+@blueprint.route("/circ_policies/name/validate/<name>", methods=["GET"])
 @check_logged_as_librarian
 def name_validate(name):
     """Circulation policy name validation."""
-    response = {
-        'name': None
-    }
-    circ_policy = CircPolicy.exist_name_and_organisation_pid(
-        name,
-        current_librarian.organisation.pid
-    )
-    if circ_policy:
-        response = {
-            'name': circ_policy.name
-        }
+    response = {"name": None}
+    if circ_policy := CircPolicy.exist_name_and_organisation_pid(
+        name, current_librarian.organisation.pid
+    ):
+        response = {"name": circ_policy.name}
     return jsonify(response)

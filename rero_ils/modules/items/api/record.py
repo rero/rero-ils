@@ -26,15 +26,19 @@ from flask_babel import gettext as _
 from rero_ils.modules.api import IlsRecord
 from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.item_types.api import ItemType
-from rero_ils.modules.local_fields.extensions import \
-    DeleteRelatedLocalFieldExtension
-from rero_ils.modules.operation_logs.extensions import \
-    UntrackedFieldsOperationLogObserverExtension
+from rero_ils.modules.local_fields.extensions import DeleteRelatedLocalFieldExtension
+from rero_ils.modules.operation_logs.extensions import (
+    UntrackedFieldsOperationLogObserverExtension,
+)
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.record_extensions import OrgLibRecordExtension
-from rero_ils.modules.utils import date_string_to_utc, \
-    extracted_data_from_ref, generate_item_barcode, get_ref_for_pid, \
-    trim_item_barcode_for_record
+from rero_ils.modules.utils import (
+    date_string_to_utc,
+    extracted_data_from_ref,
+    generate_item_barcode,
+    get_ref_for_pid,
+    trim_item_barcode_for_record,
+)
 
 from ..extensions import IssueSortDateExtension, IssueStatusExtension
 from ..models import TypeOfItem
@@ -48,8 +52,8 @@ class ItemRecord(IlsRecord):
         IssueSortDateExtension(),
         IssueStatusExtension(),
         OrgLibRecordExtension(),
-        UntrackedFieldsOperationLogObserverExtension(['status']),
-        DeleteRelatedLocalFieldExtension()
+        UntrackedFieldsOperationLogObserverExtension(["status"]),
+        DeleteRelatedLocalFieldExtension(),
     ]
 
     def extended_validation(self, **kwargs):
@@ -78,57 +82,65 @@ class ItemRecord(IlsRecord):
 
         """
         from . import ItemsSearch
-        if barcode := self.get('barcode'):
+
+        if barcode := self.get("barcode"):
             if (
                 ItemsSearch()
-                .exclude('term', pid=self.pid)
-                .filter('term', barcode=barcode)
-                .source('pid')
+                .exclude("term", pid=self.pid)
+                .filter("term", barcode=barcode)
+                .source("pid")
                 .count()
             ):
-                return _(f'Barcode {barcode} is already taken.')
+                return _(f"Barcode {barcode} is already taken.")
 
         from ...holdings.api import Holding
-        holding_pid = extracted_data_from_ref(self.get('holding').get('$ref'))
+
+        holding_pid = extracted_data_from_ref(self.get("holding").get("$ref"))
         holding = Holding.get_record_by_pid(holding_pid)
         if not holding:
-            return _(f'Holding does not exist: {holding_pid}')
+            return _(f"Holding does not exist: {holding_pid}")
 
-        if self.get('issue') and self.get('type') == TypeOfItem.STANDARD:
-            return _('Standard item can not have a issue field.')
-        if self.get('type') == TypeOfItem.ISSUE:
-            if not self.get('issue', {}):
-                return _('Issue item must have an issue field.')
-            if not self.get('enumerationAndChronology'):
-                return _('enumerationAndChronology field is required '
-                         'for an issue item')
-        note_types = [note.get('type') for note in self.get('notes', [])]
+        if self.get("issue") and self.get("type") == TypeOfItem.STANDARD:
+            return _("Standard item can not have a issue field.")
+        if self.get("type") == TypeOfItem.ISSUE:
+            if not self.get("issue", {}):
+                return _("Issue item must have an issue field.")
+            if not self.get("enumerationAndChronology"):
+                return _(
+                    "enumerationAndChronology field is required " "for an issue item"
+                )
+        note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
-            return _('Can not have multiple notes of the same type.')
+            return _("Can not have multiple notes of the same type.")
 
         # check temporary item type data
-        if tmp_itty := self.get('temporary_item_type'):
-            if tmp_itty['$ref'] == self['item_type']['$ref']:
-                return _('Temporary circulation category cannot be the same '
-                         'than default circulation category.')
-            if tmp_itty.get('end_date'):
-                end_date = date_string_to_utc(tmp_itty.get('end_date'))
+        if tmp_itty := self.get("temporary_item_type"):
+            if tmp_itty["$ref"] == self["item_type"]["$ref"]:
+                return _(
+                    "Temporary circulation category cannot be the same "
+                    "than default circulation category."
+                )
+            if tmp_itty.get("end_date"):
+                end_date = date_string_to_utc(tmp_itty.get("end_date"))
                 if end_date <= pytz.utc.localize(datetime.now()):
-                    return _('Temporary circulation category end date must be '
-                             'a date in the future.')
+                    return _(
+                        "Temporary circulation category end date must be "
+                        "a date in the future."
+                    )
 
         return True
 
     @classmethod
-    def create(cls, data, id_=None, delete_pid=False,
-               dbcommit=False, reindex=False, **kwargs):
+    def create(
+        cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs
+    ):
         """Create item record."""
-        data = cls._prepare_item_record(data=data, mode='create')
+        data = cls._prepare_item_record(data=data, mode="create")
         data = cls._set_issue_status_date(data=data)
-        record = super().create(
-            data, id_, delete_pid, dbcommit, reindex, **kwargs)
+        record = super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
         holding = cls._increment_next_prediction_for_holding(
-            record, dbcommit=dbcommit, reindex=reindex)
+            record, dbcommit=dbcommit, reindex=reindex
+        )
         # As we potentially update the parent holding when we create an issue
         # item, we need to commit this holding even if `dbcommit` iss set to
         # false. Without this commit, only the current (Item) resource will be
@@ -156,7 +168,7 @@ class ItemRecord(IlsRecord):
         :return: The updated item record.
         """
         data = self._set_issue_status_date(data)
-        data = self._prepare_item_record(data=data, mode='update')
+        data = self._prepare_item_record(data=data, mode="update")
         super().update(data, commit, dbcommit, reindex)
         # TODO: some item updates do not require holding re-linking
         return self
@@ -181,37 +193,39 @@ class ItemRecord(IlsRecord):
         :param data: The record to update.
         :return: The updated record.
         """
-        if data.get('type') != TypeOfItem.ISSUE:
+        if data.get("type") != TypeOfItem.ISSUE:
             return data
 
-        status = data.get('issue', {}).get('status')
-        item = cls.get_record_by_pid(data.get('pid'))
+        status = data.get("issue", {}).get("status")
+        item = cls.get_record_by_pid(data.get("pid"))
         now = datetime.now(timezone.utc).isoformat()
 
         if item:  # item already exists
             if status and status != item.issue_status:
-                data['issue']['status_date'] = now
+                data["issue"]["status_date"] = now
         else:  # item creation
             if status:
-                data['issue']['status_date'] = now
+                data["issue"]["status_date"] = now
         return data
 
     @classmethod
     def _increment_next_prediction_for_holding(
-            cls, item, dbcommit=False, reindex=False):
+        cls, item, dbcommit=False, reindex=False
+    ):
         """Increment next issue for items with regular frequencies."""
         from ...holdings.api import Holding
+
         holding = Holding.get_record_by_pid(item.holding_pid)
-        if item.get('type') == 'issue' and \
-                item.get('issue', {}).get('regular') and \
-                holding.holdings_type == 'serial' and \
-                holding.get('patterns') and \
-                holding.get('patterns', {}).get('frequency') != 'rdafr:1016':
+        if (
+            item.get("type") == "issue"
+            and item.get("issue", {}).get("regular")
+            and holding.holdings_type == "serial"
+            and holding.get("patterns")
+            and holding.get("patterns", {}).get("frequency") != "rdafr:1016"
+        ):
             updated_holding = holding.increment_next_prediction()
             return holding.update(
-                data=updated_holding,
-                dbcommit=dbcommit,
-                reindex=reindex
+                data=updated_holding, dbcommit=dbcommit, reindex=reindex
             )
 
     @classmethod
@@ -225,50 +239,48 @@ class ItemRecord(IlsRecord):
         :param mode: update or create mode.
         :return: the updated record with matched holdings record
         """
-        from ...holdings.api import Holding, create_holding, \
-            get_holding_pid_by_doc_location_item_type
+        from ...holdings.api import (
+            Holding,
+            create_holding,
+            get_holding_pid_by_doc_location_item_type,
+        )
 
         old_holding_pid = None
         old_holding_type = None
-        if record.get('holding'):
-            old_holding_pid = extracted_data_from_ref(
-                record['holding'], data='pid')
-            old_holding_type = Holding.get_holdings_type_by_holding_pid(
-                old_holding_pid)
+        if record.get("holding"):
+            old_holding_pid = extracted_data_from_ref(record["holding"], data="pid")
+            old_holding_type = Holding.get_holdings_type_by_holding_pid(old_holding_pid)
 
-        if (
-            mode == 'create' and record.get('holding')) or (
+        if (mode == "create" and record.get("holding")) or (
             old_holding_type in [HoldingTypes.SERIAL, HoldingTypes.ELECTRONIC]
         ):
             return record
 
         # item type is important for linking to the correct holdings type.
-        item_record_type = record.get('type', 'standard')
+        item_record_type = record.get("type", "standard")
 
         # get pids from $ref
-        document_pid = extracted_data_from_ref(record['document'], data='pid')
-        location_pid = extracted_data_from_ref(record['location'], data='pid')
-        item_type_pid = extracted_data_from_ref(
-            record['item_type'], data='pid')
+        document_pid = extracted_data_from_ref(record["document"], data="pid")
+        location_pid = extracted_data_from_ref(record["location"], data="pid")
+        item_type_pid = extracted_data_from_ref(record["item_type"], data="pid")
 
         holding_pid = get_holding_pid_by_doc_location_item_type(
-            document_pid, location_pid, item_type_pid, item_record_type)
+            document_pid, location_pid, item_type_pid, item_record_type
+        )
 
         # we will NOT create serial holdings for items
-        if not holding_pid and item_record_type != 'serial':
+        if not holding_pid and item_record_type != "serial":
             holdings_record = create_holding(
                 document_pid=document_pid,
                 location_pid=location_pid,
-                item_type_pid=item_type_pid)
+                item_type_pid=item_type_pid,
+            )
             holding_pid = holdings_record.pid
 
         # update item record with the parent holding record if different
         # from the old holding pid
         if not old_holding_pid or holding_pid != old_holding_pid:
-            record['holding'] = {'$ref': get_ref_for_pid(
-                'hold',
-                holding_pid
-            )}
+            record["holding"] = {"$ref": get_ref_for_pid("hold", holding_pid)}
         return record
 
     @classmethod
@@ -294,26 +306,28 @@ class ItemRecord(IlsRecord):
     def get_items_pid_by_holding_pid(cls, holding_pid, with_masked=True):
         """Returns item pids from holding pid."""
         from . import ItemsSearch
-        es_query = ItemsSearch() \
-            .params(preserve_order=True)\
-            .filter('term', holding__pid=holding_pid) \
-            .sort({'pid': {"order": "asc"}}) \
-            .source(['pid'])
+
+        es_query = (
+            ItemsSearch()
+            .params(preserve_order=True)
+            .filter("term", holding__pid=holding_pid)
+            .sort({"pid": {"order": "asc"}})
+            .source(["pid"])
+        )
         if not with_masked:
-            es_query = es_query.filter(
-                'bool', must_not=[Q('term', _masked=True)])
+            es_query = es_query.filter("bool", must_not=[Q("term", _masked=True)])
         for item in es_query.scan():
             yield item.pid
 
     @property
     def holding_pid(self):
         """Shortcut for item holding pid."""
-        return extracted_data_from_ref(self.get('holding'))
+        return extracted_data_from_ref(self.get("holding"))
 
     @property
     def holding(self):
         """Shortcut for item holding."""
-        return extracted_data_from_ref(self.get('holding'), data='record')
+        return extracted_data_from_ref(self.get("holding"), data="record")
 
     @property
     def holding_location_pid(self):
@@ -330,13 +344,13 @@ class ItemRecord(IlsRecord):
     @property
     def document_pid(self):
         """Shortcut for item document pid."""
-        return extracted_data_from_ref(self['document'])
+        return extracted_data_from_ref(self["document"])
 
     @classmethod
     def get_document_pid_by_item_pid(cls, item_pid):
         """Returns document pid from item pid."""
         item = cls.get_record_by_pid(item_pid)
-        return extracted_data_from_ref(item['document'])
+        return extracted_data_from_ref(item["document"])
 
     @classmethod
     def get_document_pid_by_item_pid_object(cls, item_pid):
@@ -347,8 +361,8 @@ class ItemRecord(IlsRecord):
         :return: the document pid
         :rtype: str
         """
-        item = cls.get_record_by_pid(item_pid.get('value'))
-        return extracted_data_from_ref(item['document'])
+        item = cls.get_record_by_pid(item_pid.get("value"))
+        return extracted_data_from_ref(item["document"])
 
     @classmethod
     def get_items_pid_by_document_pid(cls, document_pid):
@@ -359,9 +373,13 @@ class ItemRecord(IlsRecord):
         :rtype generator<str>
         """
         from . import ItemsSearch
-        results = ItemsSearch()\
-            .filter('term', document__pid=document_pid)\
-            .source(['pid']).scan()
+
+        results = (
+            ItemsSearch()
+            .filter("term", document__pid=document_pid)
+            .source(["pid"])
+            .scan()
+        )
         for item in results:
             yield item_pid_to_object(item.pid)
 
@@ -377,13 +395,11 @@ class ItemRecord(IlsRecord):
         :rtype `rero_ils.modules.items.api.api.Item`
         """
         from . import ItemsSearch
-        filters = Q('term', barcode=barcode)
+
+        filters = Q("term", barcode=barcode)
         if organisation_pid:
-            filters &= Q('term', organisation__pid=organisation_pid)
-        results = ItemsSearch()\
-            .filter(filters)\
-            .source(includes='pid')\
-            .scan()
+            filters &= Q("term", organisation__pid=organisation_pid)
+        results = ItemsSearch().filter(filters).source(includes="pid").scan()
         with suppress(StopIteration):
             return cls.get_record_by_pid(next(results).pid)
 
@@ -397,49 +413,49 @@ class ItemRecord(IlsRecord):
 
     def get_location(self):
         """Shortcut to the location of the item."""
-        return extracted_data_from_ref(self['location'], data='record')
+        return extracted_data_from_ref(self["location"], data="record")
 
     def get_circulation_location(self):
         """Get the location to used for circulation operation."""
         # By default, the location used for circulation operations is the main
         # item location except if this item has a `temporary_location` and this
         # location isn't yet over.
-        if tmp_location := self.get('temporary_location'):
-            if end_date := tmp_location.get('end_date'):
+        if tmp_location := self.get("temporary_location"):
+            if end_date := tmp_location.get("end_date"):
                 now_date = pytz.utc.localize(datetime.now())
                 end_date = date_string_to_utc(end_date)
                 if now_date > end_date:
                     return self.get_location()
-            return extracted_data_from_ref(tmp_location['$ref'], data='record')
+            return extracted_data_from_ref(tmp_location["$ref"], data="record")
         return self.get_location()
 
     @property
     def status(self):
         """Shortcut for item status."""
-        return self.get('status', '')
+        return self.get("status", "")
 
     @property
     def enumerationAndChronology(self):
         """Shortcut for item enumerationAndChronology."""
-        return self.get('enumerationAndChronology', '')
+        return self.get("enumerationAndChronology", "")
 
     @property
     def item_type_pid(self):
         """Shortcut for item type pid."""
-        if self.get('item_type'):
-            return extracted_data_from_ref(self.get('item_type'))
+        if self.get("item_type"):
+            return extracted_data_from_ref(self.get("item_type"))
 
     @property
     def temporary_item_type_pid(self):
         """Shortcut for temporary item type pid."""
-        if tmp_item_type := self.get('temporary_item_type', {}):
+        if tmp_item_type := self.get("temporary_item_type", {}):
             # if the temporary_item_type end_date is over : return none
-            if end_date := tmp_item_type.get('end_date'):
+            if end_date := tmp_item_type.get("end_date"):
                 now_date = pytz.utc.localize(datetime.now())
                 end_date = date_string_to_utc(end_date)
                 if now_date > end_date:
                     return None
-            return extracted_data_from_ref(tmp_item_type.get('$ref'))
+            return extracted_data_from_ref(tmp_item_type.get("$ref"))
 
     @property
     def item_type_circulation_category_pid(self):
@@ -453,22 +469,20 @@ class ItemRecord(IlsRecord):
         :return the in-used circulation category for this item.
         :rtype rero_ils.modules.item_types.api.ItemType
         """
-        return ItemType.get_record_by_pid(
-            self.item_type_circulation_category_pid
-        )
+        return ItemType.get_record_by_pid(self.item_type_circulation_category_pid)
 
     @property
     def item_record_type(self):
         """Shortcut for item type, whether a standard or an issue record."""
-        return self.get('type')
+        return self.get("type")
 
     @property
     def holding_circulation_category_pid(self):
         """Shortcut for holding circulation category pid of an item."""
         from ...holdings.api import Holding
+
         if self.holding_pid:
-            return Holding.get_record_by_pid(
-                    self.holding_pid).circulation_category_pid
+            return Holding.get_record_by_pid(self.holding_pid).circulation_category_pid
 
     @property
     def call_numbers(self):
@@ -477,15 +491,16 @@ class ItemRecord(IlsRecord):
         Inherit call numbers where applicable.
         """
         from ...holdings.api import Holding
-        if self.get('type') == 'standard':
-            data = [self.get(key) for key in ['call_number',
-                                              'second_call_number']]
+
+        if self.get("type") == "standard":
+            data = [self.get(key) for key in ["call_number", "second_call_number"]]
         else:
             data = []
             holding = Holding.get_record_by_pid(
-                extracted_data_from_ref(self.get('holding')))
+                extracted_data_from_ref(self.get("holding"))
+            )
 
-            for key in ['call_number', 'second_call_number']:
+            for key in ["call_number", "second_call_number"]:
                 if self.get(key):
                     data.append(self.get(key))
                 elif holding.get(key):
@@ -495,14 +510,14 @@ class ItemRecord(IlsRecord):
     @property
     def location_pid(self):
         """Shortcut for item location pid."""
-        if self.get('location'):
-            return extracted_data_from_ref(self.get('location'))
+        if self.get("location"):
+            return extracted_data_from_ref(self.get("location"))
 
     @property
     def location(self):
         """Shortcut to get item related location resource."""
-        if self.get('location'):
-            return extracted_data_from_ref(self.get('location'), data='record')
+        if self.get("location"):
+            return extracted_data_from_ref(self.get("location"), data="record")
 
     @property
     def library_pid(self):
@@ -519,15 +534,15 @@ class ItemRecord(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid for item."""
-        if self.get('organisation'):
-            return extracted_data_from_ref(self.get('organisation'))
+        if self.get("organisation"):
+            return extracted_data_from_ref(self.get("organisation"))
         return self.get_library().organisation_pid
 
     @property
     def organisation_view(self):
         """Get Organisation view for item."""
         organisation = Organisation.get_record_by_pid(self.organisation_pid)
-        return organisation['view_code']
+        return organisation["view_code"]
 
     def get_owning_pickup_location_pid(self):
         """Returns the pickup location pid for the item owning location.
@@ -547,7 +562,7 @@ class ItemRecord(IlsRecord):
         :return an array of all notes related to the item. Each note should
                 have two keys : `type` and `content`.
         """
-        return self.get('notes', [])
+        return self.get("notes", [])
 
     def get_note(self, note_type):
         """Return an item note by its type.
@@ -555,8 +570,9 @@ class ItemRecord(IlsRecord):
         :param note_type: the type of note (see ``ItemNoteTypes``)
         :return the content of the note, None if note type is not found
         """
-        notes = [note.get('content') for note in self.notes
-                 if note.get('type') == note_type]
+        notes = [
+            note.get("content") for note in self.notes if note.get("type") == note_type
+        ]
         return next(iter(notes), None)
 
     @property
@@ -565,9 +581,8 @@ class ItemRecord(IlsRecord):
 
         :return True if Item is a new acquisition, False otherwise
         """
-        if acquisition_date := self.get('acquisition_date'):
-            return datetime.strptime(
-                acquisition_date, '%Y-%m-%d') < datetime.now()
+        if acquisition_date := self.get("acquisition_date"):
+            return datetime.strptime(acquisition_date, "%Y-%m-%d") < datetime.now()
         return False
 
     @classmethod
@@ -578,6 +593,10 @@ class ItemRecord(IlsRecord):
         :return number of un masked items.
         """
         from . import ItemsSearch
-        query = ItemsSearch().filter('term', holding__pid=holding_pid)
-        return query.filter('bool', must_not=[Q('term', _masked=True)]) \
-            .source(['pid']).count()
+
+        query = ItemsSearch().filter("term", holding__pid=holding_pid)
+        return (
+            query.filter("bool", must_not=[Q("term", _masked=True)])
+            .source(["pid"])
+            .count()
+        )

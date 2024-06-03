@@ -26,8 +26,10 @@ from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
 from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patron_transaction_events.api import \
-    PatronTransactionEvent, PatronTransactionEventsSearch
+from rero_ils.modules.patron_transaction_events.api import (
+    PatronTransactionEvent,
+    PatronTransactionEventsSearch,
+)
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import extracted_data_from_ref, sorted_pids
 
@@ -36,20 +38,14 @@ from .models import PatronTransactionIdentifier, PatronTransactionMetadata
 
 # provider
 PatronTransactionProvider = type(
-    'PatronTransactionProvider',
+    "PatronTransactionProvider",
     (Provider,),
-    dict(identifier=PatronTransactionIdentifier, pid_type='pttr')
+    dict(identifier=PatronTransactionIdentifier, pid_type="pttr"),
 )
 # minter
-patron_transaction_id_minter = partial(
-    id_minter,
-    provider=PatronTransactionProvider
-)
+patron_transaction_id_minter = partial(id_minter, provider=PatronTransactionProvider)
 # fetcher
-patron_transaction_id_fetcher = partial(
-    id_fetcher,
-    provider=PatronTransactionProvider
-)
+patron_transaction_id_fetcher = partial(id_fetcher, provider=PatronTransactionProvider)
 
 
 class PatronTransactionsSearch(IlsRecordsSearch):
@@ -58,9 +54,9 @@ class PatronTransactionsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on patron transaction index."""
 
-        index = 'patron_transactions'
+        index = "patron_transactions"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -69,22 +65,15 @@ class PatronTransactionsSearch(IlsRecordsSearch):
 class PatronTransaction(IlsRecord):
     """Patron Transaction class."""
 
-    _extensions = [
-        PatronTransactionExtension()
-    ]
+    _extensions = [PatronTransactionExtension()]
 
     minter = patron_transaction_id_minter
     fetcher = patron_transaction_id_fetcher
     provider = PatronTransactionProvider
     model_cls = PatronTransactionMetadata
     pids_exist_check = {
-        'required': {
-            'ptrn': 'patron'
-        },
-        'not_required': {
-            'org': 'organisation',
-            'notif': 'notification'
-        }
+        "required": {"ptrn": "patron"},
+        "not_required": {"org": "organisation", "notif": "notification"},
     }
 
     def __init__(self, data, model=None, **kwargs):
@@ -102,10 +91,7 @@ class PatronTransaction(IlsRecord):
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update data for record."""
         return super().update(
-            data=data,
-            commit=commit,
-            dbcommit=dbcommit,
-            reindex=reindex
+            data=data, commit=commit, dbcommit=dbcommit, reindex=reindex
         )
 
     # GETTER & SETTER =========================================================
@@ -115,14 +101,14 @@ class PatronTransaction(IlsRecord):
     @property
     def loan_pid(self):
         """Get the `Loan` pid related to this transaction."""
-        if self.get('loan'):
-            return extracted_data_from_ref(self['loan'])
+        if self.get("loan"):
+            return extracted_data_from_ref(self["loan"])
 
     @cached_property
     def loan(self):
         """Get the `Loan` record related to this transaction."""
-        if self.get('loan'):
-            return extracted_data_from_ref(self['loan'], data='record')
+        if self.get("loan"):
+            return extracted_data_from_ref(self["loan"], data="record")
 
     @property
     def document_pid(self):
@@ -145,30 +131,29 @@ class PatronTransaction(IlsRecord):
     @property
     def patron_pid(self):
         """Get the `Patron` pid related to this transaction."""
-        return extracted_data_from_ref(self.get('patron'))
+        return extracted_data_from_ref(self.get("patron"))
 
     @property
     def patron(self):
         """Get the `Patron` pid related to this transaction."""
-        return extracted_data_from_ref(self.get('patron'), data='record')
+        return extracted_data_from_ref(self.get("patron"), data="record")
 
     @property
     def total_amount(self):
         """Shortcut to get the transaction total_amount of the transaction."""
-        return self.get('total_amount')
+        return self.get("total_amount")
 
     @property
     def notification_pid(self):
         """Get the `Notification` pid related to this transaction."""
-        if self.get('notification'):
-            return extracted_data_from_ref(self.get('notification'))
+        if self.get("notification"):
+            return extracted_data_from_ref(self.get("notification"))
 
     @cached_property
     def notification(self):
         """Get the `Notification` record related to this transaction."""
-        if self.get('notification'):
-            return extracted_data_from_ref(
-                self.get('notification'), data='record')
+        if self.get("notification"):
+            return extracted_data_from_ref(self.get("notification"), data="record")
 
     @property
     def notification_transaction_library_pid(self):
@@ -186,29 +171,31 @@ class PatronTransaction(IlsRecord):
     @property
     def status(self):
         """Return the status of the patron transaction."""
-        return self.get('status')
+        return self.get("status")
 
     @property
     def currency(self):
         """Return patron transaction currency."""
-        return Organisation\
-            .get_record_by_pid(self.organisation_pid)\
-            .get('default_currency')
+        return Organisation.get_record_by_pid(self.organisation_pid).get(
+            "default_currency"
+        )
 
     @property
     def events(self):
         """Shortcut for events of the patron transaction."""
-        query = PatronTransactionEventsSearch()\
-            .filter('term', parent__pid=self.pid)\
+        query = (
+            PatronTransactionEventsSearch()
+            .filter("term", parent__pid=self.pid)
             .source(False)
+        )
         for hit in query.scan():
             yield PatronTransactionEvent.get_record(hit.meta.id)
 
     def get_number_of_patron_transaction_events(self):
         """Get number of patron transaction events."""
-        return PatronTransactionEventsSearch()\
-            .filter('term', parent__pid=self.pid)\
-            .count()
+        return (
+            PatronTransactionEventsSearch().filter("term", parent__pid=self.pid).count()
+        )
 
     def get_links_to_me(self, get_pids=False):
         """Get the links between this record and other records.
@@ -217,18 +204,17 @@ class PatronTransaction(IlsRecord):
                count of linked records
         """
         links = {}
-        query = PatronTransactionEventsSearch() \
-            .filter('term', parent__pid=self.pid)
+        query = PatronTransactionEventsSearch().filter("term", parent__pid=self.pid)
         events = sorted_pids(query) if get_pids else query.count()
         if events:
-            links['events'] = events
+            links["events"] = events
         return links
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         reasons = {}
         if links := self.get_links_to_me():
-            reasons['links'] = links
+            reasons["links"] = links
         return reasons
 
 
@@ -250,4 +236,4 @@ class PatronTransactionsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='pttr')
+        super().bulk_index(record_id_iterator, doc_type="pttr")

@@ -45,7 +45,7 @@ class TemplateMetadataSchemaV1(StrictKeysMixin):
     description = SanitizedUnicode()
     visibility = SanitizedUnicode(
         required=True,
-        validate=OneOf([TemplateVisibility.PUBLIC, TemplateVisibility.PRIVATE])
+        validate=OneOf([TemplateVisibility.PUBLIC, TemplateVisibility.PRIVATE]),
     )
     data = fields.Dict()
     creator = fields.Nested(RefSchema)
@@ -54,7 +54,7 @@ class TemplateMetadataSchemaV1(StrictKeysMixin):
         load_only=True,
         attribute="$schema",
         data_key="$schema",
-        deserialize=schema_from_template
+        deserialize=schema_from_template,
     )
 
     # DEV NOTES : Why using marshmallow validation process
@@ -64,8 +64,8 @@ class TemplateMetadataSchemaV1(StrictKeysMixin):
     #   procedure only send an HTTP 403 status, without any message, this isn't
     #   enough relevant for end user.
 
-    @validates('visibility')
-    @http_applicable_method('POST')
+    @validates("visibility")
+    @http_applicable_method("POST")
     def validate_visibility(self, data, **kwargs):
         """Validate the visibility field through REST API request.
 
@@ -79,11 +79,11 @@ class TemplateMetadataSchemaV1(StrictKeysMixin):
         """
         if data == TemplateVisibility.PUBLIC:
             raise ValidationError(
-                _('Template can be created only with `private` visibility')
+                _("Template can be created only with `private` visibility")
             )
 
     @validates_schema()
-    @http_applicable_method('PUT')
+    @http_applicable_method("PUT")
     def validate_visibility_changes(self, data, **kwargs):
         """Validate `visibility` changes through REST API request.
 
@@ -96,24 +96,21 @@ class TemplateMetadataSchemaV1(StrictKeysMixin):
         :raises ValidationError: if error has detected on visibility attribute
         """
         # Load DB record
-        db_record = Template.get_record_by_pid(data.get('pid'))
+        db_record = Template.get_record_by_pid(data.get("pid"))
         if not db_record:
             raise ValidationError(f'Unable to load Template#{data.get("pid")}')
 
         # Check if visibility of the template changed. If not, we can stop
         # the validation process.
-        if db_record.get('visibility') == data.get('visibility'):
+        if db_record.get("visibility") == data.get("visibility"):
             return
 
         # Only lib_admin and full_permission roles can change visibility field
-        allowed_roles = [
-            UserRole.FULL_PERMISSIONS,
-            UserRole.LIBRARY_ADMINISTRATOR
-        ]
+        allowed_roles = [UserRole.FULL_PERMISSIONS, UserRole.LIBRARY_ADMINISTRATOR]
         user_roles = set()
         if current_librarian:
-            user_roles = set(current_librarian.get('roles', []))
+            user_roles = set(current_librarian.get("roles", []))
         if not user_roles.intersection(allowed_roles):
             raise ValidationError(
-                _('You are not allowed to change template visibility')
+                _("You are not allowed to change template visibility")
             )

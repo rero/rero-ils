@@ -33,7 +33,7 @@ services:
       - "INVENIO_SECRET_KEY=CHANGE_ME"
       - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://rero-ils:rero-ils@db/rero-ils"
       - "INVENIO_WSGI_PROXIES=2"
-      - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
+      - "INVENIO_RATELIMIT_STORAGE_URI=redis://cache:6379/3"
       - "COLLECT_STORAGE='flask_collect.storage.file'"
   lb:
     build: ./docker/haproxy/

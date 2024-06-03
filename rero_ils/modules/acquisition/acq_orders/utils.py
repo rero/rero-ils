@@ -53,11 +53,12 @@ def get_recipient_suggestions(order):
     suggestions = {}
     if (vendor := order.vendor) and (email := vendor.order_email):
         suggestions.setdefault(email, set()).update([RecipientType.TO])
-    if settings := (order.library or {}).get('acquisition_settings'):
-        if email := settings.get('shipping_informations', {}).get('email'):
-            suggestions.setdefault(email, set())\
-                .update([RecipientType.CC, RecipientType.REPLY_TO])
-        if email := settings.get('billing_informations', {}).get('email'):
+    if settings := (order.library or {}).get("acquisition_settings"):
+        if email := settings.get("shipping_informations", {}).get("email"):
+            suggestions.setdefault(email, set()).update(
+                [RecipientType.CC, RecipientType.REPLY_TO]
+            )
+        if email := settings.get("billing_informations", {}).get("email"):
             suggestions.setdefault(email, set())
     if email := current_librarian.user.email:
         suggestions.setdefault(email, set())
@@ -67,8 +68,8 @@ def get_recipient_suggestions(order):
     # return a recipient suggestion array.
     cleaned_suggestions = []
     for recipient_address, recipient_types in suggestions.items():
-        suggestion = {'address': recipient_address}
+        suggestion = {"address": recipient_address}
         if recipient_types:
-            suggestion['type'] = list(recipient_types)
+            suggestion["type"] = list(recipient_types)
         cleaned_suggestions.append(suggestion)
     return cleaned_suggestions

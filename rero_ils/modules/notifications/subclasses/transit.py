@@ -23,8 +23,7 @@ from __future__ import absolute_import, print_function
 from rero_ils.filter import format_date_filter
 from rero_ils.modules.documents.dumpers import document_title_dumper
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
-from rero_ils.modules.libraries.dumpers import \
-    LibraryCirculationNotificationDumper
+from rero_ils.modules.libraries.dumpers import LibraryCirculationNotificationDumper
 from rero_ils.utils import language_iso639_2to1
 
 from .internal import InternalCirculationNotification
@@ -45,7 +44,7 @@ class TransitCirculationNotification(InternalCirculationNotification):
 
     def get_template_path(self):
         """Get the template to use to render the notification."""
-        return f'email/transit_notice/{self.get_language_to_use()}.txt'
+        return f"email/transit_notice/{self.get_language_to_use()}.txt"
 
     def get_recipients_to(self):
         """Get notification recipient email addresses."""
@@ -56,7 +55,7 @@ class TransitCirculationNotification(InternalCirculationNotification):
     @classmethod
     def get_notification_context(cls, notifications=None):
         """Get the context to render the notification template."""
-        context = {'loans': []}
+        context = {"loans": []}
         notifications = notifications or []
 
         item_dumper = ItemNotificationDumper()
@@ -64,19 +63,19 @@ class TransitCirculationNotification(InternalCirculationNotification):
         for notification in notifications:
             trans_lib = notification.transaction_library
             creation_date = format_date_filter(
-                notification.get('creation_date'), date_format='medium',
-                locale=language_iso639_2to1(notification.get_language_to_use())
+                notification.get("creation_date"),
+                date_format="medium",
+                locale=language_iso639_2to1(notification.get_language_to_use()),
             )
             # merge doc and item metadata preserving document key
             item_data = notification.item.dumps(dumper=item_dumper)
-            doc_data = notification.document.dumps(
-                dumper=document_title_dumper)
+            doc_data = notification.document.dumps(dumper=document_title_dumper)
             doc_data = {**item_data, **doc_data}
 
             loan_context = {
-                'creation_date': creation_date,
-                'document': doc_data,
-                'transaction_library': trans_lib.dumps(dumper=lib_dumper)
+                "creation_date": creation_date,
+                "document": doc_data,
+                "transaction_library": trans_lib.dumps(dumper=lib_dumper),
             }
-            context['loans'].append(loan_context)
+            context["loans"].append(loan_context)
         return context

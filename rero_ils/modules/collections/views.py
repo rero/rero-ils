@@ -30,10 +30,10 @@ from ..organisations.api import Organisation
 from ..utils import extracted_data_from_ref
 
 blueprint = Blueprint(
-    'collections',
+    "collections",
     __name__,
-    template_folder='templates',
-    static_folder='static',
+    template_folder="templates",
+    static_folder="static",
 )
 
 
@@ -43,57 +43,41 @@ def collection_view_method(pid, record, template=None, **kwargs):
     Sends record_viewed signal and renders template.
     :param pid: PID object.
     """
-    record_viewed.send(
-        current_app._get_current_object(), pid=pid, record=record)
+    record_viewed.send(current_app._get_current_object(), pid=pid, record=record)
 
-    viewcode = kwargs['viewcode']
-    org_pid = Organisation.get_record_by_viewcode(viewcode)['pid']
+    viewcode = kwargs["viewcode"]
+    org_pid = Organisation.get_record_by_viewcode(viewcode)["pid"]
     rec = record
     libraries = []
 
-    if org_pid != extracted_data_from_ref(record.get('organisation')):
-        abort(
-            404, 'The collections is not referenced for this organisation'
-        )
+    if org_pid != extracted_data_from_ref(record.get("organisation")):
+        abort(404, "The collections is not referenced for this organisation")
     # Get items and document title
-    rec['items'] = record.get_items()
-    for item in rec['items']:
-        document_pid = extracted_data_from_ref(item.get('document'))
-        item['document'] = Document.get_record_by_pid(document_pid)
+    rec["items"] = record.get_items()
+    for item in rec["items"]:
+        document_pid = extracted_data_from_ref(item.get("document"))
+        item["document"] = Document.get_record_by_pid(document_pid)
     # Get libraries names
-    if rec.get('libraries'):
-        for library in rec.get('libraries'):
+    if rec.get("libraries"):
+        for library in rec.get("libraries"):
             library_pid = extracted_data_from_ref(library)
-            libraries.append(
-                Library.get_record_by_pid(library_pid).get('name')
-            )
-        rec['libraries'] = ', '.join(libraries)
+            libraries.append(Library.get_record_by_pid(library_pid).get("name"))
+        rec["libraries"] = ", ".join(libraries)
     # Format date
-    rec['date'] = _start_end_date(
-        record.get('start_date'), record.get('end_date'))
+    rec["date"] = _start_end_date(record.get("start_date"), record.get("end_date"))
 
-    return render_template(
-        template,
-        record=rec,
-        viewcode=viewcode
-    )
+    return render_template(template, record=rec, viewcode=viewcode)
 
 
 def _start_end_date(start_date, end_date):
     """Format date."""
     start = format_date_filter(
-        start_date,
-        date_format='short',
-        time_format=None,
-        locale='fr'
+        start_date, date_format="short", time_format=None, locale="fr"
     )
     end = format_date_filter(
-        end_date,
-        date_format='short',
-        time_format=None,
-        locale='fr'
+        end_date, date_format="short", time_format=None, locale="fr"
     )
-    return f'{start} - {end}'
+    return f"{start} - {end}"
 
 
 @blueprint.app_template_filter()
@@ -104,6 +88,6 @@ def get_teachers(record):
     :return: list of teachers of the collection
     """
     teachers = filter(
-        None, [teacher.get('name') for teacher in record.get('teachers', [])]
+        None, [teacher.get("name") for teacher in record.get("teachers", [])]
     )
-    return ', '.join(teachers)
+    return ", ".join(teachers)

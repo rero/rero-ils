@@ -74,11 +74,8 @@ class IssueStatusExtension(RecordExtension):
         # date) BUT this manager could forget to update the issue status to
         # 'expected' in this case, this extension will automatically change
         # the issue status.
-        if (
-            record.issue_status == ItemIssueStatus.LATE and
-            record.received_date
-        ):
-            record['issue'].pop('received_date', None)
+        if record.issue_status == ItemIssueStatus.LATE and record.received_date:
+            record["issue"].pop("received_date", None)
         invalid_statuses = [ItemIssueStatus.LATE]
         if record.is_issue and record.issue_status in invalid_statuses:
             expected_date = ciso8601.parse_datetime(record.expected_date)

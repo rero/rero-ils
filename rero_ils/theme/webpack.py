@@ -35,16 +35,16 @@ project = WebpackBundleProject(
 
 theme = WebpackBundle(
     __name__,
-    'assets',
+    "assets",
     entry={
-        'global': './scss/rero_ils/styles.scss',
-        'reroils_public': './js/reroils/public.js',
-        'babeltheque': './scss/rero_ils/babeltheque.scss'
+        "global": "./scss/rero_ils/styles.scss",
+        "reroils_public": "./js/reroils/public.js",
+        "babeltheque": "./scss/rero_ils/babeltheque.scss",
     },
     dependencies={
-        'popper.js': '1.16.1',
-        'jquery': '~3.2.1',
-        'bootstrap': '~4.5.3',
-        'font-awesome': '~4.7.0'
-    }
+        "popper.js": "1.16.1",
+        "jquery": "~3.2.1",
+        "bootstrap": "~4.5.3",
+        "font-awesome": "~4.7.0",
+    },
 )

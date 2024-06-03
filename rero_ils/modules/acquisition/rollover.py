@@ -26,22 +26,23 @@ from copy import deepcopy
 from elasticsearch_dsl import Q
 from flask import current_app
 
-from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, \
-    AcqAccountsSearch
-from rero_ils.modules.acquisition.acq_accounts.utils import \
-    sort_accounts_as_tree
-from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine, \
-    AcqOrderLinesSearch
-from rero_ils.modules.acquisition.acq_order_lines.models import \
-    AcqOrderLineStatus
-from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, \
-    AcqOrdersSearch
-from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus, \
-    AcqOrderType
+from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, AcqAccountsSearch
+from rero_ils.modules.acquisition.acq_accounts.utils import sort_accounts_as_tree
+from rero_ils.modules.acquisition.acq_order_lines.api import (
+    AcqOrderLine,
+    AcqOrderLinesSearch,
+)
+from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
+from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, AcqOrdersSearch
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus, AcqOrderType
 from rero_ils.modules.acquisition.budgets.api import Budget
-from rero_ils.modules.acquisition.exceptions import BudgetDoesNotExist, \
-    BudgetNotEmptyError, InactiveBudgetError, IncompatibleBudgetError, \
-    RolloverError
+from rero_ils.modules.acquisition.exceptions import (
+    BudgetDoesNotExist,
+    BudgetNotEmptyError,
+    InactiveBudgetError,
+    IncompatibleBudgetError,
+    RolloverError,
+)
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.libraries.models import AccountTransferOption
 from rero_ils.modules.organisations.api import Organisation
@@ -111,9 +112,15 @@ class AcqRollover:
 
     """
 
-    def __init__(self, original_budget, destination_budget=None,
-                 logging_config=None, is_interactive=True,
-                 propagate_errors=False, **kwargs):
+    def __init__(
+        self,
+        original_budget,
+        destination_budget=None,
+        logging_config=None,
+        is_interactive=True,
+        propagate_errors=False,
+        **kwargs,
+    ):
         """Initialization.
 
         :param original_budget: the `Budget` resource related to resources to
@@ -141,10 +148,10 @@ class AcqRollover:
         self.propagate_errors = propagate_errors
 
         # Set special logging configuration for rollover process
-        default_config = current_app.config.get('ROLLOVER_LOGGING_CONFIG')
+        default_config = current_app.config.get("ROLLOVER_LOGGING_CONFIG")
         logging.config.dictConfig(logging_config or default_config)
         self.logger = logging.getLogger(__name__)
-        self.logger.info('ROLLOVER PROCESS ==================================')
+        self.logger.info("ROLLOVER PROCESS ==================================")
 
         self.original_budget = original_budget
         if destination_budget is None:
@@ -167,7 +174,7 @@ class AcqRollover:
         """Run the rollover process."""
         log = self.logger
         try:
-            log.info('start running....')
+            log.info("start running....")
             log.info("parameters ::")
             log.info(f"\torigin      : {self.original_budget}")
             log.info(f"\tdestination : {self.destination_budget}")
@@ -181,25 +188,27 @@ class AcqRollover:
             #   rollover setting.
             orig_accounts = AcqRollover._get_accounts(self.original_budget.pid)
             if not orig_accounts:
-                raise RolloverError('Unable to find any account to rollovered')
+                raise RolloverError("Unable to find any account to rollovered")
             log.info("original accounts ::")
             columns = [
-                ('ACCOUNT', 60),  # title, max_length, alignment
-                ('AMOUNT', 16, 'right'),
-                ('ENCUMBRANCE', 16, 'right'),
-                ('MIGRATION_SETTING', 30)
+                ("ACCOUNT", 60),  # title, max_length, alignment
+                ("AMOUNT", 16, "right"),
+                ("ENCUMBRANCE", 16, "right"),
+                ("MIGRATION_SETTING", 30),
             ]
             rows = []
             for account in orig_accounts:
-                padding = '  ' * account.depth
+                padding = "  " * account.depth
                 label = f"[#{account.pid}] {account.name}"
-                rows.append((
-                    padding + label,
-                    str(account.get('allocated_amount')),
-                    str(account.encumbrance_amount[0]),
-                    self._get_rollover_migration_setting(account)
-                ))
-            self._draw_data_table(columns, rows, padding='  ')
+                rows.append(
+                    (
+                        padding + label,
+                        str(account.get("allocated_amount")),
+                        str(account.encumbrance_amount[0]),
+                        self._get_rollover_migration_setting(account),
+                    )
+                )
+            self._draw_data_table(columns, rows, padding="  ")
 
             # STEP#2 :: Get user confirmation
             #   If interactive mode is activated, ask user for a confirmation
@@ -207,12 +216,13 @@ class AcqRollover:
             #   confirm this table, a random password key will be asked to
             #   avoid bad/quick confirmation click
             if self.is_interactive:
-                if not self._confirm('Are you agree ?', default="no"):
-                    raise RolloverError("User doesn\'t agree")
-                key_confirm = ''.join(random.choices(string.ascii_letters,
-                                                     k=10))
-                log.info("To continue, please enter the confirmation "
-                         f"key [{key_confirm}] :: ")
+                if not self._confirm("Are you agree ?", default="no"):
+                    raise RolloverError("User doesn't agree")
+                key_confirm = "".join(random.choices(string.ascii_letters, k=10))
+                log.info(
+                    "To continue, please enter the confirmation "
+                    f"key [{key_confirm}] :: "
+                )
                 key = input()
                 if key != key_confirm:
                     raise RolloverError("Confirmation key mismatch")
@@ -222,9 +232,10 @@ class AcqRollover:
             #   * Get orders to migrate.
             #   * Get orders lines to migrate.
             accounts = {
-                account.pid: account for account in orig_accounts
-                if self._get_rollover_migration_setting(account) !=
-                AccountTransferOption.NO_TRANSFER
+                account.pid: account
+                for account in orig_accounts
+                if self._get_rollover_migration_setting(account)
+                != AccountTransferOption.NO_TRANSFER
             }
             account_pids = list(accounts.keys())
             orders = {
@@ -233,12 +244,13 @@ class AcqRollover:
             }
             order_pids = list(orders.keys())
             to_migrate = {
-                'accounts': accounts.values(),
-                'orders': orders.values(),
-                'order_lines': AcqRollover._get_opened_order_lines(
-                    order_pids, account_pids)
+                "accounts": accounts.values(),
+                "orders": orders.values(),
+                "order_lines": AcqRollover._get_opened_order_lines(
+                    order_pids, account_pids
+                ),
             }
-            log.info('Resources to migrate (according rollover settings) :')
+            log.info("Resources to migrate (according rollover settings) :")
             log.info(f"\t#AcqAccount   : {len(to_migrate['accounts'])}")
             log.info(f"\t#AcqOrder     : {len(to_migrate['orders'])}")
             log.info(f"\t#AcqOrderLine : {len(to_migrate['order_lines'])}")
@@ -247,54 +259,56 @@ class AcqRollover:
             #   Try to validate acquisition object that will be rollovered.
             #   This check should prevent any problem during rollover process
             #   that could cause a huge and slow rollover aborting process
-            log.info('Starting data validation process ...')
+            log.info("Starting data validation process ...")
             self._validate_data_to_migrate(to_migrate)
 
             # STEP#5 :: Proceed to rollover
-            log.info('Starting resources migrations ...')
-            self._migrate_accounts(to_migrate['accounts'])
-            self._migrate_orders(to_migrate['orders'])
-            self._migrate_order_lines(to_migrate['order_lines'])
+            log.info("Starting resources migrations ...")
+            self._migrate_accounts(to_migrate["accounts"])
+            self._migrate_orders(to_migrate["orders"])
+            self._migrate_order_lines(to_migrate["order_lines"])
 
             # STEP#6 :: compare new budget account table with previous version.
             log.info("Completed process comparison table ::")
             columns = [
-                ('ACCOUNT', 60),  # title, max_length
-                ('AMOUNT', 16, 'right'),
-                ('ENCUMBRANCE', 16, 'right'),
-                ('SUCCESS ?', 11, 'center'),
-                ('NEW AMOUNT', 20, 'right'),
-                ('NEW ENCUMBRANCE', 20, 'right'),
+                ("ACCOUNT", 60),  # title, max_length
+                ("AMOUNT", 16, "right"),
+                ("ENCUMBRANCE", 16, "right"),
+                ("SUCCESS ?", 11, "center"),
+                ("NEW AMOUNT", 20, "right"),
+                ("NEW ENCUMBRANCE", 20, "right"),
             ]
             rows = []
             errors = 0
             for account in accounts.values():
-                padding = '  ' * account.depth
+                padding = "  " * account.depth
                 label = f"[#{account.pid}] {account.name}"
-                n_acc_pid = self._mapping_table['accounts'][account.pid]
+                n_acc_pid = self._mapping_table["accounts"][account.pid]
                 new_acc = AcqAccount.get_record_by_pid(n_acc_pid)
 
-                rollover_status = 'OK'
-                if account.encumbrance_amount[0] != \
-                   new_acc.encumbrance_amount[0]:
-                    rollover_status = '!! ERR !!'
+                rollover_status = "OK"
+                if account.encumbrance_amount[0] != new_acc.encumbrance_amount[0]:
+                    rollover_status = "!! ERR !!"
                     errors += 1
-                rows.append((
-                    padding + label,
-                    str(account.get('allocated_amount')),
-                    str(account.encumbrance_amount[0]),
-                    rollover_status,
-                    str(new_acc.get('allocated_amount')),
-                    str(new_acc.encumbrance_amount[0]),
-                ))
-            self._draw_data_table(columns, rows, padding='  ')
+                rows.append(
+                    (
+                        padding + label,
+                        str(account.get("allocated_amount")),
+                        str(account.encumbrance_amount[0]),
+                        rollover_status,
+                        str(new_acc.get("allocated_amount")),
+                        str(new_acc.encumbrance_amount[0]),
+                    )
+                )
+            self._draw_data_table(columns, rows, padding="  ")
             if errors:
                 raise RolloverError(f"{errors} detected on completion table.")
 
             # STEP#7 :: user confirmation that all seems correct for it
-            if self.is_interactive:
-                if not self._confirm('Are you agree ?', default="no"):
-                    raise RolloverError("User doesn\'t agree")
+            if self.is_interactive and not self._confirm(
+                "Are you agree ?", default="no"
+            ):
+                raise RolloverError("User doesn't agree")
             self._update_budgets(False, True)
             self._update_organisation()
             log.info("Rollover complete.... it's time for 🍺🍺🍺🍹 party !")
@@ -318,7 +332,7 @@ class AcqRollover:
         # Testing acquisition order lines
         #   - the unreceived_quantity for each order line should be > 0
         log.info("  Testing order lines ...")
-        for line in data.get('order_lines', []):
+        for line in data.get("order_lines", []):
             if line.unreceived_quantity == 0:
                 log.warning(f"\t* Unreceived quantity for {str(line)} is 0 !")
                 error_count += 1
@@ -326,8 +340,9 @@ class AcqRollover:
                 log.warning(f"\t* {str(line)} related to harvested document !")
                 error_count += 1
         if error_count:
-            raise RolloverError(f"Data validation failed : {error_count} "
-                                f"error(s) found")
+            raise RolloverError(
+                f"Data validation failed : {error_count} " f"error(s) found"
+            )
 
     def _migrate_accounts(self, accounts):
         """Migrate a list of account to the destination budget.
@@ -337,37 +352,39 @@ class AcqRollover:
         """
         log = self.logger
         log.info("  Migrating accounts ...")
-        self._mapping_table['accounts'] = {}
-        new_budget_ref = get_ref_for_pid('budg', self.destination_budget.pid)
+        self._mapping_table["accounts"] = {}
+        new_budget_ref = get_ref_for_pid("budg", self.destination_budget.pid)
         for idx, acc in enumerate(accounts, 1):
             data = deepcopy(acc)
-            data['budget']['$ref'] = new_budget_ref
+            data["budget"]["$ref"] = new_budget_ref
             # Try to find the new parent account (checking the temporary
             # mapping table). This is possible because we sorted the accounts
             # in hierarchical tree, so root/parent account should be migrated
             # before children accounts.
             if old_parent_pid := acc.parent_pid:
-                p_pid = self._mapping_table.get('accounts').get(old_parent_pid)
-                if not p_pid:
+                if p_pid := self._mapping_table.get("accounts").get(old_parent_pid):
+                    data["parent"]["$ref"] = get_ref_for_pid("acac", p_pid)
+                else:
                     raise RolloverError(
-                        f'Unable to find new parent account for {str(acc)}'
-                        f' : parent pid was {old_parent_pid}'
+                        f"Unable to find new parent account for {str(acc)}"
+                        f" : parent pid was {old_parent_pid}"
                     )
-                data['parent']['$ref'] = get_ref_for_pid('acac', p_pid)
             # Create the new account.
             #   If create failed :: raise an error.
             #   If success :: fill the mapping table AND the stack of new obj.
             try:
                 new_account = AcqAccount.create(
-                    data, dbcommit=True, reindex=True, delete_pid=True)
+                    data, dbcommit=True, reindex=True, delete_pid=True
+                )
                 self._stack.append(new_account)
-                self._mapping_table['accounts'][acc.pid] = new_account.pid
+                self._mapping_table["accounts"][acc.pid] = new_account.pid
                 old_label = truncate(str(acc), 55).ljust(57)
                 new_label = truncate(str(new_account), 55)
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
-                raise RolloverError(f'Account creation failed on '
-                                    f'[acac#{acc.pid}] :: {str(e)}') from e
+                raise RolloverError(
+                    f"Account creation failed on " f"[acac#{acc.pid}] :: {str(e)}"
+                ) from e
 
     def _migrate_orders(self, orders):
         """Migrate a list of orders.
@@ -377,28 +394,28 @@ class AcqRollover:
         """
         log = self.logger
         log.info("  Migrating orders ...")
-        self._mapping_table['orders'] = {}
+        self._mapping_table["orders"] = {}
         for idx, order in enumerate(orders, 1):
             data = deepcopy(order)
             # Add a relation between the new order and the previous one.
             # This is useful to navigate in order history.
-            data['previousVersion'] = {
-                '$ref': get_ref_for_pid('acor', order.pid)
-            }
+            data["previousVersion"] = {"$ref": get_ref_for_pid("acor", order.pid)}
             # Create the new order.
             #   If create failed :: raise an error.
             #   If success :: fill the mapping table AND the stack of new obj.
             try:
                 new_order = AcqOrder.create(
-                    data, dbcommit=True, reindex=True, delete_pid=True)
+                    data, dbcommit=True, reindex=True, delete_pid=True
+                )
                 self._stack.append(new_order)
-                self._mapping_table['orders'][order.pid] = new_order.pid
+                self._mapping_table["orders"][order.pid] = new_order.pid
                 old_label = truncate(str(order), 55).ljust(57)
                 new_label = truncate(str(new_order), 55)
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
-                raise RolloverError(f'Order creation failed on '
-                                    f'[acor#{order.pid}] :: {str(e)}') from e
+                raise RolloverError(
+                    f"Order creation failed on " f"[acor#{order.pid}] :: {str(e)}"
+                ) from e
 
     def _migrate_order_lines(self, order_lines):
         """Migrate a list of order lines.
@@ -408,45 +425,47 @@ class AcqRollover:
         """
         log = self.logger
         log.info("  Migrating order lines ...")
-        self._mapping_table['order_lines'] = {}
+        self._mapping_table["order_lines"] = {}
         for idx, line in enumerate(order_lines, 1):
             data = deepcopy(line)
             # Try to find the new parent pids (checking the temporary
             # mapping table).
             o_order_pid = line.order_pid
-            p_order_pid = self._mapping_table.get('orders').get(o_order_pid)
+            p_order_pid = self._mapping_table.get("orders").get(o_order_pid)
             if not p_order_pid:
                 raise RolloverError(
-                    f'Unable to find new parent order for {str(line)}'
-                    f' : parent pid was {p_order_pid}'
+                    f"Unable to find new parent order for {str(line)}"
+                    f" : parent pid was {p_order_pid}"
                 )
             o_acc_pid = line.account_pid
-            p_acc_pid = self._mapping_table.get('accounts').get(o_acc_pid)
+            p_acc_pid = self._mapping_table.get("accounts").get(o_acc_pid)
             if not p_acc_pid:
                 raise RolloverError(
-                    f'Unable to find new parent account for {str(line)}'
-                    f' : parent pid was {p_acc_pid}'
+                    f"Unable to find new parent account for {str(line)}"
+                    f" : parent pid was {p_acc_pid}"
                 )
-            data['acq_order']['$ref'] = get_ref_for_pid('acor', p_order_pid)
-            data['acq_account']['$ref'] = get_ref_for_pid('acac', p_acc_pid)
+            data["acq_order"]["$ref"] = get_ref_for_pid("acor", p_order_pid)
+            data["acq_account"]["$ref"] = get_ref_for_pid("acac", p_acc_pid)
             # Update specific order line fields
-            data['quantity'] = line.unreceived_quantity
-            del data['total_amount']
+            data["quantity"] = line.unreceived_quantity
+            del data["total_amount"]
 
             # Create the new order line.
             #   If create failed :: raise an error.
             #   If success :: fill the mapping table AND the stack of new obj.
             try:
                 new_line = AcqOrderLine.create(
-                    data, dbcommit=True, reindex=True, delete_pid=True)
+                    data, dbcommit=True, reindex=True, delete_pid=True
+                )
                 self._stack.append(new_line)
-                self._mapping_table['order_lines'][line.pid] = new_line.pid
+                self._mapping_table["order_lines"][line.pid] = new_line.pid
                 old_label = truncate(str(line), 55).ljust(57)
                 new_label = truncate(str(new_line), 55)
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
-                raise RolloverError(f'Order line creation failed on '
-                                    f'[acol#{line.pid}] :: {str(e)}') from e
+                raise RolloverError(
+                    f"Order line creation failed on " f"[acol#{line.pid}] :: {str(e)}"
+                ) from e
 
     def _update_budgets(self, orig_state=False, dest_state=False):
         """Update rollover budgets to activate/deactivate them.
@@ -456,15 +475,15 @@ class AcqRollover:
         """
         self.logger.info("\tUpdating budget resources...")
         orig_data = deepcopy(self.original_budget)
-        orig_data['is_active'] = orig_state
+        orig_data["is_active"] = orig_state
         self.original_budget.update(orig_data, dbcommit=True, reindex=True)
-        state_str = 'activated' if orig_state else 'deactivated'
+        state_str = "activated" if orig_state else "deactivated"
         self.logger.info(f"\t  * Original budget is now {state_str}")
 
         dest_data = deepcopy(self.destination_budget)
-        dest_data['is_active'] = dest_state
+        dest_data["is_active"] = dest_state
         self.destination_budget.update(dest_data, dbcommit=True, reindex=True)
-        state_str = 'activated' if dest_state else 'deactivated'
+        state_str = "activated" if dest_state else "deactivated"
         self.logger.info(f"\t  * Destination budget is now {state_str}")
 
     def _update_organisation(self):
@@ -472,10 +491,12 @@ class AcqRollover:
         self.logger.info("\tUpdating organisation current budget...")
         org_pid = self.destination_budget.organisation_pid
         org = Organisation.get_record_by_pid(org_pid)
-        org['current_budget_pid'] = self.destination_budget.pid
+        org["current_budget_pid"] = self.destination_budget.pid
         org = org.update(org, dbcommit=True, reindex=True)
-        self.logger.info(f"\t  * Current organisation budget is now "
-                         f"{org.get('current_budget_pid')}")
+        self.logger.info(
+            f"\t  * Current organisation budget is now "
+            f"{org.get('current_budget_pid')}"
+        )
 
     # PRIVATE METHODS =========================================================
     #  These methods are used during the rollover process. They shouldn't be
@@ -491,11 +512,11 @@ class AcqRollover:
         """
         if message:
             self.logger.warning(message)
-        self.logger.warning('Aborting rollover process !')
+        self.logger.warning("Aborting rollover process !")
         self._update_budgets(True, False)
         if not self._stack:
             return
-        self.logger.info('Purging created resources...')
+        self.logger.info("Purging created resources...")
         for obj in reversed(self._stack):
             obj.delete(force=True, dbcommit=True, delindex=True)
             self.logger.info(f"\t* object {str(obj)} deleted")
@@ -517,7 +538,7 @@ class AcqRollover:
         elif default == "no":
             prompt = " [y/N] "
         else:
-            raise ValueError("invalid default answer: '%s'" % default)
+            raise ValueError(f"invalid default answer: '{default}'")
 
         while True:
             self.logger.info(question + prompt)
@@ -538,17 +559,17 @@ class AcqRollover:
         """
         org_pid = self.original_budget.organisation_pid
         data = {
-            'organisation': {'$ref': get_ref_for_pid('org', org_pid)},
-            'is_active': False
+            "organisation": {"$ref": get_ref_for_pid("org", org_pid)},
+            "is_active": False,
         }
-        for required_param in ['name', 'start_date', 'end_date']:
-            assert required_param in kwargs, f'{required_param} param required'
+        for required_param in ["name", "start_date", "end_date"]:
+            assert required_param in kwargs, f"{required_param} param required"
             data[required_param] = kwargs[required_param]
         if budget := Budget.create(data, dbcommit=True, reindex=True):
             self._stack.append(budget)
         return budget
 
-    def _draw_data_table(self, columns, rows=None, padding=''):
+    def _draw_data_table(self, columns, rows=None, padding=""):
         """Draw data as a table using ASCII characters.
 
         :param columns: the column headers. Each column is a tuple that must
@@ -568,19 +589,21 @@ class AcqRollover:
         :param account: the account to analyze.
         :return: the migration setting ; 'ALLOCATED_AMOUNT' by default.
         """
-        return self._get_library(account.library_pid) \
-            .get('rollover_settings', {}) \
-            .get('account_transfer', AccountTransferOption.ALLOCATED_AMOUNT)
+        return (
+            self._get_library(account.library_pid)
+            .get("rollover_settings", {})
+            .get("account_transfer", AccountTransferOption.ALLOCATED_AMOUNT)
+        )
 
     def _get_library(self, library_pid):
         """Get a `Library` resources from cache or load it.
 
         :param library_pid (string): the library_pid to get/load.
         """
-        if library_pid not in self._cache.get('library', {}):
+        if library_pid not in self._cache.get("library", {}):
             library = Library.get_record_by_pid(library_pid)
-            self._cache.setdefault('library', {})[library_pid] = library
-        return self._cache['library'][library_pid]
+            self._cache.setdefault("library", {})[library_pid] = library
+        return self._cache["library"][library_pid]
 
     def _validate(self):
         """Validate the rollover parameters.
@@ -618,11 +641,14 @@ class AcqRollover:
         :param budget_pid (string): the budget pid to filter.
         :return: the sorted list of `AcqAccount`.
         """
-        query = AcqAccountsSearch() \
-            .filter('term', budget__pid=budget_pid) \
-            .params(preserve_order=True) \
-            .sort({'depth': {'order': 'asc'}}) \
-            .source(False).scan()
+        query = (
+            AcqAccountsSearch()
+            .filter("term", budget__pid=budget_pid)
+            .params(preserve_order=True)
+            .sort({"depth": {"order": "asc"}})
+            .source(False)
+            .scan()
+        )
         return sort_accounts_as_tree(
             [AcqAccount.get_record(hit.meta.id) for hit in query]
         )
@@ -644,15 +670,17 @@ class AcqRollover:
         open_status = [
             AcqOrderStatus.ORDERED,
             AcqOrderStatus.PENDING,
-            AcqOrderStatus.PARTIALLY_RECEIVED
+            AcqOrderStatus.PARTIALLY_RECEIVED,
         ]
-        filters = Q('terms', status=open_status)
-        filters |= Q('term', type=AcqOrderType.STANDING_ORDER)
+        filters = Q("terms", status=open_status)
+        filters |= Q("term", type=AcqOrderType.STANDING_ORDER)
 
-        query = AcqOrdersSearch() \
-            .filter('terms', order_lines__account__pid=account_pids) \
-            .filter(filters) \
+        query = (
+            AcqOrdersSearch()
+            .filter("terms", order_lines__account__pid=account_pids)
+            .filter(filters)
             .source(False)
+        )
         return [AcqOrder.get_record(hit.meta.id) for hit in query.scan()]
 
     @staticmethod
@@ -671,11 +699,14 @@ class AcqRollover:
         open_status = [
             AcqOrderLineStatus.APPROVED,
             AcqOrderLineStatus.ORDERED,
-            AcqOrderLineStatus.PARTIALLY_RECEIVED
+            AcqOrderLineStatus.PARTIALLY_RECEIVED,
         ]
-        query = AcqOrderLinesSearch() \
-            .filter('terms', acq_account__pid=account_pids) \
-            .filter('terms', acq_order__pid=order_pids) \
-            .filter('terms', status=open_status) \
-            .source(False).scan()
+        query = (
+            AcqOrderLinesSearch()
+            .filter("terms", acq_account__pid=account_pids)
+            .filter("terms", acq_order__pid=order_pids)
+            .filter("terms", status=open_status)
+            .source(False)
+            .scan()
+        )
         return [AcqOrderLine.get_record(hit.meta.id) for hit in query]

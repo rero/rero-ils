@@ -18,8 +18,7 @@
 """Loans logs API."""
 
 
-from rero_ils.modules.operation_logs.api import OperationLog, \
-    OperationLogsSearch
+from rero_ils.modules.operation_logs.api import OperationLog, OperationLogsSearch
 from rero_ils.modules.operation_logs.logs.api import SpecificOperationLog
 
 from ...items.api import Item
@@ -35,10 +34,11 @@ class LoanOperationLogsSearch(OperationLogsSearch):
         :param triggers: list[str] - loan triggers value to filter
         :return: an elasticsearch dsl search query
         """
-        query = self.filter('term', record__type='loan')\
-            .filter('terms', loan__trigger=triggers)
+        query = self.filter("term", record__type="loan").filter(
+            "terms", loan__trigger=triggers
+        )
         if date_range:
-            query = query.filter('range', date=date_range)
+            query = query.filter("range", date=date_range)
         return query
 
 
@@ -46,7 +46,7 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
     """Operation log for loans."""
 
     @classmethod
-    def create(cls, data, id_=None, index_refresh='false', **kwargs):
+    def create(cls, data, id_=None, index_refresh="false", **kwargs):
         """Create a new record instance and store it in elasticsearch.
 
         :param loan_data: Dict with the loan metadata.
@@ -60,57 +60,49 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
         :returns: A new :class:`Record` instance.
         """
         log = {
-            'record': {
-                'value': data.get('pid'),
-                'type': 'loan'
+            "record": {"value": data.get("pid"), "type": "loan"},
+            "operation": "create",
+            "date": data["transaction_date"],
+            "loan": {
+                "pid": data["pid"],
+                "trigger": data["trigger"],
+                "override_flag": False,
+                "auto_extend": data.get("auto_extend", False),
+                "transaction_channel": (
+                    "sip2" if data.get("selfcheck_terminal_id") else "system"
+                ),
+                "transaction_location": {
+                    "pid": data["transaction_location_pid"],
+                    "name": cls._get_location_name(data["transaction_location_pid"]),
+                },
+                "pickup_location": {
+                    "pid": data["pickup_location_pid"],
+                    "name": cls._get_location_name(data["pickup_location_pid"]),
+                },
+                "patron": cls._get_patron_data(
+                    Patron.get_record_by_pid(data["patron_pid"])
+                ),
+                "item": cls._get_item_data(
+                    Item.get_record_by_pid(data["item_pid"]["value"])
+                ),
             },
-            'operation': 'create',
-            'date': data['transaction_date'],
-            'loan': {
-                'pid': data['pid'],
-                'trigger': data['trigger'],
-                'override_flag': False,
-                'auto_extend': data.get('auto_extend', False),
-                'transaction_channel': 'system' if not data.get(
-                    'selfcheck_terminal_id') else 'sip2',
-                'transaction_location': {
-                    'pid': data['transaction_location_pid'],
-                    'name': cls._get_location_name(
-                        data['transaction_location_pid'])
-                },
-                'pickup_location': {
-                    'pid': data['pickup_location_pid'],
-                    'name': cls._get_location_name(data['pickup_location_pid'])
-                },
-                'patron': cls._get_patron_data(
-                    Patron.get_record_by_pid(data['patron_pid'])),
-                'item': cls._get_item_data(
-                    Item.get_record_by_pid(data['item_pid']['value']))
-            }
         }
         if current_librarian:
-            log['user'] = {
-                'type': 'ptrn',
-                'value': current_librarian.pid
+            log["user"] = {"type": "ptrn", "value": current_librarian.pid}
+            log["user_name"] = current_librarian.formatted_name
+            log["organisation"] = {
+                "value": current_librarian.organisation_pid,
+                "type": "org",
             }
-            log['user_name'] = current_librarian.formatted_name
-            log['organisation'] = {
-                'value': current_librarian.organisation_pid,
-                'type': 'org'
-            }
-            log['library'] = {
-                'value': current_librarian.library_pid,
-                'type': 'lib'
-            }
+            log["library"] = {"value": current_librarian.library_pid, "type": "lib"}
         else:
-            log['user_name'] = 'system'
+            log["user_name"] = "system"
         # Store transaction user name if not done by SIP2
-        if log['loan']['transaction_channel'] != 'sip2':
-            transaction_user = Patron.get_record_by_pid(
-                data['transaction_user_pid'])
-            log['loan']['transaction_user'] = {
-                'pid': data['transaction_user_pid'],
-                'name': transaction_user.formatted_name
+        if log["loan"]["transaction_channel"] != "sip2":
+            transaction_user = Patron.get_record_by_pid(data["transaction_user_pid"])
+            log["loan"]["transaction_user"] = {
+                "pid": data["transaction_user_pid"],
+                "name": transaction_user.formatted_name,
             }
         return super().create(log, index_refresh=index_refresh)
 
@@ -122,6 +114,6 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
         """
         for log in OperationLogsSearch().get_logs_by_record_pid(loan_pid):
             record = log.to_dict()
-            record['loan']['patron']['name'] = 'anonymized'
-            record['loan']['patron']['pid'] = 'anonymized'
-            cls.update(log.meta.id, log['date'], record)
+            record["loan"]["patron"]["name"] = "anonymized"
+            record["loan"]["patron"]["pid"] = "anonymized"
+            cls.update(log.meta.id, log["date"], record)

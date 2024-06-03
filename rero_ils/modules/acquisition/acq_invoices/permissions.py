@@ -20,19 +20,22 @@
 
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByManageableLibrary, DisallowedIfRollovered, \
-    RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByManageableLibrary,
+    DisallowedIfRollovered,
+    RecordPermissionPolicy,
+)
 
 from .api import AcquisitionInvoice
 
 # Actions to control acquisition invoices resource policies
-search_action = action_factory('acin-search')
-read_action = action_factory('acin-read')
-create_action = action_factory('acin-create')
-update_action = action_factory('acin-update')
-delete_action = action_factory('acin-delete')
-access_action = action_factory('acin-access')
+search_action = action_factory("acin-search")
+read_action = action_factory("acin-read")
+create_action = action_factory("acin-create")
+update_action = action_factory("acin-update")
+delete_action = action_factory("acin-delete")
+access_action = action_factory("acin-access")
 
 
 class AcqInvoicePermissionPolicy(RecordPermissionPolicy):
@@ -42,13 +45,13 @@ class AcqInvoicePermissionPolicy(RecordPermissionPolicy):
     can_read = [AllowedByActionRestrictByManageableLibrary(read_action)]
     can_create = [
         AllowedByActionRestrictByManageableLibrary(create_action),
-        DisallowedIfRollovered(AcquisitionInvoice)
+        DisallowedIfRollovered(AcquisitionInvoice),
     ]
     can_update = [
         AllowedByActionRestrictByManageableLibrary(update_action),
-        DisallowedIfRollovered(AcquisitionInvoice)
+        DisallowedIfRollovered(AcquisitionInvoice),
     ]
     can_delete = [
         AllowedByActionRestrictByManageableLibrary(delete_action),
-        DisallowedIfRollovered(AcquisitionInvoice)
+        DisallowedIfRollovered(AcquisitionInvoice),
     ]

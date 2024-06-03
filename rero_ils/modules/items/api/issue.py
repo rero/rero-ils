@@ -19,14 +19,13 @@
 """API for manipulating the item issue."""
 from datetime import datetime, timezone
 
-from rero_ils.modules.notifications.api import Notification, \
-    NotificationsSearch
+from rero_ils.modules.notifications.api import Notification, NotificationsSearch
 from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.utils import get_ref_for_pid
 
-from .record import ItemRecord
 from ..models import TypeOfItem
+from .record import ItemRecord
 
 
 class ItemIssue(ItemRecord):
@@ -35,52 +34,52 @@ class ItemIssue(ItemRecord):
     @property
     def is_issue(self):
         """Is this item is an issue or not."""
-        return self.get('type') == TypeOfItem.ISSUE
+        return self.get("type") == TypeOfItem.ISSUE
 
     @property
     def expected_date(self):
         """Shortcut for issue expected date."""
-        return self.get('issue', {}).get('expected_date')
+        return self.get("issue", {}).get("expected_date")
 
     @expected_date.setter
     def expected_date(self, value):
         """Setter for the issue expected date."""
-        self.setdefault('issue', {})['expected_date'] = value
+        self.setdefault("issue", {})["expected_date"] = value
 
     @property
     def received_date(self):
         """Shortcut for issue received date."""
-        return self.get('issue', {}).get('received_date')
+        return self.get("issue", {}).get("received_date")
 
     @property
     def sort_date(self):
         """Shortcut for issue sort date."""
-        return self.get('issue', {}).get('sort_date')
+        return self.get("issue", {}).get("sort_date")
 
     @sort_date.setter
     def sort_date(self, value):
         """Setter for the issue sort date."""
-        self.setdefault('issue', {})['sort_date'] = value
+        self.setdefault("issue", {})["sort_date"] = value
 
     @property
     def issue_status(self):
         """Shortcut for issue status."""
-        return self.get('issue', {}).get('status')
+        return self.get("issue", {}).get("status")
 
     @issue_status.setter
     def issue_status(self, value):
         """Setter for issue status."""
-        self.setdefault('issue', {})['status'] = value
+        self.setdefault("issue", {})["status"] = value
 
     @property
     def issue_is_regular(self):
         """Shortcut for issue is regular."""
-        return self.get('issue', {}).get('regular', True)
+        return self.get("issue", {}).get("regular", True)
 
     @property
     def issue_status_date(self):
         """Shortcut for issue status date."""
-        return self.get('issue', {}).get('status_date')
+        return self.get("issue", {}).get("status_date")
 
     @property
     def vendor(self):
@@ -112,9 +111,10 @@ class ItemIssue(ItemRecord):
         it returns the parent holdings first call number if exists.
         """
         from rero_ils.modules.holdings.api import Holding
-        if self.is_issue and not self.get('call_number'):
+
+        if self.is_issue and not self.get("call_number"):
             holding = Holding.get_record_by_pid(self.holding_pid)
-            return holding.get('call_number')
+            return holding.get("call_number")
 
     @property
     def issue_inherited_second_call_number(self):
@@ -124,9 +124,10 @@ class ItemIssue(ItemRecord):
         it returns the parent holdings second call number if exists.
         """
         from rero_ils.modules.holdings.api import Holding
-        if self.is_issue and not self.get('second_call_number'):
+
+        if self.is_issue and not self.get("second_call_number"):
             holding = Holding.get_record_by_pid(self.holding_pid)
-            return holding.get('second_call_number')
+            return holding.get("second_call_number")
 
     @classmethod
     def get_issues_pids_by_status(cls, issue_status, holdings_pid=None):
@@ -137,15 +138,19 @@ class ItemIssue(ItemRecord):
         :return a generator of issues pid.
         """
         from .api import ItemsSearch
-        query = ItemsSearch() \
-            .filter('term', issue__status=issue_status) \
-            .filter('term', type='issue')
+
+        query = (
+            ItemsSearch()
+            .filter("term", issue__status=issue_status)
+            .filter("term", type="issue")
+        )
         if holdings_pid:
-            query = query.filter('term', holding__pid=holdings_pid)
-        query = query\
-            .params(preserve_order=True) \
-            .sort({'_created': {'order': 'asc'}}) \
-            .source(['pid'])
+            query = query.filter("term", holding__pid=holdings_pid)
+        query = (
+            query.params(preserve_order=True)
+            .sort({"_created": {"order": "asc"}})
+            .source(["pid"])
+        )
 
         return [hit.pid for hit in query.scan()]
 
@@ -158,6 +163,7 @@ class ItemIssue(ItemRecord):
         :return a generator of Item.
         """
         from .api import Item
+
         for pid in cls.get_issues_pids_by_status(status, holdings_pid):
             yield Item.get_record_by_pid(pid)
 
@@ -174,22 +180,23 @@ class ItemIssue(ItemRecord):
         """
         # Create the notification and dispatch it synchronously.
         record = {
-            'creation_date': datetime.now(timezone.utc).isoformat(),
-            'notification_type': NotificationType.CLAIM_ISSUE,
-            'context': {
-                'item': {'$ref': get_ref_for_pid('item', self.pid)},
-                'recipients': recipients,
-                'number': self.claims_count + 1
-            }
+            "creation_date": datetime.now(timezone.utc).isoformat(),
+            "notification_type": NotificationType.CLAIM_ISSUE,
+            "context": {
+                "item": {"$ref": get_ref_for_pid("item", self.pid)},
+                "recipients": recipients,
+                "number": self.claims_count + 1,
+            },
         }
         notif = Notification.create(data=record, dbcommit=True, reindex=True)
         dispatcher_result = Dispatcher.dispatch_notifications(
-            notification_pids=[notif.get('pid')])
+            notification_pids=[notif.get("pid")]
+        )
 
         # If the dispatcher result is correct, reindex myself to update claims
         # information into ElasticSearch engine. Reload the notification to
         # obtain the correct notification metadata (status, process_date, ...)
-        if dispatcher_result.get('sent', 0):
+        if dispatcher_result.get("sent", 0):
             self.reindex()
             notif = Notification.get_record(notif.id)
         return notif

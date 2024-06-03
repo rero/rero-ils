@@ -39,13 +39,15 @@ def get_late_serial_holdings():
     :return: A `Holding` resource generator
     """
     yesterday = datetime.now(timezone.utc) - timedelta(days=1)
-    yesterday = yesterday.strftime('%Y-%m-%d')
-    query = HoldingsSearch() \
-        .filter('term', holdings_type='serial') \
-        .filter('term', acquisition_status='currently_received') \
-        .filter('range', patterns__next_expected_date={'lte': yesterday}) \
-        .exclude('term', patterns__frequency='rdafr:1016') \
+    yesterday = yesterday.strftime("%Y-%m-%d")
+    query = (
+        HoldingsSearch()
+        .filter("term", holdings_type="serial")
+        .filter("term", acquisition_status="currently_received")
+        .filter("range", patterns__next_expected_date={"lte": yesterday})
+        .exclude("term", patterns__frequency="rdafr:1016")
         .source(False)
+    )
     for hit in query.scan():
         yield Holding.get_record(hit.meta.id)
 
@@ -61,15 +63,13 @@ def create_next_late_expected_issues(dbcommit=False, reindex=False):
     for holding in get_late_serial_holdings():
         try:
             issue = holding.create_regular_issue(
-                status=ItemIssueStatus.LATE,
-                dbcommit=dbcommit,
-                reindex=reindex
+                status=ItemIssueStatus.LATE, dbcommit=dbcommit, reindex=reindex
             )
             issue.issue_status = ItemIssueStatus.LATE
             issue.update(issue, dbcommit=dbcommit, reindex=reindex)
             counter += 1
         except RegularReceiveNotAllowed as err:
             pid = holding.pid
-            msg = f'Cannot receive next expected issue for Holding#{pid}'
-            current_app.logger.error(f'{msg}::{str(err)}')
+            msg = f"Cannot receive next expected issue for Holding#{pid}"
+            current_app.logger.error(f"{msg}::{str(err)}")
     return counter

@@ -19,7 +19,7 @@
 
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import flush_index, get_json, postdata
+from utils import get_json, postdata
 
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan
@@ -27,9 +27,14 @@ from rero_ils.modules.operation_logs.api import OperationLogsSearch
 
 
 def test_circ_scenario_a(
-        client, librarian_martigny, lib_martigny,
-        patron_martigny, loc_public_martigny, item_lib_martigny,
-        circulation_policies):
+    client,
+    librarian_martigny,
+    lib_martigny,
+    patron_martigny,
+    loc_public_martigny,
+    item_lib_martigny,
+    circulation_policies,
+):
     """Test the first circulation scenario."""
     # https://github.com/rero/rero-ils/blob/dev/doc/circulation/scenarios.md
     # A request is made on on-shelf item, that has no requests, to be picked
@@ -37,33 +42,29 @@ def test_circ_scenario_a(
     # owning library. and returned on-time at the owning library
     login_user_via_session(client, librarian_martigny.user)
     circ_params = {
-            'item_pid': item_lib_martigny.pid,
-            'patron_pid': patron_martigny.pid,
-            'pickup_location_pid': loc_public_martigny.pid,
-            'transaction_library_pid': lib_martigny.pid,
-            'transaction_user_pid': librarian_martigny.pid
+        "item_pid": item_lib_martigny.pid,
+        "patron_pid": patron_martigny.pid,
+        "pickup_location_pid": loc_public_martigny.pid,
+        "transaction_library_pid": lib_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
     }
     # ADD_REQUEST_1.1
-    res, data = postdata(
-        client, 'api_item.librarian_request', dict(circ_params))
+    res, data = postdata(client, "api_item.librarian_request", dict(circ_params))
     assert res.status_code == 200
-    request_loan_pid = get_json(res)['action_applied']['request']['pid']
+    request_loan_pid = get_json(res)["action_applied"]["request"]["pid"]
     # VALIDATE_1.2
-    circ_params['pid'] = request_loan_pid
-    res, data = postdata(
-        client, 'api_item.validate_request', dict(circ_params))
+    circ_params["pid"] = request_loan_pid
+    res, data = postdata(client, "api_item.validate_request", dict(circ_params))
     assert res.status_code == 200
-    loan = Loan(get_json(res)['action_applied']['validate'])
+    loan = Loan(get_json(res)["action_applied"]["validate"])
     assert loan.checkout_date is None
     # CHECKOUT_2.1
-    res, data = postdata(
-        client, 'api_item.checkout', dict(circ_params))
+    res, data = postdata(client, "api_item.checkout", dict(circ_params))
     assert res.status_code == 200
-    loan = Loan(get_json(res)['action_applied']['checkout'])
-    flush_index(OperationLogsSearch.Meta.index)
+    loan = Loan(get_json(res)["action_applied"]["checkout"])
+    OperationLogsSearch.flush_and_refresh()
     assert loan.checkout_date
     # CHECKIN_3.1.1
-    res, data = postdata(
-        client, 'api_item.checkin', dict(circ_params))
+    res, data = postdata(client, "api_item.checkin", dict(circ_params))
     assert res.status_code == 200
     assert item_lib_martigny.status == ItemStatus.ON_SHELF

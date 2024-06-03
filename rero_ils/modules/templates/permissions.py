@@ -23,18 +23,23 @@ from flask_principal import RoleNeed
 from invenio_access import action_factory
 
 from rero_ils.modules.patrons.api import current_librarian
-from rero_ils.modules.permissions import AllowedByAction, LibraryNeed, \
-    OrganisationNeed, OwnerNeed, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    LibraryNeed,
+    OrganisationNeed,
+    OwnerNeed,
+    RecordPermissionPolicy,
+)
 from rero_ils.modules.templates.api import Template
 from rero_ils.modules.users.models import UserRole
 
 # Actions to control Templates policies for CRUD operations
-search_action = action_factory('tmpl-search')
-read_action = action_factory('tmpl-read')
-create_action = action_factory('tmpl-create')
-update_action = action_factory('tmpl-update')
-delete_action = action_factory('tmpl-delete')
-access_action = action_factory('tmpl-access')
+search_action = action_factory("tmpl-search")
+read_action = action_factory("tmpl-read")
+create_action = action_factory("tmpl-create")
+update_action = action_factory("tmpl-update")
+delete_action = action_factory("tmpl-delete")
+access_action = action_factory("tmpl-access")
 
 
 class AllowedByActionTemplateReadRestriction(AllowedByAction):
@@ -76,12 +81,14 @@ class AllowedByActionTemplateReadRestriction(AllowedByAction):
         #   - library_administration : only templates for user belonging to
         #       its library
         #   - other : only own templates.
-        if (roles := current_librarian.get('roles')) and record.is_private:
+        if (roles := current_librarian.get("roles")) and record.is_private:
             if UserRole.FULL_PERMISSIONS in roles:
                 pass
             elif UserRole.LIBRARY_ADMINISTRATOR in roles:
-                if all(LibraryNeed(lib_pid) not in provided_needs
-                       for lib_pid in current_librarian.library_pids):
+                if all(
+                    LibraryNeed(lib_pid) not in provided_needs
+                    for lib_pid in current_librarian.library_pids
+                ):
                     return []  # empty array == disable operation
             elif OwnerNeed(record.creator_pid) not in provided_needs:
                 return []  # empty array == disable operation
@@ -111,7 +118,7 @@ class AllowedByActionTemplateWriteRestriction(AllowedByAction):
         # any template (private or public) in their own organisation.
         needs = {
             OrganisationNeed(record.organisation_pid),
-            RoleNeed(UserRole.FULL_PERMISSIONS)
+            RoleNeed(UserRole.FULL_PERMISSIONS),
         }
         if needs.issubset(g.identity.provides):
             return required_needs

@@ -38,17 +38,15 @@ class InventoryListResource(ContentNegotiatedMethodView):
         """Init."""
         super().__init__(
             method_serializers={
-                'GET': {
-                    'text/csv': csv_item_search,
+                "GET": {
+                    "text/csv": csv_item_search,
                 }
             },
             serializers_query_aliases={
-                'csv': 'text/csv',
+                "csv": "text/csv",
             },
-            default_method_media_type={
-                'GET': 'text/csv'
-            },
-            default_media_type='text/csv',
+            default_method_media_type={"GET": "text/csv"},
+            default_media_type="text/csv",
             **kwargs
         )
         self.search_factory = partial(items_search_factory, self)
@@ -58,7 +56,4 @@ class InventoryListResource(ContentNegotiatedMethodView):
         search_obj = ItemsSearch()
         search, qs_kwargs = self.search_factory(search_obj)
 
-        return self.make_response(
-            pid_fetcher=None,
-            search_result=search.scan()
-        )
+        return self.make_response(pid_fetcher=None, search_result=search.scan())

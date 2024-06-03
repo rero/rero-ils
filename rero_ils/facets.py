@@ -46,21 +46,20 @@ def default_facets_factory(search, index):
     urlkwargs = MultiDict()
     # Check if facets configuration are defined for this index. If not, then we
     # can't build any facets for this index, just return the current search.
-    if index not in current_app.config.get('RECORDS_REST_FACETS', {}):
+    if index not in current_app.config.get("RECORDS_REST_FACETS", {}):
         return search, urlkwargs
 
-    facets = current_app.config['RECORDS_REST_FACETS'].get(index)
-    all_aggs, aggs = facets.get('aggs', {}), {}
+    facets = current_app.config["RECORDS_REST_FACETS"].get(index)
+    all_aggs, aggs = facets.get("aggs", {}), {}
 
     # i18n aggregations.
     #   some aggregations' configuration are different depending on language
     #   use for the search. Load the correct configuration for these
     #   aggregations.
-    interface_language = request.args.get('lang', current_i18n.language)
-    default_language = current_app.config.get('BABEL_DEFAULT_LANGUAGE')
+    interface_language = request.args.get("lang", current_i18n.language)
+    default_language = current_app.config.get("BABEL_DEFAULT_LANGUAGE")
     for facet_name, facet_body in facets.get("i18n_aggs", {}).items():
-        aggr = facet_body.get(interface_language,
-                              facet_body.get(default_language))
+        aggr = facet_body.get(interface_language, facet_body.get(default_language))
         all_aggs[facet_name] = aggr
 
     # Get selected facets
@@ -68,7 +67,7 @@ def default_facets_factory(search, index):
     #   'facets' query string argument to determine which facets it wants to be
     #   built. If this argument isn't defined, all facets defined into the
     #   configuration will be built.
-    selected_facets = request.args.getlist('facets') or all_aggs.keys()
+    selected_facets = request.args.getlist("facets") or all_aggs.keys()
     selected_facets = make_comma_list_a_list(selected_facets)
 
     # Filter to keep only configuration about selected facets.
@@ -82,18 +81,19 @@ def default_facets_factory(search, index):
         # If no facet field are found, skip this aggregation, because we can't
         # determine which field used to filter the query
         facet_field = next(
-            (facet_body.get(k)['field']
-             for k in ['terms', 'date_histogram']
-             if k in facet_body),
-            None
+            (
+                facet_body.get(k)["field"]
+                for k in ["terms", "date_histogram"]
+                if k in facet_body
+            ),
+            None,
         )
         facet_filter = None
         if facet_field:
             # get DSL expression of post_filters,
             # both single post filters and group of post filters
             filters, filters_group, urlkwargs = _create_filter_dsl(
-                urlkwargs,
-                facets.get('post_filters', {})
+                urlkwargs, facets.get("post_filters", {})
             )
             # create the filter to inject in the facet
             facet_filter = _facet_filter(
@@ -102,8 +102,8 @@ def default_facets_factory(search, index):
 
         # Check if 'filter' is defined into the facet configuration. If yes,
         # then add this filter to the facet filter previously created.
-        if 'filter' in facet_body:
-            agg_filter = obj_or_import_string(facet_body.pop('filter'))
+        if "filter" in facet_body:
+            agg_filter = obj_or_import_string(facet_body.pop("filter"))
             if callable(agg_filter):
                 agg_filter = agg_filter(search, urlkwargs)
             if facet_filter:
@@ -117,17 +117,15 @@ def default_facets_factory(search, index):
             # add a nested aggs_facet in the facet aggs (OK search)
             if facet_field:
                 facet_body = dict(aggs=dict(aggs_facet=facet_body))
-            facet_body['filter'] = facet_filter.to_dict()
+            facet_body["filter"] = facet_filter.to_dict()
 
         aggs[facet_name] = facet_body
 
     search = _aggregations(search, aggs)
     # Query filter
-    search, urlkwargs = _query_filter(
-        search, urlkwargs, facets.get('filters', {}))
+    search, urlkwargs = _query_filter(search, urlkwargs, facets.get("filters", {}))
     # Post filter
-    search, urlkwargs = _post_filter(
-        search, urlkwargs, facets.get('post_filters', {}))
+    search, urlkwargs = _post_filter(search, urlkwargs, facets.get("post_filters", {}))
     return search, urlkwargs
 
 
@@ -153,8 +151,7 @@ def _create_filter_dsl(urlkwargs, definitions):
             filters_group[name] = []
             for f_name, f_filter_factory in filter_factory.items():
                 # the url parameters values for the facet f_name of the group
-                values = request.values.getlist(f_name, type=text_type)
-                if values:
+                if values := request.values.getlist(f_name, type=text_type):
                     # pass the values to f_filter_factory to obtain the
                     # DSL expression and append it to filters_group
                     filters_group[name].append(f_filter_factory(values))
@@ -162,16 +159,14 @@ def _create_filter_dsl(urlkwargs, definitions):
                         if v not in urlkwargs.getlist(f_name):
                             urlkwargs.add(f_name, v)
         # create a filter DSL expression for single filters
-        else:
-            # the url parameters values for the single facet name
-            values = request.values.getlist(name, type=text_type)
-            if values:
-                # pass the values to the filter_factory to obtain the
-                # DSL expression and append it to filters
-                filters.append(filter_factory(values))
-                for v in values:
-                    if v not in urlkwargs.getlist(name):
-                        urlkwargs.add(name, v)
+        # the url parameters values for the single facet name
+        elif values := request.values.getlist(name, type=text_type):
+            # pass the values to the filter_factory to obtain the
+            # DSL expression and append it to filters
+            filters.append(filter_factory(values))
+            for v in values:
+                if v not in urlkwargs.getlist(name):
+                    urlkwargs.add(name, v)
 
     return filters, filters_group, urlkwargs
 
@@ -188,14 +183,13 @@ def _post_filter(search, urlkwargs, definitions):
     :param definitions: the filters dictionary
     :returns:
     """
-    filters, filters_group, urlkwargs = \
-        _create_filter_dsl(urlkwargs, definitions)
+    filters, filters_group, urlkwargs = _create_filter_dsl(urlkwargs, definitions)
 
     for filter_ in filters:
         search = search.post_filter(filter_)
 
     for _, filter_ in filters_group.items():
-        q = Q('bool', should=filter_)
+        q = Q("bool", should=filter_)
         search = search.post_filter(q)
 
     return search, urlkwargs
@@ -227,5 +221,5 @@ def _facet_filter(index, filters, filters_group, facet_name, facet_field):
 
     for name_group, filters in filters_group.items():
         if facet_name != name_group and filters:
-            q &= Q('bool', should=filters)
+            q &= Q("bool", should=filters)
     return q if q != Q() else None

@@ -32,10 +32,9 @@ class AcquisitionOrderExtension(RecordExtension):
         :param dumper: the record dumper.
         """
         if record.order_date:
-            record['order_date'] = record.order_date
-        record['account_statement'] = \
-            record.get_account_statement()
-        record['status'] = record.status
+            record["order_date"] = record.order_date
+        record["account_statement"] = record.get_account_statement()
+        record["status"] = record.status
 
     def pre_load(self, data, loader=None):
         """Called before a record is loaded.
@@ -43,9 +42,9 @@ class AcquisitionOrderExtension(RecordExtension):
         :param data: the data to load.
         :param loader: the record loader.
         """
-        data.pop('account_statement', None)
-        data.pop('status', None)
-        data.pop('order_date', None)
+        data.pop("account_statement", None)
+        data.pop("status", None)
+        data.pop("order_date", None)
 
     def pre_delete(self, record, force=False):
         """Called before a record is deleted.
@@ -67,10 +66,9 @@ class AcquisitionOrderCompleteDataExtension(RecordExtension):
     @staticmethod
     def populate_currency(record):
         """Add vendor currency to order data."""
-        vendor = record.get('vendor')
-        if vendor:
-            vendor = extracted_data_from_ref(vendor, data='record')
-            record['currency'] = vendor.get('currency')
+        if vendor := record.get("vendor"):
+            vendor = extracted_data_from_ref(vendor, data="record")
+            record["currency"] = vendor.get("currency")
 
     # TODO : This hook doesn't work as expected now.
     #   The record is well updated with currency key, but this key isn't store
@@ -94,8 +92,8 @@ class AcquisitionOrderCompleteDataExtension(RecordExtension):
 
         :param record: the record metadata.
         """
-        if not record.get('reference'):
-            record['reference'] = f'ORDER-{record.pid}'
+        if not record.get("reference"):
+            record["reference"] = f"ORDER-{record.pid}"
             record.update(record, dbcommit=True, reindex=True)
 
     def pre_commit(self, record):

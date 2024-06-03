@@ -18,12 +18,13 @@
 """Patron transaction Record mapping tests."""
 from utils import get_mapping
 
-from rero_ils.modules.patron_transactions.api import PatronTransaction, \
-    PatronTransactionsSearch
+from rero_ils.modules.patron_transactions.api import (
+    PatronTransaction,
+    PatronTransactionsSearch,
+)
 
 
-def test_patron_transaction_es_mapping(
-        es, db, patron_transaction_overdue_martigny):
+def test_patron_transaction_es_mapping(search, db, patron_transaction_overdue_martigny):
     """Test patron_transaction elasticsearch mapping."""
     search = PatronTransactionsSearch()
     mapping = get_mapping(search.Meta.index)
@@ -32,7 +33,7 @@ def test_patron_transaction_es_mapping(
         patron_transaction_overdue_martigny,
         dbcommit=True,
         reindex=True,
-        delete_pid=True
+        delete_pid=True,
     )
     assert mapping == get_mapping(search.Meta.index)
     for event in pttr.events:

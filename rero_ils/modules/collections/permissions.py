@@ -19,16 +19,19 @@
 """Collection permissions."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByOrganisation,
+    RecordPermissionPolicy,
+)
 
 # Actions to control Items policies for CRUD operations
-search_action = action_factory('coll-search')
-read_action = action_factory('coll-read')
-create_action = action_factory('coll-create')
-update_action = action_factory('coll-update')
-delete_action = action_factory('coll-delete')
-access_action = action_factory('coll-access')
+search_action = action_factory("coll-search")
+read_action = action_factory("coll-read")
+create_action = action_factory("coll-create")
+update_action = action_factory("coll-update")
+delete_action = action_factory("coll-delete")
+access_action = action_factory("coll-access")
 
 
 class CollectionPermissionPolicy(RecordPermissionPolicy):

@@ -19,16 +19,15 @@
 """Local entity proxies."""
 from elasticsearch_dsl import Q
 
-from .api import LocalEntitiesSearch
 from ..models import EntityType
+from .api import LocalEntitiesSearch
 
 CATEGORY_FILTERS = {
-    'agents': Q('terms', type=[EntityType.PERSON, EntityType.ORGANISATION]),
-    'person': Q('term', type=EntityType.PERSON),
-    'organisation': Q('term', type=EntityType.ORGANISATION),
-    'concepts': Q('term', type=EntityType.TOPIC),
-    'concepts-genreForm':
-        Q('term', type=EntityType.TOPIC) & Q('term', genreForm=True)
+    "agents": Q("terms", type=[EntityType.PERSON, EntityType.ORGANISATION]),
+    "person": Q("term", type=EntityType.PERSON),
+    "organisation": Q("term", type=EntityType.ORGANISATION),
+    "concepts": Q("term", type=EntityType.TOPIC),
+    "concepts-genreForm": Q("term", type=EntityType.TOPIC) & Q("term", genreForm=True),
 }
 
 
@@ -50,8 +49,9 @@ class LocalEntityProxy:
         :return: local entities matching the search term.
         :rtype: generator.
         """
-        query = self._create_base_query()[:size]\
-            .filter('query_string', query=search_term)
+        query = self._create_base_query()[:size].filter(
+            "query_string", query=search_term
+        )
         yield from query.execute()
 
     def _create_base_query(self):
@@ -65,4 +65,4 @@ class LocalEntityProxy:
         if self.category in CATEGORY_FILTERS:
             return query.filter(CATEGORY_FILTERS[self.category])
         else:
-            return query.filter('term', type=self.category)
+            return query.filter("term", type=self.category)

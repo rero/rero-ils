@@ -27,8 +27,11 @@ from marshmallow import Schema, fields, pre_load, validates, validates_schema
 from marshmallow.validate import OneOf
 
 from rero_ils.modules.commons.models import NoteTypes
-from rero_ils.modules.commons.schemas import NoteSchema, RefSchema, \
-    http_applicable_method
+from rero_ils.modules.commons.schemas import (
+    NoteSchema,
+    RefSchema,
+    http_applicable_method,
+)
 from rero_ils.modules.serializers.base import schema_from_context
 from rero_ils.modules.users.api import User
 from rero_ils.modules.users.models import UserRole
@@ -62,9 +65,9 @@ class PatronMetadataSchemaV1(StrictKeysMixin):
     pid = SanitizedUnicode()
     schema = GenFunction(
         load_only=True,
-        attribute='$schema',
-        data_key='$schema',
-        deserialize=schema_from_template
+        attribute="$schema",
+        data_key="$schema",
+        deserialize=schema_from_template,
     )
     source = SanitizedUnicode()
     local_codes = fields.List(SanitizedUnicode())
@@ -85,15 +88,14 @@ class PatronMetadataSchemaV1(StrictKeysMixin):
         :return Data cleared from user profile information.
         """
         data = data if many else [data]
-        profile_fields = set(
-            User.profile_fields + ['username', 'email',  'password'])
+        profile_fields = set(User.profile_fields + ["username", "email", "password"])
         for record in data:
             for field in profile_fields:
                 record.pop(field, None)
         return data if many else data[0]
 
-    @validates('roles')
-    @http_applicable_method('POST')
+    @validates("roles")
+    @http_applicable_method("POST")
     def validate_role(self, data, **kwargs):
         """Validate `roles` attribute through API request.
 
@@ -107,7 +109,7 @@ class PatronMetadataSchemaV1(StrictKeysMixin):
         validate_role_changes(current_user, set(data))
 
     @validates_schema
-    @http_applicable_method('PUT')
+    @http_applicable_method("PUT")
     def validate_roles_changes(self, data, **kwargs):
         """Validate `roles` changes through REST API request.
 
@@ -121,17 +123,16 @@ class PatronMetadataSchemaV1(StrictKeysMixin):
         :raises ValidationError: if error has detected on role field
         """
         # Load DB record
-        db_record = Patron.get_record_by_pid(data.get('pid'))
+        db_record = Patron.get_record_by_pid(data.get("pid"))
         if not db_record:
             abort(404)
 
         # Check if `roles` of the patron changed. If not, we can stop
         # the validation process.
-        original_roles = set(db_record.get('roles', []))
-        data_roles = set(data.get('roles', []))
-        role_changes = original_roles.symmetric_difference(data_roles)
-        if not role_changes:
+        original_roles = set(db_record.get("roles", []))
+        data_roles = set(data.get("roles", []))
+        if role_changes := original_roles.symmetric_difference(data_roles):
+            # `roles` field changes, we need to validate this change.
+            validate_role_changes(current_user, role_changes)
+        else:
             return
-
-        # `roles` field changes, we need to validate this change.
-        validate_role_changes(current_user, role_changes)

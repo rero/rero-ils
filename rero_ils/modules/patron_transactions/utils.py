@@ -21,8 +21,8 @@ from datetime import datetime, timezone
 
 from flask_babel import gettext as _
 
-from .api import PatronTransaction, PatronTransactionsSearch
 from ..utils import get_ref_for_pid
+from .api import PatronTransaction, PatronTransactionsSearch
 
 
 def _build_transaction_query(patron_pid, status=None, types=None):
@@ -33,12 +33,11 @@ def _build_transaction_query(patron_pid, status=None, types=None):
     :param types: (optional) array of transaction types filter,
     :return: return prepared query.
     """
-    query = PatronTransactionsSearch() \
-        .filter('term', patron__pid=patron_pid)
+    query = PatronTransactionsSearch().filter("term", patron__pid=patron_pid)
     if status:
-        query = query.filter('term', status=status)
+        query = query.filter("term", status=status)
     if types:
-        query = query.filter('terms', type=types)
+        query = query.filter("terms", type=types)
     return query
 
 
@@ -49,7 +48,7 @@ def get_transactions_pids_for_patron(patron_pid, status=None):
     :param status: (optional) transaction status filter,
     """
     query = _build_transaction_query(patron_pid, status)
-    for result in query.source('pid').scan():
+    for result in query.source("pid").scan():
         yield result.pid
 
 
@@ -64,7 +63,8 @@ def get_transactions_count_for_patron(patron_pid, status=None):
 
 
 def get_transactions_total_amount_for_patron(
-     patron_pid, status=None, types=None, with_subscription=True):
+    patron_pid, status=None, types=None, with_subscription=True
+):
     """Get total amount transactions linked to a patron.
 
     :param patron_pid: the patron pid being searched
@@ -76,9 +76,9 @@ def get_transactions_total_amount_for_patron(
     """
     search = _build_transaction_query(patron_pid, status, types)
     if not with_subscription:
-        search = search.exclude('terms', type=['subscription'])
-    search.aggs.metric('pttr_total_amount', 'sum', field='total_amount')
-    search = search[0:0]  # set the from/size to 0 ; no need es hits
+        search = search.exclude("terms", type=["subscription"])
+    search.aggs.metric("pttr_total_amount", "sum", field="total_amount")
+    search = search[:0]
     results = search.execute()
     return results.aggregations.pttr_total_amount.value
 
@@ -90,13 +90,10 @@ def get_last_transaction_by_loan_pid(loan_pid, status=None):
     :param status: (optional) the status of transaction.
     :return: return last transaction transaction matching criteria.
     """
-    query = PatronTransactionsSearch() \
-        .filter('term', loan__pid=loan_pid)
+    query = PatronTransactionsSearch().filter("term", loan__pid=loan_pid)
     if status:
-        query = query.filter('term', status=status)
-    results = query \
-        .sort({'creation_date': {'order': 'desc'}}) \
-        .source('pid').scan()
+        query = query.filter("term", status=status)
+    results = query.sort({"creation_date": {"order": "desc"}}).source("pid").scan()
     try:
         pid = next(results).pid
         return PatronTransaction.get_record_by_pid(pid)
@@ -105,79 +102,66 @@ def get_last_transaction_by_loan_pid(loan_pid, status=None):
 
 
 def create_patron_transaction_from_overdue_loan(
-     loan, dbcommit=True, reindex=True, delete_pid=False):
+    loan, dbcommit=True, reindex=True, delete_pid=False
+):
     """Create a patron transaction for an overdue loan."""
     from ..loans.utils import sum_for_fees
+
     fees = loan.get_overdue_fees
     total_amount = sum_for_fees(fees)
     if total_amount > 0:
         data = {
-            'loan': {
-                '$ref': get_ref_for_pid('loans', loan.pid)
-            },
-            'patron': {
-                '$ref': get_ref_for_pid('ptrn', loan.patron_pid)
-            },
-            'organisation': {
-                '$ref': get_ref_for_pid('org', loan.organisation_pid)
-            },
-            'type': 'overdue',
-            'status': 'open',
-            'note': _('incremental overdue fees'),
-            'total_amount': total_amount,
-            'creation_date': datetime.now(timezone.utc).isoformat(),
-            'steps': [
-                {'timestamp': fee[1].isoformat(), 'amount': fee[0]}
-                for fee in fees
-            ]
+            "loan": {"$ref": get_ref_for_pid("loans", loan.pid)},
+            "patron": {"$ref": get_ref_for_pid("ptrn", loan.patron_pid)},
+            "organisation": {"$ref": get_ref_for_pid("org", loan.organisation_pid)},
+            "type": "overdue",
+            "status": "open",
+            "note": _("incremental overdue fees"),
+            "total_amount": total_amount,
+            "creation_date": datetime.now(timezone.utc).isoformat(),
+            "steps": [
+                {"timestamp": fee[1].isoformat(), "amount": fee[0]} for fee in fees
+            ],
         }
         return PatronTransaction.create(
-            data,
-            dbcommit=dbcommit,
-            reindex=reindex,
-            delete_pid=delete_pid
+            data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid
         )
 
 
 def create_patron_transaction_from_notification(
-     notification=None, dbcommit=None, reindex=None,
-     delete_pid=None):
+    notification=None, dbcommit=None, reindex=None, delete_pid=None
+):
     """Create a patron transaction from notification."""
     from ..notifications.utils import calculate_notification_amount
+
     total_amount = calculate_notification_amount(notification)
     if total_amount > 0:  # no need to create transaction if amount <= 0 !
         data = {
-            'notification': {
-                '$ref': get_ref_for_pid('notif', notification.pid)
+            "notification": {"$ref": get_ref_for_pid("notif", notification.pid)},
+            "loan": {"$ref": get_ref_for_pid("loans", notification.loan_pid)},
+            "patron": {"$ref": get_ref_for_pid("ptrn", notification.patron_pid)},
+            "organisation": {
+                "$ref": get_ref_for_pid("org", notification.organisation_pid)
             },
-            'loan': {
-                '$ref': get_ref_for_pid('loans', notification.loan_pid)
-            },
-            'patron': {
-                '$ref': get_ref_for_pid('ptrn', notification.patron_pid)
-            },
-            'organisation': {
-                '$ref': get_ref_for_pid(
-                    'org',
-                    notification.organisation_pid
-                )
-            },
-            'total_amount': total_amount,
-            'creation_date': datetime.now(timezone.utc).isoformat(),
-            'type': 'overdue',
-            'status': 'open'
+            "total_amount": total_amount,
+            "creation_date": datetime.now(timezone.utc).isoformat(),
+            "type": "overdue",
+            "status": "open",
         }
         return PatronTransaction.create(
-            data,
-            dbcommit=dbcommit,
-            reindex=reindex,
-            delete_pid=delete_pid
+            data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid
         )
 
 
 def create_subscription_for_patron(
-     patron, patron_type, start_date, end_date, dbcommit=None, reindex=None,
-     delete_pid=None):
+    patron,
+    patron_type,
+    start_date,
+    end_date,
+    dbcommit=None,
+    reindex=None,
+    delete_pid=None,
+):
     """Create a subscription patron transaction for a patron.
 
     :param patron: the patron linked to the subscription
@@ -191,26 +175,19 @@ def create_subscription_for_patron(
     """
     record = {}
     if patron_type.is_subscription_required:
-        name = patron_type.get('name'),
-        start = start_date.strftime('%Y-%m-%d'),
-        end = end_date.strftime('%Y-%m-%d')
+        name = (patron_type.get("name"),)
+        start = (start_date.strftime("%Y-%m-%d"),)
+        end = end_date.strftime("%Y-%m-%d")
         data = {
-            'patron': {
-                '$ref': get_ref_for_pid('ptrn', patron.pid)
-            },
-            'organisation': {
-                '$ref': get_ref_for_pid('org', patron.organisation_pid)
-            },
-            'total_amount': patron_type.get('subscription_amount'),
-            'creation_date': datetime.now(timezone.utc).isoformat(),
-            'type': 'subscription',
-            'status': 'open',
-            'note': _(f"Subscription for '{name}' from {start} to {end}")
+            "patron": {"$ref": get_ref_for_pid("ptrn", patron.pid)},
+            "organisation": {"$ref": get_ref_for_pid("org", patron.organisation_pid)},
+            "total_amount": patron_type.get("subscription_amount"),
+            "creation_date": datetime.now(timezone.utc).isoformat(),
+            "type": "subscription",
+            "status": "open",
+            "note": _(f"Subscription for '{name}' from {start} to {end}"),
         }
         record = PatronTransaction.create(
-            data,
-            dbcommit=dbcommit,
-            reindex=reindex,
-            delete_pid=delete_pid
+            data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid
         )
     return record

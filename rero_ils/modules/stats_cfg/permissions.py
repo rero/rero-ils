@@ -19,17 +19,20 @@
 
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByManageableLibrary, \
-    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByManageableLibrary,
+    AllowedByActionRestrictByOrganisation,
+    RecordPermissionPolicy,
+)
 
 # Actions to control statistics configuration policies for CRUD operations
-search_action = action_factory('stat_cfg-search')
-read_action = action_factory('stat_cfg-read')
-create_action = action_factory('stat_cfg-create')
-update_action = action_factory('stat_cfg-update')
-delete_action = action_factory('stat_cfg-delete')
-access_action = action_factory('stat_cfg-access')
+search_action = action_factory("stat_cfg-search")
+read_action = action_factory("stat_cfg-read")
+create_action = action_factory("stat_cfg-create")
+update_action = action_factory("stat_cfg-update")
+delete_action = action_factory("stat_cfg-delete")
+access_action = action_factory("stat_cfg-access")
 
 
 class StatisticsConfigurationPermissionPolicy(RecordPermissionPolicy):

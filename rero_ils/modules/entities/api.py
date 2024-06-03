@@ -25,8 +25,7 @@ from flask import current_app
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsSearch
 from rero_ils.modules.documents.api import DocumentsSearch
-from rero_ils.modules.entities.remote_entities.utils import \
-    extract_data_from_mef_uri
+from rero_ils.modules.entities.remote_entities.utils import extract_data_from_mef_uri
 from rero_ils.modules.utils import extracted_data_from_ref, sorted_pids
 
 
@@ -36,9 +35,9 @@ class EntitiesSearch(IlsRecordsSearch):
     class Meta:
         """Meta class."""
 
-        index = 'entities'
+        index = "entities"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -51,7 +50,8 @@ class Entity(IlsRecord, ABC):
     def get_record_by_ref(cls, ref):
         """."""
         from .remote_entities.api import RemoteEntity
-        if entity := extracted_data_from_ref(ref, 'record'):
+
+        if entity := extracted_data_from_ref(ref, "record"):
             return entity
         _, _type, _pid = extract_data_from_mef_uri(ref)
         return RemoteEntity.get_entity(_type, _pid)
@@ -75,18 +75,15 @@ class Entity(IlsRecord, ABC):
         :rtype: dict.
         """
         document_query = DocumentsSearch().by_entity(self)
-        documents = sorted_pids(document_query) if get_pids \
-            else document_query.count()
-        links = {
-            'documents': documents
-        }
+        documents = sorted_pids(document_query) if get_pids else document_query.count()
+        links = {"documents": documents}
         return {k: v for k, v in links.items() if v}
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
         cannot_delete = {}
         if links := self.get_links_to_me():
-            cannot_delete['links'] = links
+            cannot_delete["links"] = links
         return cannot_delete
 
     @property
@@ -100,23 +97,21 @@ class Entity(IlsRecord, ABC):
         """Get organisation pids related with this entity."""
         search = DocumentsSearch().by_entity(self)[:0]
         agg = A(
-            'terms',
-            field='organisation_pid',
+            "terms",
+            field="organisation_pid",
             min_doc_count=1,
-            size=current_app.config
-                            .get('RERO_ILS_AGGREGATION_SIZE', {})
-                            .get('organisations', 10)
+            size=current_app.config.get("RERO_ILS_AGGREGATION_SIZE", {}).get(
+                "organisations", 10
+            ),
         )
-        search.aggs.bucket('organisation', agg)
+        search.aggs.bucket("organisation", agg)
         results = search.execute()
-        return list({
-            result.key
-            for result in results.aggregations.organisation.buckets
-        })
+        return list(
+            {result.key for result in results.aggregations.organisation.buckets}
+        )
 
     def documents_pids(
-        self, with_subjects=True, with_subjects_imported=True,
-        with_genre_forms=True
+        self, with_subjects=True, with_subjects_imported=True, with_genre_forms=True
     ):
         """Get documents pids related to this entity.
 
@@ -132,13 +127,12 @@ class Entity(IlsRecord, ABC):
             self,
             subjects=with_subjects,
             imported_subjects=with_subjects_imported,
-            genre_forms=with_genre_forms
+            genre_forms=with_genre_forms,
         )
-        return [hit.pid for hit in search.source('pid').scan()]
+        return [hit.pid for hit in search.source("pid").scan()]
 
     def documents_ids(
-        self, with_subjects=True, with_subjects_imported=True,
-        with_genre_forms=True
+        self, with_subjects=True, with_subjects_imported=True, with_genre_forms=True
     ):
         """Get document ID's/UUID related to this entity.
 
@@ -150,10 +144,14 @@ class Entity(IlsRecord, ABC):
         :returns: document ID's/UUID related to this entity.
         :rtype: list<str>
         """
-        search = DocumentsSearch().by_entity(
-            self,
-            subjects=with_subjects,
-            imported_subjects=with_subjects_imported,
-            genre_forms=with_genre_forms
-        ).source(False)
+        search = (
+            DocumentsSearch()
+            .by_entity(
+                self,
+                subjects=with_subjects,
+                imported_subjects=with_subjects_imported,
+                genre_forms=with_genre_forms,
+            )
+            .source(False)
+        )
         return [hit.meta.id for hit in search.scan()]

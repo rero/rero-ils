@@ -23,7 +23,7 @@ import jsonresolver
 from ..jsonresolver import resolve_json_refs
 
 
-@jsonresolver.route('/api/items/<pid>', host='bib.rero.ch')
+@jsonresolver.route("/api/items/<pid>", host="bib.rero.ch")
 def item_resolver(pid):
     """Item resolver."""
-    return resolve_json_refs('item', pid)
+    return resolve_json_refs("item", pid)

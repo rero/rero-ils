@@ -48,28 +48,41 @@ def search_responsify(serializer, mimetype):
     :param mimetype: MIME type of response.
     :returns: Function that generates a record HTTP response.
     """
-    def view(pid_fetcher, search_result, code=200, headers=None, links=None,
-             item_links_factory=None):
+
+    def view(
+        pid_fetcher,
+        search_result,
+        code=200,
+        headers=None,
+        links=None,
+        item_links_factory=None,
+    ):
         # Check if the serializer implement a 'reset' function. If yes, then
         # call this function before perform serialization.
-        if (reset := getattr(serializer, 'reset', None)) and callable(reset):
+        if (reset := getattr(serializer, "reset", None)) and callable(reset):
             reset()
         response = current_app.response_class(
             serializer.serialize_search(
-                pid_fetcher, search_result,
-                links=links, item_links_factory=item_links_factory),
-            mimetype=mimetype)
+                pid_fetcher,
+                search_result,
+                links=links,
+                item_links_factory=item_links_factory,
+            ),
+            mimetype=mimetype,
+        )
         response.status_code = code
         if headers is not None:
             response.headers.extend(headers)
         if links is not None:
             add_link_header(response, links)
         return response
+
     return view
 
 
-def search_responsify_file(serializer, mimetype, file_extension,
-                           file_prefix=None, file_suffix=None):
+def search_responsify_file(
+    serializer, mimetype, file_extension, file_prefix=None, file_suffix=None
+):
     """Create a Records-REST search result response serializer.
 
     :param serializer: Serializer instance.
@@ -78,26 +91,34 @@ def search_responsify_file(serializer, mimetype, file_extension,
     :returns: Function that generates a record HTTP response.
     """
 
-    def view(pid_fetcher, search_result, code=200, headers=None, links=None,
-             item_links_factory=None):
+    def view(
+        pid_fetcher,
+        search_result,
+        code=200,
+        headers=None,
+        links=None,
+        item_links_factory=None,
+    ):
         response = current_app.response_class(
             serializer.serialize_search(
-                pid_fetcher, search_result,
+                pid_fetcher,
+                search_result,
                 links=links,
-                item_links_factory=item_links_factory
+                item_links_factory=item_links_factory,
             ),
-            mimetype=mimetype
+            mimetype=mimetype,
         )
         response.status_code = code
         if headers is not None:
             response.headers.extend(headers)
 
-        tstamp = datetime.today().strftime('%Y%m%d')
+        tstamp = datetime.now().strftime("%Y%m%d")
         parts = filter(None, [file_prefix, tstamp, file_suffix])
-        filename = '-'.join(parts) + '.' + file_extension
-        if not response.headers.get('Content-Disposition'):
-            response.headers['Content-Disposition'] = \
+        filename = "-".join(parts) + "." + file_extension
+        if not response.headers.get("Content-Disposition"):
+            response.headers["Content-Disposition"] = (
                 f'attachment; filename="{filename}"'
+            )
 
         if links is not None:
             add_link_header(response, links)
@@ -107,8 +128,9 @@ def search_responsify_file(serializer, mimetype, file_extension,
     return view
 
 
-def record_responsify_file(serializer, mimetype, file_extension,
-                           file_prefix=None, file_suffix=None):
+def record_responsify_file(
+    serializer, mimetype, file_extension, file_prefix=None, file_suffix=None
+):
     """Create a Records-REST search result response serializer.
 
     :param serializer: Serializer instance.
@@ -116,10 +138,12 @@ def record_responsify_file(serializer, mimetype, file_extension,
     :param file_extension: File extension.
     :returns: Function that generates a record HTTP response.
     """
+
     def view(pid, record, code=200, headers=None, links_factory=None):
         response = current_app.response_class(
             serializer.serialize(pid, record, links_factory=links_factory),
-            mimetype=mimetype)
+            mimetype=mimetype,
+        )
         response.status_code = code
         response.cache_control.no_cache = True
         response.set_etag(str(record.revision_id))
@@ -127,12 +151,13 @@ def record_responsify_file(serializer, mimetype, file_extension,
         if headers is not None:
             response.headers.extend(headers)
 
-        tstamp = datetime.today().strftime('%Y%m%d')
+        tstamp = datetime.now().strftime("%Y%m%d")
         parts = filter(None, [file_prefix, tstamp, file_suffix])
-        filename = '-'.join(parts) + '.' + file_extension
-        if not response.headers.get('Content-Disposition'):
-            response.headers['Content-Disposition'] = \
+        filename = "-".join(parts) + "." + file_extension
+        if not response.headers.get("Content-Disposition"):
+            response.headers["Content-Disposition"] = (
                 f'attachment; filename="{filename}"'
+            )
 
         if links_factory is not None:
             add_link_header(response, links_factory(pid))

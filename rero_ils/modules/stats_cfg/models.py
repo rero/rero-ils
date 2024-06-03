@@ -26,16 +26,17 @@ from invenio_records.models import RecordMetadataBase
 class StatCfgIdentifier(RecordIdentifier):
     """Sequence generator for the statistics configuration identifiers."""
 
-    __tablename__ = 'stat_cfg_id'
-    __mapper_args__ = {'concrete': True}
+    __tablename__ = "stat_cfg_id"
+    __mapper_args__ = {"concrete": True}
 
     recid = db.Column(
-        db.BigInteger().with_variant(db.Integer, 'sqlite'),
-        primary_key=True, autoincrement=True,
+        db.BigInteger().with_variant(db.Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
     )
 
 
 class StatCfgMetadata(db.Model, RecordMetadataBase):
     """Statistics configuration record metadata."""
 
-    __tablename__ = 'stat_cfg_metadata'
+    __tablename__ = "stat_cfg_metadata"

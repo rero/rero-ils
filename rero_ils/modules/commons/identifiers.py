@@ -48,8 +48,16 @@ from copy import deepcopy
 from dataclasses import dataclass, field
 from typing import Optional, TypeVar
 
-from isbnlib import NotValidISBNError, canonical, ean13, is_isbn10, mask, \
-    notisbn, to_isbn10, to_isbn13
+from isbnlib import (
+    NotValidISBNError,
+    canonical,
+    ean13,
+    is_isbn10,
+    mask,
+    notisbn,
+    to_isbn10,
+    to_isbn13,
+)
 
 
 class InvalidIdentifierException(Exception):
@@ -59,44 +67,39 @@ class InvalidIdentifierException(Exception):
 class IdentifierType:
     """Type of identifier."""
 
-    AUDIO_ISSUE_NUMBER = 'bf:AudioIssueNumber'
-    DOI = 'bf:Doi'
-    EAN = 'bf:Ean'
-    GTIN_14 = 'bf:Gtin14Number'
-    IDENTIFIER = 'bf:Identifier'
-    ISAN = 'bf:Isan'
-    ISBN = 'bf:Isbn'
-    ISMN = 'bf:Ismn'
-    ISRC = 'bf:Isrc'
-    ISSN = 'bf:Issn'
-    L_ISSN = 'bf:IssnL'
-    LCCN = 'bf:Lccn'
-    LOCAL = 'bf:Local'
-    MATRIX_NUMBER = 'bf:MatrixNumber'
-    MUSIC_DISTRIBUTOR_NUMBER = 'bf:MusicDistributorNumber'
-    MUSIC_PLATE = 'bf:MusicPlate'
-    MUSIC_PUBLISHER_NUMBER = 'bf:MusicPublisherNumber'
-    PUBLISHER_NUMBER = 'bf:PublisherNumber'
-    UPC = 'bf:Upc'
-    URN = 'bf:Urn'
-    VIDEO_RECORDING_NUMBER = 'bf:VideoRecordingNumber'
-    URI = 'uri'
+    AUDIO_ISSUE_NUMBER = "bf:AudioIssueNumber"
+    DOI = "bf:Doi"
+    EAN = "bf:Ean"
+    GTIN_14 = "bf:Gtin14Number"
+    IDENTIFIER = "bf:Identifier"
+    ISAN = "bf:Isan"
+    ISBN = "bf:Isbn"
+    ISMN = "bf:Ismn"
+    ISRC = "bf:Isrc"
+    ISSN = "bf:Issn"
+    L_ISSN = "bf:IssnL"
+    LCCN = "bf:Lccn"
+    LOCAL = "bf:Local"
+    MATRIX_NUMBER = "bf:MatrixNumber"
+    MUSIC_DISTRIBUTOR_NUMBER = "bf:MusicDistributorNumber"
+    MUSIC_PLATE = "bf:MusicPlate"
+    MUSIC_PUBLISHER_NUMBER = "bf:MusicPublisherNumber"
+    PUBLISHER_NUMBER = "bf:PublisherNumber"
+    UPC = "bf:Upc"
+    URN = "bf:Urn"
+    VIDEO_RECORDING_NUMBER = "bf:VideoRecordingNumber"
+    URI = "uri"
 
 
 class IdentifierStatus:
     """Status of identifier."""
 
     UNDEFINED = None
-    INVALID = 'invalid'
-    CANCELLED = 'cancelled'
-    INVALID_OR_CANCELLED = 'invalid or cancelled'
+    INVALID = "invalid"
+    CANCELLED = "cancelled"
+    INVALID_OR_CANCELLED = "invalid or cancelled"
 
-    ALL = [
-        UNDEFINED,
-        INVALID,
-        CANCELLED,
-        INVALID_OR_CANCELLED
-    ]
+    ALL = [UNDEFINED, INVALID, CANCELLED, INVALID_OR_CANCELLED]
 
 
 # =============================================================================
@@ -106,7 +109,7 @@ class IdentifierStatus:
 #    * `ISBNIdentifier` class represent any ISBN identifier (isbn-10, isbn-13)
 #    * `EANIdentifier` class to represent an isbn without any hyphens
 # =============================================================================
-DocIdentifier = TypeVar('DocIdentifier')
+DocIdentifier = TypeVar("DocIdentifier")
 
 
 @dataclass(repr=False)
@@ -124,7 +127,7 @@ class Identifier:
         """Post initialization dataclass magic function."""
         if self.status == IdentifierStatus.UNDEFINED and not self.is_valid():
             self.status = IdentifierStatus.INVALID
-        if hasattr(self, '__type__'):
+        if hasattr(self, "__type__"):
             self.type = self.__type__
         if not self.type:
             raise InvalidIdentifierException("'type' is a required property.")
@@ -146,7 +149,7 @@ class Identifier:
     def to_dict(self):
         """Expose identifier as a dictionary."""
         data = self.__dict__
-        data.pop('__type__', None)
+        data.pop("__type__", None)
         return data
 
     def normalize(self) -> str:
@@ -169,12 +172,12 @@ class Identifier:
         """Dump this identifier."""
         status = self.status if self.is_valid() else IdentifierStatus.INVALID
         data = {
-            'type': self.type,
-            'value': self.normalize(),
-            'note': self.note,
-            'qualifier': self.qualifier,
-            'source': self.source,
-            'status': status
+            "type": self.type,
+            "value": self.normalize(),
+            "note": self.note,
+            "qualifier": self.qualifier,
+            "source": self.source,
+            "status": status,
         }
         return {k: v for k, v in data.items() if v}
 
@@ -186,7 +189,7 @@ class Identifier:
                              representation.
         :return: the string representation of the identifier.
         """
-        render_class = kwargs.pop('render_class', DefaultIdentifierRenderer())
+        render_class = kwargs.pop("render_class", DefaultIdentifierRenderer())
         return render_class.render(self, **kwargs)
 
     def get_alternatives(self) -> list[DocIdentifier]:
@@ -242,6 +245,7 @@ class EANIdentifier(Identifier):
     def normalize(self) -> str:
         """Get the normalized value for this EAN."""
         return canonical(self.value) or self.value
+
     __str__ = normalize
 
     def is_valid(self) -> bool:
@@ -273,6 +277,7 @@ class EANIdentifier(Identifier):
 #   >> xxx, t.2
 # =============================================================================
 
+
 class IdentifierRenderer(ABC):
     """Identifier renderer class."""
 
@@ -297,7 +302,7 @@ class QualifierIdentifierRenderer(IdentifierRenderer):
         """Get the string representation of an identifier."""
         output = str(identifier)
         if identifier.qualifier:
-            output += f', {identifier.qualifier}'
+            output += f", {identifier.qualifier}"
         return output
 
 
@@ -305,12 +310,13 @@ class QualifierIdentifierRenderer(IdentifierRenderer):
 #     FACTORY
 # =============================================================================
 
+
 class IdentifierFactory:
     """Factory to build `Identifier` object from dictionary."""
 
     _mapping_table = {
         IdentifierType.ISBN: ISBNIdentifier,
-        IdentifierType.EAN: EANIdentifier
+        IdentifierType.EAN: EANIdentifier,
     }
 
     @staticmethod
@@ -320,9 +326,9 @@ class IdentifierFactory:
         :param data: the dictionary representing the identifier.
         :return the created Identifier.
         """
-        if 'type' not in data:
+        if "type" not in data:
             raise AttributeError("'type' is a required property.")
 
-        if data['type'] in IdentifierFactory._mapping_table:
-            return IdentifierFactory._mapping_table[data['type']](**data)
+        if data["type"] in IdentifierFactory._mapping_table:
+            return IdentifierFactory._mapping_table[data["type"]](**data)
         return Identifier(**data)

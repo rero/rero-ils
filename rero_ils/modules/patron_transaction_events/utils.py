@@ -21,8 +21,7 @@ from elasticsearch_dsl import Q
 from flask import request
 from invenio_records_rest.utils import make_comma_list_a_list
 
-from rero_ils.modules.patron_transaction_events.models import \
-    PatronTransactionEventType
+from rero_ils.modules.patron_transaction_events.models import PatronTransactionEventType
 
 
 def total_facet_filter_builder(search, urlkwargs):
@@ -38,11 +37,11 @@ def total_facet_filter_builder(search, urlkwargs):
     :param urlkwargs: possible url argument from query string (could be empty).
     :return the JSON filter configuration to apply on the facet.
     """
-    facet_filter = Q('term', type=PatronTransactionEventType.PAYMENT)
-    searched_subtypes = make_comma_list_a_list(request.args.getlist('subtype'))
+    facet_filter = Q("term", type=PatronTransactionEventType.PAYMENT)
+    searched_subtypes = make_comma_list_a_list(request.args.getlist("subtype"))
     if searched_subtypes := [sub.strip() for sub in searched_subtypes]:
-        subtypes_query = Q('match_none')  # Initial OR query condition
+        subtypes_query = Q("match_none")  # Initial OR query condition
         for subtype in searched_subtypes:
-            subtypes_query |= Q('term', subtype=subtype)
+            subtypes_query |= Q("term", subtype=subtype)
         facet_filter &= subtypes_query
     return facet_filter.to_dict()

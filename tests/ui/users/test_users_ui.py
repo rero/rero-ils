@@ -24,10 +24,10 @@ from invenio_accounts.testutils import login_user_via_session
 def test_users_not_authorized_access(client):
     """Test profile or change password if the user is not logged."""
 
-    res = client.get(url_for('users.profile', viewcode='global'))
+    res = client.get(url_for("users.profile", viewcode="global"))
     assert res.status_code == 401
 
-    res = client.get(url_for('users.password', viewcode='global'))
+    res = client.get(url_for("users.password", viewcode="global"))
     assert res.status_code == 401
 
 
@@ -35,20 +35,20 @@ def test_users_authorized_access(client, patron_martigny):
     """Test profile and change password if the user is logged."""
 
     login_user_via_session(client, patron_martigny.user)
-    res = client.get(url_for('users.profile', viewcode='global'))
+    res = client.get(url_for("users.profile", viewcode="global"))
     assert res.status_code == 200
 
-    res = client.get(url_for('users.password', viewcode='global'))
+    res = client.get(url_for("users.password", viewcode="global"))
     assert res.status_code == 200
 
 
 def test_users_readonly_not_authorized_access(app, client, patron_martigny):
     """Test profile and change password with readonly config."""
 
-    app.config['RERO_PUBLIC_USERPROFILES_READONLY'] = True
+    app.config["RERO_PUBLIC_USERPROFILES_READONLY"] = True
     login_user_via_session(client, patron_martigny.user)
-    res = client.get(url_for('users.profile', viewcode='global'))
+    res = client.get(url_for("users.profile", viewcode="global"))
     assert res.status_code == 401
 
-    res = client.get(url_for('users.password', viewcode='global'))
+    res = client.get(url_for("users.password", viewcode="global"))
     assert res.status_code == 401

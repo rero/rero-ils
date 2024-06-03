@@ -22,14 +22,14 @@ from flask import current_app
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 
-@jsonresolver.route('/api/acq_invoices/<pid>', host='bib.rero.ch')
+@jsonresolver.route("/api/acq_invoices/<pid>", host="bib.rero.ch")
 def acquisition_invoice_resolver(pid):
     """Resolver for acq_invoice record."""
-    persistent_id = PersistentIdentifier.get('acin', pid)
+    persistent_id = PersistentIdentifier.get("acin", pid)
     if persistent_id.status == PIDStatus.REGISTERED:
         return dict(pid=persistent_id.pid_value)
     current_app.logger.error(
-        'Acquisition invoice resolver error: /api/acq_invoices/'
-        f'{pid} {persistent_id}'
+        "Acquisition invoice resolver error: /api/acq_invoices/"
+        f"{pid} {persistent_id}"
     )
-    raise Exception('unable to resolve')
+    raise Exception("unable to resolve")

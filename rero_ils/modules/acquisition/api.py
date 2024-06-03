@@ -28,8 +28,8 @@ class AcquisitionIlsRecord(IlsRecord, ABC):
 
     def __str__(self):
         """Human-readable record string representation."""
-        output = f'[{self.provider.pid_type}#{self.pid}]'
-        if 'name' in self:
+        output = f"[{self.provider.pid_type}#{self.pid}]"
+        if "name" in self:
             output += f" {self['name']}"
         return output
 

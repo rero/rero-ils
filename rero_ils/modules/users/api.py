@@ -34,47 +34,43 @@ from jsonschema.exceptions import ValidationError
 from sqlalchemy import func
 from werkzeug.local import LocalProxy
 
+from ...utils import remove_empties_from_dict
 from ..api import ils_record_format_checker
 from ..utils import PasswordValidatorException, get_schema_for_resource
-from ...utils import remove_empties_from_dict
 
-_records_state = LocalProxy(lambda: current_app.extensions['invenio-records'])
+_records_state = LocalProxy(lambda: current_app.extensions["invenio-records"])
 
 
 def get_profile_countries():
     """Get country list from the jsonschema."""
-    schema = current_jsonschemas.get_schema('common/countries-v0.0.1.json')
-    options = schema['country']['form']['options']
-    return [
-        (option.get('value'), _((option.get('label')))) for option in options
-    ]
+    schema = current_jsonschemas.get_schema("common/countries-v0.0.1.json")
+    options = schema["country"]["form"]["options"]
+    return [(option.get("value"), _((option.get("label")))) for option in options]
 
 
 def get_readonly_profile_fields() -> list[str]:
     """Disallow to edit some fields for patrons."""
-    if current_user.has_role('patron'):
-        return ['first_name', 'last_name', 'birth_date']
-    return ['keep_history']
+    if current_user.has_role("patron"):
+        return ["first_name", "last_name", "birth_date"]
+    return ["keep_history"]
 
 
 def password_generator():
     """Password generator."""
-    generator = obj_or_import_string(
-        current_app.config['RERO_ILS_PASSWORD_GENERATOR'])
+    generator = obj_or_import_string(current_app.config["RERO_ILS_PASSWORD_GENERATOR"])
     return generator(
-        current_app.config['RERO_ILS_PASSWORD_MIN_LENGTH'],
-        current_app.config['RERO_ILS_PASSWORD_SPECIAL_CHAR']
+        current_app.config["RERO_ILS_PASSWORD_MIN_LENGTH"],
+        current_app.config["RERO_ILS_PASSWORD_SPECIAL_CHAR"],
     )
 
 
 def password_validator(password):
     """Password validator."""
-    validator = obj_or_import_string(
-        current_app.config['RERO_ILS_PASSWORD_VALIDATOR'])
+    validator = obj_or_import_string(current_app.config["RERO_ILS_PASSWORD_VALIDATOR"])
     return validator(
         password,
-        current_app.config['RERO_ILS_PASSWORD_MIN_LENGTH'],
-        current_app.config['RERO_ILS_PASSWORD_SPECIAL_CHAR']
+        current_app.config["RERO_ILS_PASSWORD_MIN_LENGTH"],
+        current_app.config["RERO_ILS_PASSWORD_SPECIAL_CHAR"],
     )
 
 
@@ -82,13 +78,21 @@ class User(object):
     """User API."""
 
     profile_fields = [
-        'first_name', 'last_name', 'street', 'postal_code', 'gender',
-        'city', 'birth_date', 'home_phone', 'business_phone',
-        'mobile_phone', 'other_phone', 'keep_history', 'country'
+        "first_name",
+        "last_name",
+        "street",
+        "postal_code",
+        "gender",
+        "city",
+        "birth_date",
+        "home_phone",
+        "business_phone",
+        "mobile_phone",
+        "other_phone",
+        "keep_history",
+        "country",
     ]
-    user_fields = [
-        'email', 'username', 'password'
-    ]
+    user_fields = ["email", "username", "password"]
 
     def __init__(self, user):
         """User class initializer."""
@@ -109,28 +113,27 @@ class User(object):
         """
         with db.session.begin_nested():
             # Generate password if not present
-            profile = {
-                k: v for k, v in data.items()
-                if k in cls.profile_fields
-            }
+            profile = {k: v for k, v in data.items() if k in cls.profile_fields}
             if profile:
                 cls._validate_profile(profile)
             cls._validate_data(data=data)
-            password = data.get('password', password_generator())
+            password = data.get("password", password_generator())
             cls._validate_password(password=password)
             user = BaseUser(
-                username=data.get('username'),
+                username=data.get("username"),
                 password=hash_password(password),
-                user_profile=profile, active=True)
+                user_profile=profile,
+                active=True,
+            )
             db.session.add(user)
             # send the reset password notification for new users
-            if email := data.get('email'):
+            if email := data.get("email"):
                 user.email = email
             else:
-                user.domain = 'unknown'
+                user.domain = "unknown"
             db.session.merge(user)
         db.session.commit()
-        if data.get('email') and send_email:
+        if data.get("email") and send_email:
             send_reset_password_instructions(user)
         confirm_user(user)
         return cls(user)
@@ -141,10 +144,11 @@ class User(object):
         :param data - dictionary representing a user record to update
         """
         from ..patrons.listener import update_from_profile
+
         profile = {k: v for k, v in data.items() if k in self.profile_fields}
         if profile:
             self._validate_profile(profile)
-        if password := data.get('password'):
+        if password := data.get("password"):
             self._validate_password(password=password)
         self._validate_data(data)
 
@@ -152,8 +156,8 @@ class User(object):
         with db.session.begin_nested():
             if password:
                 user.password = hash_password(password)
-            user.username = data.get('username')
-            if email := data.get('email'):
+            user.username = data.get("username")
+            if email := data.get("email"):
                 user.email = email
             else:
                 user._email = None
@@ -161,29 +165,27 @@ class User(object):
             db.session.merge(user)
         db.session.commit()
         confirm_user(user)
-        update_from_profile('user', self.user)
+        update_from_profile("user", self.user)
         return self
 
     @classmethod
     def _validate_data(cls, data):
         """Additional user record validations."""
-        if not data.get('email') and not data.get('username'):
-            raise ValidationError(
-                _('A username or email is required.')
-            )
+        if not data.get("email") and not data.get("username"):
+            raise ValidationError(_("A username or email is required."))
 
     @classmethod
     def _validate_profile(cls, profile, **kwargs):
         """Validate user record against schema."""
-        schema = get_schema_for_resource('user')
-        profile['$schema'] = schema
+        schema = get_schema_for_resource("user")
+        profile["$schema"] = schema
         _records_state.validate(
             profile,
             schema,
             format_checker=ils_record_format_checker,
-            cls=Draft4Validator
+            cls=Draft4Validator,
         )
-        profile.pop('$schema')
+        profile.pop("$schema")
 
     @classmethod
     def _validate_password(cls, password):
@@ -212,17 +214,15 @@ class User(object):
         :return: the user record
         """
         user = BaseUser.query.filter_by(id=user_id).first()
-        if not user:
-            return None
-        return cls(user)
+        return cls(user) if user else None
 
     def dumps(self):
         """Return pure Python dictionary with record metadata."""
-        url = url_for('api_users.users_item', _external=True, id=self.user.id)
+        url = url_for("api_users.users_item", _external=True, id=self.user.id)
         return {
-            'id': self.user.id,
-            'links': {'self': url},
-            'metadata': self.dumps_metadata(True)
+            "id": self.user.id,
+            "links": {"self": url},
+            "metadata": self.dumps_metadata(True),
         }
 
     def dumps_metadata(self, dump_patron: bool = False) -> dict:
@@ -232,24 +232,23 @@ class User(object):
         :return a dictionary with all dump user metadata.
         """
         from ..patrons.api import Patron
-        metadata = {
-            'roles': [r.name for r in self.user.roles]
-        }
+
+        metadata = {"roles": [r.name for r in self.user.roles]}
         if user_profile := self.user.user_profile:
-            metadata.update(user_profile)
+            metadata |= user_profile
         if self.user.email:
-            metadata['email'] = self.user.email
+            metadata["email"] = self.user.email
         if self.user.username:
-            metadata['username'] = self.user.username
+            metadata["username"] = self.user.username
         if dump_patron:
             for patron in Patron.get_patrons_by_user(self.user):
-                metadata.setdefault('patrons', []).append({
-                    'pid': patron.pid,
-                    'roles': patron.get('roles'),
-                    'organisation': {
-                        'pid': patron.organisation_pid
+                metadata.setdefault("patrons", []).append(
+                    {
+                        "pid": patron.pid,
+                        "roles": patron.get("roles"),
+                        "organisation": {"pid": patron.organisation_pid},
                     }
-                })
+                )
         return remove_empties_from_dict(metadata)
 
     @classmethod
@@ -270,10 +269,9 @@ class User(object):
         :return: the user record
         """
         user = BaseUser.query.filter(
-            func.lower(BaseUser.email) == func.lower(email)).first()
-        if not user:
-            return None
-        return cls(user)
+            func.lower(BaseUser.email) == func.lower(email)
+        ).first()
+        return cls(user) if user else None
 
     @classmethod
     def get_by_username_or_email(cls, username_or_email):

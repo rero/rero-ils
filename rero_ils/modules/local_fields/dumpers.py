@@ -31,7 +31,7 @@ class ElasticSearchDumper(InvenioRecordsDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         output = {
-            'organisation_pid': record.organisation_pid,
-            'fields': record.get('fields', {})
+            "organisation_pid": record.organisation_pid,
+            "fields": record.get("fields", {}),
         }
         return data | output

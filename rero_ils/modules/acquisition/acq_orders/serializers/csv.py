@@ -25,10 +25,8 @@ from invenio_i18n.ext import current_i18n
 from invenio_records_rest.serializers.csv import CSVSerializer, Line
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccountsSearch
-from rero_ils.modules.acquisition.acq_order_lines.api import \
-    AcqOrderLinesSearch
-from rero_ils.modules.acquisition.acq_receipt_lines.api import \
-    AcqReceiptLinesSearch
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLinesSearch
+from rero_ils.modules.acquisition.acq_receipt_lines.api import AcqReceiptLinesSearch
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceiptsSearch
 from rero_ils.modules.commons.identifiers import IdentifierStatus
 from rero_ils.modules.documents.api import DocumentsSearch
@@ -37,16 +35,35 @@ from rero_ils.modules.vendors.api import VendorsSearch
 from rero_ils.utils import get_i18n_supported_languages
 
 creator_role_filter = [
-    'rsp', 'cre', 'enj', 'dgs', 'prg', 'dsr', 'ctg', 'cmp', 'inv', 'com',
-    'pht', 'ivr', 'art', 'ive', 'chr', 'aut', 'arc', 'fmk', 'pra', 'csl'
+    "rsp",
+    "cre",
+    "enj",
+    "dgs",
+    "prg",
+    "dsr",
+    "ctg",
+    "cmp",
+    "inv",
+    "com",
+    "pht",
+    "ivr",
+    "art",
+    "ive",
+    "chr",
+    "aut",
+    "arc",
+    "fmk",
+    "pra",
+    "csl",
 ]
 
 
 class AcqOrderCSVSerializer(CSVSerializer):
     """Mixin serializing records as CSV."""
 
-    def serialize_search(self, pid_fetcher, search_result, links=None,
-                         item_links_factory=None):
+    def serialize_search(
+        self, pid_fetcher, search_result, links=None, item_links_factory=None
+    ):
         """Serialize a search result.
 
         :param pid_fetcher: Persistent identifier fetcher.
@@ -61,14 +78,14 @@ class AcqOrderCSVSerializer(CSVSerializer):
         # language
         language = request.args.get("lang", current_i18n.language)
         if not language or language not in get_i18n_supported_languages():
-            language = current_app.config.get('BABEL_DEFAULT_LANGUAGE', 'en')
+            language = current_app.config.get("BABEL_DEFAULT_LANGUAGE", "en")
 
         order_fields = {
-            'order_pid': 'pid',
-            'order_reference': 'reference',
-            'order_date': 'order_date',
-            'order_type': 'type',
-            'order_status': 'status'
+            "order_pid": "pid",
+            "order_reference": "reference",
+            "order_date": "order_date",
+            "order_type": "type",
+            "order_status": "status",
         }
 
         def generate_csv():
@@ -82,8 +99,8 @@ class AcqOrderCSVSerializer(CSVSerializer):
                 pids = []
                 for result in results:
                     data = result.to_dict()
-                    pids.append(data['pid'])
-                    records[data['pid']] = data
+                    pids.append(data["pid"])
+                    records[data["pid"]] = data
                     if len(records) % chunk_size == 0:
                         yield pids, records
                         pids = []
@@ -93,14 +110,20 @@ class AcqOrderCSVSerializer(CSVSerializer):
             def get_linked_records_by_order_pids(order_pids):
                 """Get linked resources for the given order pids."""
                 order_line_fields = [
-                    'pid', 'quantity', 'amount', 'total_amount', 'status',
-                    'priority', 'notes', 'document', 'acq_account',
-                    'acq_order'
+                    "pid",
+                    "quantity",
+                    "amount",
+                    "total_amount",
+                    "status",
+                    "priority",
+                    "notes",
+                    "document",
+                    "acq_account",
+                    "acq_order",
                 ]
-                records = AcqOrderLinesSearch() \
-                    .get_records_by_terms(terms=order_pids,
-                                          key='acq_order__pid',
-                                          fields=order_line_fields)
+                records = AcqOrderLinesSearch().get_records_by_terms(
+                    terms=order_pids, key="acq_order__pid", fields=order_line_fields
+                )
                 order_lines = {}
                 doc_pids = []
                 account_pids = []
@@ -112,48 +135,58 @@ class AcqOrderCSVSerializer(CSVSerializer):
                 docs = get_documents_by_pids(doc_pids)
                 accounts = get_accounts_by_pids(account_pids)
                 receipt_lines = get_receipt_lines_by_order_line_pids(
-                    list(order_lines.keys()))
+                    list(order_lines.keys())
+                )
                 return order_lines, docs, accounts, receipt_lines
 
             def get_documents_by_pids(doc_pids):
                 """Get documents for the given pids."""
                 fields = [
-                    'pid', 'contribution', 'editionStatement', 'identifiedBy',
-                    'provisionActivity', 'seriesStatement', 'title'
+                    "pid",
+                    "contribution",
+                    "editionStatement",
+                    "identifiedBy",
+                    "provisionActivity",
+                    "seriesStatement",
+                    "title",
                 ]
-                records = DocumentsSearch() \
-                    .get_records_by_terms(terms=doc_pids, fields=fields)
+                records = DocumentsSearch().get_records_by_terms(
+                    terms=doc_pids, fields=fields
+                )
                 return {
                     record.pid: OrderDocumentFormatter(
-                        record=record.to_dict(),
-                        language=language).format()
+                        record=record.to_dict(), language=language
+                    ).format()
                     for record in records
                 }
 
             def get_accounts_by_pids(account_pids):
                 """Get accounts for the given pids."""
-                fields = ['pid', 'name', 'number']
-                return AcqAccountsSearch()\
-                    .get_records_by_terms(terms=account_pids, fields=fields,
-                                          as_dict=True)
+                fields = ["pid", "name", "number"]
+                return AcqAccountsSearch().get_records_by_terms(
+                    terms=account_pids, fields=fields, as_dict=True
+                )
 
             def get_receipts_by_order_pids(order_pids):
                 """Get receipts for the given pids."""
-                fields = ['pid', 'reference']
-                return AcqReceiptsSearch() \
-                    .get_records_by_terms(terms=order_pids,
-                                          key='acq_order__pid',
-                                          fields=fields,
-                                          as_dict=True)
+                fields = ["pid", "reference"]
+                return AcqReceiptsSearch().get_records_by_terms(
+                    terms=order_pids, key="acq_order__pid", fields=fields, as_dict=True
+                )
 
             def get_receipt_lines_by_order_line_pids(order_lines_pids):
                 """Get receipts for the given order lines pids."""
-                fields = ['pid', 'quantity', 'receipt_date', 'total_amount',
-                          'acq_order_line', 'acq_receipt']
-                receipt_line_results = AcqReceiptLinesSearch() \
-                    .get_records_by_terms(terms=order_lines_pids,
-                                          key='acq_order_line__pid',
-                                          fields=fields)
+                fields = [
+                    "pid",
+                    "quantity",
+                    "receipt_date",
+                    "total_amount",
+                    "acq_order_line",
+                    "acq_receipt",
+                ]
+                receipt_line_results = AcqReceiptLinesSearch().get_records_by_terms(
+                    terms=order_lines_pids, key="acq_order_line__pid", fields=fields
+                )
                 # organize receipt lines by order line pid
                 receipt_lines = {}
                 for record in receipt_line_results:
@@ -165,100 +198,101 @@ class AcqOrderCSVSerializer(CSVSerializer):
 
             def get_vendors_by_pids(vendor_pids):
                 """Get vendors for the given pids."""
-                fields = ['pid', 'name']
-                return VendorsSearch() \
-                    .get_records_by_terms(terms=vendor_pids, fields=fields,
-                                          as_dict=True)
+                fields = ["pid", "name"]
+                return VendorsSearch().get_records_by_terms(
+                    terms=vendor_pids, fields=fields, as_dict=True
+                )
 
             headers = dict.fromkeys(self.csv_included_fields)
 
             # write the CSV output in memory
             line = Line()
-            writer = csv.DictWriter(line,
-                                    quoting=csv.QUOTE_ALL,
-                                    fieldnames=headers)
+            writer = csv.DictWriter(line, quoting=csv.QUOTE_ALL, fieldnames=headers)
             writer.writeheader()
             yield line.read()
 
             for pids, order_batch_results in batch(search_result):
-                order_lines, documents, accounts, receipt_lines = \
+                order_lines, documents, accounts, receipt_lines = (
                     get_linked_records_by_order_pids(pids)
+                )
                 receipts = get_receipts_by_order_pids(pids)
                 # vendors
-                vendor_pids = [order['vendor']['pid']
-                               for order in order_batch_results.values()
-                               if order['vendor']['pid'] not in vendors]
+                vendor_pids = [
+                    order["vendor"]["pid"]
+                    for order in order_batch_results.values()
+                    if order["vendor"]["pid"] not in vendors
+                ]
                 vendors.update(get_vendors_by_pids(vendor_pids))
 
                 # prepare export based on order lines
                 for order_line_pid, order_line in order_lines.items():
-                    order_pid = order_line['acq_order']['pid']
+                    order_pid = order_line["acq_order"]["pid"]
                     order_data = order_batch_results[order_pid]
-                    vendor_data = vendors.get(order_data['vendor']['pid'])
+                    vendor_data = vendors.get(order_data["vendor"]["pid"])
 
-                    csv_data = {
-                        k: order_data.get(f) for k, f in order_fields.items()
-                    }
+                    csv_data = {k: order_data.get(f) for k, f in order_fields.items()}
 
                     # Update csv data with vendor
-                    csv_data['vendor_name'] = vendor_data.get('name')
+                    csv_data["vendor_name"] = vendor_data.get("name")
 
                     # extract order notes
                     order_notes = filter(
-                        lambda x: x.get('source').get('type') == 'acor',
-                        order_data.get('notes', {})
+                        lambda x: x.get("source").get("type") == "acor",
+                        order_data.get("notes", {}),
                     )
                     for note in order_notes:
-                        note_type = note.get('type')
-                        column_name = f'order_{note_type}'
-                        csv_data[column_name] = note.get('content')
+                        note_type = note.get("type")
+                        column_name = f"order_{note_type}"
+                        csv_data[column_name] = note.get("content")
 
                     # update csv data with document infos
-                    csv_data.update(
-                        documents.get(order_line['document']['pid']))
+                    csv_data.update(documents.get(order_line["document"]["pid"]))
 
                     # update csv data with account infos
-                    account = accounts.get(order_line['acq_account']['pid'])
-                    csv_data.update({
-                        'account_name': account.get('name'),
-                        'account_number': account.get('number'),
-                    })
+                    account = accounts.get(order_line["acq_account"]["pid"])
+                    csv_data.update(
+                        {
+                            "account_name": account.get("name"),
+                            "account_number": account.get("number"),
+                        }
+                    )
 
                     # update csv data with order line infos
-                    csv_data.update({
-                        'order_lines_priority': order_line.get('priority'),
-                        'order_lines_notes': ' | '.join(
-                            f"{note['type']}: {note['content']}"
-                            for note in order_line.get('notes', [])
-                        ),
-                        'order_lines_status': order_line['status'],
-                        'ordered_quantity': order_line['quantity'],
-                        'ordered_unit_price': order_line['amount'],
-                        'ordered_amount': order_line['total_amount'],
-
-                    })
+                    csv_data.update(
+                        {
+                            "order_lines_priority": order_line.get("priority"),
+                            "order_lines_notes": " | ".join(
+                                f"{note['type']}: {note['content']}"
+                                for note in order_line.get("notes", [])
+                            ),
+                            "order_lines_status": order_line["status"],
+                            "ordered_quantity": order_line["quantity"],
+                            "ordered_unit_price": order_line["amount"],
+                            "ordered_amount": order_line["total_amount"],
+                        }
+                    )
 
                     # if we are receipt lines, we need to iterate on
                     # and return csv row
                     receipt_line_data = receipt_lines.get(order_line_pid)
                     if receipt_line_data:
                         for receipt_line in receipt_line_data:
-                            receipt = receipts\
-                                .get(receipt_line['acq_receipt']['pid'])
-                            csv_data.update({
-                                'received_amount':
-                                    receipt_line['total_amount'],
-                                'received_quantity':
-                                    receipt_line['quantity'],
-                                'receipt_reference': receipt['reference'],
-                                'receipt_date': receipt_line['receipt_date'],
-                            })
+                            receipt = receipts.get(receipt_line["acq_receipt"]["pid"])
+                            csv_data.update(
+                                {
+                                    "received_amount": receipt_line["total_amount"],
+                                    "received_quantity": receipt_line["quantity"],
+                                    "receipt_reference": receipt["reference"],
+                                    "receipt_date": receipt_line["receipt_date"],
+                                }
+                            )
                             writer.writerow(self.process_dict(csv_data))
                             yield line.read()
                     else:
                         # write csv data
                         writer.writerow(self.process_dict(csv_data))
                         yield line.read()
+
         # return streamed content
         return stream_with_context(generate_csv())
 
@@ -267,25 +301,29 @@ class OrderDocumentFormatter(DocumentFormatter):
     """Document formatter class for orders."""
 
     # separator between multiple values
-    _separator = ' | '
+    _separator = " | "
 
     def __init__(self, record, language=None, _include_fields=None):
         """Initialize RIS formatter with the specific record."""
         super().__init__(record)
-        self._language = language or current_app\
-            .config.get('BABEL_DEFAULT_LANGUAGE', 'en')
+        self._language = language or current_app.config.get(
+            "BABEL_DEFAULT_LANGUAGE", "en"
+        )
         self._include_fields = _include_fields or [
-            'document_pid', 'document_creator', 'document_title',
-            'document_publisher', 'document_publication_year',
-            'document_edition_statement', 'document_series_statement',
-            'document_isbn'
+            "document_pid",
+            "document_creator",
+            "document_title",
+            "document_publisher",
+            "document_publication_year",
+            "document_edition_statement",
+            "document_series_statement",
+            "document_isbn",
         ]
 
     def post_process(self, data):
         """Post process data."""
         # join multiple values in data if needed."""
-        return self._separator.join(map(str, data)) \
-            if isinstance(data, list) else data
+        return self._separator.join(map(str, data)) if isinstance(data, list) else data
 
     def _get_isbn(self, states=None):
         """Return ISBN identifiers for the given states."""
