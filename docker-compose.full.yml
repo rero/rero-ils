@@ -21,7 +21,6 @@
 # There are also a celery worker backend, which can be monitored using Flower, and basics services such as
 # a Redis cache, a database, a message broker (RabbitMQ) and ElasticSearch.
 
-version: '2.3'
 services:
   # Load balancer
   lb:
