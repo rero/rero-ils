@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2024-05-28 12:59+0200\n"
+"POT-Creation-Date: 2024-06-06 16:53+0200\n"
 "PO-Revision-Date: 2024-02-23 17:02+0000\n"
 "Last-Translator: LievenSmets <lievensmets@me.com>\n"
 "Language: nl\n"
@@ -6389,14 +6389,37 @@ msgid ""
 "contributing role for the document."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:3
-msgid "Link to an agent"
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:14
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:13
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:13
+msgid "Link to an entity"
 msgstr ""
 
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:5
 msgid ""
 "Link to a remote or local entity of type person, family or corporate body"
 " (including conferences)."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:43
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:3
+#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:100
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:30
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:37
+msgid "Entity (textual)"
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:44
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:5
+msgid ""
+"Textual description of a person, family or corporate body (including "
+"conferences). Usually used temporarily until a link to an entity can be "
+"established."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:3
+msgid "Link to an agent"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_entity_link-v0.0.1.json:15
@@ -6427,13 +6450,6 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:3
 msgid "Agent (textual)"
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:5
-msgid ""
-"Textual description of a person, family or corporate body (including "
-"conferences). Usually used temporarily until a link to an entity can be "
-"established."
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:31
@@ -7714,13 +7730,8 @@ msgstr "Openvare opmerking"
 msgid "Example: Access only from the library"
 msgstr "Voorbeeld: Toegang alleen vanuit de bibliotheek"
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:3
-#: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:100
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:30
-msgid "Entity (textual)"
-msgstr ""
-
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:5
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:39
 msgid ""
 "Textual description of a topic, person, organisation (including "
 "conferences), place, temporal or work. Usually used temporarily until a "
@@ -7811,10 +7822,6 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:10
 msgid "Genre or form of the document."
-msgstr ""
-
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:13
-msgid "Link to an entity"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:15
@@ -8875,14 +8882,15 @@ msgid ""
 "work that is a subject of the document."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:3
-msgid "Link to a subject"
-msgstr ""
-
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:15
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:5
 msgid ""
 "Link to a remote or local entity of type topic, person, organisation "
 "(including conferences), place, temporal or work."
+msgstr ""
+
+#: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:3
+msgid "Link to a subject"
 msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:29
