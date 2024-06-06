@@ -237,7 +237,7 @@ info_msg "Delete invenio_circulations index"
 eval ${PREFIX} invenio index delete loans-loan-v1.0.0 --force --yes-i-know
 
 info_msg "Initialize files location to ${FILES_PATH}."
-eval rm -fr ${FILES_PATH}
+eval rm -fr ${FILES_PATH}/*
 eval ${PREFIX} invenio files location create --default fixtures ${FILES_PATH}
 
 if ${ES_MAPPING}

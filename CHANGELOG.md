@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.22.1](https://github.com/rero/rero-ils/tree/v1.22.1) (2024-06-06)
+
+**Fixes:**
+* fix(editor): resolve contribution and subject required subfields [\#3696](https://github.com/rero/rero-ils/pull/3696) (by @Garfield-fr)
+
 ## [v1.22.0](https://github.com/rero/rero-ils/tree/v1.22.0) (2024-05-16)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.21.0...v1.22.0)
