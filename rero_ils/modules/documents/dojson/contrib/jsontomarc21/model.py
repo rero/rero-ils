@@ -355,27 +355,30 @@ class ToMarc21Overdo(Underdo):
         fixed_data = f'{created}|||||||||xx#|||||||||||||||||||||c'
         fiction = blob.get('fiction_statement')
         if fiction == DocumentFictionType.Fiction.value:
-            fixed_data[33] = 1
+            fixed_data = f'{fixed_data[:33]}1{fixed_data[34:]}'
         elif fiction == DocumentFictionType.NonFiction.value:
-            fixed_data[33] = 0
+            fixed_data = f'{fixed_data[:33]}0{fixed_data[34:]}'
         provision_activity = blob.get('provisionActivity', [])
         for p_activity in provision_activity:
             if p_activity.get('type') == 'bf:Publication':
                 end_date = str(p_activity.get('endDate', ''))
                 if end_date:
-                    fixed_data = fixed_data[:11] + end_date + fixed_data[15:]
+                    fixed_data = \
+                        f'{fixed_data[:11]}{end_date}{fixed_data[15:]}'
                 start_date = str(p_activity.get('startDate', ''))
                 if start_date:
                     type_of_date = 's'
                     if end_date:
                         type_of_date = 'm'
-                    fixed_data = fixed_data[:6] + type_of_date + start_date \
-                        + fixed_data[11:]
+                    fixed_data = (
+                        f'{fixed_data[:6]}{type_of_date}'
+                        f'{start_date}{fixed_data[11:]}'
+                    )
                     break
         language = utils.force_list(blob.get('language'))
         if language:
             language = language[0].get('value')
-            fixed_data = fixed_data[:35] + language + fixed_data[38:]
+            fixed_data = f'{fixed_data[:35]}{language}{fixed_data[38:]}'
         blob['fixed_length_data_elements'] = fixed_data
 
         # Add date and time of latest transaction

@@ -47,6 +47,7 @@ def test_pid_to_marc21(app, marc21_record):
             "type": "bf:Language",
             "value": "fre"
         }],
+        'fiction_statement': 'fiction',
         'provisionActivity': [{
             '_text': [{
                     'language': 'default',
@@ -80,7 +81,7 @@ def test_pid_to_marc21(app, marc21_record):
         '__order__': ('leader', '001', '005', '008', '264_1'),
         '001': '12345678',
         '005': updated,
-        '008': f'{created}m20072020xx#|||||||||||||||||fre|c',
+        '008': f'{created}m20072020xx#|||||||||||||||1|fre|c',
         '264_1': {
             '__order__': ('a', 'b', 'c'),
             'a': 'Paris',
@@ -89,6 +90,8 @@ def test_pid_to_marc21(app, marc21_record):
         }
     })
     assert result == marc21
+    # test fiction
+    assert result['008'][33] == '1'
 
 
 def test_identified_by_to_marc21(app, marc21_record):
@@ -107,7 +110,7 @@ def test_identified_by_to_marc21(app, marc21_record):
     date, record = add_created_updated(record)
     result = to_marc21.do(record)
     record = deepcopy(marc21_record)
-    updated = date.strftime('%Y%m%d%H%M%S.0')
+    # updated = date.strftime('%Y%m%d%H%M%S.0')
     record.update({
         '__order__': ('leader', '005', '008', '020__', '020__'),
         ''
@@ -219,6 +222,7 @@ def test_title_to_marc21(app, marc21_record):
 def test_provision_activity_copyright_date_to_marc21(app, marc21_record):
     """Test provisionActivity and copyrightDate to MARC21 transformation."""
     record = {
+        'fiction_statement': 'non_fiction',
         "provisionActivity": [{
             "place": [{
                 "canton": "vd",
@@ -271,7 +275,7 @@ def test_provision_activity_copyright_date_to_marc21(app, marc21_record):
     created = date.strftime('%y%m%d')
     record.update({
         '__order__': ('leader', '005', '008', '264_1'),
-        '008': f'{created}s1980||||xx#|||||||||||||||||||||c',
+        '008': f'{created}s1980||||xx#|||||||||||||||0|||||c',
         '264_1': {
             '__order__': ('a', 'b', 'a', 'b', 'a', 'b', 'c'),
             'a': ('Lausanne', 'Genève', 'Paris'),
