@@ -19,15 +19,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-06-06 16:53+0200\n"
-"PO-Revision-Date: 2024-05-16 14:23+0000\n"
+"PO-Revision-Date: 2024-06-11 07:09+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/it/>\n"
 "Language: it\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6-dev\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: rero_ils/accounts_views.py:60
@@ -10171,7 +10172,7 @@ msgstr "Reclamo"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:747
 msgid "routing_note"
-msgstr "routing_note"
+msgstr "Trasmissione"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:751
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:609
@@ -13192,4 +13193,3 @@ msgstr "La tua biblioteca"
 #: rero_ils/theme/templates/security/email/reset_notice.html:26
 msgid "Your password has been successfully reset."
 msgstr "La tua password è stata reimposta con successo."
-
