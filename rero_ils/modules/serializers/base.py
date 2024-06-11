@@ -22,6 +22,7 @@ from copy import deepcopy
 
 import pytz
 from flask import json, request
+from flask_babel import gettext as _
 from invenio_jsonschemas import current_jsonschemas
 from invenio_records_rest.serializers.json import \
     JSONSerializer as _JSONSerializer
@@ -121,8 +122,11 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
         # complete buckets with data
         for term in buckets:
             for attr in attributes_name:
-                if attr in data[term['key']]:
-                    term[attr] = data[term['key']].get(attr)
+                if info := data.get(term['key']):
+                    if attr_term := info.get(attr):
+                        term[attr] = attr_term
+                else:
+                    term[attr] = f'{_("Unknown")} ({term["key"]})'
 
     @staticmethod
     def add_date_range_configuration(aggregation, step=86400000):

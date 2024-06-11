@@ -24,6 +24,7 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import VerifyRecordPermissionPatch, get_json, postdata
 
+from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.patron_transaction_events.models import \
     PatronTransactionEventType
 from rero_ils.modules.patron_transactions.api import PatronTransaction
@@ -105,8 +106,8 @@ def test_patron_payment(
 @mock.patch('invenio_records_rest.views.verify_record_permission',
             mock.MagicMock(return_value=VerifyRecordPermissionPatch))
 def test_patron_transaction_events_facets(
-    client, patron_transaction_overdue_event_martigny,
-    rero_json_header
+    client, patron_transaction_overdue_event_martigny, loc_public_martigny,
+    item4_lib_martigny, rero_json_header
 ):
     """Test record retrieval."""
 
@@ -125,6 +126,9 @@ def test_patron_transaction_events_facets(
     ]
     assert all(key in data['aggregations'] for key in facet_keys)
 
+    owning_library = data['aggregations']['owning_library']['buckets']
+    assert owning_library[0]['owning_location']['buckets'][0]['name'] == \
+        loc_public_martigny['name']
     params = {'facets': ''}
     url = url_for('invenio_records_rest.ptre_list', **params)
     res = client.get(url, headers=rero_json_header)
@@ -179,3 +183,17 @@ def test_patron_transaction_events_facets(
     assert total_bucket['doc_count'] == 2
     assert _find_bucket(total_bucket['subtype'], 'cash')
     assert not _find_bucket(total_bucket['subtype'], 'credit_card')
+
+    # delete Location
+    item4_links = item4_lib_martigny.get_links_to_me(get_pids=True)
+    loan = Loan.get_record_by_pid(item4_links['loans'][0])
+    loan.delete(dbcommit=True, delindex=True)
+    item4_lib_martigny.delete(dbcommit=True, delindex=True)
+    loc_pid = loc_public_martigny.pid
+    loc_public_martigny.delete(dbcommit=True, delindex=True)
+    url = url_for('invenio_records_rest.ptre_list')
+    res = client.get(url, headers=rero_json_header)
+    data = get_json(res)
+    owning_library = data['aggregations']['owning_library']['buckets']
+    assert owning_library[0]['owning_location']['buckets'][0]['name'] == \
+        f'Unknown ({loc_pid})'
