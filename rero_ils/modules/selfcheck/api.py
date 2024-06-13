@@ -133,8 +133,8 @@ def enable_patron(barcode, **kwargs):
         if patron:
             return SelfcheckEnablePatron(
                 patron_status=get_patron_status(patron),
-                language=patron.get('communication_language', 'und'),
-                institution_id=patron.library_pid,
+                language=patron.patron.get('communication_language', 'und'),
+                institution_id=patron.organisation_pid,
                 patron_id=patron.patron.get('barcode'),
                 patron_name=patron.formatted_name
             )
@@ -460,7 +460,6 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
     :return: The SelfcheckCheckin object.
     """
     if check_sip2_module():
-        from invenio_sip2.errors import SelfcheckCirculationError
         from invenio_sip2.models import SelfcheckCheckin
 
         language = kwargs.get('language', current_app.config
@@ -520,10 +519,9 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                 checkin.get('screen_messages', []).append(
                     _(circ_err.description))
             except Exception:
+                current_app.logger.error('self checkin failed')
                 checkin.get('screen_messages', []).append(
                     _('Error encountered: please contact a librarian'))
-                raise SelfcheckCirculationError('self checkin failed',
-                                                checkin)
         return checkin
 
 
