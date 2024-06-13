@@ -129,10 +129,12 @@ def test_enable_patron(selfcheck_patron_martigny):
     """Test enable patron."""
     response = enable_patron(
         selfcheck_patron_martigny.get('patron', {}).get('barcode')[0])
-    assert response.get('institution_id') == selfcheck_patron_martigny\
-        .library_pid
-    assert response.get('patron_id')
-    assert response.get('patron_name')
+    ptrn = selfcheck_patron_martigny
+    assert response.get('institution_id') == ptrn.organisation_pid
+    assert response.get('patron_id') == ptrn.patron['barcode']
+    assert response.get('patron_name') == ptrn.formatted_name
+    assert response.get('language') == \
+        ptrn.patron['communication_language']
 
     # test with wrong patron
     response = enable_patron('wrong_patron_barcode')
