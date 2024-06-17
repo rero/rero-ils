@@ -32,15 +32,15 @@ def test_notes(app, acq_order_schema, acq_order_fiction_martigny_data_tmp):
     """Test notes acq orders jsonschemas."""
 
     order_data = acq_order_fiction_martigny_data_tmp
-    order_data['notes'] = [
-        {'type': AcqOrderNoteType.STAFF, 'content': 'note content'},
-        {'type': AcqOrderNoteType.VENDOR, 'content': 'note content 2'},
+    order_data["notes"] = [
+        {"type": AcqOrderNoteType.STAFF, "content": "note content"},
+        {"type": AcqOrderNoteType.VENDOR, "content": "note content 2"},
     ]
     validate(order_data, acq_order_schema)
 
     with pytest.raises(ValidationError):
-        order_data['notes'] = [
-            {'type': AcqOrderNoteType.STAFF, 'content': 'note content'},
-            {'type': AcqOrderNoteType.STAFF, 'content': 'note content 2'},
+        order_data["notes"] = [
+            {"type": AcqOrderNoteType.STAFF, "content": "note content"},
+            {"type": AcqOrderNoteType.STAFF, "content": "note content 2"},
         ]
         AcqOrder.validate(AcqOrder(order_data))

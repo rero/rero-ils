@@ -52,17 +52,17 @@ class PostprocessorMixin(PostprocessorMixinInterface):
         :param results: Search result.
         :param pid_fetcher: Persistent identifier fetcher.
         """
-        for hit in results.get('hits', {}).get('hits', []):
+        for hit in results.get("hits", {}).get("hits", []):
             self._postprocess_search_hit(hit)
-        if aggregations := results.get('aggregations'):
+        if aggregations := results.get("aggregations"):
             # special process for nested aggregations
             #   to display the results of nested aggregations
             #   (nested aggregations are created to apply facet filters),
             #   put the value of the nested 'aggs_facet' aggregation
             #   one level up.
             for key, agg in aggregations.items():
-                if agg and ('aggs_facet' in agg):
-                    aggregations[key] = aggregations[key]['aggs_facet']
+                if agg and ("aggs_facet" in agg):
+                    aggregations[key] = aggregations[key]["aggs_facet"]
             self._postprocess_search_aggregations(aggregations)
         self._postprocess_search_links(results, pid_fetcher)
         return results
@@ -75,9 +75,9 @@ class PostprocessorMixin(PostprocessorMixinInterface):
                             into the search result.
         """
         # add REST API to create a record related to the search result.
-        pid_type = pid_fetcher(None, {'pid': '1'}).pid_type
-        url = url_for(f'invenio_records_rest.{pid_type}_list', _external=True)
-        search_results['links'].update({'create': url})
+        pid_type = pid_fetcher(None, {"pid": "1"}).pid_type
+        url = url_for(f"invenio_records_rest.{pid_type}_list", _external=True)
+        search_results["links"].update({"create": url})
 
     def _postprocess_search_hit(self, hit: dict) -> None:
         """Post-process a specific search hit.
@@ -94,8 +94,8 @@ class PostprocessorMixin(PostprocessorMixinInterface):
         :param aggregations: the dictionary representing ElasticSearch
                              aggregations section.
         """
-        if 'document_type' in aggregations:
-            aggr = aggregations['document_type'].get('buckets')
+        if "document_type" in aggregations:
+            aggr = aggregations["document_type"].get("buckets")
             filter_document_type_buckets(aggr)
 
 
@@ -156,7 +156,7 @@ class CachedDataSerializerMixin:
         for loader in args:
             assert issubclass(loader.__class__, RecordsSearch)
             for hit in loader.scan():
-                pid = hit['pid']
+                pid = hit["pid"]
                 key = CachedDataSerializerMixin._get_key(loader, pid)
                 self.append(key, hit.to_dict())
 
@@ -171,7 +171,7 @@ class CachedDataSerializerMixin:
         for resource in loader.get_records_by_pids(pids):
             if not inspect.isclass(loader):  # AttrDict conversion
                 resource = resource.to_dict()
-            if pid := resource.get('pid'):
+            if pid := resource.get("pid"):
                 key = CachedDataSerializerMixin._get_key(loader, pid)
                 self.append(key, resource)
                 resources.append(resource)

@@ -33,7 +33,7 @@ class RecordNotFound(Exception):
 
     def __repr__(self):
         """String representation of the exception."""
-        return f'{self.record_cls.__name__}#{self.record_pid} not found'
+        return f"{self.record_cls.__name__}#{self.record_pid} not found"
 
 
 class MissingDataException(KeyError):

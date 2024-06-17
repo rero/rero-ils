@@ -20,6 +20,4 @@
 
 def list_es_templates():
     """Elasticsearch templates path."""
-    return [
-        'rero_ils.es_templates'
-    ]
+    return ["rero_ils.es_templates"]

@@ -82,11 +82,11 @@ class LibraryCalendarChangesExtension(RecordExtension):
         :param record: the touched library record.
         :param task: the task related to the library.
         """
-        content = current_cache.get('library-calendar-changes') or {}
+        content = current_cache.get("library-calendar-changes") or {}
         # If a previous task is still present into this cache entry, revoke it.
         # DEV NOTE : the task MUST clean (remove) this cache entry when task is
         #            finished.
         if task_id := content.pop(record.pid, None):
             celery_app.control.revoke(task_id, terminate=True)
         content[record.pid] = task.id
-        current_cache.set('library-calendar-changes', content)
+        current_cache.set("library-calendar-changes", content)

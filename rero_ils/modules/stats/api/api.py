@@ -31,9 +31,7 @@ from ..models import StatIdentifier, StatMetadata
 
 # provider
 StatProvider = type(
-    'StatProvider',
-    (Provider,),
-    dict(identifier=StatIdentifier, pid_type='stat')
+    "StatProvider", (Provider,), dict(identifier=StatIdentifier, pid_type="stat")
 )
 # minter
 stat_id_minter = partial(id_minter, provider=StatProvider)
@@ -47,9 +45,9 @@ class StatsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on stats index."""
 
-        index = 'stats'
+        index = "stats"
         doc_types = None
-        fields = ('*',)
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -63,9 +61,7 @@ class Stat(IlsRecord):
     provider = StatProvider
     model_cls = StatMetadata
 
-    _extensions = [
-        StatisticsDumperExtension()
-    ]
+    _extensions = [StatisticsDumperExtension()]
 
     def update(self, data, commit=True, dbcommit=False, reindex=False):
         """Update data for record."""
@@ -75,7 +71,7 @@ class Stat(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid from the config for report."""
-        if ref := self.get('config', {}).get('organisation', {}).get('$ref'):
+        if ref := self.get("config", {}).get("organisation", {}).get("$ref"):
             return extracted_data_from_ref(ref)
 
 
@@ -89,4 +85,4 @@ class StatsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='stat')
+        super().bulk_index(record_id_iterator, doc_type="stat")

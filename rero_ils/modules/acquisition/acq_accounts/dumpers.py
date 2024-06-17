@@ -31,7 +31,7 @@ class AcqAccountGenericDumper(InvenioRecordsDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         # Keep only some attributes from AcqOrderLine object initial dump
-        for attr in ['pid', 'name', 'number']:
+        for attr in ["pid", "name", "number"]:
             if value := record.get(attr):
                 data.update({attr: value})
         return {k: v for k, v in data.items() if v}

@@ -20,16 +20,19 @@
 from invenio_access import action_factory, any_user
 from invenio_records_permissions.generators import Generator
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByManageableLibrary, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByManageableLibrary,
+    RecordPermissionPolicy,
+)
 
 # Actions to control Holdings policies for CRUD operations
-search_action = action_factory('hold-search')
-read_action = action_factory('hold-read')
-create_action = action_factory('hold-create')
-update_action = action_factory('hold-update')
-delete_action = action_factory('hold-delete')
-access_action = action_factory('hold-access')
+search_action = action_factory("hold-search")
+read_action = action_factory("hold-read")
+create_action = action_factory("hold-create")
+update_action = action_factory("hold-update")
+delete_action = action_factory("hold-delete")
+access_action = action_factory("hold-access")
 
 
 class DisallowIfNotSerialHolding(Generator):
@@ -52,13 +55,13 @@ class HoldingsPermissionPolicy(RecordPermissionPolicy):
     can_read = [AllowedByAction(read_action)]
     can_create = [
         AllowedByActionRestrictByManageableLibrary(create_action),
-        DisallowIfNotSerialHolding()
+        DisallowIfNotSerialHolding(),
     ]
     can_update = [
         AllowedByActionRestrictByManageableLibrary(update_action),
-        DisallowIfNotSerialHolding()
+        DisallowIfNotSerialHolding(),
     ]
     can_delete = [
         AllowedByActionRestrictByManageableLibrary(delete_action),
-        DisallowIfNotSerialHolding()
+        DisallowIfNotSerialHolding(),
     ]

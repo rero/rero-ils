@@ -37,14 +37,14 @@ class NotificationSubclassExtension(RecordExtension):
         from .api import Notification
         from .subclasses.acq_order import AcquisitionOrderNotification
         from .subclasses.at_desk import AtDeskCirculationNotification
-        from .subclasses.availability import \
-            AvailabilityCirculationNotification
+        from .subclasses.availability import AvailabilityCirculationNotification
         from .subclasses.booking import BookingCirculationNotification
         from .subclasses.claim_issue import ClaimSerialIssueNotification
         from .subclasses.recall import RecallCirculationNotification
         from .subclasses.reminder import ReminderCirculationNotification
         from .subclasses.request import RequestCirculationNotification
         from .subclasses.transit import TransitCirculationNotification
+
         mapping = {
             NotificationType.AVAILABILITY: AvailabilityCirculationNotification,
             NotificationType.AT_DESK: AtDeskCirculationNotification,
@@ -55,7 +55,7 @@ class NotificationSubclassExtension(RecordExtension):
             NotificationType.REQUEST: RequestCirculationNotification,
             NotificationType.TRANSIT_NOTICE: TransitCirculationNotification,
             NotificationType.ACQUISITION_ORDER: AcquisitionOrderNotification,
-            NotificationType.CLAIM_ISSUE: ClaimSerialIssueNotification
+            NotificationType.CLAIM_ISSUE: ClaimSerialIssueNotification,
         }
         try:
             return mapping[record.type]

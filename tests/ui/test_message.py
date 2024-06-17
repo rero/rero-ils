@@ -23,11 +23,11 @@ from rero_ils.modules.message import Message
 
 def test_message(app):
     """Test message."""
-    key = 'test_fr'
-    message = 'Foo bar'
-    result = {'type': 'success', 'message': message}
+    key = "test_fr"
+    message = "Foo bar"
+    result = {"type": "success", "message": message}
 
-    assert Message.set(key=key, type='success', value=message)
+    assert Message.set(key=key, type="success", value=message)
     assert Message.get(key) == result
     assert Message.delete(key)
     assert Message.get(key) is None
@@ -35,9 +35,9 @@ def test_message(app):
 
 def test_message_filter(app):
     """Test message filter."""
-    key = 'test_en'
-    message = 'Filter'
-    result = {'type': 'success', 'message': message}
+    key = "test_en"
+    message = "Filter"
+    result = {"type": "success", "message": message}
 
-    assert Message.set(key=key, type='success', value=message)
+    assert Message.set(key=key, type="success", value=message)
     assert message_filter(key) == result

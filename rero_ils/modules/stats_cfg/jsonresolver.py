@@ -23,7 +23,7 @@ import jsonresolver
 from ..jsonresolver import resolve_json_refs
 
 
-@jsonresolver.route('/api/stats_cfg/<pid>', host='bib.rero.ch')
+@jsonresolver.route("/api/stats_cfg/<pid>", host="bib.rero.ch")
 def stats_cfg_resolver(pid):
     """Statistics configuration resolver."""
-    return resolve_json_refs('stacfg', pid)
+    return resolve_json_refs("stacfg", pid)

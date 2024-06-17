@@ -21,18 +21,20 @@ from utils import get_mapping
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch
 
 
-def test_holding_es_mapping(search, db, loc_public_martigny,
-                            item_type_standard_martigny,
-                            document, holding_lib_martigny_data):
+def test_holding_es_mapping(
+    search,
+    db,
+    loc_public_martigny,
+    item_type_standard_martigny,
+    document,
+    holding_lib_martigny_data,
+):
     """Test holding elasticsearch mapping."""
     search = HoldingsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     holding = Holding.create(
-        holding_lib_martigny_data,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
+        holding_lib_martigny_data, dbcommit=True, reindex=True, delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)
     # clean created data

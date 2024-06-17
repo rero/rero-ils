@@ -32,11 +32,8 @@ class TitleDumper(Dumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         title_text = TitleExtension.format_text(
-            record.get('title', []),
-            responsabilities=record.get('responsibilityStatement')
+            record.get("title", []),
+            responsabilities=record.get("responsibilityStatement"),
         )
-        data.update({
-            'pid': record.get('pid'),
-            'title_text': title_text
-        })
+        data.update({"pid": record.get("pid"), "title_text": title_text})
         return data

@@ -38,8 +38,8 @@ class MetadataSchema(Schema):
         :param data: Dict of record data.
         :returns: Modified data.
         """
-        data.pop('n_files', None)
-        data.pop('file_size', None)
+        data.pop("n_files", None)
+        data.pop("file_size", None)
         return data
 
 

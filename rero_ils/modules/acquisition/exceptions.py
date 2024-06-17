@@ -39,7 +39,7 @@ class InactiveBudgetError(RolloverError):
 
     def __str__(self):
         """Exception as string."""
-        return f'Budget#{self.pid_value} is inactive'
+        return f"Budget#{self.pid_value} is inactive"
 
 
 class IncompatibleBudgetError(RolloverError):
@@ -53,7 +53,7 @@ class IncompatibleBudgetError(RolloverError):
 
     def __str__(self):
         """Exception as string."""
-        return f'Budget#{self.pid1} isn\' compatible with Budget#{self.pid2}'
+        return f"Budget#{self.pid1} isn' compatible with Budget#{self.pid2}"
 
 
 class BudgetNotEmptyError(RolloverError):
@@ -66,4 +66,4 @@ class BudgetNotEmptyError(RolloverError):
 
     def __str__(self):
         """Exception as string."""
-        return f'Budget#{self.pid} are some linked children resources.'
+        return f"Budget#{self.pid} are some linked children resources."

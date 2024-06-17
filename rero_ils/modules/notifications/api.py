@@ -26,24 +26,26 @@ from functools import partial
 
 from flask import current_app
 
-from .extensions import NotificationSubclassExtension
-from .logs.api import NotificationOperationLog
-from .models import NotificationIdentifier, NotificationMetadata, \
-    NotificationStatus, NotificationType
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
-from ..patron_transactions.api import PatronTransaction, \
-    PatronTransactionsSearch
-from ..patron_transactions.utils import \
-    create_patron_transaction_from_notification
+from ..patron_transactions.api import PatronTransaction, PatronTransactionsSearch
+from ..patron_transactions.utils import create_patron_transaction_from_notification
 from ..providers import Provider
+from .extensions import NotificationSubclassExtension
+from .logs.api import NotificationOperationLog
+from .models import (
+    NotificationIdentifier,
+    NotificationMetadata,
+    NotificationStatus,
+    NotificationType,
+)
 
 # notification provider
 NotificationProvider = type(
-    'NotificationProvider',
+    "NotificationProvider",
     (Provider,),
-    dict(identifier=NotificationIdentifier, pid_type='notif')
+    dict(identifier=NotificationIdentifier, pid_type="notif"),
 )
 
 # notification minter
@@ -58,9 +60,9 @@ class NotificationsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on Notifications index."""
 
-        index = 'notifications'
+        index = "notifications"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -71,9 +73,9 @@ class NotificationsSearch(IlsRecordsSearch):
         :param item_pid: the item pid related to the claim notification.
         :returns: a ElasticSearch query object.
         """
-        return self \
-            .filter('term', context__item__pid=item_pid) \
-            .filter('term', notification_type=NotificationType.CLAIM_ISSUE)
+        return self.filter("term", context__item__pid=item_pid).filter(
+            "term", notification_type=NotificationType.CLAIM_ISSUE
+        )
 
     def get_claims(self, item_pid):
         """Get the claims notifications about an issue item.
@@ -123,27 +125,28 @@ class Notification(IlsRecord, ABC):
     provider = NotificationProvider
     model_cls = NotificationMetadata
 
-    _extensions = [
-        NotificationSubclassExtension()
-    ]
+    _extensions = [NotificationSubclassExtension()]
 
     # INVENIO API METHODS =====================================================
     #   Override some invenio ``RecordBase`` method
     @classmethod
-    def create(cls, data, id_=None, delete_pid=False, dbcommit=False,
-               reindex=False, **kwargs):
+    def create(
+        cls, data, id_=None, delete_pid=False, dbcommit=False, reindex=False, **kwargs
+    ):
         """Create notification record."""
         # Check if the notification_type is disabled by app configuration
-        if data.get('notification_type') in current_app.config.get(
-                'RERO_ILS_DISABLED_NOTIFICATION_TYPE', []):
+        if data.get("notification_type") in current_app.config.get(
+            "RERO_ILS_DISABLED_NOTIFICATION_TYPE", []
+        ):
             return
 
-        data.setdefault('status', NotificationStatus.CREATED)
-        record = super().create(data, id_, delete_pid, dbcommit, reindex,
-                                **kwargs)
+        data.setdefault("status", NotificationStatus.CREATED)
+        record = super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
         create_patron_transaction_from_notification(
-            notification=record, dbcommit=dbcommit, reindex=reindex,
-            delete_pid=delete_pid
+            notification=record,
+            dbcommit=dbcommit,
+            reindex=reindex,
+            delete_pid=delete_pid,
         )
         NotificationOperationLog.create(record)
         return record
@@ -245,19 +248,22 @@ class Notification(IlsRecord, ABC):
     @property
     def type(self):
         """Shortcut for notification type."""
-        return self.get('notification_type')
+        return self.get("notification_type")
 
     @property
     def status(self):
         """Shortcut for notification status."""
-        return self.get('status')
+        return self.get("status")
 
     @property
     def patron_transactions(self):
         """Returns patron transactions attached of a notification."""
-        results = PatronTransactionsSearch()\
-            .filter('term', notification__pid=self.pid)\
-            .source(False).scan()
+        results = (
+            PatronTransactionsSearch()
+            .filter("term", notification__pid=self.pid)
+            .source(False)
+            .scan()
+        )
         for result in results:
             yield PatronTransaction.get_record(result.meta.id)
 
@@ -270,12 +276,10 @@ class Notification(IlsRecord, ABC):
         """
         recipients = recipients or []
         for type_, address in recipients:
-            self.setdefault('effective_recipients', []).append({
-                'type': type_,
-                'address': address
-            })
-        return self.update(
-            data=self.dumps(), commit=True, dbcommit=True, reindex=True)
+            self.setdefault("effective_recipients", []).append(
+                {"type": type_, "address": address}
+            )
+        return self.update(data=self.dumps(), commit=True, dbcommit=True, reindex=True)
 
     def update_process_date(self, sent=False, status=NotificationStatus.DONE):
         """Update the notification to set process date.
@@ -284,11 +288,10 @@ class Notification(IlsRecord, ABC):
         :param status: the new notification status.
         :return the updated notification.
         """
-        self['process_date'] = datetime.now(timezone.utc).isoformat()
-        self['notification_sent'] = sent
-        self['status'] = status
-        return self.update(
-            data=self.dumps(), commit=True, dbcommit=True, reindex=True)
+        self["process_date"] = datetime.now(timezone.utc).isoformat()
+        self["notification_sent"] = sent
+        self["status"] = status
+        return self.update(data=self.dumps(), commit=True, dbcommit=True, reindex=True)
 
 
 class NotificationsIndexer(IlsRecordsIndexer):
@@ -301,4 +304,4 @@ class NotificationsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='notif')
+        super().bulk_index(record_id_iterator, doc_type="notif")

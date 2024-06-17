@@ -25,17 +25,20 @@ from utils import flush_index
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan, LoansSearch, get_expired_request
-from rero_ils.modules.loans.logs.api import LoanOperationLog, \
-    LoanOperationLogsSearch
+from rero_ils.modules.loans.logs.api import LoanOperationLog, LoanOperationLogsSearch
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.loans.tasks import cancel_expired_request_task
 
 
 @freeze_time("2022-03-01T14:33:22+02:00")
 def test_expired_request_with_transit(
-    item_lib_martigny, loc_public_sion, librarian_sion,
-    loc_public_martigny, patron2_martigny, librarian_martigny,
-    circulation_policies
+    item_lib_martigny,
+    loc_public_sion,
+    librarian_sion,
+    loc_public_martigny,
+    patron2_martigny,
+    librarian_martigny,
+    circulation_policies,
 ):
     """Test request expiration for item in transit."""
     item = item_lib_martigny
@@ -49,16 +52,16 @@ def test_expired_request_with_transit(
         pickup_location_pid=loc_public_sion.pid,
         patron_pid=patron2_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        transaction_user_pid=librarian_martigny.pid
+        transaction_user_pid=librarian_martigny.pid,
     )
-    assert 'request' in actions
-    loan = Loan.get_record_by_pid(actions['request']['pid'])
+    assert "request" in actions
+    loan = Loan.get_record_by_pid(actions["request"]["pid"])
     assert item.location_pid != loan.pickup_location_pid
 
     item, _ = item.validate_request(
         transaction_location_pid=loc_public_martigny.pid,
         transaction_user_pid=librarian_martigny.pid,
-        pid=loan.pid
+        pid=loan.pid,
     )
     loan = Loan.get_record_by_pid(loan.pid)
     assert item.status == ItemStatus.IN_TRANSIT
@@ -67,18 +70,18 @@ def test_expired_request_with_transit(
     item, _ = item.receive(
         transaction_location_pid=loc_public_sion.pid,
         transaction_user_pid=librarian_sion.pid,
-        pid=loan.pid
+        pid=loan.pid,
     )
     loan = Loan.get_record_by_pid(loan.pid)
     assert item.status == ItemStatus.AT_DESK
     assert loan.state == LoanState.ITEM_AT_DESK
-    assert 'request_expire_date' in loan
+    assert "request_expire_date" in loan
 
     # STEP#1 :: UPDATE THE LOAN TO SIMULATE REQUEST HAS EXPIRED
     #   Update the loan `request_expire_date` field to simulate than the
     #   requester patron never came take this item.
     yesterday = datetime.now(timezone.utc) - timedelta(days=1)
-    loan['request_expire_date'] = yesterday.isoformat()
+    loan["request_expire_date"] = yesterday.isoformat()
     loan = loan.update(loan, dbcommit=True, reindex=True)
     flush_index(LoansSearch.Meta.index)
     assert loan.pid in [loan.pid for loan in get_expired_request()]
@@ -100,7 +103,7 @@ def test_expired_request_with_transit(
     flush_index(LoanOperationLog.index_name)
     logs = LoanOperationLogsSearch().get_logs_by_record_pid(loan.pid)
     logs_trigger = [hit.loan.trigger for hit in logs]
-    assert 'cancel' in logs_trigger
+    assert "cancel" in logs_trigger
 
     # STEP#3 :: RECEIVE THE ITEM AT OWNING LIBRARY
     #   * Receive the item at the owning library.
@@ -109,7 +112,7 @@ def test_expired_request_with_transit(
     item, _ = item.receive(
         transaction_location_pid=loc_public_martigny.pid,
         transaction_user_pid=librarian_martigny.pid,
-        pid=loan.pid
+        pid=loan.pid,
     )
     loan = Loan.get_record_by_pid(loan.pid)
     assert item.status == ItemStatus.ON_SHELF

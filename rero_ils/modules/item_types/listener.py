@@ -28,18 +28,24 @@ def negative_availability_changes(sender, record=None, *args, **kwargs):
     """Reindex related items if negative availability changes."""
     if isinstance(record, ItemType):
         ori_record = ItemType.get_record_by_pid(record.pid)
-        record_availability = record.get('negative_availability', False)
-        original_availability = ori_record.get('negative_availability', False)
+        record_availability = record.get("negative_availability", False)
+        original_availability = ori_record.get("negative_availability", False)
         if record_availability != original_availability:
             # get all item uuid's related to the item type and mark them for
             # reindex into a asynchronous celery queue.
             item_uuids = []
-            search = ItemsSearch()\
-                .filter('bool', should=[
-                    Q('match', item_type__pid=record.pid),
-                    Q('match', temporary_item_type__pid=record.pid)
-                ]) \
-                .source().scan()
+            search = (
+                ItemsSearch()
+                .filter(
+                    "bool",
+                    should=[
+                        Q("match", item_type__pid=record.pid),
+                        Q("match", temporary_item_type__pid=record.pid),
+                    ],
+                )
+                .source()
+                .scan()
+            )
             for hit in search:
                 item_uuids.append(hit.meta.id)
             ItemTypesIndexer().bulk_index(item_uuids)

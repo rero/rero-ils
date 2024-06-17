@@ -24,12 +24,11 @@ import ciso8601
 
 from rero_ils.modules.documents.dumpers import document_title_dumper
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
-from rero_ils.modules.libraries.dumpers import \
-    LibraryCirculationNotificationDumper
+from rero_ils.modules.libraries.dumpers import LibraryCirculationNotificationDumper
 from rero_ils.modules.patrons.dumpers import PatronNotificationDumper
 
-from .circulation import CirculationNotification
 from ..models import NotificationChannel, NotificationType
+from .circulation import CirculationNotification
 
 
 class AvailabilityCirculationNotification(CirculationNotification):
@@ -54,8 +53,7 @@ class AvailabilityCirculationNotification(CirculationNotification):
         # Check loan notification candidate (by unpacking tuple's notification
         # candidate)
         candidates_types = [
-            n[1] for n in
-            self.loan.get_notification_candidates(trigger=None)
+            n[1] for n in self.loan.get_notification_candidates(trigger=None)
         ]
         if self.type not in candidates_types:
             msg = "Notification type isn't into notification candidate"
@@ -80,28 +78,28 @@ class AvailabilityCirculationNotification(CirculationNotification):
 
         patron = notifications[0].patron
         library = notifications[0].pickup_library
-        include_address = notifications[0].get_communication_channel() == \
-            NotificationChannel.MAIL
+        include_address = (
+            notifications[0].get_communication_channel() == NotificationChannel.MAIL
+        )
         # Dump basic informations
         context |= {
-            'include_patron_address': include_address,
-            'patron': patron.dumps(dumper=PatronNotificationDumper()),
-            'library': library.dumps(
-                dumper=LibraryCirculationNotificationDumper()),
-            'loans': [],
-            'delay': 0
+            "include_patron_address": include_address,
+            "patron": patron.dumps(dumper=PatronNotificationDumper()),
+            "library": library.dumps(dumper=LibraryCirculationNotificationDumper()),
+            "loans": [],
+            "delay": 0,
         }
         # Availability notification could be sent with a delay. We need to find
         # this delay into the library notifications settings and convert it
         # from minutes to seconds.
-        for setting in library.get('notification_settings', []):
-            if setting['type'] == NotificationType.AVAILABILITY:
-                context['delay'] = setting.get('delay', 0)*60
+        for setting in library.get("notification_settings", []):
+            if setting["type"] == NotificationType.AVAILABILITY:
+                context["delay"] = setting.get("delay", 0) * 60
         # Add metadata for any ``notification.loan`` of the notifications list
         item_dumper = ItemNotificationDumper()
         for notification in notifications:
             loc = lib = None
-            keep_until = notification.loan.get('request_expire_date')
+            keep_until = notification.loan.get("request_expire_date")
             if keep_until:
                 keep_until = ciso8601.parse_datetime(keep_until)
 
@@ -113,13 +111,14 @@ class AvailabilityCirculationNotification(CirculationNotification):
                 lib = notification.transaction_library
             # merge doc and item metadata preserving document key
             item_data = notification.item.dumps(dumper=item_dumper)
-            doc_data = notification.document.dumps(
-                dumper=document_title_dumper)
+            doc_data = notification.document.dumps(dumper=document_title_dumper)
             doc_data = {**item_data, **doc_data}
             if loc and lib:
-                context['loans'].append({
-                    'document': doc_data,
-                    'pickup_name': loc.get('pickup_name', lib.get('name')),
-                    'pickup_until': keep_until
-                })
+                context["loans"].append(
+                    {
+                        "document": doc_data,
+                        "pickup_name": loc.get("pickup_name", lib.get("name")),
+                        "pickup_until": keep_until,
+                    }
+                )
         return context

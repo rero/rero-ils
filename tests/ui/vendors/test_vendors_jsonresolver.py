@@ -26,10 +26,8 @@ from rero_ils.modules.utils import extracted_data_from_ref
 
 def test_vendors_jsonresolver(app, vendor_martigny):
     """Test vendor resolver."""
-    rec = Record.create({
-        'vendor': {'$ref': 'https://bib.rero.ch/api/vendors/vndr1'}
-    })
-    assert extracted_data_from_ref(rec.get('vendor')) == 'vndr1'
+    rec = Record.create({"vendor": {"$ref": "https://bib.rero.ch/api/vendors/vndr1"}})
+    assert extracted_data_from_ref(rec.get("vendor")) == "vndr1"
 
     # deleted record
     vendor_martigny.delete()
@@ -37,10 +35,8 @@ def test_vendors_jsonresolver(app, vendor_martigny):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create({
-        'vendor': {'$ref': 'https://bib.rero.ch/api/vendors/n_e'}
-    })
+    rec = Record.create({"vendor": {"$ref": "https://bib.rero.ch/api/vendors/n_e"}})
 
     with pytest.raises(JsonRefError) as error:
         type(rec)(rec.replace_refs()).dumps()
-    assert 'PIDDoesNotExistError' in str(error)
+    assert "PIDDoesNotExistError" in str(error)

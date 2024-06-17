@@ -34,14 +34,16 @@ class IndexerDumper(Dumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        data['organisation'] = dict(pid=record.organisation_pid)
+        data["organisation"] = dict(pid=record.organisation_pid)
         return data
 
 
 # dumper used for indexing
-indexer_dumper = MultiDumper(dumpers=[
-    # make a fresh copy
-    Dumper(),
-    ReplaceRefsDumper(),
-    IndexerDumper()
-])
+indexer_dumper = MultiDumper(
+    dumpers=[
+        # make a fresh copy
+        Dumper(),
+        ReplaceRefsDumper(),
+        IndexerDumper(),
+    ]
+)

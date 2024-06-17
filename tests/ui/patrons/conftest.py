@@ -20,11 +20,6 @@
 import pytest
 
 
-@pytest.fixture(scope='module')
-def patrons_records(
-    patron_martigny,
-    patron2_martigny,
-    librarian_sion,
-    librarian_saxon
-):
+@pytest.fixture(scope="module")
+def patrons_records(patron_martigny, patron2_martigny, librarian_sion, librarian_saxon):
     """Patrons for test mapping."""

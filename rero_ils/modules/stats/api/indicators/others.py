@@ -41,12 +41,10 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         :returns: an elasticsearch query object
         """
         es_query = DocumentsSearch()[:0].filter(
-            'term',
-            organisation_pid=self.cfg.org_pid
+            "term", organisation_pid=self.cfg.org_pid
         )
         if pids := self.cfg.filter_by_libraries:
-            es_query = es_query.filter(
-                'terms', library_pid=pids)
+            es_query = es_query.filter("terms", library_pid=pids)
         return es_query
 
     def aggregation(self, distribution):
@@ -56,30 +54,29 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'owning_library': A(
-                'terms',
-                field='holdings.organisation.library_pid',
+            "owning_library": A(
+                "terms",
+                field="holdings.organisation.library_pid",
                 size=self.cfg.aggs_size,
-                include=self.cfg.lib_pids
+                include=self.cfg.lib_pids,
             ),
-            'created_month': A(
-                'date_histogram',
-                field='_created',
-                calendar_interval='month',
-                format='yyyy-MM'
+            "created_month": A(
+                "date_histogram",
+                field="_created",
+                calendar_interval="month",
+                format="yyyy-MM",
             ),
-            'created_year': A(
-                'date_histogram', field='_created',
-                calendar_interval='year', format='yyyy'
+            "created_year": A(
+                "date_histogram",
+                field="_created",
+                calendar_interval="year",
+                format="yyyy",
             ),
-            'imported': A(
-                'filters', other_bucket_key="not imported",
-                filters={
-                    'imported': {
-                        'exists': {'field': 'adminMetadata.source'}
-                    }
-                }
-            )
+            "imported": A(
+                "filters",
+                other_bucket_key="not imported",
+                filters={"imported": {"exists": {"field": "adminMetadata.source"}}},
+            ),
         }
         return cfg[distribution]
 
@@ -92,12 +89,11 @@ class NumberOfDocumentsCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'owning_library': lambda:
-                f'{self.cfg.libraries.get(bucket.key, self.label_na_msg)} '
-                f'({bucket.key})',
-            'created_month': lambda: bucket.key_as_string,
-            'created_year': lambda: bucket.key_as_string,
-            'imported': lambda: bucket
+            "owning_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})",
+            "created_month": lambda: bucket.key_as_string,
+            "created_year": lambda: bucket.key_as_string,
+            "imported": lambda: bucket,
         }
         return cfg[distribution]()
 
@@ -111,12 +107,13 @@ class NumberOfSerialHoldingsCfg(IndicatorCfg):
 
         :returns: an elasticsearch query object
         """
-        es_query = HoldingsSearch()[:0]\
-            .filter('term', holdings_type='serial')\
-            .filter('term', organisation__pid=self.cfg.org_pid)
+        es_query = (
+            HoldingsSearch()[:0]
+            .filter("term", holdings_type="serial")
+            .filter("term", organisation__pid=self.cfg.org_pid)
+        )
         if pids := self.cfg.filter_by_libraries:
-            es_query = es_query.filter(
-                'terms', library__pid=pids)
+            es_query = es_query.filter("terms", library__pid=pids)
         return es_query
 
     def aggregation(self, distribution):
@@ -126,24 +123,24 @@ class NumberOfSerialHoldingsCfg(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'owning_library': A(
-                'terms',
-                field='library.pid',
+            "owning_library": A(
+                "terms",
+                field="library.pid",
                 size=self.cfg.aggs_size,
-                include=self.cfg.lib_pids
+                include=self.cfg.lib_pids,
             ),
-            'created_month': A(
-                'date_histogram',
-                field='_created',
-                calendar_interval='month',
-                format='yyyy-MM'
+            "created_month": A(
+                "date_histogram",
+                field="_created",
+                calendar_interval="month",
+                format="yyyy-MM",
             ),
-            'created_year': A(
-                'date_histogram',
-                field='_created',
-                calendar_interval='year',
-                format='yyyy'
-            )
+            "created_year": A(
+                "date_histogram",
+                field="_created",
+                calendar_interval="year",
+                format="yyyy",
+            ),
         }
         return cfg[distribution]
 
@@ -156,11 +153,10 @@ class NumberOfSerialHoldingsCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'owning_library': lambda:
-                f'{self.cfg.libraries.get(bucket.key, self.label_na_msg)} '
-                f'({bucket.key})',
-            'created_month': lambda: bucket.key_as_string,
-            'created_year': lambda: bucket.key_as_string
+            "owning_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})",
+            "created_month": lambda: bucket.key_as_string,
+            "created_year": lambda: bucket.key_as_string,
         }
         return cfg[distribution]()
 
@@ -174,11 +170,9 @@ class NumberOfItemsCfg(IndicatorCfg):
 
         :returns: an elasticsearch query object
         """
-        es_query = ItemsSearch()[:0].filter(
-            'term', organisation__pid=self.cfg.org_pid)
+        es_query = ItemsSearch()[:0].filter("term", organisation__pid=self.cfg.org_pid)
         if pids := self.cfg.filter_by_libraries:
-            es_query = es_query.filter(
-                'terms', library__pid=pids)
+            es_query = es_query.filter("terms", library__pid=pids)
         return es_query
 
     def aggregation(self, distribution):
@@ -188,45 +182,39 @@ class NumberOfItemsCfg(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'owning_library': A(
-                'terms',
-                field='library.pid',
+            "owning_library": A(
+                "terms",
+                field="library.pid",
                 size=self.cfg.aggs_size,
-                include=self.cfg.lib_pids
+                include=self.cfg.lib_pids,
             ),
-            'owning_location': A(
-                'terms',
-                field='location.pid',
+            "owning_location": A(
+                "terms",
+                field="location.pid",
                 size=self.cfg.aggs_size,
-                include=self.cfg.loc_pids
+                include=self.cfg.loc_pids,
             ),
-            'type': A(
-                'terms',
-                field='type',
-                size=self.cfg.aggs_size
+            "type": A("terms", field="type", size=self.cfg.aggs_size),
+            "document_type": A(
+                "terms",
+                field="document.document_type.main_type",
+                size=self.cfg.aggs_size,
             ),
-            'document_type': A(
-                'terms',
-                field='document.document_type.main_type',
-                size=self.cfg.aggs_size
+            "document_subtype": A(
+                "terms", field="document.document_type.subtype", size=self.cfg.aggs_size
             ),
-            'document_subtype': A(
-                'terms',
-                field='document.document_type.subtype',
-                size=self.cfg.aggs_size
+            "created_month": A(
+                "date_histogram",
+                field="_created",
+                calendar_interval="month",
+                format="yyyy-MM",
             ),
-            'created_month': A(
-                'date_histogram',
-                field='_created',
-                calendar_interval='month',
-                format='yyyy-MM'
+            "created_year": A(
+                "date_histogram",
+                field="_created",
+                calendar_interval="year",
+                format="yyyy",
             ),
-            'created_year': A(
-                'date_histogram',
-                field='_created',
-                calendar_interval='year',
-                format='yyyy'
-            )
         }
         return cfg[distribution]
 
@@ -239,17 +227,15 @@ class NumberOfItemsCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'owning_library': lambda:
-                f'{self.cfg.libraries.get(bucket.key, self.label_na_msg)} '
-                f'({bucket.key})',
-            'owning_location': lambda:
-                f'{self.cfg.locations.get(bucket.key, self.label_na_msg)} '
-                f'({bucket.key})',
-            'type': lambda: bucket.key,
-            'document_type': lambda: bucket.key,
-            'document_subtype': lambda: bucket.key,
-            'created_month': lambda: bucket.key_as_string,
-            'created_year': lambda: bucket.key_as_string
+            "owning_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})",
+            "owning_location": lambda: f"{self.cfg.locations.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})",
+            "type": lambda: bucket.key,
+            "document_type": lambda: bucket.key,
+            "document_subtype": lambda: bucket.key,
+            "created_month": lambda: bucket.key_as_string,
+            "created_year": lambda: bucket.key_as_string,
         }
         return cfg[distribution]()
 
@@ -273,12 +259,10 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
             .filter("term", operation="delete")
         )
         if period := self.cfg.period:
-            es_query = es_query.filter(
-                "range", date=self.cfg.get_range_period(period))
+            es_query = es_query.filter("range", date=self.cfg.get_range_period(period))
         if pids := self.cfg.filter_by_libraries:
             es_query = es_query.filter(
-                Q("terms", record__library_pid=pids)
-                | Q("terms", library__value=pids)
+                Q("terms", record__library_pid=pids) | Q("terms", library__value=pids)
             )
         return es_query
 
@@ -289,15 +273,11 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'owning_library': A(
-                'terms',
-                field='record.library_pid',
-                size=self.cfg.aggs_size
+            "owning_library": A(
+                "terms", field="record.library_pid", size=self.cfg.aggs_size
             ),
             "operator_library": A(
-                "terms",
-                field="library.value",
-                size=self.cfg.aggs_size
+                "terms", field="library.value", size=self.cfg.aggs_size
             ),
             "action_month": A(
                 "date_histogram",
@@ -306,10 +286,7 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
                 format="yyyy-MM",
             ),
             "action_year": A(
-                "date_histogram",
-                field="date",
-                calendar_interval="year",
-                format="yyyy"
+                "date_histogram", field="date", calendar_interval="year", format="yyyy"
             ),
         }
         return cfg[distribution]
@@ -323,12 +300,10 @@ class NumberOfDeletedItemsCfg(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            "owning_library": lambda:
-                f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
-                f"({bucket.key})",
-            "operator_library": lambda:
-                f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
-                f"({bucket.key})",
+            "owning_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})",
+            "operator_library": lambda: f"{self.cfg.libraries.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})",
             "action_month": lambda: bucket.key_as_string,
             "action_year": lambda: bucket.key_as_string,
         }
@@ -345,13 +320,14 @@ class NumberOfILLRequests(IndicatorCfg):
         :returns: an elasticsearch query object
         """
         es_query = ILLRequestsSearch()[:0].filter(
-            'term', organisation__pid=self.cfg.org_pid)
+            "term", organisation__pid=self.cfg.org_pid
+        )
         if period := self.cfg.period:
             es_query = es_query.filter(
-                'range', _created=self.cfg.get_range_period(period))
+                "range", _created=self.cfg.get_range_period(period)
+            )
         if pids := self.cfg.filter_by_libraries:
-            es_query = es_query.filter(
-                'terms', library__pid=pids)
+            es_query = es_query.filter("terms", library__pid=pids)
         return es_query
 
     def aggregation(self, distribution):
@@ -361,28 +337,22 @@ class NumberOfILLRequests(IndicatorCfg):
         :returns: an elasticsearch aggregation object
         """
         cfg = {
-            'pickup_location': A(
-                'terms',
-                field='pickup_location.pid',
-                size=self.cfg.aggs_size
+            "pickup_location": A(
+                "terms", field="pickup_location.pid", size=self.cfg.aggs_size
             ),
-            'status': A(
-                'terms',
-                field='status',
-                size=self.cfg.aggs_size
+            "status": A("terms", field="status", size=self.cfg.aggs_size),
+            "created_month": A(
+                "date_histogram",
+                field="_created",
+                calendar_interval="month",
+                format="yyyy-MM",
             ),
-            'created_month': A(
-                'date_histogram',
-                field='_created',
-                calendar_interval='month',
-                format='yyyy-MM'
+            "created_year": A(
+                "date_histogram",
+                field="_created",
+                calendar_interval="year",
+                format="yyyy",
             ),
-            'created_year': A(
-                'date_histogram',
-                field='_created',
-                calendar_interval='year',
-                format='yyyy'
-            )
         }
         return cfg[distribution]
 
@@ -395,11 +365,10 @@ class NumberOfILLRequests(IndicatorCfg):
         :rtype: str
         """
         cfg = {
-            'pickup_location': lambda:
-                f'{self.cfg.locations.get(bucket.key, self.label_na_msg)} '
-                f'({bucket.key})',
-            'status': lambda: bucket.key,
-            'created_month': lambda: bucket.key_as_string,
-            'created_year': lambda: bucket.key_as_string
+            "pickup_location": lambda: f"{self.cfg.locations.get(bucket.key, self.label_na_msg)} "
+            f"({bucket.key})",
+            "status": lambda: bucket.key,
+            "created_month": lambda: bucket.key_as_string,
+            "created_year": lambda: bucket.key_as_string,
         }
         return cfg[distribution]()

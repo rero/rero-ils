@@ -19,15 +19,18 @@
 """Circulation policies permissions."""
 from invenio_access import action_factory
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByOrganisation, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByOrganisation,
+    RecordPermissionPolicy,
+)
 
-search_action = action_factory('cipo-search')
-read_action = action_factory('cipo-read')
-create_action = action_factory('cipo-create')
-update_action = action_factory('cipo-update')
-delete_action = action_factory('cipo-delete')
-access_action = action_factory('cipo-access')
+search_action = action_factory("cipo-search")
+read_action = action_factory("cipo-read")
+create_action = action_factory("cipo-create")
+update_action = action_factory("cipo-update")
+delete_action = action_factory("cipo-delete")
+access_action = action_factory("cipo-access")
 
 
 class CirculationPolicyPermissionPolicy(RecordPermissionPolicy):

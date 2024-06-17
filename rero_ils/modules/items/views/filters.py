@@ -26,9 +26,11 @@ def issue_client_reference(issue_data):
     :returns: the string representing the client reference.
     :rtype: str
     """
-    if holding_data := issue_data.get('holdings'):
-        parts = list(filter(None, [
-            holding_data.get('client_id'),
-            holding_data.get('order_reference')
-        ]))
-        return f'({"/".join(parts)})' if parts else ''
+    if holding_data := issue_data.get("holdings"):
+        parts = list(
+            filter(
+                None,
+                [holding_data.get("client_id"), holding_data.get("order_reference")],
+            )
+        )
+        return f'({"/".join(parts)})' if parts else ""

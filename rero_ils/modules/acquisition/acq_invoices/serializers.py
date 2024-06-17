@@ -20,8 +20,12 @@
 from invenio_records_rest.serializers.response import record_responsify
 
 from rero_ils.modules.libraries.api import LibrariesSearch
-from rero_ils.modules.serializers import ACQJSONSerializer, JSONSerializer, \
-    RecordSchemaJSONV1, search_responsify
+from rero_ils.modules.serializers import (
+    ACQJSONSerializer,
+    JSONSerializer,
+    RecordSchemaJSONV1,
+    search_responsify,
+)
 
 
 class AcquisitionInvoiceJSONSerializer(ACQJSONSerializer):
@@ -30,12 +34,11 @@ class AcquisitionInvoiceJSONSerializer(ACQJSONSerializer):
     def _postprocess_search_aggregations(self, aggregations: dict) -> None:
         """Post-process aggregations from a search result."""
         JSONSerializer.enrich_bucket_with_data(
-            aggregations.get('library', {}).get('buckets', []),
-            LibrariesSearch, 'name'
+            aggregations.get("library", {}).get("buckets", []), LibrariesSearch, "name"
         )
         super()._postprocess_search_aggregations(aggregations)
 
 
 _json = AcquisitionInvoiceJSONSerializer(RecordSchemaJSONV1)
-json_acq_invoice_search = search_responsify(_json, 'application/rero+json')
-json_acq_invoice_record = record_responsify(_json, 'application/rero+json')
+json_acq_invoice_search = search_responsify(_json, "application/rero+json")
+json_acq_invoice_record = record_responsify(_json, "application/rero+json")

@@ -26,13 +26,14 @@ from rero_ils.modules.items.models import ItemStatus
 
 
 def test_checkout_missing_parameters(
-        client,
-        librarian_martigny,
-        lib_martigny,
-        loc_public_martigny,
-        patron_martigny,
-        item_lib_martigny,
-        circulation_policies):
+    client,
+    librarian_martigny,
+    lib_martigny,
+    loc_public_martigny,
+    patron_martigny,
+    item_lib_martigny,
+    circulation_policies,
+):
     """Test checkout with missing parameters.
 
     Are needed:
@@ -46,44 +47,36 @@ def test_checkout_missing_parameters(
     assert item.status == ItemStatus.ON_SHELF
 
     # test fails when missing required parameter
+    res, _ = postdata(client, "api_item.checkout", dict(item_pid=item.pid))
+    assert res.status_code == 400
     res, _ = postdata(
         client,
-        'api_item.checkout',
-        dict(
-            item_pid=item.pid
-        )
+        "api_item.checkout",
+        dict(item_pid=item.pid, patron_pid=patron_martigny.pid),
     )
     assert res.status_code == 400
     res, _ = postdata(
         client,
-        'api_item.checkout',
-        dict(
-            item_pid=item.pid,
-            patron_pid=patron_martigny.pid
-        )
-    )
-    assert res.status_code == 400
-    res, _ = postdata(
-        client,
-        'api_item.checkout',
+        "api_item.checkout",
         dict(
             item_pid=item.pid,
             patron_pid=patron_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid
-        )
+            transaction_user_pid=librarian_martigny.pid,
+        ),
     )
     assert res.status_code == 400
 
 
 def test_checkout(
-        client,
-        librarian_martigny,
-        lib_martigny,
-        loc_public_martigny,
-        patron_martigny,
-        item_lib_martigny,
-        circulation_policies,
-        item_on_shelf_martigny_patron_and_loan_pending):
+    client,
+    librarian_martigny,
+    lib_martigny,
+    loc_public_martigny,
+    patron_martigny,
+    item_lib_martigny,
+    circulation_policies,
+    item_on_shelf_martigny_patron_and_loan_pending,
+):
     """Test a successful frontend checkout action."""
     login_user_via_session(client, librarian_martigny.user)
     item = item_lib_martigny
@@ -93,27 +86,19 @@ def test_checkout(
         item_pid=item.pid,
         patron_pid=patron_martigny.pid,
         transaction_user_pid=librarian_martigny.pid,
-        transaction_location_pid=loc_public_martigny.pid
+        transaction_location_pid=loc_public_martigny.pid,
     )
 
     # test is done WITHOUT loan PID
-    res, _ = postdata(
-        client,
-        'api_item.checkout',
-        params
-    )
+    res, _ = postdata(client, "api_item.checkout", params)
     assert res.status_code == 200
 
     # test WITH loan PID & WITH SPECIFIED END-DATE
     item, patron_pid, loan = item_on_shelf_martigny_patron_and_loan_pending
     assert item.status == ItemStatus.ON_SHELF
-    params['item_pid'] = item.pid
-    params['pid'] = loan.pid
-    res, _ = postdata(
-        client,
-        'api_item.checkout',
-        params
-    )
+    params["item_pid"] = item.pid
+    params["pid"] = loan.pid
+    res, _ = postdata(client, "api_item.checkout", params)
     assert res.status_code == 200
 
     # TEST CHECKOUT WITH SPECIFIED END-DATE
@@ -124,12 +109,12 @@ def test_checkout(
     #      business open day
     res, _ = postdata(
         client,
-        'api_item.checkin',
+        "api_item.checkin",
         dict(
             item_pid=item.pid,
             transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid
-        )
+            transaction_user_pid=librarian_martigny.pid,
+        ),
     )
     assert res.status_code == 200
 
@@ -143,15 +128,11 @@ def test_checkout(
         patron_pid=patron_martigny.pid,
         transaction_user_pid=librarian_martigny.pid,
         transaction_location_pid=loc_public_martigny.pid,
-        end_date=next_saturday.isoformat()
+        end_date=next_saturday.isoformat(),
     )
-    res, data = postdata(
-        client,
-        'api_item.checkout',
-        params
-    )
+    res, data = postdata(client, "api_item.checkout", params)
     assert res.status_code == 200
-    transaction_end_date = data['action_applied']['checkout']['end_date']
+    transaction_end_date = data["action_applied"]["checkout"]["end_date"]
     transaction_end_date = ciso8601.parse_datetime(transaction_end_date)
     next_open_date = lib_martigny.next_open(next_saturday)
     assert next_open_date.date() == transaction_end_date.date()

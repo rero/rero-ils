@@ -30,13 +30,13 @@ def _add_org_and_lib(record):
 
     :param record: the record metadata.
     """
-    location_pid = extracted_data_from_ref(record.get('location'))
+    location_pid = extracted_data_from_ref(record.get("location"))
     # try on the elasticsearch location index
     try:
         es_loc = next(
             LocationsSearch()
-            .filter('term', pid=location_pid)
-            .source(['organisation', 'library'])
+            .filter("term", pid=location_pid)
+            .source(["organisation", "library"])
             .scan()
         )
         organisation_pid = es_loc.organisation.pid
@@ -47,12 +47,10 @@ def _add_org_and_lib(record):
         library_pid = library.pid
         organisation_pid = library.organisation_pid
     base_url = get_base_url()
-    record['organisation'] = {
-        '$ref': f'{base_url}/api/organisations/{organisation_pid}'
+    record["organisation"] = {
+        "$ref": f"{base_url}/api/organisations/{organisation_pid}"
     }
-    record['library'] = {
-        '$ref': f'{base_url}/api/libraries/{library_pid}'
-    }
+    record["library"] = {"$ref": f"{base_url}/api/libraries/{library_pid}"}
 
 
 class OrgLibRecordExtension(RecordExtension):
@@ -64,7 +62,7 @@ class OrgLibRecordExtension(RecordExtension):
         :param record: the record metadata.
         """
         # do nothing if already exists
-        if record.get('organisation') and record.get('library'):
+        if record.get("organisation") and record.get("library"):
             return
         _add_org_and_lib(record)
         # required for validation

@@ -34,9 +34,11 @@ def record_responsify(serializer, mimetype, dojson_class=None):
 
     def view(pid, record, code=200, headers=None, links_factory=None):
         response = current_app.response_class(
-            serializer.serialize(pid, record, links_factory=links_factory,
-                                 dojson_class=dojson_class),
-            mimetype=mimetype)
+            serializer.serialize(
+                pid, record, links_factory=links_factory, dojson_class=dojson_class
+            ),
+            mimetype=mimetype,
+        )
         response.status_code = code
         # TODO: do we have to set an etag?
         # response.set_etag('xxxxx')

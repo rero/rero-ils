@@ -41,7 +41,7 @@ def test_document_files(
     res = client.get(list_url)
     hits = get_json(res)["hits"]
     aggregations = get_json(res)["aggregations"]["organisation"]
-    assert aggregations['buckets'][0]['doc_count'] == 1
+    assert aggregations["buckets"][0]["doc_count"] == 1
     assert hits["total"]["value"] == 1
 
     # check for collections
@@ -55,9 +55,7 @@ def test_document_files(
 
     # check for collections
     list_url = url_for(
-        "invenio_records_rest.doc_list",
-        q=f"_exists_:files",
-        view=org_martigny.pid
+        "invenio_records_rest.doc_list", q=f"_exists_:files", view=org_martigny.pid
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
@@ -73,28 +71,32 @@ def test_document_files(
         json={
             "metadata": {
                 "collections": ["new col"],
-                "library": {'$ref': get_ref_for_pid('lib', 'lib1')},
-                "document": {'$ref': get_ref_for_pid('doc', 'doc1')},
+                "library": {"$ref": get_ref_for_pid("lib", "lib1")},
+                "document": {"$ref": get_ref_for_pid("doc", "doc1")},
             }
         },
     )
     assert res.status_code == 200
     res = client.get(f"/records/{file_data['rec_id']}", headers=json_header)
     assert res.status_code == 200
-    assert res.json['metadata'] == {
-        'collections': ['new col'],
-        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc1'},
-        'library': {'$ref': 'https://bib.rero.ch/api/libraries/lib1'}
+    assert res.json["metadata"] == {
+        "collections": ["new col"],
+        "document": {"$ref": "https://bib.rero.ch/api/documents/doc1"},
+        "library": {"$ref": "https://bib.rero.ch/api/libraries/lib1"},
     }
 
     res = client.get(f"/records?q={file_data['rec_id']}", headers=json_header)
     assert res.status_code == 200
-    metadata = res.json['hits']['hits'][0]['metadata']
+    metadata = res.json["hits"]["hits"][0]["metadata"]
     assert set(metadata.keys()) == {
-        'collections', 'document', 'file_size', 'library', 'n_files'
+        "collections",
+        "document",
+        "file_size",
+        "library",
+        "n_files",
     }
-    assert metadata['library'] == {'pid': 'lib1', 'type': 'lib'}
-    assert metadata['document'] == {'pid': 'doc1', 'type': 'doc'}
+    assert metadata["library"] == {"pid": "lib1", "type": "lib"}
+    assert metadata["document"] == {"pid": "doc1", "type": "doc"}
 
     # check for modifications in document
     res = client.get(list_url)

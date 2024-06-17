@@ -57,18 +57,18 @@ class PatronNotificationDumper(InvenioRecordsDumper):
         :return a dict with dumped data.
         """
         data = {
-            'pid': record.pid,
-            'last_name': data.get('last_name'),
-            'first_name': data.get('first_name'),
-            'profile_url': record.profile_url,
-            'address': {
-                'street': data.get('street'),
-                'postal_code': data.get('postal_code'),
-                'city': data.get('city'),
-                'country': data.get('country')
+            "pid": record.pid,
+            "last_name": data.get("last_name"),
+            "first_name": data.get("first_name"),
+            "profile_url": record.profile_url,
+            "address": {
+                "street": data.get("street"),
+                "postal_code": data.get("postal_code"),
+                "city": data.get("city"),
+                "country": data.get("country"),
             },
-            'barcode': record.get('patron', {}).get('barcode')
+            "barcode": record.get("patron", {}).get("barcode"),
         }
-        data['address'] = {k: v for k, v in data['address'].items() if v}
+        data["address"] = {k: v for k, v in data["address"].items() if v}
         data = {k: v for k, v in data.items() if v}
         return data

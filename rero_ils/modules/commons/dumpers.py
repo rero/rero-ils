@@ -73,5 +73,6 @@ class ReplaceRefsDumper(InvenioRecordsDumper):
         :return a dict with dumped data.
         """
         from copy import deepcopy
+
         data = deepcopy(_records_state.replace_refs(data))
         return data

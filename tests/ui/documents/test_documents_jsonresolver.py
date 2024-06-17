@@ -24,10 +24,10 @@ from jsonref import JsonRefError
 
 def test_documents_jsonresolver(document):
     """Test document json resolver."""
-    rec = Record.create({
-        'document': {'$ref': 'https://bib.rero.ch/api/documents/doc1'}
-    })
-    assert rec.replace_refs().get('document') == {'type': 'doc', 'pid': 'doc1'}
+    rec = Record.create(
+        {"document": {"$ref": "https://bib.rero.ch/api/documents/doc1"}}
+    )
+    assert rec.replace_refs().get("document") == {"type": "doc", "pid": "doc1"}
 
     # deleted record
     document.delete()
@@ -35,8 +35,6 @@ def test_documents_jsonresolver(document):
         type(rec)(rec.replace_refs()).dumps()
 
     # non existing record
-    rec = Record.create({
-        'document': {'$ref': 'https://bib.rero.ch/api/documents/n_e'}
-    })
+    rec = Record.create({"document": {"$ref": "https://bib.rero.ch/api/documents/n_e"}})
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()

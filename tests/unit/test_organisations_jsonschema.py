@@ -41,7 +41,7 @@ def test_pid(organisation_schema, org_martigny_data):
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(org_martigny_data)
-        data['pid'] = 25
+        data["pid"] = 25
         validate(data, organisation_schema)
 
 
@@ -51,7 +51,7 @@ def test_name(organisation_schema, org_martigny_data):
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(org_martigny_data)
-        data['name'] = 25
+        data["name"] = 25
         validate(data, organisation_schema)
 
 
@@ -61,7 +61,7 @@ def test_address(organisation_schema, org_martigny_data):
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(org_martigny_data)
-        data['address'] = 25
+        data["address"] = 25
         validate(data, organisation_schema)
 
 
@@ -71,15 +71,15 @@ def test_default_currency(organisation_schema, org_martigny_data):
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(org_martigny_data)
-        data['default_currency'] = 25  # bad type
+        data["default_currency"] = 25  # bad type
         validate(data, organisation_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(org_martigny_data)
-        data['default_currency'] = "dummy"  # bad string length
+        data["default_currency"] = "dummy"  # bad string length
         validate(data, organisation_schema)
 
     with pytest.raises(ValidationError):
         data = copy.deepcopy(org_martigny_data)
-        data['default_currency'] = "chf"  # bad string case
+        data["default_currency"] = "chf"  # bad string case
         validate(data, organisation_schema)

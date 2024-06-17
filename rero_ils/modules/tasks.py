@@ -26,8 +26,9 @@ from .utils import set_timestamp
 
 
 @shared_task(ignore_result=True)
-def process_bulk_queue(version_type=None, queue=None, search_bulk_kwargs=None,
-                       stats_only=True):
+def process_bulk_queue(
+    version_type=None, queue=None, search_bulk_kwargs=None, stats_only=True
+):
     """Process bulk indexing queue.
 
     :param str version_type: Elasticsearch version type.
@@ -47,16 +48,15 @@ def process_bulk_queue(version_type=None, queue=None, search_bulk_kwargs=None,
         connection = establish_connection()
         connected_queue = connect_queue(connection, queue)
     indexer = IlsRecordsIndexer(
-        version_type=version_type,
-        queue=connected_queue,
-        routing_key=queue
+        version_type=version_type, queue=connected_queue, routing_key=queue
     )
     return indexer.process_bulk_queue(
-        search_bulk_kwargs=search_bulk_kwargs, stats_only=stats_only)
+        search_bulk_kwargs=search_bulk_kwargs, stats_only=stats_only
+    )
 
 
 @shared_task(ignore_result=True)
 def scheduler_timestamp():
     """Writes a time stamp to current cache."""
-    time = set_timestamp('scheduler')
-    return {'scheduler': time}
+    time = set_timestamp("scheduler")
+    return {"scheduler": time}

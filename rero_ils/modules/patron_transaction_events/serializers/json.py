@@ -22,30 +22,33 @@ from rero_ils.modules.libraries.api import LibrariesSearch
 from rero_ils.modules.locations.api import LocationsSearch
 from rero_ils.modules.patron_types.api import PatronTypesSearch
 from rero_ils.modules.patrons.api import Patron
-from rero_ils.modules.serializers import CachedDataSerializerMixin, \
-    JSONSerializer, RecordSchemaJSONV1, search_responsify
+from rero_ils.modules.serializers import (
+    CachedDataSerializerMixin,
+    JSONSerializer,
+    RecordSchemaJSONV1,
+    search_responsify,
+)
 
 
-class PatronTransactionEventsJSONSerializer(JSONSerializer,
-                                            CachedDataSerializerMixin):
+class PatronTransactionEventsJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
     """Serializer for RERO-ILS `PatronTransactionEvent` records as JSON."""
 
     def _postprocess_search_hit(self, hit):
         """Post-process each hit of a search result."""
-        metadata = hit.get('metadata', {})
+        metadata = hit.get("metadata", {})
 
         # Add label for some $ref fields.
-        pid = metadata.get('library', {}).get('pid')
+        pid = metadata.get("library", {}).get("pid")
         if pid and (resource := self.get_resource(LibrariesSearch(), pid)):
-            metadata['library']['name'] = resource.get('name')
+            metadata["library"]["name"] = resource.get("name")
 
-        pid = metadata.get('patron_type', {}).get('pid')
+        pid = metadata.get("patron_type", {}).get("pid")
         if pid and (resource := self.get_resource(PatronTypesSearch(), pid)):
-            metadata['patron_type']['name'] = resource.get('name')
+            metadata["patron_type"]["name"] = resource.get("name")
 
-        pid = metadata.get('operator', {}).get('pid')
+        pid = metadata.get("operator", {}).get("pid")
         if pid and (resource := self.get_resource(Patron, pid)):
-            metadata['operator']['name'] = resource.formatted_name
+            metadata["operator"]["name"] = resource.formatted_name
 
         super()._postprocess_search_hit(hit)
 
@@ -54,29 +57,29 @@ class PatronTransactionEventsJSONSerializer(JSONSerializer,
         # enrich aggregation hit with some key
         aggrs = aggregations
         JSONSerializer.enrich_bucket_with_data(
-            aggrs.get('transaction_library', {}).get('buckets', []),
-            LibrariesSearch, 'name'
+            aggrs.get("transaction_library", {}).get("buckets", []),
+            LibrariesSearch,
+            "name",
         )
         JSONSerializer.enrich_bucket_with_data(
-            aggrs.get('patron_type', {}).get('buckets', []),
-            PatronTypesSearch, 'name'
+            aggrs.get("patron_type", {}).get("buckets", []), PatronTypesSearch, "name"
         )
         JSONSerializer.enrich_bucket_with_data(
-            aggrs.get('owning_library', {}).get('buckets', []),
-            LibrariesSearch, 'name'
+            aggrs.get("owning_library", {}).get("buckets", []), LibrariesSearch, "name"
         )
-        for loc_bucket in aggrs.get('owning_library', {}).get('buckets', []):
+        for loc_bucket in aggrs.get("owning_library", {}).get("buckets", []):
             JSONSerializer.enrich_bucket_with_data(
-                loc_bucket.get('owning_location', {}).get('buckets', []),
-                LocationsSearch, 'name'
+                loc_bucket.get("owning_location", {}).get("buckets", []),
+                LocationsSearch,
+                "name",
             )
 
         # add configuration for date-range facets
-        aggr = aggregations.get('transaction_date', {})
+        aggr = aggregations.get("transaction_date", {})
         JSONSerializer.add_date_range_configuration(aggr)
 
         super()._postprocess_search_aggregations(aggregations)
 
 
 _json = PatronTransactionEventsJSONSerializer(RecordSchemaJSONV1)
-json_ptre_search = search_responsify(_json, 'application/rero+json')
+json_ptre_search = search_responsify(_json, "application/rero+json")

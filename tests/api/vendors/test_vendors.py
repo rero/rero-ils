@@ -28,73 +28,77 @@ def test_vendors_get(client, librarian_martigny, vendor_martigny):
     """Test vendor record retrieval."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
-    item_url = url_for(
-        'invenio_records_rest.vndr_item',
-        pid_value=vendor_martigny.pid)
-    list_url = url_for(
-        'invenio_records_rest.vndr_list',
-        q=f'pid:{vendor_martigny.pid}'
-    )
+    item_url = url_for("invenio_records_rest.vndr_item", pid_value=vendor_martigny.pid)
+    list_url = url_for("invenio_records_rest.vndr_list", q=f"pid:{vendor_martigny.pid}")
 
     res = client.get(item_url)
     assert res.status_code == 200
 
-    assert res.headers['ETag'] == f'"{vendor_martigny.revision_id}"'
+    assert res.headers["ETag"] == f'"{vendor_martigny.revision_id}"'
 
     data = get_json(res)
-    assert vendor_martigny.dumps() == data['metadata']
+    assert vendor_martigny.dumps() == data["metadata"]
 
     # Check metadata
-    for k in ['created', 'updated', 'metadata', 'links']:
+    for k in ["created", "updated", "metadata", "links"]:
         assert k in data
 
 
-def test_filtered_vendors_get(client, librarian_martigny,
-                              librarian_sion, vendor_martigny,
-                              vendor2_martigny, vendor_sion, vendor2_sion):
+def test_filtered_vendors_get(
+    client,
+    librarian_martigny,
+    librarian_sion,
+    vendor_martigny,
+    vendor2_martigny,
+    vendor_sion,
+    vendor2_sion,
+):
     """Test vendors filter by organisation."""
     # Martigny
     login_user_via_session(client, librarian_martigny.user)
-    list_url = url_for('invenio_records_rest.vndr_list')
+    list_url = url_for("invenio_records_rest.vndr_list")
 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total']['value'] == 2
+    assert data["hits"]["total"]["value"] == 2
 
     # Sion
     login_user_via_session(client, librarian_sion.user)
-    list_url = url_for('invenio_records_rest.vndr_list')
+    list_url = url_for("invenio_records_rest.vndr_list")
 
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['hits']['total']['value'] == 2
+    assert data["hits"]["total"]["value"] == 2
 
 
 def test_vendors_can_delete(
-        client, vendor_martigny, acq_order_fiction_martigny,
-        acq_invoice_fiction_martigny, holding_lib_martigny_w_patterns):
+    client,
+    vendor_martigny,
+    acq_order_fiction_martigny,
+    acq_invoice_fiction_martigny,
+    holding_lib_martigny_w_patterns,
+):
     """Test can delete a vendor with a linked acquisition order."""
     can, reasons = vendor_martigny.can_delete
     assert not can
-    assert reasons['links']['acq_orders']
-    assert reasons['links']['acq_invoices']
-    assert reasons['links']['holdings']
+    assert reasons["links"]["acq_orders"]
+    assert reasons["links"]["acq_invoices"]
+    assert reasons["links"]["holdings"]
 
 
-def test_vendor_post_update_delete(client, librarian_martigny,
-                                   vendor3_martigny_data, json_header):
+def test_vendor_post_update_delete(
+    client, librarian_martigny, vendor3_martigny_data, json_header
+):
     """Test CRUD on vendor."""
     login_user_via_session(client, librarian_martigny.user)
-    item_url = url_for('invenio_records_rest.vndr_item', pid_value='vndr3')
+    item_url = url_for("invenio_records_rest.vndr_item", pid_value="vndr3")
 
     # create
-    vendor3_martigny_data['pid'] = 'vndr3'
+    vendor3_martigny_data["pid"] = "vndr3"
     res, data = postdata(
-        client,
-        'invenio_records_rest.vndr_list',
-        vendor3_martigny_data
+        client, "invenio_records_rest.vndr_list", vendor3_martigny_data
     )
     assert res.status_code == 201
 
@@ -102,21 +106,17 @@ def test_vendor_post_update_delete(client, librarian_martigny,
     res = client.get(item_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert data['metadata'] == vendor3_martigny_data
+    assert data["metadata"] == vendor3_martigny_data
 
     # update
     data = vendor3_martigny_data
-    data['name'] = 'Test update Name'
-    res = client.put(
-        item_url,
-        data=json.dumps(data),
-        headers=json_header
-    )
+    data["name"] = "Test update Name"
+    res = client.put(item_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 200
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data['metadata']['name'] == 'Test update Name'
+    assert data["metadata"]["name"] == "Test update Name"
 
     # delete
     res = client.delete(item_url)

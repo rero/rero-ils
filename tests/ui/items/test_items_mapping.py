@@ -21,17 +21,17 @@ from utils import get_mapping
 from rero_ils.modules.items.api import Item, ItemsSearch
 
 
-def test_item_es_mapping(document, loc_public_martigny,
-                         item_type_standard_martigny,
-                         item_lib_martigny_data_tmp):
+def test_item_es_mapping(
+    document,
+    loc_public_martigny,
+    item_type_standard_martigny,
+    item_lib_martigny_data_tmp,
+):
     """Test item elasticsearch mapping."""
     search = ItemsSearch()
     mapping = get_mapping(search.Meta.index)
     assert mapping
     Item.create(
-        item_lib_martigny_data_tmp,
-        dbcommit=True,
-        reindex=True,
-        delete_pid=True
+        item_lib_martigny_data_tmp, dbcommit=True, reindex=True, delete_pid=True
     )
     assert mapping == get_mapping(search.Meta.index)

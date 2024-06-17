@@ -29,31 +29,30 @@ from invenio_circulation.search.api import search_by_pid
 from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
 
-from rero_ils.modules.acquisition.acq_order_lines.api import \
-    AcqOrderLinesSearch
+from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLinesSearch
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
-from rero_ils.modules.commons.identifiers import IdentifierFactory, \
-    IdentifierType
+from rero_ils.modules.commons.identifiers import IdentifierFactory, IdentifierType
 from rero_ils.modules.fetchers import id_fetcher
-from rero_ils.modules.local_fields.extensions import \
-    DeleteRelatedLocalFieldExtension
+from rero_ils.modules.local_fields.extensions import DeleteRelatedLocalFieldExtension
 from rero_ils.modules.minters import id_minter
-from rero_ils.modules.operation_logs.extensions import \
-    OperationLogObserverExtension
+from rero_ils.modules.operation_logs.extensions import OperationLogObserverExtension
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.utils import sorted_pids
 
 from .dumpers import document_indexer_dumper, document_replace_refs_dumper
-from .extensions import AddMEFPidExtension, EditionStatementExtension, \
-    ProvisionActivitiesExtension, SeriesStatementExtension, TitleExtension
+from .extensions import (
+    AddMEFPidExtension,
+    EditionStatementExtension,
+    ProvisionActivitiesExtension,
+    SeriesStatementExtension,
+    TitleExtension,
+)
 from .models import DocumentIdentifier, DocumentMetadata
 
 # provider
 DocumentProvider = type(
-    'DocumentProvider',
-    (Provider,),
-    dict(identifier=DocumentIdentifier, pid_type='doc')
+    "DocumentProvider", (Provider,), dict(identifier=DocumentIdentifier, pid_type="doc")
 )
 # minter
 document_id_minter = partial(id_minter, provider=DocumentProvider)
@@ -67,15 +66,16 @@ class DocumentsSearch(IlsRecordsSearch):
     class Meta:
         """Search only on documents index."""
 
-        index = 'documents'
+        index = "documents"
         doc_types = None
-        fields = ('*', )
+        fields = ("*",)
         facets = {}
 
         default_filter = None
 
-    def by_entity(self, entity, subjects=True, imported_subjects=True,
-                  genre_forms=True):
+    def by_entity(
+        self, entity, subjects=True, imported_subjects=True, genre_forms=True
+    ):
         """Build a search to get hits related to an entity.
 
         :param entity: the entity record to search.
@@ -85,17 +85,17 @@ class DocumentsSearch(IlsRecordsSearch):
         :returns: An ElasticSearch query to get hits related the entity.
         :rtype: `elasticsearch_dsl.Search`
         """
-        field = f'contribution.entity.pids.{entity.resource_type}'
-        filters = Q('term', **{field: entity.pid})
+        field = f"contribution.entity.pids.{entity.resource_type}"
+        filters = Q("term", **{field: entity.pid})
         if subjects:
-            field = f'subjects.entity.pids.{entity.resource_type}'
-            filters |= Q('term', **{field: entity.pid})
+            field = f"subjects.entity.pids.{entity.resource_type}"
+            filters |= Q("term", **{field: entity.pid})
         if imported_subjects:
-            field = f'subjects_imported.pids.{entity.resource_type}'
-            filters |= Q('term', **{field: entity.pid})
+            field = f"subjects_imported.pids.{entity.resource_type}"
+            filters |= Q("term", **{field: entity.pid})
         if genre_forms:
-            field = f'genreForm.entity.pids.{entity.resource_type}'
-            filters |= Q('term', **{field: entity.pid})
+            field = f"genreForm.entity.pids.{entity.resource_type}"
+            filters |= Q("term", **{field: entity.pid})
         return self.filter(filters)
 
     def by_library_pid(self, library_pid):
@@ -105,8 +105,7 @@ class DocumentsSearch(IlsRecordsSearch):
         :returns: An ElasticSearch query to get hits related the entity.
         :rtype: `elasticsearch_dsl.Search`
         """
-        return self.filter(
-            'term', holdings__organisation__library_pid=library_pid)
+        return self.filter("term", holdings__organisation__library_pid=library_pid)
 
 
 class Document(IlsRecord):
@@ -121,12 +120,12 @@ class Document(IlsRecord):
 
     _extensions = [
         OperationLogObserverExtension(),
-        AddMEFPidExtension('subjects', 'contribution', 'genreForm'),
+        AddMEFPidExtension("subjects", "contribution", "genreForm"),
         ProvisionActivitiesExtension(),
         SeriesStatementExtension(),
         EditionStatementExtension(),
         TitleExtension(),
-        DeleteRelatedLocalFieldExtension()
+        DeleteRelatedLocalFieldExtension(),
     ]
 
     def _validate(self, **kwargs):
@@ -135,30 +134,45 @@ class Document(IlsRecord):
 
         if self.pid_check:
             from ..utils import pids_exists_in_data
-            validation_message = pids_exists_in_data(
-                info=f'{self.provider.pid_type} ({self.pid})',
-                data=self,
-                required={},
-                not_required={'doc': [
-                    'supplement', 'supplementTo', 'otherEdition',
-                    'otherPhysicalFormat', 'issuedWith', 'precededBy',
-                    'succeededBy', 'relatedTo', 'hasReproduction',
-                    'reproductionOf'
-                ]}
-            ) or True
+
+            validation_message = (
+                pids_exists_in_data(
+                    info=f"{self.provider.pid_type} ({self.pid})",
+                    data=self,
+                    required={},
+                    not_required={
+                        "doc": [
+                            "supplement",
+                            "supplementTo",
+                            "otherEdition",
+                            "otherPhysicalFormat",
+                            "issuedWith",
+                            "precededBy",
+                            "succeededBy",
+                            "relatedTo",
+                            "hasReproduction",
+                            "reproductionOf",
+                        ]
+                    },
+                )
+                or True
+            )
             if validation_message is True:
                 # also test partOf
-                if part_of := self.get('partOf', []):
+                if part_of := self.get("partOf", []):
                     # make a list of refs for easier testing
-                    part_of_documents = [doc['document'] for doc in part_of]
-                    validation_message = pids_exists_in_data(
-                        info=f'{self.provider.pid_type} ({self.pid})',
-                        data={'partOf': part_of_documents},
-                        required={},
-                        not_required={'doc': 'partOf'}
-                    ) or True
+                    part_of_documents = [doc["document"] for doc in part_of]
+                    validation_message = (
+                        pids_exists_in_data(
+                            info=f"{self.provider.pid_type} ({self.pid})",
+                            data={"partOf": part_of_documents},
+                            required={},
+                            not_required={"doc": "partOf"},
+                        )
+                        or True
+                    )
             if validation_message is not True:
-                raise ValidationError(';'.join(validation_message))
+                raise ValidationError(";".join(validation_message))
         return json
 
     @classmethod
@@ -175,16 +189,15 @@ class Document(IlsRecord):
         holding_query = HoldingsSearch().available_query()
 
         # filter by the current document
-        filters = Q('term', document__pid=pid)
+        filters = Q("term", document__pid=pid)
 
         # filter by organisation
         if org_pid:
-            filters &= Q('term', organisation__pid=org_pid)
+            filters &= Q("term", organisation__pid=org_pid)
         holding_query = holding_query.filter(filters)
 
         # get the number of electronic holdings
-        n_electronic_holdings = holding_query\
-            .filter('term', holdings_type='electronic')
+        n_electronic_holdings = holding_query.filter("term", holdings_type="electronic")
 
         return holding_query.count(), n_electronic_holdings.count()
 
@@ -202,15 +215,13 @@ class Document(IlsRecord):
         items_query = ItemsSearch().available_query()
 
         # filter by the current document
-        filters = Q('term', document__pid=pid)
+        filters = Q("term", document__pid=pid)
 
         # filter by organisation
         if org_pid:
-            filters &= Q('term', organisation__pid=org_pid)
+            filters &= Q("term", organisation__pid=org_pid)
 
-        return [
-            hit.pid for hit in items_query.filter(filters).source('pid').scan()
-        ]
+        return [hit.pid for hit in items_query.filter(filters).source("pid").scan()]
 
     @classmethod
     def get_item_pids_with_active_loan(cls, pid, org_pid=None):
@@ -225,17 +236,15 @@ class Document(IlsRecord):
         loan_query = LoansSearch().unavailable_query()
 
         # filter by the current document
-        filters = Q('term', document_pid=pid)
+        filters = Q("term", document_pid=pid)
 
         # filter by organisation
         if org_pid:
-            filters &= Q('term', organisation__pid=org_pid)
+            filters &= Q("term", organisation__pid=org_pid)
 
         loan_query = loan_query.filter(filters)
 
-        return [
-            hit.item_pid.value for hit in loan_query.source('item_pid').scan()
-        ]
+        return [hit.item_pid.value for hit in loan_query.source("item_pid").scan()]
 
     @classmethod
     def is_available(cls, pid, view_code=None):
@@ -249,14 +258,14 @@ class Document(IlsRecord):
         """
         # get the organisation pid corresponding to the view code
         org_pid = None
-        if view_code != current_app.config.get(
-                'RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'):
-            org_pid = Organisation.get_record_by_viewcode(view_code)['pid']
+        if view_code != current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
+            org_pid = Organisation.get_record_by_viewcode(view_code)["pid"]
 
         # -------------- Holdings --------------------
         # get the number of available and electronic holdings
-        n_available_holdings, n_electronic_holdings = \
-            cls.get_n_available_holdings(pid, org_pid)
+        n_available_holdings, n_electronic_holdings = cls.get_n_available_holdings(
+            pid, org_pid
+        )
 
         # available if an electronic holding exists
         if n_electronic_holdings:
@@ -276,8 +285,7 @@ class Document(IlsRecord):
 
         # --------------- Loans -------------------
         # get item pids that have active loans
-        unavailable_item_pids = \
-            cls.get_item_pids_with_active_loan(pid, org_pid)
+        unavailable_item_pids = cls.get_item_pids_with_active_loan(pid, org_pid)
 
         # available if at least one item don't have active loan
         return bool(set(available_item_pids) - set(unavailable_item_pids))
@@ -285,7 +293,7 @@ class Document(IlsRecord):
     @property
     def harvested(self):
         """Is this record harvested from an external service."""
-        return self.get('harvested', False)
+        return self.get("harvested", False)
 
     @property
     def can_edit(self):
@@ -303,29 +311,32 @@ class Document(IlsRecord):
         from ..items.api import ItemsSearch
         from ..loans.models import LoanState
         from ..local_fields.api import LocalFieldsSearch
-        hold_query = HoldingsSearch().filter('term', document__pid=self.pid)
-        item_query = ItemsSearch().filter('term', document__pid=self.pid)
+
+        hold_query = HoldingsSearch().filter("term", document__pid=self.pid)
+        item_query = ItemsSearch().filter("term", document__pid=self.pid)
         loan_query = search_by_pid(
             document_pid=self.pid,
-            exclude_states=[LoanState.CANCELLED, LoanState.ITEM_RETURNED]
+            exclude_states=[LoanState.CANCELLED, LoanState.ITEM_RETURNED],
         )
         file_query = self.get_records_files_query().source()
-        acq_order_lines_query = AcqOrderLinesSearch() \
-            .filter('term', document__pid=self.pid)
-        local_fields_query = LocalFieldsSearch()\
-            .get_local_fields(self.provider.pid_type, self.pid)
+        acq_order_lines_query = AcqOrderLinesSearch().filter(
+            "term", document__pid=self.pid
+        )
+        local_fields_query = LocalFieldsSearch().get_local_fields(
+            self.provider.pid_type, self.pid
+        )
         relation_types = {
-            'partOf': 'partOf.document.pid',
-            'supplement': 'supplement.pid',
-            'supplementTo': 'supplementTo.pid',
-            'otherEdition': 'otherEdition.pid',
-            'otherPhysicalFormat': 'otherPhysicalFormat.pid',
-            'issuedWith': 'issuedWith.pid',
-            'precededBy': 'precededBy.pid',
-            'succeededBy': 'succeededBy.pid',
-            'relatedTo': 'relatedTo.pid',
-            'hasReproduction': 'hasReproduction.pid',
-            'reproductionOf': 'reproductionOf.pid'
+            "partOf": "partOf.document.pid",
+            "supplement": "supplement.pid",
+            "supplementTo": "supplementTo.pid",
+            "otherEdition": "otherEdition.pid",
+            "otherPhysicalFormat": "otherPhysicalFormat.pid",
+            "issuedWith": "issuedWith.pid",
+            "precededBy": "precededBy.pid",
+            "succeededBy": "succeededBy.pid",
+            "relatedTo": "relatedTo.pid",
+            "hasReproduction": "hasReproduction.pid",
+            "reproductionOf": "reproductionOf.pid",
         }
 
         if get_pids:
@@ -337,8 +348,7 @@ class Document(IlsRecord):
             local_fields = sorted_pids(local_fields_query)
             documents = {}
             for relation, relation_es in relation_types.items():
-                doc_query = DocumentsSearch() \
-                    .filter({'term': {relation_es: self.pid}})
+                doc_query = DocumentsSearch().filter({"term": {relation_es: self.pid}})
                 if pids := sorted_pids(doc_query):
                     documents[relation] = pids
         else:
@@ -350,24 +360,23 @@ class Document(IlsRecord):
             local_fields = local_fields_query.count()
             documents = 0
             for relation_es in relation_types.values():
-                doc_query = DocumentsSearch() \
-                    .filter({'term': {relation_es: self.pid}})
+                doc_query = DocumentsSearch().filter({"term": {relation_es: self.pid}})
                 documents += doc_query.count()
 
         links = {
-            'holdings': holdings,
-            'items': items,
-            'files': files,
-            'loans': loans,
-            'acq_order_lines': acq_order_lines,
-            'documents': documents,
-            'local_fields': local_fields
+            "holdings": holdings,
+            "items": items,
+            "files": files,
+            "loans": loans,
+            "acq_order_lines": acq_order_lines,
+            "documents": documents,
+            "local_fields": local_fields,
         }
         return {k: v for k, v in links.items() if v}
 
     def get_records_files_query(self, lib_pids=None):
         """Creates an es query to retrieves the record files."""
-        ext = current_app.extensions['rero-invenio-files']
+        ext = current_app.extensions["rero-invenio-files"]
         sfr = ext.records_service
         search = sfr.search_request(
             system_identity, dict(size=1), sfr.record_cls, sfr.config.search
@@ -375,20 +384,19 @@ class Document(IlsRecord):
         # required to avoid exception during the `count()` call
         # TODO: remove this once the issue is solved
         search._params = {}
-        search = search.source(['uuid', 'id'])\
-            .filter('term', metadata__document__pid=self.pid)
+        search = search.source(["uuid", "id"]).filter(
+            "term", metadata__document__pid=self.pid
+        )
         # filter by library pids
         if lib_pids:
-            search = search.filter('terms', metadata__library__pid=lib_pids)
+            search = search.filter("terms", metadata__library__pid=lib_pids)
         return search
 
     def get_records_files(self, lib_pids=None):
         """Get the record files linked to the current document."""
-        ext = current_app.extensions['rero-invenio-files']
+        ext = current_app.extensions["rero-invenio-files"]
         sfr = ext.records_service
-        for rec in (self.get_records_files_query(
-            lib_pids=lib_pids).source().scan()
-        ):
+        for rec in self.get_records_files_query(lib_pids=lib_pids).source().scan():
             yield sfr.record_cls.get_record(rec.uuid)
 
     def reasons_not_to_delete(self):
@@ -396,24 +404,27 @@ class Document(IlsRecord):
         cannot_delete = {}
         links = self.get_links_to_me()
         # related LocalFields isn't a reason to block suppression
-        links.pop('local_fields', None)
+        links.pop("local_fields", None)
         if links:
-            cannot_delete['links'] = links
+            cannot_delete["links"] = links
         if self.harvested:
-            cannot_delete['others'] = dict(harvested=True)
+            cannot_delete["others"] = dict(harvested=True)
         return cannot_delete
 
     def index_entities(self, bulk=False):
         """Index all attached entities."""
-        from rero_ils.modules.entities.remote_entities.api import \
-            RemoteEntitiesIndexer, RemoteEntity
+        from rero_ils.modules.entities.remote_entities.api import (
+            RemoteEntitiesIndexer,
+            RemoteEntity,
+        )
 
         from ..tasks import process_bulk_queue
+
         entities_ids = []
-        fields = ('contribution', 'subjects', 'genreForm')
+        fields = ("contribution", "subjects", "genreForm")
         for field in fields:
             for entity in self.get(field, []):
-                if ent_pid := entity['entity'].get('pid'):
+                if ent_pid := entity["entity"].get("pid"):
                     if bulk:
                         uid = RemoteEntity.get_id_by_pid(ent_pid)
                         entities_ids.append(uid)
@@ -431,9 +442,12 @@ class Document(IlsRecord):
 
         a serial document has mode_of_issuance main_type equal to rdami:1003
         """
-        es_documents = DocumentsSearch()\
-            .filter('term', issuance__main_type="rdami:1003")\
-            .source(['pid']).scan()
+        es_documents = (
+            DocumentsSearch()
+            .filter("term", issuance__main_type="rdami:1003")
+            .source(["pid"])
+            .scan()
+        )
         for es_document in es_documents:
             yield es_document.pid
 
@@ -445,11 +459,14 @@ class Document(IlsRecord):
         :return: the pids of the record having the given ISSN
         :rtype: generator
         """
-        criteria = Q('term', nested_identifiers__type=IdentifierType.ISSN)
-        criteria &= Q('term', nested_identifiers__value__raw=issn_number)
-        es_documents = DocumentsSearch()\
-            .filter('nested', path='nested_identifiers', query=criteria)\
-            .source('pid').scan()
+        criteria = Q("term", nested_identifiers__type=IdentifierType.ISSN)
+        criteria &= Q("term", nested_identifiers__value__raw=issn_number)
+        es_documents = (
+            DocumentsSearch()
+            .filter("nested", path="nested_identifiers", query=criteria)
+            .source("pid")
+            .scan()
+        )
         for es_document in es_documents:
             yield es_document.pid
 
@@ -466,8 +483,8 @@ class Document(IlsRecord):
         filters = [] or filters
         identifiers = {
             IdentifierFactory.create_identifier(data)
-            for data in self.get('identifiedBy', [])
-            if not filters or data.get('type') in filters
+            for data in self.get("identifiedBy", [])
+            if not filters or data.get("type") in filters
         }
         if with_alternatives:
             for identifier in list(identifiers):
@@ -477,10 +494,10 @@ class Document(IlsRecord):
     @property
     def document_type(self):
         """Get first document type of document."""
-        document_type = 'docmaintype_other'
-        if document_types := self.get('type', []):
-            document_type = document_types[0]['main_type']
-            if document_subtype := document_types[0].get('subtype'):
+        document_type = "docmaintype_other"
+        if document_types := self.get("type", []):
+            document_type = document_types[0]["main_type"]
+            if document_subtype := document_types[0].get("subtype"):
                 document_type = document_subtype
         return document_type
 
@@ -488,33 +505,30 @@ class Document(IlsRecord):
     def document_types(self):
         """All types of document."""
         document_types = []
-        for document_type in self.get('type', []):
-            main_type = document_type.get('main_type')
-            if sub_type := document_type.get('subtype'):
+        for document_type in self.get("type", []):
+            main_type = document_type.get("main_type")
+            if sub_type := document_type.get("subtype"):
                 main_type = sub_type
             document_types.append(main_type)
-        return document_types or ['docmaintype_other']
+        return document_types or ["docmaintype_other"]
 
     def add_cover_url(self, url, dbcommit=False, reindex=False):
         """Adds electronicLocator with coverImage to document."""
-        electronic_locators = self.get('electronicLocator', [])
+        electronic_locators = self.get("electronicLocator", [])
         for electronic_locator in electronic_locators:
-            e_content = electronic_locator.get('content')
-            e_type = electronic_locator.get('type')
+            e_content = electronic_locator.get("content")
+            e_type = electronic_locator.get("type")
             if (
-                e_content == 'coverImage'
-                and e_type == 'relatedResource'
-                and electronic_locator.get('url') == url
+                e_content == "coverImage"
+                and e_type == "relatedResource"
+                and electronic_locator.get("url") == url
             ):
                 return self, False
-        electronic_locators.append({
-            'content': 'coverImage',
-            'type': 'relatedResource',
-            'url': url
-        })
-        self['electronicLocator'] = electronic_locators
-        self = self.update(
-            data=self, commit=True, dbcommit=dbcommit, reindex=reindex)
+        electronic_locators.append(
+            {"content": "coverImage", "type": "relatedResource", "url": url}
+        )
+        self["electronicLocator"] = electronic_locators
+        self = self.update(data=self, commit=True, dbcommit=dbcommit, reindex=reindex)
         return self, True
 
     def resolve(self):
@@ -543,9 +557,8 @@ class DocumentsIndexer(IlsRecordsIndexer):
         :returns: the elasticsearch document or {}
         """
         try:
-            es_item = current_search_client.get(
-                DocumentsSearch.Meta.index, record.id)
-            return es_item['_source']
+            es_item = current_search_client.get(DocumentsSearch.Meta.index, record.id)
+            return es_item["_source"]
         except NotFoundError:
             return {}
 
@@ -565,10 +578,8 @@ class DocumentsIndexer(IlsRecordsIndexer):
         # has been changed
         # the comparison should be done on the dumps as _text is
         # added for indexing
-        if not es_document \
-           or (record.dumps().get('title') != es_document.get('title')):
-            search = DocumentsSearch().filter(
-                'term', partOf__document__pid=record.pid)
+        if not es_document or (record.dumps().get("title") != es_document.get("title")):
+            search = DocumentsSearch().filter("term", partOf__document__pid=record.pid)
             if ids := [doc.meta.id for doc in search.source().scan()]:
                 # reindex in background as the list can be huge
                 self.bulk_index(ids)
@@ -579,4 +590,4 @@ class DocumentsIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='doc')
+        super().bulk_index(record_id_iterator, doc_type="doc")

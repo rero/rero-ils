@@ -37,7 +37,7 @@ def marcxml_marshmallow_loader():
         marc21json_record = create_record(marcxml_record)
         json_record = marc21.do(marc21json_record)
         # converted records are considered as draft
-        json_record['_draft'] = True
+        json_record["_draft"] = True
         if number_of_xml_records > 0:
             abort(400)
         number_of_xml_records += 1

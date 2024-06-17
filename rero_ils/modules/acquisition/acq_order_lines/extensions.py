@@ -22,8 +22,7 @@ from flask_babel import gettext as _
 from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
 
-from rero_ils.modules.acquisition.acq_accounts.models import \
-    AcqAccountExceedanceType
+from rero_ils.modules.acquisition.acq_accounts.models import AcqAccountExceedanceType
 
 
 class AcqOrderLineValidationExtension(RecordExtension):
@@ -33,8 +32,9 @@ class AcqOrderLineValidationExtension(RecordExtension):
     def _check_balance(record):
         """Check if parent account balance has enough money."""
         # compute the total amount of the order line
-        record['total_amount'] = record['amount'] * record['quantity'] \
-            - record.get('discount_amount', 0)
+        record["total_amount"] = record["amount"] * record["quantity"] - record.get(
+            "discount_amount", 0
+        )
 
         original_record = record.__class__.get_record_by_pid(record.pid)
 
@@ -44,9 +44,9 @@ class AcqOrderLineValidationExtension(RecordExtension):
         #     record total_amount.
         #   - either the account changes : in such case, we need to the check
         #     if the new destination account balance accept this order line.
-        amount_to_check = record.get('total_amount', 0)
+        amount_to_check = record.get("total_amount", 0)
         if original_record and original_record.account == record.account:
-            amount_to_check -= original_record.get('total_amount', 0)
+            amount_to_check -= original_record.get("total_amount", 0)
 
         # If we decease the total amount of this order line, no need to check.
         # There will just be more available money on the related account. Enjoy
@@ -57,10 +57,11 @@ class AcqOrderLineValidationExtension(RecordExtension):
         # ValidationError.
         if amount_to_check > 0:
             account = record.account
-            available_money = account.remaining_balance[0] \
-                + account.get_exceedance(AcqAccountExceedanceType.ENCUMBRANCE)
+            available_money = account.remaining_balance[0] + account.get_exceedance(
+                AcqAccountExceedanceType.ENCUMBRANCE
+            )
             if available_money < amount_to_check:
-                msg = _('Parent account available amount too low')
+                msg = _("Parent account available amount too low")
                 raise ValidationError(msg)
 
     @staticmethod
@@ -68,7 +69,7 @@ class AcqOrderLineValidationExtension(RecordExtension):
         """Harvested document cannot be linked to an order line."""
         related_document = record.document
         if related_document and related_document.harvested:
-            msg = _('Cannot link to an harvested document')
+            msg = _("Cannot link to an harvested document")
             raise ValidationError(msg)
 
     # INVENIO EXTENSION HOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

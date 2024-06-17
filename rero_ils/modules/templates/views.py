@@ -22,9 +22,9 @@ from __future__ import absolute_import, print_function
 from flask import Blueprint
 
 blueprint = Blueprint(
-    'templates',
+    "templates",
     __name__,
-    url_prefix='/template',
-    template_folder='templates',
-    static_folder='static',
+    url_prefix="/template",
+    template_folder="templates",
+    static_folder="static",
 )

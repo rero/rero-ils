@@ -40,28 +40,30 @@ from rero_ils.modules.utils import read_json_record
 
 def get_document_pid_by_rero_number(rero_control_number):
     """Get pid of document by rero control number."""
-    es_documents = DocumentsSearch()\
-        .filter('term', identifiedBy__value__raw=rero_control_number)\
-        .source('pid')
+    es_documents = (
+        DocumentsSearch()
+        .filter("term", identifiedBy__value__raw=rero_control_number)
+        .source("pid")
+    )
     documents = [document.pid for document in es_documents.scan()]
     return documents[0] if documents else None
 
 
 def get_circ_category(org_pid):
     """Get a random standard circulation category for an organisation pid."""
-    results = ItemTypesSearch()\
-        .filter('term', organisation__pid=org_pid)\
-        .filter('term', type='standard') \
-        .source('pid')
+    results = (
+        ItemTypesSearch()
+        .filter("term", organisation__pid=org_pid)
+        .filter("term", type="standard")
+        .source("pid")
+    )
     records = [record.pid for record in results.scan()]
     return next(iter(records or []), None)
 
 
 def get_random_location_pid(org_pid):
     """Return random location for an organisation pid."""
-    results = LocationsSearch() \
-        .filter('term', organisation__pid=org_pid) \
-        .source('pid')
+    results = LocationsSearch().filter("term", organisation__pid=org_pid).source("pid")
     locations = [location.pid for location in results.scan()]
     return next(iter(locations or []), None)
 
@@ -83,28 +85,26 @@ def create_issues_from_holding(holding, min=3, max=9):
     for _ in range(random.randint(min, max)):
         # prepare some fields for the issue to ensure a variable recv dates.
         issue_display, expected_date = holding._get_next_issue_display_text(
-                    holding.get('patterns'))
+            holding.get("patterns")
+        )
         item = {
-            'issue': {
-                'received_date': expected_date,
+            "issue": {
+                "received_date": expected_date,
             },
         }
         holding.create_regular_issue(
-            status=ItemIssueStatus.RECEIVED,
-            item=item,
-            dbcommit=True,
-            reindex=True
+            status=ItemIssueStatus.RECEIVED, item=item, dbcommit=True, reindex=True
         )
         holding = Holding.get_record_by_pid(holding.pid)
         count += 1
     return count
 
 
-@click.command('create_patterns')
-@click.option('-v', '--verbose', 'verbose', is_flag=True, default=False)
-@click.option('-d', '--debug', 'debug', is_flag=True, default=False)
-@click.option('-l', '--lazy', 'lazy', is_flag=True, default=False)
-@click.argument('infile', type=click.File('r'))
+@click.command("create_patterns")
+@click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
+@click.option("-d", "--debug", "debug", is_flag=True, default=False)
+@click.option("-l", "--lazy", "lazy", is_flag=True, default=False)
+@click.argument("infile", type=click.File("r"))
 @with_appcontext
 def create_patterns(infile, verbose, debug, lazy):
     """Create serials patterns for Serial mode of issuance documents.
@@ -112,34 +112,33 @@ def create_patterns(infile, verbose, debug, lazy):
     :param infile: Json patterns file
     :param lazy: lazy reads file
     """
-    click.secho('Create serials patterns:', fg='green')
+    click.secho("Create serials patterns:", fg="green")
     journal_pids = Document.get_all_serial_pids()
     data = read_json_record(infile) if lazy else json.load(infile)
     for record_index, record in enumerate(data):
-        template_name = record.get('template_name')
-        if rero_control_number := record.get('rero_control_number'):
+        template_name = record.get("template_name")
+        if rero_control_number := record.get("rero_control_number"):
             document_pid = get_document_pid_by_rero_number(rero_control_number)
         else:
             try:
                 document_pid = journal_pids[record_index]
             except IndexError as error:
                 break
-        patterns = record.get('patterns')
-        enumerationAndChronology = record.get('enumerationAndChronology')
-        supplementaryContent = record.get('supplementaryContent')
-        index = record.get('index')
-        missing_issues = record.get('missing_issues')
-        notes = record.get('notes')
-        call_number = record.get('call_number')
-        second_call_number = record.get('second_call_number')
-        acquisition_status = record.get('acquisition_status')
-        acquisition_method = record.get('acquisition_method')
-        general_retention_policy = record.get('general_retention_policy')
-        composite_copy_report = record.get('composite_copy_report')
-        issue_binding = record.get('issue_binding')
-        completeness = record.get('completeness')
-        acquisition_expected_end_date = record.get(
-            'acquisition_expected_end_date')
+        patterns = record.get("patterns")
+        enumerationAndChronology = record.get("enumerationAndChronology")
+        supplementaryContent = record.get("supplementaryContent")
+        index = record.get("index")
+        missing_issues = record.get("missing_issues")
+        notes = record.get("notes")
+        call_number = record.get("call_number")
+        second_call_number = record.get("second_call_number")
+        acquisition_status = record.get("acquisition_status")
+        acquisition_method = record.get("acquisition_method")
+        general_retention_policy = record.get("general_retention_policy")
+        composite_copy_report = record.get("composite_copy_report")
+        issue_binding = record.get("issue_binding")
+        completeness = record.get("completeness")
+        acquisition_expected_end_date = record.get("acquisition_expected_end_date")
         for org_pid in Organisation.get_all_pids():
             circ_category_pid = get_circ_category(org_pid)
             location_pid = get_random_location_pid(org_pid)
@@ -148,7 +147,7 @@ def create_patterns(infile, verbose, debug, lazy):
                 document_pid=document_pid,
                 location_pid=location_pid,
                 item_type_pid=circ_category_pid,
-                holdings_type='serial',
+                holdings_type="serial",
                 enumerationAndChronology=enumerationAndChronology,
                 supplementaryContent=supplementaryContent,
                 index=index,
@@ -164,20 +163,21 @@ def create_patterns(infile, verbose, debug, lazy):
                 call_number=call_number,
                 second_call_number=second_call_number,
                 vendor_pid=vendor_pid,
-                patterns=patterns)
+                patterns=patterns,
+            )
             # create minimum 3 and max 9 received issues for this holdings
-            count = create_issues_from_holding(holding=holdings_record,
-                                               min=3, max=9)
+            count = create_issues_from_holding(holding=holdings_record, min=3, max=9)
             click.echo(
-                f'Pattern <{template_name}> created {count} '
-                f'received issues for holdings:  {holdings_record.pid} '
-                f'and document: {document_pid}'
+                f"Pattern <{template_name}> created {count} "
+                f"received issues for holdings:  {holdings_record.pid} "
+                f"and document: {document_pid}"
             )
         record_index = record_index + 1
     # create some late issues.
     process_late_issues(dbcommit=True, reindex=True)
     # make late issues ready for a claim
     for issue in ItemIssue.get_issues_by_status(status=ItemIssueStatus.LATE):
-        issue['issue']['status_date'] = \
-            (datetime.now(timezone.utc) - timedelta(days=8)).isoformat()
+        issue["issue"]["status_date"] = (
+            datetime.now(timezone.utc) - timedelta(days=8)
+        ).isoformat()
         issue.update(issue, dbcommit=True, reindex=True)

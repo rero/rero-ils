@@ -46,14 +46,14 @@ class TitleExtension(RecordExtension):
                 # force title to dict because ES gives AttrDict
                 title = title.to_dict()
             title = dict(title)
-            if title.get('type') == 'bf:Title':
-                title_texts = \
-                    title_format_text(title=title, with_subtitle=with_subtitle)
+            if title.get("type") == "bf:Title":
+                title_texts = title_format_text(
+                    title=title, with_subtitle=with_subtitle
+                )
                 if len(title_texts) == 1:
-                    head_titles.append(title_texts[0].get('value'))
+                    head_titles.append(title_texts[0].get("value"))
                 else:
-                    languages = [
-                        title.get('language') for title in title_texts]
+                    languages = [title.get("language") for title in title_texts]
 
                     def filter_list(value):
                         """Check if a value should be removed from languages.
@@ -62,56 +62,52 @@ class TitleExtension(RecordExtension):
                                   vernacular from exits
                         """
                         # keep simple language such as `default`
-                        if '-' not in value:
+                        if "-" not in value:
                             return True
-                        lang, _ = value.split('-')
+                        lang, _ = value.split("-")
                         # remove the latin form if a vernacular form exists
                         return (
-                            not value.endswith('-latn')
-                            or sum(v.startswith(f'{lang}-') for v in languages)
-                            <= 1
+                            not value.endswith("-latn")
+                            or sum(v.startswith(f"{lang}-") for v in languages) <= 1
                         )
 
                     # list of selected language
                     filtered_languages = list(filter(filter_list, languages))
 
                     for title_text in title_texts:
-                        language = title_text.get('language')
+                        language = title_text.get("language")
                         if language not in filtered_languages:
                             continue
                         if display_alternate_graphic_first(language):
-                            head_titles.append(title_text.get('value'))
+                            head_titles.append(title_text.get("value"))
                     # If I don't have a title available,
                     # I get the last value of the array
                     if not len(head_titles):
-                        head_titles.append(title_texts[-1].get('value'))
-            elif title.get('type') == 'bf:ParallelTitle':
+                        head_titles.append(title_texts[-1].get("value"))
+            elif title.get("type") == "bf:ParallelTitle":
                 parallel_title_texts = title_format_text(
-                    title=title, with_subtitle=with_subtitle)
+                    title=title, with_subtitle=with_subtitle
+                )
                 if len(parallel_title_texts) == 1:
-                    parallel_titles.append(
-                        parallel_title_texts[0].get('value'))
+                    parallel_titles.append(parallel_title_texts[0].get("value"))
                 else:
                     for parallel_title_text in parallel_title_texts:
-                        language = parallel_title_text.get('language')
+                        language = parallel_title_text.get("language")
                         if display_alternate_graphic_first(language):
-                            parallel_titles.append(
-                                parallel_title_text.get('value')
-                            )
-        output_value = '. '.join(head_titles)
+                            parallel_titles.append(parallel_title_text.get("value"))
+        output_value = ". ".join(head_titles)
         for parallel_title in parallel_titles:
-            output_value += f' = {str(parallel_title)}'
+            output_value += f" = {str(parallel_title)}"
         responsabilities = responsabilities or []
         for responsibility in responsabilities:
             if len(responsibility) == 1:
-                output_value += ' / ' + responsibility[0].get('value')
+                output_value += " / " + responsibility[0].get("value")
             else:
                 for responsibility_language in responsibility:
-                    value = responsibility_language.get('value')
-                    language = responsibility_language.get(
-                        'language', 'default')
+                    value = responsibility_language.get("value")
+                    language = responsibility_language.get("language", "default")
                     if display_alternate_graphic_first(language):
-                        output_value += f' / {value}'
+                        output_value += f" / {value}"
         return output_value
 
     def post_dump(self, record, data, dumper=None):
@@ -121,7 +117,7 @@ class TitleExtension(RecordExtension):
         :param data: dict - the data.
         :param dumper: record dumper - dumper helper.
         """
-        titles = data.get('title', [])
-        bf_titles = list(filter(lambda t: t['type'] == 'bf:Title', titles))
+        titles = data.get("title", [])
+        bf_titles = list(filter(lambda t: t["type"] == "bf:Title", titles))
         for title in bf_titles:
-            title['_text'] = self.format_text(titles, with_subtitle=True)
+            title["_text"] = self.format_text(titles, with_subtitle=True)

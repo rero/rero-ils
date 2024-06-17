@@ -23,13 +23,8 @@ from utils import get_json
 def test_translations(client, app):
     """Test translations API."""
 
-    for ln in app.extensions.get('invenio-i18n').get_languages():
-        res = client.get(
-            url_for(
-                'api_blueprint.translations',
-                ln=ln[0]
-            )
-        )
+    for ln in app.extensions.get("invenio-i18n").get_languages():
+        res = client.get(url_for("api_blueprint.translations", ln=ln[0]))
         assert res.status_code == 200
         assert len(get_json(res)) > 0
 
@@ -45,18 +40,8 @@ def test_translations_exceptions(client, app):
     #   ... class FakeDomain(object):
     #   ...     paths = []
     #
-    res = client.get(
-        url_for(
-            'api_blueprint.translations',
-            ln='dummy_language'
-        )
-    )
+    res = client.get(url_for("api_blueprint.translations", ln="dummy_language"))
     assert res.status_code == 404
 
-    res = client.get(
-        url_for(
-            'api_blueprint.translations',
-            ln='doesnotexists'
-        )
-    )
+    res = client.get(url_for("api_blueprint.translations", ln="doesnotexists"))
     assert res.status_code == 404

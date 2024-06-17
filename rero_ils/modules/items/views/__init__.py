@@ -23,16 +23,11 @@ from __future__ import absolute_import
 from .api_views import api_blueprint
 from .rest import InventoryListResource
 
-inventory_list = InventoryListResource.as_view(
-    'inventory_search'
-)
-api_blueprint.add_url_rule(
-    '/inventory',
-    view_func=inventory_list
-)
+inventory_list = InventoryListResource.as_view("inventory_search")
+api_blueprint.add_url_rule("/inventory", view_func=inventory_list)
 
 blueprints = [
     api_blueprint,
 ]
 
-__all__ = 'api_blueprint'
+__all__ = "api_blueprint"

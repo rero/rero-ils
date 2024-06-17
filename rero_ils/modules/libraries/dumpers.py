@@ -33,16 +33,18 @@ class LibraryAcquisitionNotificationDumper(InvenioRecordsDumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        data.update({
-            'name': record.get('name'),
-            'address': record.get_address(LibraryAddressType.MAIN_ADDRESS),
-            'shipping_informations':
-                record.get('acquisition_settings', {})
-                      .get('shipping_informations', {}),
-            'billing_informations':
-                record.get('acquisition_settings', {})
-                      .get('billing_informations', {})
-        })
+        data.update(
+            {
+                "name": record.get("name"),
+                "address": record.get_address(LibraryAddressType.MAIN_ADDRESS),
+                "shipping_informations": record.get("acquisition_settings", {}).get(
+                    "shipping_informations", {}
+                ),
+                "billing_informations": record.get("acquisition_settings", {}).get(
+                    "billing_informations", {}
+                ),
+            }
+        )
         data = {k: v for k, v in data.items() if v}
         return data
 
@@ -56,19 +58,21 @@ class LibrarySerialClaimNotificationDumper(InvenioRecordsDumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        if 'serial_acquisition_settings' not in record:
-            raise MissingDataException('library.serial_acquisition_settings')
+        if "serial_acquisition_settings" not in record:
+            raise MissingDataException("library.serial_acquisition_settings")
 
-        data.update({
-            'name': record.get('name'),
-            'address': record.get_address(LibraryAddressType.MAIN_ADDRESS),
-            'shipping_informations':
-                record.get('serial_acquisition_settings', {})
-                      .get('shipping_informations', {}),
-            'billing_informations':
-                record.get('serial_acquisition_settings', {})
-                      .get('billing_informations', {})
-        })
+        data.update(
+            {
+                "name": record.get("name"),
+                "address": record.get_address(LibraryAddressType.MAIN_ADDRESS),
+                "shipping_informations": record.get(
+                    "serial_acquisition_settings", {}
+                ).get("shipping_informations", {}),
+                "billing_informations": record.get(
+                    "serial_acquisition_settings", {}
+                ).get("billing_informations", {}),
+            }
+        )
         data = {k: v for k, v in data.items() if v}
         return data
 
@@ -83,10 +87,12 @@ class LibraryCirculationNotificationDumper(InvenioRecordsDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         :return a dict with dumped data.
         """
-        data.update({
-            'pid': record.pid,
-            'name': record.get('name'),
-            'address': record.get('address'),
-            'email': record.get('email')
-        })
+        data.update(
+            {
+                "pid": record.pid,
+                "name": record.get("name"),
+                "address": record.get("address"),
+                "email": record.get("email"),
+            }
+        )
         return {k: v for k, v in data.items() if v}

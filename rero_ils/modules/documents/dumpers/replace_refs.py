@@ -21,8 +21,7 @@ from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.exceptions import RecordNotFound
 from rero_ils.modules.entities.dumpers import document_dumper
-from rero_ils.modules.entities.remote_entities.utils import \
-    extract_data_from_mef_uri
+from rero_ils.modules.entities.remote_entities.utils import extract_data_from_mef_uri
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
@@ -36,21 +35,18 @@ class ReplaceRefsEntitiesDumperMixin(Dumper):
         from rero_ils.modules.entities.remote_entities.api import RemoteEntity
 
         # try to get entity record
-        entity = extracted_data_from_ref(data['$ref'], 'record')
+        entity = extracted_data_from_ref(data["$ref"], "record")
         # check if local entity
         if entity and isinstance(entity, LocalEntity):
             # internal resources will be resolved later (see ReplaceRefsDumper)
             return entity.dumps(document_dumper)
 
-        _, _type, _ = extract_data_from_mef_uri(data['$ref'])
-        if not (entity := RemoteEntity.get_record_by_pid(data['pid'])):
-            raise RecordNotFound(RemoteEntity, data['pid'])
+        _, _type, _ = extract_data_from_mef_uri(data["$ref"])
+        if not (entity := RemoteEntity.get_record_by_pid(data["pid"])):
+            raise RecordNotFound(RemoteEntity, data["pid"])
 
         entity = entity.dumps(document_dumper)
-        entity.update({
-            'primary_source': _type,
-            'pid': data['pid']
-        })
+        entity.update({"primary_source": _type, "pid": data["pid"]})
         return entity
 
 
@@ -65,16 +61,18 @@ class ReplaceRefsContributionsDumper(ReplaceRefsEntitiesDumperMixin):
         :return a dict with dumped data.
         """
         new_contributions = []
-        for contribution in data.get('contribution', []):
-            if contribution['entity'].get('$ref'):
-                new_contributions.append({
-                    'entity': self._replace_entity(contribution['entity']),
-                    'role': contribution['role']
-                })
+        for contribution in data.get("contribution", []):
+            if contribution["entity"].get("$ref"):
+                new_contributions.append(
+                    {
+                        "entity": self._replace_entity(contribution["entity"]),
+                        "role": contribution["role"],
+                    }
+                )
             else:
                 new_contributions.append(contribution)
         if new_contributions:
-            data['contribution'] = new_contributions
+            data["contribution"] = new_contributions
         return data
 
 
@@ -98,10 +96,10 @@ class ReplaceRefsEntitiesDumper(ReplaceRefsEntitiesDumperMixin):
         """
         for field_name in self.field_names:
             remote_entities = []
-            for entity in [d['entity'] for d in data.get(field_name, [])]:
-                if entity.get('$ref'):
+            for entity in [d["entity"] for d in data.get(field_name, [])]:
+                if entity.get("$ref"):
                     entity = self._replace_entity(entity)
-                remote_entities.append({'entity': entity})
+                remote_entities.append({"entity": entity})
             if remote_entities:
                 data[field_name] = remote_entities
         return data

@@ -25,8 +25,9 @@ def sort_accounts_as_tree(accounts):
     :param accounts: the accounts to sort.
     :return: the same account list sorted as a hierarchical tree.
     """
+
     def sort_by_name_key(acc):
-        return acc.get('name')
+        return acc.get("name")
 
     def _get_children_account(acc):
         children = filter(lambda a: a.parent_pid == acc.pid, accounts)

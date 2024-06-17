@@ -24,13 +24,10 @@ from rero_ils.modules.acquisition.budgets.api import BudgetsSearch
 
 def test_budget_properties(budget_2017_martigny):
     """Test budget properties."""
-    assert budget_2017_martigny.name == budget_2017_martigny.get('name')
+    assert budget_2017_martigny.name == budget_2017_martigny.get("name")
 
 
-def test_budget_cascade_reindex(
-    acq_account_fiction_martigny,
-    budget_2020_martigny
-):
+def test_budget_cascade_reindex(acq_account_fiction_martigny, budget_2020_martigny):
     """Test budget cascading reindex."""
     budg = budget_2020_martigny
     acac = acq_account_fiction_martigny
@@ -41,13 +38,13 @@ def test_budget_cascade_reindex(
     # reindex too.
     es_budg = BudgetsSearch().get_record_by_pid(budg.pid)
     es_acac = AcqAccountsSearch().get_record_by_pid(acac.pid)
-    assert es_budg['is_active'] and es_acac['is_active']
+    assert es_budg["is_active"] and es_acac["is_active"]
 
-    budg['is_active'] = False
+    budg["is_active"] = False
     budg.update(budg, dbcommit=True, reindex=True)
     flush_index(BudgetsSearch.Meta.index)
     flush_index(AcqAccountsSearch.Meta.index)
 
     es_budg = BudgetsSearch().get_record_by_pid(budg.pid)
     es_acac = AcqAccountsSearch().get_record_by_pid(acac.pid)
-    assert not es_budg['is_active'] and not es_acac['is_active']
+    assert not es_budg["is_active"] and not es_acac["is_active"]

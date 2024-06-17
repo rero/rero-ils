@@ -22,28 +22,27 @@ from flask_security.utils import login_user
 from invenio_accounts.testutils import login_user_via_session
 from utils import check_permission, get_json
 
-from rero_ils.modules.patron_types.permissions import \
-    PatronTypePermissionPolicy
+from rero_ils.modules.patron_types.permissions import PatronTypePermissionPolicy
 
 
-def test_item_types_permissions_api(client, librarian_martigny,
-                                    system_librarian_martigny,
-                                    item_type_standard_martigny,
-                                    item_type_regular_sion):
+def test_item_types_permissions_api(
+    client,
+    librarian_martigny,
+    system_librarian_martigny,
+    item_type_standard_martigny,
+    item_type_regular_sion,
+):
     """Test patron types permissions api."""
-    itty_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='item_types'
-    )
+    itty_permissions_url = url_for("api_blueprint.permissions", route_name="item_types")
     itty_martigny_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='item_types',
-        record_pid=item_type_standard_martigny.pid
+        "api_blueprint.permissions",
+        route_name="item_types",
+        record_pid=item_type_standard_martigny.pid,
     )
     itty_sion_permissions_url = url_for(
-        'api_blueprint.permissions',
-        route_name='item_types',
-        record_pid=item_type_regular_sion.pid
+        "api_blueprint.permissions",
+        route_name="item_types",
+        record_pid=item_type_regular_sion.pid,
     )
 
     # Not logged
@@ -58,13 +57,13 @@ def test_item_types_permissions_api(client, librarian_martigny,
     res = client.get(itty_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
-    for action in ['list', 'read']:
-        assert data[action]['can']
-    for action in ['create', 'update', 'delete']:
-        assert not data[action]['can']
+    for action in ["list", "read"]:
+        assert data[action]["can"]
+    for action in ["create", "update", "delete"]:
+        assert not data[action]["can"]
     res = client.get(itty_sion_permissions_url)
     data = get_json(res)
-    assert not data['read']['can']
+    assert not data["read"]["can"]
 
     # Logged as system librarian
     #   * sys_lib can do anything about item_type for its own organisation
@@ -73,20 +72,22 @@ def test_item_types_permissions_api(client, librarian_martigny,
     res = client.get(itty_martigny_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
-    for action in ['list', 'read', 'create', 'update', 'delete']:
-        assert data[action]['can']
+    for action in ["list", "read", "create", "update", "delete"]:
+        assert data[action]["can"]
     res = client.get(itty_sion_permissions_url)
     assert res.status_code == 200
     data = get_json(res)
-    for action in ['update', 'delete']:
-        assert not data[action]['can']
+    for action in ["update", "delete"]:
+        assert not data[action]["can"]
 
 
-def test_item_types_permissions(patron_martigny,
-                                librarian_martigny,
-                                system_librarian_martigny,
-                                item_type_standard_martigny,
-                                item_type_regular_sion):
+def test_item_types_permissions(
+    patron_martigny,
+    librarian_martigny,
+    system_librarian_martigny,
+    item_type_standard_martigny,
+    item_type_regular_sion,
+):
     """Test patron types permissions class."""
     permission_policy = PatronTypePermissionPolicy
 
@@ -95,63 +96,57 @@ def test_item_types_permissions(patron_martigny,
     identity_changed.send(
         current_app._get_current_object(), identity=AnonymousIdentity()
     )
-    check_permission(permission_policy, {'search': False}, None)
-    check_permission(permission_policy, {'create': False}, {})
-    check_permission(permission_policy, {
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, item_type_standard_martigny)
+    check_permission(permission_policy, {"search": False}, None)
+    check_permission(permission_policy, {"create": False}, {})
+    check_permission(
+        permission_policy,
+        {"read": False, "create": False, "update": False, "delete": False},
+        item_type_standard_martigny,
+    )
 
     # Patron
     #    A simple patron can't operate any operation about item type
     login_user(patron_martigny.user)
-    check_permission(permission_policy, {'search': False}, None)
-    check_permission(permission_policy, {'create': False}, {})
-    check_permission(permission_policy, {
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, item_type_standard_martigny)
+    check_permission(permission_policy, {"search": False}, None)
+    check_permission(permission_policy, {"create": False}, {})
+    check_permission(
+        permission_policy,
+        {"read": False, "create": False, "update": False, "delete": False},
+        item_type_standard_martigny,
+    )
 
     # Librarian
     #     - search : any item type despite organisation owner
     #     - read : only item type for its own organisation
     #     - create/update/delete: disallowed
     login_user(librarian_martigny.user)
-    check_permission(permission_policy, {'search': True}, None)
-    check_permission(permission_policy, {'create': False}, {})
-    check_permission(permission_policy, {
-        'read': True,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, item_type_standard_martigny)
-    check_permission(permission_policy, {
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, item_type_regular_sion)
+    check_permission(permission_policy, {"search": True}, None)
+    check_permission(permission_policy, {"create": False}, {})
+    check_permission(
+        permission_policy,
+        {"read": True, "create": False, "update": False, "delete": False},
+        item_type_standard_martigny,
+    )
+    check_permission(
+        permission_policy,
+        {"read": False, "create": False, "update": False, "delete": False},
+        item_type_regular_sion,
+    )
 
     # SystemLibrarian
     #     - search : any item type despite organisation owner
     #     - read/create/update/delete : only item type for its own
     #       organisation
     login_user(system_librarian_martigny.user)
-    check_permission(permission_policy, {'search': True}, None)
-    check_permission(permission_policy, {'create': True}, {})
-    check_permission(permission_policy, {
-        'read': True,
-        'create': True,
-        'update': True,
-        'delete': True
-    }, item_type_standard_martigny)
-    check_permission(permission_policy, {
-        'read': False,
-        'create': False,
-        'update': False,
-        'delete': False
-    }, item_type_regular_sion)
+    check_permission(permission_policy, {"search": True}, None)
+    check_permission(permission_policy, {"create": True}, {})
+    check_permission(
+        permission_policy,
+        {"read": True, "create": True, "update": True, "delete": True},
+        item_type_standard_martigny,
+    )
+    check_permission(
+        permission_policy,
+        {"read": False, "create": False, "update": False, "delete": False},
+        item_type_regular_sion,
+    )

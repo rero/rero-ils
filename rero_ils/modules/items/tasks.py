@@ -29,8 +29,7 @@ from rero_ils.modules.holdings.utils import create_next_late_expected_issues
 from rero_ils.modules.utils import extracted_data_from_ref, set_timestamp
 
 from .api import Item
-from .utils import get_provisional_items_candidate_to_delete, \
-    update_late_expected_issue
+from .utils import get_provisional_items_candidate_to_delete, update_late_expected_issue
 
 
 @shared_task()
@@ -55,10 +54,10 @@ def delete_provisional_items():
             current_app.logger.error(error)
 
     msg_dict = {
-        'number_of_candidate_items_to_delete': counter,
-        'number_of_deleted_items': deleted_items
+        "number_of_candidate_items_to_delete": counter,
+        "number_of_deleted_items": deleted_items,
     }
-    set_timestamp('claims-creation', **msg_dict)
+    set_timestamp("claims-creation", **msg_dict)
     return msg_dict
 
 
@@ -73,12 +72,11 @@ def process_late_issues(dbcommit=True, reindex=True):
     :return: number of modified or created issues.
     """
     # Perform serial type holding with passed `next_expected_date`
-    counter = create_next_late_expected_issues(
-        dbcommit=dbcommit, reindex=reindex)
+    counter = create_next_late_expected_issues(dbcommit=dbcommit, reindex=reindex)
     # Perform already created issue with passed `next_expected_date`
     counter += update_late_expected_issue(dbcommit=dbcommit, reindex=reindex)
-    msg = f'expected_issues_to_late: {counter}'
-    set_timestamp('late-issues-creation', msg=msg)
+    msg = f"expected_issues_to_late: {counter}"
+    set_timestamp("late-issues-creation", msg=msg)
     return msg
 
 
@@ -91,27 +89,31 @@ def clean_obsolete_temporary_item_types_and_locations():
     commit change
     """
     counter = 0
-    for item, field_type in \
-            Item.get_items_with_obsolete_temporary_item_type_or_location():
+    for (
+        item,
+        field_type,
+    ) in Item.get_items_with_obsolete_temporary_item_type_or_location():
         counter += 1
-        if field_type == 'itty':
-            tmp_itty_data = item.pop('temporary_item_type', {})
+        if field_type == "itty":
+            tmp_itty_data = item.pop("temporary_item_type", {})
             tmp_itty_name = extracted_data_from_ref(
-                tmp_itty_data['$ref'], 'record').get('name')
-            tmp_itty_enddate = tmp_itty_data['end_date']
-            msg = f'Removed obsolete temporary_item_type {tmp_itty_name} \
-                    {tmp_itty_enddate} from item pid {item.pid}'
-        elif field_type == 'loc':
-            tmp_loc_data = item.pop('temporary_location', {})
-            tmp_loc_name = extracted_data_from_ref(
-                tmp_loc_data['$ref'], 'record').get('name')
-            tmp_loc_enddate = tmp_loc_data['end_date']
-            msg = f'Removed obsolete temporary_location {tmp_loc_name} \
-                    {tmp_loc_enddate} from item pid {item.pid}'
+                tmp_itty_data["$ref"], "record"
+            ).get("name")
+            tmp_itty_enddate = tmp_itty_data["end_date"]
+            msg = f"Removed obsolete temporary_item_type {tmp_itty_name} \
+                    {tmp_itty_enddate} from item pid {item.pid}"
+        elif field_type == "loc":
+            tmp_loc_data = item.pop("temporary_location", {})
+            tmp_loc_name = extracted_data_from_ref(tmp_loc_data["$ref"], "record").get(
+                "name"
+            )
+            tmp_loc_enddate = tmp_loc_data["end_date"]
+            msg = f"Removed obsolete temporary_location {tmp_loc_name} \
+                    {tmp_loc_enddate} from item pid {item.pid}"
         current_app.logger.info(msg)
         item.update(item, dbcommit=True, reindex=True)
-    count = {'deleted fields': counter}
-    set_timestamp('clean_obsolete_temporary_item_types_and_locations', **count)
+    count = {"deleted fields": counter}
+    set_timestamp("clean_obsolete_temporary_item_types_and_locations", **count)
     return count
 
 
@@ -122,7 +124,6 @@ def delete_holding(holding_pid, force=False, dbcommit=True, delindex=True):
         holding_rec = Holding.get_record_by_pid(holding_pid)
         try:
             # TODO: Need to split DB and elasticsearch deletion.
-            holding_rec.delete(force=force, dbcommit=dbcommit,
-                               delindex=delindex)
+            holding_rec.delete(force=force, dbcommit=dbcommit, delindex=delindex)
         except IlsRecordError.NotDeleted:
-            current_app.logger.warning(f'Holding not deleted: {holding_pid}')
+            current_app.logger.warning(f"Holding not deleted: {holding_pid}")

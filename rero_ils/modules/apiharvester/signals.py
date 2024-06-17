@@ -21,4 +21,4 @@ from blinker import Namespace
 
 _signals = Namespace()
 
-apiharvest_part = _signals.signal('apiharvest_part')
+apiharvest_part = _signals.signal("apiharvest_part")

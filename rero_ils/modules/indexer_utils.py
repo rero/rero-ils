@@ -35,16 +35,16 @@ def record_to_index(record):
     :return: index.
     """
     index_names = current_search.mappings.keys()
-    schema = record.get('$schema', '')
+    schema = record.get("$schema", "")
     if isinstance(schema, dict):
-        schema = schema.get('$ref', '')
+        schema = schema.get("$ref", "")
 
     # authorities specific transformation
-    if re.search(r'/mef/', schema):
-        schema = re.sub(r'/mef/', '/remote_entities/', schema)
-        schema = re.sub(r'mef-contribution', 'remote_entity', schema)
+    if re.search(r"/mef/", schema):
+        schema = re.sub(r"/mef/", "/remote_entities/", schema)
+        schema = re.sub(r"mef-contribution", "remote_entity", schema)
 
     if index := schema_to_index(schema, index_names=index_names):
         return index
     else:
-        return current_app.config['INDEXER_DEFAULT_INDEX']
+        return current_app.config["INDEXER_DEFAULT_INDEX"]

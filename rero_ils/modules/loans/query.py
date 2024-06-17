@@ -30,17 +30,19 @@ def misc_status_filter():
 
     :return: Function allowing to filter the ElasticSearch query.
     """
+
     def inner(values):
         queries = []
         # OVERDUE
         #   Filter query to return only loans with an `end_date` lower than the
         #   current timestamp.
-        if 'overdue' in values:
-            queries.append(Q('range', end_date={'lt': 'now/d'}))
+        if "overdue" in values:
+            queries.append(Q("range", end_date={"lt": "now/d"}))
         # EXPIRED_REQUEST
         #   Filter query to return only loans with a `request_expire_date`
         #   lower than the current timestamp
-        if 'expired_request' in values:
-            queries.append(Q('range', request_expire_date={'lt': 'now/d'}))
-        return Q('bool', must=queries)
+        if "expired_request" in values:
+            queries.append(Q("range", request_expire_date={"lt": "now/d"}))
+        return Q("bool", must=queries)
+
     return inner

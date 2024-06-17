@@ -36,8 +36,8 @@ def get_entity_localized_value(entity, key, language):
     :param language: Language to use.
     :returns: Value from key in language if found otherwise the value of key.
     """
-    order = current_app.config.get('RERO_ILS_AGENTS_LABEL_ORDER', [])
-    source_order = order.get(language, order.get(order['fallback'], []))
+    order = current_app.config.get("RERO_ILS_AGENTS_LABEL_ORDER", [])
+    source_order = order.get(language, order.get(order["fallback"], []))
     for source in source_order:
         if value := entity.get(source, {}).get(key):
             return value
@@ -51,7 +51,7 @@ def extract_data_from_mef_uri(mef_uri):
     :returns: the entity_type, the ref type such as idref, and the pid value.
     :rtype tuple
     """
-    ref_split = mef_uri.split('/')
+    ref_split = mef_uri.split("/")
     # TODO :: check back compatibility
     return ref_split[-3], ref_split[-2], ref_split[-1]
 
@@ -65,15 +65,22 @@ def remove_schema(data):
     :returns: the modified data.
     :rtype: dict.
     """
-    data.pop('$schema', None)
-    for source in current_app.config.get('RERO_ILS_AGENTS_SOURCES', []):
+    data.pop("$schema", None)
+    for source in current_app.config.get("RERO_ILS_AGENTS_SOURCES", []):
         if source in data:
-            data[source].pop('$schema', None)
+            data[source].pop("$schema", None)
     return data
 
 
-def get_mef_data_by_type(pid_type, pid, entity_type='agents', verbose=False,
-                         with_deleted=True, resolve=True, sources=True):
+def get_mef_data_by_type(
+    pid_type,
+    pid,
+    entity_type="agents",
+    verbose=False,
+    with_deleted=True,
+    resolve=True,
+    sources=True,
+):
     """Request MEF REST API in JSON format.
 
     :param pid_type: the type of entity (idref, gnd, viaf, ...)
@@ -89,48 +96,51 @@ def get_mef_data_by_type(pid_type, pid, entity_type='agents', verbose=False,
     # Depending on the entity type, try to get the correct MEF base URL.
     # If no base URL could be found, a key error will be raised
     if not (base_url := get_mef_url(entity_type)):
-        msg = f'Unable to find MEF base url for {entity_type}'
+        msg = f"Unable to find MEF base url for {entity_type}"
         if verbose:
             current_app.logger.warning(msg)
         raise KeyError(msg)
 
-    if pid_type == 'mef':
+    if pid_type == "mef":
         mef_url = f'{base_url}/mef/?q=pid:"{pid}"'
-    elif pid_type == 'viaf':
+    elif pid_type == "viaf":
         mef_url = f'{base_url}/mef/?q=viaf_pid:"{pid}"'
     else:
-        mef_url = f'{base_url}/mef/latest/{pid_type}:{pid}'
+        mef_url = f"{base_url}/mef/latest/{pid_type}:{pid}"
 
-    request = requests_retry_session().get(url=mef_url, params={
-        'with_deleted': int(with_deleted),
-        'resolve': int(resolve),
-        'sources': int(sources)
-    })
+    request = requests_retry_session().get(
+        url=mef_url,
+        params={
+            "with_deleted": int(with_deleted),
+            "resolve": int(resolve),
+            "sources": int(sources),
+        },
+    )
     if request.status_code == requests_codes.ok:
         try:
             json_data = request.json()
-            if hits := json_data.get('hits', {}):
+            if hits := json_data.get("hits", {}):
                 # we got an ES response
-                data = hits.get('hits', [None])[0].get('metadata', {})
+                data = hits.get("hits", [None])[0].get("metadata", {})
             else:
                 # we got an DB response
                 data = json_data
-                data.pop('_created', None)
-                data.pop('_updated', None)
+                data.pop("_created", None)
+                data.pop("_updated", None)
 
             # TODO :: This `if` statement should be removed when MEF will
             #         return the `type` key for concept
-            if entity_type == 'concepts':
-                data.setdefault('type', EntityType.TOPIC)
+            if entity_type == "concepts":
+                data.setdefault("type", EntityType.TOPIC)
 
             return remove_schema(data)
         except Exception as err:
-            msg = f'MEF resolver no metadata: {mef_url} {err}'
+            msg = f"MEF resolver no metadata: {mef_url} {err}"
             if verbose:
                 current_app.logger.warning(msg)
             raise ValueError(msg) from err
     else:
-        msg = f'Mef http error: {request.status_code} {mef_url}'
+        msg = f"Mef http error: {request.status_code} {mef_url}"
         if verbose:
             current_app.logger.error(msg)
         raise RequestException(msg)

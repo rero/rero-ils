@@ -29,6 +29,7 @@ def acquisition_filter():
 
     :return: Function that returns a nested query to retrieve new acquisition
     """
+
     def inner(values):
 
         # `values` params could contains one or two values. Values must be
@@ -54,39 +55,41 @@ def acquisition_filter():
 
         # build acquisition date range query
         range_values = values.pop()
-        if '--' in range_values:
+        if "--" in range_values:
             # NG-Core's widget for a date range sends timestamps
             # We transform the timestamp into a date
-            values = dict(zip(['from', 'to'], range_values.split('--')))
-            if 'from' in values:
-                values['from'] = datetime.fromtimestamp(
-                    float(values['from'])/1000).strftime('%Y-%m-%d')
-            if 'to' in values:
-                values['to'] = datetime.fromtimestamp(
-                    float(values['to'])/1000).strftime('%Y-%m-%d')
+            values = dict(zip(["from", "to"], range_values.split("--")))
+            if "from" in values:
+                values["from"] = datetime.fromtimestamp(
+                    float(values["from"]) / 1000
+                ).strftime("%Y-%m-%d")
+            if "to" in values:
+                values["to"] = datetime.fromtimestamp(
+                    float(values["to"]) / 1000
+                ).strftime("%Y-%m-%d")
         else:
-            values = dict(zip(['from', 'to'], range_values.split(':')))
-        range_acquisition_dates = {'lte': values.get('to') or 'now/d'}
-        if values.get('from'):
-            range_acquisition_dates['gte'] = values.get('from')
+            values = dict(zip(["from", "to"], range_values.split(":")))
+        range_acquisition_dates = {"lte": values.get("to") or "now/d"}
+        if values.get("from"):
+            range_acquisition_dates["gte"] = values.get("from")
         # build general 'match' query (including acq date range query)
-        must_queries = [Q(
-            'range',
-            holdings__items__acquisition__date=range_acquisition_dates
-        )]
+        must_queries = [
+            Q("range", holdings__items__acquisition__date=range_acquisition_dates)
+        ]
 
         # Check others filters from command line and add them to the query if
         # needed
-        for level in ['location', 'library', 'organisation']:
+        for level in ["location", "library", "organisation"]:
             if arg := request.args.get(level):
-                field = f'holdings__items__acquisition__{level}_pid'
-                must_queries.append(Q('match', **{field: arg}))
+                field = f"holdings__items__acquisition__{level}_pid"
+                must_queries.append(Q("match", **{field: arg}))
 
         return Q(
-            'nested',
-            path='holdings.items.acquisition',
-            query=Q('bool', must=must_queries)
+            "nested",
+            path="holdings.items.acquisition",
+            query=Q("bool", must=must_queries),
         )
+
     return inner
 
 
@@ -102,18 +105,17 @@ def nested_identified_filter():
         #  * "123456789" --> id_value=123456789
         #  * "(bf:Isbn)123456789 --> id_type=bf:Isbn, id_value=123456789
         #  * "(bf:Local)kw(2) --> id_type=bf:Local, id_value=kw(2)
-        regexp = re.compile(r'^(\((?P<id_type>[\w\d:]+)\))?(?P<id_value>.*)$')
+        regexp = re.compile(r"^(\((?P<id_type>[\w\d:]+)\))?(?P<id_value>.*)$")
         matches = re.match(regexp, identifier)
-        criteria = Q('wildcard', nested_identifiers__value=matches['id_value'])
-        if matches['id_type']:
-            criteria &= Q('match', nested_identifiers__type=matches['id_type'])
-        return Q('nested', path='nested_identifiers', query=criteria)
+        criteria = Q("wildcard", nested_identifiers__value=matches["id_value"])
+        if matches["id_type"]:
+            criteria &= Q("match", nested_identifiers__type=matches["id_type"])
+        return Q("nested", path="nested_identifiers", query=criteria)
 
     def inner(identifiers):
         queries = [
-            _build_nested_identifier_query(identifier)
-            for identifier in identifiers
+            _build_nested_identifier_query(identifier) for identifier in identifiers
         ]
-        return Q('bool', should=queries)
+        return Q("bool", should=queries)
 
     return inner

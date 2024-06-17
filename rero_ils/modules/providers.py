@@ -32,11 +32,11 @@ def append_fixtures_new_identifiers(identifier, pids, pid_type, limit=100000):
     for idx, pid in enumerate(pids, 1):
         db.session.add(identifier(recid=pid))
         if idx % limit == 0:
-            click.echo(f'DB commit append: {idx}')
+            click.echo(f"DB commit append: {idx}")
             db.session.commit()
     db.session.commit()
     identifier._set_sequence(identifier.max())
-    click.echo(f'DB commit append: {idx}')
+    click.echo(f"DB commit append: {idx}")
 
 
 class Provider(BaseProvider):
@@ -64,17 +64,17 @@ class Provider(BaseProvider):
     @classmethod
     def create(cls, object_type=None, object_uuid=None, **kwargs):
         """Create a new identifier."""
-        pid_value = kwargs.get('pid_value')
+        pid_value = kwargs.get("pid_value")
         if not pid_value:
-            kwargs['pid_value'] = str(cls.identifier.next())
+            kwargs["pid_value"] = str(cls.identifier.next())
         # TODO: to insert pid to the identifer table, enable if needed
 
         try:
-            return cls.get(kwargs['pid_value'], cls.pid_type)
+            return cls.get(kwargs["pid_value"], cls.pid_type)
         except PIDDoesNotExistError:
-            kwargs.setdefault('status', cls.default_status)
+            kwargs.setdefault("status", cls.default_status)
             if object_type and object_uuid:
-                kwargs['status'] = PIDStatus.REGISTERED
+                kwargs["status"] = PIDStatus.REGISTERED
             return super().create(
                 object_type=object_type, object_uuid=object_uuid, **kwargs
             )

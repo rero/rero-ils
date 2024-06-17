@@ -20,8 +20,11 @@
 from invenio_access import action_factory
 from invenio_records_permissions.generators import SystemProcess
 
-from rero_ils.modules.permissions import AllowedByAction, \
-    AllowedByActionRestrictByManageableLibrary, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByAction,
+    AllowedByActionRestrictByManageableLibrary,
+    RecordPermissionPolicy,
+)
 from rero_ils.modules.utils import extracted_data_from_ref
 
 # Actions to control Record Files policies for CRUD operations
@@ -51,37 +54,31 @@ class FilePermissionPolicy(RecordPermissionPolicy):
     can_read = [AllowedByAction(read_action), SystemProcess()]
     can_create = [AllowedByAction(create_action), SystemProcess()]
     can_update = [
-        AllowedByActionRestrictByManageableLibrary(
-            update_action, get_library_pid),
+        AllowedByActionRestrictByManageableLibrary(update_action, get_library_pid),
         SystemProcess(),
     ]
     can_delete = [
-        AllowedByActionRestrictByManageableLibrary(
-            delete_action, get_library_pid),
+        AllowedByActionRestrictByManageableLibrary(delete_action, get_library_pid),
         SystemProcess(),
     ]
     # download/upload a file
     can_get_content_files = [AllowedByAction(read_action), SystemProcess()]
     can_set_content_files = [
-        AllowedByActionRestrictByManageableLibrary(
-            create_action, get_library_pid),
-        SystemProcess()
+        AllowedByActionRestrictByManageableLibrary(create_action, get_library_pid),
+        SystemProcess(),
     ]
     # files container
     can_read_files = [AllowedByAction(read_action), SystemProcess()]
     can_create_files = [AllowedByAction(create_action), SystemProcess()]
     can_commit_files = [
-        AllowedByActionRestrictByManageableLibrary(
-            create_action, get_library_pid),
+        AllowedByActionRestrictByManageableLibrary(create_action, get_library_pid),
         SystemProcess(),
     ]
     can_update_files = [
-        AllowedByActionRestrictByManageableLibrary(
-            update_action, get_library_pid),
+        AllowedByActionRestrictByManageableLibrary(update_action, get_library_pid),
         SystemProcess(),
     ]
     can_delete_files = [
-        AllowedByActionRestrictByManageableLibrary(
-            delete_action, get_library_pid),
+        AllowedByActionRestrictByManageableLibrary(delete_action, get_library_pid),
         SystemProcess(),
     ]

@@ -26,8 +26,11 @@ from werkzeug.utils import cached_property
 
 from rero_ils.modules.items.dumpers import ClaimIssueNotificationDumper
 from rero_ils.modules.notifications.api import Notification
-from rero_ils.modules.notifications.models import NotificationChannel, \
-    NotificationType, RecipientType
+from rero_ils.modules.notifications.models import (
+    NotificationChannel,
+    NotificationType,
+    RecipientType,
+)
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
@@ -55,20 +58,24 @@ class ClaimSerialIssueNotification(Notification, ABC):
         if self.type != NotificationType.CLAIM_ISSUE:
             return f"'{self.type} isn't an ClaimSerialIssueNotification"
         if not self.item:
-            return '`item` field must be specified into `context` for ' \
-                   'ClaimSerialIssueNotification'
+            return (
+                "`item` field must be specified into `context` for "
+                "ClaimSerialIssueNotification"
+            )
         if not self.item.is_issue:
-            return '`item` field must reference an serial issue item.'
+            return "`item` field must reference an serial issue item."
 
         # validate that at least one email of type `to` exist and one email of
         # type `reply_to` is given in the ist of emails.
         recipient_types = {
-            recipient.get('type')
-            for recipient in self.get('context', {}).get('recipients', [])
+            recipient.get("type")
+            for recipient in self.get("context", {}).get("recipients", [])
         }
-        if RecipientType.TO not in recipient_types \
-           or RecipientType.REPLY_TO not in recipient_types:
-            return 'Recipient type `to` and `reply_to` are required'
+        if (
+            RecipientType.TO not in recipient_types
+            or RecipientType.REPLY_TO not in recipient_types
+        ):
+            return "Recipient type `to` and `reply_to` are required"
         return True
 
     # PARENT ABSTRACT IMPLEMENTATION METHODS ==================================
@@ -112,13 +119,13 @@ class ClaimSerialIssueNotification(Notification, ABC):
         """Get the language to use for dispatching the notification."""
         # By default, the language to use to build the notification is defined
         # in the vendor setting. Override this method if needed in the future.
-        return self.vendor.get('communication_language')
+        return self.vendor.get("communication_language")
 
     def get_template_path(self):
         """Get the template to use to render the notification."""
         # By default, the template path to use reflects the notification type.
         # Override this method if necessary
-        return f'email/{self.type}/{self.get_language_to_use()}.tpl.txt'
+        return f"email/{self.type}/{self.get_language_to_use()}.tpl.txt"
 
     def get_recipients(self, address_type):
         """Get the notification recipients email address.
@@ -132,9 +139,9 @@ class ClaimSerialIssueNotification(Notification, ABC):
         :rtype: list<{type: str, address: str}>
         """
         return [
-            recipient.get('address')
-            for recipient in self.get('context', {}).get('recipients', [])
-            if recipient.get('type') == address_type
+            recipient.get("address")
+            for recipient in self.get("context", {}).get("recipients", [])
+            if recipient.get("type") == address_type
         ]
 
     @classmethod
@@ -153,19 +160,19 @@ class ClaimSerialIssueNotification(Notification, ABC):
 
         notification = notifications[0]
         item = notification.item
-        return {'issue': item.dumps(dumper=ClaimIssueNotificationDumper())}
+        return {"issue": item.dumps(dumper=ClaimIssueNotificationDumper())}
 
     # GETTER & SETTER METHODS =================================================
     #  Shortcuts to easy access notification attributes.
     @property
     def item_pid(self):
         """Shortcut for item pid related to the notification."""
-        return extracted_data_from_ref(self['context']['item'])
+        return extracted_data_from_ref(self["context"]["item"])
 
     @property
     def item(self):
         """Shortcut for item related to the notification."""
-        return extracted_data_from_ref(self['context']['item'], data='record')
+        return extracted_data_from_ref(self["context"]["item"], data="record")
 
     @cached_property
     def vendor(self):

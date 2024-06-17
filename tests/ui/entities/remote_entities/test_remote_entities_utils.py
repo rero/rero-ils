@@ -22,22 +22,23 @@ from mock import mock
 from requests import RequestException
 from utils import mock_response
 
-from rero_ils.modules.entities.remote_entities.utils import \
-    get_mef_data_by_type
+from rero_ils.modules.entities.remote_entities.utils import get_mef_data_by_type
 
 
-@mock.patch('requests.Session.get')
+@mock.patch("requests.Session.get")
 def test_utils_mef_data(mock_get, app):
     """."""
     with pytest.raises(KeyError):
-        get_mef_data_by_type('idref', 'pid', 'dummy_entity', verbose=True)
+        get_mef_data_by_type("idref", "pid", "dummy_entity", verbose=True)
 
     mock_get.return_value = mock_response(
-        json_data={'hits': {'hits': [], 'toto': 'foo'}})
+        json_data={"hits": {"hits": [], "toto": "foo"}}
+    )
     with pytest.raises(ValueError):
-        get_mef_data_by_type('viaf', 'pid', 'agents', verbose=True)
+        get_mef_data_by_type("viaf", "pid", "agents", verbose=True)
 
     mock_get.return_value = mock_response(
-        status=400, json_data={'error': 'Bad request'})
+        status=400, json_data={"error": "Bad request"}
+    )
     with pytest.raises(RequestException):
-        get_mef_data_by_type('viaf', 'pid', 'agents', verbose=True)
+        get_mef_data_by_type("viaf", "pid", "agents", verbose=True)

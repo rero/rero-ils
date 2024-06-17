@@ -18,8 +18,8 @@
 
 """API for manipulating "organisation" local entities."""
 
-from ..api import LocalEntity
 from ...helpers import str_builder as builder
+from ..api import LocalEntity
 
 
 class OrganisationLocalEntity(LocalEntity):
@@ -31,14 +31,13 @@ class OrganisationLocalEntity(LocalEntity):
         :return return the calculated authorized access point to use.
         """
         conference = [
-            self.get('conference_numbering', ''),
-            self.get('conference_date', ''),
-            self.get('conference_place', ''),
+            self.get("conference_numbering", ""),
+            self.get("conference_date", ""),
+            self.get("conference_place", ""),
         ]
         field_builders = [
-            self.get('name'),
-            builder(self.get('subordinate_units'),
-                    prefix='. ', delimiter='. '),
-            builder(conference, delimiter=' ; ', prefix=' (', suffix=')')
+            self.get("name"),
+            builder(self.get("subordinate_units"), prefix=". ", delimiter=". "),
+            builder(conference, delimiter=" ; ", prefix=" (", suffix=")"),
         ]
-        return ''.join(field_builders)
+        return "".join(field_builders)

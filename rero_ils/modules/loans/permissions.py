@@ -21,13 +21,15 @@ from invenio_access import action_factory, any_user
 from invenio_records_permissions.generators import Generator
 
 from rero_ils.modules.loans.api import Loan
-from rero_ils.modules.permissions import \
-    AllowedByActionRestrictByOwnerOrOrganisation, RecordPermissionPolicy
+from rero_ils.modules.permissions import (
+    AllowedByActionRestrictByOwnerOrOrganisation,
+    RecordPermissionPolicy,
+)
 
 # Actions to control Loan policy
-search_action = action_factory('loan-search')
-read_action = action_factory('loan-read')
-access_action = action_factory('loan-access')
+search_action = action_factory("loan-search")
+read_action = action_factory("loan-read")
+access_action = action_factory("loan-access")
 
 
 class DisallowedIfAnonymized(Generator):
@@ -40,7 +42,7 @@ class DisallowedIfAnonymized(Generator):
         :param kwargs: extra arguments.
         :returns: a list of needs to disabled access.
         """
-        return [any_user] if record and record.get('to_anonymize') else []
+        return [any_user] if record and record.get("to_anonymize") else []
 
 
 class LoanPermissionPolicy(RecordPermissionPolicy):
@@ -48,14 +50,12 @@ class LoanPermissionPolicy(RecordPermissionPolicy):
 
     can_search = [
         AllowedByActionRestrictByOwnerOrOrganisation(
-            search_action,
-            record_mapper=lambda r: Loan(r)
+            search_action, record_mapper=lambda r: Loan(r)
         )
     ]
     can_read = [
         DisallowedIfAnonymized(),
         AllowedByActionRestrictByOwnerOrOrganisation(
-            read_action,
-            record_mapper=lambda r: Loan(r)
-        )
+            read_action, record_mapper=lambda r: Loan(r)
+        ),
     ]

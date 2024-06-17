@@ -20,7 +20,7 @@
 import pytest
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def locations_records(
     loc_public_martigny,
     loc_restricted_martigny,
@@ -34,6 +34,6 @@ def locations_records(
     loc_online_saxon,
     loc_online_fully,
     loc_online_sion,
-    loc_online_aproz
+    loc_online_aproz,
 ):
     """Locations for test mapping."""

@@ -25,19 +25,19 @@ from functools import partial
 from elasticsearch_dsl import Q
 from flask_babel import gettext as _
 
-from .models import ItemTypeIdentifier, ItemTypeMetadata
 from ..api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from ..circ_policies.api import CircPoliciesSearch
 from ..fetchers import id_fetcher
 from ..minters import id_minter
 from ..providers import Provider
 from ..utils import extracted_data_from_ref, sorted_pids
+from .models import ItemTypeIdentifier, ItemTypeMetadata
 
 # provider
 ItemTypeProvider = type(
-    'ItemTypeProvider',
+    "ItemTypeProvider",
     (Provider,),
-    dict(identifier=ItemTypeIdentifier, pid_type='itty')
+    dict(identifier=ItemTypeIdentifier, pid_type="itty"),
 )
 # minter
 item_type_id_minter = partial(id_minter, provider=ItemTypeProvider)
@@ -51,9 +51,9 @@ class ItemTypesSearch(IlsRecordsSearch):
     class Meta:
         """Search only on item_types index."""
 
-        index = 'item_types'
+        index = "item_types"
         doc_types = None
-        fields = ('*',)
+        fields = ("*",)
         facets = {}
 
         default_filter = None
@@ -74,15 +74,19 @@ class ItemType(IlsRecord):
         per organisation.
         """
         online_type_pid = self.get_organisation().online_circulation_category()
-        if self.get('type') == 'online' and online_type_pid and \
-           self.pid != online_type_pid:
-            return _('Another online item type exists in this organisation')
+        if (
+            self.get("type") == "online"
+            and online_type_pid
+            and self.pid != online_type_pid
+        ):
+            return _("Another online item type exists in this organisation")
         return True
 
     def get_organisation(self):
         """Get organisation."""
         from ..organisations.api import Organisation
-        org_pid = extracted_data_from_ref(self.get('organisation'))
+
+        org_pid = extracted_data_from_ref(self.get("organisation"))
         return Organisation.get_record_by_pid(org_pid)
 
     @classmethod
@@ -93,8 +97,8 @@ class ItemType(IlsRecord):
             pids = [
                 n.pid
                 for n in ItemTypesSearch()
-                .filter('term', item_type_name=name)
-                .source(includes=['pid'])
+                .filter("term", item_type_name=name)
+                .source(includes=["pid"])
                 .scan()
             ]
             if len(pids) > 0:
@@ -113,10 +117,13 @@ class ItemType(IlsRecord):
         :return: A ES hit if a circulation category already use thi name in
                  the organisation; otherwise, return None.
         """
-        item_type = ItemTypesSearch() \
-            .filter('term', item_type_name=name) \
-            .filter('term', organisation__pid=organisation_pid)\
-            .source().scan()
+        item_type = (
+            ItemTypesSearch()
+            .filter("term", item_type_name=name)
+            .filter("term", organisation__pid=organisation_pid)
+            .source()
+            .scan()
+        )
         try:
             return next(item_type)
         except StopIteration:
@@ -129,21 +136,20 @@ class ItemType(IlsRecord):
                          if False count of linked records
         """
         from ..items.api import ItemsSearch
+
         links = {}
-        items_query = ItemsSearch().filter('bool', should=[
-            Q('term', item_type__pid=self.pid),
-            Q('term', temporary_item_type__pid=self.pid)
-        ])
-        cipo_query = CircPoliciesSearch() \
-            .filter(
-                'nested',
-                path='settings',
-                query=Q(
-                    'bool', must=[
-                        Q('match', settings__item_type__pid=self.pid)
-                    ]
-                )
-            )
+        items_query = ItemsSearch().filter(
+            "bool",
+            should=[
+                Q("term", item_type__pid=self.pid),
+                Q("term", temporary_item_type__pid=self.pid),
+            ],
+        )
+        cipo_query = CircPoliciesSearch().filter(
+            "nested",
+            path="settings",
+            query=Q("bool", must=[Q("match", settings__item_type__pid=self.pid)]),
+        )
         if get_pids:
             items = sorted_pids(items_query)
             circ_policies = sorted_pids(cipo_query)
@@ -151,9 +157,9 @@ class ItemType(IlsRecord):
             items = items_query.count()
             circ_policies = cipo_query.count()
         if items:
-            links['items'] = items
+            links["items"] = items
         if circ_policies:
-            links['circ_policies'] = circ_policies
+            links["circ_policies"] = circ_policies
         return links
 
     def reasons_not_to_delete(self):
@@ -161,7 +167,7 @@ class ItemType(IlsRecord):
         cannot_delete = {}
         links = self.get_links_to_me()
         if links:
-            cannot_delete['links'] = links
+            cannot_delete["links"] = links
         return cannot_delete
 
     def get_label(self, language=None):
@@ -172,16 +178,17 @@ class ItemType(IlsRecord):
                  return the item_type name.
         """
         if language:
-            labels = self.get('displayed_status', []) \
-                if self.get('negative_availability', False) \
-                else self.get('circulation_information', [])
+            labels = (
+                self.get("displayed_status", [])
+                if self.get("negative_availability", False)
+                else self.get("circulation_information", [])
+            )
             label = [
-                entry['label'] for entry in labels
-                if entry['language'] == language
+                entry["label"] for entry in labels if entry["language"] == language
             ]
             if label and label[0]:
                 return label[0]
-        return self.get('name')
+        return self.get("name")
 
 
 class ItemTypesIndexer(IlsRecordsIndexer):
@@ -194,4 +201,4 @@ class ItemTypesIndexer(IlsRecordsIndexer):
 
         :param record_id_iterator: Iterator yielding record UUIDs.
         """
-        super().bulk_index(record_id_iterator, doc_type='itty')
+        super().bulk_index(record_id_iterator, doc_type="itty")

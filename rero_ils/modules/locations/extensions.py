@@ -32,8 +32,8 @@ class IsPickupToExtension(RecordExtension):
         """
         # Remove the possible `pickup_name` if the location isn't (yet)
         # defined as a pickup location.
-        if not record.get('is_pickup', False):
-            record.pop('pickup_name', None)
+        if not record.get("is_pickup", False):
+            record.pop("pickup_name", None)
 
     def post_commit(self, record):
         """Called after a record is committed.

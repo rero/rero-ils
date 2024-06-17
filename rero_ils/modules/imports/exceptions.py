@@ -24,4 +24,4 @@ class ResultNotFoundOnTheRemoteServer(RESTException):
     """Non existent remote record."""
 
     code = 404
-    description = 'Record not found on the remote server.'
+    description = "Record not found on the remote server."

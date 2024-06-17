@@ -49,5 +49,6 @@ class FileInformationDumperExt(SearchDumperExt):
         data["metadata"]["file_size"] = size
         lib_pid = data["metadata"]["library"]["pid"]
         from rero_ils.modules.libraries.api import Library
+
         org_pid = Library.get_record_by_pid(lib_pid).organisation_pid
         data["metadata"]["organisation"] = {"pid": org_pid, "type": "doc"}

@@ -18,8 +18,8 @@
 
 """API for manipulating "person" local entities."""
 
-from ..api import LocalEntity
 from ...helpers import str_builder as builder
+from ..api import LocalEntity
 
 
 class PersonLocalEntity(LocalEntity):
@@ -30,12 +30,12 @@ class PersonLocalEntity(LocalEntity):
 
         :return return the calculated authorized access point to use.
         """
-        dates = [self.get('date_of_birth', ''), self.get('date_of_death', '')]
+        dates = [self.get("date_of_birth", ""), self.get("date_of_death", "")]
         field_builders = [
-            self.get('name'),
-            builder(self.get('numeration'), prefix=' '),
-            builder(self.get('qualifier'), prefix=', '),
-            builder(self.get('fuller_form_of_name'), prefix=' (', suffix=')'),
-            builder(dates, delimiter='-', prefix=' (', suffix=')')
+            self.get("name"),
+            builder(self.get("numeration"), prefix=" "),
+            builder(self.get("qualifier"), prefix=", "),
+            builder(self.get("fuller_form_of_name"), prefix=" (", suffix=")"),
+            builder(dates, delimiter="-", prefix=" (", suffix=")"),
         ]
-        return ''.join(field_builders)
+        return "".join(field_builders)

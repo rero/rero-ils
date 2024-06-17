@@ -33,9 +33,14 @@ class LocalEntityFactoryExtension(RecordExtension):
     def _get_local_entity_class(record):
         """Get the Local entity class to use based on record data."""
         from ..api import LocalEntity
-        from ..subclasses import OrganisationLocalEntity, PersonLocalEntity, \
-            PlaceLocalEntity, TemporalLocalEntity, TopicLocalEntity, \
-            WorkLocalEntity
+        from ..subclasses import (
+            OrganisationLocalEntity,
+            PersonLocalEntity,
+            PlaceLocalEntity,
+            TemporalLocalEntity,
+            TopicLocalEntity,
+            WorkLocalEntity,
+        )
 
         mapping = {
             EntityType.PERSON: PersonLocalEntity,
