@@ -68,6 +68,9 @@
       "due_soon_date": {
         "type": "date"
       },
+      "auto_extend": {
+        "type": "boolean"
+      },
       "extension_count": {
         "type": "long"
       },

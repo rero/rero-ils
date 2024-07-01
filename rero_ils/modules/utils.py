@@ -607,12 +607,15 @@ def get_pid_type_from_schema(schema):
 def get_patron_from_arguments(**kwargs):
     """Try to load a patron from potential arguments."""
     from .patrons.api import Patron
-    required_arguments = ['patron', 'patron_barcode', 'patron_pid', 'loan']
-    if all(k not in required_arguments for k in kwargs):
+    required_arguments = {'patron', 'patron_barcode', 'patron_pid', 'loan'}
+    # if the kwargs does not contain at least one of the required arguments
+    # return None
+    if not required_arguments.intersection(kwargs):
         return None
     return kwargs.get('patron') \
         or Patron.get_record_by_pid(kwargs.get('patron_pid')) \
-        or Patron.get_record_by_pid(kwargs.get('loan').get('patron_pid'))
+        or Patron.get_record_by_pid(kwargs.get('loan').get('patron_pid'))\
+        or Patron.get_patron_by_barcode(kwargs.get('patron_barcode'))
 
 
 def set_timestamp(name, **kwargs):

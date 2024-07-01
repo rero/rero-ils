@@ -299,6 +299,10 @@
           "type": "boolean",
           "default": false
         },
+        "auto_extend": {
+          "type": "boolean",
+          "title": "Defines if the latest renewal was automatic or manual."
+        },
         "transaction_channel": {
           "title": "Transaction channel",
           "type": "string",

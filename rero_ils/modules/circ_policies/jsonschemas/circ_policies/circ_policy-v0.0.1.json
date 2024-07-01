@@ -19,6 +19,7 @@
     "checkout_duration",
     "number_renewals",
     "renewal_duration",
+    "automatic_renewal",
     "is_default",
     "allow_requests",
     "pickup_hold_duration",
@@ -383,6 +384,21 @@
             "addonRight": [
               "day(s)"
             ]
+          }
+        }
+      }
+    },
+    "automatic_renewal": {
+      "title": "Automatic renewal",
+      "description": "Defines whether loans are automatically renewed by the system when they reach their due date. Automatic renewal only renews loans that are also renewable manually (taking into account existing limits and blocks).",
+      "type": "boolean",
+      "widget": {
+        "formlyConfig": {
+          "expressions": {
+            "hide": "model.number_renewals <= 0"
+          },
+          "navigation": {
+            "essential": true
           }
         }
       }

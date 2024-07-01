@@ -26,6 +26,7 @@
           "enum": [
             "at_desk",
             "due_soon",
+            "auto_extend",
             "overdue",
             "recall",
             "transit_notice",

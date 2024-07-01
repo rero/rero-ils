@@ -183,7 +183,8 @@
         "request",
         "booking",
         "acquisition_order",
-        "claim_issue"
+        "claim_issue",
+        "auto_extend"
       ]
     },
     "effective_recipients": {
