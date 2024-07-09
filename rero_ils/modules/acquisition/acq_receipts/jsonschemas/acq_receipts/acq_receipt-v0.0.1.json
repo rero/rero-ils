@@ -142,7 +142,7 @@
     "notes": {
       "title": "Notes",
       "type": "array",
-      "minItems": 0,
+      "minItems": 1,
       "maxItems": 1,
       "items": {
         "type": "object",

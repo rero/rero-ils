@@ -101,7 +101,7 @@
     "notes": {
       "title": "Notes",
       "type": "array",
-      "minItems": 0,
+      "minItems": 1,
       "maxItems": 2,
       "items": {
         "type": "object",
