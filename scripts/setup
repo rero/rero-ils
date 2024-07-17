@@ -597,10 +597,10 @@ if ${DEPLOYMENT}
 then
     # start oai harvesting asynchrone: beats must be running
     info_msg "Start OAI harvesting asynchrone"
-    eval ${PREFIX} invenio reroils oaiharvester harvest -n ebooks -a max=150 -q -k
+    eval ${PREFIX} invenio reroils oaiharvester harvest -n ebooks -a max_results=150 -q -k
 else
     info_msg "For ebooks harvesting run:"
-    msg "\tinvenio reroils oaiharvester harvest -n ebooks -a max=100 -q"
+    msg "\tinvenio reroils oaiharvester harvest -n ebooks -a max_results=100 -q"
 fi
 
 if ${ES_MAPPING}
