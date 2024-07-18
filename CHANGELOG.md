@@ -1,5 +1,37 @@
 # Changelog
 
+## [v1.23.0](https://github.com/rero/rero-ils/tree/v1.23.0) (2024-08-12)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.22.1...v1.23.0)
+
+**New features:**
+* feat(circulation): automatic loan renewal [\#3691](https://github.com/rero/rero-ils/pull/3691) (by @PascalRepond)
+
+**Enhancements:**
+* Ebooks: Import `document_type` from Cantook/eBibliomedia [\#3692](https://github.com/rero/rero-ils/issues/3692) (by @rerowep)
+* fix(circulation policies): improve data consistency [\#3729](https://github.com/rero/rero-ils/pull/3729) (by @PascalRepond)
+
+**Fixes:**
+* fix(editor): seriesStatement becoming invalid if deleted and re-added [\#3731](https://github.com/rero/rero-ils/issues/3731) (by @jma & @PascalRepond)
+* loan tasks: ignore auto extend non extendable item [\#3728](https://github.com/rero/rero-ils/issues/3728) (by @jma & @PascalRepond)
+* fix: favicon [\#3724](https://github.com/rero/rero-ils/issues/3724) (by @Garfield-fr)
+* fix: font-src console error [\#3723](https://github.com/rero/rero-ils/pull/3723) (by @PascalRepond)
+* Order line editor: cannot add a note [\#3709](https://github.com/rero/rero-ils/issues/3709) (by @jma & @PascalRepond)
+* Error with role subfield when adding a contribution [\#3705](https://github.com/rero/rero-ils/issues/3705) (by @jma)
+* Document editor: impossible to select one role if the field was unselected [\#3712](https://github.com/rero/rero-ils/issues/3712) (by @jma)
+* SIP2: fix messages translations [\#3423](https://github.com/rero/rero-ils/issues/3423) (by @lauren-d)
+* Entities are not correctly reindexed following document [\#3672](https://github.com/rero/rero-ils/issues/3672) (by @rerowep)
+* Patron transaction events with a `owning_location` that has been deleted create errors in the fees views [\#3702](https://github.com/rero/rero-ils/issues/3702) (by @rerowep)
+* sip2: fix patron language [\#3707](https://github.com/rero/rero-ils/pull/3707) (by @jma)
+* SRU: fix fiction in 008 [\#3700](https://github.com/rero/rero-ils/pull/3700) (by @rerowep)
+
+**Other changes:**
+* chore(deprecation): update compose commands to v2 [\#3730](https://github.com/rero/rero-ils/pull/3730) (by @PascalRepond)
+* chore: fix safety tests [\#3726](https://github.com/rero/rero-ils/pull/3726) (by @PascalRepond)
+* ebooks: fix harvest max results [\#3719](https://github.com/rero/rero-ils/pull/3719) (by @rerowep)
+* fix(tests): pin setuptools version [\#3720](https://github.com/rero/rero-ils/pull/3720) (by @PascalRepond)
+* dependencies: fix vulnerabilities [\#3715](https://github.com/rero/rero-ils/pull/3715) and [\#3673](https://github.com/rero/rero-ils/pull/3673) (by @rerowep)
+
 ## [v1.22.1](https://github.com/rero/rero-ils/tree/v1.22.1) (2024-06-06)
 
 **Fixes:**
