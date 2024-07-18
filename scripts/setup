@@ -24,7 +24,7 @@ DATA_PATH=./data
 #  --create_items_holdings_big:
 #       used for create only the items and holdings files for the 'big' documents file
 #  --deployment:
-#       used for deploy the 'big' files
+#       used to deploy the 'big' fixtures, with ebooks and files
 #  --dont_stop:
 #       used for continue script on error
 #  --time:
@@ -427,7 +427,13 @@ info_msg "- Items: ${ITEMS} ${CREATE_LAZY} ${DONT_STOP}"
 eval ${PREFIX} invenio reroils fixtures create --pid_type item --schema 'https://bib.rero.ch/schemas/items/item-v0.0.1.json' ${ITEMS} --append ${CREATE_LAZY} ${DONT_STOP}
 
 info_msg "- Generate files"
-eval ${PREFIX} invenio reroils fixtures create-files 75
+if ${DEPLOYMENT}
+then
+  eval ${PREFIX} invenio reroils fixtures create-files 75
+else
+  info_msg "To create file fixtures, run:"
+  msg "\tinvenio reroils fixtures create-files 50"
+fi
 
 # index items
 eval ${PREFIX} invenio reroils index reindex -t item --yes-i-know

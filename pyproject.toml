@@ -73,6 +73,8 @@ sentry-sdk = "<2.0.0"
 dojson = ">=1.4.0"
 # TODO: dojson problem = AttributeError: 'Group' object has no attribute 'resultcallback'
 click = "<8.1.0"
+# pinned due to breaking change in v71
+setuptools = "<71.0.0"
 
 ## RERO ILS specific python modules
 PyYAML = ">=5.3.1"
