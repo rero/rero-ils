@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-07-18 13:17+0200\n"
-"PO-Revision-Date: 2024-05-16 14:23+0000\n"
+"PO-Revision-Date: 2024-07-18 11:35+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.7-dev\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: rero_ils/accounts_views.py:60
@@ -5488,7 +5489,7 @@ msgstr "Durée de la prolongation en jours"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:392
 msgid "Automatic renewal"
-msgstr ""
+msgstr "Prolongation automatique"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:393
 msgid ""
@@ -5496,6 +5497,10 @@ msgid ""
 "reach their due date. Automatic renewal only renews loans that are also "
 "renewable manually (taking into account existing limits and blocks)."
 msgstr ""
+"Définit si les prêts sont automatiquement prolongés par le système "
+"lorsqu'ils atteignent leur date d'échéance. La prolongation automatique ne "
+"renouvelle que les prêts qui seraient prolongeables manuellement (en tenant "
+"compte des limites et des blocages existants)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:407
 msgid "Mark as default policy"
@@ -11233,7 +11238,7 @@ msgstr "URI de l'exemplaire"
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:54
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:304
 msgid "Defines if the latest renewal was automatic or manual."
-msgstr ""
+msgstr "Définit si la dernière prolongation était automatique ou manuelle."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:58
 msgid "Loan extension count"
@@ -12183,7 +12188,7 @@ msgstr "Compte-lecteur expiré."
 #: rero_ils/modules/patrons/views.py:171
 #, python-format
 msgid "%(icon)s My loans"
-msgstr ""
+msgstr "%(icon)s Mes prêts"
 
 #: rero_ils/modules/patrons/views.py:233
 msgid "You have a pending subscription fee."
@@ -13235,9 +13240,8 @@ msgstr "Votre mot de passe a été réinitialisé avec succès."
 
 #: rero_ils/theme/webpack_assets/package.json:2
 msgid "invenio-assets"
-msgstr ""
+msgstr "invenio-assets"
 
 #: rero_ils/theme/webpack_assets/package.json:4
 msgid "Invenio assets"
-msgstr ""
-
+msgstr "Assets Invenio"

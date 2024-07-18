@@ -17,15 +17,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-07-18 13:17+0200\n"
-"PO-Revision-Date: 2024-05-16 14:23+0000\n"
+"PO-Revision-Date: 2024-07-18 11:35+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.7-dev\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: rero_ils/accounts_views.py:60
@@ -5483,7 +5484,7 @@ msgstr "Verlängerungsdauer in Tagen"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:392
 msgid "Automatic renewal"
-msgstr ""
+msgstr "Automatische Verlängerung"
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:393
 msgid ""
@@ -5491,6 +5492,10 @@ msgid ""
 "reach their due date. Automatic renewal only renews loans that are also "
 "renewable manually (taking into account existing limits and blocks)."
 msgstr ""
+"Legt fest, ob Ausleihen bei Erreichen des Fälligkeitsdatums automatisch "
+"durch das System verlängert werden. Die automatische Verlängerung erneuert "
+"nur Ausleihen, die auch manuell erneuert werden (unter Berücksichtigung "
+"bestehender Limits und Sperren)."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:407
 msgid "Mark as default policy"
@@ -11219,6 +11224,7 @@ msgstr "URI des Exemplars"
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:304
 msgid "Defines if the latest renewal was automatic or manual."
 msgstr ""
+"Legt fest, ob die letzte Erneuerung automatisch oder manuell erfolgt ist."
 
 #: rero_ils/modules/loans/jsonschemas/loans/loan-ils-v0.0.1.json:58
 msgid "Loan extension count"
@@ -12181,7 +12187,7 @@ msgstr "Das Kunde-Konto ist abgelaufen."
 #: rero_ils/modules/patrons/views.py:171
 #, python-format
 msgid "%(icon)s My loans"
-msgstr ""
+msgstr "%(icon)s Meine Ausleihe"
 
 #: rero_ils/modules/patrons/views.py:233
 msgid "You have a pending subscription fee."
@@ -13226,9 +13232,8 @@ msgstr "Ihr Passwort wurde erfolgreich zurückgesetzt."
 
 #: rero_ils/theme/webpack_assets/package.json:2
 msgid "invenio-assets"
-msgstr ""
+msgstr "invenio-assets"
 
 #: rero_ils/theme/webpack_assets/package.json:4
 msgid "Invenio assets"
-msgstr ""
-
+msgstr "Inveio-Assets"
