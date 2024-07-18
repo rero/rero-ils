@@ -2061,13 +2061,13 @@ tests = ["cachelib (>=0.1)", "invenio-db[mysql,postgresql] (>=1.1.2)", "pytest-b
 
 [[package]]
 name = "invenio-accounts"
-version = "5.0.1"
+version = "5.1.1"
 description = "Invenio user management and authentication."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "invenio-accounts-5.0.1.tar.gz", hash = "sha256:487cb59b2e2776d986441da9aee092722ee63933eeada55b95d3f3ce117296c0"},
-    {file = "invenio_accounts-5.0.1-py2.py3-none-any.whl", hash = "sha256:7e17240a102590b8e91643ec5b753d9dd51f929ab9197e5ec742039a463c07e8"},
+    {file = "invenio-accounts-5.1.1.tar.gz", hash = "sha256:0cbede281ad7535ef8960f949c4699f5393f3164d7f1c1a33dd49540c295a252"},
+    {file = "invenio_accounts-5.1.1-py2.py3-none-any.whl", hash = "sha256:0fc151750a7ac143e7be28fd30d65e3ff04f824b0867390a515301644d0e02cd"},
 ]
 
 [package.dependencies]
@@ -6542,4 +6542,4 @@ sip2 = ["invenio-sip2"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">= 3.9, <3.10"
-content-hash = "fe7b20ff6ebb6313b72315eb5cd8e94bd9861d41dff3a25e753857fd9d6b8a4d"
+content-hash = "0308b222592f5942bbc6da3482b74e3e4c91ca980c60da9b9202afbe83ba9b36"
