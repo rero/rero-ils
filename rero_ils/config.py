@@ -539,6 +539,7 @@ APP_DEFAULT_SECURE_HEADERS = {
     'strict_transport_security_include_subdomains': True,
     'content_security_policy': {
         'default-src': ['*'],
+        'font-src': ['*', 'data:'],
         'img-src': [
             '*',
             "'self'",
