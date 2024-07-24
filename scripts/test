@@ -67,29 +67,31 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 function pretests () {
-  # -> Vulnerability found in flask-cors version 4.0.1
-  #   Vulnerability ID: 70624
-  # -> Vulnerability found in sqlalchemy version 1.4.52
-  #   Vulnerability ID: 51668
+  # -> Vulnerability found in flask-caching version 2.3.0
+  #   Vulnerability ID: 40459
   # -> Vulnerability found in sqlalchemy-utils version 0.38.3
   #   Vulnerability ID: 42194
   # -> Vulnerability found in wtforms version 2.3.3
   #   Vulnerability ID: 42852
+  # -> Vulnerability found in py version 1.11.0
+  #   Vulnerability ID: 51457
+  # -> Vulnerability found in sqlalchemy version 1.4.52
+  #   Vulnerability ID: 51668
   # -> Vulnerability found in werkzeug version 2.2.3
   #   Vulnerability ID: 62019
+  # -> Vulnerability found in black version 22.12.0
+  #   Vulnerability ID: 66742
+  # -> Vulnerability found in jinja2 version 3.1.4
+  #   Vulnerability ID: 70612
+  # -> Vulnerability found in flask-cors version 4.0.1
+  #   Vulnerability ID: 70624
   # -> Vulnerability found in werkzeug version 2.2.3
   #   Vulnerability ID: 71594
   # -> Vulnerability found in werkzeug version 2.2.3
   #   Vulnerability ID: 71595
-  # -> Vulnerability found in black version 22.12.0
-  #   Vulnerability ID: 66742
   #   ADVISORY: Black before 24.3.0 have a security vulnerability where
-  # -> Vulnerability found in jinja2 version 3.1.4
-  #   Vulnerability ID: 70612
-  # -> Vulnerability found in py version 1.11.0
-  #   Vulnerability ID: 51457
   info_msg "Check vulnerabilities:"
-  safety_exceptions="-i 70624 -i 51668 -i 42194 -i 42852 -i 62019 -i 66742 -i 70612 -i 51457 -i 71594 -i 71595"
+  safety_exceptions="-i 40459 -i 42194 -i 42852 -i 51457 -i 51668 -i 62019 -i 66742 -i 70612 -i 70624 -i 71594 -i 71595"
   msg=$(safety check -o text ${safety_exceptions}) || {
     echo "Safety vulnerabilites found for packages:" $(safety check -o bare ${safety_exceptions})
     echo "Run: \"safety check -o screen ${safety_exceptions} | grep -i vulnerability\" for more details"
