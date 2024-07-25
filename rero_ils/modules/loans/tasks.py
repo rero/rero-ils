@@ -25,9 +25,9 @@ import click
 from celery import shared_task
 
 from rero_ils.modules.items.api import Item
+from rero_ils.modules.items.models import ItemCirculationAction
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.tasks import process_notifications
-from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import set_timestamp
 
 from .api import Loan, LoansSearch, get_expired_request, get_overdue_loans
@@ -70,10 +70,11 @@ def automatic_renewal(tstamp=None):
         policy = get_circ_policy(loan)
         if policy.get('automatic_renewal'):
             if item := Item.get_record_by_pid(loan.item_pid):
-                if (
-                    Loan.can_extend(item=item, loan=loan)[0] and
-                    Patron.can_extend(item=item, patron_pid=loan.patron_pid)[0]
-                ):
+                if item.can(
+                    action=ItemCirculationAction.EXTEND,
+                    patron_pid=loan.patron_pid,
+                    loan=loan
+                )[0]:
                     item.extend_loan(
                         pid=loan.pid,
                         transaction_location_pid=loan.location_pid,

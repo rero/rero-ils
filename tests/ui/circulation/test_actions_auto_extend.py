@@ -18,6 +18,9 @@
 """Test item/loan circulation auto extend task."""
 from datetime import datetime, timedelta, timezone
 
+import mock
+
+from rero_ils.modules.items.api.circulation import ItemCirculation
 from rero_ils.modules.items.models import ItemCirculationAction, ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.tasks import automatic_renewal
@@ -84,44 +87,14 @@ def test_auto_extend_task(item_on_loan_martigny_patron_and_loan_on_loan,
                              transaction_location_pid=loc_public_martigny.pid,
                              transaction_user_pid=librarian_martigny.pid)
 
-    # If patron is blocked, the loan extend is ignored
-    cipo['automatic_renewal'] = True
-    cipo.update(cipo, dbcommit=True, reindex=True)
-
-    patron['patron']['blocked'] = True
-    patron.update(patron, dbcommit=True, reindex=True)
-
-    result = automatic_renewal()
-    extended_loan = Loan.get_record_by_pid(loan.pid)
-
-    # Check that no loan was extended
-    # and one loan was ignored because not renewable (patron blocked)
-    assert result == (0, 1)
-    assert item.status == ItemStatus.ON_LOAN
-    assert not extended_loan.get('auto_extend')
-    assert not mailbox
-
-    # unblock patron
-    patron['patron'].pop('blocked')
-    patron.update(patron, dbcommit=True, reindex=True)
-
-    # If renewals number is not allowed in cipo, the extend is ignored
-    cipo['number_renewals'] = 0
-    cipo.update(cipo, dbcommit=True, reindex=True)
-
-    result = automatic_renewal()
-    extended_loan = Loan.get_record_by_pid(loan.pid)
-
-    # Check that no loan was extended
-    # and one loan was ignored because the cipo disallows the extend
-    assert result == (0, 1)
-    assert item.status == ItemStatus.ON_LOAN
-    assert not extended_loan.get('auto_extend')
-    assert not mailbox
-
-    # reset cipo
-    cipo['number_renewals'] = 3
-    cipo.update(cipo, dbcommit=True, reindex=True)
+    # disallows the renewals
+    with mock.patch.object(ItemCirculation, 'can',
+                           mock.MagicMock(return_value=(False, ['foo']))):
+        # no loans has been extended
+        assert automatic_renewal() == (0, 1)
+        assert item.status == ItemStatus.ON_LOAN
+        assert not extended_loan.get('auto_extend')
+        assert not mailbox
 
     # Auto extend one extendable loan
     result = automatic_renewal()

@@ -2,6 +2,11 @@
   "index_patterns": [
     "operation_logs*"
   ],
+  "settings": {
+    "number_of_shards": "8",
+    "number_of_replicas": "1",
+    "max_result_window": "100000"
+  },
   "mappings": {
     "date_detection": false,
     "numeric_detection": false,
