@@ -139,7 +139,8 @@ def test_circ_policy_can_delete(app, circ_policy_martigny_data_tmp):
 def test_circ_policy_extended_validation(
     app,
     circ_policy_short_martigny,
-    circ_policy_short_martigny_data
+    circ_policy_short_martigny_data,
+    circ_policy_default_sion_data
 ):
     """Test extended validation for circ policy"""
     cipo_data = deepcopy(circ_policy_short_martigny_data)
@@ -152,3 +153,14 @@ def test_circ_policy_extended_validation(
     assert 'pickup_hold_duration' not in cipo
 
     cipo.delete()
+
+    # Check that I cannot save a CiPo without a renewal duration if
+    # renewals are enabled.
+    cipo_sion_data = deepcopy(circ_policy_default_sion_data)
+    assert cipo_sion_data['number_renewals'] > 0
+
+    cipo_sion_data.pop('renewal_duration')
+
+    with pytest.raises(ValidationError) as err:
+        CircPolicy.create(cipo_sion_data, delete_pid=True)
+    assert 'renewal duration is required' in str(err.value)

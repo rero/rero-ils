@@ -16,13 +16,13 @@
   "propertiesOrder": [
     "name",
     "description",
+    "allow_requests",
+    "pickup_hold_duration",
     "checkout_duration",
     "number_renewals",
     "renewal_duration",
     "automatic_renewal",
     "is_default",
-    "allow_requests",
-    "pickup_hold_duration",
     "policy_library_level",
     "libraries",
     "reminders",
@@ -84,18 +84,10 @@
       "minimum": 0,
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "toggle-switch",
-            "card"
-          ],
           "props": {
             "addonRight": [
               "day(s)"
             ],
-            "toggle-switch": {
-              "label": "Allow checkout",
-              "description": "Checkouts are allowed or not."
-            },
             "navigation": {
               "essential": true
             }
@@ -366,7 +358,7 @@
       "widget": {
         "formlyConfig": {
           "expressions": {
-            "hide": "model && model.checkout_duration <= 0"
+            "hide": "!model.checkout_duration && model.checkout_duration !== 0"
           }
         }
       }
@@ -378,7 +370,8 @@
       "widget": {
         "formlyConfig": {
           "expressions": {
-            "hide": "model && (!model.hasOwnProperty('number_renewals') || model.number_renewals <= 0)"
+            "props.required": "model.number_renewals",
+            "hide": "!model.number_renewals"
           },
           "props": {
             "addonRight": [
@@ -395,10 +388,7 @@
       "widget": {
         "formlyConfig": {
           "expressions": {
-            "hide": "model.number_renewals <= 0"
-          },
-          "navigation": {
-            "essential": true
+            "hide": "!model.number_renewals"
           }
         }
       }
