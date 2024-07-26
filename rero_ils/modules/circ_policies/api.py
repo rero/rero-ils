@@ -107,7 +107,7 @@ class CircPolicy(IlsRecord):
         for library in self.get('libraries', []):
             library_pid = extracted_data_from_ref(library)
             if not Library.get_record_by_pid(library_pid):
-                return f"CircPolicy: no library:  {library.get('pid')}"
+                return f"CircPolicy: no library: {library.get('pid')}"
 
         # check all patron_types & item_types from settings belongs to the
         # same organisation than the cipo
@@ -160,6 +160,11 @@ class CircPolicy(IlsRecord):
                        f':: [{lower_limit}-{upper_limit}]'
             last_lower_limit = lower_limit
             last_upper_limit = upper_limit
+
+        # Check renewal duration
+        # If renewals are enabled, a renewal duration is required.
+        if self.get('number_renewals') and not self.get('renewal_duration'):
+            return 'A renewal duration is required if renewals are enabled.'
 
         return True
 
