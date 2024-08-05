@@ -6542,4 +6542,4 @@ sip2 = ["invenio-sip2"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">= 3.9, <3.10"
-content-hash = "9615184431d49c8bbcc5688c77f1329c8e710dfb48e1317f01729bc05d6d8b90"
+content-hash = "fe7b20ff6ebb6313b72315eb5cd8e94bd9861d41dff3a25e753857fd9d6b8a4d"
