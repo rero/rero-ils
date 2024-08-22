@@ -25,7 +25,7 @@
               "options": [
                 {
                   "label": "Genre, form",
-                  "value": "concepts-genreForm"
+                  "value": "concepts_genreForm"
                 }
               ]
             },

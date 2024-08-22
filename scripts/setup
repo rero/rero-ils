@@ -356,7 +356,6 @@ eval ${PREFIX} invenio reroils index run --raise-on-error
 #: - xml to json transformation for rero marcxml --------------------------------
 #: don't forget to recreat the documents json schema files:
 # SIZE=big # SIZE=small
-# export RERO_ILS_MEF_AGENTS_URL=https://mef.rero.ch/api/agents
 # invenio reroils utils marc21tojson -t rero ${DATA_PATH}/documents_${SIZE}.xml ${DATA_PATH}/documents_${SIZE}.json ${DATA_PATH}/documents_${SIZE}_errors.xml -v -r
 # Save the entities after setup for later use.
 # invenio reroils utils export -t rement -o ${DATA_PATH}/remote_entities_${SIZE}.json -v

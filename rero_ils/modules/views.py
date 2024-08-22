@@ -142,6 +142,7 @@ def proxy():
     """Proxy to get record metadata from MEF server."""
     if not (url := request.args.get("url")):
         abort(400, "Missing `url` parameter")
+    url = url.replace("mef.rero.ch", current_app.config["RERO_ILS_MEF_REF_BASE_URL"])
     response = requests.get(url)
     return make_response(response.content, response.status_code)
 

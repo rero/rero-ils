@@ -204,14 +204,17 @@ def app_config(app_config):
         },
         "concepts": {
             "base_url": "https://mef.rero.ch/api/concepts",
-            "sources": ["idref"],
+            "sources": ["idref", "gnd"],
         },
-        "concepts-genreForm": {
+        "concepts_genreForm": {
             "base_url": "https://mef.rero.ch/api/concepts",
-            "sources": ["idref"],
+            "sources": ["idref", "gnd"],
             "filters": [{"idref.bnf_type": "sujet Rameau"}],
         },
-        "places": {"base_url": "https://mef.rero.ch/api/places", "sources": ["idref"]},
+        "places": {
+            "base_url": "https://mef.rero.ch/api/places",
+            "sources": ["idref", "gnd"],
+        },
     }
     return app_config
 
@@ -265,6 +268,12 @@ def mef_agents_url(app):
 def mef_concepts_url(app):
     """Get MEF agent URL from config."""
     return app.config.get("RERO_ILS_MEF_CONFIG", {}).get("concepts", {}).get("base_url")
+
+
+@pytest.fixture(scope="module")
+def mef_places_url(app):
+    """Get MEF agent URL from config."""
+    return app.config.get("RERO_ILS_MEF_CONFIG", {}).get("places", {}).get("base_url")
 
 
 @pytest.fixture(scope="module")

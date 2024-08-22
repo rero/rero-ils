@@ -95,7 +95,7 @@ def test_remote_search_proxy(
     response = client.get(
         url_for(
             "api_remote_entities.remote_search_proxy",
-            entity_type="concepts-genreForm",
+            entity_type="concepts_genreForm",
             term="side-car",
         )
     )

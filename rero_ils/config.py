@@ -3557,34 +3557,29 @@ RERO_ILS_APP_GIT_HASH = None
 #: page is displayed on RERO-ILS frontpage.
 RERO_ILS_UI_GIT_HASH = None
 
+#: RERO_ILS MEF base url could be changed.
+RERO_ILS_MEF_REF_BASE_URL = os.environ.get("RERO_ILS_MEF_REF_BASE_URL", "mef.rero.ch")
 #: RERO_ILS MEF specific configurations.
 RERO_ILS_MEF_CONFIG = {
     "agents": {
-        "base_url": os.environ.get(
-            "RERO_ILS_MEF_AGENTS_URL", "https://mef.rero.ch/api/agents"
-        ),
+        "base_url": f"https://{RERO_ILS_MEF_REF_BASE_URL}/api/agents",
         "sources": ["idref", "gnd"],
     },
     "concepts": {
-        "base_url": os.environ.get(
-            "RERO_ILS_MEF_CONCEPTS_URL", "https://mef.rero.ch/api/concepts"
-        ),
-        "sources": ["idref"],
+        "base_url": f"https://{RERO_ILS_MEF_REF_BASE_URL}/api/concepts",
+        "sources": ["idref", "gnd"],
     },
-    "concepts-genreForm": {
-        "base_url": os.environ.get(
-            "RERO_ILS_MEF_CONCEPTS_URL", "https://mef.rero.ch/api/concepts"
-        ),
-        "sources": ["idref"],
+    "concepts_genreForm": {
+        "base_url": f"https://{RERO_ILS_MEF_REF_BASE_URL}/api/concepts",
+        "sources": ["idref", "gnd"],
         "filters": [{"idref.bnf_type": "genre/forme Rameau"}],
     },
     "places": {
-        "base_url": os.environ.get(
-            "RERO_ILS_MEF_PLACES_URL", "https://mef.rero.ch/api/places"
-        ),
-        "sources": ["idref"],
+        "base_url": f"https://{RERO_ILS_MEF_REF_BASE_URL}/api/places",
+        "sources": ["idref", "gnd"],
     },
 }
+
 RERO_ILS_ENTITY_TYPES = {
     "bf:Person": "agents",
     "bf:Organisation": "agents",
