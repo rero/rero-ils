@@ -147,7 +147,7 @@ def test_local_search_by_proxy(client, local_entity_genre_form, local_entity_org
     response = client.get(
         url_for(
             "api_local_entities.local_search_proxy",
-            entity_type="concepts-genreForm",
+            entity_type="concepts_genreForm",
             term="personal",
             size="dummy_qs_arg",
         )
@@ -159,7 +159,7 @@ def test_local_search_by_proxy(client, local_entity_genre_form, local_entity_org
     response = client.get(
         url_for(
             "api_local_entities.local_search_proxy",
-            entity_type="concepts-genreForm",
+            entity_type="concepts_genreForm",
             term="personal",
             size="0",
         )
@@ -170,7 +170,7 @@ def test_local_search_by_proxy(client, local_entity_genre_form, local_entity_org
     response = client.get(
         url_for(
             "api_local_entities.local_search_proxy",
-            entity_type="concepts-genreForm",
+            entity_type="concepts_genreForm",
             term="dummy_key",
         )
     )

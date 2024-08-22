@@ -304,6 +304,13 @@ class REROILSAPP(object):
             from werkzeug.serving import WSGIRequestHandler
 
             WSGIRequestHandler.protocol_version = "HTTP/1.1"
+        # Correct MEF url in RERO_ILS_MEF_CONFIG from config.py
+        mef_ref_base_url = app.config.get("RERO_ILS_MEF_REF_BASE_URL")
+        for mef_entity_type in app.config.get("RERO_ILS_MEF_CONFIG", {}):
+            base_url = app.config["RERO_ILS_MEF_CONFIG"][mef_entity_type][
+                "base_url"
+            ].replace("mef.rero.ch", mef_ref_base_url)
+            app.config["RERO_ILS_MEF_CONFIG"][mef_entity_type]["base_url"] = base_url
 
     def register_signals(self, app):
         """Register signals."""

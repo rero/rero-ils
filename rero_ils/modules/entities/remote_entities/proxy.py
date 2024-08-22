@@ -74,7 +74,7 @@ class MEFProxyFactory:
                 "class": MefConceptsProxy,
                 "entities": (EntityType.TEMPORAL,),
             },
-            "concepts-genreForm": {
+            "concepts_genreForm": {
                 "class": MefConceptsGenreFormProxy,
                 "entities": (EntityType.TOPIC,),
             },
@@ -110,26 +110,19 @@ class MEFProxyMixin:
 
     # Headers that should be excluded from remote MEF system response.
     excluded_headers = [
-        "Content-Encoding",
-        "Content-Length",
-        "Transfer-Encoding",
-        "Connection",
+        "CONTENT-Encoding".upper(),
+        "Content-Length".upper(),
+        "Transfer-Encoding".upper(),
+        "Connection".upper(),
     ]
     mef_entrypoint = None  # Must be overridden by subclasses
 
     def __init__(self, *args):
         """Magic initialization method."""
         self.entity_types = args
-        self.sources = (
-            current_app.config.get("RERO_ILS_MEF_CONFIG", {})
-            .get(self.mef_entrypoint, {})
-            .get("sources", [])
-        )
-        self.filters = (
-            current_app.config.get("RERO_ILS_MEF_CONFIG", {})
-            .get(self.mef_entrypoint, {})
-            .get("filters", [])
-        )
+        mef_config = current_app.config.get("RERO_ILS_MEF_CONFIG", {})
+        self.sources = mef_config.get(self.mef_entrypoint, {}).get("sources", [])
+        self.filters = mef_config.get(self.mef_entrypoint, {}).get("filters", [])
 
     def search(self, term):
         """Search specific term on MEF authority system.
@@ -163,13 +156,12 @@ class MEFProxyMixin:
         content = json.loads(response.content)
         for hit in content.get("hits", {}).get("hits", []):
             self._post_process_result_hit(hit)
-
         # Finally, return a flask `Response` from a `request.Response`. All
         # remote server response headers were cloned in the new response except
         # some inconsistent headers.
         flask_response = jsonify(content)
         for header_name, header_value in response.headers.items():
-            if header_name not in self.excluded_headers:
+            if header_name.upper() not in self.excluded_headers:
                 flask_response.headers[header_name] = header_value
         return flask_response
 
@@ -215,10 +207,12 @@ class MEFProxyMixin:
         # We would like to add the direct MEF URI for each source of the hit.
         # This URI is the direct access for the source metadata on the remote
         # MEF authority server.
-        # TODO :: this URI should be returned by MEF API
         if not (metadata := hit.get("metadata")):
             return
-        base_url = get_mef_url(self.mef_entrypoint)
+        mef_ref_base_url = current_app.config.get("RERO_ILS_MEF_REF_BASE_URL")
+        base_url = get_mef_url(self.mef_entrypoint).replace(
+            mef_ref_base_url, "mef.rero.ch"
+        )
         for source_name in self.sources:
             if not (src_data := metadata.get(source_name)):
                 continue
@@ -317,7 +311,7 @@ class MefConceptsProxy(MEFProxyMixin):
 class MefConceptsGenreFormProxy(MefConceptsProxy):
     """Proxy on RERO-MEF authority system for specific `genreForm` concepts."""
 
-    mef_entrypoint = "concepts-genreForm"
+    mef_entrypoint = "concepts_genreForm"
 
 
 class MefPlacesProxy(MEFProxyMixin):

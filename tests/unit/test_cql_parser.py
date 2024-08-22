@@ -173,7 +173,6 @@ def test_get_query_clause_with_sorting(app):
     assert query.term.value == '"cat"'
     with pytest.raises(Diagnostic) as err:
         query.to_es()
-    print("--------", err.value)
     assert str(err.value) == "info:srw/diagnostic/1/80 [Sort not supported]: "
 
 

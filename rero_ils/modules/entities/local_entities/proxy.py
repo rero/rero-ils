@@ -27,7 +27,7 @@ CATEGORY_FILTERS = {
     "person": Q("term", type=EntityType.PERSON),
     "organisation": Q("term", type=EntityType.ORGANISATION),
     "concepts": Q("term", type=EntityType.TOPIC),
-    "concepts-genreForm": Q("term", type=EntityType.TOPIC) & Q("term", genreForm=True),
+    "concepts_genreForm": Q("term", type=EntityType.TOPIC) & Q("term", genreForm=True),
 }
 
 
