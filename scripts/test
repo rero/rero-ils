@@ -89,9 +89,10 @@ function pretests () {
   #   Vulnerability ID: 71594
   # -> Vulnerability found in werkzeug version 2.2.3
   #   Vulnerability ID: 71595
-  #   ADVISORY: Black before 24.3.0 have a security vulnerability where
+  # -> Vulnerability found in sentry-sdk version 1.45.1
+  #   Vulnerability ID: 72260
   info_msg "Check vulnerabilities:"
-  safety_exceptions="-i 40459 -i 42194 -i 42852 -i 51457 -i 51668 -i 62019 -i 66742 -i 70612 -i 70624 -i 71594 -i 71595"
+  safety_exceptions="-i 40459 -i 70624 -i 51668 -i 42194 -i 42852 -i 71594 -i 62019 -i 71595 -i 70612 -i 51457 -i 72260"
   msg=$(safety check -o text ${safety_exceptions}) || {
     echo "Safety vulnerabilites found for packages:" $(safety check -o bare ${safety_exceptions})
     echo "Run: \"safety check -o screen ${safety_exceptions} | grep -i vulnerability\" for more details"
