@@ -1,0 +1,19 @@
+Recordatorio
+{%- include('email/_patron_address.txt') %}
+Estimado Sr./Sra,
+
+El periodo de préstamo de los documentos listados a continuación ha expirado:
+
+{%- for loan in loans %}
+
+Título: {{ loan.document.title_text }}
+Fecha de vencimiento: {{ loan.end_date }}
+Nota: {{ loan.reminder_counter }} recordatorio
+{%- endfor %}
+
+Puede consultar su cuenta y ampliar el periodo de préstamo de sus documentos en: {{ patron.profile_url }}
+
+Atentamente
+
+{{ library.name }}
+{{ library.address }}
