@@ -128,8 +128,6 @@ def do_contribution(contribution, source_order):
             error_print(f'No entity found for pid:{pid} {ref}')
             return None, None, False, False
     if not (preferred_name := entity.get('preferred_name')):
-        error_print(
-                f'JSON to MARC21 contribution no preferred_name: {entity}')
         preferred_name = entity.get(
             f'authorized_access_point_{to_marc21.language}')
     result = {}

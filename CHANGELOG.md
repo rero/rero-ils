@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.23.1](https://github.com/rero/rero-ils/tree/v1.23.0) (2024-08-26)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.23.0...v1.23.1)
+
+**Enhancements:**
+* Update rero-ils-ui version to allow older browsers to use the public UI
+* Delete useless error log in entities dojson
+
 ## [v1.23.0](https://github.com/rero/rero-ils/tree/v1.23.0) (2024-08-12)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.22.1...v1.23.0)
