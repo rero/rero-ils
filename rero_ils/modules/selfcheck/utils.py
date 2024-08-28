@@ -83,9 +83,9 @@ def format_patron_address(patron):
         city = address.get("city")
     else:
         profile = patron.user.user_profile
-        street = profile["street"].strip()
-        postal_code = profile["postal_code"].strip()
-        city = profile["city"].strip()
+        street = profile.get("street", "").strip()
+        postal_code = profile.get("postal_code", "").strip()
+        city = profile.get("city", "").strip()
     formated_address = f"{street}, {postal_code} {city}"
     # Should never append, but can be imported from an old system
     return (
