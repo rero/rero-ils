@@ -18,12 +18,14 @@
 
 """API for manipulating `Library` resources."""
 
+import contextlib
 from datetime import datetime, timedelta
 from functools import partial
 
 import pytz
 from dateutil import parser
 from dateutil.rrule import FREQNAMES, rrule
+from elasticsearch.exceptions import NotFoundError
 from elasticsearch_dsl import Q
 from flask_babel import gettext as _
 
@@ -377,6 +379,7 @@ class Library(IlsRecord):
                          if False count of linked records
         """
         from rero_ils.modules.acquisition.acq_receipts.api import AcqReceiptsSearch
+        from rero_ils.modules.migrations.api import Migration
         from rero_ils.modules.patrons.api import PatronsSearch
 
         links = {}
@@ -391,16 +394,23 @@ class Library(IlsRecord):
             .filter("terms", roles=UserRole.PROFESSIONAL_ROLES)
         )
         receipt_query = AcqReceiptsSearch().filter("term", library__pid=self.pid)
+        migration_query = Migration.search().filter("term", library_pid=self.pid)
         if get_pids:
             locations = sorted_pids(location_query)
             librarians = sorted_pids(patron_query)
             receipts = sorted_pids(receipt_query)
             stats_cfg = sorted_pids(stat_cfg_query)
+            migrations = []
+            with contextlib.suppress(NotFoundError):
+                migrations = [hit.meta.id for hit in migration_query.scan()]
         else:
             locations = location_query.count()
             librarians = patron_query.count()
             receipts = receipt_query.count()
             stats_cfg = stat_cfg_query.count()
+            migrations = 0
+            with contextlib.suppress(NotFoundError):
+                migrations = migration_query.count()
         if locations:
             links["locations"] = locations
         if librarians:
@@ -409,6 +419,8 @@ class Library(IlsRecord):
             links["acq_receipts"] = receipts
         if stats_cfg:
             links["stats_cfg"] = stats_cfg
+        if migrations:
+            links["migrations"] = migrations
         return links
 
     def reasons_not_to_delete(self):

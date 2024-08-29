@@ -867,5 +867,20 @@
     "pro_full_permissions",
     "pro_entity_manager",
     "pro_library_administrator"
+  ],
+  "mig-search": [
+    "pro_full_permissions",
+    "pro_library_administrator",
+    "pro_catalog_manager"
+  ],
+  "mig-read": [
+    "pro_full_permissions",
+    "pro_library_administrator",
+    "pro_catalog_manager"
+  ],
+  "mig-access": [
+    "pro_full_permissions",
+    "pro_library_administrator",
+    "pro_catalog_manager"
   ]
 }

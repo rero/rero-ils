@@ -21,6 +21,7 @@
 import logging
 
 import jinja2
+from elasticsearch_dsl import connections
 from flask import Blueprint
 from flask_bootstrap import Bootstrap4
 from flask_login.signals import user_loaded_from_cookie, user_logged_in, user_logged_out
@@ -37,6 +38,7 @@ from invenio_records.signals import (
     before_record_update,
 )
 from invenio_records_rest.errors import JSONSchemaValidationError
+from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
 
 from rero_ils.filter import (
@@ -231,6 +233,7 @@ class REROILSAPP(object):
             handler = logging.StreamHandler()
             es_trace_logger.addHandler(handler)
         app_loaded.connect(set_boosting_query_fields)
+        connections.add_connection("default", current_search_client)
 
     @staticmethod
     def register_import_api_blueprint(app):
