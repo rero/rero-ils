@@ -29,7 +29,8 @@
     "remote_entities-*",
     "stats-*",
     "templates-*",
-    "vendors-*"
+    "vendors-*",
+    "migrations-*"
   ],
   "settings": {
     "number_of_shards": "8",
