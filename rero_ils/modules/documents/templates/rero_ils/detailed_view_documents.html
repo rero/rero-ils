@@ -363,7 +363,7 @@
         {% if holdings_count > 0 %}
         {% include('rero_ils/_anonymous_button.html') %}
         {% endif %}
-        {% if record.harvested %}
+        {% if record.harvested and record|n_electronic_holdings %}
           {% include('rero_ils/_document_online.html') %}
         {% else %}
           <public-search-holdings
