@@ -223,6 +223,7 @@ else
 fi
 eval ${PREFIX} invenio reroils index queue purge
 eval ${PREFIX} invenio reroils index queue delete
+eval ${PREFIX} invenio reroils migrations index destroy --yes-i-know
 set -e
 eval ${PREFIX} invenio index destroy --force --yes-i-know
 eval ${PREFIX} invenio reroils fixtures destroy_operation_logs --yes-i-know
@@ -230,6 +231,8 @@ eval ${PREFIX} invenio reroils fixtures destroy_operation_logs --yes-i-know
 # TODO: check if invenio index init --force works (to delete utils init --force)
 info_msg "Override index init to load templates before mapping"
 eval ${PREFIX} invenio reroils index init --force
+eval ${PREFIX} invenio reroils migrations index init
+
 # eval ${PREFIX} invenio index init --force
 eval ${PREFIX} invenio reroils index queue init
 # Delete invenio_circulations index
@@ -538,6 +541,8 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
     eval ${PREFIX} invenio reroils index reindex_missing -t lofi -t coll -t acac -t acol -t tmpl -t acor -v
 fi
 
+info_msg "Migration data"
+eval ${PREFIX} "invenio reroils migrations create cogne 24 -d 'Cogne Migration Fixture'"
 
 if ${LOADEXTRAFILES}
   then

@@ -3322,6 +3322,9 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     "rero_ils.modules.vendors.permissions:create_action",
     "rero_ils.modules.vendors.permissions:update_action",
     "rero_ils.modules.vendors.permissions:delete_action",
+    "rero_ils.modules.migrations.permissions:access_action",
+    "rero_ils.modules.migrations.permissions:search_action",
+    "rero_ils.modules.migrations.permissions:read_action",
     # additional permissions ------------------------------
     "rero_ils.modules.acquisition.acq_accounts.permissions:transfer_action",
     "rero_ils.modules.permissions:permission_management",

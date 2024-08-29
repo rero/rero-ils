@@ -196,6 +196,7 @@ patrons = "rero_ils.modules.patrons.views:api_blueprint"
 permissions ="rero_ils.modules.views:api_blueprint"
 users = "rero_ils.modules.users.api_views:api_blueprint"
 stats_cfg = "rero_ils.modules.stats_cfg.views:api_blueprint"
+migrations = "rero_ils.modules.migrations.views:api_blueprint"
 
 [tool.poetry.plugins."invenio_base.apps"]
 rero-ils = "rero_ils.modules.ext:REROILSAPP"

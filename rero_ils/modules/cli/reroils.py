@@ -26,6 +26,7 @@ from rero_ils.modules.acquisition.cli import acquisition
 from rero_ils.modules.apiharvester.cli import apiharvester
 from rero_ils.modules.ebooks.cli import oaiharvester
 from rero_ils.modules.entities.remote_entities.cli import entity
+from rero_ils.modules.migrations.cli import migrations
 from rero_ils.modules.monitoring.cli import monitoring
 from rero_ils.modules.notifications.cli import notifications
 from rero_ils.modules.stats.cli import stats
@@ -46,6 +47,7 @@ reroils.add_command(apiharvester)
 reroils.add_command(entity)
 reroils.add_command(fixtures)
 reroils.add_command(index)
+reroils.add_command(migrations)
 reroils.add_command(monitoring)
 reroils.add_command(notifications)
 reroils.add_command(oaiharvester)
