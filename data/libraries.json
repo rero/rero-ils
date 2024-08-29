@@ -3327,5 +3327,19 @@
     "rollover_settings": {
       "account_transfer": "rollover_no_transfer"
     }
+  },
+  {
+    "pid": "24",
+    "address": "Rue Bourgeois",
+    "code": "COGNE",
+    "email": "reroilstest+cogne@gmail.com",
+    "name": "Cogne Library",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/1"
+    },
+    "rollover_settings": {
+      "account_transfer": "rollover_no_transfer"
+    },
+    "communication_language": "eng"
   }
 ]
