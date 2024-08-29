@@ -723,6 +723,15 @@ def get_articles(record):
 
 
 @blueprint.app_template_filter()
+def n_electronic_holdings(record):
+    """Get the number of electronic holdings for this document.
+
+    :return: integer of number of electronic holdings
+    """
+    return Document.get_n_available_holdings(record.pid)[1]
+
+
+@blueprint.app_template_filter()
 def online_holdings(document_pid, viewcode="global"):
     """Find holdings by document pid and viewcode.
 
