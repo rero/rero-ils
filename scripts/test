@@ -80,7 +80,11 @@ function pretests () {
   # -> Vulnerability found in werkzeug version 2.2.3
   #    Vulnerability ID: 62019
   # -> Vulnerability found in werkzeug version 2.2.3
-  #   Vulnerability ID: 71595
+  #    Vulnerability ID: 71595
+  # -> Vulnerability found in jinja2 version 3.1.4
+  #    Vulnerability ID: 70612
+  # -> Vulnerability found in py version 1.11.0
+  #    Vulnerability ID: 51457
   # -> Vulnerability found in sentry-sdk version 1.45.1
   #   Vulnerability ID: 72260
   info_msg "Check vulnerabilities:"
