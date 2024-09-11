@@ -22,40 +22,35 @@ from elasticsearch import NotFoundError
 from elasticsearch_dsl import Index
 from elasticsearch_dsl.exceptions import ValidationException
 
-from rero_ils.modules.migrations.api import Migration
 
-
-def test_migrations_create(es_indices, lib_martigny):
+def test_migration_data_create(migration, migration_xml_data, lib_martigny):
     """Test the migration creation."""
+
+    raw = migration_xml_data.encode()
+    data = dict(raw=raw, migration_id=migration.meta.id)
+    MigrationData = migration.data_class
+    migration_id = migration.meta.id
     with pytest.raises(ValidationException):
-        Migration().save()
+        MigrationData().save()
     with pytest.raises(ValidationException):
-        Migration(name="name").save()
-    with pytest.raises(ValidationException):
-        Migration(name="name", library_pid="2", status="invalid").save()
-    migration = Migration(
-        name="name",
-        library_pid=lib_martigny.pid,
-        conversion_code="mock_modules.Converter",
-    )
-    assert migration.library
-    assert migration.conversion_class.convert
-    index = Index(Migration.Index.name)
-    assert migration.save() == "created"
-    assert migration.meta.id
-    assert Migration.get(migration.meta.id)
-    assert Migration.exists(migration.meta.id)
+        MigrationData(migration_id=migration_id).save()
+    migration_data = MigrationData(**data)
+    index = Index(migration.data_index_name)
+    assert migration_data.save() == "created"
+    assert migration_data.json.contribution
     index.refresh()
-    assert Migration.search().count() > 0
-    migration.description = "foo"
-    assert migration.save() == "updated"
-    assert Migration.get(migration.meta.id).description == "foo"
-    migration.delete()
-    assert not Migration.exists(migration.meta.id)
+    data_id = migration_data.meta.id
+    assert data_id
+    assert MigrationData.get(data_id)
+    assert MigrationData.exists(data_id)
+    assert MigrationData.search().count() > 0
+
+    migration_data.delete()
+    index.refresh()
+    assert not MigrationData.exists(data_id)
     with pytest.raises(NotFoundError):
-        assert Migration.get(migration.meta.id)
-    index.refresh()
-    assert Migration.search().count() == 0
+        assert MigrationData.get(migration.meta.id)
+    assert MigrationData.search().count() == 0
 
 
 def test_migrations_library_get_links_to_me(lib_martigny, migration):

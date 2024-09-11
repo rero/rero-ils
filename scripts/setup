@@ -541,7 +541,8 @@ if [ ${INDEX_PARALLEL} -gt 0 ]; then
 fi
 
 info_msg "Migration data"
-eval ${PREFIX} "invenio reroils migrations create cogne 24 -d 'Cogne Migration Fixture'"
+eval ${PREFIX} "invenio reroils migrations create cogne 24 'scripts.convert_marc21xml.Marc21XMLConverter' -d 'Cogne Migration Fixture'"
+eval ${PREFIX} invenio reroils migrations data load cogne ${DATA_PATH}/migration.xml
 
 if ${LOADEXTRAFILES}
   then
