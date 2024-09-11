@@ -17,7 +17,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for migrations."""
+from functools import wraps
+
 from elasticsearch_dsl import Q
+from flask import abort, jsonify, make_response
+from flask_login import current_user
 from invenio_access import action_factory
 
 from rero_ils.modules.patrons.api import current_librarian
@@ -26,6 +30,28 @@ from rero_ils.modules.permissions import (
     AllowedByActionRestrictByOrganisation,
     RecordPermissionPolicy,
 )
+
+
+def check_permission(permission):
+    """Decorator to check if current connected user has access to an action.
+
+    :param actions: List of `ActionNeed` to test. If one permission failed
+        then the access should be unauthorized.
+    """
+
+    def inner(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            if not current_user.is_authenticated:
+                abort(make_response(jsonify({"status": "error: Unauthorized"}), 401))
+            if not permission.can():
+                abort(make_response(jsonify({"status": "error: Forbidden"}), 403))
+            return func(*args, **kwargs)
+
+        return wrapper
+
+    return inner
+
 
 # Actions to control library policy
 search_action = action_factory("mig-search")

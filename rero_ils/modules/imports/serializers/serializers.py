@@ -148,6 +148,27 @@ class UIImportsSearchSerializer(ImportsSearchSerializer):
 class ImportsMarcSearchSerializer(JSONSerializer):
     """Mixin serializing records as JSON."""
 
+    @classmethod
+    def sort_ordered_dict(cls, ordered_dict):
+        """."""
+        res = []
+        for key, value in ordered_dict.items():
+            if key != "__order__":
+                if len(key) == 5:
+                    key = f"{key[:3]} {key[3:]}"
+                if isinstance(value, dict):
+                    res.append([key, cls.sort_ordered_dict(value)])
+                else:
+                    if isinstance(value, (tuple, list)):
+                        for val in value:
+                            if isinstance(val, dict):
+                                res.append([key, cls.sort_ordered_dict(val)])
+                            else:
+                                res.append([key, val])
+                    else:
+                        res.append([key, value])
+        return res
+
     def serialize(self, pid, record, links_factory=None, **kwargs):
         """Serialize a single record.
 
@@ -155,24 +176,4 @@ class ImportsMarcSearchSerializer(JSONSerializer):
         :param search_result: Elasticsearch search result.
         :param links: Dictionary of links to add to response.
         """
-
-        def sort_ordered_dict(ordered_dict):
-            res = []
-            for key, value in ordered_dict.items():
-                if key != "__order__":
-                    if len(key) == 5:
-                        key = f"{key[:3]} {key[3:]}"
-                    if isinstance(value, dict):
-                        res.append([key, sort_ordered_dict(value)])
-                    else:
-                        if isinstance(value, (tuple, list)):
-                            for val in value:
-                                if isinstance(val, dict):
-                                    res.append([key, sort_ordered_dict(val)])
-                                else:
-                                    res.append([key, val])
-                        else:
-                            res.append([key, value])
-            return res
-
-        return json.dumps(sort_ordered_dict(record), **self._format_args())
+        return json.dumps(self.sort_ordered_dict(record), **self._format_args())
