@@ -27,6 +27,8 @@ from flask.cli import with_appcontext
 from rero_ils.modules.migrations.api import Migration, MigrationStatus
 from rero_ils.modules.utils import draw_data_table
 
+from .data.cli import data
+
 
 def abort_if_false(ctx, param, value):
     """Abort command is value is False."""
@@ -39,6 +41,9 @@ def migrations():
     """Migration commands."""
 
 
+migrations.add_command(data)
+
+
 @migrations.group()
 def index():
     """Migration indices commands."""
@@ -48,6 +53,7 @@ def index():
 @with_appcontext
 def init():
     """Initialize the migration elasticsearch index."""
+    print(Migration._index.to_dict())
     Migration.init()
     click.echo("Elasticsearch Index created.")
 
@@ -70,25 +76,32 @@ def destroy():
 @migrations.command()
 @click.argument("name")
 @click.argument("library_pid")
+@click.argument("conversion_code")
 @click.option(
     "-s", "--status", type=click.Choice([item.value for item in MigrationStatus])
 )
 @click.option("-d", "--description", "description", is_flag=False, default="")
 @with_appcontext
-def create(name, library_pid, status, description):
+def create(name, library_pid, status, conversion_code, description):
     """Create a given migration."""
     with contextlib.suppress(NotFoundError):
         if Migration.get(name):
             click.secho(f"Migration with name: {name} already exists.", fg="red")
             raise click.Abort()
-    data = {"name": name, "library_pid": library_pid, "status": "created"}
+    data = {
+        "name": name,
+        "library_pid": library_pid,
+        "status": "created",
+        "conversion_code": conversion_code,
+    }
     if description:
         data["description"] = description
     if status:
         data["status"] = status
-    migration = Migration(meta={"id": name}, **data)
+    migration = Migration(**data)
     try:
         migration.save()
+        Index(name=migration.data_index_name).refresh()
         click.secho(
             f"ADD name: {migration.name} library: {migration.library_pid} "
             f'description:"{description}"',
@@ -105,10 +118,14 @@ def create(name, library_pid, status, description):
 @click.option(
     "-s", "--status", type=click.Choice([item.value for item in MigrationStatus])
 )
+@click.option(
+    "-s", "--status", type=click.Choice([item.value for item in MigrationStatus])
+)
 @click.option("-l", "--library-pid")
+@click.option("-c", "--conversion-code")
 @click.option("-d", "--description", is_flag=False, default="")
 @with_appcontext
-def update(name, status, library_pid, description):
+def update(name, status, library_pid, conversion_code, description):
     """Update the migration data."""
     try:
         migration = Migration.get(name)
@@ -122,6 +139,8 @@ def update(name, status, library_pid, description):
             migration.status = status
         if library_pid:
             migration.library_pid = library_pid
+        if conversion_code:
+            migration.conversion_code = conversion_code
     try:
         migration.save()
         click.secho(f"Migration with name {name} has been updated.", fg="green")

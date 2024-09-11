@@ -85,7 +85,7 @@ def test_migration_permissions(
         migration,
     )
 
-    # Librarian without allowed roles
+    # Librarian with one allowed roles
     librarian_martigny["roles"].append("pro_library_administrator")
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
     PatronsSearch.flush_and_refresh()
@@ -103,7 +103,7 @@ def test_migration_permissions(
         migration,
     )
 
-    # Librarian without allowed roles
+    # Librarian with one allowed roles
     librarian_martigny["roles"].append("pro_catalog_manager")
     librarian_martigny["roles"].remove("pro_library_administrator")
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)
@@ -122,7 +122,7 @@ def test_migration_permissions(
         migration,
     )
 
-    # Librarian without allowed roles
+    # Librarian with one allowed roles
     librarian_martigny["roles"].append("pro_full_permissions")
     librarian_martigny["roles"].remove("pro_catalog_manager")
     librarian_martigny.update(librarian_martigny, dbcommit=True, reindex=True)

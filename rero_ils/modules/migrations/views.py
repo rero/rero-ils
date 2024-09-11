@@ -17,36 +17,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Blueprint used to get migrations."""
-from functools import wraps
 
-from flask import Blueprint, abort, jsonify, make_response
+from flask import Blueprint, jsonify, make_response
 from flask import request as flask_request
-from flask_login import current_user
 from invenio_rest import ContentNegotiatedMethodView
 
 from .api import Migration
-from .permissions import MigrationPermissionPolicy
-
-
-def check_permission(permission):
-    """Decorator to check if current connected user has access to an action.
-
-    :param actions: List of `ActionNeed` to test. If one permission failed
-        then the access should be unauthorized.
-    """
-
-    def inner(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            if not current_user.is_authenticated:
-                abort(make_response(jsonify({"status": "error: Unauthorized"}), 401))
-            if not permission.can():
-                abort(make_response(jsonify({"status": "error: Forbidden"}), 403))
-            return func(*args, **kwargs)
-
-        return wrapper
-
-    return inner
+from .permissions import MigrationPermissionPolicy, check_permission
 
 
 def simple_search_json_serializer(data, code=200, headers=None):
@@ -58,7 +35,21 @@ def simple_search_json_serializer(data, code=200, headers=None):
             dict(metadata=hit["_source"], id=hit["_id"]) for hit in data["hits"]["hits"]
         ]
         new_data = dict(hits=dict(hits=hits, total=data["hits"]["total"]))
+        if data.get("aggregations"):
+            new_data["aggregations"] = data["aggregations"]
         res = jsonify(new_data)
+    else:
+        res = make_response()
+    res.status_code = code
+    return res
+
+
+def simple_item_json_serializer(data, code=200, headers=None):
+    """JSON serializer to reproduce a simple invenio search format."""
+    if code != 200:
+        return data
+    if data:
+        res = jsonify(data)
     else:
         res = make_response()
     res.status_code = code
@@ -90,9 +81,16 @@ class MigrationsListResource(ContentNegotiatedMethodView):
         size = 0 if size < 0 else size
         page = int(flask_request.args.get("page", 1))
         page = 1 if page < 1 else page
-        search = Migration.search()[(page - 1) * size : size].filter(
+        query = flask_request.args.get("q")
+
+        search = Migration.search()[(page - 1) * size : page * size].filter(
             MigrationPermissionPolicy("mig-search").query_filters
         )
+        if query:
+            search = search.query("query_string", query=query)
+        search.aggs.bucket("status", "terms", field="status", size=30)
+        if status := flask_request.args.get("status"):
+            search = search.filter("term", status=status)
         return self.make_response(search.execute().to_dict(), 200)
 
 
