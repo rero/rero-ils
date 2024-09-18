@@ -14,7 +14,10 @@
     "pattern": "^[A-Z]{3}$",
     "widget": {
       "formlyConfig": {
-        "type": "selectWithSort"
+        "type": "select",
+        "props": {
+          "sort": true
+        }
       }
     }
   }

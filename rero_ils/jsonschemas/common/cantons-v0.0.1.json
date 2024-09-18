@@ -36,6 +36,7 @@
           "hide": "field?.parent?.model?.country !== 'sz'"
         },
         "props": {
+          "sort": true,
           "itemCssClass": "col-lg-4",
           "options": [
             {

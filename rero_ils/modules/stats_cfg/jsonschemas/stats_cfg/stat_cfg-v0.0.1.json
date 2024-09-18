@@ -217,7 +217,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -288,7 +288,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -359,7 +359,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -444,7 +444,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -551,7 +551,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -907,7 +907,7 @@
           },
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
                 "sort": false,
                 "options": [
@@ -982,7 +982,7 @@
           },
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
                 "sort": false,
                 "options": [
@@ -1054,7 +1054,7 @@
           },
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
                 "sort": false,
                 "options": [

@@ -17,9 +17,6 @@
       "widget": {
         "formlyConfig": {
           "type": "entityTypeahead",
-          "wrappers": [
-            "form-field-horizontal"
-          ],
           "props": {
             "filters": {
               "options": [

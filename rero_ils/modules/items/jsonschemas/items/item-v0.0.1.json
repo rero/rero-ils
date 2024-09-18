@@ -362,8 +362,9 @@
           ],
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
+                "sort": true,
                 "options": [
                   {
                     "label": "received",
@@ -493,11 +494,12 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "wrappers": [
             "hide"
           ],
           "props": {
+            "sort": true,
             "options": [
               {
                 "label": "on_shelf",
@@ -598,8 +600,9 @@
             ],
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
+                  "sort": true,
                   "options": [
                     {
                       "label": "acquisition_note",
@@ -737,8 +740,9 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
+            "sort": true,
             "cssClass": "editor-title",
             "options": [
               {
