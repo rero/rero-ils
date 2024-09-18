@@ -381,6 +381,8 @@
     "widget": {
       "formlyConfig": {
         "props": {
+          "sort": true,
+          "filter": true,
           "itemCssClass": "col-lg-4",
           "options": [
             {

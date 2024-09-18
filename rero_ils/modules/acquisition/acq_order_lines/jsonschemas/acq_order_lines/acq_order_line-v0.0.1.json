@@ -126,8 +126,9 @@
             "default": "staff_note",
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
+                  "sort": true,
                   "options": [
                     {
                       "label": "vendor_note",
