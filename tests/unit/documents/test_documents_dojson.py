@@ -1935,7 +1935,6 @@ def test_marc21_to_provision_activity_1_place_1_agent_reprint_date():
     assert data.get("provisionActivity") == [
         {
             "type": "bf:Publication",
-            "place": [{"country": "xxu"}],
             "statement": [
                 {"label": [{"value": "Washington"}], "type": "bf:Place"},
                 {
@@ -2483,9 +2482,9 @@ def test_marc21_to_provision_activity_exceptions(capsys):
         }
     ]
     assert out.strip().replace("\n", "") == (
-        "WARNING NOT A LANGUAGE 008:\t???\t???\t\t"
+        'WARNING NOT A LANGUAGE 008:\t???\t???\t""\t'
         "WARNING LANGUAGE SCRIPTS:"
-        "\t???\t???\tcyrl\t008:\tund\t041$a:\t[]\t041$h:\t[]"
+        '\t???\t???\tcyrl\t008:\t""\t041$a:\t[]\t041$h:\t[]'
     )
 
     marc21xml = """
@@ -2499,12 +2498,11 @@ def test_marc21_to_provision_activity_exceptions(capsys):
     data = marc21.do(marc21json)
     out, err = capsys.readouterr()
     assert out.strip() == (
-        "WARNING NOT A LANGUAGE 008:\t???\t???\t\t\n"
-        "WARNING INIT CANTONS:\t???\t???\tchbe\t\n"
-        "WARNING NOT A COUNTRY:\t???\t???\t\t\n"
-        "WARNING START DATE 264:\t???\t???\tNone\t\n"
-        "WARNING START DATE 008:\t???\t???\tNone\t\n"
-        "WARNING PROVISION ACTIVITY:\t???\t???"
+        'WARNING NOT A LANGUAGE 008:\t???\t???\t""\t\n'
+        'WARNING INIT CANTONS:\t???\t???\t"chbe"\t\n'
+        "INFO NO START DATE IN 264, 773, 008:\t???\t???\t\n"
+        'WARNING START DATE 008:\t???\t???\t"None"\t\n'
+        "WARNING PROVISION ACTIVITY SET TO DEFAULT:\t???\t???"
     )
 
 

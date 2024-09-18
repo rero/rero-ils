@@ -1,0 +1,426 @@
+[
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Only document"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ]
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Wrong items"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "items": [
+      {
+        "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json"
+      }
+    ]
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Wrong documents local fields"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "local_fields": [
+      {
+        "$schema": "https://bib.rero.ch/schemas/local_fields/local_field-v0.0.1.json"
+      }
+    ]
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Document with local fields"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "local_fields": [
+      {
+        "$schema": "https://bib.rero.ch/schemas/local_fields/local_field-v0.0.1.json",
+        "fields": {
+          "field_1": [
+            "field 1"
+          ]
+        },
+        "organisation": {
+          "$ref": "https://bib.rero.ch/api/organisations/org1"
+        },
+        "parent": {
+          "$ref": "https://bib.rero.ch/api/documents/{parent_pid}"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Document with items"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "items": [
+      {
+        "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
+        "organisation": {
+          "$ref": "https://bib.rero.ch/api/organisations/org1"
+        },
+        "library": {
+          "$ref": "https://bib.rero.ch/api/libraries/lib1"
+        },
+        "location": {
+          "$ref": "https://bib.rero.ch/api/locations/loc1"
+        },
+        "type": "standard",
+        "document": {
+          "$ref": "https://bib.rero.ch/api/documents/{document_pid}"
+        },
+        "status": "on_shelf",
+        "item_type": {
+          "$ref": "https://bib.rero.ch/api/item_types/itty1"
+        }
+      }
+    ]
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Document with items and wrong local fields"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "items": [
+      {
+        "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
+        "organisation": {
+          "$ref": "https://bib.rero.ch/api/organisations/org1"
+        },
+        "library": {
+          "$ref": "https://bib.rero.ch/api/libraries/lib1"
+        },
+        "location": {
+          "$ref": "https://bib.rero.ch/api/locations/loc1"
+        },
+        "type": "standard",
+        "document": {
+          "$ref": "https://bib.rero.ch/api/documents/{document_pid}"
+        },
+        "status": "on_shelf",
+        "item_type": {
+          "$ref": "https://bib.rero.ch/api/item_types/itty1"
+        },
+        "local_fields": [
+          {
+            "$schema": "https://bib.rero.ch/schemas/local_fields/local_field-v0.0.1.json"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Document with items and local fields"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "items": [
+      {
+        "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
+        "organisation": {
+          "$ref": "https://bib.rero.ch/api/organisations/org1"
+        },
+        "library": {
+          "$ref": "https://bib.rero.ch/api/libraries/lib1"
+        },
+        "location": {
+          "$ref": "https://bib.rero.ch/api/locations/loc1"
+        },
+        "type": "standard",
+        "document": {
+          "$ref": "https://bib.rero.ch/api/documents/{document_pid}"
+        },
+        "status": "on_shelf",
+        "item_type": {
+          "$ref": "https://bib.rero.ch/api/item_types/itty1"
+        },
+        "local_fields": [
+          {
+            "$schema": "https://bib.rero.ch/schemas/local_fields/local_field-v0.0.1.json",
+            "fields": {
+              "field_1": [
+                "field 1"
+              ]
+            },
+            "organisation": {
+              "$ref": "https://bib.rero.ch/api/organisations/org1"
+            },
+            "parent": {
+              "$ref": "https://bib.rero.ch/api/items/{parent_pid}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
