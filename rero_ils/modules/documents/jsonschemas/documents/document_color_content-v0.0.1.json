@@ -13,11 +13,9 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
-            "selectWithSortOptions": {
-              "order": "label"
-            },
+            "sort": true,
             "cssClass": "w-md-50",
             "options": [
               {

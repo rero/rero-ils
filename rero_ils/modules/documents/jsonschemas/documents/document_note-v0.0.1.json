@@ -28,8 +28,9 @@
           ],
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
+                "sort": true,
                 "itemCssClass": "col-lg-12",
                 "options": [
                   {

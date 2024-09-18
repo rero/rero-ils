@@ -107,8 +107,9 @@
             "default": "general_note",
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
+                  "sort": true,
                   "options": [
                     {
                       "label": "order_note",
@@ -201,8 +202,9 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
+            "sort": true,
             "options": [
               {
                 "value": "fre",
@@ -262,12 +264,10 @@
             ],
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
+                  "sort": true,
                   "itemCssClass": "col-lg-12",
-                  "selectWithSortOptions": {
-                    "order": "label"
-                  },
                   "options": [
                     {
                       "value": "default",

@@ -264,8 +264,9 @@
           ],
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
+                "sort": true,
                 "options": [
                   {
                     "label": "rdafr:1013",
@@ -716,11 +717,9 @@
             ],
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
-                  "selectWithSortOptions": {
-                    "order": "label"
-                  },
+                  "sort": true,
                   "options": [
                     {
                       "label": "general_note",
@@ -816,11 +815,12 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "expressions": {
             "props.required": "model && model.holdings_type === 'serial'"
           },
           "props": {
+            "sort": true,
             "options": [
               {
                 "label": "not_currently_received",
@@ -874,8 +874,9 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
+            "sort": true,
             "options": [
               {
                 "label": "deposit",
@@ -976,8 +977,9 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
+            "sort": true,
             "options": [
               {
                 "label": "unknown",
@@ -1037,8 +1039,9 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
+            "sort": true,
             "options": [
               {
                 "label": "other",
@@ -1079,8 +1082,9 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
+            "sort": true,
             "options": [
               {
                 "label": "separate",
