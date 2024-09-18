@@ -1,0 +1,317 @@
+[
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Only document"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "pid": "2"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Wrong items"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "pid": "3"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Wrong documents local fields"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "pid": "4"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Document with local fields"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "pid": "5"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Document with items"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "pid": "6"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Document with items and wrong local fields"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "pid": "7"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
+    "adminMetadata": {
+      "encodingLevel": "Full level"
+    },
+    "fiction_statement": "unspecified",
+    "issuance": {
+      "main_type": "rdami:1001",
+      "subtype": "materialUnit"
+    },
+    "language": [
+      {
+        "type": "bf:Language",
+        "value": "fre"
+      }
+    ],
+    "provisionActivity": [
+      {
+        "place": [
+          {
+            "country": "xx"
+          }
+        ],
+        "startDate": 2024,
+        "type": "bf:Publication"
+      }
+    ],
+    "title": [
+      {
+        "mainTitle": [
+          {
+            "value": "Document with items and local fields"
+          }
+        ],
+        "type": "bf:Title"
+      }
+    ],
+    "type": [
+      {
+        "main_type": "docmaintype_book",
+        "subtype": "docsubtype_other_book"
+      }
+    ],
+    "pid": "8"
+  }
+]

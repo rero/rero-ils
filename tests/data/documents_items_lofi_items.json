@@ -1,0 +1,77 @@
+[
+  {
+    "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
+    },
+    "location": {
+      "$ref": "https://bib.rero.ch/api/locations/loc1"
+    },
+    "type": "standard",
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/6"
+    },
+    "status": "on_shelf",
+    "item_type": {
+      "$ref": "https://bib.rero.ch/api/item_types/itty1"
+    },
+    "barcode": "f-20240923091502859595",
+    "holding": {
+      "$ref": "https://bib.rero.ch/api/holdings/1"
+    },
+    "pid": "1"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
+    },
+    "location": {
+      "$ref": "https://bib.rero.ch/api/locations/loc1"
+    },
+    "type": "standard",
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/7"
+    },
+    "status": "on_shelf",
+    "item_type": {
+      "$ref": "https://bib.rero.ch/api/item_types/itty1"
+    },
+    "barcode": "f-20240923091503141334",
+    "holding": {
+      "$ref": "https://bib.rero.ch/api/holdings/2"
+    },
+    "pid": "2"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/items/item-v0.0.1.json",
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "library": {
+      "$ref": "https://bib.rero.ch/api/libraries/lib1"
+    },
+    "location": {
+      "$ref": "https://bib.rero.ch/api/locations/loc1"
+    },
+    "type": "standard",
+    "document": {
+      "$ref": "https://bib.rero.ch/api/documents/8"
+    },
+    "status": "on_shelf",
+    "item_type": {
+      "$ref": "https://bib.rero.ch/api/item_types/itty1"
+    },
+    "barcode": "f-20240923091503435304",
+    "holding": {
+      "$ref": "https://bib.rero.ch/api/holdings/3"
+    },
+    "pid": "3"
+  }
+]
