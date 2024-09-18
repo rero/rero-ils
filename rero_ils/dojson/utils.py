@@ -715,7 +715,9 @@ class ReroIlsOverdo(Overdo):
         )
         if not result.get("provisionActivity"):
             self.default_provision_activity(result)
-            error_print("WARNING PROVISION ACTIVITY:", self.bib_id, self.rero_id)
+            error_print(
+                "WARNING PROVISION ACTIVITY SET TO DEFAULT:", self.bib_id, self.rero_id
+            )
 
         return result
 
@@ -753,7 +755,7 @@ class ReroIlsOverdo(Overdo):
                 "WARNING START DATE 008:",
                 self.bib_id,
                 self.rero_id,
-                self.date1_from_008,
+                f'"{self.date1_from_008}"',
             )
             start_date = 2050
             result["provisionActivity"][0][
@@ -766,7 +768,7 @@ class ReroIlsOverdo(Overdo):
                     "WARNING END DATE 008:",
                     self.bib_id,
                     self.rero_id,
-                    self.date1_from_008,
+                    f'"{self.date1_from_008}"',
                 )
             else:
                 result["provisionActivity"][0]["endDate"] = end_date
@@ -776,7 +778,7 @@ class ReroIlsOverdo(Overdo):
                     "WARNING ORIGINAL DATE 008:",
                     self.bib_id,
                     self.rero_id,
-                    self.original_date_from_008,
+                    f'"{self.original_date_from_008}"',
                 )
             else:
                 result["provisionActivity"][0]["original_date"] = original_date
@@ -1307,26 +1309,33 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                                 "WARNING INIT CANTONS:",
                                 self.bib_id,
                                 self.rero_id,
-                                cantons_code,
+                                f'" {cantons_code}"',
                             )
                 except Exception:
                     error_print(
-                        "WARNING INIT CANTONS:", self.bib_id, self.rero_id, cantons_code
+                        "WARNING INIT CANTONS:",
+                        self.bib_id,
+                        self.rero_id,
+                        f'"{cantons_code}"',
                     )
             if self.cantons:
                 self.country = "sz"
         # We did not find a country in 044 trying 008.
         if not self.country:
             with contextlib.suppress(Exception):
-                self.country = self.field_008_data[15:18].rstrip()
+                self.country = self.field_008_data[15:17].rstrip().lower()
         # Use equivalent if country code is obsolete
         if self.country in _OBSOLETE_COUNTRIES_MAPPING:
             self.country = _OBSOLETE_COUNTRIES_MAPPING[self.country]
         # We did not find a country set it to 'xx'
         if self.country not in _COUNTRIES:
-            error_print(
-                "WARNING NOT A COUNTRY:", self.bib_id, self.rero_id, self.country
-            )
+            if self.country not in ["", "||"]:
+                error_print(
+                    "WARNING NOT A COUNTRY:",
+                    self.bib_id,
+                    self.rero_id,
+                    f'"{self.country}"',
+                )
             self.country = "xx"
 
     def init_lang(self):
@@ -1346,7 +1355,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                                 "WARNING NOT A LANGUAGE 041:",
                                 self.bib_id,
                                 self.rero_id,
-                                lang_from_041,
+                                f'${code} "{lang_from_041}"',
                             )
             return langs_from_041
 
@@ -1355,14 +1364,15 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         self.langs_from_041_h = []
         try:
             self.lang_from_008 = self.field_008_data[35:38]
-            if self.lang_from_008 not in _LANGUAGES:
+            if self.lang_from_008 in ["   ", "|||"]:
+                self.lang_from_008 = "und"
+            elif self.lang_from_008 not in _LANGUAGES:
                 error_print(
                     "WARNING NOT A LANGUAGE 008:",
                     self.bib_id,
                     self.rero_id,
-                    self.lang_from_008,
+                    f'"{self.lang_from_008}"',
                 )
-                self.lang_from_008 = "und"
         except Exception:
             self.lang_from_008 = "und"
             error_print("WARNING: set 008 language to 'und'", self.bib_id, self.rero_id)
@@ -1414,10 +1424,9 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
             start_date = 2050
             self.date["note"] = "Date not available and automatically set to 2050"
             error_print(
-                "WARNING START DATE 264:",
+                "INFO NO START DATE IN 264, 773, 008:",
                 self.bib_id,
                 self.rero_id,
-                self.date1_from_008,
             )
         self.date["start_date"] = start_date
 
@@ -1503,7 +1512,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                 self.rero_id,
                 script_code,
                 "008:",
-                self.lang_from_008,
+                f'"{self.lang_from_008}"',
                 "041$a:",
                 self.langs_from_041_a,
                 "041$h:",
@@ -1752,10 +1761,8 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
                     self.bib_id,
                     self.rero_id,
                     script_code,
-                    "101:",
-                    self.lang_from_101,
-                    "101$a or $g:",
-                    self.lang_from_101,
+                    "101 $a or $g:",
+                    f'"{self.lang_from_101}"',
                 )
         return "-".join(["und", script_code])
 

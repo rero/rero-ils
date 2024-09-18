@@ -1,0 +1,32 @@
+[
+  {
+    "$schema": "https://bib.rero.ch/schemas/local_fields/local_field-v0.0.1.json",
+    "fields": {
+      "field_1": [
+        "field 1"
+      ]
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/documents/5"
+    },
+    "pid": "2"
+  },
+  {
+    "$schema": "https://bib.rero.ch/schemas/local_fields/local_field-v0.0.1.json",
+    "fields": {
+      "field_1": [
+        "field 1"
+      ]
+    },
+    "organisation": {
+      "$ref": "https://bib.rero.ch/api/organisations/org1"
+    },
+    "parent": {
+      "$ref": "https://bib.rero.ch/api/items/3"
+    },
+    "pid": "4"
+  }
+]
