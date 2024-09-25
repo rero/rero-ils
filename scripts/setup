@@ -543,6 +543,8 @@ fi
 info_msg "Migration data"
 eval ${PREFIX} "invenio reroils migrations create cogne 24 'scripts.convert_marc21xml.Marc21XMLConverter' -d 'Cogne Migration Fixture'"
 eval ${PREFIX} invenio reroils migrations data load cogne ${DATA_PATH}/migration.xml
+eval ${PREFIX} invenio reroils migrations data dedup cogne
+eval ${PREFIX} invenio reroils migrations data subsets cogne Simonetta,Astrid,Jean,Elena
 
 if ${LOADEXTRAFILES}
   then

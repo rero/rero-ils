@@ -149,20 +149,26 @@ class ImportsMarcSearchSerializer(JSONSerializer):
     """Mixin serializing records as JSON."""
 
     @classmethod
-    def sort_ordered_dict(cls, ordered_dict):
-        """."""
+    def convert_marc_to_marc_text_dict(cls, ordered_dict):
+        """Convert a marc ordered dict into a list of key value dict.
+
+        :param ordered_dict: dict - the dict to sort.
+        :returns: list of dict marc field: value.
+        """
         res = []
         for key, value in ordered_dict.items():
             if key != "__order__":
                 if len(key) == 5:
                     key = f"{key[:3]} {key[3:]}"
                 if isinstance(value, dict):
-                    res.append([key, cls.sort_ordered_dict(value)])
+                    res.append([key, cls.convert_marc_to_marc_text_dict(value)])
                 else:
                     if isinstance(value, (tuple, list)):
                         for val in value:
                             if isinstance(val, dict):
-                                res.append([key, cls.sort_ordered_dict(val)])
+                                res.append(
+                                    [key, cls.convert_marc_to_marc_text_dict(val)]
+                                )
                             else:
                                 res.append([key, val])
                     else:
@@ -176,4 +182,6 @@ class ImportsMarcSearchSerializer(JSONSerializer):
         :param search_result: Elasticsearch search result.
         :param links: Dictionary of links to add to response.
         """
-        return json.dumps(self.sort_ordered_dict(record), **self._format_args())
+        return json.dumps(
+            self.convert_marc_to_marc_text_dict(record), **self._format_args()
+        )
