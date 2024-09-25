@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,9 +16,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Migration API."""
+from datetime import datetime, timezone
 from enum import Enum
 
-from elasticsearch_dsl import Document, Index, Keyword, Text
+from elasticsearch_dsl import Date, Document, Index, Keyword, Text
 from elasticsearch_dsl.exceptions import ValidationException
 from werkzeug.utils import import_string
 
@@ -28,13 +28,18 @@ from rero_ils.modules.libraries.api import Library
 from .data.api import IndexCfg, MigrationData
 
 
+def _(x):
+    """Identity function used to trigger string extraction."""
+    return x
+
+
 class MigrationStatus(Enum):
     """Class holding all available migration statuses."""
 
-    CREATED = "created"
-    QUALITY_CONTROL = "quality control"
-    DOCUMENT_DEDUPLICATION = "document deduplication"
-    DONE = "done"
+    CREATED = _("created")
+    QUALITY_CONTROL = _("quality control")
+    DOCUMENT_DEDUPLICATION = _("document deduplication")
+    DONE = _("done")
 
 
 class Status(Keyword):
@@ -62,6 +67,8 @@ class Migration(Document):
     library_pid = Keyword(required=True)
     organisation_pid = Keyword(required=True)
     conversion_code = Keyword(index=False, required=True)
+    updated_at = Date(default_timezone="UTC")
+    created_at = Date(default_timezone="UTC")
 
     class Index:
         """Migration Index configuration."""
@@ -98,12 +105,14 @@ class Migration(Document):
         """Set the default values."""
         if self.organisation_pid is None and self.library:
             self.organisation_pid = self.library.organisation_pid
-        # if not self.meta.id:
+        if self.created_at is None:
+            self.created_at = datetime.now(timezone.utc)
         self.meta["id"] = self.name
 
     def save(self, **kwargs):
         """Put the data on the elasticsearch index."""
         self._set_default_values()
+        self.updated_at = datetime.now(timezone.utc)
         to_return = super().save(**kwargs)
         self.data_class.init()
         return to_return

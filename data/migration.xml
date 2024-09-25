@@ -51787,4 +51787,198 @@
 		<subfield code="a">frbcuc</subfield>
 	</datafield>
 </record>
+<record>
+	<leader>02730cas a2200841 a 4500</leader>
+	<controlfield tag="001">REROILS:2000146</controlfield>
+	<controlfield tag="003">RERO</controlfield>
+	<controlfield tag="005">20201021130500.0</controlfield>
+	<controlfield tag="008">110624c20109999sz |||p|| ||||0 || 0fre d</controlfield>
+	<datafield ind1=" " ind2=" " tag="019">
+		<subfield code="a">Notices analytiques</subfield>
+		<subfield code="9">iftflu/05.2017</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="022">
+		<subfield code="a">1663-3229</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="022">
+		<subfield code="a">2235-1566</subfield>
+	</datafield>
+    <datafield ind1=" " ind2=" " tag="035">
+		<subfield code="a">R006085530F</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="9" tag="039">
+		<subfield code="a">202010211305</subfield>
+		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">202003091149</subfield>
+		<subfield code="d">5005</subfield>
+		<subfield code="c">201911111146</subfield>
+		<subfield code="d">7554</subfield>
+		<subfield code="c">201907181653</subfield>
+		<subfield code="d">5061</subfield>
+		<subfield code="y">201106241152</subfield>
+		<subfield code="z">0107</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="040">
+		<subfield code="a">RERO frbcuc</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="044">
+		<subfield code="a">sz</subfield>
+		<subfield code="c">ch-vd</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s1dr</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="130">
+		<subfield code="a">Journal des tribunaux.</subfield>
+		<subfield code="g">Lausanne.</subfield>
+		<subfield code="f">2010-.</subfield>
+		<subfield code="n">4,</subfield>
+		<subfield code="p">Droit pénal et procédure pénale : jurisprudence fédérale</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="245">
+		<subfield code="a">Journal des tribunaux.</subfield>
+		<subfield code="n">4,</subfield>
+		<subfield code="p">Droit pénal et procédure pénale :</subfield>
+		<subfield code="b">jurisprudence fédérale</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="1" tag="264">
+		<subfield code="a">Lausanne :</subfield>
+		<subfield code="b">Journal des tribunaux</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="310">
+		<subfield code="a">5-11 fois par an</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="336">
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="337">
+		<subfield code="b">n</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="338">
+		<subfield code="b">nc</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="339">
+		<subfield code="a">docmaintype_serial</subfield>
+	</datafield>
+	<datafield ind1="0" ind2=" " tag="362">
+		<subfield code="a">Année 159(2010) -</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">Fait suite à: Journal des tribunaux. 4, Droit pénal</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Strafrecht</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Strafprozess</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Bundesrecht</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Gerichts- und Verwaltungspraxis</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">richterliche Behörde</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">oberstes Gericht</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="650">
+		<subfield code="a">Bundesgericht</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="651">
+		<subfield code="a">Schweiz</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="655">
+		<subfield code="a">Entscheidsammlung</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="655">
+		<subfield code="a">Periodikum</subfield>
+		<subfield code="2">jurivoc</subfield>
+		<subfield code="9">ger</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="0" tag="780">
+		<subfield code="t">Journal des tribunaux (Lausanne : 1930). 4, Droit pénal</subfield>
+		<subfield code="w">REROILS:2000142</subfield>
+	</datafield>
+</record>
+<record>
+	<leader>00706nas a22002297a 4500</leader>
+	<controlfield tag="001">REROILS:778</controlfield>
+	<controlfield tag="003">RERO</controlfield>
+	<controlfield tag="005">20190705130200.0</controlfield>
+	<controlfield tag="008">030401 19049999fr |||m|  ||||0 |  0fre d</controlfield>
+	<datafield ind1=" " ind2=" " tag="019">
+		<subfield code="a">Réf. bibliogr.: BNF</subfield>
+		<subfield code="9">gevbpu/04.2003</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="035">
+		<subfield code="a">R003336627</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="9" tag="039">
+		<subfield code="a">201907051302</subfield>
+		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">201705181242</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">200304031430</subfield>
+		<subfield code="d">6043</subfield>
+		<subfield code="y">200304011433</subfield>
+		<subfield code="z">6043</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="040">
+		<subfield code="a">RERO gevbpu</subfield>
+	</datafield>
+	<datafield ind1="0" ind2="0" tag="245">
+		<subfield code="a">Nouvelle bibliothèque de chasse</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="1" tag="264">
+		<subfield code="a">Paris :</subfield>
+		<subfield code="b">E. Nourry,</subfield>
+		<subfield code="c">1904-</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="336">
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="337">
+		<subfield code="b">n</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="338">
+		<subfield code="b">nc</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="339">
+		<subfield code="a">docmaintype_series</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="900">
+		<subfield code="a">noselfmerge</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="900">
+		<subfield code="a">reroslsp</subfield>
+	</datafield>
+</record>
 </collection>
