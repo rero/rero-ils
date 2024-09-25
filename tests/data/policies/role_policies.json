@@ -729,5 +729,10 @@
     "pro_full_permissions",
     "pro_library_administrator",
     "pro_catalog_manager"
+  ],
+  "mig-update": [
+    "pro_full_permissions",
+    "pro_library_administrator",
+    "pro_catalog_manager"
   ]
 }

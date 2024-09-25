@@ -189,7 +189,7 @@ class IndexerDumper(Dumper):
         from rero_ils.utils import language_mapping
 
         sort_title = TitleExtension.format_text(data.get("title", []))
-        language = language_mapping(data.get("language")[0].get("value"))
+        language = language_mapping(data.get("language", [])[0].get("value"))
         if current_app.config.get("RERO_ILS_STOP_WORDS_ACTIVATE", False):
             sort_title = current_app.extensions[
                 "reroils-normalizer-stop-words"

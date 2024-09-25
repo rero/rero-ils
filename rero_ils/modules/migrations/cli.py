@@ -53,7 +53,6 @@ def index():
 @with_appcontext
 def init():
     """Initialize the migration elasticsearch index."""
-    print(Migration._index.to_dict())
     Migration.init()
     click.echo("Elasticsearch Index created.")
 
@@ -69,6 +68,8 @@ def init():
 )
 def destroy():
     """Remove the migration elasticsearch index."""
+    for migration in Migration.search().source().scan():
+        migration.delete()
     Index(Migration.Index.name).delete()
     click.echo("Migration Elasticsearch Index has been deleted.")
 
@@ -115,9 +116,6 @@ def create(name, library_pid, status, conversion_code, description):
 
 @migrations.command()
 @click.argument("name")
-@click.option(
-    "-s", "--status", type=click.Choice([item.value for item in MigrationStatus])
-)
 @click.option(
     "-s", "--status", type=click.Choice([item.value for item in MigrationStatus])
 )

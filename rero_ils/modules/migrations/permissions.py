@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -57,6 +56,7 @@ def check_permission(permission):
 search_action = action_factory("mig-search")
 read_action = action_factory("mig-read")
 access_action = action_factory("mig-access")
+update_action = action_factory("mig-update")
 
 
 class MigrationPermissionPolicy(RecordPermissionPolicy):
@@ -64,6 +64,7 @@ class MigrationPermissionPolicy(RecordPermissionPolicy):
 
     can_search = [AllowedByAction(search_action)]
     can_read = [AllowedByActionRestrictByOrganisation(read_action)]
+    can_update = [AllowedByActionRestrictByOrganisation(update_action)]
 
     @property
     def query_filters(self):

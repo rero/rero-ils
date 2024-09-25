@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021-2023 RERO
+# Copyright (C) 2021-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -17,7 +17,7 @@
 
 """Migration Record tests."""
 
-from flask import url_for
+from flask import jsonify, url_for
 from invenio_accounts.testutils import login_user_via_session
 
 
@@ -139,7 +139,8 @@ def test_migrations_rest_get(
         )
     )
     assert res.status_code == 200
+
     data = migration_data.to_dict()
     data["raw"] = migration.conversion_class.markdown(migration_data.raw)
     data["id"] = migration_data.meta.id
-    assert res.json == data
+    assert res.json == jsonify(data).json
