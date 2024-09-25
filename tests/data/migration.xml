@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+	<leader>00812naa a22002537a 4500</leader>
+	<controlfield tag="001">REROILS:101</controlfield>
+	<controlfield tag="003">RERO</controlfield>
+	<controlfield tag="005">20170518133300.0</controlfield>
+	<controlfield tag="008">980412s1984    xx ||| |  ||||00|  0spa d</controlfield>
+	<datafield ind1=" " ind2=" " tag="035">
+		<subfield code="a">R003448321</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="9" tag="039">
+		<subfield code="a">201705181333</subfield>
+		<subfield code="b">VLOAD</subfield>
+		<subfield code="c">201605141133</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">201210191812</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="c">201112192219</subfield>
+		<subfield code="d">VLOAD</subfield>
+		<subfield code="y">200506232325</subfield>
+		<subfield code="z">VLOAD</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="040">
+		<subfield code="a">RERO gewcc-</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="7" tag="072">
+		<subfield code="a">s1th</subfield>
+		<subfield code="2">rero</subfield>
+	</datafield>
+	<datafield ind1="1" ind2=" " tag="100">
+		<subfield code="a">Lyons, Cathie</subfield>
+		<subfield code="4">cre</subfield>
+	</datafield>
+	<datafield ind1="1" ind2="3" tag="245">
+		<subfield code="a">La salud de la mujer es algo mas que una cuestion medica /</subfield>
+		<subfield code="c">Cathie Lyons</subfield>
+	</datafield>
+	<datafield ind1=" " ind2="1" tag="264">
+		<subfield code="c">1984</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="336">
+		<subfield code="b">txt</subfield>
+		<subfield code="2">rdacontent</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="337">
+		<subfield code="b">n</subfield>
+		<subfield code="2">rdamedia</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="338">
+		<subfield code="b">nc</subfield>
+		<subfield code="2">rdacarrier</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="339">
+		<subfield code="a">docmaintype_article</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="580">
+		<subfield code="a">In: Contact ; no. 65, 1984, p. 6-15</subfield>
+	</datafield>
+	<datafield ind1="1" ind2=" " tag="773">
+		<subfield code="t">Contact</subfield>
+		<subfield code="g">no. 65, 1984, p. 6-15</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="957">
+		<subfield code="a">gewcc-</subfield>
+	</datafield>
+	<datafield ind1=" " ind2=" " tag="982">
+		<subfield code="2">wccsh</subfield>
+		<subfield code="a">Wcc</subfield>
+		<subfield code="d">Christian Medical Commission (CMC)</subfield>
+	</datafield>
+</record>
+</collection>

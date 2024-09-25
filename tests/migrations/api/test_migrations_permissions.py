@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2022 RERO
-# Copyright (C) 2022 UCLouvain
+# Copyright (C) 2021-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -97,7 +96,7 @@ def test_migration_permissions(
             "search": True,
             "read": True,
             "create": False,
-            "update": False,
+            "update": True,
             "delete": False,
         },
         migration,
@@ -116,7 +115,7 @@ def test_migration_permissions(
             "search": True,
             "read": True,
             "create": False,
-            "update": False,
+            "update": True,
             "delete": False,
         },
         migration,
@@ -135,7 +134,7 @@ def test_migration_permissions(
             "search": True,
             "read": True,
             "create": False,
-            "update": False,
+            "update": True,
             "delete": False,
         },
         migration,
