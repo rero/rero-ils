@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021-2023 RERO
+# Copyright (C) 2021-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -37,7 +37,10 @@ def test_migrations_rest(
     assert res.status_code == 200
     assert res.json["hits"]["total"]["value"] == 1
     assert res.json["hits"]["hits"][0]["id"] == migration.meta.id
-    assert res.json["hits"]["hits"][0]["metadata"] == migration.to_dict()
+    # TODO: check dates
+    from flask import jsonify
+
+    assert res.json["hits"]["hits"][0]["metadata"] == jsonify(migration.to_dict()).json
 
     res = client.get(url_for("api_migrations.migrations_list", size=0))
     assert res.status_code == 200
