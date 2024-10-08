@@ -91,8 +91,10 @@ function pretests () {
 #    Vulnerability ID: 72260
 # -> Vulnerability found in flask-cors version 5.0.0
 #    Vulnerability ID: 72731
+# -> Vulnerability found in jsonpickle version 1.4.2
+#    Vulnerability ID: 72982
   info_msg "Check vulnerabilities:"
-  safety_exceptions="-i 40459 -i 70624 -i 51668 -i 42194 -i 42852 -i 71594 -i 62019 -i 71595 -i 70612 -i 51457 -i 72260 -i 72731"
+  safety_exceptions="-i 40459 -i 70624 -i 51668 -i 42194 -i 42852 -i 71594 -i 62019 -i 71595 -i 70612 -i 51457 -i 72260 -i 72731 -i 72982"
   msg=$(safety check -o text ${safety_exceptions}) || {
     echo "Safety vulnerabilites found for packages:" $(safety check -o bare ${safety_exceptions})
     echo "Run: \"safety check -o screen ${safety_exceptions} | grep -i vulnerability\" for more details"
