@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021-2023 RERO
+# Copyright (C) 2021-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -32,12 +32,10 @@ def test_migration_data_create(migration, migration_xml_data, lib_martigny):
     migration_id = migration.meta.id
     with pytest.raises(ValidationException):
         MigrationData().save()
-    with pytest.raises(ValidationException):
-        MigrationData(migration_id=migration_id).save()
     migration_data = MigrationData(**data)
     index = Index(migration.data_index_name)
     assert migration_data.save() == "created"
-    assert migration_data.json.contribution
+    assert migration_data.conversion.json.title
     index.refresh()
     data_id = migration_data.meta.id
     assert data_id

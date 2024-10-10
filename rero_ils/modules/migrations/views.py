@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
-# Copyright (C) 2019-2022 UCLouvain
+# Copyright (C) 2019-2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -48,10 +47,12 @@ def simple_item_json_serializer(data, code=200, headers=None):
     """JSON serializer to reproduce a simple invenio search format."""
     if code != 200:
         return data
+    print(data)
     if data:
         res = jsonify(data)
     else:
         res = make_response()
+    print(res)
     res.status_code = code
     return res
 
