@@ -34,6 +34,7 @@ from rero_ils.modules.documents.api import (
     document_id_fetcher,
 )
 from rero_ils.modules.documents.models import DocumentIdentifier
+from rero_ils.modules.documents.tasks import delete_drafts
 from rero_ils.modules.ebooks.tasks import create_records
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.entities.remote_entities.api import (
@@ -411,3 +412,12 @@ def test_document_replace_refs(document, mef_agents_url):
 
     # Reset fixtures
     document.update(orig, dbcommit=True, reindex=True)
+
+
+def test_document_delete_draft(app, document_chinese_data):
+    """Test document delete draft."""
+    doc = Document.create(data=document_chinese_data, dbcommit=True, reindex=True)
+    assert delete_drafts(days=0, delete=True) == 0
+    doc["_draft"] = True
+    doc.update(data=doc, dbcommit=True, reindex=True)
+    assert delete_drafts(days=0, delete=True) == 1

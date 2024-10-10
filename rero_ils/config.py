@@ -507,7 +507,15 @@ CELERY_BEAT_SCHEDULE = {
         "task": "rero_ils.modules.entities.remote_entities.tasks.replace_identified_by",
         "schedule": crontab(
             minute=0, hour=3, day_of_week=6
-        ),  # Every Saturday at 03:00 UTC,
+        ),  # Every Sunday at 03:00 UTC,
+        "enabled": False,
+    },
+    "delete-drafts": {
+        "task": "rero_ils.modules.documents.tasks.delete_drafts",
+        "schedule": crontab(
+            minute=0, hour=4, day_of_week=6
+        ),  # Every Sunday at 04:00 UTC,
+        "kwargs": {"delete": True},
         "enabled": False,
     },
     # "mef-harvester": {
