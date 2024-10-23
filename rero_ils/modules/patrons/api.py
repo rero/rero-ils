@@ -46,7 +46,7 @@ from rero_ils.modules.patron_transactions.utils import (
 from rero_ils.modules.providers import Provider
 from rero_ils.modules.tasks import process_bulk_queue
 from rero_ils.modules.templates.api import TemplatesSearch
-from rero_ils.modules.users.api import User
+from rero_ils.modules.users.api import User, user_formatted_name
 from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import (
     extracted_data_from_ref,
@@ -768,12 +768,7 @@ class Patron(IlsRecord):
     @property
     def formatted_name(self):
         """Return the best possible human-readable patron name."""
-        profile = self.user.user_profile
-        name_parts = [
-            profile.get("last_name", "").strip(),
-            profile.get("first_name", "").strip(),
-        ]
-        return ", ".join(filter(None, name_parts))
+        return user_formatted_name(self.user)
 
     @property
     def patron_type_pid(self):

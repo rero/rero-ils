@@ -77,7 +77,7 @@ def create_user_from_data(data, send_email=False):
     """Create a user and set the profile fields from a data.
 
     :param data: A dict containing a mix of patron and user data.
-    :param send_email - send the reset password email to the user
+    :param send_email: send the reset password email to the user
     :returns: The modified dict.
     """
     user = User.get_by_username(data.get("username"))
@@ -94,8 +94,8 @@ def create_user_from_data(data, send_email=False):
 def create_patron_from_data(data, dbcommit=True, reindex=True, send_email=False):
     """Create a patron and a user from a data dict.
 
-    :param data - dictionary representing a library user
-    :param send_email - send the reset password email to the user
+    :param data: dictionary representing a library user
+    :param send_email: send the reset password email to the user
     :returns: - A `Patron` instance
     """
     from .api import Patron

@@ -42,7 +42,6 @@ from dateutil import parser
 from flask import current_app, session
 from flask_babel import gettext as _
 from flask_babel import ngettext
-from flask_login import current_user
 from invenio_accounts.models import Role
 from invenio_cache import current_cache
 from invenio_pidstore.models import PersistentIdentifier
@@ -1087,20 +1086,21 @@ class JsonWriter(object):
 
 def set_user_name(sender, user):
     """Set the username in the current flask session."""
-    from .patrons.api import current_librarian, current_patrons
+    from rero_ils.modules.users.api import user_formatted_name
 
-    user_name = None
     remove_user_name(sender, user)
 
-    if current_librarian:
-        user_name = current_librarian.formatted_name
-    elif current_patrons:
-        user_name = current_patrons[0].formatted_name
+    user_email = None
+    with contextlib.suppress(AttributeError):
+        user_email = user.email
+
+    # set session user name
+    if full_name := user_formatted_name(user):
+        session["user_name"] = full_name
+    elif user_email:
+        session["user_name"] = user_email
     else:
-        with contextlib.suppress(AttributeError):
-            user_name = current_user.email
-    if user_name:
-        session["user_name"] = user_name
+        session["user_name"] = user.username
 
 
 def remove_user_name(sender, user):

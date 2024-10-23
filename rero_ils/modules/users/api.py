@@ -74,6 +74,20 @@ def password_validator(password):
     )
 
 
+def user_formatted_name(base_user):
+    """Formatted name from user profile.
+
+    :param user: user to use.
+    :returns: formatted name.
+    """
+    profile = base_user.user_profile
+    name_parts = [
+        profile.get("last_name", "").strip(),
+        profile.get("first_name", "").strip(),
+    ]
+    return ", ".join(filter(None, name_parts))
+
+
 class User(object):
     """User API."""
 
@@ -282,3 +296,12 @@ class User(object):
         """
         user = cls.get_by_email(username_or_email)
         return user or cls.get_by_username(username_or_email)
+
+    @property
+    def formatted_name(self):
+        """Formatted name from user profile.
+
+        :param user: user to use.
+        :returns: formatted name.
+        """
+        return user_formatted_name(self.user)
