@@ -24,6 +24,7 @@ from flask import session, url_for
 from flask_login import login_user, logout_user
 from utils import postdata
 
+from rero_ils.modules.users.api import user_formatted_name
 from rero_ils.theme.views import nl2br
 
 
@@ -135,20 +136,30 @@ def test_language(client, app):
 
 
 def test_set_user_name(
-    app, librarian_martigny, patron_martigny, user_with_profile, user_without_email
+    app,
+    librarian_martigny,
+    patron_martigny,
+    user_with_profile,
+    user_without_name,
+    user_without_name_email,
 ):
     """Test the user_name in the flask session."""
-    # should be the email address
+    # should be the formatted name
     login_user(user=user_with_profile)
     assert "user_name" in session
-    assert session["user_name"] == user_with_profile.email
+    assert session["user_name"] == user_formatted_name(user_with_profile)
     # should be removed
     logout_user()
     assert "user_name" not in session
 
-    # should not be set
-    login_user(user=user_without_email)
-    assert "user_name" not in session
+    # should be the email
+    login_user(user=user_without_name)
+    assert session["user_name"] == user_without_name.email
+    logout_user()
+
+    # should be the user.username
+    login_user(user=user_without_name_email)
+    assert session["user_name"] == user_without_name_email.username
     logout_user()
 
     # should be the formatted name

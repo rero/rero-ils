@@ -47,19 +47,38 @@ def user_with_profile(db, default_user_password):
 
 
 @pytest.fixture(scope="function")
-def user_without_email(db, default_user_password):
+def user_without_name_email(db, default_user_password):
     """Create a simple invenio user without email."""
     with db.session.begin_nested():
         profile = dict(
             birth_date="1990-01-01",
-            first_name="User",
-            last_name="With Profile",
             city="Nowhere",
         )
         user = User(
             password=hash_password(default_user_password),
             user_profile=profile,
-            username="user_without_email",
+            username="user_without_name_email",
+            active=True,
+        )
+        db.session.add(user)
+    db.session.commit()
+    user.password_plaintext = default_user_password
+    return user
+
+
+@pytest.fixture(scope="function")
+def user_without_name(db, default_user_password):
+    """Create a simple invenio user without nmae."""
+    with db.session.begin_nested():
+        profile = dict(
+            birth_date="1990-01-01",
+            city="Nowhere",
+        )
+        user = User(
+            password=hash_password(default_user_password),
+            user_profile=profile,
+            username="user_without_name",
+            email="user_without_name@test.com",
             active=True,
         )
         db.session.add(user)

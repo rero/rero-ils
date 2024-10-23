@@ -3458,6 +3458,11 @@ RERO_ILS_STATS_BILLING_TIMEFRAME_IN_MONTHS = 3
 LOGGING_SENTRY_LEVEL = "ERROR"
 #: Sentry: use celery or not
 LOGGING_SENTRY_CELERY = True
+# Invenio logging
+LOGGING_SENTRY_INIT_KWARGS = {
+    # instuct sentry to send user data attached to the event
+    "send_default_pii": True
+}
 
 ROLLOVER_LOGGING_CONFIG = {
     "version": 1,
