@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-10-24 16:46+0200\n"
-"PO-Revision-Date: 2024-07-18 11:35+0000\n"
+"PO-Revision-Date: 2024-10-24 15:03+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: English <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/en/>\n"
 "Language: en\n"
-"Language-Team: English <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/en/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -11468,39 +11469,39 @@ msgstr "If enabled, restrict pickup to specific pickup locations."
 
 #: rero_ils/modules/migrations/api.py:39
 msgid "created"
-msgstr ""
+msgstr "created"
 
 #: rero_ils/modules/migrations/api.py:40
 msgid "quality control"
-msgstr ""
+msgstr "quality control"
 
 #: rero_ils/modules/migrations/api.py:41
 msgid "document deduplication"
-msgstr ""
+msgstr "document deduplication"
 
 #: rero_ils/modules/migrations/api.py:42
 msgid "done"
-msgstr ""
+msgstr "done"
 
 #: rero_ils/modules/migrations/data/api.py:51
 msgid "error"
-msgstr ""
+msgstr "error"
 
 #: rero_ils/modules/migrations/data/api.py:52
 msgid "check"
-msgstr ""
+msgstr "check"
 
 #: rero_ils/modules/migrations/data/api.py:53
 msgid "multiple match"
-msgstr ""
+msgstr "multiple match"
 
 #: rero_ils/modules/migrations/data/api.py:54
 msgid "no match"
-msgstr ""
+msgstr "no match"
 
 #: rero_ils/modules/migrations/data/api.py:55
 msgid "match"
-msgstr ""
+msgstr "match"
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:108
@@ -13181,4 +13182,3 @@ msgstr "Invenio assets"
 
 #~ msgid "Checkouts are allowed or not."
 #~ msgstr "Checkouts are allowed or not."
-
