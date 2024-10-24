@@ -51,6 +51,7 @@ from lazyreader import lazyread
 from lxml import etree
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from requests.adapters import HTTPAdapter
+from sentry_sdk import set_user
 from urllib3.util import Retry
 from werkzeug.local import LocalProxy
 
@@ -1091,6 +1092,7 @@ def set_user_name(sender, user):
 
     user_name = None
     remove_user_name(sender, user)
+    set_user_data = {"id": user.id, "email": user.email}
 
     if current_librarian:
         user_name = current_librarian.formatted_name
@@ -1101,12 +1103,17 @@ def set_user_name(sender, user):
             user_name = current_user.email
     if user_name:
         session["user_name"] = user_name
+        set_user_data["username"] = user_name
+    # Set the sentry user data values for logged in user
+    set_user(set_user_data)
 
 
 def remove_user_name(sender, user):
     """Remove the username in the current flask session."""
     if session.get("user_name"):
         del session["user_name"]
+    # Remove the sentry user data values
+    set_user(None)
 
 
 def sorted_pids(query):

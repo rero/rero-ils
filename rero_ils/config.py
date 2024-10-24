@@ -3459,6 +3459,11 @@ LOGGING_SENTRY_LEVEL = "ERROR"
 #: Sentry: use celery or not
 LOGGING_SENTRY_CELERY = True
 
+LOGGING_SENTRY_INIT_KWARGS = {
+    # Instruct Sentry to send user data attached to the event
+    "send_default_pii": True,
+}
+
 ROLLOVER_LOGGING_CONFIG = {
     "version": 1,
     "disable_existing_loggers": False,
