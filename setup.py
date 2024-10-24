@@ -153,7 +153,7 @@ setup(
         'flask.commands': [
             'apiharvester = rero_ils.modules.apiharvester.cli:apiharvester',
             'remote_entity = rero_ils.modules.entities.remote_entities.cli:remote_entity',
-            'migration = rero_ils.modules.migration.cli:migration'
+            'migration = rero_ils.modules.migration.cli:migration',
             'monitoring = rero_ils.modules.monitoring.cli:monitoring',
             'notifications = rero_ils.modules.notifications.cli:notifications',
             'oaiharvester = rero_ils.modules.ebooks.cli:oaiharvester',
