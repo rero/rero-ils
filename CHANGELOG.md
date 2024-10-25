@@ -1,11 +1,38 @@
 # Changelog
 
+## [v1.24.0](https://github.com/rero/rero-ils/tree/v1.24.0) (2024-11-07)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.23.1...v1.24.0)
+
+**New features:**
+* Add data migration tools [\#3766](https://github.com/rero/rero-ils/pull/3766) (by @jma)
+* config: add GND to concepts and places [\#3736](https://github.com/rero/rero-ils/pull/3736) (by @rerowep)
+
+**Enhancements:**
+* Periodically clean up `_draft` documents [\#3761](https://github.com/rero/rero-ils/issues/3761) (by @rerowep)
+* Allow more than two barcodes per patron [\#3745](https://github.com/rero/rero-ils/issues/3745) (by @PascalRepond)
+* Circulation interface: display item's enumerationAndChronology [\#3744](https://github.com/rero/rero-ils/issues/3744) (by @PascalRepond)
+
+**Fixes:**
+* No thumbnail loaded for documents with any "electronicLocator" [\#3755](https://github.com/rero/rero-ils/issues/3755) (by @Garfield-fr)
+* Harvested physical books are not displayed correctly in public UI [\#3738](https://github.com/rero/rero-ils/issues/3738) (by @rerowep)
+* SIP2 returns None for a user/patron with any missing address field [\#3727](https://github.com/rero/rero-ils/issues/3727) (by @rerowep)
+
+**Other changes:**
+* fix(deps): fix safety [\#3762](https://github.com/rero/rero-ils/pull/3762) (by @jma)
+* chore(prod): adapt VS frontpage [\#3757](https://github.com/rero/rero-ils/pull/3757) (by @PascalRepond)
+* dependencies: fix vulnerabilites [\#3750](https://github.com/rero/rero-ils/pull/3750) (by @rerowep)
+* fix(deps): fix safety [\#3756](https://github.com/rero/rero-ils/pull/3756) (by @PascalRepond)
+* import: fix SLSP [\#3751](https://github.com/rero/rero-ils/pull/3751) (by @rerowep)
+* test: fix coverage [\#3743](https://github.com/rero/rero-ils/pull/3743) (by @rerowep)
+* tests: uses black [\#3674](https://github.com/rero/rero-ils/pull/3674) (by @rerowep)
+
 ## [v1.23.1](https://github.com/rero/rero-ils/tree/v1.23.0) (2024-08-26)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.23.0...v1.23.1)
 
 **Enhancements:**
-* Update rero-ils-ui version to allow older browsers to use the public UI
+* Blank page on older OS/browser [\#3735](https://github.com/rero/rero-ils/issues/3735) (by @jma)
 * Delete useless error log in entities dojson
 
 ## [v1.23.0](https://github.com/rero/rero-ils/tree/v1.23.0) (2024-08-12)
