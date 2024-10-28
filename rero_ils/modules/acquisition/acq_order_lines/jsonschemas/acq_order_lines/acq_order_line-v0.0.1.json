@@ -191,7 +191,7 @@
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "widget": {
         "formlyConfig": {
-          "type": "datepicker",
+          "type": "datePicker",
           "expressions": {
             "props.required": "field?.parent?.model?.status === 'ordered' || field?.parent?.model?.status === 'received'",
             "hide": "field?.parent?.model?.status !== 'ordered' && field?.parent?.model?.status !== 'received'"
@@ -214,7 +214,7 @@
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "widget": {
         "formlyConfig": {
-          "type": "datepicker",
+          "type": "datePicker",
           "expressions": {
             "props.required": "field?.parent?.model?.status === 'received'",
             "hide": "field?.parent?.model?.status !== 'received'"
@@ -278,13 +278,14 @@
           "pattern": "^https://bib.rero.ch/api/documents/.+?$",
           "widget": {
             "formlyConfig": {
+              "type": "remoteAutoComplete",
               "props": {
                 "validation": {
                   "messages": {
                     "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
                   }
                 },
-                "remoteTypeahead": {
+                "queryOptions": {
                   "type": "documents",
                   "filter": "NOT harvested:true"
                 }

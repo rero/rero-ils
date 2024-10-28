@@ -250,7 +250,7 @@
           "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
           "widget": {
             "formlyConfig": {
-              "type": "datepicker",
+              "type": "datePicker",
               "props": {
                 "validation": {
                   "messages": {
@@ -491,7 +491,7 @@
       },
       "widget": {
         "formlyConfig": {
-          "type": "multicheckbox",
+          "type": "multi-checkbox",
           "wrappers": [
             "card"
           ],

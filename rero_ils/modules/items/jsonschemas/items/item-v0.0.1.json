@@ -233,7 +233,7 @@
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "widget": {
             "formlyConfig": {
-              "type": "datepicker",
+              "type": "datePicker",
               "expressions": {
                 "hide": "false"
               },
@@ -292,7 +292,7 @@
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "widget": {
             "formlyConfig": {
-              "type": "datepicker",
+              "type": "datePicker",
               "props": {
                 "validation": {
                   "messages": {
@@ -400,7 +400,7 @@
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "widget": {
             "formlyConfig": {
-              "type": "datepicker",
+              "type": "datePicker",
               "expressions": {
                 "props.required": "field?.parent?.model?.status === 'received'",
                 "hide": "field?.parent?.model?.status !== 'received'"
@@ -426,7 +426,7 @@
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "widget": {
             "formlyConfig": {
-              "type": "datepicker",
+              "type": "datePicker",
               "props": {
                 "validation": {
                   "messages": {
@@ -446,7 +446,7 @@
           "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
           "widget": {
             "formlyConfig": {
-              "type": "datepicker",
+              "type": "datePicker",
               "props": {
                 "validation": {
                   "messages": {
@@ -693,7 +693,7 @@
       "validationMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
       "widget": {
         "formlyConfig": {
-          "type": "datepicker",
+          "type": "datePicker",
           "props": {
             "hideLabel": true,
             "defaultValueExpression": "new Date().toISOString().split('T')[0]",
