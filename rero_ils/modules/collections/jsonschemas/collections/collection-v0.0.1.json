@@ -159,17 +159,17 @@
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "widget": {
         "formlyConfig": {
-          "type": "datepicker",
+          "type": "datePicker",
           "props": {
             "validation": {
               "messages": {
                 "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
-                "dateMustBeLessThan": "The start date must be less than the end date."
+                "datesGreaterThan": "The start date must be less than the end date."
               },
               "validators": {
-                "dateMustBeLessThan": {
-                  "startDate": "start_date",
-                  "endDate": "end_date",
+                "datesGreaterThan": {
+                  "dateFirst": "start_date",
+                  "dateLast": "end_date",
                   "strict": true
                 }
               }
@@ -185,17 +185,17 @@
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "widget": {
         "formlyConfig": {
-          "type": "datepicker",
+          "type": "datePicker",
           "props": {
             "validation": {
               "messages": {
                 "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
-                "datesMustBeGreaterThan": "The end date must be greater than the start date."
+                "datesGreaterThan": "The end date must be greater than the start date."
               },
               "validators": {
-                "dateMustBeGreaterThan": {
-                  "startDate": "start_date",
-                  "endDate": "end_date",
+                "datesGreaterThan": {
+                  "dateFirst": "start_date",
+                  "dateLast": "end_date",
                   "strict": true
                 }
               }
@@ -255,8 +255,9 @@
             "pattern": "^https://bib.rero.ch/api/items/.*?$",
             "widget": {
               "formlyConfig": {
+                "type": "remoteAutoComplete",
                 "props": {
-                  "remoteTypeahead": {
+                  "queryOptions": {
                     "type": "items"
                   }
                 }
