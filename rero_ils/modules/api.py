@@ -499,6 +499,10 @@ class IlsRecord(Record):
             current_app.logger.warning(
                 f"Can not delete from index {self.__class__.__name__}" f": {self.pid}"
             )
+        except ValueError:
+            current_app.logger.warning(
+                f"Can not delete from index {self.__class__.__name__}"
+            )
 
     @property
     def pid(self):

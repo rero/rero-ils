@@ -81,19 +81,13 @@ def create_app():
 @pytest.fixture()
 def ils_record():
     """Ils Record test record."""
-    yield {
-        "pid": "ilsrecord_pid",
-        "name": "IlsRecord Name",
-    }
+    yield {"pid": "ilsrecord_pid", "name": "IlsRecord Name"}
 
 
 @pytest.fixture()
 def ils_record_2():
     """Ils Record test record 2."""
-    yield {
-        "pid": "ilsrecord_pid_2",
-        "name": "IlsRecord Name 2",
-    }
+    yield {"pid": "ilsrecord_pid_2", "name": "IlsRecord Name 2"}
 
 
 @pytest.fixture(scope="module")

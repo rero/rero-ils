@@ -114,7 +114,7 @@ class Item(ItemCirculation, ItemIssue):
 
     def delete_from_index(self):
         """Delete record from index."""
-        with contextlib.suppress(NotFoundError):
+        with contextlib.suppress(NotFoundError, ValueError):
             ItemsIndexer().delete(self)
 
     def reasons_not_to_delete(self):
