@@ -99,6 +99,9 @@ tests/e2e/cypress/cypress/videos
 tests/e2e/cypress/cypress/screenshots
 tests/e2e/cypress/cypress/integration/test
 
+# tests
+tests/data/documents_items_lofi_items.json
+
 # Dependencies
 /node_modules
 

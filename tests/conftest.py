@@ -216,6 +216,7 @@ def app_config(app_config):
             "sources": ["idref", "gnd"],
         },
     }
+    app_config["INDEXER_DEFAULT_INDEX"] = "records-record-v1.0.0"
     return app_config
 
 
