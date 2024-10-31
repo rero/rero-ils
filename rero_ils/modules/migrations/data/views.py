@@ -40,6 +40,11 @@ from ..permissions import MigrationPermissionPolicy, check_permission
 api_blueprint = Blueprint("api_migration_data", __name__, url_prefix="/migration_data")
 
 
+def _(x):
+    """Identity function used to trigger string extraction."""
+    return x
+
+
 class MigrationDataListResource(ContentNegotiatedMethodView):
     """Imports REST resource."""
 
@@ -101,16 +106,16 @@ class MigrationDataListResource(ContentNegotiatedMethodView):
         )
 
         # aggregations
-        search.aggs.bucket("migration", "terms", field="migration_id.raw", size=30)
-        search.aggs.bucket("batch", "terms", field="deduplication.subset", size=30)
+        search.aggs.bucket(_("migration"), "terms", field="migration_id.raw", size=30)
+        search.aggs.bucket(_("batch"), "terms", field="deduplication.subset", size=30)
         search.aggs.bucket(
-            "conversion_status", "terms", field="conversion.status", size=30
+            _("conversion_status"), "terms", field="conversion.status", size=30
         )
         search.aggs.bucket(
-            "deduplication_status", "terms", field="deduplication.status", size=30
+            _("deduplication_status"), "terms", field="deduplication.status", size=30
         )
         search.aggs.bucket(
-            "modified_by", "terms", field="deduplication.modified_by.raw", size=30
+            _("modified_by"), "terms", field="deduplication.modified_by.raw", size=30
         )
 
         # filters

@@ -25,6 +25,11 @@ from .api import Migration
 from .permissions import MigrationPermissionPolicy, check_permission
 
 
+def _(x):
+    """Identity function used to trigger string extraction."""
+    return x
+
+
 def simple_search_json_serializer(data, code=200, headers=None):
     """JSON serializer to reproduce a simple invenio search format."""
     if code != 200:
@@ -87,7 +92,7 @@ class MigrationsListResource(ContentNegotiatedMethodView):
         )
         if query:
             search = search.query("query_string", query=query)
-        search.aggs.bucket("status", "terms", field="status", size=30)
+        search.aggs.bucket(_("status"), "terms", field="status", size=30)
         if status := flask_request.args.get("status"):
             search = search.filter("term", status=status)
         return self.make_response(search.execute().to_dict(), 200)

@@ -18,17 +18,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2024-10-24 16:46+0200\n"
+"POT-Creation-Date: 2024-10-31 12:03+0100\n"
 "PO-Revision-Date: 2024-10-24 15:03+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/it/>\n"
 "Language: it\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/it/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -144,6 +143,7 @@ msgstr "localizzazione"
 
 #: rero_ils/config.py:2235 rero_ils/config.py:2309 rero_ils/config.py:2393
 #: rero_ils/config.py:2497 rero_ils/config.py:2553
+#: rero_ils/modules/migrations/views.py:95
 msgid "status"
 msgstr "statuto"
 
@@ -11549,6 +11549,26 @@ msgstr "nessuna corrispondenza"
 msgid "match"
 msgstr "corrispondenza"
 
+#: rero_ils/modules/migrations/data/views.py:109
+msgid "migration"
+msgstr "migrazione"
+
+#: rero_ils/modules/migrations/data/views.py:110
+msgid "batch"
+msgstr "lotto"
+
+#: rero_ils/modules/migrations/data/views.py:112
+msgid "conversion_status"
+msgstr "stato conversione"
+
+#: rero_ils/modules/migrations/data/views.py:115
+msgid "deduplication_status"
+msgstr "stato deduplicazione"
+
+#: rero_ils/modules/migrations/data/views.py:118
+msgid "modified_by"
+msgstr "modificato da"
+
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:108
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:134
@@ -13257,3 +13277,4 @@ msgstr "Invenio assets"
 
 #~ msgid "Checkouts are allowed or not."
 #~ msgstr "Prestiti sono consentiti o no."
+

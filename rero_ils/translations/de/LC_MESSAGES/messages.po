@@ -16,17 +16,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2024-10-24 16:46+0200\n"
+"POT-Creation-Date: 2024-10-31 12:03+0100\n"
 "PO-Revision-Date: 2024-10-24 15:06+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/de/>\n"
 "Language: de\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/de/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.2-dev\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -142,6 +141,7 @@ msgstr "Standort"
 
 #: rero_ils/config.py:2235 rero_ils/config.py:2309 rero_ils/config.py:2393
 #: rero_ils/config.py:2497 rero_ils/config.py:2553
+#: rero_ils/modules/migrations/views.py:95
 msgid "status"
 msgstr "Status"
 
@@ -11558,6 +11558,26 @@ msgstr "keine Korrespondenz"
 msgid "match"
 msgstr "Korrespondenz"
 
+#: rero_ils/modules/migrations/data/views.py:109
+msgid "migration"
+msgstr "Migration"
+
+#: rero_ils/modules/migrations/data/views.py:110
+msgid "batch"
+msgstr "Stapel"
+
+#: rero_ils/modules/migrations/data/views.py:112
+msgid "conversion_status"
+msgstr "Konvertierungsstatus"
+
+#: rero_ils/modules/migrations/data/views.py:115
+msgid "deduplication_status"
+msgstr "Deduplizierungsstatus"
+
+#: rero_ils/modules/migrations/data/views.py:118
+msgid "modified_by"
+msgstr "geändert von"
+
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:108
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:134
@@ -13271,3 +13291,4 @@ msgstr "Inveio-Assets"
 
 #~ msgid "Checkouts are allowed or not."
 #~ msgstr "Ausleihen sind erlaubt oder nicht."
+

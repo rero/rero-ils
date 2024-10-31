@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2024-10-24 16:46+0200\n"
+"POT-Creation-Date: 2024-10-31 12:03+0100\n"
 "PO-Revision-Date: 2024-02-23 17:02+0000\n"
 "Last-Translator: LievenSmets <lievensmets@me.com>\n"
 "Language: nl\n"
@@ -134,6 +134,7 @@ msgstr "plaats"
 
 #: rero_ils/config.py:2235 rero_ils/config.py:2309 rero_ils/config.py:2393
 #: rero_ils/config.py:2497 rero_ils/config.py:2553
+#: rero_ils/modules/migrations/views.py:95
 msgid "status"
 msgstr "status"
 
@@ -11642,6 +11643,26 @@ msgstr ""
 
 #: rero_ils/modules/migrations/data/api.py:55
 msgid "match"
+msgstr ""
+
+#: rero_ils/modules/migrations/data/views.py:109
+msgid "migration"
+msgstr ""
+
+#: rero_ils/modules/migrations/data/views.py:110
+msgid "batch"
+msgstr ""
+
+#: rero_ils/modules/migrations/data/views.py:112
+msgid "conversion_status"
+msgstr ""
+
+#: rero_ils/modules/migrations/data/views.py:115
+msgid "deduplication_status"
+msgstr ""
+
+#: rero_ils/modules/migrations/data/views.py:118
+msgid "modified_by"
 msgstr ""
 
 #: rero_ils/modules/notifications/jsonschemas/notifications/notification-v0.0.1.json:4
