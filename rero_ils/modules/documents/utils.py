@@ -29,12 +29,14 @@ from invenio_jsonschemas.proxies import current_jsonschemas
 from werkzeug.local import LocalProxy
 
 from ...utils import get_i18n_supported_languages
-from ..utils import get_schema_for_resource, memoize
+from ..utils import cached, get_schema_for_resource
 
 _records_state = LocalProxy(lambda: current_app.extensions["invenio-records"])
 
 
-@memoize(timeout=3600)
+@cached(
+    timeout=60 * 60, key_prefix="document_types_from_schema", query_string=True
+)  # 1 hour timeout
 def get_document_types_from_schema(schema="doc"):
     """Create document type definition from schema."""
     path = current_jsonschemas.url_to_path(get_schema_for_resource(schema))

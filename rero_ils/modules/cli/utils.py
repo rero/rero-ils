@@ -273,7 +273,9 @@ def add_org_lib_doc(item, doc_pid="dummy"):
     return item
 
 
-@cached()
+@cached(
+    timeout=2 * 60 * 60, key_prefix="doc_item_lofi_schemas", query_string=True
+)  # 2 hour timeout
 def get_doc_item_lofi_schemas():
     """Get document, item, local field schemas."""
     # document schema

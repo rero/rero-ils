@@ -35,7 +35,7 @@ api_blueprint = Blueprint("api_documents", __name__, url_prefix="/document")
 
 
 @api_blueprint.route("/cover/<isbn>")
-@cached(timeout=300, query_string=True)
+@cached(timeout=5 * 60, query_string=True)  # 5 minutes timeout
 def cover(isbn):
     """Document cover service."""
     return jsonify(get_remote_cover(isbn))
@@ -51,7 +51,7 @@ def document_availability(pid):
 
 
 @api_blueprint.route("/advanced-search-config")
-@cached(timeout=300, query_string=True)
+@cached(timeout=5 * 60, query_string=True)  # 5 minutes timeout
 @check_logged_as_librarian
 def advanced_search_config():
     """Advanced search config."""

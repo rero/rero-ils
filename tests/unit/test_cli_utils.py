@@ -74,7 +74,6 @@ def test_cli_validate_documents_items_lofi(app, loc_public_martigny):
     file_name = join(dirname(__file__), "../data/documents_items_lofi.json")
 
     res = runner.invoke(validate_documents_with_items_lofis_cli, [file_name, "-v"])
-    print(">>>>", res)
     assert res.output.strip().split("\n")[1:] == [
         "1          document: dummy_1 errors: 1",
         "    documents: 'type' is a required property",

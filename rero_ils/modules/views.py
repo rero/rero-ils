@@ -51,7 +51,7 @@ api_blueprint = Blueprint("api_blueprint", __name__, url_prefix="")
 
 @api_blueprint.route("/permissions/<route_name>", methods=["GET"])
 @api_blueprint.route("/permissions/<route_name>/<record_pid>", methods=["GET"])
-@cached(timeout=10, query_string=True)
+@cached(timeout=10, query_string=True)  # 10 seconds timeout
 @check_authentication
 def permissions(route_name, record_pid=None):
     """HTTP GET request for record permissions.
