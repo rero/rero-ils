@@ -85,8 +85,8 @@ def error():
 
 
 @blueprint.route("/robots.txt")
-@cached()
-def robots(timeout=60 * 60):  # 1 hour timeout
+@cached(timeout=60 * 60, query_string=True)  # 1 hour timeout
+def robots():
     """Robots.txt generate response."""
     response = current_app.config["RERO_ILS_ROBOTS"]
     response = Response(response=response, status=200, mimetype="text/plain")

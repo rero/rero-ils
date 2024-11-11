@@ -107,27 +107,6 @@ def cached(timeout=50, key_prefix="default", query_string=False):
     return caching
 
 
-def memoize(timeout=50):
-    """Memoize functions.
-
-    Use this to cache the result of a function, taking its arguments into
-    account in the cache key.
-
-    :param timeout: Default 50. If set to an integer, will cache for that
-        amount of time. Unit of time is in seconds.
-    """
-
-    def memoize(f):
-        @wraps(f)
-        def wrapper(*args, **kwargs):
-            memoize_fun = current_cache.memoize(timeout=timeout)
-            return memoize_fun(f)(*args, **kwargs)
-
-        return wrapper
-
-    return memoize
-
-
 def strtotime(strtime):
     """String to datetime."""
     splittime = strtime.split(":")
