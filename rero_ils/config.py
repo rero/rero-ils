@@ -518,6 +518,14 @@ CELERY_BEAT_SCHEDULE = {
         "kwargs": {"delete": True},
         "enabled": False,
     },
+    "delete-orphan-harvested": {
+        "task": "rero_ils.modules.documents.tasks.delete_orphan_harvested",
+        "schedule": crontab(
+            minute=0, hour=5, day_of_week=6
+        ),  # Every Sunday at 05:00 UTC,
+        "kwargs": {"delete": True},
+        "enabled": False,
+    },
     # "mef-harvester": {
     #     "task": "rero_ils.modules.apiharvester.tasks.harvest_records",
     #     "schedule": timedelta(minutes=60),

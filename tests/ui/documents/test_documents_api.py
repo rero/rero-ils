@@ -34,7 +34,7 @@ from rero_ils.modules.documents.api import (
     document_id_fetcher,
 )
 from rero_ils.modules.documents.models import DocumentIdentifier
-from rero_ils.modules.documents.tasks import delete_drafts
+from rero_ils.modules.documents.tasks import delete_drafts, delete_orphan_harvested
 from rero_ils.modules.ebooks.tasks import create_records
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.entities.remote_entities.api import (
@@ -421,3 +421,19 @@ def test_document_delete_draft(app, document_chinese_data):
     doc["_draft"] = True
     doc.update(data=doc, dbcommit=True, reindex=True)
     assert delete_drafts(days=0, delete=True) == 1
+
+
+def test_document_delete_orphan_harvested(
+    app, document_data, holding_lib_sion_electronic
+):
+    """Test document delete orphan harvested.
+
+    Make sure that ebooks with electronic holdings (holding_lib_sion_electronic are not deleted).
+    """
+    doc = Document.create(
+        data=document_data, delete_pid=True, dbcommit=True, reindex=True
+    )
+    assert delete_orphan_harvested(delete=True) == 0
+    doc["harvested"] = True
+    doc.update(data=doc, dbcommit=True, reindex=True)
+    assert delete_orphan_harvested(delete=True) == 1
