@@ -37,6 +37,46 @@ def reindex_document(pid):
 
 
 @shared_task(ignore_result=True)
+def delete_orphan_harvested(delete=False, verbose=False):
+    """Delete orphan harvested documents.
+
+    :param delete: if True delete from DB and ES.
+    :param verbose: Verbose print.
+    :returns: count of deleted documents.
+    """
+    query = (
+        DocumentsSearch()
+        .filter("term", harvested=True)
+        .exclude("exists", field="holdings")
+    )
+    pids = [hit.pid for hit in query.source("pid").scan()]
+    count = 0
+
+    if verbose:
+        click.secho(f"Orphan harvested documents count: {len(pids)}", fg="yellow")
+    for pid in pids:
+        if doc := Document.get_record_by_pid(pid):
+            if verbose:
+                click.secho(f"Deleting orphan harvested: {pid}", fg="yellow")
+            if delete:
+                try:
+                    # only delete documents that have no links to me, only reason not to delete should be 'harvested'
+                    if doc.reasons_not_to_delete() == {"others": {"harvested": True}}:
+                        doc.pop("harvested")
+                        doc.replace(doc, dbcommit=True, reindex=True)
+                        doc.delete(dbcommit=True, delindex=True)
+                        count += 1
+                except Exception:
+                    msg = f"COULD NOT DELETE ORPHAN HARVESTED: {pid} {doc.reasons_not_to_delete()}"
+                    if verbose:
+                        click.secho(f"ERROR: {msg}", fg="red")
+                    current_app.logger.warning(msg)
+
+    set_timestamp("delete_orphan_harvested", msg={"deleted": count})
+    return count
+
+
+@shared_task(ignore_result=True)
 def delete_drafts(days=1, delete=False, verbose=False):
     """Delete drafts.
 
