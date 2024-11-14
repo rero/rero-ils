@@ -62,6 +62,17 @@ def marc21_to_language_from_008(self, key, value):
     return do_language(self, marc21)
 
 
+@marc21.over("language", "^041")
+@utils.ignore_value
+def marc21_to_language_from_041(self, key, value):
+    """Get languages.
+
+    languages: 008 and 041 [$a, repetitive]
+    """
+    # if we dont have languages from 008 try to set it with 041
+    return do_language(self, marc21)
+
+
 @marc21.over("identifiedBy", "^020..")
 @utils.ignore_value
 def marc21_to_identifier_isbn(self, key, value):
@@ -96,26 +107,6 @@ def marc21_to_identifier_rero_id(self, key, value):
     identifier = {"type": "bf:Local", "value": value.get("a")}
     identifiers.append(identifier)
     return identifiers
-
-
-@marc21.over("language", "^041..")
-@utils.ignore_value
-def marc21_to_translated_from(self, key, value):
-    """Get language.
-
-    languages: 008 and 041 [$a, repetitive]
-    """
-    languages = self.get("language", [])
-    unique_lang = []
-    if languages != []:
-        unique_lang.extend(language["value"] for language in languages)
-    if language := value.get("a"):
-        for lang in utils.force_list(language):
-            if lang not in unique_lang:
-                unique_lang.append(lang)
-                languages.append({"type": "bf:Language", "value": lang})
-
-    return languages
 
 
 @marc21.over("contribution", "(^100|^700|^710|^711)..")

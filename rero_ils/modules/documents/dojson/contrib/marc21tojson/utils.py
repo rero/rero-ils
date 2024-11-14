@@ -477,27 +477,30 @@ def do_language(data, marc21):
 
     languages: 008 and 041 [$a, repetitive]
     """
-    language = data.get("language", [])
-    lang_codes = [v.get("value") for v in language]
+    languages = data.get("language", [])
+    lang_codes = [v.get("value") for v in languages]
     if marc21.lang_from_008:
         lang_value = marc21.lang_from_008
-        if lang_value != "|||" and lang_value not in lang_codes:
-            language.append({"value": lang_value, "type": "bf:Language"})
+        if lang_value in _LANGUAGES and lang_value not in lang_codes:
+            languages.append({"value": lang_value, "type": "bf:Language"})
             lang_codes.append(marc21.lang_from_008)
     for lang_value in marc21.langs_from_041_a:
-        if lang_value not in lang_codes:
-            language.append({"value": lang_value.strip(), "type": "bf:Language"})
+        if lang_value in _LANGUAGES and lang_value not in lang_codes:
+            languages.append({"value": lang_value.strip(), "type": "bf:Language"})
             lang_codes.append(lang_value)
     # language note
     if fields_546 := marc21.get_fields(tag="546"):
         subfields_546_a = marc21.get_subfields(fields_546[0], "a")
-        if subfields_546_a and language:
-            language[0]["note"] = subfields_546_a[0]
+        if subfields_546_a and languages:
+            languages[-1]["note"] = subfields_546_a[0]
 
-    if not language:
-        error_print("ERROR LANGUAGE:", marc21.bib_id, f'f{language} set to "und"')
-        language = [{"value": "und", "type": "bf:Language"}]
-    return language or None
+    if len(languages) > 1:
+        # clean "und" languages
+        languages = [language for language in languages if language["value"] != "und"]
+    if not languages:
+        error_print("ERROR NO LANGUAGE:", marc21.bib_id, 'set to "und"')
+        languages = [{"value": "und", "type": "bf:Language"}]
+    return languages or None
 
 
 def do_abbreviated_title(data, marc21, key, value):

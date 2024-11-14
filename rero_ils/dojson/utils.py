@@ -1364,18 +1364,22 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         self.langs_from_041_h = []
         try:
             self.lang_from_008 = self.field_008_data[35:38]
-            if self.lang_from_008 in ["   ", "|||"]:
-                self.lang_from_008 = "und"
-            elif self.lang_from_008 not in _LANGUAGES:
+            if self.lang_from_008 not in _LANGUAGES:
                 error_print(
                     "WARNING NOT A LANGUAGE 008:",
                     self.bib_id,
                     self.rero_id,
                     f'"{self.lang_from_008}"',
                 )
+                self.lang_from_008 = "und"
         except Exception:
             self.lang_from_008 = "und"
-            error_print("WARNING: set 008 language to 'und'", self.bib_id, self.rero_id)
+            error_print(
+                "WARNING NOT A LANGUAGE 008:",
+                self.bib_id,
+                self.rero_id,
+                f'"{self.field_008_data}"',
+            )
 
         fields_041 = self.get_fields(tag="041")
         self.langs_from_041_a = init_lang_from(fields_041, code="a")
