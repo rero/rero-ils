@@ -23,6 +23,7 @@ import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import postdata
+from werkzeug.exceptions import NotFound
 
 from rero_ils.modules.organisations.api import Organisation
 
@@ -31,7 +32,7 @@ def test_get_record_by_viewcode(org_martigny):
     """Test Organisation.get_record_by_viewcode."""
     data = Organisation.get_record_by_viewcode("org1")
     assert data["pid"] == org_martigny.pid
-    with pytest.raises(Exception):
+    with pytest.raises(NotFound):
         assert Organisation.get_record_by_viewcode("dummy")
 
 
