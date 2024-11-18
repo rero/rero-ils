@@ -20,7 +20,7 @@
 
 from functools import partial
 
-from elasticsearch.exceptions import NotFoundError
+from flask import abort
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
@@ -65,7 +65,7 @@ class OrganisationsSearch(IlsRecordsSearch):
             query = query.source(includes=fields)
         response = query.execute()
         if response.hits.total.value != 1:
-            raise NotFoundError(f"Organisation viewcode {viewcode}: Result not found.")
+            abort(404, f"OrganisationsSearch viewcode {viewcode}: Result not found.")
         return response.hits.hits[0]._source
 
 
@@ -95,7 +95,7 @@ class Organisation(IlsRecord):
         """Get record by view code."""
         result = OrganisationsSearch().filter("term", code=viewcode).execute()
         if result["hits"]["total"]["value"] != 1:
-            raise Exception("Organisation (get_record_by_viewcode): Result not found.")
+            abort(404, f"Organisation viewcode {viewcode}: Result not found.")
 
         return result["hits"]["hits"][0]["_source"]
 
