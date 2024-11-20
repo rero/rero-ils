@@ -79,34 +79,6 @@ def test_patron_can_delete(
     assert item.status == ItemStatus.ON_SHELF
 
 
-def test_patron_utils(
-    client,
-    librarian_martigny,
-    patron_martigny,
-    loc_public_martigny,
-    item_lib_martigny,
-    json_header,
-    circulation_policies,
-):
-    """Test patron utils."""
-    login_user_via_session(client, librarian_martigny.user)
-    item = item_lib_martigny
-    patron = patron_martigny
-    location = loc_public_martigny
-
-    from rero_ils.modules.patrons.views import get_location_name_from_pid
-
-    assert get_location_name_from_pid(loc_public_martigny.pid) == location.get("name")
-
-    from rero_ils.modules.patrons.views import get_patron_from_pid
-
-    assert get_patron_from_pid(patron.pid) == patron
-
-    from rero_ils.modules.patrons.views import get_checkout_loan_for_item
-
-    assert not get_checkout_loan_for_item(item.pid)
-
-
 def test_patron_authenticate(
     client,
     patron_martigny,

@@ -1002,12 +1002,14 @@ RECORDS_REST_ENDPOINTS = dict(
         record_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_response"
         },
-        record_serializers_aliases={
-            "json": "application/json",
-        },
+        record_serializers_aliases={"json": "application/json"},
         search_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_search",
             "application/rero+json": "rero_ils.modules.holdings.serializers:json_holdings_search",
+        },
+        search_serializers_aliases={
+            "json": "application/json",
+            "rero+json": "application/json",
         },
         list_route="/holdings/",
         record_loaders={

@@ -76,6 +76,7 @@
     },
     "gender": {
       "title": "Gender",
+      "type": "string",
       "enum": [
         "male",
         "female",
@@ -85,14 +86,15 @@
       "widget": {
         "formlyConfig": {
           "props": {
+            "placeholder": "Select an option\u2026",
             "options": [
-              {
-                "label": "male",
-                "value": "male"
-              },
               {
                 "label": "female",
                 "value": "female"
+              },
+              {
+                "label": "male",
+                "value": "male"
               },
               {
                 "label": "other",
@@ -161,7 +163,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-12"
+                "itemCssClass": "col-12"
               }
             }
           }
