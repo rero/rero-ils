@@ -21,64 +21,15 @@ import mock
 
 from rero_ils.modules.documents.views import (
     babeltheque_enabled_view,
-    cartographic_attributes,
     contribution_format,
     doc_entity_label,
     get_first_isbn,
-    identified_by,
     main_title_text,
-    note_general,
-    notes_except_general,
     part_of_format,
     provision_activity,
-    provision_activity_not_publication,
-    provision_activity_original_date,
     provision_activity_publication,
-    title_variants,
-    work_access_point,
 )
 from rero_ils.modules.entities.models import EntityType
-
-
-def test_note_general():
-    """Test note general."""
-    notes = [
-        {"noteType": "general", "label": "Note general"},
-        {"noteType": "dummy", "label": "dummy"},
-    ]
-    result = {"general": ["Note general"]}
-    assert result == note_general(notes)
-
-
-def test_notes_except_general():
-    """Test note except general."""
-    notes = [
-        {"noteType": "general", "label": "Note general"},
-        {"noteType": "accompanyingMaterial", "label": "Accompany"},
-        {"noteType": "accompanyingMaterial", "label": "Material"},
-        {"noteType": "otherPhysicalDetails", "label": "Physical"},
-    ]
-    result = {
-        "accompanyingMaterial": ["Accompany", "Material"],
-        "otherPhysicalDetails": ["Physical"],
-    }
-    assert result == notes_except_general(notes)
-
-
-def test_cartographic_attributes():
-    """Test cartographic attributes."""
-    attributes = [
-        {"projection": "Projection", "coordinates": {"label": "coordinate label"}},
-        {"projection": "Projection 2"},
-        {"coordinates": {"label": "coordinate label 2"}},
-        {"dummy": "dummy"},
-    ]
-    result = [
-        {"projection": "Projection", "coordinates": {"label": "coordinate label"}},
-        {"projection": "Projection 2"},
-        {"coordinates": {"label": "coordinate label 2"}},
-    ]
-    assert result == cartographic_attributes(attributes)
 
 
 def test_provision_activity():
@@ -160,153 +111,6 @@ def test_provision_activity_publication():
     assert result == provision_activity_publication(provisions)
 
 
-def test_provision_activity_not_publication():
-    """Test extract all provision activity except publication."""
-    provisions = {
-        "bf:Publication": [
-            {"language": "default", "value": "Paris : Ed. de Minuit, 1988"}
-        ],
-        "bf:Distribution": [
-            {"language": "default", "value": "Martigny : Alex Morgan, 2010"},
-            {"language": "default", "value": "Will Edwards, 2010 ; Paris ; Martigny"},
-        ],
-    }
-    result = {
-        "bf:Distribution": [
-            {"language": "default", "value": "Martigny : Alex Morgan, 2010"},
-            {"language": "default", "value": "Will Edwards, 2010 ; Paris ; Martigny"},
-        ]
-    }
-    assert result == provision_activity_not_publication(provisions)
-
-
-def test_provision_activity_original_date():
-    """Test provision activity."""
-    activity = [{"original_date": "2021"}, {"date": "2021-07-23"}]
-    result = ["2021"]
-    assert result == provision_activity_original_date(activity)
-
-
-def test_title_variants():
-    """Test title variants."""
-    titles = [
-        {"type": "bf:Title", "mainTitle": [{"value": "Title"}]},
-        {
-            "type": "bf:VariantTitle",
-            "mainTitle": [{"value": "Variant title 1"}],
-            "part": [
-                {
-                    "partName": [{"value": "part1"}],
-                    "partNumber": [{"value": "number1"}],
-                },
-                {
-                    "partNumber": [{"value": "number2"}],
-                    "partName": [{"value": "part2"}],
-                },
-            ],
-        },
-        {
-            "type": "bf:VariantTitle",
-            "mainTitle": [{"value": "Variant title 2"}],
-            "subtitle": [{"value": "Variant 2 sub"}],
-        },
-        {
-            "type": "bf:ParallelTitle",
-            "mainTitle": [{"value": "Parallel title"}],
-            "subtitle": [{"value": "sub parallel"}],
-        },
-    ]
-    result = {
-        "bf:VariantTitle": [
-            "Variant title 1. number1, part1. number2, part2",
-            "Variant title 2 : Variant 2 sub",
-        ],
-        "bf:ParallelTitle": ["Parallel title : sub parallel"],
-    }
-
-    assert result == title_variants(titles)
-
-
-def test_work_access_point():
-    """Test work access point process."""
-    wap = [
-        {
-            "part": [
-                {
-                    "partName": "part section title",
-                    "partNumber": "part section designation",
-                }
-            ],
-            "creator": {
-                "type": "bf:Person",
-                "qualifier": "physicien",
-                "numeration": "XX",
-                "date_of_birth": "1955",
-                "date_of_death": "2012",
-                "preferred_name": "Müller, Hans",
-                "fuller_form_of_name": "Müller, Hans Peter",
-            },
-            "title": "Müller, Hans (Title)",
-            "language": "fre",
-            "date_of_work": "2000",
-            "key_for_music": "key music",
-            "form_subdivision": ["Form sub."],
-            "miscellaneous_information": "Miscellaneous info",
-            "arranged_statement_for_music": "arranged stat",
-            "medium_of_performance_for_music": ["medium perf"],
-        },
-        {
-            "part": [{"partName": "Title", "partNumber": "part designation"}],
-            "creator": {
-                "type": "bf:Organisation",
-                "place": "Lausanne",
-                "numbering": "4",
-                "conference": False,
-                "preferred_name": "Corp body Name",
-                "conference_date": "1990",
-                "subordinate_unit": ["Office 1", "Office 2"],
-            },
-            "title": "Corp Title",
-            "language": "fre",
-            "date_of_work": "1980",
-            "key_for_music": "Corp Key music",
-            "form_subdivision": ["Form sub 1", "Form sub 2"],
-            "miscellaneous_information": "miscellaneous info",
-            "arranged_statement_for_music": "Copr Arranged stat",
-            "medium_of_performance_for_music": [
-                "Corp Medium perf  1",
-                "Corp Medium perf  2",
-            ],
-        },
-        {
-            "creator": {
-                "type": "bf:Person",
-                "qualifier": "pianiste",
-                "date_of_birth": "1980",
-                "preferred_name": "Hans, Peter",
-            },
-            "title": "Work title",
-        },
-        {
-            "part": [{"partNumber": "part number"}],
-            "creator": {"type": "bf:Person", "qualifier": "pianiste"},
-            "title": "title with part",
-        },
-    ]
-    results = [
-        "Müller, Hans, XX, physicien, 1955-2012. Müller, Hans (Title). "
-        "part section designation. part section title. Miscellaneous info. "
-        "lang_fre. medium perf. key music. arranged stat. 2000.",
-        "Corp body Name. Office 1. Office 2. (4 : 1990 : Lausanne) "
-        "Corp Title. part designation. Title. miscellaneous info. "
-        "lang_fre. Corp Medium perf  1. Corp Medium perf  2. "
-        "Corp Key music. Copr Arranged stat. 1980.",
-        "Hans, Peter, 1980. pianiste. Work title.",
-        "pianiste. title with part. part number.",
-    ]
-    assert results == work_access_point(wap)
-
-
 def test_contribution_format(db, entity_organisation):
     """Test contribution format."""
     entity = entity_organisation
@@ -344,46 +148,6 @@ def test_contribution_format(db, entity_organisation):
         f"{entity.pid}"
     )
     assert link_part in contribution_format(contributions, "en", "global")
-
-
-def test_identifiedby_format():
-    """Test identifiedBy format."""
-    identifiedby = [
-        {"type": "bf:Local", "source": "RERO", "value": "R008745599"},
-        {
-            "note": "Lorem ipsun dolor",
-            "qualifier": "Qualifier",
-            "status": "cancelled",
-            "type": "bf:Isbn",
-            "value": "9782844267788",
-        },
-        {
-            "note": "Lorem ipsun dolor",
-            "type": "bf:Local",
-            "source": "BNF",
-            "value": "FRBNF452959040000002",
-        },
-        {"type": "uri", "value": "http://catalogue.bnf.fr/ark:/12148/cb45295904f"},
-    ]
-    results = [
-        {"details": "", "type": "RERO", "value": "R008745599"},
-        {
-            "details": "Qualifier, cancelled, Lorem ipsun dolor",
-            "type": "bf:Isbn",
-            "value": "9782844267788",
-        },
-        {
-            "details": "Lorem ipsun dolor",
-            "type": "BNF",
-            "value": "FRBNF452959040000002",
-        },
-        {
-            "details": "",
-            "type": "uri",
-            "value": "http://catalogue.bnf.fr/ark:/12148/cb45295904f",
-        },
-    ]
-    assert results == identified_by(identifiedby)
 
 
 def test_part_of_format(document_with_issn, document2_with_issn, document_sion_items):

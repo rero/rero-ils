@@ -460,7 +460,7 @@ def test_patron_messages(client, patron_martigny):
     assert res.status_code == 200
     data = get_json(res)
     assert len(data) == 1
-    assert data[0]["type"] == "warning"
+    assert data[0]["type"] == "warn"
     assert (
         data[0]["content"] == "This person will be in vacations.\n"
         "Will be back in february."
