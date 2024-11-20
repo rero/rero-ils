@@ -283,7 +283,7 @@ class Collector:
         except Exception as err:
             current_app.logger.error(
                 "ERROR in csv serializer: "
-                f'{message} on document: {csv_data.get("document_pid")}'
+                f'{err} on document: {csv_data.get("document_pid")}'
             )
 
     @classmethod
