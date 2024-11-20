@@ -24,7 +24,6 @@ import re
 
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
-from flask_babel import format_currency
 from flask_babel import lazy_gettext as _
 from flask_login import current_user, login_required
 from flask_menu import register_menu
@@ -34,14 +33,11 @@ from invenio_oauth2server.decorators import require_api_auth
 
 from rero_ils.modules.decorators import (
     check_logged_as_librarian,
-    check_logged_as_patron,
     check_logged_user_authentication,
 )
 from rero_ils.modules.ill_requests.api import ILLRequestsSearch
-from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.loans.api import get_loans_stats_by_patron_pid, get_overdue_loans
 from rero_ils.modules.loans.utils import sum_for_fees
-from rero_ils.modules.locations.api import Location
 from rero_ils.modules.organisations.dumpers import OrganisationLoggedUserDumper
 from rero_ils.modules.patron_transactions.utils import (
     get_transactions_total_amount_for_patron,
@@ -166,8 +162,9 @@ def logged_user():
     return jsonify(data)
 
 
-@blueprint.route("/<string:viewcode>/patrons/profile", methods=["GET", "POST"])
-@check_logged_as_patron
+@blueprint.route("/<string:viewcode>/patrons/profile/", defaults={"path": ""})
+@blueprint.route("/<string:viewcode>/patrons/profile/<path:path>")
+@login_required
 @register_menu(
     blueprint,
     "settings.patron_profile",
@@ -176,16 +173,15 @@ def logged_user():
     id="my-profile-menu",
     order=-1,
 )
-def profile(viewcode):
+def profile(viewcode, path):
     """Patron Profile Page."""
+    if (path not in ["user/edit", "password/edit"]) and not current_patrons:
+        abort(401)
+    if (path in ["user/edit", "password/edit"]) and current_app.config.get(
+        "RERO_PUBLIC_USERPROFILES_READONLY"
+    ):
+        abort(401)
     return render_template("rero_ils/patron_profile.html", viewcode=viewcode)
-
-
-@blueprint.app_template_filter("format_currency")
-def format_currency_filter(value, currency):
-    """Format currency with current locale."""
-    if value:
-        return format_currency(value, currency)
 
 
 @api_blueprint.route("/roles_management_permissions", methods=["GET"])
@@ -193,35 +189,6 @@ def format_currency_filter(value, currency):
 def get_roles_management_permissions():
     """Get the roles that current logged user could manage."""
     return jsonify({"allowed_roles": get_allowed_roles_management()})
-
-
-@blueprint.app_template_filter("get_patron_from_checkout_item_pid")
-def get_patron_from_checkout_item_pid(item_pid):
-    """Get patron from a checked out item pid."""
-    from invenio_circulation.api import get_loan_for_item
-
-    patron_pid = get_loan_for_item(item_pid_to_object(item_pid))["patron_pid"]
-    return Patron.get_record_by_pid(patron_pid)
-
-
-@blueprint.app_template_filter("get_checkout_loan_for_item")
-def get_checkout_loan_for_item(item_pid):
-    """Get patron from a checkout item pid."""
-    from invenio_circulation.api import get_loan_for_item
-
-    return get_loan_for_item(item_pid_to_object(item_pid))
-
-
-@blueprint.app_template_filter("get_patron_from_pid")
-def get_patron_from_pid(patron_pid):
-    """Get patron from pid."""
-    return Patron.get_record_by_pid(patron_pid)
-
-
-@blueprint.app_template_filter("get_location_name_from_pid")
-def get_location_name_from_pid(location_pid):
-    """Get location from pid."""
-    return Location.get_record_by_pid(location_pid)["name"]
 
 
 @api_blueprint.route("/<string:patron_pid>/messages", methods=["GET"])
@@ -237,10 +204,10 @@ def get_messages(patron_pid):
     for note in patron.get("notes", []):
         if note.get("type") == "public_note":
             messages.append({"type": "warning", "content": note.get("content")})
-    bootstrap_alert_mapping = {"error": "danger"}
+    prime_alert_mapping = {"warning": "warn"}
     for message in messages:
         msg_type = message["type"]
-        message["type"] = bootstrap_alert_mapping.get(msg_type, msg_type)
+        message["type"] = prime_alert_mapping.get(msg_type, msg_type)
     return jsonify(messages)
 
 

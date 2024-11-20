@@ -17,78 +17,88 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
+:root {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+}
 
-@import "variables";
-
-// Setting the path to fonts files.
 $fa-font-path: "~font-awesome/fonts";
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
-@import '~bootstrap/scss/bootstrap';
 @import "~font-awesome/scss/font-awesome";
 
-// general styles
-@import "page";
-@import "header";
-@import "footer";
-@import "search";
-@import "frontpage";
-@import "thumbnail";
+@layer bootstrap, babel, primeng, rero-ils-ui;
 
-// modules
-@import "contributions/detailed";
-@import "patrons/profile";
-@import "documents/detailed";
+@layer bootstrap {
+  @import "variables";
 
-// bootstrap extension
+  // Setting the path to fonts files.
+  @import "~bootstrap/scss/bootstrap";
 
-.mw-25 {
-  max-width: 25%;
-}
+  // general styles
+  @import "page";
+  @import "header";
+  @import "footer";
+  @import "search";
+  @import "frontpage";
+  @import "thumbnail";
 
-.mw-50 {
-  max-width: 50%;
-}
+  // modules
+  @import "contributions/detailed";
+  @import "patrons/profile";
+  @import "documents/detailed";
 
-.mw-75 {
-  max-width: 75%;
-}
+  // bootstrap extension
 
-// cover
-.rero-ils-cover-logo {
-  width: 10em;
-}
+  .mw-25 {
+    max-width: 25%;
+  }
 
-// CSS code to allow `ng-csp="no-inline-css"`
-[ng\:cloak],
-[ng-cloak],
-[data-ng-cloak],
-[x-ng-cloak],
-.ng-cloak,
-.x-ng-cloak,
-.ng-hide:not(.ng-hide-animate) {
-  display: none !important;
-}
+  .mw-50 {
+    max-width: 50%;
+  }
 
-ng\:form {
-  display: block;
-}
+  .mw-75 {
+    max-width: 75%;
+  }
 
-.ng-animate-shim {
-  visibility:hidden;
-}
+  // cover
+  .rero-ils-cover-logo {
+    width: 10em;
+  }
 
-.ng-anchor {
-  position:absolute;
-}
+  // CSS code to allow `ng-csp="no-inline-css"`
+  [ng\:cloak],
+  [ng-cloak],
+  [data-ng-cloak],
+  [x-ng-cloak],
+  .ng-cloak,
+  .x-ng-cloak,
+  .ng-hide:not(.ng-hide-animate) {
+    display: none !important;
+  }
 
+  ng\:form {
+    display: block;
+  }
 
-// TODO: to correct a display bug with webkit browsers
+  .ng-animate-shim {
+    visibility: hidden;
+  }
 
-html [type=button] {
-  -webkit-appearance: none;
-}
+  .ng-anchor {
+    position: absolute;
+  }
 
-/*
+  // TODO: to correct a display bug with webkit browsers
+
+  html [type="button"] {
+    -webkit-appearance: none;
+  }
+
+  /*
  *********************************
 
          GLOBAL
@@ -96,40 +106,40 @@ html [type=button] {
  ********************************
 */
 
-.rero-ils-external-link:after {
-  font-family: 'FontAwesome';
-  font-size: $font-size-very-small;
-  vertical-align: top;
-  content: " \f08e";
-}
+  .rero-ils-external-link:after {
+    font-family: "FontAwesome";
+    font-size: $font-size-very-small;
+    vertical-align: top;
+    content: " \f08e";
+  }
 
-.required::after {
-  content: " *";
-  color: $red;
-  font-weight: bold;
-}
+  .required::after {
+    content: " *";
+    color: $red;
+    font-weight: bold;
+  }
 
-.no-data {
-  color: $secondary;
-}
+  .no-data {
+    color: $secondary;
+  }
 
-button:disabled {
-  pointer-events: none;
-}
+  button:disabled {
+    pointer-events: none;
+  }
 
-div.tooltip div.tooltip-inner{
-  text-align: left;
-  max-width: 400px;
-}
+  div.tooltip div.tooltip-inner {
+    text-align: left;
+    max-width: 400px;
+  }
 
-.rero-ils-external-link:after {
-  font-family: 'FontAwesome';
-  font-size: $font-size-very-small;
-  vertical-align: top;
-  content: " \f08e";
-}
+  .rero-ils-external-link:after {
+    font-family: "FontAwesome";
+    font-size: $font-size-very-small;
+    vertical-align: top;
+    content: " \f08e";
+  }
 
-/*
+  /*
  *********************************
 
          TOAST
@@ -137,59 +147,60 @@ div.tooltip div.tooltip-inner{
  ********************************
 */
 
-.toast {
-  min-width: 350px;
-}
+  .toast {
+    min-width: 350px;
+  }
 
-.toast-container {
-  position: fixed;
-  z-index: 9999999;
-  top: 0;
-  right: 0;
-}
+  .toast-container {
+    position: fixed;
+    z-index: 9999999;
+    top: 0;
+    right: 0;
+  }
 
-.toast-top-right {
-  top: 12px;
-  right: 24px;
-}
+  .toast-top-right {
+    top: 12px;
+    right: 24px;
+  }
 
-.toast-success .toast-body {
-  background-color: $green;
-  color: white;
-}
+  .toast-success .toast-body {
+    background-color: $green;
+    color: white;
+  }
 
-.toast-warning .toast-body {
-  background-color: $orange;
-  color: white;
-}
+  .toast-warning .toast-body {
+    background-color: $orange;
+    color: white;
+  }
 
-.toast-error .toast-body,
-.toast-danger .toast-body {
-  background-color: $red;
-  color: white;
-}
+  .toast-error .toast-body,
+  .toast-danger .toast-body {
+    background-color: $red;
+    color: white;
+  }
 
-
-/*
+  /*
  *********************************
 
          BUTTON
 
  ********************************
 */
-.btn-mini {
-  padding: .25rem .35rem .25rem .45rem;
-  font-size: .875rem;
-  line-height: 1.3;
-  border-radius: .2rem;
-}
+  .btn-mini {
+    padding: 0.25rem 0.35rem 0.25rem 0.45rem;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    border-radius: 0.2rem;
+  }
 
-.btn:focus, .btn:active:focus, .btn.active:focus {
-  outline:none;
-  box-shadow:none;
-}
+  .btn:focus,
+  .btn:active:focus,
+  .btn.active:focus {
+    outline: none;
+    box-shadow: none;
+  }
 
-
-#password-show-hide-icon:hover {
-  cursor: pointer;
+  #password-show-hide-icon:hover {
+    cursor: pointer;
+  }
 }

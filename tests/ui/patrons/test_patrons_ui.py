@@ -22,8 +22,6 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from utils import get_json
 
-from rero_ils.modules.patrons.views import format_currency_filter
-
 
 def test_patrons_logged_user(client, librarian_martigny):
     """Test logged user info API."""
@@ -64,10 +62,3 @@ def test_patrons_logged_user(client, librarian_martigny):
         assert data.get("settings").get("language") == "fr"
         assert data.get("settings").get("globalView") == "global"
         assert data.get("settings").get("maxFilesCount") == 600
-
-
-def test_patron_format_currency_filter(app):
-    """Test format currency filter."""
-    assert format_currency_filter(3, "EUR") == "€3.00"
-    assert format_currency_filter(4.5, "CHF") == "CHF4.50"
-    assert format_currency_filter(None, "EUR") is None
