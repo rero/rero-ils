@@ -25,17 +25,19 @@
     {%- block head %}
     {%- block head_base %}
     {% if admin_page %}
-    <base href="/admin">
+    <base href="/admin" />
     {% elif request.path.find('search') >= 0 %}
-    <base href="/">
+    <base href="/" />
+    {% elif request.path.find('profile') >= 0 %}
+    <base href="/{{viewcode}}/patrons/profile" />
     {% else %}
-    <base href="{{ request.path }}">
+    <base href="{{ request.path }}" />
     {% endif %}
     {%- endblock head_base %}
     {%- block head_meta %}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     {%- if description %}
     <meta name="description" content="{{ description }}" />{% endif %}
     {%- if keywords %}
@@ -66,9 +68,10 @@
     {%- block header %}{% endblock header %}
     {%- block css %}
       {{ webpack['global.css'] }}
+      {{ node_assets('@rero/rero-ils-ui/dist/public-search', ['styles.*css'], 'css') }}
       {% if config.get('RERO_ILS_PERSONALIZED_CSS_BY_VIEW') %}
       <link href="{{ config.get('RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT') }}{{ viewcode }}.css" rel="stylesheet"
-      title="{{ viewcode }}">
+      title="{{ viewcode }}" />
       {% endif %}
     {%- endblock css %}
     {%- endblock head %}
