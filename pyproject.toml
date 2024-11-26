@@ -319,11 +319,12 @@ vendors = "rero_ils.modules.vendors.jsonschemas"
 files = "rero_ils.modules.files.jsonschemas"
 
 [tool.poetry.plugins."invenio_oauth2server.scopes"]
+fullname = "rero_ils.oauth.scopes:fullname"
 birthdate = "rero_ils.oauth.scopes:birthdate"
 expiration_date = "rero_ils.oauth.scopes:expiration_date"
-fullname = "rero_ils.oauth.scopes:fullname"
 institution = "rero_ils.oauth.scopes:institution"
 patron_type = "rero_ils.oauth.scopes:patron_type"
+# deprecated scopes
 patron_types = "rero_ils.oauth.scopes:patron_types"
 
 [tool.poetry.plugins."invenio_pidstore.fetchers"]

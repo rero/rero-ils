@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,7 +19,6 @@
 
 from __future__ import absolute_import, print_function
 
-import copy
 import datetime
 import re
 
@@ -321,78 +320,66 @@ def info():
     """Get patron info."""
     token_scopes = flask_request.oauth.access_token.scopes
 
-    def get_main_patron(patrons):
-        """Return the main patron.
-
-        :param patrons: List of patrons.
-        :returns: The main patron.
-        """
-        # TODO: Find a way to determine which is the main patron.
-        return patrons[0]
-
-    def get_institution_code(institution):
-        """Get the institution code for a given institution.
-
-        Special transformation for `nj`.
-
-        :param institution: Institution object.
-        :returns: Code for the institution.
-        """
-        # TODO: make this non rero specific using a configuration
-        return institution["code"] if institution["code"] != "nj" else "rbnj"
-
-    user = User.get_record(current_user.id).dumps_metadata()
-
-    # Process for all patrons
-    patrons = copy.deepcopy(current_patrons)
-    for patron in patrons:
-        patron["institution"] = patron.organisation
-        patron["patron"]["type"] = PatronType.get_record_by_pid(
-            extracted_data_from_ref(patron["patron"]["type"]["$ref"])
-        )
-
-    # Birthdate
-    data = {}
-    birthdate = current_user.user_profile.get("birth_date")
-    if "birthdate" in token_scopes and birthdate:
-        data["birthdate"] = birthdate
+    data = {"user_id": current_user.id}
     # Full name
     name_parts = [
         current_user.user_profile.get("last_name", "").strip(),
         current_user.user_profile.get("first_name", "").strip(),
     ]
     fullname = ", ".join(filter(None, name_parts))
-    if "fullname" in token_scopes and fullname:
+    if fullname and "fullname" in token_scopes:
         data["fullname"] = fullname
+    birthdate = current_user.user_profile.get("birth_date")
+    # Birthdate
+    if birthdate and "birthdate" in token_scopes:
+        data["birthdate"] = birthdate
 
-    # No patrons found for user
-    if not patrons:
-        return jsonify(data)
+    patrons = current_patrons
+    if patrons:
+        patron = patrons[0]
+        # Barcode
+        if patron.get("patron", {}).get("barcode"):
+            data["barcode"] = patron["patron"]["barcode"][0]
+    # Patron
+    patron_types = []
+    patron_infos = {}
+    for patron in patrons:
+        patron_type = PatronType.get_record_by_pid(
+            extracted_data_from_ref(patron["patron"]["type"]["$ref"])
+        )
+        patron_type_code = patron_type.get("code")
+        institution = patron.organisation["code"]
+        expiration_date = patron.get("patron", {}).get("expiration_date")
 
-    # Get the main patron
-    patron = get_main_patron(patrons)
-    # Barcode
-    if patron.get("patron", {}).get("barcode"):
-        data["barcode"] = patron["patron"]["barcode"][0]
-    # Patron types
-    if "patron_types" in token_scopes:
-        patron_types = []
-        for patron in patrons:
-            info = {}
-            patron_type_code = patron.get("patron", {}).get("type", {}).get("code")
-            if patron_type_code:
+        # old list (patron_types)
+        if "patron_types" in token_scopes:
+            info = {"patron_pid": patron.pid}
+            if patron_type_code and "patron_type" in token_scopes:
                 info["patron_type"] = patron_type_code
-            if patron.get("institution"):
-                info["institution"] = get_institution_code(patron["institution"])
-            if patron.get("patron", {}).get("expiration_date"):
+            if institution and "institution" in token_scopes:
+                info["institution"] = institution
+            if expiration_date and "expiration_date" in token_scopes:
                 info["expiration_date"] = datetime.datetime.strptime(
-                    patron["patron"]["expiration_date"], "%Y-%m-%d"
+                    expiration_date, "%Y-%m-%d"
                 ).isoformat()
-            if info:
-                patron_types.append(info)
-        if patron_types:
-            data["patron_types"] = patron_types
+            patron_types.append(info)
 
+        # new dict (patron_info)
+        patron_info = {"patron_pid": patron.pid}
+        if institution and "institution" in token_scopes:
+            patron_info["institution"] = institution
+        if patron_type_code and "patron_type" in token_scopes:
+            patron_info["patron_type"] = patron_type_code
+        if expiration_date and "expiration_date" in token_scopes:
+            patron_info["expiration_date"] = datetime.datetime.strptime(
+                expiration_date, "%Y-%m-%d"
+            ).isoformat()
+        patron_infos[institution] = patron_info
+
+    if patron_types:
+        data["patron_types"] = patron_types
+    if patron_infos:
+        data["patron_info"] = patron_infos
     return jsonify(data)
 
 

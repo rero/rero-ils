@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -21,7 +21,9 @@ from invenio_oauth2server.models import Scope
 
 fullname = Scope("fullname", help_text="Full name", group="User")
 birthdate = Scope("birthdate", help_text="Birthdate", group="User")
-institution = Scope("institution", help_text="Institution", group="User")
 expiration_date = Scope("expiration_date", help_text="Expiration date", group="User")
+institution = Scope("institution", help_text="Institution", group="User")
 patron_type = Scope("patron_type", help_text="Patron type", group="User")
-patron_types = Scope("patron_types", help_text="Patron types", group="User")
+patron_types = Scope(
+    "patron_types", help_text="Patron types (deprecated)", group="User"
+)

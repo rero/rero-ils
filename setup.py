@@ -370,10 +370,12 @@ setup(
         'invenio_oauth2server.scopes': [
             'fullname = rero_ils.oauth.scopes:fullname',
             'birthdate = rero_ils.oauth.scopes:birthdate',
-            'institution = rero_ils.oauth.scopes:institution',
+            'patron_info = rero_ils.oauth.scopes:patron_info',
             'expiration_date = rero_ils.oauth.scopes:expiration_date',
+            'institution = rero_ils.oauth.scopes:institution',
             'patron_type = rero_ils.oauth.scopes:patron_type',
-            'patron_types = rero_ils.oauth.scopes:patron_types'
+            # deprecated scopes
+            'patron_types = rero_ils.oauth.scopes:patron_types',
         ]
     },
     classifiers=[
