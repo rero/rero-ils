@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -545,13 +545,19 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
         url_for("api_patrons.info", access_token=no_scope_token.access_token)
     )
     assert res.status_code == 200
-    assert res.json == {"barcode": patron_martigny["patron"]["barcode"].pop()}
+    barcode = patron_martigny["patron"]["barcode"].pop()
+    assert res.json == {
+        "barcode": barcode,
+        "user_id": patron_martigny.user.id,
+        "patron_info": {"org1": {"patron_pid": patron_martigny.pid}},
+    }
 
     # full information with all scopes
     res = client.get(url_for("api_patrons.info", access_token=token.access_token))
     assert res.status_code == 200
     assert res.json == {
-        "barcode": "4098124352",
+        "barcode": barcode,
+        "user_id": patron_martigny.user.id,
         "birthdate": "1947-06-07",
         "fullname": "Roduit, Louis",
         "patron_types": [
@@ -559,9 +565,19 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
                 "expiration_date": patron_martigny["patron"]["expiration_date"]
                 + "T00:00:00",
                 "institution": "org1",
+                "patron_pid": patron_martigny.pid,
                 "patron_type": "patron-code",
             }
         ],
+        "patron_info": {
+            "org1": {
+                "expiration_date": patron_martigny["patron"]["expiration_date"]
+                + "T00:00:00",
+                "institution": "org1",
+                "patron_pid": patron_martigny.pid,
+                "patron_type": "patron-code",
+            }
+        },
     }
 
     # librarian information with all scopes
@@ -569,7 +585,11 @@ def test_patron_info(app, client, patron_martigny, librarian_martigny):
         url_for("api_patrons.info", access_token=librarian_token.access_token)
     )
     assert res.status_code == 200
-    assert res.json == {"birthdate": "1965-02-07", "fullname": "Pedronni, Marie"}
+    assert res.json == {
+        "birthdate": "1965-02-07",
+        "fullname": "Pedronni, Marie",
+        "user_id": librarian_martigny.user.id,
+    }
 
 
 def test_patrons_search(client, librarian_martigny):
