@@ -63,11 +63,13 @@ def test_location_disallow_request(
 
     # Create "virtual" Loan (not registered)
     loan = Loan(
-        {
-            "item_pid": item_pid_to_object(item_lib_martigny.pid),
-            "library_pid": lib_martigny.pid,
-            "patron_pid": patron_martigny.pid,
-        }
+        Loan._loan_build_org_ref(
+            {
+                "item_pid": item_pid_to_object(item_lib_martigny.pid),
+                "library_pid": lib_martigny.pid,
+                "patron_pid": patron_martigny.pid,
+            }
+        )
     )
     assert not can_be_requested(loan)
 

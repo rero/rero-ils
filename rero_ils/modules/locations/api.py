@@ -213,10 +213,7 @@ class Location(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid for location."""
-        from ..libraries.api import Library
-
-        library = Library.get_record_by_pid(self.library_pid)
-        return library.organisation_pid
+        return self.library.organisation_pid
 
     @property
     def restrict_pickup_to(self):

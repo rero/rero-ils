@@ -284,11 +284,6 @@ class AcqReceipt(AcquisitionIlsRecord):
         """Shortcut for acquisition receipt library pid."""
         return extracted_data_from_ref(self.get("library"))
 
-    @property
-    def organisation_pid(self):
-        """Shortcut for acquisition receipt organisation pid."""
-        return extracted_data_from_ref(self.get("organisation"))
-
     def get_receipt_lines(self, output=None):
         """Get all receipt lines related to this receipt.
 
