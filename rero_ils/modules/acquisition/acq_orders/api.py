@@ -120,8 +120,7 @@ class AcqOrder(AcquisitionIlsRecord):
     @property
     def organisation_pid(self):
         """Shortcut for acquisition order organisation pid."""
-        library = extracted_data_from_ref(self.get("library"), data="record")
-        return library.organisation_pid
+        return self.library.organisation_pid
 
     @property
     def library_pid(self):

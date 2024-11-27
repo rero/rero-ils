@@ -123,11 +123,6 @@ class AcquisitionInvoice(AcquisitionIlsRecord):
         data["organisation"] = {"$ref": f"{get_base_url()}/api/organisations/{org_pid}"}
 
     @property
-    def organisation_pid(self):
-        """Shortcut for acquisition invoice organisation pid."""
-        return extracted_data_from_ref(self.get("organisation"))
-
-    @property
     def library_pid(self):
         """Shortcut for acquisition order library pid."""
         return extracted_data_from_ref(self.get("library"))

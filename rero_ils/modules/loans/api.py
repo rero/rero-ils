@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2024 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -639,15 +639,6 @@ class Loan(IlsRecord):
         """Shortcut to check of loan is active."""
         states = current_app.config["CIRCULATION_STATES_LOAN_ACTIVE"]
         return self.get("state") in states
-
-    @property
-    def organisation_pid(self):
-        """Get organisation pid for loan."""
-        if item := self.item:
-            return item.organisation_pid
-        raise IlsRecordError.PidDoesNotExist(
-            self.provider.pid_type, "organisation_pid:item_pid"
-        )
 
     @property
     def library_pid(self):

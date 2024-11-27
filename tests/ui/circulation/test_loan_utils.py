@@ -23,7 +23,6 @@ import pytest
 from invenio_circulation.errors import CirculationException
 from utils import item_record_to_a_specific_loan_state
 
-from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.loans.api import (
     Loan,
@@ -89,10 +88,9 @@ def test_loan_utils(
 
     # test the organisation of the loan is based on the item
     new_loan = deepcopy(loan_pending_martigny)
-    assert new_loan.organisation_pid
+    assert new_loan.organisation_pid == "org1"
     del new_loan["item_pid"]
-    with pytest.raises(IlsRecordError.PidDoesNotExist):
-        new_loan.organisation_pid
+    assert new_loan.organisation_pid == "org1"
     assert not can_be_requested(loan_pending_martigny)
 
     # test the allow request at the location level

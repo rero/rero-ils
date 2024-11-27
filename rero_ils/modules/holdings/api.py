@@ -264,7 +264,7 @@ class Holding(IlsRecord):
     @property
     def organisation_pid(self):
         """Get organisation pid for holding."""
-        return Location.get_record_by_pid(self.location_pid).organisation_pid
+        return self.location.organisation_pid
 
     @property
     def vendor_pid(self):
