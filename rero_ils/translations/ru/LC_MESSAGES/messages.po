@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 1.7.0\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2024-10-31 12:03+0100\n"
+"POT-Creation-Date: 2024-12-04 10:41+0100\n"
 "PO-Revision-Date: 2022-01-21 16:53+0000\n"
 "Last-Translator: lushnikov3d37b9a0863842c1 <pavel.lushnikov@gmail.com>\n"
 "Language: ru\n"
@@ -60,291 +60,291 @@ msgid ""
 "underscores."
 msgstr ""
 
-#: rero_ils/config.py:2032
+#: rero_ils/config.py:2040
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 msgid "Global catalog"
 msgstr "Общий каталог"
 
-#: rero_ils/config.py:2205
+#: rero_ils/config.py:2213
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:85
 msgid "online"
 msgstr ""
 
-#: rero_ils/config.py:2212
+#: rero_ils/config.py:2220
 msgid "not_online"
 msgstr ""
 
-#: rero_ils/config.py:2215
+#: rero_ils/config.py:2223
 msgid "author"
 msgstr "автор"
 
-#: rero_ils/config.py:2216 rero_ils/config.py:2668
+#: rero_ils/config.py:2224 rero_ils/config.py:2676
 msgid "subject"
 msgstr "тема"
 
-#: rero_ils/config.py:2218
+#: rero_ils/config.py:2226
 msgid "acquisition"
 msgstr ""
 
-#: rero_ils/config.py:2221
+#: rero_ils/config.py:2229
 msgid "new_acquisition"
 msgstr ""
 
-#: rero_ils/config.py:2222
+#: rero_ils/config.py:2230
 msgid "identifiers"
 msgstr ""
 
-#: rero_ils/config.py:2225 rero_ils/config.py:2226 rero_ils/config.py:2302
+#: rero_ils/config.py:2233 rero_ils/config.py:2234 rero_ils/config.py:2310
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:376
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:948
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1019
 msgid "document_type"
 msgstr "тип_документа"
 
-#: rero_ils/config.py:2227 rero_ils/config.py:2303
+#: rero_ils/config.py:2235 rero_ils/config.py:2311
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:380
 msgid "document_subtype"
 msgstr "подтип_документа"
 
-#: rero_ils/config.py:2229
+#: rero_ils/config.py:2237
 msgid "language"
 msgstr "язык"
 
-#: rero_ils/config.py:2230 rero_ils/config.py:2231
+#: rero_ils/config.py:2238 rero_ils/config.py:2239
 msgid "organisation"
 msgstr "организация"
 
-#: rero_ils/config.py:2232 rero_ils/config.py:2304 rero_ils/config.py:2472
-#: rero_ils/config.py:2496 rero_ils/config.py:2534 rero_ils/config.py:2667
-#: rero_ils/config.py:2711 rero_ils/config.py:2819
+#: rero_ils/config.py:2240 rero_ils/config.py:2312 rero_ils/config.py:2480
+#: rero_ils/config.py:2504 rero_ils/config.py:2542 rero_ils/config.py:2675
+#: rero_ils/config.py:2719 rero_ils/config.py:2827
 msgid "library"
 msgstr "библиотека"
 
-#: rero_ils/config.py:2233 rero_ils/config.py:2305
+#: rero_ils/config.py:2241 rero_ils/config.py:2313
 msgid "location"
 msgstr "место хранения"
 
-#: rero_ils/config.py:2235 rero_ils/config.py:2309 rero_ils/config.py:2393
-#: rero_ils/config.py:2497 rero_ils/config.py:2553
+#: rero_ils/config.py:2243 rero_ils/config.py:2317 rero_ils/config.py:2401
+#: rero_ils/config.py:2505 rero_ils/config.py:2561
 #: rero_ils/modules/migrations/views.py:95
 msgid "status"
 msgstr "статус"
 
-#: rero_ils/config.py:2236
+#: rero_ils/config.py:2244
 msgid "genreForm"
 msgstr ""
 
-#: rero_ils/config.py:2237
+#: rero_ils/config.py:2245
 msgid "intendedAudience"
 msgstr ""
 
-#: rero_ils/config.py:2238
+#: rero_ils/config.py:2246
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:879
 msgid "year"
 msgstr ""
 
-#: rero_ils/config.py:2239
+#: rero_ils/config.py:2247
 msgid "fiction_statement"
 msgstr ""
 
-#: rero_ils/config.py:2306
+#: rero_ils/config.py:2314
 msgid "item_type"
 msgstr ""
 
-#: rero_ils/config.py:2307
+#: rero_ils/config.py:2315
 msgid "temporary_item_type"
 msgstr ""
 
-#: rero_ils/config.py:2308
+#: rero_ils/config.py:2316
 #, fuzzy
 msgid "temporary_location"
 msgstr "место хранения"
 
-#: rero_ils/config.py:2310 rero_ils/config.py:2535
+#: rero_ils/config.py:2318 rero_ils/config.py:2543
 msgid "vendor"
 msgstr ""
 
-#: rero_ils/config.py:2311
+#: rero_ils/config.py:2319
 msgid "or_issue_status"
 msgstr ""
 
-#: rero_ils/config.py:2314
+#: rero_ils/config.py:2322
 msgid "claims_count"
 msgstr ""
 
-#: rero_ils/config.py:2315
+#: rero_ils/config.py:2323
 msgid "claims_date"
 msgstr ""
 
-#: rero_ils/config.py:2321
+#: rero_ils/config.py:2329
 msgid "current_requests"
 msgstr ""
 
-#: rero_ils/config.py:2387
+#: rero_ils/config.py:2395
 #, fuzzy
 msgid "owner_library"
 msgstr "библиотека"
 
-#: rero_ils/config.py:2388
+#: rero_ils/config.py:2396
 #, fuzzy
 msgid "owner_location"
 msgstr "место хранения"
 
-#: rero_ils/config.py:2389
+#: rero_ils/config.py:2397
 #, fuzzy
 msgid "pickup_library"
 msgstr "библиотека"
 
-#: rero_ils/config.py:2390
+#: rero_ils/config.py:2398
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:568
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1027
 #, fuzzy
 msgid "pickup_location"
 msgstr "место хранения"
 
-#: rero_ils/config.py:2391
+#: rero_ils/config.py:2399
 msgid "transaction_library"
 msgstr ""
 
-#: rero_ils/config.py:2392
+#: rero_ils/config.py:2400
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:932
 #, fuzzy
 msgid "transaction_location"
 msgstr "место хранения"
 
-#: rero_ils/config.py:2394
+#: rero_ils/config.py:2402
 #, fuzzy
 msgid "misc_status"
 msgstr "статус"
 
-#: rero_ils/config.py:2395 rero_ils/config.py:2447
+#: rero_ils/config.py:2403 rero_ils/config.py:2455
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:936
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1007
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:1075
 msgid "patron_type"
 msgstr "категории_читателей"
 
-#: rero_ils/config.py:2396
+#: rero_ils/config.py:2404
 #, fuzzy
 msgid "request_expire_date"
 msgstr "заявитель"
 
-#: rero_ils/config.py:2402
+#: rero_ils/config.py:2410
 #, fuzzy
 msgid "end_date"
 msgstr "дата_заказа"
 
-#: rero_ils/config.py:2408
+#: rero_ils/config.py:2416
 #, fuzzy
 msgid "exclude_status"
 msgstr "статус_выдачи"
 
-#: rero_ils/config.py:2445
+#: rero_ils/config.py:2453
 msgid "roles"
 msgstr ""
 
-#: rero_ils/config.py:2446
+#: rero_ils/config.py:2454
 msgid "city"
 msgstr ""
 
-#: rero_ils/config.py:2448
+#: rero_ils/config.py:2456
 msgid "blocked"
 msgstr ""
 
-#: rero_ils/config.py:2449
+#: rero_ils/config.py:2457
 msgid "expired"
 msgstr ""
 
-#: rero_ils/config.py:2473 rero_ils/config.py:2538
+#: rero_ils/config.py:2481 rero_ils/config.py:2546
 msgid "budget"
 msgstr "бюджет"
 
-#: rero_ils/config.py:2536 rero_ils/config.py:2568 rero_ils/config.py:2579
-#: rero_ils/config.py:2591 rero_ils/config.py:2618 rero_ils/config.py:2666
+#: rero_ils/config.py:2544 rero_ils/config.py:2576 rero_ils/config.py:2587
+#: rero_ils/config.py:2599 rero_ils/config.py:2626 rero_ils/config.py:2674
 msgid "type"
 msgstr "тип"
 
-#: rero_ils/config.py:2537
+#: rero_ils/config.py:2545
 msgid "account"
 msgstr "учетная запись"
 
-#: rero_ils/config.py:2539
+#: rero_ils/config.py:2547
 msgid "order_date"
 msgstr "дата_заказа"
 
-#: rero_ils/config.py:2545
+#: rero_ils/config.py:2553
 msgid "receipt_date"
 msgstr "дата_чека"
 
-#: rero_ils/config.py:2567
+#: rero_ils/config.py:2575
 msgid "resource_type"
 msgstr ""
 
-#: rero_ils/config.py:2569
+#: rero_ils/config.py:2577
 msgid "source_catalog"
 msgstr ""
 
-#: rero_ils/config.py:2578 rero_ils/config.py:2590
+#: rero_ils/config.py:2586 rero_ils/config.py:2598
 msgid "sources"
 msgstr "источники"
 
-#: rero_ils/config.py:2619
+#: rero_ils/config.py:2627
 msgid "visibility"
 msgstr "доступность отображения"
 
-#: rero_ils/config.py:2669
+#: rero_ils/config.py:2677
 msgid "teacher"
 msgstr "преподаватель"
 
-#: rero_ils/config.py:2708
+#: rero_ils/config.py:2716
 #: rero_ils/modules/stats_cfg/jsonschemas/stats_cfg/stat_cfg-v0.0.1.json:572
 msgid "request_status"
 msgstr ""
 
-#: rero_ils/config.py:2709
+#: rero_ils/config.py:2717
 msgid "loan_status"
 msgstr "статус_выдачи"
 
-#: rero_ils/config.py:2710
+#: rero_ils/config.py:2718
 msgid "requester"
 msgstr "заявитель"
 
-#: rero_ils/config.py:2816
+#: rero_ils/config.py:2824
 msgid "category"
 msgstr ""
 
-#: rero_ils/config.py:2817
+#: rero_ils/config.py:2825
 msgid "indicator"
 msgstr ""
 
-#: rero_ils/config.py:2818
+#: rero_ils/config.py:2826
 msgid "frequency"
 msgstr ""
 
-#: rero_ils/config.py:2820
+#: rero_ils/config.py:2828
 msgid "active"
 msgstr ""
 
-#: rero_ils/config.py:3559 rero_ils/manual_translations.txt:70
+#: rero_ils/config.py:3572 rero_ils/manual_translations.txt:70
 #: rero_ils/theme/templates/rero_ils/header.html:102
 #, fuzzy
 msgid "This is a TEST VERSION."
 msgstr "Тестовая версия"
 
-#: rero_ils/config.py:3560 rero_ils/manual_translations.txt:71
+#: rero_ils/config.py:3573 rero_ils/manual_translations.txt:71
 #: rero_ils/theme/templates/rero_ils/header.html:104
 msgid "Go to the production site."
 msgstr ""
 
-#: rero_ils/config.py:4241
+#: rero_ils/config.py:4254
 msgid "contains"
 msgstr ""
 
-#: rero_ils/config.py:4243
+#: rero_ils/config.py:4256
 msgid "phrase"
 msgstr ""
 
-#: rero_ils/config.py:4249
+#: rero_ils/config.py:4262
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:50
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:26
@@ -363,37 +363,37 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: rero_ils/config.py:4255
+#: rero_ils/config.py:4268
 msgid "Responsibility statement"
 msgstr ""
 
-#: rero_ils/config.py:4261
+#: rero_ils/config.py:4274
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:61
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:3
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution-v0.0.1.json:8
 msgid "Contribution"
 msgstr ""
 
-#: rero_ils/config.py:4267 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
+#: rero_ils/config.py:4280 rero_ils/jsonschemas/common/countries-v0.0.1.json:3
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:346
 msgid "Country"
 msgstr ""
 
-#: rero_ils/config.py:4273
+#: rero_ils/config.py:4286
 msgid "Canton"
 msgstr ""
 
-#: rero_ils/config.py:4279
+#: rero_ils/config.py:4292
 msgid "Provision activity statement"
 msgstr ""
 
-#: rero_ils/config.py:4285
+#: rero_ils/config.py:4298
 #: rero_ils/modules/documents/jsonschemas/documents/document_series-v0.0.1.json:3
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:326
 msgid "Series statement"
 msgstr ""
 
-#: rero_ils/config.py:4291 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
+#: rero_ils/config.py:4304 rero_ils/jsonschemas/common/identifier-v0.0.1.json:3
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:44
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:7
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:489
@@ -403,15 +403,15 @@ msgstr ""
 msgid "Identifier"
 msgstr ""
 
-#: rero_ils/config.py:4297
+#: rero_ils/config.py:4310
 msgid "ISBN"
 msgstr ""
 
-#: rero_ils/config.py:4303
+#: rero_ils/config.py:4316
 msgid "ISSN"
 msgstr ""
 
-#: rero_ils/config.py:4309
+#: rero_ils/config.py:4322
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:129
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form-v0.0.1.json:8
 #: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_link-v0.0.1.json:14
@@ -419,14 +419,14 @@ msgstr ""
 msgid "Genre, form"
 msgstr ""
 
-#: rero_ils/config.py:4315
+#: rero_ils/config.py:4328
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:123
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects-v0.0.1.json:9
 #: rero_ils/modules/documents/jsonschemas/documents/document_subjects_entity_link-v0.0.1.json:15
 msgid "Subject"
 msgstr ""
 
-#: rero_ils/config.py:4321
+#: rero_ils/config.py:4334
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:75
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:55
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:74
@@ -434,33 +434,33 @@ msgstr ""
 msgid "Call number"
 msgstr ""
 
-#: rero_ils/config.py:4327
+#: rero_ils/config.py:4340
 msgid "Local fields (document)"
 msgstr ""
 
-#: rero_ils/config.py:4333
+#: rero_ils/config.py:4346
 msgid "Local fields (holdings)"
 msgstr ""
 
-#: rero_ils/config.py:4339
+#: rero_ils/config.py:4352
 msgid "Local fields (items)"
 msgstr ""
 
-#: rero_ils/config.py:4345
+#: rero_ils/config.py:4358
 #: rero_ils/modules/documents/jsonschemas/documents/document_classification-v0.0.1.json:7
 #: rero_ils/modules/documents/templates/rero_ils/_documents_description.html:239
 msgid "Classification"
 msgstr ""
 
-#: rero_ils/config.py:4351
+#: rero_ils/config.py:4364
 msgid "RDA content type"
 msgstr ""
 
-#: rero_ils/config.py:4357
+#: rero_ils/config.py:4370
 msgid "RDA media type"
 msgstr ""
 
-#: rero_ils/config.py:4363
+#: rero_ils/config.py:4376
 msgid "RDA carrier type"
 msgstr ""
 
@@ -4504,7 +4504,7 @@ msgstr ""
 msgid "Values"
 msgstr ""
 
-#: rero_ils/modules/utils.py:1240
+#: rero_ils/modules/utils.py:1219
 #, python-format
 msgid "Field must be at least %(num)d character long."
 msgid_plural "Field must be at least %(num)d characters long."
@@ -4512,19 +4512,19 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: rero_ils/modules/utils.py:1248
+#: rero_ils/modules/utils.py:1227
 msgid "The password must contain a lower case character."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1252
+#: rero_ils/modules/utils.py:1231
 msgid "The password must contain a upper case character."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1255
+#: rero_ils/modules/utils.py:1234
 msgid "The password must contain a number."
 msgstr ""
 
-#: rero_ils/modules/utils.py:1258
+#: rero_ils/modules/utils.py:1237
 msgid "The password must contain a special character."
 msgstr ""
 
@@ -5143,7 +5143,7 @@ msgstr ""
 msgid "If checked this order line should be considered as cancelled."
 msgstr ""
 
-#: rero_ils/modules/acquisition/acq_orders/api.py:454
+#: rero_ils/modules/acquisition/acq_orders/api.py:453
 #, python-format
 msgid "Order status is %s"
 msgstr ""
@@ -11165,7 +11165,7 @@ msgstr ""
 msgid "Pickup location name field is required."
 msgstr ""
 
-#: rero_ils/modules/locations/api.py:252
+#: rero_ils/modules/locations/api.py:249
 msgid "Record location disallows request."
 msgstr ""
 
@@ -12556,7 +12556,7 @@ msgstr ""
 msgid "You are not allowed to change template visibility"
 msgstr ""
 
-#: rero_ils/modules/users/api.py:175
+#: rero_ils/modules/users/api.py:189
 msgid "A username or email is required."
 msgstr ""
 
@@ -12888,7 +12888,7 @@ msgid "Log in to account"
 msgstr ""
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:50
-msgid "E-mail or username"
+msgid "Card number, username, or e-mail"
 msgstr ""
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:61
@@ -12979,5 +12979,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Checkouts are allowed or not."
+#~ msgstr ""
+
+#~ msgid "E-mail or username"
 #~ msgstr ""
 
