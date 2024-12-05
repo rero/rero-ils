@@ -18,18 +18,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2024-12-04 11:25+0100\n"
+"POT-Creation-Date: 2024-12-05 14:20+0100\n"
 "PO-Revision-Date: 2024-12-05 07:04+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
-"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/it/>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-"
+"translation-memory@weblate.org>\n"
 "Language: it\n"
+"Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/it/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -12222,12 +12221,12 @@ msgstr ""
 msgid "Patron account expired."
 msgstr "Il conto del lettore è scaduto."
 
-#: rero_ils/modules/patrons/views.py:174
+#: rero_ils/modules/patrons/views.py:173
 #, python-format
 msgid "%(icon)s My loans"
 msgstr "%(icon)s I miei prestiti"
 
-#: rero_ils/modules/patrons/views.py:235
+#: rero_ils/modules/patrons/views.py:234
 msgid "You have a pending subscription fee."
 msgstr "Avete una tassa di abbonamento in sospeso."
 
@@ -13185,8 +13184,8 @@ msgid "Log in to account"
 msgstr "Accedere al proprio conto"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:50
-msgid "Card number, username, or e-mail"
-msgstr "Numero di carta, nome utente o e-mail"
+msgid "Username or e-mail"
+msgstr "Nome utente o e-mail"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:61
 #, python-format
@@ -13282,3 +13281,7 @@ msgstr "Invenio assets"
 
 #~ msgid "E-mail or username"
 #~ msgstr "E-mail o nome utente"
+
+#~ msgid "Card number, username, or e-mail"
+#~ msgstr "Numero di carta, nome utente o e-mail"
+

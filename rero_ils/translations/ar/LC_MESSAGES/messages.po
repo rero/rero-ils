@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2024-12-04 11:25+0100\n"
+"POT-Creation-Date: 2024-12-05 14:20+0100\n"
 "PO-Revision-Date: 2021-10-24 13:38+0000\n"
 "Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
 "Language: ar\n"
@@ -12244,12 +12244,12 @@ msgstr ""
 msgid "Patron account expired."
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:174
+#: rero_ils/modules/patrons/views.py:173
 #, python-format
 msgid "%(icon)s My loans"
 msgstr ""
 
-#: rero_ils/modules/patrons/views.py:235
+#: rero_ils/modules/patrons/views.py:234
 msgid "You have a pending subscription fee."
 msgstr ""
 
@@ -13214,7 +13214,7 @@ msgid "Log in to account"
 msgstr "تسجيل الدخول"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:50
-msgid "Card number, username, or e-mail"
+msgid "Username or e-mail"
 msgstr ""
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:61
@@ -13312,4 +13312,7 @@ msgstr ""
 
 #~ msgid "E-mail or username"
 #~ msgstr "البريد الإلكتروني أو اسم المستخدم"
+
+#~ msgid "Card number, username, or e-mail"
+#~ msgstr ""
 

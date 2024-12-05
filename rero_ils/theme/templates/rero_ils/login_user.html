@@ -47,7 +47,7 @@
       name="login_user_form">
       {{form.hidden_tag()}}
       {{form_errors(form)}}
-      {{ render_field(form.email, icon="fa fa-user", autofocus=True, errormsg=False, placeholder=_("Card number, username, or e-mail")) }}
+      {{ render_field(form.email, icon="fa fa-user", autofocus=True, errormsg=False, placeholder=_("Username or e-mail")) }}
       {{ render_field(form.password, icon="fa fa-lock", errormsg=False) }}
       <button type="submit" class="btn btn-primary btn-lg btn-block mb-2"><i class="fa fa-sign-in"></i>
         {{_('Log In')}}</button>

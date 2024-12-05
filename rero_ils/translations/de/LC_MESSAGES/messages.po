@@ -12,22 +12,22 @@
 # Peter Weber <peter.weber@rero.ch>, 2020
 # Nicolas Prongué <n.prongue@outlook.com>, 2020
 # Johnny Mariéthoz <johnny.mariethoz@rero.ch>, 2020
+# Pascal Repond <pascal.repond@rero.ch>
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
-"POT-Creation-Date: 2024-12-04 11:25+0100\n"
+"POT-Creation-Date: 2024-12-05 14:20+0100\n"
 "PO-Revision-Date: 2024-12-05 07:04+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
-"rero-ils/de/>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-"
+"translation-memory@weblate.org>\n"
 "Language: de\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
+"/rero-ils/de/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9-dev\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -12234,12 +12234,12 @@ msgstr ""
 msgid "Patron account expired."
 msgstr "Das Kunde-Konto ist abgelaufen."
 
-#: rero_ils/modules/patrons/views.py:174
+#: rero_ils/modules/patrons/views.py:173
 #, python-format
 msgid "%(icon)s My loans"
 msgstr "%(icon)s Meine Ausleihe"
 
-#: rero_ils/modules/patrons/views.py:235
+#: rero_ils/modules/patrons/views.py:234
 msgid "You have a pending subscription fee."
 msgstr "Sie haben eine ausstehende Abonnementsgebühr."
 
@@ -13198,8 +13198,8 @@ msgid "Log in to account"
 msgstr "Anmeldung mit"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:50
-msgid "Card number, username, or e-mail"
-msgstr "Kartennummer, Benutzername oder E-Mail"
+msgid "Username or e-mail"
+msgstr "Benutzername oder E-Mail"
 
 #: rero_ils/theme/templates/rero_ils/login_user.html:61
 #, python-format
@@ -13296,3 +13296,7 @@ msgstr "Inveio-Assets"
 
 #~ msgid "E-mail or username"
 #~ msgstr "E-Mail oder Benutzername"
+
+#~ msgid "Card number, username, or e-mail"
+#~ msgstr "Kartennummer, Benutzername oder E-Mail"
+
