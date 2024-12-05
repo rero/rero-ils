@@ -1,5 +1,30 @@
 # Changelog
 
+## [v1.24.1](https://github.com/rero/rero-ils/tree/v1.24.1) (2024-12-05)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.24.0...v1.24.1)
+
+**Enhancements:**
+* OAuth: return patron_pid in the scopes [\#3778](https://github.com/rero/rero-ils/issues/3778) (by @rerowep)
+* Topics and places profesionnal detailed view: display authorized access point [\#3770](https://github.com/rero/rero-ils/issues/3770) (by @rerowep)
+* Clarify login view [\#3789](https://github.com/rero/rero-ils/issues/3789) (by @PascalRepond)
+* Periodically delete orphan harvested documents [\#3776](https://github.com/rero/rero-ils/issues/3776) (by @PascalRepond)
+* Add user info to sentry errors [\#2734](https://github.com/rero/rero-ils/issues/2734) (by @rerowep)
+
+**Fixes:**
+* Pro entity detailed view: RERO data missing [\#3763](https://github.com/rero/rero-ils/issues/3763) (by @Garfield-fr, @rerowep)
+* Acquisition receipt: Document without an identifier is not displayed correctly unless selected [\#3732](https://github.com/rero/rero-ils/issues/3732) (by @rerowep)
+* Error when displaying a loan if the item has been deleted [\#3710](https://github.com/rero/rero-ils/issues/3710) (by @rerowep)
+* Server error with incorrect viewcode [\#3711](https://github.com/rero/rero-ils/issues/3711) (by @rerowep)
+* fix(inventory list): serialization error message [\#3783](https://github.com/rero/rero-ils/pull/3783) (by @PascalRepond)
+* fix ebooks dojson language [\#3779](https://github.com/rero/rero-ils/pull/3779) (by @rerowep)
+
+**Other changes:**
+* chore: update dependencies [\#3792](https://github.com/rero/rero-ils/pull/3792) (by @rerowep)
+* chore: update dependencies [\#3788](https://github.com/rero/rero-ils/pull/3788) (by @rerowep)
+* chore: update dependencies [\#3782](https://github.com/rero/rero-ils/pull/3782) (by @PascalRepond)
+* general: fix cached timeout [\#3775](https://github.com/rero/rero-ils/pull/3775) (by @rerowep)
+
 ## [v1.24.0](https://github.com/rero/rero-ils/tree/v1.24.0) (2024-11-07)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.23.1...v1.24.0)
