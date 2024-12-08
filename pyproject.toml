@@ -69,7 +69,7 @@ python-dotenv = ">=0.13.0"
 
 # Pinned due to before_first_request deprecation https://flask.palletsprojects.com/en/2.2.x/api/#flask.Flask.before_first_request
 Flask = ">=2.2.0,<2.3.0"
-sentry-sdk = "<2.0.0"
+sentry-sdk = "<3.0.0"
 dojson = ">=1.4.0"
 # TODO: dojson problem = AttributeError: 'Group' object has no attribute 'resultcallback'
 click = "<8.1.0"
