@@ -72,7 +72,7 @@ def delete_orphan_harvested(delete=False, verbose=False):
                         click.secho(f"ERROR: {msg}", fg="red")
                     current_app.logger.warning(msg)
 
-    set_timestamp("delete_orphan_harvested", msg={"deleted": count})
+    set_timestamp("delete_orphan_harvested", deleted=count)
     return count
 
 
@@ -111,5 +111,5 @@ def delete_drafts(days=1, delete=False, verbose=False):
                         click.secho(f"ERROR: {msg}", fg="red")
                     current_app.logger.warning(msg)
 
-    set_timestamp("delete_drafts", msg={"deleted": count})
+    set_timestamp("delete_drafts", deleted=count)
     return count
