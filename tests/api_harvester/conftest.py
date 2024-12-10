@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2019-2023 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -15,22 +15,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-"""Test ebook utils."""
+"""Common pytest fixtures and plugins."""
 
-from rero_ils.modules.ebooks.utils import add_oai_source
+import pytest
 
 
-def test_add_oai_source(app):
-    """Test add oai source."""
-    msg = add_oai_source(name="test", baseurl="http://test.com")
-    assert msg == "Added"
-    msg = add_oai_source(name="test", baseurl="http://test.com")
-    assert msg == "Not Updated"
-    msg = add_oai_source(
-        name="test",
-        baseurl="http://test.com",
-        setspecs="specs",
-        comment="comment",
-        update=True,
-    )
-    assert msg == "Updated"
+@pytest.fixture(scope="module")
+def create_app():
+    """Create test app."""
+    # from invenio_app.factory import create_ui
+    # create_ui
+    from invenio_app.factory import create_ui
+
+    return create_ui
