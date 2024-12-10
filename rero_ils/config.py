@@ -3482,7 +3482,7 @@ ROLLOVER_LOGGING_CONFIG = {
         "console": {"class": "logging.StreamHandler", "formatter": "standard"},
         "file": {
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": "logs/rollover_log",
+            "filename": "logs/rollover",
             "backupCount": 10,
             "formatter": "standard",
         },

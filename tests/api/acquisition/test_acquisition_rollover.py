@@ -64,6 +64,8 @@ def test_rollover_cli(client, acq_full_structure_a, org_martigny):
                 "2022-01-01",
                 "--budget-end-date",
                 "2022-12-31",
+                "--logging_file",
+                "logs/rollover_log",
             ],
         )
         assert result.exit_code == 0  # all works fine !
