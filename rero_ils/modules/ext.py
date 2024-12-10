@@ -31,7 +31,6 @@ from invenio_base.signals import app_loaded
 from invenio_base.utils import obj_or_import_string
 from invenio_circulation.signals import loan_state_changed
 from invenio_indexer.signals import before_record_index
-from invenio_oaiharvester.signals import oaiharvest_finished
 from invenio_records.signals import (
     after_record_insert,
     after_record_update,
@@ -64,7 +63,6 @@ from rero_ils.modules.acquisition.acq_receipt_lines.listener import (
 from rero_ils.modules.acquisition.acq_receipts.listener import enrich_acq_receipt_data
 from rero_ils.modules.acquisition.budgets.listener import budget_is_active_changed
 from rero_ils.modules.collections.listener import enrich_collection_data
-from rero_ils.modules.ebooks.receivers import publish_harvested_records
 from rero_ils.modules.holdings.listener import (
     enrich_holding_data,
     update_items_locations_and_types,
@@ -345,8 +343,6 @@ class REROILSAPP(object):
         before_record_update.connect(negative_availability_changes)
 
         loan_state_changed.connect(listener_loan_state_changed, weak=False)
-
-        oaiharvest_finished.connect(publish_harvested_records, weak=False)
 
         # store the username in the session
         user_logged_in.connect(set_user_name)

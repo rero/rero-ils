@@ -35,7 +35,6 @@ from rero_ils.modules.documents.api import (
 )
 from rero_ils.modules.documents.models import DocumentIdentifier
 from rero_ils.modules.documents.tasks import delete_drafts, delete_orphan_harvested
-from rero_ils.modules.ebooks.tasks import create_records
 from rero_ils.modules.entities.models import EntityType
 from rero_ils.modules.entities.remote_entities.api import (
     RemoteEntitiesSearch,
@@ -227,69 +226,6 @@ def test_document_can_delete(app, document_data_tmp):
     can, reasons = document.can_delete
     assert can
     assert reasons == {}
-
-
-def test_document_create_records(
-    app,
-    org_martigny,
-    org_sion,
-    ebook_1_data,
-    ebook_2_data,
-    item_type_online_martigny,
-    loc_online_martigny,
-    item_type_online_sion,
-    loc_online_sion,
-):
-    """Test can create harvested records."""
-    ebook_1_data["electronicLocator"] = [
-        {
-            "source": "ebibliomedia",
-            "url": "https://www.site1.org/ebook",
-            "type": "resource",
-        }
-    ]
-    ebook_2_data["electronicLocator"] = [
-        {
-            "source": "ebibliomedia",
-            "url": "https://www.site2.org/ebook",
-            "type": "resource",
-        }
-    ]
-    n_created, n_updated = create_records([ebook_1_data])
-    assert n_created == 1
-    assert n_updated == 0
-
-    ebook_1_data["electronicLocator"] = [
-        {
-            "source": "ebibliomedia",
-            "url": "https://www.site2.org/ebook",
-            "type": "resource",
-        },
-        {
-            "source": "mv-cantook",
-            "url": "https://www.site3.org/ebook",
-            "type": "resource",
-        },
-    ]
-    n_created, n_updated = create_records([ebook_1_data, ebook_2_data])
-    assert n_created == 1
-    assert n_updated == 1
-
-    ebook_1_data["electronicLocator"] = [
-        {
-            "source": "mv-cantook",
-            "url": "https://www.site3.org/ebook",
-            "type": "resource",
-        }
-    ]
-    n_created, n_updated = create_records([ebook_1_data, ebook_2_data])
-    assert n_created == 0
-    assert n_updated == 2
-
-    # TODO: find a way to execute celery worker tasks in travis tests
-    # n_created, n_updated = create_records.delay([ebook_1_data])
-    # assert n_created == 0
-    # assert n_updated == 1
 
 
 def test_document_can_delete_harvested(app, ebook_1_data):

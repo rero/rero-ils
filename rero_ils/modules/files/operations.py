@@ -45,7 +45,7 @@ class ReindexOperationBase(Operation):
 
         :param uow: obj - UnitOfWork instance.
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
 
 class ReindexDoc(ReindexOperationBase):

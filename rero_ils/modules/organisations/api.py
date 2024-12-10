@@ -106,13 +106,20 @@ class Organisation(IlsRecord):
         :param source: the record source
         :return: Organisation record or None.
         """
-        results = (
-            OrganisationsSearch().filter("term", online_harvested_source=source).scan()
-        )
-        try:
-            return Organisation.get_record_by_pid(next(results).pid)
-        except StopIteration:
-            return None
+        for org in cls.get_records_by_online_harvested_source(source):
+            return org
+
+    @classmethod
+    def get_records_by_online_harvested_source(cls, source):
+        """Get record by online harvested source.
+
+        :param source: the record source
+        :return: Organisation record or None.
+        """
+        query = OrganisationsSearch().filter("term", online_harvested_source=source)
+        org_pids = [hit.pid for hit in query.source("pid").scan()]
+        for org_pid in org_pids:
+            yield Organisation.get_record_by_pid(org_pid)
 
     @property
     def organisation_pid(self):

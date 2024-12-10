@@ -599,22 +599,13 @@ create_token organisation_scotland_token reroilstest+irma@gmail.com  ${INVENIO_R
 create_token organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
 
 # # OAI configuration
-info_msg "OAI configuration: ${DATA_PATH}/oaisources.yml"
-eval ${PREFIX} invenio reroils oaiharvester initconfig ${DATA_PATH}/oaisources.yml
+info_msg "API configuration: ${DATA_PATH}/apisources.yml"
+eval ${PREFIX} invenio reroils api-harvester init-config ${DATA_PATH}/apisources.yml
 
-eval ${PREFIX} invenio reroils scheduler enable_tasks -a -v
-# disable ebook harvesting
-eval ${PREFIX} invenio reroils scheduler enable_tasks -n ebooks-harvester -d
-
-if ${DEPLOYMENT}
-then
-    # start oai harvesting asynchrone: beats must be running
-    info_msg "Start OAI harvesting asynchrone"
-    eval ${PREFIX} invenio reroils oaiharvester harvest -n ebooks -a max_results=150 -q -k
-else
-    info_msg "For ebooks harvesting run:"
-    msg "\tinvenio reroils oaiharvester harvest -n ebooks -a max_results=100 -q"
-fi
+eval ${PREFIX} invenio reroils scheduler enable-tasks -a -v
+info_msg disable VS/NJ CANTOOK harvesting
+eval ${PREFIX} invenio reroils scheduler enable-tasks -n harvest-vs-cantook -d
+eval ${PREFIX} invenio reroils scheduler enable-tasks -n harvest-nj-cantook -d
 
 if ${ES_MAPPING}
 then
@@ -649,6 +640,19 @@ eval ${PREFIX} invenio reroils stats report collect-all year
 info_msg "Initialize wiki search"
 eval ${PREFIX} invenio flask_wiki init-index
 eval ${PREFIX} invenio flask_wiki index
+
+info_msg "Api harvesting ...:"
+for NAME in "VS-CANTOOK" "NJ-CANTOOK"
+do
+  eval ${PREFIX} invenio reroils api-harvester set-last-run ${NAME} -d 1900-01-01
+  if ${DEPLOYMENT}
+  then
+      # start api harvesting asynchrone: beats must be running
+      eval ${PREFIX} invenio reroils api-harvester harvest -n ${NAME} -m 100 -k
+  else
+      info_msg "For ${NAME} harvesting run: \"invenio reroils api-harvester harvest -n ${NAME} -m 100 -v\""
+  fi
+done
 
 date
 success_msg "Perfect ${PROGRAM}! See you soon…"
