@@ -265,7 +265,7 @@ def info():
     click.echo("\n".join(current_scheduler.display_all()))
 
 
-@scheduler.command("init")
+@scheduler.command("")
 @click.option("-r", "--reset", "reset", is_flag=True, default=False)
 @click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
 @with_appcontext
@@ -285,7 +285,7 @@ def init(reset, verbose):
         click.echo("\n".join(current_scheduler.display_all()))
 
 
-@scheduler.command("enable_tasks")
+@scheduler.command("")
 @click.option("-a", "--all", "all", is_flag=True, default=False)
 @click.option("-n", "--name", "names", multiple=True, default=None)
 @click.option("-d", "--disable", "disable", is_flag=True, default=False)

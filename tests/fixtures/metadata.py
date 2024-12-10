@@ -1099,22 +1099,6 @@ def pattern_bimonthly_every_two_months_two_levels_data(holdings):
 
 
 @pytest.fixture(scope="module")
-def ebooks_1_xml():
-    """Load ebook1 xml file."""
-    filepath = join(dirname(__file__), "..", "data", "xml", "ebook1.xml")
-    with open(filepath) as fh:
-        return fh.read()
-
-
-@pytest.fixture(scope="module")
-def ebooks_2_xml():
-    """Load ebook2 xml file."""
-    filepath = join(dirname(__file__), "..", "data", "xml", "ebook2.xml")
-    with open(filepath) as fh:
-        return fh.read()
-
-
-@pytest.fixture(scope="module")
 def babel_filehandle():
     """Load ebook2 xml file."""
     return open(join(dirname(__file__), "..", "data", "babel_extraction.json"), "rb")

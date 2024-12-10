@@ -76,7 +76,7 @@ class BaseDocumentFormatterMixin(ABC):
     @abstractmethod
     def format(self):
         """Return formatted record."""
-        raise NotImplementedError
+        raise NotImplementedError()
 
     def _get_document_types(self):
         """Return document types."""

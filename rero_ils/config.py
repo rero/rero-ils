@@ -392,12 +392,6 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": timedelta(minutes=60),
         "enabled": False,
     },
-    "ebooks-harvester": {
-        "task": "invenio_oaiharvester.tasks.list_records_from_dates",
-        "schedule": crontab(minute=22, hour=22),
-        "kwargs": {"name": "ebooks"},
-        "enabled": False,
-    },
     "notification-creation": {
         "task": "rero_ils.modules.notifications.tasks.create_notifications",
         "schedule": crontab(minute=0, hour=3),  # Every day at 05:00 UTC,
@@ -526,12 +520,18 @@ CELERY_BEAT_SCHEDULE = {
         "kwargs": {"delete": True},
         "enabled": False,
     },
-    # "mef-harvester": {
-    #     "task": "rero_ils.modules.apiharvester.tasks.harvest_records",
-    #     "schedule": timedelta(minutes=60),
-    #     "kwargs": {"name": "mef", "enabled": False),
-    #     "enabled": False,
-    # },
+    "harvest-vs-cantook": {
+        "task": "rero_ils.modules.api_harvester.tasks.harvest_records",
+        "schedule": crontab(minute=33, hour=3),  # Every day at 03:33 UTC,
+        "kwargs": {"name": "VS-CANTOOK"},
+        "enabled": False,
+    },
+    "harvest-nj-cantook": {
+        "task": "rero_ils.modules.api_harvester.tasks.harvest_records",
+        "schedule": crontab(minute=44, hour=4),  # Every day at 04:44 UTC,
+        "kwargs": {"name": "NJ-CANTOOK"},
+        "enabled": False,
+    },
 }
 
 CELERY_BROKER_HEARTBEAT = 0
