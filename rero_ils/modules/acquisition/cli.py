@@ -57,6 +57,7 @@ def acquisition():
     "--budget-start-date", "budget_start_date", help="The new budget start-date"
 )
 @click.option("--budget-end-date", "budget_end_date", help="The new budget end-date")
+@click.option("--logging_file", "logging_file", help="Logging file name", default=None)
 @with_appcontext
 def rollover(
     origin_budget_pid,
@@ -66,6 +67,7 @@ def rollover(
     budget_name,
     budget_start_date,
     budget_end_date,
+    logging_file,
 ):
     """CLI to run rollover process between two acquisition budgets."""
     # Check parameters
@@ -92,6 +94,9 @@ def rollover(
 
     destination_budget = Budget.get_record_by_pid(dest_budget_pid)
     rollover_runner = AcqRollover(
-        original_budget, destination_budget, is_interactive=interactive
+        original_budget=original_budget,
+        destination_budget=destination_budget,
+        is_interactive=interactive,
+        logging_file=logging_file,
     )
     rollover_runner.run()
