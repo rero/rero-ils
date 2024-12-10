@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2024 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -20,27 +20,32 @@
 from __future__ import absolute_import
 
 from datetime import datetime, timezone
+from enum import Enum
 
-import pytz
 from invenio_db import db
-from invenio_pidstore.models import RecordIdentifier
 
 
-class ApiHarvestConfig(RecordIdentifier):
-    """Sequence generator for Document identifiers."""
+class HarvestActionType(Enum):
+    """Harvest action types."""
+
+    DELETED = "DELETED"
+    UPDATED = "UPDATED"
+    CREATED = "CREATED"
+    NOTSET = "NOTSET"
+
+
+class ApiHarvestConfig(db.Model):
+    """Represents a ApiHarvestConfig record."""
 
     __tablename__ = "apiharvester_config"
-    __mapper_args__ = {"concrete": True}
 
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(255), nullable=False, server_default="")
     name = db.Column(db.String(255), nullable=False)
-    mimetype = db.Column(db.String(255), nullable=False)
-    size = db.Column(db.Integer, nullable=False)
-    comment = db.Column(db.Text, nullable=True)
-    default_last_run = datetime.strptime("1900-1-1", "%Y-%m-%d")
+    classname = db.Column(db.String(255), nullable=False)
+    code = db.Column(db.Text, nullable=True)
     lastrun = db.Column(
-        db.DateTime, default=pytz.utc.localize(default_last_run), nullable=True
+        db.DateTime, default=datetime(year=1900, month=1, day=1), nullable=True
     )
 
     def save(self):
@@ -51,3 +56,5 @@ class ApiHarvestConfig(RecordIdentifier):
     def update_lastrun(self, new_date=None):
         """Update the 'lastrun' attribute of object to now."""
         self.lastrun = new_date or datetime.now(timezone.utc)
+        self.save()
+        return self.lastrun

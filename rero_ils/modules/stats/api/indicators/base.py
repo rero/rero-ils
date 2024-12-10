@@ -39,7 +39,7 @@ class IndicatorCfg:
 
         :returns: an elasticsearch query object
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     @property
     @abstractmethod
@@ -49,7 +49,7 @@ class IndicatorCfg:
         :param distrubtion: str - report distrubtion name
         :returns: an elasticsearch aggregation object
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     @abstractmethod
     def label(self, distribution, bucket):
@@ -60,4 +60,4 @@ class IndicatorCfg:
         :returns: the label
         :rtype: str
         """
-        raise NotImplementedError
+        raise NotImplementedError()

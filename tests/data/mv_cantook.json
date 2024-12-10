@@ -1,0 +1,347 @@
+{
+  "resources": [
+    {
+      "title": "Vampirologie",
+      "title_prefix": null,
+      "title_sort": "vampirologie",
+      "subtitle": null,
+      "description": null,
+      "summary": "Les vampires hantent toujours aujourd'hui nos cauchemars. Depuis leurs d\u00e9buts, ils ont essaim\u00e9 dans la litt\u00e9rature, le cin\u00e9ma, le th\u00e9\u00e2tre, les s\u00e9ries, la BD, le jeu de r\u00f4le, la musique... aucun m\u00e9dia n'a \u00e9chapp\u00e9 \u00e0 la fascination qu'ils exercent sur nous, pauvres mortels. Vampirologie est un ouvrage clef pour comprendre le ph\u00e9nom\u00e8ne, ...",
+      "comments": null,
+      "tags": [],
+      "back_cover": "",
+      "back_cover_large": null,
+      "cover": "https://images.immateriel.fr/covers/5V4JHTA.png",
+      "cover_large": null,
+      "flipbook": "https://tw5.immateriel.fr/wiki/immateriel/b/5V4JHTA",
+      "languages": [
+        "fre"
+      ],
+      "page_count": 735,
+      "translated_from": "",
+      "contributors": [
+        {
+          "first_name": "Adrien",
+          "last_name": "Party",
+          "nature": "author",
+          "country": "FR",
+          "biography": "",
+          "website": ""
+        }
+      ],
+      "media": [
+        {
+          "nature": "epub",
+          "key_type": "isbn13",
+          "id": "immateriel.frO1109367-9782376865193-epub",
+          "key": "9782376865193",
+          "issued_on": "2024-11-21T06:00:00+01:00",
+          "current_holds": 0
+        },
+        {
+          "nature": "paper",
+          "key_type": "isbn13",
+          "id": "immateriel.frO1109367-9782376864929-paper",
+          "key": "9782376866688",
+          "issued_on": "2024-11-21T06:00:00+01:00",
+          "current_holds": 0
+        }
+      ],
+      "id": "immateriel.frO1109367",
+      "link": "https://mediatheque-valais.cantookstation.eu/resources/642bb98ebf82c100014867a4",
+      "created_at": "2023-04-04T07:45:50+02:00",
+      "updated_at": "2024-11-21T07:45:39+01:00",
+      "publisher_name": "Nouvelles \u00c9ditions Actu SF",
+      "fiction": null,
+      "classifications": [
+        {
+          "standard": "bisac",
+          "identifiers": [
+            "FIC009000"
+          ],
+          "captions": [
+            {
+              "fr": null,
+              "en": null
+            }
+          ]
+        },
+        {
+          "standard": "cantook",
+          "identifiers": [
+            "science-fiction-fantasy"
+          ],
+          "captions": [
+            {
+              "fr": "Romans science-fiction et fantastique",
+              "en": "Science Fiction & Fantasy"
+            }
+          ]
+        },
+        {
+          "standard": "feedbooks",
+          "identifiers": [
+            "FBFIC009000"
+          ],
+          "captions": [
+            {
+              "fr": "Fantasy",
+              "en": "Fantasy"
+            }
+          ]
+        },
+        {
+          "standard": "thema",
+          "identifiers": [
+            "FM"
+          ],
+          "captions": [
+            {
+              "fr": "Fantasy",
+              "en": "Fantasy"
+            }
+          ]
+        }
+      ],
+      "unavailable_since": null,
+      "publisher": {
+        "name": "Nouvelles \u00c9ditions Actu SF"
+      }
+    },
+    {
+      "title": "L'Enterrement des \u00e9toiles",
+      "title_prefix": null,
+      "title_sort": "l'enterrement des etoiles",
+      "subtitle": null,
+      "description": null,
+      "summary": "L\u2019annonce de la fin est proche. \u00c0 la cit\u00e9 des h\u00e9ritiers, le roi Jenophon re\u00e7oit la visite de l\u2019oracle annonciateur. C\u2019est le moment que choisit un cirque pour s\u2019installer non loin et offrir un moment de joie. Cette compagnie de monstres de foire doit faire face \u00e0 l\u2019obscurit\u00e9 qui s\u2019\u00e9tend et d\u00e9couvrir la lumi\u00e8re int\u00e9rieure, ...",
+      "comments": null,
+      "tags": [],
+      "back_cover": "",
+      "back_cover_large": null,
+      "cover": "https://images.immateriel.fr/covers/4MY6AC5.png",
+      "cover_large": null,
+      "flipbook": "https://tw5.immateriel.fr/wiki/immateriel/b/4MY6AC5",
+      "languages": [
+        "fre"
+      ],
+      "page_count": 320,
+      "translated_from": "",
+      "contributors": [
+        {
+          "first_name": "Christophe",
+          "last_name": "Guillemain",
+          "nature": "author",
+          "country": "FR",
+          "biography": "",
+          "website": ""
+        }
+      ],
+      "media": [
+        {
+          "nature": "epub",
+          "key_type": "isbn13",
+          "id": "immateriel.frO1097420-9782354089597-epub",
+          "key": "9782354089597",
+          "issued_on": "2024-12-04T06:00:00+01:00",
+          "current_holds": 0
+        },
+        {
+          "nature": "paper",
+          "key_type": "isbn13",
+          "id": "immateriel.frO1097420-9782354089412-paper",
+          "key": "9782354089412",
+          "issued_on": "2024-12-04T06:00:00+01:00",
+          "current_holds": 0
+        }
+      ],
+      "id": "immateriel.frO1097420",
+      "link": "https://mediatheque-valais.cantookstation.eu/resources/66614d09065ed9f5833f2c38",
+      "created_at": "2024-06-06T07:45:45+02:00",
+      "updated_at": "2024-11-22T07:45:46+01:00",
+      "publisher_name": "\u00c9ditions Mn\u00e9mos",
+      "fiction": null,
+      "classifications": [
+        {
+          "standard": "bisac",
+          "identifiers": [
+            "FIC009000"
+          ],
+          "captions": [
+            {
+              "fr": null,
+              "en": null
+            }
+          ]
+        },
+        {
+          "standard": "cantook",
+          "identifiers": [
+            "science-fiction-fantasy"
+          ],
+          "captions": [
+            {
+              "fr": "Romans science-fiction et fantastique",
+              "en": "Science Fiction & Fantasy"
+            }
+          ]
+        },
+        {
+          "standard": "feedbooks",
+          "identifiers": [
+            "FBFIC009000"
+          ],
+          "captions": [
+            {
+              "fr": "Fantasy",
+              "en": "Fantasy"
+            }
+          ]
+        },
+        {
+          "standard": "thema",
+          "identifiers": [
+            "FM"
+          ],
+          "captions": [
+            {
+              "fr": "Fantasy",
+              "en": "Fantasy"
+            }
+          ]
+        }
+      ],
+      "unavailable_since": null,
+      "publisher": {
+        "name": "\u00c9ditions Mn\u00e9mos"
+      }
+    },
+    {
+      "title": "Les Neurosciences pour les Nuls, grand format",
+      "title_prefix": null,
+      "title_sort": "les neurosciences pour les nuls, grand format",
+      "subtitle": null,
+      "description": null,
+      "summary": "Une plong\u00e9e fascinante dans les m\u00e9andres de nos cerveaux !Comment un amas de cellules interconnect\u00e9es \u2013 les neurones \u2013 peut-il \u00eatre \u00e0 la base de nos pens\u00e9es, de nos souvenirs, de nos sentiments, et faire de chacun de nous la personne que nous sommes ? C'est \u00e0 cette question passionnante que ce livre propose d'apporter une r\u00e9ponse.\n \n Que vous soyez simples curieux ou futurs \u00e9tudiants en m\u00e9decine, biologie, psychologie ou sciences cognitives, cet ouvrage constitue une introduction remarquablement efficace et compl\u00e8te au fonctionnement du cerveau humain, et rend compte des formidables avanc\u00e9es scientifiques de ces derni\u00e8res ann\u00e9es.\n \n D\u00e9couvrez : \n \nLe syst\u00e8me nerveux et le fonctionnement des neurones \nLe si\u00e8ge de l'intelligence, de la conscience et des \u00e9motions \nLa plasticit\u00e9 c\u00e9r\u00e9brale \nLes dysfonctionnements neuronaux \nEt bien d'autres choses encore ",
+      "comments": null,
+      "tags": [],
+      "back_cover": null,
+      "back_cover_large": null,
+      "cover": "https://covers.feedbooks.net/item/6177668.jpg?size=large&t=1729302359",
+      "cover_large": null,
+      "flipbook": null,
+      "languages": [
+        "fre"
+      ],
+      "page_count": 431,
+      "translated_from": null,
+      "contributors": [
+        {
+          "first_name": "Franck",
+          "last_name": "Amthor",
+          "nature": "author",
+          "country": null,
+          "biography": "",
+          "website": null
+        },
+        {
+          "first_name": "Laurianne",
+          "last_name": "Geffroy",
+          "nature": "author",
+          "country": null,
+          "biography": "",
+          "website": null
+        },
+        {
+          "first_name": "Laurianne",
+          "last_name": "Geffroy",
+          "nature": "author",
+          "country": null,
+          "biography": "",
+          "website": null
+        }
+      ],
+      "media": [
+        {
+          "nature": "paper",
+          "key_type": "isbn13",
+          "id": "feedhttps-www-feedbooks-com-item-6177668-9782412096499-paper",
+          "key": "9782412096499",
+          "issued_on": "2024-11-06T01:00:00+01:00",
+          "current_holds": 0
+        },
+        {
+          "nature": "epub",
+          "key_type": "isbn13",
+          "id": "feedhttps-www-feedbooks-com-item-6177668-9782412099247-epub",
+          "key": "9782412099247",
+          "issued_on": "2024-11-06T01:00:00+01:00",
+          "current_holds": 2
+        }
+      ],
+      "id": "feedhttps-www-feedbooks-com-item-6177668",
+      "link": "https://mediatheque-valais.cantookstation.eu/resources/6731e051d6f0a4176fe9f5bc",
+      "created_at": "2024-11-11T11:45:37+01:00",
+      "updated_at": "2024-11-13T04:15:30+01:00",
+      "publisher_name": "Pour les nuls",
+      "fiction": null,
+      "classifications": [
+        {
+          "standard": "cantook",
+          "identifiers": [
+            "health"
+          ],
+          "captions": [
+            {
+              "fr": "Sant\u00e9",
+              "en": "Health"
+            }
+          ]
+        },
+        {
+          "standard": "feedbooks",
+          "identifiers": [
+            "FBHEA039000",
+            "FBNFC000000",
+            "FBHEA000000",
+            "FBFAM023000"
+          ],
+          "captions": [
+            {
+              "fr": "Maladies",
+              "en": "Diseases"
+            },
+            {
+              "fr": "Non-Fiction",
+              "en": "Non-Fiction"
+            },
+            {
+              "fr": "Sant\u00e9 & Vie quotidienne",
+              "en": "Health & fitness"
+            },
+            {
+              "fr": "Sant\u00e9",
+              "en": "Health"
+            }
+          ]
+        },
+        {
+          "standard": "thema",
+          "identifiers": [
+            "VFJB"
+          ],
+          "captions": [
+            {
+              "fr": "Faire face \u00e0 la maladie et \u00e0 des \u00e9tats particuliers",
+              "en": "Coping with illness & specific conditions"
+            }
+          ]
+        }
+      ],
+      "unavailable_since": null,
+      "publisher": {
+        "name": "Pour les nuls"
+      }
+    }
+  ]
+}

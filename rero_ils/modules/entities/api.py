@@ -63,7 +63,7 @@ class Entity(IlsRecord, ABC):
         :param language: language for authorized access point.
         :returns: authorized access point in given language.
         """
-        raise NotImplementedError
+        raise NotImplementedError()
 
     @abstractmethod
     def get_links_to_me(self, get_pids=False):
@@ -90,7 +90,7 @@ class Entity(IlsRecord, ABC):
     @abstractmethod
     def resource_type(self):
         """Get the entity type."""
-        raise NotImplementedError
+        raise NotImplementedError()
 
     @property
     def organisation_pids(self):
