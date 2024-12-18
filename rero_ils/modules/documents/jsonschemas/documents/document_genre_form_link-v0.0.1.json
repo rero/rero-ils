@@ -16,9 +16,12 @@
       "pattern": "^(https://mef.rero.ch/api/concepts/(gnd|idref|rero)/.*|https://bib.rero.ch/api/local_entities/.*?)$",
       "widget": {
         "formlyConfig": {
-          "type": "entityTypeahead",
+          "type": "entity-autocomplete",
           "props": {
+            "scrollHeight": "600px",
+            "group": true,
             "filters": {
+              "selected": "concepts_genreForm",
               "options": [
                 {
                   "label": "Genre, form",
@@ -26,7 +29,9 @@
                 }
               ]
             },
-            "itemCssClass": "col-12"
+            "queryOptions": {
+              "type": "mef"
+            }
           }
         }
       }
@@ -35,13 +40,6 @@
       "title": "MEF ID",
       "type": "string",
       "minLength": 1
-    }
-  },
-  "widget": {
-    "formlyConfig": {
-      "props": {
-        "containerCssClass": "row"
-      }
     }
   }
 }
