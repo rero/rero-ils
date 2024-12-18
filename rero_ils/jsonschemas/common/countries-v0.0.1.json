@@ -385,7 +385,6 @@
           "placeholder": "Select an option…",
           "sortOrder": "asc",
           "filter": true,
-          "itemCssClass": "col-lg-4",
           "options": [
             {
               "label": "country_aa",
