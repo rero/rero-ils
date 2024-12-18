@@ -37,7 +37,9 @@
         },
         "props": {
           "sort": true,
-          "itemCssClass": "col-lg-4",
+          "placeholder": "Select an option…",
+          "sortOrder": "asc",
+          "filter": true,
           "options": [
             {
               "label": "canton_ag",
