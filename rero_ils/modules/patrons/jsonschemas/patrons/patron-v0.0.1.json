@@ -47,7 +47,14 @@
       "items": {
         "title": "Local code",
         "type": "string",
-        "minLength": 1
+        "minLength": 1,
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "hideLabel": true
+            }
+          }
+        }
       }
     },
     "user_id": {
@@ -57,7 +64,6 @@
       "widget": {
         "formlyConfig": {
           "wrappers": [
-            "form-field",
             "user-id"
           ]
         }
@@ -200,6 +206,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
+                  "hideLabel": true,
                   "doNotSubmitOnEnter": true,
                   "validation": {
                     "validators": {
