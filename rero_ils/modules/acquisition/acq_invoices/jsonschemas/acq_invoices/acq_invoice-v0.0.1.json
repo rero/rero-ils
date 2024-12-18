@@ -137,11 +137,9 @@
       "default": "in progress",
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
-            "selectWithSortOptions": {
-              "order": "label"
-            },
+            "sort": true,
             "options": [
               {
                 "value": "in_progress",
@@ -167,7 +165,7 @@
       "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "widget": {
         "formlyConfig": {
-          "type": "datepicker",
+          "type": "datePicker",
           "props": {
             "validation": {
               "messages": {
@@ -206,11 +204,9 @@
             ],
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
-                  "selectWithSortOptions": {
-                    "order": "label"
-                  },
+                  "sort": true,
                   "options": [
                     {
                       "value": "shipping_and_handling",

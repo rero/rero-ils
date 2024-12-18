@@ -16,116 +16,117 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  */
+@layer babel {
+  #BW_suggestions,
+  #BW_notes,
+  #BW_etiquettes,
+  #BW_prix_litt,
+  #BW_critiques,
+  #BW_critiques_pro,
+  #BW_citations,
+  #BW_bio_auteur,
+  #BW_videos,
+  #BW_podcasts {
+    margin-top: 16px;
+    padding: 0 !important;
+  }
 
-#BW_suggestions,
-#BW_notes,
-#BW_etiquettes,
-#BW_prix_litt,
-#BW_critiques,
-#BW_critiques_pro,
-#BW_citations,
-#BW_bio_auteur,
-#BW_videos,
-#BW_podcasts {
-  margin-top: 16px;
-  padding: 0 !important;
-}
+  #BW_notes img {
+    margin-bottom: 6px;
+  }
 
-#BW_notes img {
-  margin-bottom: 6px;
-}
+  #BW_etiquettes h2,
+  .BW_critiques_opac_add,
+  .BW_citations_opac_add {
+    display: none;
+  }
 
-#BW_etiquettes h2,
-.BW_critiques_opac_add,
-.BW_citations_opac_add {
-  display: none;
-}
+  #BW_ulEti {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-inline-start: 0;
+    max-width: 400px !important;
+  }
 
-#BW_ulEti {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding-inline-start: 0;
-  max-width: 400px !important;
-}
+  #BW_ulEti ol {
+    padding-inline-start: 0;
+    text-transform: lowercase;
+  }
 
-#BW_ulEti ol {
-  padding-inline-start: 0;
-  text-transform: lowercase;
-}
+  #BW_ulEti a.tag_s0 {
+    font-weight: 120;
+    font-size: 0.8em;
+  }
+  #BW_ulEti a.tag_s1 {
+    font-weight: 150;
+    font-size: 0.9em;
+  }
+  #BW_ulEti a.tag_s2 {
+    font-weight: 180;
+    font-size: 1em;
+  }
+  #BW_ulEti a.tag_s3 {
+    font-weight: 200;
+    font-size: 1.2em;
+  }
+  #BW_ulEti a.tag_s4 {
+    font-weight: 220;
+    font-size: 1.4em;
+  }
+  #BW_ulEti a.tag_s5 {
+    font-weight: 230;
+    font-size: 1.5em;
+  }
+  #BW_ulEti a.tag_s6 {
+    font-weight: 320;
+    font-size: 1.6em;
+  }
+  #BW_ulEti a.tag_s7 {
+    font-weight: 350;
+    font-size: 1.7em;
+  }
+  #BW_ulEti a.tag_s8 {
+    font-weight: 400;
+    font-size: 1.8em;
+  }
 
-#BW_ulEti a.tag_s0  {
-  font-weight: 120;
-  font-size: 0.8em;
-}
-#BW_ulEti a.tag_s1  {
-  font-weight: 150;
-  font-size: 0.9em;
-}
-#BW_ulEti a.tag_s2  {
-  font-weight: 180;
-  font-size: 1.0em;
-}
-#BW_ulEti a.tag_s3  {
-  font-weight: 200;
-  font-size: 1.2em;
-}
-#BW_ulEti a.tag_s4  {
-  font-weight: 220;
-  font-size: 1.4em;
-}
-#BW_ulEti a.tag_s5  {
-  font-weight: 230;
-  font-size: 1.5em;
-}
-#BW_ulEti a.tag_s6  {
-  font-weight: 320;
-  font-size: 1.6em;
-}
-#BW_ulEti a.tag_s7  {
-  font-weight: 350;
-  font-size: 1.7em;
-}
-#BW_ulEti a.tag_s8  {
-  font-weight: 400;
-  font-size: 1.8em;
-}
+  .babelio-block,
+  .bw_list_recos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
 
-.babelio-block,
-.bw_list_recos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
+  .babelio-block div,
+  .bw_list_recos div {
+    flex-grow: 1;
+  }
 
-.babelio-block div,
-.bw_list_recos div {
-  flex-grow: 1;
-}
+  .babelio-block div:empty,
+  .BW_critiques_OPAC {
+    display: none;
+  }
 
-.babelio-block div:empty,
-.BW_critiques_OPAC {
-  display: none;
-}
+  #BW_prix_litt ul {
+    list-style: none;
+    padding-inline-start: 0;
+    flex-wrap: wrap;
+  }
 
-#BW_prix_litt ul {
-  list-style: none;
-  padding-inline-start: 0;
-  flex-wrap: wrap;
-}
+  #BW_bio_titre,
+  .bw_h2 {
+    font-size: 1.3em !important;
+  }
 
-#BW_bio_titre,
-.bw_h2 {
-  font-size: 1.3em;
-}
+  .BW_couv_suggestions {
+    max-height: 140px;
+    max-width: 100px;
+  }
 
-.BW_couv_suggestions {
-  max-height: 140px;
-  max-width: 100px;
-}
-
-.bw_boxclose {
-  color: white !important;
+  .bw_boxclose {
+    color: white !important;
+  }
 }

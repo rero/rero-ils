@@ -36,7 +36,10 @@
           "hide": "field?.parent?.model?.country !== 'sz'"
         },
         "props": {
-          "itemCssClass": "col-lg-4",
+          "sort": true,
+          "placeholder": "Select an option…",
+          "sortOrder": "asc",
+          "filter": true,
           "options": [
             {
               "label": "canton_ag",

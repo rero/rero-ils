@@ -45,7 +45,10 @@
       "default": "open",
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort"
+          "type": "select",
+          "props": {
+            "sort": true
+          }
         }
       }
     },
@@ -64,8 +67,9 @@
       "default": "overdue",
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
+            "sort": true,
             "options": [
               {
                 "label": "overdue",

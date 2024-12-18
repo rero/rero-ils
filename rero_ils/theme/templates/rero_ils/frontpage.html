@@ -36,21 +36,14 @@
 
     <!-- Search bar -->
     <div class="rero-search-bar">
-      <div class=" container d-none d-md-block">
+      <div class="container">
         <main-search-bar
           placeholder="{{ _('What are you looking for?') }}"
           viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
           language="{{ current_i18n.locale.language[:2] }}"
-          size="large"
-        ></main-search-bar>
-      </div>
-
-      <div class="d-md-main-search-bar container d-block d-md-none">
-        <main-search-bar
-          placeholder="{{ _('What are you looking for?') }}"
-          viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
-          language="{{ current_i18n.locale.language[:2] }}"
-        ></main-search-bar>
+          inputstyleclass="md:text-xl w-full"
+          class="rero-ils-ui"
+        />
       </div>
     </div>
   </header>

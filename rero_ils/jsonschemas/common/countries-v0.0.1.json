@@ -381,7 +381,10 @@
     "widget": {
       "formlyConfig": {
         "props": {
-          "itemCssClass": "col-lg-4",
+          "sort": true,
+          "placeholder": "Select an option…",
+          "sortOrder": "asc",
+          "filter": true,
           "options": [
             {
               "label": "country_aa",

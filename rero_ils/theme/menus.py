@@ -306,7 +306,7 @@ def init_menu_profile():
     item = current_menu.submenu("main.profile.edit_profile")
     rero_register(
         item,
-        endpoint="users.profile",
+        external_url=f"/{viewcode}/patrons/profile/user/edit",
         endpoint_arguments_constructor=lambda: dict(
             viewcode=request.view_args.get(
                 "viewcode", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
@@ -321,7 +321,7 @@ def init_menu_profile():
     item = current_menu.submenu("main.profile.change_password")
     rero_register(
         item,
-        endpoint="users.password",
+        external_url=f"/{viewcode}/patrons/profile/password/edit",
         endpoint_arguments_constructor=lambda: dict(
             viewcode=request.view_args.get(
                 "viewcode", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")

@@ -598,7 +598,7 @@ create_token organisation_aosta_token reroilstest@gmail.com ${INVENIO_RERO_ACCES
 create_token organisation_scotland_token reroilstest+irma@gmail.com  ${INVENIO_RERO_ACCESS_TOKEN_SCOLAND_LIBRARIAN}
 create_token organisation_fictive_token reroilstest+imagination@gmail.com ${INVENIO_RERO_ACCESS_TOKEN_FICTIVE_LIBRARIAN}
 
-# # OAI configuration
+# OAI configuration
 info_msg "OAI configuration: ${DATA_PATH}/oaisources.yml"
 eval ${PREFIX} invenio reroils oaiharvester initconfig ${DATA_PATH}/oaisources.yml
 

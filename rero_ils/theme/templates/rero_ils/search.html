@@ -18,18 +18,12 @@
 #}
 
 {% extends 'rero_ils/page.html' %}
-{%- block css %}
-  {{ super() }}
-  {{ node_assets('@rero/rero-ils-ui/dist/public-search', ['styles.*css'], 'css') }}
-{%- endblock %}
 
 {%- block page_body %}
-   <public-search-root class="container mt-4"></public-search-root>
+   <public-search-root class="container mt-4 rero-ils-ui" />
 {%- endblock page_body -%}
 
 {%- block javascript %}
 {{ webpack['reroils_public.js']}}
 {{ node_assets('@rero/rero-ils-ui/dist/public-search', tags='type="module"') }}
-
-
 {%- endblock javascript %}

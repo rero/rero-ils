@@ -22,7 +22,7 @@ from __future__ import absolute_import, print_function
 import json
 from functools import wraps
 
-from flask import Blueprint, abort, current_app, render_template, request
+from flask import Blueprint, abort, current_app, request
 from flask_login import current_user
 from invenio_rest import ContentNegotiatedMethodView
 
@@ -204,19 +204,3 @@ blueprint = Blueprint(
     template_folder="templates",
     static_folder="static",
 )
-
-
-@blueprint.route("/<string:viewcode>/user/profile")
-@check_user_readonly_permission
-def profile(viewcode):
-    """User Profile editor Page."""
-    return render_template("rero_ils/user_profile.html", viewcode=viewcode)
-
-
-@blueprint.route("/<string:viewcode>/user/password")
-@check_user_readonly_permission
-def password(viewcode):
-    """User change password Page."""
-    return render_template(
-        "rero_ils/user_password.html", viewcode=viewcode, current_user=current_user
-    )

@@ -51,9 +51,10 @@
         ],
         "widget": {
           "formlyConfig": {
-            "type": "selectWithSort",
+            "type": "select",
             "props": {
               "itemCssClass": "col-lg-6",
+              "sort": true,
               "options": [
                 {
                   "label": "Full level",

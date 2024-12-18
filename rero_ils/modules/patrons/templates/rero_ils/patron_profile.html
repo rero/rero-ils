@@ -18,13 +18,8 @@
 #}
 {% extends 'rero_ils/page.html' %}
 
-{%- block css %}
-{{ super() }}
-{{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', ['styles.*css'], 'css') }}
-{%- endblock css %}
-
 {%- block body %}
-<public-patron-profile language="{{ current_i18n.locale.language[:2] }}" viewcode="{{ viewcode }}"></public-patron-profile>
+<public-patron-profile-app class="rero-ils-ui"/>
 {%- endblock body %}
 
 {%- block javascript %}

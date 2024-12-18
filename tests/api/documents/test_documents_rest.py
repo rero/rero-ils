@@ -35,10 +35,6 @@ from utils import (
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.documents.utils import get_remote_cover
-from rero_ils.modules.documents.views import (
-    can_request,
-    record_library_pickup_locations,
-)
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 
@@ -523,49 +519,6 @@ def test_documents_get_resolve_rero_json(
     metadata = get_json(res).get("metadata", {})
     pid = metadata["contribution"][0]["entity"]["pid"]
     assert pid == entity_person_data["pid"]
-
-
-def test_document_can_request_view(
-    client,
-    item_lib_fully,
-    loan_pending_martigny,
-    document,
-    patron_martigny,
-    patron2_martigny,
-    item_type_standard_martigny,
-    circulation_policies,
-    librarian_martigny,
-    item_lib_martigny,
-    item_lib_saxon,
-    item_lib_sion,
-    loc_public_martigny,
-):
-    """Test can request on document view."""
-    login_user_via_session(client, patron_martigny.user)
-
-    with mock.patch(
-        "rero_ils.modules.documents.views.current_user", patron_martigny.user
-    ), mock.patch(
-        "rero_ils.modules.documents.views.current_patrons", [patron_martigny]
-    ):
-        can, _ = can_request(item_lib_fully)
-        assert can
-        can, _ = can_request(item_lib_sion)
-        assert not can
-
-    with mock.patch(
-        "rero_ils.modules.documents.views.current_user", patron2_martigny.user
-    ), mock.patch(
-        "rero_ils.modules.documents.views.current_patrons", [patron2_martigny]
-    ):
-        can, _ = can_request(item_lib_fully)
-        assert not can
-
-    picks = record_library_pickup_locations(item_lib_fully)
-    assert len(picks) == 3
-
-    picks = record_library_pickup_locations(item_lib_martigny)
-    assert len(picks) == 3
 
 
 @mock.patch("requests.Session.get")

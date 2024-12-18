@@ -266,13 +266,15 @@
           "pattern": "^https://bib.rero.ch/api/documents/.*?$",
           "widget": {
             "formlyConfig": {
+              "type": "remoteAutoComplete",
               "props": {
+                "scrollHeight": "400px",
                 "validation": {
                   "messages": {
                     "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
                   }
                 },
-                "remoteTypeahead": {
+                "queryOptions": {
                   "type": "documents",
                   "filter": "NOT harvested:true"
                 },

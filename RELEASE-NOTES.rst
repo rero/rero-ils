@@ -2411,7 +2411,7 @@ Metadata
    others).
 -  Renames person module into contribution module.
 -  Sorts the contribution roles in the document editor (with
-   ``selectWithSort`` form option).
+   ``select`` form option).
 -  Updates the conversion of documents with contribution references from
    IdRef.
 -  Corrects MARC to JSON conversion for subjects.

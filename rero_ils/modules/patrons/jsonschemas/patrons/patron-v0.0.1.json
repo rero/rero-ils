@@ -47,7 +47,14 @@
       "items": {
         "title": "Local code",
         "type": "string",
-        "minLength": 1
+        "minLength": 1,
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "hideLabel": true
+            }
+          }
+        }
       }
     },
     "user_id": {
@@ -57,7 +64,6 @@
       "widget": {
         "formlyConfig": {
           "wrappers": [
-            "form-field",
             "user-id"
           ]
         }
@@ -200,6 +206,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
+                  "hideLabel": true,
                   "doNotSubmitOnEnter": true,
                   "validation": {
                     "validators": {
@@ -251,7 +258,7 @@
           "pattern": "\\d{4}-((0[1-9])|(1[0-2]))-(((0[1-9])|[1-2][0-9])|(3[0-1]))$",
           "widget": {
             "formlyConfig": {
-              "type": "datepicker",
+              "type": "datePicker",
               "props": {
                 "validation": {
                   "messages": {
@@ -273,8 +280,9 @@
           ],
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
+                "sort": true,
                 "options": [
                   {
                     "label": "email",
@@ -312,8 +320,9 @@
           ],
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
+                "sort": true,
                 "options": [
                   {
                     "label": "lang_fre",
@@ -490,7 +499,7 @@
       },
       "widget": {
         "formlyConfig": {
-          "type": "multicheckbox",
+          "type": "multi-checkbox",
           "wrappers": [
             "card"
           ],
@@ -569,8 +578,9 @@
             "default": "public_note",
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
+                  "sort": true,
                   "options": [
                     {
                       "label": "public_note",

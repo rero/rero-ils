@@ -120,7 +120,7 @@ var webpackConfig = {
     // prevent vendor hash from being updated whenever app bundle is updated.
     runtimeChunk: {
       name: "manifest",
-    },
+    }
   },
   module: {
     rules: [
