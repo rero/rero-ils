@@ -255,6 +255,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
             if self.order_date
             else AcqOrderLineStatus.APPROVED
         )
+
         received_quantity = self.received_quantity
         # not use the property to prevent an extra ES call
         unreceived_quantity = self.quantity - received_quantity

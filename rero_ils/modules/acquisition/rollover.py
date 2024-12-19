@@ -22,6 +22,7 @@ import logging.config
 import random
 import string
 from copy import deepcopy
+from datetime import datetime
 
 from elasticsearch_dsl import Q
 from flask import current_app
@@ -117,6 +118,7 @@ class AcqRollover:
         original_budget,
         destination_budget=None,
         logging_config=None,
+        logging_file=None,
         is_interactive=True,
         propagate_errors=False,
         **kwargs,
@@ -130,6 +132,8 @@ class AcqRollover:
         :param logging_config: (optional) a dictionary containing all necessary
             configuration to log the rollover process result. If not specified
             the configuration comes from `ROLLOVER_LOGGING_CONFIG` setting.
+        :param logging_file: (optional) Logging file name. If not specified
+            the configuration comes from `ROLLOVER_LOGGING_CONFIG` setting is used.
         :param is_interactive: boolean to determine if user confirmation is
             required. True by default.
         :param propagate_errors: Boolean to determine if error will be
@@ -148,7 +152,14 @@ class AcqRollover:
         self.propagate_errors = propagate_errors
 
         # Set special logging configuration for rollover process
-        default_config = current_app.config.get("ROLLOVER_LOGGING_CONFIG")
+        default_config = deepcopy(current_app.config.get("ROLLOVER_LOGGING_CONFIG"))
+        if logging_file:
+            default_config["handlers"]["file"]["filename"] = logging_file
+        else:
+            time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
+            file_name = default_config["handlers"]["file"]["filename"]
+            file_name = f"{file_name}_{time_stamp}.log"
+            default_config["handlers"]["file"]["filename"] = file_name
         logging.config.dictConfig(logging_config or default_config)
         self.logger = logging.getLogger(__name__)
         self.logger.info("ROLLOVER PROCESS ==================================")
