@@ -15,14 +15,30 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+"""Api harvester errors."""
 
-# API harvester configuration.
-VS-CANTOOK:
-    url: https://mediatheque-valais.cantookstation.eu
-    classname: 'rero_ils.modules.api_harvester.cantook.api.ApiCantook'
-    code: 'mv-cantook'
+from __future__ import absolute_import, print_function
 
-NJ-CANTOOK:
-    url: https://bm.ebibliomedia.ch
-    classname: 'rero_ils.modules.api_harvester.cantook.api.ApiCantook'
-    code: 'ebibliomedia'
+
+class ApiHarvesterError(Exception):
+    """Base exception for API harvester."""
+
+
+class ApiRequestError(ApiHarvesterError):
+    """Error with the Api request."""
+
+
+class NameOrUrlMissing(ApiHarvesterError):
+    """Name or url for harvesting missing."""
+
+
+class WrongDateCombination(ApiHarvesterError):
+    """'Until' date is larger that 'from' date."""
+
+
+class IdentifiersOrDates(ApiHarvesterError):
+    """Identifiers cannot be used in combination with dates."""
+
+
+class ApiHarvesterConfigNotFound(ApiHarvesterError):
+    """No ApiHarvesterConfig was found."""
