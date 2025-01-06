@@ -129,6 +129,7 @@ def logged_user():
     data = {
         "permissions": expose_actions_need_for_user(),
         "settings": {
+            "maxFilesCount": config.get("RERO_ILS_APP_FILES_UI_MAX", 600),
             "language": current_i18n.locale.language,
             "globalView": config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"),
             "baseUrl": get_base_url(),

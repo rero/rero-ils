@@ -70,8 +70,14 @@ class RecordFileServiceConfig(FileServiceConfig):
     # Common configuration
     permission_policy_cls = FilePermissionPolicy
 
-    # maximum files per buckets
-    max_files_count = 1700
+    @classmethod
+    @property
+    def max_files_count(cls):
+        """Maximum files per buckets."""
+        from flask import current_app
+
+        max_ui_files = current_app.config.get("RERO_ILS_APP_FILES_UI_MAX", 600)
+        return max_ui_files * 3 + 100
 
     # Service components
     components = FileServiceConfig.components + [

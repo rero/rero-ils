@@ -4396,3 +4396,5 @@ RERO_FILES_RECORD_SERVICE_CONFIG = "rero_ils.modules.files.services.RecordServic
 RERO_FILES_RECORD_FILE_SERVICE_CONFIG = (
     "rero_ils.modules.files.services.RecordFileServiceConfig"
 )
+RERO_ILS_APP_FILES_UI_MAX = 600
+RERO_ILS_APP_FILES_FULL_TEXT_MAX = 10 * 1024 * 1024  # 10Mb

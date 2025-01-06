@@ -238,8 +238,11 @@ class IndexerDumper(Dumper):
 
     def _process_files(self, record, data):
         """Add full text from files."""
-        ext = current_app.extensions["rero-invenio-files"]
         files = []
+        full_text_size = 0
+        full_text_size_max = current_app.config.get(
+            "RERO_ILS_APP_FILES_FULL_TEXT_MAX", 10 * 1024 * 1024
+        )
         for record_file in record.get_records_files():
             record_files_information = {}
             collections = record_file.get("metadata", {}).get("collections")
@@ -258,10 +261,12 @@ class IndexerDumper(Dumper):
                     continue
                 if metadata.get("type") == "fulltext":
                     # get the fulltext
-                    stream = file.get_stream("r")
-                    record_files_information.setdefault(metadata["fulltext_for"], {})[
-                        "text"
-                    ] = stream.read()
+                    full_text = file.get_stream("r").read()
+                    full_text_size += len(full_text)
+                    if full_text_size < full_text_size_max:
+                        record_files_information.setdefault(
+                            metadata["fulltext_for"], {}
+                        )["text"] = full_text
                     continue
                 # other information from the main file
                 record_files_information.setdefault(file_name, {})[

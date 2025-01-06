@@ -10,6 +10,7 @@
     "circ_policies-*",
     "collections-*",
     "documents-*",
+    "files-*",
     "holdings-*",
     "ill_requests-*",
     "item_types-*",
