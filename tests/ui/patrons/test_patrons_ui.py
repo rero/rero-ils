@@ -62,6 +62,8 @@ def test_patrons_logged_user(client, librarian_martigny):
             == librarian_martigny["libraries"][0]["$ref"].rsplit("/", 1)[-1]
         )
         assert data.get("settings").get("language") == "fr"
+        assert data.get("settings").get("globalView") == "global"
+        assert data.get("settings").get("maxFilesCount") == 600
 
 
 def test_patron_format_currency_filter(app):

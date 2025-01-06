@@ -893,7 +893,7 @@ def test_document_advanced_search_config(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
-def test_document_fulltext(client, document_with_files, document_with_issn):
+def test_document_fulltext(app, client, document_with_files, document_with_issn):
     """Test document with fulltext."""
     list_url = url_for(
         "invenio_records_rest.doc_list",
