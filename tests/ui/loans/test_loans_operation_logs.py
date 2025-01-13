@@ -101,6 +101,10 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
     logs = LoanOperationLogsSearch().get_logs_by_record_pid(loan["pid"])
     assert len(logs) == 3
     for log in logs:
+        if log["record"]["type"] == "notif":
+            assert log["notification"]["recipients"] == [
+                "reroilstest+martigny+atdesk@gmail.com"
+            ]
         assert log["loan"]["patron"]["pid"] == patron["pid"]
         assert log["loan"]["patron"]["name"] == "Roduit, Louis"
 
@@ -114,3 +118,5 @@ def test_anonymize_logs(item2_on_loan_martigny_patron_and_loan_on_loan):
         assert log["loan"]["patron"]["hashed_pid"] == f"{md5_hash}"
         assert log["loan"]["patron"].get("name") == "anonymized"
         assert log["loan"]["patron"].get("pid") == "anonymized"
+        if log["record"]["type"] == "notif":
+            assert log["notification"]["recipients"] == ["anonymized"]

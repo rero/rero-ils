@@ -116,4 +116,6 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
             record = log.to_dict()
             record["loan"]["patron"]["name"] = "anonymized"
             record["loan"]["patron"]["pid"] = "anonymized"
+            if record["record"]["type"] == "notif":
+                record["notification"]["recipients"] = ["anonymized"]
             cls.update(log.meta.id, log["date"], record)
