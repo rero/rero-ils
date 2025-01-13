@@ -654,6 +654,9 @@ do
   fi
 done
 
+info_msg "Set footer date"
+eval ${PREFIX} invenio reroils messages set footer info `date +'%d-%m-%Y'`
+
 date
 success_msg "Perfect ${PROGRAM}! See you soon…"
 exit 0

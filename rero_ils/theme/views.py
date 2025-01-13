@@ -41,6 +41,7 @@ from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
 from invenio_jsonschemas.proxies import current_refresolver_store
 
+from rero_ils.modules.messages import Message
 from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.utils import cached
 from rero_ils.permissions import can_access_professional_view
@@ -182,6 +183,13 @@ def view_organisation_name(viewcode):
         if org := Organisation.get_record_by_viewcode(viewcode):
             return org["name"]
     return current_app.config.get("RERO_ILS_SEARCH_GLOBAL_NAME", "")
+
+
+@blueprint.add_app_template_global
+def footer_message():
+    """Get footer message."""
+    if message := Message.get("footer"):
+        return message["message"]
 
 
 def prepare_jsonschema(schema):
