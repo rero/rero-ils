@@ -25,6 +25,10 @@
       {% if config.RERO_ILS_PRIVACY_POLICY_URL %} |
       <a href="{{ config.RERO_ILS_PRIVACY_POLICY_URL }}" target="_blank">{{ _('Privacy policy') }}</a>
       {% endif %}
+      {% set footer_message = footer_message() %}
+      {% if footer_message %} |
+        <a>{{ footer_message }}</a>
+      {% endif %}
     </p>
   </div>
 </footer>

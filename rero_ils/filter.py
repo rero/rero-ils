@@ -30,7 +30,7 @@ from invenio_i18n.ext import current_i18n
 from jinja2 import TemplateNotFound
 from markupsafe import Markup
 
-from .modules.message import Message
+from .modules.messages import Message
 from .modules.utils import extracted_data_from_ref
 
 
