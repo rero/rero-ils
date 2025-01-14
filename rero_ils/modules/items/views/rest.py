@@ -24,6 +24,7 @@ from functools import partial
 
 from invenio_rest import ContentNegotiatedMethodView
 
+from rero_ils.modules.decorators import check_logged_as_librarian
 from rero_ils.modules.items.api import ItemsSearch
 from rero_ils.modules.items.serializers import csv_item_search
 from rero_ils.query import items_search_factory
@@ -51,6 +52,7 @@ class InventoryListResource(ContentNegotiatedMethodView):
         )
         self.search_factory = partial(items_search_factory, self)
 
+    @check_logged_as_librarian
     def get(self, **kwargs):
         """Search records."""
         search_obj = ItemsSearch()

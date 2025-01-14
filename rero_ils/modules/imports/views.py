@@ -72,6 +72,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
             **kwargs,
         )
 
+    @check_logged_as_librarian
     def get(self, **kwargs):
         """Implement the GET."""
         no_cache = True if flask_request.args.get("no_cache") else False
@@ -168,6 +169,7 @@ class ImportsResource(ContentNegotiatedMethodView):
             **kwargs,
         )
 
+    @check_logged_as_librarian
     def get(self, id, **kwargs):
         """Implement the GET."""
         no_cache = True if flask_request.args.get("no_cache") else False

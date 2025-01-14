@@ -41,10 +41,23 @@ def test_imports_get_config(client, librarian_martigny):
 
 
 @mock.patch("requests.get")
-@mock.patch("rero_ils.permissions.login_and_librarian", mock.MagicMock())
+def test_documents_import_bnf_ean_no_permission(
+    mock_get,
+    client,
+    bnf_ean_any_123,
+):
+    """Test document import from bnf no permission."""
+
+    mock_get.return_value = mock_response(content=bnf_ean_any_123)
+    res = client.get(url_for("api_imports.import_bnf", q="ean:any:123", no_cache=1))
+    assert res.status_code == 401
+
+
+@mock.patch("requests.get")
 def test_documents_import_bnf_ean(
     mock_get,
     client,
+    librarian_martigny,
     bnf_ean_any_123,
     bnf_ean_any_9782070541270,
     bnf_ean_any_9782072862014,
@@ -52,6 +65,7 @@ def test_documents_import_bnf_ean(
     bnf_recordid_all_FRBNF370903960000006,
 ):
     """Test document import from bnf."""
+    login_user_via_session(client, librarian_martigny.user)
 
     mock_get.return_value = mock_response(content=bnf_ean_any_123)
     res = client.get(url_for("api_imports.import_bnf", q="ean:any:123", no_cache=1))
@@ -151,10 +165,10 @@ def test_documents_import_bnf_ean(
 
 
 @mock.patch("requests.get")
-@mock.patch("rero_ils.permissions.login_and_librarian", mock.MagicMock())
 def test_documents_import_loc_isbn(
     mock_get,
     client,
+    librarian_martigny,
     loc_isbn_all_123,
     loc_isbn_all_9781604689808,
     loc_isbn_all_9780821417478,
@@ -162,6 +176,7 @@ def test_documents_import_loc_isbn(
     loc_recordid_all_2014043016,
 ):
     """Test document import from LoC."""
+    login_user_via_session(client, librarian_martigny.user)
 
     mock_get.return_value = mock_response(content=loc_isbn_all_123)
     res = client.get(url_for("api_imports.import_loc", q="isbn:all:123", no_cache=1))
@@ -264,10 +279,10 @@ def test_documents_import_loc_missing_id(mock_get, client, loc_without_010):
 
 
 @mock.patch("requests.get")
-@mock.patch("rero_ils.permissions.login_and_librarian", mock.MagicMock())
 def test_documents_import_dnb_isbn(
     mock_get,
     client,
+    librarian_martigny,
     dnb_isbn_123,
     dnb_isbn_9783862729852,
     dnb_isbn_3858818526,
@@ -275,6 +290,7 @@ def test_documents_import_dnb_isbn(
     dnb_recordid_1214325203,
 ):
     """Test document import from DNB."""
+    login_user_via_session(client, librarian_martigny.user)
 
     mock_get.return_value = mock_response(content=dnb_isbn_123)
     res = client.get(url_for("api_imports.import_dnb", q="123", no_cache=1))
@@ -342,10 +358,10 @@ def test_documents_import_dnb_isbn(
 
 
 @mock.patch("requests.get")
-@mock.patch("rero_ils.permissions.login_and_librarian", mock.MagicMock())
 def test_documents_import_slsp_isbn(
     mock_get,
     client,
+    librarian_martigny,
     slsp_anywhere_123,
     slsp_isbn_9782296076648,
     slsp_isbn_3908497272,
@@ -353,6 +369,7 @@ def test_documents_import_slsp_isbn(
     slsp_recordid_9910137,
 ):
     """Test document import from slsp."""
+    login_user_via_session(client, librarian_martigny.user)
 
     mock_get.return_value = mock_response(content=slsp_anywhere_123)
     res = client.get(url_for("api_imports.import_slsp", q="123", no_cache=1))
@@ -450,10 +467,10 @@ def test_documents_import_slsp_isbn(
 
 
 @mock.patch("requests.get")
-@mock.patch("rero_ils.permissions.login_and_librarian", mock.MagicMock())
 def test_documents_import_ugent_isbn(
     mock_get,
     client,
+    librarian_martigny,
     ugent_anywhere_123,
     ugent_isbn_9781108422925,
     ugent_book_without_26X,
@@ -462,6 +479,7 @@ def test_documents_import_ugent_isbn(
     ugent_recordid_001247835,
 ):
     """Test document import from ugent."""
+    login_user_via_session(client, librarian_martigny.user)
 
     mock_get.return_value = mock_response(content=ugent_anywhere_123)
     res = client.get(url_for("api_imports.import_ugent", q="123", no_cache=1))
@@ -528,10 +546,10 @@ def test_documents_import_ugent_isbn(
 
 
 @mock.patch("requests.get")
-@mock.patch("rero_ils.permissions.login_and_librarian", mock.MagicMock())
 def test_documents_import_kul_isbn(
     mock_get,
     client,
+    librarian_martigny,
     kul_anywhere_123,
     kul_isbn_9782265089419,
     kul_book_without_26X,
@@ -540,6 +558,7 @@ def test_documents_import_kul_isbn(
     kul_recordid_9992876296301471,
 ):
     """Test document import from kul."""
+    login_user_via_session(client, librarian_martigny.user)
 
     mock_get.return_value = mock_response(content=kul_anywhere_123)
     res = client.get(url_for("api_imports.import_kul", q="123", no_cache=1))
@@ -636,9 +655,9 @@ def test_documents_import_kul_isbn(
 
 
 @mock.patch("requests.get")
-@mock.patch("rero_ils.permissions.login_and_librarian", mock.MagicMock())
-def test_documents_import_bnf_errors(mock_get, client):
+def test_documents_import_bnf_errors(mock_get, client, librarian_martigny):
     """Test document import from bnf."""
+    login_user_via_session(client, librarian_martigny.user)
 
     mock_get.return_value = mock_response(content=b"")
     res = client.get(url_for("api_imports.import_bnf", q="ean:any", no_cache=1))
