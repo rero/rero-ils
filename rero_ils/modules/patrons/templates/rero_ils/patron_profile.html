@@ -28,6 +28,6 @@
 {%- endblock body %}
 
 {%- block javascript %}
-{{ webpack['reroils_public.js']}}
+{{ super() }}
 {{ node_assets('@rero/rero-ils-ui/dist/public-patron-profile', tags='type="module"') }}
 {%- endblock javascript %}
