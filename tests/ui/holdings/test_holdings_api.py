@@ -122,9 +122,12 @@ def test_holding_extended_validation(
     assert "Can not have multiple notes of the same type" in str(err)
     del record["notes"]
 
-    with mock.patch.object(
-        Document, "get_record_by_pid", mock.MagicMock(return_value=None)
-    ), pytest.raises(ValidationError) as err:
+    with (
+        mock.patch.object(
+            Document, "get_record_by_pid", mock.MagicMock(return_value=None)
+        ),
+        pytest.raises(ValidationError) as err,
+    ):
         record.validate()
     assert "Document does not exist" in str(err)
 

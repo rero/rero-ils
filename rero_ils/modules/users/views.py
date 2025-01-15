@@ -121,7 +121,7 @@ class UsersResource(ContentNegotiatedMethodView):
                 "PUT": "application/json",
             },
             default_media_type="application/json",
-            **kwargs
+            **kwargs,
         )
 
     @check_user_permission
@@ -160,7 +160,7 @@ class UsersCreateResource(ContentNegotiatedMethodView):
                 "POST": "application/json",
             },
             default_media_type="application/json",
-            **kwargs
+            **kwargs,
         )
 
     @check_user_list_permission

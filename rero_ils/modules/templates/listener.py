@@ -28,7 +28,7 @@ def prepare_template_data(
     index=None,
     doc_type=None,
     arguments=None,
-    **dummy_kwargs
+    **dummy_kwargs,
 ):
     """Signal sent before a record is indexed.
 

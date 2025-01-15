@@ -123,6 +123,9 @@ fi
 info_msg "Upgrade pip"
 poetry run pip install --upgrade pip
 
+info_msg "Install poetry shell"
+poetry self add poetry-plugin-shell
+
 info_msg "Install poethepoet"
 poetry run pip install poethepoet
 

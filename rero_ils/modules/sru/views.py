@@ -58,7 +58,7 @@ class SRUDocumentsSearch(ContentNegotiatedMethodView):
             },
             default_method_media_type={"GET": "application/xml"},
             default_media_type="application/xml",
-            **kwargs
+            **kwargs,
         )
 
     def get(self, **kwargs):

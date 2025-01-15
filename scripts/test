@@ -67,12 +67,13 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 function pretests () {
-#   -> Vulnerability found in flask-caching version 2.0.1
+# -> Vulnerability found in flask-caching version 2.0.1
 #    Vulnerability ID: 40459
 # -> Vulnerability found in flask-cors version 5.0.0
-#    Vulnerability ID: 72731
-# -> Vulnerability found in flask-cors version 5.0.0
 #    Vulnerability ID: 70624
+# -> Vulnerability found in flask-cors version 5.0.0
+#    Vulnerability ID: 72731
+#    ADVISORY: A vulnerability in corydolphin/flask-cors allows the
 # -> Vulnerability found in sqlalchemy version 1.4.54
 #    Vulnerability ID: 51668
 # -> Vulnerability found in sqlalchemy-utils version 0.38.3
@@ -80,27 +81,26 @@ function pretests () {
 # -> Vulnerability found in wtforms version 2.3.3
 #    Vulnerability ID: 42852
 # -> Vulnerability found in werkzeug version 2.2.3
-#    Vulnerability ID: 62019
-# -> Vulnerability found in werkzeug version 2.2.3
 #    Vulnerability ID: 71595
 # -> Vulnerability found in werkzeug version 2.2.3
+#    Vulnerability ID: 62019
+# -> Vulnerability found in werkzeug version 2.2.3
 #    Vulnerability ID: 73969
+# -> Vulnerability found in werkzeug version 2.2.3
+#    Vulnerability ID: 73889
 # -> Vulnerability found in werkzeug version 2.2.3
 #    Vulnerability ID: 71594
-# -> Vulnerability found in werkzeug version 2.2.3
-#    Vulnerability ID: 73969
-# -> Vulnerability found in jinja2 version 3.1.4
-#    Vulnerability ID: 70612
 # -> Vulnerability found in jsonpickle version 1.4.2
 #    Vulnerability ID: 72982
+# -> Vulnerability found in pip version 22.3.1
+#    Vulnerability ID: 62044
 # -> Vulnerability found in py version 1.11.0
 #    Vulnerability ID: 51457
 # -> Vulnerability found in sentry-sdk version 1.45.1
 #    Vulnerability ID: 72260
-# -> Vulnerability found in werkzeug version 2.2.3
-#    Vulnerability ID: 73889
+
   info_msg "Check vulnerabilities:"
-  safety_exceptions="-i 40459 -i 72731 -i 70624 -i 51668 -i 42194 -i 42852 -i 62019 -i 71595 -i 73969 -i 71594 -i 70612 -i 72982 -i 51457 -i 72260 -i 73889"
+  safety_exceptions="-i 40459 -i 70624 -i 72731 -i 51668 -i 42194 -i 42852 -i 71595 -i 62019 -i 73969 -i 73889 -i71594 -i 72982 -i 62044 -i 51457 -i 72260"
   msg=$(safety check -o text ${safety_exceptions}) || {
     echo "Safety vulnerabilites found for packages:" $(safety check -o bare ${safety_exceptions})
     echo "Run: \"safety check -o screen ${safety_exceptions} | grep -i vulnerability\" for more details"

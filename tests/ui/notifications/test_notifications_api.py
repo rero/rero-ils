@@ -164,8 +164,9 @@ def test_notification_extended_validation(client, item_lib_martigny):
     assert "`item` field must reference an serial issue" in str(err)
 
     record["context"]["recipients"] = [{"type": "to", "address": "cc@mail.co"}]
-    with mock.patch.object(Item, "is_issue", True), pytest.raises(
-        ValidationError
-    ) as err:
+    with (
+        mock.patch.object(Item, "is_issue", True),
+        pytest.raises(ValidationError) as err,
+    ):
         record.validate()
     assert "Recipient type `to` and `reply_to` are required" in str(err)
