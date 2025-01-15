@@ -48,7 +48,7 @@ class InventoryListResource(ContentNegotiatedMethodView):
             },
             default_method_media_type={"GET": "text/csv"},
             default_media_type="text/csv",
-            **kwargs
+            **kwargs,
         )
         self.search_factory = partial(items_search_factory, self)
 

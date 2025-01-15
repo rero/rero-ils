@@ -31,7 +31,7 @@ def enrich_acq_receipt_line_data(
     index=None,
     doc_type=None,
     arguments=None,
-    **dummy_kwargs
+    **dummy_kwargs,
 ):
     """Signal sent before a record is indexed.
 

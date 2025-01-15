@@ -543,20 +543,26 @@ def test_document_can_request_view(
     """Test can request on document view."""
     login_user_via_session(client, patron_martigny.user)
 
-    with mock.patch(
-        "rero_ils.modules.documents.views.current_user", patron_martigny.user
-    ), mock.patch(
-        "rero_ils.modules.documents.views.current_patrons", [patron_martigny]
+    with (
+        mock.patch(
+            "rero_ils.modules.documents.views.current_user", patron_martigny.user
+        ),
+        mock.patch(
+            "rero_ils.modules.documents.views.current_patrons", [patron_martigny]
+        ),
     ):
         can, _ = can_request(item_lib_fully)
         assert can
         can, _ = can_request(item_lib_sion)
         assert not can
 
-    with mock.patch(
-        "rero_ils.modules.documents.views.current_user", patron2_martigny.user
-    ), mock.patch(
-        "rero_ils.modules.documents.views.current_patrons", [patron2_martigny]
+    with (
+        mock.patch(
+            "rero_ils.modules.documents.views.current_user", patron2_martigny.user
+        ),
+        mock.patch(
+            "rero_ils.modules.documents.views.current_patrons", [patron2_martigny]
+        ),
     ):
         can, _ = can_request(item_lib_fully)
         assert not can
