@@ -23,6 +23,7 @@ from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
 
 from rero_ils.modules.acquisition.acq_accounts.models import AcqAccountExceedanceType
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 
 
 class AcqOrderLineValidationExtension(RecordExtension):
@@ -72,10 +73,23 @@ class AcqOrderLineValidationExtension(RecordExtension):
             msg = _("Cannot link to an harvested document")
             raise ValidationError(msg)
 
+    @staticmethod
+    def _check_order_pending(record):
+        """Check order is pending."""
+        if record.order.status not in [
+            AcqOrderStatus.PENDING,
+            AcqOrderStatus.PARTIALLY_RECEIVED,
+        ]:
+            msg = _("Order must be pending")
+            raise ValidationError(msg)
+
     # INVENIO EXTENSION HOOKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     def pre_commit(self, record):
         """Called before a record is committed."""
         AcqOrderLineValidationExtension._check_balance(record)
         AcqOrderLineValidationExtension._check_harvested(record)
 
-    pre_create = pre_commit
+    def pre_create(self, record):
+        """Called before a record is created."""
+        self.pre_commit(record=record)
+        AcqOrderLineValidationExtension._check_order_pending(record)

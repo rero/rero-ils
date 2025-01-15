@@ -42,15 +42,24 @@ def test_order_line_properties(
 
 
 def test_order_line_validation_extension(
-    acq_order_line_fiction_martigny_data, acq_account_fiction_martigny, ebook_1
+    acq_order_fiction_martigny,
+    acq_order_line_fiction_martigny,
+    acq_order_line_fiction_martigny_data,
+    acq_account_fiction_martigny,
+    ebook_1,
 ):
     """Test order line validation extension."""
-    data = deepcopy(acq_order_line_fiction_martigny_data)
-    del data["pid"]
+    # An order line cannot added to an non pending order
+    acol = AcqOrderLine.create(acq_order_line_fiction_martigny, delete_pid=True)
+    acol["order_date"] = "2022-02-02"
+    acol.update(data=acol, dbcommit=True, reindex=True)
+    with pytest.raises(ValidationError) as error:
+        AcqOrderLine.create(acq_order_line_fiction_martigny, delete_pid=True)
+    assert "Order must be pending" in str(error.value)
 
     # An order line cannot be linked to an harvested document
     ebook_ref = get_ref_for_pid("doc", ebook_1.pid)
-    test_data = deepcopy(data)
+    test_data = deepcopy(acq_order_line_fiction_martigny_data)
     test_data["document"]["$ref"] = ebook_ref
     with pytest.raises(ValidationError) as error:
         AcqOrderLine.create(test_data, delete_pid=True)
