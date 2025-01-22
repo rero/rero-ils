@@ -22,7 +22,6 @@ from functools import partial
 
 from flask_babel import gettext as _
 
-from rero_ils.modules.acquisition.acq_invoices.api import AcquisitionInvoicesSearch
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.minters import id_minter
@@ -147,23 +146,16 @@ class Vendor(IlsRecord):
         from rero_ils.modules.holdings.api import HoldingsSearch
 
         acq_orders_query = AcqOrdersSearch().filter("term", vendor__pid=self.pid)
-        acq_invoices_query = AcquisitionInvoicesSearch().filter(
-            "term", vendor__pid=self.pid
-        )
         hold_query = HoldingsSearch().filter("term", vendor__pid=self.pid)
         links = {}
         if get_pids:
             acq_orders = sorted_pids(acq_orders_query)
-            acq_invoices = sorted_pids(acq_invoices_query)
             holdings = sorted_pids(hold_query)
         else:
             acq_orders = acq_orders_query.count()
-            acq_invoices = acq_invoices_query.count()
             holdings = hold_query.count()
         if acq_orders:
             links["acq_orders"] = acq_orders
-        if acq_invoices:
-            links["acq_invoices"] = acq_invoices
         if holdings:
             links["holdings"] = holdings
         return links

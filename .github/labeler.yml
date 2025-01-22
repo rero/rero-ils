@@ -73,7 +73,6 @@ translations:
 "f: acquisitions":
   - rero_ils/acquisition/**/*
   - rero_ils/modules/acq_accounts/**/*
-  - rero_ils/modules/acq_invoices/**/*
   - rero_ils/modules/acq_order_lines/**/*
   - rero_ils/modules/acq_orders/**/*
   - rero_ils/modules/budgets/**/*

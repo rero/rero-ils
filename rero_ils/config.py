@@ -55,10 +55,6 @@ from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount
 from rero_ils.modules.acquisition.acq_accounts.permissions import (
     AcqAccountPermissionPolicy,
 )
-from rero_ils.modules.acquisition.acq_invoices.api import AcquisitionInvoice
-from rero_ils.modules.acquisition.acq_invoices.permissions import (
-    AcqInvoicePermissionPolicy,
-)
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
 from rero_ils.modules.acquisition.acq_order_lines.permissions import (
     AcqOrderLinePermissionPolicy,
@@ -1908,51 +1904,6 @@ RECORDS_REST_ENDPOINTS = dict(
             "delete", record=record
         ),
     ),
-    acin=dict(
-        pid_type="acin",
-        pid_minter="acq_invoice_id",
-        pid_fetcher="acq_invoice_id",
-        search_class="rero_ils.modules.acquisition.acq_invoices.api:AcquisitionInvoicesSearch",
-        search_index="acq_invoices",
-        indexer_class="rero_ils.modules.acquisition.acq_invoices.api:AcquisitionInvoicesIndexer",
-        record_serializers={
-            "application/json": "rero_ils.modules.serializers:json_v1_response",
-            "application/rero+json": "rero_ils.modules.acquisition.acq_invoices.serializers:json_acq_invoice_record",
-        },
-        record_serializers_aliases={
-            "json": "application/json",
-        },
-        search_serializers={
-            "application/json": "rero_ils.modules.serializers:json_v1_search",
-            "application/rero+json": "rero_ils.modules.acquisition.acq_invoices.serializers:json_acq_invoice_search",
-        },
-        record_loaders={
-            "application/json": lambda: AcquisitionInvoice(request.get_json()),
-        },
-        record_class="rero_ils.modules.acquisition.acq_invoices.api:AcquisitionInvoice",
-        list_route="/acq_invoices/",
-        item_route=(
-            "/acq_invoices/<pid(acin, record_class='rero_ils.modules.acquisition.acq_invoices.api:AcquisitionInvoice'):pid_value>"
-        ),
-        default_media_type="application/json",
-        max_result_window=MAX_RESULT_WINDOW,
-        search_factory_imp="rero_ils.query:organisation_search_factory",
-        list_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy(
-            "search", record=record
-        ),
-        read_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy(
-            "read", record=record
-        ),
-        create_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy(
-            "create", record=record
-        ),
-        update_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy(
-            "update", record=record
-        ),
-        delete_permission_factory_imp=lambda record: AcqInvoicePermissionPolicy(
-            "delete", record=record
-        ),
-    ),
     tmpl=dict(
         pid_type="tmpl",
         pid_minter="template_id",
@@ -2484,30 +2435,6 @@ RECORDS_REST_FACETS = dict(
         filters={
             _("library"): and_term_filter("library.pid"),
             _("budget"): and_term_filter("budget"),
-        },
-    ),
-    acq_invoices=dict(
-        aggs=dict(
-            library=dict(
-                terms=dict(
-                    field="library.pid",
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        "acq_invoices", RERO_ILS_DEFAULT_AGGREGATION_SIZE
-                    ),
-                )
-            ),
-            status=dict(
-                terms=dict(
-                    field="invoice_status",
-                    size=RERO_ILS_AGGREGATION_SIZE.get(
-                        "acq_invoices", RERO_ILS_DEFAULT_AGGREGATION_SIZE
-                    ),
-                )
-            ),
-        ),
-        filters={
-            _("library"): and_term_filter("library.pid"),
-            _("status"): and_term_filter("invoice_status"),
         },
     ),
     acq_orders=dict(
@@ -3172,12 +3099,6 @@ RERO_ILS_PERMISSIONS_ACTIONS = [
     "rero_ils.modules.acquisition.acq_accounts.permissions:create_action",
     "rero_ils.modules.acquisition.acq_accounts.permissions:update_action",
     "rero_ils.modules.acquisition.acq_accounts.permissions:delete_action",
-    "rero_ils.modules.acquisition.acq_invoices.permissions:access_action",
-    "rero_ils.modules.acquisition.acq_invoices.permissions:search_action",
-    "rero_ils.modules.acquisition.acq_invoices.permissions:read_action",
-    "rero_ils.modules.acquisition.acq_invoices.permissions:create_action",
-    "rero_ils.modules.acquisition.acq_invoices.permissions:update_action",
-    "rero_ils.modules.acquisition.acq_invoices.permissions:delete_action",
     "rero_ils.modules.acquisition.acq_order_lines.permissions:access_action",
     "rero_ils.modules.acquisition.acq_order_lines.permissions:search_action",
     "rero_ils.modules.acquisition.acq_order_lines.permissions:read_action",
@@ -3417,7 +3338,6 @@ RERO_ILS_DEFAULT_JSON_SCHEMA = {
     "acor": "/acq_orders/acq_order-v0.0.1.json",
     "acre": "/acq_receipts/acq_receipt-v0.0.1.json",
     "acrl": "/acq_receipt_lines/acq_receipt_line-v0.0.1.json",
-    "acin": "/acq_invoices/acq_invoice-v0.0.1.json",
     "budg": "/budgets/budget-v0.0.1.json",
     "cipo": "/circ_policies/circ_policy-v0.0.1.json",
     "coll": "/collections/collection-v0.0.1.json",

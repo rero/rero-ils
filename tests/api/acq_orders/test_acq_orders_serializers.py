@@ -47,7 +47,7 @@ def test_csv_serializer(
     assert data
     assert (
         '"order_pid","order_reference","order_date","order_staff_note",'
-        '"order_vendor_note","order_type","order_status","vendor_name",'
+        '"order_vendor_note","order_status","vendor_name",'
         '"document_pid","document_creator","document_title",'
         '"document_publisher","document_publication_year",'
         '"document_edition_statement","document_series_statement",'

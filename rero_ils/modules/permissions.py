@@ -42,6 +42,8 @@ from invenio_records_permissions.generators import Disable, Generator
 from rero_ils.modules.patrons.api import current_librarian, current_patrons
 from rero_ils.modules.utils import get_record_class_and_permissions_from_route
 
+from .acquisition.acq_orders.api import AcqOrder
+
 # SPECIFIC ACTIONS ============================================================
 #    Some actions are not related to a specific resource. For this case, we
 #    can create a specific action in this root permission module.
@@ -480,4 +482,36 @@ class DisallowedIfRollovered(Generator):
                 record = self.record_cls(record)
             if self.is_rollovered(record):
                 return [any_user]
+        return []
+
+
+class DisallowedByOrderStatus(Generator):
+    """Disallow if the record is considerate roll-overed."""
+
+    def __init__(self, record_cls, allowed_statuses):
+        """Constructor.
+
+        :param record_cls: the record class to build a resource if record is
+            received is only dict/data.
+        :param callback: the function to use to know if the resource is
+            rollovered. This function should return a boolean value. By default
+            the ``is_active`` record property will be returned if exists ;
+            otherwise True.
+        """
+        self.record_cls = record_cls
+        self.allowed_statuses = allowed_statuses
+
+    def excludes(self, record=None, **kwargs):
+        """Disallow operation check.
+
+        :param record; the record to check.
+        :param kwargs: extra named arguments.
+        :returns: a list of Needs to disable access.
+        """
+        if record:
+            if not isinstance(record, self.record_cls):
+                record = self.record_cls(record)
+            if order_status := AcqOrder.get_status_by_pid(record.order_pid):
+                if not order_status in self.allowed_statuses:
+                    return [any_user]
         return []

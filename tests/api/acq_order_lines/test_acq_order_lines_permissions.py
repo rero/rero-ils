@@ -25,6 +25,7 @@ from utils import check_permission
 from rero_ils.modules.acquisition.acq_order_lines.permissions import (
     AcqOrderLinePermissionPolicy,
 )
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 
 
 def test_order_lines_permissions(
@@ -153,6 +154,85 @@ def test_order_lines_permissions(
                 "search": True,
                 "read": True,
                 "create": False,
+                "update": False,
+                "delete": False,
+            },
+            acq_order_line_fiction_martigny,
+        )
+
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.CANCELLED),
+    ):
+        check_permission(
+            AcqOrderLinePermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": True,
+                "delete": True,
+            },
+            acq_order_line_fiction_martigny,
+        )
+
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.PENDING),
+    ):
+        check_permission(
+            AcqOrderLinePermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": True,
+                "delete": True,
+            },
+            acq_order_line_fiction_martigny,
+        )
+
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.ORDERED),
+    ):
+        check_permission(
+            AcqOrderLinePermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": True,
+                "delete": False,
+            },
+            acq_order_line_fiction_martigny,
+        )
+
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.PARTIALLY_RECEIVED),
+    ):
+        check_permission(
+            AcqOrderLinePermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": True,
+                "delete": False,
+            },
+            acq_order_line_fiction_martigny,
+        )
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.RECEIVED),
+    ):
+        check_permission(
+            AcqOrderLinePermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
                 "update": False,
                 "delete": False,
             },

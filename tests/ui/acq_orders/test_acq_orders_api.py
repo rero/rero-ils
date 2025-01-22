@@ -59,18 +59,6 @@ def test_order_properties(
     acol1["is_cancelled"] = False
     acol1.update(acol1, dbcommit=True, reindex=True)
 
-    # ORDER DATE --------------------------------------------------------------
-    assert acor.order_date is None
-
-    acol2["order_date"] = yesterday.strftime("%Y-%m-%d")
-    acol2.update(acol2, dbcommit=True, reindex=True)
-    assert acor.order_date == yesterday.strftime("%Y-%m-%d")
-    assert acor.status == AcqOrderStatus.ORDERED
-
-    # reset changes
-    del acol2["order_date"]
-    acol2.update(acol2, dbcommit=True, reindex=True)
-
     # NOTES -------------------------------------------------------------------
     note_content = "test note content"
     assert acor.get_note(AcqOrderNoteType.VENDOR) is None
@@ -108,4 +96,4 @@ def test_get_related_orders(acq_order_fiction_martigny, acq_order_fiction_saxon)
     related_acors = list(acor_martigny.get_related_orders())
     assert related_acors == [acor_saxon]
     assert acor_martigny.get_related_orders(output="count") == 1
-    assert acor_martigny.get_links_to_me(True)["orders"] == [acor_saxon.pid]
+    assert acor_martigny.get_links_to_me(True)["acq_orders"] == [acor_saxon.pid]

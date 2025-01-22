@@ -46,7 +46,7 @@ class AcqOrderNotificationDumper(InvenioRecordsDumper):
         data.update(
             {
                 "reference": record.get("reference"),
-                "order_date": record.order_date or today,
+                "order_date": record.get("order_date", today),
                 "note": record.get_note(AcqOrderNoteType.VENDOR),
             }
         )
