@@ -35,7 +35,7 @@ _records_state = LocalProxy(lambda: current_app.extensions["invenio-records"])
 
 
 @cached(
-    timeout=60 * 60, key_prefix="document_types_from_schema", query_string=True
+    timeout=60 * 60, key_prefix="document_types_from_schema", query_string=False
 )  # 1 hour timeout
 def get_document_types_from_schema(schema="doc"):
     """Create document type definition from schema."""
