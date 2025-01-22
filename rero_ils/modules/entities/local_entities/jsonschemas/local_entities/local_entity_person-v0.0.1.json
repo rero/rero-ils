@@ -166,7 +166,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-lg-6",
+            "itemCssClass": "col-12 md:col-6",
             "options": [
               {
                 "value": "M",

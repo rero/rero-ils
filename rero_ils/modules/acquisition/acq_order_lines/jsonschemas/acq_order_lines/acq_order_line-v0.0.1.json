@@ -8,11 +8,8 @@
     "acq_account",
     "document",
     "priority",
-    "order_date",
-    "receipt_date",
     "quantity",
     "amount",
-    "exchange_rate",
     "notes",
     "is_cancelled"
   ],
@@ -44,14 +41,10 @@
       "type": "integer",
       "minimum": 0,
       "maximum": 5,
-      "default": 0,
       "widget": {
         "formlyConfig": {
           "props": {
-            "hide": true,
-            "navigation": {
-              "essential": true
-            }
+            "itemCssClass": "col-12 md:col-3 md:col-offset-right-9"
           }
         }
       }
@@ -60,7 +53,14 @@
       "title": "Quantity",
       "type": "integer",
       "default": 1,
-      "minimum": 1
+      "minimum": 1,
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-12 md:col-6"
+          }
+        }
+      }
     },
     "amount": {
       "title": "Amount",
@@ -70,8 +70,8 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "hideLabel": true,
-            "fieldMap": "amount"
+            "fieldMap": "amount",
+            "itemCssClass": "col-12 md:col-6"
           }
         }
       }
@@ -82,26 +82,10 @@
       "default": 0,
       "minimum": 0
     },
-    "exchange_rate": {
-      "title": "Exchange rate",
-      "type": "number",
-      "minimum": 0,
-      "widget": {
-        "formlyConfig": {
-          "props": {
-            "hideLabel": true,
-            "hide": true,
-            "navigation": {
-              "essential": true
-            }
-          }
-        }
-      }
-    },
     "notes": {
       "title": "Notes",
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "maxItems": 2,
       "items": {
         "type": "object",
@@ -161,10 +145,8 @@
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ],
           "props": {
+            "itemCssClass": "col-12",
             "validation": {
               "validators": {
                 "uniqueValueKeysInObject": {
@@ -176,57 +158,7 @@
               "messages": {
                 "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
               }
-            },
-            "hide": true,
-            "navigation": {
-              "essential": true
             }
-          }
-        }
-      }
-    },
-    "order_date": {
-      "title": "Order date",
-      "type": "string",
-      "format": "date",
-      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "widget": {
-        "formlyConfig": {
-          "type": "datePicker",
-          "expressions": {
-            "props.required": "field?.parent?.model?.status === 'ordered' || field?.parent?.model?.status === 'received'",
-            "hide": "field?.parent?.model?.status !== 'ordered' && field?.parent?.model?.status !== 'received'"
-          },
-          "props": {
-            "validation": {
-              "messages": {
-                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
-              }
-            },
-            "placeholder": "Select a date"
-          }
-        }
-      }
-    },
-    "receipt_date": {
-      "title": "Receipt date",
-      "type": "string",
-      "format": "date",
-      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
-      "widget": {
-        "formlyConfig": {
-          "type": "datePicker",
-          "expressions": {
-            "props.required": "field?.parent?.model?.status === 'received'",
-            "hide": "field?.parent?.model?.status !== 'received'"
-          },
-          "props": {
-            "validation": {
-              "messages": {
-                "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
-              }
-            },
-            "placeholder": "Select a date"
           }
         }
       }
@@ -253,6 +185,13 @@
             }
           }
         }
+      },
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-12"
+          }
+        }
       }
     },
     "acq_order": {
@@ -263,6 +202,13 @@
           "title": "Acquisition order URI",
           "type": "string",
           "pattern": "^https://bib.rero.ch/api/acq_orders/.*?$"
+        }
+      },
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-12"
+          }
         }
       }
     },
@@ -280,6 +226,7 @@
           "widget": {
             "formlyConfig": {
               "type": "remoteAutoComplete",
+              "hideLabel": true,
               "props": {
                 "validation": {
                   "messages": {
@@ -292,6 +239,13 @@
                 }
               }
             }
+          }
+        }
+      },
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-12"
           }
         }
       }
@@ -330,7 +284,21 @@
       "title": "Cancelled",
       "description": "If checked this order line should be considered as cancelled.",
       "type": "boolean",
-      "default": false
+      "default": false,
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-12"
+          }
+        }
+      }
+    }
+  },
+  "widget": {
+    "formlyConfig": {
+      "props": {
+        "containerCssClass": "grid grid-nogutter-y"
+      }
     }
   }
 }

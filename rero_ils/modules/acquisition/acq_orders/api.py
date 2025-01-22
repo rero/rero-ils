@@ -155,8 +155,13 @@ class AcqOrder(AcquisitionIlsRecord):
             is PARTIALLY_RECEIVED or RECEIVED.
         RECEIVED:   if all related order lines has RECEIVED status.
         """
+        return self.get_status_by_pid(self.pid)
+
+    @classmethod
+    def get_status_by_pid(cls, pid):
+        """."""
         status = AcqOrderStatus.PENDING
-        search = AcqOrderLinesSearch().filter("term", acq_order__pid=self.pid)
+        search = AcqOrderLinesSearch().filter("term", acq_order__pid=pid)
         search.aggs.bucket("status", "terms", field="status")
         results = search.execute()
         statuses = [hit.key for hit in results.aggregations.status.buckets]
@@ -184,19 +189,6 @@ class AcqOrder(AcquisitionIlsRecord):
                 status = status_map[statuses[0]]
 
         return status
-
-    @property
-    def order_date(self):
-        """Get the order date of this order."""
-        result = (
-            AcqOrderLinesSearch()
-            .filter("term", acq_order__pid=self.pid)
-            .filter("exists", field="order_date")
-            .source(["order_date"])
-            .scan()
-        )
-        dates = [hit.order_date for hit in result]
-        return next(iter(dates or []), None)
 
     @property
     def item_quantity(self):
@@ -485,11 +477,13 @@ class AcqOrder(AcquisitionIlsRecord):
         # notification metadata (status, process_date, ...)
         if dispatcher_result.get("sent", 0):
             order_date = datetime.now().strftime("%Y-%m-%d")
+            self["order_date"] = order_date
+            record = self.update(self, dbcommit=True, reindex=False)
             order_lines = self.get_order_lines(includes=[AcqOrderLineStatus.APPROVED])
             for order_line in order_lines:
-                order_line["order_date"] = order_date
-                order_line.update(order_line, dbcommit=True, reindex=True)
-            self.reindex()
+                order_line.reindex()
+            record.reindex()
+
             notif = Notification.get_record(notif.id)
 
         return notif

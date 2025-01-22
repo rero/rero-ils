@@ -84,7 +84,6 @@ class AcqOrderCSVSerializer(CSVSerializer):
             "order_pid": "pid",
             "order_reference": "reference",
             "order_date": "order_date",
-            "order_type": "type",
             "order_status": "status",
         }
 

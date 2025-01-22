@@ -22,6 +22,7 @@ from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
 from utils import check_permission
 
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.acquisition.acq_receipts.permissions import (
     AcqReceiptPermissionPolicy,
 )
@@ -37,6 +38,8 @@ def test_receipts_permissions(
     acq_receipt_fiction_sion,
     acq_receipt_fiction_saxon,
     acq_receipt_fiction_martigny,
+    acq_receipt_line_1_fiction_martigny,
+    acq_receipt_line_fiction_saxon,
 ):
     """Test receipt permissions class."""
 
@@ -152,6 +155,82 @@ def test_receipts_permissions(
                 "create": False,
                 "update": False,
                 "delete": False,
+            },
+            acq_receipt_fiction_martigny,
+        )
+
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.CANCELLED),
+    ):
+        check_permission(
+            AcqReceiptPermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": False,
+                "delete": False,
+            },
+            acq_receipt_fiction_martigny,
+        )
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.PENDING),
+    ):
+        check_permission(
+            AcqReceiptPermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": False,
+                "delete": False,
+            },
+            acq_receipt_fiction_martigny,
+        )
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.ORDERED),
+    ):
+        check_permission(
+            AcqReceiptPermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": False,
+                "delete": False,
+            },
+            acq_receipt_fiction_martigny,
+        )
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.PARTIALLY_RECEIVED),
+    ):
+        check_permission(
+            AcqReceiptPermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": True,
+                "delete": True,
+            },
+            acq_receipt_fiction_martigny,
+        )
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.RECEIVED),
+    ):
+        check_permission(
+            AcqReceiptPermissionPolicy,
+            {
+                "search": True,
+                "read": True,
+                "create": True,
+                "update": False,
+                "delete": True,
             },
             acq_receipt_fiction_martigny,
         )

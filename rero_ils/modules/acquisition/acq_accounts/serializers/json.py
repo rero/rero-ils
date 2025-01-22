@@ -26,6 +26,15 @@ from ..api import AcqAccountsSearch
 class AcqAccountJSONSerializer(ACQJSONSerializer):
     """Serializer for RERO-ILS `AcqAccount` records as JSON."""
 
+    def _postprocess_search_hit(self, hit: dict) -> None:
+        """Post-process each hit of a search result."""
+        hit["metadata"]["number_of_children"] = (
+            AcqAccountsSearch()
+            .filter("term", parent__pid=hit["metadata"]["pid"])
+            .count()
+        )
+        super()._postprocess_search_hit(hit)
+
     def preprocess_record(self, pid, record, links_factory=None, **kwargs):
         """Prepare a record and persistent identifier for serialization."""
         # Add some ES stored keys into response

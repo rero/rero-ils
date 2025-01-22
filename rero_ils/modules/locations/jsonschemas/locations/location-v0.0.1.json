@@ -236,16 +236,6 @@
         "formlyConfig": {
           "expressions": {
             "hide": "field?.parent?.model?.allow_request === false"
-          },
-          "wrappers": [
-            "toggle-switch"
-          ],
-          "props": {
-            "hideLabel": true,
-            "toggle-switch": {
-              "label": "Restrict pickup to",
-              "description": "If enabled, restrict pickup to specific pickup locations."
-            }
           }
         }
       }

@@ -6,15 +6,13 @@
   "additionalProperties": false,
   "propertiesOrder": [
     "reference",
-    "exchange_rate",
     "amount_adjustments",
     "notes"
   ],
   "required": [
     "$schema",
     "pid",
-    "acq_order",
-    "exchange_rate"
+    "acq_order"
   ],
   "properties": {
     "$schema": {
@@ -47,32 +45,7 @@
     "reference": {
       "title": "Reference",
       "type": "string",
-      "minLength": 3,
-      "widget": {
-        "formlyConfig": {
-          "props": {
-            "navigation": {
-              "essential": true
-            }
-          }
-        }
-      }
-    },
-    "exchange_rate": {
-      "title": "Exchange rate",
-      "type": "number",
-      "exclusiveMinimum": 0,
-      "default": 1,
-      "widget": {
-        "formlyConfig": {
-          "props": {
-            "hide": true,
-            "navigation": {
-              "essential": true
-            }
-          }
-        }
-      }
+      "minLength": 3
     },
     "amount_adjustments": {
       "title": "Additional fees, discount and credit",
@@ -124,16 +97,6 @@
                   }
                 }
               }
-            }
-          }
-        }
-      },
-      "widget": {
-        "formlyConfig": {
-          "props": {
-            "hide": true,
-            "navigation": {
-              "essential": true
             }
           }
         }
@@ -197,9 +160,6 @@
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ],
           "props": {
             "validation": {
               "validators": {
@@ -212,10 +172,6 @@
               "messages": {
                 "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
               }
-            },
-            "hide": true,
-            "navigation": {
-              "essential": true
             }
           }
         }

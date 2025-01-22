@@ -19,11 +19,9 @@
 """API for manipulating Acquisition Order Line."""
 
 from copy import deepcopy
-from datetime import datetime
 from functools import partial
 
 from flask_babel import gettext as _
-from werkzeug.utils import cached_property
 
 from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
 from rero_ils.modules.api import IlsRecordsIndexer, IlsRecordsSearch
@@ -89,7 +87,23 @@ class AcqOrderLine(AcquisitionIlsRecord):
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
             return _("Can not have multiple notes of the same type.")
+        from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
+        from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 
+        order_status = AcqOrder.get_status_by_pid(self.order_pid)
+        valid_statuses = [
+            AcqOrderStatus.CANCELLED,
+            AcqOrderStatus.PENDING,
+        ]
+        if self.updated:
+            valid_statuses += [
+                AcqOrderStatus.ORDERED,
+                AcqOrderStatus.PARTIALLY_RECEIVED,
+            ]
+        if order_status not in valid_statuses:
+            return _(
+                f"Can not create an order line with an order with a wrong status {order_status}."
+            )
         return True
 
     @classmethod
@@ -148,11 +162,6 @@ class AcqOrderLine(AcquisitionIlsRecord):
     def order(self):
         """Shortcut to the order of the order line."""
         return extracted_data_from_ref(self.get("acq_order"), data="record")
-
-    @property
-    def order_date(self):
-        """Shortcut for acquisition order send date."""
-        return self.get("order_date")
 
     @property
     def is_cancelled(self):
@@ -223,19 +232,6 @@ class AcqOrderLine(AcquisitionIlsRecord):
         """Get quantity of unreceived ordered_items for a line order."""
         return self.quantity - self.received_quantity
 
-    @cached_property
-    def receipt_date(self):
-        """Get the first reception date for one item of this order line."""
-        from rero_ils.modules.acquisition.acq_receipt_lines.api import (
-            AcqReceiptLinesSearch,
-        )
-
-        search = AcqReceiptLinesSearch().filter("term", acq_order_line__pid=self.pid)
-        search.aggs.metric("min_receipt_date", "min", field="receipt_date")
-        results = search.execute()
-        epoch = results.aggregations.min_receipt_date.value / 1000
-        return datetime.fromtimestamp(epoch)
-
     @property
     def status(self):
         """Calculate the order line status.
@@ -252,7 +248,7 @@ class AcqOrderLine(AcquisitionIlsRecord):
             return AcqOrderLineStatus.CANCELLED
         status = (
             AcqOrderLineStatus.ORDERED
-            if self.order_date
+            if self.order.get("order_date")
             else AcqOrderLineStatus.APPROVED
         )
 

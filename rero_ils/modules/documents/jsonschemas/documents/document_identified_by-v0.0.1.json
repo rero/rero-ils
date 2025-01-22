@@ -54,7 +54,7 @@
               "props": {
                 "sort": true,
                 "filter": true,
-                "itemCssClass": "col-lg-6",
+                "itemCssClass": "col-12 md:col-6",
                 "options": [
                   {
                     "label": "bf:AudioIssueNumber",
@@ -159,7 +159,7 @@
                 "identifiedby-value"
               ],
               "props": {
-                "itemCssClass": "col-lg-6",
+                "itemCssClass": "col-12 md:col-6",
                 "doNotSubmitOnEnter": true
               }
             }
@@ -172,7 +172,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-6",
+                "itemCssClass": "col-12 md:col-6",
                 "hide": true
               }
             }
@@ -186,7 +186,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-6",
+                "itemCssClass": "col-12 md:col-6",
                 "hide": true,
                 "placeholder": "Example: volume 1"
               }
@@ -205,7 +205,7 @@
                 "hide": "field?.parent?.model?.type !== 'bf:Local'"
               },
               "props": {
-                "itemCssClass": "col-lg-6",
+                "itemCssClass": "col-12 md:col-6",
                 "placeholder": "Examples: LCCN, PMID, DNB"
               }
             }
@@ -222,7 +222,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-6",
+                "itemCssClass": "col-12 md:col-6",
                 "hide": true
               }
             }
@@ -232,7 +232,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "row"
+            "containerCssClass": "grid grid-nogutter-y"
           }
         }
       }

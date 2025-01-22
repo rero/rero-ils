@@ -281,7 +281,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-lg-3"
+                      "itemCssClass": "col-12 md:col-3"
                     }
                   }
                 }
@@ -293,7 +293,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-lg-3"
+                      "itemCssClass": "col-12 md:col-3"
                     }
                   }
                 }
@@ -306,7 +306,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-lg-4",
+                      "itemCssClass": "col-12 md:col-4",
                       "hideLabel": true,
                       "fieldMap": "fee_amount"
                     }
@@ -317,7 +317,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "containerCssClass": "row"
+                  "containerCssClass": "grid grid-nogutter-y"
                 }
               }
             }

@@ -37,7 +37,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-12",
+                "itemCssClass": "col-12",
                 "placeholder": "Example: Copy not allowed"
               }
             }
@@ -47,7 +47,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "row"
+            "containerCssClass": "grid grid-nogutter-y"
           }
         }
       }

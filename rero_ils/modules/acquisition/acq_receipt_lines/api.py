@@ -21,6 +21,7 @@
 from copy import deepcopy
 from functools import partial
 
+from flask_babel import gettext as _
 from werkzeug.utils import cached_property
 
 from rero_ils.modules.acquisition.api import AcquisitionIlsRecord
@@ -85,6 +86,24 @@ class AcqReceiptLine(AcquisitionIlsRecord):
         cls._build_additional_refs(data)
         return super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)
 
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        :return: False if
+        """
+        from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
+        from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
+
+        order_status = AcqOrder.get_status_by_pid(self.order_pid)
+        if order_status not in [
+            AcqOrderStatus.ORDERED,
+            AcqOrderStatus.PARTIALLY_RECEIVED,
+        ]:
+            return _(
+                f"Can not create a receipt with an order with a wrong status {order_status}."
+            )
+        return True
+
     def update(self, data, commit=True, dbcommit=True, reindex=True):
         """Update Acquisition Receipt Line record."""
         # TODO :: try to find a better way to load original record.
@@ -130,6 +149,11 @@ class AcqReceiptLine(AcquisitionIlsRecord):
         return extracted_data_from_ref(self.get("acq_order_line"), data="record")
 
     @property
+    def order_pid(self):
+        """Shortcut for related acquisition order pid."""
+        return self.receipt.order_pid
+
+    @property
     def is_active(self):
         """Check if the receipt line should be considered as active.
 
@@ -157,7 +181,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
     def total_amount(self):
         """Shortcut for related acquisition total_amount."""
         vat_factor = (100 + self.get("vat_rate", 0)) / 100
-        total = self.amount * self.receipt.exchange_rate * self.quantity * vat_factor
+        total = self.amount * self.quantity * vat_factor
         return round(total, 2)
 
     @property

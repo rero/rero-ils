@@ -494,7 +494,7 @@
         "type": "select",
         "props": {
           "sort": true,
-          "itemCssClass": "col-lg-6",
+          "itemCssClass": "col-12 md:col-6",
           "options": [
             {
               "label": "lang_aar",
@@ -2550,7 +2550,7 @@
     "widget": {
       "formlyConfig": {
         "props": {
-          "itemCssClass": "col-lg-12",
+          "itemCssClass": "col-12",
           "hide": true
         }
       }
@@ -2574,7 +2574,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "itemCssClass": "col-lg-12"
+              "itemCssClass": "col-12"
             }
           }
         }
@@ -2586,7 +2586,7 @@
     "widget": {
       "formlyConfig": {
         "props": {
-          "containerCssClass": "row"
+          "containerCssClass": "grid grid-nogutter-y"
         }
       }
     }
@@ -2610,7 +2610,7 @@
           "formlyConfig": {
             "focus": true,
             "props": {
-              "itemCssClass": "col-lg-12"
+              "itemCssClass": "col-12"
             }
           }
         }
@@ -2622,7 +2622,7 @@
     "widget": {
       "formlyConfig": {
         "props": {
-          "containerCssClass": "row"
+          "containerCssClass": "grid grid-nogutter-y"
         }
       }
     }

@@ -262,8 +262,7 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib1"
     },
-    "reference": "OR-1",
-    "type": "monograph"
+    "reference": "OR-1"
   },
   "acor2": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -274,8 +273,7 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib2"
     },
-    "reference": "OR-2",
-    "type": "monograph"
+    "reference": "OR-2"
   },
   "acor3": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -286,8 +284,7 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib4"
     },
-    "reference": "OR-3",
-    "type": "monograph"
+    "reference": "OR-3"
   },
   "acol1": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -383,7 +380,6 @@
     "acq_order": {
       "$ref": "https://bib.rero.ch/api/acq_orders/acor1"
     },
-    "exchange_rate": 1,
     "amount_adjustments": [
       {
         "label": "handling fees",
@@ -455,7 +451,6 @@
     "acq_order": {
       "$ref": "https://bib.rero.ch/api/acq_orders/acor2"
     },
-    "exchange_rate": 1,
     "amount_adjustments": [
       {
         "label": "handling fees",
@@ -509,7 +504,6 @@
     "acq_order": {
       "$ref": "https://bib.rero.ch/api/acq_orders/acor3"
     },
-    "exchange_rate": 1,
     "amount_adjustments": [
       {
         "label": "handling fees",

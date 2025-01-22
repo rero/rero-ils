@@ -59,18 +59,6 @@ def test_order_properties(
     acol1["is_cancelled"] = False
     acol1.update(acol1, dbcommit=True, reindex=True)
 
-    # ORDER DATE --------------------------------------------------------------
-    assert acor.order_date is None
-
-    acol2["order_date"] = yesterday.strftime("%Y-%m-%d")
-    acol2.update(acol2, dbcommit=True, reindex=True)
-    assert acor.order_date == yesterday.strftime("%Y-%m-%d")
-    assert acor.status == AcqOrderStatus.ORDERED
-
-    # reset changes
-    del acol2["order_date"]
-    acol2.update(acol2, dbcommit=True, reindex=True)
-
     # NOTES -------------------------------------------------------------------
     note_content = "test note content"
     assert acor.get_note(AcqOrderNoteType.VENDOR) is None
