@@ -41,7 +41,6 @@ def test_monitoring_es_db_counts(client):
     assert get_json(res) == {
         "data": {
             "acac": {"db": 0, "db-es": 0, "es": 0, "index": "acq_accounts"},
-            "acin": {"db": 0, "db-es": 0, "es": 0, "index": "acq_invoices"},
             "acol": {"db": 0, "db-es": 0, "es": 0, "index": "acq_order_lines"},
             "acor": {"db": 0, "db-es": 0, "es": 0, "index": "acq_orders"},
             "acre": {"db": 0, "db-es": 0, "es": 0, "index": "acq_receipts"},

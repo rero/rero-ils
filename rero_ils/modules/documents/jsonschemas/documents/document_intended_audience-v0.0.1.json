@@ -69,11 +69,11 @@
               ],
               "widget": {
                 "formlyConfig": {
-                  "type": "select",
+                  "type": "multi-select",
                   "props": {
                     "sort": true,
                     "filter": true,
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "target_understanding_children",

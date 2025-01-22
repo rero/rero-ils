@@ -162,11 +162,11 @@
   },
   "widget": {
     "formlyConfig": {
-      "type": "select",
+      "type": "multi-select",
       "props": {
         "filter": true,
         "sort": true,
-        "itemCssClass": "col-lg-6",
+        "itemCssClass": "col-12 md:col-6",
         "options": [
           {
             "value": "aut",

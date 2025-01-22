@@ -658,6 +658,30 @@
     "communication_language": "fre",
     "rollover_settings": {
       "account_transfer": "rollover_no_transfer"
+    },
+    "acquisition_settings": {
+      "shipping_informations": {
+        "name": "sion shipping dept",
+        "email": "reroilstest+sionshipping@gmail.com",
+        "phone": "+447763324594",
+        "address": {
+          "street": "Av. de la gare 134",
+          "city": "Sion",
+          "zip_code": "1950",
+          "country": "sz"
+        },
+        "extra": "VAT number: 123456-78-90"
+      },
+      "billing_informations": {
+        "name": "sion billing dept",
+        "email": "reroilstest+sionshipping@gmail.com",
+        "address": {
+          "street": "Place de la planta 12",
+          "city": "Sion",
+          "zip_code": "1950",
+          "country": "sz"
+        }
+      }
     }
   },
   "lib5": {

@@ -21,6 +21,8 @@
 from copy import deepcopy
 from functools import partial
 
+from flask_babel import gettext as _
+
 from rero_ils.modules.acquisition.acq_receipt_lines.api import (
     AcqReceiptLine,
     AcqReceiptLinesSearch,
@@ -140,6 +142,25 @@ class AcqReceipt(AcquisitionIlsRecord):
             account.reindex()
         return self
 
+    def extended_validation(self, **kwargs):
+        """Add additional record validation.
+
+        :return: False if
+            - the related order status disalows
+        """
+        from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
+        from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
+
+        order_status = AcqOrder.get_status_by_pid(self.order_pid)
+        if order_status not in [
+            AcqOrderStatus.ORDERED,
+            AcqOrderStatus.PARTIALLY_RECEIVED,
+        ]:
+            return _(
+                f"Can not create a receipt with an order with a wrong status {order_status}."
+            )
+        return True
+
     @classmethod
     def _build_additional_refs(cls, data):
         """Build $ref for the organisation of the acquisition receipt."""
@@ -241,11 +262,6 @@ class AcqReceipt(AcquisitionIlsRecord):
     def amount_adjustments(self):
         """Shortcut to get receipt amount adjustments."""
         return self.get("amount_adjustments", [])
-
-    @property
-    def exchange_rate(self):
-        """Shortcut to get receipt exchange_rate."""
-        return self.get("exchange_rate")
 
     @property
     def total_amount(self):

@@ -112,7 +112,6 @@ def test_acq_orders_post_put_delete(
     }
 
     assert data["metadata"].pop("status") == AcqOrderStatus.PENDING
-    assert not data["metadata"].pop("order_date", None)
     acq_order_fiction_saxon_data["pid"] = data["metadata"]["pid"]
     assert data["metadata"] == acq_order_fiction_saxon_data
 
@@ -128,7 +127,6 @@ def test_acq_orders_post_put_delete(
         "expenditure": {"total_amount": 0, "quantity": 0},
     }
     assert data["metadata"].pop("status") == AcqOrderStatus.PENDING
-    assert not data["metadata"].pop("order_date", None)
     assert acq_order_fiction_saxon_data == data["metadata"]
 
     # Update record/PUT
@@ -170,7 +168,7 @@ def test_acq_orders_can_delete(
     """Test can delete an acq order."""
     can, reasons = acq_order_fiction_martigny.can_delete
     assert not can
-    assert reasons["links"]["receipts"]
+    assert reasons["links"]["acq_receipts"]
 
 
 def test_filtered_acq_orders_get(
@@ -221,7 +219,6 @@ def test_acq_order_history_api(
     data = {
         "vendor": {"$ref": get_ref_for_pid("vndr", vendor_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
-        "type": "monograph",
     }
     acor1 = _make_resource(client, "acor", data)
     data["previousVersion"] = {"$ref": get_ref_for_pid("acor", acor1.pid)}
@@ -260,7 +257,7 @@ def test_acq_order_history_api(
 
     # STEP#2 :: Ensure a linked order cannot be deleted
     reasons = acor2.reasons_not_to_delete()
-    assert reasons["links"]["orders"] == 1
+    assert reasons["links"]["acq_orders"] == 1
 
     # STEP#X :: delete created resources
     _del_resource(client, "acol", acol1.pid)

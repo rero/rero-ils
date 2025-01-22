@@ -64,6 +64,7 @@
       "widget": {
         "formlyConfig": {
           "wrappers": [
+            "form-field",
             "user-id"
           ]
         }
@@ -89,7 +90,7 @@
             "formlyConfig": {
               "type": "textarea",
               "props": {
-                "itemCssClass": "col-lg-12",
+                "itemCssClass": "col-12",
                 "rows": 2
               }
             }
@@ -102,7 +103,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-6"
+                "itemCssClass": "col-12 md:col-6"
               }
             }
           }
@@ -114,7 +115,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-6"
+                "itemCssClass": "col-12 md:col-6"
               }
             }
           }
@@ -142,7 +143,7 @@
             "card"
           ],
           "props": {
-            "containerCssClass": "row"
+            "containerCssClass": "grid grid-nogutter-y"
           }
         }
       }
@@ -264,8 +265,7 @@
                   "messages": {
                     "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
                   }
-                },
-                "placeholder": "Select a date"
+                }
               }
             }
           }

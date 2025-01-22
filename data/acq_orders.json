@@ -2,7 +2,6 @@
   {
     "pid": "1",
     "reference": "AOSTE-CANT1-POL-1",
-    "type": "monograph",
     "currency": "EUR",
     "notes": [
       {
@@ -18,12 +17,12 @@
     },
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
-    }
+    },
+    "send_now": true
   },
   {
     "pid": "2",
     "reference": "AOSTE-CANT1-POL-2",
-    "type": "monograph",
     "currency": "EUR",
     "notes": [
       {
@@ -39,12 +38,12 @@
     },
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
-    }
+    },
+    "send_now": true
   },
   {
     "pid": "3",
     "reference": "AOSTE-CANT2-POL-1",
-    "type": "monograph",
     "currency": "EUR",
     "notes": [
       {
@@ -65,7 +64,6 @@
   {
     "pid": "4",
     "reference": "AOSTE-AVISE-POL-1",
-    "type": "monograph",
     "currency": "EUR",
     "notes": [
       {
@@ -86,7 +84,6 @@
   {
     "pid": "5",
     "reference": "AOSTE-LYCEE-POL-1",
-    "type": "monograph",
     "currency": "EUR",
     "notes": [
       {
@@ -107,7 +104,6 @@
   {
     "pid": "6",
     "reference": "AOSTE-CANT1-POL-6",
-    "type": "monograph",
     "currency": "EUR",
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/1"
@@ -122,7 +118,6 @@
   {
     "pid": "7",
     "reference": "AOSTE-CANT1-POL-2021-1",
-    "type": "monograph",
     "currency": "EUR",
     "notes": [
       {
@@ -138,6 +133,7 @@
     },
     "organisation": {
       "$ref": "https://bib.rero.ch/api/organisations/1"
-    }
+    },
+    "send_now": true
   }
 ]

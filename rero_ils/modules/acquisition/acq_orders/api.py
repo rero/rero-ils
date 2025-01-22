@@ -155,8 +155,17 @@ class AcqOrder(AcquisitionIlsRecord):
             is PARTIALLY_RECEIVED or RECEIVED.
         RECEIVED:   if all related order lines has RECEIVED status.
         """
+        return self.get_status_by_pid(self.pid)
+
+    @classmethod
+    def get_status_by_pid(cls, pid):
+        """Get the order status for a given pid.
+
+        :param pid: str - the order persistant identifier.
+        :return: the order status.
+        """
         status = AcqOrderStatus.PENDING
-        search = AcqOrderLinesSearch().filter("term", acq_order__pid=self.pid)
+        search = AcqOrderLinesSearch().filter("term", acq_order__pid=pid)
         search.aggs.bucket("status", "terms", field="status")
         results = search.execute()
         statuses = [hit.key for hit in results.aggregations.status.buckets]
@@ -184,19 +193,6 @@ class AcqOrder(AcquisitionIlsRecord):
                 status = status_map[statuses[0]]
 
         return status
-
-    @property
-    def order_date(self):
-        """Get the order date of this order."""
-        result = (
-            AcqOrderLinesSearch()
-            .filter("term", acq_order__pid=self.pid)
-            .filter("exists", field="order_date")
-            .source(["order_date"])
-            .scan()
-        )
-        dates = [hit.order_date for hit in result]
-        return next(iter(dates or []), None)
 
     @property
     def item_quantity(self):
@@ -427,9 +423,9 @@ class AcqOrder(AcquisitionIlsRecord):
         """
         output = "query" if get_pids else "count"
         links = {
-            "orders": self.get_related_orders(output=output),
-            "order_lines": self.get_order_lines(output=output),
-            "receipts": self.get_receipts(output=output),
+            "acq_orders": self.get_related_orders(output=output),
+            "acq_order_lines": self.get_order_lines(output=output),
+            "acq_receipts": self.get_receipts(output=output),
         }
         links = {k: v for k, v in links.items() if v}
         if get_pids:
@@ -448,7 +444,7 @@ class AcqOrder(AcquisitionIlsRecord):
         # an AcqOrder. Indeed, when we delete an AcqOrder, we also delete all
         # related AcqOrderLines (cascade delete). Check the extension
         # ``pre_delete`` hook.
-        links.pop("order_lines", None)
+        links.pop("acq_order_lines", None)
         if self.status != AcqOrderStatus.PENDING:
             cannot_delete["others"] = {_("Order status is %s") % _(self.status): True}
         if links:
@@ -485,11 +481,13 @@ class AcqOrder(AcquisitionIlsRecord):
         # notification metadata (status, process_date, ...)
         if dispatcher_result.get("sent", 0):
             order_date = datetime.now().strftime("%Y-%m-%d")
+            self["order_date"] = order_date
+            record = self.update(self, dbcommit=True, reindex=False)
             order_lines = self.get_order_lines(includes=[AcqOrderLineStatus.APPROVED])
             for order_line in order_lines:
-                order_line["order_date"] = order_date
-                order_line.update(order_line, dbcommit=True, reindex=True)
-            self.reindex()
+                order_line.reindex()
+            record.reindex()
+
             notif = Notification.get_record(notif.id)
 
         return notif
