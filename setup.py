@@ -176,7 +176,6 @@ setup(
         ],
         "invenio_pidstore.minters": [
             "acq_account_id = rero_ils.modules.acquisition.acq_accounts.api:acq_account_id_minter",
-            "acq_invoice_id = rero_ils.modules.acquisition.acq_invoices.api:acq_invoice_id_minter",
             "acq_order_id = rero_ils.modules.acquisition.acq_orders.api:acq_order_id_minter",
             "acq_order_line_id = rero_ils.modules.acquisition.acq_order_lines.api:acq_order_line_id_minter",
             "acq_receipt_id = rero_ils.modules.acquisition.acq_receipts.api:acq_receipt_id_minter",
@@ -206,7 +205,6 @@ setup(
         ],
         "invenio_db.models": [
             "acq_accounts = rero_ils.modules.acquisition.acq_accounts.models",
-            "acq_invoices = rero_ils.modules.acquisition.acq_invoices.models",
             "acq_order_lines = rero_ils.modules.acquisition.acq_order_lines.models",
             "acq_orders = rero_ils.modules.acquisition.acq_orders.models",
             "acq_receipts = rero_ils.modules.acquisition.acq_receipts.models",
@@ -238,7 +236,6 @@ setup(
         ],
         "invenio_jsonschemas.schemas": [
             "acq_accounts = rero_ils.modules.acquisition.acq_accounts.jsonschemas",
-            "acq_invoices = rero_ils.modules.acquisition.acq_invoices.jsonschemas",
             "acq_order_lines = rero_ils.modules.acquisition.acq_order_lines.jsonschemas",
             "acq_orders = rero_ils.modules.acquisition.acq_orders.jsonschemas",
             "acq_receipts = rero_ils.modules.acquisition.acq_receipts.jsonschemas",
@@ -272,7 +269,6 @@ setup(
         ],
         "invenio_search.mappings": [
             "acq_accounts = rero_ils.modules.acquisition.acq_accounts.mappings",
-            "acq_invoices = rero_ils.modules.acquisition.acq_invoices.mappings",
             "acq_order_lines = rero_ils.modules.acquisition.acq_order_lines.mappings",
             "acq_orders = rero_ils.modules.acquisition.acq_orders.mappings",
             "acq_receipts = rero_ils.modules.acquisition.acq_receipts.mappings",
@@ -320,7 +316,6 @@ setup(
         ],
         "invenio_records.jsonresolver": [
             "acq_accounts = rero_ils.modules.acquisition.acq_accounts.jsonresolver",
-            "acq_invoices = rero_ils.modules.acquisition.acq_invoices.jsonresolver",
             "acq_order_lines = rero_ils.modules.acquisition.acq_order_lines.jsonresolver",
             "acq_orders = rero_ils.modules.acquisition.acq_orders.jsonresolver",
             "acq_receipts = rero_ils.modules.acquisition.acq_receipts.jsonresolver",
@@ -360,7 +355,6 @@ setup(
         ],
         "invenio_records.jsonresolver": [
             "acq_accounts = rero_ils.modules.acquisition.acq_accounts.jsonresolver",
-            "acq_invoices = rero_ils.modules.acquisition.acq_invoices.jsonresolver",
             "acq_order_lines = rero_ils.modules.acquisition.acq_order_lines.jsonresolver",
             "acq_orders = rero_ils.modules.acquisition.acq_orders.jsonresolver",
             "acq_receipts = rero_ils.modules.acquisition.acq_receipts.jsonresolver",

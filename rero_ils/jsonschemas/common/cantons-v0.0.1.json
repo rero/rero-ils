@@ -37,7 +37,6 @@
         },
         "props": {
           "sort": true,
-          "placeholder": "Select an option…",
           "sortOrder": "asc",
           "filter": true,
           "options": [

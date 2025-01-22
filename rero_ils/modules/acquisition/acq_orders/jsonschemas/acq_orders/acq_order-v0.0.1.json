@@ -7,15 +7,14 @@
   "propertiesOrder": [
     "vendor",
     "reference",
-    "type",
+    "order_date",
     "notes"
   ],
   "required": [
     "$schema",
     "pid",
     "vendor",
-    "library",
-    "type"
+    "library"
   ],
   "properties": {
     "$schema": {
@@ -35,55 +34,21 @@
       "type": "string",
       "minLength": 3
     },
-    "type": {
-      "title": "Type",
+    "currency": {
+      "$ref": "https://bib.rero.ch/schemas/common/currency-v0.0.1.json#/currency"
+    },
+    "order_date": {
+      "title": "Order date",
       "type": "string",
-      "enum": [
-        "serial",
-        "monograph",
-        "standing_order",
-        "monographic_set",
-        "planned_order",
-        "multi_volume"
-      ],
-      "default": "monograph",
+      "format": "date",
+      "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
       "widget": {
         "formlyConfig": {
-          "type": "select",
-          "props": {
-            "sort": true,
-            "options": [
-              {
-                "value": "monograph",
-                "label": "monograph"
-              },
-              {
-                "value": "serial",
-                "label": "serial"
-              },
-              {
-                "value": "standing_order",
-                "label": "standing_order"
-              },
-              {
-                "value": "monographic_set",
-                "label": "monographic_set"
-              },
-              {
-                "value": "planned_order",
-                "label": "planned_order"
-              },
-              {
-                "value": "multi_volume",
-                "label": "multi_volume"
-              }
-            ]
+          "expressions": {
+            "hide": "true"
           }
         }
       }
-    },
-    "currency": {
-      "$ref": "https://bib.rero.ch/schemas/common/currency-v0.0.1.json#/currency"
     },
     "notes": {
       "title": "Notes",
@@ -185,7 +150,6 @@
               "focus": true,
               "props": {
                 "hideLabel": true,
-                "placeholder": "Choose a vendor",
                 "remoteOptions": {
                   "type": "vendors"
                 }

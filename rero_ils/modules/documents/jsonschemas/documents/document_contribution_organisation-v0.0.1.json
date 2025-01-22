@@ -40,7 +40,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-lg-6",
+            "itemCssClass": "col-12 md:col-6",
             "placeholder": "Example: Miller, John"
           }
         }
@@ -65,7 +65,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-lg-12"
+            "itemCssClass": "col-12"
           }
         }
       }
@@ -78,7 +78,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-lg-6"
+            "itemCssClass": "col-12 md:col-6"
           }
         }
       }
@@ -90,7 +90,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-lg-6",
+            "itemCssClass": "col-12 md:col-6",
             "placeholder": "Example: Lausanne"
           }
         }
@@ -103,7 +103,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-lg-6",
+            "itemCssClass": "col-12 md:col-6",
             "placeholder": "Example: 4"
           }
         }
@@ -117,7 +117,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-lg-6",
+            "itemCssClass": "col-12 md:col-6",
             "placeholder": "Example: 1989"
           }
         }
@@ -143,7 +143,7 @@
   "widget": {
     "formlyConfig": {
       "props": {
-        "containerCssClass": "row"
+        "containerCssClass": "grid grid-nogutter-y"
       }
     }
   }

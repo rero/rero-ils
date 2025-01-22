@@ -23,7 +23,6 @@ from functools import partial
 from elasticsearch_dsl import Q
 from flask_babel import gettext as _
 
-from rero_ils.modules.acquisition.acq_invoices.api import AcquisitionInvoicesSearch
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLinesSearch
 from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
 from rero_ils.modules.acquisition.acq_receipt_lines.api import AcqReceiptLinesSearch
@@ -410,9 +409,6 @@ class AcqAccount(AcquisitionIlsRecord):
             "term", acq_account__pid=self.pid
         )
         children_query = AcqAccountsSearch().filter("term", parent__pid=self.pid)
-        invoices_query = AcquisitionInvoicesSearch().filter(
-            "term", invoice_items__acq_account__pid=self.pid
-        )
         receipts_query = AcqReceiptsSearch().filter(
             "nested",
             path="amount_adjustments",
@@ -424,20 +420,16 @@ class AcqAccount(AcquisitionIlsRecord):
         if get_pids:
             order_lines = sorted_pids(order_lines_query)
             children = sorted_pids(children_query)
-            invoices = sorted_pids(invoices_query)
             receipts = sorted_pids(receipts_query)
         else:
             order_lines = order_lines_query.count()
             children = children_query.count()
-            invoices = invoices_query.count()
             receipts = receipts_query.count()
 
         if order_lines:
             links["acq_order_lines"] = order_lines
         if children:
             links["acq_accounts"] = children
-        if invoices:
-            links["acq_invoices"] = invoices
         if receipts:
             links["acq_receipts"] = receipts
         return links

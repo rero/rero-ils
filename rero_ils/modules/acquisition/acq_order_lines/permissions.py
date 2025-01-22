@@ -19,9 +19,11 @@
 """Permissions for Acquisition order line."""
 from invenio_access import action_factory
 
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.permissions import (
     AllowedByAction,
     AllowedByActionRestrictByManageableLibrary,
+    DisallowedByOrderStatus,
     DisallowedIfRollovered,
     RecordPermissionPolicy,
 )
@@ -49,8 +51,20 @@ class AcqOrderLinePermissionPolicy(RecordPermissionPolicy):
     can_update = [
         AllowedByActionRestrictByManageableLibrary(update_action),
         DisallowedIfRollovered(AcqOrderLine),
+        DisallowedByOrderStatus(
+            AcqOrderLine,
+            [
+                AcqOrderStatus.CANCELLED,
+                AcqOrderStatus.PENDING,
+                AcqOrderStatus.ORDERED,
+                AcqOrderStatus.PARTIALLY_RECEIVED,
+            ],
+        ),
     ]
     can_delete = [
         AllowedByActionRestrictByManageableLibrary(delete_action),
         DisallowedIfRollovered(AcqOrderLine),
+        DisallowedByOrderStatus(
+            AcqOrderLine, [AcqOrderStatus.CANCELLED, AcqOrderStatus.PENDING]
+        ),
     ]

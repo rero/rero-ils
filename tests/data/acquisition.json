@@ -262,8 +262,7 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib1"
     },
-    "reference": "OR-1",
-    "type": "monograph"
+    "reference": "OR-1"
   },
   "acor2": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -274,8 +273,7 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib2"
     },
-    "reference": "OR-2",
-    "type": "monograph"
+    "reference": "OR-2"
   },
   "acor3": {
     "$schema": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
@@ -286,8 +284,7 @@
     "library": {
       "$ref": "https://bib.rero.ch/api/libraries/lib4"
     },
-    "reference": "OR-3",
-    "type": "monograph"
+    "reference": "OR-3"
   },
   "acol1": {
     "$schema": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
@@ -383,7 +380,6 @@
     "acq_order": {
       "$ref": "https://bib.rero.ch/api/acq_orders/acor1"
     },
-    "exchange_rate": 1,
     "amount_adjustments": [
       {
         "label": "handling fees",
@@ -455,7 +451,6 @@
     "acq_order": {
       "$ref": "https://bib.rero.ch/api/acq_orders/acor2"
     },
-    "exchange_rate": 1,
     "amount_adjustments": [
       {
         "label": "handling fees",
@@ -509,7 +504,6 @@
     "acq_order": {
       "$ref": "https://bib.rero.ch/api/acq_orders/acor3"
     },
-    "exchange_rate": 1,
     "amount_adjustments": [
       {
         "label": "handling fees",
@@ -554,122 +548,6 @@
       {
         "type": "receipt_note",
         "content": "well received too"
-      }
-    ]
-  },
-  "acin1": {
-    "$schema": "https://bib.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
-    "pid": "acin1",
-    "vendor": {
-      "$ref": "https://bib.rero.ch/api/vendors/vndr1"
-    },
-    "library": {
-      "$ref": "https://bib.rero.ch/api/libraries/lib1"
-    },
-    "organisation": {
-      "$ref": "https://bib.rero.ch/api/organisations/org1"
-    },
-    "invoice_number": "IN-1",
-    "invoice_status": "in_progress",
-    "invoice_date": "2020-01-06",
-    "invoice_items": [
-      {
-        "acq_account": {
-          "$ref": "https://bib.rero.ch/api/acq_accounts/acac1"
-        },
-        "acq_order_line": {
-          "$ref": "https://bib.rero.ch/api/acq_order_lines/acol1"
-        },
-        "document": {
-          "$ref": "https://bib.rero.ch/api/documents/doc1"
-        },
-        "order_number": "OR-1",
-        "price": 1000,
-        "quantity": 1
-      },
-      {
-        "acq_account": {
-          "$ref": "https://bib.rero.ch/api/acq_accounts/acac1"
-        },
-        "acq_order_line": {
-          "$ref": "https://bib.rero.ch/api/acq_order_lines/acol2"
-        },
-        "document": {
-          "$ref": "https://bib.rero.ch/api/documents/doc2"
-        },
-        "order_number": "OR-1",
-        "price": 500,
-        "quantity": 1
-      }
-    ]
-  },
-  "acin2": {
-    "$schema": "https://bib.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
-    "pid": "acin2",
-    "vendor": {
-      "$ref": "https://bib.rero.ch/api/vendors/vndr2"
-    },
-    "library": {
-      "$ref": "https://bib.rero.ch/api/libraries/lib2"
-    },
-    "organisation": {
-      "$ref": "https://bib.rero.ch/api/organisations/org1"
-    },
-    "invoice_number": "IN-2",
-    "invoice_status": "in_progress",
-    "invoice_date": "2020-01-06",
-    "discount": {
-      "amount": 100
-    },
-    "invoice_items": [
-      {
-        "acq_account": {
-          "$ref": "https://bib.rero.ch/api/acq_accounts/acac2"
-        },
-        "acq_order_line": {
-          "$ref": "https://bib.rero.ch/api/acq_order_lines/acol3"
-        },
-        "document": {
-          "$ref": "https://bib.rero.ch/api/documents/doc1"
-        },
-        "order_number": "OR-2",
-        "price": 1000,
-        "quantity": 1
-      }
-    ]
-  },
-  "acin3": {
-    "$schema": "https://bib.rero.ch/schemas/acq_invoices/acq_invoice-v0.0.1.json",
-    "pid": "acin3",
-    "vendor": {
-      "$ref": "https://bib.rero.ch/api/vendors/vndr4"
-    },
-    "library": {
-      "$ref": "https://bib.rero.ch/api/libraries/lib4"
-    },
-    "organisation": {
-      "$ref": "https://bib.rero.ch/api/organisations/org2"
-    },
-    "invoice_number": "IN-3",
-    "invoice_status": "in_progress",
-    "invoice_date": "2020-01-06",
-    "discount": {
-      "percentage": 10
-    },
-    "invoice_items": [
-      {
-        "acq_account": {
-          "$ref": "https://bib.rero.ch/api/acq_accounts/acac4"
-        },
-        "acq_order_line": {
-          "$ref": "https://bib.rero.ch/api/acq_order_lines/acol4"
-        },
-        "document": {
-          "$ref": "https://bib.rero.ch/api/documents/doc1"
-        },
-        "order_number": "OR-3",
-        "price": 1000,
-        "quantity": 1
       }
     ]
   }

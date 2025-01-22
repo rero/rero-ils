@@ -107,10 +107,10 @@
           "pattern": "^https://bib.rero.ch/api/acq_accounts/.*?$",
           "widget": {
             "formlyConfig": {
-              "hideLabel": true,
               "type": "account-select",
               "props": {
-                "placeholder": "Choose a parent account"
+                "hideLabel": true,
+                "filterChildren": true
               }
             }
           }

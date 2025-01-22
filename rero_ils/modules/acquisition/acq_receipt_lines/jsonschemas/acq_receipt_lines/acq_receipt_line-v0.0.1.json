@@ -128,8 +128,7 @@
             },
             "navigation": {
               "essential": true
-            },
-            "placeholder": "Select a date"
+            }
           }
         }
       }

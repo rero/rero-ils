@@ -51,7 +51,7 @@
             "formlyConfig": {
               "type": "textarea",
               "props": {
-                "itemCssClass": "col-lg-12",
+                "itemCssClass": "col-12",
                 "rows": 3,
                 "hide": true
               }
@@ -62,7 +62,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "row"
+            "containerCssClass": "grid grid-nogutter-y"
           }
         }
       }

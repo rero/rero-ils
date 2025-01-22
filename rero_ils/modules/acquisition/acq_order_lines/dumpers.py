@@ -42,7 +42,7 @@ class AcqOrderLineESDumper(InvenioRecordsDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         # Keep only some attributes from AcqOrderLine object initial dump.
-        for attr in ["pid", "status", "order_date", "quantity"]:
+        for attr in ["pid", "status", "quantity"]:
             if value := record.get(attr):
                 data.update({attr: value})
 
