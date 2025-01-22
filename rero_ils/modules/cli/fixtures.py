@@ -212,7 +212,7 @@ def create(
             record["name"] = year
             record["start_date"] = f"{year}-01-01"
             record["end_date"] = f"{year}-12-31"
-        elif pid_type == "acol" and record.pop("send_now", None):
+        elif pid_type == "acor" and record.pop("send_now", None):
             # ensure all orders are sent
             record["order_date"] = f"{order_date}"
         elif pid_type == "acrl" and record.pop("receive_now", None):

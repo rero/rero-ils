@@ -96,25 +96,17 @@ def test_acq_receipts_post_put_delete(
 
     # Update record/PUT
     data = acq_receipt_fiction_saxon
-    data["exchange_rate"] = 1.01
     res = client.put(item_url, data=json.dumps(data), headers=json_header)
     assert res.status_code == 200
 
     # Check that the returned record matches the given data
     data = get_json(res)
-    assert data["metadata"]["exchange_rate"] == 1.01
 
     res = client.get(item_url)
     assert res.status_code == 200
 
-    data = get_json(res)
-    assert data["metadata"]["exchange_rate"] == 1.01
-
     res = client.get(list_url)
     assert res.status_code == 200
-
-    data = get_json(res)["hits"]["hits"][0]
-    assert data["metadata"]["exchange_rate"] == 1.01
 
     # Delete record/DELETE
     res = client.delete(item_url)

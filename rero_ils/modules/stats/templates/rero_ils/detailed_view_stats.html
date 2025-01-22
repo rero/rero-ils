@@ -52,13 +52,13 @@
               <tr>
                 {%- for val in value[1] %}
                   {% if val is mapping %}
-                    <td scope="row">
+                    <td scope="grid grid-nogutter-y">
                       {%- for k in val %}
                       <li class="list-unstyled"><small>{{k}}: {{val[k]}}</small></li>
                       {%- endfor%}
                     </td>
                   {%- else %}
-                    <td scope="row"><small>{{val}}</small></td>
+                    <td scope="grid grid-nogutter-y"><small>{{val}}</small></td>
                   {%- endif %}
                 {%- endfor%}
               </tr>
@@ -105,13 +105,13 @@
             <tr>
               {%- for head in val.keys() %}
                 {% if val[head] is mapping %}
-                  <td scope="row">
+                  <td scope="grid grid-nogutter-y">
                     {%- for k, v in val[head].items() %}
                     <li class="list-unstyled"><small>{{k}}: {{v}}</small></li>
                     {%- endfor%}
                   </td>
                 {%- else %}
-                  <td scope="row"><small>{{val[head]}}</small></td>
+                  <td scope="grid grid-nogutter-y"><small>{{val[head]}}</small></td>
                 {%- endif %}
               {%- endfor%}
             </tr>

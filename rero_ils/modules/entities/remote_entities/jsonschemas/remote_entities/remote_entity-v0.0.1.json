@@ -54,7 +54,7 @@
         ],
         "widget": {
           "formlyConfig": {
-            "type": "select",
+            "type": "multi-select",
             "props": {
               "sort": true,
               "options": [

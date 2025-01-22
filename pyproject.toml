@@ -241,7 +241,6 @@ rero_ils = "rero_ils:alembic"
 
 [project.entry-points."invenio_db.models"]
 acq_accounts = "rero_ils.modules.acquisition.acq_accounts.models"
-acq_invoices = "rero_ils.modules.acquisition.acq_invoices.models"
 acq_order_lines = "rero_ils.modules.acquisition.acq_order_lines.models"
 acq_orders = "rero_ils.modules.acquisition.acq_orders.models"
 acq_receipt_lines = "rero_ils.modules.acquisition.acq_receipt_lines.models"
@@ -278,7 +277,6 @@ messages_wiki = "flask_wiki"
 
 [project.entry-points."invenio_jsonschemas.schemas"]
 acq_accounts = "rero_ils.modules.acquisition.acq_accounts.jsonschemas"
-acq_invoices = "rero_ils.modules.acquisition.acq_invoices.jsonschemas"
 acq_order_lines = "rero_ils.modules.acquisition.acq_order_lines.jsonschemas"
 acq_orders = "rero_ils.modules.acquisition.acq_orders.jsonschemas"
 acq_receipt_lines = "rero_ils.modules.acquisition.acq_receipt_lines.jsonschemas"
@@ -323,7 +321,6 @@ patron_types = "rero_ils.oauth.scopes:patron_types"
 
 [project.entry-points."invenio_pidstore.fetchers"]
 acq_account_id = "rero_ils.modules.acquisition.acq_accounts.api:acq_account_id_fetcher"
-acq_invoice_id = "rero_ils.modules.acquisition.acq_invoices.api:acq_invoice_id_fetcher"
 acq_order_id = "rero_ils.modules.acquisition.acq_orders.api:acq_order_id_fetcher"
 acq_order_line_id = "rero_ils.modules.acquisition.acq_order_lines.api:acq_order_line_id_fetcher"
 acq_receipt_id = "rero_ils.modules.acquisition.acq_receipts.api:acq_receipt_id_fetcher"
@@ -356,7 +353,6 @@ vendor_id = "rero_ils.modules.vendors.api:vendor_id_fetcher"
 
 [project.entry-points."invenio_pidstore.minters"]
 acq_account_id = "rero_ils.modules.acquisition.acq_accounts.api:acq_account_id_minter"
-acq_invoice_id = "rero_ils.modules.acquisition.acq_invoices.api:acq_invoice_id_minter"
 acq_order_id = "rero_ils.modules.acquisition.acq_orders.api:acq_order_id_minter"
 acq_order_line_id = "rero_ils.modules.acquisition.acq_order_lines.api:acq_order_line_id_minter"
 acq_receipt_id = "rero_ils.modules.acquisition.acq_receipts.api:acq_receipt_id_minter"
@@ -388,7 +384,6 @@ vendor_id = "rero_ils.modules.vendors.api:vendor_id_minter"
 
 [project.entry-points."invenio_records.jsonresolver"]
 acq_accounts = "rero_ils.modules.acquisition.acq_accounts.jsonresolver"
-acq_invoices = "rero_ils.modules.acquisition.acq_invoices.jsonresolver"
 acq_order_lines = "rero_ils.modules.acquisition.acq_order_lines.jsonresolver"
 acq_orders = "rero_ils.modules.acquisition.acq_orders.jsonresolver"
 acq_receipt_lines = "rero_ils.modules.acquisition.acq_receipt_lines.jsonresolver"
@@ -417,7 +412,6 @@ vendors = "rero_ils.modules.vendors.jsonresolver"
 
 [project.entry-points."invenio_search.mappings"]
 acq_accounts = "rero_ils.modules.acquisition.acq_accounts.mappings"
-acq_invoices = "rero_ils.modules.acquisition.acq_invoices.mappings"
 acq_order_lines = "rero_ils.modules.acquisition.acq_order_lines.mappings"
 acq_orders = "rero_ils.modules.acquisition.acq_orders.mappings"
 acq_receipt_lines = "rero_ils.modules.acquisition.acq_receipt_lines.mappings"

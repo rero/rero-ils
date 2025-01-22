@@ -44,9 +44,3 @@ def test_vendors_properties(vendor_martigny, vendor_sion):
     assert vendor_martigny.order_email == vendor_martigny.get_contact(
         VendorContactType.DEFAULT
     ).get("email")
-
-
-def test_vendors_get_links_to_me(vendor_martigny, acq_invoice_fiction_martigny):
-    """Test vendors relations."""
-    links = vendor_martigny.get_links_to_me(True)
-    assert acq_invoice_fiction_martigny.pid in links["acq_invoices"]

@@ -137,7 +137,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-10"
+                  "itemCssClass": "col-12 md:col-10"
                 }
               }
             }
@@ -146,7 +146,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "row"
+              "containerCssClass": "grid grid-nogutter-y"
             }
           }
         }
@@ -203,7 +203,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-10"
+                  "itemCssClass": "col-12 md:col-10"
                 }
               }
             }
@@ -212,7 +212,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "row"
+              "containerCssClass": "grid grid-nogutter-y"
             }
           }
         }

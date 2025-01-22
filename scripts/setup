@@ -549,8 +549,6 @@ eval ${PREFIX} invenio reroils migrations data subsets cogne Simonetta,Astrid,Je
 if ${LOADEXTRAFILES}
   then
       # create acquisition invoices
-      info_msg "Acquisition invoices: ${DATA_PATH}/acq_invoices.json ${CREATE_LAZY} ${DONT_STOP}"
-      eval ${PREFIX} invenio reroils fixtures create --pid_type acin ${DATA_PATH}/acq_invoices.json --append  --reindex ${CREATE_LAZY} ${DONT_STOP}
       eval ${PREFIX} invenio reroils index reindex -t acin --yes-i-know
       if [ ${INDEX_PARALLEL} -gt 0 ]; then
           eval ${PREFIX} invenio reroils index run -d -c ${INDEX_PARALLEL} --raise-on-error

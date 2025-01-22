@@ -50,7 +50,7 @@
   "widget": {
     "formlyConfig": {
       "props": {
-        "containerCssClass": "row"
+        "containerCssClass": "grid grid-nogutter-y"
       }
     }
   }
