@@ -29,16 +29,6 @@
           }
         }
       },
-      "acq_invoice": {
-        "properties": {
-          "pid": {
-            "type": "keyword"
-          },
-          "type": {
-            "type": "keyword"
-          }
-        }
-      },
       "document": {
         "properties": {
           "type": {
@@ -90,9 +80,6 @@
       "total_unreceived_amount": {
         "type": "float"
       },
-      "exchange_rate": {
-        "type": "float"
-      },
       "notes": {
         "properties": {
           "type": {
@@ -102,12 +89,6 @@
             "type": "text"
           }
         }
-      },
-      "order_date": {
-        "type": "date"
-      },
-      "receipt_date": {
-        "type": "date"
       },
       "is_cancelled": {
         "type": "boolean"

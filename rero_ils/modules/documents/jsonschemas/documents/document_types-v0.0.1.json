@@ -42,7 +42,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -76,7 +76,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -121,7 +121,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "docsubtype_music",
@@ -148,7 +148,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -197,7 +197,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "docsubtype_other_book",
@@ -240,7 +240,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -274,7 +274,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -317,7 +317,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "docsubtype_comic",
@@ -336,7 +336,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -397,7 +397,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -442,7 +442,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "docsubtype_other_game",
@@ -469,7 +469,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -517,7 +517,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "docsubtype_poster",
@@ -556,7 +556,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -590,7 +590,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -624,7 +624,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -685,7 +685,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -729,7 +729,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "docsubtype_movie",
@@ -752,7 +752,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -796,7 +796,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "docsubtype_kamishibai",
@@ -819,7 +819,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -853,7 +853,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -897,7 +897,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "docsubtype_printed_score",
@@ -920,7 +920,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -954,7 +954,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -988,7 +988,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }
@@ -1034,7 +1034,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "docsubtype_reading_kit",
@@ -1065,7 +1065,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "containerCssClass": "row"
+                "containerCssClass": "grid grid-nogutter-y"
               }
             }
           }

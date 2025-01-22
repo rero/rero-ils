@@ -42,9 +42,6 @@
           }
         }
       },
-      "exchange_rate": {
-        "type": "float"
-      },
       "quantity": {
         "type": "integer"
       },

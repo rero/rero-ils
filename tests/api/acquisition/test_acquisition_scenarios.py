@@ -452,7 +452,6 @@ def test_acquisition_order(
     order_data = {
         "vendor": {"$ref": get_ref_for_pid("vndr", vendor_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
-        "type": "monograph",
     }
     order = _make_resource(client, "acor", order_data)
     assert order["reference"] == f"ORDER-{order.pid}"
@@ -622,7 +621,6 @@ def test_acquisition_order_line_account_changes(
         {
             "vendor": {"$ref": get_ref_for_pid("vndr", vendor_martigny.pid)},
             "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
-            "type": "monograph",
         },
     )
     order_line = _make_resource(

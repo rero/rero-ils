@@ -48,7 +48,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-lg-6",
+            "itemCssClass": "col-12 md:col-6",
             "placeholder": "Example: Musset, Alfred de, 1810-1857"
           }
         }
@@ -61,7 +61,7 @@
   "widget": {
     "formlyConfig": {
       "props": {
-        "containerCssClass": "row"
+        "containerCssClass": "grid grid-nogutter-y"
       }
     }
   }

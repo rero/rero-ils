@@ -20,10 +20,10 @@
 
 {% macro dl(name, value, prefix) %}
   {% if value %}
-    <dt class="col-md-3 col-lg-3 rero-ils-term mb-1">
+    <dt class="col-md-3 col-12 md:col-3 rero-ils-term mb-1">
       {{ name }}:
     </dt>
-    <dd class="col-md-9 col-lg-9 mb-1">
+    <dd class="col-md-9 col-12 md:col-9 mb-1">
       {% if value is string %}
         {% if prefix %}
           {{ _(prefix.format(v=value)) }}
@@ -52,10 +52,10 @@
 
 {% macro dl_bool(name, value) %}
   {% if value %}
-    <dt class="col-md-3 col-lg-3 rero-ils-term">
+    <dt class="col-md-3 col-12 md:col-3 rero-ils-term">
       {{ name }}:
     </dt>
-    <dd class="col-md-9 col-lg-9">
+    <dd class="col-md-9 col-12 md:col-9">
       <i class="fa fa-check fa-lg text-success"></i>
     </dd>
   {% endif %}
@@ -63,10 +63,10 @@
 
 {% macro dl_permalink_by_source(name, data, source) %}
   {% if data.pid %}
-    <dt class="col-md-3 col-lg-3 rero-ils-term">
+    <dt class="col-md-3 col-12 md:col-3 rero-ils-term">
       {{ _(name) }}:
     </dt>
-    <dd class="col-md-9 col-lg-9">
+    <dd class="col-md-9 col-12 md:col-9">
       {% if source != 'rero' %}
         <a href="{{ data.identifier }}">{{ data.pid }}</a>
       {% else %}

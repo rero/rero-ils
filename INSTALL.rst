@@ -58,7 +58,10 @@ among other things.
     $ pyenv install 3.9.7
     $ cd rero-ils
     $ pyenv local 3.9.7
-    $ sudo pip install poetry
+    $ curl -sSL https://install.python-poetry.org | python3 -
+    $ optional: poetry self add poetry-plugin-shell
+
+See: https://python-poetry.org/docs#installation for more detail.
 
 Next, ``cd`` into the project directory and bootstrap the instance (this will install
 all Python dependencies and build all static assets):

@@ -50,7 +50,6 @@ def test_acquisition_orders_serializers(
         "vendor": {"$ref": get_ref_for_pid("vndr", vendor_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
         "reference": "ORDER#1",
-        "type": "monograph",
     }
     order = _make_resource(client, "acor", order_data)
     order.reindex()

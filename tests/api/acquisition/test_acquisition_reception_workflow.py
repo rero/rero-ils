@@ -163,7 +163,6 @@ def test_acquisition_reception_workflow(
     data = {
         "vendor": {"$ref": get_ref_for_pid("vndr", vendor_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
-        "type": "monograph",
     }
     order = _make_resource(client, "acor", data)
     assert order["reference"] == f"ORDER-{order.pid}"
@@ -272,7 +271,7 @@ def test_acquisition_reception_workflow(
     assert order.status == AcqOrderStatus.PENDING
     # TODO: fix links to me for the order resource, this should fail
     assert order.can_delete
-    assert not order.order_date
+    assert not order.get("order_date")
     assert order.item_quantity == 24
     assert order.item_received_quantity == 0
 
@@ -391,10 +390,6 @@ def test_acquisition_reception_workflow(
     ]:
         line = AcqOrderLine.get_record_by_pid(order_line.get("line").pid)
         assert line.status == order_line.get("status")
-        if line.status == AcqOrderLineStatus.CANCELLED:
-            assert not line.order_date
-        else:
-            assert line.order_date
     # check order
     order = AcqOrder.get_record_by_pid(order.pid)
     assert order.status == AcqOrderStatus.ORDERED
@@ -419,7 +414,6 @@ def test_acquisition_reception_workflow(
     ref_acc_serial = get_ref_for_pid("acac", m_serials_acc.pid)
     data = {
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
-        "exchange_rate": 1,
         "amount_adjustments": [
             {
                 "label": "handling fees",
@@ -533,7 +527,6 @@ def test_acquisition_reception_workflow(
     #     except `order_line_5` should have the RECEIVED STATUS
     #   * complete the order reception to receive the `order_line_5`
     data = {
-        "exchange_rate": 1,
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
         "organisation": {"$ref": get_ref_for_pid("org", org_martigny.pid)},
@@ -632,9 +625,9 @@ def test_acquisition_reception_workflow(
     #   * check receipt links
     links = order.get_links_to_me(get_pids=True)
     for pid in [order_line_3.pid, order_line_4.pid, order_line_5.pid]:
-        assert pid in links["order_lines"]
+        assert pid in links["acq_order_lines"]
     for pid in [receipt_1.pid, receipt_2.pid]:
-        assert pid in links["receipts"]
+        assert pid in links["acq_receipts"]
 
     # DELETE `RECEIPT_2` ----------
     receipt_line_pids = receipt_2.get_receipt_lines(output="pids")

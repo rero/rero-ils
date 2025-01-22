@@ -307,8 +307,10 @@ def test_acq_orders_serializers(
 def test_acq_receipts_serializers(
     client,
     rero_json_header,
-    acq_order_fiction_martigny,
     acq_account_fiction_martigny,
+    acq_order_fiction_martigny,
+    acq_order_line_fiction_martigny,
+    acq_order_line2_fiction_martigny,
     acq_receipt_fiction_martigny,
     acq_receipt_line_1_fiction_martigny,
     acq_receipt_line_2_fiction_martigny,

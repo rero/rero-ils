@@ -38,7 +38,6 @@ def test_receipt_lines_properties(
     # ORDER LINE --------------------------------------------------------------
     assert acrl1.order_line_pid == acq_order_line_fiction_martigny.pid
     acol = acq_order_line_fiction_martigny
-    assert acol.receipt_date.strftime("%Y-%m-%d") == acrl1.get("receipt_date")
 
     # NOTE --------------------------------------------------------------------
     assert acrl1.get_note(AcqReceiptLineNoteType.STAFF)

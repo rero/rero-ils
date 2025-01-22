@@ -1,7 +1,6 @@
 {
   "index_patterns": [
     "acq_accounts-*",
-    "acq_invoices-*",
     "acq_order_lines-*",
     "acq_orders-*",
     "acq_receipt_lines-*",

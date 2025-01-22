@@ -152,12 +152,10 @@ def test_send_order(
     l2 = AcqOrderLine.get_record_by_pid(acq_order_line2_fiction_martigny.pid)
     l3 = AcqOrderLine.get_record_by_pid(acq_order_line3_fiction_martigny.pid)
     assert l1.status == AcqOrderLineStatus.ORDERED
-    assert l1.order_date
     assert l2.status == AcqOrderLineStatus.ORDERED
-    assert l2.order_date
     assert l3.status == AcqOrderLineStatus.CANCELLED
-    assert not l3.order_date
     assert acor.status == AcqOrderStatus.ORDERED
+    assert acor.get("order_date")
 
     # ensure that created notification is well constructed from the associated
     # order and vendor

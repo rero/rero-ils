@@ -51,7 +51,6 @@ class AcqOrderLineStatus:
     ORDERED = "ordered"
     RECEIVED = "received"
     PARTIALLY_RECEIVED = "partially_received"
-
     RECEIVED_STATUSES = [RECEIVED, PARTIALLY_RECEIVED]
 
 

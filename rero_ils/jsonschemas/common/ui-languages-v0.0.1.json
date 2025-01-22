@@ -13,7 +13,7 @@
         "type": "select",
         "props": {
           "sort": true,
-          "itemCssClass": "col-lg-2",
+          "itemCssClass": "col-12 md:col-2",
           "options": [
             {
               "label": "lang_fre",

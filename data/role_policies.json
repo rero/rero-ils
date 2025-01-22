@@ -36,38 +36,6 @@
     "pro_acquisition_manager",
     "pro_library_administrator"
   ],
-  "acin-access": [
-    "pro_full_permissions",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
-  "acin-search": [
-    "pro_full_permissions",
-    "pro_read_only",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
-  "acin-read": [
-    "pro_full_permissions",
-    "pro_read_only",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
-  "acin-create": [
-    "pro_full_permissions",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
-  "acin-update": [
-    "pro_full_permissions",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
-  "acin-delete": [
-    "pro_full_permissions",
-    "pro_acquisition_manager",
-    "pro_library_administrator"
-  ],
   "acol-access": [
     "pro_full_permissions",
     "pro_acquisition_manager",
