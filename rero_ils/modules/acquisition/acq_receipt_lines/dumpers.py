@@ -49,13 +49,19 @@ class AcqReceiptLineESDumper(InvenioRecordsDumper):
         data["acq_account"] = {"pid": order_line.account_pid}
         # Add document information's: pid, formatted title and ISBN identifiers
         # (remove None values from document metadata)
-        document = order_line.document
-        identifiers = document.get_identifiers(filters=[IdentifierType.ISBN], with_alternatives=True)
-        identifiers = [identifier.normalize() for identifier in identifiers]
-        data["document"] = {
-            "pid": document.pid,
-            "title": TitleExtension.format_text(document.get("title", [])),
-            "identifiers": identifiers,
-        }
-        data["document"] = {k: v for k, v in data["document"].items() if v}
+        if document := order_line.document:
+            identifiers = document.get_identifiers(filters=[IdentifierType.ISBN], with_alternatives=True)
+            identifiers = [identifier.normalize() for identifier in identifiers]
+            data["document"] = {
+                k: v
+                for k, v in {
+                    "pid": document.pid,
+                    "title": TitleExtension.format_text(document.get("title", [])),
+                    "identifiers": identifiers,
+                }.items()
+                if v
+            }
+        else:
+            # Document has been deleted; keep only the pid extracted from the $ref
+            data["document"] = {"pid": order_line.document_pid, "type": "doc"}
         return data

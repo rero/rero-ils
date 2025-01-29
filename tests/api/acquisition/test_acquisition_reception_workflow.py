@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2021 RERO
+# Copyright (C) 2021-2026 RERO
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -19,14 +19,18 @@
 
 from unittest import mock
 
+import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
+from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
+from rero_ils.modules.acquisition.acq_order_lines.dumpers import AcqOrderLineESDumper
 from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
 from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.acquisition.acq_receipt_lines.api import AcqReceiptLinesSearch
+from rero_ils.modules.acquisition.acq_receipt_lines.dumpers import AcqReceiptLineESDumper
 from rero_ils.modules.acquisition.acq_receipts.api import (
     AcqReceipt,
     AcqReceiptLine,
@@ -35,6 +39,7 @@ from rero_ils.modules.acquisition.acq_receipts.api import (
 from rero_ils.modules.acquisition.acq_receipts.models import (
     AcqReceiptLineCreationStatus,
 )
+from rero_ils.modules.documents.api import Document
 from rero_ils.modules.notifications.api import Notification
 from rero_ils.modules.notifications.models import (
     NotificationChannel,
@@ -64,6 +69,7 @@ def test_acquisition_reception_workflow(
     document,
 ):
     """Test complete acquisition workflow."""
+    assert "acq_order_lines" not in document.get_links_to_me()
 
     def assert_account_data(accounts):
         """Assert account informations."""
@@ -286,6 +292,8 @@ def test_acquisition_reception_workflow(
     }
     assert_account_data(manual_controls)
 
+    assert document.get_links_to_me() == {"acq_order_lines": 6}
+
     # STEP 3 :: UPDATE ORDER LINES
     #   * Cancel some order lines and change some quantities --> make sure
     #     calculations still good
@@ -362,6 +370,8 @@ def test_acquisition_reception_workflow(
     assert order_line_1.received_quantity == 0
     assert order_line_1.unreceived_quantity == 5
     assert order_line_1.status == AcqOrderLineStatus.APPROVED
+
+    assert document.get_links_to_me() == {"acq_order_lines": 4}
 
     # STEP 4 :: SEND THE ORDER
     #    * Test send order and make sure statuses are up to date.
@@ -610,6 +620,48 @@ def test_acquisition_reception_workflow(
         s_serials_acc: ((4000, 4000), (0, 0), (0, 0)),
     }
     assert_account_data(manual_controls)
+
+    # All order lines are now RECEIVED or CANCELLED (no blocking statuses remain),
+    # so the document should have no links preventing deletion.
+    assert "acq_order_lines" not in document.get_links_to_me()
+    assert document.reasons_not_to_delete() == {}
+
+    # STEP 7.5: DOCUMENT DELETION + RE-INDEXATION WITH DELETED DOCUMENT
+    #   * Delete the document to validate the deletion path and
+    #     exercise the guards:
+    #       - AcqOrderLine.replace_refs(): must not raise JsonRefError when
+    #         the order line is re-indexed after document deletion.
+    #       - AcqOrderLineESDumper: must fall back to {"pid": ...} only.
+    #       - AcqReceiptLineESDumper: same fallback for receipt-line ES dumps.
+    doc_pid = document.pid
+    url = url_for("invenio_records_rest.doc_item", pid_value=doc_pid)
+    res = client.delete(url)
+    assert res.status_code == 204
+    assert Document.get_record_by_pid(doc_pid) is None
+
+    # replace_refs() must return the document stub without raising JsonRefError.
+    terminal_line = AcqOrderLine.get_record_by_pid(order_line_5.pid)
+    replaced = terminal_line.replace_refs()
+    assert replaced["document"] == {"pid": doc_pid, "type": "doc"}
+
+    # AcqOrderLineESDumper must fall back to pid-only when document is absent.
+    dumped_ol = terminal_line.dumps(dumper=AcqOrderLineESDumper())
+    assert dumped_ol["document"] == {"pid": doc_pid, "type": "doc"}
+
+    # AcqReceiptLineESDumper must also fall back to pid-only.
+    receipt_line = next(receipt_2.get_receipt_lines())
+    dumped_rl = receipt_line.dumps(dumper=AcqReceiptLineESDumper())
+    assert dumped_rl["document"] == {"pid": doc_pid, "type": "doc"}
+
+    # Full re-indexation (the _prepare_record / replace_refs path) must not raise.
+    terminal_line.reindex()
+
+    # extended_validation must reject any attempt to un-cancel a CANCELLED
+    # order line whose document is gone (deleted-document guard).
+    cancelled_line = AcqOrderLine.get_record_by_pid(order_line_3.pid)
+    assert cancelled_line.get("is_cancelled")  # sanity: must be CANCELLED
+    with pytest.raises(ValidationError, match="deleted document"):
+        cancelled_line.update({"is_cancelled": False})
 
     # TEST 8: DELETE RECEIPTS
     #   * Delete the second receipt. This will also delete the related receipt

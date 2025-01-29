@@ -84,6 +84,9 @@
           "pid": {
             "type": "keyword"
           },
+          "type": {
+            "type": "keyword"
+          },
           "receipt_date": {
             "type": "date"
           },

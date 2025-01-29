@@ -19,15 +19,11 @@
 """Acquisition Receipt resolver."""
 
 import jsonresolver
-from flask import current_app
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from rero_ils.modules.jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route("/api/acq_receipts/<pid>", host="bib.rero.ch")
 def acq_receipt_resolver(pid):
     """Resolver for acquisition receipt record."""
-    persistent_id = PersistentIdentifier.get("acre", pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return {"pid": persistent_id.pid_value}
-    current_app.logger.error(f"Doc resolver error: /api/acq_receipts/{pid} {persistent_id}")
-    raise Exception("unable to resolve")
+    return resolve_json_refs("acre", pid)

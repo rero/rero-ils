@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -82,11 +82,19 @@ class AcqOrderLine(AcquisitionIlsRecord):
 
         :return: False if
             - notes array has multiple notes with same type
+            - an update would leave the line non-cancelled while its document
+              has been deleted
         """
         # NOTES fields testing
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
             return _("Cannot have multiple notes of the same type.")
+        # Deleted-document guard: a document may be deleted once all its order
+        # lines reach a terminal status (RECEIVED or CANCELLED). Prevent any
+        # subsequent update that would re-activate the line (remove or unset
+        # `is_cancelled`) while the document no longer exists.
+        if self.updated and not self.get("is_cancelled") and not self.document:
+            return _("Cannot save an active order line for a deleted document.")
         from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
         from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@ from invenio_search import current_search_client
 from jsonschema.exceptions import ValidationError
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLinesSearch
+from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.commons.identifiers import IdentifierFactory, IdentifierType
 from rero_ils.modules.documents.tasks import reindex_document_items
@@ -313,8 +314,17 @@ class Document(IlsRecord):
             exclude_states=[LoanState.CANCELLED, LoanState.ITEM_RETURNED],
         )
         file_query = self.get_records_files_query().source()
-        acq_order_lines_query = AcqOrderLinesSearch().filter("term", document__pid=self.pid)
+
+        acq_order_lines_query = (
+            AcqOrderLinesSearch()
+            .filter("term", document__pid=self.pid)
+            .filter(
+                "terms",
+                status=[AcqOrderLineStatus.APPROVED, AcqOrderLineStatus.ORDERED, AcqOrderLineStatus.PARTIALLY_RECEIVED],
+            )
+        )
         local_fields_query = LocalFieldsSearch().get_local_fields(self.provider.pid_type, self.pid)
+
         relation_types = {
             "partOf": "partOf.document.pid",
             "supplement": "supplement.pid",

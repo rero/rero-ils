@@ -18,15 +18,11 @@
 """AcqAccount resolver."""
 
 import jsonresolver
-from flask import current_app
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from rero_ils.modules.jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route("/api/acq_accounts/<pid>", host="bib.rero.ch")
 def acq_account_resolver(pid):
     """Resolver for acq_account record."""
-    persistent_id = PersistentIdentifier.get("acac", pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return {"pid": persistent_id.pid_value}
-    current_app.logger.error(f"Doc resolver error: /api/acq_accounts/{pid} {persistent_id}")
-    raise Exception("unable to resolve")
+    return resolve_json_refs("acac", pid)

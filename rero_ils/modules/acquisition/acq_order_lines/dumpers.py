@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2026 RERO
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -58,16 +58,18 @@ class AcqOrderLineESDumper(InvenioRecordsDumper):
 
         # Add document information's: pid, formatted title and ISBN
         # identifiers (remove None values from document metadata)
-        document = record.document
-        identifiers = document.get_identifiers(filters=[IdentifierType.ISBN], with_alternatives=True)
-        identifiers = [identifier.normalize() for identifier in identifiers]
-
-        data["document"] = {
-            "pid": document.pid,
-            "title": TitleExtension.format_text(document.get("title", [])),
-            "identifiers": identifiers,
-        }
-        data["document"] = {k: v for k, v in data["document"].items() if v}
+        if document := record.document:
+            identifiers = document.get_identifiers(filters=[IdentifierType.ISBN], with_alternatives=True)
+            identifiers = [identifier.normalize() for identifier in identifiers]
+            data["document"] = {
+                "pid": document.pid,
+                "title": TitleExtension.format_text(document.get("title", [])),
+                "identifiers": identifiers,
+            }
+            data["document"] = {k: v for k, v in data["document"].items() if v}
+        else:
+            # Document has been deleted; keep only the pid extracted from the $ref
+            data["document"] = {"pid": record.document_pid, "type": "doc"}
         return data
 
 

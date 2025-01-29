@@ -18,15 +18,11 @@
 """Acquisition Order Line resolver."""
 
 import jsonresolver
-from flask import current_app
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from rero_ils.modules.jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route("/api/acq_order_lines/<pid>", host="bib.rero.ch")
 def acq_order_line_resolver(pid):
     """Resolver for Acquisition Order Line record."""
-    persistent_id = PersistentIdentifier.get("acol", pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return {"pid": persistent_id.pid_value}
-    current_app.logger.error(f"Doc resolver error: /api/acq_order_lines/{pid} {persistent_id}")
-    raise Exception("unable to resolve")
+    return resolve_json_refs("acol", pid)

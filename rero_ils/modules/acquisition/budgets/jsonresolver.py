@@ -18,15 +18,11 @@
 """Budget resolver."""
 
 import jsonresolver
-from flask import current_app
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
+from rero_ils.modules.jsonresolver import resolve_json_refs
 
 
 @jsonresolver.route("/api/budgets/<pid>", host="bib.rero.ch")
 def budget_resolver(pid):
     """Resolver for budget record."""
-    persistent_id = PersistentIdentifier.get("budg", pid)
-    if persistent_id.status == PIDStatus.REGISTERED:
-        return {"pid": persistent_id.pid_value}
-    current_app.logger.error(f"Doc resolver error: /api/budgets/{pid} {persistent_id}")
-    raise Exception("unable to resolve")
+    return resolve_json_refs("budg", pid)
