@@ -63,6 +63,7 @@ def test_acquisition_reception_workflow(
     document,
 ):
     """Test complete acquisition workflow."""
+    assert document.get_links_to_me() == {}
 
     def assert_account_data(accounts):
         """assert account informations."""
@@ -285,6 +286,8 @@ def test_acquisition_reception_workflow(
     }
     assert_account_data(manual_controls)
 
+    assert document.get_links_to_me() == {"acq_order_lines": 6}
+
     # STEP 3 :: UPDATE ORDER LINES
     #   * Cancel some order lines and change some quantities --> make sure
     #     calculations still good
@@ -361,6 +364,8 @@ def test_acquisition_reception_workflow(
     assert order_line_1.received_quantity == 0
     assert order_line_1.unreceived_quantity == 5
     assert order_line_1.status == AcqOrderLineStatus.APPROVED
+
+    assert document.get_links_to_me() == {"acq_order_lines": 4}
 
     # STEP 4 :: SEND THE ORDER
     #    * Test send order and make sure statuses are up to date.

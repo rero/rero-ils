@@ -25,6 +25,7 @@ from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineNote
 from rero_ils.modules.acquisition.dumpers import document_acquisition_dumper
 from rero_ils.modules.commons.identifiers import IdentifierType
 from rero_ils.modules.documents.extensions import TitleExtension
+from rero_ils.modules.utils import extracted_data_from_ref
 
 
 class AcqOrderLineESDumper(InvenioRecordsDumper):
@@ -58,17 +59,20 @@ class AcqOrderLineESDumper(InvenioRecordsDumper):
 
         # Add document information's: pid, formatted title and ISBN
         # identifiers (remove None values from document metadata)
-        document = record.document
-        identifiers = document.get_identifiers(
-            filters=[IdentifierType.ISBN], with_alternatives=True
-        )
-        identifiers = [identifier.normalize() for identifier in identifiers]
+        if document := record.document:
+            identifiers = document.get_identifiers(
+                filters=[IdentifierType.ISBN], with_alternatives=True
+            )
+            identifiers = [identifier.normalize() for identifier in identifiers]
 
-        data["document"] = {
-            "pid": document.pid,
-            "title": TitleExtension.format_text(document.get("title", [])),
-            "identifiers": identifiers,
-        }
+            data["document"] = {
+                "pid": document.pid,
+                "title": TitleExtension.format_text(document.get("title", [])),
+                "identifiers": identifiers,
+            }
+        else:
+            doc_pid = extracted_data_from_ref(record.get("document"), data="pid")
+            data["document"] = {"pid": doc_pid, "title": f"pid: {doc_pid}"}
         data["document"] = {k: v for k, v in data["document"].items() if v}
         return data
 
@@ -83,14 +87,26 @@ class AcqOrderLineNotificationDumper(InvenioRecordsDumper):
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
         # Dumps AcqOrderLine acquisition
-        data.update(
-            {
-                "quantity": record.get("quantity"),
-                "amount": record.get("amount"),
-                "note": record.get_note(AcqOrderLineNoteType.VENDOR),
-                "account": record.account.dumps(dumper=AcqAccountGenericDumper()),
-                "document": record.document.dumps(dumper=document_acquisition_dumper),
-            }
-        )
+        if document := record.document:
+            data.update(
+                {
+                    "quantity": record.get("quantity"),
+                    "amount": record.get("amount"),
+                    "note": record.get_note(AcqOrderLineNoteType.VENDOR),
+                    "account": record.account.dumps(dumper=AcqAccountGenericDumper()),
+                    "document": document.dumps(dumper=document_acquisition_dumper),
+                }
+            )
+        else:
+            doc_pid = extracted_data_from_ref(record.get("document"), data="pid")
+            data.update(
+                {
+                    "quantity": record.get("quantity"),
+                    "amount": record.get("amount"),
+                    "note": record.get_note(AcqOrderLineNoteType.VENDOR),
+                    "account": record.account.dumps(dumper=AcqAccountGenericDumper()),
+                    "document": {"pid": doc_pid, "title": f"pid: {doc_pid}"},
+                }
+            )
         data = {k: v for k, v in data.items() if v}
         return data
