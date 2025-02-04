@@ -18,7 +18,9 @@
 
 """RERO ILS Record serialization."""
 
-from invenio_records_rest.serializers.response import record_responsify
+from invenio_records_rest.serializers.response import (
+    record_responsify,
+)
 from invenio_records_rest.serializers.response import (
     search_responsify as _search_responsify,
 )

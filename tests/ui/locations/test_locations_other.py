@@ -17,8 +17,8 @@
 
 """Other location Record tests.
 
-   Some tests cannot be added in other files for several reason such as
-   scope level fixtures.
+Some tests cannot be added in other files for several reason such as
+scope level fixtures.
 """
 
 from rero_ils.modules.items.api import ItemsSearch

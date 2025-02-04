@@ -111,12 +111,14 @@ dependencies = [
     "flask-wiki (>=0.3.1)",
     "dnspython (>2.4.2)",
     "cryptography (>41.0.7)",
-    "babel (>2.14.0)",
+    "babel (>2.16.0)",
     "rero-invenio-files (>=1.0.0,<2.0.0)",
     "levenshtein (>=0.26.0)",
     "unidecode (>=1.3.8)",
     "flask-menu (<2.0.0)",
     "poethepoet",
+    "isort (>=6.0.0)",
+    "black (>=25.1.0,<26.0.0)",
 ]
 
 [project.optional-dependencies]
@@ -476,7 +478,7 @@ update = {cmd = "./scripts/update", help = "Runs update"}
 profile = "black"
 
 [tool.pytest]
-addopts = "--color=yes --black --isort --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=setup.py --ignore=docs/conf.py --ignore=rero_ils/config.py -m \"not external\""
+addopts = "--color=yes --black --isort --exclude-warning-annotations --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=setup.py --ignore=docs/conf.py --ignore=rero_ils/config.py -m \"not external\""
 testpaths = "docs tests rero_ils"
 # custom markers
 markers = "external: mark a test as dealing with external services."

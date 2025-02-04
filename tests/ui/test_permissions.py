@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-""""Test permissions."""
+"""Test permissions."""
 from utils import login_user_for_view
 
 from rero_ils.modules.permissions import has_superuser_access
