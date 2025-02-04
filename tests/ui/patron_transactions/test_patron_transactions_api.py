@@ -23,7 +23,9 @@ from copy import deepcopy
 
 import pytest
 
-from rero_ils.modules.patron_transactions.api import PatronTransaction
+from rero_ils.modules.patron_transactions.api import (
+    PatronTransaction,
+)
 from rero_ils.modules.patron_transactions.api import (
     patron_transaction_id_fetcher as fetcher,
 )

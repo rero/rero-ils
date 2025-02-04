@@ -444,7 +444,7 @@ def remove_trailing_punctuation(data, punctuation=",", spaced_punctuation=":;/-"
     ).rstrip()
 
 
-def remove_special_characters(value, chars=["\u0098", "\u009C"]):
+def remove_special_characters(value, chars=["\u0098", "\u009c"]):
     """Remove special characters from a string.
 
     :params value: string to clean.

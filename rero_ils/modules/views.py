@@ -41,7 +41,9 @@ from .permissions import (
     manage_role_permissions,
 )
 from .permissions import permission_management as permission_management_action
-from .permissions import record_permissions
+from .permissions import (
+    record_permissions,
+)
 
 api_blueprint = Blueprint("api_blueprint", __name__, url_prefix="")
 

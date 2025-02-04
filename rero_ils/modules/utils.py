@@ -1111,7 +1111,7 @@ def get_objects(record_class, query):
 
 def strip_chars(string, extra=""):
     """Remove control characters from string."""
-    remove_re = re.compile("[\x00-\x08\x0B-\x0C\x0E-\x1F\x7F%s]" % extra)
+    remove_re = re.compile("[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f%s]" % extra)
     new_string, _ = remove_re.subn("", string)
     return new_string
 
