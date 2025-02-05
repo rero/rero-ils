@@ -19,6 +19,8 @@
 """Stats Pricing tests."""
 
 import mock
+from arrow import utcnow
+from dateutil.relativedelta import relativedelta
 from invenio_db import db
 
 from rero_ils.modules.ill_requests.models import ILLRequestStatus
@@ -80,6 +82,19 @@ def test_stats_pricing_number_of_active_patrons(
     """Test the number of patrons who did a transaction in the past 365 days."""
     assert stat_for_pricing.number_of_active_patrons("foo") == 0
     assert stat_for_pricing.number_of_active_patrons(lib_martigny.pid) == 1
+
+    # make sure that the class's date_range has no influence on this indicator
+    default_date_range = stat_for_pricing.date_range
+    _to = utcnow() + relativedelta(months=3)
+    _from = utcnow() + relativedelta(days=1)
+    stat_for_pricing.date_range = {
+        "gte": _from.format(fmt="YYYY-MM-DDT00:00:00"),
+        "lte": _to.format(fmt="YYYY-MM-DDT00:00:00"),
+    }
+    assert stat_for_pricing.number_of_active_patrons(lib_martigny.pid) == 1
+
+    # revert to default
+    stat_for_pricing.date_range = default_date_range
 
 
 def test_stats_pricing_number_of_order_lines(
