@@ -58,6 +58,7 @@ class StatsForPricing:
             fmt="YYYY-MM-DDT00:00:00"
         )
         _to = to_date.format(fmt="YYYY-MM-DDT23:59:59")
+        self.to_date = to_date
         self.date_range = {"gte": _from, "lte": _to}
 
     @classmethod
@@ -171,11 +172,17 @@ class StatsForPricing:
         :return: the number of matched active patrons
         :rtype: integer
         """
+        # this should always count patrons that were active in the past year
+        _from = (self.to_date - relativedelta(months=12)).format(
+            fmt="YYYY-MM-DDT00:00:00"
+        )
+        _to = self.date_range.get("lte")
+        activity_period = {"gte": _from, "lte": _to}
         op_logs_query = (
             LoanOperationLogsSearch()
             .get_logs_by_trigger(
                 triggers=[ItemCirculationAction.CHECKOUT, ItemCirculationAction.EXTEND],
-                date_range=self.date_range,
+                date_range=activity_period,
             )
             .filter("term", loan__item__library_pid=library_pid)
         )
