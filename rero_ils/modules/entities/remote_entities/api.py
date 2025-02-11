@@ -92,7 +92,7 @@ class RemoteEntity(Entity):
         query = (
             RemoteEntitiesSearch()
             .params(preserve_order=True)
-            .sort({"_created": {"order": "desc"}})
+            .sort({"_updated": {"order": "desc"}})
             .filter(es_filter)
         )
         with contextlib.suppress(StopIteration):
