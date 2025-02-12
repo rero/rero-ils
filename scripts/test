@@ -58,6 +58,11 @@ success_msg+exit() {
   colored_msg "${SUCCESS_COLOR}" "SUCCESS" "${1}" && exit 0
 }
 
+pip_audit_exceptions=""
+add_exceptions() {
+  pip_audit_exceptions="$pip_audit_exceptions --ignore-vuln $1"""
+}
+
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
@@ -67,45 +72,26 @@ if [[ -z "${VIRTUAL_ENV}" ]]; then
 fi
 
 function pretests () {
-# -> Vulnerability found in flask-caching version 2.0.1
-#    Vulnerability ID: 40459
-# -> Vulnerability found in flask-cors version 5.0.0
-#    Vulnerability ID: 70624
-# -> Vulnerability found in flask-cors version 5.0.0
-#    Vulnerability ID: 72731
-#    ADVISORY: A vulnerability in corydolphin/flask-cors allows the
-# -> Vulnerability found in sqlalchemy version 1.4.54
-#    Vulnerability ID: 51668
-# -> Vulnerability found in sqlalchemy-utils version 0.38.3
-#    Vulnerability ID: 42194
-# -> Vulnerability found in wtforms version 2.3.3
-#    Vulnerability ID: 42852
-# -> Vulnerability found in werkzeug version 2.2.3
-#    Vulnerability ID: 71595
-# -> Vulnerability found in werkzeug version 2.2.3
-#    Vulnerability ID: 62019
-# -> Vulnerability found in werkzeug version 2.2.3
-#    Vulnerability ID: 73969
-# -> Vulnerability found in werkzeug version 2.2.3
-#    Vulnerability ID: 73889
-# -> Vulnerability found in werkzeug version 2.2.3
-#    Vulnerability ID: 71594
-# -> Vulnerability found in jsonpickle version 1.4.2
-#    Vulnerability ID: 72982
-# -> Vulnerability found in pip version 22.3.1
-#    Vulnerability ID: 62044
-# -> Vulnerability found in py version 1.11.0
-#    Vulnerability ID: 51457
-# -> Vulnerability found in sentry-sdk version 1.45.1
-#    Vulnerability ID: 72260
-
   info_msg "Check vulnerabilities:"
-  safety_exceptions="-i 40459 -i 70624 -i 72731 -i 51668 -i 42194 -i 42852 -i 71595 -i 62019 -i 73969 -i 73889 -i71594 -i 72982 -i 62044 -i 51457 -i 72260"
-  msg=$(safety check -o text ${safety_exceptions}) || {
-    echo "Safety vulnerabilites found for packages:" $(safety check -o bare ${safety_exceptions})
-    echo "Run: \"safety check -o screen ${safety_exceptions} | grep -i vulnerability\" for more details"
-    exit 1
-  }
+  # cryptography 43.0.3  GHSA-79v4-65xg-pq4g 44.0.1
+  add_exceptions "GHSA-79v4-65xg-pq4g"
+  # jsonpickle   1.4.2   GHSA-j66q-qmrc-89rx
+  add_exceptions "GHSA-j66q-qmrc-89rx"
+  # py           1.11.0  PYSEC-2022-42969
+  add_exceptions "PYSEC-2022-42969"
+  # selenium     3.141.0 PYSEC-2023-206      4.14.0
+  add_exceptions "PYSEC-2023-206"
+  # selenium     3.141.0 PYSEC-2022-43167    4.0.0
+  add_exceptions "PYSEC-2022-43167"
+  # werkzeug     2.2.3   PYSEC-2023-221      2.3.8,3.0.1
+  add_exceptions "PYSEC-2023-221"
+  # werkzeug     2.2.3   GHSA-2g68-c3qc-8985 3.0.3
+  add_exceptions "GHSA-2g68-c3qc-8985"
+  # werkzeug     2.2.3   GHSA-f9vj-2wh5-fj8j 3.0.6
+  add_exceptions "GHSA-f9vj-2wh5-fj8j"
+  # werkzeug     2.2.3   GHSA-q34m-jh98-gwm2 3.0.6
+  add_exceptions "GHSA-q34m-jh98-gwm2"
+  PIPAPI_PYTHON_LOCATION=`which python` pip-audit ${pip_audit_exceptions}
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"

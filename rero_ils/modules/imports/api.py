@@ -178,6 +178,7 @@ class Import(object):
                 year_max = max(int_date, year_max)
 
         for agent in record.get("contribution", []):
+            name = None
             if authorized_access_point := agent.get("entity", {}).get(
                 "authorized_access_point"
             ):
