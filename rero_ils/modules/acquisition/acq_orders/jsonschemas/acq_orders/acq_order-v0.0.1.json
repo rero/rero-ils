@@ -79,6 +79,7 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-4",
                   "sort": true,
                   "options": [
                     {
@@ -103,18 +104,23 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-8",
                   "rows": 3
                 }
               }
+            }
+          }
+        },
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "grid grid-cols-12 gap-2"
             }
           }
         }
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ],
           "props": {
             "validation": {
               "validators": {

@@ -48,7 +48,7 @@
                 }
               },
               "messages": {
-                "alreadyTakenMessage": "The item type name is already taken."
+                "alreadyTakenMessage": "This name is already taken."
               }
             }
           }
@@ -137,7 +137,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-10"
+                  "itemCssClass": "col-span-12 md:col-span-9"
                 }
               }
             }
@@ -146,7 +146,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "grid grid-cols-12 gap-x-2"
+              "containerCssClass": "grid grid-cols-12 gap-2"
             }
           }
         }
@@ -203,7 +203,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-10"
+                  "itemCssClass": "col-span-12 md:col-span-9"
                 }
               }
             }
@@ -212,7 +212,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "grid grid-cols-12 gap-x-2"
+              "containerCssClass": "grid grid-cols-12 gap-2"
             }
           }
         }
