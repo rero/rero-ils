@@ -40,7 +40,7 @@
               "type": "select",
               "props": {
                 "sort": true,
-                "itemcCssClass": "col",
+                "itemCssClass": "col-span-12 md:col-span-4",
                 "options": [
                   {
                     "label": "bf:Publication",
@@ -86,7 +86,7 @@
                     "widget": {
                       "formlyConfig": {
                         "props": {
-                          "itemCssClass": "col-span-12"
+                          "itemCssClass": "col-span-12 md:col-span-6"
                         }
                       }
                     }
@@ -97,7 +97,14 @@
                 ]
               },
               "canton": {
-                "$ref": "https://bib.rero.ch/schemas/common/cantons-v0.0.1.json#/canton"
+                "$ref": "https://bib.rero.ch/schemas/common/cantons-v0.0.1.json#/canton",
+                "widget": {
+                  "formlyConfig": {
+                    "props": {
+                      "itemCssClass": "col-span-12 md:col-span-6"
+                    }
+                  }
+                }
               },
               "identifiedBy": {
                 "allOf": [
@@ -114,6 +121,13 @@
                     "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
                   }
                 ]
+              }
+            },
+            "widget": {
+              "formlyConfig": {
+                "props": {
+                  "containerCssClass": "grid grid-cols-12 gap-2"
+                }
               }
             }
           },
@@ -197,7 +211,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "containerCssClass": "grid grid-cols-12 gap-x-2"
+                  "containerCssClass": "grid grid-cols-12 gap-2"
                 }
               }
             }
@@ -217,7 +231,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "col-span-12 md:col-span-8",
                 "hide": true
               }
             }
@@ -274,7 +288,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "grid grid-cols-12 gap-x-2"
+            "containerCssClass": "grid grid-cols-12 gap-2"
           }
         }
       }

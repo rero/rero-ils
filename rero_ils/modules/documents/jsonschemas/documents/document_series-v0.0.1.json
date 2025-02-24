@@ -149,7 +149,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "grid grid-cols-12 gap-x-2"
+            "containerCssClass": "grid grid-cols-12 gap-2"
           }
         }
       }

@@ -175,7 +175,7 @@
                 "props": {
                   "validation": {
                     "messages": {
-                      "patternMessage": "Should be a valid URL format."
+                      "patternMessage": "This URL is invalid."
                     }
                   }
                 }

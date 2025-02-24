@@ -29,7 +29,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-6",
+                  "itemCssClass": "w-full md:w-6/12",
                   "options": [
                     {
                       "label": "article",
@@ -66,13 +66,6 @@
               }
             }
           }
-        },
-        "widget": {
-          "formlyConfig": {
-            "props": {
-              "containerCssClass": "grid grid-cols-12 gap-x-2"
-            }
-          }
         }
       },
       {
@@ -100,7 +93,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-6",
+                  "itemCssClass": "w-full md:w-6/12",
                   "options": [
                     {
                       "label": "Set",
@@ -133,13 +126,6 @@
               }
             }
           }
-        },
-        "widget": {
-          "formlyConfig": {
-            "props": {
-              "containerCssClass": "grid grid-cols-12 gap-x-2"
-            }
-          }
         }
       },
       {
@@ -167,7 +153,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-6",
+                  "itemCssClass": "w-full md:w-6/12",
                   "options": [
                     {
                       "label": "serialInSerial",
@@ -200,13 +186,6 @@
               }
             }
           }
-        },
-        "widget": {
-          "formlyConfig": {
-            "props": {
-              "containerCssClass": "grid grid-cols-12 gap-x-2"
-            }
-          }
         }
       },
       {
@@ -233,7 +212,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-6",
+                  "itemCssClass": "w-full md:w-6/12",
                   "options": [
                     {
                       "label": "updatingWebsite",
@@ -260,13 +239,6 @@
                   "hide"
                 ]
               }
-            }
-          }
-        },
-        "widget": {
-          "formlyConfig": {
-            "props": {
-              "containerCssClass": "grid grid-cols-12 gap-x-2"
             }
           }
         }
