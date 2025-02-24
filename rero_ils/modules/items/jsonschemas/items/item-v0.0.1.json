@@ -60,7 +60,7 @@
                 "valueAlreadyExists": {}
               },
               "messages": {
-                "alreadyTakenMessage": "The barcode is already taken."
+                "alreadyTakenMessage": "This barcode is already taken."
               }
             },
             "navigation": {
@@ -103,7 +103,7 @@
       "title": "Unit",
       "type": "string",
       "minLength": 1,
-      "description": "Numbering, enumeration, or other indication associated with the item.",
+      "description": "Numbering or other enumeration and dates associated with the issue or item.",
       "widget": {
         "formlyConfig": {
           "expressions": {
@@ -145,9 +145,6 @@
           "expressions": {
             "props.required": "field?.parent?.model?.type !== 'issue'",
             "hide": "field?.parent?.model?.type === 'issue'"
-          },
-          "props": {
-            "cssClass": "editor-title"
           }
         }
       }
@@ -165,7 +162,7 @@
       }
     },
     "item_type": {
-      "title": "Circulation category",
+      "title": "Item type",
       "type": "object",
       "required": [
         "$ref"
@@ -192,16 +189,13 @@
           "expressions": {
             "props.required": "field?.parent?.model?.type !== 'issue'",
             "hide": "field?.parent?.model?.type === 'issue'"
-          },
-          "props": {
-            "cssClass": "editor-title"
           }
         }
       }
     },
     "temporary_item_type": {
-      "title": "Temporary circulation category",
-      "description": "Apply a temporary item circulation category for this item. If specified, this circulation category overrides the default category.",
+      "title": "Temporary item type",
+      "description": "Applies a temporary item type which overrides the default one temporarily.",
       "type": "object",
       "propertiesOrder": [
         "$ref",
@@ -228,15 +222,13 @@
         },
         "end_date": {
           "title": "Deletion date",
+          "description": "Date on which this temporary field should be deleted automatically.",
           "type": "string",
           "format": "date",
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
           "widget": {
             "formlyConfig": {
               "type": "datePicker",
-              "expressions": {
-                "hide": "false"
-              },
               "props": {
                 "validation": {
                   "messages": {
@@ -251,7 +243,6 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "editor-title",
             "hide": true,
             "navigation": {
               "essential": true
@@ -287,6 +278,7 @@
         },
         "end_date": {
           "title": "Deletion date",
+          "description": "Date on which this temporary field should be deleted automatically.",
           "type": "string",
           "format": "date",
           "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
@@ -307,7 +299,6 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "editor-title",
             "hide": true,
             "navigation": {
               "essential": true
@@ -317,7 +308,8 @@
       }
     },
     "type": {
-      "title": "Item type",
+      "title": "Database type of item",
+      "description": "Defines how this item is managed and in the application.",
       "type": "string",
       "enum": [
         "standard",
@@ -465,8 +457,7 @@
             "formlyConfig": {
               "wrappers": [
                 "hide"
-              ],
-              "props": {}
+              ]
             }
           }
         }
@@ -481,7 +472,7 @@
     },
     "status": {
       "type": "string",
-      "title": "circulation status",
+      "title": "Circulation status",
       "default": "on_shelf",
       "readOnly": true,
       "enum": [
@@ -532,7 +523,6 @@
     },
     "holding": {
       "title": "Holding",
-      "description": "Holding record for the item.",
       "type": "object",
       "properties": {
         "$ref": {
@@ -560,6 +550,10 @@
     "library": {
       "title": "Library",
       "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$ref"
+      ],
       "properties": {
         "$ref": {
           "title": "Library URI",
@@ -602,6 +596,7 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-6",
                   "sort": true,
                   "options": [
                     {
@@ -654,9 +649,17 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-6",
                   "rows": 3
                 }
               }
+            }
+          }
+        },
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "grid grid-cols-12 gap-2"
             }
           }
         }
@@ -664,7 +667,6 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "editor-title",
             "validation": {
               "validators": {
                 "uniqueValueKeysInObject": {
@@ -713,10 +715,9 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "editor-title",
             "validation": {
               "messages": {
-                "patternMessage": "Should be a valid URL format."
+                "patternMessage": "This URL is invalid."
               }
             },
             "hide": true,
@@ -743,7 +744,6 @@
           "type": "select",
           "props": {
             "sort": true,
-            "cssClass": "editor-title",
             "options": [
               {
                 "label": "4_disposable",
@@ -781,7 +781,6 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "editor-title",
             "hide": true,
             "navigation": {
               "essential": true
@@ -804,7 +803,6 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "editor-title",
             "hide": true,
             "navigation": {
               "essential": true

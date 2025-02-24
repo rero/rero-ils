@@ -5,9 +5,8 @@
   "additionalProperties": false,
   "propertiesOrder": [
     "authorized_access_point",
-    "type",
-    "identifiedBy",
-    "source"
+    "source",
+    "identifiedBy"
   ],
   "required": [
     "type",
@@ -34,7 +33,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-6",
+            "itemCssClass": "col-span-12 md:col-span-8",
             "placeholder": "Example: Electronic serials"
           }
         }
@@ -44,7 +43,15 @@
       "title": "Source",
       "description": "Source of the genre or form.",
       "type": "string",
-      "minLength": 3
+      "minLength": 3,
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-span-12 md:col-span-4",
+            "placeholder": "Example: Electronic serials"
+          }
+        }
+      }
     },
     "identifiedBy": {
       "$ref": "https://bib.rero.ch/schemas/common/identifier-v0.0.1.json#/identifier"
@@ -53,7 +60,7 @@
   "widget": {
     "formlyConfig": {
       "props": {
-        "containerCssClass": "grid grid-cols-12 gap-x-2"
+        "containerCssClass": "grid grid-cols-12 gap-2"
       }
     }
   }

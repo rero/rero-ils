@@ -46,12 +46,5 @@
       "type": "string",
       "minLength": 1
     }
-  },
-  "widget": {
-    "formlyConfig": {
-      "props": {
-        "containerCssClass": "grid grid-cols-12 gap-x-2"
-      }
-    }
   }
 }

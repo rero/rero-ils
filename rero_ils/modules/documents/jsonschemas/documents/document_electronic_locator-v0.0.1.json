@@ -31,7 +31,7 @@
                 "itemCssClass": "col-span-12",
                 "validation": {
                   "messages": {
-                    "patternMessage": "Should be a valid URL format."
+                    "patternMessage": "This URL is invalid."
                   }
                 },
                 "placeholder": "Example: https://www.rero.ch/"
@@ -270,7 +270,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "grid grid-cols-12 gap-x-2"
+            "containerCssClass": "grid grid-cols-12 gap-2"
           }
         }
       }

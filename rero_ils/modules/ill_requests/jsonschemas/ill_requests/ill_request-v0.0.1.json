@@ -41,6 +41,7 @@
     "status": {
       "type": "string",
       "title": "Request status",
+      "description": "Request processing info for professionnals.",
       "enum": [
         "pending",
         "validated",
@@ -112,6 +113,7 @@
     "loan_status": {
       "type": "string",
       "title": "Loan state",
+      "description": "Information about the loan displayed to patrons.",
       "enum": [
         "PENDING",
         "ITEM_AT_DESK",
@@ -193,22 +195,50 @@
         "title": {
           "type": "string",
           "title": "Title",
-          "minLength": 3
+          "minLength": 3,
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-span-12 md:col-span-8"
+              }
+            }
+          }
         },
         "authors": {
           "type": "string",
           "title": "Authors",
-          "minLength": 3
+          "minLength": 3,
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-span-12 md:col-span-4"
+              }
+            }
+          }
         },
         "publisher": {
           "type": "string",
           "title": "Publisher",
-          "minLength": 3
+          "minLength": 3,
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-span-12 md:col-span-6"
+              }
+            }
+          }
         },
         "year": {
           "type": "string",
           "title": "Year",
-          "minLength": 1
+          "minLength": 1,
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-span-12 md:col-span-2"
+              }
+            }
+          }
         },
         "identifier": {
           "type": "string",
@@ -216,6 +246,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
+                "itemCssClass": "col-span-12 md:col-span-4",
                 "doNotSubmitOnEnter": true
               }
             }
@@ -233,7 +264,14 @@
             "journal_title": {
               "type": "string",
               "title": "Journal title",
-              "minLength": 3
+              "minLength": 3,
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-span-12 md:col-span-6"
+                  }
+                }
+              }
             },
             "volume": {
               "type": "string",
@@ -248,16 +286,31 @@
             },
             "number": {
               "type": "string",
-              "title": "Number"
+              "title": "Number",
+              "widget": {
+                "formlyConfig": {
+                  "props": {
+                    "itemCssClass": "col-span-12 md:col-span-3"
+                  }
+                }
+              }
+            }
+          },
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-span-12",
+                "containerCssClass": "grid grid-cols-12 gap-2"
+              }
             }
           }
         }
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ]
+          "props": {
+            "containerCssClass": "grid grid-cols-12 gap-2"
+          }
         }
       }
     },
@@ -284,7 +337,14 @@
         "source": {
           "type": "string",
           "title": "Source",
-          "minLength": 3
+          "minLength": 3,
+          "widget": {
+            "formlyConfig": {
+              "props": {
+                "itemCssClass": "col-span-12 md:col-span-6"
+              }
+            }
+          }
         },
         "url": {
           "type": "string",
@@ -295,26 +355,16 @@
           "minLength": 7,
           "widget": {
             "formlyConfig": {
-              "expressions": {
-                "props.required": true,
-                "hide": "field?.parent?.model?.source == undefined || field?.parent?.model?.source == ''"
-              },
               "props": {
+                "itemCssClass": "col-span-12 md:col-span-6",
                 "validation": {
                   "messages": {
-                    "patternMessage": "Should be a valid URL format."
+                    "patternMessage": "This URL is invalid."
                   }
                 }
               }
             }
           }
-        }
-      },
-      "widget": {
-        "formlyConfig": {
-          "wrappers": [
-            "card"
-          ]
         }
       }
     },
@@ -346,6 +396,7 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-4",
                   "sort": true,
                   "options": [
                     {
@@ -370,18 +421,23 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-8",
                   "rows": 3
                 }
               }
+            }
+          }
+        },
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "grid grid-cols-12 gap-2"
             }
           }
         }
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ],
           "props": {
             "validation": {
               "validators": {

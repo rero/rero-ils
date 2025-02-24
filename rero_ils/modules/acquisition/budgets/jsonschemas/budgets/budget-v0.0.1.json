@@ -45,7 +45,7 @@
                 }
               },
               "messages": {
-                "alreadyTakenMessage": "The budget name is already taken."
+                "alreadyTakenMessage": "This name is already taken."
               }
             }
           }
