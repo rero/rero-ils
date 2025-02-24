@@ -45,7 +45,7 @@
                 }
               },
               "messages": {
-                "alreadyTakenMessage": "The patron type name is already taken."
+                "alreadyTakenMessage": "This name is already taken."
               }
             }
           }

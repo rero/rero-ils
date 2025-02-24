@@ -138,11 +138,8 @@
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ],
           "props": {
-            "containerCssClass": "grid grid-cols-12 gap-x-2"
+            "containerCssClass": "grid grid-cols-12 gap-2"
           }
         }
       }
@@ -215,7 +212,7 @@
                       }
                     },
                     "messages": {
-                      "alreadyTakenMessage": "The barcode is already taken."
+                      "alreadyTakenMessage": "This barcode is already taken."
                     }
                   }
                 }
@@ -427,9 +424,6 @@
             "props.required": true,
             "hide": "!field?.parent?.model?.roles.includes('patron')"
           },
-          "wrappers": [
-            "card"
-          ],
           "props": {}
         }
       }
@@ -499,9 +493,6 @@
       "widget": {
         "formlyConfig": {
           "type": "multi-checkbox",
-          "wrappers": [
-            "card"
-          ],
           "props": {
             "options": [
               {
@@ -579,6 +570,7 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-4",
                   "sort": true,
                   "options": [
                     {
@@ -603,18 +595,23 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-8",
                   "rows": 3
                 }
               }
+            }
+          }
+        },
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "grid gap-2"
             }
           }
         }
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ],
           "props": {
             "validation": {
               "validators": {

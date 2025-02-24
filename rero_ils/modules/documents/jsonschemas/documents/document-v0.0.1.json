@@ -259,7 +259,6 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "editor-title",
             "hide": true
           }
         }
@@ -290,7 +289,6 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "editor-title",
             "hide": true
           }
         }
@@ -359,7 +357,6 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "editor-title",
             "hide": true
           }
         }
