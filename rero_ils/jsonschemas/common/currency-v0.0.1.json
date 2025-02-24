@@ -16,6 +16,7 @@
       "formlyConfig": {
         "type": "select",
         "props": {
+          "itemCssClass": "w-full md:w-2/12",
           "sort": true
         }
       }

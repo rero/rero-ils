@@ -15,9 +15,9 @@
   ],
   "propertiesOrder": [
     "collection_type",
+    "title",
     "start_date",
     "end_date",
-    "title",
     "collection_id",
     "teachers",
     "description",
@@ -27,6 +27,13 @@
     "items",
     "published"
   ],
+  "widget": {
+    "formlyConfig": {
+      "props": {
+        "containerCssClass": "grid grid-cols-12 gap-2"
+      }
+    }
+  },
   "properties": {
     "$schema": {
       "title": "Schema",
@@ -44,12 +51,26 @@
       "title": "Identifier",
       "description": "Identifier or code used locally for this collection",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-span-12"
+          }
+        }
+      }
     },
     "title": {
       "title": "Title",
       "type": "string",
-      "minLength": 1
+      "minLength": 1,
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-span-12 md:col-span-9"
+          }
+        }
+      }
     },
     "collection_type": {
       "title": "Type",
@@ -65,6 +86,7 @@
             "form-field"
           ],
           "props": {
+            "itemCssClass": "col-span-12 md:col-span-3",
             "sort": true,
             "options": [
               {
@@ -103,13 +125,13 @@
       },
       "widget": {
         "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-span-12"
+          },
           "expressions": {
             "props.required": true,
             "hide": "field?.parent?.model?.collection_type !== 'course'"
-          },
-          "wrappers": [
-            "card"
-          ]
+          }
         }
       }
     },
@@ -133,9 +155,9 @@
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ]
+          "props": {
+            "itemCssClass": "col-span-12"
+          }
         }
       }
     },
@@ -147,6 +169,7 @@
         "formlyConfig": {
           "type": "textarea",
           "props": {
+            "itemCssClass": "col-span-12",
             "rows": 5
           }
         }
@@ -161,6 +184,7 @@
         "formlyConfig": {
           "type": "datePicker",
           "props": {
+            "itemCssClass": "col-span-12 md:col-span-3",
             "validation": {
               "messages": {
                 "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
@@ -187,6 +211,7 @@
         "formlyConfig": {
           "type": "datePicker",
           "props": {
+            "itemCssClass": "col-span-12 md:col-span-3",
             "validation": {
               "messages": {
                 "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
@@ -232,9 +257,9 @@
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ]
+          "props": {
+            "itemCssClass": "col-span-12"
+          }
         }
       }
     },
@@ -268,9 +293,9 @@
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ]
+          "props": {
+            "itemCssClass": "col-span-12"
+          }
         }
       }
     },
@@ -293,7 +318,14 @@
       "type": "boolean",
       "title": "Published",
       "description": "'Published' indicates that the collection appears in the public interface.",
-      "default": true
+      "default": true,
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "col-span-12"
+          }
+        }
+      }
     }
   }
 }

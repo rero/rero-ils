@@ -166,7 +166,7 @@
       "props": {
         "filter": true,
         "sort": true,
-        "itemCssClass": "col-span-12 md:col-span-6",
+        "itemCssClass": "w-full md:w-6/12",
         "options": [
           {
             "value": "aut",

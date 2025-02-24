@@ -7,9 +7,9 @@
   "propertiesOrder": [
     "acq_account",
     "document",
-    "priority",
     "quantity",
     "amount",
+    "priority",
     "notes",
     "is_cancelled"
   ],
@@ -36,7 +36,7 @@
       "minLength": 1
     },
     "priority": {
-      "title": "Priority",
+      "title": "Priority (0-5)",
       "description": "The higher the number, the higher the priority.",
       "type": "integer",
       "minimum": 0,
@@ -44,7 +44,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-3 md:col-offset-right-9"
+            "itemCssClass": "col-span-4 md:col-span-2"
           }
         }
       }
@@ -57,13 +57,14 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-6"
+            "itemCssClass": "col-span-4 md:col-span-2"
           }
         }
       }
     },
     "amount": {
       "title": "Amount",
+      "description": "Expected price per item.",
       "type": "number",
       "default": 0,
       "minimum": 0,
@@ -71,7 +72,7 @@
         "formlyConfig": {
           "props": {
             "fieldMap": "amount",
-            "itemCssClass": "col-span-12 md:col-span-6"
+            "itemCssClass": "col-span-4 md:col-span-2"
           }
         }
       }
@@ -112,6 +113,7 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-4",
                   "sort": true,
                   "options": [
                     {
@@ -136,9 +138,17 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-8",
                   "rows": 3
                 }
               }
+            }
+          }
+        },
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "grid grid-cols-12 gap-2"
             }
           }
         }
@@ -294,7 +304,7 @@
   "widget": {
     "formlyConfig": {
       "props": {
-        "containerCssClass": "grid grid-cols-12 gap-x-2"
+        "containerCssClass": "grid grid-cols-12 gap-2"
       }
     }
   }

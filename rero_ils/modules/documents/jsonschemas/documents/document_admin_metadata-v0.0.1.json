@@ -1,6 +1,7 @@
 {
   "adminMetadata": {
     "title": "Admin metadata",
+    "description": "Administrative information intended for professionals",
     "type": "object",
     "required": [
       "encodingLevel"
@@ -10,13 +11,12 @@
       "encodingLevel",
       "source",
       "descriptionModifier",
-      "descriptionLanguage",
-      "descriptionConventions"
+      "descriptionConventions",
+      "descriptionLanguage"
     ],
     "properties": {
       "note": {
         "title": "Notes",
-        "description": "Administrative information intended for professionals",
         "type": "array",
         "minItems": 1,
         "items": {
@@ -53,7 +53,7 @@
           "formlyConfig": {
             "type": "select",
             "props": {
-              "itemCssClass": "col-span-12 md:col-span-6",
+              "itemCssClass": "col-span-12 md:col-span-8",
               "sort": true,
               "options": [
                 {
@@ -127,7 +127,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "itemCssClass": "col-span-12 md:col-span-4"
+              "itemCssClass": "col-span-12 md:col-span-6"
             }
           }
         }
@@ -145,7 +145,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-4"
+                  "itemCssClass": "col-span-12 md:col-span-6"
                 }
               }
             }
@@ -165,7 +165,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "itemCssClass": "col-span-12 md:col-span-4"
+              "itemCssClass": "col-span-12 md:col-span-6"
             }
           }
         }
@@ -174,7 +174,7 @@
     "widget": {
       "formlyConfig": {
         "props": {
-          "containerCssClass": "grid grid-cols-12 gap-x-2"
+          "containerCssClass": "grid grid-cols-12 gap-2"
         }
       }
     }

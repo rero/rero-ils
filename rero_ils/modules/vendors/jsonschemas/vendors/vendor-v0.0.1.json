@@ -49,7 +49,7 @@
                 }
               },
               "messages": {
-                "alreadyTakenMessage": "The vendor name is already taken."
+                "alreadyTakenMessage": "This name is already taken."
               }
             }
           }
@@ -65,9 +65,12 @@
       "widget": {
         "formlyConfig": {
           "props": {
+            "addonLeft": [
+              "<i class=\"fa fa-globe\"></i>"
+            ],
             "validation": {
               "messages": {
-                "patternMessage": "Should be a valid URL format."
+                "patternMessage": "This URL is invalid."
               }
             }
           }
@@ -110,6 +113,7 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-4",
                   "sort": true,
                   "options": [
                     {
@@ -162,18 +166,23 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-8",
                   "rows": 3
                 }
               }
+            }
+          }
+        },
+        "widget": {
+          "formlyConfig": {
+            "props": {
+              "containerCssClass": "grid grid-cols-12 gap-2"
             }
           }
         }
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ],
           "props": {
             "validation": {
               "validators": {
@@ -184,7 +193,7 @@
                 }
               },
               "messages": {
-                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed"
+                "uniqueValueKeysInObjectMessage": "Only one note per type is allowed."
               }
             }
           }
@@ -193,6 +202,7 @@
     },
     "communication_language": {
       "title": "Communication language",
+      "description": "Selected language will be used in all notifications sent to this vendor.",
       "type": "string",
       "enum": [
         "fre",
@@ -205,6 +215,7 @@
         "formlyConfig": {
           "type": "select",
           "props": {
+            "itemCssClass": "w-full md:w-3/12",
             "sort": true,
             "options": [
               {
@@ -241,13 +252,13 @@
         "type": "object",
         "propertiesOrder": [
           "type",
+          "email",
           "contact_person",
           "street",
           "postal_code",
           "city",
           "country",
-          "phone",
-          "email"
+          "phone"
         ],
         "required": [
           "type",
@@ -267,12 +278,12 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
+                  "itemCssClass": "col-span-12 md:col-span-6",
                   "sort": true,
-                  "itemCssClass": "col-span-12",
                   "options": [
                     {
                       "value": "default",
-                      "label": "Default contact "
+                      "label": "Default contact"
                     },
                     {
                       "value": "order",
@@ -289,7 +300,6 @@
           },
           "contact_person": {
             "title": "Contact person",
-            "description": "Vendor contact person.",
             "type": "string",
             "minLength": 4,
             "widget": {
@@ -304,8 +314,7 @@
             }
           },
           "street": {
-            "title": "Street",
-            "description": "Street and number of the address, separated by a coma.",
+            "title": "Street and number",
             "type": "string",
             "minLength": 4,
             "widget": {
@@ -325,7 +334,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-4"
+                  "itemCssClass": "col-span-12 md:col-span-3"
                 }
               }
             }
@@ -337,7 +346,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-8"
+                  "itemCssClass": "col-span-12 md:col-span-5"
                 }
               }
             }
@@ -349,7 +358,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12",
+                  "itemCssClass": "col-span-12 md:col-span-4",
                   "addonLeft": [
                     "<i class=\"fa fa-globe\"></i>"
                   ]
@@ -359,7 +368,6 @@
           },
           "phone": {
             "title": "Phone number",
-            "description": "Phone number with the international prefix, without spaces.",
             "type": "string",
             "widget": {
               "formlyConfig": {
@@ -391,16 +399,13 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "grid grid-cols-12 gap-x-2"
+              "containerCssClass": "grid grid-cols-12 gap-2"
             }
           }
         }
       },
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "card"
-          ],
           "props": {
             "validation": {
               "validators": {
@@ -411,7 +416,7 @@
                 }
               },
               "messages": {
-                "uniqueValueKeysInObjectMessage": "Only one contact per type is allowed"
+                "uniqueValueKeysInObjectMessage": "Only one contact per type is allowed."
               }
             }
           }
@@ -425,7 +430,14 @@
       "title": "VAT rate",
       "type": "number",
       "minimum": 0,
-      "maximum": 100
+      "maximum": 100,
+      "widget": {
+        "formlyConfig": {
+          "props": {
+            "itemCssClass": "w-full md:w-2/12"
+          }
+        }
+      }
     },
     "organisation": {
       "title": "Organisation",
