@@ -45,7 +45,10 @@ def get_record_by_ref(ref, type="es_record"):
 
 
 def node_assets(
-    package, patterns=["runtime*.js", "polyfills*.js", "main*.js"], _type="js", tags=""
+    package,
+    patterns=["runtime*.js", "polyfills*.js", "main*.js"],
+    _type="js",
+    tags="",
 ):
     """Generate the node assets html code.
 

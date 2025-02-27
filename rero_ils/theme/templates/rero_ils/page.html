@@ -67,11 +67,17 @@
     {%- endblock head_links %}
     {%- block header %}{% endblock header %}
     {%- block css %}
+      <style>
+        @layer bootstrap, babel, theme, rero-ils-ui, primeng;
+      </style>
+      {{ node_assets('@rero/rero-ils-ui/dist/public-search/browser', ['styles-*.css'], 'css') }}
       {{ webpack['global.css'] }}
-      {{ node_assets('@rero/rero-ils-ui/dist/public-search', ['styles.*css'], 'css') }}
       {% if config.get('RERO_ILS_PERSONALIZED_CSS_BY_VIEW') %}
-      <link href="{{ config.get('RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT') }}{{ viewcode }}.css" rel="stylesheet"
-      title="{{ viewcode }}" />
+       <link
+          href="{{ config.get('RERO_ILS_THEME_ORGANISATION_CSS_ENDPOINT') }}{{ viewcode }}.css"
+          rel="stylesheet"
+          title="{{ viewcode }}"
+        >
       {% endif %}
     {%- endblock css %}
     {%- endblock head %}
