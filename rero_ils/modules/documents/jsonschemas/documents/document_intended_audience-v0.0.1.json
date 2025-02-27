@@ -73,7 +73,7 @@
                   "props": {
                     "sort": true,
                     "filter": true,
-                    "itemCssClass": "col-12 md:col-6",
+                    "itemCssClass": "col-span-12 md:col-span-6",
                     "options": [
                       {
                         "label": "target_understanding_children",
