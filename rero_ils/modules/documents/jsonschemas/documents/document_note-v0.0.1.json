@@ -31,7 +31,7 @@
               "type": "select",
               "props": {
                 "sort": true,
-                "itemCssClass": "col-12",
+                "itemCssClass": "col-span-12",
                 "options": [
                   {
                     "label": "accompanyingMaterial",
@@ -61,7 +61,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-12"
+                "itemCssClass": "col-span-12"
               }
             }
           }
@@ -70,7 +70,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "grid grid-nogutter-y"
+            "containerCssClass": "grid grid-cols-12 gap-x-2"
           }
         }
       }
