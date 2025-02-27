@@ -53,7 +53,7 @@
         "formlyConfig": {
           "focus": true,
           "props": {
-            "labelClasses": "col-2 text-right",
+            "labelClasses": "col-span-2 text-right",
             "doNotSubmitOnEnter": true,
             "validation": {
               "validators": {
@@ -76,7 +76,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "labelClasses": "col-2 text-right",
+            "labelClasses": "col-span-2 text-right",
             "navigation": {
               "essential": true
             }
@@ -90,7 +90,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "labelClasses": "col-2 text-right",
+            "labelClasses": "col-span-2 text-right",
             "hide": true,
             "navigation": {
               "essential": true
@@ -110,7 +110,7 @@
             "props.required": "model && model.type === 'issue'"
           },
           "props": {
-            "labelClasses": "col-2 text-right px-0",
+            "labelClasses": "col-span-2 text-right px-0",
             "navigation": {
               "essential": true
             },

@@ -29,7 +29,7 @@ $fa-font-path: "~font-awesome/fonts";
 $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import "~font-awesome/scss/font-awesome";
 
-@layer bootstrap, babel, primeng, rero-ils-ui;
+@layer bootstrap, babel, theme, rero-ils-ui, primeng;
 
 @layer bootstrap {
   @import "variables";

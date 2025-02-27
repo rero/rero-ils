@@ -25,5 +25,5 @@
 
 {%- block javascript %}
 {{ webpack['reroils_public.js']}}
-{{ node_assets('@rero/rero-ils-ui/dist/public-search', tags='type="module"') }}
+{{ node_assets('@rero/rero-ils-ui/dist/public-search/browser', tags='type="module"') }}
 {%- endblock javascript %}
