@@ -27,7 +27,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "itemCssClass": "col-12"
+              "itemCssClass": "col-span-12"
             }
           }
         }
@@ -53,7 +53,7 @@
           "formlyConfig": {
             "type": "select",
             "props": {
-              "itemCssClass": "col-12 md:col-6",
+              "itemCssClass": "col-span-12 md:col-span-6",
               "sort": true,
               "options": [
                 {
@@ -109,7 +109,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "itemCssClass": "col-12 md:col-4"
+              "itemCssClass": "col-span-12 md:col-span-4"
             }
           }
         }
@@ -127,7 +127,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "itemCssClass": "col-12 md:col-4"
+              "itemCssClass": "col-span-12 md:col-span-4"
             }
           }
         }
@@ -145,7 +145,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-12 md:col-4"
+                  "itemCssClass": "col-span-12 md:col-span-4"
                 }
               }
             }
@@ -165,7 +165,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "itemCssClass": "col-12 md:col-4"
+              "itemCssClass": "col-span-12 md:col-span-4"
             }
           }
         }
@@ -174,7 +174,7 @@
     "widget": {
       "formlyConfig": {
         "props": {
-          "containerCssClass": "grid grid-nogutter-y"
+          "containerCssClass": "grid grid-cols-12 gap-x-2"
         }
       }
     }
