@@ -170,6 +170,7 @@ from .query import (
     i18n_terms_filter,
     or_terms_filter_by_criteria,
 )
+from .theme.forms import LoginForm
 from .utils import TranslatedList, get_current_language
 
 APP_THEME = ["bootstrap3"]
@@ -308,6 +309,8 @@ SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome")
 #: Email subjects for password reset
 SECURITY_EMAIL_SUBJECT_PASSWORD_RESET = _("RERO ID password reset")
 SECURITY_EMAIL_SUBJECT_PASSWORD_NOTICE = _("Your RERO ID password has been reset")
+#: Custom login form to support username login
+SECURITY_LOGIN_FORM = LoginForm
 #: Redis session storage URL.
 ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
 #: Enable session/user id request tracing. This feature will add X-Session-ID

@@ -22,6 +22,8 @@ from __future__ import absolute_import, print_function
 import pytest
 from flask import session, url_for
 from flask_login import login_user, logout_user
+from flask_security import url_for_security
+from invenio_accounts.testutils import login_user_via_view
 from utils import postdata
 
 from rero_ils.modules.users.api import user_formatted_name
@@ -183,3 +185,44 @@ def test_google_analytics(client, app):
     app.config["RERO_ILS_GOOGLE_ANALYTICS_TAG_ID"] = "GA-Foo"
     result = client.get(url_for("rero_ils.index"))
     assert "gtag" in result.text
+
+
+def test_login(client, app, user_with_profile):
+    """Testing the frontend login view."""
+
+    ## bad password
+    # be sure that no one is logged
+    client.get(url_for_security("logout"))
+    res = login_user_via_view(
+        client=client, email=user_with_profile.username, password="bad password"
+    )
+    assert "Invalid user or password" in res.text
+    assert res.status_code == 200
+
+    ## bad email
+    client.get(url_for_security("logout"))
+    res = login_user_via_view(
+        client=client,
+        email="bad@email.com",
+        password=user_with_profile.password_plaintext,
+    )
+    assert "Invalid user or password" in res.text
+    assert res.status_code == 200
+
+    ## login with email
+    client.get(url_for_security("logout"))
+    res = login_user_via_view(
+        client=client,
+        email=user_with_profile.email,
+        password=user_with_profile.password_plaintext,
+    )
+    assert res.status_code == 302
+
+    ## login with username
+    client.get(url_for_security("logout"))
+    res = login_user_via_view(
+        client=client,
+        email=user_with_profile.username,
+        password=user_with_profile.password_plaintext,
+    )
+    assert res.status_code == 302

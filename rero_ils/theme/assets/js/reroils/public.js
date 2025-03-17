@@ -19,7 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 import 'bootstrap';
 import './tooltip';
 import './toast';
-import './login';
 import './toggle';
 import './ills_request';
 import './show_more';
