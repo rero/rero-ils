@@ -25,15 +25,15 @@
 {% set pid = record.pid %}
 
 {%- block body %}
-<header class="grid grid-nogutter-y">
-  <div class="col-10">
+<header class="d-flex">
+  <div class="mr-auto">
     <h1 class="mb-0">
       <i class="fa {{ record['type'] | entity_icon }}" title="{{ _(record['type']) }}" aria-hidden="true"></i>
       {{ record | entity_label(current_i18n.language) }}
     </h1>
     <small>MEF ID: {{ pid }}</small>
   </div>
-  <div class="col-2 pt-2">
+  <div class="pt-2">
     {% include 'rero_ils/_search_link.html' %}
   </div>
 </header>
