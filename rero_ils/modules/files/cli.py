@@ -28,7 +28,6 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 from invenio_access.permissions import system_identity
 from invenio_records_resources.services.uow import UnitOfWork
-from invenio_search import current_search
 from rero_invenio_files.pdf import PDFGenerator
 
 from rero_ils.modules.documents.api import Document
@@ -60,7 +59,7 @@ def create_pdf_file(document):
     return generator.output()
 
 
-def create_pdf_record_files(document, metadata, flush=False, number_of_files=1):
+def create_pdf_record_files(document, metadata, number_of_files=1):
     """Creates and attach a pdf file to a given document.
 
     :param document: Document - the document record.
@@ -115,8 +114,6 @@ def create_pdf_record_files(document, metadata, flush=False, number_of_files=1):
                 identity=system_identity, id_=recid, file_key=file_name, uow=uow
             )
         uow.commit()
-    if flush:
-        current_search.flush_and_refresh(record_service.record_cls.index._name)
     return record
 
 
@@ -200,7 +197,7 @@ def create_files(number, collections):
             library={"$ref": get_ref_for_pid("lib", lib_pid)},
         )
         create_pdf_record_files(
-            document=doc, metadata=metadata, flush=True, number_of_files=number_of_files
+            document=doc, metadata=metadata, number_of_files=number_of_files
         )
 
 

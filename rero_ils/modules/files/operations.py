@@ -19,6 +19,7 @@
 
 from flask import current_app
 from invenio_records_resources.services.uow import Operation
+from invenio_search import current_search
 
 from rero_ils.modules.documents.tasks import reindex_document
 
@@ -78,3 +79,5 @@ class ReindexRecordFile(ReindexOperationBase):
         :param uow: obj - UnitOfWork instance.
         """
         self.record_service.indexer.index_by_id(self.id)
+        # index flush needed for following ReindexDoc.on_post_commit
+        current_search.flush_and_refresh(self.record_service.record_cls.index._name)
