@@ -17,6 +17,7 @@
 
 """Command line interface for migration data record management."""
 
+import json
 from pprint import pprint
 from random import choice
 
@@ -24,6 +25,8 @@ import click
 from elasticsearch.exceptions import NotFoundError
 from elasticsearch_dsl import Index
 from flask.cli import with_appcontext
+
+from rero_ils.modules.utils import JsonWriter
 
 from ..api import Migration
 from .api import DeduplicationCandidate, DeduplicationStatus
@@ -121,8 +124,9 @@ def dedup(migration, id, dry_run, force):
     type=click.Choice(["raw", "json", "markdown", "ids", "logs", "conversion-status"]),
     default="json",
 )
+@click.option("-o", "--out-file")
 @with_appcontext
-def get(migration, id, conversion_status, format):
+def get(migration, id, conversion_status, format, out_file):
     """Get migration data."""
     try:
         migration = Migration.get(migration)
@@ -131,42 +135,56 @@ def get(migration, id, conversion_status, format):
         raise click.Abort()
     DataMigration = migration.data_class
 
-    def display(data):
+    def format_data(data, format=json):
         """Display the data for a given format."""
-        if format == "raw":
-            print(data.raw.decode())
         if format == "json":
-            pprint(data.conversion.to_dict().get("json", {}))
+            return data.conversion.to_dict().get("json")
+        if format == "ids":
+            return data.meta.id
+        if format == "raw":
+            return data.raw.decode()
         if format == "markdown":
             ConversionClass = migration.conversion_class
-            print(ConversionClass.markdown(data.raw))
+            return ConversionClass.markdown(data.raw)
         if format == "conversion-status" and hasattr(data.conversion, "status"):
-            print(data.meta.id, data.conversion.status)
-        if format == "logs" and data.conversion.logs:
-            print(f"Logs for {data.meta.id}")
-            if hasattr(data.conversion.logs, "info"):
-                click.secho("\n".join(data.conversion.logs.info), fg="green")
-            if hasattr(data.conversion.logs, "warnings"):
-                click.secho("\n".join(data.conversion.logs.warning), fg="yellow")
-            if hasattr(data.conversion.logs, "error"):
-                click.secho("\n".join(data.conversion.logs.error), fg="red")
+            return (data.meta.id, data.conversion.status)
 
+    if out_file:
+        out_file = JsonWriter(out_file) if format == "json" else open(out_file, "w")
+    search = DataMigration.search()
     if id:
-        if format == "ids":
-            pprint([id])
+        search = search.filter("term", _id=id)
+    if conversion_status:
+        search = search.filter("term", conversion__status=conversion_status)
+    for data in search.scan():
+        msg = format_data(data=data, format=format)
+        if format == "logs":
+            msg = f"Logs for {data.meta.id}"
+            print(msg)
+            if out_file:
+                out_file.write(f"{msg}\n")
+            if hasattr(data.conversion.logs, "info"):
+                msg = "\n".join(data.conversion.logs.info)
+                click.secho(msg, fg="green")
+            if hasattr(data.conversion.logs, "warnings"):
+                msg = "\n".join(data.conversion.logs.warnings)
+                click.secho(msg, fg="yellow")
+            if hasattr(data.conversion.logs, "error"):
+                msg = "\n".join(data.conversion.logs.error)
+                click.secho(msg, fg="red")
+            if out_file:
+                out_file.write(f"{msg}\n")
         else:
-            display(DataMigration.get(id))
-    else:
-        search = DataMigration.search()
-        if conversion_status:
-            search = search.filter("term", conversion__status=conversion_status)
-        if format == "ids":
-            search = search.source()
-        for data in search.scan():
-            if format == "ids":
-                print(data.meta.id)
+            if format == "json":
+                print(json.dumps(msg, indent=2))
             else:
-                display(data)
+                print(msg)
+            if out_file:
+                out_file.write(msg)
+                if format != "json":
+                    out_file.write("\n")
+    if out_file:
+        out_file.close()
 
 
 @data.command()

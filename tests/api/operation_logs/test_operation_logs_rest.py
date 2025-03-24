@@ -220,7 +220,7 @@ def test_operation_log_on_file(
         library={"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
         collections=["col1", "col2"],
     )
-    record = create_pdf_record_files(document, metadata, flush=True)
+    record = create_pdf_record_files(document, metadata)
     recid = record["id"]
 
     # get services

@@ -189,7 +189,7 @@ def document_with_files(document, lib_martigny, file_location):
         library={"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
         collections=["col1", "col2"],
     )
-    create_pdf_record_files(document, metadata, flush=True)
+    create_pdf_record_files(document, metadata)
     file_path = join(dirname(__file__), "../data/help/files/logo_rero_ils.png")
     load_files_for_document(document=document, metadata=metadata, files=[file_path])
     DocumentsSearch.flush_and_refresh()
