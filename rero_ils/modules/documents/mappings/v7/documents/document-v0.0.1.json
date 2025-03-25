@@ -2214,7 +2214,12 @@
         }
       },
       "call_numbers": {
-        "type": "text"
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
       },
       "_draft": {
         "type": "boolean"
