@@ -164,7 +164,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12"
+                "itemCssClass": "ui:col-span-12"
               }
             }
           }

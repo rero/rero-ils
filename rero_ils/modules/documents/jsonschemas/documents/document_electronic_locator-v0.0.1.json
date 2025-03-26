@@ -28,7 +28,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12",
+                "itemCssClass": "ui:col-span-12",
                 "validation": {
                   "messages": {
                     "patternMessage": "This URL is invalid."
@@ -55,7 +55,7 @@
               "type": "select",
               "props": {
                 "sort": true,
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                 "options": [
                   {
                     "label": "resource",
@@ -122,7 +122,7 @@
               "props": {
                 "sort": true,
                 "filter": true,
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                 "options": [
                   {
                     "label": "poster",
@@ -261,7 +261,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12"
+                "itemCssClass": "ui:col-span-12"
               }
             }
           }
@@ -270,7 +270,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "grid grid-cols-12 gap-2"
+            "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
           }
         }
       }

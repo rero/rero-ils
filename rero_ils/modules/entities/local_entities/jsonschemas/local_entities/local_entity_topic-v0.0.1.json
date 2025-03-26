@@ -34,9 +34,9 @@
       "const": "bf:Topic",
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "hide"
-          ]
+          "props": {
+            "itemCssClass": "ui:hidden"
+          }
         }
       }
     },
@@ -69,9 +69,9 @@
       "readOnly": true,
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "hide"
-          ]
+          "props": {
+            "itemCssClass": "ui:hidden"
+          }
         }
       }
     },

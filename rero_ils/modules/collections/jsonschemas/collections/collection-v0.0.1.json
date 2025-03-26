@@ -30,7 +30,7 @@
   "widget": {
     "formlyConfig": {
       "props": {
-        "containerCssClass": "grid grid-cols-12 gap-2"
+        "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
       }
     }
   },
@@ -55,7 +55,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12"
+            "itemCssClass": "ui:col-span-12"
           }
         }
       }
@@ -67,7 +67,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-9"
+            "itemCssClass": "ui:col-span-12 ui:md:col-span-9"
           }
         }
       }
@@ -82,11 +82,8 @@
       "widget": {
         "formlyConfig": {
           "type": "select",
-          "wrappers": [
-            "form-field"
-          ],
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-3",
+            "itemCssClass": "ui:col-span-12 ui:md:col-span-3",
             "sort": true,
             "options": [
               {
@@ -126,7 +123,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12"
+            "itemCssClass": "ui:col-span-12"
           },
           "expressions": {
             "props.required": true,
@@ -156,7 +153,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12"
+            "itemCssClass": "ui:col-span-12"
           }
         }
       }
@@ -169,7 +166,7 @@
         "formlyConfig": {
           "type": "textarea",
           "props": {
-            "itemCssClass": "col-span-12",
+            "itemCssClass": "ui:col-span-12",
             "rows": 5
           }
         }
@@ -184,7 +181,7 @@
         "formlyConfig": {
           "type": "datePicker",
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-3",
+            "itemCssClass": "ui:col-span-12 ui:md:col-span-3",
             "validation": {
               "messages": {
                 "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
@@ -211,7 +208,7 @@
         "formlyConfig": {
           "type": "datePicker",
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-3",
+            "itemCssClass": "ui:col-span-12 ui:md:col-span-3",
             "validation": {
               "messages": {
                 "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD).",
@@ -258,7 +255,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12"
+            "itemCssClass": "ui:col-span-12"
           }
         }
       }
@@ -294,7 +291,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12"
+            "itemCssClass": "ui:col-span-12"
           }
         }
       }
@@ -322,7 +319,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12"
+            "itemCssClass": "ui:col-span-12"
           }
         }
       }
