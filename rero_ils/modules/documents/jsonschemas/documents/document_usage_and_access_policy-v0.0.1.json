@@ -24,9 +24,9 @@
           "const": "bf:UsageAndAccessPolicy",
           "widget": {
             "formlyConfig": {
-              "wrappers": [
-                "hide"
-              ]
+              "props": {
+                "itemCssClass": "ui:hidden"
+              }
             }
           }
         },
@@ -37,7 +37,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12",
+                "itemCssClass": "ui:col-span-12",
                 "placeholder": "Example: Copy not allowed"
               }
             }
@@ -47,7 +47,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "grid grid-cols-12 gap-2"
+            "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
           }
         }
       }

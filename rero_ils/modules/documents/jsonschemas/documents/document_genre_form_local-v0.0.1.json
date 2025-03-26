@@ -20,9 +20,9 @@
       "const": "bf:Topic",
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "hide"
-          ]
+          "props": {
+            "itemCssClass": "ui:hidden"
+          }
         }
       }
     },
@@ -33,7 +33,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-8",
+            "itemCssClass": "ui:col-span-12 ui:ui:md:col-span-8",
             "placeholder": "Example: Electronic serials"
           }
         }
@@ -47,8 +47,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-4",
-            "placeholder": "Example: Electronic serials"
+            "itemCssClass": "ui:col-span-12 ui:ui:md:col-span-4"
           }
         }
       }
@@ -60,7 +59,7 @@
   "widget": {
     "formlyConfig": {
       "props": {
-        "containerCssClass": "grid grid-cols-12 gap-2"
+        "containerCssClass": "ui:grid ui:ui:grid-cols-12 ui:ui:gap-x-2"
       }
     }
   }

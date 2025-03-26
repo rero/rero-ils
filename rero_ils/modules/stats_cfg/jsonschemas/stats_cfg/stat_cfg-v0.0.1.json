@@ -164,9 +164,9 @@
               "default": "catalog",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -192,9 +192,9 @@
                       "default": "number_of_documents",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -263,9 +263,9 @@
                       "default": "number_of_serial_holdings",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -329,9 +329,9 @@
                       "default": "number_of_items",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -416,9 +416,9 @@
                       "default": "number_of_deleted_items",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -495,9 +495,9 @@
               "default": "circulation",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -523,9 +523,9 @@
                       "default": "number_of_ill_requests",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -595,9 +595,9 @@
                       "default": "number_of_checkins",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -628,9 +628,9 @@
                       "default": "number_of_checkouts",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -661,9 +661,9 @@
                       "default": "number_of_extends",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -694,9 +694,9 @@
                       "default": "number_of_requests",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -727,9 +727,9 @@
                       "default": "number_of_validate_requests",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -764,9 +764,9 @@
               "default": "user_management",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -792,9 +792,9 @@
                       "default": "number_of_patrons",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
@@ -823,9 +823,9 @@
                       "default": "number_of_active_patrons",
                       "widget": {
                         "formlyConfig": {
-                          "wrappers": [
-                            "hide"
-                          ]
+                          "props": {
+                            "itemCssClass": "ui:hidden"
+                          }
                         }
                       }
                     },
