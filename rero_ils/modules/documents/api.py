@@ -32,6 +32,7 @@ from jsonschema.exceptions import ValidationError
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLinesSearch
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
 from rero_ils.modules.commons.identifiers import IdentifierFactory, IdentifierType
+from rero_ils.modules.documents.tasks import reindex_document_items
 from rero_ils.modules.fetchers import id_fetcher
 from rero_ils.modules.local_fields.extensions import DeleteRelatedLocalFieldExtension
 from rero_ils.modules.minters import id_minter
@@ -583,6 +584,10 @@ class DocumentsIndexer(IlsRecordsIndexer):
             if ids := [doc.meta.id for doc in search.source().scan()]:
                 # reindex in background as the list can be huge
                 self.bulk_index(ids)
+
+        # reindex items
+        reindex_document_items.delay(record)
+
         return return_value
 
     def bulk_index(self, record_id_iterator):

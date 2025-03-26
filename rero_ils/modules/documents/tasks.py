@@ -22,8 +22,8 @@ from datetime import datetime, timedelta
 import click
 from celery import shared_task
 from flask import current_app
+from invenio_search import current_search_client
 
-from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.utils import set_timestamp
 
 
@@ -33,6 +33,8 @@ def reindex_document(pid):
 
     :param pid: str - pid value of the document to reindex.
     """
+    from rero_ils.modules.documents.api import Document
+
     Document.get_record_by_pid(pid).reindex()
 
 
@@ -44,6 +46,8 @@ def delete_orphan_harvested(delete=False, verbose=False):
     :param verbose: Verbose print.
     :returns: count of deleted documents.
     """
+    from rero_ils.modules.documents.api import Document, DocumentsSearch
+
     query = (
         DocumentsSearch()
         .filter("term", harvested=True)
@@ -85,6 +89,8 @@ def delete_drafts(days=1, delete=False, verbose=False):
     :param verbose: Verbose print.
     :returns: count of deleted drafts.
     """
+    from rero_ils.modules.documents.api import Document, DocumentsSearch
+
     days_ago = datetime.now() - timedelta(days=days)
     query = (
         DocumentsSearch()
@@ -113,3 +119,27 @@ def delete_drafts(days=1, delete=False, verbose=False):
 
     set_timestamp("delete_drafts", deleted=count)
     return count
+
+
+@shared_task(ignore_result=True)
+def reindex_document_items(record):
+    """Reindex the items of document.
+
+    :param pid: str - pid value of the document to reindex.
+    """
+    from rero_ils.modules.items.api import ItemsSearch
+
+    for hit in (
+        ItemsSearch().extra(version=True).filter("term", document__pid=record["pid"])
+    ):
+        data = hit.to_dict()
+        # update the document type in item if different.
+        if data["document"]["document_type"] != record["type"]:
+            data["document"]["document_type"] = record["type"]
+            current_search_client.index(
+                index=ItemsSearch.Meta.index,
+                id=hit.meta.id,
+                body=data,
+                version=hit.meta.version,
+                version_type="external_gte",
+            )
