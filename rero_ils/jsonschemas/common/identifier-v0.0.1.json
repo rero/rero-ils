@@ -26,8 +26,8 @@
     "widget": {
       "formlyConfig": {
         "props": {
-          "containerCssClass": "grid grid-cols-12 gap-2",
-          "itemCssClass": "col-span-12",
+          "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2",
+          "itemCssClass": "ui:col-span-12",
           "hide": true
         }
       }
@@ -46,7 +46,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-4",
+            "itemCssClass": "ui:col-span-12 ui:md:col-span-4",
             "options": [
               {
                 "value": "bf:Local",
@@ -76,7 +76,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-8"
+            "itemCssClass": "ui:col-span-12 ui:md:col-span-8"
           }
         }
       }
@@ -93,7 +93,7 @@
             "hide": "field?.parent?.model?.type !== 'bf:Local'"
           },
           "props": {
-            "itemCssClass": "col-span-12 md:col-span-6"
+            "itemCssClass": "ui:col-span-12 ui:md:col-span-6"
           }
         }
       }

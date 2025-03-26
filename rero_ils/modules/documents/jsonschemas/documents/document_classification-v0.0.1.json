@@ -31,9 +31,9 @@
               "const": "bf:Classification",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -72,9 +72,9 @@
               "const": "bf:ClassificationLcc",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -113,9 +113,9 @@
               "const": "bf:ClassificationNlm",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -155,9 +155,9 @@
               "const": "bf:ClassificationUdc",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -200,9 +200,9 @@
               "const": "bf:ClassificationDdc",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -244,9 +244,9 @@
               "const": "classification_brunetparguez",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -285,9 +285,9 @@
               "const": "classification_droit",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -326,9 +326,9 @@
               "const": "classification_musicale_instruments",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -393,9 +393,9 @@
               "const": "classification_musicale_genres",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },

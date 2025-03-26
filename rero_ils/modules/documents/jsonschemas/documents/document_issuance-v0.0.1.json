@@ -29,7 +29,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "w-full md:w-6/12",
+                  "itemCssClass": "ui:w-full ui:md:w-6/12",
                   "options": [
                     {
                       "label": "article",
@@ -60,9 +60,9 @@
             "const": "rdami:1001",
             "widget": {
               "formlyConfig": {
-                "wrappers": [
-                  "hide"
-                ]
+                "props": {
+                  "itemCssClass": "ui:hidden"
+                }
               }
             }
           }
@@ -93,7 +93,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "w-full md:w-6/12",
+                  "itemCssClass": "ui:w-full ui:md:w-6/12",
                   "options": [
                     {
                       "label": "Set",
@@ -120,9 +120,9 @@
             "const": "rdami:1002",
             "widget": {
               "formlyConfig": {
-                "wrappers": [
-                  "hide"
-                ]
+                "props": {
+                  "itemCssClass": "ui:hidden"
+                }
               }
             }
           }
@@ -153,7 +153,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "w-full md:w-6/12",
+                  "itemCssClass": "ui:w-full ui:md:w-6/12",
                   "options": [
                     {
                       "label": "serialInSerial",
@@ -180,9 +180,9 @@
             "const": "rdami:1003",
             "widget": {
               "formlyConfig": {
-                "wrappers": [
-                  "hide"
-                ]
+                "props": {
+                  "itemCssClass": "ui:hidden"
+                }
               }
             }
           }
@@ -212,7 +212,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "w-full md:w-6/12",
+                  "itemCssClass": "ui:w-full ui:md:w-6/12",
                   "options": [
                     {
                       "label": "updatingWebsite",
@@ -235,9 +235,9 @@
             "const": "rdami:1004",
             "widget": {
               "formlyConfig": {
-                "wrappers": [
-                  "hide"
-                ]
+                "props": {
+                  "itemCssClass": "ui:hidden"
+                }
               }
             }
           }

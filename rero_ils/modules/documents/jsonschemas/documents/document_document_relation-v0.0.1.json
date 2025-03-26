@@ -277,8 +277,7 @@
                 "queryOptions": {
                   "type": "documents",
                   "filter": "NOT harvested:true"
-                },
-                "placeholder": "Example: https://bib.rero.ch/api/documents/66"
+                }
               }
             }
           }

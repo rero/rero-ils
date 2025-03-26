@@ -32,9 +32,9 @@
               "const": "docmaintype_archives",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             }
@@ -59,9 +59,9 @@
               "const": "docmaintype_article",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             }
@@ -88,9 +88,9 @@
               "const": "docmaintype_audio",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -107,7 +107,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "w-full md:w-6/12",
+                    "itemCssClass": "ui:w-full ui:md:w-6/12",
                     "options": [
                       {
                         "label": "docsubtype_music",
@@ -153,9 +153,9 @@
               "const": "docmaintype_book",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -176,7 +176,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "w-full md:w-6/12",
+                    "itemCssClass": "ui:w-full ui:md:w-6/12",
                     "options": [
                       {
                         "label": "docsubtype_other_book",
@@ -236,9 +236,9 @@
               "const": "docmaintype_children",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             }
@@ -265,9 +265,9 @@
               "const": "docmaintype_comic",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -282,7 +282,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "w-full md:w-6/12",
+                    "itemCssClass": "ui:w-full ui:md:w-6/12",
                     "options": [
                       {
                         "label": "docsubtype_comic",
@@ -320,9 +320,9 @@
               "const": "docmaintype_electronic",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -374,9 +374,9 @@
               "const": "docmaintype_game",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -393,7 +393,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "w-full md:w-6/12",
+                    "itemCssClass": "ui:w-full ui:md:w-6/12",
                     "options": [
                       {
                         "label": "docsubtype_other_game",
@@ -439,9 +439,9 @@
               "const": "docmaintype_image",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -461,7 +461,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "w-full md:w-6/12",
+                    "itemCssClass": "ui:w-full ui:md:w-6/12",
                     "options": [
                       {
                         "label": "docsubtype_poster",
@@ -517,9 +517,9 @@
               "const": "docmaintype_language_method",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             }
@@ -544,9 +544,9 @@
               "const": "docmaintype_leaf",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             }
@@ -573,9 +573,9 @@
               "const": "docmaintype_map",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -627,9 +627,9 @@
               "const": "docmaintype_movie_series",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -645,7 +645,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "w-full md:w-6/12",
+                    "itemCssClass": "ui:w-full ui:md:w-6/12",
                     "options": [
                       {
                         "label": "docsubtype_movie",
@@ -687,9 +687,9 @@
               "const": "docmaintype_object",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -705,7 +705,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "w-full md:w-6/12",
+                    "itemCssClass": "ui:w-full ui:md:w-6/12",
                     "options": [
                       {
                         "label": "docsubtype_kamishibai",
@@ -745,9 +745,9 @@
               "const": "docmaintype_other",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             }
@@ -774,9 +774,9 @@
               "const": "docmaintype_score",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -792,7 +792,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "w-full md:w-6/12",
+                    "itemCssClass": "ui:w-full ui:md:w-6/12",
                     "options": [
                       {
                         "label": "docsubtype_printed_score",
@@ -832,9 +832,9 @@
               "const": "docmaintype_serial",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             }
@@ -859,9 +859,9 @@
               "const": "docmaintype_series",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             }
@@ -888,9 +888,9 @@
               "const": "docmaintype_teaching_material",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -908,7 +908,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "w-full md:w-6/12",
+                    "itemCssClass": "ui:w-full ui:md:w-6/12",
                     "options": [
                       {
                         "label": "docsubtype_reading_kit",

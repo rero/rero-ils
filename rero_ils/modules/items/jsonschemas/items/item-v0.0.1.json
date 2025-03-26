@@ -53,7 +53,7 @@
         "formlyConfig": {
           "focus": true,
           "props": {
-            "labelClasses": "col-span-2 text-right",
+            "labelClasses": "ui:col-span-2 text-right",
             "doNotSubmitOnEnter": true,
             "validation": {
               "validators": {
@@ -76,7 +76,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "labelClasses": "col-span-2 text-right",
+            "labelClasses": "ui:col-span-2 text-right",
             "navigation": {
               "essential": true
             }
@@ -90,7 +90,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "labelClasses": "col-span-2 text-right",
+            "labelClasses": "ui:col-span-2 text-right",
             "hide": true,
             "navigation": {
               "essential": true
@@ -110,7 +110,7 @@
             "props.required": "model && model.type === 'issue'"
           },
           "props": {
-            "labelClasses": "col-span-2 text-right px-0",
+            "labelClasses": "ui:col-span-2 text-right px-0",
             "navigation": {
               "essential": true
             },
@@ -319,9 +319,9 @@
       "default": "standard",
       "widget": {
         "formlyConfig": {
-          "wrappers": [
-            "hide"
-          ]
+          "props": {
+            "itemCssClass": "ui:hidden"
+          }
         }
       }
     },
@@ -455,9 +455,9 @@
           "default": true,
           "widget": {
             "formlyConfig": {
-              "wrappers": [
-                "hide"
-              ]
+              "props": {
+                "itemCssClass": "ui:hidden"
+              }
             }
           }
         }
@@ -486,10 +486,8 @@
       "widget": {
         "formlyConfig": {
           "type": "select",
-          "wrappers": [
-            "hide"
-          ],
           "props": {
+            "itemCssClass": "ui:hidden",
             "sort": true,
             "options": [
               {
@@ -596,7 +594,7 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-6",
+                  "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                   "sort": true,
                   "options": [
                     {
@@ -649,7 +647,7 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-6",
+                  "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                   "rows": 3
                 }
               }
@@ -659,7 +657,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "grid grid-cols-12 gap-2"
+              "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
             }
           }
         }

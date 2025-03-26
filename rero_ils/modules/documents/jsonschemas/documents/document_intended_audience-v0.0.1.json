@@ -28,9 +28,9 @@
               "const": "understanding_level",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -73,7 +73,7 @@
                   "props": {
                     "sort": true,
                     "filter": true,
-                    "itemCssClass": "col-span-12 md:col-span-6",
+                    "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                     "options": [
                       {
                         "label": "target_understanding_children",
@@ -206,9 +206,9 @@
               "const": "school_level",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -327,9 +327,9 @@
               "const": "pegi_level",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -397,9 +397,9 @@
               "const": "filmage_ch",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -482,9 +482,9 @@
               "const": "undefined",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },

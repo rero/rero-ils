@@ -129,7 +129,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                 "placeholder": "Example: vol.3"
               }
             }
@@ -149,7 +149,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "grid grid-cols-12 gap-2"
+            "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
           }
         }
       }
