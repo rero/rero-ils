@@ -112,7 +112,7 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-4",
+                  "itemCssClass": "ui:col-span-12 ui:md:col-span-4",
                   "sort": true,
                   "options": [
                     {
@@ -165,7 +165,7 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-8",
+                  "itemCssClass": "ui:col-span-12 ui:md:col-span-8",
                   "rows": 3
                 }
               }
@@ -175,7 +175,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "grid grid-cols-12 gap-2"
+              "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
             }
           }
         }
@@ -214,7 +214,7 @@
         "formlyConfig": {
           "type": "select",
           "props": {
-            "itemCssClass": "w-full md:w-3/12",
+            "itemCssClass": "ui:w-full ui:md:w-3/12",
             "sort": true,
             "options": [
               {
@@ -277,7 +277,7 @@
               "formlyConfig": {
                 "type": "select",
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-6",
+                  "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                   "sort": true,
                   "options": [
                     {
@@ -304,7 +304,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12",
+                  "itemCssClass": "ui:col-span-12",
                   "addonLeft": [
                     "<i class=\"fa fa-user\"></i>"
                   ]
@@ -320,7 +320,7 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
-                  "itemCssClass": "col-span-12",
+                  "itemCssClass": "ui:col-span-12",
                   "rows": 2
                 }
               }
@@ -333,7 +333,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-3"
+                  "itemCssClass": "ui:col-span-12 ui:md:col-span-3"
                 }
               }
             }
@@ -345,7 +345,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-5"
+                  "itemCssClass": "ui:col-span-12 ui:md:col-span-5"
                 }
               }
             }
@@ -357,7 +357,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12 md:col-span-4",
+                  "itemCssClass": "ui:col-span-12 ui:md:col-span-4",
                   "addonLeft": [
                     "<i class=\"fa fa-globe\"></i>"
                   ]
@@ -371,7 +371,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12",
+                  "itemCssClass": "ui:col-span-12",
                   "addonLeft": [
                     "<i class=\"fa fa-phone\"></i>"
                   ]
@@ -386,7 +386,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-span-12",
+                  "itemCssClass": "ui:col-span-12",
                   "addonLeft": [
                     "<i class=\"fa fa-at\"></i>"
                   ]
@@ -398,7 +398,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "grid grid-cols-12 gap-2"
+              "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
             }
           }
         }
@@ -433,7 +433,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "w-full md:w-2/12"
+            "itemCssClass": "ui:w-full ui:md:w-2/12"
           }
         }
       }

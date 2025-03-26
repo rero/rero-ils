@@ -40,7 +40,7 @@
               "type": "select",
               "props": {
                 "sort": true,
-                "itemCssClass": "col-span-12 md:col-span-4",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-4",
                 "options": [
                   {
                     "label": "bf:Publication",
@@ -86,7 +86,7 @@
                     "widget": {
                       "formlyConfig": {
                         "props": {
-                          "itemCssClass": "col-span-12 md:col-span-6"
+                          "itemCssClass": "ui:col-span-12 ui:md:col-span-6"
                         }
                       }
                     }
@@ -101,7 +101,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-span-12 md:col-span-6"
+                      "itemCssClass": "ui:col-span-12 ui:md:col-span-6"
                     }
                   }
                 }
@@ -112,7 +112,7 @@
                     "widget": {
                       "formlyConfig": {
                         "props": {
-                          "itemCssClass": "col-span-12"
+                          "itemCssClass": "ui:col-span-12"
                         }
                       }
                     }
@@ -126,7 +126,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "containerCssClass": "grid grid-cols-12 gap-2"
+                  "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
                 }
               }
             }
@@ -137,7 +137,7 @@
                 "props.required": "field?.parent?.model && field.parent.model.type === 'bf:Publication'"
               },
               "props": {
-                "itemCssClass": "col-span-12"
+                "itemCssClass": "ui:col-span-12"
               }
             }
           }
@@ -172,7 +172,7 @@
                     "type": "select",
                     "props": {
                       "sort": true,
-                      "itemCssClass": "col-span-12 md:col-span-4",
+                      "itemCssClass": "ui:col-span-12 ui:md:col-span-4",
                       "options": [
                         {
                           "label": "bf:Place",
@@ -202,7 +202,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-span-12 md:col-span-8"
+                      "itemCssClass": "ui:col-span-12 ui:md:col-span-8"
                     }
                   }
                 }
@@ -211,7 +211,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "containerCssClass": "grid grid-cols-12 gap-2"
+                  "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
                 }
               }
             }
@@ -219,7 +219,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12"
+                "itemCssClass": "ui:col-span-12"
               }
             }
           }
@@ -231,7 +231,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-8",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-8",
                 "hide": true
               }
             }
@@ -249,7 +249,7 @@
                 "props.required": "model.type === 'bf:Publication'"
               },
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-4"
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-4"
               }
             }
           }
@@ -263,7 +263,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-4",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-4",
                 "hide": true
               }
             }
@@ -278,7 +278,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-4",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-4",
                 "hide": true
               }
             }
@@ -288,7 +288,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "grid grid-cols-12 gap-2"
+            "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
           }
         }
       }

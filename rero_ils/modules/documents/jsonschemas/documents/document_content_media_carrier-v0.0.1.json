@@ -49,9 +49,9 @@
               "const": "rdamt:1001",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -145,9 +145,9 @@
               "const": "rdamt:1002",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -246,9 +246,9 @@
               "const": "rdamt:1003",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -342,9 +342,9 @@
               "const": "rdamt:1004",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -403,9 +403,9 @@
               "const": "rdamt:1005",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -504,9 +504,9 @@
               "const": "rdamt:1006",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -570,9 +570,9 @@
               "const": "rdamt:1007",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -656,9 +656,9 @@
               "const": "rdamt:1008",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },
@@ -732,9 +732,9 @@
               "const": "other",
               "widget": {
                 "formlyConfig": {
-                  "wrappers": [
-                    "hide"
-                  ]
+                  "props": {
+                    "itemCssClass": "ui:hidden"
+                  }
                 }
               }
             },

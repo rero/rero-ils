@@ -54,7 +54,7 @@
               "props": {
                 "sort": true,
                 "filter": true,
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                 "options": [
                   {
                     "label": "bf:AudioIssueNumber",
@@ -160,7 +160,7 @@
                 "identifiedby-value"
               ],
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                 "doNotSubmitOnEnter": true
               }
             }
@@ -173,7 +173,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                 "hide": true
               }
             }
@@ -187,7 +187,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                 "hide": true,
                 "placeholder": "Example: volume 1"
               }
@@ -206,7 +206,7 @@
                 "hide": "field?.parent?.model?.type !== 'bf:Local'"
               },
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                 "placeholder": "Examples: LCCN, PMID, DNB"
               }
             }
@@ -223,7 +223,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-span-12 md:col-span-6",
+                "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                 "hide": true
               }
             }
@@ -233,7 +233,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "grid grid-cols-12 gap-2"
+            "containerCssClass": "ui:grid ui:grid-cols-12 ui:gap-2"
           }
         }
       }
