@@ -373,3 +373,37 @@ def test_document_delete_orphan_harvested(
     doc["harvested"] = True
     doc.update(data=doc, dbcommit=True, reindex=True)
     assert delete_orphan_harvested(delete=True) == 1
+
+
+def test_document_type_change(app, document, item_lib_martigny):
+    """Test document type change."""
+    from rero_ils.modules.items.api import ItemsSearch
+
+    item_lib_martigny.update(data=item_lib_martigny, dbcommit=True, reindex=True)
+    ItemsSearch.flush_and_refresh()
+
+    es_item = next(
+        ItemsSearch()
+        .filter("term", document__pid=document.pid)
+        .source("document")
+        .scan()
+    ).to_dict()
+    # Test document.type and es.item.document.document_type are the same.
+    assert document["type"] == es_item["document"]["document_type"]
+
+    # Change document type.
+    document["type"] = [
+        {"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"},
+        {"main_type": "docmaintype_other"},
+    ]
+    document.update(data=document, dbcommit=True, reindex=True)
+    ItemsSearch.flush_and_refresh()
+    for hit in (
+        ItemsSearch()
+        .filter("term", document__pid=document.pid)
+        .source("document")
+        .scan()
+    ):
+        es_item = hit.to_dict()
+        # Test document.type and es.item.document.document_type are the same.
+        assert document["type"] == es_item["document"]["document_type"]
