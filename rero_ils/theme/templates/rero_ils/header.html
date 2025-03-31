@@ -35,8 +35,8 @@
         {%- block navbar_search %}
           <main-search-bar
             class="flex-grow-1 rero-ils-ui"
-            inputstyleclass="text-sm py-1 w-full"
-            styleclass="w-full"
+            inputstyleclass="ui:text-sm ui:py-1 ui:w-full"
+            styleclass="ui:w-full"
             placeholder="{{ _('Search') }}"
             viewcode="{{ viewcode or config.RERO_ILS_SEARCH_GLOBAL_VIEW_CODE }}"
             language="{{ current_i18n.locale.language[:2] }}"
