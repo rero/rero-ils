@@ -9,27 +9,28 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
-"Report-Msgid-Bugs-To: software@rero.ch\n"
+"Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-12-05 14:20+0100\n"
-"PO-Revision-Date: 2021-10-24 13:38+0000\n"
-"Last-Translator: ButterflyOfFire <ButterflyOfFire@protonmail.com>\n"
+"PO-Revision-Date: 2025-03-31 15:43+0000\n"
+"Last-Translator: Maher Asaad Baker <maher.asaad.baker@gmail.com>\n"
+"Language-Team: Arabic <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/ar/>\n"
 "Language: ar\n"
-"Language-Team: Arabic <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/ar/>\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
-"n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 5.11-dev\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: rero_ils/accounts_views.py:57
 msgid "The 2 passwords are not identical."
-msgstr ""
+msgstr "كلمتي المرور ليستا متطابقتين."
 
 #: rero_ils/accounts_views.py:79 rero_ils/accounts_views.py:87
 msgid "INVALID_USER_OR_PASSWORD"
-msgstr ""
+msgstr "INVALID_USER_OR_PASSWORD"
 
 #: rero_ils/config.py:217
 msgid "French"
@@ -57,7 +58,7 @@ msgstr "إعادة تعيين الكلمة السرية لمعرّف RERO ID"
 
 #: rero_ils/config.py:310
 msgid "Your RERO ID password has been reset"
-msgstr ""
+msgstr "تم إعادة تعيين كلمة مرور معرف RERO الخاص بك"
 
 #: rero_ils/config.py:322
 #: rero_ils/modules/users/jsonschemas/users/user-v0.0.1.json:125
@@ -66,20 +67,22 @@ msgid ""
 "characters long and only contain alphanumeric characters, dashes and "
 "underscores."
 msgstr ""
+"اسم المستخدم يجب أن يبدأ بحرف أو رقم، ويجب أن يتكون من ثلاثة أحرف على الأقل، "
+"ويجب أن يحتوي فقط على أحرف أبجدية رقمية وشرطات وعلامات سفلية."
 
 #: rero_ils/config.py:2040
 #: rero_ils/theme/templates/rero_ils/_frontpage_organisation_link.html:32
 msgid "Global catalog"
-msgstr ""
+msgstr "الكتالوج العالمي"
 
 #: rero_ils/config.py:2213
 #: rero_ils/modules/item_types/jsonschemas/item_types/item_type-v0.0.1.json:85
 msgid "online"
-msgstr ""
+msgstr "متصل"
 
 #: rero_ils/config.py:2220
 msgid "not_online"
-msgstr ""
+msgstr "غير_متصل"
 
 #: rero_ils/config.py:2223
 msgid "author"
@@ -91,7 +94,7 @@ msgstr "الموضوع"
 
 #: rero_ils/config.py:2226
 msgid "acquisition"
-msgstr ""
+msgstr "استحواذ"
 
 #: rero_ils/config.py:2229
 msgid "new_acquisition"
@@ -129,7 +132,7 @@ msgstr "المكتبة"
 
 #: rero_ils/config.py:2241 rero_ils/config.py:2313
 msgid "location"
-msgstr ""
+msgstr "الموقع"
 
 #: rero_ils/config.py:2243 rero_ils/config.py:2317 rero_ils/config.py:2401
 #: rero_ils/config.py:2505 rero_ils/config.py:2561
@@ -139,7 +142,7 @@ msgstr "الحالة"
 
 #: rero_ils/config.py:2244
 msgid "genreForm"
-msgstr ""
+msgstr "النوع"
 
 #: rero_ils/config.py:2245
 msgid "intendedAudience"
@@ -13315,4 +13318,3 @@ msgstr ""
 
 #~ msgid "Card number, username, or e-mail"
 #~ msgstr ""
-
