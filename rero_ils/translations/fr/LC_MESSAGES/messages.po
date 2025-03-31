@@ -21,16 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2024-12-05 14:20+0100\n"
-"PO-Revision-Date: 2024-12-05 07:04+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-"
-"translation-memory@weblate.org>\n"
+"PO-Revision-Date: 2025-02-25 20:02+0000\n"
+"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.10.2-dev\n"
 "Generated-By: Babel 2.16.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -5039,7 +5039,7 @@ msgstr "Priorité"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:43
 msgid "The higher the number, the higher the priority."
-msgstr "Plus le numéro est grand, plus la priorité est élevée."
+msgstr "Plus le chiffre est élevé, plus la priorité est haute."
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:60
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:65
@@ -5406,9 +5406,9 @@ msgid ""
 " due date (for reminders). This number defines when the notification is "
 "sent."
 msgstr ""
-"Nombre de jours avant la date d'échéance (pour les avis d'expiration de "
-"prêt) ou après la date d'échéance (pour les rappels). Ce nombre définit "
-"le moment où la notification est envoyée."
+"Nombre de jours avant l'échéance (pour les avis d'échéance) ou après "
+"l'échéance (pour les avis de retard). Définit quand la notification est "
+"envoyée."
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:172
 msgid "Delay"
@@ -13307,4 +13307,3 @@ msgstr "Assets Invenio"
 
 #~ msgid "Card number, username, or e-mail"
 #~ msgstr "Numéro de carte, nom d'utilisateur, ou e-mail"
-
