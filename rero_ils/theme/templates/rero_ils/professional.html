@@ -26,6 +26,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <base href="/professional" />
     {% include 'rero_ils/_favicon.html' %}
+    <style>
+      @layer theme, base, primeng, utilities;
+    </style>
 
     {{ node_assets('@rero/rero-ils-ui/dist/admin/browser', ['styles-*.css'], 'css') }}
     {{ node_assets('@rero/rero-ils-ui/dist/admin/browser', ['styles-*.css'], 'css', 'media="print" onload="this.media=\'all\'"') }}
