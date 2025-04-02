@@ -25,7 +25,7 @@
 {% set pid = record.pid %}
 
 {%- block body %}
-<header class="grid grid-nogutter-y">
+<header class="row">
   <div class="col-10">
     <h1 class="mb-0">
       <i class="fa {{ record['type'] | entity_icon }}" title="{{ _(record['type']) }}" aria-hidden="true"></i>
@@ -48,8 +48,8 @@
   <!-- Common fields for all types -->
   {% set links = record|sources_link %}
   {% if links != {} %}
-  <dt class="col-md-3 col-12 md:col-3 rero-ils-term mb-1">{{ _('Source(s)') }}</dt>
-  <dd class="col-md-9 col-12 md:col-9 mb-1">
+  <dt class="col-md-3 col-lg-3 rero-ils-term mb-1">{{ _('Source(s)') }}</dt>
+  <dd class="col-md-9 col-lg-9 mb-1">
     <ul class="list-inline">
       {% for source, link in links.items() %}
         <li class="list-inline-item mr-0">

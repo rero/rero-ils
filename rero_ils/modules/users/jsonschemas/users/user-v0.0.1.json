@@ -282,8 +282,7 @@
         "formlyConfig": {
           "type": "passwordGenerator",
           "props": {
-            "api": "/api/user/password/generate",
-            "class": "surface-100"
+            "api": "/api/user/password/generate"
           }
         }
       }
