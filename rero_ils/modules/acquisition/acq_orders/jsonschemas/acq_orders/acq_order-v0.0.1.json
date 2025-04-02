@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Acquisition order",
-  "description": "JSON schema for Acquisition Order.",
+  "description": "Enquiry sent to a vendor, consisting of lines referring to documents.",
   "additionalProperties": false,
   "propertiesOrder": [
     "vendor",
@@ -20,7 +20,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate Acquisition Order records against.",
       "type": "string",
       "default": "https://bib.rero.ch/schemas/acq_orders/acq_order-v0.0.1.json",
       "pattern": "^https://bib.rero.ch/schemas/acq_orders/acq_order-v([0-9]+?\\.){3}json$"

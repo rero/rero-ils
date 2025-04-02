@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "title": "ILLRequest",
-  "description": "JSON schema for ill_request.",
+  "title": "ILL request",
+  "description": "Request data, including references to a patron and to a pick-up location.",
   "additionalProperties": false,
   "propertiesOrder": [
     "document",
@@ -29,7 +29,6 @@
     "$schema": {
       "type": "string",
       "title": "Schema",
-      "description": "Schema to validate ILL request records against.",
       "minLength": 9,
       "default": "https://bib.rero.ch/schema/ill-requests/ill-request-v0.0.1.json"
     },

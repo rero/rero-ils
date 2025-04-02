@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Library",
-  "description": "JSON schema for a library",
+  "description": "Institution, usually in the sense of a physical building.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -187,7 +187,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate organisation records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/libraries/library-v0.0.1.json"

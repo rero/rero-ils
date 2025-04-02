@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "title": "Holding",
-  "description": "JSON schema for holdings.",
+  "title": "Holdings",
+  "description": "Describes a set of items linked to a document and belonging to a library.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -41,7 +41,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate holdings records against.",
       "type": "string",
       "default": "https://bib.rero.ch/schemas/holdings/holding-v0.0.1.json",
       "minLength": 9

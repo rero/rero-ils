@@ -1,12 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Names vocabulary.",
+  "description": "Container linking one or more files to a document and a library.",
   "type": "object",
   "additionalProperties": false,
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate user records against.",
       "type": "string",
       "minLength": 9
     },

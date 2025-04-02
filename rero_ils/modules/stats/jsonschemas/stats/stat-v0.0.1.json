@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Stats",
-  "description": "JSON schema for statistics.",
+  "description": "Indicator of the system use collected at a given time, or for a specified period.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -12,7 +12,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate stats records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/stats/stat-v0.0.1.json"

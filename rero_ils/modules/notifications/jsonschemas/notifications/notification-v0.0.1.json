@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Notification",
-  "description": "JSON schema for notifications.",
+  "description": "Message generated and sent by the system (reminder, order, etc.).",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -131,7 +131,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate notifications records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/notifications/notification-v0.0.1.json"

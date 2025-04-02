@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Organisation",
-  "description": "JSON schema for an organisation",
+  "description": "Usually a network of several libraries sharing data for patrons, items, etc.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -12,7 +12,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate organisation records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/organisations/organisation-v0.0.1.json"
@@ -23,7 +22,7 @@
     },
     "name": {
       "title": "Name",
-      "description": "Required. Name of the organisation.",
+      "description": "Name of the organisation.",
       "type": "string",
       "minLength": 1
     }

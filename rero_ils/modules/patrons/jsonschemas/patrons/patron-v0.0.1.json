@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "title": "user",
-  "description": "JSON schema for a user.",
+  "title": "Patron",
+  "description": "A library patron, i.e. a person who is registered with an organisation. It is linked to a user resource and contains patron data useful to libraries (role, card number, specific address, etc.).",
   "additionalProperties": false,
   "propertiesOrder": [
     "user_id",
@@ -23,7 +23,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate user records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/patrons/patron-v0.0.1.json"
@@ -51,7 +50,7 @@
       }
     },
     "user_id": {
-      "title": "Personal informations",
+      "title": "Personal data (user)",
       "description": "",
       "type": "number",
       "widget": {
@@ -142,7 +141,7 @@
       }
     },
     "patron": {
-      "title": "Patron Information",
+      "title": "Patron information",
       "type": "object",
       "additionalProperties": false,
       "required": [

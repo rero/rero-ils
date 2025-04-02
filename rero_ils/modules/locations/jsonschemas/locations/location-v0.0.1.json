@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Location",
-  "description": "JSON schema for an location",
+  "description": "A subsection of a library in which items are stored.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -28,7 +28,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate organisation records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/locations/location-v0.0.1.json"

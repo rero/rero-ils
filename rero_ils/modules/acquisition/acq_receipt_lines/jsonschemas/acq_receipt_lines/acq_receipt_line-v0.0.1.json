@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Acquisition receipt line",
-  "description": "JSON schema for Acquisition Receipt Line.",
+  "description": "Data linking a rceipt to one or multiple order lines",
   "additionalProperties": false,
   "propertiesOrder": [
     "quantity",
@@ -21,7 +21,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate Acquisition Receipt Line records against.",
       "type": "string",
       "default": "https://bib.rero.ch/schemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json",
       "pattern": "^https://bib.rero.ch/schemas/acq_receipt_lines/acq_receipt_line-v([0-9]+?\\.){3}json$"

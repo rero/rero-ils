@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Acquisition receipt",
-  "description": "JSON schema for Acquisition Receipt.",
+  "description": "Data describing the reception of an order.",
   "additionalProperties": false,
   "propertiesOrder": [
     "reference",
@@ -19,7 +19,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate Acquisition Receipt records against.",
       "type": "string",
       "default": "https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v0.0.1.json",
       "pattern": "^https://bib.rero.ch/schemas/acq_receipts/acq_receipt-v([0-9]+?\\.){3}json$"

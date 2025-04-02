@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Budget",
-  "description": "JSON schema for budget.",
+  "description": "Financial year.",
   "additionalProperties": false,
   "propertiesOrder": [
     "name",
@@ -20,9 +20,9 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate budget records against.",
       "type": "string",
-      "minLength": 9
+      "minLength": 9,
+      "default": "https://bib.rero.ch/schemas/budgets/budget-v0.0.1.json"
     },
     "pid": {
       "title": "Budget ID",

@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "title": "User Personal Informations",
-  "description": "JSON schema for a user.",
+  "title": "Personal data (user)",
+  "description": "Data about a person (first name, last name, addresses). This resource is shared by the various RERO ILS organisations, enabling the data of people registered with several organizations to be shared.",
   "additionalProperties": false,
   "propertiesOrder": [
     "first_name",
@@ -31,7 +31,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate user records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/users/user-v0.0.1.json"

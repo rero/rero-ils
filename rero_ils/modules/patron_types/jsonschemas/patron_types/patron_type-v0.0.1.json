@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "title": "PatronType",
-  "description": "JSON schema for patron_types.",
+  "title": "Patron type",
+  "description": "Categorization of patrons.",
   "additionalProperties": false,
   "propertiesOrder": [
     "name",
@@ -20,7 +20,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate patron_types records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/patron_types/patron_type-v0.0.1.json"

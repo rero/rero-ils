@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Local entity",
-  "description": "JSON schema for a local entity",
+  "description": "Entity (person, corporate body, topic, place, temporal, etc.) catalogued directly in RERO ILS.",
   "oneOf": [
     {
       "$ref": "https://bib.rero.ch/schemas/local_entities/local_entity_person-v0.0.1.json"

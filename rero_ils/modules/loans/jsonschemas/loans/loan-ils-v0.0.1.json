@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Schema for loan",
+  "description": "Describes the status of a circulation operation, i.e. an interaction between a patron and an item. For example, when a patron requests an item, a loan resource is created. It links the patron to the item and changes status according to the operations performed: PENDING, ITEM_ON_LOAN, etc.",
   "type": "object",
   "required": [
     "pid",

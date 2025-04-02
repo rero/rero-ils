@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Exhibition/course",
+  "description": "Grouping of items within a library.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -30,7 +31,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate collection records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schema/collections/collection-v0.0.1.json"
