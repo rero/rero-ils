@@ -33,7 +33,7 @@
 <header class="row py-2">
     <a href="javascript:history.back()" class="col-12"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
 </header>
-<div class="grid grid-nogutter-y">
+<div class="row">
   {%- set icon_name = record | document_main_type(false) %}
   {%- set covert_art = record | get_cover_art %}
   <figure id="thumbnail" class="figure-img col-sm-2 d-sm-block figure text-center">
@@ -106,12 +106,12 @@
     {% if record.partOf %}
       {% for partOf in record.partOf %}
         {% set data = partOf|part_of_format %}
-        <div class="grid grid-nogutter-y">
+        <div class="row">
           <dt class="col-auto">
             {{ data.label }}
           </dt>
           <dd class="col-sm-10 col-md-10 mb-0">
-            <div class="grid grid-nogutter-y">
+            <div class="row">
               <a href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=data.document_pid) }}">{{ data.title }}</a>
               {% if data.numbering|length > 0 %}
               <span>;</span>
@@ -311,7 +311,7 @@
 
 {%- block javascript %}
   {{ super() }}
-  {{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items/browser', tags='type="module"') }}
+  {{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items', tags='defer') }}
   {% if viewcode | babeltheque_enabled_view and isbn is not none %}
     <script type="text/javascript" src="https://www.babelio.com/bw_330.js"></script>
   {% endif %}
