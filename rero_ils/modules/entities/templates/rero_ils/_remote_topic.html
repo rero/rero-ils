@@ -28,8 +28,8 @@
 {% endif %}
 <!-- BROADER -->
 {% if data.broader %}
-  <dt class="col-md-3 col-12 md:col-3 rero-ils-term mb-1">{{ _('Broader') }}</dt>
-  <dd class="col-md-9 col-12 md:col-9 mb-1">
+  <dt class="col-md-3 col-lg-3 rero-ils-term mb-1">{{ _('Broader') }}</dt>
+  <dd class="col-md-9 col-lg-9 mb-1">
     <ul class="list-unstyled rero-ils-entity mb-0">
       {% for broader in data.broader %}
       <li>{{ broader.authorized_access_point }}</li>
@@ -39,8 +39,8 @@
 {% endif %}
 <!-- RELATED -->
 {% if data.related %}
-  <dt class="col-md-3 col-12 md:col-3 rero-ils-term mb-1">{{ _('Related') }}</dt>
-  <dd class="col-md-9 col-12 md:col-9 mb-1">
+  <dt class="col-md-3 col-lg-3 rero-ils-term mb-1">{{ _('Related') }}</dt>
+  <dd class="col-md-9 col-lg-9 mb-1">
     <ul class="list-unstyled rero-ils-entity mb-0">
       {% for related in data.related %}
       <li>{{ related.authorized_access_point }}</li>
@@ -50,8 +50,8 @@
 {% endif %}
 <!-- CLASSIFICATION(S) -->
 {% if data.classification %}
-<dt class="col-md-3 col-12 md:col-3 rero-ils-term mb-1">{{ _('Classification(s)') }}</dt>
-<dd class="col-md-9 col-12 md:col-9 mb-1">
+<dt class="col-md-3 col-lg-3 rero-ils-term mb-1">{{ _('Classification(s)') }}</dt>
+<dd class="col-md-9 col-lg-9 mb-1">
   <ul class="list-unstyled rero-ils-entity mb-0">
     {% for classification in data.classification %}
     <li>
