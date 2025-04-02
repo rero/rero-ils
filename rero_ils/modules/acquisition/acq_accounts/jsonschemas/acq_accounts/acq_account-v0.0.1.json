@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Acquisition account",
-  "description": "JSON schema for an account",
+  "description": "Budget category to which an amount can be allocated.",
   "additionalProperties": false,
   "propertiesOrder": [
     "name",
@@ -23,7 +23,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate account records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/acq_accounts/acq_account-v0.0.1.json"

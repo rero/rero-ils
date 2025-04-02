@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "title": "ItemType",
-  "description": "JSON schema for item_type.",
+  "title": "Item type",
+  "description": "Categorization of items.",
   "additionalProperties": false,
   "propertiesOrder": [
     "name",
@@ -23,7 +23,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate item_type records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/item_types/item_type-v0.0.1.json"

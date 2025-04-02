@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Bibliographic Document",
+  "title": "Document",
+  "description": "Bibliographic record",
   "type": "object",
   "required": [
     "$schema",
@@ -75,7 +76,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate document against.",
       "type": "string",
       "default": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"
     },

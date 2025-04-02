@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Acquisition order line",
-  "description": "JSON schema for acquisition order line.",
+  "description": "Data linking a document to an order.",
   "additionalProperties": false,
   "propertiesOrder": [
     "acq_account",
@@ -28,7 +28,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate acquisition order line records against.",
       "type": "string",
       "default": "https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v0.0.1.json",
       "pattern": "^https://bib.rero.ch/schemas/acq_order_lines/acq_order_line-v([0-9]+?\\.){3}json$"

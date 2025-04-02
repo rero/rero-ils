@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Statistics configuration",
+  "description": "Set of parameters that manages the production of statistical reports at regular intervals to analyze an institution's activity.",
   "additionalProperties": false,
   "propertiesOrder": [
     "name",
@@ -23,7 +24,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate statistics configuration records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/stats_cfg/stat_cfg-v0.0.1.json"

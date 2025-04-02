@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Circulation policy",
-  "description": "JSON schema for circulation policies.",
+  "description": "Set of circulation rules applying to a loan resource and depending on a patron type and an item type.",
   "additionalProperties": false,
   "required": [
     "$schema",

@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Mef entity",
-  "description": "JSON schema for a mef entity",
+  "description": "Entity (person, corporate body, topic, place, temporal, etc.) from MEF and indexed in RERO ILS.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -13,7 +13,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate entity records against.",
       "type": "string",
       "minLength": 9
     },

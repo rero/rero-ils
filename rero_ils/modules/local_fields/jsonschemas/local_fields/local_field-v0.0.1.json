@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Local fields",
-  "description": "Local fields allows to add data that is available at the organisation level only.",
+  "description": "Data that is specific to an organization or library and related to a document, holdings or item.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -15,7 +15,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate local_field records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schema/local_fields/local_field-v0.0.1.json"

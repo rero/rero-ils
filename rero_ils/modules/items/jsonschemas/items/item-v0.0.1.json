@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Item",
-  "description": "JSON schema for an item.",
+  "description": "Describes a physical or online object linked to a holdings/document.",
   "additionalProperties": false,
   "required": [
     "$schema",

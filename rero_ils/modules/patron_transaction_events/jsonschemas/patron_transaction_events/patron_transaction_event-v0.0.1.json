@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Patron transaction event",
-  "description": "JSON schema for patron transaction event.",
+  "description": "Creation, payment or cancellation of a fee amount.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -14,7 +14,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate patron transaction event records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/patron_transaction_events/patron_transaction_event-v0.0.1.json"

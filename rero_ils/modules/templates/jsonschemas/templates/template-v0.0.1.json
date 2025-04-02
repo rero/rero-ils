@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Template",
-  "description": "JSON schema for templates.",
+  "description": "Standard data with pre-filled values used for the quick creation of a document, holdings, item or patron.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -23,7 +23,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate templates records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schemas/templates/template-v0.0.1.json"

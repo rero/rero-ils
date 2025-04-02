@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "title": "Operation log",
-  "description": "Operation log keeps the operation history of a resource.",
+  "description": "An action of edition performed on another resource.",
   "additionalProperties": false,
   "required": [
     "$schema",
@@ -13,7 +13,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate operation logs records against.",
       "type": "string",
       "minLength": 9,
       "default": "https://bib.rero.ch/schema/operation_logs/operation_log-v0.0.1.json"

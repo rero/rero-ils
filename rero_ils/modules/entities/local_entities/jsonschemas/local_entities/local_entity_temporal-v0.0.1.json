@@ -20,7 +20,6 @@
   "properties": {
     "$schema": {
       "title": "Schema",
-      "description": "Schema to validate local entity records against.",
       "type": "string",
       "minLength": 9
     },
