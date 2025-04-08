@@ -20,11 +20,11 @@
 
 <!-- DATE OF BIRTH -->
 {% if data.date_of_birth %}
-  {{ dl(_('Birth date'), data.date_of_birth | format_date(date_format='short', time_format=None)) }}
+  {{ dl(_('Birth date'), data.date_of_birth) }}
 {% endif %}
 <!-- DATE OF DEATH -->
 {% if data.date_of_death %}
-  {{ dl(_('Death date'), data.date_of_death | format_date(date_format='short', time_format=None)) }}
+  {{ dl(_('Death date'), data.date_of_death) }}
 {% endif %}
 <!-- LANGUAGE -->
 {% if data.language %}
