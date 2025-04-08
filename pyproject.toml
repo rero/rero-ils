@@ -1,25 +1,14 @@
 [project]
 name = "rero-ils"
 version = "1.24.1"
-description = "Invenio digital library framework."
-authors = [{name = "RERO",email = "<software@rero.ch>"}]
-license = "GNU Affero General Public License v3.0"
+description = "The elegant solution for heritage, public and school libraries or networks."
+authors = [{name = "RERO+", email = "software@rero.ch"}]
+keywords = ["rero-ils", "invenio", "integrated library system"]
+license = "GNU Affero General Public License v3.0 only"
+urls = {homepage = "https://www.rero.ch/en/products/ils", repository="https://github.com/rero/rero-ils"}
+dynamic = ["classifiers"]
 requires-python = ">= 3.9,<3.10"
-## Python packages dependencies (order matters)
-#------------------------------------------------------------------------------
-## Note: poetry evaluates the package constraints from the top to the bottom
-## and respects only the last constraint to install the package.
-## Thus the most strength constraint should be at the end.
-## Imagine the following package list for the foo package with the
-## most recent version equal to 5.0:
-## A foo Pipfile example:
-## ----------------------
-## foo = ">1.0" # first will install 5.0
-## foo = "==1.0" # then will downgrade to 1.0
-## foo = ">3.0" # finally will upgrade to 5.0
-## when the python code will be executed a conflict exception will be raised.
-#------------------------------------------------------------------------------
-# Default from Invenio
+
 dependencies = [
     "lxml (>=4.9.1)",
     "marshmallow (>=3.0.0,<4.0.0)",
@@ -474,17 +463,26 @@ server = {shell = "./scripts/server", help = "Starts the server "}
 setup = {cmd = "./scripts/setup", help = "Runs setup"}
 update = {cmd = "./scripts/update", help = "Runs update"}
 
+# Translations
+compile_catalog = {cmd = "pybabel compile -d rero_ils/translations/", help = "compile message catalogs to MO files"}
+extract_messages = {cmd = "pybabel extract rero_ils/ --project --copyright-holder=RERO --project=RERO_ILS --msgid-bugs-address=software@rero.ch -F babel.ini -o rero_ils/translations/messages.pot -c NOTE --sort-output", help = "extract messages from source files and generate a POT file"}
+init_catalog = {cmd = "pybabel init -i rero_ils/translations/messages.pot -d rero_ils/translations/", help = "create new message catalogs from a POT file"}
+update_catalog = {cmd = "pybabel update -i rero_ils/translations/messages.pot -d rero_ils/translations", help = "update existing message catalogs from a POT file"}
+
+
 [tool.isort]
 profile = "black"
 
-[tool.pytest]
-addopts = "--color=yes --black --isort --exclude-warning-annotations --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=setup.py --ignore=docs/conf.py --ignore=rero_ils/config.py -m \"not external\""
-testpaths = "docs tests rero_ils"
+[tool.pytest.ini_options]
+addopts = "--color=yes --black --isort --exclude-warning-annotations --pydocstyle --doctest-glob=\"*.rst\" --doctest-modules --cov=rero_ils --cov-report=term-missing --ignore=docs/conf.py --ignore=rero_ils/config.py -m \"not external\""
+testpaths = ["docs", "tests", "rero_ils"]
 # custom markers
-markers = "external: mark a test as dealing with external services."
+markers = ["external: mark a test as dealing with external services."]
 # not displaying all the PendingDeprecationWarnings from invenio
 filterwarnings = "ignore::PendingDeprecationWarning"
 
+[tool.pydocstyle]
+add-ignore = "D401"
+
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry>=2.0.0"]
