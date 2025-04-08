@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019 RERO
+# Copyright (C) 2025 RERO+
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
@@ -92,6 +92,7 @@ function pretests () {
   # werkzeug     2.2.3   GHSA-q34m-jh98-gwm2 3.0.6
   add_exceptions "GHSA-q34m-jh98-gwm2"
   PIPAPI_PYTHON_LOCATION=`which python` pip-audit ${pip_audit_exceptions}
+
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
@@ -104,9 +105,6 @@ function pretests () {
   black tests rero_ils tests --check
   info_msg "Test useless imports:"
   autoflake --recursive --remove-all-unused-imports --ignore-init-module-imports --check-diff --quiet .
-  # info_msg "Check-manifest:"
-  # TODO: check if this is required when rero-ils will be published
-  # check-manifest --ignore ".travis-*,docs/_build*"
   info_msg "Sphinx-build:"
   sphinx-build -qnNW docs docs/_build/html
 }

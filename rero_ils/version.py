@@ -17,8 +17,7 @@
 
 """Version information for rero-ils.
 
-This file is imported by ``rero_ils.__init__``,
-and parsed by ``setup.py``.
+This file is imported by ``rero_ils.__init__``.
 """
 
 from __future__ import absolute_import, print_function
