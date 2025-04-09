@@ -2552,7 +2552,8 @@
       "formlyConfig": {
         "props": {
           "itemCssClass": "ui:col-span-12",
-          "hide": true
+          "hide": true,
+          "filter": true
         }
       }
     }
