@@ -10,7 +10,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "cssClass": "w-md-50",
+            "cssClass": "ui:w-md-50",
             "placeholder": "Example: cop. 2010"
           }
         }

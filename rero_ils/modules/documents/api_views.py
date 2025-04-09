@@ -105,9 +105,9 @@ def advanced_search_config():
                 "canton": cantons["canton"]["widget"]["formlyConfig"]["props"][
                     "options"
                 ],
-                "rdaContentType": medias["definitions"]["contentType"]["items"][
-                    "widget"
-                ]["formlyConfig"]["props"]["options"],
+                "rdaContentType": medias["definitions"]["contentType"]["widget"][
+                    "formlyConfig"
+                ]["props"]["options"],
                 "rdaMediaType": sorted(media_types, key=cmp_to_key(sort_medias)),
                 "rdaCarrierType": sorted(carrier_types, key=cmp_to_key(sort_medias)),
             },

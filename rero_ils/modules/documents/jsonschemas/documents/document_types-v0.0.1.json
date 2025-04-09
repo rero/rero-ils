@@ -33,7 +33,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -60,7 +60,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -89,7 +89,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -154,7 +154,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -237,7 +237,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -266,7 +266,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -321,7 +321,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -375,7 +375,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -440,7 +440,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -518,7 +518,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -545,7 +545,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -574,7 +574,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -628,7 +628,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -688,7 +688,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -746,7 +746,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -775,7 +775,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -833,7 +833,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -860,7 +860,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -889,7 +889,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -942,7 +942,7 @@
     "widget": {
       "formlyConfig": {
         "props": {
-          "cssClass": "w-md-50"
+          "cssClass": "ui:w-md-50"
         }
       }
     }

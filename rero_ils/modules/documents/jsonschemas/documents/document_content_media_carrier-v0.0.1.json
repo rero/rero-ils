@@ -50,7 +50,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -146,7 +146,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -247,7 +247,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -343,7 +343,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -404,7 +404,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -505,7 +505,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -571,7 +571,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -657,7 +657,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -733,7 +733,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "ui:hidden"
+                    "alwaysHidden": true
                   }
                 }
               }
@@ -782,6 +782,7 @@
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
+      "default": [],
       "items": {
         "type": "string",
         "enum": [
@@ -809,111 +810,111 @@
           "rdaco:1018",
           "rdaco:1013",
           "other"
-        ],
-        "widget": {
-          "formlyConfig": {
-            "type": "multi-select",
-            "props": {
-              "sort": true,
-              "options": [
-                {
-                  "label": "rdaco:1002",
-                  "value": "rdaco:1002"
-                },
-                {
-                  "label": "rdaco:1003",
-                  "value": "rdaco:1003"
-                },
-                {
-                  "label": "rdaco:1004",
-                  "value": "rdaco:1004"
-                },
-                {
-                  "label": "rdaco:1005",
-                  "value": "rdaco:1005"
-                },
-                {
-                  "label": "rdaco:1007",
-                  "value": "rdaco:1007"
-                },
-                {
-                  "label": "rdaco:1001",
-                  "value": "rdaco:1001"
-                },
-                {
-                  "label": "rdaco:1006",
-                  "value": "rdaco:1006"
-                },
-                {
-                  "label": "rdaco:1023",
-                  "value": "rdaco:1023"
-                },
-                {
-                  "label": "rdaco:1022",
-                  "value": "rdaco:1022"
-                },
-                {
-                  "label": "rdaco:1014",
-                  "value": "rdaco:1014"
-                },
-                {
-                  "label": "rdaco:1015",
-                  "value": "rdaco:1015"
-                },
-                {
-                  "label": "rdaco:1011",
-                  "value": "rdaco:1011"
-                },
-                {
-                  "label": "rdaco:1009",
-                  "value": "rdaco:1009"
-                },
-                {
-                  "label": "rdaco:1017",
-                  "value": "rdaco:1017"
-                },
-                {
-                  "label": "rdaco:1021",
-                  "value": "rdaco:1021"
-                },
-                {
-                  "label": "rdaco:1019",
-                  "value": "rdaco:1019"
-                },
-                {
-                  "label": "rdaco:1010",
-                  "value": "rdaco:1010"
-                },
-                {
-                  "label": "rdaco:1016",
-                  "value": "rdaco:1016"
-                },
-                {
-                  "label": "rdaco:1008",
-                  "value": "rdaco:1008"
-                },
-                {
-                  "label": "rdaco:1012",
-                  "value": "rdaco:1012"
-                },
-                {
-                  "label": "rdaco:1020",
-                  "value": "rdaco:1020"
-                },
-                {
-                  "label": "rdaco:1018",
-                  "value": "rdaco:1018"
-                },
-                {
-                  "label": "rdaco:1013",
-                  "value": "rdaco:1013"
-                },
-                {
-                  "label": "other",
-                  "value": "other"
-                }
-              ]
-            }
+        ]
+      },
+      "widget": {
+        "formlyConfig": {
+          "type": "multi-select",
+          "props": {
+            "sort": true,
+            "options": [
+              {
+                "label": "rdaco:1002",
+                "value": "rdaco:1002"
+              },
+              {
+                "label": "rdaco:1003",
+                "value": "rdaco:1003"
+              },
+              {
+                "label": "rdaco:1004",
+                "value": "rdaco:1004"
+              },
+              {
+                "label": "rdaco:1005",
+                "value": "rdaco:1005"
+              },
+              {
+                "label": "rdaco:1007",
+                "value": "rdaco:1007"
+              },
+              {
+                "label": "rdaco:1001",
+                "value": "rdaco:1001"
+              },
+              {
+                "label": "rdaco:1006",
+                "value": "rdaco:1006"
+              },
+              {
+                "label": "rdaco:1023",
+                "value": "rdaco:1023"
+              },
+              {
+                "label": "rdaco:1022",
+                "value": "rdaco:1022"
+              },
+              {
+                "label": "rdaco:1014",
+                "value": "rdaco:1014"
+              },
+              {
+                "label": "rdaco:1015",
+                "value": "rdaco:1015"
+              },
+              {
+                "label": "rdaco:1011",
+                "value": "rdaco:1011"
+              },
+              {
+                "label": "rdaco:1009",
+                "value": "rdaco:1009"
+              },
+              {
+                "label": "rdaco:1017",
+                "value": "rdaco:1017"
+              },
+              {
+                "label": "rdaco:1021",
+                "value": "rdaco:1021"
+              },
+              {
+                "label": "rdaco:1019",
+                "value": "rdaco:1019"
+              },
+              {
+                "label": "rdaco:1010",
+                "value": "rdaco:1010"
+              },
+              {
+                "label": "rdaco:1016",
+                "value": "rdaco:1016"
+              },
+              {
+                "label": "rdaco:1008",
+                "value": "rdaco:1008"
+              },
+              {
+                "label": "rdaco:1012",
+                "value": "rdaco:1012"
+              },
+              {
+                "label": "rdaco:1020",
+                "value": "rdaco:1020"
+              },
+              {
+                "label": "rdaco:1018",
+                "value": "rdaco:1018"
+              },
+              {
+                "label": "rdaco:1013",
+                "value": "rdaco:1013"
+              },
+              {
+                "label": "other",
+                "value": "other"
+              }
+            ]
           }
         }
       }

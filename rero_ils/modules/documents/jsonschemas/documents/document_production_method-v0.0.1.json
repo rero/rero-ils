@@ -35,7 +35,7 @@
           "props": {
             "sort": true,
             "filter": true,
-            "cssClass": "w-md-50",
+            "cssClass": "ui:w-md-50",
             "options": [
               {
                 "label": "rdapm:1001",
