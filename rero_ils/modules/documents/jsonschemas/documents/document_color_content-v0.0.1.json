@@ -16,7 +16,7 @@
           "type": "select",
           "props": {
             "sort": true,
-            "cssClass": "w-md-50",
+            "cssClass": "ui:w-md-50",
             "options": [
               {
                 "label": "rdacc:1002",

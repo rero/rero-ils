@@ -28,7 +28,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "ui:hidden",
+                "alwaysHidden": true,
                 "options": [
                   {
                     "label": "bf:Language",

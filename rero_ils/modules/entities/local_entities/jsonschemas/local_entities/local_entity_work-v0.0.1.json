@@ -32,7 +32,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "ui:hidden"
+            "alwaysHidden": true
           }
         }
       }
@@ -79,7 +79,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "ui:hidden"
+            "alwaysHidden": true
           }
         }
       }
