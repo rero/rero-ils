@@ -459,7 +459,7 @@ update = {cmd = "./scripts/update", help = "Runs update"}
 
 # Translations
 compile_catalog = {cmd = "pybabel compile -d rero_ils/translations/", help = "compile message catalogs to MO files"}
-extract_messages = {cmd = "pybabel extract rero_ils/ --project --copyright-holder=RERO --project=RERO_ILS --msgid-bugs-address=software@rero.ch -F babel.ini -o rero_ils/translations/messages.pot -c NOTE --sort-output", help = "extract messages from source files and generate a POT file"}
+extract_messages = {cmd = "pybabel extract rero_ils/ --project --copyright-holder=RERO --project=RERO_ILS --msgid-bugs-address=software@rero.ch -F babel.ini -o rero_ils/translations/messages.pot -c NOTE", help = "extract messages from source files and generate a POT file"}
 init_catalog = {cmd = "pybabel init -i rero_ils/translations/messages.pot -d rero_ils/translations/", help = "create new message catalogs from a POT file"}
 update_catalog = {cmd = "pybabel update -i rero_ils/translations/messages.pot -d rero_ils/translations", help = "update existing message catalogs from a POT file"}
 

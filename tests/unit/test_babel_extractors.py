@@ -33,4 +33,5 @@ def test_babel_extractors_extract_json(babel_filehandle):
         (14, "gettext", "Schema", []),
         (20, "gettext", "Organisation ID", []),
         (24, "gettext", "Name", []),
+        (1, "gettext", "day(s)", ["Line unknown"]),
     ]

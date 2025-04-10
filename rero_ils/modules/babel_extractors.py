@@ -44,6 +44,8 @@ def extract(fileobj, keys=["title"]):
     """Extract translation from a json file."""
     translations = []
     line = 1
+
+    fileobj.seek(0)
     for v in fileobj:
         for match in KEY_VAL_REGEX.finditer(v.decode("utf-8")):
             k_match, v_match = match.groups()
@@ -54,6 +56,37 @@ def extract(fileobj, keys=["title"]):
                     continue
         line += 1
     return translations
+
+
+def extract_array(fileobj, keys=["title"]):
+    """Extract translation from a json file."""
+    translations = []
+    import json
+
+    fileobj.seek(0)
+    data = json.load(fileobj)
+
+    def find_values_by_key(data, target_keys):
+        results = set()
+
+        def search(obj):
+            if isinstance(obj, dict):
+                for key, value in obj.items():
+                    for regexkey in target_keys:
+                        if re.match(regexkey, key):
+                            if isinstance(value, list):
+                                [results.add(v) for v in value]
+                            else:
+                                results.add(value)
+                    search(value)
+            elif isinstance(obj, list):
+                for item in obj:
+                    search(item)
+
+        search(data)
+        return [(1, "gettext", v, ["Line unknown"]) for v in results]
+
+    return find_values_by_key(data, keys)
 
 
 def extract_json(fileobj, keywords, comment_tags, options):
@@ -71,4 +104,10 @@ def extract_json(fileobj, keywords, comment_tags, options):
     :rtype: ``iterator``
     """
     keys_to_translate = eval(options.get("keys_to_translate", "['title']"))
-    return extract(fileobj, keys_to_translate)
+    array_keys_to_translate = eval(
+        options.get("array_keys_to_translate", "['addonRight']")
+    )
+
+    return extract(fileobj, keys_to_translate) + extract_array(
+        fileobj, array_keys_to_translate
+    )
