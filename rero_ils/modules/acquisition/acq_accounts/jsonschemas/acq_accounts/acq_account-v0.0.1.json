@@ -57,7 +57,8 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "fieldMap": "amount"
+            "fieldMap": "amount",
+            "itemCssClass": "ui:w-full ui:md:w-3/12"
           }
         }
       }
@@ -74,7 +75,8 @@
           "props": {
             "addonRight": [
               "%"
-            ]
+            ],
+            "itemCssClass": "ui:w-full ui:md:w-2/12"
           }
         }
       }
@@ -91,7 +93,8 @@
           "props": {
             "addonRight": [
               "%"
-            ]
+            ],
+            "itemCssClass": "ui:w-full ui:md:w-2/12"
           }
         }
       }
