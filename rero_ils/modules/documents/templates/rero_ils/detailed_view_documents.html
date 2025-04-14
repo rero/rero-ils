@@ -24,8 +24,7 @@
 
 {%- block css %}
   {{ super() }}
-  {{ node_assets('@rero/rero-ils-ui/dist/public-holdings-items', ['styles.*css'], 'css') }}
-  {% if viewcode | babeltheque_enabled_view %}
+  {% if viewcode | babeltheque_enabled_view and isbn is not none  %}
   {{ webpack['babeltheque.css'] }}
   {% endif %}
 {%- endblock css %}
@@ -34,27 +33,7 @@
 <header class="row py-2">
     <a href="javascript:history.back()" class="col-12"><i class="fa fa-arrow-left"></i> {{ _('Back') }}</a>
 </header>
-{%- set formats = export_formats(pid.pid_type) %}
-{%- if formats %}
-<div class="d-flex flex-row-reverse">
-  <div class="p-2 d-none d-sm-block">
-    <div class="dropdown">
-      <a class="btn btn-sm btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdown-export" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-download pr-1"></i>{{ _('Export as ...') }}
-      </a>
-      <div class="dropdown-menu" aria-labelledby="dropdown-export">
-        {%- for slug, fmt in formats %}
-        <a class="dropdown-item"
-           href="/api/documents/{{ pid.pid_value }}?format={{ slug }}">
-          {{ fmt.title }}
-        </a>
-        {%- endfor %}
-      </div>
-    </div>
-  </div>
-</div>
-{%- endif %}
-<div class="row">
+<div class="grid grid-nogutter-y">
   {%- set icon_name = record | document_main_type(false) %}
   {%- set covert_art = record | get_cover_art %}
   <figure id="thumbnail" class="figure-img col-sm-2 d-sm-block figure text-center">
@@ -127,12 +106,12 @@
     {% if record.partOf %}
       {% for partOf in record.partOf %}
         {% set data = partOf|part_of_format %}
-        <div class="row">
+        <div class="grid grid-nogutter-y">
           <dt class="col-auto">
             {{ data.label }}
           </dt>
           <dd class="col-sm-10 col-md-10 mb-0">
-            <div class="row">
+            <div class="grid grid-nogutter-y">
               <a href="{{ url_for('invenio_records_ui.doc', viewcode=viewcode, pid_value=data.document_pid) }}">{{ data.title }}</a>
               {% if data.numbering|length > 0 %}
               <span>;</span>
@@ -296,131 +275,36 @@
 {%- block record_body %}
 <section>
   <article class="mt-4">
-    {% if not(holdings_count > 0  or es_record.files) %}
-    <header>
-      <nav>
-        <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" href="#documents-description" data-toggle="tab"
-               id="documents-description-tab" title="{{ _('Description') }}" role="tab"
-               aria-controls="documents-description" aria-selected="false">
-              <i class="fa fa-bars"></i> {{ _('Description') }}
-            </a>
-          </li>
-          {% if viewcode | babeltheque_enabled_view and isbn is not none %}
-          <li class="nav-item">
-            <a class="nav-link" href="#documents-more-infos" data-toggle="tab"
-               id="documents-more-infos-tab" title="{{ _('More info') }}" role="tab"
-               aria-controls="documents-description" aria-selected="false">
-              <i class="fa fa-bars"></i> {{ _('More info') }}
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
-    </header>
-    <article class="tab-content">
-      <section class="tab-pane p-4" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab"></section>
-      <section class="tab-pane container show active" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
-        {% include('rero_ils/_documents_description.html') %}
-      </section>
-    </article>
-    {% else %}
-    <header>
-      <nav>
-        <ul class="nav nav-tabs" role="tablist">
-          {% if holdings_count > 0  or es_record.files%}
-          <li class="nav-item">
-            <a class="nav-link active" href="#documents-get" data-toggle="tab"
-               id="documents-get-tab" title="{{ _('Get') }}" role="tab"
-               aria-controls="documents-get" aria-selected="true">
-              <i class="fa fa-list-ul"></i> {{ _('Get') }}
-            </a>
-          </li>
-          {% endif %}
-          <li class="nav-item">
-            <a class="nav-link" href="#documents-description" data-toggle="tab"
-               id="documents-description-tab" title="{{ _('Description') }}" role="tab"
-               aria-controls="documents-description" aria-selected="false">
-              <i class="fa fa-bars"></i> {{ _('Description') }}
-            </a>
-          </li>
-          {% if viewcode | babeltheque_enabled_view and isbn is not none %}
-          <li class="nav-item">
-            <a class="nav-link" href="#documents-more-infos" data-toggle="tab"
-               id="documents-more-infos-tab" title="{{ _('More info') }}" role="tab"
-               aria-controls="documents-more-infos" aria-selected="false">
-              <i class="fa fa-bars"></i> {{ _('More info') }}
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-      </nav>
-    </header>
-    <article class="tab-content">
-      {% if holdings_count > 0 or es_record.files %}
-      <section class="tab-pane show active p-1" id="documents-get" role="tabpanel" aria-labelledby="documents-get-tab">
-        {% if holdings_count > 0 %}
-        {% include('rero_ils/_anonymous_button.html') %}
-        {% endif %}
-        {% if record.harvested and record|n_electronic_holdings %}
-          {% include('rero_ils/_document_online.html') %}
-        {% else %}
-          <public-search-holdings
-            documentpid="{{ record.pid }}"
-            viewcode="{{ viewcode }}"
-          ></public-search-holdings>
-        {% endif %}
-        <!-- ILL REQUEST ON GLOBAL VIEW-->
-        {% if holdings_count > 0 %}
-        {% include('rero_ils/_ill_request_button.html') %}
-        {% endif %}
-      </section>
-      {% endif %}
-      <section class="tab-pane container" id="documents-description" role="tabpanel" aria-labelledby="documents-description-tab">
-        {% include('rero_ils/_documents_description.html') %}
-      </section>
-      {% if viewcode | babeltheque_enabled_view %}
-      <section class="tab-pane container" id="documents-more-infos" role="tabpanel" aria-labelledby="documents-more-infos-tab">
-        <!-- BABELTHEQUE -->
-        <aside class="mt-3">Babelio</aside>
-        <div class="babelio-block">
-          <div>
-            <div id="BW_critiques"></div>
-            <div id="BW_notes">{{ _('No additionnal information yet.') }}</div>
+    <div class="rero-ils-ui">
+      <public-search-document
+        documentpid="{{ record.pid }}"
+        showinfo="{{(viewcode | babeltheque_enabled_view and isbn is not none)| string | lower}}"
+        viewcode="{{ viewcode }}"
+      >
+        {% if viewcode | babeltheque_enabled_view and isbn is not none %}
+        <more-info>
+          <!-- BABELTHEQUE -->
+          <aside class="mt-3">Babelio</aside>
+          <div class="babelio-block">
+            <div>
+              <div id="BW_critiques"></div>
+              <div id="BW_notes">{{ _('No additional information yet.') }}</div>
+            </div>
+            <div id="BW_citations"></div>
+            <div id="BW_critiques_pro"></div>
+            <div id="BW_prix_litt"></div>
           </div>
-          <div id="BW_citations"></div>
-          <div id="BW_critiques_pro"></div>
-          <div id="BW_prix_litt"></div>
-        </div>
-        <div id="BW_bio_auteur"></div>
-        <div class="babelio-block mt-3">
-          <div id="BW_videos"></div>
-          <div id="BW_podcasts"></div>
-        </div>
-      </section>
-      {% endif %}
-    </article>
-    {% endif %}
+          <div id="BW_bio_auteur"></div>
+          <div class="babelio-block mt-3">
+            <div id="BW_videos"></div>
+            <div id="BW_podcasts"></div>
+          </div>
+        </more-info>
+        {% endif %}
+    </public-search-document>
+    </div>
   </article>
 </section>
-
-<footer class="pt-4 border-top rero-ils-detailed-view-footer">
-  {%- set formats = export_formats(pid.pid_type) %}
-  {%- if formats %}
-  <h5 class="d-inline-block">{{ _('Export Formats') }}:</h5>
-  <ul class="list-inline d-inline-block">
-    {%- for slug, fmt in formats %}
-    <li class="list-inline-item">
-      <a
-        href="{{ url_for('invenio_records_ui.doc_export', viewcode=viewcode, pid_value=pid.pid_value, format=slug, prettyprint=True) }}">
-        {{ fmt.title }}
-      </a>
-    </li>
-    {%- endfor %}
-  </ul>
-  {%- endif %}
-</footer>
 {%- endblock record_body %}
 
 {%- endblock body %}

@@ -69,9 +69,11 @@
               ],
               "widget": {
                 "formlyConfig": {
-                  "type": "selectWithSort",
+                  "type": "multi-select",
                   "props": {
-                    "itemCssClass": "col-lg-6",
+                    "sort": true,
+                    "filter": true,
+                    "itemCssClass": "col-12 md:col-6",
                     "options": [
                       {
                         "label": "target_understanding_children",
@@ -233,8 +235,10 @@
               ],
               "widget": {
                 "formlyConfig": {
-                  "type": "selectWithSort",
+                  "type": "select",
                   "props": {
+                    "sort": true,
+                    "filter": true,
                     "options": [
                       {
                         "label": "target_school_harmos1",
@@ -342,8 +346,9 @@
               ],
               "widget": {
                 "formlyConfig": {
-                  "type": "selectWithSort",
+                  "type": "select",
                   "props": {
+                    "sort": true,
                     "options": [
                       {
                         "label": "pegi_3",
@@ -414,8 +419,9 @@
               ],
               "widget": {
                 "formlyConfig": {
-                  "type": "selectWithSort",
+                  "type": "select",
                   "props": {
+                    "sort": true,
                     "options": [
                       {
                         "label": "from the age of 18",

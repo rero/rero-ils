@@ -31,8 +31,6 @@ class AcquisitionOrderExtension(RecordExtension):
         :param record: the record metadata.
         :param dumper: the record dumper.
         """
-        if record.order_date:
-            record["order_date"] = record.order_date
         record["account_statement"] = record.get_account_statement()
         record["status"] = record.status
 
@@ -44,7 +42,6 @@ class AcquisitionOrderExtension(RecordExtension):
         """
         data.pop("account_statement", None)
         data.pop("status", None)
-        data.pop("order_date", None)
 
     def pre_delete(self, record, force=False):
         """Called before a record is deleted.

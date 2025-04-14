@@ -19,9 +19,11 @@
 """Permissions for Acquisition receipt line."""
 from invenio_access import action_factory
 
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.permissions import (
     AllowedByAction,
     AllowedByActionRestrictByManageableLibrary,
+    DisallowedByOrderStatus,
     DisallowedIfRollovered,
     RecordPermissionPolicy,
 )
@@ -49,8 +51,12 @@ class AcqReceiptLinePermissionPolicy(RecordPermissionPolicy):
     can_update = [
         AllowedByActionRestrictByManageableLibrary(update_action),
         DisallowedIfRollovered(AcqReceiptLine),
+        DisallowedByOrderStatus(AcqReceiptLine, [AcqOrderStatus.PARTIALLY_RECEIVED]),
     ]
     can_delete = [
         AllowedByActionRestrictByManageableLibrary(delete_action),
         DisallowedIfRollovered(AcqReceiptLine),
+        DisallowedByOrderStatus(
+            AcqReceiptLine, [AcqOrderStatus.PARTIALLY_RECEIVED, AcqOrderStatus.RECEIVED]
+        ),
     ]

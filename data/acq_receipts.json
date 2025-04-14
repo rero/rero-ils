@@ -5,7 +5,6 @@
       "$ref": "https://bib.rero.ch/api/acq_orders/1"
     },
     "reference": "AOSTE-CANT1-POL-1",
-    "exchange_rate": 1,
     "notes": [
       {
         "type": "staff_note",
@@ -25,7 +24,6 @@
       "$ref": "https://bib.rero.ch/api/acq_orders/7"
     },
     "reference": "AOSTE-CANT1-POL-2021-1",
-    "exchange_rate": 1,
     "notes": [
       {
         "type": "staff_note",

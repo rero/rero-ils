@@ -205,7 +205,6 @@
                         },
                         {
                           "items": {
-                            "additionalProperties": false,
                             "title": "distributions",
                             "type": "string",
                             "enum": [
@@ -217,7 +216,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "multi-select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -277,7 +276,6 @@
                         },
                         {
                           "items": {
-                            "additionalProperties": false,
                             "title": "distributions",
                             "type": "string",
                             "enum": [
@@ -288,7 +286,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "multi-select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -344,7 +342,6 @@
                         },
                         {
                           "items": {
-                            "additionalProperties": false,
                             "title": "distributions",
                             "type": "string",
                             "enum": [
@@ -359,7 +356,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "multi-select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -432,7 +429,6 @@
                         },
                         {
                           "items": {
-                            "additionalProperties": false,
                             "title": "distributions",
                             "type": "string",
                             "enum": [
@@ -444,7 +440,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "multi-select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -551,7 +547,7 @@
                           },
                           "widget": {
                             "formlyConfig": {
-                              "type": "selectWithSort",
+                              "type": "multi-select",
                               "props": {
                                 "sort": false,
                                 "options": [
@@ -907,7 +903,7 @@
           },
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "multi-select",
               "props": {
                 "sort": false,
                 "options": [
@@ -982,7 +978,7 @@
           },
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "multi-select",
               "props": {
                 "sort": false,
                 "options": [
@@ -1054,7 +1050,7 @@
           },
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "multi-select",
               "props": {
                 "sort": false,
                 "options": [

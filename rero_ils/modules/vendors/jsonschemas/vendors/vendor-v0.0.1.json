@@ -107,8 +107,9 @@
             "default": "general_note",
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
+                  "sort": true,
                   "options": [
                     {
                       "label": "order_note",
@@ -201,8 +202,9 @@
       ],
       "widget": {
         "formlyConfig": {
-          "type": "selectWithSort",
+          "type": "select",
           "props": {
+            "sort": true,
             "options": [
               {
                 "value": "fre",
@@ -262,12 +264,10 @@
             ],
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
-                  "itemCssClass": "col-lg-12",
-                  "selectWithSortOptions": {
-                    "order": "label"
-                  },
+                  "sort": true,
+                  "itemCssClass": "col-12",
                   "options": [
                     {
                       "value": "default",
@@ -294,7 +294,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-12",
+                  "itemCssClass": "col-12",
                   "addonLeft": [
                     "<i class=\"fa fa-user\"></i>"
                   ]
@@ -311,7 +311,7 @@
               "formlyConfig": {
                 "type": "textarea",
                 "props": {
-                  "itemCssClass": "col-lg-12",
+                  "itemCssClass": "col-12",
                   "rows": 2
                 }
               }
@@ -324,7 +324,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-4"
+                  "itemCssClass": "col-12 md:col-4"
                 }
               }
             }
@@ -336,7 +336,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-8"
+                  "itemCssClass": "col-12 md:col-8"
                 }
               }
             }
@@ -348,7 +348,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-12",
+                  "itemCssClass": "col-12",
                   "addonLeft": [
                     "<i class=\"fa fa-globe\"></i>"
                   ]
@@ -363,7 +363,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-12",
+                  "itemCssClass": "col-12",
                   "addonLeft": [
                     "<i class=\"fa fa-phone\"></i>"
                   ]
@@ -378,7 +378,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-12",
+                  "itemCssClass": "col-12",
                   "addonLeft": [
                     "<i class=\"fa fa-at\"></i>"
                   ]
@@ -390,7 +390,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "row"
+              "containerCssClass": "grid grid-nogutter-y"
             }
           }
         }

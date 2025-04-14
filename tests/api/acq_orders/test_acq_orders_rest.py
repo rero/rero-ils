@@ -112,7 +112,6 @@ def test_acq_orders_post_put_delete(
     }
 
     assert data["metadata"].pop("status") == AcqOrderStatus.PENDING
-    assert not data["metadata"].pop("order_date", None)
     acq_order_fiction_saxon_data["pid"] = data["metadata"]["pid"]
     assert data["metadata"] == acq_order_fiction_saxon_data
 
@@ -128,7 +127,6 @@ def test_acq_orders_post_put_delete(
         "expenditure": {"total_amount": 0, "quantity": 0},
     }
     assert data["metadata"].pop("status") == AcqOrderStatus.PENDING
-    assert not data["metadata"].pop("order_date", None)
     assert acq_order_fiction_saxon_data == data["metadata"]
 
     # Update record/PUT
@@ -221,7 +219,6 @@ def test_acq_order_history_api(
     data = {
         "vendor": {"$ref": get_ref_for_pid("vndr", vendor_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
-        "type": "monograph",
     }
     acor1 = _make_resource(client, "acor", data)
     data["previousVersion"] = {"$ref": get_ref_for_pid("acor", acor1.pid)}

@@ -33,13 +33,14 @@
               "pattern": "^https://bib.rero.ch/api/documents/.*?$",
               "widget": {
                 "formlyConfig": {
+                  "type": "remoteAutoComplete",
                   "props": {
                     "validation": {
                       "messages": {
                         "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."
                       }
                     },
-                    "remoteTypeahead": {
+                    "queryOptions": {
                       "type": "documents",
                       "filter": "NOT harvested:true"
                     }
@@ -72,7 +73,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-lg-6",
+                      "itemCssClass": "col-12 md:col-6",
                       "validation": {
                         "messages": {
                           "patternMessage": "Should be in the following format: AAAA (2020)."
@@ -89,7 +90,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-lg-6"
+                      "itemCssClass": "col-12 md:col-6"
                     }
                   }
                 }
@@ -101,7 +102,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-lg-6"
+                      "itemCssClass": "col-12 md:col-6"
                     }
                   }
                 }
@@ -113,7 +114,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-lg-6",
+                      "itemCssClass": "col-12 md:col-6",
                       "validation": {
                         "messages": {
                           "patternMessage": "Should be in the following format: 135 or 5-27."
@@ -128,7 +129,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "containerCssClass": "row"
+                  "containerCssClass": "grid grid-nogutter-y"
                 }
               }
             }

@@ -16,10 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Common pytest fixtures and plugins."""
-
-
 from copy import deepcopy
 
+import mock
 import pytest
 from api.acquisition.acq_utils import _make_resource
 
@@ -33,6 +32,7 @@ from rero_ils.modules.acquisition.acq_order_lines.api import (
     AcqOrderLinesSearch,
 )
 from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, AcqOrdersSearch
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.acquisition.acq_receipt_lines.api import (
     AcqReceiptLine,
     AcqReceiptLinesSearch,
@@ -314,7 +314,7 @@ def acq_account_fiction_sion_data(acquisition):
 
 @pytest.fixture(scope="module")
 def acq_account_fiction_sion(
-    app, lib_saxon, acq_account_fiction_sion_data, budget_2020_sion
+    app, lib_sion, acq_account_fiction_sion_data, budget_2020_sion
 ):
     """Load acq_account lib sion fiction record."""
     acac = AcqAccount.create(
@@ -410,10 +410,22 @@ def acq_receipt_fiction_martigny(
     app,
     lib_martigny,
     acq_order_fiction_martigny,
+    acq_order_line_fiction_martigny,
     acq_receipt_fiction_martigny_data,
     acq_account_fiction_martigny,
 ):
     """Load acq_receipt lib martigny fiction record."""
+    if acq_order_fiction_martigny.status == AcqOrderStatus.PENDING:
+        with mock.patch(
+            "rero_ils.modules.notifications.dispatcher.Dispatcher.dispatch_notifications",
+            mock.MagicMock(return_value={"sent": 1}),
+        ):
+            acq_order_fiction_martigny.send_order(
+                [
+                    {"type": "to", "address": "ils@foo.com"},
+                    {"type": "reply_to", "address": "admin@foo.com"},
+                ]
+            )
     acor = AcqReceipt.create(
         data=acq_receipt_fiction_martigny_data,
         delete_pid=False,
@@ -427,8 +439,9 @@ def acq_receipt_fiction_martigny(
 @pytest.fixture(scope="module")
 def acq_receipt_line_1_fiction_martigny(
     app,
-    acq_receipt_fiction_martigny,
+    acq_order_fiction_martigny,
     acq_order_line_fiction_martigny,
+    acq_receipt_fiction_martigny,
     acq_receipt_line_1_fiction_martigny_data,
 ):
     """Load acq_receipt_line_1 lib martigny fiction record."""
@@ -445,8 +458,9 @@ def acq_receipt_line_1_fiction_martigny(
 @pytest.fixture(scope="module")
 def acq_receipt_line_2_fiction_martigny(
     app,
-    acq_receipt_fiction_martigny,
+    acq_order_fiction_martigny,
     acq_order_line2_fiction_martigny,
+    acq_receipt_fiction_martigny,
     acq_receipt_line_2_fiction_martigny_data,
 ):
     """Load acq_receipt_line_2 lib martigny fiction record."""
@@ -496,10 +510,22 @@ def acq_receipt_fiction_saxon(
     lib_saxon,
     vendor_martigny,
     acq_order_fiction_saxon,
+    acq_order_line_fiction_saxon,
     acq_receipt_fiction_saxon_data,
     acq_account_books_saxon,
 ):
     """Load acq_receipt lib saxon fiction record."""
+    if acq_order_fiction_saxon.status == AcqOrderStatus.PENDING:
+        with mock.patch(
+            "rero_ils.modules.notifications.dispatcher.Dispatcher.dispatch_notifications",
+            mock.MagicMock(return_value={"sent": 1}),
+        ):
+            acq_order_fiction_saxon.send_order(
+                [
+                    {"type": "to", "address": "ils@foo.com"},
+                    {"type": "reply_to", "address": "admin@foo.com"},
+                ]
+            )
     acre = AcqReceipt.create(
         data=acq_receipt_fiction_saxon_data,
         delete_pid=False,
@@ -513,8 +539,9 @@ def acq_receipt_fiction_saxon(
 @pytest.fixture(scope="module")
 def acq_receipt_line_fiction_saxon(
     app,
-    acq_receipt_fiction_saxon,
+    acq_order_fiction_saxon,
     acq_order_line_fiction_saxon,
+    acq_receipt_fiction_saxon,
     acq_receipt_line_fiction_saxon_data,
 ):
     """Load acq_receipt_line lib saxon fiction record."""
@@ -561,11 +588,23 @@ def acq_receipt_fiction_sion(
     app,
     lib_sion,
     vendor_sion,
-    acq_order_fiction_sion,
-    acq_receipt_fiction_sion_data,
     acq_account_fiction_sion,
+    acq_order_fiction_sion,
+    acq_order_line_fiction_sion,
+    acq_receipt_fiction_sion_data,
 ):
     """Load acq_receipt lib sion fiction record."""
+    if acq_order_fiction_sion.status == AcqOrderStatus.PENDING:
+        with mock.patch(
+            "rero_ils.modules.notifications.dispatcher.Dispatcher.dispatch_notifications",
+            mock.MagicMock(return_value={"sent": 1}),
+        ):
+            acq_order_fiction_sion.send_order(
+                [
+                    {"type": "to", "address": "ils@foo.com"},
+                    {"type": "reply_to", "address": "admin@foo.com"},
+                ]
+            )
     acor = AcqReceipt.create(
         data=acq_receipt_fiction_sion_data,
         delete_pid=False,
@@ -579,8 +618,9 @@ def acq_receipt_fiction_sion(
 @pytest.fixture(scope="module")
 def acq_receipt_line_fiction_sion(
     app,
-    acq_receipt_fiction_sion,
+    acq_order_fiction_sion,
     acq_order_line_fiction_sion,
+    acq_receipt_fiction_sion,
     acq_receipt_line_fiction_sion_data,
 ):
     """Load acq_receipt_line lib sion fiction record."""
@@ -609,9 +649,9 @@ def acq_order_line_fiction_martigny_data_tmp(acquisition):
 @pytest.fixture(scope="module")
 def acq_order_line_fiction_martigny(
     app,
+    acq_order_fiction_martigny,
     acq_account_fiction_martigny,
     document,
-    acq_order_fiction_martigny,
     acq_order_line_fiction_martigny_data,
 ):
     """Load acq_order_line lib martigny fiction record."""
@@ -684,6 +724,7 @@ def acq_order_line_fiction_saxon_data(acquisition):
 @pytest.fixture(scope="module")
 def acq_order_line_fiction_saxon(
     app,
+    document,
     acq_account_books_saxon,
     acq_order_fiction_saxon,
     acq_order_line_fiction_saxon_data,
@@ -708,6 +749,7 @@ def acq_order_line_fiction_sion_data(acquisition):
 @pytest.fixture(scope="module")
 def acq_order_line_fiction_sion(
     app,
+    document,
     acq_account_fiction_sion,
     acq_order_fiction_sion,
     acq_order_line_fiction_sion_data,
@@ -890,29 +932,17 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
     order_10 = _make_resource(
         client,
         "acor",
-        {
-            "vendor": {"$ref": vendor_ref},
-            "library": {"$ref": lib_ref},
-            "type": "monograph",
-        },
+        {"vendor": {"$ref": vendor_ref}, "library": {"$ref": lib_ref}},
     )
     order_20 = _make_resource(
         client,
         "acor",
-        {
-            "vendor": {"$ref": vendor_ref},
-            "library": {"$ref": lib_ref},
-            "type": "monograph",
-        },
+        {"vendor": {"$ref": vendor_ref}, "library": {"$ref": lib_ref}},
     )
     order_30 = _make_resource(
         client,
         "acor",
-        {
-            "vendor": {"$ref": vendor_ref},
-            "library": {"$ref": lib_ref},
-            "type": "monograph",
-        },
+        {"vendor": {"$ref": vendor_ref}, "library": {"$ref": lib_ref}},
     )
     # OrderLines ==========================================
     orderline_10_1 = _make_resource(
@@ -948,13 +978,24 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
             "amount": 33,
         },
     )
+    for order in [order_10, order_20, order_30]:
+        with mock.patch(
+            "rero_ils.modules.notifications.dispatcher.Dispatcher.dispatch_notifications",
+            mock.MagicMock(return_value={"sent": 1}),
+        ):
+            order.send_order(
+                [
+                    {"type": "to", "address": "ils@foo.com"},
+                    {"type": "reply_to", "address": "admin@foo.com"},
+                ]
+            )
+
     # Reception ===========================================
     reception_10_1 = _make_resource(
         client,
         "acre",
         {
             "acq_order": {"$ref": get_ref("acor", order_10.pid)},
-            "exchange_rate": 1,
             "amount_adjustments": [
                 {
                     "label": "handling fees",
@@ -970,7 +1011,6 @@ def acq_full_structure_a(client, lib_martigny, vendor_martigny, document, org_ma
         "acre",
         {
             "acq_order": {"$ref": get_ref("acor", order_30.pid)},
-            "exchange_rate": 1,
             "library": {"$ref": lib_ref},
         },
     )

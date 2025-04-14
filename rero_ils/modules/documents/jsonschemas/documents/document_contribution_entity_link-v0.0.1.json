@@ -17,12 +17,12 @@
       "pattern": "^(https://mef.rero.ch/api/agents/(gnd|idref|rero)/.*|https://bib.rero.ch/api/local_entities/.*?)$",
       "widget": {
         "formlyConfig": {
-          "type": "entityTypeahead",
-          "wrappers": [
-            "form-field-horizontal"
-          ],
+          "type": "entity-autocomplete",
           "props": {
+            "scrollHeight": "600px",
+            "group": true,
             "filters": {
+              "selected": "bf:Person",
               "options": [
                 {
                   "label": "Person",
@@ -34,7 +34,9 @@
                 }
               ]
             },
-            "itemCssClass": "col-12"
+            "queryOptions": {
+              "type": "mef"
+            }
           }
         }
       }
@@ -48,7 +50,7 @@
   "widget": {
     "formlyConfig": {
       "props": {
-        "containerCssClass": "row"
+        "containerCssClass": "grid grid-nogutter-y"
       }
     }
   }

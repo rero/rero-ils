@@ -79,24 +79,10 @@
       }
     },
     "subscription_amount": {
-      "title": "Amount",
+      "title": "Yearly subscription",
       "description": "Yearly amount due by patrons linked to this patron type.",
       "type": "number",
-      "exclusiveMinimum": 0,
-      "widget": {
-        "formlyConfig": {
-          "wrappers": [
-            "toggle-switch",
-            "form-field"
-          ],
-          "props": {
-            "toggle-switch": {
-              "label": "Yearly subscription",
-              "description": "Activation of subscription fees for patrons linked to this type."
-            }
-          }
-        }
-      }
+      "exclusiveMinimum": 0
     },
     "limits": {
       "title": "Limits",
@@ -109,6 +95,7 @@
       ],
       "properties": {
         "checkout_limits": {
+          "title": "Limit by checkouts",
           "type": "object",
           "additionalProperties": false,
           "required": [
@@ -185,27 +172,12 @@
                 }
               }
             }
-          },
-          "widget": {
-            "formlyConfig": {
-              "wrappers": [
-                "toggle-switch",
-                "form-field"
-              ],
-              "props": {
-                "toggle-switch": {
-                  "label": "Limit by checkouts"
-                }
-              }
-            }
           }
         },
         "fee_amount_limits": {
+          "title": "Limit by overdue fee amount",
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "default_value"
-          ],
           "properties": {
             "default_value": {
               "title": "Fee amount",
@@ -213,46 +185,18 @@
               "type": "number",
               "minimum": 0
             }
-          },
-          "widget": {
-            "formlyConfig": {
-              "wrappers": [
-                "toggle-switch",
-                "form-field"
-              ],
-              "props": {
-                "toggle-switch": {
-                  "label": "Limit by overdue fee amount"
-                }
-              }
-            }
           }
         },
         "overdue_items_limits": {
+          "title": "Limit by overdue items",
           "type": "object",
           "additionalProperties": false,
-          "required": [
-            "default_value"
-          ],
           "properties": {
             "default_value": {
               "title": "Number of overdue items",
               "description": "The checkout, renewal and the request are blocked once the specified number of overdue items is reached by the patron.",
               "type": "number",
               "minimum": 1
-            }
-          },
-          "widget": {
-            "formlyConfig": {
-              "wrappers": [
-                "toggle-switch",
-                "form-field"
-              ],
-              "props": {
-                "toggle-switch": {
-                  "label": "Limit by overdue items"
-                }
-              }
             }
           }
         },

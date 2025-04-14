@@ -34,7 +34,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "itemCssClass": "col-lg-6",
+            "itemCssClass": "col-12 md:col-6",
             "placeholder": "Example: Electronic serials"
           }
         }
@@ -53,7 +53,7 @@
   "widget": {
     "formlyConfig": {
       "props": {
-        "containerCssClass": "row"
+        "containerCssClass": "grid grid-nogutter-y"
       }
     }
   }

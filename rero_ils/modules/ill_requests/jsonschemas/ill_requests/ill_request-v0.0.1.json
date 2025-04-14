@@ -91,6 +91,7 @@
           "pattern": "^https://bib.rero.ch/api/patrons/.*?$",
           "widget": {
             "formlyConfig": {
+              "type": "remoteAutoComplete",
               "props": {
                 "hideLabel": true,
                 "validation": {
@@ -98,7 +99,7 @@
                     "patternMessage": "Should be in the following format: https://bib.rero.ch/api/patrons/<PID>."
                   }
                 },
-                "remoteTypeahead": {
+                "queryOptions": {
                   "type": "patrons"
                 }
               }
@@ -240,7 +241,7 @@
               "widget": {
                 "formlyConfig": {
                   "props": {
-                    "itemCssClass": "col-md-3 p-0"
+                    "itemCssClass": "col-12 md:col-3"
                   }
                 }
               }
@@ -343,8 +344,9 @@
             "default": "public_note",
             "widget": {
               "formlyConfig": {
-                "type": "selectWithSort",
+                "type": "select",
                 "props": {
+                  "sort": true,
                   "options": [
                     {
                       "label": "public_note",

@@ -29,7 +29,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-6",
+                  "itemCssClass": "col-12 md:col-6",
                   "options": [
                     {
                       "label": "article",
@@ -70,7 +70,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "row"
+              "containerCssClass": "grid grid-nogutter-y"
             }
           }
         }
@@ -100,7 +100,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-6",
+                  "itemCssClass": "col-12 md:col-6",
                   "options": [
                     {
                       "label": "Set",
@@ -137,7 +137,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "row"
+              "containerCssClass": "grid grid-nogutter-y"
             }
           }
         }
@@ -167,7 +167,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-6",
+                  "itemCssClass": "col-12 md:col-6",
                   "options": [
                     {
                       "label": "serialInSerial",
@@ -204,7 +204,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "row"
+              "containerCssClass": "grid grid-nogutter-y"
             }
           }
         }
@@ -233,7 +233,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "itemCssClass": "col-lg-6",
+                  "itemCssClass": "col-12 md:col-6",
                   "options": [
                     {
                       "label": "updatingWebsite",
@@ -266,7 +266,7 @@
         "widget": {
           "formlyConfig": {
             "props": {
-              "containerCssClass": "row"
+              "containerCssClass": "grid grid-nogutter-y"
             }
           }
         }

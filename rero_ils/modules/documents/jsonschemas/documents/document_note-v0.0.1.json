@@ -28,9 +28,10 @@
           ],
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
-                "itemCssClass": "col-lg-12",
+                "sort": true,
+                "itemCssClass": "col-12",
                 "options": [
                   {
                     "label": "accompanyingMaterial",
@@ -60,7 +61,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-12"
+                "itemCssClass": "col-12"
               }
             }
           }
@@ -69,7 +70,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "row"
+            "containerCssClass": "grid grid-nogutter-y"
           }
         }
       }

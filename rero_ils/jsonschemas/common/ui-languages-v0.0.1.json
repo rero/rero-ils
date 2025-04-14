@@ -10,9 +10,10 @@
     ],
     "widget": {
       "formlyConfig": {
-        "type": "selectWithSort",
+        "type": "select",
         "props": {
-          "itemCssClass": "col-lg-2",
+          "sort": true,
+          "itemCssClass": "col-12 md:col-2",
           "options": [
             {
               "label": "lang_fre",

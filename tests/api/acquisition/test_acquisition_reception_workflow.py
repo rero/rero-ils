@@ -63,6 +63,7 @@ def test_acquisition_reception_workflow(
     document,
 ):
     """Test complete acquisition workflow."""
+    assert document.get_links_to_me() == {}
 
     def assert_account_data(accounts):
         """assert account informations."""
@@ -163,7 +164,6 @@ def test_acquisition_reception_workflow(
     data = {
         "vendor": {"$ref": get_ref_for_pid("vndr", vendor_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
-        "type": "monograph",
     }
     order = _make_resource(client, "acor", data)
     assert order["reference"] == f"ORDER-{order.pid}"
@@ -272,7 +272,7 @@ def test_acquisition_reception_workflow(
     assert order.status == AcqOrderStatus.PENDING
     # TODO: fix links to me for the order resource, this should fail
     assert order.can_delete
-    assert not order.order_date
+    assert not order.get("order_date")
     assert order.item_quantity == 24
     assert order.item_received_quantity == 0
 
@@ -285,6 +285,8 @@ def test_acquisition_reception_workflow(
         s_serials_acc: ((4000, 4000), (0, 0), (0, 0)),
     }
     assert_account_data(manual_controls)
+
+    assert document.get_links_to_me() == {"acq_order_lines": 6}
 
     # STEP 3 :: UPDATE ORDER LINES
     #   * Cancel some order lines and change some quantities --> make sure
@@ -363,6 +365,8 @@ def test_acquisition_reception_workflow(
     assert order_line_1.unreceived_quantity == 5
     assert order_line_1.status == AcqOrderLineStatus.APPROVED
 
+    assert document.get_links_to_me() == {"acq_order_lines": 4}
+
     # STEP 4 :: SEND THE ORDER
     #    * Test send order and make sure statuses are up to date.
     #      - check order lines (status, order-date)
@@ -391,10 +395,6 @@ def test_acquisition_reception_workflow(
     ]:
         line = AcqOrderLine.get_record_by_pid(order_line.get("line").pid)
         assert line.status == order_line.get("status")
-        if line.status == AcqOrderLineStatus.CANCELLED:
-            assert not line.order_date
-        else:
-            assert line.order_date
     # check order
     order = AcqOrder.get_record_by_pid(order.pid)
     assert order.status == AcqOrderStatus.ORDERED
@@ -419,7 +419,6 @@ def test_acquisition_reception_workflow(
     ref_acc_serial = get_ref_for_pid("acac", m_serials_acc.pid)
     data = {
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
-        "exchange_rate": 1,
         "amount_adjustments": [
             {
                 "label": "handling fees",
@@ -533,7 +532,6 @@ def test_acquisition_reception_workflow(
     #     except `order_line_5` should have the RECEIVED STATUS
     #   * complete the order reception to receive the `order_line_5`
     data = {
-        "exchange_rate": 1,
         "acq_order": {"$ref": get_ref_for_pid("acor", order.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
         "organisation": {"$ref": get_ref_for_pid("org", org_martigny.pid)},

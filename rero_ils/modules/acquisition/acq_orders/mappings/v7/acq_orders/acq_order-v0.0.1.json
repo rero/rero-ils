@@ -73,9 +73,6 @@
           }
         }
       },
-      "type": {
-        "type": "keyword"
-      },
       "status": {
         "type": "keyword"
       },
@@ -122,9 +119,6 @@
         "properties": {
           "pid": {
             "type": "keyword"
-          },
-          "order_date": {
-            "type": "date"
           },
           "quantity": {
             "type": "integer"

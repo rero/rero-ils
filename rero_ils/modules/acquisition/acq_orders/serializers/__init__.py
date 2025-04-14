@@ -44,7 +44,6 @@ _csv = AcqOrderCSVSerializer(
         "order_date",
         "order_staff_note",
         "order_vendor_note",
-        "order_type",
         "order_status",
         "vendor_name",
         "document_pid",

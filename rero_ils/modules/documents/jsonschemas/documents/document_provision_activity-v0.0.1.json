@@ -37,8 +37,9 @@
           ],
           "widget": {
             "formlyConfig": {
-              "type": "selectWithSort",
+              "type": "select",
               "props": {
+                "sort": true,
                 "itemcCssClass": "col",
                 "options": [
                   {
@@ -85,7 +86,7 @@
                     "widget": {
                       "formlyConfig": {
                         "props": {
-                          "itemCssClass": "col-lg-12"
+                          "itemCssClass": "col-12"
                         }
                       }
                     }
@@ -104,7 +105,7 @@
                     "widget": {
                       "formlyConfig": {
                         "props": {
-                          "itemCssClass": "col-lg-12"
+                          "itemCssClass": "col-12"
                         }
                       }
                     }
@@ -122,7 +123,7 @@
                 "props.required": "field?.parent?.model && field.parent.model.type === 'bf:Publication'"
               },
               "props": {
-                "itemCssClass": "col-lg-12"
+                "itemCssClass": "col-12"
               }
             }
           }
@@ -154,9 +155,10 @@
                 ],
                 "widget": {
                   "formlyConfig": {
-                    "type": "selectWithSort",
+                    "type": "select",
                     "props": {
-                      "itemCssClass": "col-lg-4",
+                      "sort": true,
+                      "itemCssClass": "col-12 md:col-4",
                       "options": [
                         {
                           "label": "bf:Place",
@@ -186,7 +188,7 @@
                 "widget": {
                   "formlyConfig": {
                     "props": {
-                      "itemCssClass": "col-lg-8"
+                      "itemCssClass": "col-12 md:col-8"
                     }
                   }
                 }
@@ -195,7 +197,7 @@
             "widget": {
               "formlyConfig": {
                 "props": {
-                  "containerCssClass": "row"
+                  "containerCssClass": "grid grid-nogutter-y"
                 }
               }
             }
@@ -203,7 +205,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-12"
+                "itemCssClass": "col-12"
               }
             }
           }
@@ -215,7 +217,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-6",
+                "itemCssClass": "col-12 md:col-6",
                 "hide": true
               }
             }
@@ -233,7 +235,7 @@
                 "props.required": "model.type === 'bf:Publication'"
               },
               "props": {
-                "itemCssClass": "col-lg-4"
+                "itemCssClass": "col-12 md:col-4"
               }
             }
           }
@@ -247,7 +249,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-4",
+                "itemCssClass": "col-12 md:col-4",
                 "hide": true
               }
             }
@@ -262,7 +264,7 @@
           "widget": {
             "formlyConfig": {
               "props": {
-                "itemCssClass": "col-lg-4",
+                "itemCssClass": "col-12 md:col-4",
                 "hide": true
               }
             }
@@ -272,7 +274,7 @@
       "widget": {
         "formlyConfig": {
           "props": {
-            "containerCssClass": "row"
+            "containerCssClass": "grid grid-nogutter-y"
           }
         }
       }

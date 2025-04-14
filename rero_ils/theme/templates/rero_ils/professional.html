@@ -21,17 +21,17 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <base href="/professional">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <base href="/professional" />
     {% include 'rero_ils/_favicon.html' %}
     {{ node_assets('@rero/rero-ils-ui/dist/admin', ['styles.*css'], 'css') }}
     {{ node_assets('@rero/rero-ils-ui/dist/admin', ['styles.*css'], 'css', 'media="print" onload="this.media=\'all\'"') }}
 </head>
 
 <body>
-    <admin-root></admin-root>
+    <admin-root />
     {{ node_assets('@rero/rero-ils-ui/dist/admin', tags='type="module"') }}
 </body>
 
