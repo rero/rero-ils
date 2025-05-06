@@ -20,7 +20,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-05-06 12:21+0200\n"
 "PO-Revision-Date: 2025-05-06 11:54+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/it/>\n"
 "Language: it\n"
@@ -10519,7 +10520,7 @@ msgstr "ID dell'esemplare"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:63
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:215
 msgid "This barcode is already taken."
-msgstr ""
+msgstr "Il codice a barre è già utilizzato."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:103
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:524
@@ -10545,7 +10546,7 @@ msgstr "URI del tipo di esemplare"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:197
 msgid "Temporary item type"
-msgstr ""
+msgstr "Tipo di esemplare temporaneo"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:198
 msgid "Applies a temporary item type which overrides the default one temporarily."
@@ -10617,7 +10618,7 @@ msgstr "Regolarità"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:475
 msgid "Circulation status"
-msgstr ""
+msgstr "stato di circolazione"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:514
 msgid "excluded"
