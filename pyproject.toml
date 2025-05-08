@@ -1,6 +1,6 @@
 [project]
 name = "rero-ils"
-version = "1.24.1"
+version = "1.25.0"
 description = "The elegant solution for heritage, public and school libraries or networks."
 authors = [{name = "RERO+", email = "software@rero.ch"}]
 keywords = ["rero-ils", "invenio", "integrated library system"]
