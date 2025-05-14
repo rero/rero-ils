@@ -163,6 +163,7 @@ def test_filtered_patron_transaction_events_get(
     client,
     librarian_martigny,
     patron_transaction_overdue_event_martigny,
+    patron_transaction_photocopy_martigny,
     librarian_sion,
     patron_martigny,
 ):
@@ -179,7 +180,17 @@ def test_filtered_patron_transaction_events_get(
     res = client.get(list_url)
     assert res.status_code == 200
     data = get_json(res)
+    assert data["hits"]["total"]["value"] == 2
+    res = client.get(
+        url_for(
+            "invenio_records_rest.ptre_list",
+            q=f"parent.pid:{patron_transaction_photocopy_martigny.pid}",
+        )
+    )
+    assert res.status_code == 200
+    data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
+    assert not data["hits"]["hits"][0]["metadata"].get("document")
 
     # Sion
     login_user_via_session(client, librarian_sion.user)

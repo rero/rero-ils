@@ -39,7 +39,10 @@ from rero_ils.modules.notifications.api import NotificationsSearch
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
-from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
+from rero_ils.modules.patron_transactions.api import (
+    PatronTransaction,
+    PatronTransactionsSearch,
+)
 from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import extracted_data_from_ref
@@ -836,6 +839,25 @@ def patron_transaction_overdue_event_saxon_data(data):
 def patron_transaction_photocopy_martigny_data(data):
     """Load photocopy patron transaction data."""
     return deepcopy(data.get("pttr3"))
+
+
+@pytest.fixture(scope="module")
+def patron_transaction_photocopy_martigny(
+    patron_transaction_photocopy_martigny_data, system_librarian_martigny
+):
+    """."""
+    trans = PatronTransaction.create(
+        patron_transaction_photocopy_martigny_data, dbcommit=True, reindex=True
+    )
+    from rero_ils.modules.patron_transaction_events.api import (
+        PatronTransactionEventsSearch,
+    )
+    from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
+
+    PatronTransactionsSearch.flush_and_refresh()
+    PatronTransactionEventsSearch.flush_and_refresh()
+
+    yield trans
 
 
 # ------------ Patron Transactions: Lib Sion overdue scenario ----------
