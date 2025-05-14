@@ -63,4 +63,5 @@ def enrich_patron_transaction_event_data(
     # Add additional information
     json["organisation"] = {"pid": parent.organisation_pid, "type": "org"}
     json["category"] = parent["type"]
-    json["document"] = {"pid": parent.document_pid, "type": "doc"}
+    if parent.document_pid:
+        json["document"] = {"pid": parent.document_pid, "type": "doc"}
