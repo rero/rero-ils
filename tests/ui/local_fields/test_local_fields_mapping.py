@@ -17,9 +17,8 @@
 
 """Libraries elasticsearch mapping tests."""
 
-from utils import get_mapping
-
 from rero_ils.modules.local_fields.api import LocalField, LocalFieldsSearch
+from tests.utils import get_mapping
 
 
 def test_local_field_es_mapping(

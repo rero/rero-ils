@@ -23,7 +23,13 @@ from datetime import datetime, timedelta
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import (
+
+from rero_ils.modules.commons.identifiers import IdentifierType
+from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.documents.utils import get_remote_cover
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
+from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import (
     VerifyRecordPermissionPatch,
     clean_text,
     get_json,
@@ -31,12 +37,6 @@ from utils import (
     postdata,
     to_relative_url,
 )
-
-from rero_ils.modules.commons.identifiers import IdentifierType
-from rero_ils.modules.documents.api import DocumentsSearch
-from rero_ils.modules.documents.utils import get_remote_cover
-from rero_ils.modules.operation_logs.api import OperationLogsSearch
-from rero_ils.modules.utils import get_ref_for_pid
 
 
 @mock.patch(

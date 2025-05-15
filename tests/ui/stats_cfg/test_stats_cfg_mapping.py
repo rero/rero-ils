@@ -18,9 +18,9 @@
 """Statistics Configuration elasticsearch mapping tests."""
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_mapping
 
 from rero_ils.modules.stats_cfg.api import StatConfiguration, StatsConfigurationSearch
+from tests.utils import get_mapping
 
 
 def test_stats_cfg_es_mapping(

@@ -24,7 +24,6 @@ import pytz
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
-from utils import check_timezone_date, get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.utils import item_pid_to_object
@@ -42,6 +41,7 @@ from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import number_of_notifications_sent
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
+from tests.utils import check_timezone_date, get_json, postdata
 
 
 def test_loans_search(

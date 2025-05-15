@@ -18,9 +18,9 @@
 """Tests REST items Serializer."""
 
 from flask import url_for
-from utils import get_csv, login_user
 
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import get_csv, login_user
 
 
 def test_serializers(

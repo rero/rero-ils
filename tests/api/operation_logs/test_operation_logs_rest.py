@@ -23,7 +23,6 @@ import mock
 from flask import current_app, url_for
 from invenio_access.permissions import system_identity
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.files.cli import create_pdf_record_files
@@ -32,6 +31,7 @@ from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.operation_logs.api import OperationLog, OperationLogsSearch
 from rero_ils.modules.operation_logs.models import OperationLogOperation
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata
 
 
 @mock.patch(

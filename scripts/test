@@ -73,24 +73,8 @@ fi
 
 function pretests () {
   info_msg "Check vulnerabilities:"
-  # cryptography 43.0.3  GHSA-79v4-65xg-pq4g 44.0.1
-  add_exceptions "GHSA-79v4-65xg-pq4g"
-  # jsonpickle   1.4.2   GHSA-j66q-qmrc-89rx
-  add_exceptions "GHSA-j66q-qmrc-89rx"
   # py           1.11.0  PYSEC-2022-42969
   add_exceptions "PYSEC-2022-42969"
-  # selenium     3.141.0 PYSEC-2023-206      4.14.0
-  add_exceptions "PYSEC-2023-206"
-  # selenium     3.141.0 PYSEC-2022-43167    4.0.0
-  add_exceptions "PYSEC-2022-43167"
-  # werkzeug     2.2.3   PYSEC-2023-221      2.3.8,3.0.1
-  add_exceptions "PYSEC-2023-221"
-  # werkzeug     2.2.3   GHSA-2g68-c3qc-8985 3.0.3
-  add_exceptions "GHSA-2g68-c3qc-8985"
-  # werkzeug     2.2.3   GHSA-f9vj-2wh5-fj8j 3.0.6
-  add_exceptions "GHSA-f9vj-2wh5-fj8j"
-  # werkzeug     2.2.3   GHSA-q34m-jh98-gwm2 3.0.6
-  add_exceptions "GHSA-q34m-jh98-gwm2"
   PIPAPI_PYTHON_LOCATION=`which python` pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"
