@@ -21,9 +21,9 @@ from copy import deepcopy
 
 import mock
 from elasticsearch_dsl.query import MultiMatch
-from utils import get_mapping, mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
+from tests.utils import get_mapping, mock_response
 
 
 @mock.patch("requests.Session.get")

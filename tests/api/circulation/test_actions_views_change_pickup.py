@@ -19,7 +19,8 @@
 
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+
+from tests.utils import postdata
 
 
 def test_change_pickup_location_request(

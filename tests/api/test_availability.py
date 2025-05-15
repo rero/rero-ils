@@ -21,12 +21,12 @@
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.models import LoanAction
+from tests.utils import get_json, postdata
 
 
 def test_item_holding_document_availability(
@@ -188,7 +188,6 @@ def test_item_holding_document_availability(
         assert holding_lib_martigny.get_holding_loan_conditions() == "short 15 days"
     # request second item
     login_user_via_session(client, librarian_martigny.user)
-
     res, data = postdata(
         client,
         "api_item.librarian_request",

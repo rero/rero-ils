@@ -21,7 +21,8 @@
 from copy import deepcopy
 
 import pytest
-from utils import (
+
+from tests.utils import (
     create_patron,
     create_selfcheck_terminal,
     create_user_token,

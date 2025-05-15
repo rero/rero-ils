@@ -376,8 +376,7 @@ class ToMarc21Overdo(Underdo):
                 end_date = str(p_activity.get("endDate", ""))
                 if end_date:
                     fixed_data = f"{fixed_data[:11]}{end_date}{fixed_data[15:]}"
-                start_date = str(p_activity.get("startDate", ""))
-                if start_date:
+                if start_date := str(p_activity.get("startDate", "")):
                     type_of_date = "s"
                     if end_date:
                         type_of_date = "m"
@@ -386,8 +385,7 @@ class ToMarc21Overdo(Underdo):
                         f"{start_date}{fixed_data[11:]}"
                     )
                     break
-        language = utils.force_list(blob.get("language"))
-        if language:
+        if language := utils.force_list(blob.get("language")):
             language = language[0].get("value")
             fixed_data = f"{fixed_data[:35]}{language}{fixed_data[38:]}"
         blob["fixed_length_data_elements"] = fixed_data
@@ -431,33 +429,32 @@ class ToMarc21Overdo(Underdo):
         extent = blob.get("extent")
         durations = ", ".join(blob.get("duration", []))
         if extent:
-            if durations:
-                if f"({durations})" in extent:
-                    physical_description["extent"] = extent
-                else:
-                    physical_description["extent"] = f"{extent} ({durations})"
-            else:
+            if durations and f"({durations})" in extent or not durations:
                 physical_description["extent"] = extent
+            else:
+                physical_description["extent"] = f"{extent} ({durations})"
         note = blob.get("note", [])
         other_physical_details = []
-        for value in note:
-            if value["noteType"] == "otherPhysicalDetails":
-                other_physical_details.append(value["label"])
+        other_physical_details.extend(
+            value["label"]
+            for value in note
+            if value["noteType"] == "otherPhysicalDetails"
+        )
         if not other_physical_details:
-            for value in blob.get("productionMethod", []):
-                other_physical_details.append(translate(value))
-            for value in blob.get("illustrativeContent", []):
-                other_physical_details.append(value)
-            for value in blob.get("colorContent", []):
-                other_physical_details.append(translate(value))
+            other_physical_details.extend(
+                translate(value) for value in blob.get("productionMethod", [])
+            )
+            other_physical_details.extend(iter(blob.get("illustrativeContent", [])))
+            other_physical_details.extend(
+                translate(value) for value in blob.get("colorContent", [])
+            )
         if other_physical_details:
             physical_description["other_physical_details"] = " ; ".join(
                 other_physical_details
             )
-        accompanying_material = " ; ".join(
+        if accompanying_material := " ; ".join(
             [v.get("label") for v in note if v["noteType"] == "accompanyingMaterial"]
-        )
-        if accompanying_material:
+        ):
             physical_description["accompanying_material"] = accompanying_material
         dimensions = blob.get("dimensions", [])
         book_formats = blob.get("bookFormat", [])
@@ -470,8 +467,7 @@ class ToMarc21Overdo(Underdo):
                 del book_formats[index]
             except ValueError:
                 new_dimensions.append(dimension)
-        for book_format in book_formats:
-            new_dimensions.append(book_format)
+        new_dimensions.extend(iter(book_formats))
         if new_dimensions:
             physical_description["dimensions"] = " ; ".join(new_dimensions)
 
@@ -488,8 +484,7 @@ class ToMarc21Overdo(Underdo):
             keys[key] += 1
         order = []
         for key in ORDER:
-            for count in range(keys.get(key, 0)):
-                order.append(key)
+            order.extend(key for _ in range(keys.get(key, 0)))
         blob["__order__"] = order
         result = super().do(
             blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers

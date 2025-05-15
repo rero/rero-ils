@@ -208,7 +208,6 @@ celery --app rero_ils.celery purge -f
 # Clean redis
 info_msg "Clean redis"
 eval "${PREFIX} invenio shell --no-term-title -c \"import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')\""
-eval ${PREFIX} invenio reroils scheduler init -r
 
 info_msg "Prefix: "
 info_msg ${PREFIX}
@@ -283,7 +282,7 @@ eval ${PREFIX} invenio users create --active --confirm --password ngscan gipi@ng
 info_msg "Grant access to action roles"
 eval ${PREFIX} invenio access allow superuser-access role admin
 eval ${PREFIX} invenio access allow superuser-access role superuser
-eval ${PREFIX} invenio access allow admin-access role admin
+# TODO: eval ${PREFIX} invenio access allow admin-access role admin
 
 # grant roles to users
 info_msg "Grant roles to users"
@@ -600,6 +599,7 @@ create_token organisation_fictive_token reroilstest+imagination@gmail.com ${INVE
 info_msg "API configuration: ${DATA_PATH}/apisources.yml"
 eval ${PREFIX} invenio reroils api-harvester init-config ${DATA_PATH}/apisources.yml
 
+eval ${PREFIX} invenio reroils scheduler init -r
 eval ${PREFIX} invenio reroils scheduler enable-tasks -a -v
 info_msg disable VS/NJ CANTOOK harvesting
 eval ${PREFIX} invenio reroils scheduler enable-tasks -n harvest-vs-cantook -d
