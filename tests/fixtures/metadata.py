@@ -26,7 +26,6 @@ from os.path import dirname, join
 import mock
 import pytest
 from invenio_files_rest.models import Location
-from utils import mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.local_entities.api import (
@@ -45,6 +44,7 @@ from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.stats_cfg.api import StatConfiguration, StatsConfigurationSearch
 from rero_ils.modules.templates.api import Template, TemplatesSearch
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import mock_response
 
 
 @pytest.fixture(scope="module")

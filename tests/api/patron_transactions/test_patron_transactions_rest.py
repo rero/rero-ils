@@ -25,7 +25,6 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.patron_transactions.api import PatronTransaction
@@ -34,6 +33,7 @@ from rero_ils.modules.patron_transactions.utils import (
     get_transactions_pids_for_patron,
 )
 from rero_ils.modules.utils import add_years, extracted_data_from_ref, get_ref_for_pid
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 @mock.patch(

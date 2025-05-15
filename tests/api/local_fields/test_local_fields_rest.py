@@ -22,9 +22,9 @@ from copy import deepcopy
 
 import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json, postdata
 
 from rero_ils.modules.local_fields.api import LocalFieldsSearch
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata
 
 
 @mock.patch(

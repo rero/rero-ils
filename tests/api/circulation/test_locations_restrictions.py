@@ -20,12 +20,12 @@
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
 
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.utils import can_be_requested
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import get_json
 
 
 def test_item_pickup_location(client, librarian_martigny, item2_lib_martigny):

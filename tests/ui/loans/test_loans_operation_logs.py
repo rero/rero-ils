@@ -21,10 +21,10 @@ import hashlib
 from copy import deepcopy
 
 from invenio_jsonschemas import current_jsonschemas
-from utils import login_user_for_view
 
 from rero_ils.modules.loans.logs.api import LoanOperationLog, LoanOperationLogsSearch
 from rero_ils.modules.patrons.api import Patron
+from tests.utils import login_user_for_view
 
 
 def test_loan_operation_log(

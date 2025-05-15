@@ -19,9 +19,9 @@
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
-from utils import check_permission
 
 from rero_ils.modules.ill_requests.permissions import ILLRequestPermissionPolicy
+from tests.utils import check_permission
 
 
 def test_ill_requests_permissions(
