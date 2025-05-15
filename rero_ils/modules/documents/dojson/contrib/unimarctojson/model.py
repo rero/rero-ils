@@ -24,8 +24,8 @@ import jsonref
 from dojson import utils
 from dojson.utils import GroupableOrderedDict
 from flask import current_app
+from importlib_resources import files
 from isbnlib import EAN13
-from pkg_resources import resource_string
 
 from rero_ils.dojson.utils import (
     ReroIlsUnimarcOverdo,
@@ -535,8 +535,10 @@ def unimarc_languages(self, key, value):
     languages: 101 [$a, repetitive]
     """
     languages = utils.force_list(value.get("a"))
-    schema_in_bytes = resource_string(
-        "rero_ils.jsonschemas", "common/languages-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.jsonschemas")
+        .joinpath("common/languages-v0.0.1.json")
+        .read_bytes()
     )
     schema = jsonref.loads(schema_in_bytes.decode("utf8"))
     langs = schema["language"]["enum"]

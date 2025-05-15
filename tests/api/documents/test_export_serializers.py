@@ -19,7 +19,8 @@
 """Tests Serializers."""
 import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json
+
+from tests.utils import VerifyRecordPermissionPatch, get_json
 
 
 @mock.patch(

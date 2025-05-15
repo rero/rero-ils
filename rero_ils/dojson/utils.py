@@ -30,7 +30,7 @@ import requests
 import xmltodict
 from dojson import Overdo, utils
 from flask import current_app
-from pkg_resources import resource_string
+from importlib_resources import files
 
 _UNIMARC_LANGUAGES_SCRIPTS = {
     "ba": "latn",  # Latin
@@ -349,14 +349,14 @@ _CONTRIBUTION_TAGS = [
     "712",
 ]
 
-schema_in_bytes = resource_string(
-    "rero_ils.jsonschemas", "common/languages-v0.0.1.json"
+schema_in_bytes = (
+    files("rero_ils.jsonschemas").joinpath("common/languages-v0.0.1.json").read_bytes()
 )
 schema = jsonref.loads(schema_in_bytes.decode("utf8"))
 _LANGUAGES = schema["language"]["enum"]
 
-schema_in_bytes = resource_string(
-    "rero_ils.jsonschemas", "common/countries-v0.0.1.json"
+schema_in_bytes = (
+    files("rero_ils.jsonschemas").joinpath("common/countries-v0.0.1.json").read_bytes()
 )
 schema = jsonref.loads(schema_in_bytes.decode("utf8"))
 _COUNTRIES = schema["country"]["enum"]

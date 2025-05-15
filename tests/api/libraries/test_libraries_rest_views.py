@@ -20,7 +20,8 @@
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+
+from tests.utils import get_json
 
 
 def test_library_closed_date_api(client, lib_martigny, librarian_martigny):

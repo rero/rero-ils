@@ -7,60 +7,56 @@ keywords = ["rero-ils", "invenio", "integrated library system"]
 license = "GNU Affero General Public License v3.0 only"
 urls = {homepage = "https://www.rero.ch/en/products/ils", repository="https://github.com/rero/rero-ils"}
 dynamic = ["classifiers"]
-requires-python = ">= 3.9,<3.10"
+requires-python = ">= 3.9.2,<3.13"
 
 dependencies = [
-    "lxml (>=4.9.1)",
-    "marshmallow (>=3.0.0,<4.0.0)",
-    "uwsgi (>=2.0)",
-    "uwsgi-tools (>=1.1.1)",
     "uwsgitop (>=0.11)",
 
     ## Third party invenio modules used by RERO ILS
     "invenio-oaiharvester @ git+https://github.com/inveniosoftware/invenio-oaiharvester.git@v1.0.0a4",
     "invenio-circulation (==3.0.0a1)",
 
-    "invenio-search [elasticsearch7] (>=2.1.0,<3.0.0)",
+    "invenio-search [elasticsearch7] (>=3.0.0,<4.0.0)",
     # Invenio core modules
-    "invenio-app (>=1.4.0,<2.0.0)",
-    "invenio-base (>=1.3.0,<2.0.0)",
-    "invenio-cache (>=1.1.1,<2.0.0)",
-    "invenio-celery (>=1.2.5,<2.0.0)",
+    "invenio-app (>=2.0.0,<3.0.0)",
+    "invenio-base (>=2.0.0,<3.0.0)",
+    "invenio-cache (>=2.0.0,<3.0.0)",
+    "invenio-celery (>=2.0.2,<3.0.0)",
     "invenio-config (>=1.0.3,<2.0.0)",
-    "invenio-i18n (>=2.0.0,<3.0.0)",
-    "invenio-db [postgresql] (>=1.1.0,<2.0.0)",
+    "invenio-i18n (>=3.0.0,<4.0.0)",
+    "invenio-db [postgresql] (>=2.0.0,<3.0.0)",
     # Invenio base bundle
-    "invenio-admin (>=1.4.0,<1.5.0)",
-    "invenio-assets (>=3.0.0,<4.0.0)",
-    "invenio-formatter (>=2.0.0,<3.0.0)",
-    "invenio-logging (>=2.0.0,<3.0.0)",
+    # "invenio-admin (>=1.4.0,<2.0.0)",
+    "invenio-assets (>=4.0.0,<5.0.0)",
+    "invenio-formatter (>=3.0.0,<4.0.0)",
+    "invenio-logging [sentry] (>=4.0.0,<5.0.0)",
     "invenio-mail (>=2.0.0,<3.0.0)",
-    "invenio-rest (>=1.3.0,<2.0.0)",
-    "invenio-theme (>3.0.0,<4.0.0)",
+    "invenio-rest (>=2.0.0,<3.0.0)",
+    "invenio-theme (>4.0.0,<5.0.0)",
     # Invenio auth bundle
-    "invenio-access (>=2.0.0,<3.0.0)",
-    "invenio-accounts (>=5.0.0,!=5.1.0,<6.0.0)",
-    "invenio-oauth2server (>=2.3.0,<3.0.0)",
-    "invenio-oauthclient (>=4.0.0,<5.0.0)",
+    "invenio-access (>=4.0.0,<6.0.0)",
+    "invenio-accounts (>=6.0.0,<7.0.0)",
+    "invenio-oauth2server (>=3.0.0,<4.0.0)",
+    "invenio-oauthclient (>=5.0.0,<6.0.0)",
     # Invenio metadata bundle
-    "invenio-indexer (>=2.2.0,<3.0.0)",
-    "invenio-jsonschemas (>=1.1.4,<2.0.0)",
-    "invenio-oaiserver (>=2.2.0,<3.0.0)",
-    "invenio-pidstore (>=1.3.0,<2.0.0)",
-    "invenio-records-rest (>=2.2.0,<3.0.0)",
+    "invenio-indexer (>=3.0.0,<4.0.0)",
+    "invenio-jsonschemas (>=2.0.0,<3.0.0)",
+    "invenio-oaiserver (>=3.0.0,<4.0.0)",
+    "invenio-pidstore (>=2.0.0,<3.0.0)",
+    "invenio-records-rest (>=3.0.0,<4.0.0)",
     "invenio-records-ui (>=1.2.0,<2.0.0)",
-    "invenio-records (>=2.1.0,<3.0.0)",
-    "invenio-search-ui (>=2.4.0,<3.0.0)",
+    "invenio-records (>=3.0.0,<4.0.0)",
+    "invenio-search-ui (>=4.0.0,<5.0.0)",
 
     "invenio-records-permissions (>=0.13.0)",
     "python-dotenv (>=0.13.0)",
-
-    # Pinned due to before_first_request deprecation https://flask.palletsprojects.com/en/2.2.x/api/#flask.Flask.before_first_request
-    "Flask (>=2.2.0,<2.3.0)",
     "sentry-sdk (<2.0.0)",
     "dojson (>=1.4.0)",
-    # TODO: dojson problem = AttributeError: 'Group' object has no attribute 'resultcallback'
-    "click (<8.1.0)",
+
+    ## RERO specific python modules
+    "rero-invenio-base (>=0.3.0)",
+    "rero-invenio-files (>=1.0.0,<2.0.0)",
+    "flask-wiki (>=1.0.0)",
 
     ## RERO ILS specific python modules
     "PyYAML (>=5.3.1)",
@@ -69,16 +65,12 @@ dependencies = [
     "requests (>=2.23.0)",
     "polib",
     "xmltodict",
-    "redisbeat  (>1.2.5,<1.3.0)",
-    "jsonpickle (>=1.4.1)",
     "ciso8601",
 
-    ## Additionnal constraints on python modules
+    ## Third party optional modules used by RERO ILS
+    "invenio-sip2 (>=0.6.25)",
     "markdown-captions",
     "zipp",
-
-    ## Third party optional modules used by RERO ILS
-    "invenio-sip2 (>=0.6.23)",
     "freezegun (>=1.1.0)",
     "lazyreader (>1.0.0)",
     "jinja2 (>2.11.2)",
@@ -88,40 +80,41 @@ dependencies = [
     "dcxml (>=0.1.2)",
     "DeepDiff (>=5.5.0)",
     "docutils (<0.18.0)",
-    "wtforms (<3.0.0)",
     # to avoid conflict for urllib3
     "dparse (>=0.5.2)",
     "Mako (>=1.2.2)",
-    "rero-invenio-base (>=0.3.0)",
     "jsonresolver",
     # needed for elasticsearch 7.13.4
     "urllib3 (<2.0.0)",
     "pyparsing (>=3.1.1)",
-    "flask-wiki (>=0.3.1)",
     "dnspython (>2.4.2)",
     "cryptography (>41.0.7)",
     "babel (>2.16.0)",
-    "rero-invenio-files (>=1.0.0,<2.0.0)",
     "levenshtein (>=0.26.0)",
     "unidecode (>=1.3.8)",
-    "flask-menu (<2.0.0)",
     "poethepoet",
     "isort (>=6.0.0)",
     "black (>=25.1.0,<26.0.0)",
+    "sqlalchemy-celery-beat (>=0.8.3,<0.9.0)",
+    "bootstrap-flask (>=2.5.0,<3.0.0)",
+    "flask-admin (>=1.6.1,<2.0.0)",
+    # needed for name unique in invenio-accounts
+    "wtforms (<3.2.0)",
 ]
 
 [project.optional-dependencies]
 ## Python extra packages dependencies
 #------------------------------------
 sip2 = ["invenio-sip2"]
+coverage = ["coverage[toml]"]
 
 [tool.poetry.group.dev.dependencies]
 ## Python packages development dependencies (order matters)
 #----------------------------------------------------------
 ## Default from Invenio
-pytest-invenio = ">=2.1.6,<3.0.0"
+pytest-invenio = ">=3.0.0,<4.0.0"
 pydocstyle = ">=6.1.1"
-pytest-black = ">=0.3.2"
+pytest-black = ">=0.4.0"
 pytest-black-ng = ">=0.4.0"
 Sphinx = ">=4.5.0"
 Flask-Debugtoolbar = ">=0.10.1"
@@ -446,6 +439,13 @@ files = "rero_ils.modules.files.mappings"
 operation_logs = "rero_ils.modules.operation_logs.es_templates:list_es_templates"
 rero_ils = "rero_ils.es_templates:list_es_templates"
 
+[project.entry-points."invenio_base.finalize_app"]
+rero_ils = "rero_ils.modules.ext:finalize_app"
+rero_files = "rero_invenio_files.ext:finalize_app"
+
+# [project.entry-points."invenio_base.api_finalize_app"]
+# rero_ils = "rero_ils.modules.ext:api_finalize_app"
+
 [tool.poe.tasks]
 bootstrap = {cmd = "./scripts/bootstrap", help = "Runs bootstrap"}
 console = {cmd = "./scripts/console", help = "Opens invenio shell"}
@@ -477,6 +477,32 @@ filterwarnings = "ignore::PendingDeprecationWarning"
 
 [tool.pydocstyle]
 add-ignore = "D401"
+
+[tool.coverage.run]
+relative_files = true
+omit = [
+    "rero_ils/alembic/*",
+    "rero_ils/dojson/cli.py",
+    "rero_ils/modules/apiharvester/cli.py",
+    "rero_ils/modules/cli/fixtures.py",
+    "rero_ils/modules/cli/index.py",
+    "rero_ils/modules/cli/reroils.py",
+    "rero_ils/modules/cli/users.py",
+    "rero_ils/modules/cli/utils.py",
+    "rero_ils/modules/collections/cli.py",
+    "rero_ils/modules/ebooks/cli.py",
+    "rero_ils/modules/holdings/cli.py",
+    "rero_ils/modules/ill_requests/cli.py",
+    "rero_ils/modules/items/cli.py",
+    "rero_ils/modules/loans/cli.py",
+    "rero_ils/modules/patrons/cli.py",
+    "rero_ils/modules/documents/dojson/contrib/marc21tojson/utils.py",
+    "rero_ils/modules/documents/dojson/contrib/marc21tojson/dnb/model.py",
+    "rero_ils/modules/documents/dojson/contrib/marc21tojson/kul/model.py",
+    "rero_ils/modules/documents/dojson/contrib/marc21tojson/loc/model.py",
+    "rero_ils/modules/documents/dojson/contrib/marc21tojson/slsp/model.py",
+    "rero_ils/modules/documents/dojson/contrib/marc21tojson/ugent/model.py",
+]
 
 [build-system]
 requires = ["poetry>=2.0.0"]

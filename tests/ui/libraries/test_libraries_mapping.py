@@ -17,9 +17,8 @@
 
 """Libraries elasticsearch mapping tests."""
 
-from utils import get_mapping
-
 from rero_ils.modules.libraries.api import LibrariesSearch, Library
+from tests.utils import get_mapping
 
 
 def test_library_es_mapping(search, db, lib_martigny_data, org_martigny):

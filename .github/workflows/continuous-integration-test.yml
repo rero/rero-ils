@@ -23,10 +23,10 @@ jobs:
     - name: Docker compose up
       run: docker compose up -d
 
-    - name: Set up Python 3.9
+    - name: Set up Python 3.12
       uses: actions/setup-python@v5
       with:
-        python-version: 3.9
+        python-version: 3.12
 
     - name: Install Poetry
       uses: snok/install-poetry@v1
@@ -45,7 +45,11 @@ jobs:
       run: |
         poetry run ./scripts/bootstrap --ci
         poetry install --no-root --extras sip2
-        pip install --upgrade coveralls
+
+    # - name: Install Coveralls
+    #   if: ${{ matrix.dependencies == 'dev' }}
+    #   run: |
+    #     pip install --upgrade coveralls
 
     - name: Bootstrap deploy
       if: ${{ matrix.dependencies == 'deploy' }}
@@ -70,10 +74,14 @@ jobs:
     #     output: |
     #       { "summary": "TEST EXTERNAL FAILED!!!" }
 
+    # - name: Coveralls
+    #   if: ${{ matrix.dependencies == 'dev' }}
+    #   env:
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #       COVERALLS_SERVICE_NAME: github
+    #   run: |
+    #       coveralls
+
     - name: Coveralls
       if: ${{ matrix.dependencies == 'dev' }}
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_SERVICE_NAME: github
-      run: |
-          coveralls
+      uses: AndreMiras/coveralls-python-action@develop

@@ -37,7 +37,7 @@ from werkzeug.local import LocalProxy
 from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.users.api import User
 
-from ..patrons.api import Patron, PatronProvider
+from ..patrons.api import Patron
 from ..providers import append_fixtures_new_identifiers
 from ..utils import JsonWriter, get_schema_for_resource, read_json_record
 from .utils import create_patron_from_data
@@ -129,11 +129,11 @@ def import_users(infile, append, verbose, password, lazy, dont_stop_on_error, de
     if append:
         click.secho(f"Append fixtures new identifiers: {len(pids)}")
         identifier = Patron.provider.identifier
-        try:
-            append_fixtures_new_identifiers(
-                identifier, sorted(pids, key=lambda x: int(x)), PatronProvider.pid_type
-            )
-        except Exception as err:
+        count, err = append_fixtures_new_identifiers(
+            identifier, sorted(pids, key=lambda x: int(x))
+        )
+        click.echo(f"DB commit append: {count}")
+        if err:
             click.secho(f"ERROR append fixtures new identifiers: {err}", fg="red")
     if error_records:
         name, ext = os.path.splitext(infile.name)

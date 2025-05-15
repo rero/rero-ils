@@ -21,7 +21,6 @@ from copy import deepcopy
 
 import pytest
 from invenio_circulation.errors import CirculationException
-from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.loans.api import (
@@ -32,6 +31,7 @@ from rero_ils.modules.loans.api import (
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.loans.utils import can_be_requested
 from rero_ils.modules.locations.api import LocationsSearch
+from tests.utils import item_record_to_a_specific_loan_state
 
 
 def test_loan_utils(
