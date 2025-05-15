@@ -181,7 +181,9 @@ class MEFProxyMixin:
                 return f'({" OR ".join(value)})'
             return f'"{str(value)}"'
 
-        query_params = [f"((autocomplete_name:{term})^2 OR {term})"]
+        query_params = [
+            f'(idref.authorized_access_point:"{term}" OR gnd.authorized_access_point:"{term}")^10 OR (autocomplete_name:{term} OR "{term}")^4 OR ({term})'
+        ]
         if self.sources:
             query_params.append(f"sources:{_build_filter_value(self.sources)}")
         for filter_field in self.filters:
