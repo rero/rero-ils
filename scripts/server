@@ -96,7 +96,7 @@ done
 
 # Start Worker and Beat
 if $worker; then
-  celery --app rero_ils.celery worker --loglevel ${CELERY_LOG_LEVEL} --beat --scheduler rero_ils.schedulers.RedisScheduler & PID_CELERY=$!
+  celery --app rero_ils.celery worker --loglevel ${CELERY_LOG_LEVEL} --beat --scheduler rero_ils.schedulers.DatabaseScheduler & PID_CELERY=$!
 fi
 
 # Start Server

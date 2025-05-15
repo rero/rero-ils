@@ -19,11 +19,11 @@
 
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.models import LoanAction
+from tests.utils import postdata
 
 
 def test_items_in_transit_between_libraries(

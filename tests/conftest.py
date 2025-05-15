@@ -28,13 +28,13 @@ from dotenv import load_dotenv
 
 pytest_plugins = (
     "celery.contrib.pytest",
-    "fixtures.circulation",
-    "fixtures.metadata",
-    "fixtures.organisations",
-    "fixtures.acquisition",
-    "fixtures.sip2",
-    "fixtures.basics",
-    "fixtures.mef",
+    "tests.fixtures.circulation",
+    "tests.fixtures.metadata",
+    "tests.fixtures.organisations",
+    "tests.fixtures.acquisition",
+    "tests.fixtures.sip2",
+    "tests.fixtures.basics",
+    "tests.fixtures.mef",
 )
 
 
@@ -174,7 +174,7 @@ def can_delete_json_header():
 def app_config(app_config):
     """Create temporary instance dir for each test."""
     app_config["CELERY_BROKER_URL"] = "memory://"
-    app_config["RATELIMIT_STORAGE_URL"] = "memory://"
+    app_config["RATELIMIT_STORAGE_URI"] = "memory://"
     app_config["CACHE_TYPE"] = "simple"
     app_config["SEARCH_ELASTIC_HOSTS"] = None
     app_config["SQLALCHEMY_DATABASE_URI"] = (
@@ -191,8 +191,7 @@ def app_config(app_config):
     app_config["CACHE_REDIS_URL"] = "redis://localhost:6379/0"
     app_config["ACCOUNTS_SESSION_REDIS_URL"] = "redis://localhost:6379/1"
     app_config["CELERY_RESULT_BACKEND"] = "redis://localhost:6379/2"
-    app_config["RATELIMIT_STORAGE_URL"] = "redis://localhost:6379/3"
-    app_config["CELERY_REDIS_SCHEDULER_URL"] = "redis://localhost:6379/4"
+    app_config["RATELIMIT_STORAGE_URI"] = "redis://localhost:6379/3"
     app_config["RERO_IMPORT_CACHE"] = "redis://localhost:6379/5"
     app_config["WTF_CSRF_ENABLED"] = False
     # enable operation logs validation for the tests

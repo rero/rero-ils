@@ -19,9 +19,9 @@
 """Utils for acquisitions."""
 import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, postdata
 
 from rero_ils.modules.utils import get_record_class_from_schema_or_pid_type
+from tests.utils import VerifyRecordPermissionPatch, postdata
 
 
 @mock.patch(
