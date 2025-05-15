@@ -18,12 +18,11 @@
 
 """Mef entities record tests."""
 
-from utils import get_mapping
-
 from rero_ils.modules.entities.remote_entities.api import (
     RemoteEntitiesSearch,
     RemoteEntity,
 )
+from tests.utils import get_mapping
 
 
 def test_remote_entity_es_mapping(search_clear, db, entity_person_data_tmp):

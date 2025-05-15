@@ -125,28 +125,16 @@ def test_contribution_format(db, entity_organisation):
 
     # ---- Textual contribution
     # With english language
-    link_part = (
-        "/global/search/documents?q="
-        "contribution.entity.authorized_access_point_en%3A"
-        "%22author_def%22"
-    )
+    link_part = "/global/search/documents?q=contribution.entity.authorized_access_point_en:%22author_def%22"
     assert link_part in contribution_format(contributions, "en", "global")
 
     # With french language
-    link_part = (
-        "/global/search/documents?q="
-        "contribution.entity.authorized_access_point_fr%3A"
-        "%22author_fr%22"
-    )
+    link_part = "/global/search/documents?q=contribution.entity.authorized_access_point_fr:%22author_fr%22"
     assert link_part in contribution_format(contributions, "fr", "global")
 
     # ---- Remote contribution
     contributions = [{"entity": {"pid": entity.pid}}]
-    link_part = (
-        f"/global/search/documents?q="
-        f"contribution.entity.pids.{entity.resource_type}%3A"
-        f"{entity.pid}"
-    )
+    link_part = f"/global/search/documents?q=contribution.entity.pids.{entity.resource_type}:{entity.pid}"
     assert link_part in contribution_format(contributions, "en", "global")
 
 

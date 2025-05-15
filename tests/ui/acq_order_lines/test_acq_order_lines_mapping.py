@@ -17,12 +17,11 @@
 
 """Acquisition order line Record mapping tests."""
 
-from utils import get_mapping
-
 from rero_ils.modules.acquisition.acq_order_lines.api import (
     AcqOrderLine,
     AcqOrderLinesSearch,
 )
+from tests.utils import get_mapping
 
 
 def test_acq_order_lines_es_mapping(

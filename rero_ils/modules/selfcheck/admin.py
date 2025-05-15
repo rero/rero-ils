@@ -21,7 +21,6 @@
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.form.fields import DateTimeField
 from flask_babel import gettext as _
-from werkzeug.local import LocalProxy
 from wtforms.fields import SelectField
 from wtforms.validators import DataRequired
 
@@ -62,12 +61,10 @@ class SelfcheckTerminalView(ModelView):
         location_pid=dict(
             label="Location",
             validators=[DataRequired()],
-            choices=LocalProxy(
-                lambda: [
-                    (opts.get("location_pid"), opts.get("location_name"))
-                    for opts in locations_form_options()
-                ]
-            ),
+            choices=lambda: [
+                (opts.get("location_pid"), opts.get("location_name"))
+                for opts in locations_form_options()
+            ],
         ),
     )
 

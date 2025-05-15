@@ -27,13 +27,13 @@ import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from jsonschema.exceptions import ValidationError
-from utils import get_json, postdata
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.utils import get_ref_for_pid, get_schema_for_resource
+from tests.utils import get_json, postdata
 
 
 def test_pattern_preview_api(

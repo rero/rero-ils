@@ -19,9 +19,9 @@
 
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.items.models import ItemStatus
+from tests.utils import postdata
 
 
 def test_extend_loan_missing_parameters(

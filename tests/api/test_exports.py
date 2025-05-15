@@ -21,9 +21,9 @@
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
-from utils import get_csv, parse_csv
 
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import get_csv, parse_csv
 
 
 def test_loans_exports(

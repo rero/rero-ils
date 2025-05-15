@@ -275,11 +275,11 @@ def create(
     if append:
         click.secho(f"Append fixtures new identifiers: {len(pids)}")
         identifier = record_class.provider.identifier
-        try:
-            append_fixtures_new_identifiers(
-                identifier, sorted(pids, key=lambda x: int(x)), pid_type
-            )
-        except Exception as err:
+        count, err = append_fixtures_new_identifiers(
+            identifier, sorted(pids, key=lambda x: int(x))
+        )
+        click.echo(f"DB commit append: {count}")
+        if err:
             click.secho(f"ERROR append fixtures new identifiers: {err}", fg="red")
 
 
