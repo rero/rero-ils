@@ -22,12 +22,12 @@ from copy import deepcopy
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata
 
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.patron_transaction_events.models import PatronTransactionEventType
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata
 
 
 def test_patron_payment(

@@ -30,7 +30,7 @@ def migration(es_indices, lib_martigny):
     data = dict(
         name="name",
         library_pid=str(lib_martigny.pid),
-        conversion_code="mock_modules.Converter",
+        conversion_code="tests.mock_modules.Converter",
     )
     index = Index(Migration.Index.name)
     migration = Migration(**data)

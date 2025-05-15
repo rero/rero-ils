@@ -25,13 +25,13 @@ from invenio_access.models import ActionUsers
 from invenio_access.permissions import superuser_access
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
-from utils import get_json
 
 from rero_ils.modules.entities.remote_entities.api import (
     RemoteEntitiesSearch,
     RemoteEntity,
 )
 from rero_ils.modules.utils import get_timestamp, set_timestamp
+from tests.utils import get_json
 
 
 def test_monitoring_es_db_counts(client):

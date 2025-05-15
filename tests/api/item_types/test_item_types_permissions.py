@@ -20,9 +20,9 @@ from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security.utils import login_user
 from invenio_accounts.testutils import login_user_via_session
-from utils import check_permission, get_json
 
 from rero_ils.modules.patron_types.permissions import PatronTypePermissionPolicy
+from tests.utils import check_permission, get_json
 
 
 def test_item_types_permissions_api(

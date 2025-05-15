@@ -20,12 +20,12 @@
 from datetime import datetime
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan, LoanState
 from rero_ils.modules.locations.api import Location
+from tests.utils import postdata
 
 
 def test_checking_out_external_items_at_non_circ_library(

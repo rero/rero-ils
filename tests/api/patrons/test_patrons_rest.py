@@ -26,13 +26,13 @@ from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.patrons.utils import create_user_from_data
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 def test_patrons_shortcuts(

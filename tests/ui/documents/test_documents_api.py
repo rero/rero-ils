@@ -25,7 +25,6 @@ import mock
 import pytest
 from invenio_db import db
 from jsonschema.exceptions import ValidationError
-from utils import mock_response
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.documents.api import (
@@ -42,6 +41,7 @@ from rero_ils.modules.entities.remote_entities.api import (
 )
 from rero_ils.modules.entities.remote_entities.utils import extract_data_from_mef_uri
 from rero_ils.modules.tasks import process_bulk_queue
+from tests.utils import mock_response
 
 
 def test_document_create(db, document_data_tmp):

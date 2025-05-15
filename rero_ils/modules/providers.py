@@ -19,24 +19,44 @@
 
 from __future__ import absolute_import, print_function
 
-import click
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus
 from invenio_pidstore.providers.base import BaseProvider
+from sqlalchemy import text
 
 
-def append_fixtures_new_identifiers(identifier, pids, pid_type, limit=100000):
+def set_sequence(identifier):
+    """Internal function to reset sequence to specific value.
+
+    Note: this function is for PostgreSQL compatibility.
+
+    :param identifier: The identifier to be set.
+    """
+    if db.engine.dialect.name == "postgresql":  # pragma: no cover
+        db.session.execute(
+            text(
+                f"SELECT setval(pg_get_serial_sequence('{identifier.__tablename__}', 'recid'), :newval)"
+            ),
+            dict(newval=identifier.max()),
+        )
+
+
+def append_fixtures_new_identifiers(identifier, pids):
     """Insert pids into the indentifier table and update its sequence."""
     idx = 0
-    for idx, pid in enumerate(pids, 1):
-        db.session.add(identifier(recid=pid))
-        if idx % limit == 0:
-            click.echo(f"DB commit append: {idx}")
-            db.session.commit()
-    db.session.commit()
-    identifier._set_sequence(identifier.max())
-    click.echo(f"DB commit append: {idx}")
+    error = ""
+    try:
+        with db.session.begin_nested():
+            for idx, pid in enumerate(pids, 1):
+                db.session.add(identifier(recid=pid))
+            try:
+                set_sequence(identifier)
+            except Exception as err:
+                error = err
+    except Exception as err:
+        error = f"{error} {err}"
+    return idx, error
 
 
 class Provider(BaseProvider):

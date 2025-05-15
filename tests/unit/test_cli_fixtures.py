@@ -21,9 +21,9 @@ from os.path import dirname, join
 
 import mock
 from click.testing import CliRunner
-from utils import mock_response
 
 from rero_ils.modules.cli.fixtures import count_cli, create
+from tests.utils import mock_response
 
 
 def test_count(app):

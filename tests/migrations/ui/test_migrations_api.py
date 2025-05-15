@@ -36,7 +36,7 @@ def test_migrations_create(es_indices, lib_martigny):
     migration = Migration(
         name="name",
         library_pid=lib_martigny.pid,
-        conversion_code="mock_modules.Converter",
+        conversion_code="tests.mock_modules.Converter",
     )
     assert migration.library
     assert migration.conversion_class.convert

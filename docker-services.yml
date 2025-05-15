@@ -57,7 +57,7 @@ services:
     ports:
       - "6379:6379"
   db:
-    image: postgres:12
+    image: postgres:17
     restart: "unless-stopped"
     environment:
       - "POSTGRES_USER=rero-ils"

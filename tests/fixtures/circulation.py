@@ -23,11 +23,6 @@ from datetime import datetime, timedelta, timezone
 import mock
 import pytest
 from invenio_db import db
-from utils import (
-    create_patron,
-    item_record_to_a_specific_loan_state,
-    patch_expiration_date,
-)
 
 from rero_ils.modules.cli.fixtures import load_role_policies, load_system_role_policies
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
@@ -46,6 +41,11 @@ from rero_ils.modules.patron_transactions.api import (
 from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.users.models import UserRole
 from rero_ils.modules.utils import extracted_data_from_ref
+from tests.utils import (
+    create_patron,
+    item_record_to_a_specific_loan_state,
+    patch_expiration_date,
+)
 
 
 @pytest.fixture(scope="module")
