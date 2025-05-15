@@ -19,9 +19,9 @@
 
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.loans.models import LoanAction
+from tests.utils import postdata
 
 
 def test_document_with_one_item_attached_bug(

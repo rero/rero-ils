@@ -161,6 +161,9 @@ def translations(ln):
     babel = current_app.extensions["babel"]
     paths = babel.default_directories
     try:
+        for path in paths:
+            current_app.logger.error(f"-----> {path}")
+        current_app.logger.error(current_app.extensions["invenio-i18n"])
         path = next(p for p in paths if p.find("rero_ils") > -1)
     except StopIteration:
         current_app.logger.error(f"translations for {ln} does not exist")

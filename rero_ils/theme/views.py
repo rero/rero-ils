@@ -46,22 +46,12 @@ from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.utils import cached
 from rero_ils.permissions import can_access_professional_view
 
-from .menus import init_menu_lang, init_menu_profile, init_menu_tools
-
 blueprint = Blueprint(
     "rero_ils",
     __name__,
     template_folder="templates",
     static_folder="static",
 )
-
-
-@blueprint.before_app_first_request
-def init_menu():
-    """Create the header menus."""
-    init_menu_tools()
-    init_menu_lang()
-    init_menu_profile()
 
 
 def check_organisation_viewcode(fn):

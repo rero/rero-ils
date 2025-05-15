@@ -17,132 +17,110 @@
 
 """Celery database scheduler using invenios database."""
 
-from collections import namedtuple
-from copy import deepcopy
+
+import contextlib
 
 import click
-import jsonpickle
 from celery import current_app as current_celery
 from celery.utils.log import get_logger
 from flask.cli import with_appcontext
-from flask_celeryext._mapping import FLASK_TO_CELERY_MAPPING
-from redisbeat.scheduler import RedisScheduler as OriginalRedisScheduler
+from sqlalchemy_celery_beat import DatabaseScheduler as OriginalDatabaseScheduler
+from sqlalchemy_celery_beat.models import PeriodicTask
+from sqlalchemy_celery_beat.schedulers import ModelEntry as ScheduleEntry
+from sqlalchemy_celery_beat.session import session_cleanup
 from werkzeug.local import LocalProxy
 
-current_scheduler = LocalProxy(lambda: RedisScheduler(app=current_celery, lazy=True))
+current_scheduler = LocalProxy(lambda: DatabaseScheduler(app=current_celery, lazy=True))
 
 logger = get_logger(__name__)
-schedstate = namedtuple("schedstate", ("is_due", "next"))
 
 
-class RedisScheduler(OriginalRedisScheduler):
-    """RedisScheduler with stores information in REDIS.
+class ModelEntry(ScheduleEntry):
+    """Scheduler entry taken from database row."""
+
+    @classmethod
+    def from_entry(cls, name, Session, app=None, **entry):
+        """Creates ModelEntry from entry.
+
+        **entry sample:
+
+        {
+            'task': 'celery.backend_cleanup',
+            'schedule': schedules.crontab('0', '4', '*'),
+            'options': {'expires': 43200}
+        }
+
+        """
+        session = Session()
+        with session_cleanup(session):
+            periodic_task = session.query(PeriodicTask).filter_by(name=name).first()
+            temp = cls._unpack_fields(session, **entry)
+            enabled = temp.pop("enabled", False)
+            if not periodic_task:
+                periodic_task = PeriodicTask(name=name, **temp)
+            else:
+                # Get enabled and do not update the periodic task
+                enabled = periodic_task.enabled
+                # periodic_task.update(**temp)
+            session.add(periodic_task)
+            session.commit()
+            res = cls(periodic_task, app=app, Session=Session)
+            res.model.enabled = res.enabled = enabled
+            session.commit()
+            return res
+
+
+class DatabaseScheduler(OriginalDatabaseScheduler):
+    """DatabaseScheduler with stores information in DB.
 
     To start celery worker beat using this backend we have to call celery
     with following parameter:
-        ``-S rero_ils.schedulers.RedisScheduler``
+        ``-S rero_ils.schedulers.DatabaseScheduler``
     Example:
         ``celery worker -A invenio_app.celery --beat
-            -S rero_ils.schedulers.RedisScheduler``
+            -S rero_ils.schedulers.DatabaseScheduler``
 
     base class:
-        https://github.com/liuliqiang/redisbeat
+        https://github.com/farahats9/sqlalchemy-celery-beat
     celery BeaseSchedule:
-        https://github.com/celery/celery/blob/master/celery/schedules.py
+        hhttps://github.com/farahats9/sqlalchemy-celery-beat/blob/master/sqlalchemy_celery_beat/schedulers.py
 
     entries: https://docs.celeryproject.org/en/latest/userguide/
         periodic-tasks.html#entries
     """
 
-    def __init__(self, app, *args, **kwargs):
-        """Redis scheduler class initializer.
+    Entry = ModelEntry
+
+    def __init__(self, *args, **kwargs):
+        """Database scheduler class initializer.
 
         :param app: current celery
         :param lazy: Do not run setup_schedule
         :param args: see base class definitions
         :param kwargs: see base class definitions
         """
-        lazy = kwargs.get("lazy", False)
-        url = app.conf.get("CELERY_REDIS_SCHEDULER_URL", "redis://localhost:6379")
-        logger.info(f"Connect: {url} lazy:{lazy}")
-        kwargs["app"] = app
-        kwargs["lazy"] = lazy
+        app = kwargs["app"]
+        if dburi := app.conf.get("CELERY_BEAT_DBURI"):
+            app.conf["beat_dburi"] = dburi
+            logger.info(f"Scheduler connect db: {dburi}")
+        if engine_options := app.conf.get("CELERY_BEAT_ENGINE_OPTIONS"):
+            app.conf["beat_engine_options"] = engine_options
+            logger.info(f"Scheduler engine options: {engine_options}")
+        if schedules := app.conf.get("CELERY_BEAT_SCHEDULE"):
+            app.conf["beat_schedule"] = schedules
+            logger.info(f"Schedules: {schedules}")
+        app.conf["result_expires"] = False
+
         super().__init__(*args, **kwargs)
 
     def get(self, name):
-        """Get schedule from REDIS DB.
+        """Get schedule from DB.
 
         :param name: name of entry in task scheduler
         :return: scheduled task
         """
-        tasks = self.rdb.zrange(self.key, 0, -1) or []
-        for task in tasks:
-            entry = jsonpickle.decode(task)
-            if entry.name == name:
-                return entry
-
-    def enabled_name(self, name):
-        """Name for enabled value in REDIS DB.
-
-        :param name: name of entry in task scheduler
-        :return: name of the enable key in REDIS DB
-        """
-        return f"{self.key}:{name}"
-
-    def merge_inplace(self, tasks):
-        """Merge entries from CELERY_BEAT_SCHEDULE.
-
-        :param tasks: dictionary with CELERY_BEAT_SCHEDULE tasks
-        """
-        for name in tasks:
-            enabled = tasks[name].pop("enabled", True)
-            if not self.rdb.get(self.enabled_name(name)):
-                self.rdb[self.enabled_name(name)] = int(enabled)
-        super().merge_inplace(tasks)
-
-    def setup_schedule(self):
-        """Init entries from CELERY_BEAT_SCHEDULE."""
-        beat_schedule = FLASK_TO_CELERY_MAPPING["CELERY_BEAT_SCHEDULE"]
-        config = deepcopy(self.app.conf.get(beat_schedule))
-        self.merge_inplace(config)
-        current_schedule = "\n".join(self.display_all(prefix="- Tasks: "))
-        msg = f"Current schedule:\n {current_schedule}"
-        logger.info(msg)
-
-    def is_due(self, entry):
-        """Return tuple of ``(is_due, next_time_to_check)``.
-
-        Notes:
-            - next time to check is in seconds.
-            - ``(True, 20)``, means the task should be run now, and the next
-                time to check is in 20 seconds.
-            - ``(False, 12.3)``, means the task is not due, but that the
-              scheduler should check again in 12.3 seconds.
-        The next time to check is used to save energy/CPU cycles,
-
-        We get the enabled state for the task directly from REDIS DB.
-
-        :param entry: periodic task entry (see class commands)
-        :return: the state of the entry as schedstate
-        """
-        if self.get_entry_enabled(entry.name):
-            return entry.is_due()
-        msg = (
-            f"Not enabled: {entry.name} = {entry.task} "
-            f"{repr(entry.schedule)} {entry.kwargs}"
-        )
-        logger.info(msg)
-        return schedstate(is_due=False, next=entry.is_due().next)
-
-    def set(self, entry, enable=True):
-        """Sets an entry.
-
-        :param entry: periodic task entry (see class commands)
-        :return: True if successful
-        """
-        # TODO: find a way to change a entry in zrange directly.
-        self.remove(entry.name)
-        return self.add_entry(entry, enable=enable)
+        with contextlib.suppress(KeyError):
+            return self.schedule[name]
 
     def remove(self, name):
         """Remove a scheduled task.
@@ -150,82 +128,63 @@ class RedisScheduler(OriginalRedisScheduler):
         :param name: name of entry in task scheduler
         :return: True if successful
         """
-        enabled_name = self.enabled_name(name)
-        if self.rdb.get(enabled_name):
-            del self.rdb[enabled_name]
-        return super().remove(task_key=name)
+        with contextlib.suppress(KeyError):
+            entry = self.schedule[name]
+            session = self.Session()
+            with session_cleanup(session):
+                session.delete(entry.model)
+                session.commit()
+                return True
+        return False
 
     def reset(self):
         """Reset all scheduled tasks."""
-        for entry in self.rdb.zrange(self.key, 0, -1):
-            entry = jsonpickle.decode(entry)
-            enabled_name = self.enabled_name(entry.name)
-            if self.rdb.get(enabled_name):
-                del self.rdb[enabled_name]
-        self._remove_db()
+        session = self.Session()
+        with session_cleanup(session):
+            for _, entry in self.all_as_schedule().items():
+                session.delete(entry.model)
+            session.commit()
 
-    def add_entry(self, entry, enable=True):
-        """Add an entry.
+    def all_as_schedule(self):
+        """Get all schedules."""
+        session = self.Session()
+        with session_cleanup(session):
+            # get all enabled PeriodicTask
+            models = session.query(self.Model).all()
+            schedules = {}
+            for model in models:
+                with contextlib.suppress(ValueError):
+                    schedules[model.name] = self.Entry(
+                        model, app=self.app, Session=self.Session
+                    )
+            return schedules
 
-        Adds an entry to the task scheduler.
-
-        :param entry: periodic task entry (see class commands)
-        :param enable: enable or disable scheduling
-        :return: True if successful
-        """
-        result = self.add(
-            **{
-                "name": entry.name,
-                "task": entry.task,
-                "schedule": entry.schedule,
-                "args": entry.args,
-                "kwargs": entry.kwargs,
-                "options": entry.options,
-            }
-        )
-        if result:
-            self.set_entry_enabled(name=entry.name, enable=enable)
-        return result
-
-    def display_entry(self, name, prefix="- "):
+    def display_entry(self, entry, prefix="- "):
         """Display an entry.
 
         :param name: name of entry in task scheduler
         :param prefix: prefix to add to returned info
         :return: entry as string representative
         """
-        entry_as_text = f"Not found entry: {name}"
-        if entry := self.get(name):
-            entry_as_text = (
-                f"{prefix}{entry.name} = {entry.task} {repr(entry.schedule)} "
-                f"kwargs:{entry.kwargs} "
-                f"options:{entry.options} "
-                f"enabled:{self.get_entry_enabled(name)}"
-            )
-        return entry_as_text
+        # return f"{prefix}{name} = {data} "
+        return (
+            f"{prefix}{entry.name} = {entry.task} | {repr(entry.schedule)} | "
+            f"kwargs:{entry.kwargs} | "
+            # f"options:{entry.options} "
+            f"enabled:{entry.model.enabled}"
+        )
 
     def display_all(self, prefix="- "):
         """Display all entries.
 
-        :param prefix: prefix to add to returned info
         :return: list of entry as string representative
         """
         entries_as_text_list = []
-        for entry in self.rdb.zrange(self.key, 0, -1):
-            entry = jsonpickle.decode(entry)
-            entries_as_text_list.append(
-                self.display_entry(name=entry.name, prefix=prefix)
-            )
+        entries_as_text_list.extend(
+            self.display_entry(entry=entry, prefix=prefix)
+            for _, entry in sorted(self.all_as_schedule().items())
+        )
         return entries_as_text_list
-
-    def get_entry_enabled(self, name):
-        """Get the enabled status.
-
-        :param name: name of entry in task scheduler
-        :return: enabled status
-        """
-        value = self.rdb.get(self.enabled_name(name))
-        return value is None or value == b"1"
 
     def set_entry_enabled(self, name, enable=True):
         """Set enabled of an entry.
@@ -239,15 +198,24 @@ class RedisScheduler(OriginalRedisScheduler):
         :param name: name of entry in task scheduler
         :param enable: enable or disable scheduling
         """
-        if self.get(name):
-            enabled_name = f"{self.key}:{name}"
-            self.rdb[enabled_name] = int(enable)
+        with contextlib.suppress(KeyError):
+            entry = self.schedule[name]
+            entry.model.enabled = entry.enabled = enable
+            session = self.Session()
+            with session_cleanup(session):
+                session.add(entry.model)
+                session.commit()
+                session.refresh(entry.model)
 
     def set_enable_all(self, enable=True):
         """Set enabled for entries."""
-        for entry in self.rdb.zrange(self.key, 0, -1):
-            entry = jsonpickle.decode(entry)
-            self.set_entry_enabled(name=entry.name, enable=enable)
+        session = self.Session()
+        with session_cleanup(session):
+            for entry in self.all_as_schedule().values():
+                entry.model.enabled = entry.enabled = enable
+                session.add(entry.model)
+                session.commit()
+                session.refresh(entry.model)
 
 
 # cli: command line code for scheduler ---------------------------------------
@@ -257,7 +225,7 @@ def scheduler():
     """Scheduler management commands."""
 
 
-@scheduler.command("info")
+@scheduler.command()
 @with_appcontext
 def info():
     """Displays infos about all periodic tasks."""
@@ -265,7 +233,7 @@ def info():
     click.echo("\n".join(current_scheduler.display_all()))
 
 
-@scheduler.command("")
+@scheduler.command()
 @click.option("-r", "--reset", "reset", is_flag=True, default=False)
 @click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
 @with_appcontext
@@ -276,22 +244,22 @@ def init(reset, verbose):
     :param verbose: verbose output
     """
     if reset:
-        click.secho("Reset REDIS scheduler!", fg="red", bold=True)
+        click.secho("Reset DB scheduler!", fg="red", bold=True)
         current_scheduler.reset()
     else:
-        click.secho("Initalize REDIS scheduler!", fg="yellow")
+        click.secho("Initalize DB scheduler!", fg="yellow")
     current_scheduler.setup_schedule()
     if verbose:
         click.echo("\n".join(current_scheduler.display_all()))
 
 
-@scheduler.command("")
-@click.option("-a", "--all", "all", is_flag=True, default=False)
+@scheduler.command()
+@click.option("-a", "--all", "all_", is_flag=True, default=False)
 @click.option("-n", "--name", "names", multiple=True, default=None)
 @click.option("-d", "--disable", "disable", is_flag=True, default=False)
 @click.option("-v", "--verbose", "verbose", is_flag=True, default=False)
 @with_appcontext
-def enable_tasks(all, names, disable, verbose):
+def enable_tasks(all_, names, disable, verbose):
     """Enable or disable a periodic tasks.
 
     :param all: change all tasks
@@ -301,7 +269,7 @@ def enable_tasks(all, names, disable, verbose):
     """
     if verbose:
         click.secho("Scheduler tasks enabled:", fg="green")
-    if all:
+    if all_:
         current_scheduler.set_enable_all(not disable)
         if verbose:
             click.echo("\n".join(current_scheduler.display_all()))
@@ -311,4 +279,7 @@ def enable_tasks(all, names, disable, verbose):
             name = name.strip()
             current_scheduler.set_entry_enabled(name=name, enable=not disable)
             if verbose:
-                click.echo(current_scheduler.display_entry(name=name))
+                if entry := current_scheduler.get(name=name):
+                    click.echo(current_scheduler.display_entry(entry=entry))
+                else:
+                    click.secho(f"Not found entry: {name}", fg="red")

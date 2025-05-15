@@ -90,8 +90,6 @@ def user_without_name(db, default_user_password):
 @pytest.fixture(scope="module")
 def create_app():
     """Create test app."""
-    # from invenio_app.factory import create_ui
-    # create_ui
     from invenio_app.factory import create_ui
 
     return create_ui

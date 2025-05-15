@@ -20,12 +20,12 @@ import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
-from utils import check_permission
 
 from rero_ils.modules.acquisition.acq_order_lines.permissions import (
     AcqOrderLinePermissionPolicy,
 )
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
+from tests.utils import check_permission
 
 
 def test_order_lines_permissions(

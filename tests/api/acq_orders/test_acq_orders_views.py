@@ -20,7 +20,6 @@
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
 from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
@@ -35,6 +34,7 @@ from rero_ils.modules.notifications.models import (
 )
 from rero_ils.modules.vendors.dumpers import VendorAcquisitionNotificationDumper
 from rero_ils.modules.vendors.models import VendorContactType
+from tests.utils import get_json, postdata
 
 
 def test_order_notification_preview(
