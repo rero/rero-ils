@@ -20,13 +20,13 @@ import json
 from copy import deepcopy
 
 import mock
-from api.acquisition.acq_utils import _del_resource, _make_resource
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.api.acquisition.acq_utils import _del_resource, _make_resource
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 @mock.patch(

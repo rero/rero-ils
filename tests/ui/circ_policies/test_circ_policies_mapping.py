@@ -17,9 +17,8 @@
 
 """Circulation Policy Record tests."""
 
-from utils import get_mapping
-
 from rero_ils.modules.circ_policies.api import CircPoliciesSearch, CircPolicy
+from tests.utils import get_mapping
 
 
 def test_circ_policy_es_mapping(
