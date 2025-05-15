@@ -24,13 +24,13 @@ from datetime import datetime, timedelta, timezone
 import jsonref
 import xmltodict
 from flask import url_for
+from importlib_resources import files
 from invenio_accounts.testutils import login_user_via_session, login_user_via_view
 from invenio_circulation.api import get_loan_for_item
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
 from invenio_search import current_search
 from mock import MagicMock, Mock
-from pkg_resources import resource_string
 from six import StringIO
 from six.moves.urllib.parse import parse_qs, urlparse
 
@@ -247,7 +247,7 @@ def jsonloader(uri, **kwargs):
             path = f"rero_ils.modules.{ref_split[-2]}.jsonschemas"
         name = f"{ref_split[-2]}/{ref_split[-1]}"
 
-    schema_in_bytes = resource_string(path, name)
+    schema_in_bytes = files(path).joinpath(name).read_bytes()
     return json.loads(schema_in_bytes.decode("utf8"))
 
 
