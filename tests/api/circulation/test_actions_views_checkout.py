@@ -20,9 +20,9 @@ from datetime import datetime, timedelta
 
 import ciso8601
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.items.models import ItemStatus
+from tests.utils import postdata
 
 
 def test_checkout_missing_parameters(

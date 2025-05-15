@@ -16,12 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Patron transaction event record mapping tests."""
-from utils import get_mapping
-
 from rero_ils.modules.patron_transaction_events.api import (
     PatronTransactionEvent,
     PatronTransactionEventsSearch,
 )
+from tests.utils import get_mapping
 
 
 def test_patron_transaction_event_es_mapping(

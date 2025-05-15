@@ -19,7 +19,8 @@
 
 from flask.helpers import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+
+from tests.utils import postdata
 
 
 def test_loans_serializer_with_deleted_item(
