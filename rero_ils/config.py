@@ -2445,7 +2445,6 @@ RECORDS_REST_FACETS = dict(
             vendor=dict(
                 terms=dict(field="vendor.pid", size=ACQ_ORDER_AGGREGATION_SIZE)
             ),
-            type=dict(terms=dict(field="type", size=ACQ_ORDER_AGGREGATION_SIZE)),
             status=dict(terms=dict(field="status", size=ACQ_ORDER_AGGREGATION_SIZE)),
             account=dict(
                 terms=dict(
@@ -2457,7 +2456,7 @@ RECORDS_REST_FACETS = dict(
             ),
             order_date=dict(
                 date_histogram=dict(
-                    field="order_lines.order_date",
+                    field="order_date",
                     calendar_interval="1d",
                     format="yyyy-MM-dd",
                 )
@@ -2473,11 +2472,10 @@ RECORDS_REST_FACETS = dict(
         filters={
             _("library"): and_term_filter("library.pid"),
             _("vendor"): and_term_filter("vendor.pid"),
-            _("type"): and_term_filter("type"),
             _("account"): and_term_filter("order_lines.account.pid"),
             _("budget"): and_term_filter("budget.pid"),
             _("order_date"): range_filter(
-                "order_lines.order_date",
+                "order_date",
                 format="epoch_millis",
                 start_date_math="/d",
                 end_date_math="/d",
