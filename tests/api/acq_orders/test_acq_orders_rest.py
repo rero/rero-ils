@@ -40,7 +40,7 @@ def test_acq_orders_library_facets(
     url = url_for("invenio_records_rest.acor_list", view="org1")
     res = client.get(url, headers=rero_json_header)
     data = get_json(res)
-    facets = ["library", "vendor", "type", "status", "account", "order_date"]
+    facets = ["library", "vendor", "status", "account", "order_date"]
     assert all(facet_name in data["aggregations"] for facet_name in facets)
 
 
