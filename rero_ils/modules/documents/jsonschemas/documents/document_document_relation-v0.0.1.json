@@ -268,7 +268,7 @@
             "formlyConfig": {
               "type": "remoteAutoComplete",
               "props": {
-                "scrollHeight": "400px",
+                "scrollHeight": "50vh",
                 "validation": {
                   "messages": {
                     "patternMessage": "Should be in the following format: https://bib.rero.ch/api/documents/<PID>."

@@ -19,7 +19,7 @@
         "formlyConfig": {
           "type": "entity-autocomplete",
           "props": {
-            "scrollHeight": "600px",
+            "scrollHeight": "50vh",
             "group": true,
             "filters": {
               "selected": "bf:Person",
