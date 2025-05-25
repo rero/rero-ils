@@ -24,7 +24,7 @@ from celery import shared_task
 from flask import current_app
 from invenio_records_rest.utils import obj_or_import_string
 
-from rero_ils.modules.utils import set_timestamp
+from rero_ils.modules.utils import get_timestamp, set_timestamp
 
 from .utils import get_apiharvest_object
 
@@ -62,17 +62,18 @@ def harvest_records(name, from_date=None, harvest_count=-1, verbose=False):
         if verbose:
             click.echo(msg)
         current_app.logger.info(msg)
-        timestamp_data = {
-            name: {
-                "name": name,
-                "totoal": total,
-                "count": count,
-                "new": harvest.count_new,
-                "update": harvest.count_upd,
-                "delete": harvest.count_del,
-                "from": from_date,
-                "max": harvest_count,
-            }
+        # get old timestamps
+        timestamp_data = get_timestamp("api_harvester") or {}
+        # set new values
+        timestamp_data[name] = {
+            "name": name,
+            "totoal": total,
+            "count": count,
+            "new": harvest.count_new,
+            "update": harvest.count_upd,
+            "delete": harvest.count_del,
+            "from": from_date,
+            "max": harvest_count,
         }
         set_timestamp("api_harvester", **timestamp_data)
     else:
