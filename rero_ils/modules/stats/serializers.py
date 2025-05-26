@@ -83,7 +83,7 @@ class StatCSVSerializer(CSVSerializer):
 
             # write the CSV output in memory
             line = Line()
-            writer = csv.DictWriter(line, fieldnames=sorted(headers))
+            writer = csv.DictWriter(line, dialect="excel", fieldnames=sorted(headers))
             writer.writeheader()
             yield line.read()
             # sort by library name

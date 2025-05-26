@@ -56,7 +56,9 @@ class PatronTransactionEventCSVSerializer(CSVSerializer, CachedDataSerializerMix
 
             # write the CSV output in memory
             line = Line()
-            writer = csv.DictWriter(line, quoting=csv.QUOTE_ALL, fieldnames=headers)
+            writer = csv.DictWriter(
+                line, dialect="excel", quoting=csv.QUOTE_ALL, fieldnames=headers
+            )
             writer.writeheader()
             yield line.read()
 

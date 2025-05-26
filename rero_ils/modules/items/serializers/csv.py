@@ -83,7 +83,9 @@ class ItemCSVSerializer(CSVSerializer, CachedDataSerializerMixin):
 
             # write the CSV output in memory
             line = Line()
-            writer = DictWriter(line, quoting=QUOTE_ALL, fieldnames=headers)
+            writer = DictWriter(
+                line, dialect="excel", quoting=QUOTE_ALL, fieldnames=headers
+            )
             writer.writeheader()
             yield line.read()
 
