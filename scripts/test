@@ -77,8 +77,14 @@ function pretests () {
   add_exceptions "GHSA-79v4-65xg-pq4g"
   # jsonpickle   1.4.2   GHSA-j66q-qmrc-89rx
   add_exceptions "GHSA-j66q-qmrc-89rx"
+  # jupyter-core 5.7.2   GHSA-33p9-3p43-82vq 5.8.1
+  add_exceptions "GHSA-33p9-3p43-82vq"
   # py           1.11.0  PYSEC-2022-42969
   add_exceptions "PYSEC-2022-42969"
+  # redis        5.2.1   PYSEC-2023-312      6.2.0
+  add_exceptions "PYSEC-2023-312"
+  # requests     2.32.3  GHSA-9hjg-9r4m-mvj7 2.32.4
+  add_exceptions "GHSA-9hjg-9r4m-mvj7"
   # selenium     3.141.0 PYSEC-2023-206      4.14.0
   add_exceptions "PYSEC-2023-206"
   # selenium     3.141.0 PYSEC-2022-43167    4.0.0
