@@ -383,7 +383,6 @@
         "props": {
           "sort": true,
           "sortOrder": "asc",
-          "filter": true,
           "options": [
             {
               "label": "country_aa",

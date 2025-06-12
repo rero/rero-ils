@@ -494,7 +494,6 @@
         "type": "select",
         "props": {
           "sort": true,
-          "filter": true,
           "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
           "options": [
             {
@@ -2552,8 +2551,7 @@
       "formlyConfig": {
         "props": {
           "itemCssClass": "ui:col-span-12",
-          "hide": true,
-          "filter": true
+          "hide": true
         }
       }
     }

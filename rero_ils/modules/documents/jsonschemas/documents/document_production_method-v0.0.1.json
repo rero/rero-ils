@@ -34,7 +34,6 @@
           "type": "select",
           "props": {
             "sort": true,
-            "filter": true,
             "cssClass": "ui:w-md-50",
             "options": [
               {
