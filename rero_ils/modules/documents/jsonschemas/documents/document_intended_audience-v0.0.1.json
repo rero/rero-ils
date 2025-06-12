@@ -69,10 +69,9 @@
               ],
               "widget": {
                 "formlyConfig": {
-                  "type": "multi-select",
+                  "type": "select",
                   "props": {
                     "sort": true,
-                    "filter": true,
                     "itemCssClass": "ui:col-span-12 ui:md:col-span-6",
                     "options": [
                       {
@@ -238,7 +237,6 @@
                   "type": "select",
                   "props": {
                     "sort": true,
-                    "filter": true,
                     "options": [
                       {
                         "label": "target_school_harmos1",

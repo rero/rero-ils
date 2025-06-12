@@ -164,9 +164,8 @@
     "formlyConfig": {
       "type": "multi-select",
       "props": {
-        "filter": true,
         "sort": true,
-        "itemCssClass": "ui:w-full ui:md:w-6/12",
+        "itemCssClass": "ui:md:w-6/12",
         "options": [
           {
             "value": "aut",
