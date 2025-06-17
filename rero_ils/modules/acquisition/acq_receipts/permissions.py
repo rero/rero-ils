@@ -51,7 +51,9 @@ class AcqReceiptPermissionPolicy(RecordPermissionPolicy):
     can_update = [
         AllowedByActionRestrictByManageableLibrary(update_action),
         DisallowedIfRollovered(AcqReceipt),
-        DisallowedByOrderStatus(AcqReceipt, [AcqOrderStatus.PARTIALLY_RECEIVED]),
+        DisallowedByOrderStatus(
+            AcqReceipt, [AcqOrderStatus.PARTIALLY_RECEIVED, AcqOrderStatus.RECEIVED]
+        ),
     ]
     can_delete = [
         AllowedByActionRestrictByManageableLibrary(delete_action),

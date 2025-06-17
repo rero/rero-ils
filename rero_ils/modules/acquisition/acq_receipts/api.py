@@ -155,6 +155,7 @@ class AcqReceipt(AcquisitionIlsRecord):
         if order_status not in [
             AcqOrderStatus.ORDERED,
             AcqOrderStatus.PARTIALLY_RECEIVED,
+            AcqOrderStatus.RECEIVED,
         ]:
             return _(
                 f"Can not create a receipt with an order with a wrong status {order_status}."

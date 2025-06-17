@@ -229,7 +229,7 @@ def test_receipts_permissions(
                 "search": True,
                 "read": True,
                 "create": True,
-                "update": False,
+                "update": True,
                 "delete": True,
             },
             acq_receipt_fiction_martigny,
