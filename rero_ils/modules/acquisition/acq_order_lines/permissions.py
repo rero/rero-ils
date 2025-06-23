@@ -65,6 +65,7 @@ class AcqOrderLinePermissionPolicy(RecordPermissionPolicy):
         AllowedByActionRestrictByManageableLibrary(delete_action),
         DisallowedIfRollovered(AcqOrderLine),
         DisallowedByOrderStatus(
-            AcqOrderLine, [AcqOrderStatus.CANCELLED, AcqOrderStatus.PENDING]
+            record_cls=AcqOrderLine,
+            allowed_statuses=[AcqOrderStatus.CANCELLED, AcqOrderStatus.PENDING],
         ),
     ]

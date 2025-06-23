@@ -226,11 +226,20 @@ class AcqReceipt(AcquisitionIlsRecord):
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete receipt."""
+        from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, AcqOrderStatus
+
         cannot_delete = {}
         # Note: not possible to delete records attached to rolled_over budget.
         if not self.is_active:
             cannot_delete["links"] = {"rolled_over": True}
             return cannot_delete
+        order_status = AcqOrder.get_status_by_pid(self.order_pid)
+
+        if order_status not in [
+            AcqOrderStatus.RECEIVED,
+            AcqOrderStatus.PARTIALLY_RECEIVED,
+        ]:
+            cannot_delete["others"] = {_("Order status is %s") % _(order_status): True}
         # Note : linked receipt lines aren't yet a reason to keep the record.
         #        These lines will be deleted with the record.
         # TODO :: add a reason if order is concluded (rollovered or invoiced)

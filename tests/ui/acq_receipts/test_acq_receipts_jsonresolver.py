@@ -18,10 +18,12 @@
 
 """Acq receipt JSONResolver tests."""
 
+import mock
 import pytest
 from invenio_records.api import Record
 from jsonref import JsonRefError
 
+from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.utils import extracted_data_from_ref
 
 
@@ -31,7 +33,11 @@ def test_acq_receipts_jsonresolver(acq_receipt_fiction_martigny):
     rec = Record.create({"acq_receipt": data})
     assert extracted_data_from_ref(rec.get("acq_receipt")) == "acre1"
     # deleted record
-    acq_receipt_fiction_martigny.delete()
+    with mock.patch(
+        "rero_ils.modules.acquisition.acq_orders.api.AcqOrder.get_status_by_pid",
+        mock.MagicMock(return_value=AcqOrderStatus.PARTIALLY_RECEIVED),
+    ):
+        acq_receipt_fiction_martigny.delete()
     with pytest.raises(JsonRefError):
         type(rec)(rec.replace_refs()).dumps()
 

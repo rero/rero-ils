@@ -90,6 +90,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
         """Add additional record validation.
 
         :return: False if
+            - the related order status disalows
         """
         from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
         from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
@@ -98,6 +99,7 @@ class AcqReceiptLine(AcquisitionIlsRecord):
         if order_status not in [
             AcqOrderStatus.ORDERED,
             AcqOrderStatus.PARTIALLY_RECEIVED,
+            AcqOrderStatus.RECEIVED,
         ]:
             return _(
                 f"Can not create a receipt with an order with a wrong status {order_status}."
@@ -211,10 +213,18 @@ class AcqReceiptLine(AcquisitionIlsRecord):
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
+        from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, AcqOrderStatus
+
         cannot_delete = {}
         # Note: not possible to delete records attached to rolled_over budget.
         if not self.is_active:
             cannot_delete["links"] = {"rolled_over": True}
+        order_status = AcqOrder.get_status_by_pid(self.order_pid)
+        if order_status not in [
+            AcqOrderStatus.PARTIALLY_RECEIVED,
+            AcqOrderStatus.RECEIVED,
+        ]:
+            cannot_delete["others"] = {_("Order status is %s") % _(order_status): True}
         return cannot_delete
 
 

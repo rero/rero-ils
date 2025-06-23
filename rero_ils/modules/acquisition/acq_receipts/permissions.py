@@ -52,13 +52,22 @@ class AcqReceiptPermissionPolicy(RecordPermissionPolicy):
         AllowedByActionRestrictByManageableLibrary(update_action),
         DisallowedIfRollovered(AcqReceipt),
         DisallowedByOrderStatus(
-            AcqReceipt, [AcqOrderStatus.PARTIALLY_RECEIVED, AcqOrderStatus.RECEIVED]
+            AcqReceipt,
+            [
+                AcqOrderStatus.PARTIALLY_RECEIVED,
+                AcqOrderStatus.RECEIVED,
+                AcqOrderStatus.ORDERED,
+            ],
         ),
     ]
     can_delete = [
         AllowedByActionRestrictByManageableLibrary(delete_action),
         DisallowedIfRollovered(AcqReceipt),
         DisallowedByOrderStatus(
-            AcqReceipt, [AcqOrderStatus.PARTIALLY_RECEIVED, AcqOrderStatus.RECEIVED]
+            record_cls=AcqReceipt,
+            allowed_statuses=[
+                AcqOrderStatus.PARTIALLY_RECEIVED,
+                AcqOrderStatus.RECEIVED,
+            ],
         ),
     ]
