@@ -72,6 +72,10 @@ def test_acq_receipt_get(
     "invenio_records_rest.views.verify_record_permission",
     mock.MagicMock(return_value=VerifyRecordPermissionPatch),
 )
+@mock.patch(
+    "rero_ils.modules.acquisition.acq_receipts.api.AcqReceipt.reasons_not_to_delete",
+    mock.MagicMock(return_value={}),
+)
 def test_acq_receipts_post_put_delete(
     client, org_martigny, vendor2_martigny, acq_receipt_fiction_saxon, json_header
 ):

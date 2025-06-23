@@ -97,6 +97,10 @@ function pretests () {
   add_exceptions "GHSA-f9vj-2wh5-fj8j"
   # werkzeug     2.2.3   GHSA-q34m-jh98-gwm2 3.0.6
   add_exceptions "GHSA-q34m-jh98-gwm2"
+  # urllib3 1.26.20 GHSA-48p4-8xcf-vxj5 2.5.0
+  add_exceptions "GHSA-48p4-8xcf-vxj5"
+  # urllib3 1.26.20 GHSA-pq67-6m6q-mj2v 2.5.0
+  add_exceptions "GHSA-pq67-6m6q-mj2v"
   PIPAPI_PYTHON_LOCATION=`which python` pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"

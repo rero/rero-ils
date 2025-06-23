@@ -302,6 +302,8 @@ class AcqOrderLine(AcquisitionIlsRecord):
 
     def reasons_not_to_delete(self):
         """Get reasons not to delete record."""
+        from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, AcqOrderStatus
+
         cannot_delete = {}
         # Note: not possible to delete records attached to rolled_over budget.
         if not self.is_active:
@@ -309,6 +311,9 @@ class AcqOrderLine(AcquisitionIlsRecord):
             return cannot_delete
         if links := self.get_links_to_me():
             cannot_delete["links"] = links
+        order_status = AcqOrder.get_status_by_pid(self.order_pid)
+        if order_status not in [AcqOrderStatus.CANCELLED, AcqOrderStatus.PENDING]:
+            cannot_delete["others"] = {_("Order status is %s") % _(order_status): True}
         return cannot_delete
 
 
