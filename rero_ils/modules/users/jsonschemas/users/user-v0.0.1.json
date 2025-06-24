@@ -66,11 +66,13 @@
           "type": "datePicker",
           "validation": {
             "messages": {
-              "patternMessage": "Should be in the following format: 2022-12-31 (YYYY-MM-DD)."
+              "patternMessage": "Invalid date format."
             }
           },
           "props": {
-            "placeholder": "Example: 1985-12-29"
+            "placeholder": "Example: 29.12.1985",
+            "dateFormat": "dd.mm.yy",
+            "showOnFocus": false
           }
         }
       }
