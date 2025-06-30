@@ -19,7 +19,6 @@
 """rero-ils MARC21 model definition."""
 
 from dojson import utils
-from flask import current_app
 
 from rero_ils.dojson.utils import ReroIlsMarc21Overdo, build_string_from_subfields
 from rero_ils.modules.documents.models import DocumentFictionType
@@ -353,17 +352,6 @@ def marc21_to_subjects_6XX(self, key, value):
     tag_key = key[:3]
     subfields_2 = utils.force_list(value.get("2"))
     subfield_2 = subfields_2[0] if subfields_2 else None
-    # Try to get RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE from current app
-    # In the dojson cli is no current app and we have to get the value directly
-    # from config.py
-    try:
-        config_field_key = current_app.config.get(
-            "RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE", "subjects_imported"
-        )
-    except Exception:
-        from rero_ils.config import (
-            RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE as config_field_key,
-        )
 
     if subfield_2 == "lcsh" or indicator_2 in ["0", "2", "7"]:
         term_string = build_string_from_subfields(
@@ -380,7 +368,7 @@ def marc21_to_subjects_6XX(self, key, value):
             }
             perform_subdivisions(data, value)
             if data:
-                self.setdefault(config_field_key, []).append(dict(entity=data))
+                self.setdefault("subjects_imported", []).append(dict(entity=data))
 
 
 @marc21.over("sequence_numbering", "^362..")
