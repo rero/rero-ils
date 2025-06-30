@@ -3917,11 +3917,6 @@ RERO_IMPORT_REST_ENDPOINTS = dict(
     ),
 )
 
-# RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE
-# Use attribute "subjects" or "subjects_imported"
-# =============================================================================
-RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE = "subjects_imported"
-
 # STREAMED EXPORT RECORDS
 # =============================================================================
 RERO_INVENIO_BASE_EXPORT_REST_ENDPOINTS = dict(

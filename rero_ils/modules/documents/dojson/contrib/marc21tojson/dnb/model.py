@@ -314,7 +314,7 @@ def marc21_to_supplementary_content(self, key, value):
         return utils.force_list(value.get("a"))[0]
 
 
-@marc21.over("subjects", "^(600|610|611|630|650|651|655)..")
+@marc21.over("subjects", "^(600|610|611|630|648|650|651|655)..")
 @utils.for_each_value
 @utils.ignore_value
 def marc21_to_subjects_6XX(self, key, value):
