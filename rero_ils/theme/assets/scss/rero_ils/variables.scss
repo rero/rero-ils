@@ -1,7 +1,7 @@
 /*
 
   RERO ILS
-  Copyright (C) 2019 RERO
+  Copyright (C) 2019-2025 RERO
   Copyright (C) 2015-2018 CERN
 
   This program is free software: you can redistribute it and/or modify
@@ -32,6 +32,8 @@ $form-check-input-margin-y: .2rem !default;             // controls the checkbox
 
 $static-images:             "../../../static/images";
 
+// Z-index master list
+$zindex-sticky:                     999;
 
 // ============================================================================
 //              MIXIN
