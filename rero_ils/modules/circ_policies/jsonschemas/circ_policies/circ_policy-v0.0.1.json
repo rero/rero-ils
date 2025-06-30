@@ -207,11 +207,11 @@
                 "props": {
                   "options": [
                     {
-                      "label": "According to the patron's settings",
+                      "label": "patron_setting",
                       "value": "patron_setting"
                     },
                     {
-                      "label": "Always per mail",
+                      "label": "mail",
                       "value": "mail"
                     }
                   ]
