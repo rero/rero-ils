@@ -23,7 +23,6 @@ from copy import deepcopy
 import jsonref
 from dojson import utils
 from dojson.utils import GroupableOrderedDict
-from flask import current_app
 from isbnlib import EAN13
 from pkg_resources import resource_string
 
@@ -1122,17 +1121,6 @@ def unimarc_subjects(self, key, value):
     subjects: 6xx [duplicates could exist between several vocabularies,
         if possible deduplicate]
     """
-    # Try to get RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE from current app
-    # In the dojson cli is no current app and we have to get the value directly
-    # from config.py
-    try:
-        config_field_key = current_app.config.get(
-            "RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE", "subjects_imported"
-        )
-    except Exception:
-        from rero_ils.config import (
-            RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE as config_field_key,
-        )
     to_return = value.get("a") or ""
     if value.get("b"):
         to_return += ", " + ", ".join(utils.force_list(value.get("b")))
@@ -1150,7 +1138,7 @@ def unimarc_subjects(self, key, value):
         )
         if source := value.get("2", None):
             data["entity"]["source"] = source
-        self.setdefault(config_field_key, []).append(data)
+        self.setdefault("subjects_imported", []).append(data)
 
 
 @unimarc.over("electronicLocator", "^8564.")
