@@ -29,6 +29,7 @@ from iso639 import find
 
 from rero_ils.dojson.utils import (
     _LANGUAGES,
+    MAX_INT_YEAR,
     TitlePartList,
     add_note,
     build_identifier,
@@ -2024,7 +2025,7 @@ def do_temporal_coverage(marc21, key, value):
             date = f"+{date}"
         date_str = date[0]
         year = date[1:5]
-        if test_min_max(year, 0, 9999):
+        if test_min_max(year, 0, MAX_INT_YEAR):
             date_str = f"{date_str}{year}"
             month = date[5:7].zfill(2)
             if test_min_max(month, 1, 12):

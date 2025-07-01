@@ -9622,14 +9622,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "fr"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -11428,9 +11427,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -17563,9 +17561,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -18623,9 +18620,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -19024,9 +19020,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -19544,9 +19539,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -20253,9 +20247,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -20483,9 +20476,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -21853,9 +21845,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -21936,9 +21927,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -22313,9 +22303,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -22770,9 +22759,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -23284,9 +23272,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -23654,9 +23641,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -24526,14 +24512,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "gw"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -24622,14 +24607,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "it"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -25824,14 +25808,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "xxu"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -26426,9 +26409,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -26508,9 +26490,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -26775,9 +26756,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -27886,9 +27866,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -27961,14 +27940,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "xxu"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -28355,9 +28333,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -28435,9 +28412,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -28548,14 +28524,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "fr"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -28914,9 +28889,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -29194,9 +29168,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -29513,9 +29486,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -32095,9 +32067,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -32253,9 +32224,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -33223,14 +33193,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "fr"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -33325,9 +33294,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -33738,14 +33706,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "sz"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -34842,14 +34809,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "sz"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -35797,7 +35763,6 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
@@ -35805,7 +35770,7 @@
             "country": "sz"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -35928,7 +35893,6 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
@@ -35936,7 +35900,7 @@
             "country": "sz"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -44812,14 +44776,13 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
             "country": "fr"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -50021,7 +49984,6 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
@@ -50029,7 +49991,7 @@
             "country": "sz"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -51379,9 +51341,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -52622,9 +52583,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -55790,7 +55750,6 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
         "place": [
           {
@@ -55798,7 +55757,7 @@
             "country": "sz"
           }
         ],
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -59763,9 +59722,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -61948,9 +61906,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -67307,9 +67264,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -67674,9 +67630,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
@@ -68621,9 +68576,8 @@
     },
     "provisionActivity": [
       {
-        "note": "Date not available and automatically set to 2050",
         "type": "bf:Publication",
-        "startDate": 2050,
+        "startDate": 9999,
         "statement": [
           {
             "type": "bf:Place",
