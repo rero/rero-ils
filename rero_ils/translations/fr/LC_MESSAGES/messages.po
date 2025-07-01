@@ -21,15 +21,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-06-26 13:31+0200\n"
-"PO-Revision-Date: 2025-05-06 11:54+0000\n"
+"PO-Revision-Date: 2025-07-01 15:05+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/fr/>\n"
 "Language: fr\n"
-"Language-Team: French <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -4885,7 +4886,7 @@ msgstr "note au fournisseur"
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:581
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:147
 msgid "staff_note"
-msgstr "note professionnelle"
+msgstr "note pro"
 
 #: rero_ils/modules/acquisition/acq_order_lines/jsonschemas/acq_order_lines/acq_order_line-v0.0.1.json:133
 #: rero_ils/modules/acquisition/acq_orders/jsonschemas/acq_orders/acq_order-v0.0.1.json:100
@@ -5050,7 +5051,7 @@ msgstr "La date doit être au format suivant : 2022-12-31 (AAAA-MM-JJ)."
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:172
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:139
 msgid "receipt_note"
-msgstr "note de réception"
+msgstr "note sur la réception"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:4
 msgid "Acquisition receipt"
@@ -9889,38 +9890,38 @@ msgstr "Nombre de fascicules à relier"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:621
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:151
 msgid "general_note"
-msgstr "Note générale"
+msgstr "note générale"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:733
 msgid "conservation_note"
-msgstr "Conservation"
+msgstr "note sur la conservation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:737
 msgid "reception_note"
-msgstr "Réception"
+msgstr "note sur la réception"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:741
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:123
 msgid "claim_note"
-msgstr "Réclamation"
+msgstr "note sur la réclamation"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:745
 msgid "routing_note"
-msgstr "Transmission"
+msgstr "note sur la transmission"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:749
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:605
 msgid "binding_note"
-msgstr "Reliure"
+msgstr "note sur la reliure"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:753
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:601
 msgid "acquisition_note"
-msgstr "Acquisition"
+msgstr "note sur l'acquisition"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:757
 msgid "access_note"
-msgstr "Accès"
+msgstr "note sur l'accès"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:805
 msgid "Acquisition status"
@@ -10284,7 +10285,7 @@ msgstr "Titre de la revue"
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:402
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:577
 msgid "public_note"
-msgstr "Note publique"
+msgstr "note publique"
 
 #: rero_ils/modules/ill_requests/templates/rero_ils/ill_request_form.html:25
 msgid "Caution!"
@@ -10653,23 +10654,23 @@ msgstr "URI de l'état de collection"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:609
 msgid "checkin_note"
-msgstr "Note au retour"
+msgstr "note au retour"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:613
 msgid "checkout_note"
-msgstr "Note au prêt"
+msgstr "note au prêt"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:617
 msgid "condition_note"
-msgstr "État matériel"
+msgstr "note sur l'état matériel"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:625
 msgid "patrimonial_note"
-msgstr "Aspects patrimoniaux"
+msgstr "note sur les aspects patrimoniaux"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:629
 msgid "provenance_note"
-msgstr "Provenance"
+msgstr "note de provenance"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:690
 msgid "Acquisition date"
@@ -13453,4 +13454,3 @@ msgstr "Assets Invenio"
 
 #~ msgid "Example: 1985-12-29"
 #~ msgstr "Exemple: 1985-12-29"
-
