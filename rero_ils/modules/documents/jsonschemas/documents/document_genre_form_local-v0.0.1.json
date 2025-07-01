@@ -4,6 +4,7 @@
   "type": "object",
   "additionalProperties": false,
   "propertiesOrder": [
+    "type",
     "authorized_access_point",
     "source",
     "identifiedBy"
