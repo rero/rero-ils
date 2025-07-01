@@ -349,6 +349,9 @@ _CONTRIBUTION_TAGS = [
     "712",
 ]
 
+MAX_INT_YEAR = 9999
+MIN_INT_YEAR = -9999
+
 schema_in_bytes = resource_string(
     "rero_ils.jsonschemas", "common/languages-v0.0.1.json"
 )
@@ -373,10 +376,10 @@ def error_print(*args):
 
 
 def make_year(date):
-    """Test if string is integer and between 1000 and 9999."""
+    """Test if string is integer and between 1000 and MAX_INT_YEAR."""
     with contextlib.suppress(Exception):
         int_date = int(date)
-        if 1000 <= int_date < 9999:
+        if 1000 <= int_date < MAX_INT_YEAR:
             return int_date
     return None
 
@@ -750,20 +753,17 @@ class ReroIlsOverdo(Overdo):
         if self.date_type_from_008 in ["q", "n"]:
             result["provisionActivity"][0]["note"] = "Date(s) uncertain or unknown"
         start_date = make_year(self.date1_from_008)
-        if not start_date or start_date > 2050:
+        if not start_date or start_date > MAX_INT_YEAR:
             error_print(
                 "WARNING START DATE 008:",
                 self.bib_id,
                 self.rero_id,
                 f'"{self.date1_from_008}"',
             )
-            start_date = 2050
-            result["provisionActivity"][0][
-                "note"
-            ] = "Date not available and automatically set to 2050"
+            start_date = MAX_INT_YEAR
         result["provisionActivity"][0]["startDate"] = start_date
         if end_date := make_year(self.date2_from_008):
-            if end_date > 2050:
+            if end_date > MAX_INT_YEAR:
                 error_print(
                     "WARNING END DATE 008:",
                     self.bib_id,
@@ -773,7 +773,7 @@ class ReroIlsOverdo(Overdo):
             else:
                 result["provisionActivity"][0]["endDate"] = end_date
         if original_date := make_year(self.original_date_from_008):
-            if original_date > 2050:
+            if original_date > MAX_INT_YEAR:
                 error_print(
                     "WARNING ORIGINAL DATE 008:",
                     self.bib_id,
@@ -1391,12 +1391,14 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         1. get dates from 008
         2. get dates from 264 Ind2 1,0,2,4,3 $c
         3. get dates from 773 $g
-        4. set start_date to 2050
+        4. set start_date to MAX_INT_YEAR
         """
         if self.date_type_from_008 in ["q", "n"]:
             self.date["note"] = "Date(s) uncertain or unknown"
         start_date = make_year(self.date1_from_008)
-        if not (start_date and start_date >= -9999 and start_date <= 2050):
+        if not (
+            start_date and start_date >= MIN_INT_YEAR and start_date <= MAX_INT_YEAR
+        ):
             start_date = None
         if not start_date:
             fields_264 = self.get_fields("264")
@@ -1407,7 +1409,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                             year = re.search(r"(-?\d{1,4})", subfields_c[0])
                             if year:
                                 year = int(year.group(0))
-                            if year and year <= -9999 and year >= 2050:
+                            if year and year <= MIN_INT_YEAR and year >= MAX_INT_YEAR:
                                 start_date = year
                                 break
                 else:
@@ -1422,11 +1424,10 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
                     year = re.search(r"(-?\d{4})", subfields_g[0])
                     if year:
                         year = int(year.group(0))
-                    if year and year <= -9999 and year >= 2050:
+                    if year and year <= MAX_INT_YEAR and year >= MAX_INT_YEAR:
                         start_date = year
         if not start_date:
-            start_date = 2050
-            self.date["note"] = "Date not available and automatically set to 2050"
+            start_date = MAX_INT_YEAR
             error_print(
                 "INFO NO START DATE IN 264, 773, 008:",
                 self.bib_id,
@@ -1435,7 +1436,7 @@ class ReroIlsMarc21Overdo(ReroIlsOverdo):
         self.date["start_date"] = start_date
 
         end_date = make_year(self.date2_from_008)
-        if end_date and end_date >= -9999 and end_date <= 2050:
+        if end_date and end_date >= MIN_INT_YEAR and end_date <= MAX_INT_YEAR:
             self.date["end_date"] = end_date
 
     def init_alternate_graphic(self):
