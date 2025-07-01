@@ -23,7 +23,7 @@ import mock
 from dojson.contrib.marc21.utils import create_record
 from utils import mock_response
 
-from rero_ils.dojson.utils import not_repetitive
+from rero_ils.dojson.utils import MAX_INT_YEAR, not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero.model import (
     get_mef_link,
@@ -4692,9 +4692,8 @@ def test_marc21_to_subjects_imported():
     data = marc21.do(marc21json)
     assert data.get("provisionActivity") == [
         {
-            "note": "Date not available and automatically set to 2050",
             "place": [{"country": "xx"}],
-            "startDate": 2050,
+            "startDate": MAX_INT_YEAR,
             "type": "bf:Publication",
         }
     ]
@@ -4714,9 +4713,8 @@ def test_marc21_to_subjects_imported():
     data = marc21.do(marc21json)
     assert data.get("provisionActivity") == [
         {
-            "note": "Date not available and automatically set to 2050",
             "place": [{"country": "xx"}],
-            "startDate": 2050,
+            "startDate": MAX_INT_YEAR,
             "type": "bf:Publication",
         }
     ]
