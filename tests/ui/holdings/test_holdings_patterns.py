@@ -25,6 +25,7 @@ from datetime import datetime
 
 import ciso8601
 import jinja2
+import mock
 import pytest
 from invenio_accounts.testutils import login_user_via_session
 from jsonschema.exceptions import ValidationError
@@ -104,7 +105,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
     assert ItemsSearch().filter("term", call_numbers__raw="h00005").count() == 1
     assert ItemsSearch().filter("term", call_numbers__raw="h00005_2").count() == 1
 
-    assert list(holding.get_items())[0].get("pid") == issue.pid
+    assert list(holding.get_all_items())[0].get("pid") == issue.pid
 
     assert issue.location_pid == holding.location_pid
     assert issue.item_type_pid == holding.circulation_category_pid
@@ -159,6 +160,22 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
     assert issue.expected_date == datetime.now().strftime("%Y-%m-%d")
     assert issue.get("enumerationAndChronology") == "free_text"
     assert issue.received_date == datetime.now().strftime("%Y-%m-%d")
+
+    assert holding.reasons_not_to_delete() == {}
+    with mock.patch(
+        "rero_ils.modules.items.api.Item.get_links_to_me",
+        return_value={"fees": 1},
+    ):
+        assert holding.reasons_not_to_delete() == {
+            "others": {"has 3 items with fees attached": 3}
+        }
+    with mock.patch(
+        "rero_ils.modules.items.api.Item.get_links_to_me",
+        return_value={"collections": 1},
+    ):
+        assert holding.reasons_not_to_delete() == {
+            "others": {"has 3 items with collections attached": 3}
+        }
 
 
 def test_patterns_yearly_one_level(
