@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: rero-ils 1.24.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-06-26 13:31+0200\n"
-"PO-Revision-Date: 2025-03-01 11:27+0000\n"
-"Last-Translator: தமிழ்நேரம் <anishprabu.t@gmail.com>\n"
+"PO-Revision-Date: 2025-06-28 16:01+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
+"Language-Team: Tamil <https://hosted.weblate.org/projects/rero_plus/rero-ils/"
+"ta/>\n"
 "Language: ta\n"
-"Language-Team: Tamil <https://hosted.weblate.org/projects/rero_plus/rero-"
-"ils/ta/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -5102,7 +5104,7 @@ msgstr "பட்செட்டின் பெயர்."
 #: rero_ils/modules/patron_types/jsonschemas/patron_types/patron_type-v0.0.1.json:48
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:51
 msgid "This name is already taken."
-msgstr ""
+msgstr "இந்த பயனர்பெயர் ஏற்கனவே எடுக்கப்பட்டுள்ளது."
 
 #: rero_ils/modules/acquisition/budgets/jsonschemas/budgets/budget-v0.0.1.json:58
 #: rero_ils/modules/collections/jsonschemas/collections/collection-v0.0.1.json:178
@@ -9200,7 +9202,7 @@ msgstr "கட்டுரைகள்/தொகுதிகள்"
 
 #: rero_ils/modules/documents/templates/rero_ils/detailed_view_documents.html:292
 msgid "No additional information yet."
-msgstr ""
+msgstr "கூடுதல் தகவல்கள் இதுவரை இல்லை."
 
 #: rero_ils/modules/entities/views.py:51
 msgid "Entity not found."
@@ -9514,7 +9516,7 @@ msgstr "சீரியல் ஓல்டிங்சை மட்டுமே 
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:4
 msgid "Holdings"
-msgstr ""
+msgstr "ஓல்டிங்ச்"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:5
 msgid "Describes a set of items linked to a document and belonging to a library."
@@ -10143,7 +10145,7 @@ msgstr "கோரிக்கை உங்கள் நூலகத்திற�
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:4
 msgid "ILL request"
-msgstr ""
+msgstr "தவறான கோரிக்கை"
 
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:5
 msgid "Request data, including references to a patron and to a pick-up location."
@@ -10496,7 +10498,7 @@ msgstr "பொருள் ஐடி"
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:63
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:215
 msgid "This barcode is already taken."
-msgstr ""
+msgstr "பார்கோடு ஏற்கனவே எடுக்கப்பட்டுள்ளது."
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:103
 #: rero_ils/modules/operation_logs/jsonschemas/operation_logs/operation_log-v0.0.1.json:524
@@ -10520,7 +10522,7 @@ msgstr "உருப்படி வகை யூரி"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:197
 msgid "Temporary item type"
-msgstr ""
+msgstr "தற்காலிக_உருப்படி_வகை"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:198
 msgid "Applies a temporary item type which overrides the default one temporarily."
@@ -10590,7 +10592,7 @@ msgstr "ஒழுங்குமுறை"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:475
 msgid "Circulation status"
-msgstr ""
+msgstr "சுழற்சி நிலை"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:514
 msgid "excluded"
@@ -11098,7 +11100,7 @@ msgstr "இருப்பிடத்தின் குறியீடு."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:51
 msgid "This code is already taken."
-msgstr ""
+msgstr "குறியீடு ஏற்கனவே எடுக்கப்பட்டுள்ளது."
 
 #: rero_ils/modules/locations/jsonschemas/locations/location-v0.0.1.json:60
 msgid "Name of the location."
@@ -11506,7 +11508,7 @@ msgstr "அமைப்பு ஐடி"
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:27
 msgid "Name of the organisation."
-msgstr ""
+msgstr "அமைப்பின் குறியீடு."
 
 #: rero_ils/modules/organisations/jsonschemas/organisations/organisation-v0.0.1.json:33
 msgid "Address of the organisation."
@@ -11912,7 +11914,7 @@ msgstr "தெரு மற்றும் முகவரியின் எண
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:148
 msgid "Patron information"
-msgstr ""
+msgstr "புரவலர் செய்தி"
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:171
 msgid "Patron Type"
@@ -12644,7 +12646,7 @@ msgstr "கிரெடிட்_நோட்"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:195
 msgid "Only one note per type is allowed."
-msgstr ""
+msgstr "ஒரு வகைக்கு ஒரு குறிப்பு மட்டுமே அனுமதிக்கப்படுகிறது"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:204
 msgid "Selected language will be used in all notifications sent to this vendor."
@@ -12664,7 +12666,7 @@ msgstr "தொடர்பு வகை"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:285
 msgid "Default contact"
-msgstr ""
+msgstr "இயல்புநிலை தொடர்பு"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:289
 msgid "Order contact"
@@ -12676,7 +12678,7 @@ msgstr "தொடர் தொடர்பு"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:316
 msgid "Street and number"
-msgstr ""
+msgstr "தெரு + எண்"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:369
 msgid "Phone number"
@@ -12684,7 +12686,7 @@ msgstr "தொலைபேசி எண்"
 
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:418
 msgid "Only one contact per type is allowed."
-msgstr ""
+msgstr "ஒரு வகைக்கு ஒரு தொடர்பு மட்டுமே அனுமதிக்கப்படுகிறது"
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
@@ -13350,4 +13352,3 @@ msgstr "சொத்துக்களைக் கண்டறியவும�
 
 #~ msgid "Example: 1985-12-29"
 #~ msgstr "எடுத்துக்காட்டு: 1985-12-29"
-
