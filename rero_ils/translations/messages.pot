@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: RERO_ILS VERSION\n"
 "Report-Msgid-Bugs-To: software@rero.ch\n"
-"POT-Creation-Date: 2025-06-26 13:31+0200\n"
+"POT-Creation-Date: 2025-07-21 14:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -450,6 +450,11 @@ msgstr ""
 msgid "RDA carrier type"
 msgstr ""
 
+#: rero_ils/filter.py:216
+#, python-brace-format
+msgid "{prefix}{data}"
+msgstr ""
+
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:498
 msgid "on_loan"
@@ -542,7 +547,7 @@ msgstr ""
 #: rero_ils/manual_translations.txt:41
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:55
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:191
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:178
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:184
 msgid "bf:Place"
 msgstr ""
 
@@ -2405,11 +2410,11 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_person-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:20
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:171
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:17
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:18
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:24
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:22
 #: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:29
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:163
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:169
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:18
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:25
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:72
@@ -2487,7 +2492,7 @@ msgstr ""
 #: rero_ils/jsonschemas/common/identifier-v0.0.1.json:85
 #: rero_ils/modules/documents/jsonschemas/documents/document_admin_metadata-v0.0.1.json:105
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:83
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:43
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:44
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:197
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:51
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:185
@@ -4756,9 +4761,9 @@ msgstr ""
 
 #: rero_ils/modules/acquisition/acq_order_lines/api.py:89
 #: rero_ils/modules/acquisition/acq_orders/api.py:101
-#: rero_ils/modules/holdings/api.py:199
+#: rero_ils/modules/holdings/api.py:207
 #: rero_ils/modules/ill_requests/api.py:103
-#: rero_ils/modules/items/api/record.py:114
+#: rero_ils/modules/items/api/record.py:116
 msgid "Can not have multiple notes of the same type."
 msgstr ""
 
@@ -4838,7 +4843,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_identified_by-v0.0.1.json:169
 #: rero_ils/modules/documents/jsonschemas/documents/document_language-v0.0.1.json:46
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:9
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:228
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:234
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:694
 #: rero_ils/modules/ill_requests/jsonschemas/ill_requests/ill_request-v0.0.1.json:375
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:569
@@ -5056,7 +5061,7 @@ msgstr ""
 #: rero_ils/modules/documents/jsonschemas/documents/document_document_relation-v0.0.1.json:288
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:20
 #: rero_ils/modules/documents/jsonschemas/documents/document_note-v0.0.1.json:58
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:199
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:205
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:75
 #: rero_ils/modules/documents/jsonschemas/documents/document_scale_cartographic-v0.0.1.json:122
 #: rero_ils/modules/documents/jsonschemas/documents/document_summary-v0.0.1.json:20
@@ -5202,11 +5207,12 @@ msgid "Communication channel"
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:210
-msgid "According to the patron's settings"
+msgid "patron_setting"
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:214
-msgid "Always per mail"
+#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:288
+msgid "mail"
 msgstr ""
 
 #: rero_ils/modules/circ_policies/jsonschemas/circ_policies/circ_policy-v0.0.1.json:224
@@ -5387,7 +5393,7 @@ msgstr ""
 
 #: rero_ils/modules/collections/templates/rero_ils/detailed_view_collections.html:39
 #: rero_ils/modules/documents/jsonschemas/documents/document_frequency-v0.0.1.json:32
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:186
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:192
 #: rero_ils/modules/documents/jsonschemas/documents/document_temporal_coverage-v0.0.1.json:40
 msgid "Date"
 msgstr ""
@@ -6232,7 +6238,7 @@ msgstr ""
 
 #: rero_ils/modules/documents/jsonschemas/documents/document_contribution_local-v0.0.1.json:46
 #: rero_ils/modules/documents/jsonschemas/documents/document_entity_local-v0.0.1.json:68
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:30
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:31
 msgid "Access Point"
 msgstr ""
 
@@ -7507,11 +7513,11 @@ msgstr ""
 msgid "Genre, form (textual)"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:37
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:38
 msgid "Example: Electronic serials"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:44
+#: rero_ils/modules/documents/jsonschemas/documents/document_genre_form_local-v0.0.1.json:45
 msgid "Source of the genre or form."
 msgstr ""
 
@@ -8261,52 +8267,52 @@ msgstr ""
 msgid "Place"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:146
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:152
 msgid "Statements"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:151
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:157
 msgid "Statement"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:152
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:158
 msgid "Statement of place and agent of the provision activity."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:182
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:188
 msgid "bf:Agent"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:195
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:201
 msgid "Labels"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:241
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:247
 msgid "Date 1"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:242
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:248
 msgid ""
 "Normalised date used for sorting and filtering options (MARC 008). A free"
 " text date (transcripted) can be added in the field Statements."
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:258
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:264
 msgid "Date 2"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:259
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:265
 msgid ""
 "Normalised end date if the provision activity covers more than one year, "
 "and used for sorting and filtering options (MARC 008). A free text date "
 "(transcripted) can be added in the field Statements"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:273
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:279
 msgid "Date of the original"
 msgstr ""
 
-#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:274
+#: rero_ils/modules/documents/jsonschemas/documents/document_provision_activity-v0.0.1.json:280
 msgid "Date of the original in case of a reproduction."
 msgstr ""
 
@@ -9341,11 +9347,26 @@ msgstr ""
 msgid "Parent document URI"
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:175
+#: rero_ils/modules/holdings/api.py:167
+#, python-brace-format
+msgid "Document does not exist {document_pid}."
+msgstr ""
+
+#: rero_ils/modules/holdings/api.py:179
 msgid "Must have next expected date for regular frequencies."
 msgstr ""
 
-#: rero_ils/modules/holdings/api.py:559
+#: rero_ils/modules/holdings/api.py:200
+#, python-brace-format
+msgid "{field} is allowed only for serial holdings"
+msgstr ""
+
+#: rero_ils/modules/holdings/api.py:483
+#, python-brace-format
+msgid "has {value} items with {name} attached"
+msgstr ""
+
+#: rero_ils/modules/holdings/api.py:566
 msgid "Only serial holdings can be requested."
 msgstr ""
 
@@ -10245,25 +10266,35 @@ msgstr ""
 msgid "Item is already checked-out or requested by patron."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:104
+#: rero_ils/modules/items/api/record.py:94
+#, python-brace-format
+msgid "Barcode {barcode} is already taken."
+msgstr ""
+
+#: rero_ils/modules/items/api/record.py:102
+#, python-brace-format
+msgid "Holding does not exist: {holding_pid}"
+msgstr ""
+
+#: rero_ils/modules/items/api/record.py:106
 msgid "Standard item can not have a issue field."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:107
+#: rero_ils/modules/items/api/record.py:109
 msgid "Issue item must have an issue field."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:110
+#: rero_ils/modules/items/api/record.py:112
 msgid "enumerationAndChronology field is required for an issue item"
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:120
+#: rero_ils/modules/items/api/record.py:122
 msgid ""
 "Temporary circulation category cannot be the same than default "
 "circulation category."
 msgstr ""
 
-#: rero_ils/modules/items/api/record.py:127
+#: rero_ils/modules/items/api/record.py:129
 msgid "Temporary circulation category end date must be a date in the future."
 msgstr ""
 
@@ -11386,6 +11417,11 @@ msgstr ""
 msgid "incremental overdue fees"
 msgstr ""
 
+#: rero_ils/modules/patron_transactions/utils.py:189
+#, python-brace-format
+msgid "Subscription for '{name}' from {start} to {end}"
+msgstr ""
+
 #: rero_ils/modules/patron_transactions/jsonschemas/patron_transactions/patron_transaction-v0.0.1.json:4
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:386
 msgid "Patron transaction"
@@ -11703,10 +11739,6 @@ msgstr ""
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:284
 #: rero_ils/theme/templates/rero_ils/forgot_password.html:41
 msgid "email"
-msgstr ""
-
-#: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:288
-msgid "mail"
 msgstr ""
 
 #: rero_ils/modules/patrons/jsonschemas/patrons/patron-v0.0.1.json:297
@@ -12412,7 +12444,7 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa fa-user\"></i>"
+msgid "<i class=\"fa fa-phone\"></i>"
 msgstr ""
 
 #. Line unknown
@@ -12422,7 +12454,7 @@ msgstr ""
 
 #. Line unknown
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:1
-msgid "<i class=\"fa fa-phone\"></i>"
+msgid "<i class=\"fa fa-user\"></i>"
 msgstr ""
 
 #: rero_ils/theme/menus.py:53 rero_ils/theme/menus.py:55
