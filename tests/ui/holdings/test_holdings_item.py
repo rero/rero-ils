@@ -82,7 +82,10 @@ def test_holding_item_links(
         document.pid, item_type_standard_martigny.pid
     )
     assert holding_lib_martigny.pid == holdings[1].get("pid")
-    assert list(holding_lib_martigny.get_items())[1].get("pid") == item_lib_martigny.pid
+    assert (
+        list(holding_lib_martigny.get_all_items())[1].get("pid")
+        == item_lib_martigny.pid
+    )
 
     holding_lib_martigny.delete_from_index()
     assert not holding_lib_martigny.delete_from_index()

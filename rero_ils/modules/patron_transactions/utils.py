@@ -185,7 +185,11 @@ def create_subscription_for_patron(
             "creation_date": datetime.now(timezone.utc).isoformat(),
             "type": "subscription",
             "status": "open",
-            "note": _(f"Subscription for '{name}' from {start} to {end}"),
+            "note": _(
+                "Subscription for '{name}' from {start} to {end}".format(
+                    name=name, start=start, end=end
+                )
+            ),
         }
         record = PatronTransaction.create(
             data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid
