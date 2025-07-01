@@ -18,15 +18,16 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-06-26 13:31+0200\n"
-"PO-Revision-Date: 2025-05-06 11:54+0000\n"
+"PO-Revision-Date: 2025-07-01 15:05+0000\n"
 "Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
+"rero-ils/de/>\n"
 "Language: de\n"
-"Language-Team: German <https://hosted.weblate.org/projects/rero_plus"
-"/rero-ils/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13-dev\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: rero_ils/accounts_views.py:57
@@ -5045,7 +5046,7 @@ msgstr "Sollte im folgenden Format sein: 2022-12-31 (JJJJ-MM-TT)."
 #: rero_ils/modules/acquisition/acq_receipt_lines/jsonschemas/acq_receipt_lines/acq_receipt_line-v0.0.1.json:172
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:139
 msgid "receipt_note"
-msgstr "Anmerkung zum Emfang"
+msgstr "Anmerkung zum Empfang"
 
 #: rero_ils/modules/acquisition/acq_receipts/jsonschemas/acq_receipts/acq_receipt-v0.0.1.json:4
 msgid "Acquisition receipt"
@@ -9891,25 +9892,25 @@ msgstr "allgemeine Anmerkung"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:733
 msgid "conservation_note"
-msgstr "Aufbewahrung"
+msgstr "Anmerkung zur Konservierung"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:737
 msgid "reception_note"
-msgstr "Empfang"
+msgstr "Anmerkung zum Empfang"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:741
 #: rero_ils/modules/vendors/jsonschemas/vendors/vendor-v0.0.1.json:123
 msgid "claim_note"
-msgstr "Anspruch"
+msgstr "Anmerkung zur Anspruch"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:745
 msgid "routing_note"
-msgstr "Weiterleitung"
+msgstr "Anmerkung zur Weiterleitung"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:749
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:605
 msgid "binding_note"
-msgstr "Bindung"
+msgstr "Anmerkung zur Bindung"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:753
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:601
@@ -9918,7 +9919,7 @@ msgstr "Anmerkung zum Erwerb"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:757
 msgid "access_note"
-msgstr "Zugang"
+msgstr "Anmerkung zum Zugang"
 
 #: rero_ils/modules/holdings/jsonschemas/holdings/holding-v0.0.1.json:805
 msgid "Acquisition status"
@@ -10653,15 +10654,15 @@ msgstr "Ausleihanmerkung"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:617
 msgid "condition_note"
-msgstr "Physischer Zustand"
+msgstr "Anmerkung zum Physischer Zustand"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:625
 msgid "patrimonial_note"
-msgstr "Kulturgut-Aspekte"
+msgstr "Anmerkung zu Kulturgut-Aspekten"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:629
 msgid "provenance_note"
-msgstr "Herkunft"
+msgstr "Anmerkung zum Herkunft"
 
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:690
 msgid "Acquisition date"
@@ -13444,4 +13445,3 @@ msgstr "Inveio-Assets"
 
 #~ msgid "Example: 1985-12-29"
 #~ msgstr "Beispiel: 1985-12-29"
-
