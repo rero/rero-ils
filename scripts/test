@@ -79,6 +79,8 @@ function pretests () {
   add_exceptions "GHSA-j66q-qmrc-89rx"
   # jupyter-core 5.7.2   GHSA-33p9-3p43-82vq 5.8.1
   add_exceptions "GHSA-33p9-3p43-82vq"
+  # pillow       11.1.0  PYSEC-2025-61       11.3.0
+  add_exceptions "PYSEC-2025-61"
   # py           1.11.0  PYSEC-2022-42969
   add_exceptions "PYSEC-2022-42969"
   # redis        5.2.1   PYSEC-2023-312      6.2.0
