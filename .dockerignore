@@ -2,6 +2,7 @@
 *.gitignore
 
 .env
+.venv
 
 *.mo
 *.pyc

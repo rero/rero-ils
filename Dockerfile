@@ -29,12 +29,12 @@ RUN chown -R invenio:invenio ${WORKING_DIR}
 USER 1000
 
 ARG GIT_HASH
-ENV INVENIO_RERO_ILS_APP_GIT_HASH ${GIT_HASH:-''}
+ENV INVENIO_RERO_ILS_APP_GIT_HASH=${GIT_HASH:-''}
 ARG GIT_UI_HASH
-ENV INVENIO_RERO_ILS_UI_GIT_HASH ${GIT_UI_HASH:-''}
+ENV INVENIO_RERO_ILS_UI_GIT_HASH=${GIT_UI_HASH:-''}
 ARG UI_TGZ=""
 
 ENV INVENIO_COLLECT_STORAGE='flask_collect.storage.file'
 
-RUN poetry run ./scripts/bootstrap --deploy ${UI_TGZ}
-RUN poetry install --no-root --extras sip2
+RUN uv run ./scripts/bootstrap --deploy ${UI_TGZ}
+RUN uv sync --frozen --extra sip2

@@ -38,7 +38,7 @@ Requirements
 - ``git``
 - ``docker``, ``docker-compose``
 - ``python``, ``pip``, ``pyenv``
-- ``poetry``
+- ``uv``
 
 Installation
 ------------
@@ -49,7 +49,7 @@ First, create your working directory and ``cd`` into it. Clone the project into 
 
     $ git clone https://github.com/rero/rero-ils.git
 
-You need to install `poetry`, it will handle the virtual environment creation for the project
+You need to install `uv`, it will handle the virtual environment creation for the project
 in order to sandbox our Python environment, as well as manage the dependency installation,
 among other things.
 
@@ -58,10 +58,9 @@ among other things.
     $ pyenv install 3.9.7
     $ cd rero-ils
     $ pyenv local 3.9.7
-    $ curl -sSL https://install.python-poetry.org | python3 -
-    $ optional: poetry self add poetry-plugin-shell
+    $ curl -LsSf https://astral.sh/uv/install.sh | sh
 
-See: https://python-poetry.org/docs#installation for more detail.
+See: https://docs.astral.sh/uv/getting-started/installation for more detail.
 
 Next, ``cd`` into the project directory and bootstrap the instance (this will install
 all Python dependencies and build all static assets):
@@ -69,7 +68,7 @@ all Python dependencies and build all static assets):
 .. code-block:: console
 
     $ cd rero-ils
-    $ poetry run ./scripts/bootstrap
+    $ uv run ./scripts/bootstrap
 
 Start all dependent services using docker-compose (this will start PostgreSQL,
 Elasticsearch 6, RabbitMQ and Redis):
@@ -98,7 +97,7 @@ Next, create database tables, search indexes and message queues:
 
 .. code-block:: console
 
-    $ poetry run poe setup
+    $ uv run poe setup
 
 Running
 -------
@@ -106,13 +105,13 @@ Start the webserver and the celery worker:
 
 .. code-block:: console
 
-    $ poetry run poe server
+    $ uv run poe server
 
 Start a Python shell:
 
 .. code-block:: console
 
-    $ poetry run poe console
+    $ uv run poe console
 
 Upgrading
 ---------
@@ -120,7 +119,7 @@ In order to upgrade an existing instance simply run:
 
 .. code-block:: console
 
-    $ poetry run poe update
+    $ uv run poe update
 
 Testing
 -------
@@ -128,14 +127,14 @@ Run the test suite via the provided script:
 
 .. code-block:: console
 
-    $ poetry run poe run_tests
+    $ uv run poe run_tests
 
 By default, end-to-end tests are skipped. You can include the E2E tests like
 this:
 
 .. code-block:: console
 
-    $ env E2E=yes poetry run poe run_tests
+    $ env E2E=yes uv run poe run_tests
 
 For more information about end-to-end testing see `pytest-invenio
 <https://pytest-invenio.readthedocs.io/en/latest/usage.html#running-e2e-tests>`_.
@@ -146,7 +145,7 @@ You can build the documentation with:
 
 .. code-block:: console
 
-    $ poetry run build_sphinx
+    $ uv run build_sphinx
 
 Production environment
 ----------------------
