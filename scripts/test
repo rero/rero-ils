@@ -66,9 +66,9 @@ add_exceptions() {
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
-# Poetry is a mandatory condition to launch this program!
+# uv is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\t${PROGRAM}"
+  error_msg+exit "Error - Launch this script via uv command:\n\t${PROGRAM}"
 fi
 
 function pretests () {

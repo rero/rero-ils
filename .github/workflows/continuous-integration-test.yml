@@ -28,29 +28,27 @@ jobs:
       with:
         python-version: 3.12
 
-    - name: Install Poetry
-      uses: snok/install-poetry@v1
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
 
     - name: Bootstrap
       if: ${{ matrix.dependencies == 'dev' }}
       run: |
-        poetry run ./scripts/bootstrap --ci
-        poetry install --no-root --extras sip2
+        uv run ./scripts/bootstrap --ci --sip2
 
     - name: Bootstrap deploy
       if: ${{ matrix.dependencies == 'deploy' }}
       run: |
-        poetry run pip list
-        poetry run ./scripts/bootstrap --ci --deploy E2E=yes
-        poetry install --no-root --extras sip2
+        uv pip list
+        uv run ./scripts/bootstrap --ci --deploy --sip2 E2E=yes
 
     - name: Run Test
       run: |
-        poetry run poe run_tests
+        uv run poe run_tests
 
     - name: Coverage XML
       if: ${{ matrix.dependencies == 'dev' }}
-      run: poetry run coverage xml
+      run: uv run coverage xml
 
     - name: Coveralls
       if: ${{ matrix.dependencies == 'dev' }}
