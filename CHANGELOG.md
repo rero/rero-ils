@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.25.1](https://github.com/rero/rero-ils/tree/v1.25.1) (2025-07-02)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.25.0...v1.25.1)
+
+**Fix:**
+
+- fix(editor): impossible to save a textual genre_form entity [\#3881](https://github.com/rero/rero-ils/pull/3881) (by @PascalRepond)
+
 ## [v1.25.0](https://github.com/rero/rero-ils/tree/v1.25.0) (2025-06-27)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.24.1...v1.25.0)
