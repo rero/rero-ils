@@ -26,7 +26,7 @@ msg() {
 }
 
 msg Dojson ${1}
-poetry run dojson -i ${1} -l marcxml -d pjson do marc21tojson_rero >${1%.*}.json 2>${1%.*}.log
+uv run dojson -i ${1} -l marcxml -d pjson do marc21tojson_rero >${1%.*}.json 2>${1%.*}.log
 
 msg Validate: ${1%.*}.json
-poetry run invenio reroils utils validate ${1%.*}.json documents document-v0.0.1.json -e ${1%.*}_error.json -o ${1%.*}_ok.json
+uv run invenio reroils utils validate ${1%.*}.json documents document-v0.0.1.json -e ${1%.*}_error.json -o ${1%.*}_ok.json
