@@ -21,11 +21,11 @@ from copy import deepcopy
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.loans.models import LoanAction
 from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import get_json, postdata
 
 
 def test_request_library_limit(
@@ -54,8 +54,6 @@ def test_request_library_limit(
     library_ref = get_ref_for_pid("lib", lib_martigny.pid)
     location_ref = get_ref_for_pid("loc", loc_public_martigny.pid)
 
-    login_user_via_session(client, patron_martigny.user)
-
     # Update fixtures for the tests
     #   * Update the patron_type to set request limits
     #   * All items are linked to the same library/location
@@ -74,6 +72,7 @@ def test_request_library_limit(
     item3_lib_martigny_data["location"]["$ref"] = location_ref
     item3.update(item3_lib_martigny_data, dbcommit=True, reindex=True)
 
+    login_user_via_session(client, patron_martigny.user)
     # First request - All should be fine.
     res, data = postdata(
         client,
