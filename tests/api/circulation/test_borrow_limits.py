@@ -22,7 +22,6 @@ from datetime import datetime, timedelta
 from flask import url_for
 from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, LoansSearch, get_overdue_loans
@@ -35,6 +34,7 @@ from rero_ils.modules.patron_transaction_events.api import PatronTransactionEven
 from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import get_json, postdata
 
 
 def test_checkout_library_limit(
@@ -64,8 +64,6 @@ def test_checkout_library_limit(
     library_ref = get_ref_for_pid("lib", lib_martigny.pid)
     location_ref = get_ref_for_pid("loc", loc_public_martigny.pid)
 
-    login_user_via_session(client, librarian_martigny.user)
-
     # Update fixtures for the tests
     #   * Update the patron_type to set a checkout limits
     #   * All items are linked to the same library/location
@@ -83,6 +81,8 @@ def test_checkout_library_limit(
     item2.update(item2_lib_martigny_data, dbcommit=True, reindex=True)
     item3_lib_martigny_data["location"]["$ref"] = location_ref
     item3.update(item3_lib_martigny_data, dbcommit=True, reindex=True)
+
+    login_user_via_session(client, librarian_martigny.user)
 
     # First checkout - All should be fine.
     res, data = postdata(

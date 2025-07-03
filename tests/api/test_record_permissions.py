@@ -18,7 +18,8 @@
 """Test record permissions API."""
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, login_user
+
+from tests.utils import get_json, login_user
 
 
 def test_document_permissions(

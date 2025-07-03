@@ -21,7 +21,8 @@ import json
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+
+from tests.utils import get_json, postdata
 
 
 def test_vendors_get(client, librarian_martigny, vendor_martigny):

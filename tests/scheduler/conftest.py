@@ -35,7 +35,7 @@ def create_app():
 def app_config(app_config):
     """Create temporary instance dir for each test."""
     app_config["CELERY_BROKER_URL"] = "memory://"
-    app_config["RATELIMIT_STORAGE_URL"] = "memory://"
+    app_config["RATELIMIT_STORAGE_URI"] = "memory://"
     app_config["CACHE_TYPE"] = "simple"
     app_config["SEARCH_ELASTIC_HOSTS"] = None
     app_config["DB_VERSIONING"] = True
@@ -43,8 +43,9 @@ def app_config(app_config):
     app_config["CELERY_RESULT_BACKEND"] = "cache"
     app_config["CELERY_TASK_ALWAYS_EAGER"] = True
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = True
-    app_config["CELERY_BEAT_SCHEDULER"] = "rero_ils.schedulers.RedisScheduler"
-    app_config["CELERY_REDIS_SCHEDULER_URL"] = "redis://localhost:6379/4"
+    app_config["CELERY_BEAT_SCHEDULER"] = "rero_ils.schedulers.DatabaseScheduler"
+    # TODO: maybe we have to test with the Test DB?
+    app_config["CELERY_BEAT_DBURI"] = "sqlite:///schedule.db"
     app_config["CELERY_BEAT_SCHEDULE"] = {
         "bulk-indexer": {
             "task": "rero_ils.modules.tasks.process_bulk_queue",

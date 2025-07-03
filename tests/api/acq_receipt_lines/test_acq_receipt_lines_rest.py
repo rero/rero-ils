@@ -22,9 +22,9 @@ import json
 
 import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.acquisition.acq_receipt_lines.models import AcqReceiptLineNoteType
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 def test_acq_receipt_lines_get(client, acq_receipt_line_1_fiction_martigny):

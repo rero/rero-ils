@@ -17,7 +17,8 @@
 
 """Test translations API."""
 from flask import url_for
-from utils import get_json
+
+from tests.utils import get_json
 
 
 def test_translations(client, app):
