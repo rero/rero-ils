@@ -18,7 +18,6 @@
 
 """Indicator Report Configuration."""
 
-
 import hashlib
 
 from elasticsearch_dsl.aggs import A

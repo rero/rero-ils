@@ -269,19 +269,19 @@ class IndexerDumper(Dumper):
                         )["text"] = full_text
                     continue
                 # other information from the main file
-                record_files_information.setdefault(file_name, {})[
-                    "file_name"
-                ] = file_name
-                record_files_information[file_name][
-                    "rec_id"
-                ] = record_file.pid.pid_value
+                record_files_information.setdefault(file_name, {})["file_name"] = (
+                    file_name
+                )
+                record_files_information[file_name]["rec_id"] = (
+                    record_file.pid.pid_value
+                )
                 if collections:
                     record_files_information[file_name]["collections"] = collections
                 if library_pid:
                     record_files_information[file_name]["library_pid"] = library_pid
-                    record_files_information[file_name][
-                        "organisation_pid"
-                    ] = organisation_pid
+                    record_files_information[file_name]["organisation_pid"] = (
+                        organisation_pid
+                    )
             files += list(record_files_information.values())
         if files:
             data["files"] = files

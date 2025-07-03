@@ -74,17 +74,17 @@ fi
 function pretests () {
   info_msg "Check vulnerabilities:"
   # py 1.11.0  PYSEC-2022-42969
-  add_exceptions " PYSEC-2022-42969"
+  add_exceptions "PYSEC-2022-42969"
   # urllib3 1.26.20 GHSA-pq67-6m6q-mj2v 2.5.0
   add_exceptions "GHSA-pq67-6m6q-mj2v"
-  PIPAPI_PYTHON_LOCATION=`which python` pip-audit ${pip_audit_exceptions}
+  pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
   invenio reroils utils check_license check_license_config.yml
   info_msg "Test formating:"
-  ruff format --check rero_ils tests
+  ruff format rero_ils tests --check
   info_msg "Test linting:"
   ruff check rero_ils tests
   info_msg "Sphinx-build:"

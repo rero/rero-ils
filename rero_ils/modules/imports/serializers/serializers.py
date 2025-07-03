@@ -58,14 +58,14 @@ class ImportsSearchSerializer(JSONSerializer):
         for hit in search_result["hits"]["hits"]:
             hit["metadata"] = self.post_process(hit["metadata"])
             hit["metadata"]["pid"] = hit["id"]
-        results = dict(
-            hits=dict(
-                hits=search_result["hits"]["hits"],
-                total=search_result["hits"]["total"]["value"],
-                remote_total=search_result["hits"]["remote_total"],
-            ),
-            aggregations=search_result.get("aggregations", {}),
-        )
+        results = {
+            "hits": {
+                "hits": search_result["hits"]["hits"],
+                "total": search_result["hits"]["total"]["value"],
+                "remote_total": search_result["hits"]["remote_total"],
+            },
+            "aggregations": search_result.get("aggregations", {}),
+        }
         if errors := search_result.get("errors"):
             results["errors"] = errors
         # TODO: If we have multiple types for a document we have to Correct
@@ -90,7 +90,7 @@ class ImportsSearchSerializer(JSONSerializer):
         :param links: Dictionary of links to add to response.
         """
         return json.dumps(
-            dict(metadata=self.post_process(self.record_processor(record))),
+            {"metadata": self.post_process(self.record_processor(record))},
             **self._format_args(),
         )
 

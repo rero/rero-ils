@@ -17,8 +17,6 @@
 
 """Celery tasks for notification records."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import datetime, timezone
 
 from celery import shared_task
@@ -110,7 +108,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
                     if notifications := loan.create_notification(
                         _type=NotificationType.OVERDUE, counter=idx
                     ):
-                        msg = f"  --> Overdue notification#{idx+1} created"
+                        msg = f"  --> Overdue notification#{idx + 1} created"
                         logger.debug(msg)
                         notification_counter[NotificationType.OVERDUE] += len(
                             notifications
@@ -118,7 +116,7 @@ def create_notifications(types=None, tstamp=None, verbose=True):
 
                     else:
                         msg = (
-                            f"  --> Overdue notification#{idx+1} skipped "
+                            f"  --> Overdue notification#{idx + 1} skipped "
                             ":: already sent"
                         )
                         logger.debug(msg)

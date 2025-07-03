@@ -27,7 +27,7 @@ def test_migration_data_create(migration, migration_xml_data, lib_martigny):
     """Test the migration creation."""
 
     raw = migration_xml_data.encode()
-    data = dict(raw=raw, migration_id=migration.meta.id)
+    data = {"raw": raw, "migration_id": migration.meta.id}
     MigrationData = migration.data_class
     migration_id = migration.meta.id
     with pytest.raises(ValidationException):

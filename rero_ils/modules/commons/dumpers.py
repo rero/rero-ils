@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Record dumpers."""
+
 import contextlib
 
 from invenio_records.api import _records_state
@@ -74,5 +75,4 @@ class ReplaceRefsDumper(InvenioRecordsDumper):
         """
         from copy import deepcopy
 
-        data = deepcopy(_records_state.replace_refs(data))
-        return data
+        return deepcopy(_records_state.replace_refs(data))

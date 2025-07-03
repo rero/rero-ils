@@ -17,8 +17,6 @@
 
 """Define relation between records and buckets."""
 
-from __future__ import absolute_import
-
 from enum import Enum
 
 from invenio_db import db

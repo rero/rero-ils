@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Common pytest fixtures and plugins."""
+
 import json
 import os
 import shutil

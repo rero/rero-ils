@@ -17,13 +17,11 @@
 
 """CircPolicy Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import date, datetime, timedelta, timezone
+from unittest import mock
 
 import ciso8601
-import mock
 from freezegun import freeze_time
 from invenio_circulation.proxies import current_circulation
 
@@ -448,7 +446,7 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)
     expected_due_amount = [0.1, 0.3, 0.8, 1.3, 1.8, 2.3, 2.8, 3.3, 3.8, 4.3]
-    for delta in range(0, len(expected_due_amount)):
+    for delta in range(len(expected_due_amount)):
         end = get_end_date(delta)
         loan["end_date"] = end.isoformat()
         loan = loan.update(loan, dbcommit=True, reindex=True)
@@ -471,7 +469,7 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)
     expected_due_amount = [0.1, 0.3, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8]
-    for delta in range(0, len(expected_due_amount)):
+    for delta in range(len(expected_due_amount)):
         end = get_end_date(delta)
         loan["end_date"] = end.isoformat()
         loan = loan.update(loan, dbcommit=True, reindex=True)
@@ -496,7 +494,7 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)
     expected_due_amount = [0.1, 0.3, 0.8, 1.3, 1.8, 2.0, 2.0, 2.0, 2.0, 2.0]
-    for delta in range(0, len(expected_due_amount)):
+    for delta in range(len(expected_due_amount)):
         end = get_end_date(delta)
         loan["end_date"] = end.isoformat()
         loan = loan.update(loan, dbcommit=True, reindex=True)
@@ -520,7 +518,7 @@ def test_loan_get_overdue_fees(item_on_loan_martigny_patron_and_loan_on_loan):
     }
     cipo.update(data=cipo, dbcommit=True, reindex=True)
     expected_due_amount = [0, 0.1, 0.2, 0.2, 0.7, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1]
-    for delta in range(0, len(expected_due_amount)):
+    for delta in range(len(expected_due_amount)):
         end = get_end_date(delta)
         loan["end_date"] = end.isoformat()
         loan = loan.update(loan, dbcommit=True, reindex=True)

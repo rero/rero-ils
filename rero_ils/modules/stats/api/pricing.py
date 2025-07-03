@@ -82,7 +82,7 @@ class StatsForPricing:
         ]:
             assert len(stat_pid) == 1
             return stat_pid[0]
-        return
+        return None
 
     def collect(self):
         """Collect all the statistics."""
@@ -325,7 +325,7 @@ class StatsForPricing:
         record_service = ext.records_service
         return record_service.search_request(
             system_identity,
-            dict(size=1),
+            {"size": 1},
             record_service.record_cls,
             record_service.config.search,
         )

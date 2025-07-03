@@ -16,10 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API operation logs."""
+
 from copy import deepcopy
 from datetime import datetime
+from unittest import mock
 
-import mock
 from flask import current_app, url_for
 from invenio_access.permissions import system_identity
 from invenio_accounts.testutils import login_user_via_session
@@ -216,10 +217,10 @@ def test_operation_log_on_file(
     oplg_index = OperationLog.get_index(fake_data)
 
     # create a pdf file
-    metadata = dict(
-        library={"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
-        collections=["col1", "col2"],
-    )
+    metadata = {
+        "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
+        "collections": ["col1", "col2"],
+    }
     record = create_pdf_record_files(document, metadata)
     recid = record["id"]
 
@@ -237,22 +238,25 @@ def test_operation_log_on_file(
 
     # record file creation is in the op
     es_url = url_for(
-        "invenio_records_rest.oplg_list", q=f"record.type:recid AND operation:create"
+        "invenio_records_rest.oplg_list", q="record.type:recid AND operation:create"
     )
     res = client.get(es_url)
     data = get_json(res)
     assert data["hits"]["total"]["value"] == 1
     metadata = data["hits"]["hits"][0]["metadata"]
-    assert set(metadata["record"].keys()) == set(
-        ["library_pid", "organisation_pid", "type", "value"]
-    )
+    assert set(metadata["record"].keys()) == {
+        "library_pid",
+        "organisation_pid",
+        "type",
+        "value",
+    }
     assert set(metadata["file"]["document"]) == {"pid", "type", "title"}
 
     # record file update is in the op
-    record_service.update(system_identity, recid, dict(metadata=record["metadata"]))
+    record_service.update(system_identity, recid, {"metadata": record["metadata"]})
     OperationLogsSearch.flush_and_refresh()
     es_url = url_for(
-        "invenio_records_rest.oplg_list", q=f"record.type:recid AND operation:update"
+        "invenio_records_rest.oplg_list", q="record.type:recid AND operation:update"
     )
     res = client.get(es_url)
     data = get_json(res)
@@ -262,15 +266,18 @@ def test_operation_log_on_file(
     pdf_file_name = "doc_doc1_1.pdf"
     es_url = url_for(
         "invenio_records_rest.oplg_list",
-        q="record.type:file AND operation:create " f"AND record.value:{pdf_file_name}",
+        q=f"record.type:file AND operation:create AND record.value:{pdf_file_name}",
     )
     res = client.get(es_url)
     data = get_json(res)
     metadata = data["hits"]["hits"][0]["metadata"]
     assert data["hits"]["total"]["value"] == 1
-    assert set(data["hits"]["hits"][0]["metadata"]["record"].keys()) == set(
-        ["library_pid", "organisation_pid", "type", "value"]
-    )
+    assert set(data["hits"]["hits"][0]["metadata"]["record"].keys()) == {
+        "library_pid",
+        "organisation_pid",
+        "type",
+        "value",
+    }
     assert set(metadata["file"]["document"]) == {"pid", "type", "title"}
     assert metadata["file"]["recid"] == recid
 
@@ -282,7 +289,7 @@ def test_operation_log_on_file(
 
     es_url = url_for(
         "invenio_records_rest.oplg_list",
-        q="record.type:file AND operation:delete " f"AND record.value:{pdf_file_name}",
+        q=f"record.type:file AND operation:delete AND record.value:{pdf_file_name}",
     )
     res = client.get(es_url)
     data = get_json(res)
@@ -292,7 +299,7 @@ def test_operation_log_on_file(
     record_service.delete(identity=system_identity, id_=recid)
     OperationLogsSearch.flush_and_refresh()
     es_url = url_for(
-        "invenio_records_rest.oplg_list", q=f"record.type:recid AND operation:delete"
+        "invenio_records_rest.oplg_list", q="record.type:recid AND operation:delete"
     )
     res = client.get(es_url)
     data = get_json(res)

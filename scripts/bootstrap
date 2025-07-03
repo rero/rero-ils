@@ -111,7 +111,7 @@ fi
 
 if ! $deploy ; then
     if $ci ; then
-        cmd="uv sync -U"
+        cmd="uv sync --upgrade"
     fi
 fi
 
@@ -120,11 +120,11 @@ if $sip2  ; then
 fi
 
 # create virtualenv and upgrade pip
-info_msg "Upgrade pip"
-uv pip install --upgrade pip
+# info_msg "Upgrade pip"
+# uv pip install --upgrade pip
 
-info_msg "Install poethepoet"
-uv pip install poethepoet
+# info_msg "Install poethepoet"
+# uv pip install poethepoet
 
 # BOOTSTRAP START
 # install the application and all the dependencies

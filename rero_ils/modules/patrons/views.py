@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 import datetime
 import re
 
@@ -345,7 +343,7 @@ def info():
 def patron_message():
     """Get patron message."""
     if not current_patrons:
-        return
+        return None
     data = {"show_info": False, "data": {}}
     for patron in current_patrons:
         if patron.is_blocked or patron.is_expired:

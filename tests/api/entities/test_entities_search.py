@@ -16,7 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Search tests."""
-import mock
+
+from unittest import mock
+
 from flask import url_for
 
 from tests.utils import VerifyRecordPermissionPatch, get_json

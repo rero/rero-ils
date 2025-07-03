@@ -18,8 +18,6 @@
 
 """Holding Patterns Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime
 
@@ -104,7 +102,7 @@ def test_receive_regular_issue(holding_lib_martigny_w_patterns, tomorrow):
     assert ItemsSearch().filter("term", call_numbers__raw="h00005").count() == 1
     assert ItemsSearch().filter("term", call_numbers__raw="h00005_2").count() == 1
 
-    assert list(holding.get_items())[0].get("pid") == issue.pid
+    assert next(iter(holding.get_items())).get("pid") == issue.pid
 
     assert issue.location_pid == holding.location_pid
     assert issue.item_type_pid == holding.circulation_category_pid
@@ -378,7 +376,7 @@ def test_intervals_and_expected_dates(holding_lib_martigny_w_patterns):
     holding["patterns"] = patterns
 
     def update_pattern(holding, frequency):
-        """update holdings patterns with a new frequency."""
+        """Update holdings patterns with a new frequency."""
         holding["patterns"]["frequency"] = frequency
         holding.update(holding, dbcommit=True, reindex=True)
 

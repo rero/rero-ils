@@ -358,7 +358,7 @@ def unimarc_type_and_issuance(self, key, value):
         sub_type = _ISSUANCE_SUBTYPE_PER_BIB_LEVEL[unimarc.bib_level]
     if unimarc.serial_type in _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE:
         sub_type = _ISSUANCE_SUBTYPE_PER_SERIAL_TYPE[unimarc.serial_type]
-    self["issuance"] = dict(main_type=main_type, subtype=sub_type)
+    self["issuance"] = {"main_type": main_type, "subtype": sub_type}
     # fiction statement
     self["fiction_statement"] = DocumentFictionType.Unspecified.value
 
@@ -461,7 +461,7 @@ def unimarc_title(self, key, value):
                         responsibilites.append(value_data)
                     if blob_key in ["h", "i"]:
                         part_list.update_part(
-                            [dict(value=blob_value)], blob_key, blob_value
+                            [{"value": blob_value}], blob_key, blob_value
                         )
                     if blob_key != "__order__":
                         index += 1
@@ -557,12 +557,12 @@ def unimarc_to_contribution(self, key, value):
     """Get contribution.
 
     contribution: loop:
-    700 Nom de personne – Responsabilité principale
-    701 Nom de personne – Autre responsabilité principale
-    702 Nom de personne – Responsabilité secondaire
-    710 Nom de collectivité – Responsabilité principale
-    711 Nom de collectivité – Autre responsabilité principale
-    712 Nom de collectivité – Responsabilité secondaire
+    700 Nom de personne - Responsabilité principale
+    701 Nom de personne - Autre responsabilité principale
+    702 Nom de personne - Responsabilité secondaire
+    710 Nom de collectivité - Responsabilité principale
+    711 Nom de collectivité - Autre responsabilité principale
+    712 Nom de collectivité - Responsabilité secondaire
     """
     agent = {
         "preferred_name": ", ".join(utils.force_list(value.get("a", ""))),
@@ -670,14 +670,13 @@ def unimarc_to_contribution(self, key, value):
             "entity": {"$ref": ref, "_text": create_authorized_access_point(agent)},
             "role": roles,
         }
-    else:
-        return {
-            "entity": {
-                "authorized_access_point": create_authorized_access_point(agent),
-                "type": agent["type"],
-            },
-            "role": roles,
-        }
+    return {
+        "entity": {
+            "authorized_access_point": create_authorized_access_point(agent),
+            "type": agent["type"],
+        },
+        "role": roles,
+    }
 
 
 @unimarc.over("editionStatement", "^205..")
@@ -712,11 +711,10 @@ def unimarc_publishers_provision_activity_publication(self, key, value):
             "e": EntityType.PLACE,
             "g": EntityType.AGENT,
         }
-        place_or_agent_data = {
+        return {
             "type": type_per_code[code],
             "label": [{"value": remove_trailing_punctuation(label)}],
         }
-        return place_or_agent_data
 
     def build_place():
         # country from 102
@@ -917,7 +915,7 @@ def unimarc_description(self, key, value):
     215 [$e repetitive]: accompanying material note
     """
     unimarc.extract_description_from_marc_field(key, value, self)
-    return None
+    return
 
 
 @unimarc.over("series", "^225..")
@@ -1110,9 +1108,9 @@ def unimarc_notes(self, key, value):
 
     note: [300$a repetitive]
     """
-    add_note(dict(noteType="general", label=value.get("a", "")), self)
+    add_note({"noteType": "general", "label": value.get("a", "")}, self)
 
-    return None
+    return
 
 
 @unimarc.over("subjects_imported", "^6((0[0-9])|(1[0-7]))..")
@@ -1147,9 +1145,9 @@ def unimarc_subjects(self, key, value):
     if value.get("y"):
         to_return += " -- " + " -- ".join(utils.force_list(value.get("y")))
     if to_return:
-        data = dict(
-            entity={"type": EntityType.TOPIC, "authorized_access_point": to_return}
-        )
+        data = {
+            "entity": {"type": EntityType.TOPIC, "authorized_access_point": to_return}
+        }
         if source := value.get("2", None):
             data["entity"]["source"] = source
         self.setdefault(config_field_key, []).append(data)

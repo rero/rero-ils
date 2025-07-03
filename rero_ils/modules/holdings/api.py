@@ -17,9 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Holdings records."""
-from __future__ import absolute_import, print_function
 
-from builtins import classmethod
 from copy import deepcopy
 from datetime import datetime, timezone
 from functools import partial
@@ -65,7 +63,9 @@ from .models import HoldingIdentifier, HoldingMetadata, HoldingTypes
 
 # holing provider
 HoldingProvider = type(
-    "HoldingProvider", (Provider,), dict(identifier=HoldingIdentifier, pid_type="hold")
+    "HoldingProvider",
+    (Provider,),
+    {"identifier": HoldingIdentifier, "pid_type": "hold"},
 )
 # holing minter
 holding_id_minter = partial(id_minter, provider=HoldingProvider)
@@ -208,8 +208,7 @@ class Holding(IlsRecord):
                 for item in self.get_all_items():
                     item.delete(force=force, dbcommit=dbcommit, delindex=False)
             return super().delete(force=force, dbcommit=dbcommit, delindex=delindex)
-        else:
-            raise IlsRecordError.NotDeleted()
+        raise IlsRecordError.NotDeleted()
 
     @property
     def is_serial(self):
@@ -271,12 +270,14 @@ class Holding(IlsRecord):
         """Shortcut for vendor pid of the holding."""
         if self.get("vendor"):
             return extracted_data_from_ref(self.get("vendor"))
+        return None
 
     @property
     def vendor(self):
         """Shortcut to return the vendor record."""
         if self.get("vendor"):
             return extracted_data_from_ref(self.get("vendor"), data="record")
+        return None
 
     def get_available_item_pids(self):
         """Get the list of the available item pids.
@@ -372,10 +373,9 @@ class Holding(IlsRecord):
     @property
     def get_items_count_by_holding_pid(self):
         """Returns items count from holding pid."""
-        results = (
+        return (
             ItemsSearch().filter("term", holding__pid=self.pid).source(["pid"]).count()
         )
-        return results
 
     @classmethod
     def get_document_pid_by_holding_pid(cls, holding_pid):
@@ -389,6 +389,7 @@ class Holding(IlsRecord):
         holding = cls.get_record_by_pid(holding_pid)
         if holding:
             return holding.holdings_type
+        return None
 
     @classmethod
     def get_holdings_pid_by_document_pid(cls, document_pid, with_masked=True):
@@ -431,18 +432,16 @@ class Holding(IlsRecord):
     def get_items(self):
         """Return standard items and received issues for a holding record."""
         for item_pid in Item.get_items_pid_by_holding_pid(self.pid):
-            if item := Item.get_record_by_pid(item_pid):
-                if (
-                    not item.issue_status
-                    or item.issue_status == ItemIssueStatus.RECEIVED
-                ):
-                    # inherit holdings first call#
-                    # for issues with no 1st call#.
-                    if first_call_number := item.issue_inherited_first_call_number:
-                        item["call_number"] = first_call_number
-                    if second_call_number := item.issue_inherited_second_call_number:
-                        item["second_call_number"] = second_call_number
-                    yield item
+            if (item := Item.get_record_by_pid(item_pid)) and (
+                not item.issue_status or item.issue_status == ItemIssueStatus.RECEIVED
+            ):
+                # inherit holdings first call#
+                # for issues with no 1st call#.
+                if first_call_number := item.issue_inherited_first_call_number:
+                    item["call_number"] = first_call_number
+                if second_call_number := item.issue_inherited_second_call_number:
+                    item["second_call_number"] = second_call_number
+                yield item
 
     def get_all_items(self):
         """Return all items a holding record."""
@@ -499,6 +498,7 @@ class Holding(IlsRecord):
             for ptrn in current_patrons:
                 if ptrn.organisation_pid == organisation_pid:
                     return ptrn
+            return None
 
         patron = find_patron(self.organisation_pid)
         if patron:
@@ -511,8 +511,7 @@ class Holding(IlsRecord):
             name = _(cipo.get("name"))
             checkout_duration = cipo.get("checkout_duration")
             return f"{name} {checkout_duration} days"
-        else:
-            return ItemType.get_record_by_pid(self.circulation_category_pid).get("name")
+        return ItemType.get_record_by_pid(self.circulation_category_pid).get("name")
 
     @property
     def patterns(self):
@@ -524,6 +523,7 @@ class Holding(IlsRecord):
         """Display the text of the next predicted issue."""
         if self.patterns:
             return self._get_next_issue_display_text(self.patterns)[0]
+        return None
 
     def get_location(self):
         """Shortcut to the location of holding."""
@@ -598,7 +598,7 @@ class Holding(IlsRecord):
     def increment_next_prediction(self):
         """Increment next prediction."""
         if not self.patterns or not self.patterns.get("values"):
-            return
+            return None
         self["patterns"] = self._increment_next_prediction(self.patterns)
         return self
 

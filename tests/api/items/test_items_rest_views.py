@@ -17,12 +17,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API items."""
+
 import time
+from unittest import mock
 
 from elasticsearch_dsl.search import Response
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from mock import mock
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
@@ -82,24 +83,24 @@ def test_patron_checkouts_order(
     res, _ = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item3_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-        ),
+        {
+            "item_pid": item3_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
     res, _ = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item4_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-        ),
+        {
+            "item_pid": item4_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+        },
     )
     assert res.status_code == 200
 

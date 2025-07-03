@@ -18,8 +18,6 @@
 
 """API for manipulating Notifications."""
 
-from __future__ import absolute_import, print_function
-
 from abc import ABC, abstractmethod
 from datetime import datetime, timezone
 from functools import partial
@@ -45,7 +43,7 @@ from .models import (
 NotificationProvider = type(
     "NotificationProvider",
     (Provider,),
-    dict(identifier=NotificationIdentifier, pid_type="notif"),
+    {"identifier": NotificationIdentifier, "pid_type": "notif"},
 )
 
 # notification minter
@@ -138,7 +136,7 @@ class Notification(IlsRecord, ABC):
         if data.get("notification_type") in current_app.config.get(
             "RERO_ILS_DISABLED_NOTIFICATION_TYPE", []
         ):
-            return
+            return None
 
         data.setdefault("status", NotificationStatus.CREATED)
         record = super().create(data, id_, delete_pid, dbcommit, reindex, **kwargs)

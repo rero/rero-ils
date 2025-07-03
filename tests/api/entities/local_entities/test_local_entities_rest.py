@@ -19,8 +19,8 @@
 """Tests `LocalEntity` resource REST API."""
 
 import json
+from unittest import mock
 
-import mock
 from flask import url_for
 
 from rero_ils.modules.documents.dumpers import document_replace_refs_dumper

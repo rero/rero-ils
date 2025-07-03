@@ -174,7 +174,7 @@ def do_contribution(contribution, source_order):
         result["0"] = []
     for ref in refs:
         result["__order__"].append("0")
-        result["0"].append(f'({ref["source"]}){ref["pid"]}')
+        result["0"].append(f"({ref['source']}){ref['pid']}")
     return result, entity_type, surname, conference
 
 
@@ -230,6 +230,7 @@ def get_holdings_items(
         data = resource.get_record_by_pid(pid)
         if data:
             return data.get("name")
+        return None
 
     results = []
     if document_pid:
@@ -381,8 +382,7 @@ class ToMarc21Overdo(Underdo):
                     if end_date:
                         type_of_date = "m"
                     fixed_data = (
-                        f"{fixed_data[:6]}{type_of_date}"
-                        f"{start_date}{fixed_data[11:]}"
+                        f"{fixed_data[:6]}{type_of_date}{start_date}{fixed_data[11:]}"
                     )
                     break
         if language := utils.force_list(blob.get("language")):
@@ -429,7 +429,7 @@ class ToMarc21Overdo(Underdo):
         extent = blob.get("extent")
         durations = ", ".join(blob.get("duration", []))
         if extent:
-            if durations and f"({durations})" in extent or not durations:
+            if (durations and f"({durations})" in extent) or not durations:
                 physical_description["extent"] = extent
             else:
                 physical_description["extent"] = f"{extent} ({durations})"
@@ -486,10 +486,9 @@ class ToMarc21Overdo(Underdo):
         for key in ORDER:
             order.extend(key for _ in range(keys.get(key, 0)))
         blob["__order__"] = order
-        result = super().do(
+        return super().do(
             blob, ignore_missing=ignore_missing, exception_handlers=exception_handlers
         )
-        return result
 
 
 def add_value(result, sub_tag, value):
@@ -555,7 +554,7 @@ def reverse_identified_by(self, key, value):
             result["__order__"].append("q")
             result["q"] = qualifier
         self.append(("020__", utils.GroupableOrderedDict(result)))
-    return None
+    return
 
 
 @to_marc21.over("245", "^title_responsibility")
@@ -635,13 +634,13 @@ def reverse_title(self, key, value):
         result["b"] = ". ".join(sub_titles)
     if main_titles_parallel:
         if result.get("b"):
-            result["b"] += f' = {". ".join(main_titles_parallel)}'
+            result["b"] += f" = {'. '.join(main_titles_parallel)}"
         else:
             result["__order__"].append("b")
             result["b"] = ". ".join(main_titles_parallel)
     if sub_titles_parallel:
         if result.get("b"):
-            result["b"] += f' : {". ".join(sub_titles_parallel)}'
+            result["b"] += f" : {'. '.join(sub_titles_parallel)}"
         else:
             result["__order__"].append("b")
             result["b"] = ". ".join(sub_titles_parallel)
@@ -668,55 +667,54 @@ def reverse_title(self, key, value):
 @utils.ignore_value
 def reverse_provision_activity(self, key, value):
     """Reverse - provisionActivity."""
-    # Pour chaque objet de "provisionActivity" (répétitif), créer une 264 :
+    # Pour chaque objet de "provisionActivity" (répétitif), créer une 264:
     # * si type=bf:Publication, ind2=1
     #     * sinon si type=bf:Distribution, ind2=2
     #         * sinon si type=bf:Manufacture, ind2=3
     #             * sinon si type=bf:Production, ind2=0
-    # * prendre dans l’ordre chaque chaque objet de "statement"
+    # * prendre dans l'ordre chaque chaque objet de "statement"
     #     * $a = [label] si type=bf:Place
     #     * $a = [label] si type=bf:Agent
     #     * $a = [label] si type=bf:Date
-    # Pour chaque "copyrightDate" :
+    # Pour chaque "copyrightDate":
     # * 264 ind2=4 $a = [copyrightDate]
     if key == "copyrightDate":
         result = {
             "$ind2": "4",
         }
-        result = add_value(result, "a", value)
+        return add_value(result, "a", value)
+    data = {}
+    order = []
+    for statement in value.get("statement", []):
+        statement_type = statement.get("type")
+        subfield = "a"
+        if statement_type == "bf:Agent":
+            subfield = "b"
+        elif statement_type == "Date":
+            subfield = "c"
+        for label in statement.get("label"):
+            order.append(subfield)
+            data.setdefault(subfield, [])
+            data[subfield].append(label["value"])
+            # only take the first label
+            break
+    if data:
+        provision_activity_type = value.get("type")
+        ind2 = ""
+        if provision_activity_type == "bf:Publication":
+            ind2 = "1"
+        elif provision_activity_type == "bf:Distribution":
+            ind2 = "2"
+        elif provision_activity_type == "bf:Manufacture":
+            ind2 = "3"
+        elif provision_activity_type == "bf:Production":
+            ind2 = "0"
+        result = {"$ind2": ind2}
+        for key, value in data.items():
+            result = add_values(result, key, value)
+        result["__order__"] = order
         return result
-    else:
-        data = {}
-        order = []
-        for statement in value.get("statement", []):
-            statement_type = statement.get("type")
-            subfield = "a"
-            if statement_type == "bf:Agent":
-                subfield = "b"
-            elif statement_type == "Date":
-                subfield = "c"
-            for label in statement.get("label"):
-                order.append(subfield)
-                data.setdefault(subfield, [])
-                data[subfield].append(label["value"])
-                # only take the first label
-                break
-        if data:
-            provision_activity_type = value.get("type")
-            ind2 = ""
-            if provision_activity_type == "bf:Publication":
-                ind2 = "1"
-            elif provision_activity_type == "bf:Distribution":
-                ind2 = "2"
-            elif provision_activity_type == "bf:Manufacture":
-                ind2 = "3"
-            elif provision_activity_type == "bf:Production":
-                ind2 = "0"
-            result = {"$ind2": ind2}
-            for key, value in data.items():
-                result = add_values(result, key, value)
-            result["__order__"] = order
-            return result
+    return None
 
 
 @to_marc21.over("300", "^physical_description")
@@ -745,8 +743,7 @@ def reverse_subjects(self, key, value):
     def add_identified_by(result, identified_by):
         """Adds $2 and $0 to result."""
         result = add_value(result, "2", identified_by["type"].lower())
-        result = add_value(result, "0", identified_by["value"])
-        return result
+        return add_value(result, "0", identified_by["value"])
 
     if entity := value.get("entity"):
         tag = None
@@ -813,11 +810,12 @@ def reverse_genre_form(self, key, value):
 
     Genre / Forme > 655 - Genre ou forme
     """
-    if value.get("entity"):
-        if result := do_concept(
+    if value.get("entity") and (
+        result := do_concept(
             entity=value.get("entity"), source_order=to_marc21.source_order
-        ):
-            self.append(("655__", utils.GroupableOrderedDict(result)))
+        )
+    ):
+        self.append(("655__", utils.GroupableOrderedDict(result)))
 
 
 @to_marc21.over("7XX", "^contribution")

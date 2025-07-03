@@ -19,8 +19,8 @@
 """Tests REST API acquisition receipt lines."""
 
 import json
+from unittest import mock
 
-import mock
 from flask import url_for
 
 from rero_ils.modules.acquisition.acq_receipt_lines.models import AcqReceiptLineNoteType

@@ -67,13 +67,13 @@ def test_less_than_one_day_checkout(
         res, data = postdata(
             client,
             "api_item.checkout",
-            dict(
-                item_pid=created_item.pid,
-                patron_pid=patron2_martigny.pid,
-                transaction_location_pid=loc_public_martigny.pid,
-                transaction_user_pid=librarian_martigny.pid,
-                pickup_location_pid=loc_public_martigny.pid,
-            ),
+            {
+                "item_pid": created_item.pid,
+                "patron_pid": patron2_martigny.pid,
+                "transaction_location_pid": loc_public_martigny.pid,
+                "transaction_user_pid": librarian_martigny.pid,
+                "pickup_location_pid": loc_public_martigny.pid,
+            },
         )
         assert res.status_code == 200
         actions = data["action_applied"]

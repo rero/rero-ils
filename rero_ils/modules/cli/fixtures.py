@@ -18,8 +18,7 @@
 
 """Click command-line utilities."""
 
-from __future__ import absolute_import, print_function
-
+import contextlib
 import json
 import os
 import sys
@@ -374,7 +373,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose, create_p
         file_errors.close()
     if errors_count == 0:
         os.remove(file_name_errors)
-    click.secho(f"Created: {count-errors_count} Errors: {errors_count}", fg="yellow")
+    click.secho(f"Created: {count - errors_count} Errors: {errors_count}", fg="yellow")
 
 
 @fixtures.command("bulk_load")
@@ -456,15 +455,12 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
     :param verbose: Verbose.
     """
     file_name_tmp_pidstore = os.path.join(output_directory, "tmp_pidstore.csv")
-    try:
+    with contextlib.suppress(OSError):
         os.remove(file_name_tmp_pidstore)
-    except OSError:
-        pass
 
     all_pid_types = []
     endpoints = current_app.config.get("RECORDS_REST_ENDPOINTS")
-    for endpoint in endpoints:
-        all_pid_types.append(endpoint)
+    all_pid_type = [endpoints]
     if pid_types[0] == "all":
         pid_types = all_pid_types
 
@@ -503,7 +499,5 @@ def bulk_save(pid_types, output_directory, deployment, verbose):
         file_name_pids = os.path.join(output_directory, f"{file_prefix}_pids.csv")
         bulk_save_pids(pid_type=p_type, file_name=file_name_pids, verbose=verbose)
         click.secho(f"Saved records: {count}", fg="yellow")
-    try:
+    with contextlib.suppress(OSError):
         os.remove(file_name_tmp_pidstore)
-    except OSError:
-        pass

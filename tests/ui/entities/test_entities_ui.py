@@ -74,9 +74,9 @@ def test_view(client, entity_person, local_entity_person):
 
 def test_entity_icon():
     """Entity icon test."""
-    assert "fa-building-o" == entity_icon(EntityType.ORGANISATION)
+    assert entity_icon(EntityType.ORGANISATION) == "fa-building-o"
     # Default icon if type not found
-    assert "fa-question-circle-o" == entity_icon("foo")
+    assert entity_icon("foo") == "fa-question-circle-o"
 
 
 def test_extract_data_from_record(app):
@@ -123,7 +123,7 @@ def test_sources_link(app):
         "gnd": "http://d-nb.info/gnd/118754688",
     }
     assert result == sources_link(data)
-    assert {} == sources_link({})
+    assert sources_link({}) == {}
 
 
 def test_search_link(app, entity_organisation, local_entity_org, entity_topic):

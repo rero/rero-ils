@@ -18,9 +18,6 @@
 
 """API for manipulating item types."""
 
-
-from __future__ import absolute_import, print_function
-
 import contextlib
 from functools import partial
 
@@ -39,7 +36,7 @@ from .models import ItemTypeIdentifier, ItemTypeMetadata
 ItemTypeProvider = type(
     "ItemTypeProvider",
     (Provider,),
-    dict(identifier=ItemTypeIdentifier, pid_type="itty"),
+    {"identifier": ItemTypeIdentifier, "pid_type": "itty"},
 )
 # minter
 item_type_id_minter = partial(id_minter, provider=ItemTypeProvider)

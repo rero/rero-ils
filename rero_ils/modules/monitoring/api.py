@@ -62,7 +62,7 @@ DB_CONNECTIONS_QUERY = text(
 )
 
 
-class Monitoring(object):
+class Monitoring:
     """Monitoring class.
 
     The main idea here is to check the consistency between the database and
@@ -93,14 +93,14 @@ class Monitoring(object):
             5. elasticsearch count
         """
         result = ""
-        msg_head = f'DB - ES{"type":>8}{"count":>11}{"index":>27}{"count":>11}'
-        msg_head += f'\n{"":-^64s}\n'
+        msg_head = f"DB - ES{'type':>8}{'count':>11}{'index':>27}{'count':>11}"
+        msg_head += f"\n{'':-^64s}\n"
         for doc_type, info in sorted(self.info().items()):
             db_es = info.get("db-es", "")
             count_db = info.get("db", "")
             msg = f"{db_es:>7}  {doc_type:>6} {count_db:>10}"
             if index := info.get("index", ""):
-                msg += f'  {index:>25} {info.get("es", ""):>10}'
+                msg += f"  {index:>25} {info.get('es', ''):>10}"
             result += msg + "\n"
         return msg_head + result
 
@@ -282,8 +282,7 @@ class Monitoring(object):
                 "ES": list(missing_in_es),
                 "ES duplicate": pids_es_double,
             }
-        else:
-            return {"ERROR": f"Document type not found: {doc_type}"}
+        return {"ERROR": f"Document type not found: {doc_type}"}
 
     def print_missing(self, doc_type):
         """Print missing pids for the given document type.
@@ -292,19 +291,18 @@ class Monitoring(object):
         """
         missing = self.missing(doc_type=doc_type)
         if "ERROR" in missing:
-            click.secho(f'Error: {missing["ERROR"]}', fg="yellow")
+            click.secho(f"Error: {missing['ERROR']}", fg="yellow")
         else:
-            if "ES duplicate" in missing and missing["ES duplicate"]:
+            if missing.get("ES duplicate"):
                 click.secho(
-                    f"ES duplicate {doc_type}:"
-                    f' {", ".join(missing["ES duplicate"])}',
+                    f"ES duplicate {doc_type}: {', '.join(missing['ES duplicate'])}",
                     fg="red",
                 )
-            if "ES" in missing and missing["ES"]:
+            if missing.get("ES"):
                 click.secho(
-                    f'ES missing {doc_type}: {", ".join(missing["ES"])}', fg="red"
+                    f"ES missing {doc_type}: {', '.join(missing['ES'])}", fg="red"
                 )
-            if "DB" in missing and missing["DB"]:
+            if missing.get("DB"):
                 click.secho(
-                    f'DB missing {doc_type}: {", ".join(missing["DB"])}', fg="red"
+                    f"DB missing {doc_type}: {', '.join(missing['DB'])}", fg="red"
                 )

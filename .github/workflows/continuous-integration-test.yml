@@ -1,4 +1,4 @@
-name: build
+name: CI
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
@@ -6,7 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dependencies: ['dev', 'deploy']
+        python-version: ["3.12"]
+        dependencies: ["dev", "deploy"]
     steps:
     - name: Cancel Previous Runs
       uses: styfle/cancel-workflow-action@0.12.0
@@ -23,30 +24,23 @@ jobs:
     - name: Docker compose up
       run: docker compose up -d
 
-    - name: Set up Python 3.12
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.12
-
     - name: Install uv
       uses: astral-sh/setup-uv@v5
+
+    - name: Set up Python
+      run: uv python install ${{ matrix.python-version }}
 
     - name: Bootstrap
       if: ${{ matrix.dependencies == 'dev' }}
       run: |
         uv run ./scripts/bootstrap --ci
-        uv pip install -r pyproject.toml --extra sip2
 
     - name: Bootstrap deploy
       if: ${{ matrix.dependencies == 'deploy' }}
-      run: |
-        uv pip list
-        uv run ./scripts/bootstrap --ci --deploy E2E=yes
-        uv sync --frozen --extra sip2
+      run: uv run ./scripts/bootstrap --ci --deploy E2E=yes
 
     - name: Run Test
-      run: |
-        uv run poe run_tests
+      run: uv run poe run_tests
 
     - name: Coverage XML
       if: ${{ matrix.dependencies == 'dev' }}

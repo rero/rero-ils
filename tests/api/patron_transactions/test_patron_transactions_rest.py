@@ -20,8 +20,8 @@
 import json
 from copy import deepcopy
 from datetime import datetime
+from unittest import mock
 
-import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
@@ -263,7 +263,7 @@ def test_patron_subscription_transaction(patron_type_youngsters_sion, patron_sio
     )
     assert subscription.get_links_to_me() == {"events": 1}
     assert subscription.get_links_to_me(get_pids=True)
-    event = list(subscription.events)[0]
+    event = next(iter(subscription.events))
     assert event.get("type") == "fee"
     assert event.get("subtype") == "other"
     assert event.get("amount") == subscription.get("total_amount")

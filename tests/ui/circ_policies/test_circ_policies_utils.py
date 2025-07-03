@@ -17,8 +17,6 @@
 
 """Circulation policies tests."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.circ_policies.api import CircPolicy
 
 

@@ -18,8 +18,6 @@
 
 """Test provisional items."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import datetime, timezone
 
 from flask import url_for
@@ -129,24 +127,24 @@ def test_holding_requests(
     res, data = postdata(
         client,
         "api_holding.patron_request",
-        dict(holding_pid=holding.pid, pickup_location_pid=loc_public_martigny.pid),
+        {"holding_pid": holding.pid, "pickup_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 400
     res, data = postdata(
         client,
         "api_holding.patron_request",
-        dict(description=description, pickup_location_pid=loc_public_martigny.pid),
+        {"description": description, "pickup_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 404
     # test passes when all required parameters are given
     res, data = postdata(
         client,
         "api_holding.patron_request",
-        dict(
-            holding_pid=holding.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            description=description,
-        ),
+        {
+            "holding_pid": holding.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "description": description,
+        },
     )
     assert res.status_code == 200
     loan = Loan.get_record_by_pid(
@@ -163,12 +161,12 @@ def test_holding_requests(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
@@ -179,11 +177,11 @@ def test_holding_requests(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item.pid)
@@ -194,51 +192,51 @@ def test_holding_requests(
     res, data = postdata(
         client,
         "api_holding.librarian_request",
-        dict(
-            holding_pid=holding.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            description=description,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "holding_pid": holding.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "description": description,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 400
     res, data = postdata(
         client,
         "api_holding.librarian_request",
-        dict(
-            holding_pid=holding.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            description=description,
-            patron_pid=patron_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-        ),
+        {
+            "holding_pid": holding.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "description": description,
+            "patron_pid": patron_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+        },
     )
     assert res.status_code == 400
     res, data = postdata(
         client,
         "api_holding.librarian_request",
-        dict(
-            holding_pid=holding.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "holding_pid": holding.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 400
     # test passes when all required parameters are given
     res, data = postdata(
         client,
         "api_holding.librarian_request",
-        dict(
-            holding_pid=holding.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            description=description,
-            patron_pid=patron_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "holding_pid": holding.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "description": description,
+            "patron_pid": patron_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan_2 = Loan.get_record_by_pid(

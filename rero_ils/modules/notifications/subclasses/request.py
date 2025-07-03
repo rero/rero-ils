@@ -18,8 +18,6 @@
 
 """API for manipulating "request" circulation notifications."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.filter import format_date_filter
 from rero_ils.modules.documents.dumpers import document_title_dumper
 from rero_ils.modules.items.dumpers import ItemNotificationDumper

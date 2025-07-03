@@ -17,12 +17,10 @@
 
 """DOJSON transformation for RERO MARC21 module tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime, timezone
+from unittest import mock
 
-import mock
 from dojson.utils import GroupableOrderedDict
 
 from rero_ils.modules.documents.dojson.contrib.jsontomarc21 import to_marc21
@@ -106,7 +104,6 @@ def test_identified_by_to_marc21(app, marc21_record):
     record.update(
         {
             "__order__": ("leader", "005", "008", "020__", "020__"),
-            ""
             "020__": (
                 {"__order__": ("a",), "a": "9782824606835"},
                 {"__order__": ("z", "q"), "z": "12345678901??", "q": "qualifier"},
@@ -612,7 +609,7 @@ def test_contribution_to_marc21(
             },
             {
                 "entity": {
-                    "$ref": f"{mef_agents_url}/idref/" "mef_record_with_idref_rero",
+                    "$ref": f"{mef_agents_url}/idref/mef_record_with_idref_rero",
                     "pid": "6627670",
                     "type": "bf:Person",
                 },
@@ -648,7 +645,7 @@ def test_contribution_to_marc21(
             },
             {
                 "entity": {
-                    "$ref": f"{mef_agents_url}/idref/" "mef_record_with_idref_gnd_rero",
+                    "$ref": f"{mef_agents_url}/idref/mef_record_with_idref_gnd_rero",
                     "pid": "5777972",
                     "type": "bf:Organisation",
                 },
@@ -658,7 +655,7 @@ def test_contribution_to_marc21(
     }
     date, record = add_created_updated(record)
     with mock.patch(
-        "rero_ils.modules.entities.remote_entities.api." "RemoteEntity.get_entity",
+        "rero_ils.modules.entities.remote_entities.api.RemoteEntity.get_entity",
         side_effect=[
             mef_record_with_idref_rero,
             mef_record_with_idref_gnd,

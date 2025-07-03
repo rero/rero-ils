@@ -51,22 +51,22 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
             metadata = (
                 deepcopy(record.replace_refs()) if self.replace_refs else record.dumps()
             )
-        return dict(
-            pid=pid,
-            metadata=metadata,
-            links=links_factory(pid, record=record, **kwargs),
-            revision=record.revision_id,
-            created=(
+        return {
+            "pid": pid,
+            "metadata": metadata,
+            "links": links_factory(pid, record=record, **kwargs),
+            "revision": record.revision_id,
+            "created": (
                 pytz.utc.localize(record.created).isoformat()
                 if record.created
                 else None
             ),
-            updated=(
+            "updated": (
                 pytz.utc.localize(record.updated).isoformat()
                 if record.updated
                 else None
             ),
-        )
+        }
 
     @staticmethod
     def preprocess_search_hit(pid, record_hit, links_factory=None, **kwargs):
@@ -89,9 +89,9 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
         :param links: Dictionary of links to add to response.
         :param item_links_factory: Factory function for record links.
         """
-        results = dict(
-            hits=dict(
-                hits=[
+        results = {
+            "hits": {
+                "hits": [
                     self.transform_search_hit(
                         pid_fetcher(hit["_id"], hit["_source"]),
                         hit,
@@ -100,11 +100,11 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
                     )
                     for hit in search_result["hits"]["hits"]
                 ],
-                total=search_result["hits"]["total"],
-            ),
-            links=links or {},
-            aggregations=search_result.get("aggregations", {}),
-        )
+                "total": search_result["hits"]["total"],
+            },
+            "links": links or {},
+            "aggregations": search_result.get("aggregations", {}),
+        }
         return json.dumps(
             self.postprocess_serialize_search(results, pid_fetcher),
             **self._format_args(),
@@ -125,7 +125,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
         query = (
             search_cls()
             .filter("terms", pid=[term["key"] for term in buckets])
-            .source(["pid"] + attributes_name)
+            .source(["pid", *attributes_name])
         )
         data = {result.pid: result.to_dict() for result in query.scan()}
         # complete buckets with data
@@ -135,7 +135,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
                     if attr_term := info.get(attr):
                         term[attr] = attr_term
                 else:
-                    term[attr] = f'{_("Unknown")} ({term["key"]})'
+                    term[attr] = f"{_('Unknown')} ({term['key']})"
 
     @staticmethod
     def add_date_range_configuration(aggregation, step=86400000):

@@ -18,8 +18,8 @@
 """Tests REST API patron payments."""
 
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -115,6 +115,7 @@ def test_patron_transaction_events_facets(
         for bucket in buckets["buckets"]:
             if bucket["key"] == bucket_key:
                 return bucket
+        return None
 
     # STEP#1 :: CHECK FACETS ARE PRESENT INTO SEARCH RESULT
     url = url_for("invenio_records_rest.ptre_list")

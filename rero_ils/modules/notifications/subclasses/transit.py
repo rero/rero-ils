@@ -18,8 +18,6 @@
 
 """API for manipulating "transit" circulation notifications."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.filter import format_date_filter
 from rero_ils.modules.documents.dumpers import document_title_dumper
 from rero_ils.modules.items.dumpers import ItemNotificationDumper
@@ -51,6 +49,7 @@ class TransitCirculationNotification(InternalCirculationNotification):
         # Transit notification will be sent to the loan transaction library.
         if recipient := self.transaction_library.get_email(self.type):
             return [recipient]
+        return None
 
     @classmethod
     def get_notification_context(cls, notifications=None):

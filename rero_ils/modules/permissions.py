@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for all modules."""
+
 import contextlib
 import re
 from copy import deepcopy
@@ -216,8 +217,7 @@ def expose_actions_need_for_user():
         regexp = re.compile(regexp)
         actions = {key: need for key, need in actions.items() if regexp.match(key)}
     # check each needs regarding current logged user profile.
-    actions = [key for key, need in actions.items() if Permission(need).can()]
-    return actions
+    return [key for key, need in actions.items() if Permission(need).can()]
 
 
 def expose_action_needs_by_role(roles=None):
@@ -251,7 +251,7 @@ def expose_action_needs_by_role(roles=None):
                 row.role.name, {"type": "role", "actions": deepcopy(actions_list)}
             )["actions"][row.action] = not row.exclude
 
-    actions_list = {action: None for action in current_access.actions}
+    actions_list = dict.fromkeys(current_access.actions)
     matrix = {}
     roles_types = {}
     for role in roles:
@@ -272,7 +272,7 @@ def expose_action_needs_by_patron(patron):
     #   - each user role
     #   - 'any_user' and 'authenticated_user' roles (system_role)
     #   - special entry for specific user permissions.
-    base_reasons = {role: None for role in patron.get("roles", [])}
+    base_reasons = dict.fromkeys(patron.get("roles", []))
     base_reasons.update({"user": None, "any_user": None, "authenticated_user": None})
 
     permissions_matrix = {
@@ -512,6 +512,6 @@ class DisallowedByOrderStatus(Generator):
             if not isinstance(record, self.record_cls):
                 record = self.record_cls(record)
             if order_status := AcqOrder.get_status_by_pid(record.order_pid):
-                if not order_status in self.allowed_statuses:
+                if order_status not in self.allowed_statuses:
                     return [any_user]
         return []

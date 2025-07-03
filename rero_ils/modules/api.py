@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating records."""
+
 import re
 from copy import deepcopy
 from uuid import uuid4
@@ -243,12 +244,10 @@ class IlsRecord(Record):
         pid = data.get("pid")
         if delete_pid and pid:
             del data["pid"]
-        elif pid:
-            if test_rec := cls.get_record_by_pid(pid):
-                raise IlsRecordError.PidAlreadyUsed(
-                    f"PidAlreadyUsed {cls.provider.pid_type} "
-                    f"{test_rec.pid} {test_rec.id}"
-                )
+        elif pid and (test_rec := cls.get_record_by_pid(pid)):
+            raise IlsRecordError.PidAlreadyUsed(
+                f"PidAlreadyUsed {cls.provider.pid_type} {test_rec.pid} {test_rec.id}"
+            )
         if not id_:
             id_ = uuid4()
         cls.minter(id_, data)
@@ -281,6 +280,7 @@ class IlsRecord(Record):
             # TODO: is it better to raise a error or to return None?
             except (NoResultFound, PIDDoesNotExistError):
                 return None
+        return None
 
     @classmethod
     def get_records_by_pids(cls, pids):
@@ -406,8 +406,7 @@ class IlsRecord(Record):
             if dbcommit:
                 db.session.commit()
             return self
-        else:
-            raise IlsRecordError.NotDeleted()
+        raise IlsRecordError.NotDeleted()
 
     def update(self, data, commit=False, dbcommit=False, reindex=False):
         """Update data for record.
@@ -472,8 +471,7 @@ class IlsRecord(Record):
         else:
             raise IlsRecordError.NotDeleted()
 
-        self = self.revert(self.revision_id - 2, reindex=reindex)
-        return self
+        return self.revert(self.revision_id - 2, reindex=reindex)
 
     def dbcommit(self, reindex=False, forceindex=False):
         """Commit changes to db."""
@@ -487,8 +485,7 @@ class IlsRecord(Record):
         indexer = self.get_indexer_class()
         if forceindex:
             return indexer(version_type="external_gte").index(self)
-        else:
-            return indexer().index(self)
+        return indexer().index(self)
 
     def delete_from_index(self):
         """Delete record from index."""
@@ -497,7 +494,7 @@ class IlsRecord(Record):
             indexer().delete(self)
         except NotFoundError:
             current_app.logger.warning(
-                f"Can not delete from index {self.__class__.__name__}" f": {self.pid}"
+                f"Can not delete from index {self.__class__.__name__}: {self.pid}"
             )
         except ValueError:
             current_app.logger.warning(
@@ -571,7 +568,7 @@ class IlsRecordsIndexer(RecordIndexer):
 
     def index(self, record):
         """Indexing a record."""
-        return super().index(record, arguments=dict(refresh="true"))
+        return super().index(record, arguments={"refresh": "true"})
 
     def delete(self, record):
         """Delete a record.
@@ -643,7 +640,12 @@ class IlsRecordsIndexer(RecordIndexer):
         """
         with self.create_producer() as producer:
             for rec in record_id_iterator:
-                data = dict(id=str(rec), op=op_type, index=index, doc_type=doc_type)
+                data = {
+                    "id": str(rec),
+                    "op": op_type,
+                    "index": index,
+                    "doc_type": doc_type,
+                }
                 producer.publish(
                     data,
                     declare=[self.mq_queue],
@@ -763,6 +765,6 @@ class ReferencedRecordsIndexer:
                 indexer.index(record_to_index)
             except Exception as err:
                 current_app.logger.error(
-                    f'Record indexing error {r["pid_type"]} '
-                    f'{r["record"]["pid"]}: {str(err)}'
+                    f"Record indexing error {r['pid_type']} "
+                    f"{r['record']['pid']}: {err!s}"
                 )

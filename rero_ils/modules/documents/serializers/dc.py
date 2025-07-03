@@ -64,8 +64,7 @@ class DublinCoreSerializer(_DublinCoreSerializer):
         record = record.dumps(document_replace_refs_dumper)
         if contributions := record.pop("contribution", []):
             record["contribution"] = process_i18n_literal_fields(contributions)
-        record = dublincore.do(record, language=language)
-        return record
+        return dublincore.do(record, language=language)
 
     def transform_search_hit(
         self, pid, record, links_factory=None, language=DEFAULT_LANGUAGE, **kwargs

@@ -124,11 +124,11 @@ def init_menu_tools(app):
     rero_register(
         item,
         endpoint="ill_requests.ill_request_form",
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
                 "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
             )
-        ),
+        },
         visible_when=lambda: bool(current_patrons),
         text=TextWithIcon(
             icon='<i class="fa fa-shopping-basket"></i>',
@@ -164,12 +164,12 @@ def init_menu_tools(app):
     rero_register(
         item,
         endpoint="rero_ils.search",
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
                 "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
             ),
-            recordType="collections",
-        ),
+            "recordType": "collections",
+        },
         visible_when=lambda: app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
         != request.view_args.get(
             "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
@@ -206,7 +206,7 @@ def init_menu_lang(app):
     order = 10
 
     def return_language(lang):
-        return dict(lang_code=lang)
+        return {"lang_code": lang}
 
     def hide_language(lang):
         return current_i18n.language != lang
@@ -252,7 +252,7 @@ def init_menu_profile(app):
     rero_register(
         item,
         endpoint="security.login",
-        endpoint_arguments_constructor=lambda: dict(next=request.full_path),
+        endpoint_arguments_constructor=lambda: {"next": request.full_path},
         visible_when=lambda: not current_user.is_authenticated,
         text=TextWithIcon(icon='<i class="fa fa-sign-in"></i>', text="Login"),
         order=1,
@@ -276,9 +276,9 @@ def init_menu_profile(app):
     rero_register(
         item,
         endpoint="security.logout",
-        endpoint_arguments_constructor=lambda: dict(
-            next=f"/{request.view_args.get('viewcode', app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))}"
-        ),
+        endpoint_arguments_constructor=lambda: {
+            "next": f"/{request.view_args.get('viewcode', app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))}"
+        },
         visible_when=lambda: current_user.is_authenticated,
         text=TextWithIcon(icon='<i class="fa fa-sign-out"></i>', text="Logout"),
         order=2,
@@ -290,11 +290,11 @@ def init_menu_profile(app):
     rero_register(
         item,
         endpoint=profile_endpoint,
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
                 "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
             )
-        ),
+        },
         visible_when=lambda: len(current_patrons) > 0,
         text=TextWithIcon(icon='<i class="fa fa-book"></i>', text="My Account"),
         order=1,
@@ -305,12 +305,12 @@ def init_menu_profile(app):
     rero_register(
         item,
         endpoint=profile_endpoint,
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
                 "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
             ),
-            path="user/edit",
-        ),
+            "path": "user/edit",
+        },
         visible_when=lambda: is_not_read_only(),
         text=TextWithIcon(icon='<i class="fa fa-user"></i>', text="Edit my profile"),
         order=1,
@@ -321,12 +321,12 @@ def init_menu_profile(app):
     rero_register(
         item,
         endpoint=profile_endpoint,
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
                 "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
             ),
-            path="password/edit",
-        ),
+            "path": "password/edit",
+        },
         visible_when=lambda: is_not_read_only(),
         text=TextWithIcon(icon='<i class="fa fa-lock"></i>', text="Change password"),
         order=1,

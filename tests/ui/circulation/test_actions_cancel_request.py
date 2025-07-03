@@ -17,7 +17,6 @@
 
 """Test item circulation cancel request actions."""
 
-
 from copy import deepcopy
 
 import pytest

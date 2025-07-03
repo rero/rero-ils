@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test User Authentication API."""
+
 import re
 
 from flask import url_for

@@ -44,8 +44,8 @@ from rero_ils.utils import (
 
 def test_unique_list():
     """Test unicity of list."""
-    list = ["python", "snail", "python", "snail"]
-    assert ["python", "snail"] == unique_list(list)
+    list_ = ["python", "snail", "python", "snail"]
+    assert unique_list(list_) == ["python", "snail"]
 
 
 def test_read_json_record(request):
@@ -128,8 +128,8 @@ def test_language_iso639_2to1(app):
 
 def test_language_mapping(app):
     """Test language mapping."""
-    assert "fre" == language_mapping("fre")
-    assert "dut" == language_mapping("dum")
+    assert language_mapping("fre") == "fre"
+    assert language_mapping("dum") == "dut"
 
 
 def test_password_validator():

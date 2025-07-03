@@ -32,7 +32,7 @@ from .models import VendorContactType, VendorIdentifier, VendorMetadata
 
 # provider
 VendorProvider = type(
-    "VendorProvider", (Provider,), dict(identifier=VendorIdentifier, pid_type="vndr")
+    "VendorProvider", (Provider,), {"identifier": VendorIdentifier, "pid_type": "vndr"}
 )
 # minter
 vendor_id_minter = partial(id_minter, provider=VendorProvider)
@@ -91,6 +91,7 @@ class Vendor(IlsRecord):
         for contact in self.get("contacts", []):
             if contact["type"] == contact_type:
                 return contact
+        return None
 
     @property
     def order_email(self):

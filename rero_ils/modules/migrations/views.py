@@ -36,9 +36,10 @@ def simple_search_json_serializer(data, code=200, headers=None):
         return data
     if data:
         hits = [
-            dict(metadata=hit["_source"], id=hit["_id"]) for hit in data["hits"]["hits"]
+            {"metadata": hit["_source"], "id": hit["_id"]}
+            for hit in data["hits"]["hits"]
         ]
-        new_data = dict(hits=dict(hits=hits, total=data["hits"]["total"]))
+        new_data = {"hits": {"hits": hits, "total": data["hits"]["total"]}}
         if data.get("aggregations"):
             new_data["aggregations"] = data["aggregations"]
         res = jsonify(new_data)
@@ -52,10 +53,7 @@ def simple_item_json_serializer(data, code=200, headers=None):
     """JSON serializer to reproduce a simple invenio search format."""
     if code != 200:
         return data
-    if data:
-        res = jsonify(data)
-    else:
-        res = make_response()
+    res = jsonify(data) if data else make_response()
     res.status_code = code
     return res
 

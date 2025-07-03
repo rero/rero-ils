@@ -31,7 +31,7 @@ from ..models import StatIdentifier, StatMetadata
 
 # provider
 StatProvider = type(
-    "StatProvider", (Provider,), dict(identifier=StatIdentifier, pid_type="stat")
+    "StatProvider", (Provider,), {"identifier": StatIdentifier, "pid_type": "stat"}
 )
 # minter
 stat_id_minter = partial(id_minter, provider=StatProvider)
@@ -73,6 +73,7 @@ class Stat(IlsRecord):
         """Get organisation pid from the config for report."""
         if ref := self.get("config", {}).get("organisation", {}).get("$ref"):
             return extracted_data_from_ref(ref)
+        return None
 
 
 class StatsIndexer(IlsRecordsIndexer):

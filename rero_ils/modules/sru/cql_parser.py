@@ -24,6 +24,7 @@ Author:  Rob Sanderson (azaroth@liv.ac.uk)
 Version: 2.0    (CQL 1.2)
 With thanks to Adam Dickmeiss and Mike Taylor for their valuable input.
 """
+
 from copy import deepcopy
 from io import StringIO
 from shlex import shlex
@@ -315,7 +316,7 @@ class Triple(PrefixableObject):
             # for sort_key in self.sort_keys:
             #     txt.append(sort_key.to_es())
         pre = "NOT" if boolean == "not" else ""
-        return f'{pre}({" ".join(txt)})'
+        return f"{pre}({' '.join(txt)})"
 
     def get_result_set_id(self, top=None):
         """Get result set id."""
@@ -395,9 +396,9 @@ class SearchClause(PrefixableObject):
                 texts[0] = texts[0].replace('"', "")
                 texts[-1] = texts[-1].rstrip('"')
             if relation == "any":
-                text = f'({" OR ".join(texts)})'
+                text = f"({' OR '.join(texts)})"
             elif relation == "all":
-                text = f'({" AND ".join(texts)})'
+                text = f"({' AND '.join(texts)})"
             else:
                 diag = Diagnostic()
                 diag.code = 19
@@ -435,7 +436,7 @@ class Index(PrefixedObject, ModifiableObject):
     def __init__(self, val, query):
         """Constructor."""
         PrefixedObject.__init__(self, val, query)
-        if self.value in ["(", ")"] + ORDER:
+        if self.value in ["(", ")", *ORDER]:
             diag = Diagnostic()
             diag.message = "Invalid characters in index name"
             diag.details = self.value

@@ -16,7 +16,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from jinja2 import UndefinedError
@@ -41,7 +42,7 @@ def _receive_regular_issue(client, holding):
     res, data = postdata(
         client,
         "api_holding.receive_regular_issue",
-        url_data=dict(holding_pid=holding.pid),
+        url_data={"holding_pid": holding.pid},
     )
     assert res.status_code == 200
     data = get_json(res)

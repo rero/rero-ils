@@ -23,7 +23,6 @@ from datetime import date, timedelta
 import pytest
 from invenio_circulation.errors import (
     ItemNotAvailableError,
-    NoValidTransitionAvailableError,
     TransitionConstraintsViolationError,
 )
 from invenio_circulation.ext import NoValidTransitionAvailableError
@@ -44,7 +43,6 @@ def test_checkout_library_never_open(
     librarian_martigny,
 ):
     """Test checkout from a library without opening hours."""
-
     # Test checkout if library has no open days but has exception days/hours
     # in the past
     lib_martigny["opening_hours"] = [

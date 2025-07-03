@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for patrons."""
+
 from flask import g
 from flask_login import current_user
 from invenio_access import action_factory, any_user
@@ -119,7 +120,7 @@ def get_allowed_roles_management():
     """
     allowed_roles = []
     if current_librarian:
-        allowed_roles += [UserRole.PATRON] + UserRole.LIBRARIAN_ROLES
+        allowed_roles += [UserRole.PATRON, *UserRole.LIBRARIAN_ROLES]
         if current_librarian.has_full_permissions:
             allowed_roles += [UserRole.FULL_PERMISSIONS]
     return allowed_roles

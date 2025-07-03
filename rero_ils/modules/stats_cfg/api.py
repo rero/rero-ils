@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Statistics configuration for report."""
+
 from functools import partial
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -31,7 +32,7 @@ from .models import StatCfgIdentifier, StatCfgMetadata
 StatCfgProvider = type(
     "StatCfgProvider",
     (Provider,),
-    dict(identifier=StatCfgIdentifier, pid_type="stacfg"),
+    {"identifier": StatCfgIdentifier, "pid_type": "stacfg"},
 )
 # minter
 stat_cfg_id_minter = partial(id_minter, provider=StatCfgProvider)

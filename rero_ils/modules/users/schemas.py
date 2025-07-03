@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Models for RERO-ILS users."""
+
 from marshmallow import Schema, fields
 
 

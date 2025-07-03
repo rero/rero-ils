@@ -16,11 +16,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API documents."""
+
 import json
 from copy import deepcopy
 from datetime import datetime, timedelta
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -137,7 +138,7 @@ def test_documents_newacq_filters(
         return datetime.now() + timedelta(**args)
 
     def datetime_milliseconds(date):
-        """datetime get milliseconds."""
+        """Datetime get milliseconds."""
         return round(date.timestamp() * 1000)
 
     # compute useful date
@@ -726,7 +727,8 @@ def test_document_current_library_on_request_parameter(
     json_header,
 ):
     """Test for library assignment if the current_library parameter
-    is present in the request."""
+    is present in the request.
+    """
     login_user_via_session(client, system_librarian_martigny.user)
 
     # Assign library pid with current_librarian information
@@ -776,7 +778,7 @@ def test_document_advanced_search_config(
     def check_field_data(key, field_data, data):
         """Check content of the field data."""
         field_data = field_data.get(key, [])
-        assert 0 < len(field_data)
+        assert len(field_data) > 0
         assert data == field_data[0]
 
     config_url = url_for("api_documents.advanced_search_config")
@@ -794,8 +796,8 @@ def test_document_advanced_search_config(
     assert "fieldsData" in json
 
     fields_config_data = json.get("fieldsConfig")
-    assert 0 < len(fields_config_data)
-    assert {
+    assert len(fields_config_data) > 0
+    assert fields_config_data[0] == {
         "field": "title.*",
         "label": "Title",
         "value": "title",
@@ -805,10 +807,10 @@ def test_document_advanced_search_config(
                 {"label": "phrase", "value": "phrase"},
             ]
         },
-    } == fields_config_data[0]
+    }
 
     # Country: Only Phrase on search type options.
-    assert {
+    assert fields_config_data[3] == {
         "field": "provisionActivity.place.country",
         "label": "Country",
         "value": "country",
@@ -817,7 +819,7 @@ def test_document_advanced_search_config(
                 {"label": "phrase", "value": "phrase"},
             ]
         },
-    } == fields_config_data[3]
+    }
 
     field_data = json.get("fieldsData")
     data_keys = [
@@ -864,9 +866,10 @@ def test_document_fulltext(app, client, document_with_files, document_with_issn)
     for field in ["collections", "file_name", "rec_id"]:
         assert field in list(metadata_files[0].keys())
     # check the file names
-    assert {res["file_name"] for res in metadata_files} == set(
-        ("doc_doc1_1.pdf", "logo_rero_ils.png")
-    )
+    assert {res["file_name"] for res in metadata_files} == {
+        "doc_doc1_1.pdf",
+        "logo_rero_ils.png",
+    }
     # text should not be on the es sources
     assert not [res["text"] for res in metadata_files if res.get("text")]
 

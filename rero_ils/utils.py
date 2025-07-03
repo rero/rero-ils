@@ -17,7 +17,6 @@
 
 """Utilities functions for rero-ils."""
 
-
 import iso639
 from flask import current_app
 from flask_babel import gettext

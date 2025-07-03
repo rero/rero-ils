@@ -58,7 +58,7 @@ class DocumentMARCXMLSerializer(JSONSerializer):
         #     'rero_ils', 'xslts/MARC21slim2MODS3-6.xsl')
         self.dumps_kwargs = {}
         if xslt_filename:
-            self.dumps_kwargs = dict(xslt_filename=xslt_filename)
+            self.dumps_kwargs = {"xslt_filename": xslt_filename}
 
         self.schema_class = schema_class
         super().__init__()

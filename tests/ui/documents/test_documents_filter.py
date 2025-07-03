@@ -17,7 +17,7 @@
 
 """Document filters tests."""
 
-import mock
+from unittest import mock
 
 from rero_ils.modules.documents.views import (
     babeltheque_enabled_view,
@@ -202,34 +202,34 @@ def test_doc_entity_label_filter(entity_person, local_entity_person):
         }
     }
     entity_type, value, label = doc_entity_label(data["entity"], "fr")
-    assert "remote" == entity_type
-    assert "ent_pers" == value
-    assert "Loy, Georg, 1885-19.." == label
+    assert entity_type == "remote"
+    assert value == "ent_pers"
+    assert label == "Loy, Georg, 1885-19.."
 
     # Local entity
     pid = local_entity_person["pid"]
     data = {"entity": {"$ref": f"https://bib.rero.ch/api/local_entities/{pid}"}}
     entity_type, value, label = doc_entity_label(data["entity"], "fr")
-    assert "local" == entity_type
-    assert "locent_pers" == value
-    assert "Loy, Georg (1881-1968)" == label
+    assert entity_type == "local"
+    assert value == "locent_pers"
+    assert label == "Loy, Georg (1881-1968)"
 
     entity_type, value, label = doc_entity_label(data["entity"], "en")
-    assert "local" == entity_type
-    assert "locent_pers" == value
-    assert "Loy, Georg (1881-1968)" == label
+    assert entity_type == "local"
+    assert value == "locent_pers"
+    assert label == "Loy, Georg (1881-1968)"
 
     # Textual
     data = {"entity": {"authorized_access_point": "subject topic"}}
     entity_type, value, label = doc_entity_label(data["entity"], None)
-    assert "textual" == entity_type
-    assert "subject topic" == value
-    assert "subject topic" == label
+    assert entity_type == "textual"
+    assert value == "subject topic"
+    assert label == "subject topic"
 
     entity_type, value, label = doc_entity_label(data["entity"], "fr")
-    assert "textual" == entity_type
-    assert "subject topic" == value
-    assert "subject topic" == label
+    assert entity_type == "textual"
+    assert value == "subject topic"
+    assert label == "subject topic"
 
     # Textual with subdivision
     data["entity"]["subdivisions"] = [
@@ -237,9 +237,9 @@ def test_doc_entity_label_filter(entity_person, local_entity_person):
         {"entity": {"authorized_access_point": "Sub 2", "type": EntityType.TOPIC}},
     ]
     entity_type, value, label = doc_entity_label(data["entity"], "fr")
-    assert "textual" == entity_type
-    assert "subject topic" == value
-    assert "subject topic - Sub 1 - Sub 2" == label
+    assert entity_type == "textual"
+    assert value == "subject topic"
+    assert label == "subject topic - Sub 1 - Sub 2"
 
 
 def test_babeltheque_enabled_view():
@@ -263,6 +263,6 @@ def test_get_first_isbn():
             {"type": "bf:Isbn", "value": "9782501033671"},
         ]
     }
-    assert "9782501053006" == get_first_isbn(record)
+    assert get_first_isbn(record) == "9782501053006"
     record = {"identifiedBy": []}
     assert None is get_first_isbn(record)

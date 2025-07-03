@@ -20,8 +20,8 @@
 
 import hashlib
 from datetime import datetime
+from unittest import mock
 
-import mock
 from invenio_search import current_search_client as es
 
 from rero_ils.modules.stats.api.report import StatsReport
@@ -116,11 +116,10 @@ def test_stats_report_number_of_patrons(
         },
     }
     label_ptrn_type_children = (
-        f'{patron_type_children_martigny["name"]} '
-        f"({patron_type_children_martigny.pid})"
+        f"{patron_type_children_martigny['name']} ({patron_type_children_martigny.pid})"
     )
     label_ptrn_type_adult = (
-        f'{patron_type_adults_martigny["name"]} ' f"({patron_type_adults_martigny.pid})"
+        f"{patron_type_adults_martigny['name']} ({patron_type_adults_martigny.pid})"
     )
     assert StatsReport(cfg).collect() == [
         [label_ptrn_type_adult, 1],

@@ -27,7 +27,7 @@ def local_field_resolver(pid):
     """Resolver for local_field record."""
     persistent_id = PersistentIdentifier.get("lofi", pid)
     if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
+        return {"pid": persistent_id.pid_value}
     current_app.logger.error(
         f"Local fields resolver error: /api/local_fields/{pid} {persistent_id}"
     )

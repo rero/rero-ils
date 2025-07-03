@@ -18,7 +18,6 @@
 
 """Location resolver."""
 
-
 import jsonresolver
 
 from ..jsonresolver import resolve_json_refs

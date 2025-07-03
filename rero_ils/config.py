@@ -23,7 +23,6 @@ You overwrite and set instance-specific configuration by either:
 - Configuration file: ``<virtualenv prefix>/var/instance/invenio.cfg``
 - Environment variables: ``APP_<variable name>``
 """
-from __future__ import absolute_import, print_function
 
 import os
 from functools import partial
@@ -438,16 +437,13 @@ CELERY_BEAT_SCHEDULE = {
         "enabled": False,
     },
     "celery.clear_and_renew_subscriptions": {
-        "task": (
-            "rero_ils.modules.patrons.tasks" ".task_clear_and_renew_subscriptions"
-        ),
+        "task": ("rero_ils.modules.patrons.tasks.task_clear_and_renew_subscriptions"),
         "schedule": schedules.crontab(minute=2, hour=2),  # Every day at 02:02 UTC,
         "enabled": False,
     },
     "celery.delete_standard_holdings_having_no_items": {
         "task": (
-            "rero_ils.modules.holdings.tasks"
-            ".delete_standard_holdings_having_no_items"
+            "rero_ils.modules.holdings.tasks.delete_standard_holdings_having_no_items"
         ),
         "schedule": schedules.crontab(minute=30, hour=4),  # Every day at 04:30 UTC,
         "enabled": False,
@@ -1260,7 +1256,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher="organisation_id",
         search_class="rero_ils.modules.organisations.api:OrganisationsSearch",
         search_index="organisations",
-        indexer_class=("rero_ils.modules.organisations.api:" "OrganisationsIndexer"),
+        indexer_class=("rero_ils.modules.organisations.api:OrganisationsIndexer"),
         record_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_response"
         },
@@ -1538,7 +1534,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher="notification_id",
         search_class="rero_ils.modules.notifications.api:NotificationsSearch",
         search_index="notifications",
-        indexer_class=("rero_ils.modules.notifications.api:" "NotificationsIndexer"),
+        indexer_class=("rero_ils.modules.notifications.api:NotificationsIndexer"),
         record_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_response"
         },
@@ -1769,7 +1765,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class="rero_ils.modules.acquisition.acq_order_lines.api:AcqOrderLinesSearch",
         search_index="acq_order_lines",
         indexer_class=(
-            "rero_ils.modules.acquisition.acq_order_lines.api:" "AcqOrderLinesIndexer"
+            "rero_ils.modules.acquisition.acq_order_lines.api:AcqOrderLinesIndexer"
         ),
         record_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_response",

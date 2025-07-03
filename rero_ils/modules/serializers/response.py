@@ -20,7 +20,6 @@
 
 Responsible for creating an HTTP response given the output of a serializer.
 """
-from __future__ import absolute_import, print_function
 
 from datetime import datetime
 

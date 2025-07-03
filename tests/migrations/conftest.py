@@ -27,11 +27,11 @@ from rero_ils.modules.migrations.data.api import Deduplication
 @pytest.fixture(scope="module")
 def migration(es_indices, lib_martigny):
     """Migration fixture."""
-    data = dict(
-        name="name",
-        library_pid=str(lib_martigny.pid),
-        conversion_code="tests.mock_modules.Converter",
-    )
+    data = {
+        "name": "name",
+        "library_pid": str(lib_martigny.pid),
+        "conversion_code": "tests.mock_modules.Converter",
+    }
     index = Index(Migration.Index.name)
     migration = Migration(**data)
     migration.save()
@@ -107,13 +107,13 @@ def migration_xml_data():
 @pytest.fixture(scope="module")
 def migration_data(migration_xml_data, migration):
     """Simple migration data."""
-    data = dict(
-        raw=migration_xml_data.encode(),
-        migration_id=migration.meta.id,
-        deduplication=Deduplication(
+    data = {
+        "raw": migration_xml_data.encode(),
+        "migration_id": migration.meta.id,
+        "deduplication": Deduplication(
             status="pending", subset="set 1", modified_by="system"
         ),
-    )
+    }
     MigrationData = migration.data_class
     m_data = MigrationData(**data)
     m_data.save()

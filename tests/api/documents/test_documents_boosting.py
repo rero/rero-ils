@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests boosting query for documents."""
+
 from flask import url_for
 
 from tests.utils import get_json

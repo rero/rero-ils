@@ -75,12 +75,12 @@ def test_notifications_task(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "patron_pid": patron_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
@@ -195,12 +195,12 @@ def test_notifications_task(
     res, _ = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -270,7 +270,7 @@ def test_clear_obsolete_temporary_item_type_and_location(
     loc_restricted_martigny,
     item2_lib_martigny,
 ):
-    """test task test_clear_obsolete_temporary_item_type_and_location"""
+    """Test task test_clear_obsolete_temporary_item_type_and_location"""
     item = item_lib_martigny
     end_date = datetime.now() + timedelta(days=2)
     item["temporary_item_type"] = {

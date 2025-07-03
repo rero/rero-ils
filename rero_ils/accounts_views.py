@@ -70,6 +70,7 @@ class LoginView(CoreLoginView):
         """Retrieve a user by the provided arguments."""
         if user := User.get_by_username_or_email(email):
             return user.user
+        return None
 
     @use_kwargs(post_args)
     def post(self, **kwargs):
@@ -158,6 +159,7 @@ class ChangePasswordView(BaseChangePasswordView):
             ptrn.organisation_pid for ptrn in patrons
         ]:
             return current_app.login_manager.unauthorized()
+        return None
 
     def change_password_for_user(self, username, new_password, **kwargs):
         """Perform change password for a specific user."""

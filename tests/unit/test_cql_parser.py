@@ -118,7 +118,7 @@ def test_get_query_clause_modifiers():
 def test_get_query_clause_with_prefix(app):
     """Check that simple clause with prefix is parsed correctly."""
     query = parse(
-        '>cql="info:srw/cql-context-set/1/cql-v1.1" cql.anywhere ' 'cql.all "spam"'
+        '>cql="info:srw/cql-context-set/1/cql-v1.1" cql.anywhere cql.all "spam"'
     )
     # Check query instance
     assert isinstance(query, SearchClause)
@@ -153,7 +153,7 @@ def test_get_query_clause_with_relation_modifier():
     with pytest.raises(Diagnostic) as err:
         query.to_es()
     assert str(err.value).startswith(
-        "info:srw/diagnostic/1/21 " "[Unsupported combination of relation modifers]"
+        "info:srw/diagnostic/1/21 [Unsupported combination of relation modifers]"
     )
 
 
@@ -190,8 +190,7 @@ def test_get_query_clause_with_relation(app):
     es_string = query.to_es()
     assert es_string == "year:>1999"
     query = parse(
-        "ind1 = 1 AND ind2 > 2 AND ind3 >= 3 AND "
-        + "ind4 < 4 AND ind5 <= 5 AND ind6 <> 6"
+        "ind1 = 1 AND ind2 > 2 AND ind3 >= 3 AND ind4 < 4 AND ind5 <= 5 AND ind6 <> 6"
     )
     es_string = query.to_es()
     assert es_string == (
@@ -277,15 +276,13 @@ def test_errors():
     with pytest.raises(Diagnostic) as err:
         parse(q_string)
     assert str(err.value) == (
-        "info:srw/diagnostic/1/10 [Malformed Query]: "
-        "Expected Term, got end of query."
+        "info:srw/diagnostic/1/10 [Malformed Query]: Expected Term, got end of query."
     )
     q_string = "123 any 789 abc"
     with pytest.raises(Diagnostic) as err:
         parse(q_string)
     assert str(err.value) == (
-        "info:srw/diagnostic/1/10 [Malformed Query]: "
-        "Unprocessed tokens remain: 'abc'"
+        "info:srw/diagnostic/1/10 [Malformed Query]: Unprocessed tokens remain: 'abc'"
     )
 
 

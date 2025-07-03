@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utils functions about acquisition account."""
+
 from rero_ils.modules.notifications.models import RecipientType
 from rero_ils.modules.patrons.api import current_librarian
 

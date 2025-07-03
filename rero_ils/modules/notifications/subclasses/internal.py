@@ -18,8 +18,6 @@
 
 """API for manipulating internal circulation notifications."""
 
-from __future__ import absolute_import, print_function
-
 import hashlib
 from abc import ABC
 
@@ -91,3 +89,4 @@ class InternalCirculationNotification(CirculationNotification, ABC):
         # patron related to the loan.
         if recipient := self.library.get_email(self.type):
             return [recipient]
+        return None

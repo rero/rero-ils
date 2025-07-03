@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API item_types."""
+
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
@@ -125,12 +126,12 @@ def test_loan_access_permissions(
     res, _ = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_lib_sion.pid,
-            patron_pid=patron_sion.pid,
-            transaction_location_pid=loc_public_saxon.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_sion.pid,
+            "patron_pid": patron_sion.pid,
+            "transaction_location_pid": loc_public_saxon.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -150,12 +151,12 @@ def test_loan_access_permissions(
     res, _ = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item2_lib_sion.pid,
-            patron_pid=patron_sion_multiple.pid,
-            transaction_location_pid=loc_public_sion.pid,
-            transaction_user_pid=librarian_sion.pid,
-        ),
+        {
+            "item_pid": item2_lib_sion.pid,
+            "patron_pid": patron_sion_multiple.pid,
+            "transaction_location_pid": loc_public_sion.pid,
+            "transaction_user_pid": librarian_sion.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -164,7 +165,7 @@ def test_loan_access_permissions(
     # without query filter I should have 3 loans one of mine and two
     # in my employed organisation, the other patron loan of my patron org
     # should be filtered
-    loan_list = url_for("invenio_records_rest.loanid_list", q=f"")
+    loan_list = url_for("invenio_records_rest.loanid_list", q="")
     res = client.get(loan_list)
     assert res.status_code == 200
     data = get_json(res)
@@ -185,22 +186,22 @@ def test_loan_access_permissions(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item2_lib_sion.pid,
-            transaction_location_pid=loc_public_sion.pid,
-            transaction_user_pid=librarian_sion.pid,
-        ),
+        {
+            "item_pid": item2_lib_sion.pid,
+            "transaction_location_pid": loc_public_sion.pid,
+            "transaction_user_pid": librarian_sion.pid,
+        },
     )
     assert res.status_code == 200
 
     res, _ = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_lib_sion.pid,
-            transaction_location_pid=loc_public_saxon.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_sion.pid,
+            "transaction_location_pid": loc_public_saxon.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -252,12 +253,12 @@ def test_due_soon_loans(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "patron_pid": patron_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
@@ -286,12 +287,12 @@ def test_due_soon_loans(
     res, _ = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -321,17 +322,17 @@ def test_overdue_loans(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "patron_pid": patron_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
-    assert (
-        res.status_code == 200
-    ), "It probably failed while \
+    assert res.status_code == 200, (
+        "It probably failed while \
         test_due_soon_loans fail"
+    )
 
     loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
     loan = Loan.get_record_by_pid(loan_pid)
@@ -365,12 +366,12 @@ def test_overdue_loans(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron3_martigny_blocked.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "patron_pid": patron3_martigny_blocked.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "This patron is currently blocked" in data["message"]
@@ -379,12 +380,12 @@ def test_overdue_loans(
     res, _ = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -407,12 +408,12 @@ def test_last_end_date_loans(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "patron_pid": patron_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -426,12 +427,12 @@ def test_last_end_date_loans(
     res, _ = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -467,13 +468,13 @@ def test_checkout_item_transit(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            pickup_location_pid=loc_public_saxon.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "pickup_location_pid": loc_public_saxon.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     actions = data.get("action_applied")
@@ -495,12 +496,12 @@ def test_checkout_item_transit(
     res, _ = postdata(
         client,
         "api_item.validate_request",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "pid": loan_pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert not item2_lib_martigny.is_available()
@@ -515,12 +516,12 @@ def test_checkout_item_transit(
     res, _ = postdata(
         client,
         "api_item.receive",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "pid": loan_pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert not item2_lib_martigny.is_available()
@@ -533,12 +534,12 @@ def test_checkout_item_transit(
     res, _ = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item2_lib_martigny.pid)
@@ -599,12 +600,12 @@ def test_timezone_due_date(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "patron_pid": patron_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -649,13 +650,13 @@ def test_librarian_request_on_blocked_user(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron3_martigny_blocked.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "patron_pid": patron3_martigny_blocked.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     data = get_json(res)

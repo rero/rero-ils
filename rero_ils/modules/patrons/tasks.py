@@ -17,8 +17,6 @@
 
 """Celery tasks for patrons records."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import datetime
 
 from celery import shared_task
@@ -79,8 +77,7 @@ def check_patron_types_and_add_subscriptions():
         patron_no_subsc = Patron.get_patrons_without_subscription(ptty.pid)
         for patron in patron_no_subsc:
             msg = (
-                f"Add a subscription for patron#{patron.pid} ... "
-                "it shouldn't happen !!"
+                f"Add a subscription for patron#{patron.pid} ... it shouldn't happen !!"
             )
             current_app.logger.error(msg)
             start_date = datetime.now()

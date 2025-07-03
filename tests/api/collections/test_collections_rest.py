@@ -17,7 +17,8 @@
 
 """Tests REST API collections."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 
 from rero_ils.modules.collections.api import CollectionsSearch

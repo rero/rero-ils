@@ -37,7 +37,7 @@ from .models import AcqOrderLineIdentifier, AcqOrderLineMetadata, AcqOrderLineSt
 AcqOrderLineProvider = type(
     "AcqOrderLineProvider",
     (Provider,),
-    dict(identifier=AcqOrderLineIdentifier, pid_type="acol"),
+    {"identifier": AcqOrderLineIdentifier, "pid_type": "acol"},
 )
 # minter
 acq_order_line_id_minter = partial(id_minter, provider=AcqOrderLineProvider)

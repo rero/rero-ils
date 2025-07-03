@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Helpers for entities."""
+
 from rero_ils.modules.commons.exceptions import RecordNotFound
 from rero_ils.modules.entities.local_entities.api import LocalEntity
 from rero_ils.modules.entities.remote_entities.api import RemoteEntity
@@ -71,3 +72,4 @@ def get_entity_record_from_data(data):
         # check if local entity
         if entity and isinstance(entity, LocalEntity):
             return entity
+    return None

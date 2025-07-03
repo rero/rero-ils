@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Patron transaction event CSV serializer."""
+
 import csv
 from functools import wraps
 

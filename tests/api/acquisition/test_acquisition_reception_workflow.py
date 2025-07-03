@@ -17,7 +17,8 @@
 
 """Tests complete workflow for the acquisition module."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -65,7 +66,7 @@ def test_acquisition_reception_workflow(
     """Test complete acquisition workflow."""
 
     def assert_account_data(accounts):
-        """assert account informations."""
+        """Assert account informations."""
         for acc, (balance, expenditure, encumbrance) in accounts.items():
             assert acc.expenditure_amount == expenditure
             assert acc.encumbrance_amount == encumbrance
@@ -375,8 +376,8 @@ def test_acquisition_reception_workflow(
     res, data = postdata(
         client,
         "api_order.send_order",
-        data=dict(emails=emails),
-        url_data=dict(order_pid=order.pid),
+        data={"emails": emails},
+        url_data={"order_pid": order.pid},
     )
     assert res.status_code == 200
 
@@ -466,7 +467,7 @@ def test_acquisition_reception_workflow(
                 "receipt_date": "2021-11-01",
             }
         ],
-        url_data=dict(receipt_pid=receipt_1.pid),
+        url_data={"receipt_pid": receipt_1.pid},
     )
     assert res.status_code == 200
     response = data.get("response")
@@ -485,7 +486,7 @@ def test_acquisition_reception_workflow(
                 "receipt_date": "2021-11-01",
             }
         ],
-        url_data=dict(receipt_pid=receipt_1.pid),
+        url_data={"receipt_pid": receipt_1.pid},
     )
     assert res.status_code == 200
     response = data.get("response")
@@ -560,7 +561,7 @@ def test_acquisition_reception_workflow(
         },
     ]
     res, data = postdata(
-        client, "api_receipt.lines", data=data, url_data=dict(receipt_pid=receipt_2.pid)
+        client, "api_receipt.lines", data=data, url_data={"receipt_pid": receipt_2.pid}
     )
 
     assert res.status_code == 200
@@ -592,7 +593,7 @@ def test_acquisition_reception_workflow(
         }
     ]
     res, data = postdata(
-        client, "api_receipt.lines", data=data, url_data=dict(receipt_pid=receipt_2.pid)
+        client, "api_receipt.lines", data=data, url_data={"receipt_pid": receipt_2.pid}
     )
     assert res.status_code == 200
     response = data.get("response")

@@ -36,7 +36,7 @@ from .models import LocalEntityIdentifier, LocalEntityMetadata
 LocalEntityProvider = type(
     "LocalEntityProvider",
     (Provider,),
-    dict(identifier=LocalEntityIdentifier, pid_type="locent"),
+    {"identifier": LocalEntityIdentifier, "pid_type": "locent"},
 )
 # minter
 local_entity_id_minter = partial(id_minter, provider=LocalEntityProvider)

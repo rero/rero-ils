@@ -18,7 +18,6 @@
 
 """Indicator Report Configurations."""
 
-
 from elasticsearch_dsl import Q
 from elasticsearch_dsl.aggs import A
 

@@ -17,7 +17,6 @@
 
 """Tests REST API to update loan pickup locations."""
 
-
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 

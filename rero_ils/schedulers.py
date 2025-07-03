@@ -17,7 +17,6 @@
 
 """Celery database scheduler using invenios database."""
 
-
 import contextlib
 
 import click
@@ -141,7 +140,7 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
         """Reset all scheduled tasks."""
         session = self.Session()
         with session_cleanup(session):
-            for _, entry in self.all_as_schedule().items():
+            for entry in self.all_as_schedule().values():
                 session.delete(entry.model)
             session.commit()
 
@@ -168,7 +167,7 @@ class DatabaseScheduler(OriginalDatabaseScheduler):
         """
         # return f"{prefix}{name} = {data} "
         return (
-            f"{prefix}{entry.name} = {entry.task} | {repr(entry.schedule)} | "
+            f"{prefix}{entry.name} = {entry.task} | {entry.schedule!r} | "
             f"kwargs:{entry.kwargs} | "
             # f"options:{entry.options} "
             f"enabled:{entry.model.enabled}"

@@ -34,7 +34,7 @@ from ..logger import create_logger
 from .api import RemoteEntity
 
 
-class ReplaceIdentifiedBy(object):
+class ReplaceIdentifiedBy:
     """Entity replace identifiedBy with $ref.
 
     Usage example:
@@ -105,7 +105,7 @@ class ReplaceIdentifiedBy(object):
         """
         if source in ("idref", "gnd"):
             return source, mef_data[source]["pid"]
-        elif source == "rero":
+        if source == "rero":
             for new_source in ("idref", "gnd"):
                 if source_data := mef_data.get(new_source):
                     return new_source, source_data["pid"]
@@ -141,7 +141,7 @@ class ReplaceIdentifiedBy(object):
                 #       bulk operation
                 RemoteEntity.create(data=new_mef_data, dbcommit=True, reindex=True)
             self.logger.info(
-                f"Create a new MEF {mef_type} " f'record(pid: {mef_data["pid"]})'
+                f"Create a new MEF {mef_type} record(pid: {mef_data['pid']})"
             )
 
     def _do_entity(self, entity, doc_pid):
@@ -183,7 +183,7 @@ class ReplaceIdentifiedBy(object):
                         self.logger.info(
                             f"Replace document:{doc_pid} "
                             f'{self.field} "{authorized_access_point}" - '
-                            f'({mef_type}:{mef_data["pid"]}) '
+                            f"({mef_type}:{mef_data['pid']}) "
                             f"{new_source}:{new_source_pid} "
                             f'"{mef_authorized_access_point}"'
                         )
@@ -250,6 +250,7 @@ class ReplaceIdentifiedBy(object):
                     self.logger.error(f'Error document:{doc.pid} {entity} {err}"')
             if changed:
                 return doc
+        return None
 
     def _error_count(self, counter_dict):
         """Summ of error count."""

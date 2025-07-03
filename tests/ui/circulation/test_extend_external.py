@@ -17,7 +17,6 @@
 
 """Test item circulation extend actions at external library."""
 
-
 from datetime import datetime, timedelta, timezone
 
 import ciso8601

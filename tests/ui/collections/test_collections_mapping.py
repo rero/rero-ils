@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Collections record mapping tests."""
+
 from rero_ils.modules.collections.api import Collection, CollectionsSearch
 from tests.utils import get_mapping
 

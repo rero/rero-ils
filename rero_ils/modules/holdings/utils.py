@@ -71,5 +71,5 @@ def create_next_late_expected_issues(dbcommit=False, reindex=False):
         except RegularReceiveNotAllowed as err:
             pid = holding.pid
             msg = f"Cannot receive next expected issue for Holding#{pid}"
-            current_app.logger.error(f"{msg}::{str(err)}")
+            current_app.logger.error(f"{msg}::{err!s}")
     return counter

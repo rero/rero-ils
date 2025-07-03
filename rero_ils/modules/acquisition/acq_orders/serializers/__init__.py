@@ -29,7 +29,7 @@ from rero_ils.modules.serializers import (
 from .csv import AcqOrderCSVSerializer
 from .json import AcqOrderJSONSerializer
 
-__all__ = ["json_acor_search", "json_acor_record", "csv_acor_search"]
+__all__ = ["csv_acor_search", "json_acor_record", "json_acor_search"]
 
 """JSON serializer."""
 _json = AcqOrderJSONSerializer(RecordSchemaJSONV1)

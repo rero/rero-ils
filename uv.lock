@@ -2195,6 +2195,27 @@ wheels = [
 ]
 
 [[package]]
+name = "invenio-sip2"
+version = "0.6.25"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "flask" },
+    { name = "invenio-access" },
+    { name = "invenio-base" },
+    { name = "invenio-i18n" },
+    { name = "jsonpickle" },
+    { name = "psutil" },
+    { name = "pycountry" },
+    { name = "python-dateutil" },
+    { name = "sqlalchemy" },
+    { name = "sqlalchemy-utils" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/90/50/59cc42b4f062514c7e3591394675c19fdb19bca39b4777c9bba47342bce1/invenio_sip2-0.6.25.tar.gz", hash = "sha256:f6c491c700cb5801267608e49ad83b404842ed285b7cd7fa1435fda2570a79ce", size = 46646, upload-time = "2025-06-02T13:10:53.395Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/db/a4/36b74204d0128710b8a5936108bcd3ff96709f5d01557590e10b3a235bdf/invenio_sip2-0.6.25-py3-none-any.whl", hash = "sha256:65ef109e464e382607a7b61b8437bb72686c2ccd1b35956d62ac4a253e6379c0", size = 76475, upload-time = "2025-06-02T13:10:51.85Z" },
+]
+
+[[package]]
 name = "invenio-stats"
 version = "5.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2402,6 +2423,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/42/78/18813351fe5d63acad16aec57f94ec2b70a09e53ca98145589e185423873/jsonpatch-1.33.tar.gz", hash = "sha256:9fcd4009c41e6d12348b4a0ff2563ba56a2923a7dfee731d004e212e1ee5030c", size = 21699, upload-time = "2023-06-26T12:07:29.144Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/73/07/02e16ed01e04a374e644b575638ec7987ae846d25ad97bcc9945a3ee4b0e/jsonpatch-1.33-py2.py3-none-any.whl", hash = "sha256:0ae28c0cd062bbd8b8ecc26d7d164fbbea9652a1a3693f3b956c1eae5145dade", size = 12898, upload-time = "2023-06-16T21:01:28.466Z" },
+]
+
+[[package]]
+name = "jsonpickle"
+version = "4.1.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e4/a6/d07afcfdef402900229bcca795f80506b207af13a838d4d99ad45abf530c/jsonpickle-4.1.1.tar.gz", hash = "sha256:f86e18f13e2b96c1c1eede0b7b90095bbb61d99fedc14813c44dc2f361dbbae1", size = 316885, upload-time = "2025-06-02T20:36:11.57Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c1/73/04df8a6fa66d43a9fd45c30f283cc4afff17da671886e451d52af60bdc7e/jsonpickle-4.1.1-py3-none-any.whl", hash = "sha256:bb141da6057898aa2438ff268362b126826c812a1721e31cf08a6e142910dc91", size = 47125, upload-time = "2025-06-02T20:36:08.647Z" },
 ]
 
 [[package]]
@@ -3416,6 +3446,21 @@ wheels = [
 ]
 
 [[package]]
+name = "psutil"
+version = "7.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/2a/80/336820c1ad9286a4ded7e845b2eccfcb27851ab8ac6abece774a6ff4d3de/psutil-7.0.0.tar.gz", hash = "sha256:7be9c3eba38beccb6495ea33afd982a44074b78f28c434a1f51cc07fd315c456", size = 497003, upload-time = "2025-02-13T21:54:07.946Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ed/e6/2d26234410f8b8abdbf891c9da62bee396583f713fb9f3325a4760875d22/psutil-7.0.0-cp36-abi3-macosx_10_9_x86_64.whl", hash = "sha256:101d71dc322e3cffd7cea0650b09b3d08b8e7c4109dd6809fe452dfd00e58b25", size = 238051, upload-time = "2025-02-13T21:54:12.36Z" },
+    { url = "https://files.pythonhosted.org/packages/04/8b/30f930733afe425e3cbfc0e1468a30a18942350c1a8816acfade80c005c4/psutil-7.0.0-cp36-abi3-macosx_11_0_arm64.whl", hash = "sha256:39db632f6bb862eeccf56660871433e111b6ea58f2caea825571951d4b6aa3da", size = 239535, upload-time = "2025-02-13T21:54:16.07Z" },
+    { url = "https://files.pythonhosted.org/packages/2a/ed/d362e84620dd22876b55389248e522338ed1bf134a5edd3b8231d7207f6d/psutil-7.0.0-cp36-abi3-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:1fcee592b4c6f146991ca55919ea3d1f8926497a713ed7faaf8225e174581e91", size = 275004, upload-time = "2025-02-13T21:54:18.662Z" },
+    { url = "https://files.pythonhosted.org/packages/bf/b9/b0eb3f3cbcb734d930fdf839431606844a825b23eaf9a6ab371edac8162c/psutil-7.0.0-cp36-abi3-manylinux_2_12_x86_64.manylinux2010_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4b1388a4f6875d7e2aff5c4ca1cc16c545ed41dd8bb596cefea80111db353a34", size = 277986, upload-time = "2025-02-13T21:54:21.811Z" },
+    { url = "https://files.pythonhosted.org/packages/eb/a2/709e0fe2f093556c17fbafda93ac032257242cabcc7ff3369e2cb76a97aa/psutil-7.0.0-cp36-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a5f098451abc2828f7dc6b58d44b532b22f2088f4999a937557b603ce72b1993", size = 279544, upload-time = "2025-02-13T21:54:24.68Z" },
+    { url = "https://files.pythonhosted.org/packages/50/e6/eecf58810b9d12e6427369784efe814a1eec0f492084ce8eb8f4d89d6d61/psutil-7.0.0-cp37-abi3-win32.whl", hash = "sha256:ba3fcef7523064a6c9da440fc4d6bd07da93ac726b5733c29027d7dc95b39d99", size = 241053, upload-time = "2025-02-13T21:54:34.31Z" },
+    { url = "https://files.pythonhosted.org/packages/50/1b/6921afe68c74868b4c9fa424dad3be35b095e16687989ebbb50ce4fceb7c/psutil-7.0.0-cp37-abi3-win_amd64.whl", hash = "sha256:4cf3d4eb1aa9b348dec30105c55cd9b7d4629285735a102beb4441e38db90553", size = 244885, upload-time = "2025-02-13T21:54:37.486Z" },
+]
+
+[[package]]
 name = "psycopg2-binary"
 version = "2.9.10"
 source = { registry = "https://pypi.org/simple" }
@@ -3736,19 +3781,6 @@ dependencies = [
     { name = "pytest" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/b3/cd/555a357a1da1c680b6417dec1aff2f5187f5559a06297b6cfab930745fc0/pytest_pydocstyle-2.4.0.tar.gz", hash = "sha256:3770689778ad8d0de8cb51264f3d9b807c11d0ecc31f95e7025426eec126c4d2", size = 5583, upload-time = "2024-10-09T09:35:17.448Z" }
-
-[[package]]
-name = "pytest-ruff"
-version = "0.5"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "pytest" },
-    { name = "ruff" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/32/5a/bee55130757fb4a14e0ac5d2c6558323275b5dccfa2f5353f3893299ff7d/pytest_ruff-0.5.tar.gz", hash = "sha256:f611c780fc2b9b8d7041fa0e7589f0a9f352b288d0cfc330881101b35d382063", size = 3854, upload-time = "2025-06-19T07:26:24.607Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/1d/ca/abfce6de0bb0f017ed05ef9f2330596235cc5a3341b4d8d40895682b3814/pytest_ruff-0.5-py3-none-any.whl", hash = "sha256:d9db170d86fb167008e6702b4d79e2cccd8287f069c3a57f9261831cebdc4a31", size = 4680, upload-time = "2025-06-19T07:26:23.897Z" },
-]
 
 [[package]]
 name = "python-dateutil"
@@ -4199,13 +4231,11 @@ dependencies = [
     { name = "poethepoet" },
     { name = "polib" },
     { name = "pyparsing" },
-    { name = "pytest-ruff" },
     { name = "python-dotenv" },
     { name = "pyyaml" },
     { name = "requests" },
     { name = "rero-invenio-base" },
     { name = "rero-invenio-files" },
-    { name = "ruff" },
     { name = "sentry-sdk" },
     { name = "sqlalchemy-celery-beat" },
     { name = "unidecode" },
@@ -4216,6 +4246,11 @@ dependencies = [
     { name = "zipp" },
 ]
 
+[package.optional-dependencies]
+sip2 = [
+    { name = "invenio-sip2" },
+]
+
 [package.dev-dependencies]
 dev = [
     { name = "coveralls" },
@@ -4223,6 +4258,7 @@ dev = [
     { name = "mock" },
     { name = "pip-audit" },
     { name = "pytest-invenio" },
+    { name = "ruff" },
     { name = "sphinx" },
 ]
 
@@ -4271,6 +4307,7 @@ requires-dist = [
     { name = "invenio-rest", specifier = ">=2.0.0,<3.0.0" },
     { name = "invenio-search", extras = ["elasticsearch7"], specifier = ">=3.0.0,<4.0.0" },
     { name = "invenio-search-ui", specifier = ">=4.0.0,<5.0.0" },
+    { name = "invenio-sip2", marker = "extra == 'sip2'" },
     { name = "invenio-theme", specifier = ">4.0.0,<5.0.0" },
     { name = "isbnlib", specifier = ">=3.9.1" },
     { name = "iso639", specifier = ">=0.1.4" },
@@ -4285,13 +4322,11 @@ requires-dist = [
     { name = "poethepoet" },
     { name = "polib" },
     { name = "pyparsing", specifier = ">=3.1.1" },
-    { name = "pytest-ruff", specifier = ">=0.5" },
     { name = "python-dotenv", specifier = ">=0.13.0" },
     { name = "pyyaml", specifier = ">=5.3.1" },
     { name = "requests", specifier = ">=2.23.0" },
     { name = "rero-invenio-base", specifier = ">=0.3.0" },
     { name = "rero-invenio-files", specifier = ">=1.0.0,<2.0.0" },
-    { name = "ruff", specifier = ">=0.12.1" },
     { name = "sentry-sdk", specifier = "<2.0.0" },
     { name = "sqlalchemy-celery-beat", specifier = ">=0.8.3,<0.9.0" },
     { name = "unidecode", specifier = ">=1.3.8" },
@@ -4301,6 +4336,7 @@ requires-dist = [
     { name = "xmltodict" },
     { name = "zipp" },
 ]
+provides-extras = ["sip2"]
 
 [package.metadata.requires-dev]
 dev = [
@@ -4309,6 +4345,7 @@ dev = [
     { name = "mock", specifier = ">=2.0.0" },
     { name = "pip-audit", specifier = ">=2.8.0,<3.0.0" },
     { name = "pytest-invenio", specifier = ">=3.0.0,<4.0.0" },
+    { name = "ruff", specifier = ">=0.12.1" },
     { name = "sphinx", specifier = ">=4.5.0" },
 ]
 

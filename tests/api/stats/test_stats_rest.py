@@ -17,7 +17,8 @@
 
 """Tests statistics REST API."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -73,7 +74,7 @@ def test_stats_librarian_data(
     client, stats_librarian, librarian_martigny, system_librarian_martigny
 ):
     """Test librarian statistics."""
-    params = dict(pid_value=stats_librarian.pid)
+    params = {"pid_value": stats_librarian.pid}
     item_url = url_for("invenio_records_rest.stat_item", **params)
 
     # system librarian could view all libraries stats for its own organisation

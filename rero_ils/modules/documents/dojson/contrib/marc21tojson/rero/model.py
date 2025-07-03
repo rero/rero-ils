@@ -18,7 +18,6 @@
 
 """rero-ils MARC21 model definition."""
 
-
 import contextlib
 import re
 
@@ -185,11 +184,12 @@ def marc21_to_contribution(self, key, value):
     # we do not have a $ref
     agent_data = {}
     if not agent.get("$ref") and value.get("a"):
-        if value.get("a"):
-            if name := not_repetitive(
+        if value.get("a") and (
+            name := not_repetitive(
                 marc21.bib_id, marc21.rero_id, key, value, "a"
-            ).rstrip("."):
-                agent_data["preferred_name"] = name
+            ).rstrip(".")
+        ):
+            agent_data["preferred_name"] = name
 
         # 100|700 Person
         if key[:3] in ["100", "700"]:
@@ -314,6 +314,7 @@ def marc21_to_contribution(self, key, value):
         roles = ["ctb"]
     if agent:
         return {"entity": agent, "role": list(set(roles))}
+    return None
 
 
 @marc21.over("relation", "(770|772|775|776|777|780|785|787|533|534)..")
@@ -558,6 +559,7 @@ def marc21_to_supplementary_content(self, key, value):
     """Get notes and original title."""
     if value.get("a"):
         return utils.force_list(value.get("a"))[0]
+    return None
 
 
 @marc21.over("subjects", "^(600|610|611|630|650|651|655)..")
@@ -662,7 +664,7 @@ def marc21_to_subjects(self, key, value):
 
         if subject.get("$ref") or subject.get("authorized_access_point"):
             subjects = self.get(field_key, [])
-            subjects.append(dict(entity=subject))
+            subjects.append({"entity": subject})
             self[field_key] = subjects
 
     elif subfield_2 == "rerovoc" or indicator_2 in ["0", "2"]:
@@ -683,7 +685,7 @@ def marc21_to_subjects(self, key, value):
 
             subjects_imported = self.get("subjects_imported", [])
             if subject_imported:
-                subjects_imported.append(dict(entity=subject_imported))
+                subjects_imported.append({"entity": subject_imported})
                 self["subjects_imported"] = subjects_imported
 
 
@@ -741,7 +743,7 @@ def marc21_to_subjects_imported(self, key, value):
         }
     if data_imported:
         subjects_or_genre_form_imported_imported = self.get(field_key, [])
-        subjects_or_genre_form_imported_imported.append(dict(entity=data_imported))
+        subjects_or_genre_form_imported_imported.append({"entity": data_imported})
         self[field_key] = subjects_or_genre_form_imported_imported
 
 
@@ -807,7 +809,7 @@ def marc21_to_classification(self, key, value):
                     "source": "Factum",
                 }
                 subjects = self.get("subjects", [])
-                subjects.append(dict(entity=subject))
+                subjects.append({"entity": subject})
                 self["subjects"] = subjects
 
             classif_type, subdivision_subfield_codes = (
@@ -903,7 +905,7 @@ def marc21_to_part_of(self, key, value):
     and for the fields 800 and 830 if a field 490 exists
     """
 
-    class Numbering(object):
+    class Numbering:
         """The purpose of this class is to build the `Numbering` data."""
 
         def __init__(self):

@@ -17,9 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, abort, current_app, render_template
 from invenio_records_ui.signals import record_viewed
 

@@ -17,8 +17,6 @@
 
 """API for cantook records."""
 
-from __future__ import absolute_import, print_function
-
 from invenio_db import db
 from requests import codes as requests_codes
 
@@ -82,7 +80,7 @@ class ApiCantook(ApiHarvest):
         :param link: link to cantook document
         """
         holdings = []
-        for _, info in self._info.items():
+        for info in self._info.values():
             item_type_pid = info["item_type_pid"]
             for location_pid, url in info["locations"].items():
                 if url:

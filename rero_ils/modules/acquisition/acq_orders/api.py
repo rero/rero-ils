@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Acquisition Orders."""
+
 from datetime import datetime, timezone
 from functools import partial
 
@@ -53,7 +54,7 @@ from .models import AcqOrderIdentifier, AcqOrderMetadata, AcqOrderStatus
 AcqOrderProvider = type(
     "AcqOrderProvider",
     (Provider,),
-    dict(identifier=AcqOrderIdentifier, pid_type="acor"),
+    {"identifier": AcqOrderIdentifier, "pid_type": "acor"},
 )
 # minter
 acq_order_id_minter = partial(id_minter, provider=AcqOrderProvider)
@@ -224,6 +225,7 @@ class AcqOrder(AcquisitionIlsRecord):
         if prev_version := self.get("previousVersion"):
             prev_pid = extracted_data_from_ref(prev_version)
             return AcqOrder.get_record_by_pid(prev_pid)
+        return None
 
     @property
     def next_order(self):
@@ -235,6 +237,7 @@ class AcqOrder(AcquisitionIlsRecord):
         )
         if hit := next(query.scan(), None):
             return AcqOrder.get_record(hit.meta.id)
+        return None
 
     @property
     def budget(self):
@@ -291,10 +294,9 @@ class AcqOrder(AcquisitionIlsRecord):
         query = AcqReceiptsSearch().filter("term", acq_order__pid=self.pid)
         if output == "count":
             return query.count()
-        elif output == "query":
+        if output == "query":
             return query
-        else:
-            return get_objects(AcqReceipt, query)
+        return get_objects(AcqReceipt, query)
 
     def get_related_notes(self, resource_filters=None):
         """Get all notes from resource relates to this `AcqOrder`.
@@ -337,10 +339,9 @@ class AcqOrder(AcquisitionIlsRecord):
         query = AcqOrdersSearch().filter("term", previousVersion__pid=self.pid)
         if output == "count":
             return query.count()
-        elif output == "query":
+        if output == "query":
             return query
-        else:
-            return get_objects(AcqOrder, query)
+        return get_objects(AcqOrder, query)
 
     def get_order_lines(self, output=None, includes=None):
         """Get order lines related to this order.
@@ -364,10 +365,9 @@ class AcqOrder(AcquisitionIlsRecord):
 
         if output == "count":
             return query.count()
-        elif output == "query":
+        if output == "query":
             return preserve_order(query)
-        else:
-            return get_objects(AcqOrderLine, preserve_order(query))
+        return get_objects(AcqOrderLine, preserve_order(query))
 
     def get_order_provisional_total_amount(self):
         """Get provisional total amount of this order."""

@@ -17,10 +17,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Marshmallow schema through REST API for templates."""
+
 import json
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from flask import url_for
 
 from rero_ils.modules.templates.api import Template

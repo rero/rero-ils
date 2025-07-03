@@ -124,12 +124,12 @@ def test_to_pretty():
 
 def test_text_to_id():
     """Test text to id."""
-    assert "LoremIpsum" == text_to_id("Lorem Ipsum")
+    assert text_to_id("Lorem Ipsum") == "LoremIpsum"
 
 
 def test_empty_data():
     """Test empty data."""
-    assert "data" == empty_data("data")
+    assert empty_data("data") == "data"
     substitution_text = "no data available"
     assert substitution_text in empty_data(None, substitution_text)
 

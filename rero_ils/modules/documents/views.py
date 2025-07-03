@@ -18,8 +18,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 from typing import Optional
 
 import click
@@ -28,14 +26,8 @@ from flask import Blueprint, current_app, render_template, url_for
 from flask_babel import gettext as _
 from invenio_records_ui.signals import record_viewed
 
-from rero_ils.modules.entities.api import Entity
-from rero_ils.modules.entities.helpers import get_entity_record_from_data
-from rero_ils.modules.locations.api import Location
-from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patrons.api import current_patrons
-from rero_ils.modules.utils import extracted_data_from_ref
-
 from ..entities.api import Entity
+from ..entities.helpers import get_entity_record_from_data
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import current_patrons
@@ -169,8 +161,7 @@ def contribution_format(contributions, language, viewcode, with_roles=False):
             args = {
                 "viewcode": viewcode,
                 "recordType": "documents",
-                "q": f"contribution.entity.pids.{entity.resource_type}:"
-                f"{entity.pid}",
+                "q": f"contribution.entity.pids.{entity.resource_type}:{entity.pid}",
                 "simple": 0,
             }
         else:
@@ -328,6 +319,7 @@ def get_cover_art(record, save_cover_url=True, verbose=False):
                 if verbose:
                     click.echo(msg)
             return url
+    return None
 
 
 @blueprint.app_template_filter()
@@ -427,6 +419,7 @@ def document_main_type(record, translate: bool = True) -> Optional[str]:
     if "type" in record:
         doc_type = record["type"][0]["main_type"]
         return _(doc_type) if translate else doc_type
+    return None
 
 
 @blueprint.app_template_filter()
@@ -466,7 +459,7 @@ def record_library_pickup_locations(record):
                 for location_pid in list(library.get_pickup_locations_pids())
             )
     return sorted(
-        list(filter(None, pickup_locations)),
+        filter(None, pickup_locations),
         key=lambda location: location.get("pickup_name", location.get("code")),
     )
 

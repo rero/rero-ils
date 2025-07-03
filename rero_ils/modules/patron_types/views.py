@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, jsonify
 
 from ..decorators import check_logged_as_librarian

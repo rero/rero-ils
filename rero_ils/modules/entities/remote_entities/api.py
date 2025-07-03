@@ -42,7 +42,7 @@ from .utils import extract_data_from_mef_uri, get_mef_data_by_type
 RemoteEntityProvider = type(
     "EntityProvider",
     (Provider,),
-    dict(identifier=RemoteEntityIdentifier, pid_type="rement"),
+    {"identifier": RemoteEntityIdentifier, "pid_type": "rement"},
 )
 # minter
 remote_entity_id_minter = partial(id_minter, provider=RemoteEntityProvider)
@@ -202,7 +202,7 @@ class RemoteEntity(Entity):
                     action = EntityUpdateAction.ERROR
                 elif not data.get("sources"):
                     current_app.logger.warning(
-                        f"UPDATE ONLINE {self.type} (pid:{pid}): " f"has no sources"
+                        f"UPDATE ONLINE {self.type} (pid:{pid}): has no sources"
                     )
                     action = EntityUpdateAction.ERROR
                 elif not data.get("type"):

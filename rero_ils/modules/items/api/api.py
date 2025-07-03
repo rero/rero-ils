@@ -42,7 +42,7 @@ from .issue import ItemIssue
 
 # provider
 ItemProvider = type(
-    "ItemProvider", (Provider,), dict(identifier=ItemIdentifier, pid_type="item")
+    "ItemProvider", (Provider,), {"identifier": ItemIdentifier, "pid_type": "item"}
 )
 # minter
 item_id_minter = partial(id_minter, provider=ItemProvider)
@@ -199,8 +199,7 @@ class Item(ItemCirculation, ItemIssue):
         # (`datetime.now(timezone.utc)` by default)
         if end_date is None:
             end_date = datetime.now(timezone.utc)
-        end_date = end_date.strftime("%Y-%m-%d")
-        return end_date
+        return end_date.strftime("%Y-%m-%d")
 
     @classmethod
     def get_items_with_obsolete_temporary_item_type_or_location(cls, end_date=None):

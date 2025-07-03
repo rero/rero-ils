@@ -110,7 +110,7 @@ def test_stats_cfg_permissions(
     # Librarian with the right role
     # can update or delete a config of this library
     stats_cfg_martigny.update(
-        dict(library={"$ref": f"https://bib.test.rero.ch/libraries/{lib_saxon.pid}"})
+        {"library": {"$ref": f"https://bib.test.rero.ch/libraries/{lib_saxon.pid}"}}
     )
     check_permission(
         StatisticsConfigurationPermissionPolicy,

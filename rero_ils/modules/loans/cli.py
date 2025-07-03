@@ -17,8 +17,6 @@
 
 """Click command-line interface for item record management."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import os
 import random
@@ -500,6 +498,7 @@ def get_random_patron(exclude_this_barcode):
     for patron in patrons:
         if exclude_this_barcode not in patron.patron.barcode:
             return Patron.get_patron_by_barcode(barcode=patron.patron.barcode[0])
+    return None
 
 
 def get_random_librarian(patron):

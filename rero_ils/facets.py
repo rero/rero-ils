@@ -18,8 +18,6 @@
 
 """Facets and factories for result aggregation."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 
 from elasticsearch_dsl import Q
@@ -116,7 +114,7 @@ def default_facets_factory(search, index):
             # If we find a `facet_field` on which apply this aggregation,
             # add a nested aggs_facet in the facet aggs (OK search)
             if facet_field:
-                facet_body = dict(aggs=dict(aggs_facet=facet_body))
+                facet_body = {"aggs": {"aggs_facet": facet_body}}
             facet_body["filter"] = facet_filter.to_dict()
 
         aggs[facet_name] = facet_body
@@ -188,7 +186,7 @@ def _post_filter(search, urlkwargs, definitions):
     for filter_ in filters:
         search = search.post_filter(filter_)
 
-    for _, filter_ in filters_group.items():
+    for filter_ in filters_group.values():
         q = Q("bool", should=filter_)
         search = search.post_filter(q)
 
@@ -214,8 +212,8 @@ def _facet_filter(index, filters, filters_group, facet_name, facet_field):
     """
     q = Q()
     for _filter in filters:
-        for _, value in _filter.to_dict().items():
-            filter_field = list(value.keys())[0]
+        for value in _filter.to_dict().values():
+            filter_field = next(iter(value.keys()))
             if filter_field != facet_field and _filter:
                 q &= _filter
 

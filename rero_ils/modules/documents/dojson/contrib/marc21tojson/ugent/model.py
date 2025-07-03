@@ -320,6 +320,7 @@ def marc21_to_supplementary_content(self, key, value):
     """Get notes and original title."""
     if value.get("a"):
         return utils.force_list(value.get("a"))[0]
+    return None
 
 
 @marc21.over("subjects", "^(600|610|611|630|650|651|655)..")
@@ -380,7 +381,7 @@ def marc21_to_subjects_6XX(self, key, value):
             }
             perform_subdivisions(data, value)
             if data:
-                self.setdefault(config_field_key, []).append(dict(entity=data))
+                self.setdefault(config_field_key, []).append({"entity": data})
 
 
 @marc21.over("sequence_numbering", "^362..")

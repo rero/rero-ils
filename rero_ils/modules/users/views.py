@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 import json
 from functools import wraps
 
@@ -59,7 +57,7 @@ def check_user_permission(fn):
         """Decorated view."""
         if not current_user.is_authenticated:
             abort(401)
-        if not current_librarian and str(current_user.id) != kwargs.get("id", None):
+        if not current_librarian and str(current_user.id) != kwargs.get("id"):
             abort(403)
         return fn(*args, **kwargs)
 
@@ -125,17 +123,17 @@ class UsersResource(ContentNegotiatedMethodView):
         )
 
     @check_user_permission
-    def get(self, id):
+    def get(self, id_):
         """Implement the GET."""
-        user = User.get_record(id)
+        user = User.get_record(id_)
         return user.dumps()
 
     @check_user_permission
-    def put(self, id):
+    def put(self, id_):
         """Implement the PUT."""
-        user = User.get_record(id)
+        user = User.get_record(id_)
         user = user.update(request.get_json())
-        editing_own_public_profile = str(current_user.id) == id and not (
+        editing_own_public_profile = str(current_user.id) == id_ and not (
             current_user.has_role(UserRole.FULL_PERMISSIONS)
             and current_user.has_role(UserRole.USER_MANAGER)
         )

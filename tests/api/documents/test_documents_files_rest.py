@@ -36,7 +36,7 @@ def test_document_files(
 
     list_url = url_for(
         "invenio_records_rest.doc_list",
-        q=f"_exists_:files",
+        q="_exists_:files",
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
@@ -47,7 +47,7 @@ def test_document_files(
     # check for collections
     list_url = url_for(
         "invenio_records_rest.doc_list",
-        q=f"_exists_:files.collections",
+        q="_exists_:files.collections",
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]
@@ -55,7 +55,7 @@ def test_document_files(
 
     # check for collections
     list_url = url_for(
-        "invenio_records_rest.doc_list", q=f"_exists_:files", view=org_martigny.pid
+        "invenio_records_rest.doc_list", q="_exists_:files", view=org_martigny.pid
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]

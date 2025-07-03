@@ -17,8 +17,6 @@
 
 """Patrons Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 
 import pytest
@@ -244,9 +242,9 @@ def test_patron_create_without_email(
         Patron.create(patron_martigny_data_tmp, dbcommit=True, delete_pid=True)
 
     # create a patron without email
-    patron_martigny_data_tmp["patron"][
-        "communication_channel"
-    ] = CommunicationChannel.MAIL
+    patron_martigny_data_tmp["patron"]["communication_channel"] = (
+        CommunicationChannel.MAIL
+    )
     ptrn = Patron.create(patron_martigny_data_tmp, dbcommit=True, delete_pid=True)
     # user has been created
     user = User.query.filter_by(id=ptrn.get("user_id")).first()
@@ -390,7 +388,7 @@ def test_patron_multiple(patron_sion_multiple, patron2_martigny, lib_martigny):
     assert patron2_martigny.user == patron_sion_multiple.user
     data = dict(patron_sion_multiple)
     patron2_roles = {r.name for r in patron2_martigny.user.roles}
-    patron_and_librarian_roles = UserRole.LIBRARIAN_ROLES + [UserRole.PATRON]
+    patron_and_librarian_roles = [*UserRole.LIBRARIAN_ROLES, UserRole.PATRON]
     assert all(r in patron_and_librarian_roles for r in patron2_roles)
     data["roles"] = [UserRole.PATRON]
     del data["libraries"]

@@ -18,8 +18,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from functools import wraps
 
@@ -156,10 +154,10 @@ def do_item_jsonify_action(func):
                 }
             )
         except NoCirculationAction as error:
-            return jsonify({"status": f"error: {str(error)}"}), 400
+            return jsonify({"status": f"error: {error!s}"}), 400
         except NoCirculationActionIsPermitted as error:
             # The circulation specs do not allow updates on some loan states.
-            return jsonify({"status": f"error: {str(error)}"}), 403
+            return jsonify({"status": f"error: {error!s}"}), 403
         except MissingRequiredParameterError as error:
             # Return error 400 when there is a missing required parameter
             abort(400, str(error))
@@ -173,7 +171,7 @@ def do_item_jsonify_action(func):
         except Exception as error:
             # TODO: need to know what type of exception and document there.
             # raise error
-            current_app.logger.error(f"{func.__name__}: {str(error)}")
+            current_app.logger.error(f"{func.__name__}: {error!s}")
             return jsonify({"status": f"error: {error}"}), 400
 
     return decorated_view
@@ -438,8 +436,7 @@ def item(item_barcode):
                     if (
                         item.number_of_requests() > 0
                         and item.patron_request_rank(patron) == 1
-                        or item.number_of_requests() <= 0
-                    ):
+                    ) or item.number_of_requests() <= 0:
                         new_actions.append(action)
                 elif action == "receive" and item.number_of_requests() == 0:
                     new_actions.append("checkout")
@@ -454,7 +451,7 @@ def item_availability(pid):
     item = Item.get_record_by_pid(pid)
     if not item:
         abort(404)
-    data = dict(available=item.is_available())
+    data = {"available": item.is_available()}
     if flask_request.args.get("more_info"):
         extra = {
             "status": item["status"],
@@ -505,7 +502,7 @@ def can_request(item_pid):
     # reasons why
     response = {"can": can}
     if reasons:
-        response["reasons"] = {"others": {reason: True for reason in reasons}}
+        response["reasons"] = {"others": dict.fromkeys(reasons, True)}
     return jsonify(response)
 
 
@@ -592,7 +589,7 @@ def claim_notification_preview(item_pid):
         tmpl_file = f"{template_directory}/eng.tpl.txt"
         response["preview"] = render_template(tmpl_file, issue=issue_data)
     except UndefinedError as ue:
-        abort(500, f"template generation failed : {str(ue)}")
+        abort(500, f"template generation failed : {ue!s}")
 
     return jsonify(response)
 

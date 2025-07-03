@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Items dumpers."""
+
 from copy import deepcopy
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper
@@ -61,8 +62,7 @@ class ItemNotificationDumper(InvenioRecordsDumper):
                 temporary_item_type_pid
             ):
                 data["temporary_item_type"] = temporary_item_type["name"]
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}
 
 
 class ItemCirculationDumper(InvenioRecordsDumper):
@@ -136,7 +136,7 @@ class CirculationActionDumper(InvenioRecordsDumper):
 
         # add library and location name on same field (used for sorting)
         library = location.get_library()
-        data["library_location_name"] = f'{library["name"]}: {data["location"]["name"]}'
+        data["library_location_name"] = f"{library['name']}: {data['location']['name']}"
 
         data["actions"] = list(record.actions)
 

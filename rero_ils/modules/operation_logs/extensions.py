@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Operation log record extensions."""
+
 import uuid
 from datetime import datetime, timezone
 from functools import partialmethod
@@ -43,7 +44,7 @@ class OperationLogFactory:
         :param record: the observed record.
         :return a dict with additional informations.
         """
-        return None
+        return
 
     def _build_operation_log(self, record, operation):
         """Build the operation log dict based on record.
@@ -190,7 +191,7 @@ class ResolveRefsExtension(RecordExtension):
                     if _type := self.mod_type.get(
                         extracted_data_from_ref(v, data="resource")
                     ):
-                        resolved = dict(pid=extracted_data_from_ref(v), type=_type)
+                        resolved = {"pid": extracted_data_from_ref(v), "type": _type}
                         record[k] = resolved
                 else:
                     self._resolve_refs(v)

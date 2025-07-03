@@ -57,7 +57,7 @@ def upgrade():
     for col in results:
         db.session.delete(col)
     db.session.commit()
-    LOGGER.info("migrate %s" % len(collections))
+    LOGGER.info(f"migrate {len(collections)}")
 
 
 def downgrade():
@@ -83,4 +83,4 @@ def downgrade():
     # need to close the session before removing the table
     db.session.close()
     op.drop_table("collection_metadata")
-    LOGGER.info("migrate %s record collection" % len(collections))
+    LOGGER.info(f"migrate {len(collections)} record collection")

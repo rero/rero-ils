@@ -18,9 +18,6 @@
 
 """Import from extern resources."""
 
-
-from __future__ import absolute_import, print_function
-
 import pickle
 import traceback
 from datetime import datetime, timedelta
@@ -43,7 +40,7 @@ from rero_ils.modules.documents.dojson.contrib.marc21tojson import (
 from rero_ils.modules.documents.dojson.contrib.unimarctojson import unimarc
 
 
-class Import(object):
+class Import:
     """Import class."""
 
     name = ""
@@ -102,14 +99,13 @@ class Import(object):
         :param id: id to use for the link
         :return: url for id
         """
-        url_api = self.url_api.format(
+        return self.url_api.format(
             url=self.url,
             max_results=1,
             what=id,
             relation="all",
             where=self.search.get("recordid"),
         )
-        return url_api
 
     def get_marc21_link(self, id):
         """Get direct link to marc21 record.
@@ -118,7 +114,7 @@ class Import(object):
         :param id: id to use for the link
         :return: url for id
         """
-        return None
+        return
 
     def calculate_aggregations_add(self, type, data, id):
         """Add data to aggregations_creation.
@@ -377,12 +373,12 @@ class Import(object):
             """Yield record elements from given XML stream."""
             try:
                 for _, element in etree.iterparse(
-                    stream, tag="{http://www.loc.gov/zing/srw/}" "record"
+                    stream, tag="{http://www.loc.gov/zing/srw/}record"
                 ):
                     yield element
             except Exception:
                 current_app.logger.error(
-                    f"Import: {self.name} " "error: XML SPLIT " f"url: {url_api}"
+                    f"Import: {self.name} error: XML SPLIT url: {url_api}"
                 )
                 return []
 
@@ -557,6 +553,7 @@ class LoCImport(Import):
         """
         if json_data.get("010__"):
             return json_data.get("010__").get("a").strip()
+        return None
 
     def get_marc21_link(self, id):
         """Get direct link to marc21 record.

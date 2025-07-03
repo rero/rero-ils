@@ -17,7 +17,6 @@
 
 """API tests for non modules."""
 
-
 from functools import partial
 
 import pytest
@@ -233,7 +232,7 @@ class FailedPidIdentifier(RecordIdentifier):
 FailedPidProvider = type(
     "FailedPidProvider",
     (Provider,),
-    dict(identifier=FailedPidIdentifier, pid_type="failed"),
+    {"identifier": FailedPidIdentifier, "pid_type": "failed"},
 )
 
 # failedPID minter

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Marshmallow schema for JSON representation of `Patron` resources."""
+
 from functools import partial
 
 from flask import abort
@@ -88,7 +89,7 @@ class PatronMetadataSchemaV1(StrictKeysMixin):
         :return Data cleared from user profile information.
         """
         data = data if many else [data]
-        profile_fields = set(User.profile_fields + ["username", "email", "password"])
+        profile_fields = {*User.profile_fields, "username", "email", "password"}
         for record in data:
             for field in profile_fields:
                 record.pop(field, None)

@@ -17,8 +17,6 @@
 
 """Ill request record tests."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.ill_requests.api import ILLRequest
 from rero_ils.modules.ill_requests.models import ILLRequestNoteStatus
 

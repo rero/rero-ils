@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Templates."""
+
 from functools import partial
 
 from rero_ils.modules.api import IlsRecord, IlsRecordsIndexer, IlsRecordsSearch
@@ -32,7 +33,7 @@ from .models import TemplateIdentifier, TemplateMetadata, TemplateVisibility
 TemplateProvider = type(
     "TemplateProvider",
     (Provider,),
-    dict(identifier=TemplateIdentifier, pid_type="tmpl"),
+    {"identifier": TemplateIdentifier, "pid_type": "tmpl"},
 )
 # minter
 template_id_minter = partial(id_minter, provider=TemplateProvider)
@@ -81,6 +82,7 @@ class Template(IlsRecord):
         """Shortcut for template creator pid."""
         if self.get("creator"):
             return extracted_data_from_ref(self.get("creator"))
+        return None
 
     @property
     def is_public(self):

@@ -16,9 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API tests for indexer utilities."""
+
+from unittest import mock
+
 import pytest
 from elasticsearch import NotFoundError
-from mock import mock
 
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.indexer_utils import record_to_index
@@ -57,13 +59,13 @@ def test_record_to_index(app):
     # for documents
     assert (
         record_to_index(
-            {"$schema": "https://bib.rero.ch/schemas/" "documents/document-v0.0.1.json"}
+            {"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"}
         )
         == "documents-document-v0.0.1"
     )
     assert (
         record_to_index(
-            {"$schema": "https://bib.rero.ch/schemas/" "documents/document-v0.0.1.json"}
+            {"$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json"}
         )
         == "documents-document-v0.0.1"
     )
@@ -71,10 +73,7 @@ def test_record_to_index(app):
     # for mef-mef-contributions
     assert (
         record_to_index(
-            {
-                "$schema": "https://mef.rero.ch/schemas/"
-                "mef/mef-contribution-v0.0.1.json"
-            }
+            {"$schema": "https://mef.rero.ch/schemas/mef/mef-contribution-v0.0.1.json"}
         )
         == "remote_entities-remote_entity-v0.0.1"
     )

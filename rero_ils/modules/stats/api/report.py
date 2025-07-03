@@ -136,7 +136,7 @@ class StatsReport:
                     doc_count = dist1.doc_count
                 if not doc_count:
                     continue
-                results[key1] = dict(count=doc_count)
+                results[key1] = {"count": doc_count}
                 values = {}
                 if distrib2:
                     for dist2 in parent_dist[distrib2].buckets:
@@ -158,7 +158,7 @@ class StatsReport:
         """Process the elasticsearch aggregations results."""
         data = []
         if y_keys:
-            data.append([""] + y_keys)
+            data.append(["", *y_keys])
 
         for x_key in x_keys:
             values = [x_key]
@@ -178,7 +178,7 @@ class StatsReport:
         :returns: results data of report
         """
         if not self.is_active and not force:
-            return
+            return None
         # base query
         search = self.indicator_cfg.query
         # no distributions returns the count
@@ -206,16 +206,17 @@ class StatsReport:
             # day=31: this will add a max value of 31 days but stays
             # in the same month
             previous_month = previous_month + relativedelta(day=31)
-            month = "%02d" % previous_month.month
+            month = f"{previous_month.month:02d}"
             _from = f"{previous_month.year}-{month}-01T00:00:00"
             _to = f"{previous_month.year}-{month}-{previous_month.day}"
             _to = f"{_to}T23:59:59"
-            return dict(gte=_from, lte=_to)
-        elif period == "year":
+            return {"gte": _from, "lte": _to}
+        if period == "year":
             previous_year = datetime.now().year - 1
             _from = f"{previous_year}-01-01T00:00:00"
             _to = f"{previous_year}-12-31T23:59:59"
-            return dict(gte=_from, lte=_to)
+            return {"gte": _from, "lte": _to}
+        return None
 
     def create_stat(self, values, dbcommit=True, reindex=True):
         """Create a stat report.
@@ -225,11 +226,11 @@ class StatsReport:
         :param reindex: bool - if True index the document.
         :returns: the create report.
         """
-        data = dict(
-            type=StatType.REPORT,
-            config=self.config.dumps(),
-            values=[dict(results=values)],
-        )
+        data = {
+            "type": StatType.REPORT,
+            "config": self.config.dumps(),
+            "values": [{"results": values}],
+        }
         if self.period:
             date_range = self.get_range_period(self.period)
             data["date_range"] = {"from": date_range["gte"], "to": date_range["lte"]}

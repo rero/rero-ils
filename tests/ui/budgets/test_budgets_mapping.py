@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition budget record mapping tests."""
+
 from rero_ils.modules.acquisition.budgets.api import Budget, BudgetsSearch
 from tests.utils import get_mapping
 

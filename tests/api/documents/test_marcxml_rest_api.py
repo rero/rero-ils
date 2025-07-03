@@ -17,7 +17,6 @@
 
 """Tests POST REST API for MARC21 documents."""
 
-
 from click.testing import CliRunner
 
 from rero_ils.modules.cli.utils import token_create

@@ -17,8 +17,6 @@
 
 """Test for missing invenio_celery task endpoints."""
 
-from __future__ import absolute_import, print_function
-
 from importlib_metadata import entry_points
 from invenio_records_rest.utils import obj_or_import_string
 
@@ -30,7 +28,7 @@ def test_missing_invenio_celery_task_endpoints(app):
         e.value for e in entry_points(group=celery_extension.entry_point_group)
     ]
 
-    for task, data in app.config["CELERY_BEAT_SCHEDULE"].items():
+    for data in app.config["CELERY_BEAT_SCHEDULE"].values():
         task_function = data["task"]
         # test if function exist
         assert obj_or_import_string(task_function)

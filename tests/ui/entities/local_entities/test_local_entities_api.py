@@ -18,8 +18,6 @@
 
 """Local entities record tests."""
 
-from __future__ import absolute_import, print_function
-
 import time
 from datetime import timedelta
 
