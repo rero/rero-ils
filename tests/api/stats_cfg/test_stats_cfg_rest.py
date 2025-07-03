@@ -19,7 +19,8 @@
 
 import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json, to_relative_url
+
+from tests.utils import VerifyRecordPermissionPatch, get_json, to_relative_url
 
 
 @mock.patch(

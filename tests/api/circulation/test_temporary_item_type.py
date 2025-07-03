@@ -21,11 +21,11 @@ from datetime import datetime, timedelta
 import ciso8601
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import get_json, postdata
 
 
 def test_checkout_temporary_item_type(

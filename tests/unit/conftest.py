@@ -23,8 +23,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 
 import pytest
-from pkg_resources import resource_string
-from utils import get_schema
+from importlib_resources import files
 
 from rero_ils.modules.entities.remote_entities.api import (
     RemoteEntitiesSearch,
@@ -32,6 +31,7 @@ from rero_ils.modules.entities.remote_entities.api import (
 )
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import date_string_to_utc
+from tests.utils import get_schema
 
 
 @pytest.fixture(scope="module")
@@ -45,9 +45,10 @@ def create_app():
 @pytest.fixture()
 def circ_policy_schema():
     """Circ policy Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.circ_policies.jsonschemas",
-        "circ_policies/circ_policy-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.circ_policies.jsonschemas")
+        .joinpath("circ_policies/circ_policy-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -55,9 +56,10 @@ def circ_policy_schema():
 @pytest.fixture()
 def template_schema():
     """Template Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.templates.jsonschemas",
-        "templates/template-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.templates.jsonschemas")
+        .joinpath("templates/template-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -65,9 +67,10 @@ def template_schema():
 @pytest.fixture()
 def notification_schema():
     """Notifications Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.notifications.jsonschemas",
-        "notifications/notification-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.notifications.jsonschemas")
+        .joinpath("notifications/notification-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -75,8 +78,10 @@ def notification_schema():
 @pytest.fixture()
 def item_type_schema():
     """Item type Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.item_types.jsonschemas", "item_types/item_type-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.modules.item_types.jsonschemas")
+        .joinpath("item_types/item_type-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -84,9 +89,10 @@ def item_type_schema():
 @pytest.fixture()
 def acq_account_schema():
     """Acq account Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.acquisition.acq_accounts.jsonschemas",
-        "acq_accounts/acq_account-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.acquisition.acq_accounts.jsonschemas")
+        .joinpath("acq_accounts/acq_account-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -94,9 +100,10 @@ def acq_account_schema():
 @pytest.fixture()
 def acq_order_schema():
     """Acq order Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.acquisition.acq_orders.jsonschemas",
-        "acq_orders/acq_order-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.acquisition.acq_orders.jsonschemas")
+        .joinpath("acq_orders/acq_order-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -104,9 +111,10 @@ def acq_order_schema():
 @pytest.fixture()
 def acq_order_line_schema():
     """Acq order line Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.acquisition.acq_order_lines.jsonschemas",
-        "acq_order_lines/acq_order_line-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.acquisition.acq_order_lines.jsonschemas")
+        .joinpath("acq_order_lines/acq_order_line-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -114,9 +122,10 @@ def acq_order_line_schema():
 @pytest.fixture()
 def acq_receipt_line_schema():
     """Acq receipt line Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.acquisition.acq_receipt_lines.jsonschemas",
-        "acq_receipt_lines/acq_receipt_line-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.acquisition.acq_receipt_lines.jsonschemas")
+        .joinpath("acq_receipt_lines/acq_receipt_line-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -124,9 +133,10 @@ def acq_receipt_line_schema():
 @pytest.fixture()
 def budget_schema():
     """Budget Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.acquisition.budgets.jsonschemas",
-        "budgets/budget-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.acquisition.budgets.jsonschemas")
+        .joinpath("budgets/budget-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -134,8 +144,10 @@ def budget_schema():
 @pytest.fixture()
 def library_schema():
     """Library Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.libraries.jsonschemas", "libraries/library-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.modules.libraries.jsonschemas")
+        .joinpath("libraries/library-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -143,9 +155,10 @@ def library_schema():
 @pytest.fixture()
 def local_fields_schema():
     """Local fields Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.local_fields.jsonschemas",
-        "local_fields/local_field-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.local_fields.jsonschemas")
+        .joinpath("local_fields/local_field-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -153,8 +166,10 @@ def local_fields_schema():
 @pytest.fixture()
 def location_schema():
     """Location Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.locations.jsonschemas", "locations/location-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.modules.locations.jsonschemas")
+        .joinpath("locations/location-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -162,9 +177,10 @@ def location_schema():
 @pytest.fixture()
 def patron_transaction_schema():
     """Patron transaction Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.patron_transactions.jsonschemas",
-        "patron_transactions/patron_transaction-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.patron_transactions.jsonschemas")
+        .joinpath("patron_transactions/patron_transaction-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -172,9 +188,10 @@ def patron_transaction_schema():
 @pytest.fixture()
 def patron_transaction_event_schema():
     """Patron transaction event Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.patron_transaction_events.jsonschemas",
-        "patron_transaction_events/patron_transaction_event-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.patron_transaction_events.jsonschemas")
+        .joinpath("patron_transaction_events/patron_transaction_event-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -182,9 +199,10 @@ def patron_transaction_event_schema():
 @pytest.fixture()
 def organisation_schema():
     """Organisation Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.organisations.jsonschemas",
-        "organisations/organisation-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.organisations.jsonschemas")
+        .joinpath("organisations/organisation-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -192,9 +210,10 @@ def organisation_schema():
 @pytest.fixture()
 def patron_type_schema():
     """Patron type Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.patron_types.jsonschemas",
-        "patron_types/patron_type-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.patron_types.jsonschemas")
+        .joinpath("patron_types/patron_type-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -202,8 +221,10 @@ def patron_type_schema():
 @pytest.fixture()
 def patron_schema():
     """Patron Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.patrons.jsonschemas", "patrons/patron-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.modules.patrons.jsonschemas")
+        .joinpath("patrons/patron-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -220,9 +241,10 @@ def patron_martigny_data_tmp_with_id(patron_martigny_data_tmp):
 @pytest.fixture()
 def remote_entities_schema():
     """Remote entity Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.entities.remote_entities.jsonschemas",
-        "remote_entities/remote_entity-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.entities.remote_entities.jsonschemas")
+        .joinpath("remote_entities/remote_entity-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -230,9 +252,10 @@ def remote_entities_schema():
 @pytest.fixture()
 def local_entities_schema():
     """Local entity Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.entities.local_entities.jsonschemas",
-        "local_entities/local_entity-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.entities.local_entities.jsonschemas")
+        .joinpath("local_entities/local_entity-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -240,8 +263,10 @@ def local_entities_schema():
 @pytest.fixture()
 def document_schema():
     """Jsonschema for documents."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.documents.jsonschemas", "documents/document-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.modules.documents.jsonschemas")
+        .joinpath("documents/document-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -249,8 +274,10 @@ def document_schema():
 @pytest.fixture()
 def item_schema():
     """Item Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.items.jsonschemas", "items/item-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.modules.items.jsonschemas")
+        .joinpath("items/item-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -258,8 +285,10 @@ def item_schema():
 @pytest.fixture()
 def user_schema():
     """User Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.users.jsonschemas", "users/user-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.modules.users.jsonschemas")
+        .joinpath("users/user-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -267,8 +296,10 @@ def user_schema():
 @pytest.fixture()
 def holding_schema():
     """Holdings Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.holdings.jsonschemas", "holdings/holding-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.modules.holdings.jsonschemas")
+        .joinpath("holdings/holding-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -276,9 +307,10 @@ def holding_schema():
 @pytest.fixture()
 def ill_request_schema():
     """ILL requests JSONSchema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.ill_requests.jsonschemas",
-        "ill_requests/ill_request-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.ill_requests.jsonschemas")
+        .joinpath("ill_requests/ill_request-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -286,9 +318,10 @@ def ill_request_schema():
 @pytest.fixture()
 def operation_log_schema():
     """Operation log Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.operation_logs.jsonschemas",
-        "operation_logs/operation_log-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.operation_logs.jsonschemas")
+        .joinpath("operation_logs/operation_log-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -296,8 +329,10 @@ def operation_log_schema():
 @pytest.fixture()
 def vendors_schema():
     """Local fields Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.vendors.jsonschemas", "vendors/vendor-v0.0.1.json"
+    schema_in_bytes = (
+        files("rero_ils.modules.vendors.jsonschemas")
+        .joinpath("vendors/vendor-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)
 
@@ -569,8 +604,9 @@ def mef_record_with_idref_gnd_rero(mef_record_with_idref_gnd_rero_data):
 @pytest.fixture()
 def stats_cfg_schema():
     """Template Jsonschema for records."""
-    schema_in_bytes = resource_string(
-        "rero_ils.modules.stats_cfg.jsonschemas",
-        "stats_cfg/stat_cfg-v0.0.1.json",
+    schema_in_bytes = (
+        files("rero_ils.modules.stats_cfg.jsonschemas")
+        .joinpath("stats_cfg/stat_cfg-v0.0.1.json")
+        .read_bytes()
     )
     return get_schema(schema_in_bytes)

@@ -17,9 +17,8 @@
 
 """Patron elasticsearch mapping tests."""
 
-from utils import get_mapping
-
 from rero_ils.modules.patrons.api import PatronsSearch
+from tests.utils import get_mapping
 
 
 def test_patron_es_mapping(roles, search, lib_martigny, librarian_martigny_data_tmp):

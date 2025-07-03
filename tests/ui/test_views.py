@@ -24,10 +24,10 @@ from flask import session, url_for
 from flask_login import login_user, logout_user
 from flask_security import url_for_security
 from invenio_accounts.testutils import login_user_via_view
-from utils import postdata
 
 from rero_ils.modules.users.api import user_formatted_name
 from rero_ils.theme.views import nl2br
+from tests.utils import postdata
 
 
 def test_nl2br():

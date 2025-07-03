@@ -18,9 +18,9 @@
 """Tests REST API documents."""
 
 from flask import url_for
-from utils import get_xml_dict
 
 from rero_ils.modules.documents.api import Document
+from tests.utils import get_xml_dict
 
 
 def test_sru_explain(client):
