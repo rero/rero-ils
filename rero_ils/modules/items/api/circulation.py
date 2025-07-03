@@ -529,9 +529,9 @@ class ItemCirculation(ItemRecord):
                 # CANCEL_REQUEST_4_1_1: cancelling a ITEM_IN_TRANSIT_FOR_PICKUP
                 # loan with no pending request puts the item on in_transit
                 # and the loan becomes ITEM_IN_TRANSIT_TO_HOUSE.
-                actions_to_execute["loan_update"][
-                    "state"
-                ] = LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                actions_to_execute["loan_update"]["state"] = (
+                    LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                )
                 # Mark the loan to be cancelled to create an
                 # OperationLog about this cancellation.
                 actions_to_execute["cancel_loan"] = True
@@ -539,9 +539,9 @@ class ItemCirculation(ItemRecord):
                 if not libraries["item_pickup_libraries"]:
                     # CANCEL_REQUEST_2_1_1_1: when item library and pickup
                     # pickup library arent equal, update loan to go in_transit.
-                    actions_to_execute["loan_update"][
-                        "state"
-                    ] = LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                    actions_to_execute["loan_update"]["state"] = (
+                        LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                    )
                 # Always mark the loan to be cancelled to create an
                 # OperationLog about this cancellation.
                 actions_to_execute["cancel_loan"] = True
@@ -1022,15 +1022,11 @@ class ItemCirculation(ItemRecord):
         if "patron" in kwargs:
             patron = kwargs["patron"]
             if patron.organisation_pid != item.organisation_pid:
-                reasons.append(
-                    _("Item and patron are not in the same " "organisation.")
-                )
+                reasons.append(_("Item and patron are not in the same organisation."))
             if patron.patron.get("barcode") and item.patron_has_an_active_loan_on_item(
                 patron
             ):
-                reasons.append(
-                    _("Item is already checked-out or requested by " "patron.")
-                )
+                reasons.append(_("Item is already checked-out or requested by patron."))
         return len(reasons) == 0, reasons
 
     def action_filter(

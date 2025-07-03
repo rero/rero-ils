@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Vendors API tests."""
+
 from rero_ils.modules.vendors.models import VendorContactType, VendorNoteType
 
 

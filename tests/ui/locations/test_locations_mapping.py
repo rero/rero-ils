@@ -17,9 +17,8 @@
 
 """Libraries elasticsearch mapping tests."""
 
-from utils import get_mapping
-
 from rero_ils.modules.locations.api import Location, LocationsSearch
+from tests.utils import get_mapping
 
 
 def test_location_es_mapping(

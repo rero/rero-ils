@@ -202,7 +202,7 @@ class RemoteEntity(Entity):
                     action = EntityUpdateAction.ERROR
                 elif not data.get("sources"):
                     current_app.logger.warning(
-                        f"UPDATE ONLINE {self.type} (pid:{pid}): " f"has no sources"
+                        f"UPDATE ONLINE {self.type} (pid:{pid}): has no sources"
                     )
                     action = EntityUpdateAction.ERROR
                 elif not data.get("type"):

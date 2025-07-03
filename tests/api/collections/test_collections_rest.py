@@ -17,11 +17,12 @@
 
 """Tests REST API collections."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json
 
 from rero_ils.modules.collections.api import CollectionsSearch
+from tests.utils import VerifyRecordPermissionPatch, get_json
 
 
 @mock.patch(

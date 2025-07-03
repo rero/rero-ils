@@ -18,8 +18,6 @@
 
 """Click command-line utilities."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import os
 import sys
@@ -275,11 +273,11 @@ def create(
     if append:
         click.secho(f"Append fixtures new identifiers: {len(pids)}")
         identifier = record_class.provider.identifier
-        try:
-            append_fixtures_new_identifiers(
-                identifier, sorted(pids, key=lambda x: int(x)), pid_type
-            )
-        except Exception as err:
+        count, err = append_fixtures_new_identifiers(
+            identifier, sorted(pids, key=lambda x: int(x))
+        )
+        click.echo(f"DB commit append: {count}")
+        if err:
             click.secho(f"ERROR append fixtures new identifiers: {err}", fg="red")
 
 
@@ -374,7 +372,7 @@ def create_csv(record_type, json_file, output_directory, lazy, verbose, create_p
         file_errors.close()
     if errors_count == 0:
         os.remove(file_name_errors)
-    click.secho(f"Created: {count-errors_count} Errors: {errors_count}", fg="yellow")
+    click.secho(f"Created: {count - errors_count} Errors: {errors_count}", fg="yellow")
 
 
 @fixtures.command("bulk_load")

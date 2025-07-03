@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utilities functions for patrons."""
+
 from flask import current_app
 from flask_login import current_user
 from marshmallow import ValidationError

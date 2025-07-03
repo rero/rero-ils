@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests identifier classes for documents."""
+
 import pytest
 
 from rero_ils.modules.commons.identifiers import (

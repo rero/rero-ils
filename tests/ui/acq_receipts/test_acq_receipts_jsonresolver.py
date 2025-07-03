@@ -18,7 +18,8 @@
 
 """Acq receipt JSONResolver tests."""
 
-import mock
+from unittest import mock
+
 import pytest
 from invenio_records.api import Record
 from jsonref import JsonRefError

@@ -17,9 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from functools import wraps
 

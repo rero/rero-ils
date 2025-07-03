@@ -16,9 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test item/loan circulation auto extend task."""
-from datetime import datetime, timedelta, timezone
 
-import mock
+from datetime import datetime, timedelta, timezone
+from unittest import mock
 
 from rero_ils.modules.items.api.circulation import ItemCirculation
 from rero_ils.modules.items.models import ItemCirculationAction, ItemStatus

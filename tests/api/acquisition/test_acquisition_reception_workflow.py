@@ -17,11 +17,10 @@
 
 """Tests complete workflow for the acquisition module."""
 
-import mock
-from api.acquisition.acq_utils import _make_resource
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, postdata
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
 from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
@@ -45,6 +44,8 @@ from rero_ils.modules.notifications.models import (
 )
 from rero_ils.modules.utils import get_ref_for_pid
 from rero_ils.modules.vendors.models import VendorContactType
+from tests.api.acquisition.acq_utils import _make_resource
+from tests.utils import VerifyRecordPermissionPatch, postdata
 
 
 @mock.patch(
@@ -65,7 +66,7 @@ def test_acquisition_reception_workflow(
     """Test complete acquisition workflow."""
 
     def assert_account_data(accounts):
-        """assert account informations."""
+        """Assert account informations."""
         for acc, (balance, expenditure, encumbrance) in accounts.items():
             assert acc.expenditure_amount == expenditure
             assert acc.encumbrance_amount == encumbrance

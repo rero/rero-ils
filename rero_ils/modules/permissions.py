@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for all modules."""
+
 import contextlib
 import re
 from copy import deepcopy
@@ -512,6 +513,6 @@ class DisallowedByOrderStatus(Generator):
             if not isinstance(record, self.record_cls):
                 record = self.record_cls(record)
             if order_status := AcqOrder.get_status_by_pid(record.order_pid):
-                if not order_status in self.allowed_statuses:
+                if order_status not in self.allowed_statuses:
                     return [any_user]
         return []

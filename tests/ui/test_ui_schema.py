@@ -17,10 +17,9 @@
 
 """CircPolicy Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from invenio_jsonschemas import current_jsonschemas
-from utils import get_json
+
+from tests.utils import get_json
 
 
 def test_get_schema(client, app):

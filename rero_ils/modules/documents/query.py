@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Query factories for Document REST API."""
+
 import re
 from datetime import datetime
 
@@ -31,7 +32,6 @@ def acquisition_filter():
     """
 
     def inner(values):
-
         # `values` params could contains one or two values. Values must be
         # separate by a ':' character. Values are :
         #   1) from_date (optional) : the lower limit range acquisition_date.

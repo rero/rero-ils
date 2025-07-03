@@ -16,9 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition invoice record mapping tests."""
-from utils import get_mapping
 
 from rero_ils.modules.acquisition.acq_orders.api import AcqOrder, AcqOrdersSearch
+from tests.utils import get_mapping
 
 
 def test_acq_orders_es_mapping(

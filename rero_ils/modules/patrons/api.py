@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating patrons."""
+
 from copy import deepcopy
 from datetime import date, datetime
 from functools import partial
@@ -408,7 +409,7 @@ class Patron(IlsRecord):
             else _("This patron is currently blocked.")
         )
         if self.is_blocked:
-            return f'{main} {_("Reason")}: {self.patron.get("blocked_note")}'
+            return f"{main} {_('Reason')}: {self.patron.get('blocked_note')}"
 
     def add_subscription(
         self,

@@ -16,12 +16,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Item record mapping tests."""
-from utils import get_mapping
 
 from rero_ils.modules.entities.local_entities.api import (
     LocalEntitiesSearch,
     LocalEntity,
 )
+from tests.utils import get_mapping
 
 
 def test_local_entities_es_mapping(app, local_entity_person2_data):

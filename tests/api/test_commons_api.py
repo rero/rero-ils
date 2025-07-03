@@ -17,12 +17,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Commons RERO-ILS REST API."""
-import mock
+
+from unittest import mock
+
 from flask import url_for
 from flask_principal import Identity, RoleNeed
 from invenio_access import ActionUsers, Permission
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, mock_response, postdata
 
 from rero_ils.modules.acquisition.budgets.permissions import (
     search_action as budget_search_action,
@@ -31,6 +32,7 @@ from rero_ils.modules.permissions import PermissionContext, can_use_debug_mode
 from rero_ils.modules.receivers import process_boosting
 from rero_ils.modules.users.models import UserRole
 from rero_ils.permissions import librarian_delete_permission_factory
+from tests.utils import get_json, mock_response, postdata
 
 
 def test_librarian_delete_permission_factory(
@@ -40,7 +42,7 @@ def test_librarian_delete_permission_factory(
     login_user_via_session(client, librarian_fully.user)
     assert (
         type(librarian_delete_permission_factory(None, credentials_only=True))
-        == Permission
+        is Permission
     )
     assert librarian_delete_permission_factory(org_martigny) is not None
 
@@ -129,7 +131,6 @@ def test_permission_exposition(app, db, client, system_librarian_martigny):
 
 def test_permission_management(client, system_librarian_martigny):
     """Test permission management."""
-
     # Test bad usage of the API
     #   1) Anonymous user can't manage permissions.
     #   2) try with bad payload data

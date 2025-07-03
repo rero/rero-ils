@@ -17,17 +17,15 @@
 
 """Tests REST API documents."""
 
-# import json
-# from utils import get_json, to_relative_url
+from unittest import mock
 
-import mock
 import requests
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import clean_text, get_json, mock_response
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.imports.api import LoCImport
+from tests.utils import clean_text, get_json, mock_response
 
 
 def test_imports_get_config(client, librarian_martigny):

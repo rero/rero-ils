@@ -20,15 +20,15 @@
 import json
 from copy import deepcopy
 from datetime import datetime
+from unittest import mock
 
-import mock
 from dateutil.relativedelta import *
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.ill_requests.api import ILLRequest
 from rero_ils.modules.ill_requests.models import ILLRequestStatus
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 def test_ill_requests_permissions(client, ill_request_martigny, json_header):
@@ -262,7 +262,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
 
     # Initial status is pending
     list_url = url_for(
-        "invenio_records_rest.illr_list", q=f'pid:{ill_request_martigny["pid"]}'
+        "invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}"
     )
     res = client.get(list_url)
     result = res.json
@@ -275,7 +275,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
 
     # Without filter (show record)
     list_url = url_for(
-        "invenio_records_rest.illr_list", q=f'pid:{ill_request_martigny["pid"]}'
+        "invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}"
     )
     res = client.get(list_url)
     result = res.json
@@ -284,7 +284,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     # With filter (hide record)
     list_url = url_for(
         "invenio_records_rest.illr_list",
-        q=f'pid:{ill_request_martigny["pid"]}',
+        q=f"pid:{ill_request_martigny['pid']}",
         remove_archived="1",
     )
     res = client.get(list_url)
@@ -298,7 +298,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
 
     # Without filter (show record)
     list_url = url_for(
-        "invenio_records_rest.illr_list", q=f'pid:{ill_request_martigny["pid"]}'
+        "invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}"
     )
     res = client.get(list_url)
     result = res.json
@@ -307,7 +307,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     # With filter (show record)
     list_url = url_for(
         "invenio_records_rest.illr_list",
-        q=f'pid:{ill_request_martigny["pid"]}',
+        q=f"pid:{ill_request_martigny['pid']}",
         remove_archived="1",
     )
     res = client.get(list_url)
@@ -321,7 +321,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
 
     # Without filter (show record)
     list_url = url_for(
-        "invenio_records_rest.illr_list", q=f'pid:{ill_request_martigny["pid"]}'
+        "invenio_records_rest.illr_list", q=f"pid:{ill_request_martigny['pid']}"
     )
     res = client.get(list_url)
     result = res.json
@@ -330,7 +330,7 @@ def test_filtered_ill_requests_get_pending_months_filters(
     # With filter (show record)
     list_url = url_for(
         "invenio_records_rest.illr_list",
-        q=f'pid:{ill_request_martigny["pid"]}',
+        q=f"pid:{ill_request_martigny['pid']}",
         remove_archived="1",
     )
     res = client.get(list_url)

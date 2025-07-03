@@ -17,12 +17,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests acquisition rollover process."""
+
 import os
 from copy import deepcopy
+from unittest import mock
 
-import mock
 import pytest
-from api.acquisition.acq_utils import _make_resource
 from click.testing import CliRunner
 
 from rero_ils.config import ROLLOVER_LOGGING_CONFIG
@@ -36,6 +36,7 @@ from rero_ils.modules.acquisition.exceptions import (
 )
 from rero_ils.modules.acquisition.rollover import AcqRollover
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.api.acquisition.acq_utils import _make_resource
 
 
 def test_rollover_cli(client, acq_full_structure_a, org_martigny):

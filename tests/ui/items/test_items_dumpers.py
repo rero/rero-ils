@@ -17,12 +17,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Items Record dumper tests."""
+
 from copy import deepcopy
 from datetime import date
 
 import pytest
 from dateutil.relativedelta import relativedelta
-from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.collections.api import Collection
 from rero_ils.modules.commons.exceptions import MissingDataException
@@ -35,6 +35,7 @@ from rero_ils.modules.items.dumpers import (
 from rero_ils.modules.items.models import TypeOfItem
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import item_record_to_a_specific_loan_state
 
 
 def test_item_action_circulation_dumper(

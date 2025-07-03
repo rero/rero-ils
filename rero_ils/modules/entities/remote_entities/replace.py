@@ -34,7 +34,7 @@ from ..logger import create_logger
 from .api import RemoteEntity
 
 
-class ReplaceIdentifiedBy(object):
+class ReplaceIdentifiedBy:
     """Entity replace identifiedBy with $ref.
 
     Usage example:
@@ -141,7 +141,7 @@ class ReplaceIdentifiedBy(object):
                 #       bulk operation
                 RemoteEntity.create(data=new_mef_data, dbcommit=True, reindex=True)
             self.logger.info(
-                f"Create a new MEF {mef_type} " f'record(pid: {mef_data["pid"]})'
+                f"Create a new MEF {mef_type} record(pid: {mef_data['pid']})"
             )
 
     def _do_entity(self, entity, doc_pid):
@@ -183,7 +183,7 @@ class ReplaceIdentifiedBy(object):
                         self.logger.info(
                             f"Replace document:{doc_pid} "
                             f'{self.field} "{authorized_access_point}" - '
-                            f'({mef_type}:{mef_data["pid"]}) '
+                            f"({mef_type}:{mef_data['pid']}) "
                             f"{new_source}:{new_source_pid} "
                             f'"{mef_authorized_access_point}"'
                         )

@@ -19,12 +19,12 @@
 
 import json
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json, postdata
 
 from rero_ils.modules.local_fields.api import LocalFieldsSearch
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata
 
 
 @mock.patch(
@@ -92,7 +92,7 @@ def test_local_fields_post_put_delete(
     res = client.get(
         url_for(
             "invenio_records_rest.lofi_list",
-            q=f'organisation.pid:{data["metadata"]["organisation"]["pid"]}',
+            q=f"organisation.pid:{data['metadata']['organisation']['pid']}",
         )
     )
     data = get_json(res)

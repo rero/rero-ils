@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Local entity indexer APIs."""
+
 from datetime import datetime
 
 from celery import shared_task

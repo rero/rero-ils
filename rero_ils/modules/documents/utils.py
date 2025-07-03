@@ -17,8 +17,6 @@
 
 """Documents utils."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import re
 
@@ -249,7 +247,7 @@ def create_authorized_access_point(agent):
                 authorized_access_point += f", {qualifier}"
     elif agent.get("type") == EntityType.ORGANISATION:
         if subordinate_unit := agent.get("subordinate_unit"):
-            authorized_access_point += f""". {'. '.join(subordinate_unit)}"""
+            authorized_access_point += f""". {". ".join(subordinate_unit)}"""
         conference_data = []
         if numbering := agent.get("numbering"):
             conference_data.append(numbering)
@@ -258,7 +256,7 @@ def create_authorized_access_point(agent):
         if place := agent.get("place"):
             conference_data.append(place)
         if conference_data:
-            authorized_access_point += f' ({" : ".join(conference_data)})'
+            authorized_access_point += f" ({' : '.join(conference_data)})"
     return authorized_access_point
 
 

@@ -15,15 +15,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
+from unittest import mock
+
 from flask import current_app, url_for
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
 from invenio_accounts.testutils import login_user_via_session
-from utils import check_permission, get_json
 
 from rero_ils.modules.files.permissions import FilePermissionPolicy
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
+from tests.utils import check_permission, get_json
 
 
 def test_files_permissions_api(

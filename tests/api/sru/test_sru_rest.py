@@ -18,9 +18,9 @@
 """Tests REST API documents."""
 
 from flask import url_for
-from utils import get_xml_dict
 
 from rero_ils.modules.documents.api import Document
+from tests.utils import get_xml_dict
 
 
 def test_sru_explain(client):
@@ -98,7 +98,7 @@ def test_sru_documents_items(client, document_sion_items):
     assert "searchRetrieveResponse" in xml_dict
     ech_srr = xml_dict["searchRetrieveResponse"]["echoedSearchRetrieveRequest"]
     assert ech_srr["query"] == 'dc.title="La reine Berthe et son fils"'
-    assert ech_srr["query_es"] == "title.\\*:" '"La reine Berthe et son fils"'
+    assert ech_srr["query_es"] == 'title.\\*:"La reine Berthe et son fils"'
 
 
 def test_sru_documents_diagnostics(client):

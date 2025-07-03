@@ -16,14 +16,21 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API documents."""
+
 import json
 from copy import deepcopy
 from datetime import datetime, timedelta
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import (
+
+from rero_ils.modules.commons.identifiers import IdentifierType
+from rero_ils.modules.documents.api import DocumentsSearch
+from rero_ils.modules.documents.utils import get_remote_cover
+from rero_ils.modules.operation_logs.api import OperationLogsSearch
+from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import (
     VerifyRecordPermissionPatch,
     clean_text,
     get_json,
@@ -31,12 +38,6 @@ from utils import (
     postdata,
     to_relative_url,
 )
-
-from rero_ils.modules.commons.identifiers import IdentifierType
-from rero_ils.modules.documents.api import DocumentsSearch
-from rero_ils.modules.documents.utils import get_remote_cover
-from rero_ils.modules.operation_logs.api import OperationLogsSearch
-from rero_ils.modules.utils import get_ref_for_pid
 
 
 @mock.patch(
@@ -137,7 +138,7 @@ def test_documents_newacq_filters(
         return datetime.now() + timedelta(**args)
 
     def datetime_milliseconds(date):
-        """datetime get milliseconds."""
+        """Datetime get milliseconds."""
         return round(date.timestamp() * 1000)
 
     # compute useful date
@@ -726,7 +727,8 @@ def test_document_current_library_on_request_parameter(
     json_header,
 ):
     """Test for library assignment if the current_library parameter
-    is present in the request."""
+    is present in the request.
+    """
     login_user_via_session(client, system_librarian_martigny.user)
 
     # Assign library pid with current_librarian information

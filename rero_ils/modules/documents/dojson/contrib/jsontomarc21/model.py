@@ -174,7 +174,7 @@ def do_contribution(contribution, source_order):
         result["0"] = []
     for ref in refs:
         result["__order__"].append("0")
-        result["0"].append(f'({ref["source"]}){ref["pid"]}')
+        result["0"].append(f"({ref['source']}){ref['pid']}")
     return result, entity_type, surname, conference
 
 
@@ -382,8 +382,7 @@ class ToMarc21Overdo(Underdo):
                     if end_date:
                         type_of_date = "m"
                     fixed_data = (
-                        f"{fixed_data[:6]}{type_of_date}"
-                        f"{start_date}{fixed_data[11:]}"
+                        f"{fixed_data[:6]}{type_of_date}{start_date}{fixed_data[11:]}"
                     )
                     break
         language = utils.force_list(blob.get("language"))
@@ -640,13 +639,13 @@ def reverse_title(self, key, value):
         result["b"] = ". ".join(sub_titles)
     if main_titles_parallel:
         if result.get("b"):
-            result["b"] += f' = {". ".join(main_titles_parallel)}'
+            result["b"] += f" = {'. '.join(main_titles_parallel)}"
         else:
             result["__order__"].append("b")
             result["b"] = ". ".join(main_titles_parallel)
     if sub_titles_parallel:
         if result.get("b"):
-            result["b"] += f' : {". ".join(sub_titles_parallel)}'
+            result["b"] += f" : {'. '.join(sub_titles_parallel)}"
         else:
             result["__order__"].append("b")
             result["b"] = ". ".join(sub_titles_parallel)

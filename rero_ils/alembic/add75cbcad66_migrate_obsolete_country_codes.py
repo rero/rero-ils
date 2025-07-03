@@ -54,7 +54,7 @@ def upgrade():
                     if place.get("country") == old_country:
                         place["country"] = new_country
                         LOGGER.info(
-                            f"Doc {pid}: replacing {old_country} by" f" {new_country}"
+                            f"Doc {pid}: replacing {old_country} by {new_country}"
                         )
             doc.replace(doc, commit=True, dbcommit=True, reindex=True)
 
@@ -65,7 +65,7 @@ def upgrade():
                 if address.get("country") == old_country:
                     address["country"] = new_country
                     LOGGER.info(
-                        f"Patron {pid}: replacing {old_country} by" f" {new_country}"
+                        f"Patron {pid}: replacing {old_country} by {new_country}"
                     )
             ptrn.replace(ptrn, commit=True, dbcommit=True, reindex=True)
 

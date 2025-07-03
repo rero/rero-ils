@@ -17,11 +17,10 @@
 
 """Tests POST REST API for MARC21 documents."""
 
-
 from click.testing import CliRunner
-from utils import login_user_via_session, postdata
 
 from rero_ils.modules.cli.utils import token_create
+from tests.utils import login_user_via_session, postdata
 
 
 def test_marcxml_documents_create(

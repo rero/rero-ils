@@ -18,8 +18,6 @@
 
 """API for manipulating "booking" circulation notifications."""
 
-from __future__ import absolute_import, print_function
-
 import hashlib
 
 from rero_ils.filter import format_date_filter

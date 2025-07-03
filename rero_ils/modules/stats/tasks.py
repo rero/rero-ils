@@ -39,8 +39,8 @@ def collect_stats_billing():
             dbcommit=True,
             reindex=True,
         )
-        return f'New statistics of type {stat["type"]} has\
-            been created with a pid of: {stat.pid}'
+        return f"New statistics of type {stat['type']} has\
+            been created with a pid of: {stat.pid}"
 
 
 @shared_task()
@@ -58,8 +58,8 @@ def collect_stats_librarian():
             dbcommit=True,
             reindex=True,
         )
-        return f'New statistics of type {stat["type"]} has\
-            been created with a pid of: {stat.pid}'
+        return f"New statistics of type {stat['type']} has\
+            been created with a pid of: {stat.pid}"
 
 
 @shared_task()

@@ -17,8 +17,6 @@
 
 """DOJSON transformation for Dublin Core module tests."""
 
-from __future__ import absolute_import, print_function
-
 from flask_babel import gettext as _
 
 from rero_ils.modules.documents.dojson.contrib.jsontodc import dublincore
@@ -107,10 +105,7 @@ def test_summary_note_dissertation_supplementarycontent_to_dc():
         "summary": [
             {
                 "label": [
-                    {
-                        "value": "Fictions jeunesse: roman, jeux vid\u00e9o, "
-                        "imagination"
-                    }
+                    {"value": "Fictions jeunesse: roman, jeux vid\u00e9o, imagination"}
                 ]
             }
         ],

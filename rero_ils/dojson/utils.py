@@ -17,7 +17,6 @@
 
 """Dojson utils."""
 
-
 import contextlib
 import re
 import sys
@@ -30,7 +29,7 @@ import requests
 import xmltodict
 from dojson import Overdo, utils
 from flask import current_app
-from pkg_resources import resource_string
+from importlib_resources import files
 
 _UNIMARC_LANGUAGES_SCRIPTS = {
     "ba": "latn",  # Latin
@@ -349,14 +348,14 @@ _CONTRIBUTION_TAGS = [
     "712",
 ]
 
-schema_in_bytes = resource_string(
-    "rero_ils.jsonschemas", "common/languages-v0.0.1.json"
+schema_in_bytes = (
+    files("rero_ils.jsonschemas").joinpath("common/languages-v0.0.1.json").read_bytes()
 )
 schema = jsonref.loads(schema_in_bytes.decode("utf8"))
 _LANGUAGES = schema["language"]["enum"]
 
-schema_in_bytes = resource_string(
-    "rero_ils.jsonschemas", "common/countries-v0.0.1.json"
+schema_in_bytes = (
+    files("rero_ils.jsonschemas").joinpath("common/countries-v0.0.1.json").read_bytes()
 )
 schema = jsonref.loads(schema_in_bytes.decode("utf8"))
 _COUNTRIES = schema["country"]["enum"]
@@ -610,7 +609,7 @@ def join_alternate_graphic_data(alt_gr_1, alt_gr_2, join_str):
     return new_alt_gr_data
 
 
-class BookFormatExtraction(object):
+class BookFormatExtraction:
     """Extract book formats from a marc subfield data.
 
     The regular expression patterns needed to extract book formats are build by
@@ -758,9 +757,9 @@ class ReroIlsOverdo(Overdo):
                 f'"{self.date1_from_008}"',
             )
             start_date = 2050
-            result["provisionActivity"][0][
-                "note"
-            ] = "Date not available and automatically set to 2050"
+            result["provisionActivity"][0]["note"] = (
+                "Date not available and automatically set to 2050"
+            )
         result["provisionActivity"][0]["startDate"] = start_date
         if end_date := make_year(self.date2_from_008):
             if end_date > 2050:
@@ -1086,8 +1085,7 @@ class ReroIlsOverdo(Overdo):
         regexp = re.compile(rf"^[^{series_title_subfield_code}]")
         if regexp.search(subfield_visited):
             error_msg = (
-                f"missing leading subfield ${series_title_subfield_code} "
-                f"in field {tag}"
+                f"missing leading subfield ${series_title_subfield_code} in field {tag}"
             )
             error_print("ERROR BAD FIELD FORMAT:", self.bib_id, self.rero_id, error_msg)
         else:
@@ -1810,7 +1808,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
         return fields
 
 
-class TitlePartList(object):
+class TitlePartList:
     """The purpose of this class is to build the title part list.
 
     The title part list is build parsing the subfields $n, $p of fields 245

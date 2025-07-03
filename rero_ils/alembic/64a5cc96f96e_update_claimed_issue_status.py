@@ -42,7 +42,7 @@ def upgrade():
     for idx, uuid in enumerate(uuids, 1):
         record = Item.get_record(uuid)
         LOGGER.info(
-            f"[{idx}/{len(uuids)}] Processing Item#{record.pid} " f"[{record.id}]..."
+            f"[{idx}/{len(uuids)}] Processing Item#{record.pid} [{record.id}]..."
         )
         status = ItemIssueStatus.LATE
         if record["issue"].get("received_date"):

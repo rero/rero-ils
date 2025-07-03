@@ -17,8 +17,6 @@
 
 """API for cantook records."""
 
-from __future__ import absolute_import, print_function
-
 from invenio_db import db
 from requests import codes as requests_codes
 

@@ -18,8 +18,6 @@
 
 """Tests Selfcheck api."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus
 from rero_ils.modules.selfcheck.utils import map_item_circulation_status, map_media_type
 

@@ -17,7 +17,8 @@
 
 """Tests Form for users."""
 
-import mock
+from unittest import mock
+
 from bs4 import BeautifulSoup
 from flask import url_for
 

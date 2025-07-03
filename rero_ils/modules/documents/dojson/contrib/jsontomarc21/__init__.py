@@ -19,4 +19,4 @@
 
 from .model import to_marc21
 
-__all__ = "to_marc21"
+__all__ = ["to_marc21"]

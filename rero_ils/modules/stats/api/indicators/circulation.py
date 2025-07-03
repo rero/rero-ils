@@ -18,7 +18,6 @@
 
 """Circulation Indicator Report Configuration."""
 
-
 from elasticsearch_dsl.aggs import A
 
 from rero_ils.modules.loans.logs.api import LoanOperationLogsSearch
@@ -89,9 +88,6 @@ class NumberOfCirculationCfg(IndicatorCfg):
                 "terms", field="loan.patron.type", size=self.cfg.aggs_size
             ),
             "patron_age": A("terms", field="loan.patron.age", size=self.cfg.aggs_size),
-            "patron_type": A(
-                "terms", field="loan.patron.type", size=self.cfg.aggs_size
-            ),
             "patron_postal_code": A(
                 "terms", field="loan.patron.postal_code", size=self.cfg.aggs_size
             ),

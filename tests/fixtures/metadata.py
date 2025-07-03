@@ -22,11 +22,10 @@ import tempfile
 from copy import deepcopy
 from datetime import datetime
 from os.path import dirname, join
+from unittest import mock
 
-import mock
 import pytest
 from invenio_files_rest.models import Location
-from utils import mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.local_entities.api import (
@@ -45,6 +44,7 @@ from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.stats_cfg.api import StatConfiguration, StatsConfigurationSearch
 from rero_ils.modules.templates.api import Template, TemplatesSearch
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import mock_response
 
 
 @pytest.fixture(scope="module")
@@ -346,16 +346,6 @@ def entity_person_data_tmp(app, data):
         if source in entity_person:
             entity_person[source].pop("$schema", None)
     return entity_person
-
-
-@pytest.fixture(scope="module")
-def entity_person_response_data(entity_person_data):
-    """Load mef contribution person response data."""
-    return {
-        "hits": {
-            "hits": [{"id": entity_person_data["pid"], "metadata": entity_person_data}]
-        }
-    }
 
 
 @pytest.fixture(scope="module")

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating item records."""
+
 from contextlib import suppress
 from datetime import datetime, timezone
 
@@ -106,9 +107,7 @@ class ItemRecord(IlsRecord):
             if not self.get("issue", {}):
                 return _("Issue item must have an issue field.")
             if not self.get("enumerationAndChronology"):
-                return _(
-                    "enumerationAndChronology field is required " "for an issue item"
-                )
+                return _("enumerationAndChronology field is required for an issue item")
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
             return _("Can not have multiple notes of the same type.")

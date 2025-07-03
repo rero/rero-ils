@@ -18,7 +18,6 @@
 
 """RERO ILS common record extensions."""
 
-
 from datetime import datetime, timedelta, timezone
 
 import ciso8601

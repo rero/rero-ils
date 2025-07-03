@@ -18,16 +18,16 @@
 """Tests REST API patron types."""
 
 import json
+from unittest import mock
 
-import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 def test_patron_types_permissions(client, patron_type_children_martigny, json_header):

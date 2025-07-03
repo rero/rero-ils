@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Extension for AcqAccount records."""
+
 from flask_babel import gettext as _
 from invenio_records.extensions import RecordExtension
 from jsonschema import ValidationError
