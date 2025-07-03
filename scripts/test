@@ -83,14 +83,10 @@ function pretests () {
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
   invenio reroils utils check_license check_license_config.yml
-  info_msg "Test pydocstyle:"
-  pydocstyle rero_ils tests docs
-  info_msg "Test isort:"
-  isort --check-only --diff tests rero_ils
-  info_msg "Test black:"
-  black tests rero_ils tests --check
-  info_msg "Test useless imports:"
-  autoflake --recursive --remove-all-unused-imports --ignore-init-module-imports --check-diff --quiet .
+  info_msg "Test formating:"
+  ruff format --check rero_ils tests
+  info_msg "Test linting:"
+  ruff check rero_ils tests
   info_msg "Sphinx-build:"
   sphinx-build -qnNW docs docs/_build/html
 }
