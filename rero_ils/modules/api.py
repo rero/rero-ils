@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating records."""
+
 import re
 from copy import deepcopy
 from uuid import uuid4
@@ -497,7 +498,7 @@ class IlsRecord(Record):
             indexer().delete(self)
         except NotFoundError:
             current_app.logger.warning(
-                f"Can not delete from index {self.__class__.__name__}" f": {self.pid}"
+                f"Can not delete from index {self.__class__.__name__}: {self.pid}"
             )
         except ValueError:
             current_app.logger.warning(
@@ -763,6 +764,6 @@ class ReferencedRecordsIndexer:
                 indexer.index(record_to_index)
             except Exception as err:
                 current_app.logger.error(
-                    f'Record indexing error {r["pid_type"]} '
-                    f'{r["record"]["pid"]}: {str(err)}'
+                    f"Record indexing error {r['pid_type']} "
+                    f"{r['record']['pid']}: {str(err)}"
                 )

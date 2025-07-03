@@ -17,8 +17,6 @@
 
 """Location Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.locations.api import Location, LocationsSearch
 from rero_ils.modules.utils import get_ref_for_pid
 

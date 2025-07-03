@@ -35,7 +35,7 @@ from rero_ils.modules.documents.extensions import (
 from rero_ils.modules.documents.views import main_title_text
 
 
-class Deduplication(object):
+class Deduplication:
     """Document deduplication class."""
 
     def __init__(self, es_hosts=[]) -> None:

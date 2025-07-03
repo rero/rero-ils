@@ -18,8 +18,6 @@
 
 """Blueprints for item."""
 
-from __future__ import absolute_import
-
 from .api_views import api_blueprint
 from .rest import InventoryListResource
 

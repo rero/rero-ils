@@ -105,6 +105,7 @@ dependencies = [
 [project.optional-dependencies]
 ## Python extra packages dependencies
 #------------------------------------
+sip2 = ["invenio-sip2"]
 
 [dependency-groups]
 dev = [

@@ -19,8 +19,8 @@
 """Stats Report tests circulation indicators."""
 
 from datetime import datetime
+from unittest import mock
 
-import mock
 from invenio_search import current_search_client as es
 
 from rero_ils.modules.stats.api.report import StatsReport
@@ -119,12 +119,12 @@ def test_stats_report_number_of_checkins(
 ):
     """Test the number of circulation checkins operations."""
     label_loc_pub_martigny = (
-        f'{lib_martigny["name"]} / '
-        f'{loc_public_martigny["name"]} ({loc_public_martigny.pid})'
+        f"{lib_martigny['name']} / "
+        f"{loc_public_martigny['name']} ({loc_public_martigny.pid})"
     )
     label_loc_pub_martigny_bourg = (
-        f'{lib_martigny_bourg["name"]} / '
-        f'{loc_public_martigny_bourg["name"]} '
+        f"{lib_martigny_bourg['name']} / "
+        f"{loc_public_martigny_bourg['name']} "
         f"({loc_public_martigny_bourg.pid})"
     )
 
@@ -435,8 +435,8 @@ def test_stats_report_number_of_checkins(
         },
     }
     assert StatsReport(cfg).collect() == [
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
-        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1],
+        [f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})", 1],
+        [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 1],
     ]
 
     # owning location
@@ -461,12 +461,12 @@ def test_stats_report_number_of_requests(
 ):
     """Test the number of circulation checkins operations."""
     label_loc_pub_martigny = (
-        f'{lib_martigny["name"]} / '
-        f'{loc_public_martigny["name"]} ({loc_public_martigny.pid})'
+        f"{lib_martigny['name']} / "
+        f"{loc_public_martigny['name']} ({loc_public_martigny.pid})"
     )
     label_loc_pub_martigny_bourg = (
-        f'{lib_martigny_bourg["name"]} / '
-        f'{loc_public_martigny_bourg["name"]} '
+        f"{lib_martigny_bourg['name']} / "
+        f"{loc_public_martigny_bourg['name']} "
         f"({loc_public_martigny_bourg.pid})"
     )
 

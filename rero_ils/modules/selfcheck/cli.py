@@ -136,7 +136,7 @@ def update_terminal(name, enable, disable, location_pid, access_token, comments)
             terminal.access_token = token.access_token
         else:
             click.secho(
-                f"WARNING token is not valid or does not exist : " f"{access_token}",
+                f"WARNING token is not valid or does not exist : {access_token}",
                 fg="yellow",
             )
     if comments:

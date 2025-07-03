@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST checkout API methods in the item api_views."""
+
 from datetime import datetime, timedelta
 
 import ciso8601

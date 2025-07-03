@@ -18,8 +18,6 @@
 
 """Ill request record tests."""
 
-from __future__ import absolute_import, print_function
-
 from flask import url_for
 
 from tests.utils import login_user_for_view
@@ -33,7 +31,7 @@ def test_ill_request_create_request_form(
     patron_martigny,
     default_user_password,
 ):
-    """test ill request create form."""
+    """Test ill request create form."""
     request_form_url = url_for("ill_requests.ill_request_form", viewcode="global")
 
     # Not logged user don't have access to request_form. It is redirected to

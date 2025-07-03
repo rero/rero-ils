@@ -17,8 +17,6 @@
 
 """Identifier provider."""
 
-from __future__ import absolute_import, print_function
-
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PIDStatus

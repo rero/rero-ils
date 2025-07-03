@@ -17,7 +17,6 @@
 
 """Celery database scheduler using invenios database."""
 
-
 import contextlib
 
 import click

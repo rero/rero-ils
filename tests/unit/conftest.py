@@ -17,8 +17,6 @@
 
 """Pytest configuration."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime, timezone
 
@@ -371,8 +369,7 @@ def mef_record_with_idref_rero_data():
         },
         "pid": "6627670",
         "rero": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_rero/rero-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
             "authorized_access_point": "Honnoré, Patrick",
             "type": "bf:Person",
             "identifier": "http://data.rero.ch/02-A009220673",
@@ -383,7 +380,6 @@ def mef_record_with_idref_rero_data():
         "sources": ["rero", "idref"],
         "type": "bf:Person",
         "viaf_pid": "37141584",
-        "type": "bf:Person",
     }
 
 
@@ -409,8 +405,7 @@ def mef_record_with_idref_gnd_data():
         "$schema": "https://bib.rero.ch/schemas/"
         "remote_entities/remote_entity-v0.0.1.json",
         "gnd": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_gnd/gnd-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_gnd/gnd-agent-v0.0.1.json",
             "authorized_access_point": "Université de Genève",
             "type": "bf:Organisation",
             "conference": False,
@@ -507,8 +502,7 @@ def mef_record_with_idref_gnd_rero_data():
         "$schema": "https://bib.rero.ch/schemas/"
         "remote_entities/remote_entity-v0.0.1.json",
         "gnd": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_gnd/gnd-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_gnd/gnd-agent-v0.0.1.json",
             "authorized_access_point": "Congrès Ouvrier de France",
             "type": "bf:Organisation",
             "conference": True,
@@ -552,8 +546,7 @@ def mef_record_with_idref_gnd_rero_data():
         },
         "pid": "5777972",
         "rero": {
-            "$schema": "https://mef.rero.ch/schemas/"
-            "agents_rero/rero-agent-v0.0.1.json",
+            "$schema": "https://mef.rero.ch/schemas/agents_rero/rero-agent-v0.0.1.json",
             "authorized_access_point": "Congrès ouvrier de France",
             "type": "bf:Organisation",
             "conference": True,

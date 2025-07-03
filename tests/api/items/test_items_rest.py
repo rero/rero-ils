@@ -20,9 +20,9 @@
 import json
 from copy import deepcopy
 from datetime import datetime, timezone
+from unittest import mock
 
 import ciso8601
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
@@ -1168,7 +1168,7 @@ def test_items_rest_api_sort(
 
     url = url_for(
         "invenio_records_rest.item_list",
-        q=f'call_number.raw:{item_lib_martigny["call_number"]}',
+        q=f"call_number.raw:{item_lib_martigny['call_number']}",
     )
     response = client.get(url, headers=rero_json_header)
     assert response.status_code == 200

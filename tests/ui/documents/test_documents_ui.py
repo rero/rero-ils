@@ -17,7 +17,6 @@
 
 """Tests UI view for documents."""
 
-
 from flask import url_for
 
 

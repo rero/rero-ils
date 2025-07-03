@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Item utils."""
+
 from datetime import datetime, timedelta, timezone
 
 from rero_ils.modules.items.models import ItemIssueStatus, ItemStatus, TypeOfItem

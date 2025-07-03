@@ -17,7 +17,8 @@
 
 """Tests UI view for patrons."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 

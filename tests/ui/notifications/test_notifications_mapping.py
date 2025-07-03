@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Notification record mapping tests."""
+
 from copy import deepcopy
 
 from rero_ils.modules.notifications.api import Notification, NotificationsSearch

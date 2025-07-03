@@ -17,7 +17,6 @@
 
 """Test csv creation, import et export."""
 
-
 import json
 from os.path import dirname, join
 

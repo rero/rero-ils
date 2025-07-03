@@ -17,7 +17,6 @@
 
 """Tests REST validate item request API methods in the item api_views."""
 
-
 from invenio_accounts.testutils import login_user_via_session
 
 from tests.utils import postdata

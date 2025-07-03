@@ -18,7 +18,8 @@
 
 """Stats Pricing tests."""
 
-import mock
+from unittest import mock
+
 from arrow import utcnow
 from dateutil.relativedelta import relativedelta
 from invenio_db import db

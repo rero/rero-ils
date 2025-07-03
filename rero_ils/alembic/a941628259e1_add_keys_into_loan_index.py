@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Add keys into loan index."""
+
 from logging import getLogger
 
 from invenio_circulation.proxies import current_circulation

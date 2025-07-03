@@ -17,7 +17,6 @@
 
 """Click command-line interface for item record management."""
 
-
 import contextlib
 import os
 from io import BytesIO

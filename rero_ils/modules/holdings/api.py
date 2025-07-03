@@ -17,7 +17,6 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Holdings records."""
-from __future__ import absolute_import, print_function
 
 from builtins import classmethod
 from copy import deepcopy

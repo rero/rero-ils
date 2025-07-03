@@ -17,8 +17,6 @@
 
 """Views tests."""
 
-from __future__ import absolute_import, print_function
-
 import pytest
 from flask import session, url_for
 from flask_login import login_user, logout_user

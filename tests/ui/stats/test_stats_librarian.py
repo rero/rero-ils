@@ -18,7 +18,8 @@
 
 """Stats Librarian tests."""
 
-import mock
+from unittest import mock
+
 from invenio_db import db
 
 from rero_ils.modules.documents.api import Document
@@ -139,7 +140,7 @@ def test_stats_librarian_new_items_by_location(
     assert stat_for_librarian.new_items_by_location("foo") == {}
     assert (
         stat_for_librarian.new_items_by_location(item_lib_martigny.library_pid)[
-            f'{loc["code"]} - {loc["name"]}'
+            f"{loc['code']} - {loc['name']}"
         ]
         >= 1
     )
@@ -172,10 +173,7 @@ def test_stats_librarian_loans_of_transaction_library_by_item_location(
 ):
     """Test the number of circulation operation during the specified timeframe."""
     assert stat_for_librarian.loans_of_transaction_library_by_item_location("foo") == {}
-    key = (
-        f'{lib_martigny.pid}: {lib_martigny["name"]} -'
-        f' {loc_public_martigny["name"]}'
-    )
+    key = f"{lib_martigny.pid}: {lib_martigny['name']} - {loc_public_martigny['name']}"
     res = stat_for_librarian.loans_of_transaction_library_by_item_location(
         lib_martigny.pid
     )

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Invenio extensions for `Library` resources."""
+
 from celery import current_app as celery_app
 from deepdiff import DeepDiff
 from invenio_cache import current_cache

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Schema for users."""
+
 import pytest
 from invenio_accounts.models import User
 

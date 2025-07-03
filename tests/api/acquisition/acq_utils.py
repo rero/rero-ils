@@ -17,7 +17,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utils for acquisitions."""
-import mock
+
+from unittest import mock
+
 from flask import url_for
 
 from rero_ils.modules.utils import get_record_class_from_schema_or_pid_type

@@ -352,7 +352,7 @@ class AcqRollover:
                 error_count += 1
         if error_count:
             raise RolloverError(
-                f"Data validation failed : {error_count} " f"error(s) found"
+                f"Data validation failed : {error_count} error(s) found"
             )
 
     def _migrate_accounts(self, accounts):
@@ -394,7 +394,7 @@ class AcqRollover:
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
                 raise RolloverError(
-                    f"Account creation failed on " f"[acac#{acc.pid}] :: {str(e)}"
+                    f"Account creation failed on [acac#{acc.pid}] :: {str(e)}"
                 ) from e
 
     def _migrate_orders(self, orders):
@@ -425,7 +425,7 @@ class AcqRollover:
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
                 raise RolloverError(
-                    f"Order creation failed on " f"[acor#{order.pid}] :: {str(e)}"
+                    f"Order creation failed on [acor#{order.pid}] :: {str(e)}"
                 ) from e
 
     def _migrate_order_lines(self, order_lines):
@@ -475,7 +475,7 @@ class AcqRollover:
                 log.info(f"\t* (#{idx}) migrate {old_label} --> {new_label}")
             except Exception as e:
                 raise RolloverError(
-                    f"Order line creation failed on " f"[acol#{line.pid}] :: {str(e)}"
+                    f"Order line creation failed on [acol#{line.pid}] :: {str(e)}"
                 ) from e
 
     def _update_budgets(self, orig_state=False, dest_state=False):
@@ -505,8 +505,7 @@ class AcqRollover:
         org["current_budget_pid"] = self.destination_budget.pid
         org = org.update(org, dbcommit=True, reindex=True)
         self.logger.info(
-            f"\t  * Current organisation budget is now "
-            f"{org.get('current_budget_pid')}"
+            f"\t  * Current organisation budget is now {org.get('current_budget_pid')}"
         )
 
     # PRIVATE METHODS =========================================================

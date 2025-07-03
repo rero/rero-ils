@@ -22,7 +22,6 @@
 http://www.loc.gov/standards/sru/explain/
 """
 
-
 import contextlib
 
 import jsonref

@@ -170,9 +170,9 @@ def load_actions(sender, app):
     data = app.extensions["invenio-jsonschemas"].refresolver_store()
     cfg = app.config
     schema_url = (
-        f'{cfg["JSONSCHEMAS_URL_SCHEME"]}://'
-        f'{cfg["JSONSCHEMAS_HOST"]}'
-        f'{cfg["JSONSCHEMAS_ENDPOINT"]}/'
+        f"{cfg['JSONSCHEMAS_URL_SCHEME']}://"
+        f"{cfg['JSONSCHEMAS_HOST']}"
+        f"{cfg['JSONSCHEMAS_ENDPOINT']}/"
     )
 
     app.extensions["rero-ils"].jsonschema_store = dict(
@@ -180,7 +180,7 @@ def load_actions(sender, app):
     )
 
 
-class REROILSAPP(object):
+class REROILSAPP:
     """rero-ils extension."""
 
     def __init__(self, app=None):

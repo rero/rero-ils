@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test item circulation extend actions."""
+
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests circulation operation for item with temporary item_type."""
+
 from datetime import datetime, timedelta
 
 import ciso8601

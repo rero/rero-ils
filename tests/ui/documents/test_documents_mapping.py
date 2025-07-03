@@ -18,8 +18,8 @@
 """Document mapping tests."""
 
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from elasticsearch_dsl.query import MultiMatch
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch

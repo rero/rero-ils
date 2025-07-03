@@ -18,8 +18,6 @@
 
 """Blueprint used for acquuisition account API."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, jsonify, request
 
 from rero_ils.modules.decorators import check_logged_as_librarian, jsonify_error

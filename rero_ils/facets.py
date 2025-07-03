@@ -18,8 +18,6 @@
 
 """Facets and factories for result aggregation."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 
 from elasticsearch_dsl import Q

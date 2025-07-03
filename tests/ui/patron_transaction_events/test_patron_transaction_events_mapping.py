@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Patron transaction event record mapping tests."""
+
 from rero_ils.modules.patron_transaction_events.api import (
     PatronTransactionEvent,
     PatronTransactionEventsSearch,

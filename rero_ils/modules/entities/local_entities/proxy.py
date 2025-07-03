@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Local entity proxies."""
+
 from elasticsearch_dsl import Q
 
 from ..models import EntityType

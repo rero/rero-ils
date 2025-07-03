@@ -18,9 +18,6 @@
 
 """Import from extern resources."""
 
-
-from __future__ import absolute_import, print_function
-
 import pickle
 import traceback
 from datetime import datetime, timedelta
@@ -43,7 +40,7 @@ from rero_ils.modules.documents.dojson.contrib.marc21tojson import (
 from rero_ils.modules.documents.dojson.contrib.unimarctojson import unimarc
 
 
-class Import(object):
+class Import:
     """Import class."""
 
     name = ""
@@ -377,12 +374,12 @@ class Import(object):
             """Yield record elements from given XML stream."""
             try:
                 for _, element in etree.iterparse(
-                    stream, tag="{http://www.loc.gov/zing/srw/}" "record"
+                    stream, tag="{http://www.loc.gov/zing/srw/}record"
                 ):
                     yield element
             except Exception:
                 current_app.logger.error(
-                    f"Import: {self.name} " "error: XML SPLIT " f"url: {url_api}"
+                    f"Import: {self.name} error: XML SPLIT url: {url_api}"
                 )
                 return []
 

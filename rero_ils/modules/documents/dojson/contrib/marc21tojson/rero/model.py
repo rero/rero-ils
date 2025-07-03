@@ -18,7 +18,6 @@
 
 """rero-ils MARC21 model definition."""
 
-
 import contextlib
 import re
 
@@ -903,7 +902,7 @@ def marc21_to_part_of(self, key, value):
     and for the fields 800 and 830 if a field 490 exists
     """
 
-    class Numbering(object):
+    class Numbering:
         """The purpose of this class is to build the `Numbering` data."""
 
         def __init__(self):

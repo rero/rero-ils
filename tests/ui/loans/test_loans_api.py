@@ -17,13 +17,11 @@
 
 """CircPolicy Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import date, datetime, timedelta, timezone
+from unittest import mock
 
 import ciso8601
-import mock
 from freezegun import freeze_time
 from invenio_circulation.proxies import current_circulation
 

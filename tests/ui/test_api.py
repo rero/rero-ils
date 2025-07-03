@@ -17,7 +17,6 @@
 
 """API tests for non modules."""
 
-
 from functools import partial
 
 import pytest

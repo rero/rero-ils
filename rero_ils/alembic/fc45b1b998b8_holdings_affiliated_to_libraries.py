@@ -39,7 +39,7 @@ def upgrade():
     for idx, hit in enumerate(query.source("pid").scan()):
         org = Organisation.get_record_by_pid(hit.pid)
         org["online_harvested_source"] = [org["online_harvested_source"]]
-        LOGGER.info(f'{idx:<3} org: {org.pid} -> {org["online_harvested_source"]}')
+        LOGGER.info(f"{idx:<3} org: {org.pid} -> {org['online_harvested_source']}")
         org.update(data=org, dbcommit=True, reindex=True)
 
 
@@ -50,5 +50,5 @@ def downgrade():
     for idx, hit in enumerate(query.source("pid").scan()):
         org = Organisation.get_record_by_pid(hit.pid)
         org["online_harvested_source"] = org["online_harvested_source"][0]
-        LOGGER.info(f'{idx:<3} org: {org.pid} -> {org["online_harvested_source"]}')
+        LOGGER.info(f"{idx:<3} org: {org.pid} -> {org['online_harvested_source']}")
         org.update(data=org, dbcommit=True, reindex=True)

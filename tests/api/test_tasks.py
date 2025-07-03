@@ -270,7 +270,7 @@ def test_clear_obsolete_temporary_item_type_and_location(
     loc_restricted_martigny,
     item2_lib_martigny,
 ):
-    """test task test_clear_obsolete_temporary_item_type_and_location"""
+    """Test task test_clear_obsolete_temporary_item_type_and_location"""
     item = item_lib_martigny
     end_date = datetime.now() + timedelta(days=2)
     item["temporary_item_type"] = {

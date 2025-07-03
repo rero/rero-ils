@@ -18,12 +18,9 @@
 
 """Entities Record tests."""
 
-from __future__ import absolute_import, print_function
-
 import tempfile
 from copy import deepcopy
-
-import mock
+from unittest import mock
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.remote_entities.api import (
@@ -115,9 +112,9 @@ def test_sync_contribution(
     RemoteEntitiesSearch.flush_and_refresh()
 
     idref_pid = pers["idref"]["pid"]
-    document_data_ref["contribution"][0]["entity"][
-        "$ref"
-    ] = f"{mef_agents_url}/idref/{idref_pid}"
+    document_data_ref["contribution"][0]["entity"]["$ref"] = (
+        f"{mef_agents_url}/idref/{idref_pid}"
+    )
 
     doc = Document.create(
         deepcopy(document_data_ref), dbcommit=True, reindex=True, delete_pid=True
@@ -201,7 +198,7 @@ def test_sync_contribution(
 
     # synchronization the same document has been updated 3 times,
     # one MEF record has been updated, no errors
-    assert (1, 1, set()) == sync_entity.sync(f'{data["pid"]}')
+    assert (1, 1, set()) == sync_entity.sync(f"{data['pid']}")
     DocumentsSearch.flush_and_refresh()
     # new contribution has been created
     assert RemoteEntity.get_record_by_pid("foo_mef")
@@ -247,7 +244,7 @@ def test_sync_concept(
     )
     RemoteEntitiesSearch.flush_and_refresh()
 
-    entity_url = f'{mef_concepts_url}/idref/{topic["idref"]["pid"]}'
+    entity_url = f"{mef_concepts_url}/idref/{topic['idref']['pid']}"
     document_data_subject_ref["subjects"][0]["entity"]["$ref"] = entity_url
 
     doc = Document.create(
@@ -421,7 +418,7 @@ def test_replace_identified_by(
         assert rero_only == 0
         assert replace_identified_by.not_found == {
             "bf:Organisation": {
-                "gnd:1161956409": "Convegno internazionale " "di italianistica Craiova"
+                "gnd:1161956409": "Convegno internazionale di italianistica Craiova"
             },
             "bf:Person": {"rero:A003633163": "Nebehay, Christian Michael"},
         }
@@ -494,7 +491,7 @@ def test_entity_get_record_by_ref(
     # Remote entity from ES index
     RemoteEntitiesSearch().filter("term", pid=entity_person.pid).delete()
     RemoteEntitiesSearch.flush_and_refresh()
-    ent_ref = f'{mef_agents_url}/idref/{entity_person["idref"]["pid"]}'
+    ent_ref = f"{mef_agents_url}/idref/{entity_person['idref']['pid']}"
     with mock.patch(
         "rero_ils.modules.entities.remote_entities.api.get_mef_data_by_type",
         return_value=entity_person_data_tmp,

@@ -18,8 +18,6 @@
 
 """Tests Selfcheck admin."""
 
-from __future__ import absolute_import, print_function
-
 from flask import url_for
 from flask_admin import Admin
 from invenio_db import db

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Loan :: add checkout location pid to current ON_LOAN laons."""
+
 from logging import getLogger
 
 from elasticsearch_dsl import Q

@@ -20,9 +20,9 @@
 import json
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+from unittest import mock
 
 import ciso8601
-import mock
 import pytest
 import pytz
 from flask import url_for
@@ -1042,7 +1042,7 @@ def test_multiple_request_booking_notifications(
     }
     _, actions = item_lib_martigny.checkin(**params)
     assert actions.get(LoanAction.CHECKIN)
-    search_string = f'Lieu de retrait: {loc_public_sion.get("code")}'
+    search_string = f"Lieu de retrait: {loc_public_sion.get('code')}"
     assert any(search_string in message.body for message in mailbox)
 
     # CHECKOUT & CHECKIN FOR PATRON#2
@@ -1061,7 +1061,7 @@ def test_multiple_request_booking_notifications(
     # checkin at the request pickup of patron3
     loan, actions = item_lib_martigny.checkin(**params)
     assert actions.get(LoanAction.CHECKIN)
-    search_string = f'Lieu de retrait: {loc_public_saxon.get("code")}'
+    search_string = f"Lieu de retrait: {loc_public_saxon.get('code')}"
     assert any(search_string in message.body for message in mailbox)
 
     # checkout for patron3

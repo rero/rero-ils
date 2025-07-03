@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Record serialization."""
+
 import csv
 
 from flask import current_app

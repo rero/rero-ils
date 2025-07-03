@@ -74,7 +74,7 @@ fi
 function pretests () {
   info_msg "Check vulnerabilities:"
   # py 1.11.0  PYSEC-2022-42969
-  add_exceptions " PYSEC-2022-42969"
+  add_exceptions "PYSEC-2022-42969"
   # urllib3 1.26.20 GHSA-pq67-6m6q-mj2v 2.5.0
   add_exceptions "GHSA-pq67-6m6q-mj2v"
   PIPAPI_PYTHON_LOCATION=`which python` pip-audit ${pip_audit_exceptions}

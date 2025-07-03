@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Common entity dumpers."""
+
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.dumpers import MultiDumper, ReplaceRefsDumper

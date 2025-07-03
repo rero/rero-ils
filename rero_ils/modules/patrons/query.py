@@ -17,8 +17,6 @@
 
 """Patron Query factories for REST API."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import datetime
 
 from elasticsearch_dsl import Q

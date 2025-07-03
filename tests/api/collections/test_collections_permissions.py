@@ -17,7 +17,8 @@
 
 """Tests REST API for collections."""
 
-import mock
+from unittest import mock
+
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user

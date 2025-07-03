@@ -206,7 +206,7 @@ class StatsReport:
             # day=31: this will add a max value of 31 days but stays
             # in the same month
             previous_month = previous_month + relativedelta(day=31)
-            month = "%02d" % previous_month.month
+            month = f"{previous_month.month:02d}"
             _from = f"{previous_month.year}-{month}-01T00:00:00"
             _to = f"{previous_month.year}-{month}-{previous_month.day}"
             _to = f"{_to}T23:59:59"
