@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Replace refs dumpers."""
+
 from invenio_records.dumpers import Dumper
 
 from rero_ils.modules.commons.exceptions import RecordNotFound

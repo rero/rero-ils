@@ -83,7 +83,7 @@ class ILLRequestDocumentForm(FlaskForm):
     )
     identifier = StringField(
         label=_("Identifier"),
-        description=_("Example: 978-0-901690-54-6 (ISBN), " "2049-3630 (ISSN), ..."),
+        description=_("Example: 978-0-901690-54-6 (ISBN), 2049-3630 (ISSN), ..."),
         render_kw={"placeholder": _("ISBN, ISSN")},
     )
     source = FormField(ILLRequestDocumentSource, label=_("Published in"))
@@ -132,7 +132,7 @@ class ILLRequestForm(FlaskForm):
         # Choices will be loaded dynamically because they should
         # be given inside app_context
         choices=[("", lazy_gettext("Select…"))],
-        description=_("Select the location where this request will be " "operated"),
+        description=_("Select the location where this request will be operated"),
         validators=[validators.DataRequired()],
     )
 

@@ -17,7 +17,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Serializers."""
-import mock
+
+from unittest import mock
+
 from flask import url_for
 
 from tests.utils import VerifyRecordPermissionPatch, get_json

@@ -19,8 +19,8 @@
 
 import json
 from os.path import dirname, join
+from unittest import mock
 
-import mock
 from click.testing import CliRunner
 
 from rero_ils.modules.api_harvester.cli import (

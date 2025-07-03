@@ -17,7 +17,6 @@
 
 """Tests invenio circulation bug when document has items attached."""
 
-
 from invenio_accounts.testutils import login_user_via_session
 
 from rero_ils.modules.loans.models import LoanAction

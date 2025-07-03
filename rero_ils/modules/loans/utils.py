@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Loans utils."""
+
 import math
 from datetime import datetime, timedelta, timezone
 

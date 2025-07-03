@@ -18,8 +18,6 @@
 
 """API for manipulating "claim" notifications about serial issue."""
 
-from __future__ import absolute_import, print_function
-
 from abc import ABC, abstractmethod
 
 from werkzeug.utils import cached_property

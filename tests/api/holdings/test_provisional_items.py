@@ -18,8 +18,6 @@
 
 """Test provisional items."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import datetime, timezone
 
 from flask import url_for

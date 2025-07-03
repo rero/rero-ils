@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Remote entity proxies."""
+
 import json
 from urllib.parse import quote_plus
 
@@ -178,7 +179,7 @@ class MEFProxyMixin:
 
         def _build_filter_value(value):
             if isinstance(value, list):
-                return f'({" OR ".join(value)})'
+                return f"({' OR '.join(value)})"
             return f'"{str(value)}"'
 
         query_params = [
@@ -222,7 +223,7 @@ class MEFProxyMixin:
                 {
                     "source": "mef",
                     "type": "uri",
-                    "value": f'{base_url}/{source_name}/{src_data["pid"]}',
+                    "value": f"{base_url}/{source_name}/{src_data['pid']}",
                 }
             )
 
@@ -248,7 +249,7 @@ class MefAgentsProxy(MEFProxyMixin):
             for _type in self.entity_types:
                 _type = _type.replace(":", "\\:")
                 ent_types.append(f"type:{_type}")
-            params += [f'({" OR ".join(ent_types)})']
+            params += [f"({' OR '.join(ent_types)})"]
         return params
 
     def _post_process_result_hit(self, hit):
@@ -293,7 +294,7 @@ class MefConceptsProxy(MEFProxyMixin):
             for _type in self.entity_types:
                 _type = _type.replace(":", "\\:")
                 ent_types.append(f"type:{_type}")
-            params += [f'({" OR ".join(ent_types)})']
+            params += [f"({' OR '.join(ent_types)})"]
         return params
 
     def _post_process_result_hit(self, hit):

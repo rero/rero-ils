@@ -19,8 +19,7 @@
 """Stats Report tests creation."""
 
 from datetime import datetime
-
-import mock
+from unittest import mock
 
 from rero_ils.modules.stats.api.api import Stat
 from rero_ils.modules.stats.api.report import StatsReport

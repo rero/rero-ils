@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Shared extensions about RERO-ILS resources."""
+
 import re
 
 from elasticsearch_dsl import Q

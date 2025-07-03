@@ -18,7 +18,6 @@
 
 """Initial."""
 
-
 # revision identifiers, used by Alembic.
 revision = "f0e7f3b80a21"
 down_revision = None

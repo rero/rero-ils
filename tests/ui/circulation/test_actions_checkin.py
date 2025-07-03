@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test item circulation checkin actions."""
+
 from datetime import timedelta
 
 import ciso8601

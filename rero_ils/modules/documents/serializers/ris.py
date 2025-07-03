@@ -150,8 +150,7 @@ class RISFormatter(BaseDocumentFormatterMixin):
             "SN": self._get_identifiers(
                 [IdentifierType.ISBN, IdentifierType.ISSN, IdentifierType.L_ISSN]
             ),
-            "UR": self._get_electronic_locators(),
-            "UR": self._get_permalink(),
+            "UR": self._get_electronic_locators().append(self._get_permalink()),
             "KW": self._get_subjects(),
             "DO": self._get_identifiers([IdentifierType.DOI]),
             "VL": self._get_volume_numbers(),

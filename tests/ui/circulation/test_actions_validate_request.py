@@ -17,7 +17,6 @@
 
 """Test item circulation validate request actions."""
 
-
 import pytest
 from invenio_circulation.errors import NoValidTransitionAvailableError
 

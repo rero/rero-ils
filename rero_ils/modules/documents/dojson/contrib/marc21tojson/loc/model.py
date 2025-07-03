@@ -18,7 +18,6 @@
 
 """rero-ils MARC21 model definition."""
 
-
 import contextlib
 import re
 
@@ -172,7 +171,6 @@ def marc21_to_work_access_point(self, key, value):
         # _WORK_ACCESS_POINT.get(subfield_code)
         for blob_key, blob_value in items:
             if blob_key in work_selection:
-
                 if blob_key in {"k", "m"}:
                     datas = work.get(_WORK_ACCESS_POINT.get(blob_key), [])
                     datas.append(blob_value)
@@ -629,7 +627,7 @@ def marc21_to_subjects_6XX(self, key, value):
             )
             if creator:
                 subject["authorized_access_point"] = (
-                    f'{creator}. {subject["authorized_access_point"]}'
+                    f"{creator}. {subject['authorized_access_point']}"
                 )
 
         field_key = "genreForm" if tag_key == "655" else config_field_key

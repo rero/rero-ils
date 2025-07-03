@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Loans."""
+
 import math
 from bisect import bisect_right
 from datetime import datetime, timedelta, timezone
@@ -214,7 +215,7 @@ class Loan(IlsRecord):
 
         if not data.get("state"):
             data["state"] = LoanState.CREATED
-        return super(Loan, cls).create(
+        return super().create(
             data=data,
             id_=id_,
             delete_pid=delete_pid,
@@ -254,7 +255,7 @@ class Loan(IlsRecord):
             # Anonymize loan operation logs
             LoanOperationLog.anonymize_logs(self.pid)
         except Exception as err:
-            current_app.logger.error(f'Can not anonymize loan: {self.get("pid")} {err}')
+            current_app.logger.error(f"Can not anonymize loan: {self.get('pid')} {err}")
         return self
 
     def date_fields2datetime(self):
@@ -474,8 +475,8 @@ class Loan(IlsRecord):
                     patron_data = patron_by_pid(loan_data["patron_pid"], patrons)
                     loan_data["patron"] = {
                         "barcode": patron_data["patron"]["barcode"][0],
-                        "name": f'{patron_data["last_name"]}, '
-                        f'{patron_data["first_name"]}',
+                        "name": f"{patron_data['last_name']}, "
+                        f"{patron_data['first_name']}",
                     }
                     loan_data["pickup_location"] = location_by_pid(
                         loan_data["pickup_location_pid"], locations
@@ -1060,8 +1061,8 @@ class Loan(IlsRecord):
             keep_history = patron.user.user_profile.get("keep_history", True)
         else:
             msg = (
-                f'Can not anonymize loan: {loan_data.get("pid")} '
-                f'no patron: {loan_data.get("patron_pid")}'
+                f"Can not anonymize loan: {loan_data.get('pid')} "
+                f"no patron: {loan_data.get('patron_pid')}"
             )
             current_app.logger.warning(msg)
         return not keep_history

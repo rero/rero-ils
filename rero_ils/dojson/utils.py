@@ -17,7 +17,6 @@
 
 """Dojson utils."""
 
-
 import contextlib
 import re
 import sys
@@ -610,7 +609,7 @@ def join_alternate_graphic_data(alt_gr_1, alt_gr_2, join_str):
     return new_alt_gr_data
 
 
-class BookFormatExtraction(object):
+class BookFormatExtraction:
     """Extract book formats from a marc subfield data.
 
     The regular expression patterns needed to extract book formats are build by
@@ -758,9 +757,9 @@ class ReroIlsOverdo(Overdo):
                 f'"{self.date1_from_008}"',
             )
             start_date = 2050
-            result["provisionActivity"][0][
-                "note"
-            ] = "Date not available and automatically set to 2050"
+            result["provisionActivity"][0]["note"] = (
+                "Date not available and automatically set to 2050"
+            )
         result["provisionActivity"][0]["startDate"] = start_date
         if end_date := make_year(self.date2_from_008):
             if end_date > 2050:
@@ -1086,8 +1085,7 @@ class ReroIlsOverdo(Overdo):
         regexp = re.compile(rf"^[^{series_title_subfield_code}]")
         if regexp.search(subfield_visited):
             error_msg = (
-                f"missing leading subfield ${series_title_subfield_code} "
-                f"in field {tag}"
+                f"missing leading subfield ${series_title_subfield_code} in field {tag}"
             )
             error_print("ERROR BAD FIELD FORMAT:", self.bib_id, self.rero_id, error_msg)
         else:
@@ -1810,7 +1808,7 @@ class ReroIlsUnimarcOverdo(ReroIlsOverdo):
         return fields
 
 
-class TitlePartList(object):
+class TitlePartList:
     """The purpose of this class is to build the title part list.
 
     The title part list is build parsing the subfields $n, $p of fields 245

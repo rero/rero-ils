@@ -20,8 +20,8 @@
 import json
 from copy import deepcopy
 from datetime import datetime
+from unittest import mock
 
-import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session

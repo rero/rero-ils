@@ -17,7 +17,6 @@
 
 """Click command-line interface for operation logs."""
 
-
 from pprint import pprint
 
 import arrow
@@ -84,9 +83,9 @@ def collect(type):
             reindex=True,
         )
         click.secho(
-            f'Statistics of type {stat["type"]}\
+            f"Statistics of type {stat['type']}\
             have been collected and created.\
-            New pid: {stat.pid}',
+            New pid: {stat.pid}",
             fg="green",
         )
 
@@ -110,7 +109,7 @@ def collect_year(year, timespan, n_months, force):
     if year:
         if timespan == "montly":
             if n_months not in range(1, 13):
-                click.secho(f"ERROR: not a valid month", fg="red")
+                click.secho("ERROR: not a valid month", fg="red")
                 raise click.Abort()
             n_months += 1
 
@@ -215,7 +214,7 @@ def collect_year(year, timespan, n_months, force):
 @report.command()
 @click.argument("pid")
 @with_appcontext
-def dumps(pid):
+def dumps_by_config(pid):
     """Extract the stats value for preview.
 
     :param pid: pid value of the configuration to use.
@@ -225,7 +224,7 @@ def dumps(pid):
 
     cfg = StatConfiguration.get_record_by_pid(pid)
     if not cfg:
-        click.secho(f"Configuration does not exists.", fg="red")
+        click.secho("Configuration does not exists.", fg="red")
     else:
         from pprint import pprint
 
@@ -235,7 +234,7 @@ def dumps(pid):
 @report.command()
 @click.argument("pid")
 @with_appcontext
-def collect(pid):
+def collect_by_config(pid):
     """Extract the stats report values and store it.
 
     :param pid: pid value of the configuration to use.
@@ -245,7 +244,7 @@ def collect(pid):
 
     cfg = StatConfiguration.get_record_by_pid(pid)
     if not cfg:
-        click.secho(f"Configuration does not exists.", fg="red")
+        click.secho("Configuration does not exists.", fg="red")
     else:
         stat_report = StatsReport(cfg)
         values = stat_report.collect()

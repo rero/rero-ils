@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for patrons."""
+
 from flask import g
 from flask_login import current_user
 from invenio_access import action_factory, any_user

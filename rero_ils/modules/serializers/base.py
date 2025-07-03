@@ -135,7 +135,7 @@ class JSONSerializer(_JSONSerializer, PostprocessorMixin):
                     if attr_term := info.get(attr):
                         term[attr] = attr_term
                 else:
-                    term[attr] = f'{_("Unknown")} ({term["key"]})'
+                    term[attr] = f"{_('Unknown')} ({term['key']})"
 
     @staticmethod
     def add_date_range_configuration(aggregation, step=86400000):

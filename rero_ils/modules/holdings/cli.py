@@ -18,8 +18,6 @@
 
 """Click command-line interface for item record management."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import random
 from datetime import datetime, timedelta, timezone

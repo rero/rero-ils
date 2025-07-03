@@ -17,7 +17,7 @@
 
 """Document filters tests."""
 
-import mock
+from unittest import mock
 
 from rero_ils.modules.documents.views import (
     babeltheque_enabled_view,

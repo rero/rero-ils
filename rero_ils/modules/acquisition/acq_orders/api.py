@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating Acquisition Orders."""
+
 from datetime import datetime, timezone
 from functools import partial
 

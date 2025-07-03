@@ -18,8 +18,6 @@
 
 """Blueprint used for libraries API."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import datetime, timedelta
 
 from flask import Blueprint, abort, jsonify, request

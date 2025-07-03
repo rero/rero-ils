@@ -18,8 +18,6 @@
 
 """API for manipulating Notifications."""
 
-from __future__ import absolute_import, print_function
-
 from abc import ABC, abstractmethod
 from datetime import datetime, timezone
 from functools import partial

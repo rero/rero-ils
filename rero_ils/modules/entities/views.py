@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Blueprint used for entities."""
+
 from flask import Blueprint, abort, current_app, render_template
 from flask_babel import lazy_gettext as _
 from invenio_i18n.ext import current_i18n

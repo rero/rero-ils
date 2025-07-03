@@ -110,8 +110,8 @@ def test_stats_report_number_of_serial_holdings(
         },
     }
     assert StatsReport(cfg).collect() == [
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
-        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1],
+        [f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})", 1],
+        [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 1],
     ]
 
     # two distributions
@@ -127,8 +127,8 @@ def test_stats_report_number_of_serial_holdings(
     }
     assert StatsReport(cfg).collect() == [
         ["", "2023-02", "2024-01"],
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 0, 1],
-        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1, 0],
+        [f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})", 0, 1],
+        [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 1, 0],
     ]
 
     # reverse distrubtions
@@ -145,8 +145,8 @@ def test_stats_report_number_of_serial_holdings(
     assert StatsReport(cfg).collect() == [
         [
             "",
-            f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
-            f'{lib_martigny.get("name")} ({lib_martigny.pid})',
+            f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})",
+            f"{lib_martigny.get('name')} ({lib_martigny.pid})",
         ],
         ["2023-02", 0, 1],
         ["2024-01", 1, 0],
@@ -166,8 +166,8 @@ def test_stats_report_number_of_serial_holdings(
     assert StatsReport(cfg).collect() == [
         [
             "",
-            f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
-            f'{lib_martigny.get("name")} ({lib_martigny.pid})',
+            f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})",
+            f"{lib_martigny.get('name')} ({lib_martigny.pid})",
         ],
         ["2023", 0, 1],
         ["2024", 1, 0],

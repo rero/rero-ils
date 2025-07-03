@@ -17,8 +17,6 @@
 
 """Patrons Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 
 import pytest
@@ -244,9 +242,9 @@ def test_patron_create_without_email(
         Patron.create(patron_martigny_data_tmp, dbcommit=True, delete_pid=True)
 
     # create a patron without email
-    patron_martigny_data_tmp["patron"][
-        "communication_channel"
-    ] = CommunicationChannel.MAIL
+    patron_martigny_data_tmp["patron"]["communication_channel"] = (
+        CommunicationChannel.MAIL
+    )
     ptrn = Patron.create(patron_martigny_data_tmp, dbcommit=True, delete_pid=True)
     # user has been created
     user = User.query.filter_by(id=ptrn.get("user_id")).first()

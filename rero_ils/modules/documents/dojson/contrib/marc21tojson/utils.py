@@ -18,7 +18,6 @@
 
 """rero-ils MARC21 model definition."""
 
-
 import contextlib
 import re
 import sys
@@ -862,7 +861,6 @@ def do_provision_activity(data, marc21, key, value):
         return GroupableOrderedDict(new_field_values)
 
     def build_statement(field_value, subtags=("a", "b")):
-
         def build_agent_data(code, label, index, link):
             type_per_code = {
                 "a": EntityType.PLACE,
@@ -1365,7 +1363,7 @@ def do_electronic_locator_from_field_856(data, marc21, key, value):
             "noteOnContent",
             "titlePage",
             "photography",
-            "summarization" "summarization",
+            "summarizationsummarization",
             "onlineResourceViaRERODOC",
             "pressReview",
             "webSite",
@@ -1546,7 +1544,7 @@ def do_part_of(data, marc21, key, value):
     and for the fields 800 and 830 if a field 490 exists
     """
 
-    class Numbering(object):
+    class Numbering:
         """The purpose of this class is to build the `Numbering` data."""
 
         def __init__(self):

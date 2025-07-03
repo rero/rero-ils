@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Migration API."""
+
 from datetime import datetime, timezone
 from enum import Enum
 
@@ -64,7 +65,7 @@ class Status(Keyword):
             DeduplicationStatus(data)
         except ValueError:
             raise ValidationException(
-                f'The status value should be one of: {", ".join([item.value for item in DeduplicationStatus])}.'
+                f"The status value should be one of: {', '.join([item.value for item in DeduplicationStatus])}."
             )
         return super().clean(data)
 

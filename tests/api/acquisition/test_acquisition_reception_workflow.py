@@ -17,7 +17,8 @@
 
 """Tests complete workflow for the acquisition module."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 
@@ -65,7 +66,7 @@ def test_acquisition_reception_workflow(
     """Test complete acquisition workflow."""
 
     def assert_account_data(accounts):
-        """assert account informations."""
+        """Assert account informations."""
         for acc, (balance, expenditure, encumbrance) in accounts.items():
             assert acc.expenditure_amount == expenditure
             assert acc.encumbrance_amount == encumbrance

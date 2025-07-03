@@ -17,8 +17,6 @@
 
 """Click command-line interface for operation_log record management."""
 
-from __future__ import absolute_import, print_function
-
 import json
 
 import click

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Migration Record tests."""
+
 from rero_ils.modules.deduplications.api import Deduplication
 
 
@@ -66,7 +67,7 @@ def test_series_statement_score():
         Deduplication.get_series_statement_score(document, create("hary potter")) == 0
     )
     assert Deduplication.get_series_statement_score(document, {}) == 0
-    assert Deduplication.get_series_statement_score({}, {}) == None
+    assert Deduplication.get_series_statement_score({}, {}) is None
     assert Deduplication.get_series_statement_score({}, document) == 0
 
 
@@ -88,7 +89,7 @@ def test_edition_statement_score():
         Deduplication.get_edition_statement_score(document, create("2éme édition")) == 0
     )
     assert Deduplication.get_edition_statement_score(document, {}) == 0
-    assert Deduplication.get_edition_statement_score({}, {}) == None
+    assert Deduplication.get_edition_statement_score({}, {}) is None
     assert Deduplication.get_edition_statement_score({}, document) == 0
 
 
@@ -211,7 +212,7 @@ def test_identifier_score():
     assert Deduplication.get_identifier_score(document, document) == 1
     assert Deduplication.get_identifier_score(document, {}) == 0
     assert Deduplication.get_identifier_score({}, document) == 0
-    assert Deduplication.get_identifier_score({}, {}) == None
+    assert Deduplication.get_identifier_score({}, {}) is None
 
     candidate = {
         "identifiedBy": [
@@ -236,4 +237,4 @@ def test_identifier_score():
             {"type": "bf:Local", "value": "1"},
         ]
     }
-    assert Deduplication.get_identifier_score(document, document) == None
+    assert Deduplication.get_identifier_score(document, document) is None

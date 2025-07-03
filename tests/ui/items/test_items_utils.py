@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Items Record utils tests."""
+
 import pytest
 
 from rero_ils.modules.items.utils import exists_available_item

@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utility functions about PatronTransactions."""
+
 from datetime import datetime, timezone
 
 from flask_babel import gettext as _

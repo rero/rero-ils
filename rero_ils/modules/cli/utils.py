@@ -18,9 +18,6 @@
 
 """Click command-line utilities."""
 
-
-from __future__ import absolute_import, print_function
-
 import contextlib
 import difflib
 import itertools
@@ -196,7 +193,7 @@ def check_json(paths, replace, indent, sort_keys, verbose):
         error_cnt = 0
         try:
             fname = path_file
-            with open(fname, "r") as opened_file:
+            with open(fname) as opened_file:
                 json_orig = opened_file.read().rstrip()
                 opened_file.seek(0)
                 json_file = json.load(opened_file, object_pairs_hook=OrderedDict)
@@ -314,9 +311,9 @@ def validate_documents_with_items_lofis(data, count=0, clean_pid=False, debug=Fa
     except ValidationError as err:
         errors["documents"].append(f"{err.args[0]}")
         if debug:
-            errors["documents"][
-                -1
-            ] = f"{errors['documents'][-1]}\n{traceback.format_exc(1)}"
+            errors["documents"][-1] = (
+                f"{errors['documents'][-1]}\n{traceback.format_exc(1)}"
+            )
     for idx, item in enumerate(items, 1):
         local_field_items = item.pop("local_fields", [])
         try:
@@ -324,9 +321,9 @@ def validate_documents_with_items_lofis(data, count=0, clean_pid=False, debug=Fa
         except Exception as err:
             errors["items"].append(f"{idx} {err.args[0]}")
             if debug:
-                errors["items"][
-                    -1
-                ] = f"{errors['items'][-1]}\n{traceback.format_exc(1)}"
+                errors["items"][-1] = (
+                    f"{errors['items'][-1]}\n{traceback.format_exc(1)}"
+                )
         # Local fields for items
         for lofi_idx, local_field in enumerate(local_field_items, 1):
             try:
@@ -338,9 +335,9 @@ def validate_documents_with_items_lofis(data, count=0, clean_pid=False, debug=Fa
                     f"item: {idx} lofi: {lofi_idx} {err.args[0]}"
                 )
                 if debug:
-                    errors["local_fields"][
-                        -1
-                    ] = f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
+                    errors["local_fields"][-1] = (
+                        f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
+                    )
 
     # Local fields for documents
     for idx, local_field in enumerate(local_field_docs, 1):
@@ -351,9 +348,9 @@ def validate_documents_with_items_lofis(data, count=0, clean_pid=False, debug=Fa
         except Exception as err:
             errors["local_fields"].append(f"doc lofi: {idx} {err.args[0]}")
             if debug:
-                errors["local_fields"][
-                    -1
-                ] = f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
+                errors["local_fields"][-1] = (
+                    f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
+                )
     return errors, len(errors["documents"]) + len(errors["items"]) + len(
         errors["local_fields"]
     )
@@ -439,9 +436,9 @@ def create_document_with_items_lofis(
         except Exception as err:
             errors["local_fields"].append(f"{err.args[0]}")
             if debug:
-                errors["local_fields"][
-                    -1
-                ] = f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
+                errors["local_fields"][-1] = (
+                    f"{errors['local_fields'][-1]}\n{traceback.format_exc(1)}"
+                )
             if error_file_lofi:
                 error_file_lofi.write(local_field_rec)
             if not dont_stop_on_error:
@@ -496,9 +493,9 @@ def create_document_with_items_lofis(
             except Exception as err:
                 errors["items"].append(f"{err.args[0]}")
                 if debug:
-                    errors["items"][
-                        -1
-                    ] = f"{errors['items'][-1]}\n{traceback.format_exc(1)}"
+                    errors["items"][-1] = (
+                        f"{errors['items'][-1]}\n{traceback.format_exc(1)}"
+                    )
                 if error_file_item:
                     if item_local_fields:
                         item_rec["local_fields"] = item_local_fields
@@ -523,9 +520,9 @@ def create_document_with_items_lofis(
     except Exception as err:
         errors["documents"].append(f"{err.args[0]}")
         if debug:
-            errors["documents"][
-                -1
-            ] = f"{errors['documents'][-1]}\n{traceback.format_exc(1)}"
+            errors["documents"][-1] = (
+                f"{errors['documents'][-1]}\n{traceback.format_exc(1)}"
+            )
         if items:
             data["items"] = items
         if doc_local_fields:
@@ -676,7 +673,7 @@ def check_license(configfile, verbose, progress):
         if progress:
             click.secho("License test: ", fg="green", nl=False)
             click.echo(file_name)
-        with open(file_name, "r") as file:
+        with open(file_name) as file:
             result = test_license(
                 file=file,
                 extension=extensions[extension],
@@ -868,8 +865,7 @@ def do_worker(marc21records, results, pid_required, debug, dojson, schema=None):
     """Worker for marc21 to json transformation."""
     if dojson:
         dojson = obj_or_import_string(
-            f"rero_ils.modules.documents.dojson."
-            f"contrib.marc21tojson.{dojson}:marc21"
+            f"rero_ils.modules.documents.dojson.contrib.marc21tojson.{dojson}:marc21"
         )
     else:
         dojson = marc21
@@ -1449,7 +1445,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                     datas = self.record.get(dependency["name"], [])
                     if not datas and not dependency.get("optional"):
                         click.secho(
-                            f"{self.name}: sublist not found: " f'{dependency["name"]}',
+                            f"{self.name}: sublist not found: {dependency['name']}",
                             fg="red",
                         )
                         self.not_found += 1
@@ -1486,7 +1482,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
                             self.test_data[key][value]
                         except Exception:
                             click.secho(
-                                f"{self.name}: {self.pid} missing " f"{key}: {value}",
+                                f"{self.name}: {self.pid} missing {key}: {value}",
                                 fg="red",
                             )
                             self.missing += 1
@@ -1496,7 +1492,7 @@ def check_pid_dependencies(dependency_file, directory, verbose):
             self.name = test["name"]
             file_name = os.path.join(self.directory, test["filename"])
             self.test_data.setdefault(self.name, {})
-            with open(file_name, "r") as infile:
+            with open(file_name) as infile:
                 if self.verbose:
                     click.echo(f"{self.name}: {file_name}")
                 records = read_json_record(infile)

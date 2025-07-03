@@ -17,8 +17,6 @@
 
 """Item type elasticsearch mapping tests."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.item_types.api import ItemType, ItemTypesSearch
 from tests.utils import get_mapping
 

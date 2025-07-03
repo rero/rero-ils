@@ -18,8 +18,6 @@
 
 """Holding Patterns Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime
 
@@ -378,7 +376,7 @@ def test_intervals_and_expected_dates(holding_lib_martigny_w_patterns):
     holding["patterns"] = patterns
 
     def update_pattern(holding, frequency):
-        """update holdings patterns with a new frequency."""
+        """Update holdings patterns with a new frequency."""
         holding["patterns"]["frequency"] = frequency
         holding.update(holding, dbcommit=True, reindex=True)
 

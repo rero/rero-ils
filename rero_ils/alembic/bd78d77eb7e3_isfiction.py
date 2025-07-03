@@ -67,9 +67,7 @@ def upgrade():
         if doc := Document.get_record(_id):
             uuids.append(_id)
             if DEBUG:
-                LOGGER.info(
-                    f"{idx:<10} {doc.pid:<10} " 'add fiction_statement="fiction"'
-                )
+                LOGGER.info(f'{idx:<10} {doc.pid:<10} add fiction_statement="fiction"')
             doc["fiction_statement"] = DocumentFictionType.Fiction.value
             doc.update(data=doc, commit=True, dbcommit=False, reindex=False)
             if len(uuids) >= 1000:
@@ -91,7 +89,7 @@ def upgrade():
             uuids.append(_id)
             if DEBUG:
                 LOGGER.info(
-                    f"{idx:<10} {doc.pid:<10} " 'add fiction_statement="non_fiction"'
+                    f'{idx:<10} {doc.pid:<10} add fiction_statement="non_fiction"'
                 )
             doc["fiction_statement"] = DocumentFictionType.NonFiction.value
             doc.update(data=doc, commit=True, dbcommit=False, reindex=False)
@@ -109,7 +107,7 @@ def upgrade():
             uuids.append(_id)
             if DEBUG:
                 LOGGER.info(
-                    f"{idx:<10} {doc.pid:<10} " 'add fiction_statement="unspecified"'
+                    f'{idx:<10} {doc.pid:<10} add fiction_statement="unspecified"'
                 )
             doc["fiction_statement"] = DocumentFictionType.Unspecified.value
             doc.update(data=doc, commit=True, dbcommit=False, reindex=False)
@@ -129,7 +127,7 @@ def downgrade():
         if doc := Document.get_record(_id):
             uuids.append(_id)
             if DEBUG:
-                LOGGER.info(f"{idx:<10} {doc.pid:<10} " "remove fiction_statement")
+                LOGGER.info(f"{idx:<10} {doc.pid:<10} remove fiction_statement")
             doc.pop("fiction_statement", None)
             doc.update(data=doc, commit=True, dbcommit=False, reindex=False)
             if len(uuids) >= 1000:

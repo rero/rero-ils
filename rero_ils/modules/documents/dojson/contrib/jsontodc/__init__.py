@@ -19,4 +19,4 @@
 
 from .model import dublincore
 
-__all__ = "dublincore"
+__all__ = ["dublincore"]

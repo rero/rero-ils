@@ -18,7 +18,6 @@
 
 """RERO ILS common record extensions."""
 
-
 from invenio_records.extensions import RecordExtension
 
 from .locations.api import Location, LocationsSearch

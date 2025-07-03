@@ -17,7 +17,6 @@
 
 """Tests UI view for collections."""
 
-
 from flask import url_for
 
 

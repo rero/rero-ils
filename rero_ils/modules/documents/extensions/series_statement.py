@@ -18,7 +18,6 @@
 
 """Document record extension to enrich the series statement."""
 
-
 from invenio_records.extensions import RecordExtension
 
 from ..utils import display_alternate_graphic_first

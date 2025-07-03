@@ -17,10 +17,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests acquisition rollover process."""
+
 import os
 from copy import deepcopy
+from unittest import mock
 
-import mock
 import pytest
 from click.testing import CliRunner
 

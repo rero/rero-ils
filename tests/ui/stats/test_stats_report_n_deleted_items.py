@@ -19,8 +19,8 @@
 """Stats Report tests for number of deleted items."""
 
 from datetime import datetime
+from unittest import mock
 
-import mock
 from invenio_search import current_search_client as es
 
 from rero_ils.modules.stats.api.report import StatsReport
@@ -137,8 +137,8 @@ def test_stats_report_number_of_deleted_items(
         },
     }
     assert StatsReport(cfg).collect() == [
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1],
-        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1],
+        [f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})", 1],
+        [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 1],
     ]
 
     # one distrubtions
@@ -154,7 +154,7 @@ def test_stats_report_number_of_deleted_items(
     }
     # do not contains system
     assert StatsReport(cfg).collect() == [
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 1]
+        [f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})", 1]
     ]
 
     # two distributions
@@ -170,8 +170,8 @@ def test_stats_report_number_of_deleted_items(
     }
     assert StatsReport(cfg).collect() == [
         ["", "2023-01", "2024-01"],
-        [f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})', 0, 1],
-        [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1, 0],
+        [f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})", 0, 1],
+        [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 1, 0],
     ]
 
     # reverse distrubtions
@@ -188,8 +188,8 @@ def test_stats_report_number_of_deleted_items(
     assert StatsReport(cfg).collect() == [
         [
             "",
-            f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
-            f'{lib_martigny.get("name")} ({lib_martigny.pid})',
+            f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})",
+            f"{lib_martigny.get('name')} ({lib_martigny.pid})",
         ],
         ["2023-01", 0, 1],
         ["2024-01", 1, 0],
@@ -209,8 +209,8 @@ def test_stats_report_number_of_deleted_items(
     assert StatsReport(cfg).collect() == [
         [
             "",
-            f'{lib_martigny_bourg.get("name")} ({lib_martigny_bourg.pid})',
-            f'{lib_martigny.get("name")} ({lib_martigny.pid})',
+            f"{lib_martigny_bourg.get('name')} ({lib_martigny_bourg.pid})",
+            f"{lib_martigny.get('name')} ({lib_martigny.pid})",
         ],
         ["2023", 0, 1],
         ["2024", 1, 0],
@@ -231,5 +231,5 @@ def test_stats_report_number_of_deleted_items(
     with mock.patch("rero_ils.modules.stats.api.report.datetime") as mock_datetime:
         mock_datetime.now.return_value = datetime(year=2024, month=1, day=1)
         assert StatsReport(cfg).collect() == [
-            [f'{lib_martigny.get("name")} ({lib_martigny.pid})', 1]
+            [f"{lib_martigny.get('name')} ({lib_martigny.pid})", 1]
         ]

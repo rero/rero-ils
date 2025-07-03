@@ -19,8 +19,8 @@
 
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+from unittest import mock
 
-import mock
 import pytest
 from invenio_db import db
 
@@ -293,7 +293,7 @@ def patron3_martigny_blocked(
 @pytest.fixture(scope="module")
 def patron4_martigny_data(data):
     """Load Martigny patron data."""
-    return deepcopy(patch_expiration_date((data.get("ptrn12"))))
+    return deepcopy(patch_expiration_date(data.get("ptrn12")))
 
 
 @pytest.fixture(scope="module")
