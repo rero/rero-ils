@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2023 RERO
+# Copyright (C) 2019-2025 RERO+
 # Copyright (C) 2019-2023 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating patrons."""
+
 from copy import deepcopy
 from datetime import date, datetime
 from functools import partial
@@ -108,7 +109,7 @@ class Patron(IlsRecord):
     _extensions = [UserDataExtension()]
 
     def extended_validation(self, **kwargs):
-        """Returns reasons for validation failures, otherwise True.
+        """Return reasons for validation failures, otherwise True.
 
         Ensures that barcode field is unique in the organisation.
 
@@ -408,7 +409,7 @@ class Patron(IlsRecord):
             else _("This patron is currently blocked.")
         )
         if self.is_blocked:
-            return f'{main} {_("Reason")}: {self.patron.get("blocked_note")}'
+            return f"{main} {_('Reason')}: {self.patron.get('blocked_note')}"
 
     def add_subscription(
         self,
@@ -463,6 +464,7 @@ class Patron(IlsRecord):
 
         * check if the user is blocked ?
         * check if the user reaches the maximum loans limit ?
+        * check if the user reaches the maximum requests limit ?
         * check if the user reaches the maximum fee amount limit ?
 
         :param public: is messages are for public interface ?
@@ -481,7 +483,7 @@ class Patron(IlsRecord):
         messages = []
         # if patron expiration_date has reached - error type message
         if not public and self.is_expired:
-            messages.append({"type": "error", "content": _("Patron rights expired.")})
+            messages.append({"type": "error", "content": _("Patron rights expired")})
 
         # other messages must be only rendered for the professional interface
         if not public:
@@ -490,14 +492,19 @@ class Patron(IlsRecord):
             valid, message = patron_type.check_checkout_count_limit(self)
             if not valid:
                 messages.append({"type": "error", "content": message})
+            # check the patron type requests limit
+            patron_type = PatronType.get_record_by_pid(self.patron_type_pid)
+            valid, message = patron_type.check_request_limits(self)
+            if not valid:
+                messages.append({"type": "error", "content": message})
             # check fee amount limit
             if not patron_type.check_fee_amount_limit(self):
                 messages.append(
                     {
                         "type": "error",
                         "content": _(
-                            "Transactions denied: the maximal overdue fee amount "
-                            "is reached."
+                            "Transactions denied: maximum amount of "
+                            "overdue fees reached"
                         ),
                     }
                 )
@@ -507,8 +514,8 @@ class Patron(IlsRecord):
                     {
                         "type": "error",
                         "content": _(
-                            "Checkout denied: the maximal number of "
-                            "overdue items is reached"
+                            "Checkout denied: maximum number of "
+                            "overdue items reached"
                         ),
                     }
                 )
@@ -673,7 +680,7 @@ class Patron(IlsRecord):
         """
 
         def basic_query(channel):
-            """Returns basic ES query."""
+            """Return basic ES query."""
             return (
                 PatronsSearch()
                 .filter("term", user_id=user.id)

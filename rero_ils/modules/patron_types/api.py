@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # RERO ILS
-# Copyright (C) 2019-2022 RERO
+# Copyright (C) 2019-2025 RERO+
 # Copyright (C) 2019-2022 UCLouvain
 #
 # This program is free software: you can redistribute it and/or modify
@@ -88,8 +88,8 @@ class PatronType(IlsRecord):
     def extended_validation(self, **kwargs):
         """Add additional record validation.
 
-        Ensure than checkout limits are coherent.
-        Ensure than library limit exceptions are coherent.
+        Ensure that checkout and request limits are coherent.
+        Ensure that library limit exceptions are coherent.
 
         """
         if checkout_limits_data := self.get("limits", {}).get("checkout_limits"):
@@ -97,7 +97,7 @@ class PatronType(IlsRecord):
             if library_limit := checkout_limits_data.get("library_limit"):
                 # Library limit cannot be higher than global limit
                 if library_limit > global_limit:
-                    return _("Library limit cannot be higher than global " "limit.")
+                    return _("Library limit cannot be higher than global limit.")
                 # Exception limit cannot have same value than library limit
                 # Only one exception per library
                 exceptions_lib = []
@@ -105,12 +105,31 @@ class PatronType(IlsRecord):
                 for exception in exceptions:
                     if exception.get("value") == library_limit:
                         return _(
-                            "Exception limit cannot have same value than "
-                            "library limit"
+                            "Exception limit cannot have same value than library limit"
                         )
                     ref = exception.get("library").get("$ref")
                     if ref in exceptions_lib:
-                        return _("Only one specific limit by library if " "allowed.")
+                        return _("Only one specific limit by library allowed.")
+                    exceptions_lib.append(ref)
+
+        if request_limits_data := self.get("limits", {}).get("request_limits"):
+            global_limit = request_limits_data.get("global_limit")
+            if library_limit := request_limits_data.get("library_limit"):
+                # Library limit cannot be higher than global limit
+                if library_limit > global_limit:
+                    return _("Library limit cannot be higher than global limit.")
+                # Exception limit cannot have same value as library limit
+                # Only one exception per library
+                exceptions_lib = []
+                exceptions = request_limits_data.get("library_exceptions", [])
+                for exception in exceptions:
+                    if exception.get("value") == library_limit:
+                        return _(
+                            "Exception limit cannot have same value as library limit"
+                        )
+                    ref = exception.get("library").get("$ref")
+                    if ref in exceptions_lib:
+                        return _("Only one specific limit by library allowed.")
                     exceptions_lib.append(ref)
         return True
 
@@ -159,18 +178,14 @@ class PatronType(IlsRecord):
         # check overdue items limits
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
         if not patron_type.check_overdue_items_limit(patron):
-            return False, [
-                _("Checkout denied: the maximal number of overdue " "items is reached")
-            ]
+            return False, [_("Checkout denied: maximum number of late items reached")]
         # check checkout count limit
         valid, message = patron_type.check_checkout_count_limit(patron, item)
         if not valid:
             return False, [message]
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
-            return False, [
-                _("Checkout denied: the maximal overdue fee amount " "is reached")
-            ]
+            return False, [_("Checkout denied: maximum amount of overdue fees reached")]
         # check unpaid subscription
         if not patron_type.check_unpaid_subscription(patron):
             return False, [_("Checkout denied: patron has unpaid subscription")]
@@ -193,17 +208,17 @@ class PatronType(IlsRecord):
         # check overdue items limits
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
         if not patron_type.check_overdue_items_limit(patron):
-            return False, [
-                _("Request denied: the maximal number of overdue " "items is reached")
-            ]
+            return False, [_("Maximum number of late items is reached")]
+        # check checkout count limit
+        valid, message = patron_type.check_request_limits(patron, item)
+        if not valid:
+            return False, [message]
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
-            return False, [
-                _("Request denied: the maximal overdue fee amount " "is reached")
-            ]
+            return False, [_("Maximum amount of overdue fees reached")]
         # check unpaid subscription
         if not patron_type.check_unpaid_subscription(patron):
-            return False, [_("Request denied: patron has unpaid subscription")]
+            return False, [_("Patron has unpaid subscription")]
 
         return True, []
 
@@ -224,14 +239,10 @@ class PatronType(IlsRecord):
         # check overdue items limit
         patron_type = PatronType.get_record_by_pid(patron.patron_type_pid)
         if not patron_type.check_overdue_items_limit(patron):
-            return False, [
-                _("Renewal denied: the maximal number of overdue " "items is reached")
-            ]
+            return False, [_("Renewal denied: maximum number of overdue items reached")]
         # check fee amount limit
         if not patron_type.check_fee_amount_limit(patron):
-            return False, [
-                _("Renewal denied: the maximal overdue fee amount " "is reached")
-            ]
+            return False, [_("Renewal denied: maximum amount of overdue fees reached")]
         # check unpaid subscription
         if not patron_type.check_unpaid_subscription(patron):
             return False, [_("Renewal denied: patron has unpaid subscription")]
@@ -300,6 +311,54 @@ class PatronType(IlsRecord):
             return limit > len(overdue_items)
         return True
 
+    def check_request_limits(self, patron, item=None):
+        """Check if a patron reached the request limits.
+
+        * check the global general limit (if exists).
+        * check the library exception limit (if exists).
+        * check the library default limit (if exists).
+        :param patron: the patron who tries to request the item.
+        :param item: the item related to the loan (optionnal).
+        :return a tuple of two values ::
+          - True|False : to know if the check is success or not.
+          - message(string) : the reason why the check fails.
+        """
+        request_limits = self.replace_refs().get("limits", {}).get("request_limits", {})
+        global_limit = request_limits.get("global_limit")
+        if not global_limit:
+            return True, None
+
+        # [0] get the stats for this patron by library
+        patron_library_stats = get_loans_count_by_library_for_patron_pid(
+            patron.pid, LoanState.REQUEST_STATES
+        )
+
+        # [1] check the general limit
+        patron_total_count = sum(patron_library_stats.values()) or 0
+        if patron_total_count >= global_limit:
+            return False, _("Maximum number of requests reached")
+
+        # [2] check library_limit if item is not none
+        if item:
+            item_lib_pid = item.library_pid
+            library_limit_value = next(
+                (
+                    exception["value"]
+                    for exception in request_limits.get("library_exceptions", [])
+                    if exception["library"]["pid"] == item_lib_pid
+                ),
+                request_limits.get("library_limit"),
+            )
+            if (
+                library_limit_value
+                and item_lib_pid in patron_library_stats
+                and patron_library_stats[item_lib_pid] >= library_limit_value
+            ):
+                return False, _("Maximum number of requests for this library reached")
+
+        # [3] no problem detected, checkout is allowed
+        return True, None
+
     def check_checkout_count_limit(self, patron, item=None):
         """Check if a patron reached the checkout limits.
 
@@ -328,10 +387,10 @@ class PatronType(IlsRecord):
         patron_total_count = sum(patron_library_stats.values()) or 0
         if patron_total_count >= global_limit:
             return False, _(
-                "Checkout denied: the maximal checkout number " "is reached."
+                "Checkout denied: maximum number of checked out items reached"
             )
 
-        # [3] check library_limit if item is not none
+        # [2] check library_limit if item is not none
         if item:
             item_lib_pid = item.library_pid
             library_limit_value = next(
@@ -348,12 +407,11 @@ class PatronType(IlsRecord):
                 and patron_library_stats[item_lib_pid] >= library_limit_value
             ):
                 return False, _(
-                    "Checkout denied: the maximal checkout "
-                    "number of items for this library is "
-                    "reached."
+                    "Checkout denied: maximum number of "
+                    "checked out items for this library reached"
                 )
 
-        # [4] no problem detected, checkout is allowed
+        # [3] no problem detected, checkout is allowed
         return True, None
 
     def check_fee_amount_limit(self, patron):

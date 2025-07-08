@@ -90,6 +90,7 @@
       "propertiesOrder": [
         "unpaid_subscription",
         "checkout_limits",
+        "request_limits",
         "fee_amount_limits",
         "overdue_items_limits"
       ],
@@ -159,6 +160,76 @@
                   },
                   "value": {
                     "title": "Checkout limit",
+                    "type": "number",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "request_limits": {
+          "title": "Limit requests",
+          "type": "object",
+          "additionalProperties": false,
+          "propertiesOrder": [
+            "global_limit",
+            "library_limit",
+            "library_exceptions"
+          ],
+          "properties": {
+            "global_limit": {
+              "title": "Number of active requests in the organisation",
+              "description": "Requests are blocked once the specified number of requests is reached by the patron.",
+              "type": "number",
+              "minimum": 1
+            },
+            "library_limit": {
+              "title": "Number of active requests by library",
+              "description": "Requests are blocked once the specified number of requests is reached by the patron for items of the same owning library. This is the same limit for all libraries.",
+              "type": "number",
+              "minimum": 1
+            },
+            "library_exceptions": {
+              "type": "array",
+              "title": "Exceptions by library to the requests limits",
+              "items": {
+                "type": "object",
+                "title": "Exception",
+                "required": [
+                  "library",
+                  "value"
+                ],
+                "propertiesOrder": [
+                  "library",
+                  "value"
+                ],
+                "properties": {
+                  "library": {
+                    "title": "Library",
+                    "type": "object",
+                    "required": [
+                      "$ref"
+                    ],
+                    "properties": {
+                      "$ref": {
+                        "title": "Library URI",
+                        "type": "string",
+                        "pattern": "^https://bib.rero.ch/api/libraries/.*?$",
+                        "widget": {
+                          "formlyConfig": {
+                            "props": {
+                              "remoteOptions": {
+                                "type": "libraries"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "value": {
+                    "title": "Requests limit",
                     "type": "number",
                     "minimum": 1
                   }
