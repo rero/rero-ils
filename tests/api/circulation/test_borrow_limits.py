@@ -375,7 +375,7 @@ def test_overdue_limit(
         ),
     )
     assert res.status_code == 403
-    assert "maximal number of overdue items is reached" in data["message"]
+    assert "Maximum number of late items is reached" in data["message"]
     # Try to extend - limit should be reached
     res, _ = postdata(
         client,
@@ -387,7 +387,7 @@ def test_overdue_limit(
         ),
     )
     assert res.status_code == 403
-    assert "maximal number of overdue items is reached" in data["message"]
+    assert "Maximum number of late items is reached" in data["message"]
 
     # reset the patron_type with default value
     del patron_type["limits"]
@@ -417,7 +417,7 @@ def test_overdue_limit(
         ),
     )
     assert res.status_code == 403
-    assert "maximal overdue fee amount is reached" in data["message"]
+    assert "Checkout denied" in data["message"]
 
     # [2.2] test fee amount limit when we try to request another item
     res, data = postdata(
@@ -432,7 +432,7 @@ def test_overdue_limit(
         ),
     )
     assert res.status_code == 403
-    assert "maximal overdue fee amount is reached" in data["message"]
+    assert "Maximum amount of overdue fees reached" in data["message"]
 
     # [2.3] test fee amount limit when we try to extend loan
     res, _ = postdata(
@@ -446,7 +446,7 @@ def test_overdue_limit(
     )
 
     assert res.status_code == 403
-    assert "maximal overdue fee amount is reached" in data["message"]
+    assert "Maximum amount of overdue fees reached" in data["message"]
 
     # reset the patron_type with default value
     del patron_type["limits"]

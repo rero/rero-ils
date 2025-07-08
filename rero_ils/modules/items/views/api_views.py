@@ -505,7 +505,7 @@ def can_request(item_pid):
     # reasons why
     response = {"can": can}
     if reasons:
-        response["reasons"] = {"others": {reason: True for reason in reasons}}
+        response["reasons"] = reasons
     return jsonify(response)
 
 
