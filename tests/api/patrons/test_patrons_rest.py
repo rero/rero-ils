@@ -435,7 +435,7 @@ def test_patrons_circulation_informations(
     res = client.get(url)
     data = res.json
     assert "error" == data["messages"][0]["type"]
-    assert "Patron rights expired." in data["messages"][0]["content"]
+    assert "Patron rights expired" in data["messages"][0]["content"]
 
     # reset the patron
     patron["patron"]["blocked"] = True

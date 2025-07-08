@@ -1022,15 +1022,11 @@ class ItemCirculation(ItemRecord):
         if "patron" in kwargs:
             patron = kwargs["patron"]
             if patron.organisation_pid != item.organisation_pid:
-                reasons.append(
-                    _("Item and patron are not in the same " "organisation.")
-                )
+                reasons.append(_("Item and patron are not in the same organisation."))
             if patron.patron.get("barcode") and item.patron_has_an_active_loan_on_item(
                 patron
             ):
-                reasons.append(
-                    _("Item is already checked-out or requested by " "patron.")
-                )
+                reasons.append(_("Item is already checked-out or requested by patron."))
         return len(reasons) == 0, reasons
 
     def action_filter(
