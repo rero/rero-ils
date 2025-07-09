@@ -274,7 +274,7 @@
           "description": "Date of the original in case of a reproduction.",
           "type": "integer",
           "minimum": -9999,
-          "maximum": 2050,
+          "maximum": 9999,
           "widget": {
             "formlyConfig": {
               "props": {
