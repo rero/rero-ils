@@ -23,7 +23,6 @@ import contextlib
 import re
 
 from dojson import utils
-from flask import current_app
 
 from rero_ils.dojson.utils import (
     ReroIlsMarc21Overdo,
@@ -548,10 +547,10 @@ def marc21_to_subjects_6XX(self, key, value):
     """
     type_per_tag = {
         "600": EntityType.PERSON,
-        "610": EntityType.ORGANISATION,
-        "611": EntityType.ORGANISATION,
         "600t": EntityType.WORK,
+        "610": EntityType.ORGANISATION,
         "610t": EntityType.WORK,
+        "611": EntityType.ORGANISATION,
         "611t": EntityType.WORK,
         "630": EntityType.WORK,
         "650": EntityType.TOPIC,  # or bf:Temporal, changed by code
@@ -561,10 +560,10 @@ def marc21_to_subjects_6XX(self, key, value):
 
     subfield_code_per_tag = {
         "600": "abcd",
-        "610": "ab",
-        "611": "acden",
         "600t": "tpn",
+        "610": "ab",
         "610t": "tpn",
+        "611": "acden",
         "611t": "t",
         "630": "apn",
         "650": "a",
@@ -577,20 +576,10 @@ def marc21_to_subjects_6XX(self, key, value):
     indicator_2 = key[4]
     tag_key = key[:3]
     subfields_2 = utils.force_list(value.get("2"))
-    subfield_2 = subfields_2[0] if subfields_2 else None
+    subfield_2 = subfields_2[0].replace("gnd-content", "gnd") if subfields_2 else None
     subfields_a = utils.force_list(value.get("a", []))
-    # Try to get RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE from current app
-    # In the dojson cli is no current app and we have to get the value directly
-    # from config.py
-    try:
-        config_field_key = current_app.config.get(
-            "RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE", "subjects_imported"
-        )
-    except Exception:
-        from rero_ils.config import (
-            RERO_ILS_IMPORT_6XX_TARGET_ATTRIBUTE as config_field_key,
-        )
 
+    field_key = "genreForm" if tag_key == "655" else "subjects_imported"
     if subfield_2 in ["rero", "gnd", "idref"]:
         if tag_key in ["600", "610", "611"] and value.get("t"):
             tag_key += "t"
@@ -620,44 +609,37 @@ def marc21_to_subjects_6XX(self, key, value):
         # elif tag_key in ['600t', '610t', '611t']:
         if tag_key in ["600t", "610t", "611t"]:
             creator_tag_key = tag_key[:3]  # to keep only tag:  600, 610, 611
-            creator = remove_trailing_punctuation(
+            if creator := remove_trailing_punctuation(
                 build_string_from_subfields(
                     value, subfield_code_per_tag[creator_tag_key]
                 ),
                 ".",
                 ".",
-            )
-            if creator:
+            ):
                 subject["authorized_access_point"] = (
                     f'{creator}. {subject["authorized_access_point"]}'
                 )
 
-        field_key = "genreForm" if tag_key == "655" else config_field_key
-
-        if field_key != "subjects_imported" and (
-            ref := get_mef_link(
-                bibid=marc21.bib_id,
-                reroid=marc21.bib_id,
-                entity_type=data_type,
-                ids=utils.force_list(value.get("0")),
-                key=key,
-            )
+        if ref := get_mef_link(
+            bibid=marc21.bib_id,
+            reroid=marc21.bib_id,
+            entity_type=data_type,
+            ids=utils.force_list(value.get("0")),
+            key=key,
         ):
+            field_key = "subjects"
             subject = {"$ref": ref}
         else:
-            identifier = build_identifier(value)
-            if identifier:
-                subject["identifiedBy"] = identifier
-            if field_key != "genreForm":
+            if field_key == "genreForm":
                 perform_subdivisions(subject, value)
-
-        if subject.get("$ref") or subject.get("authorized_access_point"):
+            if identifier := build_identifier(value):
+                subject["identifiedBy"] = identifier
+        if subject.get("authorized_access_point") or subject.get("$ref"):
             self.setdefault(field_key, []).append(dict(entity=subject))
     elif indicator_2 in ["0", "2"]:
-        term_string = build_string_from_subfields(
+        if term_string := build_string_from_subfields(
             value, "abcdefghijklmnopqrstuw", " - "
-        )
-        if term_string:
+        ):
             data = {
                 "type": type_per_tag[tag_key],
                 "source": source_per_indicator_2[indicator_2],
@@ -665,7 +647,7 @@ def marc21_to_subjects_6XX(self, key, value):
             }
             perform_subdivisions(data, value)
             if data:
-                self.setdefault(config_field_key, []).append(dict(entity=data))
+                self.setdefault(field_key, []).append(dict(entity=data))
 
 
 @marc21.over("sequence_numbering", "^362..")
