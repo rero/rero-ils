@@ -99,6 +99,8 @@ id_fetcher_test = partial(id_fetcher, provider=ProviderTest)
 class TestRecordMetadata(db.Model, RecordMetadataBase):
     """Represent a record metadata."""
 
+    __test__ = False
+
     __tablename__ = "records_metadata_test"
 
     # Enables SQLAlchemy-Continuum versioning

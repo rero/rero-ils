@@ -23,11 +23,11 @@ from elasticsearch_dsl.search import Response
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from mock import mock
-from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
 from rero_ils.modules.stats.api.api import StatsSearch
+from tests.utils import get_json, postdata
 
 
 def test_item_stats_endpoint(

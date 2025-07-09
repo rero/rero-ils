@@ -18,12 +18,12 @@
 
 """Tests acquisition serializers."""
 
-from api.acquisition.acq_utils import _del_resource, _make_resource
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
 
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.api.acquisition.acq_utils import _del_resource, _make_resource
+from tests.utils import get_json
 
 
 def test_acquisition_orders_serializers(

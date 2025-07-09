@@ -17,9 +17,8 @@
 
 """Operation logs elasticsearch mapping tests."""
 
-from utils import get_mapping
-
 from rero_ils.modules.operation_logs.api import OperationLog
+from tests.utils import get_mapping
 
 
 def test_operation_log_es_mapping(item_lib_sion, operation_log_data):
