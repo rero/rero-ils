@@ -133,15 +133,15 @@ def _populate_document_data_form(doc_pid, form):
     if authors:
         form.document.authors.data = "; ".join(authors[:3])
     # Document publisher and year
-    types = ["bf:Publication"]
-    if production_activity := next(get_production_activity(doc, types), None):
+    if production_activity := next(
+        get_production_activity(doc, ["bf:Publication"]), None
+    ):
         # Document date
         if date := production_activity.get("startDate"):
             form.document.year.data = date
-            statement_types = ["bf:Agent"]
         # Document publisher
         if statement := next(
-            get_production_activity_statement(production_activity, statement_types),
+            get_production_activity_statement(production_activity, ["bf:Agent"]),
             None,
         ):
             if label := statement.get("label"):
