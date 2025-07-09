@@ -17,8 +17,6 @@
 
 """Test for missing invenio_celery task endpoints."""
 
-from __future__ import absolute_import, print_function
-
 from importlib_metadata import entry_points
 from invenio_records_rest.utils import obj_or_import_string
 

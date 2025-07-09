@@ -18,7 +18,6 @@
 
 """Document record extension to enrich the edition statement."""
 
-
 from invenio_records.extensions import RecordExtension
 
 from rero_ils.dojson.utils import remove_trailing_punctuation

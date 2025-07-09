@@ -17,8 +17,6 @@
 
 """Click command-line interface for notifications."""
 
-from __future__ import absolute_import, print_function
-
 import click
 from flask.cli import with_appcontext
 

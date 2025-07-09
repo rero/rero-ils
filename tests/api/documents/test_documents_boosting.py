@@ -16,8 +16,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests boosting query for documents."""
+
 from flask import url_for
-from utils import get_json
+
+from tests.utils import get_json
 
 
 def test_document_boosting(client, roles, ebook_1, ebook_4):

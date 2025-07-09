@@ -20,7 +20,8 @@
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_csv
+
+from tests.utils import get_csv
 
 
 def test_csv_serializer(

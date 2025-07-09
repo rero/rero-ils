@@ -18,13 +18,10 @@
 
 """Tests Selfcheck api."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import datetime, timedelta, timezone
 
 import pytest
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, LoansSearch
@@ -49,6 +46,7 @@ from rero_ils.modules.selfcheck.api import (
 )
 from rero_ils.modules.selfcheck.utils import check_sip2_module
 from rero_ils.modules.users.api import User
+from tests.utils import get_json, postdata
 
 # skip tests if invenio-sip2 module is not installed
 pytestmark = pytest.mark.skipif(

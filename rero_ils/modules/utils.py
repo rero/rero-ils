@@ -18,7 +18,6 @@
 
 """Utilities for rero-ils editor."""
 
-
 import contextlib
 import cProfile
 import os
@@ -52,6 +51,8 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 from werkzeug.local import LocalProxy
+
+from rero_ils.modules.providers import set_sequence
 
 # jsonschema resolver
 # SEE: RECORDS_REFRESOLVER_STORE for more details
@@ -474,14 +475,14 @@ def pids_exists_in_data(info, data, required=None, not_required=None):
                         data_pid = None
                     if not data_pid and is_required:
                         return_value.append(
-                            f"{info}: No pid found: " f"{pid_type} {data_to_test}"
+                            f"{info}: No pid found: {pid_type} {data_to_test}"
                         )
                     else:
                         if data_pid and not pid_exists(
                             info=info, pid_type=pid_type, pid=data_pid
                         ):
                             return_value.append(
-                                f"{info}: Pid does not exist: " f"{pid_type} {data_pid}"
+                                f"{info}: Pid does not exist: {pid_type} {data_pid}"
                             )
                 if is_required and not data_to_test_list:
                     return_value.append(f"{info}: No data found: {key}")
@@ -686,9 +687,7 @@ def timeit(func):
     def wrapped(*args, **kwargs):
         start_time = datetime.now()
         result = func(*args, **kwargs)
-        click.echo(
-            f"\t>> timeit: {datetime.now() - start_time} " f"{func} {type(args[0])}"
-        )
+        click.echo(f"\t>> timeit: {datetime.now() - start_time} {func} {type(args[0])}")
         return result
 
     return wrapped
@@ -792,7 +791,7 @@ def bulk_load(
     buffer_uuid = []
     index = columns.index("id") if "id" in columns else -1
     start_time = datetime.now()
-    with open(data, "r", encoding="utf-8", buffering=1) as input_file:
+    with open(data, encoding="utf-8", buffering=1) as input_file:
         for line in input_file:
             count += 1
             buffer.write(line.replace("\\", "\\\\"))
@@ -806,7 +805,7 @@ def bulk_load(
                     diff_time = end_time - start_time
                     start_time = end_time
                     click.echo(
-                        f"{pid_type} copy from file: {count} " f"{diff_time.seconds}s",
+                        f"{pid_type} copy from file: {count} {diff_time.seconds}s",
                         nl=False,
                     )
                 db_copy_from(buffer=buffer, table=table, columns=columns)
@@ -895,7 +894,7 @@ def bulk_load_pids(pid_type, ids, bulk_count=0, verbose=True, reindex=False):
             pid = int(line)
             if pid > max_pid:
                 max_pid = pid
-    identifier._set_sequence(max_pid)
+    set_sequence(identifier)
 
 
 def bulk_save(pid_type, file_name, table, columns, verbose=False):
@@ -943,7 +942,7 @@ def bulk_save_pidstore(pid_type, file_name, file_name_tmp, verbose=False):
             verbose=verbose,
         )
     # clean pid file
-    with open(file_name_tmp, "r") as file_in:
+    with open(file_name_tmp) as file_in:
         with open(file_name, "w") as file_out:
             count = 0
             for line in file_in:
@@ -972,7 +971,7 @@ def bulk_save_pids(pid_type, file_name, verbose=False):
 def number_records_in_file(json_file, type):
     """Get number of records per file."""
     count = 0
-    with open(json_file, "r", buffering=1) as file:
+    with open(json_file, buffering=1) as file:
         for line in file:
             if (type == "json" and '"pid"' in line) or type == "csv":
                 count += 1
@@ -1005,7 +1004,7 @@ def requests_retry_session(
     return session
 
 
-class JsonWriter(object):
+class JsonWriter:
     """Json Writer."""
 
     count = 0
@@ -1111,7 +1110,7 @@ def get_objects(record_class, query):
 
 def strip_chars(string, extra=""):
     """Remove control characters from string."""
-    remove_re = re.compile("[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f%s]" % extra)
+    remove_re = re.compile(f"[\x00-\x08\x0b-\x0c\x0e-\x1f\x7f{extra}]")
     new_string, _ = remove_re.subn("", string)
     return new_string
 

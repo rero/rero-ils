@@ -18,8 +18,6 @@
 
 """Click command-line utilities."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import sys
 
@@ -62,11 +60,6 @@ def connect_queue(connection, name):
     return queue(connection)
 
 
-@click.group()
-def index():
-    """Index management commands."""
-
-
 @index.command()
 @click.option("--delayed", "-d", is_flag=True, help="Run indexing in background.")
 @click.option(
@@ -102,7 +95,7 @@ def run(
     """Run bulk record indexing."""
     if delayed:
         click.secho(
-            f"Starting {concurrency} tasks for indexing records " f"({queue})...",
+            f"Starting {concurrency} tasks for indexing records ({queue})...",
             fg="green",
         )
         celery_kwargs = {
@@ -350,22 +343,24 @@ def update_mapping(aliases, settings):
     if not aliases:
         aliases = current_search.aliases.keys()
     for alias in aliases:
-        for index, f_mapping in iter(current_search.aliases.get(alias).items()):
+        for es_index, f_mapping in iter(current_search.aliases.get(alias).items()):
             mapping = json.load(open(f_mapping))
             try:
                 if mapping.get("settings") and settings:
-                    current_search_client.indices.close(index=index)
+                    current_search_client.indices.close(index=es_index)
                     current_search_client.indices.put_settings(
-                        body=mapping.get("settings"), index=index
+                        body=mapping.get("settings"), index=es_index
                     )
-                    current_search_client.indices.open(index=index)
+                    current_search_client.indices.open(index=es_index)
                 res = current_search_client.indices.put_mapping(
-                    body=mapping.get("mappings"), index=index
+                    body=mapping.get("mappings"), index=es_index
                 )
             except Exception as excep:
                 click.secho(f"error: {excep}", fg="red")
             if res.get("acknowledged"):
-                click.secho(f"index: {index} has been sucessfully updated", fg="green")
+                click.secho(
+                    f"index: {es_index} has been sucessfully updated", fg="green"
+                )
             else:
                 click.secho(f"error: {res}", fg="red")
 

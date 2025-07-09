@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Blueprint used for AcqOrder API."""
+
 from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from jinja2 import TemplateNotFound
@@ -67,7 +68,7 @@ def order_notification_preview(order_pid):
     except TemplateNotFound:
         # If the corresponding translated template isn't found, use the english
         # template as default template
-        msg = 'None "vendor_order_mail" template found for ' f'"{language}" language'
+        msg = f'None "vendor_order_mail" template found for "{language}" language'
         current_app.logger.error(msg)
         response["message"] = [{"type": "error", "content": msg}]
         language = current_app.config.get("RERO_ILS_APP_DEFAULT_LANGUAGE", "eng")

@@ -228,8 +228,8 @@ class SyncEntity:
                 """
                 # MEF urls for updated pids
                 urls = [
-                    f'{get_mef_url("agents")}/mef/updated',
-                    f'{get_mef_url("concepts")}/mef/updated',
+                    f"{get_mef_url('agents')}/mef/updated",
+                    f"{get_mef_url('concepts')}/mef/updated",
                 ]
                 # number of provided updated MEF pids
                 n_provided = 0
@@ -283,7 +283,7 @@ class SyncEntity:
             if not (entity := RemoteEntity.get_record_by_pid(pid)):
                 raise RecordNotFound(RemoteEntity, pid)
 
-            self.logger.debug(f'Processing {entity["type"]} MEF(pid: {pid})')
+            self.logger.debug(f"Processing {entity['type']} MEF(pid: {pid})")
             # iterate over all entity sources: rero, gnd, idref
             pids_to_replace = {}
             for source in entity["sources"]:
@@ -295,7 +295,7 @@ class SyncEntity:
                 if not (mef_pid := mef.get("pid")):
                     raise Exception(
                         f"Error cannot get latest for "
-                        f'{entity["type"]} {source}:{entity[source]["pid"]}'
+                        f"{entity['type']} {source}:{entity[source]['pid']}"
                     )
 
                 old_entity_pid = entity[source]["pid"]
@@ -324,7 +324,7 @@ class SyncEntity:
                         if RemoteEntity.get_record_by_pid(new_mef_pid):
                             # update the new MEF - recursion
                             self.logger.info(
-                                f'{entity["type"]} MEF(pid: {entity.pid}) '
+                                f"{entity['type']} MEF(pid: {entity.pid}) "
                                 f"recursion with (pid:{new_mef_pid})"
                             )
                             new_doc_updated, new_updated, new_error = self.sync_record(
@@ -342,12 +342,12 @@ class SyncEntity:
                                 )
                                 RemoteEntitiesSearch.flush_and_refresh()
                             self.logger.info(
-                                f'Create a new MEF {entity["type"]} '
+                                f"Create a new MEF {entity['type']} "
                                 f"record(pid: {new_mef_pid})"
                             )
                     # something changed, update the content
                     self.logger.info(
-                        f'MEF {entity["type"]} record(pid: {entity.pid}) '
+                        f"MEF {entity['type']} record(pid: {entity.pid}) "
                         "content has been updated"
                     )
                     if not self.dry_run:
@@ -369,7 +369,7 @@ class SyncEntity:
                 # need to update each documents
                 doc_pids = entity.documents_pids()
                 self.logger.info(
-                    f'MEF {entity["type"]} record(pid: {entity.pid}) '
+                    f"MEF {entity['type']} record(pid: {entity.pid}) "
                     f" try to update documents: {doc_pids}"
                 )
 
@@ -398,7 +398,7 @@ class SyncEntity:
     def end_sync(self, n_doc_updated, n_mef_updated, mef_errors):
         """Add logging and cache information about the ending process."""
         self.logger.info(
-            f"DONE: doc updated: {n_doc_updated}, " f"mef updated: {n_mef_updated}."
+            f"DONE: doc updated: {n_doc_updated}, mef updated: {n_mef_updated}."
         )
         if self.dry_run:
             return
@@ -461,7 +461,7 @@ class SyncEntity:
                 # remove from the database and the index: no tombstone
                 entity.delete(True, True, True)
             self.logger.info(
-                f'MEF {entity["type"]} record(pid: {entity.pid}) ' "has been deleted."
+                f"MEF {entity['type']} record(pid: {entity.pid}) has been deleted."
             )
             return True
         return False

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST API item_types."""
+
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
@@ -24,7 +25,6 @@ import pytz
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_circulation.api import get_loan_for_item
-from utils import check_timezone_date, get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.utils import item_pid_to_object
@@ -42,6 +42,7 @@ from rero_ils.modules.notifications.dispatcher import Dispatcher
 from rero_ils.modules.notifications.models import NotificationType
 from rero_ils.modules.notifications.utils import number_of_notifications_sent
 from rero_ils.modules.operation_logs.api import OperationLogsSearch
+from tests.utils import check_timezone_date, get_json, postdata
 
 
 def test_loans_search(
@@ -164,7 +165,7 @@ def test_loan_access_permissions(
     # without query filter I should have 3 loans one of mine and two
     # in my employed organisation, the other patron loan of my patron org
     # should be filtered
-    loan_list = url_for("invenio_records_rest.loanid_list", q=f"")
+    loan_list = url_for("invenio_records_rest.loanid_list", q="")
     res = client.get(loan_list)
     assert res.status_code == 200
     data = get_json(res)
@@ -328,10 +329,10 @@ def test_overdue_loans(
             transaction_user_pid=librarian_martigny.pid,
         ),
     )
-    assert (
-        res.status_code == 200
-    ), "It probably failed while \
+    assert res.status_code == 200, (
+        "It probably failed while \
         test_due_soon_loans fail"
+    )
 
     loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
     loan = Loan.get_record_by_pid(loan_pid)

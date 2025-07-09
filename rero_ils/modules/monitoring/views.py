@@ -144,7 +144,7 @@ def check_es_db_counts():
             }
             for info, count in doc_type_data.items():
                 if info == "db_es":
-                    msg = f"There are {count} items " f"from {doc_type} missing in ES."
+                    msg = f"There are {count} items from {doc_type} missing in ES."
                     links[doc_type] = url_for(
                         "api_monitoring.missing_pids", doc_type=doc_type, _external=True
                     )
@@ -158,7 +158,7 @@ def check_es_db_counts():
                         }
                     )
                 elif info == "db-":
-                    msg = f"There are {count} items " f"from {doc_type} missing in DB."
+                    msg = f"There are {count} items from {doc_type} missing in DB."
                     links[doc_type] = url_for(
                         "api_monitoring.missing_pids", doc_type=doc_type, _external=True
                     )
@@ -172,7 +172,7 @@ def check_es_db_counts():
                         }
                     )
                 elif info == "es-":
-                    msg = f"There are {count} items " f"from {doc_type} missing in ES."
+                    msg = f"There are {count} items from {doc_type} missing in ES."
                     links[doc_type] = url_for(
                         "api_monitoring.missing_pids", doc_type=doc_type, _external=True
                     )

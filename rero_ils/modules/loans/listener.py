@@ -63,7 +63,7 @@ def enrich_loan_data(
             json["library_pid"] = item.holding_library_pid
             json["location_pid"] = item.holding_location_pid
         else:
-            msg = f'No item found: {item_pid} for loan: {record.get("pid")}'
+            msg = f"No item found: {item_pid} for loan: {record.get('pid')}"
             current_app.logger.warning(msg)
 
 

@@ -196,7 +196,7 @@ def patron_status(barcode, **kwargs):
                 fee_amount = get_transactions_total_amount_for_patron(
                     patron.pid, status="open", with_subscription=False
                 )
-                patron_status_response["fee_amount"] = "%.2f" % fee_amount
+                patron_status_response["fee_amount"] = f"{fee_amount:.2f}"
                 return patron_status_response
             else:
                 return SelfcheckPatronStatus(
@@ -270,7 +270,7 @@ def patron_information(barcode, **kwargs):
                 fee_amount = get_transactions_total_amount_for_patron(
                     patron.pid, status="open", with_subscription=False
                 )
-                patron_account_information["fee_amount"] = "%.2f" % fee_amount
+                patron_account_information["fee_amount"] = f"{fee_amount:.2f}"
                 # check for fine items
                 if fee_amount > 0:
                     # Check if fine items exist
@@ -355,7 +355,7 @@ def item_information(item_barcode, **kwargs):
                         )
                         if transaction:
                             item_information["fee_amount"] = (
-                                "%.2f" % transaction.total_amount
+                                f"{transaction.total_amount:.2f}"
                             )
                             item_information["currency_type"] = transaction.currency
                             item_information.get("screen_messages", []).append(
@@ -458,7 +458,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwa
                     checkout["due_date"] = loan["end_date"]
                 else:
                     checkout.get("screen_messages", []).append(
-                        _("Item is already checked-out or " "requested by patron.")
+                        _("Item is already checked-out or requested by patron.")
                     )
             except PatronBarcodeNotFound:
                 checkout = SelfcheckCheckout(
@@ -607,7 +607,7 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                         if transaction:
                             # TODO: map transaction type
                             renew["fee_type"] = SelfcheckFeeType.OVERDUE
-                            renew["fee_amount"] = "%.2f" % transaction.total_amount
+                            renew["fee_amount"] = f"{transaction.total_amount:.2f}"
                             renew["currency_type"] = transaction.currency
                         # TODO: When is possible, try to return fields:
                         #       magnetic_media

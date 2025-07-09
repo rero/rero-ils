@@ -18,7 +18,6 @@
 
 """API for manipulating budgets."""
 
-
 import contextlib
 from functools import partial
 

@@ -20,19 +20,19 @@
 import json
 from copy import deepcopy
 from datetime import datetime, timedelta
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.models import CommunicationChannel
 from rero_ils.modules.patrons.utils import create_user_from_data
 from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 def test_patrons_shortcuts(
@@ -393,7 +393,7 @@ def test_patrons_circulation_informations(
     tomorrow,
     ill_request_sion,
 ):
-    """test patron circulation informations."""
+    """Test patron circulation informations."""
     url = url_for(
         "api_patrons.patron_circulation_informations", patron_pid=patron_sion.pid
     )
@@ -604,7 +604,7 @@ def test_patrons_search(client, librarian_martigny):
 
     # birth year
     list_url = url_for(
-        "invenio_records_rest.ptrn_list", q=f'{birthdate.split("-")[0]}', simple="1"
+        "invenio_records_rest.ptrn_list", q=f"{birthdate.split('-')[0]}", simple="1"
     )
     res = client.get(list_url)
     hits = get_json(res)["hits"]

@@ -17,15 +17,14 @@
 
 """Test item circulation validate request actions."""
 
-
 import pytest
 from invenio_circulation.errors import NoValidTransitionAvailableError
-from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.errors import NoCirculationAction
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanState
+from tests.utils import item_record_to_a_specific_loan_state
 
 
 def test_validate_on_item_on_shelf_no_requests(

@@ -17,8 +17,6 @@
 
 """Document utils tests."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.documents.extensions import TitleExtension
 
 

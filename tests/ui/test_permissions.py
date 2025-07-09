@@ -16,10 +16,10 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test permissions."""
-from utils import login_user_for_view
 
 from rero_ils.modules.permissions import has_superuser_access
 from rero_ils.permissions import librarian_update_permission_factory
+from tests.utils import login_user_for_view
 
 
 def test_has_superuser_access(app):

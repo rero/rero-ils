@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating the item issue."""
+
 from datetime import datetime, timezone
 
 from rero_ils.modules.notifications.api import Notification, NotificationsSearch

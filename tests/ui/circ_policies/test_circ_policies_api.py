@@ -17,8 +17,6 @@
 
 """Circulation policies tests."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 
 import pytest
@@ -65,8 +63,7 @@ def test_circ_policy_create(
     assert cipo.get("pid") == "2"
 
     cipo_data = {
-        "$schema": "https://bib.rero.ch/schemas/"
-        "circ_policies/circ_policy-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/circ_policies/circ_policy-v0.0.1.json",
         "pid": "cipo_test",
         "name": "test",
         "organisation": {"$ref": "https://bib.rero.ch/api/organisations/org1"},

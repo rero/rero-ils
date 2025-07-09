@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests loans utils."""
+
 from rero_ils.modules.items.utils import item_pid_to_object
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.utils import (

@@ -23,7 +23,6 @@ import ciso8601
 from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from invenio_records.signals import after_record_update
-from utils import postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.tasks import (
@@ -55,6 +54,7 @@ from rero_ils.modules.patrons.tasks import (
     task_clear_and_renew_subscriptions,
 )
 from rero_ils.modules.utils import add_years, get_ref_for_pid
+from tests.utils import postdata
 
 
 def test_notifications_task(
@@ -270,7 +270,7 @@ def test_clear_obsolete_temporary_item_type_and_location(
     loc_restricted_martigny,
     item2_lib_martigny,
 ):
-    """test task test_clear_obsolete_temporary_item_type_and_location"""
+    """Test task test_clear_obsolete_temporary_item_type_and_location"""
     item = item_lib_martigny
     end_date = datetime.now() + timedelta(days=2)
     item["temporary_item_type"] = {

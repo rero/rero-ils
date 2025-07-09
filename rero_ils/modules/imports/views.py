@@ -18,8 +18,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, current_app, jsonify
 from flask import request as flask_request
 from invenio_records_rest.utils import obj_or_import_string

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Pytest fixtures and plugins for the API application."""
+
 import pytest
 
 

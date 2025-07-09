@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO-ILS Loan resource serializers for JSON format."""
+
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.dumpers import ItemCirculationDumper

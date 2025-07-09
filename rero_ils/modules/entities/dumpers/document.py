@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Indexing dumper."""
+
 from flask import current_app
 from invenio_records.dumpers import Dumper
 

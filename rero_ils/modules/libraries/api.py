@@ -100,9 +100,7 @@ class Library(IlsRecord):
         """
         for exception_date in self.get("exception_dates", []):
             if exception_date["is_open"] and not exception_date.get("times"):
-                return _(
-                    "Opening times must be specified for an open " "exception date."
-                )
+                return _("Opening times must be specified for an open exception date.")
         return True
 
     @property

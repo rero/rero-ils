@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition order dumpers."""
+
 from datetime import date
 
 from invenio_records.dumpers import Dumper as InvenioRecordsDumper

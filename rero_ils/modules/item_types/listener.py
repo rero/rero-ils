@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Signals connector for ItemTypes."""
+
 from elasticsearch_dsl import Q
 
 from rero_ils.modules.item_types.api import ItemType, ItemTypesIndexer

@@ -17,11 +17,9 @@
 
 """DOJSON module tests."""
 
-from __future__ import absolute_import, print_function
+from unittest import mock
 
-import mock
 from dojson.contrib.marc21.utils import create_record
-from utils import mock_response
 
 from rero_ils.dojson.utils import not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
@@ -35,6 +33,7 @@ from rero_ils.modules.documents.views import (
     get_other_accesses,
 )
 from rero_ils.modules.entities.models import EntityType
+from tests.utils import mock_response
 
 
 def test_not_repetetive(capsys):

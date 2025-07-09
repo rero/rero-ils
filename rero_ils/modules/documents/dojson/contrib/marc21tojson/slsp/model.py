@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """rero-ils MARC21 model definition."""
+
 import re
 
 from dojson import utils
@@ -438,7 +439,7 @@ def marc21_to_subjects_6XX(self, key, value):
             )
             if creator:
                 subject["authorized_access_point"] = (
-                    f'{creator}. {subject["authorized_access_point"]}'
+                    f"{creator}. {subject['authorized_access_point']}"
                 )
         field_key = "genreForm" if tag_key == "655" else config_field_key
         if field_key != "subjects_imported" and (

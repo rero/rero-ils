@@ -17,8 +17,6 @@
 
 """Click command-line interface for record management."""
 
-from __future__ import absolute_import, print_function
-
 import datetime
 import json
 import random
@@ -84,7 +82,6 @@ def create_items(count, itemscount, missing, items_f, holdings_f):
     """Create circulation items."""
 
     def generate(count, itemscount, missing):
-
         if count == -1:
             count = Document.count()
 

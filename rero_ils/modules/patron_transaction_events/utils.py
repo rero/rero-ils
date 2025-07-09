@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utils functions about patron_transaction_events."""
+
 from elasticsearch_dsl import Q
 from flask import request
 from invenio_records_rest.utils import make_comma_list_a_list

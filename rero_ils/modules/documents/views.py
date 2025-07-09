@@ -18,8 +18,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 from typing import Optional
 
 import click
@@ -28,14 +26,8 @@ from flask import Blueprint, current_app, render_template, url_for
 from flask_babel import gettext as _
 from invenio_records_ui.signals import record_viewed
 
-from rero_ils.modules.entities.api import Entity
-from rero_ils.modules.entities.helpers import get_entity_record_from_data
-from rero_ils.modules.locations.api import Location
-from rero_ils.modules.organisations.api import Organisation
-from rero_ils.modules.patrons.api import current_patrons
-from rero_ils.modules.utils import extracted_data_from_ref
-
 from ..entities.api import Entity
+from ..entities.helpers import get_entity_record_from_data
 from ..locations.api import Location
 from ..organisations.api import Organisation
 from ..patrons.api import current_patrons
@@ -169,8 +161,7 @@ def contribution_format(contributions, language, viewcode, with_roles=False):
             args = {
                 "viewcode": viewcode,
                 "recordType": "documents",
-                "q": f"contribution.entity.pids.{entity.resource_type}:"
-                f"{entity.pid}",
+                "q": f"contribution.entity.pids.{entity.resource_type}:{entity.pid}",
                 "simple": 0,
             }
         else:

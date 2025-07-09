@@ -16,14 +16,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
+from unittest import mock
+
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
-from utils import check_permission
 
 from rero_ils.modules.notifications.permissions import NotificationPermissionPolicy
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
+from tests.utils import check_permission
 
 
 @mock.patch.object(Patron, "_extensions", [])

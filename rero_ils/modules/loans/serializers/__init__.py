@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO-ILS Loan resource serializers."""
+
 from rero_ils.modules.serializers import (
     RecordSchemaJSONV1,
     search_responsify,

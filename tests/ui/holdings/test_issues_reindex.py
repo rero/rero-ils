@@ -18,8 +18,6 @@
 
 """Issues reindexing tests."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.holdings.models import HoldingTypes
 from rero_ils.modules.items.api import Item, ItemsSearch
 from rero_ils.modules.items.models import ItemIssueStatus

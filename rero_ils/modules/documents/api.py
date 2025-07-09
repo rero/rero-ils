@@ -18,7 +18,6 @@
 
 """API for manipulating documents."""
 
-
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError

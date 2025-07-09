@@ -17,9 +17,9 @@
 
 """Tests REST librarian request API methods in the item api_views."""
 
-
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+
+from tests.utils import postdata
 
 
 def test_add_request_failed_actions(

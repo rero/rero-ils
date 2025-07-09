@@ -16,11 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Notification record mapping tests."""
+
 from copy import deepcopy
 
-from utils import get_mapping
-
 from rero_ils.modules.notifications.api import Notification, NotificationsSearch
+from tests.utils import get_mapping
 
 
 def test_notification_es_mapping(dummy_notification, loan_validated_martigny):

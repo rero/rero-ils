@@ -17,6 +17,5 @@
 
 """Utils tests."""
 
-from __future__ import absolute_import, print_function
 
 # TODO: create test for the circulation transaction history

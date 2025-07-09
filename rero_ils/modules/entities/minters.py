@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Persistent identifier minters."""
+
 from collections import namedtuple
 
 EntityMinter = namedtuple(

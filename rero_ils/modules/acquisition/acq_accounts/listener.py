@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Signals connector for Acquisition account."""
+
 from .api import AcqAccount, AcqAccountsSearch
 from .models import AcqAccountExceedanceType
 

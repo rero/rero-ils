@@ -16,15 +16,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import mock
+from unittest import mock
+
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
-from utils import check_permission
 
 from rero_ils.modules.acquisition.acq_receipt_lines.permissions import (
     AcqReceiptLinePermissionPolicy,
 )
+from tests.utils import check_permission
 
 
 def test_receipt_lines_permissions(
@@ -141,8 +142,7 @@ def test_receipt_lines_permissions(
     # Special case !!! An acquisition receipt line linked to a closed budget
     # should be considerate as roll-overed and can't be updated.
     with mock.patch(
-        "rero_ils.modules.acquisition.acq_receipt_lines.api.AcqReceiptLine."
-        "is_active",
+        "rero_ils.modules.acquisition.acq_receipt_lines.api.AcqReceiptLine.is_active",
         False,
     ):
         check_permission(

@@ -17,8 +17,6 @@
 
 """Celery tasks for holdings records."""
 
-from __future__ import absolute_import, print_function
-
 from celery import shared_task
 from flask import current_app
 
@@ -49,7 +47,7 @@ def delete_standard_holdings_having_no_items():
                 errors += 1
                 reasons = record.reasons_not_to_delete()
                 current_app.logger.error(
-                    f"Can not delete standard holding: " f"{hit.pid} {reasons} {err}"
+                    f"Can not delete standard holding: {hit.pid} {reasons} {err}"
                 )
         else:
             # delete holding from index

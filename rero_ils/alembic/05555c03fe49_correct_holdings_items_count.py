@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Correct holdings items_count and public_items_count."""
+
 from logging import getLogger
 
 from rero_ils.modules.holdings.api import Holding, HoldingsSearch

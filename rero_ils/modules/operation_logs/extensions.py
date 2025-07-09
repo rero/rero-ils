@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Operation log record extensions."""
+
 import uuid
 from datetime import datetime, timezone
 from functools import partialmethod
