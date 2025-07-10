@@ -91,14 +91,16 @@ class ItemRecord(IlsRecord):
                 .source("pid")
                 .count()
             ):
-                return _(f"Barcode {barcode} is already taken.")
+                return _("Barcode {barcode} is already taken.").format(barcode=barcode)
 
         from ...holdings.api import Holding
 
         holding_pid = extracted_data_from_ref(self.get("holding").get("$ref"))
         holding = Holding.get_record_by_pid(holding_pid)
         if not holding:
-            return _(f"Holding does not exist: {holding_pid}")
+            return _("Holding {holding_pid} does not exist.").format(
+                holding_pid=holding_pid
+            )
 
         if self.get("issue") and self.get("type") == TypeOfItem.STANDARD:
             return _("Standard item can not have a issue field.")

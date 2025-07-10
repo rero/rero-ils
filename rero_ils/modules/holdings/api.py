@@ -163,7 +163,9 @@ class Holding(IlsRecord):
         document_pid = extracted_data_from_ref(self.get("document").get("$ref"))
         document = Document.get_record_by_pid(document_pid)
         if not document:
-            return _(f"Document does not exist {document_pid}.")
+            return _("Document {document_pid} does not exist.").format(
+                document_pid=document_pid
+            )
 
         if self.is_serial:
             patterns = self.get("patterns", {})
@@ -192,7 +194,9 @@ class Holding(IlsRecord):
             ]
             for field in fields:
                 if self.get(field):
-                    return _(f"{field} is allowed only for serial holdings")
+                    return _("{field} is allowed only for serial holdings").format(
+                        field=field
+                    )
         # No multiple notes with same type
         note_types = [note.get("type") for note in self.get("notes", [])]
         if len(note_types) != len(set(note_types)):
