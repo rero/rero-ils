@@ -97,14 +97,20 @@
                 ]
               },
               "canton": {
-                "$ref": "https://bib.rero.ch/schemas/common/cantons-v0.0.1.json#/canton",
-                "widget": {
-                  "formlyConfig": {
-                    "props": {
-                      "itemCssClass": "ui:col-span-12 ui:md:col-span-6"
+                "allOf": [
+                  {
+                    "widget": {
+                      "formlyConfig": {
+                        "props": {
+                          "itemCssClass": "ui:col-span-12 ui:md:col-span-6"
+                        }
+                      }
                     }
+                  },
+                  {
+                    "$ref": "https://bib.rero.ch/schemas/common/cantons-v0.0.1.json#/canton"
                   }
-                }
+                ]
               },
               "identifiedBy": {
                 "allOf": [
