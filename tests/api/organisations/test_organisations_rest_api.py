@@ -22,10 +22,10 @@ import json
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 from werkzeug.exceptions import NotFound
 
 from rero_ils.modules.organisations.api import Organisation
+from tests.utils import postdata
 
 
 def test_get_record_by_viewcode(org_martigny):

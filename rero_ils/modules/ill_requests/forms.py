@@ -29,7 +29,7 @@ from wtforms import (
     TextAreaField,
     validators,
 )
-from wtforms.fields.html5 import URLField
+from wtforms.fields import URLField
 
 from rero_ils.modules.utils import get_ref_for_pid
 from rero_ils.utils import remove_empties_from_dict
@@ -142,13 +142,13 @@ class ILLRequestForm(FlaskForm):
 
         # if 'copy' is set to True, then 'pages' is required field
         custom_validate = True
-        if self.copy.data == "1" and len(self.pages.data.strip()) == 0:
+        # TODO: and not self.pages.data ???
+        if self.copy.data == "1" and (
+            not self.pages.data or self.pages.data.strip() == 0
+        ):
             custom_validate = False
             self.pages.errors.append(
-                _(
-                    "As you request a document part, you need to specify "
-                    "requested pages"
-                )
+                _("As you request a document part, you need to specify requested pages")
             )
 
         return form_validate and custom_validate

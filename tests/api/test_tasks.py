@@ -23,7 +23,6 @@ import ciso8601
 from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from invenio_records.signals import after_record_update
-from utils import postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.tasks import (
@@ -55,6 +54,7 @@ from rero_ils.modules.patrons.tasks import (
     task_clear_and_renew_subscriptions,
 )
 from rero_ils.modules.utils import add_years, get_ref_for_pid
+from tests.utils import postdata
 
 
 def test_notifications_task(

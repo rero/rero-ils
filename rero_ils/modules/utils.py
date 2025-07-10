@@ -53,6 +53,8 @@ from requests.adapters import HTTPAdapter
 from urllib3.util import Retry
 from werkzeug.local import LocalProxy
 
+from rero_ils.modules.providers import set_sequence
+
 # jsonschema resolver
 # SEE: RECORDS_REFRESOLVER_STORE for more details
 refresolver_store = LocalProxy(
@@ -895,7 +897,7 @@ def bulk_load_pids(pid_type, ids, bulk_count=0, verbose=True, reindex=False):
             pid = int(line)
             if pid > max_pid:
                 max_pid = pid
-    identifier._set_sequence(max_pid)
+    set_sequence(identifier)
 
 
 def bulk_save(pid_type, file_name, table, columns, verbose=False):

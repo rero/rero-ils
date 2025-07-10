@@ -5,7 +5,7 @@
 # Depends on: faketime (`apt install faketime` i.e.)
 #
 # EXAMPLE:
-# ./scripts/all_year_days poetry run pytest -vvs --no-cov --disable-warnings tests/api/test_loans_rest.py
+# ./scripts/all_year_days uv run pytest -vvs --no-cov --disable-warnings tests/api/test_loans_rest.py
 #
 
 # variables
