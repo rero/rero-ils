@@ -225,3 +225,9 @@ def test_requesting_item_from_non_circulating_library(
     assert pickup_lib_pid == lib_martigny.pid
 
     assert loan.get("state") == LoanState.ITEM_ON_LOAN
+
+    # Test extend loan for library with no open days
+    loan["end_date"] = loan["start_date"]
+    loan.update(loan, dbcommit=True, reindex=True)
+    res, data = postdata(client, "api_item.extend_loan", params)
+    assert res.status_code == 200
