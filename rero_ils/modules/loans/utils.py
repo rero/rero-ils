@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Loans utils."""
+
 import math
 from datetime import datetime, timedelta, timezone
 
@@ -138,7 +139,11 @@ def get_extension_params(loan=None, initial_loan=None, parameter_name=None):
         + timedelta(days=policy.get("renewal_duration"))
         - timedelta(days=1)
     )
-    next_open_date = library.next_open(date=due_date_eve)
+    try:
+        next_open_date = library.next_open(date=due_date_eve)
+    except LibraryNeverOpen:
+        # if the library has no open day, use standard loan duration from cipo
+        next_open_date = due_date_eve + timedelta(days=1)
 
     if next_open_date.date() < end_date.date():
         params["max_count"] = 0
