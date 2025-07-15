@@ -17,7 +17,6 @@
 
 """Item collector."""
 
-
 import itertools
 
 import ciso8601
@@ -283,7 +282,7 @@ class Collector:
         except Exception as err:
             current_app.logger.error(
                 "ERROR in csv serializer: "
-                f'{err} on document: {csv_data.get("document_pid")}'
+                f"{err} on document: {csv_data.get('document_pid')}"
             )
 
     @classmethod
@@ -322,8 +321,12 @@ class Collector:
         """
 
         def _get_loans_by_item_pids(pids):
-            # initial es query to return all loans for the given item_pids
-            query = OperationLogsSearch().filter("terms", loan__item__pid=pids)
+            # initial es query to return all loan logs for the given item_pids
+            query = (
+                OperationLogsSearch()
+                .filter("term", record__type="loan")
+                .filter("terms", loan__item__pid=pids)
+            )
             # adds checkouts aggregation
             checkout_agg = A(
                 "filter",
