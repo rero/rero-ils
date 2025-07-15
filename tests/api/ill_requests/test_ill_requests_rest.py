@@ -25,10 +25,10 @@ import mock
 from dateutil.relativedelta import *
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.ill_requests.api import ILLRequest
 from rero_ils.modules.ill_requests.models import ILLRequestStatus
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 def test_ill_requests_permissions(client, ill_request_martigny, json_header):

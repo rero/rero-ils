@@ -19,11 +19,9 @@
 
 import mock
 import pytest
-from api.acquisition.acq_utils import _del_resource, _make_resource
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from jsonschema.exceptions import ValidationError
-from utils import VerifyRecordPermissionPatch, get_json
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, AcqAccountsSearch
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
@@ -31,6 +29,8 @@ from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.api.acquisition.acq_utils import _del_resource, _make_resource
+from tests.utils import VerifyRecordPermissionPatch, get_json
 
 
 @mock.patch(

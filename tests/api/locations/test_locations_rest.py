@@ -23,10 +23,10 @@ from copy import deepcopy
 import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.documents.views import record_library_pickup_locations
 from rero_ils.modules.locations.api import Location, LocationsSearch
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 def test_location_pickup_locations(

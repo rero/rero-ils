@@ -24,7 +24,6 @@ from datetime import datetime, timezone
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus, TypeOfItem
@@ -34,6 +33,7 @@ from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import get_json, postdata
 
 
 def test_provisional_items_creation(

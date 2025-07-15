@@ -24,9 +24,9 @@ import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.libraries.api import LibraryNeverOpen
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 def test_libraries_permissions(client, lib_martigny, json_header):

@@ -133,7 +133,7 @@ success_msg "UI ❯ successfully packaged."
 
 # include rero-ils-ui into rero-ils
 info_msg "ILS ❯ including rero-ils-ui…"
-static_folder=$(poetry run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder|cut -d: -f2-) || error_msg+exit "Error. Have you launched a bootstrap on this directory?"
+static_folder=$(uv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder|cut -d: -f2-) || error_msg+exit "Error. Have you launched a bootstrap on this directory?"
 npm i "${FRONTEND_PACKAGE}" --prefix "${static_folder}" \
   || error_msg+exit "ILS ❯ inclusion failed!"
 success_msg "ILS ❯ successfully included."
