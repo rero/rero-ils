@@ -534,16 +534,17 @@ class LoCImport(Import):
     )
 
     # http://www.loc.gov/standards/sru/resources/lcServers.html
+    # http://lx2.loc.gov:210/LCDB?
     search = {
-        "ean": "dc.identifier",
-        "anywhere": "anywhere",
+        "ean": "bath.lccn",
+        "anywhere": "cql.anywhere",
         "author": "dc.creator",
         "title": "dc.title",
-        "doctype": "dc.type",
-        "recordid": "dc.identifier",
-        "isbn": "dc.identifier",
-        "issn": "dc.identifier",
-        "date": "dc.date",
+        "doctype": "dc.type",  # NOT DEFINED IN LOC
+        "recordid": "bath.lccn",
+        "isbn": "bath.identifier",
+        "issn": "bath.identifier",
+        "date": "dc.date",  # NOT DEFINED IN LOC
     }
 
     to_json_processor = marc21_loc.do
