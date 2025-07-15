@@ -20,11 +20,11 @@
 from copy import deepcopy
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.cli.utils import create_personal
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.models import LoanAction
+from tests.utils import postdata
 
 
 def test_patron_can_delete(
@@ -51,13 +51,13 @@ def test_patron_can_delete(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item.pid,
-            pickup_location_pid=location.pid,
-            patron_pid=patron.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "pickup_location_pid": location.pid,
+            "patron_pid": patron.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan_pid = data.get("action_applied")[LoanAction.REQUEST].get("pid")
@@ -69,11 +69,11 @@ def test_patron_can_delete(
     res, data = postdata(
         client,
         "api_item.cancel_item_request",
-        dict(
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert item.status == ItemStatus.ON_SHELF

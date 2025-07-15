@@ -34,7 +34,7 @@ class IndexerDumper(Dumper):
         :param record: The record to dump.
         :param data: The initial dump data passed in by ``record.dumps()``.
         """
-        data["organisation"] = dict(pid=record.organisation_pid)
+        data["organisation"] = {"pid": record.organisation_pid}
         return data
 
 

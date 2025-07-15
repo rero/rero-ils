@@ -18,7 +18,6 @@
 
 """To compute the statistics for librarian."""
 
-
 import hashlib
 from datetime import datetime
 

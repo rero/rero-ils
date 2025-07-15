@@ -17,9 +17,9 @@
 
 """Tests REST change pickup location API methods in the item api_views."""
 
-
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+
+from tests.utils import postdata
 
 
 def test_change_pickup_location_request(
@@ -38,7 +38,7 @@ def test_change_pickup_location_request(
 
     # test fails when there is a missing required parameter
     res, data = postdata(
-        client, "api_item.update_loan_pickup_location", dict(pid=loan.pid)
+        client, "api_item.update_loan_pickup_location", {"pid": loan.pid}
     )
     assert res.status_code == 400
 
@@ -46,7 +46,7 @@ def test_change_pickup_location_request(
     res, data = postdata(
         client,
         "api_item.update_loan_pickup_location",
-        dict(pickup_location_pid=loc_public_martigny.pid),
+        {"pickup_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 400
 
@@ -55,7 +55,7 @@ def test_change_pickup_location_request(
     res, data = postdata(
         client,
         "api_item.update_loan_pickup_location",
-        dict(pid=loan.pid, pickup_location_pid=loc_public_fully.pid),
+        {"pid": loan.pid, "pickup_location_pid": loc_public_fully.pid},
     )
     assert res.status_code == 200
 
@@ -79,7 +79,7 @@ def test_change_pickup_location_request_for_other_loans(
     res, data = postdata(
         client,
         "api_item.update_loan_pickup_location",
-        dict(pid=loan.pid, pickup_location_pid=loc_public_fully.pid),
+        {"pid": loan.pid, "pickup_location_pid": loc_public_fully.pid},
     )
     assert res.status_code == 403
     # CHANGE_PICKUP_LOCATION_3_1: update denied on ITEM_AT_DESK loans.
@@ -87,7 +87,7 @@ def test_change_pickup_location_request_for_other_loans(
     res, data = postdata(
         client,
         "api_item.update_loan_pickup_location",
-        dict(pid=loan.pid, pickup_location_pid=loc_public_fully.pid),
+        {"pid": loan.pid, "pickup_location_pid": loc_public_fully.pid},
     )
     assert res.status_code == 403
     # CHANGE_PICKUP_LOCATION_4: update allowed on IN_TRANSIT_FOR_PICKUP loans.
@@ -95,7 +95,7 @@ def test_change_pickup_location_request_for_other_loans(
     res, data = postdata(
         client,
         "api_item.update_loan_pickup_location",
-        dict(pid=loan.pid, pickup_location_pid=loc_public_fully.pid),
+        {"pid": loan.pid, "pickup_location_pid": loc_public_fully.pid},
     )
     assert res.status_code == 200
     # CHANGE_PICKUP_LOCATION_5: update denied on IN_TRANSIT_TO_HOUSE loans.
@@ -103,6 +103,6 @@ def test_change_pickup_location_request_for_other_loans(
     res, data = postdata(
         client,
         "api_item.update_loan_pickup_location",
-        dict(pid=loan.pid, pickup_location_pid=loc_public_fully.pid),
+        {"pid": loan.pid, "pickup_location_pid": loc_public_fully.pid},
     )
     assert res.status_code == 403

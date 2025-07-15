@@ -67,7 +67,7 @@ fi
 # The real bootstrap script starts with app installation below ;-)
 flags=()
 deploy=false
-cmd="poetry install"
+cmd="uv sync"
 ci=false
 sip2=false
 tgz_file=""
@@ -98,51 +98,51 @@ do
 done
 
 
-# Poetry is a mandatory condition to launch this program!
+# uv is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\tpoetry run ${PROGRAM}"
+  error_msg+exit "Error - Launch this script via uv command:\n\tuv run ${PROGRAM}"
 fi
 
 if $deploy ; then
   if ! $ci ; then
-      flags=("--only main")
+      flags=("--no-dev")
   fi
 fi
 
 if ! $deploy ; then
     if $ci ; then
-        cmd="poetry update"
+        cmd="uv sync --upgrade"
     fi
 fi
 
 if $sip2  ; then
-  flags+=("--extras sip2")
+  flags+=("--extra sip2")
 fi
 
 # create virtualenv and upgrade pip
-info_msg "Upgrade pip"
-poetry run pip install --upgrade pip
+# info_msg "Upgrade pip"
+# uv pip install --upgrade pip
 
-info_msg "Install poethepoet"
-poetry run pip install poethepoet
+# info_msg "Install poethepoet"
+# uv pip install poethepoet
 
 # BOOTSTRAP START
 # install the application and all the dependencies
 info_msg "Install with command: ${cmd} ${flags[@]}"
 ${cmd} ${flags[@]}
 
-# install the app itself
-if ! $deploy ; then
-    if $ci ; then
-        poetry install
-    fi
-fi
+# # install the app itself
+# if ! $deploy ; then
+#     if $ci ; then
+#         poetry install
+#     fi
+# fi
 
 # collect static files and compile html/css assets
 # ------------------------------------------------
 # install the npm dependencies
 info_msg "Search static folder location"
-static_folder=$(poetry run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
+static_folder=$(uv run invenio shell --no-term-title -c "print('static_folder:%s' % app.static_folder)"|grep static_folder| cut -d: -f2-)
 
 # install rero-ils-ui
 info_msg "Install static folder npm dependencies in: ${static_folder}"
@@ -175,7 +175,7 @@ if $deploy ; then
 fi
 
 info_msg "Compile translations"
-poetry run pybabel compile -d rero_ils/translations
+uv run pybabel compile -d rero_ils/translations
 
 success_msg "${PROGRAM} finished!"
 exit 0

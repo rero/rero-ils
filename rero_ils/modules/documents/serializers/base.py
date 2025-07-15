@@ -127,6 +127,7 @@ class BaseDocumentFormatterMixin(ABC):
                 return next(
                     filter(lambda x: x.get("type") == "bf:Title", title), {}
                 ).get("_text")
+            return None
 
         # get partOf title
         return [
@@ -157,6 +158,7 @@ class BaseDocumentFormatterMixin(ABC):
                 return self._get_localized_contribution(agent) or agent.get(
                     "authorized_access_point"
                 )
+            return None
 
         return [
             contribution
@@ -177,6 +179,7 @@ class BaseDocumentFormatterMixin(ABC):
                 return self._get_localized_contribution(agent) or agent.get(
                     "preferred_name"
                 )
+            return None
 
         return [
             contribution
@@ -196,6 +199,7 @@ class BaseDocumentFormatterMixin(ABC):
         ]:
             # return only the first date
             return f"{start_date} - {end_date}" if end_date else start_date
+        return None
 
     def _get_start_pages(self):
         """Return start pages."""

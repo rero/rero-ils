@@ -17,9 +17,8 @@
 
 """Patron type elasticsearch mapping tests."""
 
-from utils import get_mapping
-
 from rero_ils.modules.patron_types.api import PatronType, PatronTypesSearch
+from tests.utils import get_mapping
 
 
 def test_patron_type_es_mapping(org_martigny, patron_type_children_martigny_data):

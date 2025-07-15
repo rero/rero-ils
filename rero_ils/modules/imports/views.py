@@ -18,8 +18,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint, current_app, jsonify
 from flask import request as flask_request
 from invenio_records_rest.utils import obj_or_import_string
@@ -75,7 +73,7 @@ class ImportsListResource(ContentNegotiatedMethodView):
     @check_logged_as_librarian
     def get(self, **kwargs):
         """Implement the GET."""
-        no_cache = True if flask_request.args.get("no_cache") else False
+        no_cache = bool(flask_request.args.get("no_cache"))
         query = flask_request.args.get("q")
         try:
             query_split = query.split(":")
@@ -172,7 +170,7 @@ class ImportsResource(ContentNegotiatedMethodView):
     @check_logged_as_librarian
     def get(self, id, **kwargs):
         """Implement the GET."""
-        no_cache = True if flask_request.args.get("no_cache") else False
+        no_cache = bool(flask_request.args.get("no_cache"))
         size = flask_request.args.get("size", self.import_size)
         do_import = self.import_class()
         do_import.search_records(

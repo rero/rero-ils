@@ -210,5 +210,6 @@ def translate(data, prefix="", separator=", "):
         if isinstance(data, list):
             translated = [_(f"{prefix}{item}") for item in data]
             return separator.join(translated)
-        elif isinstance(data, str):
+        if isinstance(data, str):
             return _(f"{prefix}{data}")
+    return None

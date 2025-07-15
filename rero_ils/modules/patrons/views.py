@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 import datetime
 import re
 
@@ -26,7 +24,6 @@ from flask import Blueprint, abort, current_app, jsonify, render_template
 from flask import request as flask_request
 from flask_babel import lazy_gettext as _
 from flask_login import current_user, login_required
-from flask_menu import register_menu
 from flask_security import utils as security_utils
 from invenio_i18n.ext import current_i18n
 from invenio_oauth2server.decorators import require_api_auth
@@ -50,7 +47,6 @@ from rero_ils.modules.patrons.api import (
     current_patrons,
 )
 from rero_ils.modules.patrons.permissions import get_allowed_roles_management
-from rero_ils.modules.patrons.utils import user_has_patron
 from rero_ils.modules.permissions import expose_actions_need_for_user
 from rero_ils.modules.users.api import User
 from rero_ils.modules.utils import extracted_data_from_ref, get_base_url
@@ -165,14 +161,6 @@ def logged_user():
 @blueprint.route("/<string:viewcode>/patrons/profile/", defaults={"path": ""})
 @blueprint.route("/<string:viewcode>/patrons/profile/<path:path>")
 @login_required
-@register_menu(
-    blueprint,
-    "settings.patron_profile",
-    _("%(icon)s My loans", icon='<i class="fa fa-book fa-fw"></i>'),
-    visible_when=user_has_patron,
-    id="my-profile-menu",
-    order=-1,
-)
 def profile(viewcode, path):
     """Patron Profile Page."""
     if (path not in ["user/edit", "password/edit"]) and not current_patrons:
@@ -355,7 +343,7 @@ def info():
 def patron_message():
     """Get patron message."""
     if not current_patrons:
-        return
+        return None
     data = {"show_info": False, "data": {}}
     for patron in current_patrons:
         if patron.is_blocked or patron.is_expired:

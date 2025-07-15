@@ -18,7 +18,6 @@
 """Command line interface for migration data record management."""
 
 import json
-from pprint import pprint
 from random import choice
 
 import click
@@ -54,7 +53,7 @@ def load(migration, infile, dry_run):
     with click.progressbar(ConvertClass.loads(infile)) as bar:
         for record in bar:
             if dry_run:
-                print(ConvertClass.markdown(record), "\n")
+                pass
             else:
                 migration_data = MigrationData(
                     raw=record, migration_id=migration.meta.id
@@ -90,14 +89,8 @@ def dedup(migration, id, dry_run, force):
         for record in bar:
             ils_pid, logs, status, candidates = ConvertClass.dedup(record, force)
             if dry_run:
-                print(
-                    "\n======================================\n",
-                    f"ID: {record.meta.id}\n",
-                    f"Status: {status}",
-                )
                 for pid, json, score, detailed_score in candidates:
-                    print(f"ILS pid: {pid}", f"{score:.2f}")
-                    pprint(detailed_score, indent=2)
+                    pass
             else:
                 record.deduplication.candidates = [
                     DeduplicationCandidate(
@@ -148,6 +141,7 @@ def get(migration, id, conversion_status, format, out_file):
             return ConversionClass.markdown(data.raw)
         if format == "conversion-status" and hasattr(data.conversion, "status"):
             return (data.meta.id, data.conversion.status)
+        return None
 
     if out_file:
         out_file = JsonWriter(out_file) if format == "json" else open(out_file, "w")
@@ -160,7 +154,6 @@ def get(migration, id, conversion_status, format, out_file):
         msg = format_data(data=data, format=format)
         if format == "logs":
             msg = f"Logs for {data.meta.id}"
-            print(msg)
             if out_file:
                 out_file.write(f"{msg}\n")
             if hasattr(data.conversion.logs, "info"):
@@ -176,9 +169,9 @@ def get(migration, id, conversion_status, format, out_file):
                 out_file.write(f"{msg}\n")
         else:
             if format == "json":
-                print(json.dumps(msg, indent=2))
+                pass
             else:
-                print(msg)
+                pass
             if out_file:
                 out_file.write(msg)
                 if format != "json":

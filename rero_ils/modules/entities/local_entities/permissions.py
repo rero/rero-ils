@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for `Local Entity` records."""
+
 from invenio_access import action_factory
 
 from rero_ils.modules.permissions import AllowedByAction, RecordPermissionPolicy

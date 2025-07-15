@@ -17,11 +17,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utils for acquisitions."""
-import mock
+
+from unittest import mock
+
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, postdata
 
 from rero_ils.modules.utils import get_record_class_from_schema_or_pid_type
+from tests.utils import VerifyRecordPermissionPatch, postdata
 
 
 @mock.patch(
@@ -40,8 +42,7 @@ def _make_resource(client, pid_type, input_data):
     res, data = postdata(client, url_alias, input_data)
     if res.status_code == 201:
         return record_class.get_record_by_pid(data["metadata"]["pid"])
-    else:
-        raise Exception(data["message"])
+    raise Exception(data["message"])
 
 
 @mock.patch(

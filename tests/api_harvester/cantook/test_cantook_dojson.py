@@ -164,7 +164,7 @@ def test_trans_title(app):
             {
                 "mainTitle": [{"value": "L'argent des gens"}],
                 "subtitle": [
-                    {"value": "Tentative d'épuisement de notre " "porte-monnaie"}
+                    {"value": "Tentative d'épuisement de notre porte-monnaie"}
                 ],
                 "type": "bf:Title",
             }
@@ -457,7 +457,7 @@ def test_trans_do(app):
                 "startDate": 2023,
                 "statement": [
                     {
-                        "label": [{"value": "Nouvelles Éditions " "Actu SF"}],
+                        "label": [{"value": "Nouvelles Éditions Actu SF"}],
                         "type": "bf:Agent",
                     },
                     {"label": [{"value": "2023"}], "type": "Date"},

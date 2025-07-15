@@ -17,7 +17,6 @@
 
 """Loans logs API."""
 
-
 from rero_ils.modules.operation_logs.api import OperationLog, OperationLogsSearch
 from rero_ils.modules.operation_logs.logs.api import SpecificOperationLog
 

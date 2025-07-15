@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """RERO-ILS Loan resource serializers for JSON format."""
+
 from rero_ils.modules.documents.api import DocumentsSearch
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.dumpers import ItemCirculationDumper
@@ -100,8 +101,9 @@ class LoanJSONSerializer(JSONSerializer, CachedDataSerializerMixin):
                 metadata["is_late"] = loan.is_loan_late()
             elif loan_state in LoanState.REQUEST_STATES:
                 _post_process_search_request_hit(metadata, item)
-            elif loan_state in LoanState.CONCLUDED + [
-                LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+            elif loan_state in [
+                *LoanState.CONCLUDED,
+                LoanState.ITEM_IN_TRANSIT_TO_HOUSE,
             ]:
                 _post_process_search_concluded_hit(metadata, loan)
 

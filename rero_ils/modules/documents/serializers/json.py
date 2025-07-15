@@ -243,10 +243,10 @@ class DocumentExportJSONSerializer(JSONSerializer):
     @staticmethod
     def _format_args():
         """Get JSON dump indentation and separates."""
-        return dict(
-            indent=2,
-            separators=(", ", ": "),
-        )
+        return {
+            "indent": 2,
+            "separators": (", ", ": "),
+        }
 
     def serialize(self, pid, record, links_factory=None, **kwargs):
         """Serialize a single record.

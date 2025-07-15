@@ -17,8 +17,6 @@
 
 """Click command-line interface for collection record management."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import random
 
@@ -36,7 +34,7 @@ from rero_ils.modules.utils import extracted_data_from_ref, get_ref_for_pid
 def create_collections(input_file, max_item=10):
     """Create collections."""
     organisation_items = {}
-    with open(input_file, "r", encoding="utf-8") as request_file:
+    with open(input_file, encoding="utf-8") as request_file:
         collections = json.load(request_file)
         for collection_data in collections:
             organisation_pid = extracted_data_from_ref(

@@ -16,16 +16,17 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests circulation operation for item with temporary item_type."""
+
 from datetime import datetime, timedelta
 
 import ciso8601
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import get_json, postdata
 
 
 def test_checkout_temporary_item_type(
@@ -87,12 +88,12 @@ def test_checkout_temporary_item_type(
 
     # try a checkout and check the transaction end_date is related to the cipo
     # corresponding to the temporary item_type
-    params = dict(
-        item_pid=item.pid,
-        patron_pid=patron_martigny.pid,
-        transaction_user_pid=librarian_martigny.pid,
-        transaction_location_pid=loc_public_martigny.pid,
-    )
+    params = {
+        "item_pid": item.pid,
+        "patron_pid": patron_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+        "transaction_location_pid": loc_public_martigny.pid,
+    }
     res, data = postdata(client, "api_item.checkout", params)
     assert res.status_code == 200
     transaction_end_date = data["action_applied"]["checkout"]["end_date"]

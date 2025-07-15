@@ -18,7 +18,6 @@
 
 """API for manipulating documents."""
 
-
 from functools import partial
 
 from elasticsearch.exceptions import NotFoundError
@@ -53,7 +52,9 @@ from .models import DocumentIdentifier, DocumentMetadata
 
 # provider
 DocumentProvider = type(
-    "DocumentProvider", (Provider,), dict(identifier=DocumentIdentifier, pid_type="doc")
+    "DocumentProvider",
+    (Provider,),
+    {"identifier": DocumentIdentifier, "pid_type": "doc"},
 )
 # minter
 document_id_minter = partial(id_minter, provider=DocumentProvider)
@@ -380,7 +381,7 @@ class Document(IlsRecord):
         ext = current_app.extensions["rero-invenio-files"]
         sfr = ext.records_service
         search = sfr.search_request(
-            system_identity, dict(size=1), sfr.record_cls, sfr.config.search
+            system_identity, {"size": 1}, sfr.record_cls, sfr.config.search
         )
         # required to avoid exception during the `count()` call
         # TODO: remove this once the issue is solved
@@ -409,7 +410,7 @@ class Document(IlsRecord):
         if links:
             cannot_delete["links"] = links
         if self.harvested:
-            cannot_delete["others"] = dict(harvested=True)
+            cannot_delete["others"] = {"harvested": True}
         return cannot_delete
 
     def index_entities(self, bulk=False):

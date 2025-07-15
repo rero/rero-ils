@@ -16,9 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test record permissions API."""
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, login_user
+
+from tests.utils import get_json, login_user
 
 
 def test_document_permissions(
@@ -135,7 +137,10 @@ def test_patrons_permissions(
 
 
 def test_items_permissions(
-    client, item_lib_martigny, item_lib_fully, librarian_martigny  # on shelf  # on loan
+    client,
+    item_lib_martigny,
+    item_lib_fully,
+    librarian_martigny,  # on shelf  # on loan
 ):
     """Test record retrieval."""
     login_user(client, librarian_martigny)

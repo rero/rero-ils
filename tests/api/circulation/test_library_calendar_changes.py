@@ -17,13 +17,14 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test library calendar changes effects on related loans."""
+
 import time
 
 from invenio_accounts.testutils import login_user_via_session
 from invenio_cache import current_cache
-from utils import postdata
 
 from rero_ils.modules.loans.api import Loan
+from tests.utils import postdata
 
 
 def test_library_calendar_changes(

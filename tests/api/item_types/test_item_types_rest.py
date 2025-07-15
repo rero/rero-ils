@@ -18,14 +18,14 @@
 """Tests REST API item types."""
 
 import json
+from unittest import mock
 
-import mock
 import pytest
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 from rero_ils.modules.api import IlsRecordError
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 def test_item_types_permissions(client, item_type_standard_martigny, json_header):

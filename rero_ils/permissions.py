@@ -125,10 +125,10 @@ def check_user_is_authenticated(redirect_to=None, code=302):
         def decorated_view(*args, **kwargs):
             if current_user.is_authenticated:
                 return func(*args, **kwargs)
-            elif redirect_to:
+            if redirect_to:
                 return redirect(url_for(redirect_to), code)
-            else:
-                abort(403)
+            abort(403)
+            return None
 
         return decorated_view
 

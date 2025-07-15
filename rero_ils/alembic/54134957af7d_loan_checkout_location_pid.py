@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Loan :: add checkout location pid to current ON_LOAN laons."""
+
 from logging import getLogger
 
 from elasticsearch_dsl import Q
@@ -47,7 +48,7 @@ def upgrade():
         .filter("bool", must_not=[Q("exists", field="checkout_location_pid")])
         .source(["pid", "transaction_location_pid"])
     )
-    loans_hits = [hit for hit in query.scan()]
+    loans_hits = list(query.scan())
     ids = []
     for hit in loans_hits:
         loan = Loan.get_record_by_pid(hit.pid)
@@ -66,7 +67,7 @@ def downgrade():
         .filter("exists", field="checkout_location_pid")
         .source("pid")
     )
-    loans_hits = [hit for hit in query.scan()]
+    loans_hits = list(query.scan())
     ids = []
     for hit in loans_hits:
         loan = Loan.get_record_by_pid(hit.pid)

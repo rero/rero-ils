@@ -1,4 +1,4 @@
-name: build
+name: CI
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
@@ -6,12 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dependencies: ['dev', 'deploy']
+        python-version: ["3.12"]
+        dependencies: ["dev", "deploy"]
     steps:
-    # - name: Cancel Previous Runs
-    #   uses: styfle/cancel-workflow-action@0.5.0
-    #   with:
-    #     access_token: ${{ github.token }}
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.12.0
+      with:
+        access_token: ${{ github.token }}
 
     - uses: actions/checkout@v4
 
@@ -23,57 +24,30 @@ jobs:
     - name: Docker compose up
       run: docker compose up -d
 
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.9
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
 
-    - name: Install Poetry
-      uses: snok/install-poetry@v1
-
-    # - name: Use Cache
-    #   uses: actions/cache@v2
-    #   with:
-    #     path: |
-    #       ~/.cache/pip
-    #       ~/.cache/pypoetry/virtualenvs
-    #       ~/.npm
-    #     key: ${{ runner.os }}-pip-venv-${{ hashFiles('**/poetry.lock') }}
+    - name: Set up Python
+      run: uv python install ${{ matrix.python-version }}
 
     - name: Bootstrap
       if: ${{ matrix.dependencies == 'dev' }}
       run: |
-        poetry run ./scripts/bootstrap --ci
-        poetry install --no-root --extras sip2
-        pip install --upgrade coveralls
+        uv run ./scripts/bootstrap --ci
 
     - name: Bootstrap deploy
       if: ${{ matrix.dependencies == 'deploy' }}
-      run: |
-        poetry run pip list
-        poetry run ./scripts/bootstrap --ci --deploy E2E=yes
-        poetry install --no-root --extras sip2
+      run: uv run ./scripts/bootstrap --ci --deploy E2E=yes
 
     - name: Run Test
-      run: |
-        poetry run poe run_tests
+      run: uv run poe run_tests
 
-    # NOT WORKING BECAUSE OF THIS PROBLEM:
-    # https://github.community/t/github-actions-are-severely-limited-on-prs/18179#M9249
-    # - uses: LouisBrunner/checks-action@v1.1.0
-    #   if: ${{ steps.test_external.outcome == 'failure' }}
-    #   id: status
-    #   with:
-    #     token: ${{ secrets.GITHUB_TOKEN }}
-    #     name: Set test external failure
-    #     conclusion: neutral
-    #     output: |
-    #       { "summary": "TEST EXTERNAL FAILED!!!" }
+    - name: Coverage XML
+      if: ${{ matrix.dependencies == 'dev' }}
+      run: uv run coverage xml
 
     - name: Coveralls
       if: ${{ matrix.dependencies == 'dev' }}
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_SERVICE_NAME: github
-      run: |
-          coveralls
+      uses: coverallsapp/github-action@v2
+      with:
+        format: cobertura

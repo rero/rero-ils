@@ -17,8 +17,6 @@
 
 """Persistent identifier minters."""
 
-from __future__ import absolute_import, print_function, unicode_literals
-
 
 def id_minter(record_uuid, data, provider, pid_key="pid", object_type="rec"):
     """RERO ILS minter."""

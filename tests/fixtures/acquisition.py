@@ -16,11 +16,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Common pytest fixtures and plugins."""
-from copy import deepcopy
 
-import mock
+from copy import deepcopy
+from unittest import mock
+
 import pytest
-from api.acquisition.acq_utils import _make_resource
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, AcqAccountsSearch
 from rero_ils.modules.acquisition.acq_order_lines.api import (
@@ -37,6 +37,7 @@ from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, AcqReceipt
 from rero_ils.modules.acquisition.budgets.api import Budget, BudgetsSearch
 from rero_ils.modules.utils import get_ref_for_pid as get_ref
 from rero_ils.modules.vendors.api import Vendor, VendorsSearch
+from tests.api.acquisition.acq_utils import _make_resource
 
 
 @pytest.fixture(scope="module")

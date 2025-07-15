@@ -40,7 +40,7 @@ from .models import AcqAccountExceedanceType, AcqAccountIdentifier, AcqAccountMe
 AcqAccountProvider = type(
     "AcqAccountProvider",
     (Provider,),
-    dict(identifier=AcqAccountIdentifier, pid_type="acac"),
+    {"identifier": AcqAccountIdentifier, "pid_type": "acac"},
 )
 acq_account_id_minter = partial(id_minter, provider=AcqAccountProvider)
 acq_account_id_fetcher = partial(id_fetcher, provider=AcqAccountProvider)
@@ -117,6 +117,7 @@ class AcqAccount(AcquisitionIlsRecord):
         """Shortcut to get the parent acquisition account pid."""
         if parent := self.get("parent"):
             return extracted_data_from_ref(parent)
+        return None
 
     @property
     def parent(self):
@@ -136,6 +137,7 @@ class AcqAccount(AcquisitionIlsRecord):
         #   >     return parent.any_method()
         if parent_pid := self.parent_pid:
             return AcqAccount.get_record_by_pid(parent_pid)
+        return None
 
     @property
     def is_root(self):
@@ -321,7 +323,7 @@ class AcqAccount(AcquisitionIlsRecord):
         #   ancestor accounts until reaching the target account
         source_ancestors = list(self.get_ancestors())
         if target_account in source_ancestors:
-            for acc in [self] + source_ancestors:
+            for acc in [self, *source_ancestors]:
                 if acc == target_account:
                     break
                 acc["allocated_amount"] -= amount
@@ -338,14 +340,14 @@ class AcqAccount(AcquisitionIlsRecord):
         #       to increase the allocated amount.
         target_ancestors = list(target_account.get_ancestors())
         common_ancestors = list(
-            set([self] + source_ancestors) & set([target_account] + target_ancestors)
+            {self, *source_ancestors} & {target_account, *target_ancestors}
         )
         common_ancestor = None
         if common_ancestors:
             common_ancestor = max(common_ancestors, key=lambda a: a.depth)
         # If we found a common ancestor, we are in the same tree
         if common_ancestor:
-            for acc in [self] + source_ancestors:
+            for acc in [self, *source_ancestors]:
                 if acc == common_ancestor:
                     break
                 acc["allocated_amount"] -= amount
@@ -359,7 +361,7 @@ class AcqAccount(AcquisitionIlsRecord):
                 if acc == common_ancestor:
                     break
                 ancestors_to_apply.append(acc)
-            for acc in reversed([target_account] + ancestors_to_apply):
+            for acc in reversed([target_account, *ancestors_to_apply]):
                 acc["allocated_amount"] += amount
                 acc.update(acc, dbcommit=True, reindex=False)
             target_account.reindex()
@@ -370,10 +372,10 @@ class AcqAccount(AcquisitionIlsRecord):
         #     the allocated amount.
         #   * from target root account to target account, increase the
         #     allocated amount.
-        for acc in [self] + source_ancestors:
+        for acc in [self, *source_ancestors]:
             acc["allocated_amount"] -= amount
             acc.update(acc, dbcommit=True, reindex=True)
-        for acc in reversed([target_account] + target_ancestors):
+        for acc in reversed([target_account, *target_ancestors]):
             acc["allocated_amount"] += amount
             acc.update(acc, dbcommit=True, reindex=False)
         target_account.reindex()
@@ -384,7 +386,7 @@ class AcqAccount(AcquisitionIlsRecord):
         :return a list of ancestor accounts.
         """
         if parent := self.parent:
-            return [parent] + parent.get_ancestors()
+            return [parent, *parent.get_ancestors()]
         return []
 
     def get_children(self, output=None):

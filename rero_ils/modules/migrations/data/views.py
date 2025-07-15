@@ -192,7 +192,7 @@ class MigrationDataResource(ContentNegotiatedMethodView):
 
         migration_id = flask_request.args.get("migration")
         body = flask_request.get_json()
-        if not body or not "ils_pid" in body:
+        if not body or "ils_pid" not in body:
             abort(400)
         ils_pid = body["ils_pid"]
 

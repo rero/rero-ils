@@ -39,7 +39,7 @@ from .models import (
 PatronTransactionEventProvider = type(
     "PatronTransactionEventProvider",
     (Provider,),
-    dict(identifier=PatronTransactionEventIdentifier, pid_type="ptre"),
+    {"identifier": PatronTransactionEventIdentifier, "pid_type": "ptre"},
 )
 # minter
 patron_transaction_event_id_minter = partial(
@@ -191,12 +191,14 @@ class PatronTransactionEvent(IlsRecord):
         """Return the patron pid of the patron transaction event."""
         if parent := self.patron_transaction:
             return parent.patron_pid
+        return None
 
     @property
     def organisation_pid(self):
         """Return the organisation pid of the patron transaction event."""
         if parent := self.patron_transaction:
             return parent.organisation_pid
+        return None
 
 
 class PatronTransactionEventsIndexer(IlsRecordsIndexer):

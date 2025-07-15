@@ -16,13 +16,14 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST checkout API methods in the item api_views."""
+
 from datetime import datetime, timedelta
 
 import ciso8601
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.items.models import ItemStatus
+from tests.utils import postdata
 
 
 def test_checkout_missing_parameters(
@@ -47,22 +48,22 @@ def test_checkout_missing_parameters(
     assert item.status == ItemStatus.ON_SHELF
 
     # test fails when missing required parameter
-    res, _ = postdata(client, "api_item.checkout", dict(item_pid=item.pid))
+    res, _ = postdata(client, "api_item.checkout", {"item_pid": item.pid})
     assert res.status_code == 400
     res, _ = postdata(
         client,
         "api_item.checkout",
-        dict(item_pid=item.pid, patron_pid=patron_martigny.pid),
+        {"item_pid": item.pid, "patron_pid": patron_martigny.pid},
     )
     assert res.status_code == 400
     res, _ = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 400
 
@@ -82,12 +83,12 @@ def test_checkout(
     item = item_lib_martigny
     assert item.status == ItemStatus.ON_SHELF
 
-    params = dict(
-        item_pid=item.pid,
-        patron_pid=patron_martigny.pid,
-        transaction_user_pid=librarian_martigny.pid,
-        transaction_location_pid=loc_public_martigny.pid,
-    )
+    params = {
+        "item_pid": item.pid,
+        "patron_pid": patron_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+        "transaction_location_pid": loc_public_martigny.pid,
+    }
 
     # test is done WITHOUT loan PID
     res, _ = postdata(client, "api_item.checkout", params)
@@ -110,11 +111,11 @@ def test_checkout(
     res, _ = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -123,13 +124,13 @@ def test_checkout(
     next_saturday = now + delta
     assert not lib_martigny.is_open(next_saturday, True)
 
-    params = dict(
-        item_pid=item.pid,
-        patron_pid=patron_martigny.pid,
-        transaction_user_pid=librarian_martigny.pid,
-        transaction_location_pid=loc_public_martigny.pid,
-        end_date=next_saturday.isoformat(),
-    )
+    params = {
+        "item_pid": item.pid,
+        "patron_pid": patron_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+        "transaction_location_pid": loc_public_martigny.pid,
+        "end_date": next_saturday.isoformat(),
+    }
     res, data = postdata(client, "api_item.checkout", params)
     assert res.status_code == 200
     transaction_end_date = data["action_applied"]["checkout"]["end_date"]

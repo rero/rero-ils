@@ -17,16 +17,16 @@
 
 """Tests availability."""
 
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.documents.api import Document
 from rero_ils.modules.holdings.api import Holding
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.models import LoanAction
+from tests.utils import get_json, postdata
 
 
 def test_item_holding_document_availability(
@@ -66,13 +66,13 @@ def test_item_holding_document_availability(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            pickup_location_pid=loc_public_saxon.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "pickup_location_pid": loc_public_saxon.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     actions = data.get("action_applied")
@@ -91,12 +91,12 @@ def test_item_holding_document_availability(
     res, _ = postdata(
         client,
         "api_item.validate_request",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "pid": loan_pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert not item_lib_martigny.is_available()
@@ -114,12 +114,12 @@ def test_item_holding_document_availability(
     res, _ = postdata(
         client,
         "api_item.receive",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "pid": loan_pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert not item_lib_martigny.is_available()
@@ -137,12 +137,12 @@ def test_item_holding_document_availability(
     res, _ = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -188,17 +188,16 @@ def test_item_holding_document_availability(
         assert holding_lib_martigny.get_holding_loan_conditions() == "short 15 days"
     # request second item
     login_user_via_session(client, librarian_martigny.user)
-
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron2_martigny.pid,
-            pickup_location_pid=loc_public_saxon.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "patron_pid": patron2_martigny.pid,
+            "pickup_location_pid": loc_public_saxon.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert not item2_lib_martigny.is_available()

@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Record serialization."""
+
 import csv
 
 from flask import current_app
@@ -79,7 +80,7 @@ class StatCSVSerializer(CSVSerializer):
             # statistics of type billing
             headers = {"library name", "library id"}
             for value in record["metadata"]["values"]:
-                headers.update([v for v in value.keys() if v != "library"])
+                headers.update([v for v in value if v != "library"])
 
             # write the CSV output in memory
             line = Line()

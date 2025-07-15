@@ -36,7 +36,7 @@ from .models import LocalFieldIdentifier, LocalFieldMetadata
 LocalFieldProvider = type(
     "LocalFieldProvider",
     (Provider,),
-    dict(identifier=LocalFieldIdentifier, pid_type="lofi"),
+    {"identifier": LocalFieldIdentifier, "pid_type": "lofi"},
 )
 # minter
 local_field_id_minter = partial(id_minter, provider=LocalFieldProvider)

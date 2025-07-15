@@ -66,57 +66,27 @@ add_exceptions() {
 # Displays program name
 msg "PROGRAM: ${PROGRAM}"
 
-# Poetry is a mandatory condition to launch this program!
+# uv is a mandatory condition to launch this program!
 if [[ -z "${VIRTUAL_ENV}" ]]; then
-  error_msg+exit "Error - Launch this script via poetry command:\n\t${PROGRAM}"
+  error_msg+exit "Error - Launch this script via uv command:\n\t${PROGRAM}"
 fi
 
 function pretests () {
   info_msg "Check vulnerabilities:"
-  # cryptography 43.0.3  GHSA-79v4-65xg-pq4g 44.0.1
-  add_exceptions "GHSA-79v4-65xg-pq4g"
-  # jsonpickle   1.4.2   GHSA-j66q-qmrc-89rx
-  add_exceptions "GHSA-j66q-qmrc-89rx"
-  # jupyter-core 5.7.2   GHSA-33p9-3p43-82vq 5.8.1
-  add_exceptions "GHSA-33p9-3p43-82vq"
-  # pillow       11.1.0  PYSEC-2025-61       11.3.0
-  add_exceptions "PYSEC-2025-61"
-  # py           1.11.0  PYSEC-2022-42969
+  # py 1.11.0  PYSEC-2022-42969
   add_exceptions "PYSEC-2022-42969"
-  # redis        5.2.1   PYSEC-2023-312      6.2.0
-  add_exceptions "PYSEC-2023-312"
-  # requests     2.32.3  GHSA-9hjg-9r4m-mvj7 2.32.4
-  add_exceptions "GHSA-9hjg-9r4m-mvj7"
-  # selenium     3.141.0 PYSEC-2023-206      4.14.0
-  add_exceptions "PYSEC-2023-206"
-  # selenium     3.141.0 PYSEC-2022-43167    4.0.0
-  add_exceptions "PYSEC-2022-43167"
-  # werkzeug     2.2.3   PYSEC-2023-221      2.3.8,3.0.1
-  add_exceptions "PYSEC-2023-221"
-  # werkzeug     2.2.3   GHSA-2g68-c3qc-8985 3.0.3
-  add_exceptions "GHSA-2g68-c3qc-8985"
-  # werkzeug     2.2.3   GHSA-f9vj-2wh5-fj8j 3.0.6
-  add_exceptions "GHSA-f9vj-2wh5-fj8j"
-  # werkzeug     2.2.3   GHSA-q34m-jh98-gwm2 3.0.6
-  add_exceptions "GHSA-q34m-jh98-gwm2"
-  # urllib3 1.26.20 GHSA-48p4-8xcf-vxj5 2.5.0
-  add_exceptions "GHSA-48p4-8xcf-vxj5"
   # urllib3 1.26.20 GHSA-pq67-6m6q-mj2v 2.5.0
   add_exceptions "GHSA-pq67-6m6q-mj2v"
-  PIPAPI_PYTHON_LOCATION=`which python` pip-audit ${pip_audit_exceptions}
+  pip-audit ${pip_audit_exceptions}
 
   info_msg "Check json:"
   invenio reroils utils check_json tests/data rero_ils/modules data
   info_msg "Check license:"
   invenio reroils utils check_license check_license_config.yml
-  info_msg "Test pydocstyle:"
-  pydocstyle rero_ils tests docs
-  info_msg "Test isort:"
-  isort --check-only --diff tests rero_ils
-  info_msg "Test black:"
-  black tests rero_ils tests --check
-  info_msg "Test useless imports:"
-  autoflake --recursive --remove-all-unused-imports --ignore-init-module-imports --check-diff --quiet .
+  info_msg "Test formating:"
+  ruff format rero_ils tests --check
+  info_msg "Test linting:"
+  ruff check rero_ils tests
   info_msg "Sphinx-build:"
   sphinx-build -qnNW docs docs/_build/html
 }

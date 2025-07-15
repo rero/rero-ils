@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """rero-ils MARC21 model definition."""
+
 import re
 
 from dojson import utils
@@ -341,6 +342,7 @@ def marc21_to_supplementary_content(self, key, value):
     """Get notes and original title."""
     if value.get("a"):
         return utils.force_list(value.get("a"))[0]
+    return None
 
 
 @marc21.over("subjects", "^(600|610|611|630|650|651|655)..")
@@ -438,7 +440,7 @@ def marc21_to_subjects_6XX(self, key, value):
             )
             if creator:
                 subject["authorized_access_point"] = (
-                    f'{creator}. {subject["authorized_access_point"]}'
+                    f"{creator}. {subject['authorized_access_point']}"
                 )
         field_key = "genreForm" if tag_key == "655" else config_field_key
         if field_key != "subjects_imported" and (
@@ -461,7 +463,7 @@ def marc21_to_subjects_6XX(self, key, value):
                 perform_subdivisions(subject, value)
 
         if subject.get("$ref") or subject.get("authorized_access_point"):
-            self.setdefault(field_key, []).append(dict(entity=subject))
+            self.setdefault(field_key, []).append({"entity": subject})
 
     elif subfield_2 == "rerovoc" or indicator_2 in ["0", "2"]:
         term_string = build_string_from_subfields(
@@ -481,7 +483,7 @@ def marc21_to_subjects_6XX(self, key, value):
             perform_subdivisions(data, value)
 
             if data:
-                self.setdefault(config_field_key, []).append(dict(entity=data))
+                self.setdefault(config_field_key, []).append({"entity": data})
 
 
 @marc21.over("sequence_numbering", "^362..")

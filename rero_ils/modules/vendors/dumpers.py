@@ -37,8 +37,7 @@ class VendorAcquisitionNotificationDumper(InvenioRecordsDumper):
                 "email": record.order_email,
             }
         )
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}
 
 
 class VendorClaimIssueNotificationDumper(InvenioRecordsDumper):
@@ -57,5 +56,4 @@ class VendorClaimIssueNotificationDumper(InvenioRecordsDumper):
                 "email": record.serial_email,
             }
         )
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}

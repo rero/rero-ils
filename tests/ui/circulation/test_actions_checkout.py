@@ -23,16 +23,15 @@ from datetime import date, timedelta
 import pytest
 from invenio_circulation.errors import (
     ItemNotAvailableError,
-    NoValidTransitionAvailableError,
     TransitionConstraintsViolationError,
 )
 from invenio_circulation.ext import NoValidTransitionAvailableError
-from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
+from tests.utils import item_record_to_a_specific_loan_state
 
 
 def test_checkout_library_never_open(
@@ -44,7 +43,6 @@ def test_checkout_library_never_open(
     librarian_martigny,
 ):
     """Test checkout from a library without opening hours."""
-
     # Test checkout if library has no open days but has exception days/hours
     # in the past
     lib_martigny["opening_hours"] = [

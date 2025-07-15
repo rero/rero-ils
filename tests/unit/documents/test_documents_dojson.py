@@ -17,11 +17,9 @@
 
 """DOJSON module tests."""
 
-from __future__ import absolute_import, print_function
+from unittest import mock
 
-import mock
 from dojson.contrib.marc21.utils import create_record
-from utils import mock_response
 
 from rero_ils.dojson.utils import not_repetitive
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.rero import marc21
@@ -35,6 +33,7 @@ from rero_ils.modules.documents.views import (
     get_other_accesses,
 )
 from rero_ils.modules.entities.models import EntityType
+from tests.utils import mock_response
 
 
 def test_not_repetetive(capsys):
@@ -45,9 +44,7 @@ def test_not_repetetive(capsys):
     )
     assert data == "first"
     out, err = capsys.readouterr()
-    assert (
-        out == f"WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{str(data_dict)}\t\n"
-    )
+    assert out == f"WARNING NOT REPETITIVE:\tpid1\trero1\tkey\tsub\t{data_dict!s}\t\n"
     data = {"sub": "only"}
     data = not_repetitive(
         bibid="pid1", reroid="rero1", key="key", value=data, subfield="sub", default=""

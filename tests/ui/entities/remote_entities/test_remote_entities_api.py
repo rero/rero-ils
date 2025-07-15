@@ -18,13 +18,9 @@
 
 """Entities Record tests."""
 
-from __future__ import absolute_import, print_function
-
 import tempfile
 from copy import deepcopy
-
-import mock
-from utils import mock_response
+from unittest import mock
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.remote_entities.api import (
@@ -34,6 +30,7 @@ from rero_ils.modules.entities.remote_entities.api import (
 )
 from rero_ils.modules.entities.remote_entities.replace import ReplaceIdentifiedBy
 from rero_ils.modules.entities.remote_entities.sync import SyncEntity
+from tests.utils import mock_response
 
 
 def test_remote_entity_create(app, entity_person_data_tmp, caplog):
@@ -115,9 +112,9 @@ def test_sync_contribution(
     RemoteEntitiesSearch.flush_and_refresh()
 
     idref_pid = pers["idref"]["pid"]
-    document_data_ref["contribution"][0]["entity"][
-        "$ref"
-    ] = f"{mef_agents_url}/idref/{idref_pid}"
+    document_data_ref["contribution"][0]["entity"]["$ref"] = (
+        f"{mef_agents_url}/idref/{idref_pid}"
+    )
 
     doc = Document.create(
         deepcopy(document_data_ref), dbcommit=True, reindex=True, delete_pid=True
@@ -133,13 +130,13 @@ def test_sync_contribution(
     # nothing touched as it is up-to-date
     assert (0, 0, set()) == sync_entity.sync(f"{pers.pid}")
     # nothing removed
-    assert (0, []) == sync_entity.remove_unused(f"{pers.pid}")
+    assert sync_entity.remove_unused(f"{pers.pid}") == (0, [])
 
     # === MEF metadata has been changed
     data = deepcopy(entity_person_data_tmp)
     data["idref"]["authorized_access_point"] = "foo"
     sync_entity._get_latest = mock.MagicMock(return_value=data)
-    mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
+    mock_resp = {"hits": {"hits": [{"id": data["pid"], "metadata": data}]}}
     mock_get.return_value = mock_response(json_data=mock_resp)
     assert (
         DocumentsSearch()
@@ -163,7 +160,7 @@ def test_sync_contribution(
         .count()
     )
     # nothing has been removed as only metadata has been changed
-    assert (0, []) == sync_entity.remove_unused(f"{pers.pid}")
+    assert sync_entity.remove_unused(f"{pers.pid}") == (0, [])
 
     # === a new MEF exists with the same content
     data = deepcopy(entity_person_data_tmp)
@@ -171,7 +168,7 @@ def test_sync_contribution(
     data["pid"] = "foo_mef"
     # mock MEF services
     sync_entity._get_latest = mock.MagicMock(return_value=data)
-    mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
+    mock_resp = {"hits": {"hits": [{"id": data["pid"], "metadata": data}]}}
     mock_get.return_value = mock_response(json_data=mock_resp)
 
     # synchronization the same document has been updated 3 times, one MEF
@@ -184,7 +181,7 @@ def test_sync_contribution(
     db_agent = Document.get_record_by_pid(doc.pid).get("contribution")[0]["entity"]
     assert db_agent["pid"] == "foo_mef"
     # the old MEF has been removed
-    assert (1, []) == sync_entity.remove_unused(f"{pers.pid}")
+    assert sync_entity.remove_unused(f"{pers.pid}") == (1, [])
     # should not exists anymore
     assert not RemoteEntity.get_record_by_pid(pers.pid)
 
@@ -196,12 +193,12 @@ def test_sync_contribution(
     data["idref"]["pid"] = "foo_idref"
     # mock MEF services
     sync_entity._get_latest = mock.MagicMock(return_value=data)
-    mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
+    mock_resp = {"hits": {"hits": [{"id": data["pid"], "metadata": data}]}}
     mock_get.return_value = mock_response(json_data=mock_resp)
 
     # synchronization the same document has been updated 3 times,
     # one MEF record has been updated, no errors
-    assert (1, 1, set()) == sync_entity.sync(f'{data["pid"]}')
+    assert (1, 1, set()) == sync_entity.sync(f"{data['pid']}")
     DocumentsSearch.flush_and_refresh()
     # new contribution has been created
     assert RemoteEntity.get_record_by_pid("foo_mef")
@@ -226,7 +223,7 @@ def test_sync_contribution(
     DocumentsSearch.flush_and_refresh()
 
     # the MEF record can be removed
-    assert (1, []) == sync_entity.remove_unused()
+    assert sync_entity.remove_unused() == (1, [])
     # should not exists anymore
     assert not RemoteEntity.get_record_by_pid("foo_mef")
 
@@ -247,7 +244,7 @@ def test_sync_concept(
     )
     RemoteEntitiesSearch.flush_and_refresh()
 
-    entity_url = f'{mef_concepts_url}/idref/{topic["idref"]["pid"]}'
+    entity_url = f"{mef_concepts_url}/idref/{topic['idref']['pid']}"
     document_data_subject_ref["subjects"][0]["entity"]["$ref"] = entity_url
 
     doc = Document.create(
@@ -263,13 +260,13 @@ def test_sync_concept(
     # nothing touched as it is up-to-date
     assert (0, 0, set()) == sync_entity.sync(f"pid:{topic.pid}")
     # nothing removed
-    assert (0, []) == sync_entity.remove_unused(f"pid:{topic.pid}")
+    assert sync_entity.remove_unused(f"pid:{topic.pid}") == (0, [])
 
     # === MEF metadata has been changed
     data = deepcopy(entity_topic_data)
     data["idref"]["authorized_access_point"] = "foo"
     sync_entity._get_latest = mock.MagicMock(return_value=data)
-    mock_resp = dict(hits=dict(hits=[dict(id=data["pid"], metadata=data)]))
+    mock_resp = {"hits": {"hits": [{"id": data["pid"], "metadata": data}]}}
     mock_get.return_value = mock_response(json_data=mock_resp)
     assert (
         DocumentsSearch()
@@ -291,7 +288,7 @@ def test_sync_concept(
         .count()
     )
     # nothing has been removed as only metadata has been changed
-    assert (0, []) == sync_entity.remove_unused(topic.pid)
+    assert sync_entity.remove_unused(topic.pid) == (0, [])
 
     # RESET FIXTURES
     #  * Remove the document
@@ -299,7 +296,7 @@ def test_sync_concept(
     doc = Document.get_record_by_pid(doc.pid)
     doc.delete(True, True, True)
     DocumentsSearch.flush_and_refresh()
-    assert (1, []) == sync_entity.remove_unused()
+    assert sync_entity.remove_unused() == (1, [])
     assert not RemoteEntity.get_record_by_pid("foo_mef")
 
 
@@ -421,7 +418,7 @@ def test_replace_identified_by(
         assert rero_only == 0
         assert replace_identified_by.not_found == {
             "bf:Organisation": {
-                "gnd:1161956409": "Convegno internazionale " "di italianistica Craiova"
+                "gnd:1161956409": "Convegno internazionale di italianistica Craiova"
             },
             "bf:Person": {"rero:A003633163": "Nebehay, Christian Michael"},
         }
@@ -489,12 +486,12 @@ def test_entity_get_record_by_ref(
 ):
     """Test remote entity: get record by ref."""
     dummy_ref = f"{mef_agents_url}/idref/dummy_idref_pid"
-    assert (None, False) == RemoteEntity.get_record_by_ref(dummy_ref)
+    assert RemoteEntity.get_record_by_ref(dummy_ref) == (None, False)
 
     # Remote entity from ES index
     RemoteEntitiesSearch().filter("term", pid=entity_person.pid).delete()
     RemoteEntitiesSearch.flush_and_refresh()
-    ent_ref = f'{mef_agents_url}/idref/{entity_person["idref"]["pid"]}'
+    ent_ref = f"{mef_agents_url}/idref/{entity_person['idref']['pid']}"
     with mock.patch(
         "rero_ils.modules.entities.remote_entities.api.get_mef_data_by_type",
         return_value=entity_person_data_tmp,

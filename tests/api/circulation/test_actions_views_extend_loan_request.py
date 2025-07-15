@@ -17,11 +17,10 @@
 
 """Tests REST checkout API methods in the item api_views."""
 
-
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.items.models import ItemStatus
+from tests.utils import postdata
 
 
 def test_extend_loan_missing_parameters(
@@ -43,18 +42,18 @@ def test_extend_loan_missing_parameters(
     assert item.status == ItemStatus.ON_LOAN
 
     # test fails when missing required parameter
-    res, _ = postdata(client, "api_item.extend_loan", dict(item_pid=item.pid))
+    res, _ = postdata(client, "api_item.extend_loan", {"item_pid": item.pid})
     assert res.status_code == 400
     res, _ = postdata(
         client,
         "api_item.extend_loan",
-        dict(item_pid=item.pid, transaction_location_pid=loc_public_martigny.pid),
+        {"item_pid": item.pid, "transaction_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 400
     res, _ = postdata(
         client,
         "api_item.extend_loan",
-        dict(item_pid=item.pid, transaction_user_pid=librarian_martigny.pid),
+        {"item_pid": item.pid, "transaction_user_pid": librarian_martigny.pid},
     )
     assert res.status_code == 400
 
@@ -81,11 +80,11 @@ def test_extend_loan(
     patron["patron"]["blocked_note"] = "Dummy reason"
     patron.update(patron, dbcommit=True, reindex=True)
 
-    params = dict(
-        item_pid=item.pid,
-        transaction_user_pid=librarian_martigny.pid,
-        transaction_location_pid=loc_public_martigny.pid,
-    )
+    params = {
+        "item_pid": item.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+        "transaction_location_pid": loc_public_martigny.pid,
+    }
 
     login_user_via_session(client, librarian_martigny.user)
     res, _ = postdata(client, "api_item.extend_loan", params)

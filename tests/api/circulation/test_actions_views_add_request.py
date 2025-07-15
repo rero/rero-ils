@@ -17,9 +17,9 @@
 
 """Tests REST librarian request API methods in the item api_views."""
 
-
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+
+from tests.utils import postdata
 
 
 def test_add_request_failed_actions(
@@ -38,7 +38,7 @@ def test_add_request_failed_actions(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(item_pid=item_lib_martigny.pid, patron_pid=patron_martigny.pid),
+        {"item_pid": item_lib_martigny.pid, "patron_pid": patron_martigny.pid},
     )
     assert res.status_code == 400
 
@@ -47,9 +47,10 @@ def test_add_request_failed_actions(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            patron_pid=patron_martigny.pid, pickup_location_pid=loc_public_martigny.pid
-        ),
+        {
+            "patron_pid": patron_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+        },
     )
     assert res.status_code == 404
 
@@ -57,9 +58,10 @@ def test_add_request_failed_actions(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny.pid, pickup_location_pid=loc_public_martigny.pid
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+        },
     )
     assert res.status_code == 400
 
@@ -67,11 +69,11 @@ def test_add_request_failed_actions(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+        },
     )
     assert res.status_code == 400
 
@@ -93,13 +95,13 @@ def test_add_request(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -108,12 +110,12 @@ def test_add_request(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron2_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "patron_pid": patron2_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200

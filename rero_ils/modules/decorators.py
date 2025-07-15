@@ -75,10 +75,10 @@ def check_logged_as_patron(fn):
         status, code, redirect_url = login_and_patron()
         if status:
             return fn(*args, **kwargs)
-        elif redirect_url:
+        if redirect_url:
             return redirect(redirect_url)
-        else:
-            abort(code)
+        abort(code)
+        return None
 
     return wrapper
 

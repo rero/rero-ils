@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for loans."""
+
 from invenio_access import action_factory, any_user
 from invenio_records_permissions.generators import Generator
 

@@ -19,8 +19,7 @@
 """Stats Report tests creation."""
 
 from datetime import datetime
-
-import mock
+from unittest import mock
 
 from rero_ils.modules.stats.api.api import Stat
 from rero_ils.modules.stats.api.report import StatsReport
@@ -48,7 +47,9 @@ def test_stats_report_create(lib_martigny, document):
     assert not StatsReport(cfg).collect()
 
     res = StatsReport(cfg).collect()
-    assert Stat.create(data=dict(type="report", config=cfg, values=[dict(results=res)]))
+    assert Stat.create(
+        data={"type": "report", "config": cfg, "values": [{"results": res}]}
+    )
 
 
 def test_stats_report_range(app, lib_martigny):
@@ -64,14 +65,17 @@ def test_stats_report_range(app, lib_martigny):
     }
     with mock.patch("rero_ils.modules.stats.api.report.datetime") as mock_datetime:
         mock_datetime.now.return_value = datetime(year=2023, month=2, day=1)
-        assert StatsReport(cfg).get_range_period("month") == dict(
-            gte="2023-01-01T00:00:00", lte="2023-01-31T23:59:59"
-        )
-        assert StatsReport(cfg).get_range_period("year") == dict(
-            gte="2022-01-01T00:00:00", lte="2022-12-31T23:59:59"
-        )
+        assert StatsReport(cfg).get_range_period("month") == {
+            "gte": "2023-01-01T00:00:00",
+            "lte": "2023-01-31T23:59:59",
+        }
+        assert StatsReport(cfg).get_range_period("year") == {
+            "gte": "2022-01-01T00:00:00",
+            "lte": "2022-12-31T23:59:59",
+        }
         mock_datetime.now.return_value = datetime(year=2023, month=1, day=5)
-        assert StatsReport(cfg).get_range_period("month") == dict(
-            gte="2022-12-01T00:00:00", lte="2022-12-31T23:59:59"
-        )
+        assert StatsReport(cfg).get_range_period("month") == {
+            "gte": "2022-12-01T00:00:00",
+            "lte": "2022-12-31T23:59:59",
+        }
         assert not StatsReport(cfg).get_range_period("foo")

@@ -17,7 +17,6 @@
 
 """Test cli."""
 
-
 from os.path import dirname, join
 
 from click.testing import CliRunner

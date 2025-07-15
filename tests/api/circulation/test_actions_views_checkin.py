@@ -16,17 +16,18 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests REST return an item API methods in the item api_views."""
+
 from datetime import date, datetime, timedelta, timezone
 
 from flask import url_for
 from flask_babel import gettext as _
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.utils import get_circ_policy, sum_for_fees
 from rero_ils.modules.patron_transactions.utils import get_last_transaction_by_loan_pid
+from tests.utils import get_json, postdata
 
 
 def test_checkin_an_item(
@@ -44,14 +45,14 @@ def test_checkin_an_item(
     item, patron, loan = item_on_loan_martigny_patron_and_loan_on_loan
 
     # test fails when there is a missing required parameter
-    res, data = postdata(client, "api_item.checkin", dict(item_pid=item.pid))
+    res, data = postdata(client, "api_item.checkin", {"item_pid": item.pid})
     assert res.status_code == 400
 
     # test fails when there is a missing required parameter
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(item_pid=item.pid, transaction_location_pid=loc_public_martigny.pid),
+        {"item_pid": item.pid, "transaction_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 400
 
@@ -60,10 +61,10 @@ def test_checkin_an_item(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 404
 
@@ -71,11 +72,11 @@ def test_checkin_an_item(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item.pid)
@@ -86,11 +87,11 @@ def test_checkin_an_item(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item.pid)
@@ -112,11 +113,11 @@ def test_auto_checkin_else(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 400
     assert get_json(res)["status"] == _(
@@ -178,11 +179,11 @@ def test_checkin_overdue_item(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item.pid)

@@ -17,9 +17,6 @@
 
 """Persistent identifier fetchers."""
 
-
-from __future__ import absolute_import, print_function
-
 from collections import namedtuple
 
 FetchedPID = namedtuple("FetchedPID", ["provider", "pid_type", "pid_value"])

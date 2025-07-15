@@ -17,10 +17,11 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test acquisition order API."""
-import mock
+
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
 from rero_ils.modules.acquisition.acq_order_lines.models import AcqOrderLineStatus
@@ -35,6 +36,7 @@ from rero_ils.modules.notifications.models import (
 )
 from rero_ils.modules.vendors.dumpers import VendorAcquisitionNotificationDumper
 from rero_ils.modules.vendors.models import VendorContactType
+from tests.utils import get_json, postdata
 
 
 def test_order_notification_preview(
@@ -98,29 +100,29 @@ def test_send_order(
     res, data = postdata(
         client,
         "api_order.send_order",
-        data=dict(emails=emails),
-        url_data=dict(order_pid="toto"),
+        data={"emails": emails},
+        url_data={"order_pid": "toto"},
     )
     assert res.status_code == 404
     # test when email data is not provided
     res, data = postdata(
-        client, "api_order.send_order", url_data=dict(order_pid=acor.pid)
+        client, "api_order.send_order", url_data={"order_pid": acor.pid}
     )
     assert res.status_code == 400
     # test when email data provided but empty
     res, data = postdata(
         client,
         "api_order.send_order",
-        data=dict(emails=[]),
-        url_data=dict(order_pid=acor.pid),
+        data={"emails": []},
+        url_data={"order_pid": acor.pid},
     )
     assert res.status_code == 400
     # test when email data provided and has no "to" email address
     res, data = postdata(
         client,
         "api_order.send_order",
-        data=dict(emails=emails),
-        url_data=dict(order_pid=acor.pid),
+        data={"emails": emails},
+        url_data={"order_pid": acor.pid},
     )
     assert res.status_code == 400
     assert "required" in data["message"] and "`to`" in data["message"]
@@ -138,8 +140,8 @@ def test_send_order(
     res, data = postdata(
         client,
         "api_order.send_order",
-        data=dict(emails=emails),
-        url_data=dict(order_pid=acor.pid),
+        data={"emails": emails},
+        url_data={"order_pid": acor.pid},
     )
     data = get_json(res)
     assert res.status_code == 200

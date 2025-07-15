@@ -20,12 +20,12 @@
 from datetime import datetime
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan, LoanState
 from rero_ils.modules.locations.api import Location
+from tests.utils import postdata
 
 
 def test_checking_out_external_items_at_non_circ_library(
@@ -56,12 +56,12 @@ def test_checking_out_external_items_at_non_circ_library(
     lib_martigny_bourg.update(lib_martigny_bourg, dbcommit=True, reindex=True)
     # a librarian from the non-circulating library can checkout items from
     # another library into his library
-    params = dict(
-        item_pid=item_lib_martigny.pid,
-        patron_pid=patron_martigny.pid,
-        transaction_user_pid=librarian_martigny_bourg.pid,
-        transaction_library_pid=lib_martigny_bourg.pid,
-    )
+    params = {
+        "item_pid": item_lib_martigny.pid,
+        "patron_pid": patron_martigny.pid,
+        "transaction_user_pid": librarian_martigny_bourg.pid,
+        "transaction_library_pid": lib_martigny_bourg.pid,
+    }
     res, data = postdata(client, "api_item.checkout", params)
     assert res.status_code == 200
     # the checkin is possible at the non-circulating library and the item goes
@@ -69,11 +69,11 @@ def test_checking_out_external_items_at_non_circ_library(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            transaction_library_pid=lib_martigny_bourg.pid,
-            transaction_user_pid=librarian_martigny_bourg.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "transaction_library_pid": lib_martigny_bourg.pid,
+            "transaction_user_pid": librarian_martigny_bourg.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item_lib_martigny.pid)
@@ -106,12 +106,12 @@ def test_requesting_item_from_non_circulating_library(
     ]
     lib_martigny_bourg["opening_hours"] = opening_hours
     lib_martigny_bourg.update(lib_martigny_bourg, dbcommit=True, reindex=True)
-    params = dict(
-        item_pid=item_lib_martigny_bourg.pid,
-        patron_pid=patron_martigny.pid,
-        transaction_user_pid=librarian_martigny_bourg.pid,
-        transaction_library_pid=lib_martigny_bourg.pid,
-    )
+    params = {
+        "item_pid": item_lib_martigny_bourg.pid,
+        "patron_pid": patron_martigny.pid,
+        "transaction_user_pid": librarian_martigny_bourg.pid,
+        "transaction_library_pid": lib_martigny_bourg.pid,
+    }
     res, data = postdata(client, "api_item.checkout", params)
     assert res.status_code == 200
     loan_pid = data.get("action_applied").get("checkout").get("pid")
@@ -125,11 +125,11 @@ def test_requesting_item_from_non_circulating_library(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_lib_martigny_bourg.pid,
-            transaction_library_pid=lib_martigny_bourg.pid,
-            transaction_user_pid=librarian_martigny_bourg.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny_bourg.pid,
+            "transaction_library_pid": lib_martigny_bourg.pid,
+            "transaction_user_pid": librarian_martigny_bourg.pid,
+        },
     )
     assert res.status_code == 200
     item = Item.get_record_by_pid(item_lib_martigny_bourg.pid)
@@ -144,13 +144,13 @@ def test_requesting_item_from_non_circulating_library(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny_bourg.pid,
-            patron_pid=patron_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_library_pid=lib_martigny_bourg.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny_bourg.pid,
+            "patron_pid": patron_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "transaction_library_pid": lib_martigny_bourg.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan = Loan(data.get("metadata").get("pending_loans")[0])
@@ -164,11 +164,11 @@ def test_requesting_item_from_non_circulating_library(
     res, data = postdata(
         client,
         "api_item.validate_request",
-        dict(
-            pid=loan.get("pid"),
-            transaction_library_pid=lib_martigny_bourg.pid,
-            transaction_user_pid=librarian_martigny_bourg.pid,
-        ),
+        {
+            "pid": loan.get("pid"),
+            "transaction_library_pid": lib_martigny_bourg.pid,
+            "transaction_user_pid": librarian_martigny_bourg.pid,
+        },
     )
     assert res.status_code == 200
     loan = Loan(data.get("metadata").get("pending_loans")[0])
@@ -184,11 +184,11 @@ def test_requesting_item_from_non_circulating_library(
     res, data = postdata(
         client,
         "api_item.receive",
-        dict(
-            pid=loan.get("pid"),
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "pid": loan.get("pid"),
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan = Loan(data.get("metadata").get("pending_loans")[0])
@@ -207,13 +207,13 @@ def test_requesting_item_from_non_circulating_library(
     eod = today.replace(
         hour=23, minute=59, second=0, microsecond=0, tzinfo=lib_martigny.get_timezone()
     )
-    params = dict(
-        item_pid=item_lib_martigny_bourg.pid,
-        patron_pid=patron_martigny.pid,
-        transaction_user_pid=librarian_martigny.pid,
-        transaction_library_pid=lib_martigny.pid,
-        end_date=eod.strftime(date_format),
-    )
+    params = {
+        "item_pid": item_lib_martigny_bourg.pid,
+        "patron_pid": patron_martigny.pid,
+        "transaction_user_pid": librarian_martigny.pid,
+        "transaction_library_pid": lib_martigny.pid,
+        "end_date": eod.strftime(date_format),
+    }
     res, data = postdata(client, "api_item.checkout", params)
     assert res.status_code == 200
     loan_pid = data.get("action_applied").get("checkout").get("pid")

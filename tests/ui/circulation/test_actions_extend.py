@@ -16,13 +16,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test item circulation extend actions."""
+
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
 import pytest
 from invenio_circulation.errors import CirculationException
-from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.circ_policies.api import CircPolicy
 from rero_ils.modules.errors import NoCirculationAction
@@ -34,6 +34,7 @@ from rero_ils.modules.loans.utils import get_circ_policy
 from rero_ils.modules.patron_transactions.api import PatronTransactionsSearch
 from rero_ils.modules.patron_transactions.utils import get_last_transaction_by_loan_pid
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import item_record_to_a_specific_loan_state
 
 
 def test_fees_after_extend(

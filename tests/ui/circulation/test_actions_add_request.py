@@ -17,12 +17,11 @@
 
 """Test item circulation request actions."""
 
-
 import pytest
 from invenio_circulation.errors import RecordCannotBeRequestedError
-from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.loans.models import LoanState
+from tests.utils import item_record_to_a_specific_loan_state
 
 
 def test_add_request_on_item_on_shelf(

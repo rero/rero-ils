@@ -320,6 +320,7 @@ def marc21_to_supplementary_content(self, key, value):
     """Get notes and original title."""
     if value.get("a"):
         return utils.force_list(value.get("a"))[0]
+    return None
 
 
 @marc21.over("subjects", "^(600|610|611|630|650|651|655)..")

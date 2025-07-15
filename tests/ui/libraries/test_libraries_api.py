@@ -17,8 +17,6 @@
 
 """Library Record tests."""
 
-from __future__ import absolute_import, print_function
-
 from datetime import datetime, timedelta
 
 import pytz
@@ -73,7 +71,7 @@ def test_libraries_is_open(lib_martigny):
     #   * monday --> friday  :: 12 AM --> open
     #   * saturday & sunday  :: closed all day
     orginal_date = datetime.strptime("2020/08/17", "%Y/%m/%d")  # random date
-    for day_idx in range(0, 5):
+    for day_idx in range(5):
         test_date = next_weekday(orginal_date, day_idx)
         test_date = test_date.replace(hour=6, minute=0)
         assert not library.is_open(test_date)
@@ -190,6 +188,7 @@ def test_library_get_email(lib_martigny):
         for setting in library.get("notification_settings", []):
             if setting.get("type") == notif_type:
                 return setting.get("email")
+        return None
 
     assert lib_martigny.get_email(NotificationType.RECALL) == notification_email(
         lib_martigny, NotificationType.RECALL

@@ -17,9 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from functools import wraps
 
@@ -193,7 +190,7 @@ def do_holding_jsonify_action(func):
             return jsonify({"action_applied": action_applied})
         except NoCirculationActionIsPermitted as error:
             # The circulation specs do not allow updates on some loan states.
-            return jsonify({"status": f"error: {str(error)}"}), 403
+            return jsonify({"status": f"error: {error!s}"}), 403
         except MissingRequiredParameterError as error:
             # Return error 400 when there is a missing required parameter
             abort(400, str(error))
@@ -207,7 +204,7 @@ def do_holding_jsonify_action(func):
         except Exception as error:
             # TODO: need to know what type of exception and document there.
             # raise error
-            current_app.logger.error(f"{func.__name__}: {str(error)}")
+            current_app.logger.error(f"{func.__name__}: {error!s}")
             return jsonify({"status": f"error: {error}"}), 400
 
     return decorated_view
@@ -289,7 +286,7 @@ def can_request(holding_pid):
     # reasons why
     response = {"can": can}
     if reasons:
-        response["reasons"] = {"others": {reason: True for reason in reasons}}
+        response["reasons"] = {"others": dict.fromkeys(reasons, True)}
     return jsonify(response)
 
 
@@ -314,3 +311,4 @@ def holding_availability(pid):
     if holding := Holding.get_record_by_pid(pid):
         return jsonify({"available": holding.is_available()})
     abort(404)
+    return None

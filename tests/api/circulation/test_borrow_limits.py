@@ -16,13 +16,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Borrow limits."""
+
 from copy import deepcopy
 from datetime import datetime, timedelta
 
 from flask import url_for
 from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.loans.api import Loan, LoansSearch, get_overdue_loans
@@ -35,6 +35,7 @@ from rero_ils.modules.patron_transaction_events.api import PatronTransactionEven
 from rero_ils.modules.patron_types.api import PatronType
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import get_json, postdata
 
 
 def test_checkout_library_limit(
@@ -64,8 +65,6 @@ def test_checkout_library_limit(
     library_ref = get_ref_for_pid("lib", lib_martigny.pid)
     location_ref = get_ref_for_pid("loc", loc_public_martigny.pid)
 
-    login_user_via_session(client, librarian_martigny.user)
-
     # Update fixtures for the tests
     #   * Update the patron_type to set a checkout limits
     #   * All items are linked to the same library/location
@@ -84,16 +83,18 @@ def test_checkout_library_limit(
     item3_lib_martigny_data["location"]["$ref"] = location_ref
     item3.update(item3_lib_martigny_data, dbcommit=True, reindex=True)
 
+    login_user_via_session(client, librarian_martigny.user)
+
     # First checkout - All should be fine.
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item1.pid,
-            patron_pid=patron.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item1.pid,
+            "patron_pid": patron.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan1_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
@@ -103,12 +104,12 @@ def test_checkout_library_limit(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item2.pid,
-            patron_pid=patron.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2.pid,
+            "patron_pid": patron.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "Checkout denied" in data["message"]
@@ -127,24 +128,24 @@ def test_checkout_library_limit(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item2.pid,
-            patron_pid=patron.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2.pid,
+            "patron_pid": patron.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan2_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item3.pid,
-            patron_pid=patron.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item3.pid,
+            "patron_pid": patron.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "Checkout denied" in data["message"]
@@ -157,12 +158,12 @@ def test_checkout_library_limit(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item3.pid,
-            patron_pid=patron.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item3.pid,
+            "patron_pid": patron.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "Checkout denied" in data["message"]
@@ -172,7 +173,7 @@ def test_checkout_library_limit(
     res = client.get(url)
     assert res.status_code == 200
     data = get_json(res)
-    assert "error" == data["messages"][0]["type"]
+    assert data["messages"][0]["type"] == "error"
     assert "Checkout denied" in data["messages"][0]["content"]
 
     # try a checkout with 'override_blocking' parameter.
@@ -180,12 +181,12 @@ def test_checkout_library_limit(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item3.pid,
-            patron_pid=patron.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item3.pid,
+            "patron_pid": patron.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
         url_data={"override_blocking": "true"},
     )
     assert res.status_code == 200
@@ -198,33 +199,33 @@ def test_checkout_library_limit(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item3.pid,
-            pid=loan3_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item3.pid,
+            "pid": loan3_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item2.pid,
-            pid=loan2_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2.pid,
+            "pid": loan2_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item1.pid,
-            pid=loan1_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item1.pid,
+            "pid": loan1_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     del patron_type["limits"]
@@ -288,13 +289,13 @@ def test_overdue_limit(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-            end_date=eod.strftime(date_format),
-        ),
+        {
+            "item_pid": item_pid,
+            "patron_pid": patron_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+            "end_date": eod.strftime(date_format),
+        },
     )
     assert res.status_code == 200
     loan_pid = data.get("action_applied")[LoanAction.CHECKOUT].get("pid")
@@ -310,23 +311,23 @@ def test_overdue_limit(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=tmp_item.pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": tmp_item.pid,
+            "patron_pid": patron_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     res, _ = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=tmp_item.pid,
-            pid=data.get("action_applied")[LoanAction.CHECKOUT].get("pid"),
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": tmp_item.pid,
+            "pid": data.get("action_applied")[LoanAction.CHECKOUT].get("pid"),
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -353,12 +354,12 @@ def test_overdue_limit(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "patron_pid": patron_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "Checkout denied" in data["message"]
@@ -366,13 +367,13 @@ def test_overdue_limit(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "patron_pid": patron_pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "maximal number of overdue items is reached" in data["message"]
@@ -380,11 +381,11 @@ def test_overdue_limit(
     res, _ = postdata(
         client,
         "api_item.extend_loan",
-        dict(
-            item_pid=item_pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "transaction_user_pid": librarian_martigny.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "maximal number of overdue items is reached" in data["message"]
@@ -409,12 +410,12 @@ def test_overdue_limit(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "patron_pid": patron_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "maximal overdue fee amount is reached" in data["message"]
@@ -423,13 +424,13 @@ def test_overdue_limit(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "patron_pid": patron_pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "maximal overdue fee amount is reached" in data["message"]
@@ -438,11 +439,11 @@ def test_overdue_limit(
     res, _ = postdata(
         client,
         "api_item.extend_loan",
-        dict(
-            item_pid=item_pid,
-            transaction_user_pid=librarian_martigny.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "transaction_user_pid": librarian_martigny.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+        },
     )
 
     assert res.status_code == 403
@@ -458,12 +459,12 @@ def test_overdue_limit(
     res, _ = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_pid,
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -510,12 +511,12 @@ def test_unpaid_subscription(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item.pid,
-            patron_pid=patron.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "patron_pid": patron.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 403
     assert "Checkout denied" in data["message"] and "unpaid" in data["message"]
@@ -535,12 +536,12 @@ def test_unpaid_subscription(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item.pid,
-            patron_pid=patron.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "patron_pid": patron.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     loan_pid = data["action_applied"]["checkout"]["pid"]
@@ -551,12 +552,12 @@ def test_unpaid_subscription(
     res, _ = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item.pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item.pid,
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res == 200
     patron_type.update(patron_type_children_martigny_data, dbcommit=True, reindex=True)

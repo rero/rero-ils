@@ -18,8 +18,6 @@
 
 """Click command-line utilities."""
 
-from __future__ import absolute_import, print_function
-
 import click
 
 from rero_ils.modules.acquisition.cli import acquisition

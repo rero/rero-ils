@@ -17,7 +17,6 @@
 
 """Click command-line interface for item record management."""
 
-
 import contextlib
 import os
 from io import BytesIO
@@ -44,7 +43,7 @@ def create_pdf_file(document):
     """
     # get the dublin core format of the given document
     dc = dublincore.do(document, "english")
-    data = dict(header=f"Document ({document.pid})")
+    data = {"header": f"Document ({document.pid})"}
     if titles := dc.get("titles"):
         data["title"] = "\n".join(titles)
     if contributors := dc.get("contributors"):
@@ -192,10 +191,10 @@ def create_files(number, collections):
         number_of_files = randint(1, 10)
         click.echo(f"Create {number_of_files} files for {pid}")
         lib_pid = choice(lib_pids)
-        metadata = dict(
-            collections=[choice(collections)],
-            library={"$ref": get_ref_for_pid("lib", lib_pid)},
-        )
+        metadata = {
+            "collections": [choice(collections)],
+            "library": {"$ref": get_ref_for_pid("lib", lib_pid)},
+        }
         create_pdf_record_files(
             document=doc, metadata=metadata, number_of_files=number_of_files
         )
@@ -214,10 +213,10 @@ def load_files(document_pid, library_pid, files, collections):
     :param collections: list of str - the list of collection codes.
     """
     doc = Document.get_record_by_pid(document_pid)
-    metadata = dict(
-        document={"$ref": get_ref_for_pid("doc", document_pid)},
-        library={"$ref": get_ref_for_pid("lib", library_pid)},
-    )
+    metadata = {
+        "document": {"$ref": get_ref_for_pid("doc", document_pid)},
+        "library": {"$ref": get_ref_for_pid("lib", library_pid)},
+    }
     if collections:
         metadata["collections"] = collections
     click.secho(f"Loading {len(files)} files...", fg="green")

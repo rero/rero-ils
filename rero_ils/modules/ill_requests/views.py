@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 from flask import (
     Blueprint,
     current_app,
@@ -68,7 +66,7 @@ def ill_request_form(viewcode):
     # can't be "calculated" on the form creation (context free).
     form.pickup_location.choices = [
         *form.pickup_location.choices,
-        *list(sorted(get_pickup_location_options(), key=lambda pickup: pickup[1])),
+        *sorted(get_pickup_location_options(), key=lambda pickup: pickup[1]),
     ]
 
     # Extraction of the pids organizations from the connected patron
@@ -95,6 +93,7 @@ def ill_request_form(viewcode):
             for ptrn in current_patrons:
                 if ptrn.organisation_pid == loc.organisation_pid:
                     return ptrn
+            return None
 
         ill_request_data["patron"] = {
             "$ref": get_ref_for_pid("patrons", get_patron(loc_pid).pid)
@@ -140,12 +139,13 @@ def _populate_document_data_form(doc_pid, form):
             form.document.year.data = date
             statement_types = ["bf:Agent"]
         # Document publisher
-        if statement := next(
-            get_production_activity_statement(production_activity, statement_types),
-            None,
-        ):
-            if label := statement.get("label"):
-                form.document.publisher.data = label[0].get("value")
+        if (
+            statement := next(
+                get_production_activity_statement(production_activity, statement_types),
+                None,
+            )
+        ) and (label := statement.get("label")):
+            form.document.publisher.data = label[0].get("value")
     # Document identifier
     types = [
         IdentifierType.ISBN,

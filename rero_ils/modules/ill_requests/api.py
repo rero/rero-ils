@@ -45,7 +45,7 @@ from .models import (
 ILLRequestProvider = type(
     "ILLRequestProvider",
     (Provider,),
-    dict(identifier=ILLRequestIdentifier, pid_type="illr"),
+    {"identifier": ILLRequestIdentifier, "pid_type": "illr"},
 )
 # minter
 ill_request_id_minter = partial(id_minter, provider=ILLRequestProvider)

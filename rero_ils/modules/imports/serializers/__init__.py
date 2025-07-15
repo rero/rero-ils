@@ -51,6 +51,7 @@ def json_record_serializer_factory(import_class, serializer_type="record"):
             ),
             "application/rero+json",
         )
+    return None
 
 
 json_v1_search = ImportsSearchSerializer(ImportSchemaJSONV1)

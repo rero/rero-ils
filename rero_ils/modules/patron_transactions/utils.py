@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Utility functions about PatronTransactions."""
+
 from datetime import datetime, timezone
 
 from flask_babel import gettext as _
@@ -126,6 +127,7 @@ def create_patron_transaction_from_overdue_loan(
         return PatronTransaction.create(
             data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid
         )
+    return None
 
 
 def create_patron_transaction_from_notification(
@@ -151,6 +153,7 @@ def create_patron_transaction_from_notification(
         return PatronTransaction.create(
             data, dbcommit=dbcommit, reindex=reindex, delete_pid=delete_pid
         )
+    return None
 
 
 def create_subscription_for_patron(

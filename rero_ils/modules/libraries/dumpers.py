@@ -45,8 +45,7 @@ class LibraryAcquisitionNotificationDumper(InvenioRecordsDumper):
                 ),
             }
         )
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}
 
 
 class LibrarySerialClaimNotificationDumper(InvenioRecordsDumper):
@@ -73,8 +72,7 @@ class LibrarySerialClaimNotificationDumper(InvenioRecordsDumper):
                 ).get("billing_informations", {}),
             }
         )
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}
 
 
 class LibraryCirculationNotificationDumper(InvenioRecordsDumper):

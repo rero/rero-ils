@@ -98,8 +98,9 @@ def downgrade():
     def get_original_roles(roles):
         if UserRole.FULL_PERMISSIONS in roles:
             return ["system_librarian"]
-        elif any(role in UserRole.LIBRARIAN_ROLES for role in roles):
+        if any(role in UserRole.LIBRARIAN_ROLES for role in roles):
             return ["librarian"]
+        return None
 
     query = (
         PatronsSearch().filter("terms", roles=UserRole.PROFESSIONAL_ROLES).source(False)

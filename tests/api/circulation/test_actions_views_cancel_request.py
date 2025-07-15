@@ -17,9 +17,9 @@
 
 """Tests REST cancel item request API methods in the item api_views."""
 
-
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
+
+from tests.utils import postdata
 
 
 def test_cancel_an_item_request(
@@ -37,14 +37,14 @@ def test_cancel_an_item_request(
     item, patron, loan = item_on_shelf_martigny_patron_and_loan_pending
 
     # test fails when there is a missing required parameter
-    res, data = postdata(client, "api_item.cancel_item_request", dict(pid=loan.pid))
+    res, data = postdata(client, "api_item.cancel_item_request", {"pid": loan.pid})
     assert res.status_code == 400
 
     # test fails when there is a missing required parameter
     res, data = postdata(
         client,
         "api_item.cancel_item_request",
-        dict(pid=loan.pid, transaction_location_pid=loc_public_martigny.pid),
+        {"pid": loan.pid, "transaction_location_pid": loc_public_martigny.pid},
     )
     assert res.status_code == 400
 
@@ -53,10 +53,10 @@ def test_cancel_an_item_request(
     res, data = postdata(
         client,
         "api_item.cancel_item_request",
-        dict(
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 404
 
@@ -64,11 +64,11 @@ def test_cancel_an_item_request(
     res, data = postdata(
         client,
         "api_item.cancel_item_request",
-        dict(
-            pid=loan.pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "pid": loan.pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -78,10 +78,10 @@ def test_cancel_an_item_request(
     res, data = postdata(
         client,
         "api_item.cancel_item_request",
-        dict(
-            pid=loan.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "pid": loan.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200

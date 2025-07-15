@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for `Entity` records."""
+
 from invenio_records_permissions.generators import AnyUser
 
 from rero_ils.modules.permissions import RecordPermissionPolicy

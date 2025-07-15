@@ -27,7 +27,7 @@ def acq_account_resolver(pid):
     """Resolver for acq_account record."""
     persistent_id = PersistentIdentifier.get("acac", pid)
     if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
+        return {"pid": persistent_id.pid_value}
     current_app.logger.error(
         f"Doc resolver error: /api/acq_accounts/{pid} {persistent_id}"
     )

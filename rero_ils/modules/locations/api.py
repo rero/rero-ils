@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """API for manipulating locations."""
+
 from functools import partial
 
 from elasticsearch_dsl.query import Q
@@ -35,7 +36,9 @@ from .models import LocationIdentifier, LocationMetadata
 
 # provider
 LocationProvider = type(
-    "LocationProvider", (Provider,), dict(identifier=LocationIdentifier, pid_type="loc")
+    "LocationProvider",
+    (Provider,),
+    {"identifier": LocationIdentifier, "pid_type": "loc"},
 )
 # minter
 location_id_minter = partial(id_minter, provider=LocationProvider)

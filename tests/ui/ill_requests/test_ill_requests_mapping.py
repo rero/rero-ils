@@ -16,9 +16,9 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """ILL requests record mapping tests."""
-from utils import get_mapping
 
 from rero_ils.modules.ill_requests.api import ILLRequest, ILLRequestsSearch
+from tests.utils import get_mapping
 
 
 def test_ill_request_es_mapping(

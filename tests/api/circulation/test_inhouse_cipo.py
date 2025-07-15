@@ -21,13 +21,13 @@ from copy import deepcopy
 
 import ciso8601
 from freezegun import freeze_time
-from utils import login_user_via_session, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.libraries.api import Library
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanAction, LoanState
+from tests.utils import login_user_via_session, postdata
 
 
 def test_less_than_one_day_checkout(
@@ -67,13 +67,13 @@ def test_less_than_one_day_checkout(
         res, data = postdata(
             client,
             "api_item.checkout",
-            dict(
-                item_pid=created_item.pid,
-                patron_pid=patron2_martigny.pid,
-                transaction_location_pid=loc_public_martigny.pid,
-                transaction_user_pid=librarian_martigny.pid,
-                pickup_location_pid=loc_public_martigny.pid,
-            ),
+            {
+                "item_pid": created_item.pid,
+                "patron_pid": patron2_martigny.pid,
+                "transaction_location_pid": loc_public_martigny.pid,
+                "transaction_user_pid": librarian_martigny.pid,
+                "pickup_location_pid": loc_public_martigny.pid,
+            },
         )
         assert res.status_code == 200
         actions = data["action_applied"]

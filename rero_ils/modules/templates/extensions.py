@@ -16,6 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Template record extensions."""
+
 from invenio_records.extensions import RecordExtension
 
 

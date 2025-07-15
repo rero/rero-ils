@@ -18,8 +18,6 @@
 
 """API for manipulating reminder circulation notifications."""
 
-from __future__ import absolute_import, print_function
-
 import ciso8601
 from num2words import num2words
 

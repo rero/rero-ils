@@ -18,8 +18,6 @@
 
 """API for manipulating "claim" notifications about serial issue."""
 
-from __future__ import absolute_import, print_function
-
 from abc import ABC, abstractmethod
 
 from werkzeug.utils import cached_property
@@ -177,9 +175,11 @@ class ClaimSerialIssueNotification(Notification, ABC):
         """Shortcut for vendor of the issue."""
         if self.item and (holding := self.item.holding):
             return holding.vendor
+        return None
 
     @property
     def library(self):
         """Shortcut for library related to the issue."""
         if self.item and (holding := self.item.holding):
             return holding.library
+        return None

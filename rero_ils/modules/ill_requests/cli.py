@@ -17,8 +17,6 @@
 
 """Click command-line interface for ill_request record management."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import random
 
@@ -39,7 +37,7 @@ def create_ill_requests(input_file):
     locations = get_locations()
     patron_pids = {}
 
-    with open(input_file, "r", encoding="utf-8") as request_file:
+    with open(input_file, encoding="utf-8") as request_file:
         requests = json.load(request_file)
         for request_data in requests:
             for organisation_pid, location_pid in locations.items():
@@ -62,8 +60,7 @@ def create_ill_requests(input_file):
                 }
                 request = ILLRequest.create(request_data, dbcommit=True, reindex=True)
                 click.echo(
-                    f"\tRequest: #{request.pid}  \t"
-                    f"for org#{request.organisation_pid}"
+                    f"\tRequest: #{request.pid}  \tfor org#{request.organisation_pid}"
                 )
 
 

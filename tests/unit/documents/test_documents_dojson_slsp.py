@@ -17,9 +17,8 @@
 
 """DOJSON module tests."""
 
-from __future__ import absolute_import, print_function
+from unittest import mock
 
-import mock
 from dojson.contrib.marc21.utils import create_record
 
 from rero_ils.modules.documents.dojson.contrib.marc21tojson.slsp import marc21

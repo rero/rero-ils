@@ -17,11 +17,10 @@
 
 """Tests invenio circulation bug when document has items attached."""
 
-
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.loans.models import LoanAction
+from tests.utils import postdata
 
 
 def test_document_with_one_item_attached_bug(
@@ -43,12 +42,12 @@ def test_document_with_one_item_attached_bug(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -59,13 +58,13 @@ def test_document_with_one_item_attached_bug(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "patron_pid": patron2_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     actions = data.get("action_applied")
@@ -75,12 +74,12 @@ def test_document_with_one_item_attached_bug(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -88,11 +87,11 @@ def test_document_with_one_item_attached_bug(
     res, data = postdata(
         client,
         "api_item.cancel_item_request",
-        dict(
-            pid=loan2_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "pid": loan2_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert item_lib_martigny.number_of_requests() == 0
@@ -118,12 +117,12 @@ def test_document_with_items_attached_bug(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -134,12 +133,12 @@ def test_document_with_items_attached_bug(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     actions = data.get("action_applied")
@@ -149,13 +148,13 @@ def test_document_with_items_attached_bug(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "patron_pid": patron2_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -163,13 +162,13 @@ def test_document_with_items_attached_bug(
     res, data = postdata(
         client,
         "api_item.librarian_request",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            pickup_location_pid=loc_public_martigny.pid,
-            patron_pid=patron2_martigny.pid,
-            transaction_library_pid=lib_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "pickup_location_pid": loc_public_martigny.pid,
+            "patron_pid": patron2_martigny.pid,
+            "transaction_library_pid": lib_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert item_lib_martigny.number_of_requests() == 1
@@ -179,12 +178,12 @@ def test_document_with_items_attached_bug(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 
@@ -195,12 +194,12 @@ def test_document_with_items_attached_bug(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item2_lib_martigny.pid,
-            pid=loan2_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item2_lib_martigny.pid,
+            "pid": loan2_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
 

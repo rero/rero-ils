@@ -23,13 +23,11 @@ You overwrite and set instance-specific configuration by either:
 - Configuration file: ``<virtualenv prefix>/var/instance/invenio.cfg``
 - Environment variables: ``APP_<variable name>``
 """
-from __future__ import absolute_import, print_function
 
 import os
-from datetime import timedelta
 from functools import partial
 
-from celery.schedules import crontab
+from celery import schedules
 from flask import request
 from invenio_circulation.pidstore.pids import (
     CIRCULATION_LOAN_FETCHER,
@@ -81,6 +79,9 @@ from rero_ils.modules.entities.remote_entities.permissions import (
     RemoteEntityPermissionPolicy,
 )
 from rero_ils.modules.loans.api import LoansSearch
+
+#: User profile
+from rero_ils.modules.users.schemas import UserProfile
 
 from .modules.circ_policies.api import CircPolicy
 from .modules.circ_policies.permissions import CirculationPolicyPermissionPolicy
@@ -324,9 +325,6 @@ ACCOUNTS_USERNAME_RULES_TEXT = _(
     " and underscores."
 )
 
-#: User profile
-from rero_ils.modules.users.schemas import UserProfile
-
 ACCOUNTS_USER_PROFILE_SCHEMA = UserProfile
 RERO_PUBLIC_USERPROFILES_READONLY = False
 RERO_PUBLIC_USERPROFILES_READONLY_FIELDS = ["first_name", "last_name", "birth_date"]
@@ -373,171 +371,164 @@ CELERY_BROKER_URL = "amqp://guest:guest@localhost:5672/"
 CELERY_RESULT_BACKEND = "redis://localhost:6379/2"
 #: Scheduled tasks configuration (aka cronjobs).
 CELERY_BEAT_SCHEDULE = {
-    "scheduler-timestamp": {
+    "celery.scheduler-timestamp": {
         "task": ("rero_ils.modules.tasks.scheduler_timestamp"),
-        "schedule": timedelta(minutes=1),
+        "schedule": schedules.timedelta(minutes=1),
         "enabled": False,
         # Save a timestamp so we can externaly test the timestamp changed
         # every minute. If the timestamp is not changing the scheduller
         # is not working.
     },
-    "bulk-indexer": {
+    "celery.bulk-indexer": {
         "task": "rero_ils.modules.tasks.process_bulk_queue",
-        "schedule": timedelta(minutes=1),
+        "schedule": schedules.timedelta(minutes=1),
         "enabled": False,
     },
-    "accounts": {
+    "celery.accounts": {
         "task": "invenio_accounts.tasks.clean_session_table",
-        "schedule": timedelta(minutes=60),
+        "schedule": schedules.timedelta(minutes=60),
         "enabled": False,
     },
-    "notification-creation": {
+    "celery.notification-creation": {
         "task": "rero_ils.modules.notifications.tasks.create_notifications",
-        "schedule": crontab(minute=0, hour=3),  # Every day at 05:00 UTC,
+        "schedule": schedules.crontab(minute=0, hour=3),  # Every day at 05:00 UTC,
         "kwargs": {"types": [NotificationType.DUE_SOON, NotificationType.OVERDUE]},
         "enabled": False,
         # TODO: in production set this up once a day
     },
-    "notification-dispatch-availability": {
+    "celery.notification-dispatch-availability": {
         "task": "rero_ils.modules.notifications.tasks.process_notifications",
-        "schedule": timedelta(minutes=15),
+        "schedule": schedules.timedelta(minutes=15),
         "kwargs": {"notification_type": NotificationType.AVAILABILITY},
         "enabled": False,
     },
-    "notification-dispatch-recall": {
+    "celery.notification-dispatch-recall": {
         "task": "rero_ils.modules.notifications.tasks.process_notifications",
-        "schedule": timedelta(minutes=15),
+        "schedule": schedules.timedelta(minutes=15),
         "kwargs": {"notification_type": NotificationType.RECALL},
         "enabled": False,
     },
-    "claims-creation": {
+    "celery.claims-creation": {
         "task": "rero_ils.modules.items.tasks.process_late_issues",
-        "schedule": crontab(minute=0, hour=6),  # Every day at 06:00 UTC,
+        "schedule": schedules.crontab(minute=0, hour=6),  # Every day at 06:00 UTC,
         "enabled": False,
     },
-    "clean_obsolete_temporary_item_types_and_locations": {
+    "celery.clean_obsolete_temporary_item_types_and_locations": {
         "task": (
             "rero_ils.modules.items.tasks"
             ".clean_obsolete_temporary_item_types_and_locations"
         ),
-        "schedule": crontab(minute=15, hour=2),  # Every day at 02:15 UTC,
+        "schedule": schedules.crontab(minute=15, hour=2),  # Every day at 02:15 UTC,
         "enabled": False,
     },
-    "cancel-expired-request": {
+    "celery.cancel-expired-request": {
         "task": "rero_ils.modules.loans.tasks.cancel_expired_request_task",
-        "schedule": crontab(minute=15, hour=3),  # Every day at 03:15 UTC,
+        "schedule": schedules.crontab(minute=15, hour=3),  # Every day at 03:15 UTC,
         "enabled": False,
     },
-    "automatic_renewal": {
+    "celery.automatic_renewal": {
         "task": "rero_ils.modules.loans.tasks.automatic_renewal",
-        "schedule": crontab(minute=30, hour=3),  # Every day at 03:30 UTC
+        "schedule": schedules.crontab(minute=30, hour=3),  # Every day at 03:30 UTC
         "enabled": False,
     },
-    "anonymize-loans": {
+    "celery.anonymize-loans": {
         "task": "rero_ils.modules.loans.tasks.loan_anonymizer",
-        "schedule": crontab(minute=0, hour=7),  # Every day at 07:00 UTC,
+        "schedule": schedules.crontab(minute=0, hour=7),  # Every day at 07:00 UTC,
         "enabled": False,
     },
-    "clear_and_renew_subscriptions": {
+    "celery.clear_and_renew_subscriptions": {
+        "task": ("rero_ils.modules.patrons.tasks.task_clear_and_renew_subscriptions"),
+        "schedule": schedules.crontab(minute=2, hour=2),  # Every day at 02:02 UTC,
+        "enabled": False,
+    },
+    "celery.delete_standard_holdings_having_no_items": {
         "task": (
-            "rero_ils.modules.patrons.tasks" ".task_clear_and_renew_subscriptions"
+            "rero_ils.modules.holdings.tasks.delete_standard_holdings_having_no_items"
         ),
-        "schedule": crontab(minute=2, hour=2),  # Every day at 02:02 UTC,
+        "schedule": schedules.crontab(minute=30, hour=4),  # Every day at 04:30 UTC,
         "enabled": False,
     },
-    "delete_standard_holdings_having_no_items": {
-        "task": (
-            "rero_ils.modules.holdings.tasks"
-            ".delete_standard_holdings_having_no_items"
-        ),
-        "schedule": crontab(minute=30, hour=4),  # Every day at 04:30 UTC,
-        "enabled": False,
-    },
-    "collect-stats-billing": {
+    "celery.collect-stats-billing": {
         "task": ("rero_ils.modules.stats.tasks.collect_stats_billing"),
-        "schedule": crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
+        "schedule": schedules.crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
         "enabled": False,
     },
-    "collect-stats-librarian": {
+    "celery.collect-stats-librarian": {
         "task": ("rero_ils.modules.stats.tasks.collect_stats_librarian"),
-        "schedule": crontab(
+        "schedule": schedules.crontab(
             minute=30, hour=1, day_of_month="1"
         ),  # First day of the month at 01:30 UTC,
         "enabled": False,
     },
-    "collect-stats-report-month": {
+    "celery.collect-stats-report-month": {
         "task": ("rero_ils.modules.stats.tasks.collect_stats_reports"),
-        "schedule": crontab(
+        "schedule": schedules.crontab(
             minute=0, hour=1, day_of_month="1"
         ),  # First day of the month at 01:30 UTC,
         "kwargs": {"frequency": "month"},
         "enabled": False,
     },
-    "collect-stats-report-year": {
+    "celery.collect-stats-report-year": {
         "task": ("rero_ils.modules.stats.tasks.collect_stats_reports"),
-        "schedule": crontab(
+        "schedule": schedules.crontab(
             minute=0, hour=1, day_of_month="1", month_of_year="1"
         ),  # First day of the month at 01:30 UTC,
         "kwargs": {"frequency": "year"},
         "enabled": False,
     },
-    "delete-provisional-items": {
+    "celery.delete-provisional-items": {
         "task": "rero_ils.modules.items.tasks.delete_provisional_items",
-        "schedule": crontab(minute=0, hour=3),  # Every day at 03:00 UTC,
+        "schedule": schedules.crontab(minute=0, hour=3),  # Every day at 03:00 UTC,
         "enabled": False,
     },
-    "delete-loans-created": {
+    "celery.delete-loans-created": {
         "task": "rero_ils.modules.loans.tasks.delete_loans_created",
-        "schedule": crontab(minute=0, hour=5),  # Every day at 05:00 UTC,
+        "schedule": schedules.crontab(minute=0, hour=5),  # Every day at 05:00 UTC,
         "enabled": False,
     },
-    "sync-entities": {
+    "celery.sync-entities": {
         "task": "rero_ils.modules.entities.remote_entities.tasks.sync_entities",
-        "schedule": crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
+        "schedule": schedules.crontab(minute=0, hour=1),  # Every day at 01:00 UTC,
         "enabled": False,
     },
-    "replace-identified-by": {
+    "celery.replace-identified-by": {
         "task": "rero_ils.modules.entities.remote_entities.tasks.replace_identified_by",
-        "schedule": crontab(
+        "schedule": schedules.crontab(
             minute=0, hour=3, day_of_week=6
         ),  # Every Sunday at 03:00 UTC,
         "enabled": False,
     },
-    "delete-drafts": {
+    "celery.delete-drafts": {
         "task": "rero_ils.modules.documents.tasks.delete_drafts",
-        "schedule": crontab(
+        "schedule": schedules.crontab(
             minute=0, hour=4, day_of_week=6
         ),  # Every Sunday at 04:00 UTC,
         "kwargs": {"delete": True},
         "enabled": False,
     },
-    "delete-orphan-harvested": {
+    "celery.delete-orphan-harvested": {
         "task": "rero_ils.modules.documents.tasks.delete_orphan_harvested",
-        "schedule": crontab(
+        "schedule": schedules.crontab(
             minute=0, hour=5, day_of_week=6
         ),  # Every Sunday at 05:00 UTC,
         "kwargs": {"delete": True},
         "enabled": False,
     },
-    "harvest-vs-cantook": {
+    "celery.harvest-vs-cantook": {
         "task": "rero_ils.modules.api_harvester.tasks.harvest_records",
-        "schedule": crontab(minute=33, hour=3),  # Every day at 03:33 UTC,
+        "schedule": schedules.crontab(minute=33, hour=3),  # Every day at 03:33 UTC,
         "kwargs": {"name": "VS-CANTOOK"},
         "enabled": False,
     },
-    "harvest-nj-cantook": {
+    "celery.harvest-nj-cantook": {
         "task": "rero_ils.modules.api_harvester.tasks.harvest_records",
-        "schedule": crontab(minute=44, hour=4),  # Every day at 04:44 UTC,
+        "schedule": schedules.crontab(minute=44, hour=4),  # Every day at 04:44 UTC,
         "kwargs": {"name": "NJ-CANTOOK"},
         "enabled": False,
     },
 }
 
-CELERY_BROKER_HEARTBEAT = 0
 INDEXER_BULK_REQUEST_TIMEOUT = 60
-
-CELERY_BEAT_SCHEDULER = "rero_ils.schedulers.RedisScheduler"
-CELERY_REDIS_SCHEDULER_URL = "redis://localhost:6379/4"
 
 RERO_IMPORT_CACHE = "redis://localhost:6379/5"
 RERO_IMPORT_CACHE_EXPIRE = 10
@@ -550,6 +541,11 @@ SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://rero-ils:rero-ils@localhost/rer
 DB_VERSIONING = False
 #: Disable warning
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# Celery
+CELERY_BROKER_HEARTBEAT = 0
+CELERY_BEAT_SCHEDULER = "rero_ils.schedulers.DatabaseScheduler"
+CELERY_BEAT_DBURI = SQLALCHEMY_DATABASE_URI
 
 # Flask configuration
 # ===================
@@ -605,7 +601,7 @@ SESSION_COOKIE_SECURE = False
 #: provided, the allowed hosts variable is set to localhost. In production it
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
-APP_ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+TRUSTED_HOSTS = ["localhost", "127.0.0.1"]
 
 # Previewers
 # ==========
@@ -1260,7 +1256,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher="organisation_id",
         search_class="rero_ils.modules.organisations.api:OrganisationsSearch",
         search_index="organisations",
-        indexer_class=("rero_ils.modules.organisations.api:" "OrganisationsIndexer"),
+        indexer_class=("rero_ils.modules.organisations.api:OrganisationsIndexer"),
         record_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_response"
         },
@@ -1538,7 +1534,7 @@ RECORDS_REST_ENDPOINTS = dict(
         pid_fetcher="notification_id",
         search_class="rero_ils.modules.notifications.api:NotificationsSearch",
         search_index="notifications",
-        indexer_class=("rero_ils.modules.notifications.api:" "NotificationsIndexer"),
+        indexer_class=("rero_ils.modules.notifications.api:NotificationsIndexer"),
         record_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_response"
         },
@@ -1769,7 +1765,7 @@ RECORDS_REST_ENDPOINTS = dict(
         search_class="rero_ils.modules.acquisition.acq_order_lines.api:AcqOrderLinesSearch",
         search_index="acq_order_lines",
         indexer_class=(
-            "rero_ils.modules.acquisition.acq_order_lines.api:" "AcqOrderLinesIndexer"
+            "rero_ils.modules.acquisition.acq_order_lines.api:AcqOrderLinesIndexer"
         ),
         record_serializers={
             "application/json": "rero_ils.modules.serializers:json_v1_response",
@@ -3480,7 +3476,7 @@ SECURITY_PASSWORD_SINGLE_HASH = True
 INDEXER_REPLACE_REFS = True
 INDEXER_RECORD_TO_INDEX = "rero_ils.modules.indexer_utils.record_to_index"
 #: Trigger delay for celery tasks to index referenced records.
-RERO_ILS_INDEXER_TASK_DELAY = timedelta(seconds=2)
+RERO_ILS_INDEXER_TASK_DELAY = schedules.timedelta(seconds=2)
 
 RERO_ILS_APP_URL_SCHEME = "https"
 RERO_ILS_APP_HOST = "bib.rero.ch"

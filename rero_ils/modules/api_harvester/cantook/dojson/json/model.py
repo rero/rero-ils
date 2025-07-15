@@ -57,7 +57,7 @@ CONTRIBUTION_NATURE = {
 }
 
 
-class Transformation(object):
+class Transformation:
     """Transformation CANTOOK Json to RERO-ILS Json."""
 
     def __init__(self, data=None, logger=None, verbose=False, transform=True):

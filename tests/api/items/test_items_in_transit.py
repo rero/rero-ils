@@ -17,13 +17,12 @@
 
 """Tests items in-transit."""
 
-
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.models import LoanAction
+from tests.utils import postdata
 
 
 def test_items_in_transit_between_libraries(
@@ -44,12 +43,12 @@ def test_items_in_transit_between_libraries(
     res, data = postdata(
         client,
         "api_item.checkout",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            patron_pid=patron_martigny.pid,
-            transaction_location_pid=loc_public_saxon.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "patron_pid": patron_martigny.pid,
+            "transaction_location_pid": loc_public_saxon.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     assert (
@@ -65,12 +64,12 @@ def test_items_in_transit_between_libraries(
     res, data = postdata(
         client,
         "api_item.checkin",
-        dict(
-            item_pid=item_lib_martigny.pid,
-            pid=loan_pid,
-            transaction_location_pid=loc_public_martigny.pid,
-            transaction_user_pid=librarian_martigny.pid,
-        ),
+        {
+            "item_pid": item_lib_martigny.pid,
+            "pid": loan_pid,
+            "transaction_location_pid": loc_public_martigny.pid,
+            "transaction_user_pid": librarian_martigny.pid,
+        },
     )
     assert res.status_code == 200
     item_data = data.get("metadata")

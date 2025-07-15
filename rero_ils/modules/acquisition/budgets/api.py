@@ -18,7 +18,6 @@
 
 """API for manipulating budgets."""
 
-
 import contextlib
 from functools import partial
 
@@ -37,7 +36,7 @@ from .models import BudgetIdentifier, BudgetMetadata
 
 # provider
 BudgetProvider = type(
-    "BudgetProvider", (Provider,), dict(identifier=BudgetIdentifier, pid_type="budg")
+    "BudgetProvider", (Provider,), {"identifier": BudgetIdentifier, "pid_type": "budg"}
 )
 # minter
 budget_id_minter = partial(id_minter, provider=BudgetProvider)

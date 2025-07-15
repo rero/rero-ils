@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Test document dumpers."""
+
 import pytest
 
 from rero_ils.modules.acquisition.dumpers import document_acquisition_dumper

@@ -18,12 +18,13 @@
 
 """Tests `Entity` resource REST API."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
-from utils import get_json, mock_response, postdata, to_relative_url
 
 from rero_ils.modules.entities.dumpers import indexer_dumper
 from rero_ils.modules.entities.models import EntityType
+from tests.utils import get_json, mock_response, postdata, to_relative_url
 
 
 def test_remote_entities_permissions(client, entity_person, json_header):

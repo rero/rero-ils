@@ -18,7 +18,6 @@
 
 """Document record extension to add the MEF pid in the database."""
 
-
 from invenio_db import db
 from invenio_records.extensions import RecordExtension
 

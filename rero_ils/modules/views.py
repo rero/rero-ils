@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates for all modules."""
 
-from __future__ import absolute_import, print_function
-
 import os
 
 import polib
@@ -39,11 +37,9 @@ from .permissions import (
     expose_action_needs_by_patron,
     expose_action_needs_by_role,
     manage_role_permissions,
-)
-from .permissions import permission_management as permission_management_action
-from .permissions import (
     record_permissions,
 )
+from .permissions import permission_management as permission_management_action
 
 api_blueprint = Blueprint("api_blueprint", __name__, url_prefix="")
 
@@ -117,9 +113,8 @@ def permissions_by_role():
         --> all permissions for "admin" and "pro_read_only" roles.
     """
     filtered_roles = get_all_roles()
-    if role_names := request.args.getlist("role"):
-        if "all" not in role_names:
-            filtered_roles = [r for r in filtered_roles if r[0] in role_names]
+    if (role_names := request.args.getlist("role")) and "all" not in role_names:
+        filtered_roles = [r for r in filtered_roles if r[0] in role_names]
 
     return jsonify(expose_action_needs_by_role(filtered_roles))
 
@@ -161,6 +156,9 @@ def translations(ln):
     babel = current_app.extensions["babel"]
     paths = babel.default_directories
     try:
+        for path in paths:
+            current_app.logger.error(f"-----> {path}")
+        current_app.logger.error(current_app.extensions["invenio-i18n"])
         path = next(p for p in paths if p.find("rero_ils") > -1)
     except StopIteration:
         current_app.logger.error(f"translations for {ln} does not exist")

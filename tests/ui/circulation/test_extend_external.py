@@ -17,17 +17,16 @@
 
 """Test item circulation extend actions at external library."""
 
-
 from datetime import datetime, timedelta, timezone
 
 import ciso8601
 from freezegun import freeze_time
-from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.loans.utils import get_circ_policy, get_extension_params
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import item_record_to_a_specific_loan_state
 
 
 def test_item_loans_extend_duration(

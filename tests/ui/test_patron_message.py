@@ -57,8 +57,8 @@ def test_info_message(
         == li.find("div", {"class": "message-blocked"}).text
     )
     assert (
-        "Your account has expired. Please contact your library."
-        == li.find("div", {"class": "message-expired"}).text
+        li.find("div", {"class": "message-expired"}).text
+        == "Your account has expired. Please contact your library."
     )
 
     # If the view of the organization, there is no name of it
@@ -74,6 +74,6 @@ def test_info_message(
         == div.find("div", {"class": "message-blocked"}).text
     )
     assert (
-        "Your account has expired. Please contact your library."
-        == div.find("div", {"class": "message-expired"}).text
+        div.find("div", {"class": "message-expired"}).text
+        == "Your account has expired. Please contact your library."
     )

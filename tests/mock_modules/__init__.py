@@ -39,15 +39,15 @@ class Converter:
                 _id = identifier["value"]
                 break
         if _id is None:
-            logs = dict(
-                warning=["Fixtures conversions"],
-                error=["Unable to extract the main identifier"],
-            )
+            logs = {
+                "warning": ["Fixtures conversions"],
+                "error": ["Unable to extract the main identifier"],
+            }
             return None, {}, "error", logs
-        logs = dict(
-            info=["Conversion ok"],
-            warning=["Fixtures conversions"],
-        )
+        logs = {
+            "info": ["Conversion ok"],
+            "warning": ["Fixtures conversions"],
+        }
         return _id, converted, "complete", logs
 
     @classmethod

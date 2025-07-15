@@ -61,7 +61,7 @@ def test_normalize(app):
         "4, Droit pénal et procédure pénale"
     )
     text_norm = (
-        "Journal tribunaux jurisprudence fédérale " "4 Droit pénal et procédure pénale"
+        "Journal tribunaux jurisprudence fédérale 4 Droit pénal et procédure pénale"
     )
     assert text_norm == normalizer.normalize(text, "fre")
 

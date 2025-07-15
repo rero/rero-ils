@@ -70,6 +70,7 @@ target/
 .*.sw?
 
 celerybeat-schedule
+schedule.db
 
 # Environment variables
 .env
@@ -90,9 +91,6 @@ wiki/
 # error files from documents creation
 data/*_errors.xml
 
-# redis scheduler file
-rero_ils.schedulers.RedisScheduler
-
 # Cypress
 tests/e2e/cypress/node_modules
 tests/e2e/cypress/cypress/videos
@@ -110,3 +108,4 @@ tests/data/documents_items_lofi_items.json
 
 # Files
 /data/files
+

@@ -16,9 +16,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Search tests."""
-import mock
+
+from unittest import mock
+
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, get_json
+
+from tests.utils import VerifyRecordPermissionPatch, get_json
 
 
 @mock.patch(
@@ -159,7 +162,7 @@ def test_documents_search(client, doc_title_travailleurs, doc_title_travailleuse
     # title + subtitle
     list_url = url_for(
         "invenio_records_rest.doc_list",
-        q="Les travailleurs assidus sont de retours : " "les jeunes arrivent bientôt ?",
+        q="Les travailleurs assidus sont de retours : les jeunes arrivent bientôt ?",
         simple="1",
     )
     res = client.get(list_url)

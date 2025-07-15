@@ -17,8 +17,6 @@
 
 """Click command-line interface for API harvester management."""
 
-from __future__ import absolute_import, print_function
-
 import click
 import dateparser
 import yaml

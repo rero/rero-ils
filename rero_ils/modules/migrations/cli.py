@@ -171,7 +171,7 @@ def get(name=None):
         if query.count():
             hits = query.scan()
         else:
-            click.secho(f"No migration found.", fg="yellow")
+            click.secho("No migration found.", fg="yellow")
             raise click.Abort()
     click.secho(
         draw_data_table(

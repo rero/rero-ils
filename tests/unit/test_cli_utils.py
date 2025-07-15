@@ -125,4 +125,3 @@ def test_cli_create_documents_items_lofi(
         "    ok    : 2",
         "    errors: 2",
     ]
-    print(res.output.strip())

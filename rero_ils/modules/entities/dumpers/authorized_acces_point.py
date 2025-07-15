@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """LocalizedAuthorizedAccessPoint dumper."""
+
 from invenio_records.dumpers import Dumper
 
 from rero_ils.utils import get_i18n_supported_languages

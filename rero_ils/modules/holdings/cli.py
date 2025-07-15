@@ -18,8 +18,6 @@
 
 """Click command-line interface for item record management."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import random
 from datetime import datetime, timedelta, timezone
@@ -73,6 +71,7 @@ def get_random_vendor(org_pid):
     org = Organisation.get_record_by_pid(org_pid)
     if vendors := [vendor.pid for vendor in org.get_vendors()]:
         return next(iter(random.choices(vendors) or []), None)
+    return None
 
 
 def create_issues_from_holding(holding, min=3, max=9):

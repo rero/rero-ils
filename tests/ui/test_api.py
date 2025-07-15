@@ -17,7 +17,6 @@
 
 """API tests for non modules."""
 
-
 from functools import partial
 
 import pytest
@@ -98,6 +97,8 @@ id_fetcher_test = partial(id_fetcher, provider=ProviderTest)
 
 class TestRecordMetadata(db.Model, RecordMetadataBase):
     """Represent a record metadata."""
+
+    __test__ = False
 
     __tablename__ = "records_metadata_test"
 
@@ -231,7 +232,7 @@ class FailedPidIdentifier(RecordIdentifier):
 FailedPidProvider = type(
     "FailedPidProvider",
     (Provider,),
-    dict(identifier=FailedPidIdentifier, pid_type="failed"),
+    {"identifier": FailedPidIdentifier, "pid_type": "failed"},
 )
 
 # failedPID minter

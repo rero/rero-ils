@@ -18,15 +18,16 @@
 
 """Tests Permission for REST API patrons."""
 
-import mock
+from unittest import mock
+
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
-from utils import check_permission
 
 from rero_ils.modules.patrons.api import Patron, PatronsSearch
 from rero_ils.modules.patrons.permissions import PatronPermissionPolicy
 from rero_ils.modules.users.models import UserRole
+from tests.utils import check_permission
 
 
 @mock.patch.object(Patron, "_extensions", [])

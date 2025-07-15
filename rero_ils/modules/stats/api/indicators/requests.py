@@ -18,7 +18,6 @@
 
 """Circulation Requests Indicator Report Configuration."""
 
-
 from elasticsearch_dsl.aggs import A
 
 from .circulation import NumberOfCirculationCfg

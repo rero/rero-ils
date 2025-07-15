@@ -26,7 +26,7 @@ from rero_ils.modules.serializers import (
 from .csv import PatronTransactionEventCSVSerializer
 from .json import PatronTransactionEventsJSONSerializer
 
-__all__ = ["json_ptre_search", "csv_ptre_search"]
+__all__ = ["csv_ptre_search", "json_ptre_search"]
 
 
 """JSON serializer."""

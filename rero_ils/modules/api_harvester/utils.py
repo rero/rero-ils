@@ -17,8 +17,6 @@
 
 """ApiHarvester utils."""
 
-from __future__ import absolute_import, print_function
-
 from flask import current_app
 from invenio_db import db
 from invenio_oaiserver.models import OAISet
@@ -60,30 +58,29 @@ def api_source(name, url="", classname=None, code="", update=False):
     :param update: update configuration if exist
     :returns: update message string
     """
-    with current_app.app_context():
-        msg = "No Update"
-        source = ApiHarvestConfig.query.filter_by(name=name).first()
-        if not source:
-            source = ApiHarvestConfig(
-                name=name, url=url, classname=classname, code=code
-            )
-            source.save()
-            db.session.commit()
-            msg = "Add"
-        elif update:
-            source.name = name
-            msgs = []
-            if url != "":
-                source.url = url
-                msgs.append(f"url:{url}")
-                source.classname = classname
-                msgs.append(f"classname:{classname}")
-            if code != "":
-                source.code = code
-                msgs.append(f"code:{code}")
-            db.session.commit()
-            msg = f'Update {", ".join(msgs)}'
-        return msg
+    msg = "No Update"
+    source = ApiHarvestConfig.query.filter_by(name=name).first()
+    if not source:
+        source = ApiHarvestConfig(name=name, url=url, classname=classname, code=code)
+        db.session.merge(source)
+        db.session.commit()
+        msg = "Add"
+    elif update:
+        source.name = name
+        msgs = []
+        if url != "":
+            source.url = url
+            msgs.append(f"url:{url}")
+            source.classname = classname
+            msgs.append(f"classname:{classname}")
+        if code != "":
+            source.code = code
+            msgs.append(f"code:{code}")
+        # TODO: commit not working get stuck
+        db.session.merge(source)
+        db.session.commit()
+        msg = f"Update {', '.join(msgs)}"
+    return msg
 
 
 def get_apiharvest_object(name):
@@ -101,7 +98,7 @@ def get_apiharvest_object(name):
         except OperationalError:
             get_config_error_count += 1
             current_app.logger.error(
-                "ApiHarvestConfig OperationalError: " f"{get_config_error_count} {name}"
+                f"ApiHarvestConfig OperationalError: {get_config_error_count} {name}"
             )
 
     if not obj:

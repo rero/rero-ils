@@ -85,8 +85,7 @@ class DocumentAcquisitionDumper(Dumper):
                 "serie_statement": series_statement,
             }
         )
-        data = {k: v for k, v in data.items() if v}
-        return data
+        return {k: v for k, v in data.items() if v}
 
 
 # specific acquisition dumper

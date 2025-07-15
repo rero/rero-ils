@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Acquisition order lines API tests."""
+
 from copy import deepcopy
 
 import pytest

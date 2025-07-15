@@ -16,15 +16,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+from unittest import mock
+
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
-from mock import mock
-from utils import check_permission
 
 from rero_ils.modules.acquisition.acq_accounts.permissions import (
     AcqAccountPermissionPolicy,
 )
+from tests.utils import check_permission
 
 
 def test_acq_accounts_permissions(

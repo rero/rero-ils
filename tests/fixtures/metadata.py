@@ -22,11 +22,10 @@ import tempfile
 from copy import deepcopy
 from datetime import datetime
 from os.path import dirname, join
+from unittest import mock
 
-import mock
 import pytest
 from invenio_files_rest.models import Location
-from utils import mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.local_entities.api import (
@@ -45,6 +44,7 @@ from rero_ils.modules.operation_logs.api import OperationLog
 from rero_ils.modules.stats_cfg.api import StatConfiguration, StatsConfigurationSearch
 from rero_ils.modules.templates.api import Template, TemplatesSearch
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import mock_response
 
 
 @pytest.fixture(scope="module")
@@ -185,10 +185,10 @@ def document(app, document_data):
 @pytest.fixture(scope="module")
 def document_with_files(document, lib_martigny, file_location):
     """Create a document with a pdf file attached."""
-    metadata = dict(
-        library={"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
-        collections=["col1", "col2"],
-    )
+    metadata = {
+        "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
+        "collections": ["col1", "col2"],
+    }
     create_pdf_record_files(document, metadata)
     file_path = join(dirname(__file__), "../data/help/files/logo_rero_ils.png")
     load_files_for_document(document=document, metadata=metadata, files=[file_path])
@@ -346,16 +346,6 @@ def entity_person_data_tmp(app, data):
         if source in entity_person:
             entity_person[source].pop("$schema", None)
     return entity_person
-
-
-@pytest.fixture(scope="module")
-def entity_person_response_data(entity_person_data):
-    """Load mef contribution person response data."""
-    return {
-        "hits": {
-            "hits": [{"id": entity_person_data["pid"], "metadata": entity_person_data}]
-        }
-    }
 
 
 @pytest.fixture(scope="module")

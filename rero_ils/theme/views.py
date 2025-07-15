@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 import copy
 import re
 from copy import deepcopy
@@ -46,22 +44,12 @@ from rero_ils.modules.organisations.api import Organisation
 from rero_ils.modules.utils import cached
 from rero_ils.permissions import can_access_professional_view
 
-from .menus import init_menu_lang, init_menu_profile, init_menu_tools
-
 blueprint = Blueprint(
     "rero_ils",
     __name__,
     template_folder="templates",
     static_folder="static",
 )
-
-
-@blueprint.before_app_first_request
-def init_menu():
-    """Create the header menus."""
-    init_menu_tools()
-    init_menu_lang()
-    init_menu_profile()
 
 
 def check_organisation_viewcode(fn):
@@ -112,12 +100,11 @@ def index_with_view_code(viewcode):
     """Home Page."""
     if viewcode == current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
         return redirect(url_for("rero_ils.index"))
-    else:
-        return render_template(
-            "rero_ils/frontpage.html",
-            organisations=Organisation.get_all(),
-            viewcode=viewcode,
-        )
+    return render_template(
+        "rero_ils/frontpage.html",
+        organisations=Organisation.get_all(),
+        viewcode=viewcode,
+    )
 
 
 @blueprint.route("/language", methods=["POST", "PUT"])
@@ -190,6 +177,7 @@ def footer_message():
     """Get footer message."""
     if message := Message.get("footer"):
         return message["message"]
+    return None
 
 
 def prepare_jsonschema(schema):

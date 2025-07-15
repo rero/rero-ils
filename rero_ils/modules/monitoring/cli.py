@@ -63,16 +63,16 @@ def es_db_counts_cli(missing, delay):
     """
     missing_doc_types = []
     mon = Monitoring(time_delta=delay)
-    msg_head = f'DB - ES{"type":>8}{"count":>11}{"index":>27}{"count":>11}\n'
-    msg_head += f'{"":-^64s}'
+    msg_head = f"DB - ES{'type':>8}{'count':>11}{'index':>27}{'count':>11}\n"
+    msg_head += f"{'':-^64s}"
     click.echo(msg_head)
     info = mon.info(with_deleted=False, difference_db_es=False)
     for doc_type in sorted(info):
         db_es = info[doc_type].get("db-es", "")
-        msg = f'{db_es:>7}{doc_type:>8}{info[doc_type].get("db", ""):>11}'
+        msg = f"{db_es:>7}{doc_type:>8}{info[doc_type].get('db', ''):>11}"
         index = info[doc_type].get("index", "")
         if index:
-            msg += f'{index:>27}{info[doc_type].get("es", ""):>11}'
+            msg += f"{index:>27}{info[doc_type].get('es', ''):>11}"
         if db_es not in [0, ""]:
             click.secho(msg, fg="red")
         else:
@@ -107,7 +107,7 @@ def time_stamps_cli():
         for key, value in cache.items():
             time = value.pop("time")
             args = [f"{k}={v}" for k, v in value.items()]
-            click.echo(f'{time}: {key} {" | ".join(args)}')
+            click.echo(f"{time}: {key} {' | '.join(args)}")
 
 
 @monitoring.command("es")
@@ -146,7 +146,7 @@ def db_connection_counts():
     except Exception as error:
         click.secho(f"ERROR: {error}", fg="red")
     return click.secho(
-        f"max: {max_conn}, used: {used}, " f"res_super: {res_for_super}, free: {free}"
+        f"max: {max_conn}, used: {used}, res_super: {res_for_super}, free: {free}"
     )
 
 

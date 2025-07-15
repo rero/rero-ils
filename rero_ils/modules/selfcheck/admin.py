@@ -21,7 +21,6 @@
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.form.fields import DateTimeField
 from flask_babel import gettext as _
-from werkzeug.local import LocalProxy
 from wtforms.fields import SelectField
 from wtforms.validators import DataRequired
 
@@ -56,20 +55,18 @@ class SelfcheckTerminalView(ModelView):
 
     form_columns = ("name", "access_token", "location_pid", "active")
 
-    form_args = dict(
-        name=dict(label="Name", validators=[DataRequired()]),
-        access_token=dict(label="Access token", validators=[DataRequired()]),
-        location_pid=dict(
-            label="Location",
-            validators=[DataRequired()],
-            choices=LocalProxy(
-                lambda: [
-                    (opts.get("location_pid"), opts.get("location_name"))
-                    for opts in locations_form_options()
-                ]
-            ),
-        ),
-    )
+    form_args = {
+        "name": {"label": "Name", "validators": [DataRequired()]},
+        "access_token": {"label": "Access token", "validators": [DataRequired()]},
+        "location_pid": {
+            "label": "Location",
+            "validators": [DataRequired()],
+            "choices": lambda: [
+                (opts.get("location_pid"), opts.get("location_name"))
+                for opts in locations_form_options()
+            ],
+        },
+    }
 
     column_filters = (
         "id",
@@ -131,4 +128,4 @@ selfcheck_terminal_adminview = {
     "category": _("Selfcheck Terminal Management"),
 }
 
-__all__ = ("selfcheck_terminal_adminview", "SelfcheckTerminalView")
+__all__ = ("SelfcheckTerminalView", "selfcheck_terminal_adminview")

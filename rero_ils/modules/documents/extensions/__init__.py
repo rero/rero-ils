@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Document record extensions."""
+
 from .add_mef_pid import AddMEFPidExtension
 from .edition_statement import EditionStatementExtension
 from .provision_activities import ProvisionActivitiesExtension
@@ -25,8 +26,8 @@ from .title import TitleExtension
 
 __all__ = (
     "AddMEFPidExtension",
+    "EditionStatementExtension",
     "ProvisionActivitiesExtension",
     "SeriesStatementExtension",
-    "EditionStatementExtension",
     "TitleExtension",
 )

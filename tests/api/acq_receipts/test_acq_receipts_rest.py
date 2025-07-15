@@ -20,11 +20,12 @@
 
 import json
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
+
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata, to_relative_url
 
 
 @mock.patch(

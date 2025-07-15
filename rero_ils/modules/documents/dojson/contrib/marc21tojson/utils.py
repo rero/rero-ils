@@ -18,7 +18,6 @@
 
 """rero-ils MARC21 model definition."""
 
-
 import contextlib
 import re
 import sys
@@ -568,9 +567,8 @@ def do_title(data, marc21, value):
 
     fields_246 = marc21.get_fields("246")
     subfield_246_a = ""
-    if fields_246:
-        if subfields_246_a := marc21.get_subfields(fields_246[0], "a"):
-            subfield_246_a = subfields_246_a[0]
+    if fields_246 and (subfields_246_a := marc21.get_subfields(fields_246[0], "a")):
+        subfield_246_a = subfields_246_a[0]
 
     _, link = get_field_link_data(value)
     items = get_field_items(value)
@@ -706,7 +704,7 @@ def build_agent(marc21, key, value):
                 remove_trailing_punctuation(place).lstrip("(").rstrip(")")
             )
     if not agent_data:
-        return
+        return None
     return {
         "type": agent_data.get("type"),
         "authorized_access_point": create_authorized_access_point(agent_data),
@@ -773,6 +771,7 @@ def do_contribution(data, marc21, key, value):
             roles = ["ctb"]
         if agent:
             return {"entity": agent, "role": list(roles)}
+    return None
 
 
 def do_specific_document_relation(data, marc21, key, value):
@@ -862,7 +861,6 @@ def do_provision_activity(data, marc21, key, value):
         return GroupableOrderedDict(new_field_values)
 
     def build_statement(field_value, subtags=("a", "b")):
-
         def build_agent_data(code, label, index, link):
             type_per_code = {
                 "a": EntityType.PLACE,
@@ -1004,6 +1002,7 @@ def do_usage_and_access_policy_from_field_506_540(marc21, key, value):
         marc21.bib_id, marc21.rero_id, key, value, "a", default=""
     ).strip():
         return {"type": "bf:UsageAndAccessPolicy", "label": subfield_a}
+    return None
 
 
 def do_frequency_field_310_321(marc21, key, value):
@@ -1365,7 +1364,7 @@ def do_electronic_locator_from_field_856(data, marc21, key, value):
             "noteOnContent",
             "titlePage",
             "photography",
-            "summarization" "summarization",
+            "summarizationsummarization",
             "onlineResourceViaRERODOC",
             "pressReview",
             "webSite",
@@ -1416,7 +1415,7 @@ def do_notes_and_original_title(data, key, value):
                 if blob_key in subfield_selection
             )
 
-            add_note(dict(noteType="cited_by", label=note_str.strip()), data)
+            add_note({"noteType": "cited_by", "label": note_str.strip()}, data)
         elif key[:3] == "500":
             # extract the original title
             regexp = re.compile(
@@ -1436,7 +1435,7 @@ def do_notes_and_original_title(data, key, value):
             is_general_note_to_add = True
 
         if is_general_note_to_add:
-            add_note(dict(noteType="general", label=subfield_a), data)
+            add_note({"noteType": "general", "label": subfield_a}, data)
 
 
 def do_credits(key, value):
@@ -1446,6 +1445,7 @@ def do_credits(key, value):
         if key[:3] == "511":
             subfield_a = f"Participants ou interprètes: {subfield_a}"
         return subfield_a
+    return None
 
 
 def do_sequence_numbering(data, value):
@@ -1546,7 +1546,7 @@ def do_part_of(data, marc21, key, value):
     and for the fields 800 and 830 if a field 490 exists
     """
 
-    class Numbering(object):
+    class Numbering:
         """The purpose of this class is to build the `Numbering` data."""
 
         def __init__(self):
@@ -1864,6 +1864,7 @@ def do_work_access_point_240(marc21, key, value):
 
     if work_access_points:
         return work_access_points
+    return None
 
 
 def do_scale_and_cartographic(data, marc21, key, value):
@@ -2038,10 +2039,12 @@ def do_temporal_coverage(marc21, key, value):
                     date_str = f"{date_str}T{hour}:{minute}:{second}"
         if len(date_str) > 1:
             return date_str
+        return None
 
     def format_date_c(date):
         if test_min_max(date, 0, sys.maxsize):
             return f"-{date}"
+        return None
 
     ind1 = key[3]
     coverage_type = "time" if ind1 in ["0", "1"] else "period"
@@ -2084,6 +2087,7 @@ def do_temporal_coverage(marc21, key, value):
     if temporal_coverage:
         temporal_coverage["type"] = coverage_type
         return temporal_coverage
+    return None
 
 
 def perform_subdivisions(field, value):
@@ -2098,7 +2102,10 @@ def perform_subdivisions(field, value):
         if tag in subdivisions:
             for v in utils.force_list(val):
                 field.setdefault("subdivisions", []).append(
-                    dict(
-                        entity={"type": subdivisions[tag], "authorized_access_point": v}
-                    )
+                    {
+                        "entity": {
+                            "type": subdivisions[tag],
+                            "authorized_access_point": v,
+                        }
+                    }
                 )

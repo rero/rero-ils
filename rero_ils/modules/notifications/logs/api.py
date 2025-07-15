@@ -42,7 +42,7 @@ class NotificationOperationLog(OperationLog, SpecificOperationLog):
         :returns: A new :class:`Record` instance.
         """
         if not (loan := getattr(data, "loan", None)):
-            return
+            return None
 
         # If i have no recipients, assign a default value
         # because the "recipients" json schema required at least one item.

@@ -18,8 +18,6 @@
 
 """Tests Selfcheck admin."""
 
-from __future__ import absolute_import, print_function
-
 from flask import url_for
 from flask_admin import Admin
 from invenio_db import db
@@ -48,15 +46,14 @@ def test_admin_view(app):
     with app.test_request_context():
         request_url = url_for("selfcheckterminal.index_view")
 
-    with app.app_context():
-        with app.test_client() as client:
-            res = client.get(request_url, follow_redirects=True)
-            assert res.status_code == 200
-            assert b"Name" in (res.get_data())
-            assert b"Access Token" in (res.get_data())
-            assert b"Organisation Pid" in (res.get_data())
-            assert b"Library Pid" in (res.get_data())
-            assert b"Location Pid" in (res.get_data())
+    with app.app_context(), app.test_client() as client:
+        res = client.get(request_url, follow_redirects=True)
+        assert res.status_code == 200
+        assert b"Name" in (res.get_data())
+        assert b"Access Token" in (res.get_data())
+        assert b"Organisation Pid" in (res.get_data())
+        assert b"Library Pid" in (res.get_data())
+        assert b"Location Pid" in (res.get_data())
 
 
 def test_admin_createuser(app, client, loc_public_martigny):

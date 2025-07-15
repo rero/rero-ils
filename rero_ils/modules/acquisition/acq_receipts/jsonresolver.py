@@ -28,7 +28,7 @@ def acq_receipt_resolver(pid):
     """Resolver for acquisition receipt record."""
     persistent_id = PersistentIdentifier.get("acre", pid)
     if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
+        return {"pid": persistent_id.pid_value}
     current_app.logger.error(
         f"Doc resolver error: /api/acq_receipts/{pid} {persistent_id}"
     )

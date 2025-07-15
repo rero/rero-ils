@@ -17,8 +17,6 @@
 
 """Errors for circulation policy module."""
 
-from __future__ import absolute_import, print_function
-
 from invenio_records.errors import RecordsError
 
 

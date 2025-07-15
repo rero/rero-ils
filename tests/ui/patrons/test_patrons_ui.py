@@ -17,10 +17,12 @@
 
 """Tests UI view for patrons."""
 
-import mock
+from unittest import mock
+
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json
+
+from tests.utils import get_json
 
 
 def test_patrons_logged_user(client, librarian_martigny):

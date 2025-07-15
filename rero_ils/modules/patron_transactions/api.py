@@ -40,7 +40,7 @@ from .models import PatronTransactionIdentifier, PatronTransactionMetadata
 PatronTransactionProvider = type(
     "PatronTransactionProvider",
     (Provider,),
-    dict(identifier=PatronTransactionIdentifier, pid_type="pttr"),
+    {"identifier": PatronTransactionIdentifier, "pid_type": "pttr"},
 )
 # minter
 patron_transaction_id_minter = partial(id_minter, provider=PatronTransactionProvider)
@@ -103,30 +103,35 @@ class PatronTransaction(IlsRecord):
         """Get the `Loan` pid related to this transaction."""
         if self.get("loan"):
             return extracted_data_from_ref(self["loan"])
+        return None
 
     @cached_property
     def loan(self):
         """Get the `Loan` record related to this transaction."""
         if self.get("loan"):
             return extracted_data_from_ref(self["loan"], data="record")
+        return None
 
     @property
     def document_pid(self):
         """Get the `Document` pid related to this transaction."""
         if loan := self.loan:
             return loan.document_pid
+        return None
 
     @property
     def item_pid(self):
         """Get the `Item` pid related to this transaction."""
         if loan := self.loan:
             return loan.item_pid
+        return None
 
     @property
     def library_pid(self):
         """Get the `Library` pid related to this transaction."""
         if loan := self.loan:
             return loan.library_pid
+        return None
 
     @property
     def patron_pid(self):
@@ -148,12 +153,14 @@ class PatronTransaction(IlsRecord):
         """Get the `Notification` pid related to this transaction."""
         if self.get("notification"):
             return extracted_data_from_ref(self.get("notification"))
+        return None
 
     @cached_property
     def notification(self):
         """Get the `Notification` record related to this transaction."""
         if self.get("notification"):
             return extracted_data_from_ref(self.get("notification"), data="record")
+        return None
 
     @property
     def notification_transaction_library_pid(self):
@@ -161,12 +168,14 @@ class PatronTransaction(IlsRecord):
         if notif := self.notification:
             if location := notif.transaction_location:
                 return location.library_pid
+        return None
 
     @property
     def notification_transaction_user_pid(self):
         """Return the transaction user pid of the notification."""
         if notif := self.notification:
             return notif.transaction_user_pid
+        return None
 
     @property
     def status(self):

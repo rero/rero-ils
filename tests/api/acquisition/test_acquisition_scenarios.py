@@ -17,13 +17,12 @@
 
 """Tests scenario for acquisition accounts."""
 
-import mock
+from unittest import mock
+
 import pytest
-from api.acquisition.acq_utils import _del_resource, _make_resource
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from jsonschema.exceptions import ValidationError
-from utils import VerifyRecordPermissionPatch, get_json
 
 from rero_ils.modules.acquisition.acq_accounts.api import AcqAccount, AcqAccountsSearch
 from rero_ils.modules.acquisition.acq_order_lines.api import AcqOrderLine
@@ -31,6 +30,8 @@ from rero_ils.modules.acquisition.acq_orders.api import AcqOrder
 from rero_ils.modules.acquisition.acq_orders.models import AcqOrderStatus
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.api.acquisition.acq_utils import _del_resource, _make_resource
+from tests.utils import VerifyRecordPermissionPatch, get_json
 
 
 @mock.patch(
@@ -136,57 +137,57 @@ def test_transfer_funds_api(
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
     }
-    account_a = dict(name="A", allocated_amount=2000)
+    account_a = {"name": "A", "allocated_amount": 2000}
     account_a = {**basic_data, **account_a}
     account_a = _make_resource(client, "acac", account_a)
     a_ref = {"$ref": get_ref_for_pid("acac", account_a.pid)}
 
-    account_b = dict(name="B", allocated_amount=500, parent=a_ref)
+    account_b = {"name": "B", "allocated_amount": 500, "parent": a_ref}
     account_b = {**basic_data, **account_b}
     account_b = _make_resource(client, "acac", account_b)
     b_ref = {"$ref": get_ref_for_pid("acac", account_b.pid)}
 
-    account_c = dict(name="C", allocated_amount=1000, parent=a_ref)
+    account_c = {"name": "C", "allocated_amount": 1000, "parent": a_ref}
     account_c = {**basic_data, **account_c}
     account_c = _make_resource(client, "acac", account_c)
     c_ref = {"$ref": get_ref_for_pid("acac", account_c.pid)}
 
-    account_b1 = dict(name="B1", allocated_amount=300, parent=b_ref)
+    account_b1 = {"name": "B1", "allocated_amount": 300, "parent": b_ref}
     account_b1 = {**basic_data, **account_b1}
     account_b1 = _make_resource(client, "acac", account_b1)
-    account_b2 = dict(name="B2", allocated_amount=50, parent=b_ref)
+    account_b2 = {"name": "B2", "allocated_amount": 50, "parent": b_ref}
     account_b2 = {**basic_data, **account_b2}
     account_b2 = _make_resource(client, "acac", account_b2)
 
-    account_c1 = dict(name="C1", allocated_amount=100, parent=c_ref)
+    account_c1 = {"name": "C1", "allocated_amount": 100, "parent": c_ref}
     account_c1 = {**basic_data, **account_c1}
     account_c1 = _make_resource(client, "acac", account_c1)
-    account_c2 = dict(name="C2", allocated_amount=100, parent=c_ref)
+    account_c2 = {"name": "C2", "allocated_amount": 100, "parent": c_ref}
     account_c2 = {**basic_data, **account_c2}
     account_c2 = _make_resource(client, "acac", account_c2)
-    account_c3 = dict(name="C3", allocated_amount=100, parent=c_ref)
+    account_c3 = {"name": "C3", "allocated_amount": 100, "parent": c_ref}
     account_c3 = {**basic_data, **account_c3}
     account_c3 = _make_resource(client, "acac", account_c3)
     c2_ref = {"$ref": get_ref_for_pid("acac", account_c2.pid)}
 
-    account_c21 = dict(name="C21", allocated_amount=50, parent=c2_ref)
+    account_c21 = {"name": "C21", "allocated_amount": 50, "parent": c2_ref}
     account_c21 = {**basic_data, **account_c21}
     account_c21 = _make_resource(client, "acac", account_c21)
-    account_c22 = dict(name="C22", allocated_amount=20, parent=c2_ref)
+    account_c22 = {"name": "C22", "allocated_amount": 20, "parent": c2_ref}
     account_c22 = {**basic_data, **account_c22}
     account_c22 = _make_resource(client, "acac", account_c22)
 
-    account_e = dict(name="E", allocated_amount=300)
+    account_e = {"name": "E", "allocated_amount": 300}
     account_e = {**basic_data, **account_e}
     account_e = _make_resource(client, "acac", account_e)
     e_ref = {"$ref": get_ref_for_pid("acac", account_e.pid)}
 
-    account_f = dict(name="F", allocated_amount=200, parent=e_ref)
+    account_f = {"name": "F", "allocated_amount": 200, "parent": e_ref}
     account_f = {**basic_data, **account_f}
     account_f = _make_resource(client, "acac", account_f)
     f_ref = {"$ref": get_ref_for_pid("acac", account_f.pid)}
 
-    account_g = dict(name="G", allocated_amount=100, parent=f_ref)
+    account_g = {"name": "G", "allocated_amount": 100, "parent": f_ref}
     account_g = {**basic_data, **account_g}
     account_g = _make_resource(client, "acac", account_g)
 
@@ -435,12 +436,12 @@ def test_acquisition_order(
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
     }
-    account_a = dict(name="A", allocated_amount=2000)
+    account_a = {"name": "A", "allocated_amount": 2000}
     account_a = {**basic_data, **account_a}
     account_a = _make_resource(client, "acac", account_a)
     account_a_ref = {"$ref": get_ref_for_pid("acac", account_a.pid)}
 
-    account_b = dict(name="B", allocated_amount=500, parent=account_a_ref)
+    account_b = {"name": "B", "allocated_amount": 500, "parent": account_a_ref}
     account_b = {**basic_data, **account_b}
     account_b = _make_resource(client, "acac", account_b)
     account_b_ref = {"$ref": get_ref_for_pid("acac", account_b.pid)}
@@ -509,7 +510,7 @@ def test_acquisition_order(
     #   * Update the first order line to raise the limit and check than the
     #     same validation error occurs.
     #   * Update the first order line to reach the limit without exceeding it
-    order_line_2 = dict(quantity=50)
+    order_line_2 = {"quantity": 50}
     order_line_2 = {**basic_data, **order_line_2}
     with pytest.raises(Exception) as excinfo:
         _make_resource(client, "acol", order_line_2)
@@ -607,11 +608,11 @@ def test_acquisition_order_line_account_changes(
         "budget": {"$ref": get_ref_for_pid("budg", budget_2020_martigny.pid)},
         "library": {"$ref": get_ref_for_pid("lib", lib_martigny.pid)},
     }
-    account_a = dict(name="A", allocated_amount=1000)
+    account_a = {"name": "A", "allocated_amount": 1000}
     account_a = _make_resource(client, "acac", {**basic_data, **account_a})
     account_a_ref = {"$ref": get_ref_for_pid("acac", account_a.pid)}
 
-    account_b = dict(name="B")
+    account_b = {"name": "B"}
     account_b = _make_resource(client, "acac", {**basic_data, **account_b})
     account_b_ref = {"$ref": get_ref_for_pid("acac", account_b.pid)}
 

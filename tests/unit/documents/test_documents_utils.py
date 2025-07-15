@@ -17,8 +17,6 @@
 
 """Document utils tests."""
 
-from __future__ import absolute_import, print_function
-
 from rero_ils.modules.documents.extensions import TitleExtension
 
 
@@ -33,7 +31,7 @@ def test_format_text():
             "type": "bf:Title",
         }
     ]
-    assert "\u4e01\u4e01\u5386\u9669\u8bb0" == TitleExtension.format_text(data)
+    assert TitleExtension.format_text(data) == "\u4e01\u4e01\u5386\u9669\u8bb0"
 
     data = [
         {
@@ -47,8 +45,9 @@ def test_format_text():
         }
     ]
     assert (
-        "Die russischen orthodoxen Bischöfe von 1893 "
-        ": Bio-Bibliographie" == TitleExtension.format_text(data)
+        TitleExtension.format_text(data)
+        == "Die russischen orthodoxen Bischöfe von 1893 "
+        ": Bio-Bibliographie"
     )
 
     data = [
@@ -63,7 +62,7 @@ def test_format_text():
             "type": "bf:Title",
         }
     ]
-    assert "The Russian Orthodox Bishops of 1893" == TitleExtension.format_text(data)
+    assert TitleExtension.format_text(data) == "The Russian Orthodox Bishops of 1893"
 
     data = [
         {
@@ -87,9 +86,8 @@ def test_format_text():
         }
     ]
     assert (
-        "main_title_text : subtitle_text. "
+        TitleExtension.format_text(data) == "main_title_text : subtitle_text. "
         "number1, number1.1, part1, part1.1. number2, number2.2, part2"
-        == TitleExtension.format_text(data)
     )
 
     data = [
@@ -106,6 +104,6 @@ def test_format_text():
         }
     ]
     assert (
-        "Французско-русский словарь : около 25 000 слов"
-        == TitleExtension.format_text(data)
+        TitleExtension.format_text(data)
+        == "Французско-русский словарь : около 25 000 слов"
     )

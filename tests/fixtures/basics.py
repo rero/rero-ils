@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Common pytest fixtures for rero-ils."""
+
 from datetime import datetime, timedelta, timezone
 
 import pytest

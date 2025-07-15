@@ -182,7 +182,7 @@ class ItemCirculation(ItemRecord):
         document_pid = extracted_data_from_ref(item.get("document"))
         kwargs.setdefault("document_pid", document_pid)
         # set the transaction location for the circulation transaction
-        transaction_location_pid = kwargs.get("transaction_location_pid", None)
+        transaction_location_pid = kwargs.get("transaction_location_pid")
         if not transaction_location_pid:
             transaction_library_pid = kwargs.pop("transaction_library_pid", None)
             if transaction_library_pid is not None:
@@ -219,17 +219,16 @@ class ItemCirculation(ItemRecord):
                     )
                 )
             raise NoCirculationAction(_("No circulation action performed: on shelf"))
-        else:
-            # CHECKIN_1_1_2: item library != transaction library
-            # item will be checked-in in an external library, no
-            # circulation action performed, add item status in_transit
-            self["status"] = ItemStatus.IN_TRANSIT
-            self.status_update(
-                self, on_shelf=False, dbcommit=True, reindex=True, forceindex=True
-            )
-            raise NoCirculationAction(
-                _("No circulation action performed: in transit added")
-            )
+        # CHECKIN_1_1_2: item library != transaction library
+        # item will be checked-in in an external library, no
+        # circulation action performed, add item status in_transit
+        self["status"] = ItemStatus.IN_TRANSIT
+        self.status_update(
+            self, on_shelf=False, dbcommit=True, reindex=True, forceindex=True
+        )
+        raise NoCirculationAction(
+            _("No circulation action performed: in transit added")
+        )
 
     def checkin_item_at_desk(self, **kwargs):
         """Checkin actions for at_desk item.
@@ -278,12 +277,11 @@ class ItemCirculation(ItemRecord):
             kwargs["receive_in_transit_request"] = True
             loan = in_transit_loan
             return loan, kwargs
-        else:
-            # CHECKIN_4_2: pickup location != transaction library
-            # (no action, item is: in_transit (IN_TRANSIT_FOR_PICKUP))
-            raise NoCirculationAction(
-                _("No circulation action performed: in transit for pickup")
-            )
+        # CHECKIN_4_2: pickup location != transaction library
+        # (no action, item is: in_transit (IN_TRANSIT_FOR_PICKUP))
+        raise NoCirculationAction(
+            _("No circulation action performed: in transit for pickup")
+        )
 
     def checkin_item_in_transit_to_house(self, loans_list, **kwargs):
         """Checkin actions for an item in IN_TRANSIT_TO_HOUSE with no requests.
@@ -350,12 +348,11 @@ class ItemCirculation(ItemRecord):
                     raise NoCirculationAction(
                         _("No circulation action performed: in transit")
                     )
-                else:
-                    # CHECKIN_5_2_2_2: pickup location of first PENDING loan !=
-                    # item library (checkin current loan, item is: in_transit)
-                    # [automatic cancel current, automatic validate first loan]
-                    kwargs["cancel_current_and_receive_first"] = True
-                    loan = in_transit_loan
+                # CHECKIN_5_2_2_2: pickup location of first PENDING loan !=
+                # item library (checkin current loan, item is: in_transit)
+                # [automatic cancel current, automatic validate first loan]
+                kwargs["cancel_current_and_receive_first"] = True
+                loan = in_transit_loan
         return loan, kwargs
 
     def validate_item_first_pending_request(self, **kwargs):
@@ -529,9 +526,9 @@ class ItemCirculation(ItemRecord):
                 # CANCEL_REQUEST_4_1_1: cancelling a ITEM_IN_TRANSIT_FOR_PICKUP
                 # loan with no pending request puts the item on in_transit
                 # and the loan becomes ITEM_IN_TRANSIT_TO_HOUSE.
-                actions_to_execute["loan_update"][
-                    "state"
-                ] = LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                actions_to_execute["loan_update"]["state"] = (
+                    LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                )
                 # Mark the loan to be cancelled to create an
                 # OperationLog about this cancellation.
                 actions_to_execute["cancel_loan"] = True
@@ -539,9 +536,9 @@ class ItemCirculation(ItemRecord):
                 if not libraries["item_pickup_libraries"]:
                     # CANCEL_REQUEST_2_1_1_1: when item library and pickup
                     # pickup library arent equal, update loan to go in_transit.
-                    actions_to_execute["loan_update"][
-                        "state"
-                    ] = LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                    actions_to_execute["loan_update"]["state"] = (
+                        LoanState.ITEM_IN_TRANSIT_TO_HOUSE
+                    )
                 # Always mark the loan to be cancelled to create an
                 # OperationLog about this cancellation.
                 actions_to_execute["cancel_loan"] = True
@@ -989,6 +986,7 @@ class ItemCirculation(ItemRecord):
             return (
                 len(list(dict.fromkeys([result.state for result in search.scan()]))) > 0
             )
+        return None
 
     # CIRCULATION METHODS =====================================================
     def can(self, action, **kwargs):
@@ -1022,15 +1020,11 @@ class ItemCirculation(ItemRecord):
         if "patron" in kwargs:
             patron = kwargs["patron"]
             if patron.organisation_pid != item.organisation_pid:
-                reasons.append(
-                    _("Item and patron are not in the same " "organisation.")
-                )
+                reasons.append(_("Item and patron are not in the same organisation."))
             if patron.patron.get("barcode") and item.patron_has_an_active_loan_on_item(
                 patron
             ):
-                reasons.append(
-                    _("Item is already checked-out or requested by " "patron.")
-                )
+                reasons.append(_("Item is already checked-out or requested by patron."))
         return len(reasons) == 0, reasons
 
     def action_filter(
@@ -1230,10 +1224,9 @@ class ItemCirculation(ItemRecord):
         ).source(["pid"])
         if output == "pids":
             return [hit.pid for hit in query.scan()]
-        elif output == "count":
+        if output == "count":
             return query.count()
-        else:
-            return _list_obj()
+        return _list_obj()
 
     def get_first_loan_by_state(self, state=None):
         """Return the first loan with the given state and attached to item.
@@ -1312,8 +1305,9 @@ class ItemCirculation(ItemRecord):
         """Availability text to display for an item."""
         circ_category = self.circulation_category
         if circ_category.get("negative_availability"):
-            return circ_category.get("displayed_status", []) + [
-                {"language": "default", "label": circ_category.get("name")}
+            return [
+                *circ_category.get("displayed_status", []),
+                {"language": "default", "label": circ_category.get("name")},
             ]
         label = self.status
         if self.is_issue and self.issue_status != ItemIssueStatus.RECEIVED:
@@ -1371,14 +1365,18 @@ class ItemCirculation(ItemRecord):
 
     def is_requested_by_patron(self, patron_barcode):
         """Check if the item is requested by a given patron."""
-        if patron := Patron.get_patron_by_barcode(
-            barcode=patron_barcode, org_pid=self.organisation_pid
-        ):
-            if request := get_request_by_item_pid_by_patron_pid(
-                item_pid=self.pid, patron_pid=patron.pid
-            ):
-                return True
-        return False
+        return bool(
+            (
+                patron := Patron.get_patron_by_barcode(
+                    barcode=patron_barcode, org_pid=self.organisation_pid
+                )
+            )
+            and (
+                request := get_request_by_item_pid_by_patron_pid(
+                    item_pid=self.pid, patron_pid=patron.pid
+                )
+            )
+        )
 
     @classmethod
     def get_requests_to_validate(cls, library_pid=None, sort_by=None):

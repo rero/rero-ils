@@ -18,9 +18,9 @@
 """API tests for PID and IlsRecords"""
 
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.locations.api import Location
+from tests.utils import postdata
 
 
 def test_ilsrecord_pid_after_validationerror(

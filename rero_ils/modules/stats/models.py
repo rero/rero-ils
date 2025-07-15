@@ -17,7 +17,6 @@
 
 """Statistics resource database models."""
 
-
 from invenio_db import db
 from invenio_pidstore.models import RecordIdentifier
 from invenio_records.models import RecordMetadataBase

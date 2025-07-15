@@ -17,17 +17,16 @@
 
 """Test item circulation cancel request actions."""
 
-
 from copy import deepcopy
 
 import pytest
-from utils import item_record_to_a_specific_loan_state
 
 from rero_ils.modules.errors import NoCirculationAction
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.models import LoanState
+from tests.utils import item_record_to_a_specific_loan_state
 
 
 def test_cancel_item_request_in_transit_for_pickup_with_requests_same_lib(

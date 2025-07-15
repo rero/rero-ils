@@ -17,8 +17,6 @@
 
 """Documents utils."""
 
-from __future__ import absolute_import, print_function
-
 import json
 import re
 
@@ -49,22 +47,21 @@ def get_document_types_from_schema(schema="doc"):
     for schema_type in schema_types:
         schema_title = schema_type["title"]
         sub_types = schema_type.get("properties", {}).get("subtype", {}).get("enum", [])
-        doc_types[schema_title] = {sub_type: True for sub_type in sub_types}
+        doc_types[schema_title] = dict.fromkeys(sub_types, True)
     return doc_types
 
 
 def filter_document_type_buckets(buckets):
     """Removes unwanted subtypes from `document_type` buckets."""
     # TODO :: write an unitest
-    if doc_types := get_document_types_from_schema():
-        if buckets:
-            for term in buckets:
-                main_type = term["key"]
-                term["document_subtype"]["buckets"] = [
-                    subtype_bucket
-                    for subtype_bucket in term["document_subtype"]["buckets"]
-                    if doc_types.get(main_type, {}).get(subtype_bucket["key"])
-                ]
+    if (doc_types := get_document_types_from_schema()) and buckets:
+        for term in buckets:
+            main_type = term["key"]
+            term["document_subtype"]["buckets"] = [
+                subtype_bucket
+                for subtype_bucket in term["document_subtype"]["buckets"]
+                if doc_types.get(main_type, {}).get(subtype_bucket["key"])
+            ]
 
 
 def display_alternate_graphic_first(language):
@@ -249,7 +246,7 @@ def create_authorized_access_point(agent):
                 authorized_access_point += f", {qualifier}"
     elif agent.get("type") == EntityType.ORGANISATION:
         if subordinate_unit := agent.get("subordinate_unit"):
-            authorized_access_point += f""". {'. '.join(subordinate_unit)}"""
+            authorized_access_point += f""". {". ".join(subordinate_unit)}"""
         conference_data = []
         if numbering := agent.get("numbering"):
             conference_data.append(numbering)
@@ -258,7 +255,7 @@ def create_authorized_access_point(agent):
         if place := agent.get("place"):
             conference_data.append(place)
         if conference_data:
-            authorized_access_point += f' ({" : ".join(conference_data)})'
+            authorized_access_point += f" ({' : '.join(conference_data)})"
     return authorized_access_point
 
 
@@ -335,3 +332,4 @@ def get_remote_cover(isbn):
     if result["success"]:
         return result
     current_app.logger.debug(f"Unable to get cover for isbn: {isbn}")
+    return None

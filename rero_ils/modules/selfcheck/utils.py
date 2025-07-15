@@ -18,8 +18,6 @@
 
 """Selfcheck Utilities."""
 
-from __future__ import absolute_import, print_function
-
 import importlib
 from datetime import datetime
 
@@ -53,9 +51,10 @@ def authorize_selfckeck_terminal(terminal, access_token, **kwargs):
     if terminal and terminal.access_token == access_token:
         if token := get_token(access_token=access_token):
             terminal.last_login_at = datetime.utcnow()
-            terminal.last_login_ip = kwargs.get("terminal_ip", None)
+            terminal.last_login_ip = kwargs.get("terminal_ip")
             db.session.merge(terminal)
             return token.user
+    return None
 
 
 def authorize_selfckeck_user(login, password, **kwargs):
@@ -69,6 +68,7 @@ def authorize_selfckeck_user(login, password, **kwargs):
     user = User.get_by_username_or_email(login)
     if user and verify_password(password, user.user.password):
         return user
+    return None
 
 
 def format_patron_address(patron):
@@ -110,7 +110,7 @@ def get_patron_status(patron):
     :return SelfcheckPatronStatus object or None.
     """
     if not check_sip2_module():
-        return
+        return None
     from invenio_sip2.models import PatronStatus, PatronStatusTypes
 
     patron_status = PatronStatus()

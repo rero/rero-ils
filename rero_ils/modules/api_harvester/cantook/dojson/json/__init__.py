@@ -17,7 +17,6 @@
 
 """Marc21 data conversion."""
 
-
 from .model import Transformation, cantook_json
 
 __all__ = ("Transformation", "cantook_json")

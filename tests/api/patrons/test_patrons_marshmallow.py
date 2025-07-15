@@ -17,15 +17,16 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Tests Marshmallow schema through REST API for Patrons."""
+
 import json
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import postdata
 
 from rero_ils.modules.patrons.api import Patron
 from rero_ils.modules.patrons.utils import create_user_from_data
 from rero_ils.modules.users.models import UserRole
+from tests.utils import postdata
 
 
 def test_patrons_marshmallow_loaders(

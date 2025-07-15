@@ -17,8 +17,6 @@
 
 """Pytest fixtures and plugins for the API application."""
 
-from __future__ import absolute_import, print_function
-
 from copy import deepcopy
 from datetime import datetime
 
@@ -57,12 +55,12 @@ def user_with_profile(db, default_user_password):
             active=True,
         )
         db.session.add(user)
-        profile = dict(
-            birth_date=datetime(1990, 1, 1),
-            first_name="User",
-            last_name="With Profile",
-            city="Nowhere",
-        )
+        profile = {
+            "birth_date": datetime(1990, 1, 1),
+            "first_name": "User",
+            "last_name": "With Profile",
+            "city": "Nowhere",
+        }
         profile.username = "user_with_profile"
         user.user_profile = profile
         db.session.merge(user)
@@ -82,7 +80,7 @@ def create_app():
 def doc_title_travailleurs(app):
     """Document with title with travailleur."""
     data = {
-        "$schema": "https://bib.rero.ch/schemas/documents/" "document-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
         "pid": "doc_title_test1",
         "type": [{"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}],
         "fiction_statement": DocumentFictionType.Unspecified.value,
@@ -110,7 +108,7 @@ def doc_title_travailleurs(app):
 def doc_title_travailleuses(app):
     """Document with title with travailleuses."""
     data = {
-        "$schema": "https://bib.rero.ch/schemas/documents/" "document-v0.0.1.json",
+        "$schema": "https://bib.rero.ch/schemas/documents/document-v0.0.1.json",
         "pid": "doc_title_test2",
         "type": [{"main_type": "docmaintype_book", "subtype": "docsubtype_other_book"}],
         "fiction_statement": DocumentFictionType.Unspecified.value,
@@ -158,7 +156,7 @@ def item_lib_martigny_masked(
     """Create item of martigny library."""
     data = deepcopy(item_lib_martigny_data)
     data["barcode"] = "masked"
-    data["pid"] = f'maked-{data["pid"]}'
+    data["pid"] = f"maked-{data['pid']}"
     data["_masked"] = True
     item = Item.create(data=data, delete_pid=False, dbcommit=True, reindex=True)
     ItemsSearch.flush_and_refresh()

@@ -17,8 +17,6 @@
 
 """Blueprint used for loading templates."""
 
-from __future__ import absolute_import, print_function
-
 import csv
 import datetime
 from io import StringIO
@@ -87,7 +85,7 @@ def live_stats_billing():
     now = arrow.utcnow()
     stats = StatsForPricing(to_date=now).collect()
     return render_template(
-        "rero_ils/detailed_view_stats.html", record=dict(created=now, values=stats)
+        "rero_ils/detailed_view_stats.html", record={"created": now, "values": stats}
     )
 
 

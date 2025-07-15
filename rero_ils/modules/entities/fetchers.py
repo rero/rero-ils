@@ -18,9 +18,6 @@
 
 """Persistent identifier fetchers."""
 
-
-from __future__ import absolute_import, print_function
-
 from collections import namedtuple
 
 from rero_ils.modules.utils import get_pid_type_from_schema

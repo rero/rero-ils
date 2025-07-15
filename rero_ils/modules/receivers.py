@@ -41,7 +41,7 @@ def process_boosting(index_name, config):
     doc_mappings = list(current_search.aliases[index_name].values())
     assert len(doc_mappings) == 1
     mapping_path = doc_mappings.pop()
-    with open(mapping_path, "r") as body:
+    with open(mapping_path) as body:
         mapping = json.load(body)
     fields = []
     for prop, conf in mapping["mappings"]["properties"].items():

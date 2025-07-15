@@ -45,7 +45,8 @@ class RecordServiceConfig(RecordServiceConfig):
     permission_policy_cls = FilePermissionPolicy
 
     # Service components
-    components = RecordServiceConfig.components + [
+    components = [
+        *RecordServiceConfig.components,
         OperationLogsComponent,
         ReindexRecordComponent,
     ]
@@ -80,7 +81,8 @@ class RecordFileServiceConfig(FileServiceConfig):
         return max_ui_files * 3 + 100
 
     # Service components
-    components = FileServiceConfig.components + [
+    components = [
+        *FileServiceConfig.components,
         ReindexFileComponent,
         OperationLogsFileComponent,
     ]

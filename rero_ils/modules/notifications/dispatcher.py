@@ -18,8 +18,6 @@
 
 """API for dispatch Notifications."""
 
-from __future__ import absolute_import, print_function
-
 from flask import current_app
 from invenio_mail.api import TemplatedMessage
 from invenio_mail.tasks import send_email as task_send_email
@@ -52,7 +50,7 @@ class Dispatcher:
                 return communication_switcher[channel]
             except KeyError:
                 current_app.logger.warning(
-                    f"The communication channel: {channel}" " is not yet implemented"
+                    f"The communication channel: {channel} is not yet implemented"
                 )
                 return Dispatcher.not_yet_implemented
 
@@ -73,7 +71,7 @@ class Dispatcher:
                 errors += 1
                 current_app.logger.error(
                     f"Notification has not be sent (pid: {notification.pid},"
-                    f' type: {notification["notification_type"]}): '
+                    f" type: {notification['notification_type']}): "
                     f"{error}",
                     exc_info=True,
                     stack_info=True,
@@ -84,7 +82,7 @@ class Dispatcher:
         #   are always send to same recipient (patron, lib, vendor, ...) with
         #   the same communication channel. So we can check any notification
         #   of the set to get the these informations.
-        for aggr_key, aggr_notifications in aggregated.items():
+        for aggr_notifications in aggregated.values():
             notification = aggr_notifications[0]
             comm_channel = notification.get_communication_channel()
             dispatcher_function = get_dispatcher_function(comm_channel)
@@ -124,8 +122,7 @@ class Dispatcher:
         """
         if process_date := notification.get("process_date"):
             current_app.logger.warning(
-                f"Notification: {notification.pid} already processed "
-                f"on: {process_date}"
+                f"Notification: {notification.pid} already processed on: {process_date}"
             )
             if not resend:
                 return
@@ -186,7 +183,7 @@ class Dispatcher:
          to the library address. The library will print this email and send it
          to the correct recipient.
 
-         TODO : Implement a way to send notifications to a async PDF’s
+         TODO : Implement a way to send notifications to a async PDF's
                 generator process working with CUPS (using RabbitMQ queue)
 
         :param notifications: the notification set to perform.
@@ -229,7 +226,7 @@ class Dispatcher:
         if error_reasons:
             current_app.logger.warning(
                 f"Notification#{notification.pid} for printing is lost :: "
-                f'({")(".join(error_reasons)})'
+                f"({')('.join(error_reasons)})"
             )
             return False, None
 
@@ -281,7 +278,7 @@ class Dispatcher:
         if error_reasons:
             current_app.logger.warning(
                 f"Notification#{notification.pid} is lost :: "
-                f'({")(".join(error_reasons)})'
+                f"({')('.join(error_reasons)})"
             )
             return False, None
 

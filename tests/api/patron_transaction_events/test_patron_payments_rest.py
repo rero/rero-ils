@@ -18,16 +18,16 @@
 """Tests REST API patron payments."""
 
 from copy import deepcopy
+from unittest import mock
 
-import mock
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import VerifyRecordPermissionPatch, get_json, postdata
 
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.patron_transaction_events.models import PatronTransactionEventType
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import VerifyRecordPermissionPatch, get_json, postdata
 
 
 def test_patron_payment(
@@ -115,6 +115,7 @@ def test_patron_transaction_events_facets(
         for bucket in buckets["buckets"]:
             if bucket["key"] == bucket_key:
                 return bucket
+        return None
 
     # STEP#1 :: CHECK FACETS ARE PRESENT INTO SEARCH RESULT
     url = url_for("invenio_records_rest.ptre_list")

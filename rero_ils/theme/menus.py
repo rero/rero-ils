@@ -19,7 +19,7 @@
 
 from functools import partial
 
-from flask import current_app, request, session
+from flask import request, session
 from flask_babel import lazy_gettext as _
 from flask_login import current_user
 from flask_menu import current_menu
@@ -89,9 +89,7 @@ def rero_register(
     """Take care each element in kwargs doesn't already exists in item."""
     # Check which option in kwargs already exists in `item`.
     to_delete = []
-    for option in kwargs.keys():
-        if hasattr(item, option):
-            to_delete.append(option)
+    to_delete.extend(option for option in kwargs if hasattr(item, option))
     # Delete all existing options in kwargs
     for element in to_delete:
         del kwargs[element]
@@ -111,7 +109,7 @@ def rero_register(
 
 
 # ---------- Menu definitions ---------------
-def init_menu_tools():
+def init_menu_tools(app):
     """Create the header tool menu."""
     item = current_menu.submenu("main.tool")
     rero_register(
@@ -126,11 +124,11 @@ def init_menu_tools():
     rero_register(
         item,
         endpoint="ill_requests.ill_request_form",
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
+                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
             )
-        ),
+        },
         visible_when=lambda: bool(current_patrons),
         text=TextWithIcon(
             icon='<i class="fa fa-shopping-basket"></i>',
@@ -166,15 +164,15 @@ def init_menu_tools():
     rero_register(
         item,
         endpoint="rero_ils.search",
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
+                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
             ),
-            recordType="collections",
-        ),
-        visible_when=lambda: current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
+            "recordType": "collections",
+        },
+        visible_when=lambda: app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
         != request.view_args.get(
-            "viewcode", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
+            "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
         ),
         text=TextWithIcon(
             icon='<i class="fa fa-graduation-cap"></i>', text="Exhibition/course"
@@ -194,7 +192,7 @@ def init_menu_tools():
     )
 
 
-def init_menu_lang():
+def init_menu_lang(app):
     """Create the header language menu."""
     item = current_menu.submenu("main.menu")
     # Bug: when you reload the page with register(**kwargs), it failed
@@ -208,7 +206,7 @@ def init_menu_lang():
     order = 10
 
     def return_language(lang):
-        return dict(lang_code=lang)
+        return {"lang_code": lang}
 
     def hide_language(lang):
         return current_i18n.language != lang
@@ -230,13 +228,13 @@ def init_menu_lang():
         order += 1
 
 
-def init_menu_profile():
+def init_menu_profile(app):
     """Create the profile header menu."""
 
     def is_not_read_only():
         """Hide element menu if the flag is ready only."""
         return (
-            not current_app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False)
+            not app.config.get("RERO_PUBLIC_USERPROFILES_READONLY", False)
             and current_user.is_authenticated
         )
 
@@ -254,7 +252,7 @@ def init_menu_profile():
     rero_register(
         item,
         endpoint="security.login",
-        endpoint_arguments_constructor=lambda: dict(next=request.full_path),
+        endpoint_arguments_constructor=lambda: {"next": request.full_path},
         visible_when=lambda: not current_user.is_authenticated,
         text=TextWithIcon(icon='<i class="fa fa-sign-in"></i>', text="Login"),
         order=1,
@@ -273,14 +271,14 @@ def init_menu_profile():
         id="professional-interface-menu",
     )
 
+    # TOTO: logout
     item = current_menu.submenu("main.profile.logout")
-    viewcode = request.view_args.get(
-        "viewcode", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-    )
     rero_register(
         item,
         endpoint="security.logout",
-        endpoint_arguments_constructor=lambda: dict(next=f"/{viewcode}"),
+        endpoint_arguments_constructor=lambda: {
+            "next": f"/{request.view_args.get('viewcode', app.config.get('RERO_ILS_SEARCH_GLOBAL_VIEW_CODE'))}"
+        },
         visible_when=lambda: current_user.is_authenticated,
         text=TextWithIcon(icon='<i class="fa fa-sign-out"></i>', text="Logout"),
         order=2,
@@ -292,11 +290,11 @@ def init_menu_profile():
     rero_register(
         item,
         endpoint=profile_endpoint,
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
+                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
             )
-        ),
+        },
         visible_when=lambda: len(current_patrons) > 0,
         text=TextWithIcon(icon='<i class="fa fa-book"></i>', text="My Account"),
         order=1,
@@ -306,12 +304,13 @@ def init_menu_profile():
     item = current_menu.submenu("main.profile.edit_profile")
     rero_register(
         item,
-        external_url=f"/{viewcode}/patrons/profile/user/edit",
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-            )
-        ),
+        endpoint=profile_endpoint,
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
+                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
+            ),
+            "path": "user/edit",
+        },
         visible_when=lambda: is_not_read_only(),
         text=TextWithIcon(icon='<i class="fa fa-user"></i>', text="Edit my profile"),
         order=1,
@@ -321,12 +320,13 @@ def init_menu_profile():
     item = current_menu.submenu("main.profile.change_password")
     rero_register(
         item,
-        external_url=f"/{viewcode}/patrons/profile/password/edit",
-        endpoint_arguments_constructor=lambda: dict(
-            viewcode=request.view_args.get(
-                "viewcode", current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
-            )
-        ),
+        endpoint=profile_endpoint,
+        endpoint_arguments_constructor=lambda: {
+            "viewcode": request.view_args.get(
+                "viewcode", app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
+            ),
+            "path": "password/edit",
+        },
         visible_when=lambda: is_not_read_only(),
         text=TextWithIcon(icon='<i class="fa fa-lock"></i>', text="Change password"),
         order=1,
@@ -340,7 +340,7 @@ def init_menu_profile():
     rero_register(
         item,
         endpoint="security.register",
-        visible_when=lambda: not current_app.config.get(
+        visible_when=lambda: not app.config.get(
             "RERO_PUBLIC_USERPROFILES_READONLY", False
         )
         and not current_user.is_authenticated,

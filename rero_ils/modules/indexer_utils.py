@@ -46,5 +46,4 @@ def record_to_index(record):
 
     if index := schema_to_index(schema, index_names=index_names):
         return index
-    else:
-        return current_app.config["INDEXER_DEFAULT_INDEX"]
+    return current_app.config["INDEXER_DEFAULT_INDEX"]

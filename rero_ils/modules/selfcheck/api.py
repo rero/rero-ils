@@ -83,6 +83,7 @@ def selfcheck_login(name, access_token, **kwargs):
                 "library_name": library.get("name"),
                 "library_language": library.get("communication_language"),
             }
+    return None
 
 
 def validate_patron_account(barcode=None, **kwargs):
@@ -153,12 +154,12 @@ def enable_patron(barcode, **kwargs):
                 patron_id=patron.patron.get("barcode"),
                 patron_name=patron.formatted_name,
             )
-        else:
-            return SelfcheckEnablePatron(
-                patron_id=barcode,
-                institution_id=institution_id,
-                screen_messages=[_("Error encountered: patron not found")],
-            )
+        return SelfcheckEnablePatron(
+            patron_id=barcode,
+            institution_id=institution_id,
+            screen_messages=[_("Error encountered: patron not found")],
+        )
+    return None
 
 
 def patron_status(barcode, **kwargs):
@@ -196,14 +197,14 @@ def patron_status(barcode, **kwargs):
                 fee_amount = get_transactions_total_amount_for_patron(
                     patron.pid, status="open", with_subscription=False
                 )
-                patron_status_response["fee_amount"] = "%.2f" % fee_amount
+                patron_status_response["fee_amount"] = f"{fee_amount:.2f}"
                 return patron_status_response
-            else:
-                return SelfcheckPatronStatus(
-                    patron_id=barcode,
-                    institution_id=institution_id,
-                    screen_messages=[_("Error encountered: patron not found")],
-                )
+            return SelfcheckPatronStatus(
+                patron_id=barcode,
+                institution_id=institution_id,
+                screen_messages=[_("Error encountered: patron not found")],
+            )
+    return None
 
 
 def patron_information(barcode, **kwargs):
@@ -270,7 +271,7 @@ def patron_information(barcode, **kwargs):
                 fee_amount = get_transactions_total_amount_for_patron(
                     patron.pid, status="open", with_subscription=False
                 )
-                patron_account_information["fee_amount"] = "%.2f" % fee_amount
+                patron_account_information["fee_amount"] = f"{fee_amount:.2f}"
                 # check for fine items
                 if fee_amount > 0:
                     # Check if fine items exist
@@ -290,12 +291,12 @@ def patron_information(barcode, **kwargs):
                                 "fine_items", []
                             ).append(item.get("barcode"))
                 return patron_account_information
-            else:
-                return SelfcheckPatronInformation(
-                    patron_id=barcode,
-                    institution_id=institution_id,
-                    screen_messages=[_("Error encountered: patron not found")],
-                )
+            return SelfcheckPatronInformation(
+                patron_id=barcode,
+                institution_id=institution_id,
+                screen_messages=[_("Error encountered: patron not found")],
+            )
+    return None
 
 
 def item_information(item_barcode, **kwargs):
@@ -355,7 +356,7 @@ def item_information(item_barcode, **kwargs):
                         )
                         if transaction:
                             item_information["fee_amount"] = (
-                                "%.2f" % transaction.total_amount
+                                f"{transaction.total_amount:.2f}"
                             )
                             item_information["currency_type"] = transaction.currency
                             item_information.get("screen_messages", []).append(
@@ -367,11 +368,11 @@ def item_information(item_barcode, **kwargs):
                     item_information.get("screen_messages", []).append(public_note)
 
                 return item_information
-            else:
-                return SelfcheckItemInformation(
-                    item_id=item_barcode,
-                    screen_messages=[_("Error encountered: item not found")],
-                )
+            return SelfcheckItemInformation(
+                item_id=item_barcode,
+                screen_messages=[_("Error encountered: item not found")],
+            )
+    return None
 
 
 def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwargs):
@@ -458,7 +459,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwa
                     checkout["due_date"] = loan["end_date"]
                 else:
                     checkout.get("screen_messages", []).append(
-                        _("Item is already checked-out or " "requested by patron.")
+                        _("Item is already checked-out or requested by patron.")
                     )
             except PatronBarcodeNotFound:
                 checkout = SelfcheckCheckout(
@@ -482,6 +483,7 @@ def selfcheck_checkout(transaction_user_pid, item_barcode, patron_barcode, **kwa
                 )
                 raise SelfcheckCirculationError("self checkout failed", checkout)
             return checkout
+    return None
 
 
 def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
@@ -553,6 +555,7 @@ def selfcheck_checkin(transaction_user_pid, item_barcode, **kwargs):
                     _("Error encountered: please contact a librarian")
                 )
         return checkin
+    return None
 
 
 def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
@@ -607,7 +610,7 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                         if transaction:
                             # TODO: map transaction type
                             renew["fee_type"] = SelfcheckFeeType.OVERDUE
-                            renew["fee_amount"] = "%.2f" % transaction.total_amount
+                            renew["fee_amount"] = f"{transaction.total_amount:.2f}"
                             renew["currency_type"] = transaction.currency
                         # TODO: When is possible, try to return fields:
                         #       magnetic_media
@@ -632,3 +635,4 @@ def selfcheck_renew(transaction_user_pid, item_barcode, **kwargs):
                 )
                 raise SelfcheckCirculationError("self renewal failed", renew)
             return renew
+    return None

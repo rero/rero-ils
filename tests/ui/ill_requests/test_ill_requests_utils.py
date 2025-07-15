@@ -18,9 +18,7 @@
 
 """Ill request record tests."""
 
-from __future__ import absolute_import, print_function
-
-import mock
+from unittest import mock
 
 from rero_ils.modules.ill_requests.utils import get_pickup_location_options
 

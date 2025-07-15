@@ -19,11 +19,11 @@
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
-from utils import check_permission
 
 from rero_ils.modules.stats_cfg.permissions import (
     StatisticsConfigurationPermissionPolicy,
 )
+from tests.utils import check_permission
 
 
 def test_stats_cfg_permissions(
@@ -110,7 +110,7 @@ def test_stats_cfg_permissions(
     # Librarian with the right role
     # can update or delete a config of this library
     stats_cfg_martigny.update(
-        dict(library={"$ref": f"https://bib.test.rero.ch/libraries/{lib_saxon.pid}"})
+        {"library": {"$ref": f"https://bib.test.rero.ch/libraries/{lib_saxon.pid}"}}
     )
     check_permission(
         StatisticsConfigurationPermissionPolicy,

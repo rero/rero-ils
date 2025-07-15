@@ -27,7 +27,7 @@ def collection_resolver(pid):
     """Resolver for collection record."""
     persistent_id = PersistentIdentifier.get("coll", pid)
     if persistent_id.status == PIDStatus.REGISTERED:
-        return dict(pid=persistent_id.pid_value)
+        return {"pid": persistent_id.pid_value}
     current_app.logger.error(
         f"Doc resolver error: /api/collections/{pid} {persistent_id}"
     )

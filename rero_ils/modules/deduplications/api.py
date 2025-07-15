@@ -35,7 +35,7 @@ from rero_ils.modules.documents.extensions import (
 from rero_ils.modules.documents.views import main_title_text
 
 
-class Deduplication(object):
+class Deduplication:
     """Document deduplication class."""
 
     def __init__(self, es_hosts=[]) -> None:
@@ -70,7 +70,9 @@ class Deduplication(object):
             search = search.using(
                 Elasticsearch(
                     hosts=es_hosts,
-                    **{"retry_on_timeout": True, "max_retries": 5, "timeout": 20},
+                    retry_on_timeout=True,
+                    max_retries=5,
+                    timeout=20,
                 )
             )
         return (
@@ -105,7 +107,7 @@ class Deduplication(object):
                 new_candidates.append(candidate)
             # all common data are equal => keep
             if (prov and c_prov) and (
-                prov == {k: c_prov[k] for k in prov.keys() if c_prov.get(k)}
+                prov == {k: c_prov[k] for k in prov if c_prov.get(k)}
             ):
                 new_candidates.append(candidate)
         return new_candidates
@@ -122,12 +124,11 @@ class Deduplication(object):
         for candidate in candidates:
             c_value = candidate._source.to_dict().get("responsibilityStatement", [])
             # keep if both of them are empty
-            if not c_value and not value:
-                new_candidates.append(candidate)
-            # keep if both of them match
-            elif (c_value and value) and self.normalize(
-                value[0][0]["value"]
-            ) == self.normalize(c_value[0][0]["value"]):
+            if (not c_value and not value) or (
+                (c_value and value)
+                and self.normalize(value[0][0]["value"])
+                == self.normalize(c_value[0][0]["value"])
+            ):
                 new_candidates.append(candidate)
 
         return new_candidates
@@ -197,7 +198,7 @@ class Deduplication(object):
         # should have the same main document type
         if types := [t["main_type"] for t in data["type"]]:
             search = search.filter("terms", type__main_type=types)
-        candidates = [hit for hit in search.execute().hits.hits]
+        candidates = list(search.execute().hits.hits)
 
         # should match all provision activity dates
         candidates = self.check_date(data, candidates)
@@ -211,19 +212,19 @@ class Deduplication(object):
         candidates = self.check_editor(data, candidates)
 
         # scores are always one if the candidate exists (exact match)
-        common_score = dict(value=1.0)
+        common_score = {"value": 1.0}
         return [
             (
                 hit._source.pid,
                 hit._source.to_dict(),
                 1.0,
-                dict(
-                    main_type=common_score,
-                    identifier=common_score,
-                    responsibility_statement=common_score,
-                    provision_activity=common_score,
-                    publication_date=common_score,
-                ),
+                {
+                    "main_type": common_score,
+                    "identifier": common_score,
+                    "responsibility_statement": common_score,
+                    "provision_activity": common_score,
+                    "publication_date": common_score,
+                },
             )
             for hit in candidates
         ]
@@ -251,8 +252,7 @@ class Deduplication(object):
         :param text2: str - second string value.
         :returns: [0.0-1.0] - the score: 1 means a perfect match
         """
-        score = jaro_winkler(text1, text2, score_cutoff=0.6, processor=cls.normalize)
-        return score
+        return jaro_winkler(text1, text2, score_cutoff=0.6, processor=cls.normalize)
 
     @classmethod
     def get_title_score(cls, data, candidate):
@@ -324,8 +324,7 @@ class Deduplication(object):
         c_publication_date = candidate.get("sort_date_old")
         if publication_date and c_publication_date:
             return 1 if publication_date == c_publication_date else 0
-        else:
-            return 0 if bool(publication_date) != bool(c_publication_date) else 1
+        return 0 if bool(publication_date) != bool(c_publication_date) else 1
 
     @classmethod
     def get_provision_activity_score(cls, data, candidate):
@@ -347,8 +346,7 @@ class Deduplication(object):
         c_field = set(re.findall(r"\d+", candidate.get("extent", "")))
         if data_field and c_field:
             return len(data_field & c_field) / max(len(data_field), len(c_field))
-        else:
-            return 0 if bool(data_field) != bool(c_field) else 1
+        return 0 if bool(data_field) != bool(c_field) else 1
 
     @classmethod
     def get_responsibility_score(cls, data, candidate):
@@ -360,8 +358,7 @@ class Deduplication(object):
         c_resp = candidate.get("responsibilityStatement")
         if resp and c_resp:
             return cls.edit_distance(resp[0][0]["value"], c_resp[0][0]["value"])
-        else:
-            return 0 if bool(resp) != bool(c_resp) else 1
+        return 0 if bool(resp) != bool(c_resp) else 1
 
     @classmethod
     def get_identifier_score(cls, data, candidate):
@@ -381,8 +378,7 @@ class Deduplication(object):
                 f"{d['type']}-{d['value']}" for d in c_identifiers
             }
             return 1 if common_ids else 0
-        else:
-            return 0 if bool(identifiers) != bool(c_identifiers) else None
+        return 0 if bool(identifiers) != bool(c_identifiers) else None
 
     def rescore(self, data, candidate):
         """Compute the score for a given candidate.
@@ -394,46 +390,48 @@ class Deduplication(object):
         # get the candidate data from ES format
         candidate = candidate._source.to_dict()
 
-        scores = dict(
+        scores = {
             # title
-            title=(
+            "title": (
                 6.0,
                 self.get_title_score(data, candidate),
             ),
             # main type
-            main_type=(
+            "main_type": (
                 3.0,
                 self.get_doc_type_score(data, candidate),
             ),
-            publication_date=(
+            "publication_date": (
                 5.0,
                 self.get_publication_date_score(data, candidate),
             ),
-            provision_activity=(
+            "provision_activity": (
                 4.0,
                 self.get_provision_activity_score(data, candidate),
             ),
-            edition_statement=(
+            "edition_statement": (
                 8.0,
                 self.get_edition_statement_score(data, candidate),
             ),
-            responsibility_statement=(
+            "responsibility_statement": (
                 2.0,
                 self.get_responsibility_score(data, candidate),
             ),
-            series_statement=(
+            "series_statement": (
                 2.0,
                 self.get_series_statement_score(data, candidate),
             ),
-            extent=(
+            "extent": (
                 2.0,
                 self.get_extent_score(data, candidate),
             ),
-            identifier=(8.0, self.get_identifier_score(data, candidate)),
-        )
+            "identifier": (8.0, self.get_identifier_score(data, candidate)),
+        }
         # filter None score
         scores = {k: v for k, v in scores.items() if v[1] is not None}
-        detailed_scores = {k: dict(value=v[1], weight=v[0]) for k, v in scores.items()}
+        detailed_scores = {
+            k: {"value": v[1], "weight": v[0]} for k, v in scores.items()
+        }
         # combine the scores
         return (
             sum([weight * score for (weight, score) in scores.values()])
@@ -494,7 +492,7 @@ class Deduplication(object):
 
         # add score
         candidates = [
-            (hit._source.pid, hit._source.to_dict()) + self.rescore(data, hit)
+            (hit._source.pid, hit._source.to_dict(), *self.rescore(data, hit))
             for hit in search.execute().hits.hits
         ]
 
