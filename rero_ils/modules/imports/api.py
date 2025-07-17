@@ -536,14 +536,14 @@ class LoCImport(Import):
     # http://www.loc.gov/standards/sru/resources/lcServers.html
     # http://lx2.loc.gov:210/LCDB?
     search = {
-        "ean": "bath.lccn",
+        "ean": "bath.isbn",
         "anywhere": "cql.anywhere",
         "author": "dc.creator",
         "title": "dc.title",
         "doctype": "dc.type",  # NOT DEFINED IN LOC
         "recordid": "bath.lccn",
-        "isbn": "bath.identifier",
-        "issn": "bath.identifier",
+        "isbn": "bath.isbn",
+        "issn": "bath.issn",
         "date": "dc.date",  # NOT DEFINED IN LOC
     }
 
