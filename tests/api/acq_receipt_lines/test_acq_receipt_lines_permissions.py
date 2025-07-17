@@ -20,11 +20,11 @@ import mock
 from flask import current_app
 from flask_principal import AnonymousIdentity, identity_changed
 from flask_security import login_user
-from utils import check_permission
 
 from rero_ils.modules.acquisition.acq_receipt_lines.permissions import (
     AcqReceiptLinePermissionPolicy,
 )
+from tests.utils import check_permission
 
 
 def test_receipt_lines_permissions(

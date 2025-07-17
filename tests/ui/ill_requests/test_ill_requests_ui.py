@@ -21,7 +21,8 @@
 from __future__ import absolute_import, print_function
 
 from flask import url_for
-from utils import login_user_for_view
+
+from tests.utils import login_user_for_view
 
 
 def test_ill_request_create_request_form(

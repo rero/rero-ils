@@ -22,7 +22,8 @@ from flask import url_for
 from flask_babel import gettext
 from flask_security.recoverable import send_password_reset_notice
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
+
+from tests.utils import get_json, postdata
 
 
 def test_login(client, patron_sion, default_user_password):
@@ -36,7 +37,7 @@ def test_login(client, patron_sion, default_user_password):
     )
     assert res.status_code == 400
     data = get_json(res)
-    assert data["message"] == "Invalid user or password"
+    assert data["message"] == gettext("INVALID_USER_OR_PASSWORD")
 
     # wrong password
     res, _ = postdata(

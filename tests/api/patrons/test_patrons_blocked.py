@@ -19,10 +19,10 @@
 
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, item_pid_to_object
 
 from rero_ils.modules.loans.api import Loan
 from rero_ils.modules.loans.utils import can_be_requested
+from tests.utils import get_json, item_pid_to_object
 
 
 def test_blocked_field_exists(

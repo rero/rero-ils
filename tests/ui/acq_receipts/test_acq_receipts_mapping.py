@@ -18,9 +18,9 @@
 
 """Acquisition receipt record mapping tests."""
 import mock
-from utils import get_mapping
 
 from rero_ils.modules.acquisition.acq_receipts.api import AcqReceipt, AcqReceiptsSearch
+from tests.utils import get_mapping
 
 
 def test_acq_receipts_es_mapping(
