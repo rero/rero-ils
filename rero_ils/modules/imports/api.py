@@ -18,7 +18,6 @@
 
 """Import from extern resources."""
 
-
 from __future__ import absolute_import, print_function
 
 import pickle
@@ -377,12 +376,12 @@ class Import(object):
             """Yield record elements from given XML stream."""
             try:
                 for _, element in etree.iterparse(
-                    stream, tag="{http://www.loc.gov/zing/srw/}" "record"
+                    stream, tag="{http://www.loc.gov/zing/srw/}record"
                 ):
                     yield element
             except Exception:
                 current_app.logger.error(
-                    f"Import: {self.name} " "error: XML SPLIT " f"url: {url_api}"
+                    f"Import: {self.name} error: XML SPLIT url: {url_api}"
                 )
                 return []
 
@@ -653,6 +652,45 @@ class SUDOCImport(Import):
             current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
         }
         return url_for("api_imports.import_sudoc_record", **args)
+
+
+class HelveticallImport(Import):
+    """Import class for HelveticAll (Swiss National Library)."""
+
+    name = "HelveticAll"
+    url = "https://www.helveticall.ch/"
+    url_api = (
+        "{url}/view/sru/41SNL_51_INST?"
+        "version=1.2&operation=searchRetrieve"
+        "&recordSchema=marcxml&maximumRecords={max_results}"
+        '&startRecord=1&query={where} {relation} "{what}"'
+    )
+
+    # https://developers.exlibrisgroup.com/alma/integrations/sru/
+    search = {
+        "anywhere": "alma.all_for_ui",
+        "author": "alma.author",
+        "title": "alma.title",
+        "recordid": "alma.mms_id",
+        "isbn": "alma.isbn",
+        "issn": "alma.issn",
+        "date": "alma.date",
+    }
+
+    to_json_processor = marc21_slsp.do
+
+    def get_marc21_link(self, id):
+        """Get direct link to marc21 record.
+
+        :param id: id to use for the link
+        :return: url for id
+        """
+        args = {
+            "id": id,
+            "_external": True,
+            current_app.config.get("REST_MIMETYPE_QUERY_ARG_NAME", "format"): "marc",
+        }
+        return url_for("api_imports.import_helveticall_record", **args)
 
 
 class SLSPImport(Import):
