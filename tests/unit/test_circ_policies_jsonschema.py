@@ -22,7 +22,6 @@ from __future__ import absolute_import, print_function
 from copy import deepcopy
 
 import pytest
-from flask_babel import gettext as _
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
@@ -138,7 +137,7 @@ def test_circ_policy_reminders(circ_policy_schema, circ_policy_short_martigny):
     due_soon_reminder = {
         "type": DUE_SOON_REMINDER_TYPE,
         "days_delay": 3,
-        "communication_channel": _("patron_setting"),
+        "communication_channel": "patron_setting",
         "template": "email/due_soon/",
     }
     cipo["reminders"].append(due_soon_reminder)
@@ -156,7 +155,7 @@ def test_circ_policy_reminders(circ_policy_schema, circ_policy_short_martigny):
     overdue_reminder = {
         "type": OVERDUE_REMINDER_TYPE,
         "days_delay": 2,
-        "communication_channel": _("mail"),
+        "communication_channel": "mail",
         "template": "email/overdue",
     }
     with pytest.raises(ValidationError):
