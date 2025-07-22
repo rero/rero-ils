@@ -311,6 +311,16 @@
             "sip2"
           ]
         },
+        "request_expire_date": {
+          "format": "date-time",
+          "title": "Request expire datetime",
+          "type": "string"
+        },
+        "request_start_date": {
+          "format": "date-time",
+          "title": "Request start datetime",
+          "type": "string"
+        },
         "transaction_user": {
           "title": "Transaction user",
           "type": "object",

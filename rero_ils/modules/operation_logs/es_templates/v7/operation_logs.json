@@ -119,6 +119,12 @@
           "transaction_channel": {
             "type": "keyword"
           },
+          "request_expire_date": {
+            "type": "date"
+          },
+          "request_start_date": {
+            "type": "date"
+          },
           "transaction_user": {
             "type": "object",
             "properties": {
