@@ -57,6 +57,14 @@ def test_loan_operation_log(
     assert (
         log_data["loan"]["pickup_location"]["name"] == "Martigny Library Public Space"
     )
+    assert (
+        log_data["loan"]["request_start_date"]
+        == loan_validated_martigny["request_start_date"]
+    )
+    assert (
+        log_data["loan"]["request_expire_date"]
+        == loan_validated_martigny["request_expire_date"]
+    )
     assert log_data["loan"]["patron"] == {
         "pid": "ptrn6",
         "hashed_pid": "e11ff43bff5be4cf70350e2d15149e29",

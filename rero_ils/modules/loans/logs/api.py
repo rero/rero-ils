@@ -17,7 +17,6 @@
 
 """Loans logs API."""
 
-
 from rero_ils.modules.operation_logs.api import OperationLog, OperationLogsSearch
 from rero_ils.modules.operation_logs.logs.api import SpecificOperationLog
 
@@ -87,6 +86,10 @@ class LoanOperationLog(OperationLog, SpecificOperationLog):
                 ),
             },
         }
+        if request_start_date := data.get("request_start_date"):
+            log["loan"]["request_start_date"] = request_start_date
+        if request_expire_date := data.get("request_expire_date"):
+            log["loan"]["request_expire_date"] = request_expire_date
         if current_librarian:
             log["user"] = {"type": "ptrn", "value": current_librarian.pid}
             log["user_name"] = current_librarian.formatted_name
