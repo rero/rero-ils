@@ -18,8 +18,9 @@ msgstr ""
 "Project-Id-Version: rero-ils 0.9.1\n"
 "Report-Msgid-Bugs-To: pascal.repond@rero.ch\n"
 "POT-Creation-Date: 2025-07-21 14:52+0200\n"
-"PO-Revision-Date: 2025-07-21 13:20+0000\n"
-"Last-Translator: Pascal Repond <pascal.repond@rero.ch>\n"
+"PO-Revision-Date: 2025-07-22 17:01+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/rero_plus/"
 "rero-ils/de/>\n"
 "Language: de\n"
@@ -469,7 +470,7 @@ msgstr "RDA Datenträgertyp"
 #: rero_ils/filter.py:216
 #, python-brace-format
 msgid "{prefix}{data}"
-msgstr ""
+msgstr "{prefix}{data}"
 
 #: rero_ils/manual_translations.txt:16
 #: rero_ils/modules/items/jsonschemas/items/item-v0.0.1.json:498
