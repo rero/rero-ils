@@ -22,4 +22,4 @@ This file is imported by ``rero_ils.__init__``.
 
 from __future__ import absolute_import, print_function
 
-__version__ = "1.25.1"
+__version__ = "1.25.2"

@@ -1,5 +1,35 @@
 # Changelog
 
+## [v1.25.2](https://github.com/rero/rero-ils/tree/v1.25.2) (2025-07-22)
+
+[Full Changelog](https://github.com/rero/rero-ils/compare/v1.25.1...v1.25.2)
+
+**Fixes:**
+
+- Regression: Missing notification info in circulation history [\#3888](https://github.com/rero/rero-ils/issues/3888) (by @Garfield-fr)
+- Regression: wrong request disappears from the UI when deleted [\#3907](https://github.com/rero/rero-ils/issues/3907) (by @jma)
+- Regression: Logout button in pro interface opens a new tab [\#3904](https://github.com/rero/rero-ils/issues/3904) (by @jma)
+- Regression: editor validation messages not displayed [\#3900](https://github.com/rero/rero-ils/issues/3900) (by @Garfield-fr)
+- Regression: "checkout denied" message displayed multiple times in circulation [\#3902](https://github.com/rero/rero-ils/issues/3902) (by @Garfield-fr)
+- Regression: impossible to add a custom recipient when sending order/claim [\#3898](https://github.com/rero/rero-ils/issues/3898) (by @Garfield-fr)
+- Error when deleting a holdings that still has items with fees [\#3651](https://github.com/rero/rero-ils/issues/3651)
+- LOC import: Error 404 [\#3908](https://github.com/rero/rero-ils/issues/3908) (by @rerowep)
+- Inventory list: wrong values for circulation operations in CSV export [\#3905](https://github.com/rero/rero-ils/issues/3905) (by @PascalRepond)
+- Regression: professional document search should be filtered by organisation by default [\#3887](https://github.com/rero/rero-ils/issues/3887)
+- Loans brief view: request_expire_date inconsistent [\#3886](https://github.com/rero/rero-ils/issues/3886) (by @PascalRepond)
+- Item detailed view: request list displays wrong pickup location [\#3889](https://github.com/rero/rero-ils/issues/3889) (by @Garfield-fr)
+- Vendors: display notes [\#3821](https://github.com/rero/rero-ils/issues/3821) (by @PascalRepond)
+- Error when trying to add a local entity from "genreForm" field [\#3842](https://github.com/rero/rero-ils/issues/3842)
+- Numpad "Enter" doesn't work in the main search bar [\#3890](https://github.com/rero/rero-ils/issues/3890) (by @PascalRepond)
+- Select component placeholder not translated [\#3885](https://github.com/rero/rero-ils/issues/3885) (by @PascalRepond)
+- fix(circulation): extend with no open date [\#3903](https://github.com/rero/rero-ils/pull/3903) (by @PascalRepond)
+- ill requests: Fix populate document [\#3893](https://github.com/rero/rero-ils/pull/3893) (by @rerowep)
+- import: fix LOC [\#3915](https://github.com/rero/rero-ils/pull/3915) (by @PascalRepond)
+- fix: css z-index sticky [\#3878](https://github.com/rero/rero-ils/pull/3878) (by @Garfield-fr)
+- fix(editor): canton field sizing [\#3899](https://github.com/rero/rero-ils/pull/3899) (by @PascalRepond)
+- fix(circ_policy): fix patron_setting not translated [\#3876](https://github.com/rero/rero-ils/pull/3876) (by @PascalRepond)
+- fix(tests): remove translation function in cipo tests [\#3917](https://github.com/rero/rero-ils/pull/3917) (by @PascalRepond)
+
 ## [v1.25.1](https://github.com/rero/rero-ils/tree/v1.25.1) (2025-07-02)
 
 [Full Changelog](https://github.com/rero/rero-ils/compare/v1.25.0...v1.25.1)
@@ -918,7 +948,7 @@
 
 **Fixed bugs:**
 
-- Field ` reproductionOf` has wrong label in the document public view [\#2801](https://github.com/rero/rero-ils/issues/2801) [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
+- Field `reproductionOf` has wrong label in the document public view [\#2801](https://github.com/rero/rero-ils/issues/2801) [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
 - The due date of a loan is displayed with a delay of one day in the UI [\#2748](https://github.com/rero/rero-ils/issues/2748) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)] [[f: professional ui](https://github.com/rero/rero-ils/labels/f:%20professional%20ui)] [[f: public ui](https://github.com/rero/rero-ils/labels/f:%20public%20ui)]
 - A late renewal does not effectively generate the overdue preview fees [\#2741](https://github.com/rero/rero-ils/issues/2741) [[f: circulation](https://github.com/rero/rero-ils/labels/f:%20circulation)]
 - Item tasks: temporary locations are not cleaned correctly [\#2694](https://github.com/rero/rero-ils/issues/2694) [[f: activity-logs](https://github.com/rero/rero-ils/labels/f:%20activity-logs)]
