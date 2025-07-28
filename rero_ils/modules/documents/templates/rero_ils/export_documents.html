@@ -21,9 +21,7 @@
 
 {% block record_body %}
   <section class="mt-4">
-    <header>
-      <h3 itemprop="name"> {{ format_title }} Export</h3>
-    </header>
+    <h3 itemprop="name">{{ format_title }} Export</h3>
      <article class="card bg-light mb-4">
       <pre class="mb-0 p-2 text-muted">{{ data|safe }}</pre>
     </article>
