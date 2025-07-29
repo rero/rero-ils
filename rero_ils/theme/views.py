@@ -37,6 +37,7 @@ from flask import (
     session,
     url_for,
 )
+from flask_babel import gettext as _
 from invenio_jsonschemas import current_jsonschemas
 from invenio_jsonschemas.errors import JSONSchemaNotFound
 from invenio_jsonschemas.proxies import current_refresolver_store
@@ -98,10 +99,14 @@ def robots():
 @blueprint.route("/")
 def index():
     """Home Page."""
+    global_view_code = current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE")
     return render_template(
         "rero_ils/frontpage.html",
         organisations=Organisation.get_all(),
-        viewcode=current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"),
+        viewcode=global_view_code,
+        title=_(view_organisation_name(global_view_code))
+        + " | "
+        + _(current_app.config["THEME_SITENAME"]),
     )
 
 
@@ -109,7 +114,7 @@ def index():
 @blueprint.route("/<string:viewcode>/")
 @check_organisation_viewcode
 def index_with_view_code(viewcode):
-    """Home Page."""
+    """Home Page with viewcode."""
     if viewcode == current_app.config.get("RERO_ILS_SEARCH_GLOBAL_VIEW_CODE"):
         return redirect(url_for("rero_ils.index"))
     else:
@@ -117,6 +122,9 @@ def index_with_view_code(viewcode):
             "rero_ils/frontpage.html",
             organisations=Organisation.get_all(),
             viewcode=viewcode,
+            title=_(view_organisation_name(viewcode))
+            + " | "
+            + _(current_app.config["THEME_SITENAME"]),
         )
 
 
