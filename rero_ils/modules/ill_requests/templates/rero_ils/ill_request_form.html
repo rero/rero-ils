@@ -1,7 +1,7 @@
 {# -*- coding: utf-8 -*-
 
   RERO ILS
-  Copyright (C) 2019-2023 RERO
+  Copyright (C) 2019-2025 RERO
   Copyright (C) 2019-2023 UCLouvain
 
   This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,7 @@
 
 #}
 {%- extends 'rero_ils/page.html' %}
+{%- set title = _('ILL request') %}
 {% from "rero_ils/_macro_form.html" import render_field, render_simple_field %}
 
 {%- block body %}
