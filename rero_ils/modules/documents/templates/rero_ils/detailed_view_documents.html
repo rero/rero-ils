@@ -18,6 +18,7 @@
 
 #}
 {%- extends 'rero_ils/page.html' %}
+{%- set title = _('Document') %}
 {% from 'rero_ils/macros/macro.html' import div, dict_values, div_list, dl, dl_row, dl_dict, dl_list, div_json %}
 
 {% set isbn = record|get_first_isbn %}
