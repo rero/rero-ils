@@ -45,24 +45,32 @@ def test_librarian_delete_permission_factory(
     assert librarian_delete_permission_factory(org_martigny) is not None
 
 
-def test_system_librarian_permissions(
-    client,
-    json_header,
-    system_librarian_martigny,
-    patron_martigny,
-    patron_type_adults_martigny,
-    librarian_fully,
+def test_get_roles_management_permissions(
+    client, system_librarian_martigny, patron_martigny, librarian_fully, app
 ):
     """Test system_librarian permissions."""
+    role_url = url_for("api_patrons.get_roles_management_permissions")
+    res = client.get(role_url)
+    assert res.status_code == 401
+
+    login_user_via_session(client, patron_martigny.user)
+    res = client.get(role_url)
+    assert res.status_code == 403
+
     # Login as system_librarian
     login_user_via_session(client, system_librarian_martigny.user)
-
     # can manage all types of patron roles
-    role_url = url_for("api_patrons.get_roles_management_permissions")
     res = client.get(role_url)
     assert res.status_code == 200
     data = get_json(res)
-    assert UserRole.FULL_PERMISSIONS in data["allowed_roles"]
+    assert set(data["allowed_roles"]) == set(UserRole.ALL_ROLES)
+
+    # Login as user manager
+    login_user_via_session(client, librarian_fully.user)
+    res = client.get(role_url)
+    assert res.status_code == 200
+    data = get_json(res)
+    assert set(data["allowed_roles"]) == set([UserRole.PATRON])
 
 
 def test_permission_exposition(app, db, client, system_librarian_martigny):
