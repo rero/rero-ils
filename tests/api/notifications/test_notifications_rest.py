@@ -27,13 +27,6 @@ import pytest
 import pytz
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
-from utils import (
-    VerifyRecordPermissionPatch,
-    get_json,
-    item_record_to_a_specific_loan_state,
-    postdata,
-    to_relative_url,
-)
 
 from rero_ils.modules.api import IlsRecordError
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
@@ -49,6 +42,13 @@ from rero_ils.modules.notifications.tasks import (
 )
 from rero_ils.modules.notifications.utils import get_notification
 from rero_ils.modules.utils import get_ref_for_pid
+from tests.utils import (
+    VerifyRecordPermissionPatch,
+    get_json,
+    item_record_to_a_specific_loan_state,
+    postdata,
+    to_relative_url,
+)
 
 
 def test_delayed_notifications(

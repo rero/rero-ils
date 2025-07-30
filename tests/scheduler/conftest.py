@@ -21,30 +21,40 @@ from datetime import timedelta
 from os.path import dirname, join
 
 import pytest
+from sqlalchemy_celery_beat.session import SessionManager
+
+
+@pytest.fixture()
+def celery_session(app):
+    """Add pytest celery fixture."""
+    session = SessionManager()
+    yield session.session_factory(app.config["SQLALCHEMY_DATABASE_URI"])
 
 
 @pytest.fixture(scope="module")
 def create_app():
     """Create test app."""
-    from invenio_app.factory import create_api
+    from invenio_app.factory import create_ui
 
-    return create_api
+    return create_ui
 
 
 @pytest.fixture(scope="module")
 def app_config(app_config):
     """Create temporary instance dir for each test."""
     app_config["CELERY_BROKER_URL"] = "memory://"
-    app_config["RATELIMIT_STORAGE_URL"] = "memory://"
+    app_config["RATELIMIT_STORAGE_URI"] = "memory://"
     app_config["CACHE_TYPE"] = "simple"
     app_config["SEARCH_ELASTIC_HOSTS"] = None
     app_config["DB_VERSIONING"] = True
+    app_config["CELERY_ALWAYS_EAGER"] = True
     app_config["CELERY_CACHE_BACKEND"] = "memory"
+    app_config["CELERY_EAGER_PROPAGATES_EXCEPTIONS"] = True
     app_config["CELERY_RESULT_BACKEND"] = "cache"
     app_config["CELERY_TASK_ALWAYS_EAGER"] = True
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = True
-    app_config["CELERY_BEAT_SCHEDULER"] = "rero_ils.schedulers.RedisScheduler"
-    app_config["CELERY_REDIS_SCHEDULER_URL"] = "redis://localhost:6379/4"
+    app_config["CELERY_BEAT_SCHEDULER"] = "rero_ils.schedulers.DatabaseScheduler"
+    # Not working with postgres DB because sqlalchemy adds `public.` to the execute statement?
     app_config["CELERY_BEAT_SCHEDULE"] = {
         "bulk-indexer": {
             "task": "rero_ils.modules.tasks.process_bulk_queue",

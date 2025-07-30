@@ -24,7 +24,6 @@ import tempfile
 from copy import deepcopy
 
 import mock
-from utils import mock_response
 
 from rero_ils.modules.documents.api import Document, DocumentsSearch
 from rero_ils.modules.entities.remote_entities.api import (
@@ -34,6 +33,7 @@ from rero_ils.modules.entities.remote_entities.api import (
 )
 from rero_ils.modules.entities.remote_entities.replace import ReplaceIdentifiedBy
 from rero_ils.modules.entities.remote_entities.sync import SyncEntity
+from tests.utils import mock_response
 
 
 def test_remote_entity_create(app, entity_person_data_tmp, caplog):

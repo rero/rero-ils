@@ -22,10 +22,10 @@ from copy import deepcopy
 
 import mock
 from flask import url_for
-from utils import VerifyRecordPermissionPatch, login_user_via_session, postdata
 
 from rero_ils.modules.templates.api import Template
 from rero_ils.modules.templates.models import TemplateVisibility
+from tests.utils import VerifyRecordPermissionPatch, login_user_via_session, postdata
 
 
 @mock.patch(

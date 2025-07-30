@@ -16,9 +16,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Item record mapping tests."""
-from utils import get_mapping
-
 from rero_ils.modules.items.api import Item, ItemsSearch
+from tests.utils import get_mapping
 
 
 def test_item_es_mapping(

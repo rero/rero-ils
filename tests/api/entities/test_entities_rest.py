@@ -19,7 +19,8 @@
 """Tests `LocalEntity` resource REST API."""
 
 from flask import url_for
-from utils import get_json, postdata
+
+from tests.utils import get_json, postdata
 
 
 def test_entities_permissions(client, entity_person, local_entity_person, json_header):
