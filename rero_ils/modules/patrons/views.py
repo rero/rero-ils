@@ -178,7 +178,7 @@ def profile(viewcode, path):
 @check_logged_as_librarian
 def get_roles_management_permissions():
     """Get the roles that current logged user could manage."""
-    return jsonify({"allowed_roles": get_allowed_roles_management()})
+    return jsonify({"allowed_roles": list(get_allowed_roles_management())})
 
 
 @api_blueprint.route("/<string:patron_pid>/messages", methods=["GET"])

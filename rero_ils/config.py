@@ -545,6 +545,7 @@ SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://rero-ils:rero-ils@localhost/rer
 DB_VERSIONING = False
 #: Disable warning
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+# export INVENIO_SQLALCHEMY_ENGINE_OPTIONS='{ "pool_recycle": 90 }'
 
 # Celery
 CELERY_BROKER_HEARTBEAT = 0
