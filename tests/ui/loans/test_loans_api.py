@@ -26,7 +26,6 @@ import ciso8601
 import mock
 from freezegun import freeze_time
 from invenio_circulation.proxies import current_circulation
-from utils import get_mapping
 
 from rero_ils.modules.circ_policies.api import DUE_SOON_REMINDER_TYPE
 from rero_ils.modules.items.models import ItemStatus
@@ -48,6 +47,7 @@ from rero_ils.modules.notifications.tasks import (
 )
 from rero_ils.modules.patron_transactions.api import PatronTransaction
 from rero_ils.modules.patron_transactions.utils import get_transactions_pids_for_patron
+from tests.utils import get_mapping
 
 
 def test_loan_es_mapping(search_clear, db):

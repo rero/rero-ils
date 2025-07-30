@@ -15,5 +15,5 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-FROM postgres:12
+FROM postgres:17
 COPY ./init-app-db.sh /docker-entrypoint-initdb.d/10-init-app-db.sh

@@ -100,6 +100,7 @@ from rero_ils.modules.users.listener import (
 )
 from rero_ils.modules.users.views import UsersCreateResource, UsersResource
 from rero_ils.modules.utils import remove_user_name, set_user_name
+from rero_ils.theme.menus import init_menu_lang, init_menu_profile, init_menu_tools
 from rero_ils.version import __version__
 
 from .receivers import set_boosting_query_fields
@@ -352,3 +353,15 @@ class REROILSAPP(object):
         # invenio-base signal: after application loaded
         app_loaded.connect(user_register_forms, weak=False)
         app_loaded.connect(user_reset_password_forms, weak=False)
+
+
+def finalize_app(app):
+    """Finalize app."""
+    init_menu_tools(app)
+    init_menu_lang(app)
+    init_menu_profile(app)
+
+
+# def api_finalize_app(app):
+#     """Finalize app for api."""
+#     pass

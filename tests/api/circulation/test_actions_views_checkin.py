@@ -21,12 +21,12 @@ from datetime import date, datetime, timedelta, timezone
 from flask import url_for
 from flask_babel import gettext as _
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, postdata
 
 from rero_ils.modules.items.api import Item
 from rero_ils.modules.items.models import ItemStatus
 from rero_ils.modules.loans.utils import get_circ_policy, sum_for_fees
 from rero_ils.modules.patron_transactions.utils import get_last_transaction_by_loan_pid
+from tests.utils import get_json, postdata
 
 
 def test_checkin_an_item(

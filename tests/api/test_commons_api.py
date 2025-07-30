@@ -22,7 +22,6 @@ from flask import url_for
 from flask_principal import Identity, RoleNeed
 from invenio_access import ActionUsers, Permission
 from invenio_accounts.testutils import login_user_via_session
-from utils import get_json, mock_response, postdata
 
 from rero_ils.modules.acquisition.budgets.permissions import (
     search_action as budget_search_action,
@@ -31,6 +30,7 @@ from rero_ils.modules.permissions import PermissionContext, can_use_debug_mode
 from rero_ils.modules.receivers import process_boosting
 from rero_ils.modules.users.models import UserRole
 from rero_ils.permissions import librarian_delete_permission_factory
+from tests.utils import get_json, mock_response, postdata
 
 
 def test_librarian_delete_permission_factory(

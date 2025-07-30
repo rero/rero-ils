@@ -20,10 +20,10 @@
 from flask import url_for
 from invenio_accounts.testutils import login_user_via_session
 from invenio_jsonschemas import current_jsonschemas
-from utils import get_json, item_record_to_a_specific_loan_state, login_user
 
 from rero_ils.modules.loans.models import LoanState
 from rero_ils.modules.utils import get_schema_for_resource
+from tests.utils import get_json, item_record_to_a_specific_loan_state, login_user
 
 
 def test_loan_can_extend(
