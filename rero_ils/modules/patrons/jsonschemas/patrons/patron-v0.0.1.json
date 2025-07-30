@@ -497,6 +497,7 @@
         "formlyConfig": {
           "type": "multi-checkbox",
           "props": {
+            "fieldMap": "roles",
             "options": [
               {
                 "label": "patron",

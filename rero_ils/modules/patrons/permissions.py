@@ -17,7 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 """Permissions for patrons."""
-from flask import g
+from flask import current_app, g
 from flask_login import current_user
 from invenio_access import action_factory, any_user
 from invenio_records_permissions.generators import Generator
@@ -117,9 +117,12 @@ def get_allowed_roles_management():
 
     :return An array of allowed role management.
     """
-    allowed_roles = []
-    if current_librarian:
-        allowed_roles += [UserRole.PATRON] + UserRole.LIBRARIAN_ROLES
-        if current_librarian.has_full_permissions:
-            allowed_roles += [UserRole.FULL_PERMISSIONS]
-    return allowed_roles
+    if not current_librarian:
+        return {}
+    config_roles = current_app.config.get(
+        "RERO_ILS_PATRON_ROLES_MANAGEMENT_RESTRICTIONS", {}
+    )
+    manageable_roles = set()
+    for role in current_librarian.user.roles:
+        manageable_roles = manageable_roles.union(config_roles.get(role.name, {}))
+    return manageable_roles
