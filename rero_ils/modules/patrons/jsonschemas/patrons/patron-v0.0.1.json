@@ -129,6 +129,9 @@
                 "formlyConfig": {
                   "expressions": {
                     "hide": "!field?.parent?.model?.city"
+                  },
+                  "props": {
+                    "itemCssClass": "ui:col-span-12 ui:md:col-span-6"
                   }
                 }
               }
